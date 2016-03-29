@@ -1,8 +1,10 @@
 ﻿// <copyright file="Butterfly.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <date></date>
-// <author id="shkyrockett">Alma Jenks</author>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
 // <summary></summary>
 // <remarks>
 //  Class based on information found at: <see cref="http://csharphelper.com/blog/2014/11/draw-a-colored-butterfly-curve-in-c/"/>. <br />
@@ -22,7 +24,8 @@ namespace Engine.Geometry
     /// <remarks>
     /// Class based on information found at: <seealso href="http://csharphelper.com/blog/2014/11/draw-a-colored-butterfly-curve-in-c/"/>. <br />
     /// </remarks>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Butterfly")]
     public class Butterfly
         : Shape
     {

@@ -1,7 +1,10 @@
 ﻿// <copyright file="EllipseArc.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
 // <summary></summary>
 
 using System;
@@ -18,7 +21,8 @@ namespace Engine.Geometry
     /// <remarks>
     /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
     /// </remarks>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Ellipse Arc")]
     public class EllipseArc
         : Shape
     {
@@ -62,6 +66,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private double endAngle;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<PointF> points;
 
         /// <summary>
         /// 

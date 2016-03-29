@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -15,6 +16,8 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
+    [DisplayName("Double Line")]
     public class DoubleLine
         : Shape
     {

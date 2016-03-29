@@ -14,7 +14,8 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Star")]
     public class Star
         : Shape
     {

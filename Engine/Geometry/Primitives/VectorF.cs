@@ -20,6 +20,7 @@ namespace Engine.Geometry
     /// <summary>
     /// Represents a 2D Vector.
     /// </summary>
+    [DisplayName("VectorF")]
     public class VectorF
     {
         /// <summary>

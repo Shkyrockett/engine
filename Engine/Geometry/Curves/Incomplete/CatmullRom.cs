@@ -1,8 +1,10 @@
 ﻿// <copyright file="CatmullRom.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <date></date>
-// <author id="shkyrockett">Alma Jenks</author>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
 // <summary></summary>
 // <remarks>
 // </remarks>
@@ -22,10 +24,8 @@ namespace Engine.Geometry
     /// <remarks>
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
-    /// <history>
-    /// Shkyrockett[Alma Jenks] 9/January/2005 Created
-    /// </history>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("CatmullRom Spline")]
     public class CatmullRom
         : Shape
     {

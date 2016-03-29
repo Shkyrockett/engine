@@ -1,4 +1,4 @@
-﻿// <copyright file="Multipolygon.cs" company="Shkyrockett">
+﻿// <copyright file="Multipolyline.cs" company="Shkyrockett">
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -8,26 +8,17 @@
 // <summary></summary>
 
 using System;
-using System.Drawing;
-using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
     /// <summary>
-    /// Structure of a Closed Polygon
+    /// 
     /// </summary>
-    /// <structure>Engine.Geometry.PolyGon2D</structure>
-    /// <remarks></remarks>
-    [Serializable()]
-    public class Multipolygon
+    [Serializable]
+    [DisplayName("Multi-polyline")]
+    public class Multipolyline
         : Shape
     {
-        /// <summary>
-        /// An array of points representing a polygon.
-        /// </summary>
-        /// <remarks></remarks>
-        [XmlAttribute()]
-        public new PointF[] Points;
 
         /// <summary>
         /// 
@@ -35,7 +26,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "Multipolygon";
+            return "Multipolyline";
         }
     }
 }

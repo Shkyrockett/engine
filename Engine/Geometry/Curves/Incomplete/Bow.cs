@@ -1,7 +1,10 @@
 ﻿// <copyright file="Bow.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
 // <date></date>
 // <summary></summary>
 // <remarks>
@@ -22,7 +25,8 @@ namespace Engine.Geometry
     /// <remarks>
     ///  Class based on information found at: <seealso href="http://paulbourke.net/geometry/bow2d/"/>. <br />
     /// </remarks>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Bow Curve")]
     public class Bow
         : Shape
     {

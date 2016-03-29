@@ -1,7 +1,10 @@
 ﻿// <copyright file="RoundRectangle.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
 // <summary></summary>
 
 using System;
@@ -14,11 +17,15 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Bad Rounded Rectangle")]
     public abstract class RoundedRectangle2
         : Shape
     {
-        private object bounds;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Rectangle bounds;
 
         /// <summary>
         /// 
@@ -28,13 +35,13 @@ namespace Engine.Geometry
         {
             //base.OnPaint(e);
 
-            GraphicsPath path = RoundedRectangle2.Create(new PointF(5, 5), new SizeF(20, 20));
+            GraphicsPath path = Create(new PointF(5, 5), new SizeF(20, 20));
             e.Graphics.DrawPath(Pens.Black, path);
 
-            path = RoundedRectangle2.Create(new PointF(30, 5), new SizeF(40, 40), 5);
+            path = Create(new PointF(30, 5), new SizeF(40, 40), 5);
             e.Graphics.FillPath(Brushes.Blue, path);
 
-            path = RoundedRectangle2.Create(new PointF(8, 50), new SizeF(50, 50), 5);
+            path = Create(new PointF(8, 50), new SizeF(50, 50), 5);
             e.Graphics.DrawPath(Pens.Black, path);
 
             e.Graphics.SetClip(path);

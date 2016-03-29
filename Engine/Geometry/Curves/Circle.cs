@@ -17,7 +17,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    [Serializable()]
+    [Serializable]
     [DisplayName("Circle")]
     public class Circle
         : Shape

@@ -1,7 +1,10 @@
 ﻿// <copyright file="Agnesi.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
 // <date></date>
 // <summary></summary>
 // <remarks>
@@ -25,7 +28,8 @@ namespace Engine.Geometry
     /// Agnesi curves were studied in 1748 by Maria Gaetana Agnesi and earlier by Fermat around 1666 and 
     /// Grandi in 1703. Agnesi called the curve "versiera". 
     /// </remarks>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Agnesi Curve")]
     public class Agnesi
         : Shape
     {

@@ -18,7 +18,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    [Serializable()]
+    [Serializable]
     [DisplayName("Ellipse")]
     public class Ellipse
         : Shape

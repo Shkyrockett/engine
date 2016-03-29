@@ -1,7 +1,7 @@
 ﻿// <copyright file="Circle.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <author>Shkyrockett</author>
 // <summary></summary>
 
 using System;
@@ -12,7 +12,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    [Serializable()]
+    [Serializable]
     public class Sine
         : Shape
     {

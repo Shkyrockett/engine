@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EngineEx.cs" />
+    <Compile Include="File\BinaryReaderExtensions.cs" />
+    <Compile Include="File\BinaryWriterExtensions.cs" />
+    <Compile Include="File\Codecs\Palettes\CorelColorModel.cs" />
+    <Compile Include="File\FileEx.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CubicBSpline.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Cosine.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CubicBezier.cs" />
@@ -58,17 +62,17 @@
     <Compile Include="Geometry\Curves\Incomplete\EllipseArc.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Hermite.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Oval.cs" />
-    <Compile Include="Geometry\Path.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\Path.cs" />
     <Compile Include="Geometry\Framework\PathExtensions.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Star.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Gear.cs" />
-    <Compile Include="Geometry\Polygons\Incomplete\Multipolyline.cs" />
-    <Compile Include="Geometry\Polygons\Incomplete\Multipolygon.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\Multipolyline.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\Multipolygon.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Line.cs" />
-    <Compile Include="Geometry\Polygons\Incomplete\DoubleLine.cs" />
-    <Compile Include="Geometry\Polygons\SquareFCellGrid.cs" />
-    <Compile Include="Geometry\Polygons\SquareCellGrid.cs" />
-    <Compile Include="Geometry\Polygons\RectangleFCellGrid.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\DoubleLine.cs" />
+    <Compile Include="Geometry\Complex\SquareFCellGrid.cs" />
+    <Compile Include="Geometry\Complex\SquareCellGrid.cs" />
+    <Compile Include="Geometry\Complex\RectangleFCellGrid.cs" />
     <Compile Include="Geometry\Polygons\LineSegment.cs" />
     <Compile Include="Geometry\Framework\MathExtensions.cs" />
     <Compile Include="Geometry\Framework\MatrixF.cs" />
@@ -80,10 +84,13 @@
     <Compile Include="Geometry\Polygons\Incomplete\Ray.cs" />
     <Compile Include="Geometry\Framework\RectangleFConverter.cs" />
     <Compile Include="Geometry\Curves\Incomplete\QuadraticBezier.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\RoundRectangle.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\RoundRectangle.cs" />
     <Compile Include="Geometry\Enums\RectangleCorners.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\RoundedRectangle2.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\RoundedRectangle2.cs" />
     <Compile Include="Geometry\Sine.cs" />
+    <Compile Include="File\Codecs\Palettes\Palette.cs" />
+    <Compile Include="File\Codecs\Palettes\PaletteFileExtensions.cs" />
+    <Compile Include="File\Codecs\Palettes\PaletteMimeFormats.cs" />
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />
     <Compile Include="Geometry\Framework\PrimitivesExtensions.cs" />
@@ -92,7 +99,7 @@
     <Compile Include="Geometry\Polygons\Polyline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Geometry\Primitives\Shape.cs" />
-    <Compile Include="Geometry\Polygons\RectangleCellGrid.cs" />
+    <Compile Include="Geometry\Complex\RectangleCellGrid.cs" />
     <Compile Include="Geometry\Framework\RectangleExtensions.cs" />
     <Compile Include="Geometry\Primitives\Vector.cs" />
     <Compile Include="Geometry\Primitives\VectorF.cs" />

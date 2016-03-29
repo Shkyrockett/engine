@@ -19,7 +19,8 @@ namespace Engine.Geometry
     /// </summary>
     /// <structure>Engine.Geometry.Intersection</structure>
     /// <remarks></remarks>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Intersection")]
     public class Intersection
     {
         /// <summary>

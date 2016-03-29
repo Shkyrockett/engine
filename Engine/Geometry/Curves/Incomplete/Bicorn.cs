@@ -1,4 +1,13 @@
-﻿using System;
+﻿// <copyright file="Arc.cs" company="Shkyrockett">
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -13,7 +22,8 @@ namespace Engine.Geometry
     /// Bicorn Curve, also known as the "cocked hat", it was first documented by Sylvester around 
     /// 1864 and Cayley in 1867. 
     /// </remarks>
-    [Serializable()]
+    [Serializable]
+    [DisplayName("Bicorn")]
     public class Bicorn
         : Shape
     {

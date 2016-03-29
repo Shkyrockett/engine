@@ -13,11 +13,11 @@ using System.Drawing;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// <see cref="RectangleFCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
+    /// <see cref="SquareFCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
     [Serializable]
-    [DisplayName("Rectangle Cell Grid")]
-    public class RectangleFCellGrid
+    [DisplayName("SquareF Cell Grid")]
+    public class SquareFCellGrid
         : Shape
     {
         /// <summary>
@@ -51,11 +51,11 @@ namespace Engine.Geometry
         private int rows;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RectangleFCellGrid"/> class.
+        /// Initializes a new instance of the <see cref="SquareFCellGrid"/> class.
         /// </summary>
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
-        public RectangleFCellGrid(RectangleF bounds, int count)
+        public SquareFCellGrid(RectangleF bounds, int count)
         {
             this.bounds = bounds;
             this.count = count;
@@ -171,9 +171,9 @@ namespace Engine.Geometry
         {
             if (count > 0)
             {
-                // Find the best fitting rectangular grid for the number of colors.
-                columns = (int)Math.Ceiling(Math.Sqrt((bounds.Width * count) / bounds.Height));
-                rows = (int)Math.Ceiling((float)count / columns);
+                // Find the best fitting square grid for the number of colors.
+                columns = (int)Math.Ceiling(Math.Sqrt(count));
+                rows = columns;
 
                 // Calculate the optimum cell size for the grid.
                 float cellScale = Math.Min(bounds.Width / columns, bounds.Height / rows);
@@ -204,7 +204,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "RectangleFCellGrid{Bounds{" + bounds.ToString() + "}, Count "+ count.ToString() + "}";
+            return "SquareFCellGrid{Bounds{" + bounds.ToString() + "}, Count "+ count.ToString() + "}";
         }
     }
 }

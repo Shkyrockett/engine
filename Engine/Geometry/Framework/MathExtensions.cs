@@ -1,0 +1,837 @@
+﻿// <copyright file="MathEx.cs" company="Shkyrockett">
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System;
+using System.Globalization;
+
+namespace Engine.Geometry
+{
+    /// <summary>
+    /// Extended Math processing library.
+    /// </summary>
+    public static class MathExtensions
+    {
+        /// <summary>
+        /// Smallest such that 1.0+DBL_EPSILON != 1.0
+        /// </summary>
+        public const double DoubleEpsilon = 2.2204460492503131e-016;
+
+        /// <summary>
+        /// Smallest such that 1.0+FLT_EPSILON != 1.0
+        /// </summary>
+        public const float FloatEpsilon = 1.192092896e-07f;
+
+        /// <summary>
+        /// Number close to zero, where float.MinValue is -float.MaxValue
+        /// </summary>
+        public const float FloatMin = 1.175494351e-38F;
+
+        /// <summary>
+        /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data 
+        /// type). Used in the Slope of a LineSeg
+        /// </summary>
+        /// <remarks></remarks>
+        /// <history>
+        /// Shkyrockett[Alma Jenks]	16/May/2005	Created
+        /// </history>
+        public const double SlopeMax = 9223372036854775807;
+
+        /// <summary>
+        /// One Tau or double Pi.
+        /// </summary>
+        public const double Tau = 2f * Math.PI;
+
+        /// <summary>
+        /// Math.PI * 2
+        /// </summary>
+        /// <remarks></remarks>
+        public const double DoublePi = Tau;
+
+        /// <summary>
+        /// One half Tau or One Pi.
+        /// </summary>
+        public const double Pi = Math.PI;
+
+        /// <summary>
+        /// One half Tau or One Pi.
+        /// </summary>
+        public const double HalfTau = Math.PI;
+
+        /// <summary>
+        /// One quarter Tau or half Pi.
+        /// </summary>
+        public const double QuarterTau = 0.5f * Math.PI;
+
+        /// <summary>
+        /// Math.PI / 2
+        /// </summary>
+        /// <remarks></remarks>
+        public const double HalfPi = QuarterTau;
+
+        /// <summary>
+        /// One eighth Tau or a quarter Pi.
+        /// </summary>
+        public const double EighthTau = 0.25f * Math.PI;
+
+        /// <summary>
+        /// Math.PI / 4
+        /// </summary>
+        /// <remarks></remarks>
+        public const double QuarterPi = EighthTau;
+
+        /// <summary>
+        /// One sixteenth Tau or a eighth Pi.
+        /// </summary>
+        public const double SixteenthTau = 0.125f * Math.PI;
+
+        /// <summary>
+        /// Math.PI / 8
+        /// </summary>
+        /// <remarks></remarks>
+        public const double EighthPi = SixteenthTau;
+
+        /// <summary>
+        /// Represents the golden ratio.
+        /// </summary>
+        public static readonly double Golden = Phi;
+
+        /// <summary>
+        /// Represents the golden ratio by formula.
+        /// </summary>
+        public static readonly double GoldenRatio = Phi;
+
+        /// <summary>
+        /// One Radian.
+        /// </summary>
+        //public const double Radian = 180f / Math.PI;
+        public const double Radien = Math.PI / 180f;
+
+        /// <summary>
+        /// Math.PI / 180
+        /// </summary>
+        /// <remarks></remarks>
+        /// <optimisation>This code has been optimized for Accuracy</optimisation>
+        /// <history>
+        /// Shkyrockett[] Tuesday, 7/February/2006: Created.
+        /// </history>
+        public const double PiOneEightyth = Radien;
+
+        /// <summary>
+        /// One degree.
+        /// </summary>
+        //public const double Degree = Math.PI / 180f;
+        public const double Degree = 180f / Math.PI;
+
+        /// <summary>
+        /// 180 / Math.PI
+        /// </summary>
+        /// <remarks></remarks>
+        /// <optimisation>This code has been optimized for Accuracy</optimisation>
+        /// <history>
+        /// Shkyrockett[]    Tuesday, 7/February/2006: Created.
+        /// </history>
+        public const double OneEightythPi = Degree;
+
+        /// <summary>
+        /// Represents the natural logarithmic base, specified by the constant e. 
+        /// </summary>
+        public const double E = Math.E;
+
+        /// <summary>
+        /// Represents the square root of 2.
+        /// </summary>
+        public static readonly double Sqrt2 = Math.Sqrt(2);
+
+        /// <summary>
+        /// Represents the square root of 3.
+        /// </summary>
+        public static readonly double SQRT3 = Math.Sqrt(3);
+
+        /// <summary>
+        /// Represents the golden ratio.
+        /// </summary>
+        public static readonly double Phi = (1 + Math.Sqrt(5)) / 2;//1.61803398874989484820458683436;
+
+        /// <summary>
+        /// The natural log of e.
+        /// </summary>
+        public const double Log10E = 0.434294481903251827651;
+
+        /// <summary>
+        /// Convert Degrees to Radians.
+        /// </summary>
+        /// <param name="degrees">Angle in Degrees.</param>
+        /// <returns>Angle in Radians.</returns>
+        /// <remarks></remarks>
+        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        /// <history>
+        /// Shkyrockett[]16/May/2005: Created.
+        /// </history>
+        public static double ToRadians(this double degrees)
+        {
+            return degrees * Radien;
+        }
+
+        /// <summary>
+        /// Convert Degrees to Radians.
+        /// </summary>
+        /// <param name="degrees">Angle in Degrees.</param>
+        /// <returns>Angle in Radians.</returns>
+        public static double ToRadians(this float degrees)
+        {
+            return degrees * Radien;
+        }
+
+        /// <summary>
+        /// Convert Radians to Degrees.
+        /// </summary>
+        /// <param name="radiens">Angle in Radians.</param>
+        /// <returns>Angle in Degrees.</returns>
+        /// <remarks></remarks>
+        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        /// <history>
+        /// Shkyrockett[]    16/May/2005    Created
+        /// </history>
+        public static double ToDegrees(this double radiens)
+        {
+            return radiens * Degree;
+        }
+
+        /// <summary>
+        /// Convert Radians to Degrees.
+        /// </summary>
+        /// <param name="radiens">Angle in Radians.</param>
+        /// <returns>Angle in Degrees.</returns>
+        public static double ToDegrees(this float radiens)
+        {
+            return radiens * Degree;
+        }
+
+        /// <summary>
+        /// Round a value to the nearest multiple of a number.
+        /// </summary>
+        /// <param name="value">The value to round.</param>
+        /// <param name="multiple">The multiple to round to.</param>
+        /// <returns>Returns a value rounded to an interval of the multiple.</returns>
+        /// <remarks></remarks>
+        /// <history>
+        /// Shkyrockett[] Tuesday, 7, February, 2006: Created.
+        /// Shkyrockett[] Tuesday, 5, February, 2013: Translated into C#. Fixed issue where truncation was being used instead of rounding. 
+        /// </history>
+        public static double RoundToMultiple(this double value, double multiple)
+        {
+            return Convert.ToInt32(value / multiple) * multiple;
+            //return Math.Round(value / multiple, 0) * multiple;
+        }
+
+        /// <summary>
+        /// Imitation of Excel's Mod Operator
+        /// </summary>
+        /// <param name="valueA">Source parameter</param>
+        /// <param name="valueB">Destination parameter</param>
+        /// <returns>Returns the same Modulus Result that Excel returns.</returns>
+        /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than VB.Net</remarks>
+        /// <history>
+        /// Shkyrockett[] Tuesday, 7, February, 2006: Created.
+        /// Shkyrockett[] Tuesday, 28, December, 2014: Trying out more compact version.
+        /// </history>
+        public static double Modulo(this double valueA, double valueB)
+        {
+            double temp = valueA;
+            return ((temp %= valueB) < 0) ? temp + valueB : temp;
+            //double Temp = valueA % valueB;
+
+            //while (Temp < 0)
+            //{
+            //    Temp = (valueB + Temp);
+            //}
+
+            //return Temp;
+        }
+
+        /// <summary>
+        /// Returns the average value of a numeric array.
+        /// </summary>
+        /// <param name="Values"></param>
+        /// <returns></returns>
+        /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        /// <history>
+        ///     Shkyrockett[Alma Jenks]    4/April/2005    Created
+        /// </history>
+        public static double Average(this double[] Values)
+        {
+            return (Sum(Values) / Values.Length);
+        }
+
+        /// <summary>
+        /// Find the sum of an array of Numbers
+        /// </summary>
+        /// <param name="Values"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <history>
+        ///     Shkyrockett[Alma Jenks]    4/April/2005    Created
+        /// </history>
+        public static double Sum(this double[] Values)
+        {
+            double Retval = 0;
+            for (int i = 0; i < Values.Length; i++)
+            {
+                Retval += Values[i];
+            }
+
+            return Retval;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Lower"></param>
+        /// <param name="Upper"></param>
+        /// <returns></returns>
+        public static int Random(this int Lower, int Upper)
+        {
+            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            return (int)((rnd.Next() * ((Upper - Lower) + 1)) + Lower);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Lower"></param>
+        /// <param name="Upper"></param>
+        /// <returns></returns>
+        public static double Random(this double Lower, double Upper)
+        {
+            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            return ((rnd.Next() * ((Upper - Lower) + 1)) + Lower);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Value1"></param>
+        /// <param name="Value2"></param>
+        public static void Swap(this float Value1, float Value2)
+        {
+            float Value3 = Value1;
+            Value1 = Value2;
+            Value2 = Value3;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Value1"></param>
+        /// <param name="Value2"></param>
+        public static void Swap(this int Value1, int Value2)
+        {
+            int Value3 = Value1;
+            Value1 = Value2;
+            Value2 = Value3;
+        }
+
+        //  Derived equivalents Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
+
+        /// <summary>
+        /// Angle with tangent opp/hyp
+        /// </summary>
+        /// <param name="opposite"></param>
+        /// <param name="adjacent"></param>
+        /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
+        /// <remarks></remarks>
+        /// <history>
+        /// Shkyrockett[Alma Jenks] 27/December/2005 Created
+        /// </history>
+        public static double ATan2(double opposite, double adjacent)
+        {
+            //double angle;
+            ////  Get the basic angle.
+            //angle = (Math.PI / 2);
+            //angle = (Math.Abs(Math.Atan((Opposite / Adjacent))));
+            //return angle;
+            return Math.Atan2(opposite, adjacent);
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Secant
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double Secant(double value)
+        {
+            if (((value % Pi != HalfPi) && (value % Pi != -HalfPi)))
+            {
+                return (1 / Math.Cos(value));
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent  Co-secant
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double Cosecant(double Value)
+        {
+            if (((Value % Pi != 0) && (Value % Pi != Pi)))
+            {
+                return (1 / Math.Sin(Value));
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Cotangent
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double Cotangent(double Value)
+        {
+            if (((Value % Pi != 0) && (Value % Pi != Pi)))
+            {
+                return (1 / Math.Tan(Value));
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Sine
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseSine(double value)
+        {
+            //  Arc-sin(X) 
+            // Return Atan(Value / Sqrt(-Value * Value + 1))
+            if (value == 1) return HalfPi;
+            else if (value == -1) return -HalfPi;
+            else
+            {
+                if ((Math.Abs(value) < 1))
+                {
+                    return Math.Atan(value / Math.Sqrt(-value * value + 1));
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Cosine
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseCosine(double value)
+        {
+            //  Arc-cos(X) 
+            // Return Atan(-Value / Sqrt(-Value * Value + 1)) + 2 * Atan(1)
+            if (value == 1) return 0;
+            else if (value == -1) return Pi;
+            else
+            {
+                if ((Math.Abs(value) < 1))
+                {
+                    return Math.Atan(-value / Math.Sqrt(-value * value + 1)) + 2 * Math.Atan(1);
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Secant
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseSecant(double value)
+        {
+            //  Arc-sec(X) 
+            // Return Atan(Value / Sqrt(Value * Value - 1)) + Sign((Value) - 1) * (2 * Atan(1))
+            if (value == 1) return 0;
+            else if (value == -1) return Math.PI;
+            else
+            {
+                if ((Math.Abs(value) < 1))
+                {
+                    return Math.Atan(value / Math.Sqrt(value * value - 1)) + Math.Sign((value) - 1) * (2 * Math.Atan(1));
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Co-secant
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseCosecant(double value)
+        {
+            //  Arc-co-sec(X) 
+            // Return Atan(Value / Sqrt(Value * Value - 1)) + (Sign(Value) - 1) * (2 * Atan(1))
+            if (value == 1) return HalfPi;
+            else if (value == -1) return -HalfPi;
+            else
+            {
+                if ((Math.Abs(value) < 1))
+                {
+                    return Math.Atan(value / Math.Sqrt(value * value - 1)) + (Math.Sign(value) - 1) * (2 * Math.Atan(1));
+                }
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Cotangent
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseCotangent(double value)
+        {
+            //  Arc-co-tan(X) 
+            return (Math.Atan(value) + (2 * Math.Atan(1)));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Hyperbolic Sine
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double HyperbolicSine(double value)
+        {
+            //  HSin(X) 
+            return ((Math.Exp(value) - Math.Exp((value * -1))) * 0.5d);
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Hyperbolic Cosine
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double HyperbolicCosine(double value)
+        {
+            //  HCos(X) 
+            return ((Math.Exp(value) + Math.Exp((value * -1))) * 0.5d);
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Hyperbolic Tangent
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double HyperbolicTangent(double value)
+        {
+            //  HTan(X) 
+            return ((Math.Exp(value) - Math.Exp((value * -1))) / (Math.Exp(value) + Math.Exp((value * -1))));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Hyperbolic Secant
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double HyperbolicSecant(double value)
+        {
+            //  HSec(X) 
+            return (0.5d * (Math.Exp(value) + Math.Exp((value * -1))));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Hyperbolic Co-secant
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double HyperbolicCosecant(double value)
+        {
+            //  HCosec(X)
+            return (0.5d * (Math.Exp(value) - Math.Exp((value * -1))));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Hyperbolic Cotangent
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double HyperbolicCotangent(double value)
+        {
+            //  HCotan(X) 
+            return ((Math.Exp(value) + Math.Exp((value * -1))) / (Math.Exp(value) - Math.Exp((value * -1))));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Hyperbolic Sine
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseHyperbolicSine(double value)
+        {
+            //  HArcsin(X) 
+            return Math.Log((value + Math.Sqrt(((value * value) + 1))));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Hyperbolic Cosine
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseHyperbolicCosine(double value)
+        {
+            //  HArccos(X) 
+            return Math.Log((value + Math.Sqrt(((value * value) - 1))));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Hyperbolic Tangent
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseHyperbolicTangent(double value)
+        {
+            //  HArctan(X) 
+            return (Math.Log(((1 + value) / (1 - value))) * 0.5d);
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Hyperbolic Secant
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseHyperbolicSecant(double value)
+        {
+            //  HArcsec(X) 
+            return Math.Log(((Math.Sqrt((((value * value) * -1) + 1)) + 1) / value));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Hyperbolic Co-secant
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseHyperbolicCosecant(double value)
+        {
+            //  HArccosec(X) 
+            return Math.Log((((Math.Sign(value) * Math.Sqrt(((value * value) + 1))) + 1) / value));
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Inverse Hyperbolic Cotangent
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double InverseHyperbolicCotangent(double value)
+        {
+            //  HArccotan(X)
+            return (Math.Log(((value + 1) / (value - 1))) * 0.5d);
+        }
+
+        /// <summary>
+        /// Derived math functions equivalent Base N Logarithm
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="numberBase"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double LogarithmTobaseN(double value, double numberBase)
+        {
+            //  LogN(X) 
+            // Return Log(Value) / Log(NumberBase)
+            if ((numberBase != 1))
+            {
+                return (Math.Log(value) / Math.Log(numberBase));
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static float ToFloat(string text)
+        {
+            return float.Parse(text, CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public static float ToFloat(string text, IFormatProvider provider)
+        {
+            return float.Parse(text, provider);
+        }
+
+        /// <summary>
+        /// LessThan - Returns whether or not the first double is less than the second double.
+        /// That is, whether or not the first is strictly less than *and* not within epsilon of
+        /// the other number.  Note that this epsilon is proportional to the numbers themselves
+        /// to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the LessThan comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool LessThan(float value1, float value2)
+        {
+            return (value1 < value2) && !IntersectionExtention.AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// GreaterThan - Returns whether or not the first double is greater than the second double.
+        /// That is, whether or not the first is strictly greater than *and* not within epsilon of
+        /// the other number.  Note that this epsilon is proportional to the numbers themselves
+        /// to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the GreaterThan comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool GreaterThan(float value1, float value2)
+        {
+            return (value1 > value2) && !IntersectionExtention.AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// LessThanOrClose - Returns whether or not the first double is less than or close to
+        /// the second double.  That is, whether or not the first is strictly less than or within
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// themselves to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the LessThanOrClose comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool LessThanOrClose(float value1, float value2)
+        {
+            return (value1 < value2) || IntersectionExtention.AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// GreaterThanOrClose - Returns whether or not the first double is greater than or close to
+        /// the second double.  That is, whether or not the first is strictly greater than or within
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// themselves to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the GreaterThanOrClose comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool GreaterThanOrClose(float value1, float value2)
+        {
+            return (value1 > value2) || IntersectionExtention.AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
+        /// but this is faster.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value"> The double to compare to 1. </param>
+        public static bool IsOne(this float value)
+        {
+            return Math.Abs(value - 1.0) < 10.0 * DoubleEpsilon;
+        }
+
+        /// <summary>
+        /// IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
+        /// but this is faster.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value"> The double to compare to 0. </param>
+        public static bool IsZero(this float value)
+        {
+            return Math.Abs(value) < 10.0 * DoubleEpsilon;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static bool IsBetweenZeroAndOne(float val)
+        {
+            return (GreaterThanOrClose(val, 0) && LessThanOrClose(val, 1));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static int FloatToInt(float val)
+        {
+            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static int DoubleToInt(double val)
+        {
+            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
+        }
+    }
+}

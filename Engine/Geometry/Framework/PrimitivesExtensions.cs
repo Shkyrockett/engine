@@ -10,6 +10,7 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace Engine.Geometry

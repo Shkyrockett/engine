@@ -22,6 +22,7 @@ namespace Engine.Geometry
     /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Ellipse Arc")]
     public class EllipseArc
         : Shape

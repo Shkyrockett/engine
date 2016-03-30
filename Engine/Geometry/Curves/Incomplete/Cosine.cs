@@ -16,6 +16,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Cosine Curve")]
     public class Cosine
         : Shape

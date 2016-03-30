@@ -16,6 +16,7 @@ namespace Engine.Geometry
     /// <see cref="SquareCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Square Cell Grid")]
     public class SquareCellGrid
         : Shape

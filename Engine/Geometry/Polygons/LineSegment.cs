@@ -20,6 +20,7 @@ namespace Engine.Geometry
     /// <structure>Engine.Geometry.Segment2D</structure>
     /// <remarks></remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Line Segment")]
     public class LineSegment
         : Shape

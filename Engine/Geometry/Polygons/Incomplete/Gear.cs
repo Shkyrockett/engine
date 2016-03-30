@@ -17,6 +17,7 @@ namespace Engine.Geometry
     /// http://csharphelper.com/blog/2015/08/draw-gears-in-c/
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Gear Shape")]
     public class Gear
         : Shape

@@ -19,6 +19,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Ellipse")]
     public class Ellipse
         : Shape

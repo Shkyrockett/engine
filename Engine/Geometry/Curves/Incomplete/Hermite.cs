@@ -22,6 +22,7 @@ namespace Engine.Geometry
     /// http://stackoverflow.com/questions/8557098/cubic-hermite-spline-behaving-strangely
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Hermite Curve")]
     public class Hermite
         : Shape

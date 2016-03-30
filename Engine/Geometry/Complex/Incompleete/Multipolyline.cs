@@ -15,6 +15,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Multi-polyline")]
     public class Multipolyline
         : Shape

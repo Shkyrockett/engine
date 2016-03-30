@@ -26,6 +26,7 @@ namespace Engine.Geometry
     ///  Class based on information found at: <seealso href="http://paulbourke.net/geometry/bow2d/"/>. <br />
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Bow Curve")]
     public class Bow
         : Shape

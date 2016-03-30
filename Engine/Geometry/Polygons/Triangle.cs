@@ -18,6 +18,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Triangle")]
     public class Triangle
          : Polygon

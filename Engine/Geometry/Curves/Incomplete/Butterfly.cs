@@ -25,6 +25,7 @@ namespace Engine.Geometry
     /// Class based on information found at: <seealso href="http://csharphelper.com/blog/2014/11/draw-a-colored-butterfly-curve-in-c/"/>. <br />
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Butterfly")]
     public class Butterfly
         : Shape

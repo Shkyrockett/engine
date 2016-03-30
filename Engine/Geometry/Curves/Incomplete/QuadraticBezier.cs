@@ -23,6 +23,7 @@ namespace Engine.Geometry
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Quadratic Bezier Curve")]
     public class QuadraticBezier
         : Shape

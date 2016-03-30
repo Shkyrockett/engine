@@ -25,6 +25,7 @@ namespace Engine.Geometry
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("CatmullRom Spline")]
     public class CatmullRom
         : Shape

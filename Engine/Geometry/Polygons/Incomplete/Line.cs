@@ -19,6 +19,7 @@ namespace Engine.Geometry
     /// <structure>Engine.Geometry.Line2D</structure>
     /// <remarks></remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Line")]
     public class Line
         : Shape

@@ -20,6 +20,7 @@ namespace Engine.Geometry
     /// <structure>Engine.Geometry.Intersection</structure>
     /// <remarks></remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Intersection")]
     public class Intersection
     {

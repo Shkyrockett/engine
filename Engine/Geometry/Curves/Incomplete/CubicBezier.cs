@@ -22,6 +22,7 @@ namespace Engine.Geometry
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Cubic Bezier Curve")]
     public class CubicBezier
         : Shape

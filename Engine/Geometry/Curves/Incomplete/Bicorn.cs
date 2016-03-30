@@ -23,6 +23,7 @@ namespace Engine.Geometry
     /// 1864 and Cayley in 1867. 
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Bicorn")]
     public class Bicorn
         : Shape

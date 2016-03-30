@@ -17,6 +17,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Oval")]
     public class Oval
         : Shape

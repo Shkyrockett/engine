@@ -18,6 +18,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Polyline")]
     public class Polyline
         : Shape

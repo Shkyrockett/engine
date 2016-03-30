@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -16,6 +17,9 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
+    [GraphicsObject]
+    [DisplayName("Path")]
     public class Path
             : Shape
     {

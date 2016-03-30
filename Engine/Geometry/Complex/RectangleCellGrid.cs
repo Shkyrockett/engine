@@ -16,6 +16,7 @@ namespace Engine.Geometry
     /// <see cref="RectangleCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Rectangle Cell Grid")]
     public class RectangleCellGrid
         : Shape

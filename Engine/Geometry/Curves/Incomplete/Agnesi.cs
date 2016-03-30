@@ -29,6 +29,7 @@ namespace Engine.Geometry
     /// Grandi in 1703. Agnesi called the curve "versiera". 
     /// </remarks>
     [Serializable]
+    [GraphicsObject]
     [DisplayName("Agnesi Curve")]
     public class Agnesi
         : Shape

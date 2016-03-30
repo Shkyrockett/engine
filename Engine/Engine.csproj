@@ -85,7 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EngineEx.cs" />
+    <Compile Include="EngineReflection.cs" />
     <Compile Include="File\BinaryReaderExtensions.cs" />
     <Compile Include="File\BinaryWriterExtensions.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\CorelColorModel.cs" />
@@ -130,7 +130,7 @@
     <Compile Include="Geometry\Complex\Incompleete\RoundRectangle.cs" />
     <Compile Include="Geometry\Enums\RectangleCorners.cs" />
     <Compile Include="Geometry\Complex\Incompleete\RoundedRectangle2.cs" />
-    <Compile Include="Geometry\Sine.cs" />
+    <Compile Include="Geometry\Curves\Incomplete\Sine.cs" />
     <Compile Include="File\Codecs\Palettes\Palette.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteFileExtensions.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteMimeFormats.cs" />

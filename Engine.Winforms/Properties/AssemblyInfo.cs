@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Editor")]
-[assembly: AssemblyDescription("General editor for the Engine")]
+[assembly: AssemblyTitle("Engine.Winforms")]
+[assembly: AssemblyDescription("Engine user controls for editors.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shkyrockett")]
-[assembly: AssemblyProduct("Editor")]
-[assembly: AssemblyCopyright("Copyright © Shkyrockett 2016")]
+[assembly: AssemblyProduct("Engine.Winforms")]
+[assembly: AssemblyCopyright("Copyright © Shkyrockett 2013 - 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1cabf879-b73b-4cd4-a85f-d246583fdb15")]
+[assembly: Guid("c6593aae-28d2-494b-9765-b548aa24c8ca")]
 
 // Version information for an assembly consists of the following four values:
 //

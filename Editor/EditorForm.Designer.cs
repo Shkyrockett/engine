@@ -8,6 +8,11 @@
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
+        /// Palette control.
+        /// </summary>
+        private Engine.Winforms.PaletteControl palleteControl1;
+
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -17,6 +22,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -30,7 +36,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             Engine.File.Palettes.Palette palette1 = new Engine.File.Palettes.Palette();
-            this.palleteControl1 = new Editor.PalleteControl();
+            this.palleteControl1 = new Engine.Winforms.PaletteControl();
             ((System.ComponentModel.ISupportInitialize)(this.palleteControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,8 +68,6 @@
         }
 
         #endregion
-
-        private PalleteControl palleteControl1;
     }
 }
 

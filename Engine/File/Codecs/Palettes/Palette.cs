@@ -1,7 +1,10 @@
 ﻿// <copyright file="Palette.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
 // <summary></summary>
 
 using Engine.Geometry;
@@ -18,6 +21,8 @@ namespace Engine.File.Palettes
     /// <summary>
     /// The <see cref="Palette"/> class used for loading, saving and storing color palette entries.
     /// </summary>
+    [FileObject]
+    [DisplayName("Palette")]
     public class Palette
         : IEnumerable
     {
@@ -27,12 +32,12 @@ namespace Engine.File.Palettes
         private List<Color> colors;
 
         ///// <summary>
-        ///// 
+        ///// // ToDo: Add a named color lookup.
         ///// </summary>
         //private HashSet<KeyValuePair<string, Color>> values;
 
         /// <summary>
-        /// 
+        /// The name of the palette file.
         /// </summary>
         private string fileName;
 
@@ -206,9 +211,10 @@ namespace Engine.File.Palettes
         /// <param name="selection2">The index of the second palette entry that should be selected.</param>
         /// <param name="selection3">The index of the third palette entry that should be selected.</param>
         /// <param name="selection4">The index of the fourth palette entry that should be selected.</param>
+        /// <param name="selection5">The index of the fifth palette entry that should be selected.</param>
         /// <param name="highlight">The highlight queue index.</param>
         /// <returns>A <see cref="Bitmap"/> representing the palette as a grid of color entries.</returns>
-        public Bitmap DrawPalette(Rectangle bounds, int selection1, int selection2, int selection3, int selection4, int highlight = -1)
+        public Bitmap DrawPalette(Rectangle bounds, int selection1, int selection2, int selection3, int selection4, int selection5, int highlight = -1)
         {
             // Exit if data is not properly formated.
             if (colors == null)
@@ -225,7 +231,7 @@ namespace Engine.File.Palettes
             //RectangleCellGrid grid = new RectangleCellGrid(bounds, this.colors.Count);
 
             // Create the Bitmap and graphics object to draw on.
-            Bitmap image = new Bitmap((int)grid.InnerBounds.Width + 1, (int)grid.InnerBounds.Height + 1);
+            Bitmap image = new Bitmap(grid.InnerBounds.Width + 1, grid.InnerBounds.Height + 1);
             Graphics canvas = Graphics.FromImage(image);
 
             // Iterate through each color in the list and draw it on the canvas
@@ -266,6 +272,12 @@ namespace Engine.File.Palettes
             {
                 RectangleF cell = grid[selection4];
                 canvas.DrawRectangle(new Pen(Color.Lime), Rectangle.Round(cell));
+            }
+
+            if (selection5 >= 0 && selection5 <= colors.Count)
+            {
+                RectangleF cell = grid[selection5];
+                canvas.DrawRectangle(new Pen(Color.Cyan), Rectangle.Round(cell));
             }
 
             if (highlight >= 0 && highlight <= colors.Count + 1)

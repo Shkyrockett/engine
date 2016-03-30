@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace Engine.Tools
 {
     /// <summary>
-    /// 
+    /// Interface for tool objects.
     /// </summary>
     public interface ITool
     {
@@ -78,7 +78,7 @@ namespace Engine.Tools
         void Render(Graphics graphics);
 
         /// <summary>
-        /// 
+        /// Provide rendering support to the canvas.
         /// </summary>
         /// <param name="graphics"></param>
         /// <param name="pen"></param>
@@ -86,7 +86,7 @@ namespace Engine.Tools
         void Render(Graphics graphics, Pen pen, Brush brush);
 
         /// <summary>
-        /// 
+        /// Provide rendering support to the canvas.
         /// </summary>
         /// <param name="graphics"></param>
         /// <param name="penBrush"></param>

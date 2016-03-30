@@ -1,6 +1,15 @@
-﻿namespace Editor
+﻿// <copyright file="PaletteControl.Designer.cs" company="Shkyrockett">
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
+// <summary></summary>
+
+namespace Engine.Winforms
 {
-    partial class PalleteControl
+    partial class PaletteControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +38,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PalleteControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaletteControl));
             this.paletteToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -40,7 +49,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.Name = "PalleteControl";
             this.ClientSizeChanged += new System.EventHandler(this.PalleteControl_ClientSizeChanged);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PalleteControl_MouseClick);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PaleteControl_MouseClick);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PalleteControl_MouseMove);
             this.ResumeLayout(false);
 

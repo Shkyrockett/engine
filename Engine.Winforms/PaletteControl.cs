@@ -1,15 +1,24 @@
-﻿using System;
+﻿// <copyright file="PaletteControl.cs" company="Shkyrockett">
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author>Shkyrockett</author>
+// <summary></summary>
+
+using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Engine.File.Palettes;
 
-namespace Editor
+namespace Engine.Winforms
 {
     /// <summary>
-    /// 
+    /// Editor Palette control.
     /// </summary>
-    public partial class PalleteControl
+    public partial class PaletteControl
         : PictureBox
     {
         /// <summary>
@@ -43,15 +52,20 @@ namespace Editor
         private int selectedPaletteIndex4 = -1;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PalleteControl"/> class.
+        /// The last palette entry selected using the x button 2 mouse button.
         /// </summary>
-        public PalleteControl()
+        private int selectedPaletteIndex5 = -1;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PaletteControl"/> class.
+        /// </summary>
+        public PaletteControl()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// 
+        /// The palette list of colors.
         /// </summary>
         public Palette Palette
         {
@@ -62,16 +76,16 @@ namespace Editor
             set
             {
                 palette = value;
-                this.Image = Palette.DrawPalette(this.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4);
+                this.Image = Palette.DrawPalette(this.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
             }
         }
 
         /// <summary>
-        /// 
+        /// Interpret click events on the palette.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PalleteControl_MouseClick(object sender, MouseEventArgs e)
+        /// <param name="sender">The object sending the click events.</param>
+        /// <param name="e">Mouse event arguments.</param>
+        private void PaleteControl_MouseClick(object sender, MouseEventArgs e)
         {
             int index = Palette.PointToPaletteEntry(e.Location, this.Bounds);
             if (index >= 0)
@@ -91,6 +105,7 @@ namespace Editor
                         selectedPaletteIndex4 = index;
                         break;
                     case MouseButtons.XButton2:
+                        selectedPaletteIndex5 = index;
                         break;
                     case MouseButtons.None:
                         break;
@@ -98,10 +113,15 @@ namespace Editor
                         break;
                 }
 
-                this.Image = Palette.DrawPalette(this.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4);
+                this.Image = Palette.DrawPalette(this.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
             }
         }
 
+        /// <summary>
+        /// Locate cells when the mouse moves across the control. 
+        /// </summary>
+        /// <param name="sender">The object sending the move events.</param>
+        /// <param name="e">Mouse event arguments.</param>
         private void PalleteControl_MouseMove(object sender, MouseEventArgs e)
         {
             // Capture the index of the palette entry under the cursor.
@@ -123,14 +143,19 @@ namespace Editor
                 paletteToolTip.SetToolTip(this, text.ToString());
             }
 
-            PalleteControl reference = (PalleteControl)sender;
-            reference.Image = Palette.DrawPalette(reference.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, index);
+            PaletteControl reference = (PaletteControl)sender;
+            reference.Image = Palette.DrawPalette(reference.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5, index);
         }
 
+        /// <summary>
+        /// Update the control when the control resizes.
+        /// </summary>
+        /// <param name="sender">The object sending the control.</param>
+        /// <param name="e">The event arguments.</param>
         private void PalleteControl_ClientSizeChanged(object sender, EventArgs e)
         {
-            PalleteControl reference = (PalleteControl)sender;
-            reference.Image = Palette.DrawPalette(reference.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4);
+            PaletteControl reference = (PaletteControl)sender;
+            reference.Image = Palette.DrawPalette(reference.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
         }
     }
 }

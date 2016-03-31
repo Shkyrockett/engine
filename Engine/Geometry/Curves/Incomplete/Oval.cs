@@ -8,6 +8,7 @@
 // <summary></summary>
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -17,7 +18,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Oval")]
     public class Oval
         : Shape
@@ -31,6 +32,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private SizeF size;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<PointF> points;
 
         /// <summary>
         /// 

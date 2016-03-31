@@ -15,7 +15,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Ray")]
     public class Ray
         : Shape

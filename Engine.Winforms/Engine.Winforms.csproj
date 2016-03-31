@@ -85,6 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorTrackBarControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ColorTrackBarControl.Designer.cs">
+      <DependentUpon>ColorTrackBarControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PaletteControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -92,6 +98,42 @@
       <DependentUpon>PaletteControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PaletteToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PaletteToolStripItem.Designer.cs">
+      <DependentUpon>PaletteToolStripItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatusProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatusProgressBar.Designer.cs">
+      <DependentUpon>StatusProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStripMonthCalendar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStripMonthCalendar.Designer.cs">
+      <DependentUpon>ToolStripMonthCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStripToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStripToolStripItem.Designer.cs">
+      <DependentUpon>ToolStripToolStripItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TransparentLabel.Designer.cs">
+      <DependentUpon>TransparentLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TreeViewToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TreeViewToolStripItem.Designer.cs">
+      <DependentUpon>TreeViewToolStripItem.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PaletteControl.resx">

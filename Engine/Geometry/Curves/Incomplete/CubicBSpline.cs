@@ -18,7 +18,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Cubic B Spline")]
     public class CubicBSpline
         : Shape

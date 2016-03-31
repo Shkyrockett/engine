@@ -19,7 +19,7 @@ namespace Engine.Geometry
     /// <structure>Engine.Geometry.PolyGon2D</structure>
     /// <remarks></remarks>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Multi-polygon")]
     public class Multipolygon
         : Shape

@@ -18,7 +18,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Rounded Rectangle")]
     public class RoundRectangle
         : Shape

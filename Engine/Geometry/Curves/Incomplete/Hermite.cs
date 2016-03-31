@@ -8,6 +8,7 @@
 // <summary></summary>
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Xml.Serialization;
 
@@ -22,7 +23,7 @@ namespace Engine.Geometry
     /// http://stackoverflow.com/questions/8557098/cubic-hermite-spline-behaving-strangely
     /// </remarks>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Hermite Curve")]
     public class Hermite
         : Shape
@@ -60,6 +61,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private float bias;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<PointF> points;
 
         /// <summary>
         /// 

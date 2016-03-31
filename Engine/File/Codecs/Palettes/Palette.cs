@@ -477,8 +477,8 @@ namespace Engine.File.Palettes
             //using (StreamReader streamReader = new StreamReader(stream))
             {
                 ushort mimeVersion = FileEx.NetworkToHostOrder(binaryReader.ReadUInt16());
-                UInt16 colorCount = 0;
-                string name = String.Empty;
+                ushort colorCount = 0;
+                string name = string.Empty;
                 if (mimeVersion == 0xccbc) ; // Version 5-8
                 else if (mimeVersion == 0xdddc) // Version 9-X3
                 {
@@ -528,7 +528,7 @@ namespace Engine.File.Palettes
                     name = binaryReader.ReadString(namelength);
                     colorCount = binaryReader.ReadUInt16();
                     CorelColorModel colorModel = (CorelColorModel)binaryReader.ReadUInt16();
-                    UInt16 colorType = binaryReader.ReadUInt16();
+                    ushort colorType = binaryReader.ReadUInt16();
                     long streamEnd = stream.Position + colorCount;
                     // Three byte RGB 
                     while (stream.Position < stream.Length)

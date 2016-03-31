@@ -49,6 +49,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        private List<PointF> points;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public QuadraticBezier()
             : this(PointF.Empty, PointF.Empty, PointF.Empty)
         { }
@@ -64,7 +69,6 @@ namespace Engine.Geometry
             this.a = a;
             this.b = b;
             this.c = c;
-            //this.points = new List<PointF> { pointA, pointB, pointC, pointD };
         }
 
         /// <summary>

@@ -95,10 +95,10 @@
     <Compile Include="Geometry\Curves\Incomplete\CubicBezier.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CatmullRom.cs" />
     <Compile Include="Geometry\Curves\Incomplete\BSpline.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\Butterfly.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\Bow.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\Bicorn.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\Agnesi.cs" />
+    <Compile Include="Geometry\Curves\Butterfly.cs" />
+    <Compile Include="Geometry\Curves\Bow.cs" />
+    <Compile Include="Geometry\Curves\Bicorn.cs" />
+    <Compile Include="Geometry\Curves\Agnesi.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Arc.cs" />
     <Compile Include="Geometry\Curves\Circle.cs" />
     <Compile Include="Geometry\Curves\Ellipse.cs" />
@@ -136,6 +136,7 @@
     <Compile Include="File\Codecs\Palettes\Enums\PaletteMimeFormats.cs" />
     <Compile Include="Metadata\GraphicsObjectAttribute.cs" />
     <Compile Include="Metadata\FileObjectAttribute.cs" />
+    <Compile Include="Tools\Select.cs" />
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />
     <Compile Include="Geometry\Framework\PrimitivesExtensions.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Geometry\Framework\RectangleFExtensions.cs" />
     <Compile Include="Geometry\Framework\TokenizerHelper.cs" />
     <Compile Include="Geometry\Polygons\Triangle.cs" />
+    <Compile Include="Tools\DrawShape.cs" />
     <Compile Include="Tools\Straightener.cs" />
     <Compile Include="Tools\Tool.cs" />
   </ItemGroup>

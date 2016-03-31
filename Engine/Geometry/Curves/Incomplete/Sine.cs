@@ -13,7 +13,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Sine Curve")]
     public class Sine
         : Shape

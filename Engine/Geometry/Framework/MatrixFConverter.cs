@@ -66,7 +66,7 @@ namespace Engine.Geometry
                 throw GetConvertFromException(value);
             }
 
-            String source = value as string;
+            string source = value as string;
 
             if (source != null)
             {

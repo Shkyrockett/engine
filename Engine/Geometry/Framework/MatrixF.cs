@@ -1353,7 +1353,7 @@ namespace Engine.Geometry
 
             MatrixF value;
 
-            String firstToken = th.NextTokenRequired();
+            string firstToken = th.NextTokenRequired();
 
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
@@ -1439,7 +1439,7 @@ namespace Engine.Geometry
 
             // Helper to get the numeric list separator for a given culture.
             char separator = GetNumericListSeparator(provider);
-            return String.Format(provider,
+            return string.Format(provider,
                                  "{1:" + format + "}{0}{2:" + format + "}{0}{3:" + format + "}{0}{4:" + format + "}{0}{5:" + format + "}{0}{6:" + format + "}",
                                  separator,
                                  _m11,

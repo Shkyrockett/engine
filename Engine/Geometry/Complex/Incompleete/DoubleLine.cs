@@ -17,7 +17,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("Double Line")]
     public class DoubleLine
         : Shape

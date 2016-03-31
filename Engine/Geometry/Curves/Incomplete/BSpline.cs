@@ -22,7 +22,7 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName("BSpline")]
     public class BSpline
         : Shape

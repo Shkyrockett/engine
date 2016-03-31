@@ -12,7 +12,7 @@ namespace Engine.File
     /// 
     /// </summary>
     internal enum CorelColorModel 
-        : UInt16
+        : ushort
     {
         Pantone = 1,
         CMYK = 2,

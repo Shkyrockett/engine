@@ -1,4 +1,4 @@
-﻿// <copyright file="Polyline.cs" company="Shkyrockett">
+﻿// <copyright file="Polyline.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

@@ -1,4 +1,4 @@
-﻿// <copyright file="LineSegment.cs" company="Shkyrockett">
+﻿// <copyright file="LineSegment.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -91,10 +91,6 @@ namespace Engine.Geometry
         /// <param name="RadAngle">Ending Angle</param>
         /// <param name="Radius">Ending Line Segment Length</param>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks] 16/May/2005      Created
-        /// Shkyrockett[Alma Jenks] 15/December/2005 Updated to handle array method
-        /// </history>
         public LineSegment(PointF Point, double RadAngle, double Radius)
         {
             a = new PointF(Point.X, Point.Y);
@@ -123,10 +119,6 @@ namespace Engine.Geometry
         /// Ending Point of a Line Segment
         /// </summary>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks] 16/May/2005      Created
-        /// Shkyrockett[Alma Jenks] 15/December/2005 Changed to property to use array
-        /// </history>
         [Category("Properties")]
         [Description("The ending Point of a Line Segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -143,10 +135,7 @@ namespace Engine.Geometry
         /// Get or sets an array of points representing a line segment.
         /// </summary>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks] 15/December/2005 Created
-        /// </history>
-        public new PointF[] Points
+        public PointF[] Points
         {
             get
             {

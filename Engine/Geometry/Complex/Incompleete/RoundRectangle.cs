@@ -1,4 +1,4 @@
-﻿// <copyright file="RoundRectangle.cs" company="Shkyrockett">
+﻿// <copyright file="RoundRectangle.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -129,9 +129,6 @@ namespace Engine.Geometry
         /// <param name="radius"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks] 29/December/2005Created
-        /// </history>
         public static GraphicsPath GetGraphicsPath(RectangleF bounds, float radius)
         {
             //  Start the Path object.

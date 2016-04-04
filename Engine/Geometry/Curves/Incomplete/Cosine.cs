@@ -1,4 +1,4 @@
-﻿// <copyright file="Circle.cs" company="Shkyrockett">
+﻿// <copyright file="Circle.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -73,9 +73,6 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks] 24/January/2006 Created
-        /// </history>
         public PointF Interpolate(double index)
         {
             return Interpolate(a, b, index);
@@ -89,9 +86,6 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks] 24/January/2006 Created
-        /// </history>
         public static PointF Interpolate(PointF a, PointF b, double index)
         {
             //Single MU2 = (float)((1.0 - Math.Cos(index * 180)) * 0.5);

@@ -1,4 +1,4 @@
-﻿// <copyright file="MathEx.cs" company="Shkyrockett">
+﻿// <copyright file="MathEx.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -37,9 +37,6 @@ namespace Engine.Geometry
         /// type). Used in the Slope of a LineSeg
         /// </summary>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks]	16/May/2005	Created
-        /// </history>
         public const double SlopeMax = 9223372036854775807;
 
         /// <summary>
@@ -346,9 +343,6 @@ namespace Engine.Geometry
         /// <param name="adjacent"></param>
         /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[Alma Jenks] 27/December/2005 Created
-        /// </history>
         public static double ATan2(double opposite, double adjacent)
         {
             //double angle;

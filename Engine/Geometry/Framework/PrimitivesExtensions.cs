@@ -1,4 +1,4 @@
-﻿// <copyright file="PrimitivesExtensions.cs" company="Shkyrockett">
+﻿// <copyright file="PrimitivesExtensions.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -10,8 +10,8 @@
 // <remarks></remarks>
 
 using System;
-using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Engine.Geometry
 {
@@ -313,6 +313,41 @@ namespace Engine.Geometry
             if ((DeltaB < 0)) Value = (Math.PI - Value);
             if ((Value < 0)) Value = (Value + (2 * Math.PI));
             return Value;
+        }
+
+
+        /// <summary>
+        /// Creates a matrix to rotate an object around a particular point.  
+        /// </summary>
+        /// <param name="angle">The angle to rotate in radians.</param>
+        /// <param name="center">The point around which to rotate.</param>
+        /// <returns>Return a rotation matrix to rotate around a point.</returns>
+        public static Matrix RotateAroundPoint(this Point center, double angle)
+        {
+            // Translate the point to the origin.
+            Matrix result = new Matrix();
+
+            // We need to go counter-clockwise.
+            result.RotateAt((float)-angle.ToDegrees(), center);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a matrix to rotate an object around a particular point.  
+        /// </summary>
+        /// <param name="angle">The angle to rotate in radians.</param>
+        /// <param name="center">The point around which to rotate.</param>
+        /// <returns>Return a rotation matrix to rotate around a point.</returns>
+        public static Matrix RotateAroundPoint(this PointF center, double angle)
+        {
+            // Translate the point to the origin.
+            Matrix result = new Matrix();
+
+            // We need to go counter-clockwise.
+            result.RotateAt((float)-angle.ToDegrees(), center);
+
+            return result;
         }
 
         /// <summary>

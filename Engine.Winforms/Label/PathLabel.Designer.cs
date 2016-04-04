@@ -1,6 +1,6 @@
 ﻿namespace Engine.Winforms
 {
-    partial class TransparentLabel
+    partial class PathLabel
     {
         /// <summary> 
         /// Required designer variable.
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

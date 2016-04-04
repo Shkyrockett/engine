@@ -1,4 +1,4 @@
-﻿// <copyright file="Draw.cs" company="Shkyrockett">
+﻿// <copyright file="Draw.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

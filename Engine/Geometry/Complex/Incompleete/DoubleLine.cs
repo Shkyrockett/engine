@@ -1,4 +1,4 @@
-﻿// <copyright file="DoubleLine.cs" company="Shkyrockett">
+﻿// <copyright file="DoubleLine.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

@@ -1,4 +1,4 @@
-﻿// <copyright file="RectangleCorners.cs" company="Shkyrockett">
+﻿// <copyright file="RectangleCorners.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

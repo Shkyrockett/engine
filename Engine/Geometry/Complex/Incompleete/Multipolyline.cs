@@ -1,4 +1,4 @@
-﻿// <copyright file="Multipolyline.cs" company="Shkyrockett">
+﻿// <copyright file="Multipolyline.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

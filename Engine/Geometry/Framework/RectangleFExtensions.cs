@@ -1,4 +1,4 @@
-﻿// <copyright file="RectangleExtensions.cs" company="Shkyrockett">
+﻿// <copyright file="RectangleExtensions.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

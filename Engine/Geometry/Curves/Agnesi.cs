@@ -1,4 +1,4 @@
-﻿// <copyright file="Agnesi.cs" company="Shkyrockett">
+﻿// <copyright file="Agnesi.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

@@ -1,4 +1,4 @@
-﻿// <copyright file="Gear.cs" company="Shkyrockett">
+﻿// <copyright file="Gear.cs" >
 //     Copyright (c) 2015 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

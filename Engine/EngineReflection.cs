@@ -1,4 +1,4 @@
-﻿// <copyright file="EngineEx.cs" company="Shkyrockett">
+﻿// <copyright file="EngineEx.cs">
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -31,7 +31,7 @@ namespace Engine
         /// </remarks>
         static EngineReflection()
         {
-            // Attempt to inject custom attributes to pick up native graphics types.
+            // Attempt to inject custom attributes to try to pick up native graphics types.
             TypeDescriptor.AddAttributes(typeof(Size), new GraphicsObjectAttribute());
             TypeDescriptor.AddAttributes(typeof(SizeF), new GraphicsObjectAttribute());
             TypeDescriptor.AddAttributes(typeof(Point), new GraphicsObjectAttribute());

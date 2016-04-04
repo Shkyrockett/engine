@@ -97,6 +97,12 @@
     <Compile Include="PaletteControl.Designer.cs">
       <DependentUpon>PaletteControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Label\PathLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Label\PathLabel.Designer.cs">
+      <DependentUpon>PathLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PaletteToolStripItem.cs">
       <SubType>Component</SubType>
@@ -122,10 +128,10 @@
     <Compile Include="ToolStripToolStripItem.Designer.cs">
       <DependentUpon>ToolStripToolStripItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="TransparentLabel.cs">
+    <Compile Include="Label\TransparentLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TransparentLabel.Designer.cs">
+    <Compile Include="Label\TransparentLabel.Designer.cs">
       <DependentUpon>TransparentLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="TreeViewToolStripItem.cs">

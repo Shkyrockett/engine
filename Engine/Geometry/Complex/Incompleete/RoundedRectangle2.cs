@@ -1,4 +1,4 @@
-﻿// <copyright file="RoundRectangle.cs" company="Shkyrockett">
+﻿// <copyright file="RoundRectangle.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

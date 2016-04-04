@@ -8,9 +8,26 @@ namespace Engine.Winforms
     /// <remarks>
     /// http://stackoverflow.com/questions/1517179/c-overriding-onpaint-on-progressbar-not-working
     /// </remarks>
-    public partial class TransparentLabel 
+    public partial class TransparentLabel
         : Label
     {
+        /// <summary>
+        /// https://msdn.microsoft.com/en-us/library/windows/desktop/ff700543(v=vs.85).aspx
+        /// </summary>
+        private const int WS_EX_TRANSPARENT = 0x00000020;
+
+        //private bool transparent;
+
+        //public bool Transparent
+        //{
+        //    get { return transparent; }
+        //    set
+        //    {
+        //        transparent = value;
+
+        //    }
+        //}
+
         /// <summary>
         /// 
         /// </summary>
@@ -30,7 +47,7 @@ namespace Engine.Winforms
             get
             {
                 CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x20;
+                cp.ExStyle |= WS_EX_TRANSPARENT;
                 return cp;
             }
         }

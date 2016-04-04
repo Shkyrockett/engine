@@ -1,4 +1,4 @@
-﻿// <copyright file="Line.cs" company="Shkyrockett">
+﻿// <copyright file="Line.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

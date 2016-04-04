@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Any CPU\Debug\Engine.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Any CPU\Release\Engine.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\x64\Debug\Engine.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -51,6 +54,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\x64\Release\Engine.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +65,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\x86\Debug\Engine.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -71,6 +76,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\x86\Release\Engine.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -85,11 +91,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Imaging\BitmapExtensions.cs" />
+    <Compile Include="Imaging\ColorSpace\ACYMK.cs" />
+    <Compile Include="Imaging\ColorSpace\AHSI.cs" />
+    <Compile Include="Imaging\ColorSpace\AHSL.cs" />
+    <Compile Include="Imaging\ColorSpace\AHSV.cs" />
+    <Compile Include="Imaging\ColorSpace\ARGB.cs" />
+    <Compile Include="Imaging\ColorSpace\AYUV.cs" />
+    <Compile Include="Imaging\ColorSpace\Incomplete\CIEXYZTriple.cs" />
+    <Compile Include="Imaging\ColorSpace\Incomplete\CIEXYZ.cs" />
+    <Compile Include="Imaging\ColorSpace\Incomplete\CIExyYTriple.cs" />
+    <Compile Include="Imaging\ColorSpace\Incomplete\CIExyY.cs" />
+    <Compile Include="Imaging\ColorSpace\Incomplete\CIELUV.cs" />
+    <Compile Include="Imaging\ColorSpace\Incomplete\CIELCh.cs" />
+    <Compile Include="Imaging\ColorSpace\Incomplete\CIELAB.cs" />
+    <Compile Include="Imaging\ColorSpace\ColorSpace.cs" />
     <Compile Include="EngineReflection.cs" />
     <Compile Include="File\BinaryReaderExtensions.cs" />
     <Compile Include="File\BinaryWriterExtensions.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\CorelColorModel.cs" />
     <Compile Include="File\FileEx.cs" />
+    <Compile Include="File\FileItem.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CubicBSpline.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Cosine.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CubicBezier.cs" />
@@ -134,8 +156,34 @@
     <Compile Include="File\Codecs\Palettes\Palette.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteFileExtensions.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteMimeFormats.cs" />
+    <Compile Include="Imaging\ColorSpace\HSL.cs" />
+    <Compile Include="Imaging\ColorSpace\YIQ.cs" />
+    <Compile Include="Imaging\ImageCompare.cs" />
+    <Compile Include="Imaging\ImageExtensions.cs" />
     <Compile Include="Metadata\GraphicsObjectAttribute.cs" />
     <Compile Include="Metadata\FileObjectAttribute.cs" />
+    <Compile Include="Objects\Actor.cs" />
+    <Compile Include="Objects\ActorDialog.cs" />
+    <Compile Include="Objects\Backdrop.cs" />
+    <Compile Include="Objects\Canvas.cs" />
+    <Compile Include="Objects\Game.cs" />
+    <Compile Include="Objects\GameElementListTypeConverter.cs" />
+    <Compile Include="Objects\Group.cs" />
+    <Compile Include="Objects\Interfaces\IAudio.cs" />
+    <Compile Include="Objects\Interfaces\IGameElement.cs" />
+    <Compile Include="Objects\Interfaces\IImage.cs" />
+    <Compile Include="Objects\Interfaces\IRenderable.cs" />
+    <Compile Include="Objects\Interfaces\ITreeObject.cs" />
+    <Compile Include="Objects\IventoryItem.cs" />
+    <Compile Include="Objects\Midi.cs" />
+    <Compile Include="Objects\Project.cs" />
+    <Compile Include="Objects\RasterGraphic.cs" />
+    <Compile Include="Objects\Resources.cs" />
+    <Compile Include="Objects\Scene.cs" />
+    <Compile Include="Objects\Sprite.cs" />
+    <Compile Include="Objects\Variable.cs" />
+    <Compile Include="Objects\VectorGraphic.cs" />
+    <Compile Include="Objects\Wavform.cs" />
     <Compile Include="Tools\Select.cs" />
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />

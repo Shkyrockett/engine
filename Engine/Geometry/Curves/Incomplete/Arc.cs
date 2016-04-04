@@ -1,4 +1,4 @@
-﻿// <copyright file="Arc.cs" company="Shkyrockett">
+﻿// <copyright file="Arc.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

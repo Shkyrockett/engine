@@ -1,4 +1,4 @@
-﻿// <copyright file="PaletteControl.cs" company="Shkyrockett">
+﻿// <copyright file="PaletteControl.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

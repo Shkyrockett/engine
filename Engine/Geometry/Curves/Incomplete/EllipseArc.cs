@@ -1,4 +1,4 @@
-﻿// <copyright file="EllipseArc.cs" company="Shkyrockett">
+﻿// <copyright file="EllipseArc.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

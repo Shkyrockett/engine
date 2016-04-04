@@ -1,4 +1,4 @@
-﻿// <copyright file="BinaryWriterEx.cs" company="Shkyrockett">
+﻿// <copyright file="BinaryWriterEx.cs" >
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Alma Jenks</author>

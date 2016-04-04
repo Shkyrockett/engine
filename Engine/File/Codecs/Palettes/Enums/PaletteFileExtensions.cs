@@ -1,4 +1,4 @@
-﻿// <copyright file="PaletteFileExtentions.cs" company="Shkyrockett">
+﻿// <copyright file="PaletteFileExtentions.cs" >
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Alma Jenks</author>

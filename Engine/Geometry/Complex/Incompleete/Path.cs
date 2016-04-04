@@ -1,4 +1,4 @@
-﻿// <copyright file="Path.cs" company="Shkyrockett">
+﻿// <copyright file="Path.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

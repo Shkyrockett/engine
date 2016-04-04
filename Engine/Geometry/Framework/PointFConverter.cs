@@ -1,4 +1,4 @@
-﻿// <copyright file="PointFConverter.cs" company="Shkyrockett">
+﻿// <copyright file="PointFConverter.cs" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

@@ -1,4 +1,4 @@
-﻿// <copyright file="Multipolygon.cs" company="Shkyrockett">
+﻿// <copyright file="Multipolygon.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -29,7 +29,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public new PointF[] Points;
+        public PointF[] Points;
 
         /// <summary>
         /// 

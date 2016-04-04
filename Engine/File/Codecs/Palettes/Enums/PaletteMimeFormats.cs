@@ -1,4 +1,4 @@
-﻿// <copyright file="PaletteMimeFormats.cs" company="Shkyrockett">
+﻿// <copyright file="PaletteMimeFormats.cs" >
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Alma Jenks</author>

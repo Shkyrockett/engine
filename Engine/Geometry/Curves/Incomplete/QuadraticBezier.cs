@@ -1,4 +1,4 @@
-﻿// <copyright file="QuadraticBezier.cs" company="Shkyrockett">
+﻿// <copyright file="QuadraticBezier.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -49,7 +49,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> points;
+        private List<PointF> points = new List<PointF>();
 
         /// <summary>
         /// 

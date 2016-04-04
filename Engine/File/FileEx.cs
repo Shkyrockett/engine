@@ -1,4 +1,4 @@
-﻿// <copyright file="FileEx.cs" company="Shkyrockett">
+﻿// <copyright file="FileEx.cs" >
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Alma Jenks</author>

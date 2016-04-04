@@ -1,4 +1,4 @@
-﻿// <copyright file="Palette.cs" company="Shkyrockett">
+﻿// <copyright file="Palette.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -479,7 +479,9 @@ namespace Engine.File.Palettes
                 ushort mimeVersion = FileEx.NetworkToHostOrder(binaryReader.ReadUInt16());
                 ushort colorCount = 0;
                 string name = string.Empty;
+#pragma warning disable
                 if (mimeVersion == 0xccbc) ; // Version 5-8
+#pragma warning restore
                 else if (mimeVersion == 0xdddc) // Version 9-X3
                 {
                     int headerBlocks = binaryReader.ReadInt32();
@@ -519,9 +521,11 @@ namespace Engine.File.Palettes
                     //    if (colors.Count == entryCount) break;
                     //}
                 }
+#pragma warning disable
                 else if (mimeVersion == 0xccdc) ; // ?
                 else if (mimeVersion == 0xcddc) ; // ?
                 else if (mimeVersion == 0xcddd) ; // Version X4
+#pragma warning restore
                 else if (mimeVersion == 0xdcdc) // Custom palettes
                 {
                     byte namelength = binaryReader.ReadByte();

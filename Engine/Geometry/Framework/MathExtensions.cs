@@ -9,6 +9,7 @@
 
 using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace Engine.Geometry
 {
@@ -167,9 +168,6 @@ namespace Engine.Geometry
         /// <returns>Angle in Radians.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
-        /// <history>
-        /// Shkyrockett[]16/May/2005: Created.
-        /// </history>
         public static double ToRadians(this double degrees)
         {
             return degrees * Radien;
@@ -192,9 +190,6 @@ namespace Engine.Geometry
         /// <returns>Angle in Degrees.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
-        /// <history>
-        /// Shkyrockett[]    16/May/2005    Created
-        /// </history>
         public static double ToDegrees(this double radiens)
         {
             return radiens * Degree;
@@ -217,10 +212,6 @@ namespace Engine.Geometry
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
         /// <remarks></remarks>
-        /// <history>
-        /// Shkyrockett[] Tuesday, 7, February, 2006: Created.
-        /// Shkyrockett[] Tuesday, 5, February, 2013: Translated into C#. Fixed issue where truncation was being used instead of rounding. 
-        /// </history>
         public static double RoundToMultiple(this double value, double multiple)
         {
             return Convert.ToInt32(value / multiple) * multiple;
@@ -234,10 +225,6 @@ namespace Engine.Geometry
         /// <param name="valueB">Destination parameter</param>
         /// <returns>Returns the same Modulus Result that Excel returns.</returns>
         /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than VB.Net</remarks>
-        /// <history>
-        /// Shkyrockett[] Tuesday, 7, February, 2006: Created.
-        /// Shkyrockett[] Tuesday, 28, December, 2014: Trying out more compact version.
-        /// </history>
         public static double Modulo(this double valueA, double valueB)
         {
             double temp = valueA;
@@ -258,9 +245,6 @@ namespace Engine.Geometry
         /// <param name="Values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
-        /// <history>
-        ///     Shkyrockett[Alma Jenks]    4/April/2005    Created
-        /// </history>
         public static double Average(this double[] Values)
         {
             return (Sum(Values) / Values.Length);
@@ -272,9 +256,6 @@ namespace Engine.Geometry
         /// <param name="Values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <history>
-        ///     Shkyrockett[Alma Jenks]    4/April/2005    Created
-        /// </history>
         public static double Sum(this double[] Values)
         {
             double Retval = 0;
@@ -295,7 +276,7 @@ namespace Engine.Geometry
         public static int Random(this int Lower, int Upper)
         {
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            return (int)((rnd.Next() * ((Upper - Lower) + 1)) + Lower);
+            return (rnd.Next() * ((Upper - Lower) + 1)) + Lower;
         }
 
         /// <summary>
@@ -343,7 +324,7 @@ namespace Engine.Geometry
         /// <param name="adjacent"></param>
         /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
         /// <remarks></remarks>
-        public static double ATan2(double opposite, double adjacent)
+        public static double Atan2(double opposite, double adjacent)
         {
             //double angle;
             ////  Get the basic angle.
@@ -351,6 +332,22 @@ namespace Engine.Geometry
             //angle = (Math.Abs(Math.Atan((Opposite / Adjacent))));
             //return angle;
             return Math.Atan2(opposite, adjacent);
+        }
+
+        /// <summary>
+        /// Returns the Angle of two deltas.
+        /// </summary>
+        /// <param name="DeltaA">Delta Angle 1</param>
+        /// <param name="DeltaB">Delta Angle 2</param>
+        /// <returns>Returns the Angle of a line.</returns>
+        /// <remarks></remarks>
+        public static double _Atan2(double DeltaA, double DeltaB)
+        {
+            if (((DeltaA == 0) && (DeltaB == 0))) return 0;
+            double Value = Math.Asin(DeltaA / Math.Sqrt(DeltaA * DeltaA + DeltaB * DeltaB));
+            if ((DeltaB < 0)) Value = (Math.PI - Value);
+            if ((Value < 0)) Value = (Value + (2 * Math.PI));
+            return Value;
         }
 
         /// <summary>
@@ -826,6 +823,26 @@ namespace Engine.Geometry
         public static int DoubleToInt(double val)
         {
             return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int HIWORD(int n)
+        {
+            return (n >> 16) & 0xffff;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int LOWORD(int n)
+        {
+            return n & 0xffff;
         }
     }
 }

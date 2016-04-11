@@ -140,7 +140,7 @@ namespace Engine.Geometry
 
             double blend;
             double muk = 1;
-            double munk = Math.Pow(1 - index, (double)n);
+            double munk = Math.Pow(1 - index, n);
 
             PointF b = new PointF(0.0f, 0.0f);
 
@@ -158,12 +158,12 @@ namespace Engine.Geometry
                     nn--;
                     if (kn > 1)
                     {
-                        blend /= (double)kn;
+                        blend /= kn;
                         kn--;
                     }
                     if (nkn > 1)
                     {
-                        blend /= (double)nkn;
+                        blend /= nkn;
                         nkn--;
                     }
                 }

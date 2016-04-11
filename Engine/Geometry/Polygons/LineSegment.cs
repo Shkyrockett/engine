@@ -25,6 +25,7 @@ namespace Engine.Geometry
     public class LineSegment
         : Shape
     {
+        #region Private Fields
         /// <summary>
         /// First Point of a line segment
         /// </summary>
@@ -36,7 +37,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         private PointF b;
+        #endregion
 
+        #region Public Properties
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
@@ -57,35 +60,35 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Creates a new Instance of LineSeg
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
-        /// <param name="X1">Horizontal component of starting point</param>
-        /// <param name="Y1">Vertical component of starting point</param>
+        /// <param name="xA">Horizontal component of starting point</param>
+        /// <param name="yA">Vertical component of starting point</param>
+        /// <param name="xB">Horizontal component of ending point</param>
+        /// <param name="yB">Vertical component of ending point</param>
+        /// <remarks></remarks>
+        public LineSegment(int xA, int yA, int xB, int yB)
+        {
+            a = new PointF(xA, yA);
+            b = new PointF(xB, yB);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// </summary>
+        /// <param name="x1">Horizontal component of starting point</param>
+        /// <param name="y1">Vertical component of starting point</param>
         /// <param name="X2">Horizontal component of ending point</param>
         /// <param name="Y2">Vertical component of ending point</param>
         /// <remarks></remarks>
-        public LineSegment(int X1, int Y1, int X2, int Y2)
+        public LineSegment(float x1, float y1, float X2, float Y2)
         {
-            a = new PointF(X1, Y1);
+            a = new PointF(x1, y1);
             b = new PointF(X2, Y2);
         }
 
         /// <summary>
-        /// Creates a new Instance of LineSeg
-        /// </summary>
-        /// <param name="X1">Horizontal component of starting point</param>
-        /// <param name="Y1">Vertical component of starting point</param>
-        /// <param name="X2">Horizontal component of ending point</param>
-        /// <param name="Y2">Vertical component of ending point</param>
-        /// <remarks></remarks>
-        public LineSegment(float X1, float Y1, float X2, float Y2)
-        {
-            a = new PointF(X1, Y1);
-            b = new PointF(X2, Y2);
-        }
-
-        /// <summary>
-        /// Creates a new Instance of Segment
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
@@ -96,8 +99,10 @@ namespace Engine.Geometry
             a = new PointF(Point.X, Point.Y);
             b = new PointF(
                 (float)(Point.X + (Radius * Math.Cos(RadAngle))),
-                (float)(Point.Y + (Radius * Math.Sin(RadAngle))));
+                (float)(Point.Y + (Radius * Math.Sin(RadAngle)))
+                );
         }
+        #endregion
 
         /// <summary>
         /// First Point of a line segment
@@ -170,7 +175,7 @@ namespace Engine.Geometry
         {
             VectorF UnitVectorAB = new VectorF(Value1, Value2);
             VectorF PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
-            return Interpolate(Value1, Value2, Weight).Scale(PerpendicularAB);
+            return Interpolate(Value1, Value2, Weight).Inflate(PerpendicularAB);
         }
 
         /// <summary>
@@ -178,7 +183,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        public RectangleF Bounds()
+        public new RectangleF Bounds()
         {
             return RectangleF.FromLTRB(a.X, a.Y, b.X, b.Y);
         }

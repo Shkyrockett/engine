@@ -66,7 +66,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
         /// </summary>
-        public Rectangle Bounds
+        public new Rectangle Bounds
         {
             get
             {

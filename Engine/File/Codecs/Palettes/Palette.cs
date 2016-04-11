@@ -755,9 +755,9 @@ namespace Engine.File.Palettes
                 // Colors
                 foreach (Color color in colors)
                 {
-                    bw.Write((byte)color.R);
-                    bw.Write((byte)color.G);
-                    bw.Write((byte)color.B);
+                    bw.Write(color.R);
+                    bw.Write(color.G);
+                    bw.Write(color.B);
                     bw.Write((byte)(255 - color.A));
                 }
             }

@@ -198,7 +198,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
-        public RectangleF Bounds
+        public new RectangleF Bounds
         {
             get
             {

@@ -91,6 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Units\Radian.cs" />
+    <Compile Include="Geometry\Units\Degree.cs" />
+    <Compile Include="Geometry\Primitives\IShape.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
     <Compile Include="Imaging\ColorSpace\ACYMK.cs" />
     <Compile Include="Imaging\ColorSpace\AHSI.cs" />
@@ -166,9 +169,12 @@
     <Compile Include="Objects\ActorDialog.cs" />
     <Compile Include="Objects\Backdrop.cs" />
     <Compile Include="Objects\Canvas.cs" />
+    <Compile Include="Objects\FileContainer.cs" />
+    <Compile Include="Objects\FileObject.cs" />
     <Compile Include="Objects\Game.cs" />
     <Compile Include="Objects\GameElementListTypeConverter.cs" />
     <Compile Include="Objects\Group.cs" />
+    <Compile Include="Objects\Interfaces\IFileObject.cs" />
     <Compile Include="Objects\Interfaces\IAudio.cs" />
     <Compile Include="Objects\Interfaces\IGameElement.cs" />
     <Compile Include="Objects\Interfaces\IImage.cs" />
@@ -183,6 +189,7 @@
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Objects\Variable.cs" />
     <Compile Include="Objects\VectorGraphic.cs" />
+    <Compile Include="Objects\VectorMap.cs" />
     <Compile Include="Objects\Wavform.cs" />
     <Compile Include="Tools\Select.cs" />
     <Compile Include="Tools\ITool.cs" />

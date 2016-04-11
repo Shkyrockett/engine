@@ -349,9 +349,9 @@ namespace Engine.Imaging.ColorSpace
         /// </remarks>
         public static ACYMK RGB2CMYK(this Color color)
         {
-            double R = (double)color.R;
-            double G = (double)color.G;
-            double B = (double)color.B;
+            double R = color.R;
+            double G = color.G;
+            double B = color.B;
 
             R = 1.0 - (R / 255.0);
             G = 1.0 - (G / 255.0);
@@ -395,9 +395,9 @@ namespace Engine.Imaging.ColorSpace
         /// </remarks>
         public static ACYMK RGB2CMYK(byte alpha, byte red, byte green, byte blue)
         {
-            double R = (double)red;
-            double G = (double)green;
-            double B = (double)blue;
+            double R = red;
+            double G = green;
+            double B = blue;
 
             R = 1.0 - (R / 255.0);
             G = 1.0 - (G / 255.0);
@@ -444,10 +444,10 @@ namespace Engine.Imaging.ColorSpace
             double R, G, B;
             double C, M, Y, K;
 
-            C = (double)cyan;
-            M = (double)magenta;
-            Y = (double)yellow;
-            K = (double)black;
+            C = cyan;
+            M = magenta;
+            Y = yellow;
+            K = black;
 
             C = C / 255.0;
             M = M / 255.0;

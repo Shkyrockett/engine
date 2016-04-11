@@ -123,8 +123,8 @@ namespace Engine.Geometry
             }
 
             return new RectangleF(left, top,
-                                 (float)Math.Abs(right - left),
-                                 (float)Math.Abs(bottom - top));
+                                 Math.Abs(right - left),
+                                 Math.Abs(bottom - top));
         }
 
         /// <summary>

@@ -151,7 +151,7 @@ namespace Engine.File
             if (input < 0) throw new ArgumentOutOfRangeException("input", input.ToString(), "Cannot write a negative Var Int.");
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("input", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
-            uint value = (uint)input;
+            uint value = input;
             ulong buffer = value & 0x7F;
 
             // Setup the buffer. 
@@ -185,7 +185,7 @@ namespace Engine.File
             if (input < 0) throw new ArgumentOutOfRangeException("value", input.ToString(), "Cannot write a negative Var Int.");
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
-            uint value = (uint)input;
+            uint value = input;
             ulong buffer = value & 0x7f;
 
             while ((value >>= 7) > 0)

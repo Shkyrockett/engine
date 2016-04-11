@@ -113,7 +113,7 @@ namespace Engine.File
         /// <returns>A long value, expressed in network byte order.</returns>
         public static long HostToNetworkOrder(long host)
         {
-            return (long)(((HostToNetworkOrder((int)host) & 0xffffffffL) << 0x20) | (HostToNetworkOrder((int)(host >> 0x20)) & 0xffffffffL));
+            return ((HostToNetworkOrder((int)host) & 0xffffffffL) << 0x20) | (HostToNetworkOrder((int)(host >> 0x20)) & 0xffffffffL);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Engine.File
         /// <returns>An integer value, expressed in network byte order.</returns>
         public static uint HostToNetworkOrder(uint host)
         {
-            return (ushort)(((HostToNetworkOrder((ushort)host) & (ushort)0xffff) << (ushort)0x10) | (HostToNetworkOrder((ushort)(host >> (ushort)0x10)) & (ushort)0xffff));
+            return (ushort)(((HostToNetworkOrder((ushort)host) & 0xffff) << 0x10) | (HostToNetworkOrder((ushort)(host >> 0x10)) & 0xffff));
         }
 
         /// <summary>

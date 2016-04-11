@@ -63,7 +63,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public RectangleF Bounds
+        public new RectangleF Bounds
         {
             get
             {
@@ -95,7 +95,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public  List<PointF> Handles
+        public List<PointF> Handles
         {
             get
             {
@@ -104,7 +104,7 @@ namespace Engine.Geometry
                     new PointF(bounds.Right,bounds.Top),
                     new PointF(bounds.Right, bounds.Bottom),
                     new PointF(bounds.Left, bounds.Bottom),
-                    new PointF((float)(bounds.Left+radius),bounds.Top)
+                    new PointF(bounds.Left+radius,bounds.Top)
                 };
             }
             set

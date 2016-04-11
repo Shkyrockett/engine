@@ -336,7 +336,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular bounds of the ellipse.")]
-        public RectangleF Bounds
+        public new RectangleF Bounds
         {
             get
             {
@@ -444,10 +444,10 @@ namespace Engine.Geometry
         public PointF Interpolate(double index)
         {
             RectangleF unroatatedBounds = new RectangleF(
-                (float)(center.X - majorRadius),
-                (float)(center.Y - majorRadius),
-                (float)(majorRadius),
-                (float)(majorRadius * aspect)
+                center.X - majorRadius,
+                center.Y - majorRadius,
+                majorRadius,
+                majorRadius * aspect
                 );
 
             double theta = MathExtensions.ToRadians(angle);

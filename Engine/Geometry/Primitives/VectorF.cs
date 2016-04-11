@@ -10,19 +10,37 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
     /// <summary>
-    /// Represents a 2D Vector.
+    /// Represents a vector in 2D coordinate space (float precision floating-point coordinates).
     /// </summary>
+    [Serializable]
+    [ComVisible(true)]
     [DisplayName("VectorF")]
     public class VectorF
     {
+        #region Static Implementations
+        /// <summary>
+        /// A Unit <see cref="VectorF"/>.
+        /// </summary>
+        public static readonly VectorF AUnit = new VectorF(1, 1);
+
+        /// <summary>
+        /// An Empty <see cref="VectorF"/>.
+        /// </summary>
+        public static readonly VectorF Empty = new VectorF();
+        #endregion
+
+        #region Private Fields
         /// <summary>
         /// First Point of a 2D Vector
         /// </summary>
@@ -34,7 +52,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         private float y;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Create a new Vector2D
         /// </summary>
@@ -96,7 +116,9 @@ namespace Engine.Geometry
             x = Temp.x;
             y = Temp.y;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// First Point of a 2D Vector
         /// </summary>
@@ -120,14 +142,16 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Create an Empty Vector
+        /// Gets a value indicating whether this <see cref="VectorF"/> is empty.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
         [XmlIgnore]
-        public static Vector Empty
+        [Browsable(false)]
+        public bool IsEmpty
         {
-            get { return new Vector(); }
+            get
+            {
+                return x == 0f && y == 0f;
+            }
         }
 
         /// <summary>
@@ -136,6 +160,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(false)]
         public static Vector Random
         {
             get
@@ -144,334 +169,9 @@ namespace Engine.Geometry
                 return new Vector((2 * rnd.Next()) - 1, (2 * rnd.Next()) - 1);
             }
         }
+        #endregion
 
-        /// <summary>
-        /// Unit of a Point
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [XmlIgnore]
-        public static Vector AUnit
-        {
-            get { return new Vector(1, 1); }
-        }
-
-        /// <summary>
-        /// Unit of a Vector
-        /// </summary>
-        /// <param name="value">The Point to Unitize</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static VectorF Unit(VectorF value)
-        {
-            return VectorF.Scale(value, (1 / Math.Sqrt(((value.x * value.x) + (value.y * value.y)))));
-        }
-
-        /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static bool Compare(ref VectorF value1, ref VectorF value2)
-        {
-            return (value1.x == value2.x) && (value1.y == value2.y);
-        }
-
-        /// <summary>
-        /// Determines the dot product of two 2D vectors
-        /// </summary>
-        /// <param name="value">Second Point</param>
-        /// <returns>Dot Product</returns>
-        /// <remarks>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        public double DotProduct(PointF value)
-        {
-            return ((x * value.X) + (y * value.Y));
-        }
-
-        /// <summary>
-        /// Determines the dot product of two 2D vectors
-        /// </summary>
-        /// <param name="value">Second Point</param>
-        /// <returns>Dot Product</returns>
-        /// <remarks>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        public double DotProduct(VectorF value)
-        {
-            return ((x * value.X) + (y * value.Y));
-        }
-
-        /// <summary>
-        /// Determines the dot product of two 2D vectors
-        /// </summary>
-        /// <param name="VectorA">First Point</param>
-        /// <param name="VectorB">Second Point</param>
-        /// <returns>Dot Product</returns>
-        /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
-        /// </remarks>
-        public static double DotProduct(VectorF VectorA, VectorF VectorB)
-        {
-            return VectorA.DotProduct(VectorB);
-        }
-
-        /// <summary>
-        /// Determines the dot product of two 2D vectors
-        /// </summary>
-        /// <param name="VectorA">First Point</param>
-        /// <param name="VectorB">Second Point</param>
-        /// <returns>Dot Product</returns>
-        /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
-        /// </remarks>
-        public static double DotProduct(PointF VectorA, VectorF VectorB)
-        {
-            return VectorA.DotProduct(VectorB);
-        }
-
-        /// <summary>
-        /// Determines the dot product of two 2D vectors
-        /// </summary>
-        /// <param name="VectorA">First Point</param>
-        /// <param name="VectorB">Second Point</param>
-        /// <returns>Dot Product</returns>
-        /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
-        /// </remarks>
-        public static double DotProduct(VectorF VectorA, PointF VectorB)
-        {
-            return VectorA.DotProduct(VectorB);
-        }
-
-        /// <summary>
-        /// Determines the dot product of two 2D vectors
-        /// </summary>
-        /// <param name="VectorA">First Point</param>
-        /// <param name="VectorB">Second Point</param>
-        /// <returns>Dot Product</returns>
-        /// <remarks>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        public static double DotProduct(PointF VectorA, PointF VectorB)
-        {
-            return ((VectorA.X * VectorB.X) + (VectorA.Y * VectorB.Y));
-        }
-
-        /// <summary>
-        /// Cross Product of a corner
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
-        public double CrossProduct(VectorF value)
-        {
-            return (x * value.Y) - (y * value.X);
-        }
-
-        /// <summary>
-        /// Cross Product a Perpendicular dot product of two vectors.
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.=((a)->x*(b)->y-(a)->y*(b)->x)
-        /// </returns>
-        /// <remarks>Graphics Gems IV, page 139.</remarks>
-        public static double CrossProduct(VectorF value1, VectorF value2)
-        {
-            return value1.CrossProduct(value2);
-        }
-
-        /// <summary>
-        /// Cross Product a Perpendicular dot product of two vectors.
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.=((a)->x*(b)->y-(a)->y*(b)->x)
-        /// </returns>
-        /// <remarks>Graphics Gems IV, page 139.</remarks>
-        public static double CrossProduct(PointF value1, PointF value2)
-        {
-            return value1.CrossProduct(value2);
-        }
-
-        /// <summary>
-        /// Inverts a Vector
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public VectorF Invert()
-        {
-            return new VectorF((1 / x), (1 / y));
-        }
-
-        /// <summary>
-        /// Inverts a Vector
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static VectorF Invert(VectorF value)
-        {
-            return value.Invert();
-        }
-
-        /// <summary>
-        /// Inverts a Vector
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static VectorF Invert(PointF value)
-        {
-            return new VectorF((1 / value.X), (1 / value.Y));
-        }
-
-        /// <summary>
-        /// Modulus of a Vector
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public double Modulus()
-        {
-            return Math.Pow((x * x) + (y * y), 0.5F);
-        }
-
-        /// <summary>
-        /// Modulus of a Vector
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static double Modulus(VectorF value)
-        {
-            return value.Modulus();
-        }
-
-        /// <summary>
-        /// Perpendicular of a Vector
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>To get the perpendicular in two dimensions use X = -Y, Y = X</remarks>
-        public VectorF Perpendicular()
-        {
-            return new VectorF(y * -1, x);
-        }
-
-        /// <summary>
-        /// Perpendicular of a Vector
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks>To get the perpendicular in two dimensions use X = -Y, Y = X</remarks>
-        public static VectorF Perpendicular(VectorF value)
-        {
-            return value.Perpendicular();
-        }
-
-        /// <summary>
-        /// Perpendicular of a Vector
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks>To get the perpendicular in two dimensions use X = -Y, Y = X</remarks>
-        public static VectorF Perpendicular(PointF value)
-        {
-            return new VectorF(value.Y * -1, value.X);
-        }
-
-        /// <summary>
-        /// Multiply Vector
-        /// </summary>
-        /// <param name="value">Second Vector</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public VectorF Multiply(VectorF value)
-        {
-            return new VectorF(x * value.X, y * value.Y);
-        }
-
-        /// <summary>
-        /// Multiply Vector
-        /// </summary>
-        /// <param name="value">Second Vector</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public VectorF Multiply(PointF value)
-        {
-            return new VectorF(x * value.X, y * value.Y);
-        }
-
-        /// <summary>
-        /// Multiply Point
-        /// </summary>
-        /// <param name="value1">First Point</param>
-        /// <param name="value2">Second Point</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static VectorF Multiply(PointF value1, PointF value2)
-        {
-            return new VectorF((value1.X * value2.X), (value1.Y * value2.Y));
-        }
-
-        /// <summary>
-        /// Multiply Vector
-        /// </summary>
-        /// <param name="value1">First Point</param>
-        /// <param name="value2">Second Point</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static VectorF Multiply(VectorF value1, VectorF value2)
-        {
-            return value1.Multiply(value2);
-        }
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public VectorF Scale(int multiplyer)
-        {
-            return new VectorF((x * multiplyer), (y * multiplyer));
-        }
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static VectorF Scale(VectorF value, double multiplyer)
-        {
-            return new VectorF((int)(value.x * multiplyer), (int)(value.y * multiplyer));
-        }
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <param name="value">The Point</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static VectorF Scale(double multiplyer, VectorF value)
-        {
-            return new VectorF((value.x * multiplyer), (value.y * multiplyer));
-        }
-
+        #region Operators
         /// <summary>
         /// Scale a Vector
         /// </summary>
@@ -545,30 +245,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Divide Point
-        /// </summary>
-        /// <param name="Value1">First Point</param>
-        /// <param name="Value2">Second Point</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static double Divide(VectorF Value1, VectorF Value2)
-        {
-            return Value1.DotProduct(Value2.Invert());
-        }
-
-        /// <summary>
-        /// Divide a Vector2D
-        /// </summary>
-        /// <param name="Value">The Vector2D</param>
-        /// <param name="divisor">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static VectorF operator /(VectorF Value, VectorF divisor)
-        {
-            return new VectorF(Value.x / divisor.x, Value.y / divisor.y);
-        }
-
-        /// <summary>
         /// Divide a Vector2D
         /// </summary>
         /// <param name="Value">The Vector2D</param>
@@ -578,30 +254,6 @@ namespace Engine.Geometry
         public static VectorF operator /(VectorF Value, float divisor)
         {
             return new VectorF(Value.x / divisor, Value.y / divisor);
-        }
-
-        /// <summary>
-        /// Add Vector2D
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static PointF Add(VectorF value1, PointF value2)
-        {
-            return value1.Add(value2);
-        }
-
-        /// <summary>
-        /// Add Vector2D
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static VectorF Add(VectorF value1, VectorF value2)
-        {
-            return value1.Add(value2);
         }
 
         /// <summary>
@@ -663,7 +315,7 @@ namespace Engine.Geometry
         {
             return value1.Subtract(value2);
         }
-		
+
         /// <summary>
         /// Subtract Points
         /// </summary>
@@ -686,6 +338,28 @@ namespace Engine.Geometry
         public static VectorF operator -(VectorF value1, VectorF value2)
         {
             return value1.Subtract(value2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(VectorF left, VectorF right)
+        {
+            return left.X == right.X && left.Y == right.Y;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(VectorF left, VectorF right)
+        {
+            return !(left == right);
         }
 
         /// <summary>
@@ -735,40 +409,52 @@ namespace Engine.Geometry
         {
             return new Point((int)value.x, (int)value.y);
         }
+        #endregion
 
+        #region Public Methods
         /// <summary>
-        /// Length of a Vector
+        /// Compares two Vectors
         /// </summary>
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static double Distance(ref VectorF value1, ref VectorF value2)
+        public static bool Compare(ref VectorF value1, ref VectorF value2)
         {
-            return VectorF.Modulus(value1 - value2);
+            return (value1.x == value2.x) && (value1.y == value2.y);
         }
 
         /// <summary>
-        /// Finds the length of a 2D vector
+        /// 
         /// </summary>
-        /// <param name="Value"> Point</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        public double Length(VectorF Value)
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
         {
-            return (double)(Math.Sqrt(Math.Pow(Value.x - x, 2) + Math.Pow(Value.y - y, 2)));
+            if (!(obj is PointF)) return false;
+            PointF comp = (PointF)obj;
+            return
+            comp.X == this.X &&
+            comp.Y == this.Y &&
+            comp.GetType().Equals(this.GetType());
         }
 
         /// <summary>
-        /// Finds the Length between two points
+        /// 
         /// </summary>
-        /// <param name="Value1">First Point</param>
-        /// <param name="Value2">Second Point</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        public static double Length(VectorF Value1, VectorF Value2)
+        /// <returns></returns>
+        public override int GetHashCode()
         {
-            return (double)(Math.Sqrt(Math.Pow(Value2.x - Value1.x, 2) + Math.Pow(Value2.y - Value1.y, 2)));
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Vector ToVector()
+        {
+            return Vector.Truncate(this);
         }
 
         /// <summary>
@@ -777,11 +463,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            StringBuilder temp = new StringBuilder();
-            temp.Append(x.ToString());
-            temp.Append(", ");
-            temp.Append(y.ToString());
-            return temp.ToString();
+            return "Vector{X=" + X.ToString(CultureInfo.CurrentCulture) + ",Y=" + Y.ToString(CultureInfo.CurrentCulture) + "}";
         }
+        #endregion
     }
 }

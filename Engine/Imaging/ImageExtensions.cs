@@ -57,7 +57,7 @@ namespace Engine.Imaging
             Bitmap bmpImage = new Bitmap(canvas);
             Bitmap bmpCrop = bmpImage.Clone(cropArea,
             bmpImage.PixelFormat);
-            return (Image)(bmpCrop);
+            return bmpCrop;
         }
 
         /// <summary>
@@ -76,8 +76,8 @@ namespace Engine.Imaging
             float nPercentW = 0;
             float nPercentH = 0;
 
-            nPercentW = ((float)size.Width / (float)sourceWidth);
-            nPercentH = ((float)size.Height / (float)sourceHeight);
+            nPercentW = size.Width / (float)sourceWidth;
+            nPercentH = size.Height / (float)sourceHeight;
 
             if (nPercentH < nPercentW)
                 nPercent = nPercentH;
@@ -88,13 +88,13 @@ namespace Engine.Imaging
             int destHeight = (int)(sourceHeight * nPercent);
 
             Bitmap b = new Bitmap(destWidth, destHeight);
-            Graphics g = Graphics.FromImage((Image)b);
+            Graphics g = Graphics.FromImage(b);
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             g.DrawImage(canvas, 0, 0, destWidth, destHeight);
             g.Dispose();
 
-            return (Image)b;
+            return b;
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Engine.Imaging
                 graphics.DrawRectangle(Pens.CornflowerBlue, newBounds);
             }
 
-            return (Image)rotatedBitmap;
+            return rotatedBitmap;
         }
 
         /// <summary>

@@ -16,14 +16,40 @@ namespace Engine.Geometry
     /// Base <see cref="Shape"/> class for using as a template for various shapes.
     /// </summary>
     public abstract class Shape
+        :IShape
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual RectangleF Bounds { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public virtual bool HitTest(Point point)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public virtual bool HitTest(PointF point)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Render the shape to the canvas.
         /// </summary>
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
         /// <param name="pen">The <see cref="Pen"/> to use to draw the shape.</param>
         /// <param name="brush">The <see cref="Brush"/> to use to fill the shape.</param>
-        public void Render(Graphics g, Pen pen, Brush brush)
+        public virtual void Render(Graphics g, Pen pen, Brush brush)
         {
             throw new NotImplementedException();
         }

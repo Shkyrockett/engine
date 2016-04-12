@@ -13,6 +13,7 @@
 //  Grandi in 1703. Agnesi called the curve "versiera". 
 // </remarks>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,10 +74,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(PointFConverter))]
         public PointF Offset
         {
-            get
-            {
-                return offset;
-            }
+            get            {                return offset;            }
             set
             {
                 offset = value;
@@ -89,10 +87,7 @@ namespace Engine.Geometry
         /// </summary>
         public SizeF Multiplyer
         {
-            get
-            {
-                return multiplyer;
-            }
+            get            {                return multiplyer;            }
             set
             {
                 multiplyer = value;
@@ -105,10 +100,7 @@ namespace Engine.Geometry
         /// </summary>
         public double Precision
         {
-            get
-            {
-                return precision;
-            }
+            get            {                return precision;            }
             set
             {
                 precision = value;
@@ -137,6 +129,11 @@ namespace Engine.Geometry
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// 

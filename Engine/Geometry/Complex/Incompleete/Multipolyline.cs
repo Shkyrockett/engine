@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 
 namespace Engine.Geometry
@@ -24,10 +25,15 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return "Multipolyline";
+            return "Multi-polyline";
         }
     }
 }

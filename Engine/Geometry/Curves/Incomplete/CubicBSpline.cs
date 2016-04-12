@@ -7,6 +7,7 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -67,6 +68,11 @@ namespace Engine.Geometry
                points = InterpolatePoints(1f / 100f);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// 

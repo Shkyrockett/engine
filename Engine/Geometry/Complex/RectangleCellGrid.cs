@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Drawing;
 
@@ -61,6 +62,29 @@ namespace Engine.Geometry
             this.bounds = bounds;
             this.count = count;
             Recalculate();
+        }
+
+        /// <summary>
+        /// Gets the index of a cell at a given point in the grid.
+        /// </summary>
+        /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
+        /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
+        public int this[Point location]
+        {
+            get
+            {
+                // Check whether the point is inside the grid.
+                if (!innerBounds.Contains(location))
+                {
+                    return -1;
+                }
+
+                // Calculate the index of the item under the point location.
+                int value = (((location.Y / cellSize.Height) % rows) * columns) + ((location.X / cellSize.Width) % columns);
+
+                // Return only valid cells.
+                return (value < count) ? value : -1;
+            }
         }
 
         /// <summary>
@@ -143,27 +167,9 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets the index of a cell at a given point in the grid.
+        /// 
         /// </summary>
-        /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
-        /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
-        public int this[Point location]
-        {
-            get
-            {
-                // Check whether the point is inside the grid.
-                if (!innerBounds.Contains(location))
-                {
-                    return -1;
-                }
-
-                // Calculate the index of the item under the point location.
-                int value = (((location.Y / cellSize.Height) % rows) * columns) + ((location.X / cellSize.Width) % columns);
-
-                // Return only valid cells.
-                return (value < count) ? value : -1;
-            }
-        }
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 

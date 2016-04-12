@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -166,6 +167,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="Value1"></param>
         /// <param name="Value2"></param>
         /// <param name="Offset"></param>
@@ -183,9 +189,27 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        public new RectangleF Bounds()
+        public override RectangleF Bounds
         {
-            return RectangleF.FromLTRB(a.X, a.Y, b.X, b.Y);
+            get
+            {
+                return RectangleF.FromLTRB
+                    (
+                    a.X <= b.X ? a.X : b.X,
+                    a.Y <= b.Y ? a.Y : b.Y,
+                    a.X >= b.X ? a.X : b.X,
+                    a.Y >= b.Y ? a.Y : b.Y
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Render the shape to the canvas.
+        /// </summary>
+        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
+        public override void Render(Graphics g)
+        {
+            g.DrawLine(Style.ForePen, a, b);
         }
 
         /// <summary>

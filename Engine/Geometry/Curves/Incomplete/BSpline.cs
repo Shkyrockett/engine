@@ -9,6 +9,7 @@
 // <remarks>
 // </remarks>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -89,6 +90,11 @@ namespace Engine.Geometry
                 Update();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// 

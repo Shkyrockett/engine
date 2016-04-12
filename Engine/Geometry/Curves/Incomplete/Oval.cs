@@ -7,6 +7,7 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -59,8 +60,13 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="g"></param>
-        public void Render(Graphics g)
+        public override void Render(Graphics g)
         {
             DrawOval(g, new SolidBrush(Color.Beige), new Pen(Brushes.Black), location.X, location.Y, size.Width, size.Height);
         }

@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 
 namespace Engine.Geometry
@@ -20,6 +21,11 @@ namespace Engine.Geometry
     public class Ray
         : Shape
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

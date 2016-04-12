@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,6 +37,11 @@ namespace Engine.Geometry
             get { return shapes; }
             set { shapes = value; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// Draw the notes as elongated circles. This should be called from the Paint event. Also come up with oter variations.

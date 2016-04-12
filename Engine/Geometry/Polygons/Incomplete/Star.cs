@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 
 namespace Engine.Geometry
@@ -18,8 +19,13 @@ namespace Engine.Geometry
     //[GraphicsObject]
     [DisplayName("Star")]
     public class Star
-        : Shape
+        : Polygon
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

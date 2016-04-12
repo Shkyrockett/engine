@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,19 +22,14 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Polyline")]
     public class Polyline
-        : Shape
+        : Polygon
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<PointF> points;
-
         /// <summary>
         /// 
         /// </summary>
         public Polyline()
         {
-            points = new List<PointF>();
+            base.Points = new List<PointF>();
         }
 
         /// <summary>
@@ -42,16 +38,22 @@ namespace Engine.Geometry
         /// <param name="points"></param>
         public Polyline(List<PointF> points)
         {
-            this.points = points;
+            base.Points = points;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> Points
+        public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// Render the shape to the canvas.
+        /// </summary>
+        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
+        public override void Render(Graphics g)
         {
-            get { return points; }
-            set { points = value; }
+            g.FillPolygon(Style.BackBrush, Points.ToArray());
+            g.DrawLines(Style.ForePen, Points.ToArray());
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace Engine.Geometry
         {
             if (this == null) return "Polyline";
             StringBuilder pts = new StringBuilder();
-            foreach (PointF pt in points)
+            foreach (PointF pt in Points)
             {
                 pts.Append(pt.ToString());
                 pts.Append(",");

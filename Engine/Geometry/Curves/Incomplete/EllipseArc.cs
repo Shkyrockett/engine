@@ -7,6 +7,7 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -78,8 +79,7 @@ namespace Engine.Geometry
         /// </summary>
         public EllipseArc()
             : this(new PointF(), 0, 0, 0, 0, 0)
-        {
-        }
+        {        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -88,13 +88,9 @@ namespace Engine.Geometry
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
         /// <remarks></remarks>
-        /// <history>
-        ///     Shkyrockett[Alma Jenks]    16/May/2005    Created
-        /// </history>
         public EllipseArc(Circle circle, double startAngle, double endAngle)
             : this(circle.Center, circle.Radius, circle.Radius, 0, startAngle, endAngle)
-        {
-        }
+        {        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -104,13 +100,9 @@ namespace Engine.Geometry
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
         /// <remarks></remarks>
-        /// <history>
-        ///     Shkyrockett[Alma Jenks]    16/May/2005    Created
-        /// </history>
         public EllipseArc(RectangleF rectangle, double angle, double startAngle, double endAngle)
             : this(rectangle.Center(), rectangle.Width, rectangle.Height, angle, startAngle, endAngle)
-        {
-        }
+        {        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -119,13 +111,9 @@ namespace Engine.Geometry
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
         /// <remarks></remarks>
-        /// <history>
-        ///     Shkyrockett[Alma Jenks]    16/May/2005    Created
-        /// </history>
         public EllipseArc(Ellipse ellipse, double startAngle, double endAngle)
             : this(ellipse.Center, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
-        {
-        }
+        {        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -137,9 +125,6 @@ namespace Engine.Geometry
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
         /// <remarks></remarks>
-        /// <history>
-        ///     Shkyrockett[Alma Jenks]    16/May/2005    Created
-        /// </history>
         public EllipseArc(PointF center, float majorRadius, float minorRadius, double angle, double startAngle, double endAngle)
         {
             this.center = center;
@@ -435,6 +420,11 @@ namespace Engine.Geometry
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit

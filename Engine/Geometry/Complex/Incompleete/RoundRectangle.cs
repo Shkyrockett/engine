@@ -7,6 +7,7 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -65,10 +66,7 @@ namespace Engine.Geometry
         /// </summary>
         public new RectangleF Bounds
         {
-            get
-            {
-                return bounds;
-            }
+            get { return bounds; }
             set
             {
                 bounds = value;
@@ -81,10 +79,7 @@ namespace Engine.Geometry
         /// </summary>
         public float Radius
         {
-            get
-            {
-                return radius;
-            }
+            get { return radius; }
             set
             {
                 radius = value;
@@ -112,6 +107,11 @@ namespace Engine.Geometry
                 throw new NotImplementedException();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// 

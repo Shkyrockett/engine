@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -196,6 +197,11 @@ namespace Engine.Geometry
                 if (value.Count >= 2) radius = (float)value[0].Length(value[1]);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// Find the Center of A Circle from Three Points

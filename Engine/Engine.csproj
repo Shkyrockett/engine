@@ -91,6 +91,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Polygons\RectF.cs" />
+    <Compile Include="Geometry\Polygons\Rect.cs" />
     <Compile Include="Geometry\Units\Radian.cs" />
     <Compile Include="Geometry\Units\Degree.cs" />
     <Compile Include="Geometry\Primitives\IShape.cs" />
@@ -163,6 +165,12 @@
     <Compile Include="Imaging\ColorSpace\YIQ.cs" />
     <Compile Include="Imaging\ImageCompare.cs" />
     <Compile Include="Imaging\ImageExtensions.cs" />
+    <Compile Include="Imaging\Styles\IconStyle.cs" />
+    <Compile Include="Imaging\Styles\ImageStyle.cs" />
+    <Compile Include="Imaging\Styles\TextStyle.cs" />
+    <Compile Include="Imaging\Styles\ShapeStyle.cs" />
+    <Compile Include="Imaging\Styles\MasterStyle.cs" />
+    <Compile Include="Imaging\Styles\IStyle.cs" />
     <Compile Include="Metadata\GraphicsObjectAttribute.cs" />
     <Compile Include="Metadata\FileObjectAttribute.cs" />
     <Compile Include="Objects\Actor.cs" />

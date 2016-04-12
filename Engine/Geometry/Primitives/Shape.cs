@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Drawing;
 
@@ -22,6 +23,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public virtual RectangleF Bounds { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public abstract ShapeStyle Style { get; set; }
 
         /// <summary>
         /// 
@@ -47,9 +53,8 @@ namespace Engine.Geometry
         /// Render the shape to the canvas.
         /// </summary>
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        /// <param name="pen">The <see cref="Pen"/> to use to draw the shape.</param>
-        /// <param name="brush">The <see cref="Brush"/> to use to fill the shape.</param>
-        public virtual void Render(Graphics g, Pen pen, Brush brush)
+        /// <param name="style">The <see cref="IStyle"/> to use to draw the shape.</param>
+        public virtual void Render(Graphics g)
         {
             throw new NotImplementedException();
         }

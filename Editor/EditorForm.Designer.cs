@@ -31,6 +31,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             this.CanvasPanel = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.treeViewToolStripItem1 = new Engine.Winforms.TreeViewToolStripItem();
@@ -64,8 +65,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.transparentLabel1 = new Engine.Winforms.TransparentLabel();
-            this.pathLabel1 = new Engine.Winforms.PathLabel();
             this.CanvasPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -82,13 +81,21 @@
             // 
             this.CanvasPanel.BackColor = System.Drawing.Color.CornflowerBlue;
             this.CanvasPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CanvasPanel.Controls.Add(this.pathLabel1);
-            this.CanvasPanel.Controls.Add(this.transparentLabel1);
+            this.CanvasPanel.Controls.Add(this.comboBox1);
             this.CanvasPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CanvasPanel.Location = new System.Drawing.Point(0, 0);
             this.CanvasPanel.Name = "CanvasPanel";
-            this.CanvasPanel.Size = new System.Drawing.Size(392, 328);
+            this.CanvasPanel.Size = new System.Drawing.Size(400, 328);
             this.CanvasPanel.TabIndex = 5;
+            this.CanvasPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.CanvasPanel_Paint);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(124, 3);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -109,20 +116,20 @@
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 3);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(153, 277);
+            this.toolStrip1.Size = new System.Drawing.Size(149, 277);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(151, 15);
+            this.toolStripLabel3.Size = new System.Drawing.Size(147, 15);
             this.toolStripLabel3.Text = "Tree";
             // 
             // treeViewToolStripItem1
             // 
             this.treeViewToolStripItem1.Name = "treeViewToolStripItem1";
-            this.treeViewToolStripItem1.Size = new System.Drawing.Size(151, 100);
+            this.treeViewToolStripItem1.Size = new System.Drawing.Size(147, 100);
             // 
             // toolStripButtonAdd
             // 
@@ -130,53 +137,53 @@
             this.toolStripButtonAdd.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAdd.Image")));
             this.toolStripButtonAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAdd.Name = "toolStripButtonAdd";
-            this.toolStripButtonAdd.Size = new System.Drawing.Size(151, 19);
+            this.toolStripButtonAdd.Size = new System.Drawing.Size(147, 19);
             this.toolStripButtonAdd.Text = "Add New:";
             // 
             // toolStripComboBoxFiles
             // 
             this.toolStripComboBoxFiles.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.toolStripComboBoxFiles.Name = "toolStripComboBoxFiles";
-            this.toolStripComboBoxFiles.Size = new System.Drawing.Size(149, 23);
+            this.toolStripComboBoxFiles.Size = new System.Drawing.Size(145, 23);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(147, 6);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(151, 15);
+            this.toolStripLabel1.Size = new System.Drawing.Size(147, 15);
             this.toolStripLabel1.Text = "Tools";
             // 
             // toolStripComboBoxTools
             // 
             this.toolStripComboBoxTools.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.toolStripComboBoxTools.Name = "toolStripComboBoxTools";
-            this.toolStripComboBoxTools.Size = new System.Drawing.Size(149, 23);
+            this.toolStripComboBoxTools.Size = new System.Drawing.Size(145, 23);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(151, 15);
+            this.toolStripLabel2.Size = new System.Drawing.Size(147, 15);
             this.toolStripLabel2.Text = "Objects";
             // 
             // toolStripComboBoxObjects
             // 
             this.toolStripComboBoxObjects.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.toolStripComboBoxObjects.Name = "toolStripComboBoxObjects";
-            this.toolStripComboBoxObjects.Size = new System.Drawing.Size(149, 23);
+            this.toolStripComboBoxObjects.Size = new System.Drawing.Size(145, 23);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(147, 6);
             // 
             // toolStripContainer1
             // 
@@ -184,7 +191,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.CanvasPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(392, 328);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(400, 328);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer1.LeftToolStripPanel
@@ -213,21 +220,21 @@
             this.paletteToolStripItem1});
             this.toolStrip3.Location = new System.Drawing.Point(0, 3);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(125, 242);
+            this.toolStrip3.Size = new System.Drawing.Size(121, 242);
             this.toolStrip3.TabIndex = 6;
             this.toolStrip3.Text = "toolStrip3";
             // 
             // treeViewToolStripItem2
             // 
             this.treeViewToolStripItem2.Name = "treeViewToolStripItem2";
-            this.treeViewToolStripItem2.Size = new System.Drawing.Size(123, 97);
+            this.treeViewToolStripItem2.Size = new System.Drawing.Size(119, 97);
             this.treeViewToolStripItem2.Text = "treeViewToolStripItem2";
             // 
             // paletteToolStripItem1
             // 
             this.paletteToolStripItem1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("paletteToolStripItem1.BackgroundImage")));
             this.paletteToolStripItem1.Name = "paletteToolStripItem1";
-            this.paletteToolStripItem1.Size = new System.Drawing.Size(123, 128);
+            this.paletteToolStripItem1.Size = new System.Drawing.Size(119, 128);
             this.paletteToolStripItem1.Text = "paletteToolStripItem1";
             // 
             // menuStrip1
@@ -368,23 +375,6 @@
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
             // 
-            // transparentLabel1
-            // 
-            this.transparentLabel1.AutoSize = true;
-            this.transparentLabel1.Location = new System.Drawing.Point(3, 11);
-            this.transparentLabel1.Name = "transparentLabel1";
-            this.transparentLabel1.Size = new System.Drawing.Size(92, 13);
-            this.transparentLabel1.TabIndex = 0;
-            this.transparentLabel1.Text = "transparentLabel1";
-            // 
-            // pathLabel1
-            // 
-            this.pathLabel1.Location = new System.Drawing.Point(3, 33);
-            this.pathLabel1.Name = "pathLabel1";
-            this.pathLabel1.Size = new System.Drawing.Size(229, 16);
-            this.pathLabel1.TabIndex = 1;
-            this.pathLabel1.Text = "C:\\Users\\Alma\\Documents\\Visual Studio 2015\\Projects";
-            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,7 +386,6 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.EditorForm_Load);
             this.CanvasPanel.ResumeLayout(false);
-            this.CanvasPanel.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -453,8 +442,7 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripButton toolStripButtonAdd;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxFiles;
-        private Engine.Winforms.PathLabel pathLabel1;
-        private Engine.Winforms.TransparentLabel transparentLabel1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

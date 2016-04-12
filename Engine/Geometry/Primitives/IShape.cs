@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System.Drawing;
 
 namespace Engine.Geometry
@@ -20,6 +21,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         RectangleF Bounds { get; set; }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //IStyle Style { get; set; }
 
         /// <summary>
         /// 

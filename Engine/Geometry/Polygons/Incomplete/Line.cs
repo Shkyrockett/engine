@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Drawing;
 using System.Xml.Serialization;
@@ -76,6 +77,11 @@ namespace Engine.Geometry
             get { return vector; }
             set { vector = value; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// 

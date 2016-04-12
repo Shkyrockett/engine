@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Drawing;
 using System.Xml.Serialization;
@@ -34,10 +35,15 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return "Multipolygon";
+            return "Multi-polygon";
         }
     }
 }

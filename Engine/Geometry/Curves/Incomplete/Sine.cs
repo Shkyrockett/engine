@@ -4,6 +4,7 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Drawing;
 
@@ -63,6 +64,11 @@ namespace Engine.Geometry
             get { return b; }
             set { b = value; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// Function For sine interpolated Line

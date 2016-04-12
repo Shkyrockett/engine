@@ -9,6 +9,7 @@
 // <remarks>
 // </remarks>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -199,6 +200,11 @@ namespace Engine.Geometry
                 points = InterpolatePoints(precision);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
 
         /// <summary>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html

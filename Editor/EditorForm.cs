@@ -1,5 +1,8 @@
 ﻿using Engine;
 using Engine.File.Palettes;
+using Engine.Geometry;
+using Engine.Imaging;
+using Engine.Objects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,6 +17,11 @@ namespace Editor
     public partial class EditorForm
         : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        VectorMap vectorMap;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
         /// </summary>
@@ -40,6 +48,12 @@ namespace Editor
             toolStripComboBoxObjects.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxObjects.ComboBox.Items.Count > 0)
                 toolStripComboBoxObjects.ComboBox.SelectedItem = toolStripComboBoxObjects.ComboBox.Items[0];
+
+            List<Type> brushTypes = EngineReflection.ListBrushes();
+            comboBox1.DataSource = brushTypes;
+            comboBox1.ValueMember = "Name";
+            if (comboBox1.Items.Count > 0)
+                comboBox1.SelectedItem = comboBox1.Items[0];
         }
 
         /// <summary>
@@ -50,6 +64,58 @@ namespace Editor
         private void EditorForm_Load(object sender, EventArgs e)
         {
             paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
+
+            vectorMap = new VectorMap();
+
+            List<ShapeStyle> styles = new List<ShapeStyle>()
+            {
+                new ShapeStyle(new Pen(Brushes.Red), new Pen(Brushes.Plum)),
+                new ShapeStyle(new Pen(Brushes.DarkGreen), new Pen(Brushes.ForestGreen)),
+                new ShapeStyle(new Pen(Brushes.BlueViolet), new Pen(Brushes.AliceBlue)),
+                new ShapeStyle(new Pen(Brushes.Bisque), new Pen(Brushes.Beige)),
+                new ShapeStyle(new Pen(Brushes.Azure), new Pen(Brushes.BlanchedAlmond)),
+                new ShapeStyle(new Pen(Brushes.DarkCyan), new Pen(Brushes.Cyan)),
+            };
+
+            Shape triangle = new Triangle(new PointF(10, 10), new PointF(50, 50), new PointF(10, 100))
+            { Style = styles[0] };
+            vectorMap.Add(triangle);
+
+            Shape rect = new Rect(new Point(200, 200), new Size(100, 100))
+            { Style = styles[1] };
+            vectorMap.Add(rect);
+
+            Shape rectf = new RectF(new Point(100, 100), new Size(100, 100))
+            { Style = styles[2] };
+            vectorMap.Add(rectf);
+
+            Shape polygon = new Polygon(new List<PointF>() { new Point(20, 100), new PointF(300, 60), new PointF(40, 30) })
+            { Style = styles[3] };
+            vectorMap.Add(polygon);
+
+            Shape polyline = new Polygon(new List<PointF>() { new Point(10, 40), new PointF(80, 30), new PointF(100, 60) })
+            { Style = styles[4] };
+            vectorMap.Add(polyline);
+
+            Shape line = new LineSegment(new PointF(160, 250), new PointF(130, 145))
+            { Style = styles[5] };
+            vectorMap.Add(line);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_Paint(object sender, PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Only need to draw the shapes that are on screen.
+            foreach (Shape shape in vectorMap[CanvasPanel.Bounds])
+            {
+                shape.Render(e.Graphics);
+            }
         }
 
         /// <summary>

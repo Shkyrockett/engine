@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 
 namespace Engine.Geometry
@@ -20,8 +21,13 @@ namespace Engine.Geometry
     //[GraphicsObject]
     [DisplayName("Gear Shape")]
     public class Gear
-        : Shape
+        : Polygon
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

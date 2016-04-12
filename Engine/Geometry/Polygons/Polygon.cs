@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -63,6 +64,46 @@ namespace Engine.Geometry
         {
             get { return points; }
             set { points = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override RectangleF Bounds
+        {
+            get
+            {
+                float left = points[0].X;
+                float top = points[0].Y;
+                float right = points[0].X;
+                float bottom = points[0].Y;
+
+                foreach (PointF point in points)
+                {
+                    // ToDo: Measure performance impact of overwriting each time.
+                    left = point.X <= left ? point.X : left;
+                    top = point.Y <= top ? point.Y : top;
+                    right = point.X >= right ? point.X : right;
+                    bottom = point.Y >= bottom ? point.Y : bottom;
+                }
+
+                return RectangleF.FromLTRB(left, top, right, bottom);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// Render the shape to the canvas.
+        /// </summary>
+        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
+        public override void Render(Graphics g)
+        {
+            g.FillPolygon(Style.BackBrush, points.ToArray());
+            g.DrawPolygon(Style.ForePen, points.ToArray());
         }
 
         /// <summary>

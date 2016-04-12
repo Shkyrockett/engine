@@ -23,28 +23,13 @@ namespace Engine.Geometry
     public class Triangle
          : Polygon
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<PointF> points;
-
+        #region Constructors
         /// <summary>
         /// 
         /// </summary>
         public Triangle()
             : this(PointF.Empty, PointF.Empty, PointF.Empty)
-        {
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        public Triangle(List<PointF> points)
-            : base(points)
-        {
-            if (Points.Count > 3) throw new IndexOutOfRangeException();
-        }
+        { }
 
         /// <summary>
         /// 
@@ -54,16 +39,29 @@ namespace Engine.Geometry
         /// <param name="c"></param>
         public Triangle(PointF a, PointF b, PointF c)
             : base(new List<PointF>() { a, b, c })
-        {
-        }
+        { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        public Triangle(List<PointF> points)
+            : base(points)
+        {
+            if (points.Count > 3) throw new IndexOutOfRangeException();
+            if (points.Count < 3) throw new IndexOutOfRangeException();
+            base.Points = points;
+        }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
         public PointF A
         {
-            get { return points[0]; }
-            set { points[0] = value; }
+            get { return base.Points[0]; }
+            set { base.Points[0] = value; }
         }
 
         /// <summary>
@@ -71,8 +69,8 @@ namespace Engine.Geometry
         /// </summary>
         public PointF B
         {
-            get { return points[1]; }
-            set { points[1] = value; }
+            get { return base.Points[1]; }
+            set { base.Points[1] = value; }
         }
 
         /// <summary>
@@ -80,18 +78,46 @@ namespace Engine.Geometry
         /// </summary>
         public PointF C
         {
-            get { return points[2]; }
-            set { points[2] = value; }
+            get { return base.Points[2]; }
+            set { base.Points[2] = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public new List<PointF> Points
-        {
-            get { return points; }
-            set { points = value; }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public override List<PointF> Points
+        //{
+        //    get { return base.Points; }
+        //    set { base.Points = value; }
+        //}
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public override RectangleF Bounds
+        //{
+        //    get
+        //    {
+        //        float left = base.Points[0].X;
+        //        float top = base.Points[0].Y;
+        //        float right = base.Points[0].X;
+        //        float bottom = base.Points[0].Y;
+
+        //        foreach (PointF point in base.Points)
+        //        {
+        //            // ToDo: Measure performance impact of overwriting each time.
+        //            left = point.X <= left ? point.X : left;
+        //            top = point.Y <= top ? point.Y : top;
+        //            right = point.X >= right ? point.X : right;
+        //            bottom = point.Y >= bottom ? point.Y : bottom;
+        //        }
+
+        //        return RectangleF.FromLTRB(left, top, right, bottom);
+        //    }
+        //}
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// 
@@ -101,7 +127,7 @@ namespace Engine.Geometry
         {
             if (this == null) return "Triangle";
             StringBuilder pts = new StringBuilder();
-            foreach (PointF pt in points)
+            foreach (PointF pt in base.Points)
             {
                 pts.Append(pt.ToString());
                 pts.Append(",");
@@ -109,5 +135,6 @@ namespace Engine.Geometry
             if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
             return string.Format("{0}{{{1}}}", "Triangle", pts.ToString());
         }
+        #endregion
     }
 }

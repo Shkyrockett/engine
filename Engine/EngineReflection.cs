@@ -63,6 +63,28 @@ namespace Engine
         }
 
         /// <summary>
+        /// List all objects derived from the <see cref="Brush"/> Class.
+        /// </summary>
+        /// <returns>A list of all types that are derived from the <see cref="Brush"/> Class.</returns>
+        public static List<Type> ListBrushes()
+        {
+            Type brushType = typeof(Brush);
+            Assembly assembly = Assembly.GetAssembly(brushType);
+            return GetAssemblyTypes(assembly, brushType);
+        }
+
+        /// <summary>
+        /// List all objects derived from the <see cref="Pen"/> Class.
+        /// </summary>
+        /// <returns>A list of all types that are derived from the <see cref="Pen"/> Class.</returns>
+        public static List<Type> ListPens()
+        {
+            Type penType = typeof(Pen);
+            Assembly assembly = Assembly.GetAssembly(penType);
+            return GetAssemblyTypes(assembly, penType);
+        }
+
+        /// <summary>
         /// List all objects derived from the <see cref="Tool"/> Class.
         /// </summary>
         /// <returns>A list of all types that are derived from the <see cref="Tool"/> Class.</returns>

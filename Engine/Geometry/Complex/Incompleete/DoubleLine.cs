@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,6 +23,56 @@ namespace Engine.Geometry
     public class DoubleLine
         : Shape
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<PointF> centerPoints = new List<PointF>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<PointF> borderPoints = new List<PointF>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DoubleLine()
+        {
+            centerPoints = new List<PointF>();
+            borderPoints = new List<PointF>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<PointF> CenterPoints
+        {
+            get { return centerPoints; }
+            set { centerPoints = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<PointF> BorderPoints
+        {
+            get { return borderPoints; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "DoubleLine";
+        }
 
         /// <summary>
         /// Calculate the geometry of points offset at a specified distance. aka Double Line.
@@ -80,34 +131,6 @@ namespace Engine.Geometry
                 (pointC + OutUnitVectorC)
             };
             return Out;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<PointF> CenterPoints = new List<PointF>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<PointF> BorderPoints = new List<PointF>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DoubleLine()
-        {
-            CenterPoints = new List<PointF>();
-            BorderPoints = new List<PointF>();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return "DoubleLine";
         }
     }
 }

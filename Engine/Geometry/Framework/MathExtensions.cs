@@ -9,7 +9,6 @@
 
 using System;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 
 namespace Engine.Geometry
 {
@@ -107,7 +106,6 @@ namespace Engine.Geometry
         /// <summary>
         /// One Radian.
         /// </summary>
-        //public const double Radian = 180f / Math.PI;
         public const double Radien = Math.PI / 180f;
 
         /// <summary>
@@ -115,25 +113,17 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for Accuracy</optimisation>
-        /// <history>
-        /// Shkyrockett[] Tuesday, 7/February/2006: Created.
-        /// </history>
         public const double PiOneEightyth = Radien;
 
         /// <summary>
         /// One degree.
         /// </summary>
-        //public const double Degree = Math.PI / 180f;
         public const double Degree = 180f / Math.PI;
 
         /// <summary>
         /// 180 / Math.PI
         /// </summary>
         /// <remarks></remarks>
-        /// <optimisation>This code has been optimized for Accuracy</optimisation>
-        /// <history>
-        /// Shkyrockett[]    Tuesday, 7/February/2006: Created.
-        /// </history>
         public const double OneEightythPi = Degree;
 
         /// <summary>
@@ -154,7 +144,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Represents the golden ratio.
         /// </summary>
-        public static readonly double Phi = (1 + Math.Sqrt(5)) / 2;//1.61803398874989484820458683436;
+        public static readonly double Phi = (1 + Math.Sqrt(5)) / 2; //1.61803398874989484820458683436;
 
         /// <summary>
         /// The natural log of e.
@@ -214,8 +204,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static double RoundToMultiple(this double value, double multiple)
         {
+            // Convert.ToInt32 does the correct rounding that Math.Round does not do.
             return Convert.ToInt32(value / multiple) * multiple;
-            //return Math.Round(value / multiple, 0) * multiple;
         }
 
         /// <summary>
@@ -229,14 +219,6 @@ namespace Engine.Geometry
         {
             double temp = valueA;
             return ((temp %= valueB) < 0) ? temp + valueB : temp;
-            //double Temp = valueA % valueB;
-
-            //while (Temp < 0)
-            //{
-            //    Temp = (valueB + Temp);
-            //}
-
-            //return Temp;
         }
 
         /// <summary>
@@ -289,30 +271,6 @@ namespace Engine.Geometry
         {
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             return ((rnd.Next() * ((Upper - Lower) + 1)) + Lower);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Value1"></param>
-        /// <param name="Value2"></param>
-        public static void Swap(this float Value1, float Value2)
-        {
-            float Value3 = Value1;
-            Value1 = Value2;
-            Value2 = Value3;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Value1"></param>
-        /// <param name="Value2"></param>
-        public static void Swap(this int Value1, int Value2)
-        {
-            int Value3 = Value1;
-            Value1 = Value2;
-            Value2 = Value3;
         }
 
         //  Derived equivalents Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:

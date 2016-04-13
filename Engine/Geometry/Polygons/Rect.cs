@@ -1,6 +1,8 @@
 ﻿using Engine.Imaging;
 using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace Engine.Geometry
 {
@@ -11,7 +13,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Rectangle")]
     public class Rect
-        : Shape
+        : Shape, INotifyPropertyChanged
     {
         /// <summary>
         /// 
@@ -22,6 +24,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private Rectangle rect;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// 
@@ -58,7 +65,14 @@ namespace Engine.Geometry
         public Size Size
         {
             get { return rect.Size; }
-            set { rect.Size = value; }
+            set
+            {
+                if (value != rect.Size)
+                {
+                    rect.Size = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
         /// <summary>
@@ -67,7 +81,14 @@ namespace Engine.Geometry
         public int Height
         {
             get { return rect.Height; }
-            set { rect.Height = value; }
+            set
+            {
+                if (value != rect.Height)
+                {
+                    rect.Height = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
         /// <summary>
@@ -76,7 +97,10 @@ namespace Engine.Geometry
         public int Width
         {
             get { return rect.Width; }
-            set { rect.Width = value; }
+            set
+            {
+                rect.Width = value;
+            }
         }
 
         /// <summary>
@@ -85,7 +109,10 @@ namespace Engine.Geometry
         public Point Location
         {
             get { return rect.Location; }
-            set { rect.Location = value; }
+            set
+            {
+                rect.Location = value;
+            }
         }
 
         /// <summary>
@@ -94,7 +121,10 @@ namespace Engine.Geometry
         public int X
         {
             get { return rect.X; }
-            set { rect.X = value; }
+            set
+            {
+                rect.X = value;
+            }
         }
 
         /// <summary>
@@ -103,7 +133,10 @@ namespace Engine.Geometry
         public int Y
         {
             get { return rect.Y; }
-            set { rect.Y = value; }
+            set
+            {
+                rect.Y = value;
+            }
         }
 
         /// <summary>
@@ -152,13 +185,15 @@ namespace Engine.Geometry
         public override ShapeStyle Style { get; set; }
 
         /// <summary>
-        /// Render the shape to the canvas.
+        /// 
         /// </summary>
-        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        public override void Render(Graphics g)
+        /// <param name="propertyName"></param>
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            g.FillRectangle(Style.BackBrush, rect);
-            g.DrawRectangle(Style.ForePen, rect);
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

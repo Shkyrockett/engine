@@ -53,7 +53,6 @@ namespace Engine.Geometry
         /// Render the shape to the canvas.
         /// </summary>
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        /// <param name="style">The <see cref="IStyle"/> to use to draw the shape.</param>
         public virtual void Render(Graphics g)
         {
             throw new NotImplementedException();

@@ -108,10 +108,7 @@ namespace Engine.Geometry
         [Description("The radius of the circle.")]
         public float Radius
         {
-            get
-            {
-                return radius;
-            }
+            get { return radius; }
             set
             {
                 radius = value;
@@ -130,10 +127,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public PointF Center
         {
-            get
-            {
-                return center;
-            }
+            get            {                return center;            }
             set
             {
                 center = value;
@@ -146,7 +140,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
-        public new RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
@@ -263,6 +257,16 @@ namespace Engine.Geometry
             }
 
             return points;
+        }
+
+        /// <summary>
+        /// Render the shape to the canvas.
+        /// </summary>
+        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
+        public override void Render(Graphics g)
+        {
+            g.FillEllipse(Style.BackBrush, Bounds);
+            g.DrawEllipse(Style.ForePen, Bounds);
         }
 
         /// <summary>

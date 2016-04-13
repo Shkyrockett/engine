@@ -58,15 +58,14 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        private List<PointF> points;
+        internal List<PointF> Points;
 
         /// <summary>
         /// 
         /// </summary>
         public Ellipse()
             : this(new PointF(), 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -91,7 +90,7 @@ namespace Engine.Geometry
             majorRadius = (float)(center.Length(PointA));
             aspect = Aspect;
             angle = Angle;
-            points = InterpolatePoints();
+            Points = InterpolatePoints();
         }
 
         /// <summary>
@@ -109,7 +108,7 @@ namespace Engine.Geometry
             this.minorRadius = minorRadius;
             aspect = minorRadius / majorRadius;
             angle = Angle;
-            points = InterpolatePoints();
+            Points = InterpolatePoints();
         }
 
         /// <summary>
@@ -125,14 +124,11 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public PointF Center
         {
-            get
-            {
-                return center;
-            }
+            get { return center; }
             set
             {
                 center = value;
-                points = InterpolatePoints();
+                Points = InterpolatePoints();
             }
         }
 
@@ -145,14 +141,11 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public float MajorRadius
         {
-            get
-            {
-                return majorRadius;
-            }
+            get { return majorRadius; }
             set
             {
                 majorRadius = value;
-                points = InterpolatePoints();
+                Points = InterpolatePoints();
             }
         }
 
@@ -166,15 +159,12 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public float MinorRadius
         {
-            get
-            {
-                return minorRadius;
-            }
+            get { return minorRadius; }
             set
             {
                 minorRadius = value;
                 aspect = minorRadius / majorRadius;
-                points = InterpolatePoints();
+                Points = InterpolatePoints();
             }
         }
 
@@ -187,15 +177,12 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public float Aspect
         {
-            get
-            {
-                return aspect;
-            }
+            get { return aspect; }
             set
             {
                 aspect = value;
                 minorRadius = majorRadius * aspect;
-                points = InterpolatePoints();
+                Points = InterpolatePoints();
             }
         }
 
@@ -208,14 +195,11 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public float Angle
         {
-            get
-            {
-                return angle;
-            }
+            get { return angle; }
             set
             {
                 angle = value;
-                points = InterpolatePoints();
+                Points = InterpolatePoints();
             }
         }
 
@@ -224,7 +208,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular bounds of the ellipse.")]
-        public new RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
@@ -290,10 +274,7 @@ namespace Engine.Geometry
         [Description("The area of the ellipse.")]
         public double Area
         {
-            get
-            {
-                return Math.PI * minorRadius * majorRadius;
-            }
+            get { return Math.PI * minorRadius * majorRadius; }
         }
 
         /// <summary>
@@ -413,6 +394,20 @@ namespace Engine.Geometry
             }
 
             return points;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        public override void Render(Graphics g)
+        {
+            if (Points == null || Points.Count <= 0) Points = InterpolatePoints();
+            if (Points != null && Points.Count > 1)
+            {
+                g.FillPolygon(Style.BackBrush, Points.ToArray());
+                g.DrawPolygon(Style.ForePen, Points.ToArray());
+            }
         }
 
         /// <summary>

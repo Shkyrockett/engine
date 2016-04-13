@@ -63,6 +63,8 @@ namespace Editor
         /// <param name="e"></param>
         private void EditorForm_Load(object sender, EventArgs e)
         {
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
+
             paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
 
             vectorMap = new VectorMap();
@@ -75,6 +77,8 @@ namespace Editor
                 new ShapeStyle(new Pen(Brushes.Bisque), new Pen(Brushes.Beige)),
                 new ShapeStyle(new Pen(Brushes.Azure), new Pen(Brushes.BlanchedAlmond)),
                 new ShapeStyle(new Pen(Brushes.DarkCyan), new Pen(Brushes.Cyan)),
+                new ShapeStyle(new Pen(Brushes.Maroon), new Pen(Brushes.MediumPurple)),
+                new ShapeStyle(new Pen(Brushes.DarkGoldenrod), new Pen(Brushes.Honeydew)),
             };
 
             Shape triangle = new Triangle(new PointF(10, 10), new PointF(50, 50), new PointF(10, 100))
@@ -93,13 +97,21 @@ namespace Editor
             { Style = styles[3] };
             vectorMap.Add(polygon);
 
-            Shape polyline = new Polygon(new List<PointF>() { new Point(10, 40), new PointF(80, 30), new PointF(100, 60) })
+            Shape polyline = new Polyline(new List<PointF>() { new Point(10, 40), new PointF(80, 30), new PointF(100, 60) })
             { Style = styles[4] };
             vectorMap.Add(polyline);
 
             Shape line = new LineSegment(new PointF(160, 250), new PointF(130, 145))
             { Style = styles[5] };
             vectorMap.Add(line);
+
+            Shape circle = new Circle(new PointF(200, 200), 100)
+            { Style = styles[6] };
+            vectorMap.Add(circle);
+
+            Shape ellipse = new Ellipse(new PointF(200, 200), 50, 25, 45)
+            { Style = styles[7] };
+            vectorMap.Add(ellipse);
         }
 
         /// <summary>
@@ -114,7 +126,7 @@ namespace Editor
             // Only need to draw the shapes that are on screen.
             foreach (Shape shape in vectorMap[CanvasPanel.Bounds])
             {
-                shape.Render(e.Graphics);
+                Renderer.Render(shape, e.Graphics, shape.Style);
             }
         }
 

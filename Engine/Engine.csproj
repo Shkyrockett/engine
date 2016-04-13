@@ -91,6 +91,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Complex\Incompleete\Heart.cs" />
+    <Compile Include="Geometry\Polygons\Incomplete\BoundingRect.cs" />
+    <Compile Include="Geometry\Polygons\Incomplete\NGonStar.cs" />
+    <Compile Include="Geometry\Polygons\Incomplete\ElipticStar.cs" />
+    <Compile Include="Geometry\Polygons\Incomplete\NonIntStar.cs" />
+    <Compile Include="Geometry\Polygons\Incomplete\PolygonExtensions.cs" />
     <Compile Include="Geometry\Polygons\RectF.cs" />
     <Compile Include="Geometry\Polygons\Rect.cs" />
     <Compile Include="Geometry\Units\Radian.cs" />
@@ -135,7 +141,7 @@
     <Compile Include="Geometry\Complex\Incompleete\Path.cs" />
     <Compile Include="Geometry\Framework\PathExtensions.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Star.cs" />
-    <Compile Include="Geometry\Polygons\Incomplete\Gear.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\Gear.cs" />
     <Compile Include="Geometry\Complex\Incompleete\Multipolyline.cs" />
     <Compile Include="Geometry\Complex\Incompleete\Multipolygon.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Line.cs" />
@@ -165,6 +171,7 @@
     <Compile Include="Imaging\ColorSpace\YIQ.cs" />
     <Compile Include="Imaging\ImageCompare.cs" />
     <Compile Include="Imaging\ImageExtensions.cs" />
+    <Compile Include="Imaging\Renderer.cs" />
     <Compile Include="Imaging\Styles\IconStyle.cs" />
     <Compile Include="Imaging\Styles\ImageStyle.cs" />
     <Compile Include="Imaging\Styles\TextStyle.cs" />

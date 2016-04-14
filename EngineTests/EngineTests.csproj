@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
@@ -54,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Geometry\Curves\QuadraticBezierTests.cs" />
     <Compile Include="Geometry\Framework\IntersectionExtentionTests.cs" />
     <Compile Include="Geometry\Framework\MathExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

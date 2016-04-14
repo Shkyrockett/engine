@@ -9,7 +9,9 @@
 
 using Engine.Imaging;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -28,6 +30,7 @@ namespace Engine.Geometry
     public class CubicBezier
         : Shape
     {
+        #region Private Fields
         /// <summary>
         /// Position 1.
         /// </summary>
@@ -55,12 +58,19 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        private List<PointF> points;
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CubicBezier"/> class.
+        /// </summary>
         public CubicBezier()
             : this(PointF.Empty, PointF.Empty, PointF.Empty, PointF.Empty)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CubicBezier"/> class.
         /// </summary>
         /// <param name="a">Position1</param>
         /// <param name="b">Tangent1</param>
@@ -73,7 +83,9 @@ namespace Engine.Geometry
             this.c = c;
             this.d = d;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
@@ -110,11 +122,54 @@ namespace Engine.Geometry
             set { d = value; }
         }
 
+        // ToDo: Figure out how to move the Points, Bounds, and Styles out.
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<PointF> Points
+        {
+            get { return points; }
+            set { points = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override RectangleF Bounds
+        {
+            get
+            {
+                int sortOfCloseLength = (int)(Math.Sqrt(2 * PrimitivesExtensions.Length(a, b))
+                    + Math.Sqrt(2 * PrimitivesExtensions.Length(b, c))
+                    + Math.Sqrt(2 * PrimitivesExtensions.Length(c, d)));
+                points = new List<PointF>(InterpolatePoints(sortOfCloseLength));
+
+                float left = points[0].X;
+                float top = points[0].Y;
+                float right = points[0].X;
+                float bottom = points[0].Y;
+
+                foreach (PointF point in points)
+                {
+                    // ToDo: Measure performance impact of overwriting each time.
+                    left = point.X <= left ? point.X : left;
+                    top = point.Y <= top ? point.Y : top;
+                    right = point.X >= right ? point.X : right;
+                    bottom = point.Y >= bottom ? point.Y : bottom;
+                }
+
+                return RectangleF.FromLTRB(left, top, right, bottom);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         public override ShapeStyle Style { get; set; }
+        #endregion
 
+        #region Interpolation
         /// <summary>
         /// 
         /// </summary>
@@ -134,26 +189,6 @@ namespace Engine.Geometry
             }
 
             return BPoints;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="DPen"></param>
-        /// <param name="Points"></param>
-        /// <param name="Precision"></param>
-        public void DrawCubicBezierCurve(System.Windows.Forms.PaintEventArgs e, Pen DPen, PointF[] Points, double Precision)
-        {
-            //PointF NewPoint;
-            //PointF LastPoint = NewPoint;
-            e.Graphics.DrawLines(DPen, CubicBeizerPoints(Points, Precision));
-            //for (double Index = 0; (Index <= 1); Index = (Index + Precision))
-            //{
-            //    LastPoint = NewPoint;
-            //    NewPoint = CubicBeizerPoint(Points, Index);
-            //    e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
-            //}
         }
 
         /// <summary>
@@ -246,7 +281,6 @@ namespace Engine.Geometry
                 );
         }
 
-
         /// <summary>
         /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
         /// </summary>
@@ -281,7 +315,7 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        PointF LinearInterpolate(PointF a, PointF b, double index)
+        private PointF LinearInterpolate(PointF a, PointF b, double index)
         {
             return new PointF(
                 (float)(a.X + (b.X - a.X) * index),
@@ -423,6 +457,29 @@ namespace Engine.Geometry
                 (float)(VPoints[0].Y * V1 * V1 * V1 + VPoints[1].Y * V1 * V1 * V1 + VPoints[2].Y * V1 + VPoints[3].Y)
             );
         }
+        #endregion
+
+        #region Rendering
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="pen"></param>
+        /// <param name="points"></param>
+        /// <param name="precision"></param>
+        public void DrawCubicBezierCurve(PaintEventArgs e, Pen pen, PointF[] points, double precision)
+        {
+            //PointF NewPoint;
+            //PointF LastPoint = NewPoint;
+            e.Graphics.DrawLines(pen, CubicBeizerPoints(points, precision));
+            //for (double Index = 0; (Index <= 1); Index = (Index + Precision))
+            //{
+            //    LastPoint = NewPoint;
+            //    NewPoint = CubicBeizerPoint(Points, Index);
+            //    e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
+            //}
+        }
+        #endregion
 
         /// <summary>
         /// 

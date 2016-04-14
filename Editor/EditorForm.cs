@@ -6,7 +6,10 @@ using Engine.Objects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Editor
@@ -79,11 +82,16 @@ namespace Editor
                 new ShapeStyle(new Pen(Brushes.DarkCyan), new Pen(Brushes.Cyan)),
                 new ShapeStyle(new Pen(Brushes.Maroon), new Pen(Brushes.MediumPurple)),
                 new ShapeStyle(new Pen(Brushes.DarkGoldenrod), new Pen(Brushes.Honeydew)),
+                new ShapeStyle(new Pen(Brushes.AntiqueWhite), new Pen(Brushes.CadetBlue)),
             };
 
             Shape triangle = new Triangle(new PointF(10, 10), new PointF(50, 50), new PointF(10, 100))
             { Style = styles[0] };
             vectorMap.Add(triangle);
+
+            Shape circle = new Circle(new PointF(200, 200), 100)
+            { Style = styles[6] };
+            vectorMap.Add(circle);
 
             Shape rect = new Rect(new Point(200, 200), new Size(100, 100))
             { Style = styles[1] };
@@ -105,13 +113,19 @@ namespace Editor
             { Style = styles[5] };
             vectorMap.Add(line);
 
-            Shape circle = new Circle(new PointF(200, 200), 100)
-            { Style = styles[6] };
-            vectorMap.Add(circle);
-
             Shape ellipse = new Ellipse(new PointF(200, 200), 50, 25, 45)
             { Style = styles[7] };
             vectorMap.Add(ellipse);
+
+            QuadraticBezier quadBezier = new QuadraticBezier(new PointF(32, 150), new PointF(50, 300), new PointF(80, 150))
+            { Style = styles[8] };
+            vectorMap.Add(quadBezier);
+            //StringBuilder lengths = new StringBuilder();
+            //lengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.ArcLengthBySegments());
+            //lengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.arcLengthByIntegral());
+            //lengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.approxArcLength());
+            //MessageBox.Show(lengths.ToString());
+
         }
 
         /// <summary>
@@ -122,6 +136,7 @@ namespace Editor
         private void CanvasPanel_Paint(object sender, PaintEventArgs e)
         {
             base.OnPaint(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             // Only need to draw the shapes that are on screen.
             foreach (Shape shape in vectorMap[CanvasPanel.Bounds])

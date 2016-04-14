@@ -17,6 +17,8 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(Shape shape, Graphics g, ShapeStyle style)
         {
+            g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds });
+
             if (shape == null)
             {
                 throw new NullReferenceException("shape is null.");
@@ -48,6 +50,14 @@ namespace Engine.Imaging
             else if (shape is Ellipse)
             {
                 ((Ellipse)shape).Render(g, style);
+            }
+            else if (shape is CubicBezier)
+            {
+                ((CubicBezier)shape).Render(g, style);
+            }
+            else if (shape is QuadraticBezier)
+            {
+                ((QuadraticBezier)shape).Render(g, style);
             }
             else
             {
@@ -139,6 +149,34 @@ namespace Engine.Imaging
             {
                 g.FillPolygon(style.BackBrush, shape.Points.ToArray());
                 g.DrawPolygon(style.ForePen, shape.Points.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="style"></param>
+        /// <param name="shape"></param>
+        public static void Render(this CubicBezier shape, Graphics g, ShapeStyle style)
+        {
+            g.DrawBezier(style.ForePen, shape.A, shape.B, shape.C, shape.D);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="style"></param>
+        /// <param name="shape"></param>
+        public static void Render(this QuadraticBezier shape, Graphics g, ShapeStyle style)
+        {
+            // ToDo: Need to update point list when the nodes are moved.
+            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length());
+            if (shape.Points != null && shape.Points.Count > 1)
+            {
+                //g.FillPolygon(style.BackBrush, shape.Points.ToArray());
+                g.DrawCurve(style.ForePen, shape.Points.ToArray());
             }
         }
     }

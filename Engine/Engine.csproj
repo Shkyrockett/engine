@@ -159,7 +159,7 @@
     <Compile Include="Geometry\Framework\MatrixFConverter.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Ray.cs" />
     <Compile Include="Geometry\Framework\RectangleFConverter.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\QuadraticBezier.cs" />
+    <Compile Include="Geometry\Curves\QuadraticBezier.cs" />
     <Compile Include="Geometry\Complex\Incompleete\RoundRectangle.cs" />
     <Compile Include="Geometry\Enums\RectangleCorners.cs" />
     <Compile Include="Geometry\Complex\Incompleete\RoundedRectangle2.cs" />

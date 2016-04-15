@@ -27,12 +27,12 @@ namespace Engine.Geometry
         /// <summary>
         /// The center point of the circle.
         /// </summary>
-        private PointF center;
+        private Point2D center;
 
         /// <summary>
         /// The radius of the circle.
         /// </summary>
-        private float radius;
+        private double radius;
 
         /// <summary>
         /// 
@@ -47,13 +47,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        private List<PointF> points;
+        private List<Point2D> points;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Arc"/> class.
         /// </summary>
         public Arc()
-            : this(PointF.Empty, 0, 0, 0)
+            : this(Point2D.Empty, 0, 0, 0)
         { }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Engine.Geometry
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
-        public Arc(PointF center, float radius, double startAngle, double endAngle)
+        public Arc(Point2D center, double radius, double startAngle, double endAngle)
         {
             this.center = center;
             this.radius = radius;
@@ -86,8 +86,7 @@ namespace Engine.Geometry
         /// <param name="triangle"></param>
         public Arc(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        {
-        }
+        {        }
 
         /// <summary>
         /// 
@@ -95,20 +94,20 @@ namespace Engine.Geometry
         /// <param name="PointA"></param>
         /// <param name="PointB"></param>
         /// <param name="PointC"></param>
-        public Arc(PointF PointA, PointF PointB, PointF PointC)
+        public Arc(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             //ToDo: calculate the angles of the start and end points from the center to fill them in.
             //  Calculate the slopes of the lines.
-            float slopeA = (float)(PointA.Slope(PointB));
-            float slopeB = (float)(PointC.Slope(PointB));
-            VectorF f = new VectorF(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
+            double slopeA = (PointA.Slope(PointB));
+            double slopeB = (PointC.Slope(PointB));
+            Vector2D f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
             // Find the center.
-            center = new PointF(f.X - (slopeB * ((f.X - f.Y) / (slopeB - slopeA))), (f.X - f.Y) / (slopeB - slopeA));
+            center = new Point2D(f.X - (slopeB * ((f.X - f.Y) / (slopeB - slopeA))), (f.X - f.Y) / (slopeB - slopeA));
 
             // Get the radius.
-            radius = (float)(Center.Length(PointA));
+            radius = (Center.Length(PointA));
         }
 
         /// <summary>
@@ -117,7 +116,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("The radius of the circle.")]
-        public float Radius
+        public double Radius
         {
             get
             {
@@ -137,9 +136,9 @@ namespace Engine.Geometry
         [Description("The center location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public PointF Center
+        public Point2D Center
         {
             get
             {
@@ -199,11 +198,11 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
-        public new RectangleF Bounds
+        public new Rectangle2D Bounds
         {
             get
             {
-                RectangleF bounds = RectangleF.FromLTRB(
+                Rectangle2D bounds = Rectangle2D.FromLTRB(
                     (center.X - radius),
                     (center.Y - radius),
                     (center.X + radius),
@@ -246,11 +245,11 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Functional")]
         [Description("The array of grab handles for this shape.")]
-        public List<PointF> Handles
+        public List<Point2D> Handles
         {
             get
             {
-                return new List<PointF> { center, new PointF(center.X + radius, center.Y) };
+                return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) };
             }
             set
             {
@@ -273,15 +272,16 @@ namespace Engine.Geometry
         /// <returns>Returns the Center point of a Circle defined by three points</returns>
         /// <remarks>Note: this may become Obsolete when I figure out how to further 
         /// Integrate this into the Ellipse Structure</remarks>
-        public static PointF TripointArcCenter(PointF PointA, PointF PointB, PointF PointC)
+        public static Point2D TripointArcCenter(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             //  Calculate the slopes of the lines.
-            float SlopeA = (float)(PointA.Slope(PointB));
-            float SlopeB = (float)(PointC.Slope(PointB));
-            float FY = ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
-            float FX = ((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)));
-            float NewY = ((FX - FY) / (SlopeB - SlopeA)); float NewX = (FX - (SlopeB * NewY));
-            return new PointF(NewX, NewY);
+            double SlopeA = (PointA.Slope(PointB));
+            double SlopeB = (PointC.Slope(PointB));
+            double FY = ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
+            double FX = ((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)));
+            double NewY = ((FX - FY) / (SlopeB - SlopeA));
+            double NewX = (FX - (SlopeB * NewY));
+            return new Point2D(NewX, NewY);
         }
 
         /// <summary>
@@ -294,11 +294,11 @@ namespace Engine.Geometry
         /// Points</returns>
         /// <remarks>Note: this may become Obsolete when I figure out how to further 
         /// Integrate this into the Ellipse Structure</remarks>
-        public static RectangleF TripoinArcBounds(PointF PointA, PointF PointB, PointF PointC)
+        public static Rectangle2D TripoinArcBounds(Point2D PointA, Point2D PointB, Point2D PointC)
         {
-            PointF Center = TripointArcCenter(PointA, PointB, PointC);
+            Point2D Center = TripointArcCenter(PointA, PointB, PointC);
             float Radius = (float)(Center.Length(PointA));
-            RectangleF Bounds = RectangleF.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
+            Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
             return Bounds;
         }
 
@@ -307,19 +307,19 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
-            return new PointF((float)(center.X + (Math.Sin(index) * radius)), (float)(center.X + (Math.Cos(index) * radius)));
+            return new Point2D((float)(center.X + (Math.Sin(index) * radius)), (float)(center.X + (Math.Cos(index) * radius)));
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints()
+        public List<Point2D> InterpolatePoints()
         {
             float delta_phi = (float)(2 * Math.PI / ArcLength);
-            List<PointF> points = new List<PointF>();
+            List<Point2D> points = new List<Point2D>();
             for (float i = 0.0f; i <= (float)(2.0 * Math.PI); i += delta_phi)
             {
                 points.Add(Interpolate(i));

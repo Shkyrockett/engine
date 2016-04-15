@@ -9,6 +9,7 @@
 
 using Engine.Imaging;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Xml.Serialization;
@@ -26,18 +27,26 @@ namespace Engine.Geometry
     public class LineSegment
         : Shape
     {
+        #region Static Implementations
+        /// <summary>
+        /// Represents a Engine.Geometry.Segment that is null.
+        /// </summary>
+        /// <remarks></remarks>
+        public static readonly LineSegment Empty = new LineSegment();
+        #endregion
+
         #region Private Fields
         /// <summary>
         /// First Point of a line segment
         /// </summary>
         /// <remarks></remarks>
-        private PointF a;
+        private Point2D a;
 
         /// <summary>
         /// Ending Point of a Line Segment
         /// </summary>
         /// <remarks></remarks>
-        private PointF b;
+        private Point2D b;
         #endregion
 
         #region Public Properties
@@ -45,7 +54,7 @@ namespace Engine.Geometry
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
         public LineSegment()
-            : this(PointF.Empty, PointF.Empty)
+            : this(Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
@@ -54,24 +63,10 @@ namespace Engine.Geometry
         /// <param name="a">Starting Point</param>
         /// <param name="b">Ending Point</param>
         /// <remarks></remarks>
-        public LineSegment(PointF a, PointF b)
+        public LineSegment(Point2D a, Point2D b)
         {
             this.a = a;
             this.b = b;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
-        /// </summary>
-        /// <param name="xA">Horizontal component of starting point</param>
-        /// <param name="yA">Vertical component of starting point</param>
-        /// <param name="xB">Horizontal component of ending point</param>
-        /// <param name="yB">Vertical component of ending point</param>
-        /// <remarks></remarks>
-        public LineSegment(int xA, int yA, int xB, int yB)
-        {
-            a = new PointF(xA, yA);
-            b = new PointF(xB, yB);
         }
 
         /// <summary>
@@ -82,10 +77,10 @@ namespace Engine.Geometry
         /// <param name="X2">Horizontal component of ending point</param>
         /// <param name="Y2">Vertical component of ending point</param>
         /// <remarks></remarks>
-        public LineSegment(float x1, float y1, float X2, float Y2)
+        public LineSegment(double x1, double y1, double X2, double Y2)
         {
-            a = new PointF(x1, y1);
-            b = new PointF(X2, Y2);
+            a = new Point2D(x1, y1);
+            b = new Point2D(X2, Y2);
         }
 
         /// <summary>
@@ -95,12 +90,12 @@ namespace Engine.Geometry
         /// <param name="RadAngle">Ending Angle</param>
         /// <param name="Radius">Ending Line Segment Length</param>
         /// <remarks></remarks>
-        public LineSegment(PointF Point, double RadAngle, double Radius)
+        public LineSegment(Point2D Point, double RadAngle, double Radius)
         {
-            a = new PointF(Point.X, Point.Y);
-            b = new PointF(
-                (float)(Point.X + (Radius * Math.Cos(RadAngle))),
-                (float)(Point.Y + (Radius * Math.Sin(RadAngle)))
+            a = new Point2D(Point.X, Point.Y);
+            b = new Point2D(
+                (Point.X + (Radius * Math.Cos(RadAngle))),
+                (Point.Y + (Radius * Math.Sin(RadAngle)))
                 );
         }
         #endregion
@@ -115,7 +110,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(PointFConverter))]
         [XmlAttribute()]
-        public PointF A
+        public Point2D A
         {
             get { return a; }
             set { a = value; }
@@ -131,7 +126,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(PointFConverter))]
         [XmlAttribute()]
-        public PointF B
+        public Point2D B
         {
             get { return b; }
             set { b = value; }
@@ -141,27 +136,17 @@ namespace Engine.Geometry
         /// Get or sets an array of points representing a line segment.
         /// </summary>
         /// <remarks></remarks>
-        public PointF[] Points
+        public List<Point2D> Points
         {
             get
             {
-                return new PointF[] { a, b };
+                return new List<Point2D>() { a, b };
             }
             set
             {
                 a = value[0];
                 b = value[1];
             }
-        }
-
-        /// <summary>
-        /// Represents a Engine.Geometry.Segment that is null.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static LineSegment Empty
-        {
-            get { return new LineSegment(0, 0, 0, 0); }
         }
 
         /// <summary>
@@ -177,10 +162,10 @@ namespace Engine.Geometry
         /// <param name="Offset"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public static PointF OffsetInterpolate(PointF Value1, PointF Value2, float Offset, float Weight)
+        public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
         {
-            VectorF UnitVectorAB = new VectorF(Value1, Value2);
-            VectorF PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
+            Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
+            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
             return Interpolate(Value1, Value2, Weight).Inflate(PerpendicularAB);
         }
 
@@ -189,11 +174,11 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        public override RectangleF Bounds
+        public override Rectangle2D Bounds
         {
             get
             {
-                return RectangleF.FromLTRB
+                return Rectangle2D.FromLTRB
                     (
                     a.X <= b.X ? a.X : b.X,
                     a.Y <= b.Y ? a.Y : b.Y,
@@ -209,7 +194,7 @@ namespace Engine.Geometry
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
         public override void Render(Graphics g)
         {
-            g.DrawLine(Style.ForePen, a, b);
+            //g.DrawLine(Style.ForePen, a, b);
         }
 
         /// <summary>
@@ -218,9 +203,9 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public PointF Interpolate(float index)
+        public Point2D Interpolate(float index)
         {
-            return new PointF(
+            return new Point2D(
                 (a.X + (index * (b.X - a.X))),
                 (a.Y + (index * (b.Y - a.Y)))
                 );
@@ -231,11 +216,11 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
-            return new PointF(
-                (float)((a.X * (1 - index)) + (b.X * index)),
-                (float)((a.Y * (1 - index)) + (b.Y * index))
+            return new Point2D(
+                (a.X * (1 - index)) + (b.X * index),
+                (a.Y * (1 - index)) + (b.Y * index)
                 );
         }
 
@@ -247,11 +232,11 @@ namespace Engine.Geometry
         /// <param name="alpha"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Interpolate(PointF value1, PointF value2, double alpha)
+        public static Point2D Interpolate(Point2D value1, Point2D value2, double alpha)
         {
-            return new PointF(
-                (float)(value1.X + (alpha * (value2.X - value1.X))),
-                (float)(value1.Y + (alpha * (value2.Y - value1.Y)))
+            return new Point2D(
+                value1.X + (alpha * (value2.X - value1.X)),
+                value1.Y + (alpha * (value2.Y - value1.Y))
                 );
         }
 
@@ -263,11 +248,11 @@ namespace Engine.Geometry
         /// <param name="Weight"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Interpolate2(PointF Value1, PointF Value2, double Weight)
+        public static Point2D Interpolate2(Point2D Value1, Point2D Value2, double Weight)
         {
-            return new PointF(
-                (float)(Value1.X + ((1 / (Value1.X - Value2.X)) * Weight)),
-                (float)(Value1.Y + ((1 / (Value1.Y - Value2.Y)) * Weight))
+            return new Point2D(
+                Value1.X + ((1 / (Value1.X - Value2.X)) * Weight),
+                Value1.Y + ((1 / (Value1.Y - Value2.Y)) * Weight)
                 );
         }
 
@@ -279,9 +264,9 @@ namespace Engine.Geometry
         /// <param name="MU"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Linear_Interpolate(PointF Y1, PointF Y2, float MU)
+        public static Point2D Linear_Interpolate(Point2D Y1, Point2D Y2, double MU)
         {
-            return ((PointF)(Y1.Scale(1 - MU)).Add(Y2.Scale(MU)));
+            return (Point2D)(Y1.Scale(1 - MU)).Add(Y2.Scale(MU));
         }
 
         /// <summary>
@@ -289,21 +274,11 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>an array of points</returns>
         /// <remarks></remarks>
-        public PointF[] ToArrayF()
+        public Point2D[] ToArray()
         {
-            return new PointF[] { a, b };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>an array of points</returns>
-        /// <remarks></remarks>
-        public Point[] ToArray()
-        {
-            return new Point[] {
-                 Point.Round(a),
-                 Point.Round(b)};
+            return new Point2D[] {
+                 a,
+                 b};
         }
 
         /// <summary>

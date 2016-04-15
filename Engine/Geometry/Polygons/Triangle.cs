@@ -28,7 +28,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public Triangle()
-            : this(PointF.Empty, PointF.Empty, PointF.Empty)
+            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
@@ -37,15 +37,15 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
-        public Triangle(PointF a, PointF b, PointF c)
-            : base(new List<PointF>() { a, b, c })
+        public Triangle(Point2D a, Point2D b, Point2D c)
+            : base(new List<Point2D>() { a, b, c })
         { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Triangle(List<PointF> points)
+        public Triangle(List<Point2D> points)
             : base(points)
         {
             if (points.Count > 3) throw new IndexOutOfRangeException();
@@ -58,7 +58,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF A
+        public Point2D A
         {
             get { return base.Points[0]; }
             set { base.Points[0] = value; }
@@ -67,7 +67,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF B
+        public Point2D B
         {
             get { return base.Points[1]; }
             set { base.Points[1] = value; }
@@ -76,7 +76,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF C
+        public Point2D C
         {
             get { return base.Points[2]; }
             set { base.Points[2] = value; }
@@ -127,7 +127,7 @@ namespace Engine.Geometry
         {
             if (this == null) return "Triangle";
             StringBuilder pts = new StringBuilder();
-            foreach (PointF pt in base.Points)
+            foreach (Point2D pt in base.Points)
             {
                 pts.Append(pt.ToString());
                 pts.Append(",");

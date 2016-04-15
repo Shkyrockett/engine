@@ -24,9 +24,8 @@ namespace Engine.Geometry
         : ExpandableObjectConverter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:RectangleFConverter" /> class. 
+        /// Initializes a new instance of the <see cref="RectangleFConverter" /> class. 
         /// </summary>
-        [TargetedPatchingOptOut("Performance critical to in-line this type of method across NGen image boundaries")]
         public RectangleFConverter()
         { }
 

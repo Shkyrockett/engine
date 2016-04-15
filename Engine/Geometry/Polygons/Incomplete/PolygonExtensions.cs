@@ -16,18 +16,18 @@ namespace Engine.Geometry.Polygons
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static PointF FindCentroid(this Polygon polygon)
+        public static Point2D FindCentroid(this Polygon polygon)
         {
             // Add the first point at the end of the array.
             int num_points = polygon.Points.Count;
-            PointF[] pts = new PointF[num_points + 1];
+            Point2D[] pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
             // Find the centroid.
-            float X = 0;
-            float Y = 0;
-            float second_factor;
+            double X = 0;
+            double Y = 0;
+            double second_factor;
             for (int i = 0; i < num_points; i++)
             {
                 second_factor =
@@ -38,7 +38,7 @@ namespace Engine.Geometry.Polygons
             }
 
             // Divide by 6 times the polygon's area.
-            float polygon_area = PolygonArea(polygon);
+            double polygon_area = PolygonArea(polygon);
             X /= (6 * polygon_area);
             Y /= (6 * polygon_area);
 
@@ -50,7 +50,7 @@ namespace Engine.Geometry.Polygons
                 Y = -Y;
             }
 
-            return new PointF(X, Y);
+            return new Point2D(X, Y);
         }
 
         /// <summary>
@@ -61,12 +61,12 @@ namespace Engine.Geometry.Polygons
         /// <param name="Y"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static bool PointInPolygon(this Polygon polygon, float X, float Y)
+        public static bool PointInPolygon(this Polygon polygon, double X, double Y)
         {
             // Get the angle between the point and the
             // first and last vertices.
             int max_point = polygon.Points.Count - 1;
-            float total_angle = GetAngle(
+            double total_angle = GetAngle(
                 polygon.Points[max_point].X, polygon.Points[max_point].Y,
                 X, Y,
                 polygon.Points[0].X, polygon.Points[0].Y);
@@ -120,7 +120,7 @@ namespace Engine.Geometry.Polygons
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static float PolygonArea(this Polygon polygon)
+        public static double PolygonArea(this Polygon polygon)
         {
             // Return the absolute value of the signed area.
             // The signed area is negative if the polygon is
@@ -143,16 +143,16 @@ namespace Engine.Geometry.Polygons
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static float SignedPolygonArea(this Polygon polygon)
+        private static double SignedPolygonArea(this Polygon polygon)
         {
             // Add the first point to the end.
             int num_points = polygon.Points.Count;
-            PointF[] pts = new PointF[num_points + 1];
+            Point2D[] pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
             // Get the areas.
-            float area = 0;
+            double area = 0;
             for (int i = 0; i < num_points; i++)
             {
                 area +=
@@ -186,7 +186,7 @@ namespace Engine.Geometry.Polygons
                 B = (A + 1) % num_points;
                 C = (B + 1) % num_points;
 
-                float cross_product =
+                double cross_product =
                     CrossProductLength(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
@@ -223,13 +223,13 @@ namespace Engine.Geometry.Polygons
         /// <param name="Cy"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static float CrossProductLength(float Ax, float Ay, float Bx, float By, float Cx, float Cy)
+        public static double CrossProductLength(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the vectors' coordinates.
-            float BAx = Ax - Bx;
-            float BAy = Ay - By;
-            float BCx = Cx - Bx;
-            float BCy = Cy - By;
+            double BAx = Ax - Bx;
+            double BAy = Ay - By;
+            double BCx = Cx - Bx;
+            double BCy = Cy - By;
 
             // Calculate the Z coordinate of the cross product.
             return (BAx * BCy - BAy * BCx);
@@ -247,13 +247,13 @@ namespace Engine.Geometry.Polygons
         /// <param name="Cy"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static float DotProduct(float Ax, float Ay, float Bx, float By, float Cx, float Cy)
+        private static double DotProduct(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the vectors' coordinates.
-            float BAx = Ax - Bx;
-            float BAy = Ay - By;
-            float BCx = Cx - Bx;
-            float BCy = Cy - By;
+            double BAx = Ax - Bx;
+            double BAy = Ay - By;
+            double BCx = Cx - Bx;
+            double BCy = Cy - By;
 
             // Calculate the dot product.
             return (BAx * BCx + BAy * BCy);
@@ -273,16 +273,16 @@ namespace Engine.Geometry.Polygons
         /// <param name="Cy"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static float GetAngle(float Ax, float Ay, float Bx, float By, float Cx, float Cy)
+        public static double GetAngle(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the dot product.
-            float dot_product = DotProduct(Ax, Ay, Bx, By, Cx, Cy);
+            double dot_product = DotProduct(Ax, Ay, Bx, By, Cx, Cy);
 
             // Get the cross product.
-            float cross_product = CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
+            double cross_product = CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
 
             // Calculate the angle.
-            return (float)Math.Atan2(cross_product, dot_product);
+            return Math.Atan2(cross_product, dot_product);
         }
 
         /// <summary>
@@ -319,7 +319,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="C"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static bool FormsEar(PointF[] points, int A, int B, int C)
+        private static bool FormsEar(Point2D[] points, int A, int B, int C)
         {
             // See if the angle ABC is concave.
             if (GetAngle(
@@ -372,7 +372,7 @@ namespace Engine.Geometry.Polygons
             triangles.Add(new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]));
 
             // Remove the ear from the polygon.
-            RemovePointFromArray(polygon, B);
+            RemovePoint2DromArray(polygon, B);
         }
 
         /// <summary>
@@ -381,10 +381,10 @@ namespace Engine.Geometry.Polygons
         /// <param name="polygon"></param>
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void RemovePointFromArray(this Polygon polygon, int target)
+        private static void RemovePoint2DromArray(this Polygon polygon, int target)
         {
             polygon.Points.RemoveAt(target);
-            //List<PointF> pts = new List<PointF>(polygon.Points.Count);
+            //List<Point2D> pts = new List<Point2D>(polygon.Points.Count);
             //Array.Copy(polygon.Points.ToArray(), 0, pts, 0, target);
             //Array.Copy(polygon.Points.ToArray(), target + 1, pts, target, polygon.Points.Count - target - 1);
             //polygon.Points = pts;
@@ -402,11 +402,11 @@ namespace Engine.Geometry.Polygons
         public static List<Triangle> Triangulate(this Polygon polygon)
         {
             // Copy the points into a scratch array.
-            PointF[] pts = new PointF[polygon.Points.Count];
+            Point2D[] pts = new Point2D[polygon.Points.Count];
             Array.Copy(polygon.Points.ToArray(), pts, polygon.Points.Count);
 
             // Make a scratch polygon.
-            Polygon pgon = new Polygon(new List<PointF>(pts));
+            Polygon pgon = new Polygon(new List<Point2D>(pts));
 
             // Orient the polygon clockwise.
             pgon.OrientPolygonClockwise();
@@ -482,8 +482,8 @@ namespace Engine.Geometry.Polygons
         {
             // Get the i -> i + 1 unit vector.
             int i1 = (i + 1) % boundingRect.NumPoints;
-            float vix = polygon.Points[i1].X - polygon.Points[i].X;
-            float viy = polygon.Points[i1].Y - polygon.Points[i].Y;
+            double vix = polygon.Points[i1].X - polygon.Points[i].X;
+            double viy = polygon.Points[i1].Y - polygon.Points[i].Y;
 
             // The candidate control point indexes.
             for (int num = 0; num < 4; num++)
@@ -498,11 +498,11 @@ namespace Engine.Geometry.Polygons
                 // Get the new edge vector.
                 int j = (i - num + boundingRect.NumPoints) % boundingRect.NumPoints;
                 int j1 = (j + 1) % boundingRect.NumPoints;
-                float vjx = polygon.Points[j1].X - polygon.Points[j].X;
-                float vjy = polygon.Points[j1].Y - polygon.Points[j].Y;
+                double vjx = polygon.Points[j1].X - polygon.Points[j].X;
+                double vjy = polygon.Points[j1].Y - polygon.Points[j].Y;
 
                 // Project vj along vi. The length is vj dot vi.
-                float dot_product = vix * vjx + viy * vjy;
+                double dot_product = vix * vjx + viy * vjy;
 
                 // If the dot product < 0, then j1 is
                 // the index of the candidate control point.
@@ -523,11 +523,11 @@ namespace Engine.Geometry.Polygons
                 // Get the new edge vector.
                 int j = (i + num) % boundingRect.NumPoints;
                 int j1 = (j + 1) % boundingRect.NumPoints;
-                float vjx = polygon.Points[j1].X - polygon.Points[j].X;
-                float vjy = polygon.Points[j1].Y - polygon.Points[j].Y;
+                double vjx = polygon.Points[j1].X - polygon.Points[j].X;
+                double vjy = polygon.Points[j1].Y - polygon.Points[j].Y;
 
                 // Project vj along vi. The length is vj dot vi.
-                float dot_product = vix * vjx + viy * vjy;
+                double dot_product = vix * vjx + viy * vjy;
 
                 // If the dot product <= 0, then j is
                 // the index of the candidate control point.
@@ -546,7 +546,7 @@ namespace Engine.Geometry.Polygons
             // m_ControlPoints[2] -> m_ControlPoints[2]+1.
 
             i = boundingRect.ControlPoints[2] - 1;//@
-            float temp = vix;
+            double temp = vix;
             vix = viy;
             viy = -temp;
 
@@ -555,11 +555,11 @@ namespace Engine.Geometry.Polygons
                 // Get the new edge vector.
                 int j = (i + num) % boundingRect.NumPoints;
                 int j1 = (j + 1) % boundingRect.NumPoints;
-                float vjx = polygon.Points[j1].X - polygon.Points[j].X;
-                float vjy = polygon.Points[j1].Y - polygon.Points[j].Y;
+                double vjx = polygon.Points[j1].X - polygon.Points[j].X;
+                double vjy = polygon.Points[j1].Y - polygon.Points[j].Y;
 
                 // Project vj along vi. The length is vj dot vi.
-                float dot_product = vix * vjx + viy * vjy;
+                double dot_product = vix * vjx + viy * vjy;
 
                 // If the dot product <=, then j is
                 // the index of the candidate control point.
@@ -594,25 +594,25 @@ namespace Engine.Geometry.Polygons
             }
 
             // Find the next point on an edge to use.
-            float dx0, dy0, dx1, dy1, dx2, dy2, dx3, dy3;
+            double dx0, dy0, dx1, dy1, dx2, dy2, dx3, dy3;
             FindDxDy(polygon,boundingRect, out dx0, out dy0, boundingRect.ControlPoints[0]);
             FindDxDy(polygon,boundingRect, out dx1, out dy1, boundingRect.ControlPoints[1]);
             FindDxDy(polygon,boundingRect, out dx2, out dy2, boundingRect.ControlPoints[2]);
             FindDxDy(polygon,boundingRect, out dx3, out dy3, boundingRect.ControlPoints[3]);
 
             // Switch so we can look for the smallest opposite/adjacent ratio.
-            float opp0 = dx0;
-            float adj0 = dy0;
-            float opp1 = -dy1;
-            float adj1 = dx1;
-            float opp2 = -dx2;
-            float adj2 = -dy2;
-            float opp3 = dy3;
-            float adj3 = -dx3;
+            double opp0 = dx0;
+            double adj0 = dy0;
+            double opp1 = -dy1;
+            double adj1 = dx1;
+            double opp2 = -dx2;
+            double adj2 = -dy2;
+            double opp3 = dy3;
+            double adj3 = -dx3;
 
             // Assume the first control point is the best point to use next.
-            float bestopp = opp0;
-            float bestadj = adj0;
+            double bestopp = opp0;
+            double bestadj = adj0;
             int best_control_point = 0;
 
             // See if the other control points are better.
@@ -658,8 +658,8 @@ namespace Engine.Geometry.Polygons
             // See which point has the current edge.
             int i1 = boundingRect.ControlPoints[boundingRect.CurrentControlPoint];
             int i2 = (i1 + 1) % boundingRect.NumPoints;
-            float dx = polygon.Points[i2].X - polygon.Points[i1].X;
-            float dy = polygon.Points[i2].Y - polygon.Points[i1].Y;
+            double dx = polygon.Points[i2].X - polygon.Points[i1].X;
+            double dy = polygon.Points[i2].Y - polygon.Points[i1].Y;
 
             // Make dx and dy work for the first line.
             switch (boundingRect.CurrentControlPoint)
@@ -667,7 +667,7 @@ namespace Engine.Geometry.Polygons
                 case 0: // Nothing to do.
                     break;
                 case 1: // dx = -dy, dy = dx
-                    float temp1 = dx;
+                    double temp1 = dx;
                     dx = -dy;
                     dy = temp1;
                     break;
@@ -676,31 +676,31 @@ namespace Engine.Geometry.Polygons
                     dy = -dy;
                     break;
                 case 3: // dx = dy, dy = -dx
-                    float temp2 = dx;
+                    double temp2 = dx;
                     dx = dy;
                     dy = -temp2;
                     break;
             }
 
-            float px0 = polygon.Points[boundingRect.ControlPoints[0]].X;
-            float py0 = polygon.Points[boundingRect.ControlPoints[0]].Y;
-            float dx0 = dx;
-            float dy0 = dy;
-            float px1 = polygon.Points[boundingRect.ControlPoints[1]].X;
-            float py1 = polygon.Points[boundingRect.ControlPoints[1]].Y;
-            float dx1 = dy;
-            float dy1 = -dx;
-            float px2 = polygon.Points[boundingRect.ControlPoints[2]].X;
-            float py2 = polygon.Points[boundingRect.ControlPoints[2]].Y;
-            float dx2 = -dx;
-            float dy2 = -dy;
-            float px3 = polygon.Points[boundingRect.ControlPoints[3]].X;
-            float py3 = polygon.Points[boundingRect.ControlPoints[3]].Y;
-            float dx3 = -dy;
-            float dy3 = dx;
+            double px0 = polygon.Points[boundingRect.ControlPoints[0]].X;
+            double py0 = polygon.Points[boundingRect.ControlPoints[0]].Y;
+            double dx0 = dx;
+            double dy0 = dy;
+            double px1 = polygon.Points[boundingRect.ControlPoints[1]].X;
+            double py1 = polygon.Points[boundingRect.ControlPoints[1]].Y;
+            double dx1 = dy;
+            double dy1 = -dx;
+            double px2 = polygon.Points[boundingRect.ControlPoints[2]].X;
+            double py2 = polygon.Points[boundingRect.ControlPoints[2]].Y;
+            double dx2 = -dx;
+            double dy2 = -dy;
+            double px3 = polygon.Points[boundingRect.ControlPoints[3]].X;
+            double py3 = polygon.Points[boundingRect.ControlPoints[3]].Y;
+            double dx3 = -dy;
+            double dy3 = dx;
 
             // Find the points of intersection.
-            boundingRect.CurrentRectangle = new PointF[4];
+            boundingRect.CurrentRectangle = new Point2D[4];
             FindIntersection(px0, py0, px0 + dx0, py0 + dy0, px1, py1, px1 + dx1, py1 + dy1, ref boundingRect.CurrentRectangle[0]);
             FindIntersection(px1, py1, px1 + dx1, py1 + dy1, px2, py2, px2 + dx2, py2 + dy2, ref boundingRect.CurrentRectangle[1]);
             FindIntersection(px2, py2, px2 + dx2, py2 + dy2, px3, py3, px3 + dx3, py3 + dy3, ref boundingRect.CurrentRectangle[2]);
@@ -708,13 +708,13 @@ namespace Engine.Geometry.Polygons
 
             // See if this is the best bounding rectangle so far.
             // Get the area of the bounding rectangle.
-            float vx0 = boundingRect.CurrentRectangle[0].X - boundingRect.CurrentRectangle[1].X;
-            float vy0 = boundingRect.CurrentRectangle[0].Y - boundingRect.CurrentRectangle[1].Y;
-            float len0 = (float)Math.Sqrt(vx0 * vx0 + vy0 * vy0);
+            double vx0 = boundingRect.CurrentRectangle[0].X - boundingRect.CurrentRectangle[1].X;
+            double vy0 = boundingRect.CurrentRectangle[0].Y - boundingRect.CurrentRectangle[1].Y;
+            double len0 = (float)Math.Sqrt(vx0 * vx0 + vy0 * vy0);
 
-            float vx1 = boundingRect.CurrentRectangle[1].X - boundingRect.CurrentRectangle[2].X;
-            float vy1 = boundingRect.CurrentRectangle[1].Y - boundingRect.CurrentRectangle[2].Y;
-            float len1 = (float)Math.Sqrt(vx1 * vx1 + vy1 * vy1);
+            double vx1 = boundingRect.CurrentRectangle[1].X - boundingRect.CurrentRectangle[2].X;
+            double vy1 = boundingRect.CurrentRectangle[1].Y - boundingRect.CurrentRectangle[2].Y;
+            double len1 = (float)Math.Sqrt(vx1 * vx1 + vy1 * vy1);
 
             // See if this is an improvement.
             boundingRect.CurrentArea = len0 * len1;
@@ -734,7 +734,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="dy"></param>
         /// <param name="i"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void FindDxDy(this Polygon polygon, BoundingRect boundingRect, out float dx, out float dy, int i)
+        private static void FindDxDy(this Polygon polygon, BoundingRect boundingRect, out double dx, out double dy, int i)
         {
             int i2 = (i + 1) % boundingRect.NumPoints;
             dx = polygon.Points[i2].X - polygon.Points[i].X;
@@ -755,13 +755,13 @@ namespace Engine.Geometry.Polygons
         /// <param name="intersect"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static bool FindIntersection(float X1, float Y1, float X2, float Y2, float A1, float B1, float A2, float B2, ref PointF intersect)
+        private static bool FindIntersection(double X1, double Y1, double X2, double Y2, double A1, double B1, double A2, double B2, ref Point2D intersect)
         {
-            float dx = X2 - X1;
-            float dy = Y2 - Y1;
-            float da = A2 - A1;
-            float db = B2 - B1;
-            float s, t;
+            double dx = X2 - X1;
+            double dy = Y2 - Y1;
+            double da = A2 - A1;
+            double db = B2 - B1;
+            double s, t;
 
             // If the segments are parallel, return False.
             if (Math.Abs(da * dy - db * dx) < 0.001) return false;
@@ -769,7 +769,7 @@ namespace Engine.Geometry.Polygons
             // Find the point of intersection.
             s = (dx * (B1 - Y1) + dy * (X1 - A1)) / (da * dy - db * dx);
             t = (da * (Y1 - B1) + db * (A1 - X1)) / (db * dx - da * dy);
-            intersect = new PointF(X1 + t * dx, Y1 + t * dy);
+            intersect = new Point2D(X1 + t * dx, Y1 + t * dy);
             return true;
         }
 
@@ -780,7 +780,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="boundingRect"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static PointF[] FindSmallestBoundingRectangle(this Polygon polygon, BoundingRect boundingRect)
+        public static Point2D[] FindSmallestBoundingRectangle(this Polygon polygon, BoundingRect boundingRect)
         {
             // This algorithm assumes the polygon
             // is oriented counter-clockwise.

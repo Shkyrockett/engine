@@ -44,7 +44,7 @@ namespace Engine.Geometry
         /// Returns of the point(s) of Intersection
         /// </summary>
         /// <remarks></remarks>
-        private PointF[] intersectionPoint;
+        private Point2D[] intersectionPoint;
 
         /// <summary>
         /// 
@@ -52,7 +52,7 @@ namespace Engine.Geometry
         public Intersection()
         {
             Itersecting = false;
-            intersectionPoint = new PointF[] { PointF.Empty };
+            intersectionPoint = new Point2D[] { Point2D.Empty };
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="isIntersection"></param>
         /// <param name="intersectionPoint"></param>
-        public Intersection(bool isIntersection, PointF[] intersectionPoint)
+        public Intersection(bool isIntersection, Point2D[] intersectionPoint)
         {
             Itersecting = isIntersection;
             this.intersectionPoint = intersectionPoint;
@@ -73,7 +73,7 @@ namespace Engine.Geometry
         /// <param name="Intersects"></param>
         /// <param name="Type"></param>
         /// <remarks></remarks>
-        public Intersection(PointF[] Locations, bool Intersects, IntersectionType Type)
+        public Intersection(Point2D[] Locations, bool Intersects, IntersectionType Type)
         {
             intersectionPoint = Locations;
             Itersecting = Intersects;
@@ -88,7 +88,7 @@ namespace Engine.Geometry
         /// <param name="Intersects"></param>
         /// <param name="Paralell"></param>
         /// <remarks></remarks>
-        public Intersection(PointF[] Locations, bool Intersects, bool Paralell)
+        public Intersection(Point2D[] Locations, bool Intersects, bool Paralell)
         {
             intersectionPoint = Locations;
             Itersecting = Intersects;
@@ -106,9 +106,9 @@ namespace Engine.Geometry
         /// <param name="Intersects"></param>
         /// <param name="Paralell"></param>
         /// <remarks></remarks>
-        public Intersection(PointF Locations, bool Intersects, bool Paralell)
+        public Intersection(Point2D Locations, bool Intersects, bool Paralell)
         {
-            intersectionPoint = new PointF[] { Locations };
+            intersectionPoint = new Point2D[] { Locations };
             Itersecting = Intersects;
             this.Paralell = Paralell;
             if (Paralell)
@@ -124,9 +124,9 @@ namespace Engine.Geometry
         /// <param name="Intersects"></param>
         /// <param name="Type"></param>
         /// <remarks></remarks>
-        public Intersection(PointF Locations, bool Intersects, IntersectionType Type)
+        public Intersection(Point2D Locations, bool Intersects, IntersectionType Type)
         {
-            intersectionPoint = new PointF[] {
+            intersectionPoint = new Point2D[] {
                      Locations};
             Paralell = false;
             Itersecting = Intersects;
@@ -147,7 +147,7 @@ namespace Engine.Geometry
         /// Returns of the point(s) of Intersection
         /// </summary>
         /// <remarks></remarks>
-        public PointF[] IntersectionPoint
+        public Point2D[] IntersectionPoint
         {
             get { return intersectionPoint; }
             set { intersectionPoint = value; }
@@ -179,26 +179,26 @@ namespace Engine.Geometry
         /// <param name="LineB"></param>
         /// <returns></returns>
         /// <remarks>This function can handle vertical as well as horizontal and Parallel lines. </remarks>
-        public static PointF Intersect(LineSegment LineA, LineSegment LineB)
+        public static Point2D Intersect(LineSegment LineA, LineSegment LineB)
         {
             //  Calculate the slopes of the lines.
-            float SlopeA = (float)LineA.Slope();
-            float SlopeB = (float)LineB.Slope();
+            double SlopeA = LineA.Slope();
+            double SlopeB = LineB.Slope();
             //  To avoid an overflow from parallel lines return nothing and exit.
-            if ((SlopeA == SlopeB)) return PointF.Empty;
+            if ((SlopeA == SlopeB)) return Point2D.Empty;
             //  Create the constants of linear equations.
-            float PointSlopeA = (LineA.A.Y - (SlopeA * LineA.A.X));
-            float PointSlopeB = (LineB.A.Y - (SlopeB * LineB.A.X));
+            double PointSlopeA = (LineA.A.Y - (SlopeA * LineA.A.X));
+            double PointSlopeB = (LineB.A.Y - (SlopeB * LineB.A.X));
             //---------------------- Fastest Method --------------------------
             // Compute the inverse of the determinate of the coefficient.
-            float DeterminantInverse = (1 / (SlopeA * ((1 - (SlopeB * -1)) * -1)));
+            double DeterminantInverse = (1 / (SlopeA * ((1 - (SlopeB * -1)) * -1)));
             // Use Kramer's rule to compute the returning point structure.
-            return new PointF((((PointSlopeB - (PointSlopeA * -1)) * -1) * DeterminantInverse), (((SlopeB * PointSlopeA) - (SlopeA * PointSlopeB)) * DeterminantInverse));
+            return new Point2D((((PointSlopeB - (PointSlopeA * -1)) * -1) * DeterminantInverse), (((SlopeB * PointSlopeA) - (SlopeA * PointSlopeB)) * DeterminantInverse));
             // '---------------------- Slower Method --------------------------
             // ' Return New Point
             // Dim NewX As Single = (PointSlopeA - PointSlopeB) / (SlopeB - SlopeA)
             // Dim NewY As Single = SlopeA * NewX + PointSlopeA
-            // Return New PointF(NewX, NewY)
+            // Return New Point2D(NewX, NewY)
         }
 
         /// <summary>
@@ -211,18 +211,18 @@ namespace Engine.Geometry
         /// <param name="ReturnPoint"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        private static bool Intersect(PointF Point1, PointF Point2, PointF Point3, PointF Point4, ref PointF ReturnPoint)
+        private static bool Intersect(Point2D Point1, Point2D Point2, Point2D Point3, Point2D Point4, ref Point2D ReturnPoint)
         {
             bool ReturnValue = false;
-            PointF Delta1 = new PointF((Point2.X - Point1.X), (Point2.Y - Point1.Y));
-            PointF Delta2 = new PointF((Point4.X - Point3.X), (Point4.Y - Point3.Y));
+            Point2D Delta1 = new Point2D((Point2.X - Point1.X), (Point2.Y - Point1.Y));
+            Point2D Delta2 = new Point2D((Point4.X - Point3.X), (Point4.Y - Point3.Y));
             //  If the segments are parallel return false.
             if ((((Delta2.X * Delta1.Y) - (Delta2.Y * Delta1.X)) == 0)) ReturnValue = false;
-            float s = (((Delta1.X * (Point3.Y - Point1.Y)) + (Delta1.Y * (Point1.X - Point3.X))) / ((Delta2.X * Delta1.Y) - (Delta2.Y * Delta1.X)));
-            float t = (((Delta2.X * (Point1.Y - Point3.Y)) + (Delta2.Y * (Point3.X - Point1.X))) / ((Delta2.Y * Delta1.X) - (Delta2.X * Delta1.Y)));
+            double s = (((Delta1.X * (Point3.Y - Point1.Y)) + (Delta1.Y * (Point1.X - Point3.X))) / ((Delta2.X * Delta1.Y) - (Delta2.Y * Delta1.X)));
+            double t = (((Delta2.X * (Point1.Y - Point3.Y)) + (Delta2.Y * (Point3.X - Point1.X))) / ((Delta2.Y * Delta1.X) - (Delta2.X * Delta1.Y)));
             ReturnValue = (s >= 0.0d) && (s <= 1.0d) && (t >= 0.0d) && (t <= 1.0d);
             //  If it exists, the point of intersection is:
-            ReturnPoint = new PointF((Point1.X + (t * Delta1.X)), (Point1.Y + (t * Delta1.Y)));
+            ReturnPoint = new Point2D((Point1.X + (t * Delta1.X)), (Point1.Y + (t * Delta1.Y)));
             return ReturnValue;
         }
 
@@ -235,15 +235,15 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static LineSegment Intersect(Ellipse Ellipse, LineSegment Line)
         {
-            float SlopeA = (float)Line.Slope();
-            float SlopeB = (Line.A.Y - (SlopeA * Line.A.X));
-            float A = (1 + (SlopeA * SlopeA));
-            float B = ((2 * (SlopeA * (SlopeB - Ellipse.Center.Y))) - (2 * Ellipse.Center.X));
-            float C = ((Ellipse.Center.X * Ellipse.Center.X) + (((SlopeB - Ellipse.Center.Y) * (SlopeB - Ellipse.Center.X)) - (Ellipse.MajorRadius * Ellipse.MajorRadius)));
-            float XA = (float)((((B * -1) + Math.Sqrt(((B * B) - (A * C)))) / (2 * A)));
-            float XB = (float)((((B - Math.Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
-            float YA = ((SlopeA * XA) + SlopeB);
-            float YB = ((SlopeA * XB) + SlopeB);
+            double SlopeA = Line.Slope();
+            double SlopeB = (Line.A.Y - (SlopeA * Line.A.X));
+            double A = (1 + (SlopeA * SlopeA));
+            double B = ((2 * (SlopeA * (SlopeB - Ellipse.Center.Y))) - (2 * Ellipse.Center.X));
+            double C = ((Ellipse.Center.X * Ellipse.Center.X) + (((SlopeB - Ellipse.Center.Y) * (SlopeB - Ellipse.Center.X)) - (Ellipse.MajorRadius * Ellipse.MajorRadius)));
+            double XA = ((((B * -1) + Math.Sqrt(((B * B) - (A * C)))) / (2 * A)));
+            double XB = ((((B - Math.Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
+            double YA = ((SlopeA * XA) + SlopeB);
+            double YB = ((SlopeA * XB) + SlopeB);
             return new LineSegment(XA, YA, XB, YB);
         }
 
@@ -256,20 +256,20 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static LineSegment Intersect(Ellipse EllipseA, Ellipse EllipseB)
         {
-            float D = (float)(EllipseB.Center.X * EllipseB.Center.X - EllipseA.Center.X * EllipseA.Center.X - EllipseB.MajorRadius * EllipseB.MajorRadius - Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2) + EllipseA.MajorRadius * EllipseA.MajorRadius);
-            float A = (float)(Math.Pow(2 * EllipseA.Center.X - 2 * EllipseB.Center.X, 2) + 4 * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2));
-            float B = (float)(2 * D * (2 * EllipseA.Center.X - 2 * EllipseB.Center.X) - 8 * EllipseB.Center.X * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2));
-            float C = (float)(4 * EllipseB.Center.X * EllipseB.Center.X * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2) + D * D - 4 * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2) * EllipseB.MajorRadius * EllipseB.MajorRadius);
-            float XA = (float)((-B + Math.Sqrt(B * B - 4 * A * C)) / (2 * A));
-            float XB = (float)((-B - Math.Sqrt(B * B - 4 * A * C)) / (2 * A));
-            float YA = (float)(Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XA - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
-            float YB = (float)(-Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XA - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
-            float YC = (float)(Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XB - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
-            float YD = (float)(-Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XB - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
-            float E = (float)((XA - EllipseB.Center.X) + Math.Pow(YA - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
-            float F = (float)((XA - EllipseB.Center.X) + Math.Pow(YB - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
-            float G = (float)((XB - EllipseB.Center.X) + Math.Pow(YC - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
-            float H = (float)((XB - EllipseB.Center.X) + Math.Pow(YD - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
+            double D = (EllipseB.Center.X * EllipseB.Center.X - EllipseA.Center.X * EllipseA.Center.X - EllipseB.MajorRadius * EllipseB.MajorRadius - Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2) + EllipseA.MajorRadius * EllipseA.MajorRadius);
+            double A = (Math.Pow(2 * EllipseA.Center.X - 2 * EllipseB.Center.X, 2) + 4 * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2));
+            double B = (2 * D * (2 * EllipseA.Center.X - 2 * EllipseB.Center.X) - 8 * EllipseB.Center.X * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2));
+            double C = (4 * EllipseB.Center.X * EllipseB.Center.X * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2) + D * D - 4 * Math.Pow(EllipseB.Center.Y - EllipseA.Center.Y, 2) * EllipseB.MajorRadius * EllipseB.MajorRadius);
+            double XA = ((-B + Math.Sqrt(B * B - 4 * A * C)) / (2 * A));
+            double XB = ((-B - Math.Sqrt(B * B - 4 * A * C)) / (2 * A));
+            double YA = (Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XA - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
+            double YB = (-Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XA - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
+            double YC = (Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XB - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
+            double YD = (-Math.Sqrt(EllipseA.MajorRadius * EllipseA.MajorRadius - Math.Pow(XB - EllipseA.Center.X, 2)) + EllipseA.Center.Y);
+            double E = ((XA - EllipseB.Center.X) + Math.Pow(YA - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
+            double F = ((XA - EllipseB.Center.X) + Math.Pow(YB - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
+            double G = ((XB - EllipseB.Center.X) + Math.Pow(YC - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
+            double H = ((XB - EllipseB.Center.X) + Math.Pow(YD - EllipseB.Center.Y, 2) - EllipseB.MajorRadius * EllipseB.MajorRadius);
             if (Math.Abs(F) < Math.Abs(E)) YA = YB;
             if (Math.Abs(H) < Math.Abs(G)) YC = YD;
             if (EllipseA.Center.Y == EllipseB.Center.Y) YC = 2 * EllipseA.Center.Y - YA;
@@ -285,15 +285,15 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static LineSegment Intersect(LineSegment Line, Ellipse Ellipse)
         {
-            float SlopeA = (float)Line.Slope();
-            float SlopeB = (Line.A.Y - (SlopeA * Line.A.X));
-            float A = (1 + (SlopeA * SlopeA));
-            float B = ((2 * (SlopeA * (SlopeB - Ellipse.Center.Y))) - (2 * Ellipse.Center.X));
-            float C = ((Ellipse.Center.X * Ellipse.Center.X) + (((SlopeB - Ellipse.Center.Y) * (SlopeB - Ellipse.Center.X)) - (Ellipse.MajorRadius * Ellipse.MajorRadius)));
-            float XA = (float)((((B * -1) + Math.Sqrt(((B * B) - (A * C)))) / (2 * A)));
-            float XB = (float)((((B - Math.Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
-            float YA = ((SlopeA * XA) + SlopeB);
-            float YB = ((SlopeA * XB) + SlopeB);
+            double SlopeA = Line.Slope();
+            double SlopeB = (Line.A.Y - (SlopeA * Line.A.X));
+            double A = (1 + (SlopeA * SlopeA));
+            double B = ((2 * (SlopeA * (SlopeB - Ellipse.Center.Y))) - (2 * Ellipse.Center.X));
+            double C = ((Ellipse.Center.X * Ellipse.Center.X) + (((SlopeB - Ellipse.Center.Y) * (SlopeB - Ellipse.Center.X)) - (Ellipse.MajorRadius * Ellipse.MajorRadius)));
+            double XA = ((((B * -1) + Math.Sqrt(((B * B) - (A * C)))) / (2 * A)));
+            double XB = ((((B - Math.Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
+            double YA = ((SlopeA * XA) + SlopeB);
+            double YB = ((SlopeA * XB) + SlopeB);
             return new LineSegment(XA, YA, XB, YB);
         }
 
@@ -308,13 +308,13 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [DisplayName("Test Intersection 1")]
         [Description("Test Intersection 1")]
-        public static Intersection TestIntersections1(PointF PointA, PointF PointB, PointF PointC, PointF PointD)
+        public static Intersection TestIntersections1(Point2D PointA, Point2D PointB, Point2D PointC, Point2D PointD)
         {
             // -------------------- Experimental Method -----------------------
             bool Intersecting = false;
             IntersectionType Type = IntersectionType.Cross;
             //  Calculate the slopes of the lines.
-            PointF Slopes = new PointF((float)PointB.Slope(PointA), (float)PointD.Slope(PointC));
+            Point2D Slopes = new Point2D((float)PointB.Slope(PointA), (float)PointD.Slope(PointC));
             //  To avoid an overflow from parallel lines return nothing and exit.
             if ((Slopes.X == Slopes.Y))
             {
@@ -323,13 +323,13 @@ namespace Engine.Geometry
             Type = IntersectionType.Parallel;
             // : Return PointA : Exit Function
             //  Create the constants of linear equations.
-            PointF PointSlope = new PointF((PointA.Y
+            Point2D PointSlope = new Point2D((PointA.Y
                             - (Slopes.X * PointA.X)), (PointC.Y
                             - (Slopes.Y * PointC.X)));
             //  Compute the inverse of the determinate of the coefficient.
-            float Determinant = (1
+            double Determinant = (1
                         / (Slopes.X - Slopes.Y));
-            return new Intersection(new PointF(((PointSlope.Y - PointSlope.X)
+            return new Intersection(new Point2D(((PointSlope.Y - PointSlope.X)
                                 * Determinant), (((Slopes.X * PointSlope.Y)
                                 - (Slopes.Y * PointSlope.X))
                                 * Determinant)), Intersecting, Type);
@@ -353,13 +353,13 @@ namespace Engine.Geometry
         /// <permission>Permission to copy with the following attribution is hereby granted. Richard J Kinch k...@holonet.net, May 1998.</permission>
         [DisplayName("Test Intersection 2")]
         [Description("Test Intersection 2")]
-        public static Intersection TestIntersections2(PointF PointA, PointF PointB, PointF PointC, PointF PointD)
+        public static Intersection TestIntersections2(Point2D PointA, Point2D PointB, Point2D PointC, Point2D PointD)
         {
             // ----------------------- Faster Method --------------------------
             bool Intersecting = false;
             IntersectionType Type;
             //  Calculate the slopes of the lines.
-            PointF Slopes = new PointF((float)PointA.Slope(PointB), (float)PointC.Slope(PointD));
+            Point2D Slopes = new Point2D((float)PointA.Slope(PointB), (float)PointC.Slope(PointD));
             //  To avoid an overflow from parallel lines return nothing and exit.
             if ((Slopes.X == Slopes.Y))
             {
@@ -368,12 +368,12 @@ namespace Engine.Geometry
             Type = IntersectionType.Parallel;
             // : Return PointA : Exit Function
             //  Create the constants of linear equations.
-            PointF PointSlope = new PointF((PointA.Y
+            Point2D PointSlope = new Point2D((PointA.Y
                             - (Slopes.X * PointA.X)), (PointC.Y
                             - (Slopes.Y * PointC.X)));
             //  Compute the inverse of the determinate of the coefficient.
-            float DeterminantInverse = (1 / (((1 * Slopes.X) * -1) - ((1 * Slopes.Y) * -1)));
-            return new Intersection(new PointF(((((1 * PointSlope.Y) * -1) - ((1 * PointSlope.X) * -1)) * DeterminantInverse), (((Slopes.Y * PointSlope.X) - (Slopes.X * PointSlope.Y)) * DeterminantInverse)), Intersecting, Type);
+            double DeterminantInverse = (1 / (((1 * Slopes.X) * -1) - ((1 * Slopes.Y) * -1)));
+            return new Intersection(new Point2D(((((1 * PointSlope.Y) * -1) - ((1 * PointSlope.X) * -1)) * DeterminantInverse), (((Slopes.Y * PointSlope.X) - (Slopes.X * PointSlope.Y)) * DeterminantInverse)), Intersecting, Type);
         }
 
         /// <summary>Slower 2D line intersection.</summary>
@@ -394,13 +394,13 @@ namespace Engine.Geometry
         /// <permission>Permission to copy with the following attribution is hereby granted. Richard J Kinch k...@holonet.net, May 1998.</permission>
         [DisplayName("Test Intersection 3")]
         [Description("Test Intersection 3")]
-        public static Intersection TestIntersections3(PointF PointA, PointF PointB, PointF PointC, PointF PointD)
+        public static Intersection TestIntersections3(Point2D PointA, Point2D PointB, Point2D PointC, Point2D PointD)
         {
             // ---------------------- Slower Method --------------------------
             bool Intersecting = false;
             IntersectionType Type;
             //  Calculate the slopes of the lines.
-            PointF Slopes = new PointF((float)PointA.Slope(PointB), (float)PointC.Slope(PointD));
+            Point2D Slopes = new Point2D((float)PointA.Slope(PointB), (float)PointC.Slope(PointD));
             //  To avoid an overflow from parallel lines return nothing and exit.
             if ((Slopes.X == Slopes.Y))
             {
@@ -409,15 +409,15 @@ namespace Engine.Geometry
             Type = IntersectionType.Parallel;
             // : Return PointA : Exit Function
             //  Create the constants of linear equations.
-            PointF PointSlope = new PointF((PointA.Y
+            Point2D PointSlope = new Point2D((PointA.Y
                             - (Slopes.X * PointA.X)), (PointC.Y
                             - (Slopes.Y * PointC.X)));
             //  Return New Point
-            float NewX = ((PointSlope.X - PointSlope.Y)
+            double NewX = ((PointSlope.X - PointSlope.Y)
                         / (Slopes.Y - Slopes.X));
-            float NewY = ((Slopes.X * NewX)
+            double NewY = ((Slopes.X * NewX)
                         + PointSlope.X);
-            return new Intersection(new PointF(NewX, NewY), Intersecting, Type);
+            return new Intersection(new Point2D(NewX, NewY), Intersecting, Type);
         }
 
         /// <summary>2D line intersection.</summary>
@@ -438,17 +438,17 @@ namespace Engine.Geometry
         /// <permission>Permission to copy with the following attribution is hereby granted. Richard J Kinch k...@holonet.net, May 1998.</permission>
         [DisplayName("Test Intersection 4")]
         [Description("Test Intersection 4")]
-        public static Intersection TestIntersections4(PointF PointA, PointF PointB, PointF PointC, PointF PointD)
+        public static Intersection TestIntersections4(Point2D PointA, Point2D PointB, Point2D PointC, Point2D PointD)
         {
             // ---------------------- Vector Method --------------------------
             //  Direction vectors AA-A and BB-B 
-            PointF DeltaBA = (PointB - new SizeF(PointA));
-            PointF DeltaDC = (PointD - new SizeF(PointC));
+            Point2D DeltaBA = (PointB - new Size2D(PointA));
+            Point2D DeltaDC = (PointD - new Size2D(PointC));
             //  Vector B-A
-            PointF DeltaCA = (PointC - new SizeF(PointA));
+            Point2D DeltaCA = (PointC - new Size2D(PointA));
             //  Convert the lines to parametric forms A+at and B+bu
             //  The cross product slope for intersection
-            PointF Slopes = new PointF((float)DeltaDC.CrossProduct(DeltaBA), (float)DeltaDC.CrossProduct(DeltaCA));
+            Point2D Slopes = new Point2D((float)DeltaDC.CrossProduct(DeltaBA), (float)DeltaDC.CrossProduct(DeltaCA));
             //  Lines are parallel, or either line came in as coincident endpoints
             IntersectionType Type = IntersectionType.Parallel;
             bool Intersecting = !(Slopes.X == 0);
@@ -457,7 +457,7 @@ namespace Engine.Geometry
                 Type = IntersectionType.Parallel;
             }
             //  If m.y/m.x times a is integer, then the solution is integer.
-            return new Intersection(new PointF((PointA.X
+            return new Intersection(new Point2D((PointA.X
                                 + (Slopes.Y
                                 * (DeltaBA.X / Slopes.X))), (PointA.Y
                                 + (Slopes.Y
@@ -477,32 +477,32 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [DisplayName("Test Intersection 5")]
         [Description("Test Intersection 5")]
-        public static Intersection TestIntersections5(PointF PointA, PointF PointB, PointF PointC, PointF PointD)
+        public static Intersection TestIntersections5(Point2D PointA, Point2D PointB, Point2D PointC, Point2D PointD)
         {
-            PointF DeltaBA = (PointB - new SizeF(PointA));
-            PointF DeltaDC = (PointD - new SizeF(PointC));
-            PointF DeltaCA = (PointC - new SizeF(PointA));
-            PointF DeltaAC = (PointA - new SizeF(PointC));
+            Point2D DeltaBA = (PointB - new Size2D(PointA));
+            Point2D DeltaDC = (PointD - new Size2D(PointC));
+            Point2D DeltaCA = (PointC - new Size2D(PointA));
+            Point2D DeltaAC = (PointA - new Size2D(PointC));
             //  If the segments are parallel.
             if ((((DeltaDC.X * DeltaBA.Y)
                         - (DeltaDC.Y * DeltaBA.X))
                         == 0))
             {
-                return new Intersection(Point.Empty, false, IntersectionType.Parallel);
+                return new Intersection(Point2D.Empty, false, IntersectionType.Parallel);
             }
             // Dim s As Single = (DeltaBA.X * DeltaCA.Y + -DeltaCA.X * DeltaBA.Y) / _
             //                   CrossProduct(DeltaBA, DeltaDC)
             // Dim t As Single = (DeltaDC.X * -DeltaCA.Y + DeltaCA.X * DeltaDC.Y) / _
             //                   CrossProduct(DeltaBA, DeltaDC)
-            float s = (((DeltaBA.X * DeltaCA.Y)
+            double s = (((DeltaBA.X * DeltaCA.Y)
                         + (DeltaAC.X * DeltaBA.Y))
                         / (float)DeltaBA.CrossProduct(DeltaDC));
-            float t = (((DeltaDC.X * DeltaAC.Y)
+            double t = (((DeltaDC.X * DeltaAC.Y)
                         + (DeltaCA.X * DeltaDC.Y))
                         / (float)DeltaBA.CrossProduct(DeltaDC));
             //  If it exists, the point of intersection is:
             return new Intersection(
-                new PointF((PointA.X + (t * DeltaBA.X)), (PointA.Y + (t * DeltaBA.Y))),
+                new Point2D((PointA.X + (t * DeltaBA.X)), (PointA.Y + (t * DeltaBA.Y))),
                                 (s >= 0d) && (s <= 1d) && (t >= 0d) && (t <= 1d),
                                 IntersectionType.Cross
                                 );
@@ -515,7 +515,7 @@ namespace Engine.Geometry
         /// <param name="Line"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool PointOnLine(PointF Point, LineSegment Line)
+        public bool PointOnLine(Point2D Point, LineSegment Line)
         {
             double Length1 = Point.Length(Line.B);
             // Sqrt((Point.X - Line.B.X) ^ 2 + (Point.Y - Line.B.Y))
@@ -531,7 +531,7 @@ namespace Engine.Geometry
         /// <param name="PointB"></param>
         /// <param name="PointC"></param>
         /// <returns></returns>
-        public static float Distance(PointF PointA, PointF PointB, PointF PointC)
+        public static float Distance(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             //  ToDo: Add Point Distance from line Method.
             // Dim P As Single = (1 - r)A + rB = A + r(B  A)
@@ -547,10 +547,10 @@ namespace Engine.Geometry
         /// <param name="RetNear"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static float DistanceToSegment(PointF p, PointF A, PointF B, out PointF RetNear)
+        public static float DistanceToSegment(Point2D p, Point2D A, Point2D B, out Point2D RetNear)
         {
-            RetNear = new PointF();
-            PointF Delta = new PointF((B.X - A.X), (B.Y - A.Y));
+            RetNear = new Point2D();
+            Point2D Delta = new Point2D((B.X - A.X), (B.Y - A.Y));
             if (((Delta.X == 0) && (Delta.Y == 0)))
             {
                 //  It's a point not a line segment.
@@ -561,7 +561,7 @@ namespace Engine.Geometry
                 return (float)(Math.Sqrt(((Delta.X * Delta.X) + (Delta.Y * Delta.Y))));
             }
             //  Calculate the t that minimizes the distance.
-            float t = ((((p.X - A.X) * Delta.X) + ((p.Y - A.Y) * Delta.Y)) / ((Delta.X * Delta.X) + (Delta.Y * Delta.Y)));
+            double t = ((((p.X - A.X) * Delta.X) + ((p.Y - A.Y) * Delta.Y)) / ((Delta.X * Delta.X) + (Delta.Y * Delta.Y)));
             if ((t < 0))
             {
                 Delta.X = (p.X - A.X);
@@ -596,7 +596,7 @@ namespace Engine.Geometry
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
-        public static double DistToSegment2(int px, int py, int x1, int y1, int x2, int y2)
+        public static double DistToSegment2(double px, double py, double x1, double y1, double x2, double y2)
         {
             double dx;
             double dy;
@@ -641,7 +641,7 @@ namespace Engine.Geometry
         /// <param name="y2"></param>
         /// <param name="close_distance"></param>
         /// <returns>Return True if (x1, y1) is within close_distance vertically and horizontally of (x2, y2).</returns>
-        public bool PointNearPoint(int x1, int y1, int x2, int y2, int close_distance)
+        public bool PointNearPoint(double x1, double y1, double x2, double y2, double close_distance)
         {
             return (Math.Abs(x2 - x1) <= close_distance) && (Math.Abs(y2 - y1) <= close_distance);
         }
@@ -656,7 +656,7 @@ namespace Engine.Geometry
         /// <param name="close_distance"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool PointNearPoint2(int x1, int y1, int x2, int y2, int close_distance)
+        public bool PointNearPoint2(double x1, double y1, double x2, double y2, double close_distance)
         {
             return ((Math.Abs((x2 - x1)) <= close_distance) && (Math.Abs((y2 - y1)) <= close_distance));
         }
@@ -672,7 +672,7 @@ namespace Engine.Geometry
         /// <param name="y2"></param>
         /// <param name="close_distance"></param>
         /// <returns>Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).</returns>
-        public bool PointNearSegment(int px, int py, int x1, int y1, int x2, int y2, int close_distance)
+        public bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
         {
             return (DistToSegment2(px, py, x1, y1, x2, y2) <= close_distance);
         }
@@ -689,7 +689,7 @@ namespace Engine.Geometry
         /// <param name="close_distance"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool PointNearSegment2(int px, int py, int x1, int y1, int x2, int y2, int close_distance)
+        public static bool PointNearSegment2(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
         {
             return (DistToSegment(px, py, x1, y1, x2, y2) <= close_distance);
         }
@@ -705,7 +705,7 @@ namespace Engine.Geometry
         /// <param name="y2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static double DistToSegment(int px, int py, int x1, int y1, int x2, int y2)
+        public static double DistToSegment(double px, double py, double x1, double y1, double x2, double y2)
         {
             double dx = (x2 - x1);
             double dy = (y2 - y1);
@@ -748,7 +748,7 @@ namespace Engine.Geometry
         /// <param name="y2"></param>
         /// <param name="close_distance"></param>
         /// <returns>Return True if the point is inside the ellipse (expanded by distance close_distance vertically and horizontally).</returns>
-        public bool PointNearEllipse(int px, int py, int x1, int y1, int x2, int y2, int close_distance)
+        public bool PointNearEllipse(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
         {
             double a = ((Math.Abs((x2 - x1)) / 2) + close_distance);
             double b = ((Math.Abs((y2 - y1)) / 2) + close_distance);
@@ -771,7 +771,7 @@ namespace Engine.Geometry
         /// <param name="close_distance"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool PointNearEllipse2(int px, int py, int x1, int y1, int x2, int y2, int close_distance)
+        public bool PointNearEllipse2(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
         {
             double a = ((Math.Abs((x2 - x1)) / 2) + close_distance);
             double b = ((Math.Abs((y2 - y1)) / 2) + close_distance);
@@ -780,39 +780,39 @@ namespace Engine.Geometry
             return ((((px * px) / (a * a)) + (((py * py) / (b * b))) <= 1));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="pgon_pts"></param>
-        /// <returns>Return True if the point is within the polygon.</returns>
-        public bool PointNearPolygon(int x, int y, PointF[] pgon_pts)
-        {
-            //  Make a region for the polygon.
-            GraphicsPath pgon_path = new GraphicsPath(FillMode.Alternate);
-            pgon_path.AddPolygon(pgon_pts);
-            Region pgon_region = new Region(pgon_path);
-            //  See if the point is in the region.
-            return pgon_region.IsVisible(x, y);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="x"></param>
+        ///// <param name="y"></param>
+        ///// <param name="pgon_pts"></param>
+        ///// <returns>Return True if the point is within the polygon.</returns>
+        //public bool PointNearPolygon(double x, double y, Point2D[] pgon_pts)
+        //{
+        //    //  Make a region for the polygon.
+        //    GraphicsPath pgon_path = new GraphicsPath(FillMode.Alternate);
+        //    pgon_path.AddPolygon(pgon_pts);
+        //    Region pgon_region = new Region(pgon_path);
+        //    //  See if the point is in the region.
+        //    return pgon_region.IsVisible(x, y);
+        //}
 
-        /// <summary>
-        /// Return True if the point is within the polygon.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="pgon_pts"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public bool PointInPolygon(int x, int y, PointF[] pgon_pts)
-        {
-            //  Make a region for the polygon.
-            GraphicsPath pgon_path = new GraphicsPath(FillMode.Alternate);
-            pgon_path.AddPolygon(pgon_pts);
-            Region pgon_region = new Region(pgon_path);
-            //  See if the point is in the region.
-            return pgon_region.IsVisible(x, y);
-        }
+        ///// <summary>
+        ///// Return True if the point is within the polygon.
+        ///// </summary>
+        ///// <param name="x"></param>
+        ///// <param name="y"></param>
+        ///// <param name="pgon_pts"></param>
+        ///// <returns></returns>
+        ///// <remarks></remarks>
+        //public bool PointInPolygon(double x, double y, Point2D[] pgon_pts)
+        //{
+        //    //  Make a region for the polygon.
+        //    GraphicsPath pgon_path = new GraphicsPath(FillMode.Alternate);
+        //    pgon_path.AddPolygon(pgon_pts);
+        //    Region pgon_region = new Region(pgon_path);
+        //    //  See if the point is in the region.
+        //    return pgon_region.IsVisible(x, y);
+        //}
     }
 }

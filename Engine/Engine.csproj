@@ -92,16 +92,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Geometry\Complex\Incompleete\Heart.cs" />
+    <Compile Include="Geometry\Framework\Point2DConverter.cs" />
+    <Compile Include="Geometry\Primitives\Size2D.cs" />
+    <Compile Include="Geometry\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\BoundingRect.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\NGonStar.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\ElipticStar.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\NonIntStar.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\PolygonExtensions.cs" />
-    <Compile Include="Geometry\Polygons\RectF.cs" />
-    <Compile Include="Geometry\Polygons\Rect.cs" />
+    <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Geometry\Units\Radian.cs" />
     <Compile Include="Geometry\Units\Degree.cs" />
     <Compile Include="Geometry\Primitives\IShape.cs" />
+    <Compile Include="Geometry\Framework\VectorConverter.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
     <Compile Include="Imaging\ColorSpace\ACYMK.cs" />
     <Compile Include="Imaging\ColorSpace\AHSI.cs" />
@@ -151,12 +154,12 @@
     <Compile Include="Geometry\Complex\RectangleFCellGrid.cs" />
     <Compile Include="Geometry\Polygons\LineSegment.cs" />
     <Compile Include="Geometry\Framework\MathExtensions.cs" />
-    <Compile Include="Geometry\Framework\MatrixF.cs" />
+    <Compile Include="Geometry\Primitives\Matrix2D.cs" />
     <Compile Include="Geometry\Enums\MatrixTypes.cs" />
     <Compile Include="Geometry\Intersection.cs" />
     <Compile Include="Geometry\Enums\IntersectionType.cs" />
     <Compile Include="Geometry\Framework\IntersectionExtention.cs" />
-    <Compile Include="Geometry\Framework\MatrixFConverter.cs" />
+    <Compile Include="Geometry\Framework\Matrix2DConverter.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Ray.cs" />
     <Compile Include="Geometry\Framework\RectangleFConverter.cs" />
     <Compile Include="Geometry\Curves\QuadraticBezier.cs" />
@@ -178,6 +181,7 @@
     <Compile Include="Imaging\Styles\ShapeStyle.cs" />
     <Compile Include="Imaging\Styles\MasterStyle.cs" />
     <Compile Include="Imaging\Styles\IStyle.cs" />
+    <Compile Include="Imaging\WinformsTypeExtensions.cs" />
     <Compile Include="Metadata\GraphicsObjectAttribute.cs" />
     <Compile Include="Metadata\FileObjectAttribute.cs" />
     <Compile Include="Objects\Actor.cs" />
@@ -217,8 +221,7 @@
     <Compile Include="Geometry\Primitives\Shape.cs" />
     <Compile Include="Geometry\Complex\RectangleCellGrid.cs" />
     <Compile Include="Geometry\Framework\RectangleExtensions.cs" />
-    <Compile Include="Geometry\Primitives\Vector.cs" />
-    <Compile Include="Geometry\Primitives\VectorF.cs" />
+    <Compile Include="Geometry\Primitives\Vector2D.cs" />
     <Compile Include="Geometry\Framework\RectangleFExtensions.cs" />
     <Compile Include="Geometry\Framework\TokenizerHelper.cs" />
     <Compile Include="Geometry\Polygons\Triangle.cs" />

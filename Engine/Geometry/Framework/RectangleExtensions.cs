@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Engine.Geometry
@@ -25,6 +26,28 @@ namespace Engine.Geometry
         public static Point Center(this Rectangle rectangle)
         {
             return new Point((int)(0.5f * rectangle.Width) + rectangle.X, (int)(0.5f * rectangle.Height) + rectangle.Y);
+        }
+
+        ///// <summary>
+        ///// Extension method to find the center point of a rectangle.
+        ///// </summary>
+        ///// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
+        ///// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
+        ///// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        //public static PointF Center(this RectangleF rectangle)
+        //{
+        //    return new PointF(0.5f * rectangle.Width + rectangle.X, 0.5f * rectangle.Height + rectangle.Y);
+        //}
+
+        /// <summary>
+        /// Extension method to find the center point of a rectangle.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="Rectangle2D"/> of which you want the center.</param>
+        /// <returns>A <see cref="Point2D"/> representing the center point of the <see cref="RectangleF"/>.</returns>
+        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        public static Point2D Center(this Rectangle2D rectangle)
+        {
+            return new Point2D((0.5f * rectangle.Width) + rectangle.X, (0.5f * rectangle.Height) + rectangle.Y);
         }
 
         /// <summary>

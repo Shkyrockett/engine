@@ -35,30 +35,30 @@ namespace Engine.Geometry
         /// Position 1.
         /// </summary>
         [XmlAttribute()]
-        private PointF a;
+        private Point2D a;
 
         /// <summary>
         /// Tangent 1.
         /// </summary>
         [XmlAttribute()]
-        private PointF b;
+        private Point2D b;
 
         /// <summary>
         /// Position 2.
         /// </summary>
         [XmlAttribute()]
-        private PointF c;
+        private Point2D c;
 
         /// <summary>
         /// Tangent 2.
         /// </summary>
         [XmlAttribute()]
-        private PointF d;
+        private Point2D d;
 
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> points;
+        private List<Point2D> points;
         #endregion
 
         #region Constructors
@@ -66,7 +66,7 @@ namespace Engine.Geometry
         /// Initializes a new instance of the <see cref="CubicBezier"/> class.
         /// </summary>
         public CubicBezier()
-            : this(PointF.Empty, PointF.Empty, PointF.Empty, PointF.Empty)
+            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Engine.Geometry
         /// <param name="b">Tangent1</param>
         /// <param name="c">Position2</param>
         /// <param name="d">Tangent2</param>
-        public CubicBezier(PointF a, PointF b, PointF c, PointF d)
+        public CubicBezier(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             this.a = a;
             this.b = b;
@@ -89,7 +89,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF A
+        public Point2D A
         {
             get { return a; }
             set { a = value; }
@@ -98,7 +98,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF B
+        public Point2D B
         {
             get { return b; }
             set { b = value; }
@@ -107,7 +107,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF C
+        public Point2D C
         {
             get { return c; }
             set { c = value; }
@@ -116,7 +116,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF D
+        public Point2D D
         {
             get { return d; }
             set { d = value; }
@@ -127,7 +127,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> Points
+        public List<Point2D> Points
         {
             get { return points; }
             set { points = value; }
@@ -136,21 +136,19 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override RectangleF Bounds
+        public override Rectangle2D Bounds
         {
             get
             {
-                int sortOfCloseLength = (int)(Math.Sqrt(2 * PrimitivesExtensions.Length(a, b))
-                    + Math.Sqrt(2 * PrimitivesExtensions.Length(b, c))
-                    + Math.Sqrt(2 * PrimitivesExtensions.Length(c, d)));
-                points = new List<PointF>(InterpolatePoints(sortOfCloseLength));
+                int sortOfCloseLength = (int)Length();
+                points = new List<Point2D>(InterpolatePoints(sortOfCloseLength));
 
-                float left = points[0].X;
-                float top = points[0].Y;
-                float right = points[0].X;
-                float bottom = points[0].Y;
+                double left = points[0].X;
+                double top = points[0].Y;
+                double right = points[0].X;
+                double bottom = points[0].Y;
 
-                foreach (PointF point in points)
+                foreach (Point2D point in points)
                 {
                     // ToDo: Measure performance impact of overwriting each time.
                     left = point.X <= left ? point.X : left;
@@ -159,7 +157,7 @@ namespace Engine.Geometry
                     bottom = point.Y >= bottom ? point.Y : bottom;
                 }
 
-                return RectangleF.FromLTRB(left, top, right, bottom);
+                return Rectangle2D.FromLTRB(left, top, right, bottom);
             }
         }
 
@@ -176,9 +174,9 @@ namespace Engine.Geometry
         /// <param name="Points"></param>
         /// <param name="Precision"></param>
         /// <returns></returns>
-        public PointF[] CubicBeizerPoints(PointF[] Points, double Precision)
+        public Point2D[] CubicBeizerPoints(Point2D[] Points, double Precision)
         {
-            PointF[] BPoints = new PointF[(int)((1 / Precision) + 2)];
+            Point2D[] BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = Points[0];
             BPoints[BPoints.Length - 1] = Points[Points.Length - 1];
             int Node = 0;
@@ -197,11 +195,11 @@ namespace Engine.Geometry
         /// <param name="Points"></param>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public PointF CubicBeizerPoint(PointF[] Points, double Index)
+        public Point2D CubicBeizerPoint(Point2D[] Points, double Index)
         {
             double V1 = Index;
             double V2 = (1 - Index);
-            return new PointF(
+            return new Point2D(
                 (float)
                 ((Points[0].X * V2 * V2 * V2) +
                 (3 * Points[1].X * V1 * V2 * V2) +
@@ -225,7 +223,7 @@ namespace Engine.Geometry
         /// <param name="cp"></param>
         /// <param name="numberOfPoints"></param>
         /// <param name="curve"></param>
-        public void ComputeBezier(PointF[] cp, int numberOfPoints, PointF[] curve)
+        public void ComputeBezier(Point2D[] cp, int numberOfPoints, Point2D[] curve)
         {
             double t = 0;
             double dt = (1.0d / (numberOfPoints - 1));
@@ -255,27 +253,27 @@ namespace Engine.Geometry
         ///  Warning - untested code
         /// *******************************************************
         /// </remarks>
-        public PointF PointOnCubicBezier(PointF[] cp, double t)
+        public Point2D PointOnCubicBezier(Point2D[] cp, double t)
         {
             // calculate the curve point at parameter value t 
             double tSquared = (t * t);
             double tCubed = (tSquared * t);
 
             // calculate the polynomial coefficients 
-            PointF c = new PointF(
+            Point2D c = new Point2D(
                 (3 * (cp[1].X - cp[0].X)),
                 (3 * (cp[1].Y - cp[0].Y))
                 );
-            PointF b = new PointF(
+            Point2D b = new Point2D(
                 ((3 * (cp[2].X - cp[1].X)) - c.X),
                 ((3 * (cp[2].Y - cp[1].Y)) - c.Y)
                 );
-            PointF a = new PointF(
+            Point2D a = new Point2D(
                 (cp[3].X - (cp[0].X - (c.X - b.X))),
                 (cp[3].Y - (cp[0].Y - (c.Y - b.Y)))
                 );
 
-            return new PointF(
+            return new Point2D(
                 (float)((a.X * tCubed) + ((b.X * tSquared) + ((c.X * t) + cp[0].X))),
                 (float)((a.Y * tCubed) + ((b.Y * tSquared) + ((c.Y * t) + cp[0].Y)))
                 );
@@ -291,18 +289,18 @@ namespace Engine.Geometry
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        PointF bezier(PointF a, PointF b, PointF c, PointF d, float t)
+        Point2D bezier(Point2D a, Point2D b, Point2D c, Point2D d, float t)
         {
             // point between a and b
-            PointF ab = LinearInterpolate(a, b, t);
+            Point2D ab = LinearInterpolate(a, b, t);
             // point between b and c
-            PointF bc = LinearInterpolate(b, c, t);
+            Point2D bc = LinearInterpolate(b, c, t);
             // point between c and d
-            PointF cd = LinearInterpolate(c, d, t);
+            Point2D cd = LinearInterpolate(c, d, t);
             // point between ab and bc
-            PointF abbc = LinearInterpolate(ab, bc, t);
+            Point2D abbc = LinearInterpolate(ab, bc, t);
             // point between bc and cd
-            PointF bccd = LinearInterpolate(bc, cd, t);
+            Point2D bccd = LinearInterpolate(bc, cd, t);
             // point on the bezier-curve
             return LinearInterpolate(abbc, bccd, t);
         }
@@ -315,11 +313,11 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private PointF LinearInterpolate(PointF a, PointF b, double index)
+        private Point2D LinearInterpolate(Point2D a, Point2D b, double index)
         {
-            return new PointF(
-                (float)(a.X + (b.X - a.X) * index),
-                (float)(a.Y + (b.Y - a.Y) * index)
+            return new Point2D(
+                (a.X + (b.X - a.X) * index),
+                (a.Y + (b.Y - a.Y) * index)
                 );
         }
 
@@ -329,7 +327,7 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
             return Interpolate(a, b, c, d, index);
         }
@@ -339,16 +337,16 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public PointF[] InterpolatePoints(int count)
+        public List<Point2D> InterpolatePoints(int count)
         {
-            PointF[] ipoints = new PointF[count];
-            ipoints[0] = Interpolate(1);
-            for (int i = 1; i <= 1; i += count)
+            Point2D[] ipoints = new Point2D[count + 1];
+            for (int i = 0; i <= count; i += 1)
             {
-                ipoints[i] = Interpolate(1 / i);
+                double v = (1f / count) * i;
+                ipoints[i] = Interpolate(v);
             }
 
-            return ipoints;
+            return new List<Point2D>(ipoints);
         }
 
         /// <summary>
@@ -361,18 +359,18 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Interpolate0(PointF a, PointF b, PointF c, PointF d, double index)
+        public static Point2D Interpolate0(Point2D a, Point2D b, Point2D c, Point2D d, double index)
         {
             //Point2D P = (v3 - v2) - (v0 - v1);
             //Point2D Q = (v0 - v1) - P;
             //Point2D R = v2 - v0;
             //Point2D S = v1;
             //return P * Math.Pow(x, 3) + Q * Math.Pow(x, 2) + R * x + S;
-            VectorF P = d.Subtract(c).Subtract(a.Subtract(b));
-            VectorF Q = a.Subtract(b).Subtract(P);
-            VectorF R = c.Subtract(a);
-            VectorF S = b;
-            return (PointF)P.Scale(index * index * index).Add(Q.Scale(index * index)).Add(R.Scale(index)).Add(S);
+            Vector2D P = d.Subtract(c).Subtract(a.Subtract(b));
+            Vector2D Q = a.Subtract(b).Subtract(P);
+            Vector2D R = c.Subtract(a);
+            Vector2D S = b;
+            return (Point2D)P.Scale(index * index * index).Add(Q.Scale(index * index)).Add(R.Scale(index)).Add(S);
         }
 
         /// <summary>
@@ -387,15 +385,15 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         /// <history>
         /// </history>
-        public static PointF Interpolate(PointF a, PointF b, PointF c, PointF d, double index)
+        public static Point2D Interpolate(Point2D a, Point2D b, Point2D c, Point2D d, double index)
         {
             double mum1 = 1 - index;
             double mum13 = mum1 * mum1 * mum1;
             double mu3 = index * index * index;
 
-            return new PointF(
-                (float)(mum13 * a.X + 3 * index * mum1 * mum1 * b.X + 3 * index * index * mum1 * c.X + mu3 * d.X),
-                (float)(mum13 * a.Y + 3 * index * mum1 * mum1 * b.Y + 3 * index * index * mum1 * c.Y + mu3 * d.Y)
+            return new Point2D(
+                (mum13 * a.X + 3 * index * mum1 * mum1 * b.X + 3 * index * index * mum1 * c.X + mu3 * d.X),
+                (mum13 * a.Y + 3 * index * mum1 * mum1 * b.Y + 3 * index * index * mum1 * c.Y + mu3 * d.Y)
                 );
         }
 
@@ -405,9 +403,9 @@ namespace Engine.Geometry
         /// <param name="Points"></param>
         /// <param name="Precision"></param>
         /// <returns></returns>
-        public PointF[] InterpolateCubicBeizerPoints(PointF[] Points, double Precision)
+        public Point2D[] InterpolateCubicBeizerPoints(Point2D[] Points, double Precision)
         {
-            PointF[] BPoints = new PointF[(int)((1 / Precision) + 2)];
+            Point2D[] BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = Points[0];
             BPoints[BPoints.Length - 1] = Points[Points.Length - 1];
             int Node = 0;
@@ -426,38 +424,140 @@ namespace Engine.Geometry
         /// <param name="Points"></param>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public PointF InterpolateCubicBSplinePoint(PointF[] Points, double Index)
+        public Point2D InterpolateCubicBSplinePoint(Point2D[] Points, double Index)
         {
             int A = 0;
             int B = 1;
             int C = 2;
             int D = 3;
             double V1 = Index;
-            PointF[] VPoints = new PointF[4];
+            Point2D[] VPoints = new Point2D[4];
 
-            VPoints[0] = new PointF(
+            VPoints[0] = new Point2D(
                 ((Points[D].X - Points[C].X) - (Points[A].X - Points[B].X)),
                 ((Points[D].Y - Points[C].Y) - (Points[A].Y - Points[B].Y))
                 );
 
-            VPoints[1] = new PointF(
+            VPoints[1] = new Point2D(
                 ((Points[A].X - Points[B].X) - VPoints[A].X),
                 ((Points[A].Y - Points[B].Y) - VPoints[A].Y)
                 );
 
-            VPoints[2] = new PointF(
+            VPoints[2] = new Point2D(
                 (Points[C].X - Points[A].X),
                 (Points[C].Y - Points[A].Y)
                 );
 
             VPoints[3] = Points[1];
 
-            return new PointF(
-                (float)(VPoints[0].X * V1 * V1 * V1 + VPoints[1].X * V1 * V1 * V1 + VPoints[2].X * V1 + VPoints[3].X),
-                (float)(VPoints[0].Y * V1 * V1 * V1 + VPoints[1].Y * V1 * V1 * V1 + VPoints[2].Y * V1 + VPoints[3].Y)
+            return new Point2D(
+                (VPoints[0].X * V1 * V1 * V1 + VPoints[1].X * V1 * V1 * V1 + VPoints[2].X * V1 + VPoints[3].X),
+                (VPoints[0].Y * V1 * V1 * V1 + VPoints[1].Y * V1 * V1 * V1 + VPoints[2].Y * V1 + VPoints[3].Y)
             );
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public double Length()
+        {
+            return BezierArcLength(a, b, c, d);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public double BezierArcLength()
+        {
+            return BezierArcLength(a, b, c, d);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <param name="p4"></param>
+        /// <returns></returns>
+        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
+        public static double BezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
+        {
+            Point2D k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
+            Point2D k2 = 3 * (p1 + p3) - 6 * p2;
+            Point2D k3 = (Point2D)(3 * (p2 - p1));
+            Point2D k4 = p1;
+
+            double q1 = 9.0 * (Math.Sqrt(Math.Abs(k1.X)) + Math.Sqrt((Math.Abs(k1.Y))));
+            double q2 = 12.0 * (k1.X * k2.X + k1.Y * k2.Y);
+            double q3 = 3.0 * (k1.X * k3.X + k1.Y * k3.Y) + 4.0 * (Math.Sqrt(Math.Abs(k2.X)) + Math.Sqrt(Math.Abs(k2.Y)));
+            double q4 = 4.0 * (k2.X * k3.X + k2.Y * k3.Y);
+            double q5 = Math.Sqrt(Math.Abs(k3.X)) + Math.Sqrt(Math.Abs(k3.Y));
+
+            // Approximation algorithm based on Simpson. 
+            double a = 0;
+            double b = 1;
+            int n_limit = 1024;
+            double TOLERANCE = 0.001;
+
+            int n = 1;
+
+            double multiplier = (b - a) / 6.0;
+            double endsum = balf(a, ref q1, ref q2, ref q3, ref q4, ref q5) + balf(b, ref q1, ref q2, ref q3, ref q4, ref q5);
+            double interval = (b - a) / 2.0;
+            double asum = 0;
+            double bsum = balf(a + interval, ref q1, ref q2, ref q3, ref q4, ref q5);
+            double est1 = multiplier * (endsum + 2 * asum + 4 * bsum);
+            double est0 = 2 * est1;
+
+            while (n < n_limit && (Math.Abs(est1) > 0 && Math.Abs((est1 - est0) / est1) > TOLERANCE))
+            {
+                n *= 2;
+                multiplier /= 2;
+                interval /= 2;
+                asum += bsum;
+                bsum = 0;
+                est0 = est1;
+                double interval_div_2n = interval / (2.0 * n);
+
+                for (int i = 1; i < 2 * n; i += 2)
+                {
+                    double t = a + i * interval_div_2n;
+                    bsum += balf(t, ref q1, ref q2, ref q3, ref q4, ref q5);
+                }
+
+                est1 = multiplier * (endsum + 2 * asum + 4 * bsum);
+            }
+
+            return est1 * 10;
+        }
+
+        /// <summary>
+        /// Bezier Arc Length Function
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="q1"></param>
+        /// <param name="q2"></param>
+        /// <param name="q3"></param>
+        /// <param name="q4"></param>
+        /// <param name="q5"></param>
+        /// <returns></returns>
+        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
+        private static double balf(double t, ref double q1, ref double q2, ref double q3, ref double q4, ref double q5)
+        {
+            double result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
+            result = Math.Sqrt(Math.Abs(result));
+            return result;
+        }
+
+        //public static double JensGravesenBezierLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
+        //{
+
+        //}
+
 
         #region Rendering
         /// <summary>
@@ -467,17 +567,17 @@ namespace Engine.Geometry
         /// <param name="pen"></param>
         /// <param name="points"></param>
         /// <param name="precision"></param>
-        public void DrawCubicBezierCurve(PaintEventArgs e, Pen pen, PointF[] points, double precision)
+        public void DrawCubicBezierCurve(PaintEventArgs e, Pen pen, Point2D[] points, double precision)
         {
-            //PointF NewPoint;
-            //PointF LastPoint = NewPoint;
-            e.Graphics.DrawLines(pen, CubicBeizerPoints(points, precision));
-            //for (double Index = 0; (Index <= 1); Index = (Index + Precision))
-            //{
-            //    LastPoint = NewPoint;
-            //    NewPoint = CubicBeizerPoint(Points, Index);
-            //    e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
-            //}
+            ////Point2D NewPoint;
+            ////Point2D LastPoint = NewPoint;
+            //e.Graphics.DrawLines(pen, CubicBeizerPoints(points, precision));
+            ////for (double Index = 0; (Index <= 1); Index = (Index + Precision))
+            ////{
+            ////    LastPoint = NewPoint;
+            ////    NewPoint = CubicBeizerPoint(Points, Index);
+            ////    e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
+            ////}
         }
         #endregion
 

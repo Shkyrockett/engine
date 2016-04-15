@@ -34,24 +34,24 @@ namespace Engine.Geometry
         /// The starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [XmlAttribute()]
-        private PointF a;
+        private Point2D a;
 
         /// <summary>
         /// The middle tangent control node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [XmlAttribute()]
-        private PointF b;
+        private Point2D b;
 
         /// <summary>
         /// The closing node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [XmlAttribute()]
-        private PointF c;
+        private Point2D c;
 
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> points = new List<PointF>();
+        private List<Point2D> points = new List<Point2D>();
         #endregion
 
         #region Constructors
@@ -59,7 +59,7 @@ namespace Engine.Geometry
         /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
         /// </summary>
         public QuadraticBezier()
-            : this(PointF.Empty, PointF.Empty, PointF.Empty)
+            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
-        public QuadraticBezier(PointF a, PointF b, PointF c)
+        public QuadraticBezier(Point2D a, Point2D b, Point2D c)
         {
             this.a = a;
             this.b = b;
@@ -80,7 +80,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        public PointF A
+        public Point2D A
         {
             get { return a; }
             set { a = value; }
@@ -89,7 +89,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        public PointF B
+        public Point2D B
         {
             get { return b; }
             set { b = value; }
@@ -98,7 +98,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the closing node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        public PointF C
+        public Point2D C
         {
             get { return c; }
             set { c = value; }
@@ -107,7 +107,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> Points
+        public List<Point2D> Points
         {
             get { return points; }
             set { points = value; }
@@ -116,19 +116,19 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override RectangleF Bounds
+        public override Rectangle2D Bounds
         {
             get
             {
                 // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
-                points = new List<PointF>(InterpolatePoints((int)(Length() / 3)));
+                points = new List<Point2D>(InterpolatePoints((int)(Length() / 3)));
 
-                float left = points[0].X;
-                float top = points[0].Y;
-                float right = points[0].X;
-                float bottom = points[0].Y;
+                double left = points[0].X;
+                double top = points[0].Y;
+                double right = points[0].X;
+                double bottom = points[0].Y;
 
-                foreach (PointF point in points)
+                foreach (Point2D point in points)
                 {
                     // ToDo: Measure performance impact of overwriting each time.
                     left = point.X <= left ? point.X : left;
@@ -137,7 +137,7 @@ namespace Engine.Geometry
                     bottom = point.Y >= bottom ? point.Y : bottom;
                 }
 
-                return RectangleF.FromLTRB(left, top, right, bottom);
+                return Rectangle2D.FromLTRB(left, top, right, bottom);
             }
         }
 
@@ -164,7 +164,7 @@ namespace Engine.Geometry
         /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <returns></returns>
-        public static double Length(PointF pointA, PointF pointB, PointF pointC)
+        public static double Length(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             // ToDo: Select the fastest and most accurate length method.
             return ArcLengthByIntegral(pointA, pointB, pointC);
@@ -189,7 +189,7 @@ namespace Engine.Geometry
         /// <remarks>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
         /// </remarks>
-        public static double ArcLengthByIntegral(PointF pointA, PointF pointB, PointF pointC)
+        public static double ArcLengthByIntegral(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             double ax = pointA.X - 2 * pointB.X + pointC.X;
             double ay = pointA.Y - 2 * pointB.Y + pointC.Y;
@@ -228,10 +228,10 @@ namespace Engine.Geometry
         /// <remarks>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
         /// </remarks>
-        public static double ArcLengthBySegments(PointF pointA, PointF pointB, PointF pointC)
+        public static double ArcLengthBySegments(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             double length = 0;
-            PointF p = Interpolate(pointA, pointB, pointC, 0);
+            Point2D p = Interpolate(pointA, pointB, pointC, 0);
             double prevX = p.X;
             double prevY = p.Y;
             for (double t = 0.005; t <= 1.0; t += 0.005)
@@ -269,7 +269,7 @@ namespace Engine.Geometry
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
         /// https://code.google.com/archive/p/degrafa/source/default/source
         /// </remarks>
-        public static double ApproxArcLength(PointF pointA, PointF pointB, PointF pointC)
+        public static double ApproxArcLength(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             double sum = 0;
 
@@ -320,7 +320,7 @@ namespace Engine.Geometry
         /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
         /// </summary>
         /// <returns></returns>
-        public PointF InterpolateBezier(double t)
+        public Point2D InterpolateBezier(double t)
         {
             return InterpolateBezier(a, b, c, t);
         }
@@ -334,12 +334,12 @@ namespace Engine.Geometry
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        public static PointF InterpolateBezier(PointF a, PointF b, PointF c, double t)
+        public static Point2D InterpolateBezier(Point2D a, Point2D b, Point2D c, double t)
         {
             // point between a and b
-            PointF ab = LinearInterpolate(a, b, t);
+            Point2D ab = LinearInterpolate(a, b, t);
             // point between b and c
-            PointF bc = LinearInterpolate(b, c, t);
+            Point2D bc = LinearInterpolate(b, c, t);
             // point on the bezier-curve
             return LinearInterpolate(ab, bc, t);
         }
@@ -352,9 +352,9 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static PointF LinearInterpolate(PointF a, PointF b, double index)
+        private static Point2D LinearInterpolate(Point2D a, Point2D b, double index)
         {
-            return new PointF(
+            return new Point2D(
                 (float)(a.X + (b.X - a.X) * index),
                 (float)(a.Y + (b.Y - a.Y) * index)
                 );
@@ -365,16 +365,16 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints(int count)
+        public List<Point2D> InterpolatePoints(int count)
         {
-            PointF[] ipoints = new PointF[count + 1];
+            Point2D[] ipoints = new Point2D[count + 1];
             for (int i = 0; i <= count; i += 1)
             {
                 double v = (1f / count) * i;
                 ipoints[i] = Interpolate(v);
             }
 
-            return new List<PointF>(ipoints);
+            return new List<Point2D>(ipoints);
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
             return InterpolateBezier(a, b, c, index);
         }
@@ -395,13 +395,13 @@ namespace Engine.Geometry
         /// <param name="c"></param>
         /// <param name="mu"></param>
         /// <returns></returns>
-        public static PointF Interpolate(PointF a, PointF b, PointF c, double mu)
+        public static Point2D Interpolate(Point2D a, Point2D b, Point2D c, double mu)
         {
             double mu1 = 1 - mu;
             double mu12 = mu1 * mu1;
             double mu2 = mu * mu;
 
-            return new PointF(
+            return new Point2D(
                 (float)(a.X * mu12 + 2 * b.X * mu1 * mu + c.X * mu2),
                 (float)(a.Y * mu12 + 2 * b.Y * mu1 * mu + c.Y * mu2)
                 );

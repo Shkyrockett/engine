@@ -35,22 +35,22 @@ namespace Engine.Geometry.Polygons
         /// <summary>
         /// The area of the current and best bounding rectangles.
         /// </summary>
-        private float currentArea = float.MaxValue;
+        private double currentArea = double.MaxValue;
 
         /// <summary>
         /// 
         /// </summary>
-        private PointF[] currentRectangle = null;
+        private Point2D[] currentRectangle = null;
 
         /// <summary>
         /// 
         /// </summary>
-        private float bestArea = float.MaxValue;
+        private double bestArea = double.MaxValue;
 
         /// <summary>
         /// 
         /// </summary>
-        private PointF[] bestRectangle = null;
+        private Point2D[] bestRectangle = null;
 
         /// <summary>
         /// 
@@ -91,7 +91,7 @@ namespace Engine.Geometry.Polygons
         /// <summary>
         /// 
         /// </summary>
-        public float CurrentArea
+        public double CurrentArea
         {
             get { return currentArea; }
             set { currentArea = value; }
@@ -100,7 +100,7 @@ namespace Engine.Geometry.Polygons
         /// <summary>
         /// 
         /// </summary>
-        public PointF[] CurrentRectangle
+        public Point2D[] CurrentRectangle
         {
             get { return currentRectangle; }
             set { currentRectangle = value; }
@@ -109,7 +109,7 @@ namespace Engine.Geometry.Polygons
         /// <summary>
         /// 
         /// </summary>
-        public float BestArea
+        public double BestArea
         {
             get { return bestArea; }
             set { bestArea = value; }
@@ -118,7 +118,7 @@ namespace Engine.Geometry.Polygons
         /// <summary>
         /// 
         /// </summary>
-        public PointF[] BestRectangle
+        public Point2D[] BestRectangle
         {
             get { return bestRectangle; }
             set { bestRectangle = value; }

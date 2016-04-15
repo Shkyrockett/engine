@@ -66,7 +66,7 @@ namespace Editor
         /// <param name="e"></param>
         private void EditorForm_Load(object sender, EventArgs e)
         {
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
 
             paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
 
@@ -85,47 +85,49 @@ namespace Editor
                 new ShapeStyle(new Pen(Brushes.AntiqueWhite), new Pen(Brushes.CadetBlue)),
             };
 
-            Shape triangle = new Triangle(new PointF(10, 10), new PointF(50, 50), new PointF(10, 100))
+            Shape triangle = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100))
             { Style = styles[0] };
             vectorMap.Add(triangle);
 
-            Shape circle = new Circle(new PointF(200, 200), 100)
-            { Style = styles[6] };
+            Shape circle = new Circle(new Point2D(200, 200), 100)
+            { Style = styles[1] };
             vectorMap.Add(circle);
 
-            Shape rect = new Rect(new Point(200, 200), new Size(100, 100))
-            { Style = styles[1] };
-            vectorMap.Add(rect);
-
-            Shape rectf = new RectF(new Point(100, 100), new Size(100, 100))
+            Shape rectf = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100))
             { Style = styles[2] };
             vectorMap.Add(rectf);
 
-            Shape polygon = new Polygon(new List<PointF>() { new Point(20, 100), new PointF(300, 60), new PointF(40, 30) })
+            Shape polygon = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) })
             { Style = styles[3] };
             vectorMap.Add(polygon);
 
-            Shape polyline = new Polyline(new List<PointF>() { new Point(10, 40), new PointF(80, 30), new PointF(100, 60) })
+            Shape polyline = new Polyline(new List<Point2D>() { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) })
             { Style = styles[4] };
             vectorMap.Add(polyline);
 
-            Shape line = new LineSegment(new PointF(160, 250), new PointF(130, 145))
+            Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145))
             { Style = styles[5] };
             vectorMap.Add(line);
 
-            Shape ellipse = new Ellipse(new PointF(200, 200), 50, 25, 45)
-            { Style = styles[7] };
+            Shape ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45)
+            { Style = styles[6] };
             vectorMap.Add(ellipse);
 
-            QuadraticBezier quadBezier = new QuadraticBezier(new PointF(32, 150), new PointF(50, 300), new PointF(80, 150))
-            { Style = styles[8] };
+            QuadraticBezier quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150))
+            { Style = styles[7] };
             vectorMap.Add(quadBezier);
-            //StringBuilder lengths = new StringBuilder();
-            //lengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.ArcLengthBySegments());
-            //lengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.arcLengthByIntegral());
-            //lengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.approxArcLength());
-            //MessageBox.Show(lengths.ToString());
+            StringBuilder quadBezierLengths = new StringBuilder();
+            //quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.ArcLengthBySegments());
+            //quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.ArcLengthByIntegral());
+            //quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.ApproxArcLength());
+            //MessageBox.Show(quadBezierLengths.ToString());
 
+            CubicBezier cubicBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300))
+            { Style = styles[8] };
+            vectorMap.Add(cubicBezier);
+            //StringBuilder cubicBezierLengths = new StringBuilder();
+            //cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.BezierArcLength());
+            //MessageBox.Show(cubicBezierLengths.ToString());
         }
 
         /// <summary>
@@ -139,7 +141,7 @@ namespace Editor
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             // Only need to draw the shapes that are on screen.
-            foreach (Shape shape in vectorMap[CanvasPanel.Bounds])
+            foreach (Shape shape in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
             {
                 Renderer.Render(shape, e.Graphics, shape.Style);
             }

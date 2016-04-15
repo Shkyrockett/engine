@@ -857,6 +857,19 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
+        /// but this is faster.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value"> The double to compare to 0. </param>
+        public static bool IsZero(this double value)
+        {
+            return Math.Abs(value) < 10.0 * DoubleEpsilon;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="val"></param>

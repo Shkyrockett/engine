@@ -10,19 +10,19 @@ namespace Engine.Geometry
     /// http://referencesource.microsoft.com
     /// </summary>
     [Serializable]
-    [TypeConverter(typeof(MatrixFConverter))]
+    [TypeConverter(typeof(Matrix2DConverter))]
     [DisplayName("MatrixF")]
-    public partial struct MatrixF
+    public partial struct Matrix2D
         : IFormattable
     {
         internal MatrixTypes _type;
 
-        internal float _m11;
-        internal float _m12;
-        internal float _m21;
-        internal float _m22;
-        internal float _offsetX;
-        internal float _offsetY;
+        internal double _m11;
+        internal double _m12;
+        internal double _m21;
+        internal double _m22;
+        internal double _offsetX;
+        internal double _offsetY;
 
         // This field is only used by unmanaged code which isn't detected by the compiler.
         // Matrix in blt'd to unmanaged code, so this is padding 
@@ -34,7 +34,7 @@ namespace Engine.Geometry
 
         // the transform is identity by default
         // Actually fill in the fields - some (internal) code uses the fields directly for perf.
-        private static MatrixF s_identity = CreateIdentity();
+        private static Matrix2D s_identity = CreateIdentity();
 
         // The hash code for a matrix is the xor of its element's hashes.
         // Since the identity matrix has 2 1's and 4 0's its hash is 0.
@@ -46,7 +46,7 @@ namespace Engine.Geometry
         ///             | m21, m22, 0 |
         ///             \ offsetX, offsetY, 1 /
         /// </summary>
-        public MatrixF(float m11, float m12, float m21, float m22, float offsetX, float offsetY)
+        public Matrix2D(double m11, double m12, double m21, double m22, double offsetX, double offsetY)
         {
             _m11 = m11;
             _m12 = m12;
@@ -65,7 +65,7 @@ namespace Engine.Geometry
         /// <summary>
         /// M11
         /// </summary>
-        public float M11
+        public double M11
         {
             get
             {
@@ -101,7 +101,7 @@ namespace Engine.Geometry
         /// <summary>
         /// M12
         /// </summary>
-        public float M12
+        public double M12
         {
             get
             {
@@ -134,7 +134,7 @@ namespace Engine.Geometry
         /// <summary>
         /// M22
         /// </summary>
-        public float M21
+        public double M21
         {
             get
             {
@@ -167,7 +167,7 @@ namespace Engine.Geometry
         /// <summary>
         /// M22
         /// </summary>
-        public float M22
+        public double M22
         {
             get
             {
@@ -203,7 +203,7 @@ namespace Engine.Geometry
         /// <summary>
         /// OffsetX
         /// </summary>
-        public float OffsetX
+        public double OffsetX
         {
             get
             {
@@ -239,7 +239,7 @@ namespace Engine.Geometry
         /// <summary>
         /// OffsetY
         /// </summary>
-        public float OffsetY
+        public double OffsetY
         {
             get
             {
@@ -288,7 +288,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Identity
         /// </summary>
-        public static MatrixF Identity
+        public static Matrix2D Identity
         {
             get { return s_identity; }
         }
@@ -296,9 +296,9 @@ namespace Engine.Geometry
         /// <summary>
         /// Sets the transformation to the identity.
         /// </summary>
-        private static MatrixF CreateIdentity()
+        private static Matrix2D CreateIdentity()
         {
-            MatrixF matrix = new MatrixF();
+            Matrix2D matrix = new Matrix2D();
             matrix.SetMatrix(1, 0,
                              0, 1,
                              0, 0,
@@ -337,7 +337,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator ==(MatrixF matrix1, MatrixF matrix2)
+        public static bool operator ==(Matrix2D matrix1, Matrix2D matrix2)
         {
             if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
             {
@@ -365,7 +365,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator !=(MatrixF matrix1, MatrixF matrix2)
+        public static bool operator !=(Matrix2D matrix1, Matrix2D matrix2)
         {
             return !(matrix1 == matrix2);
         }
@@ -373,7 +373,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Operator Point * Matrix
         /// </summary>
-        public static PointF operator *(PointF point, MatrixF matrix)
+        public static Point2D operator *(Point2D point, Matrix2D matrix)
         {
             return matrix.Transform(point);
         }
@@ -390,7 +390,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool Equals(MatrixF matrix1, MatrixF matrix2)
+        public static bool Equals(Matrix2D matrix1, Matrix2D matrix2)
         {
             if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
             {
@@ -420,13 +420,13 @@ namespace Engine.Geometry
         /// <param name='o'>The object to compare to "this"</param>
         public override bool Equals(object o)
         {
-            if ((null == o) || !(o is MatrixF))
+            if ((null == o) || !(o is Matrix2D))
             {
                 return false;
             }
 
-            MatrixF value = (MatrixF)o;
-            return MatrixF.Equals(this, value);
+            Matrix2D value = (Matrix2D)o;
+            return Matrix2D.Equals(this, value);
         }
 
         /// <summary>
@@ -440,15 +440,15 @@ namespace Engine.Geometry
         /// bool - true if "value" is equal to "this".
         /// </returns>
         /// <param name='value'>The Matrix to compare to "this"</param>
-        public bool Equals(MatrixF value)
+        public bool Equals(Matrix2D value)
         {
-            return MatrixF.Equals(this, value);
+            return Matrix2D.Equals(this, value);
         }
 
         /// <summary>
         /// Multiplies two transformations.
         /// </summary>
-        public static MatrixF operator *(MatrixF trans1, MatrixF trans2)
+        public static Matrix2D operator *(Matrix2D trans1, Matrix2D trans2)
         {
             MultiplyMatrix(ref trans1, ref trans2);
             return trans1;
@@ -457,7 +457,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Multiply
         /// </summary>
-        public static MatrixF Multiply(MatrixF trans1, MatrixF trans2)
+        public static Matrix2D Multiply(Matrix2D trans1, Matrix2D trans2)
         {
             MultiplyMatrix(ref trans1, ref trans2);
             return trans1;
@@ -468,7 +468,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="rect"> The Rectangle to transform. </param>
         /// <param name="matrix"> The Matrix with which to transform the Rectangle. </param>
-        internal static void TransformRect(ref RectangleF rect, ref MatrixF matrix)
+        internal static void TransformRect(ref Rectangle2D rect, ref Matrix2D matrix)
         {
             if (rect.IsEmpty)
             {
@@ -521,10 +521,10 @@ namespace Engine.Geometry
             if (matrixType == MatrixTypes.UNKNOWN)
             {
                 // Al Bunny implementation.
-                PointF point0 = matrix.Transform(rect.TopLeft());
-                PointF point1 = matrix.Transform(rect.TopRight());
-                PointF point2 = matrix.Transform(rect.BottomRight());
-                PointF point3 = matrix.Transform(rect.BottomLeft());
+                Point2D point0 = matrix.Transform(rect.TopLeft);
+                Point2D point1 = matrix.Transform(rect.TopRight);
+                Point2D point2 = matrix.Transform(rect.BottomRight);
+                Point2D point3 = matrix.Transform(rect.BottomLeft);
 
                 // Width and height is always positive here.
                 rect.X = Math.Min(Math.Min(point0.X, point1.X), Math.Min(point2.X, point3.X));
@@ -542,7 +542,7 @@ namespace Engine.Geometry
         /// To reduce duplication and to ensure consistent behavior, this is the
         /// method which is used to implement Matrix * Matrix as well.
         /// </summary>
-        internal static void MultiplyMatrix(ref MatrixF matrix1, ref MatrixF matrix2)
+        internal static void MultiplyMatrix(ref Matrix2D matrix1, ref Matrix2D matrix2)
         {
             MatrixTypes type1 = matrix1._type;
             MatrixTypes type2 = matrix2._type;
@@ -646,7 +646,7 @@ namespace Engine.Geometry
                 case 66: // U * S
                 case 67: // U * S|T
                 case 68: // U * U
-                    matrix1 = new MatrixF(
+                    matrix1 = new Matrix2D(
                         matrix1._m11 * matrix2._m11 + matrix1._m12 * matrix2._m21,
                         matrix1._m11 * matrix2._m12 + matrix1._m12 * matrix2._m22,
 
@@ -667,11 +667,11 @@ namespace Engine.Geometry
         /// <summary>
         /// Applies an offset to the specified matrix in place.
         /// </summary>
-        internal static void PrependOffset(ref MatrixF matrix, float offsetX, float offsetY)
+        internal static void PrependOffset(ref Matrix2D matrix, double offsetX, double offsetY)
         {
             if (matrix._type == MatrixTypes.IDENTITY)
             {
-                matrix = new MatrixF(1, 0, 0, 1, offsetX, offsetY);
+                matrix = new Matrix2D(1, 0, 0, 1, offsetX, offsetY);
                 matrix._type = MatrixTypes.TRANSLATION;
             }
             else
@@ -702,7 +702,7 @@ namespace Engine.Geometry
         /// Append - "this" becomes this * matrix, the same as this *= matrix.
         /// </summary>
         /// <param name="matrix"> The Matrix to append to this Matrix </param>
-        public void Append(MatrixF matrix)
+        public void Append(Matrix2D matrix)
         {
             this *= matrix;
         }
@@ -711,7 +711,7 @@ namespace Engine.Geometry
         /// Prepend - "this" becomes matrix * this, the same as this = matrix * this.
         /// </summary>
         /// <param name="matrix"> The Matrix to prepend to this Matrix </param>
-        public void Prepend(MatrixF matrix)
+        public void Prepend(Matrix2D matrix)
         {
             this = matrix * this;
         }
@@ -720,20 +720,20 @@ namespace Engine.Geometry
         /// Rotates this matrix about the origin
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
-        public void Rotate(float angle)
+        public void Rotate(double angle)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this *= CreateRotationRadians((float)(angle * (Math.PI / 180.0)));
+            this *= CreateRotationRadians((angle * (Math.PI / 180.0)));
         }
 
         /// <summary>
         /// Prepends a rotation about the origin to "this"
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
-        public void RotatePrepend(float angle)
+        public void RotatePrepend(double angle)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this = CreateRotationRadians((float)(angle * (Math.PI / 180.0))) * this;
+            this = CreateRotationRadians((angle * (Math.PI / 180.0))) * this;
         }
 
         /// <summary>
@@ -742,10 +742,10 @@ namespace Engine.Geometry
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
-        public void RotateAt(float angle, float centerX, float centerY)
+        public void RotateAt(double angle, double centerX, double centerY)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this *= CreateRotationRadians((float)(angle * (Math.PI / 180.0)), centerX, centerY);
+            this *= CreateRotationRadians((angle * (Math.PI / 180.0)), centerX, centerY);
         }
 
         /// <summary>
@@ -754,10 +754,10 @@ namespace Engine.Geometry
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
-        public void RotateAtPrepend(float angle, float centerX, float centerY)
+        public void RotateAtPrepend(double angle, double centerX, double centerY)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this = CreateRotationRadians((float)(angle * (Math.PI / 180.0)), centerX, centerY) * this;
+            this = CreateRotationRadians((angle * (Math.PI / 180.0)), centerX, centerY) * this;
         }
 
         /// <summary>
@@ -765,7 +765,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
-        public void Scale(float scaleX, float scaleY)
+        public void Scale(double scaleX, double scaleY)
         {
             this *= CreateScaling(scaleX, scaleY);
         }
@@ -775,7 +775,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
-        public void ScalePrepend(float scaleX, float scaleY)
+        public void ScalePrepend(double scaleX, double scaleY)
         {
             this = CreateScaling(scaleX, scaleY) * this;
         }
@@ -787,7 +787,7 @@ namespace Engine.Geometry
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
-        public void ScaleAt(float scaleX, float scaleY, float centerX, float centerY)
+        public void ScaleAt(double scaleX, double scaleY, double centerX, double centerY)
         {
             this *= CreateScaling(scaleX, scaleY, centerX, centerY);
         }
@@ -799,7 +799,7 @@ namespace Engine.Geometry
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
-        public void ScaleAtPrepend(float scaleX, float scaleY, float centerX, float centerY)
+        public void ScaleAtPrepend(double scaleX, double scaleY, double centerX, double centerY)
         {
             this = CreateScaling(scaleX, scaleY, centerX, centerY) * this;
         }
@@ -809,12 +809,12 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
         /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
-        public void Skew(float skewX, float skewY)
+        public void Skew(double skewX, double skewY)
         {
             skewX %= 360;
             skewY %= 360;
-            this *= CreateSkewRadians((float)(skewX * (Math.PI / 180.0)),
-                                      (float)(skewY * (Math.PI / 180.0)));
+            this *= CreateSkewRadians((skewX * (Math.PI / 180.0)),
+                                      (skewY * (Math.PI / 180.0)));
         }
 
         /// <summary>
@@ -822,12 +822,12 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
         /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
-        public void SkewPrepend(float skewX, float skewY)
+        public void SkewPrepend(double skewX, double skewY)
         {
             skewX %= 360;
             skewY %= 360;
-            this = CreateSkewRadians((float)(skewX * (Math.PI / 180.0)),
-                                     (float)(skewY * (Math.PI / 180.0))) * this;
+            this = CreateSkewRadians((skewX * (Math.PI / 180.0)),
+                                     (skewY * (Math.PI / 180.0))) * this;
         }
 
         /// <summary>
@@ -835,7 +835,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='offsetX'>The offset in the x dimension</param>
         /// <param name='offsetY'>The offset in the y dimension</param>
-        public void Translate(float offsetX, float offsetY)
+        public void Translate(double offsetX, double offsetY)
         {
             //
             // / a b 0 \   / 1 0 0 \    / a      b       0 \
@@ -875,7 +875,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='offsetX'>The offset in the x dimension</param>
         /// <param name='offsetY'>The offset in the y dimension</param>
-        public void TranslatePrepend(float offsetX, float offsetY)
+        public void TranslatePrepend(double offsetX, double offsetY)
         {
             this = CreateTranslation(offsetX, offsetY) * this;
         }
@@ -887,9 +887,9 @@ namespace Engine.Geometry
         /// The transformed point
         /// </returns>
         /// <param name="point"> The Point to transform </param>
-        public PointF Transform(PointF point)
+        public Point2D Transform(Point2D point)
         {
-            PointF newPoint = point;
+            Point2D newPoint = point;
             MultiplyPoint(ref newPoint);
             return newPoint;
         }
@@ -898,7 +898,7 @@ namespace Engine.Geometry
         /// Transform - Transforms each point in the array by this matrix
         /// </summary>
         /// <param name="points"> The Point array to transform </param>
-        public void Transform(PointF[] points)
+        public void Transform(Point2D[] points)
         {
             if (points != null)
             {
@@ -916,9 +916,9 @@ namespace Engine.Geometry
         /// The transformed vector
         /// </returns>
         /// <param name="vector"> The Vector to transform </param>
-        public VectorF Transform(VectorF vector)
+        public Vector2D Transform(Vector2D vector)
         {
-            VectorF newVector = vector;
+            Vector2D newVector = vector;
             MultiplyVector(ref newVector);
             return newVector;
         }
@@ -927,7 +927,7 @@ namespace Engine.Geometry
         /// Transform - Transforms each Vector in the array by this matrix.
         /// </summary>
         /// <param name="vectors"> The Vector array to transform </param>
-        public void Transform(VectorF[] vectors)
+        public void Transform(Vector2D[] vectors)
         {
             if (vectors != null)
             {
@@ -941,7 +941,7 @@ namespace Engine.Geometry
         /// <summary>
         /// The determinant of this matrix
         /// </summary>
-        public float Determinant
+        public double Determinant
         {
             get
             {
@@ -952,9 +952,9 @@ namespace Engine.Geometry
                         return 1.0f;
                     case MatrixTypes.SCALING:
                     case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                        return (_m11 * _m22);
+                        return (float)(_m11 * _m22);
                     default:
-                        return (_m11 * _m22) - (_m12 * _m21);
+                        return (float)((_m11 * _m22) - (_m12 * _m21));
                 }
             }
         }
@@ -976,7 +976,7 @@ namespace Engine.Geometry
         /// </exception>
         public void Invert()
         {
-            float determinant = Determinant;
+            double determinant = Determinant;
 
             if (determinant.IsZero())
             {
@@ -1009,7 +1009,7 @@ namespace Engine.Geometry
                     break;
                 default:
                     {
-                        float invdet = 1.0f / determinant;
+                        double invdet = 1.0f / determinant;
                         SetMatrix(_m22 * invdet,
                                   -_m12 * invdet,
                                   -_m21 * invdet,
@@ -1025,7 +1025,7 @@ namespace Engine.Geometry
         /// <summary>
         /// MultiplyVector
         /// </summary>
-        internal void MultiplyVector(ref float x, ref float y)
+        internal void MultiplyVector(ref double x, ref double y)
         {
             switch (_type)
             {
@@ -1038,8 +1038,8 @@ namespace Engine.Geometry
                     y *= _m22;
                     break;
                 default:
-                    float xadd = y * _m21;
-                    float yadd = x * _m12;
+                    double xadd = y * _m21;
+                    double yadd = x * _m12;
                     x *= _m11;
                     x += xadd;
                     y *= _m22;
@@ -1051,7 +1051,7 @@ namespace Engine.Geometry
         /// <summary>
         /// MultiplyVector
         /// </summary>
-        internal void MultiplyVector(ref VectorF vector)
+        internal void MultiplyVector(ref Vector2D vector)
         {
             switch (_type)
             {
@@ -1064,8 +1064,8 @@ namespace Engine.Geometry
                     vector.Y *= _m22;
                     break;
                 default:
-                    float xadd = vector.Y * _m21;
-                    float yadd = vector.X * _m12;
+                    double xadd = vector.Y * _m21;
+                    double yadd = vector.X * _m12;
                     vector.X *= _m11;
                     vector.X += xadd;
                     vector.Y *= _m22;
@@ -1077,7 +1077,7 @@ namespace Engine.Geometry
         /// <summary>
         /// MultiplyPoint
         /// </summary>
-        internal void MultiplyPoint(ref float x, ref float y)
+        internal void MultiplyPoint(ref double x, ref double y)
         {
             switch (_type)
             {
@@ -1098,8 +1098,8 @@ namespace Engine.Geometry
                     y += _offsetY;
                     break;
                 default:
-                    float xadd = y * _m21 + _offsetX;
-                    float yadd = x * _m12 + _offsetY;
+                    double xadd = y * _m21 + _offsetX;
+                    double yadd = x * _m12 + _offsetY;
                     x *= _m11;
                     x += xadd;
                     y *= _m22;
@@ -1111,7 +1111,7 @@ namespace Engine.Geometry
         /// <summary>
         /// MultiplyPoint
         /// </summary>
-        internal void MultiplyPoint(ref PointF point)
+        internal void MultiplyPoint(ref Point2D point)
         {
             switch (_type)
             {
@@ -1132,8 +1132,8 @@ namespace Engine.Geometry
                     point.Y += _offsetY;
                     break;
                 default:
-                    float xadd = point.Y * _m21 + _offsetX;
-                    float yadd = point.X * _m12 + _offsetY;
+                    double xadd = point.Y * _m21 + _offsetX;
+                    double yadd = point.X * _m12 + _offsetY;
                     point.X *= _m11;
                     point.X += xadd;
                     point.Y *= _m22;
@@ -1146,7 +1146,7 @@ namespace Engine.Geometry
         /// Creates a rotation transformation about the given point
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in radians</param>
-        internal static MatrixF CreateRotationRadians(float angle)
+        internal static Matrix2D CreateRotationRadians(double angle)
         {
             return CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
         }
@@ -1157,9 +1157,9 @@ namespace Engine.Geometry
         /// <param name='angle'>The angle to rotate specified in radians</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
-        internal static MatrixF CreateRotationRadians(float angle, float centerX, float centerY)
+        internal static Matrix2D CreateRotationRadians(double angle, double centerX, double centerY)
         {
-            MatrixF matrix = new MatrixF();
+            Matrix2D matrix = new Matrix2D();
             float sin = (float)Math.Sin(angle);
             float cos = (float)Math.Cos(angle);
             float dx = (float)((centerX * (1.0 - cos)) + (centerY * sin));
@@ -1179,9 +1179,9 @@ namespace Engine.Geometry
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name='centerX'>The centerX of scaling</param>
         /// <param name='centerY'>The centerY of scaling</param>
-        internal static MatrixF CreateScaling(float scaleX, float scaleY, float centerX, float centerY)
+        internal static Matrix2D CreateScaling(double scaleX, double scaleY, double centerX, double centerY)
         {
-            MatrixF matrix = new MatrixF();
+            Matrix2D matrix = new Matrix2D();
 
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
@@ -1196,9 +1196,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
-        internal static MatrixF CreateScaling(float scaleX, float scaleY)
+        internal static Matrix2D CreateScaling(double scaleX, double scaleY)
         {
-            MatrixF matrix = new MatrixF();
+            Matrix2D matrix = new Matrix2D();
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
                              0, 0,
@@ -1211,12 +1211,12 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
         /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
-        internal static MatrixF CreateSkewRadians(float skewX, float skewY)
+        internal static Matrix2D CreateSkewRadians(double skewX, double skewY)
         {
-            MatrixF matrix = new MatrixF();
+            Matrix2D matrix = new Matrix2D();
 
-            matrix.SetMatrix(1.0f, (float)Math.Tan(skewY),
-                             (float)Math.Tan(skewX), 1.0f,
+            matrix.SetMatrix(1.0f, Math.Tan(skewY),
+                             Math.Tan(skewX), 1.0f,
                              0.0f, 0.0f,
                              MatrixTypes.UNKNOWN);
 
@@ -1228,9 +1228,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='offsetX'>The offset in X</param>
         /// <param name='offsetY'>The offset in Y</param>
-        internal static MatrixF CreateTranslation(float offsetX, float offsetY)
+        internal static Matrix2D CreateTranslation(double offsetX, double offsetY)
         {
-            MatrixF matrix = new MatrixF();
+            Matrix2D matrix = new Matrix2D();
 
             matrix.SetMatrix(1, 0,
                              0, 1,
@@ -1247,10 +1247,7 @@ namespace Engine.Geometry
         ///             \ offsetX, offsetY, 1 /
         /// where offsetX, offsetY is the translation.
         ///</summary>
-        private void SetMatrix(float m11, float m12,
-                               float m21, float m22,
-                               float offsetX, float offsetY,
-                               MatrixTypes type)
+        private void SetMatrix(double m11, double m12, double m21, double m22, double offsetX, double offsetY, MatrixTypes type)
         {
             _m11 = m11;
             _m12 = m12;
@@ -1293,8 +1290,12 @@ namespace Engine.Geometry
             return;
         }
 
-        // Helper to get the numeric list separator for a given IFormatProvider.
-        // Separator is a comma [,] if the decimal separator is not a comma, or a semicolon [;] otherwise.
+        /// <summary>
+        /// Helper to get the numeric list separator for a given IFormatProvider.
+        /// Separator is a comma [,] if the decimal separator is not a comma, or a semicolon [;] otherwise.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <returns></returns>
         static internal char GetNumericListSeparator(IFormatProvider provider)
         {
             char numericSeparator = ',';
@@ -1345,13 +1346,13 @@ namespace Engine.Geometry
         /// the culture "en-US"
         /// <param name="source"> string with Matrix data </param>
         /// </summary>
-        public static MatrixF Parse(string source)
+        public static Matrix2D Parse(string source)
         {
             IFormatProvider formatProvider = CultureInfo.InvariantCulture;
 
             TokenizerHelper th = new TokenizerHelper(source, formatProvider);
 
-            MatrixF value;
+            Matrix2D value;
 
             string firstToken = th.NextTokenRequired();
 
@@ -1363,7 +1364,7 @@ namespace Engine.Geometry
             }
             else
             {
-                value = new MatrixF(
+                value = new Matrix2D(
                     MathExtensions.ToFloat(firstToken, formatProvider),
                     MathExtensions.ToFloat(th.NextTokenRequired(), formatProvider),
                     MathExtensions.ToFloat(th.NextTokenRequired(), formatProvider),
@@ -1386,7 +1387,6 @@ namespace Engine.Geometry
         /// </returns>
         public override string ToString()
         {
-
             // Delegate to the internal method which implements all ToString calls.
             return ConvertToString(null /* format string */, null /* format provider */);
         }
@@ -1400,7 +1400,6 @@ namespace Engine.Geometry
         /// </returns>
         public string ToString(IFormatProvider provider)
         {
-
             // Delegate to the internal method which implements all ToString calls.
             return ConvertToString(null /* format string */, provider);
         }
@@ -1416,7 +1415,6 @@ namespace Engine.Geometry
         /// </returns>
         string IFormattable.ToString(string format, IFormatProvider provider)
         {
-
             // Delegate to the internal method which implements all ToString calls.
             return ConvertToString(format, provider);
         }

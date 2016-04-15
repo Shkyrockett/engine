@@ -29,14 +29,14 @@ namespace Engine.Geometry
         /// </summary>
         public Polyline()
         {
-            base.Points = new List<PointF>();
+            base.Points = new List<Point2D>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Polyline(List<PointF> points)
+        public Polyline(List<Point2D> points)
         {
             base.Points = points;
         }
@@ -52,8 +52,8 @@ namespace Engine.Geometry
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
         public override void Render(Graphics g)
         {
-            g.FillPolygon(Style.BackBrush, Points.ToArray());
-            g.DrawLines(Style.ForePen, Points.ToArray());
+            //g.FillPolygon(Style.BackBrush, Points.ToArray());
+            //g.DrawLines(Style.ForePen, Points.ToArray());
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Engine.Geometry
         {
             if (this == null) return "Polyline";
             StringBuilder pts = new StringBuilder();
-            foreach (PointF pt in Points)
+            foreach (Point2D pt in Points)
             {
                 pts.Append(pt.ToString());
                 pts.Append(",");

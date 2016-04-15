@@ -34,7 +34,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private Vector vector;
+        private Vector2D vector;
 
         /// <summary>
         /// 
@@ -43,7 +43,7 @@ namespace Engine.Geometry
         public Line()
         {
             location = Point.Empty;
-            vector = Vector.Empty;
+            vector = Vector2D.Empty;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Engine.Geometry
         /// <param name="location"></param>
         /// <param name="vector"></param>
         /// <remarks></remarks>
-        public Line(Point location, Vector vector)
+        public Line(Point location, Vector2D vector)
         {
             this.location = location;
             this.vector = vector;
@@ -72,7 +72,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlAttribute()]
-        public Vector Vector
+        public Vector2D Vector
         {
             get { return vector; }
             set { vector = value; }

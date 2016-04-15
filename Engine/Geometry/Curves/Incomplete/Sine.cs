@@ -22,26 +22,26 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private PointF a;
+        private Point2D a;
 
         /// <summary>
         /// 
         /// </summary>
-        private PointF b;
+        private Point2D b;
 
         /// <summary>
         /// 
         /// </summary>
         public Sine()
         {
-            a = PointF.Empty;
-            b = PointF.Empty;
+            a = Point2D.Empty;
+            b = Point2D.Empty;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Sine(PointF a, PointF b)
+        public Sine(Point2D a, Point2D b)
         {
             this.a = a;
             this.b = b;
@@ -50,7 +50,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF A
+        public Point2D A
         {
             get { return a; }
             set { a = value; }
@@ -59,7 +59,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF B
+        public Point2D B
         {
             get { return b; }
             set { b = value; }
@@ -76,7 +76,7 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
             return Interpolate(a, b, index);
         }
@@ -89,12 +89,12 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        public static PointF Interpolate(PointF a, PointF b, double index)
+        public static Point2D Interpolate(Point2D a, Point2D b, double index)
         {
             //Single MU2 = (float)((1.0 - Math.Cos(index * 180)) * 0.5);
             //return Y1 * (1.0 - MU2) + Y2 * MU2;
             double MU2 = (1.0 - Math.Sin(index * 180)) * 0.5;
-            return (PointF)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
+            return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
         }
 
         /// <summary>

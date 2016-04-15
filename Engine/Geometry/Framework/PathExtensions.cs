@@ -24,7 +24,7 @@ namespace Engine.Geometry
         /// <param name="pointA"></param>
         /// <param name="pointB"></param>
         /// <param name="pointC"></param>
-        public static void AddArc(this List<Shape> path, PointF pointA, PointF pointB, PointF pointC)
+        public static void AddArc(this List<Shape> path, Point2D pointA, Point2D pointB, Point2D pointC)
         {
             path.Add(new Arc(pointA, pointB, pointC));
         }

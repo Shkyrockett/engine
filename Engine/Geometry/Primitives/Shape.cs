@@ -22,7 +22,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public virtual RectangleF Bounds { get; set; }
+        public virtual Rectangle2D Bounds { get; set; }
 
         /// <summary>
         /// 
@@ -34,17 +34,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public virtual bool HitTest(Point point)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public virtual bool HitTest(PointF point)
+        public virtual bool HitTest(Point2D point)
         {
             throw new NotImplementedException();
         }

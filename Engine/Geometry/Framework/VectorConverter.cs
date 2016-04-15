@@ -5,9 +5,9 @@ using System.Globalization;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// http://referencesource.microsoft.com
+    /// VectorConverter - Converter class for converting instances of other types to and from Vector instances
     /// </summary>
-    public sealed class MatrixFConverter
+    public sealed class Vector2DConverter 
         : TypeConverter
     {
         /// <summary>
@@ -47,18 +47,18 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Attempts to convert to a Matrix from the given object.
+        /// Attempts to convert to a Vector from the given object.
         /// </summary>
         /// <returns>
-        /// The Matrix which was constructed.
+        /// The Vector which was constructed.
         /// </returns>
         /// <exception cref="NotSupportedException">
         /// A NotSupportedException is thrown if the example object is null or is not a valid type
-        /// which can be converted to a Matrix.
+        /// which can be converted to a Vector.
         /// </exception>
         /// <param name="context"> The ITypeDescriptorContext for this call. </param>
         /// <param name="culture"> The requested CultureInfo.  Note that conversion uses "en-US" rather than this parameter. </param>
-        /// <param name="value"> The object to convert to an instance of Matrix. </param>
+        /// <param name="value"> The object to convert to an instance of Vector. </param>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
@@ -70,31 +70,31 @@ namespace Engine.Geometry
 
             if (source != null)
             {
-                return MatrixF.Parse(source);
+                return Vector2D.Parse(source);
             }
 
             return base.ConvertFrom(context, culture, value);
         }
 
         /// <summary>
-        /// ConvertTo - Attempt to convert an instance of Matrix to the given type
+        /// ConvertTo - Attempt to convert an instance of Vector to the given type
         /// </summary>
         /// <returns>
         /// The object which was constructed.
         /// </returns>
         /// <exception cref="NotSupportedException">
-        /// A NotSupportedException is thrown if "value" is null or not an instance of Matrix,
+        /// A NotSupportedException is thrown if "value" is null or not an instance of Vector,
         /// or if the destinationType isn't one of the valid destination types.
         /// </exception>
         /// <param name="context"> The ITypeDescriptorContext for this call. </param>
         /// <param name="culture"> The CultureInfo which is respected when converting. </param>
         /// <param name="value"> The object to convert to an instance of "destinationType". </param>
-        /// <param name="destinationType"> The type to which this will convert the Matrix instance. </param>
+        /// <param name="destinationType"> The type to which this will convert the Vector instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != null && value is MatrixF)
+            if (destinationType != null && value is Vector2D)
             {
-                MatrixF instance = (MatrixF)value;
+                Vector2D instance = (Vector2D)value;
 
                 if (destinationType == typeof(string))
                 {
@@ -107,4 +107,5 @@ namespace Engine.Geometry
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
+
 }

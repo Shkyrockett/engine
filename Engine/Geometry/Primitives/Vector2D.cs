@@ -16,28 +16,31 @@ using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Markup;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
     /// <summary>
-    /// Represents a vector in 2D coordinate space (float precision floating-point coordinates).
+    /// Represents a vector in 2D coordinate space (double precision floating-point coordinates).
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    [DisplayName("VectorF")]
-    public class VectorF
+    [DisplayName("Vector2D")]
+    [TypeConverter(typeof(Vector2DConverter))]
+    public class Vector2D
+         : IFormattable
     {
         #region Static Implementations
         /// <summary>
-        /// A Unit <see cref="VectorF"/>.
+        /// A Unit <see cref="Vector2D"/>.
         /// </summary>
-        public static readonly VectorF AUnit = new VectorF(1, 1);
+        public static readonly Vector2D AUnit = new Vector2D(1, 1);
 
         /// <summary>
-        /// An Empty <see cref="VectorF"/>.
+        /// An Empty <see cref="Vector2D"/>.
         /// </summary>
-        public static readonly VectorF Empty = new VectorF();
+        public static readonly Vector2D Empty = new Vector2D();
         #endregion
 
         #region Private Fields
@@ -45,13 +48,13 @@ namespace Engine.Geometry
         /// First Point of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        private float x;
+        private double x;
 
         /// <summary>
         /// Second Component of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        private float y;
+        private double y;
         #endregion
 
         #region Constructors
@@ -59,7 +62,7 @@ namespace Engine.Geometry
         /// Create a new Vector2D
         /// </summary>
         /// <remarks></remarks>
-        public VectorF()
+        public Vector2D()
         {
             x = 0;
             y = 0;
@@ -71,19 +74,7 @@ namespace Engine.Geometry
         /// <param name="valueX"></param>
         /// <param name="valueY"></param>
         /// <remarks></remarks>
-        public VectorF(float valueX, float valueY)
-        {
-            x = valueX;
-            y = valueY;
-        }
-
-        /// <summary>
-        /// Create a new Vector2D
-        /// </summary>
-        /// <param name="valueX"></param>
-        /// <param name="valueY"></param>
-        /// <remarks></remarks>
-        public VectorF(double valueX, double valueY)
+        public Vector2D(double valueX, double valueY)
         {
             x = (float)valueX;
             y = (float)valueY;
@@ -97,9 +88,9 @@ namespace Engine.Geometry
         /// <param name="value2X"></param>
         /// <param name="value2Y"></param>
         /// <remarks></remarks>
-        public VectorF(float value1X, float value1Y, float value2X, float value2Y)
+        public Vector2D(double value1X, double value1Y, double value2X, double value2Y)
         {
-            VectorF Temp = new PointF(value1X, value1Y).Delta(new PointF(value2X, value2Y)).Unit();
+            Vector2D Temp = new Point2D(value1X, value1Y).Delta(new Point2D(value2X, value2Y)).Unit();
             x = Temp.x;
             y = Temp.y;
         }
@@ -110,9 +101,9 @@ namespace Engine.Geometry
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <remarks></remarks>
-        public VectorF(PointF value1, PointF value2)
+        public Vector2D(Point2D value1, Point2D value2)
         {
-            VectorF Temp = value1.Delta(value2).Unit();
+            Vector2D Temp = value1.Delta(value2).Unit();
             x = Temp.x;
             y = Temp.y;
         }
@@ -124,7 +115,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public float X
+        public double X
         {
             get { return x; }
             set { x = value; }
@@ -135,14 +126,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public float Y
+        public double Y
         {
             get { return y; }
             set { y = value; }
         }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="VectorF"/> is empty.
+        /// Gets a value indicating whether this <see cref="Vector2D"/> is empty.
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -161,12 +152,12 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [XmlIgnore]
         [Browsable(false)]
-        public static Vector Random
+        public static Vector2D Random
         {
             get
             {
                 Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                return new Vector((2 * rnd.Next()) - 1, (2 * rnd.Next()) - 1);
+                return new Vector2D((2 * rnd.Next()) - 1, (2 * rnd.Next()) - 1);
             }
         }
         #endregion
@@ -179,9 +170,9 @@ namespace Engine.Geometry
         /// <param name="multiplyer">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
         /// <remarks></remarks>
-        public static VectorF operator *(VectorF value, double multiplyer)
+        public static Vector2D operator *(Vector2D value, double multiplyer)
         {
-            return new VectorF(value.X * multiplyer, value.Y * multiplyer);
+            return new Vector2D(value.X * multiplyer, value.Y * multiplyer);
         }
 
         /// <summary>
@@ -191,69 +182,33 @@ namespace Engine.Geometry
         /// <param name="value">The Point</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
         /// <remarks></remarks>
-        public static VectorF operator *(double multiplyer, VectorF value)
+        public static Vector2D operator *(double multiplyer, Vector2D value)
         {
-            return new VectorF(value.X * multiplyer, value.Y * multiplyer);
-        }
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static VectorF operator *(VectorF value, float multiplyer)
-        {
-            return new VectorF(value.X * multiplyer, value.Y * multiplyer);
-        }
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <param name="value">The Point</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static VectorF operator *(float multiplyer, VectorF value)
-        {
-            return new VectorF(value.X * multiplyer, value.Y * multiplyer);
-        }
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static VectorF operator *(VectorF value, int multiplyer)
-        {
-            return new VectorF(value.X * multiplyer, value.Y * multiplyer);
-        }
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <param name="value">The Point</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static VectorF operator *(int multiplyer, VectorF value)
-        {
-            return new VectorF(value.X * multiplyer, value.Y * multiplyer);
+            return new Vector2D(value.X * multiplyer, value.Y * multiplyer);
         }
 
         /// <summary>
         /// Divide a Vector2D
         /// </summary>
         /// <param name="Value">The Vector2D</param>
-        /// <param name="divisor">The Multiplier</param>
-        /// <returns>A Vector2D Multiplied by the Multiplier</returns>
+        /// <param name="divisor">The divisor</param>
+        /// <returns>A Vector2D divided by the divisor</returns>
         /// <remarks></remarks>
-        public static VectorF operator /(VectorF Value, float divisor)
+        public static Vector2D operator /(Vector2D Value, double divisor)
         {
-            return new VectorF(Value.x / divisor, Value.y / divisor);
+            return new Vector2D(Value.x / divisor, Value.y / divisor);
+        }
+
+        /// <summary>
+        /// Divide a Vector2D
+        /// </summary>
+        /// <param name="Value">The Vector2D</param>
+        /// <param name="divisor">The divisor</param>
+        /// <returns>A Vector2D divided by the divisor</returns>
+        /// <remarks></remarks>
+        public static Vector2D operator /(double Value, Vector2D divisor)
+        {
+            return new Vector2D(Value / divisor.x, Value / divisor.y);
         }
 
         /// <summary>
@@ -263,31 +218,7 @@ namespace Engine.Geometry
         /// <param name="value2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF operator +(VectorF value1, Point value2)
-        {
-            return value1.Add(value2);
-        }
-
-        /// <summary>
-        /// Add Points
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static PointF operator +(PointF value1, VectorF value2)
-        {
-            return value1.Add(value2);
-        }
-
-        /// <summary>
-        /// Add Points
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static PointF operator +(VectorF value1, PointF value2)
+        public static Vector2D operator +(Vector2D value1, double value2)
         {
             return value1.Add(value2);
         }
@@ -299,7 +230,19 @@ namespace Engine.Geometry
         /// <param name="value2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static VectorF operator +(VectorF value1, VectorF value2)
+        public static Point2D operator +(Vector2D value1, Point2D value2)
+        {
+            return value1.Add(value2);
+        }
+
+        /// <summary>
+        /// Add Points
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector2D operator +(Vector2D value1, Vector2D value2)
         {
             return value1.Add(value2);
         }
@@ -311,7 +254,7 @@ namespace Engine.Geometry
         /// <param name="value2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF operator -(VectorF value1, PointF value2)
+        public static Vector2D operator -(Vector2D value1, double value2)
         {
             return value1.Subtract(value2);
         }
@@ -323,7 +266,7 @@ namespace Engine.Geometry
         /// <param name="value2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF operator -(PointF value1, VectorF value2)
+        public static Point2D operator -(Vector2D value1, Point2D value2)
         {
             return value1.Subtract(value2);
         }
@@ -335,7 +278,7 @@ namespace Engine.Geometry
         /// <param name="value2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static VectorF operator -(VectorF value1, VectorF value2)
+        public static Vector2D operator -(Vector2D value1, Vector2D value2)
         {
             return value1.Subtract(value2);
         }
@@ -346,7 +289,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(VectorF left, VectorF right)
+        public static bool operator ==(Vector2D left, Vector2D right)
         {
             return left.X == right.X && left.Y == right.Y;
         }
@@ -357,7 +300,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(VectorF left, VectorF right)
+        public static bool operator !=(Vector2D left, Vector2D right)
         {
             return !(left == right);
         }
@@ -369,21 +312,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static implicit operator VectorF(PointF value)
+        public static implicit operator Vector2D(PointF value)
         {
-            return new VectorF(value.X, value.Y);
-        }
-
-        /// <summary>
-        /// PointF to Vector2D
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        public static explicit operator PointF(VectorF value)
-        {
-            return new PointF((int)value.x, (int)value.y);
+            return new Vector2D(value.X, value.Y);
         }
 
         /// <summary>
@@ -393,9 +324,33 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static implicit operator VectorF(Point value)
+        public static implicit operator Vector2D(Point value)
         {
-            return new VectorF(value.X, value.Y);
+            return new Vector2D(value.X, value.Y);
+        }
+
+        /// <summary>
+        /// Vector2D to Point
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        public static implicit operator Vector2D(Point2D value)
+        {
+            return new Vector2D(value.X, value.Y);
+        }
+
+        /// <summary>
+        /// PointF to Vector2D
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        public static explicit operator PointF(Vector2D value)
+        {
+            return new PointF((int)value.x, (int)value.y);
         }
 
         /// <summary>
@@ -405,7 +360,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static explicit operator Point(VectorF value)
+        public static explicit operator Point(Vector2D value)
         {
             return new Point((int)value.x, (int)value.y);
         }
@@ -419,7 +374,7 @@ namespace Engine.Geometry
         /// <param name="value2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool Compare(ref VectorF value1, ref VectorF value2)
+        public static bool Compare(ref Vector2D value1, ref Vector2D value2)
         {
             return (value1.x == value2.x) && (value1.y == value2.y);
         }
@@ -445,16 +400,67 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return X.GetHashCode() ^
+                   Y.GetHashCode();
         }
 
         /// <summary>
-        /// 
+        /// Parse - returns an instance converted from the provided string using
+        /// the culture "en-US"
+        /// <param name="source"> string with Vector data </param>
         /// </summary>
-        /// <returns></returns>
-        public Vector ToVector()
+        public static Vector2D Parse(string source)
         {
-            return Vector.Truncate(this);
+            TokenizerHelper th = new TokenizerHelper(source, CultureInfo.InvariantCulture);
+
+            Vector2D value;
+
+            String firstToken = th.NextTokenRequired();
+
+            value = new Vector2D(
+                Convert.ToDouble(firstToken, CultureInfo.InvariantCulture),
+                Convert.ToDouble(th.NextTokenRequired(), CultureInfo.InvariantCulture));
+
+            // There should be no more tokens in this string.
+            th.LastTokenRequired();
+
+            return value;
+        }
+
+        /// <summary>
+        /// Creates a string representation of this object based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider)
+        {
+
+            // Delegate to the internal method which implements all ToString calls.
+            return ConvertToString(format, provider);
+        }
+
+        /// <summary>
+        /// Creates a string representation of this object based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
+        {
+            // Helper to get the numeric list separator for a given culture.
+            string separator = NumberFormatInfo.InvariantInfo.NumberGroupSeparator;
+            return String.Format(provider,
+                                 "{1:" + format + "}{0}{2:" + format + "}",
+                                 separator,
+                                 x,
+                                 y);
         }
 
         /// <summary>

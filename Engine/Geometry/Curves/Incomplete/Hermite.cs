@@ -33,25 +33,25 @@ namespace Engine.Geometry
         /// Position1
         /// </summary>
         [XmlAttribute()]
-        private PointF a;
+        private Point2D a;
 
         /// <summary>
         /// Tangent1
         /// </summary>
         [XmlAttribute()]
-        private PointF aTan;
+        private Point2D aTan;
 
         /// <summary>
         /// Position2
         /// </summary>
         [XmlAttribute()]
-        private PointF b;
+        private Point2D b;
 
         /// <summary>
         /// Tangent2
         /// </summary>
         [XmlAttribute()]
-        private PointF bTan;
+        private Point2D bTan;
 
         /// <summary>
         /// 
@@ -66,17 +66,17 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> points = new List<PointF>();
+        private List<Point2D> points = new List<Point2D>();
 
         /// <summary>
         /// 
         /// </summary>
         public Hermite()
         {
-            a = PointF.Empty;
-            aTan = PointF.Empty;
-            b = PointF.Empty;
-            bTan = PointF.Empty;
+            a = Point2D.Empty;
+            aTan = Point2D.Empty;
+            b = Point2D.Empty;
+            bTan = Point2D.Empty;
             tension = 0;
             bias = 0;
         }
@@ -90,7 +90,7 @@ namespace Engine.Geometry
         /// <param name="bTan"></param>
         /// <param name="tension"></param>
         /// <param name="bias"></param>
-        public Hermite(PointF a, PointF aTan, PointF b, PointF bTan, float tension, float bias)
+        public Hermite(Point2D a, Point2D aTan, Point2D b, Point2D bTan, float tension, float bias)
         {
             this.a = a;
             this.aTan = aTan;
@@ -103,7 +103,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF A
+        public Point2D A
         {
             get { return a; }
             set { a = value; }
@@ -112,7 +112,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF ATan
+        public Point2D ATan
         {
             get { return aTan; }
             set { aTan = value; }
@@ -121,7 +121,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF B
+        public Point2D B
         {
             get { return b; }
             set { b = value; }
@@ -130,7 +130,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF BTan
+        public Point2D BTan
         {
             get { return bTan; }
             set { bTan = value; }
@@ -164,7 +164,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
             return Interpolate1(a, aTan, b, bTan, tension, bias, index);
         }
@@ -184,7 +184,7 @@ namespace Engine.Geometry
         /// <param name="bias"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Interpolate1(PointF a, PointF aTan, PointF b, PointF bTan, double tension, double bias, double index)
+        public static Point2D Interpolate1(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias, double index)
         {
             //float mu2 = mu * mu;
             //float mu3 = mu2 * mu;
@@ -199,15 +199,15 @@ namespace Engine.Geometry
             //return (a0 * y1 + a1 * m0 + a2 * m1 + a3 * y2);
             double mu2 = index * index;
             double mu3 = mu2 * index;
-            VectorF m0 = aTan.Subtract(a).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
+            Vector2D m0 = aTan.Subtract(a).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
             m0 = m0.Add(b.Subtract(aTan).Scale(1 - bias).Scale(1 - tension).Scale(0.5));
-            VectorF m1 = b.Subtract(aTan).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
+            Vector2D m1 = b.Subtract(aTan).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
             m1 = m1.Add(bTan.Subtract(b).Scale(1 - bias).Scale(1 - tension).Scale(0.5));
             double a0 = 2 * mu3 - 3 * mu2 + 1;
             double a1 = mu3 - 2 * mu2 + index;
             double a2 = mu3 - mu2;
             double a3 = -2 * mu3 + 3 * mu2;
-            return ((PointF)aTan.Scale(a0).Add(m0.Scale(a1)).Add(m1.Scale(a2)).Add(b.Scale(a3)));
+            return ((Point2D)aTan.Scale(a0).Add(m0.Scale(a1)).Add(m1.Scale(a2)).Add(b.Scale(a3)));
         }
 
         /// <summary>
@@ -279,12 +279,12 @@ namespace Engine.Geometry
         /// <param name="bias"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Interpolate2(PointF a, PointF aTan, PointF b, PointF bTan, double tension, double bias, double index)
+        public static Point2D Interpolate2(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias, double index)
         {
             double t2 = (index * index);
             double t3 = (t2 * index);
             double tb = ((1 + bias) * ((1 - tension) / 2));
-            return (PointF)aTan.Scale(((2 * t3) - (3 * t2)) + 1).Add(aTan.Subtract(a).Add(b.Subtract(aTan)).Scale((t3 - (2 * t2)) + index).Add(b.Subtract(aTan).Add(bTan.Subtract(b)).Scale(t3 - t2)).Scale(tb).Add(b.Scale((3 * t2) - (2 * t3))));
+            return (Point2D)aTan.Scale(((2 * t3) - (3 * t2)) + 1).Add(aTan.Subtract(a).Add(b.Subtract(aTan)).Scale((t3 - (2 * t2)) + index).Add(b.Subtract(aTan).Add(bTan.Subtract(b)).Scale(t3 - t2)).Scale(tb).Add(b.Scale((3 * t2) - (2 * t3))));
         }
 
         /// <summary>

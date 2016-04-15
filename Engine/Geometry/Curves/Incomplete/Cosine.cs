@@ -25,26 +25,26 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private PointF a;
+        private Point2D a;
 
         /// <summary>
         /// 
         /// </summary>
-        private PointF b;
+        private Point2D b;
 
         /// <summary>
         /// 
         /// </summary>
         public Cosine()
         {
-            a = PointF.Empty;
-            b = PointF.Empty;
+            a = Point2D.Empty;
+            b = Point2D.Empty;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Cosine(PointF a, PointF b)
+        public Cosine(Point2D a, Point2D b)
         {
             this.a = a;
             this.b = b;
@@ -53,7 +53,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF A
+        public Point2D A
         {
             get { return a; }
             set { a = value; }
@@ -62,7 +62,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF B
+        public Point2D B
         {
             get { return b; }
             set { b = value; }
@@ -79,7 +79,7 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
             return Interpolate(a, b, index);
         }
@@ -92,12 +92,12 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        public static PointF Interpolate(PointF a, PointF b, double index)
+        public static Point2D Interpolate(Point2D a, Point2D b, double index)
         {
             //Single MU2 = (float)((1.0 - Math.Cos(index * 180)) * 0.5);
             //return Y1 * (1.0 - MU2) + Y2 * MU2;
             double MU2 = (1.0 - Math.Cos(index * 180)) * 0.5;
-            return (PointF)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
+            return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
         }
 
         /// <summary>
@@ -107,10 +107,10 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public PointF CosineInterpolate(PointF a, PointF b, double Index)
+        public Point2D CosineInterpolate(Point2D a, Point2D b, double Index)
         {
             double MU = ((1 - Math.Cos((Index * 180))) / 2);
-            return new PointF(
+            return new Point2D(
                 (float)((a.X * (1 - MU)) + (b.X * MU)),
                 (float)((a.Y * (1 - MU)) + (b.Y * MU))
                 );

@@ -29,42 +29,42 @@ namespace Engine.Geometry
         /// Center Point of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        private PointF center;
+        private Point2D center;
 
         /// <summary>
         /// Major Radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        private float majorRadius;
+        private double majorRadius;
 
         /// <summary>
         /// Minor Radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        private float minorRadius;
+        private double minorRadius;
 
         /// <summary>
         /// Aspect of Ellipse.
         /// </summary>
         /// <remarks></remarks>
-        private float aspect;
+        private double aspect;
 
         /// <summary>
         /// Angle of Ellipse. 
         /// </summary>
         /// <remarks></remarks>
-        private float angle;
+        private double angle;
 
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        internal List<PointF> Points;
+        internal List<Point2D> Points;
 
         /// <summary>
         /// 
         /// </summary>
         public Ellipse()
-            : this(new PointF(), 0, 0, 0)
+            : this(new Point2D(), 0, 0, 0)
         { }
 
         /// <summary>
@@ -76,18 +76,18 @@ namespace Engine.Geometry
         /// <param name="Aspect">Aspect of Ellipse Note: Does not currently work.</param>
         /// <param name="Angle">Angle of Ellipse Note: Does not currently work.</param>
         /// <remarks></remarks>
-        public Ellipse(PointF PointA, PointF PointB, PointF PointC, float Aspect, float Angle)
+        public Ellipse(Point2D PointA, Point2D PointB, Point2D PointC, double Aspect, double Angle)
         {
             //  Calculate the slopes of the lines.
-            float SlopeA = (float)(PointA.Slope(PointB));
-            float SlopeB = (float)(PointC.Slope(PointB));
-            float FY = ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
-            float FX = ((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)));
-            float NewY = ((FX - FY) / (SlopeB - SlopeA));
-            float NewX = (FX - (SlopeB * NewY));
-            center = new PointF(NewX, NewY);
+            double SlopeA = (float)(PointA.Slope(PointB));
+            double SlopeB = (float)(PointC.Slope(PointB));
+            double FY = ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
+            double FX = ((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)));
+            double NewY = ((FX - FY) / (SlopeB - SlopeA));
+            double NewX = (FX - (SlopeB * NewY));
+            center = new Point2D(NewX, NewY);
             //  Find the Radius
-            majorRadius = (float)(center.Length(PointA));
+            majorRadius = (center.Length(PointA));
             aspect = Aspect;
             angle = Angle;
             Points = InterpolatePoints();
@@ -101,7 +101,7 @@ namespace Engine.Geometry
         /// <param name="minorRadius">Minor radius of Ellipse.</param>
         /// <param name="Angle">Angle of Ellipse.</param>
         /// <remarks></remarks>
-        public Ellipse(PointF center, float majorRadius, float minorRadius, float Angle)
+        public Ellipse(Point2D center, double majorRadius, double minorRadius, double Angle)
         {
             this.center = center;
             this.majorRadius = majorRadius;
@@ -122,7 +122,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(PointFConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public PointF Center
+        public Point2D Center
         {
             get { return center; }
             set
@@ -139,7 +139,7 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The larger radius of the ellipse.")]
         [XmlAttribute()]
-        public float MajorRadius
+        public double MajorRadius
         {
             get { return majorRadius; }
             set
@@ -157,7 +157,7 @@ namespace Engine.Geometry
         [Description("The smaller radius of the ellipse.")]
         [XmlAttribute()]
         [RefreshProperties(RefreshProperties.All)]
-        public float MinorRadius
+        public double MinorRadius
         {
             get { return minorRadius; }
             set
@@ -175,7 +175,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The aspect ratio of the major and minor axis.")]
         [RefreshProperties(RefreshProperties.All)]
-        public float Aspect
+        public double Aspect
         {
             get { return aspect; }
             set
@@ -193,7 +193,7 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The angle to rotate the ellipse.")]
         [XmlAttribute()]
-        public float Angle
+        public double Angle
         {
             get { return angle; }
             set
@@ -208,7 +208,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular bounds of the ellipse.")]
-        public override RectangleF Bounds
+        public override Rectangle2D Bounds
         {
             get
             {
@@ -221,11 +221,11 @@ namespace Engine.Geometry
                 double bbox_halfwidth = Math.Sqrt(ux * ux + vx * vx);
                 double bbox_halfheight = Math.Sqrt(uy * uy + vy * vy);
 
-                return RectangleF.FromLTRB(
-                    (float)(center.X - bbox_halfwidth),
-                    (float)(center.Y - bbox_halfheight),
-                    (float)(center.X + bbox_halfwidth),
-                    (float)(center.Y + bbox_halfheight)
+                return Rectangle2D.FromLTRB(
+                    (center.X - bbox_halfwidth),
+                    (center.Y - bbox_halfheight),
+                    (center.X + bbox_halfwidth),
+                    (center.Y + bbox_halfheight)
                     );
             }
         }
@@ -282,11 +282,11 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Functional")]
         [Description("The array of grab handles for this shape.")]
-        public List<PointF> Handles
+        public List<Point2D> Handles
         {
             get
             {
-                return new List<PointF>
+                return new List<Point2D>
                 {
                     center,
                     Interpolate(0),
@@ -298,9 +298,9 @@ namespace Engine.Geometry
                 if (value != null && value.Count >= 1)
                 {
                     Center = value[0];
-                    MajorRadius = (float)(new LineSegment(center, value[1]).Length());
-                    Angle = (float)(new LineSegment(center, value[1]).Angle());
-                    Aspect = (float)((new LineSegment(center, value[2]).Length()) / majorRadius);
+                    MajorRadius = (new LineSegment(center, value[1]).Length());
+                    Angle = (new LineSegment(center, value[1]).Angle());
+                    Aspect = ((new LineSegment(center, value[2]).Length()) / majorRadius);
                 }
             }
         }
@@ -315,9 +315,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        public RectangleF UnrotatedBounds()
+        public Rectangle2D UnrotatedBounds()
         {
-            return new RectangleF(
+            return new Rectangle2D(
                 (center.X - majorRadius),
                 (center.Y - majorRadius),
                 (majorRadius),
@@ -354,9 +354,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
-            RectangleF unroatatedBounds = new RectangleF(
+            Rectangle2D unroatatedBounds = new Rectangle2D(
                 center.X - majorRadius,
                 center.Y - majorRadius,
                 majorRadius,
@@ -364,17 +364,17 @@ namespace Engine.Geometry
                 );
 
             double theta = MathExtensions.ToRadians(angle);
-            PointF xaxis = new PointF((float)Math.Cos(theta), (float)Math.Sin(theta));
-            PointF yaxis = new PointF(-(float)Math.Sin(theta), (float)Math.Cos(theta));
+            Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
+            Point2D yaxis = new Point2D(-Math.Sin(theta), Math.Cos(theta));
 
             // Ellipse equation for an ellipse at origin.
-            PointF ellipsePoint = new PointF(
-                (float)(unroatatedBounds.Width * Math.Cos(index)),
-                (float)(unroatatedBounds.Height * Math.Sin(index))
+            Point2D ellipsePoint = new Point2D(
+                (unroatatedBounds.Width * Math.Cos(index)),
+                (unroatatedBounds.Height * Math.Sin(index))
                 );
 
             // Apply the rotation transformation and translate to new center.
-            return new PointF(
+            return new Point2D(
                 Center.X + (ellipsePoint.X * xaxis.X + ellipsePoint.Y * xaxis.Y),
                 Center.Y + (ellipsePoint.X * yaxis.X + ellipsePoint.Y * yaxis.Y)
                 );
@@ -384,10 +384,10 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints()
+        public List<Point2D> InterpolatePoints()
         {
             float delta_phi = (float)(2 * Math.PI / Perimeter);
-            List<PointF> points = new List<PointF>();
+            List<Point2D> points = new List<Point2D>();
             for (float i = 0.0f; i <= (float)(2.0 * Math.PI); i += delta_phi)
             {
                 points.Add(Interpolate(i));
@@ -402,12 +402,6 @@ namespace Engine.Geometry
         /// <param name="g"></param>
         public override void Render(Graphics g)
         {
-            if (Points == null || Points.Count <= 0) Points = InterpolatePoints();
-            if (Points != null && Points.Count > 1)
-            {
-                g.FillPolygon(Style.BackBrush, Points.ToArray());
-                g.DrawPolygon(Style.ForePen, Points.ToArray());
-            }
         }
 
         /// <summary>

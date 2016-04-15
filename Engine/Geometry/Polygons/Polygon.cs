@@ -27,21 +27,21 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> points;
+        private List<Point2D> points;
 
         /// <summary>
         /// 
         /// </summary>
         public Polygon()
         {
-            points = new List<PointF>();
+            points = new List<Point2D>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Polygon(List<PointF> points)
+        public Polygon(List<Point2D> points)
         {
             this.points = points;
         }
@@ -51,7 +51,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF this[int index]
+        public Point2D this[int index]
         {
             get { return points[index]; }
             set { points[index] = value; }
@@ -60,7 +60,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> Points
+        public List<Point2D> Points
         {
             get { return points; }
             set { points = value; }
@@ -69,16 +69,16 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override RectangleF Bounds
+        public override Rectangle2D Bounds
         {
             get
             {
-                float left = points[0].X;
-                float top = points[0].Y;
-                float right = points[0].X;
-                float bottom = points[0].Y;
+                double left = points[0].X;
+                double top = points[0].Y;
+                double right = points[0].X;
+                double bottom = points[0].Y;
 
-                foreach (PointF point in points)
+                foreach (Point2D point in points)
                 {
                     // ToDo: Measure performance impact of overwriting each time.
                     left = point.X <= left ? point.X : left;
@@ -87,7 +87,7 @@ namespace Engine.Geometry
                     bottom = point.Y >= bottom ? point.Y : bottom;
                 }
 
-                return RectangleF.FromLTRB(left, top, right, bottom);
+                return Rectangle2D.FromLTRB(left, top, right, bottom);
             }
         }
 
@@ -102,8 +102,6 @@ namespace Engine.Geometry
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
         public override void Render(Graphics g)
         {
-            g.FillPolygon(Style.BackBrush, points.ToArray());
-            g.DrawPolygon(Style.ForePen, points.ToArray());
         }
 
         /// <summary>
@@ -114,7 +112,7 @@ namespace Engine.Geometry
         {
             if (this == null) return "Polygon";
             StringBuilder pts = new StringBuilder();
-            foreach (PointF pt in points)
+            foreach (Point2D pt in points)
             {
                 pts.Append(pt.ToString());
                 pts.Append(",");

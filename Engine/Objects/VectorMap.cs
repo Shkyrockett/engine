@@ -62,7 +62,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="area"></param>
         /// <returns></returns>
-        public List<Shape> this[Rectangle area]
+        public List<Shape> this[Rectangle2D area]
         {
             get
             {
@@ -84,7 +84,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public List<Shape> this[Point point]
+        public List<Shape> this[Point2D point]
         {
             get
             {

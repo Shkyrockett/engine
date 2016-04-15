@@ -17,7 +17,7 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(Shape shape, Graphics g, ShapeStyle style)
         {
-            g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds });
+            g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
             if (shape == null)
             {
@@ -35,13 +35,9 @@ namespace Engine.Imaging
             {
                 ((Polygon)shape).Render(g, style);
             }
-            else if (shape is Rect)
+            else if (shape is Rectangle2D)
             {
-                ((Rect)shape).Render(g, style);
-            }
-            else if (shape is RectF)
-            {
-                ((RectF)shape).Render(g, style);
+                ((Rectangle2D)shape).Render(g, style);
             }
             else if (shape is Circle)
             {
@@ -73,7 +69,7 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this LineSegment shape, Graphics g, ShapeStyle style)
         {
-            g.DrawLine(style.ForePen, shape.A, shape.B);
+            g.DrawLine(style.ForePen, shape.A.ToPointF(), shape.B.ToPointF());
         }
 
         /// <summary>
@@ -84,8 +80,8 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this Polygon shape, Graphics g, ShapeStyle style)
         {
-            g.FillPolygon(style.BackBrush, shape.Points.ToArray());
-            g.DrawPolygon(style.ForePen, shape.Points.ToArray());
+            g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+            g.DrawPolygon(style.ForePen, shape.Points.ToPointFArray());
         }
 
         /// <summary>
@@ -96,8 +92,8 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this Polyline shape, Graphics g, ShapeStyle style)
         {
-            g.FillPolygon(style.BackBrush, shape.Points.ToArray());
-            g.DrawLines(style.ForePen, shape.Points.ToArray());
+            g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+            g.DrawLines(style.ForePen, shape.Points.ToPointFArray());
         }
 
         /// <summary>
@@ -106,22 +102,10 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="style"></param>
         /// <param name="shape"></param>
-        public static void Render(this Rect shape, Graphics g, ShapeStyle style)
+        public static void Render(this Rectangle2D shape, Graphics g, ShapeStyle style)
         {
-            g.FillRectangles(style.BackBrush, new RectangleF[] { shape.Bounds });
-            g.DrawRectangles(style.ForePen, new RectangleF[] { shape.Bounds });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="style"></param>
-        /// <param name="shape"></param>
-        public static void Render(this RectF shape, Graphics g, ShapeStyle style)
-        {
-            g.FillRectangles(style.BackBrush, new RectangleF[] { shape.Bounds });
-            g.DrawRectangles(style.ForePen, new RectangleF[] { shape.Bounds });
+            g.FillRectangles(style.BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
+            g.DrawRectangles(style.ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
         }
 
         /// <summary>
@@ -132,8 +116,8 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this Circle shape, Graphics g, ShapeStyle style)
         {
-            g.FillEllipse(style.BackBrush, shape.Bounds);
-            g.DrawEllipse(style.ForePen, shape.Bounds);
+            g.FillEllipse(style.BackBrush, shape.Bounds.ToRectangleF());
+            g.DrawEllipse(style.ForePen, shape.Bounds.ToRectangleF());
         }
 
         /// <summary>
@@ -147,8 +131,8 @@ namespace Engine.Imaging
             if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints();
             if (shape.Points != null && shape.Points.Count > 1)
             {
-                g.FillPolygon(style.BackBrush, shape.Points.ToArray());
-                g.DrawPolygon(style.ForePen, shape.Points.ToArray());
+                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+                g.DrawPolygon(style.ForePen, shape.Points.ToPointFArray());
             }
         }
 
@@ -160,7 +144,12 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this CubicBezier shape, Graphics g, ShapeStyle style)
         {
-            g.DrawBezier(style.ForePen, shape.A, shape.B, shape.C, shape.D);
+            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length());
+            if (shape.Points != null && shape.Points.Count > 1)
+            {
+                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+                g.DrawBezier(style.ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
+            }
         }
 
         /// <summary>
@@ -175,8 +164,8 @@ namespace Engine.Imaging
             if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length());
             if (shape.Points != null && shape.Points.Count > 1)
             {
-                //g.FillPolygon(style.BackBrush, shape.Points.ToArray());
-                g.DrawCurve(style.ForePen, shape.Points.ToArray());
+                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+                g.DrawCurve(style.ForePen, shape.Points.ToPointFArray());
             }
         }
     }

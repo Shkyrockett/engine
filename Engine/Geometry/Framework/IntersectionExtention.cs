@@ -35,7 +35,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool AreClose(this float value1, float value2)
+        public static bool AreClose(this double value1, double value2)
         {
             //in case they are Infinities (then epsilon check does not work)
             if (value1 == value2) return true;
@@ -53,7 +53,7 @@ namespace Engine.Geometry
         /// <param name='point1'>The first point to compare</param>
         /// <param name='point2'>The second point to compare</param>
         /// <returns>Whether or not the two points are equal</returns>
-        public static bool AreClose(this PointF point1, PointF point2)
+        public static bool AreClose(this Point2D point1, Point2D point2)
         {
             return AreClose(point1.X, point2.X) &&
             AreClose(point1.Y, point2.Y);
@@ -67,7 +67,7 @@ namespace Engine.Geometry
         /// <param name='size1'>The first size to compare</param>
         /// <param name='size2'>The second size to compare</param>
         /// <returns>Whether or not the two Size instances are equal</returns>
-        public static bool AreClose(this SizeF size1, SizeF size2)
+        public static bool AreClose(this Size2D size1, Size2D size2)
         {
             return AreClose(size1.Width, size2.Width) &&
                    AreClose(size1.Height, size2.Height);
@@ -81,7 +81,7 @@ namespace Engine.Geometry
         /// <param name='vector1'>The first Vector to compare</param>
         /// <param name='vector2'>The second Vector to compare</param>
         /// <returns>Whether or not the two Vector instances are equal</returns>
-        public static bool AreClose(this VectorF vector1, VectorF vector2)
+        public static bool AreClose(this Vector2D vector1, Vector2D vector2)
         {
             return AreClose(vector1.X, vector2.X) &&
                    AreClose(vector1.Y, vector2.Y);
@@ -95,7 +95,7 @@ namespace Engine.Geometry
         /// <param name='rect1'>The first rectangle to compare</param>
         /// <param name='rect2'>The second rectangle to compare</param>
         /// <returns>Whether or not the two rectangles are equal</returns>
-        public static bool AreClose(this RectangleF rect1, RectangleF rect2)
+        public static bool AreClose(this Rectangle2D rect1, Rectangle2D rect2)
         {
             // If they're both empty, don't bother with the double logic.
             if (rect1.IsEmpty)
@@ -118,12 +118,12 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name='rect'>The rectangle to test</param>
         /// <returns>returns whether the Rectangle has NaN</returns>        
-        public static bool RectHasNaN(this RectangleF rect)
+        public static bool RectHasNaN(this Rectangle2D rect)
         {
-            if (float.IsNaN(rect.X)
-                 || float.IsNaN(rect.Y)
-                 || float.IsNaN(rect.Height)
-                 || float.IsNaN(rect.Width))
+            if (double.IsNaN(rect.X)
+                 || double.IsNaN(rect.Y)
+                 || double.IsNaN(rect.Height)
+                 || double.IsNaN(rect.Width))
             {
                 return true;
             }
@@ -137,7 +137,7 @@ namespace Engine.Geometry
         /// <param name="point"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
-        public static bool PointInPolygonSaeedAmiri(this Polygon polygon, PointF point)
+        public static bool PointInPolygonSaeedAmiri(this Polygon polygon, Point2D point)
         {
             var coef = polygon.Points.Skip(1).Select((p, i) =>
                                             (point.Y - polygon[i].Y) * (p.X - polygon[i].X)
@@ -164,20 +164,20 @@ namespace Engine.Geometry
         /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
         /// https://social.msdn.microsoft.com/Forums/windows/en-US/95055cdc-60f8-4c22-8270-ab5f9870270a/determine-if-the-point-is-in-the-polygon-c?forum=winforms
         /// </remarks>
-        public static bool PointInPolygonKeith(this Polygon polygon, PointF point)
+        public static bool PointInPolygonKeith(this Polygon polygon, Point2D point)
         {
-            PointF p1;
-            PointF p2;
+            Point2D p1;
+            Point2D p2;
             bool inside = false;
             if (polygon.Points.Count < 3)
             {
                 return inside;
             }
-            var oldPoint = new PointF(
+            var oldPoint = new Point2D(
                 polygon.Points[polygon.Points.Count - 1].X, polygon.Points[polygon.Points.Count - 1].Y);
             for (int i = 0; i < polygon.Points.Count; i++)
             {
-                var newPoint = new PointF(polygon.Points[i].X, polygon.Points[i].Y);
+                var newPoint = new Point2D(polygon.Points[i].X, polygon.Points[i].Y);
                 if (newPoint.X > oldPoint.X)
                 {
                     p1 = oldPoint;
@@ -206,7 +206,7 @@ namespace Engine.Geometry
         /// <param name="point">the given point</param>
         /// <returns>true if the point is inside the polygon; otherwise, false</returns>
         /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
-        public static bool PointInPolygonMeowNET(this Polygon polygon, PointF point)
+        public static bool PointInPolygonMeowNET(this Polygon polygon, Point2D point)
         {
             bool result = false;
             int j = polygon.Points.Count() - 1;
@@ -248,7 +248,7 @@ namespace Engine.Geometry
         ///  Note that division by zero is avoided because the division is protected
         ///  by the "if" clause which surrounds it.
         /// </remarks>
-        public static bool PointInPolygonAlienRyderFlex(this Polygon polygon, PointF point)
+        public static bool PointInPolygonAlienRyderFlex(this Polygon polygon, Point2D point)
         {
             int i;
             int j = polygon.Points.Count - 1;
@@ -294,7 +294,7 @@ namespace Engine.Geometry
         ///  Note that division by zero is avoided because the division is protected
         ///  by the "if" clause which surrounds it.
         /// </remarks>
-        public static bool PointInPolygonNathanMercer(this Polygon polygon, PointF point)
+        public static bool PointInPolygonNathanMercer(this Polygon polygon, Point2D point)
         {
             int i;
             int j = polygon.Points.Count - 1;
@@ -341,7 +341,7 @@ namespace Engine.Geometry
         ///  Note that division by zero is avoided because the division is protected
         ///  by the "if" clause which surrounds it.
         /// </remarks>
-        public static bool PointInPolygonLaschaLagidse(this Polygon polygon, PointF point)
+        public static bool PointInPolygonLaschaLagidse(this Polygon polygon, Point2D point)
         {
             int i;
             int j = polygon.Points.Count - 1;
@@ -371,7 +371,7 @@ namespace Engine.Geometry
         /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
         /// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
         /// </remarks>
-        public static bool PointInPolygonGilKr(this Polygon polygon, PointF point)
+        public static bool PointInPolygonGilKr(this Polygon polygon, Point2D point)
         {
             int i, j;
             int nvert = polygon.Points.Count;
@@ -392,7 +392,7 @@ namespace Engine.Geometry
         /// <param name="point"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test</remarks>
-        public static bool PointInPolygonMKatz(this Polygon polygon, PointF point)
+        public static bool PointInPolygonMKatz(this Polygon polygon, Point2D point)
         {
             double minX = polygon.Points[0].X;
             double maxX = polygon.Points[0].X;
@@ -400,7 +400,7 @@ namespace Engine.Geometry
             double maxY = polygon.Points[0].Y;
             for (int i = 1; i < polygon.Points.Count; i++)
             {
-                PointF q = polygon.Points[i];
+                Point2D q = polygon.Points[i];
                 minX = Math.Min(q.X, minX);
                 maxX = Math.Max(q.X, maxX);
                 minY = Math.Min(q.Y, minY);
@@ -433,12 +433,12 @@ namespace Engine.Geometry
         /// <param name="point"></param>
         /// <returns>Return true if the point is in the polygon.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static bool PointInPolygonRodStephens(this Polygon polygon, PointF point)
+        public static bool PointInPolygonRodStephens(this Polygon polygon, Point2D point)
         {
             // Get the angle between the point and the
             // first and last vertices.
             int max_point = polygon.Points.Count - 1;
-            float total_angle = GetAngle(
+            double total_angle = GetAngle(
                 polygon.Points[max_point].X, polygon.Points[max_point].Y,
                 point.X, point.Y,
                 polygon.Points[0].X, polygon.Points[0].Y);
@@ -465,7 +465,7 @@ namespace Engine.Geometry
         /// <param name="arc"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static bool PointInArc(this Arc arc, PointF point)
+        public static bool PointInArc(this Arc arc, Point2D point)
         {
             //ToDo: Locate the position in relation to the arc start and end points chord.
             return (arc.Radius > (float)(arc.Center.Length(point)));
@@ -477,7 +477,7 @@ namespace Engine.Geometry
         /// <param name="circle"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static bool PointInCircle(this Circle circle, PointF point)
+        public static bool PointInCircle(this Circle circle, Point2D point)
         {
             return (circle.Radius > (float)(circle.Center.Length(point)));
         }
@@ -488,18 +488,18 @@ namespace Engine.Geometry
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/find-the-centroid-of-a-polygon-in-c/</remarks>
-        public static PointF Centroid(this Polygon polygon)
+        public static Point2D Centroid(this Polygon polygon)
         {
             // Add the first point at the end of the array.
             int num_points = polygon.Points.Count;
-            PointF[] pts = new PointF[num_points + 1];
+            Point2D[] pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
             // Find the centroid.
-            float X = 0;
-            float Y = 0;
-            float second_factor;
+            double X = 0;
+            double Y = 0;
+            double second_factor;
             for (int i = 0; i < num_points; i++)
             {
                 second_factor =
@@ -510,7 +510,7 @@ namespace Engine.Geometry
             }
 
             // Divide by 6 times the polygon's area.
-            float polygon_area = polygon.PolygonArea();
+            double polygon_area = polygon.PolygonArea();
             X /= (6 * polygon_area);
             Y /= (6 * polygon_area);
 
@@ -522,7 +522,7 @@ namespace Engine.Geometry
                 Y = -Y;
             }
 
-            return new PointF(X, Y);
+            return new Point2D(X, Y);
         }
 
         /// <summary>
@@ -539,7 +539,7 @@ namespace Engine.Geometry
         /// Return the polygon's area in "square units."
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/</remarks>
-        public static float PolygonArea(this Polygon polygon)
+        public static double PolygonArea(this Polygon polygon)
         {
             // Return the absolute value of the signed area.
             // The signed area is negative if the polygon is
@@ -562,16 +562,16 @@ namespace Engine.Geometry
         /// Return the polygon's area in "square units."
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/</remarks>
-        public static float SignedPolygonArea(this Polygon polygon)
+        public static double SignedPolygonArea(this Polygon polygon)
         {
             // Add the first point to the end.
             int num_points = polygon.Points.Count;
-            PointF[] pts = new PointF[num_points + 1];
+            Point2D[] pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
             // Get the areas.
-            float area = 0;
+            double area = 0;
             for (int i = 0; i < num_points; i++)
             {
                 area +=
@@ -606,7 +606,7 @@ namespace Engine.Geometry
                 B = (A + 1) % num_points;
                 C = (B + 1) % num_points;
 
-                float cross_product =
+                double cross_product =
                     CrossProductLength(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
@@ -727,7 +727,7 @@ namespace Engine.Geometry
         public static void RemovePoint(this Polygon polygon, int target)
         {
             polygon.Points.RemoveAt(target);
-            //List<PointF> points =  new List<PointF>(polygon.Points.Count - 1);
+            //List<Point2D> points =  new List<Point2D>(polygon.Points.Count - 1);
             //List.Copy(polygon.Points, 0, points, 0, target);
             //Array.Copy(polygon.Points, target + 1, points, target, polygon.Points.Count - target - 1);
             //polygon.Points = points;
@@ -747,7 +747,7 @@ namespace Engine.Geometry
         public static List<Triangle> Triangulate(this Polygon polygon)
         {
             // Copy the points into a scratch array.
-            List<PointF> pts = new List<PointF>(polygon.Points);
+            List<Point2D> pts = new List<Point2D>(polygon.Points);
 
             // Make a scratch polygon.
             Polygon pgon = new Polygon(pts);
@@ -810,15 +810,15 @@ namespace Engine.Geometry
         /// <param name="B2"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool SegmentsIntersect(float X1, float Y1, float X2, float Y2, float A1, float B1, float A2, float B2)
+        public static bool SegmentsIntersect(double X1, double Y1, double X2, double Y2, double A1, double B1, double A2, double B2)
         {
-            float dx = (X2 - X1);
-            float dy = (Y2 - Y1);
-            float da = (A2 - A1);
-            float db = (B2 - B1);
+            double dx = (X2 - X1);
+            double dy = (Y2 - Y1);
+            double da = (A2 - A1);
+            double db = (B2 - B1);
             if ((((da * dy) - (db * dx)) == 0)) return false; //  The segments are parallel.
-            float s = (((dx * (B1 - Y1)) + (dy * (X1 - A1))) / ((da * dy) - (db * dx)));
-            float t = (((da * (Y1 - B1)) + (db * (A1 - X1))) / ((db * dx) - (da * dy)));
+            double s = (((dx * (B1 - Y1)) + (dy * (X1 - A1))) / ((da * dy) - (db * dx)));
+            double t = (((da * (Y1 - B1)) + (db * (A1 - X1))) / ((db * dx) - (da * dy)));
 
             return ((s >= 0.0d) && (s <= 1.0d) && (t >= 0.0d) && (t <= 1.0d));
 
@@ -842,16 +842,16 @@ namespace Engine.Geometry
         /// expect because Y coordinates increase downward.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static float GetAngle(float Ax, float Ay, float Bx, float By, float Cx, float Cy)
+        public static double GetAngle(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the dot product.
-            float dot_product = DotProduct(Ax, Ay, Bx, By, Cx, Cy);
+            double dot_product = DotProduct(Ax, Ay, Bx, By, Cx, Cy);
 
             // Get the cross product.
-            float cross_product = CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
+            double cross_product = CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
 
             // Calculate the angle.
-            return (float)Math.Atan2(cross_product, dot_product);
+            return Math.Atan2(cross_product, dot_product);
         }
 
         /// <summary>
@@ -867,16 +867,16 @@ namespace Engine.Geometry
         /// expect because Y coordinates increase downward.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static float GetAngle(PointF a, PointF b, PointF c)
+        public static double GetAngle(Point2D a, Point2D b, Point2D c)
         {
             // Get the dot product.
-            float dotProduct = DotProduct(a, b, c);
+            double dotProduct = DotProduct(a, b, c);
 
             // Get the cross product.
-            float crossProduct = CrossProductLength(a, b, c);
+            double crossProduct = CrossProductLength(a, b, c);
 
             // Calculate the angle.
-            return (float)Math.Atan2(crossProduct, dotProduct);
+            return Math.Atan2(crossProduct, dotProduct);
         }
 
         /// <summary>
@@ -897,13 +897,13 @@ namespace Engine.Geometry
         /// Return the cross product AB x BC.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static float CrossProductLength(float Ax, float Ay, float Bx, float By, float Cx, float Cy)
+        public static double CrossProductLength(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the vectors' coordinates.
-            float BAx = Ax - Bx;
-            float BAy = Ay - By;
-            float BCx = Cx - Bx;
-            float BCy = Cy - By;
+            double BAx = Ax - Bx;
+            double BAy = Ay - By;
+            double BCx = Cx - Bx;
+            double BCy = Cy - By;
 
             // Calculate the Z coordinate of the cross product.
             return (BAx * BCy - BAy * BCx);
@@ -924,13 +924,13 @@ namespace Engine.Geometry
         /// Return the cross product AB x BC.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static float CrossProductLength(PointF a, PointF b, PointF c)
+        public static double CrossProductLength(Point2D a, Point2D b, Point2D c)
         {
             // Get the vectors' coordinates.
-            float bax = a.X - b.X;
-            float bay = a.Y - b.Y;
-            float bcx = c.X - b.X;
-            float bcy = c.Y - b.Y;
+            double bax = a.X - b.X;
+            double bay = a.Y - b.Y;
+            double bcx = c.X - b.X;
+            double bcy = c.Y - b.Y;
 
             // Calculate the Z coordinate of the cross product.
             return (bax * bcy - bay * bcx);
@@ -952,13 +952,13 @@ namespace Engine.Geometry
         /// Note that AB · BC = |AB| * |BC| * Cos(theta).
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
-        public static float DotProduct(float Ax, float Ay, float Bx, float By, float Cx, float Cy)
+        public static double DotProduct(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the vectors' coordinates.
-            float BAx = Ax - Bx;
-            float BAy = Ay - By;
-            float BCx = Cx - Bx;
-            float BCy = Cy - By;
+            double BAx = Ax - Bx;
+            double BAy = Ay - By;
+            double BCx = Cx - Bx;
+            double BCy = Cy - By;
 
             // Calculate the dot product.
             return (BAx * BCx + BAy * BCy);
@@ -977,13 +977,13 @@ namespace Engine.Geometry
         /// Note that AB · BC = |AB| * |BC| * Cos(theta).
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
-        public static float DotProduct(PointF a, PointF b, PointF c)
+        public static double DotProduct(Point2D a, Point2D b, Point2D c)
         {
             // Get the vectors' coordinates.
-            float BAx = a.X - b.X;
-            float BAy = a.Y - b.Y;
-            float BCx = c.X - b.X;
-            float BCy = c.Y - b.Y;
+            double BAx = a.X - b.X;
+            double BAy = a.Y - b.Y;
+            double BCx = c.X - b.X;
+            double BCy = c.Y - b.Y;
 
             // Calculate the dot product.
             return (BAx * BCx + BAy * BCy);
@@ -997,22 +997,22 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static PointF ClosestPointOnLineSegmentMvG(PointF a, PointF b, PointF p)
+        private static Point2D ClosestPointOnLineSegmentMvG(Point2D a, Point2D b, Point2D p)
         {
             // Vector A->B
-            PointF diffAB = new PointF(a.X - b.X, a.Y - b.Y);
+            Point2D diffAB = new Point2D(a.X - b.X, a.Y - b.Y);
 
-            float det = a.Y * b.X - a.X * b.Y;
+            double det = a.Y * b.X - a.X * b.Y;
 
-            float dot = diffAB.X * p.X + diffAB.Y * p.Y;
+            double dot = diffAB.X * p.X + diffAB.Y * p.Y;
 
-            PointF val = new PointF(dot * diffAB.X + det * diffAB.Y, dot * diffAB.Y - det * diffAB.X);
+            Point2D val = new Point2D(dot * diffAB.X + det * diffAB.Y, dot * diffAB.Y - det * diffAB.X);
 
-            float magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            double magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
 
-            float inverseDist = 1 / magnitude;
+            double inverseDist = 1 / magnitude;
 
-            return new PointF(val.X * inverseDist, val.Y * inverseDist);
+            return new Point2D(val.X * inverseDist, val.Y * inverseDist);
         }
 
         /// <summary>
@@ -1023,21 +1023,21 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static PointF ClosestPointOnLineSegmentDarienPardinas(PointF a, PointF b, PointF p)
+        private static Point2D ClosestPointOnLineSegmentDarienPardinas(Point2D a, Point2D b, Point2D p)
         {
             // Vector A->P 
-            PointF diffAP = new PointF(p.X - a.X, p.Y - a.Y);
+            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
 
             // Vector A->B
-            PointF diffAB = new PointF(b.X - a.X, b.Y - a.Y);
+            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
 
-            float dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
 
             // The dot product of diffAP and diffAB
-            float dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+            double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
 
             //  # The normalized "distance" from a to the closest point
-            float dist = dotABAP / dotAB;
+            double dist = dotABAP / dotAB;
 
             if (dist < 0)
             {
@@ -1049,7 +1049,7 @@ namespace Engine.Geometry
             }
             else
             {
-                return new PointF(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
+                return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
             }
         }
 
@@ -1061,23 +1061,23 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static PointF ClosestPointOnLineDarienPardinas(PointF a, PointF b, PointF p)
+        private static Point2D ClosestPointOnLineDarienPardinas(Point2D a, Point2D b, Point2D p)
         {
             // Vector A->P 
-            PointF diffAP = new PointF(p.X - a.X, p.Y - a.Y);
+            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
 
             // Vector A->B
-            PointF diffAB = new PointF(b.X - a.X, b.Y - a.Y);
+            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
 
-            float dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
 
             // The dot product of diffAP and diffAB
-            float dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+            double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
 
             // The normalized "distance" from a to the closest point
-            float dist = dotABAP / dotAB;
+            double dist = dotABAP / dotAB;
 
-            return new PointF(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
+            return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
         }
     }
 }

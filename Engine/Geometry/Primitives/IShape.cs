@@ -20,7 +20,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        RectangleF Bounds { get; set; }
+        Rectangle2D Bounds { get; set; }
 
         ///// <summary>
         ///// 
@@ -32,13 +32,6 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        bool HitTest(Point point);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        bool HitTest(PointF point);
+        bool HitTest(Point2D point);
     }
 }

@@ -27,26 +27,26 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> centerPoints = new List<PointF>();
+        private List<Point2D> centerPoints = new List<Point2D>();
 
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> borderPoints = new List<PointF>();
+        private List<Point2D> borderPoints = new List<Point2D>();
 
         /// <summary>
         /// 
         /// </summary>
         public DoubleLine()
         {
-            centerPoints = new List<PointF>();
-            borderPoints = new List<PointF>();
+            centerPoints = new List<Point2D>();
+            borderPoints = new List<Point2D>();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> CenterPoints
+        public List<Point2D> CenterPoints
         {
             get { return centerPoints; }
             set { centerPoints = value; }
@@ -55,7 +55,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> BorderPoints
+        public List<Point2D> BorderPoints
         {
             get { return borderPoints; }
         }
@@ -97,20 +97,20 @@ namespace Engine.Geometry
         ///                   | | |          | | |<BR/>
         ///               A1  A  A2      D2  D  D1<BR/>
         ///</remarks>
-        public static PointF[] CenteredOffsetLinePoints(PointF pointA, PointF pointB, PointF pointC, PointF pointD, float offsetDistance)
+        public static Point2D[] CenteredOffsetLinePoints(Point2D pointA, Point2D pointB, Point2D pointC, Point2D pointD, float offsetDistance)
         {
             // To get the vectors of the angles at each corner B and C, Normalize the Unit Delta Vectors along AB, BC, and CD.
-            VectorF UnitVectorAB = pointB.Subtract(pointA).Unit();
-            VectorF UnitVectorBC = pointC.Subtract(pointB).Unit();
-            VectorF UnitVectorCD = pointD.Subtract(pointC).Unit();
+            Vector2D UnitVectorAB = pointB.Subtract(pointA).Unit();
+            Vector2D UnitVectorBC = pointC.Subtract(pointB).Unit();
+            Vector2D UnitVectorCD = pointD.Subtract(pointC).Unit();
 
             //  Find the Perpendicular of the outside vectors
-            VectorF PerpendicularAB = UnitVectorAB.Perpendicular();
-            VectorF PerpendicularCD = UnitVectorCD.Perpendicular();
+            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular();
+            Vector2D PerpendicularCD = UnitVectorCD.Perpendicular();
 
             //  Normalized Vectors pointing out from B and C.
-            VectorF OutUnitVectorB = (UnitVectorAB - UnitVectorBC).Unit();
-            VectorF OutUnitVectorC = (UnitVectorCD - UnitVectorBC).Unit();
+            Vector2D OutUnitVectorB = (UnitVectorAB - UnitVectorBC).Unit();
+            Vector2D OutUnitVectorC = (UnitVectorCD - UnitVectorBC).Unit();
 
             //  The distance out from B is the radius / Cos(theta) where theta is the angle
             //  from the perpendicular of BC of the UnitVector. The cosine can also be
@@ -123,7 +123,7 @@ namespace Engine.Geometry
             OutUnitVectorC = OutUnitVectorC.Scale(BPointScale);
 
             // Corners of the parallelogram to draw
-            PointF[] Out = new PointF[] {
+            Point2D[] Out = new Point2D[] {
                 (pointC + OutUnitVectorC),
                 (pointB + OutUnitVectorB),
                 (pointB - OutUnitVectorB),

@@ -106,7 +106,7 @@ namespace Engine.Geometry
 
         #region Operators
         /// <summary>
-        /// 
+        /// Unary addition operator.
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -153,7 +153,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Unary subtraction operator.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -211,36 +211,36 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Scale a point
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="factor"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Point2D operator *(double value, Point2D point)
+        public static Point2D operator *(double value, Point2D factor)
         {
-            return new Point2D(value * point.X, value * point.Y);
+            return new Point2D(value * factor.X, value * factor.Y);
         }
 
         /// <summary>
-        /// 
+        /// Scale a point.
         /// </summary>
-        /// <param name="point"></param>
         /// <param name="value"></param>
+        /// <param name="factor"></param>
         /// <returns></returns>
-        public static Point2D operator *(Point2D point, double value)
+        public static Point2D operator *(Point2D value, double factor)
         {
-            return new Point2D(point.X * value, point.Y * value);
+            return new Point2D(value.X * factor, value.Y * factor);
         }
 
         /// <summary>
-        /// 
+        /// Multiply a point by a matrix.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="value"></param>
         /// <param name="matrix"></param>
         /// <returns></returns>
-        public static Point2D operator *(Point2D point, Matrix2D matrix)
+        public static Point2D operator *(Point2D value, Matrix2D matrix)
         {
-            return matrix.Transform(point);
+            return matrix.Transform(value);
         }
 
         /// <summary>

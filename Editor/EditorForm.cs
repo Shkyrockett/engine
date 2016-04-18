@@ -128,6 +128,9 @@ namespace Editor
             //StringBuilder cubicBezierLengths = new StringBuilder();
             //cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.BezierArcLength());
             //MessageBox.Show(cubicBezierLengths.ToString());
+
+            listBox1.DataSource = vectorMap.Shapes;
+            //listBox1.ValueMember = "Name";
         }
 
         /// <summary>
@@ -159,6 +162,17 @@ namespace Editor
             if (SystemInformation.TerminalServerSession) return;
             PropertyInfo aProp = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
             aProp.SetValue(control, true, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ListBox list = (ListBox)sender;
+            propertyGrid1.SelectedObject = list.SelectedItem;
         }
     }
 }

@@ -55,6 +55,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExperimentalTests.cs" />
+    <Compile Include="Geometry\Curves\EllipseTests.cs" />
     <Compile Include="Geometry\Curves\QuadraticBezierTests.cs" />
     <Compile Include="Geometry\Framework\IntersectionExtentionTests.cs" />
     <Compile Include="Geometry\Framework\MathExtensionsTests.cs" />

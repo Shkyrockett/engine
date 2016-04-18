@@ -35,19 +35,13 @@ namespace Engine.Geometry
         /// Major Radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        private double majorRadius;
+        private double a;
 
         /// <summary>
         /// Minor Radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        private double minorRadius;
-
-        /// <summary>
-        /// Aspect of Ellipse.
-        /// </summary>
-        /// <remarks></remarks>
-        private double aspect;
+        private double b;
 
         /// <summary>
         /// Angle of Ellipse. 
@@ -70,26 +64,26 @@ namespace Engine.Geometry
         /// <summary>
         /// Creates a new Instance of Ellipse
         /// </summary>
-        /// <param name="PointA">First Point on the Ellipse</param>
-        /// <param name="PointB">Second Point on the Ellipse</param>
-        /// <param name="PointC">Last Point on the Ellipse</param>
-        /// <param name="Aspect">Aspect of Ellipse Note: Does not currently work.</param>
-        /// <param name="Angle">Angle of Ellipse Note: Does not currently work.</param>
+        /// <param name="pointA">First Point on the Ellipse</param>
+        /// <param name="pointB">Second Point on the Ellipse</param>
+        /// <param name="pointC">Last Point on the Ellipse</param>
+        /// <param name="aspect">Aspect of Ellipse Note: Does not currently work.</param>
+        /// <param name="angle">Angle of Ellipse Note: Does not currently work.</param>
         /// <remarks></remarks>
-        public Ellipse(Point2D PointA, Point2D PointB, Point2D PointC, double Aspect, double Angle)
+        public Ellipse(Point2D pointA, Point2D pointB, Point2D pointC, double aspect, double angle)
         {
             //  Calculate the slopes of the lines.
-            double SlopeA = (float)(PointA.Slope(PointB));
-            double SlopeB = (float)(PointC.Slope(PointB));
-            double FY = ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
-            double FX = ((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)));
+            double SlopeA = pointA.Slope(pointB);
+            double SlopeB = pointC.Slope(pointB);
+            double FY = ((((pointA.X - pointB.X) * (pointA.X + pointB.X)) + ((pointA.Y - pointB.Y) * (pointA.Y + pointB.Y))) / (2 * (pointA.X - pointB.X)));
+            double FX = ((((pointC.X - pointB.X) * (pointC.X + pointB.X)) + ((pointC.Y - pointB.Y) * (pointC.Y + pointB.Y))) / (2 * (pointC.X - pointB.X)));
             double NewY = ((FX - FY) / (SlopeB - SlopeA));
             double NewX = (FX - (SlopeB * NewY));
             center = new Point2D(NewX, NewY);
             //  Find the Radius
-            majorRadius = (center.Length(PointA));
-            aspect = Aspect;
-            angle = Angle;
+            a = (center.Length(pointA));
+            this.Aspect = aspect;
+            this.angle = angle;
             Points = InterpolatePoints();
         }
 
@@ -97,17 +91,16 @@ namespace Engine.Geometry
         /// Creates a new Instance of Ellipse
         /// </summary>
         /// <param name="center">Center Point of Ellipse</param>
-        /// <param name="majorRadius">Major radius of Ellipse</param>
-        /// <param name="minorRadius">Minor radius of Ellipse.</param>
-        /// <param name="Angle">Angle of Ellipse.</param>
+        /// <param name="a">Major radius of Ellipse</param>
+        /// <param name="b">Minor radius of Ellipse.</param>
+        /// <param name="angle">Angle of Ellipse.</param>
         /// <remarks></remarks>
-        public Ellipse(Point2D center, double majorRadius, double minorRadius, double Angle)
+        public Ellipse(Point2D center, double a, double b, double angle)
         {
             this.center = center;
-            this.majorRadius = majorRadius;
-            this.minorRadius = minorRadius;
-            aspect = minorRadius / majorRadius;
-            angle = Angle;
+            this.a = a;
+            this.b = b;
+            this.angle = angle;
             Points = InterpolatePoints();
         }
 
@@ -115,12 +108,12 @@ namespace Engine.Geometry
         /// Center Point of Ellipse
         /// </summary>
         /// <remarks></remarks>
+        [XmlAttribute()]
         [Category("Elements")]
         [Description("The center location of the ellipse.")]
-        [XmlAttribute()]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -133,39 +126,64 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// First radius of Ellipse
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute()]
+        [Category("Elements")]
+        [Description("The first radius of the ellipse.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public double A
+        {
+            get { return a; }
+            set
+            {
+                a = value;
+                Points = InterpolatePoints();
+            }
+        }
+
+        /// <summary>
+        /// Second radius of Ellipse
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute()]
+        [Category("Elements")]
+        [Description("The second radius of the ellipse.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public double B
+        {
+            get { return b; }
+            set
+            {
+                b = value;
+                Points = InterpolatePoints();
+            }
+        }
+
+        /// <summary>
         /// Major radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
+        [XmlIgnore]
         [Category("Elements")]
         [Description("The larger radius of the ellipse.")]
-        [XmlAttribute()]
         public double MajorRadius
         {
-            get { return majorRadius; }
-            set
-            {
-                majorRadius = value;
-                Points = InterpolatePoints();
-            }
+            get { return a >= b ? a : b; }
         }
 
         /// <summary>
         /// Minor radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
+        [XmlIgnore]
         [Category("Elements")]
         [Description("The smaller radius of the ellipse.")]
-        [XmlAttribute()]
         [RefreshProperties(RefreshProperties.All)]
         public double MinorRadius
         {
-            get { return minorRadius; }
-            set
-            {
-                minorRadius = value;
-                aspect = minorRadius / majorRadius;
-                Points = InterpolatePoints();
-            }
+            get { return a <= b ? a : b; }
         }
 
         /// <summary>
@@ -177,11 +195,11 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get { return aspect; }
+            get { return b / a; }
             set
             {
-                aspect = value;
-                minorRadius = majorRadius * aspect;
+                b = a * value;
+                a = b / value;
                 Points = InterpolatePoints();
             }
         }
@@ -206,6 +224,30 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
+        [XmlIgnore]
+        [Category("Elements")]
+        [Description("The focus radius of the ellipse.")]
+        public double FocusRadius
+        {
+            get { return Math.Sqrt((a * a) - (b * b)); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
+        [XmlIgnore]
+        [Category("Elements")]
+        [Description("The eccentricity radius of the ellipse.")]
+        public double Eccentricity
+        {
+            get { return Math.Sqrt(1 - ((a / b) * (a / b))); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Properties")]
         [Description("The rectangular bounds of the ellipse.")]
         public override Rectangle2D Bounds
@@ -213,10 +255,10 @@ namespace Engine.Geometry
             get
             {
                 double phi = MathExtensions.ToRadians(angle);
-                double ux = majorRadius * Math.Cos(phi);
-                double uy = majorRadius * Math.Sin(phi);
-                double vx = (majorRadius * aspect) * Math.Cos(phi + Math.PI / 2);
-                double vy = (majorRadius * aspect) * Math.Sin(phi + Math.PI / 2);
+                double ux = a * Math.Cos(phi);
+                double uy = a * Math.Sin(phi);
+                double vx = (a * Aspect) * Math.Cos(phi + Math.PI / 2);
+                double vy = (a * Aspect) * Math.Sin(phi + Math.PI / 2);
 
                 double bbox_halfwidth = Math.Sqrt(ux * ux + vx * vx);
                 double bbox_halfheight = Math.Sqrt(uy * uy + vy * vy);
@@ -240,30 +282,8 @@ namespace Engine.Geometry
         {
             get
             {
-                double minor = (majorRadius * aspect);
-                return ((Math.Sqrt(0.5 * ((minor * minor) + (majorRadius * majorRadius)))) * (Math.PI * 2));
-
-                // http://ellipse-circumference.blogspot.com/
-                // X1=eval(form.A.value)
-                // X2=eval(form.B.value)
-                //MIN=Math.min(X1,X2);
-                //MAX=Math.max(X1,X2);
-                //RA=MAX/MIN;
-                //RA=RA.toPrecision(6);
-                //RB=MIN/MAX;
-                //RB=RB.toPrecision(6);
-                //HT1 = X2-X1;
-                //HB1 = X2+X1;
-                //H1 = (Math.pow(HT1,2))/(Math.pow(HB1,2));
-                //H2 = 4-3*H1;
-                //D1 = ((11*Math.PI/(44-14*Math.PI))+24100)-24100*H1;
-                //C1 = Math.PI*HB1*(1+(3*H1)/(10+Math.pow(H2,0.5))+(1.5*Math.pow(H1,6)-.5*Math.pow(H1,12))/D1);
-                //P = 6;
-                //C1 = C1.toPrecision(P);
-                //form.C.value = C1;
-                //form.RX.value = RA;
-                //form.RN.value = RB
-
+                return this.PerimeterSykoraRiveraCantrellsParticularlyFruitful();
+                //return this.PerimeterAhmadi2006();
             }
         }
 
@@ -274,7 +294,7 @@ namespace Engine.Geometry
         [Description("The area of the ellipse.")]
         public double Area
         {
-            get { return Math.PI * minorRadius * majorRadius; }
+            get { return Math.PI * b * a; }
         }
 
         /// <summary>
@@ -298,9 +318,9 @@ namespace Engine.Geometry
                 if (value != null && value.Count >= 1)
                 {
                     Center = value[0];
-                    MajorRadius = (new LineSegment(center, value[1]).Length());
+                    A = (new LineSegment(center, value[1]).Length());
                     Angle = (new LineSegment(center, value[1]).Angle());
-                    Aspect = ((new LineSegment(center, value[2]).Length()) / majorRadius);
+                    Aspect = ((new LineSegment(center, value[2]).Length()) / a);
                 }
             }
         }
@@ -317,12 +337,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Rectangle2D UnrotatedBounds()
         {
-            return new Rectangle2D(
-                (center.X - majorRadius),
-                (center.Y - majorRadius),
-                (majorRadius),
-                (majorRadius * aspect)
-                );
+            return new Rectangle2D(center.X - a, center.Y - a, a, b);
         }
 
         /// <summary>
@@ -333,20 +348,20 @@ namespace Engine.Geometry
         /// <param name="ellipse"></param>
         /// <param name="phi"></param>
         /// <param name="rect"></param>
-        private void draw_rect_at_ellipse(Graphics g, float theta, RectangleF ellipse, float phi, RectangleF rect)
+        private void draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
         {
-            PointF xaxis = new PointF((float)Math.Cos(theta), (float)Math.Sin(theta));
-            PointF yaxis = new PointF(-(float)Math.Sin(theta), (float)Math.Cos(theta));
-            PointF ellipse_point;
+            Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
+            Point2D yaxis = new Point2D(-Math.Sin(theta), Math.Cos(theta));
+            Point2D ellipse_point;
 
             // Ellipse equation for an ellipse at origin.
-            ellipse_point = new PointF((float)(ellipse.Width * Math.Cos(phi)), (float)(ellipse.Height * Math.Sin(phi)));
+            ellipse_point = new Point2D((float)(ellipse.Width * Math.Cos(phi)), (float)(ellipse.Height * Math.Sin(phi)));
 
             // Apply the rotation transformation and translate to new center.
-            rect.Location = new PointF(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
+            rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
                                        ellipse.Top + (ellipse_point.X * yaxis.X + ellipse_point.Y * yaxis.Y));
 
-            g.DrawRectangle(Pens.AntiqueWhite, rect.X, rect.Y, rect.Width, rect.Height);
+            g.DrawRectangle(Pens.AntiqueWhite, (float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
         }
 
         /// <summary>
@@ -356,12 +371,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Point2D Interpolate(double index)
         {
-            Rectangle2D unroatatedBounds = new Rectangle2D(
-                center.X - majorRadius,
-                center.Y - majorRadius,
-                majorRadius,
-                majorRadius * aspect
-                );
+            Rectangle2D unroatatedBounds = UnrotatedBounds();
 
             double theta = MathExtensions.ToRadians(angle);
             Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
@@ -386,9 +396,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints()
         {
-            float delta_phi = (float)(2 * Math.PI / Perimeter);
+            double delta_phi = (2 * Math.PI / Perimeter);
             List<Point2D> points = new List<Point2D>();
-            for (float i = 0.0f; i <= (float)(2.0 * Math.PI); i += delta_phi)
+            for (double i = 0.0f; i <= (2.0 * Math.PI); i += delta_phi)
             {
                 points.Add(Interpolate(i));
             }
@@ -411,7 +421,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "Ellipse";
-            return string.Format("{0}{{C={1},R1={2},R2{3},A={4}}}", "Ellipse", center.ToString(), minorRadius.ToString(), majorRadius.ToString(), angle.ToString());
+            return string.Format("{0}{{C={1},R1={2},R2{3},A={4}}}", "Ellipse", center.ToString(), b.ToString(), a.ToString(), angle.ToString());
         }
     }
 }

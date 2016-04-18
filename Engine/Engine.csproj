@@ -91,6 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experimental.cs" />
     <Compile Include="Geometry\Complex\Incompleete\Heart.cs" />
     <Compile Include="Geometry\Framework\Point2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />

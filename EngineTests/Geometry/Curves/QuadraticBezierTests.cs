@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace Engine.Geometry.Tests
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [TestClass()]
     public class QuadraticBezierTests
     {

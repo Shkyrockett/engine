@@ -193,6 +193,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
+            if (this == null) return "Star";
             return "Star";
         }
     }

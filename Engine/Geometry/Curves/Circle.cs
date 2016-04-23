@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -27,6 +28,10 @@ namespace Engine.Geometry
         /// <summary>
         /// The center point of the circle.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [XmlAttribute()]
         private Point2D center;
 
         /// <summary>
@@ -76,8 +81,7 @@ namespace Engine.Geometry
         /// <param name="triangle"></param>
         public Circle(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -94,7 +98,7 @@ namespace Engine.Geometry
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
             // Find the center.
-            center = new Point2D(f.X - (slopeB * ((f.X - f.Y) / (slopeB - slopeA))), (f.X - f.Y) / (slopeB - slopeA));
+            center = new Point2D(f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA))), (f.I - f.J) / (slopeB - slopeA));
 
             // Get the radius.
             radius = (Center.Length(PointA));
@@ -123,7 +127,7 @@ namespace Engine.Geometry
         [Description("The center location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -140,6 +144,9 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get
@@ -198,40 +205,46 @@ namespace Engine.Geometry
         public override ShapeStyle Style { get; set; }
 
         /// <summary>
-        /// Find the Center of A Circle from Three Points
+        /// 
         /// </summary>
-        /// <param name="PointA">First Point on the Ellipse</param>
-        /// <param name="PointB">Second Point on the Ellipse</param>
-        /// <param name="PointC">Last Point on the Ellipse</param>
-        /// <returns>Returns the Center point of a Circle defined by three points</returns>
-        /// <remarks>
-        /// </remarks>
-        public static Point2D TripointCircleCenter(Point2D PointA, Point2D PointB, Point2D PointC)
+        /// <param name="point"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static Circle FromCenterAndRadius(Point2D point, double radius)
         {
-            //  Calculate the slopes of the lines.
-            double SlopeA = (PointA.Slope(PointB));
-            double SlopeB = (PointC.Slope(PointB));
-            double FY = ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
-            double FX = ((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)));
-            double NewY = ((FX - FY) / (SlopeB - SlopeA));
-            double NewX = (FX - (SlopeB * NewY));
-            return new Point2D(NewX, NewY);
+            return new Circle(point, radius);
         }
 
         /// <summary>
-        /// Find the Bounds of A Circle from Three Points 
+        /// 
         /// </summary>
-        /// <param name="PointA">First Point on the Ellipse</param>
-        /// <param name="PointB">Second Point on the Ellipse</param>
-        /// <param name="PointC">Last Point on the Ellipse</param>
-        /// <returns>A Rectangle Representing the bounds of A Circle Defined from three 
-        /// Points</returns>
-        public static Rectangle2D TripointCircleBounds(Point2D PointA, Point2D PointB, Point2D PointC)
+        /// <param name="pointA"></param>
+        /// <param name="pointB"></param>
+        /// <param name="pointC"></param>
+        /// <returns></returns>
+        public static Circle FromThreePoints(Point2D pointA, Point2D pointB, Point2D pointC)
         {
-            Point2D Center = TripointCircleCenter(PointA, PointB, PointC);
-            double Radius = (Center.Length(PointA));
-            Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
-            return Bounds;
+            return new Circle(pointA, pointB, pointC);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="triangle"></param>
+        /// <returns></returns>
+        public static Circle FromTriangle(Triangle triangle)
+        {
+            return new Circle(triangle.A, triangle.B, triangle.C);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <returns></returns>
+        public static Circle FromRectangle(Rectangle2D rectangle)
+        {
+            return new Circle(rectangle);
         }
 
         /// <summary>

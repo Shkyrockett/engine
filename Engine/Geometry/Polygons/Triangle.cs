@@ -9,8 +9,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -58,6 +60,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute()]
         public Point2D A
         {
             get { return base.Points[0]; }
@@ -67,6 +74,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute()]
         public Point2D B
         {
             get { return base.Points[1]; }
@@ -76,6 +88,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute()]
         public Point2D C
         {
             get { return base.Points[2]; }

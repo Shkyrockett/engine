@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -173,6 +172,37 @@ namespace Editor
         {
             ListBox list = (ListBox)sender;
             propertyGrid1.SelectedObject = list.SelectedItem;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e"></param>
+        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            CanvasPanel.Invalidate();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripComboBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ToolStripComboBox box = (ToolStripComboBox)sender;
+            List<MethodInfo> constructors = EngineReflection.ListStaticFactoryConstructors((Type)box.SelectedItem);
+            toolStripComboBoxFactories.ComboBox.DataSource = constructors;
+            toolStripComboBoxFactories.ComboBox.ValueMember = "Name";
+            if (toolStripComboBoxFactories.ComboBox.Items.Count > 0)
+            {
+                toolStripComboBoxFactories.ComboBox.SelectedItem = toolStripComboBoxFactories.ComboBox.Items[0];
+            }
+            else
+            {
+                toolStripComboBoxFactories.ComboBox.Text = string.Empty;
+            }
         }
     }
 }

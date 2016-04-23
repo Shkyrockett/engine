@@ -35,12 +35,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private PointF offset;
+        private Point2D offset;
 
         /// <summary>
         /// 
         /// </summary>
-        private SizeF multiplyer;
+        private Size2D multiplyer;
 
         /// <summary>
         /// 
@@ -50,19 +50,19 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        private List<PointF> points;
+        private List<Point2D> points;
 
         /// <summary>
         /// 
         /// </summary>
         public Bow()
-            : this(new PointF(), new SizeF())
+            : this(new Point2D(), new Size2D())
         { }
 
         /// <summary>
         /// 
         /// </summary>
-        public Bow(PointF offset, SizeF multiplyer)
+        public Bow(Point2D offset, Size2D multiplyer)
         {
             this.offset = offset;
             this.multiplyer = multiplyer;
@@ -75,8 +75,8 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
-        public PointF Offset
+        [TypeConverter(typeof(Point2DConverter))]
+        public Point2D Offset
         {
             get
             {
@@ -92,7 +92,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public SizeF Multiplyer
+        public Size2D Multiplyer
         {
             get
             {
@@ -124,18 +124,18 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> Handles
+        public List<Point2D> Handles
         {
             get
             {
-                return new List<PointF> { offset, new PointF(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
+                return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
             }
             set
             {
                 if (value != null && value.Count >= 1)
                 {
                     offset = value[0];
-                    multiplyer = new SizeF(value[1].X - offset.X, value[1].Y - offset.Y);
+                    multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
                     points = InterpolatePoints(precision);
                 }
             }
@@ -151,9 +151,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
-            return new PointF(
+            return new Point2D(
                 (float)(offset.X + ((1 - (Math.Tan(index) * 2)) * Math.Cos(index)) * multiplyer.Width),
                 (float)(offset.Y + ((1 - (Math.Tan(index) * 2)) * (2 * Math.Sin(index))) * multiplyer.Height)
                 );
@@ -164,9 +164,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints(double precision)
+        public List<Point2D> InterpolatePoints(double precision)
         {
-            List<PointF> points = new List<PointF>();
+            List<Point2D> points = new List<Point2D>();
             for (double Index = (Math.PI * -1); (Index <= Math.PI); Index += precision)
             {
                 points.Add(Interpolate(Index));
@@ -187,24 +187,24 @@ namespace Engine.Geometry
         ///  Also known as the "cocked hat", it was first documented by Sylvester around 
         ///  1864 and Cayley in 1867. 
         /// </remarks>
-        public void DrawBowCurve2D(PaintEventArgs e, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
+        public void DrawBowCurve2D(PaintEventArgs e, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
         {
-            PointF NewPoint = new PointF(
+            Point2D NewPoint = new Point2D(
                 (float)(((1 - (Math.Tan((Math.PI * -1)) * 2)) * Math.Cos((Math.PI * -1))) * Multiplyer.Width),
                 (float)(((1 - (Math.Tan((Math.PI * -1)) * 2)) * (2 * Math.Sin((Math.PI * -1)))) * Multiplyer.Height)
                 );
 
-            PointF LastPoint = NewPoint;
+            Point2D LastPoint = NewPoint;
 
             for (double Index = (Math.PI * -1); (Index <= Math.PI); Index += Precision)
             {
                 LastPoint = NewPoint;
-                NewPoint = new PointF(
+                NewPoint = new Point2D(
                     (float)(((1 - (Math.Tan(Index) * 2)) * Math.Cos(Index)) * Multiplyer.Width),
                     (float)(((1 - (Math.Tan(Index) * 2)) * (2 * Math.Sin(Index))) * Multiplyer.Height)
                     );
 
-                e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
+                e.Graphics.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
             }
         }
 

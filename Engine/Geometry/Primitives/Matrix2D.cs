@@ -1060,16 +1060,16 @@ namespace Engine.Geometry
                     return;
                 case MatrixTypes.SCALING:
                 case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                    vector.X *= _m11;
-                    vector.Y *= _m22;
+                    vector.I *= _m11;
+                    vector.J *= _m22;
                     break;
                 default:
-                    double xadd = vector.Y * _m21;
-                    double yadd = vector.X * _m12;
-                    vector.X *= _m11;
-                    vector.X += xadd;
-                    vector.Y *= _m22;
-                    vector.Y += yadd;
+                    double xadd = vector.J * _m21;
+                    double yadd = vector.I * _m12;
+                    vector.I *= _m11;
+                    vector.I += xadd;
+                    vector.J *= _m22;
+                    vector.J += yadd;
                     break;
             }
         }
@@ -1387,6 +1387,7 @@ namespace Engine.Geometry
         /// </returns>
         public override string ToString()
         {
+            if (this == null) return "Matrix2D";
             // Delegate to the internal method which implements all ToString calls.
             return ConvertToString(null /* format string */, null /* format provider */);
         }
@@ -1400,6 +1401,7 @@ namespace Engine.Geometry
         /// </returns>
         public string ToString(IFormatProvider provider)
         {
+            if (this == null) return "Matrix2D";
             // Delegate to the internal method which implements all ToString calls.
             return ConvertToString(null /* format string */, provider);
         }
@@ -1415,6 +1417,7 @@ namespace Engine.Geometry
         /// </returns>
         string IFormattable.ToString(string format, IFormatProvider provider)
         {
+            if (this == null) return "Matrix2D";
             // Delegate to the internal method which implements all ToString calls.
             return ConvertToString(format, provider);
         }

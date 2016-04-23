@@ -92,7 +92,7 @@ namespace Engine
         {
             Type objectType = typeof(FileObjectAttribute);
             Assembly assembly = Assembly.GetAssembly(objectType);
-            return GetAssemblyAttributes(assembly, objectType);
+            return GetAssemblyTypeAttributes(assembly, objectType);
         }
 
         /// <summary>
@@ -107,11 +107,24 @@ namespace Engine
             //var test = TypeDescriptor.GetAttributes(typeof(Rectangle));
 
             Type objectType = typeof(GraphicsObjectAttribute);
-            Assembly assembly =  Assembly.GetAssembly(objectType);
-            List<Type> types =  GetAssemblyAttributes(assembly, objectType);
+            Assembly assembly = Assembly.GetAssembly(objectType);
+            List<Type> types = GetAssemblyTypeAttributes(assembly, objectType);
             //assembly = Assembly.GetAssembly(typeof(Rectangle));
             //types.AddRange(GetAssemblyAttributes(assembly, objectType));
             return types;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
+        {
+            return new List<MethodInfo>( from method in type.GetMethods()
+                where method.IsStatic == true
+                where method.ReturnType == type
+                select method);
         }
 
         /// <summary>
@@ -160,7 +173,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/4852879/get-all-types-in-assembly-with-custom-attribute
         /// </remarks>
-        private static List<Type> GetAssemblyAttributes(Assembly assembly, Type attributeType)
+        private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
         {
             List<Type> typeList = new List<Type>();
 

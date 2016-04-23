@@ -83,8 +83,8 @@ namespace Engine.Geometry
         /// <returns>Whether or not the two Vector instances are equal</returns>
         public static bool AreClose(this Vector2D vector1, Vector2D vector2)
         {
-            return AreClose(vector1.X, vector2.X) &&
-                   AreClose(vector1.Y, vector2.Y);
+            return AreClose(vector1.I, vector2.I) &&
+                   AreClose(vector1.J, vector2.J);
         }
 
         /// <summary>

@@ -306,6 +306,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
+            if (this == null) return "Size2D";
             return "{Width=" + width.ToString(CultureInfo.CurrentCulture) + ", Height=" + height.ToString(CultureInfo.CurrentCulture) + "}";
         }
     }

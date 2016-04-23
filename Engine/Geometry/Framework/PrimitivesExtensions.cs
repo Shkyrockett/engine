@@ -143,7 +143,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Add(this Point2D point, Vector2D addendum)
         {
-            return new Point2D(point.X + addendum.X, point.Y + addendum.Y);
+            return new Point2D(point.X + addendum.I, point.Y + addendum.J);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Add(this Size2D point, Vector2D addendum)
         {
-            return new Size2D(point.Width + addendum.X, point.Height + addendum.Y);
+            return new Size2D(point.Width + addendum.I, point.Height + addendum.J);
         }
 
 
@@ -309,7 +309,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point Add(this Point point, Vector2D addendum)
         {
-            return new Point((int)(point.X + addendum.X), (int)(point.Y + addendum.Y));
+            return new Point((int)(point.X + addendum.I), (int)(point.Y + addendum.J));
         }
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Add(this PointF point, Vector2D addendum)
         {
-            return new PointF((float)(point.X + addendum.X), (float)(point.Y + addendum.Y));
+            return new PointF((float)(point.X + addendum.I), (float)(point.Y + addendum.J));
         }
 
         /// <summary>
@@ -414,7 +414,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D vector, int value)
         {
-            return new Vector2D(vector.X + value, vector.Y + value);
+            return new Vector2D(vector.I + value, vector.J + value);
         }
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D vector, float value)
         {
-            return new Vector2D(vector.X + value, vector.Y + value);
+            return new Vector2D(vector.I + value, vector.J + value);
         }
 
         /// <summary>
@@ -442,7 +442,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D vector, double value)
         {
-            return new Vector2D((float)(vector.X + value), (float)(vector.Y + value));
+            return new Vector2D((float)(vector.I + value), (float)(vector.J + value));
         }
 
         /// <summary>
@@ -456,7 +456,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Add(this Vector2D vector, Point value)
         {
-            return new Point2D(vector.X + value.X, vector.Y + value.Y);
+            return new Point2D(vector.I + value.X, vector.J + value.Y);
         }
 
         /// <summary>
@@ -470,7 +470,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Add(this Vector2D vector, Point2D value)
         {
-            return new Point2D(vector.X + value.X, vector.Y + value.Y);
+            return new Point2D(vector.I + value.X, vector.J + value.Y);
         }
 
         /// <summary>
@@ -484,7 +484,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D vector, Vector2D value)
         {
-            return new Vector2D(vector.X + value.X, vector.Y + value.Y);
+            return new Vector2D(vector.I + value.I, vector.J + value.J);
         }
 
         /// <summary>
@@ -730,7 +730,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point point, Vector2D value)
         {
-            return CrossProduct(point.X, point.Y, value.X, value.Y);
+            return CrossProduct(point.X, point.Y, value.I, value.J);
         }
 
         /// <summary>
@@ -796,7 +796,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, Vector2D valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return CrossProduct(valueA.X, valueA.Y, valueB.I, valueB.J);
         }
 
         /// <summary>
@@ -818,7 +818,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, Point valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return CrossProduct(valueA.I, valueA.J, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -840,7 +840,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, PointF valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return CrossProduct(valueA.I, valueA.J, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -862,7 +862,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, Vector2D valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return CrossProduct(valueA.I, valueA.J, valueB.I, valueB.J);
         }
         #endregion
 
@@ -1032,7 +1032,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static double Distance(this Vector2D value1, Vector2D value2)
         {
-            return DistanceV1(value1.X, value1.Y, value2.X, value2.Y);
+            return DistanceV1(value1.I, value1.J, value2.I, value2.J);
         }
 
         /// <summary>
@@ -1156,7 +1156,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D value)
         {
-            return DotProduct(value.X, value.Y, value.X, value.Y);
+            return DotProduct(value.I, value.J, value.I, value.J);
         }
 
         /// <summary>
@@ -1218,7 +1218,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point point, Vector2D vector)
         {
-            return DotProduct(point.X, point.Y, vector.X, vector.Y);
+            return DotProduct(point.X, point.Y, vector.I, vector.J);
         }
 
         /// <summary>
@@ -1266,7 +1266,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF point, Vector2D vector)
         {
-            return DotProduct(point.X, point.Y, vector.X, vector.Y);
+            return DotProduct(point.X, point.Y, vector.I, vector.J);
         }
 
         /// <summary>
@@ -1282,7 +1282,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D vector, Point value)
         {
-            return DotProduct(vector.X, vector.Y, value.X, value.Y);
+            return DotProduct(vector.I, vector.J, value.X, value.Y);
         }
 
         /// <summary>
@@ -1298,7 +1298,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D vector, PointF value)
         {
-            return DotProduct(vector.X, vector.Y, value.X, value.Y);
+            return DotProduct(vector.I, vector.J, value.X, value.Y);
         }
 
         /// <summary>
@@ -1314,7 +1314,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D vector, Vector2D value)
         {
-            return DotProduct(vector.X, vector.Y, value.X, value.Y);
+            return DotProduct(vector.I, vector.J, value.I, value.J);
         }
         #endregion
 
@@ -1420,7 +1420,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point Inflate(this Point point, Vector2D factors)
         {
-            return new Point((int)(point.X * factors.X), (int)(point.Y * factors.Y));
+            return new Point((int)(point.X * factors.I), (int)(point.Y * factors.J));
         }
 
         /// <summary>
@@ -1433,7 +1433,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Inflate(this Point2D point, Vector2D factors)
         {
-            return new Point2D(point.X * factors.X, point.Y * factors.Y);
+            return new Point2D(point.X * factors.I, point.Y * factors.J);
         }
 
         /// <summary>
@@ -1537,7 +1537,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Inflate(this PointF point, Vector2D factors)
         {
-            return new PointF((float)(point.X * factors.X), (float)(point.Y * factors.Y));
+            return new PointF((float)(point.X * factors.I), (float)(point.Y * factors.J));
         }
 
         /// <summary>
@@ -1589,7 +1589,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Inflate(this Size2D size, Vector2D factor)
         {
-            return new Size2D(size.Width * factor.X, size.Height * factor.Y);
+            return new Size2D(size.Width * factor.I, size.Height * factor.J);
         }
 
         /// <summary>
@@ -1693,7 +1693,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size Inflate(this Size size, Vector2D factor)
         {
-            return new Size((int)(size.Width * factor.X), (int)(size.Height * factor.Y));
+            return new Size((int)(size.Width * factor.I), (int)(size.Height * factor.J));
         }
 
         /// <summary>
@@ -1797,7 +1797,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static SizeF Inflate(this SizeF size, Vector2D factor)
         {
-            return new SizeF((float)(size.Width * factor.X), (float)(size.Height * factor.Y));
+            return new SizeF((float)(size.Width * factor.I), (float)(size.Height * factor.J));
         }
 
         /// <summary>
@@ -1810,7 +1810,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, int factor)
         {
-            return new Vector2D((point.X * factor), (point.Y * factor));
+            return new Vector2D((point.I * factor), (point.J * factor));
         }
 
         /// <summary>
@@ -1823,7 +1823,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, float factor)
         {
-            return new Vector2D((point.X * factor), (point.Y * factor));
+            return new Vector2D((point.I * factor), (point.J * factor));
         }
 
         /// <summary>
@@ -1836,7 +1836,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, double factor)
         {
-            return new Vector2D((float)(point.X * factor), (float)(point.Y * factor));
+            return new Vector2D((float)(point.I * factor), (float)(point.J * factor));
         }
 
         /// <summary>
@@ -1849,7 +1849,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, Point factors)
         {
-            return new Vector2D((point.X * factors.X), (point.Y * factors.Y));
+            return new Vector2D((point.I * factors.X), (point.J * factors.Y));
         }
 
         /// <summary>
@@ -1862,7 +1862,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, PointF factors)
         {
-            return new Vector2D((point.X * factors.X), (point.Y * factors.Y));
+            return new Vector2D((point.I * factors.X), (point.J * factors.Y));
         }
 
         /// <summary>
@@ -1875,7 +1875,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D size, Size factor)
         {
-            return new Vector2D(size.X * factor.Width, size.Y * factor.Height);
+            return new Vector2D(size.I * factor.Width, size.J * factor.Height);
         }
 
         /// <summary>
@@ -1888,7 +1888,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, SizeF factor)
         {
-            return new Vector2D(point.X * factor.Width, point.Y * factor.Height);
+            return new Vector2D(point.I * factor.Width, point.J * factor.Height);
         }
 
         /// <summary>
@@ -1901,7 +1901,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, Vector2D factors)
         {
-            return new Vector2D((point.X * factors.X), (point.Y * factors.Y));
+            return new Vector2D((point.I * factors.I), (point.J * factors.J));
         }
         #endregion
 
@@ -1949,7 +1949,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(this Vector2D value)
         {
-            return Invert(value.X, value.Y);
+            return Invert(value.I, value.J);
         }
         #endregion
 
@@ -2052,7 +2052,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this Vector2D vector, Vector2D value)
         {
-            return Length(vector.X, vector.Y, value.X, value.Y);
+            return Length(vector.I, vector.J, value.I, value.J);
         }
 
         /// <summary>
@@ -2119,7 +2119,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(this Vector2D value)
         {
-            return Modulus(value.X, value.Y);
+            return Modulus(value.I, value.J);
         }
         #endregion
 
@@ -2221,7 +2221,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(this Vector2D vector)
         {
-            return Perpendicular(vector.X, vector.Y);
+            return Perpendicular(vector.I, vector.J);
         }
         #endregion
 
@@ -2607,7 +2607,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, int factor)
         {
-            return Scale(value.X, value.Y, factor);
+            return Scale(value.I, value.J, factor);
         }
 
         /// <summary>
@@ -2621,7 +2621,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, float factor)
         {
-            return Scale(value.X, value.Y, factor);
+            return Scale(value.I, value.J, factor);
         }
 
         /// <summary>
@@ -2635,7 +2635,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, double factor)
         {
-            return Scale(value.X, value.Y, factor);
+            return Scale(value.I, value.J, factor);
         }
         #endregion
 
@@ -2765,13 +2765,13 @@ namespace Engine.Geometry
         {
             //  If the line is vertical, return something close to infinity 
             //  (Close to the largest value allowed for the data type).
-            if ((Point.X == 0))
+            if ((Point.I == 0))
             {
                 return MathExtensions.SlopeMax;
             }
 
             //  Otherwise calculate and return the slope.
-            return (Point.Y / Point.X);
+            return (Point.J / Point.I);
         }
 
         /// <summary>
@@ -2839,7 +2839,7 @@ namespace Engine.Geometry
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
         public static Point2D Subtract(this Point2D value, Vector2D subend)
         {
-            return new Point2D(value.X - subend.X, value.Y - subend.Y);
+            return new Point2D(value.X - subend.I, value.Y - subend.J);
         }
 
         /// <summary>
@@ -2941,7 +2941,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Point Subtract(this Point point, Vector2D value)
         {
-            return new Point((int)(point.X - value.X), (int)(point.Y - value.Y));
+            return new Point((int)(point.X - value.I), (int)(point.Y - value.J));
         }
 
         /// <summary>
@@ -3032,7 +3032,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static PointF Subtract(this PointF point, Vector2D Value)
         {
-            return new PointF((float)(point.X - Value.X), (float)(point.Y - Value.Y));
+            return new PointF((float)(point.X - Value.I), (float)(point.Y - Value.J));
         }
 
         /// <summary>
@@ -3044,7 +3044,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D Subtract(this Vector2D vector, double value)
         {
-            return new Vector2D(vector.X - value, vector.Y - value);
+            return new Vector2D(vector.I - value, vector.J - value);
         }
 
         /// <summary>
@@ -3056,7 +3056,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static PointF Subtract(this Vector2D vector, Point value)
         {
-            return new PointF((float)(vector.X - value.X), (float)(vector.Y - value.Y));
+            return new PointF((float)(vector.I - value.X), (float)(vector.J - value.Y));
         }
 
         /// <summary>
@@ -3068,7 +3068,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Point2D Subtract(this Vector2D vector, Point2D value)
         {
-            return new Point2D((vector.X - value.X), (vector.Y - value.Y));
+            return new Point2D((vector.I - value.X), (vector.J - value.Y));
         }
 
         /// <summary>
@@ -3080,7 +3080,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static PointF Subtract(this Vector2D vector, PointF Value)
         {
-            return new PointF((float)(vector.X - Value.X), (float)(vector.Y - Value.Y));
+            return new PointF((float)(vector.I - Value.X), (float)(vector.J - Value.Y));
         }
 
         /// <summary>
@@ -3092,7 +3092,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D Subtract(this Vector2D point, Size value)
         {
-            return new Vector2D(point.X - value.Width, point.Y - value.Height);
+            return new Vector2D(point.I - value.Width, point.J - value.Height);
         }
 
         /// <summary>
@@ -3104,7 +3104,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D Subtract(this Vector2D point, SizeF value)
         {
-            return new Vector2D((point.X - value.Width), (point.Y - value.Height));
+            return new Vector2D((point.I - value.Width), (point.J - value.Height));
         }
 
         /// <summary>
@@ -3116,7 +3116,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D Subtract(this Vector2D vector, Vector2D Value)
         {
-            return new Vector2D(vector.X - Value.X, vector.Y - Value.Y);
+            return new Vector2D(vector.I - Value.I, vector.J - Value.J);
         }
 
         /// <summary>
@@ -3189,7 +3189,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D Unit(this Vector2D value)
         {
-            return value.Scale((float)(1 / Math.Sqrt(((value.X * value.X) + (value.Y * value.Y)))));
+            return value.Scale((float)(1 / Math.Sqrt(((value.I * value.I) + (value.J * value.J)))));
         }
 
         #endregion

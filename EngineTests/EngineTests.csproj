@@ -55,8 +55,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ExperimentalTests.cs" />
+    <Compile Include="Geometry\ExperimentalTests.cs" />
     <Compile Include="Geometry\Curves\EllipseTests.cs" />
+    <Compile Include="Geometry\Curves\CubicBezierTests.cs" />
     <Compile Include="Geometry\Curves\QuadraticBezierTests.cs" />
     <Compile Include="Geometry\Framework\IntersectionExtentionTests.cs" />
     <Compile Include="Geometry\Framework\MathExtensionsTests.cs" />
@@ -69,6 +70,7 @@
       <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

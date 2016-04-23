@@ -29,6 +29,10 @@ namespace Engine.Geometry
         /// Center Point of Ellipse
         /// </summary>
         /// <remarks></remarks>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [XmlAttribute()]
         private Point2D center;
 
         /// <summary>
@@ -250,6 +254,9 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular bounds of the ellipse.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get
@@ -282,7 +289,7 @@ namespace Engine.Geometry
         {
             get
             {
-                return this.PerimeterSykoraRiveraCantrellsParticularlyFruitful();
+                return this.EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful();
                 //return this.PerimeterAhmadi2006();
             }
         }

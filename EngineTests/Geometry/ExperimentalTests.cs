@@ -1,14 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Engine;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Engine.Geometry;
 
 namespace Engine.Tests
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [TestClass()]
     public class ExperimentalTests
     {
@@ -16,15 +14,15 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void Perimeter1Test()
+        public void EllipsePerimeter1Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.Perimeter1();
+            double value = ellipse.EllipsePerimeter1();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.Perimeter1();
+            value = ellipse.EllipsePerimeter1();
             Assert.AreEqual(1110.72073453959d.ToString(), value.ToString());
         }
 
@@ -32,15 +30,15 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void Perimeter2Test()
+        public void EllipsePerimeter2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.Perimeter2();
+            double value = ellipse.EllipsePerimeter2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.Perimeter2();
+            value = ellipse.EllipsePerimeter2();
             Assert.AreEqual(1105.17460803539d.ToString(), value.ToString());
         }
 
@@ -48,20 +46,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterKeplerTest()
+        public void EllipsePerimeterKeplerTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterKepler();
+            double value = ellipse.EllipsePerimeterKepler();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterKepler();
+            value = ellipse.EllipsePerimeterKepler();
             Assert.AreEqual(1088.27961854053d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterKepler();
+            value = ellipse.EllipsePerimeterKepler();
             Assert.AreEqual(0.ToString(), value.ToString());
         }
 
@@ -69,20 +67,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterSiposTest()
+        public void EllipsePerimeterSiposTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterSipos();
+            double value = ellipse.EllipsePerimeterSipos();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterSipos();
+            value = ellipse.EllipsePerimeterSipos();
             Assert.AreEqual(1110.95211059346d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterSipos();
+            value = ellipse.EllipsePerimeterSipos();
             Assert.AreEqual(double.PositiveInfinity.ToString(), value.ToString());
         }
 
@@ -90,20 +88,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterNaiveTest()
+        public void EllipsePerimeterNaiveTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterNaive();
+            double value = ellipse.EllipsePerimeterNaive();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterNaive();
+            value = ellipse.EllipsePerimeterNaive();
             Assert.AreEqual(1099.55742875643d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterNaive();
+            value = ellipse.EllipsePerimeterNaive();
             Assert.AreEqual(314.159265358979.ToString(), value.ToString());
         }
 
@@ -111,20 +109,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterPeanoTest()
+        public void EllipsePerimeterPeanoTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterPeano();
+            double value = ellipse.EllipsePerimeterPeano();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterPeano();
+            value = ellipse.EllipsePerimeterPeano();
             Assert.AreEqual(1105.19633386438d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterPeano();
+            value = ellipse.EllipsePerimeterPeano();
             Assert.AreEqual(471.238898038469d.ToString(), value.ToString());
         }
 
@@ -132,20 +130,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterEulerTest()
+        public void EllipsePerimeterEulerTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterEuler();
+            double value = ellipse.EllipsePerimeterEuler();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterEuler();
+            value = ellipse.EllipsePerimeterEuler();
             Assert.AreEqual(1110.72073453959d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterEuler();
+            value = ellipse.EllipsePerimeterEuler();
             Assert.AreEqual(444.288293815837d.ToString(), value.ToString());
         }
 
@@ -154,20 +152,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterAlmkvistTest()
+        public void EllipsePerimeterAlmkvistTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterAlmkvist();
+            double value = ellipse.EllipsePerimeterAlmkvist();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterAlmkvist();
+            value = ellipse.EllipsePerimeterAlmkvist();
             Assert.AreEqual(1362.09460653742d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterAlmkvist();
+            value = ellipse.EllipsePerimeterAlmkvist();
             Assert.AreEqual(24.4893050647622.ToString(), value.ToString());
         }
 
@@ -175,20 +173,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterQuadraticTest()
+        public void EllipsePerimeterQuadraticTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterQuadratic();
+            double value = ellipse.EllipsePerimeterQuadratic();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterQuadratic();
+            value = ellipse.EllipsePerimeterQuadratic();
             Assert.AreEqual(1105.15317700073d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterQuadratic();
+            value = ellipse.EllipsePerimeterQuadratic();
             Assert.AreEqual(384.764949048559.ToString(), value.ToString());
         }
 
@@ -197,20 +195,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterMuirTest()
+        public void EllipsePerimeterMuirTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterMuir();
+            double value = ellipse.EllipsePerimeterMuir();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterMuir();
+            value = ellipse.EllipsePerimeterMuir();
             Assert.AreEqual(1105.68890980221d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterMuir();
+            value = ellipse.EllipsePerimeterMuir();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -218,20 +216,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterLindnerTest()
+        public void EllipsePerimeterLindnerTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterLindner();
+            double value = ellipse.EllipsePerimeterLindner();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterLindner();
+            value = ellipse.EllipsePerimeterLindner();
             Assert.AreEqual(1100.9590321664d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterLindner();
+            value = ellipse.EllipsePerimeterLindner();
             Assert.AreEqual(333.216220361877.ToString(), value.ToString());
         }
 
@@ -239,20 +237,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterRamanujanTest()
+        public void EllipsePerimeterRamanujanTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterRamanujan();
+            double value = ellipse.EllipsePerimeterRamanujan();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterRamanujan();
+            value = ellipse.EllipsePerimeterRamanujan();
             Assert.AreEqual(1105.17458954584d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterRamanujan();
+            value = ellipse.EllipsePerimeterRamanujan();
             Assert.AreEqual(398.337986806673d.ToString(), value.ToString());
         }
 
@@ -261,20 +259,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterSelmerTest()
+        public void EllipsePerimeterSelmerTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterSelmer();
+            double value = ellipse.EllipsePerimeterSelmer();
             Assert.AreEqual(694.113089432035d.ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterSelmer();
+            value = ellipse.EllipsePerimeterSelmer();
             Assert.AreEqual(1105.68890980221d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterSelmer();
+            value = ellipse.EllipsePerimeterSelmer();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -282,20 +280,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterRamanujan2Test()
+        public void EllipsePerimeterRamanujan2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterRamanujan2();
+            double value = ellipse.EllipsePerimeterRamanujan2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterRamanujan2();
+            value = ellipse.EllipsePerimeterRamanujan2();
             Assert.AreEqual(1105.1746080353828d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterRamanujan2();
+            value = ellipse.EllipsePerimeterRamanujan2();
             Assert.AreEqual(399.839065002337d.ToString(), value.ToString());
         }
 
@@ -303,20 +301,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterPadéSelmerTest()
+        public void EllipsePerimeterPadéSelmerTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterPadéSelmer();
+            double value = ellipse.EllipsePerimeterPadéSelmer();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterPadéSelmer();
+            value = ellipse.EllipsePerimeterPadéSelmer();
             Assert.AreEqual(1105.17458037204d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterPadéSelmer();
+            value = ellipse.EllipsePerimeterPadéSelmer();
             Assert.AreEqual(397.935069454707d.ToString(), value.ToString());
         }
 
@@ -324,20 +322,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterPadéMichonTest()
+        public void EllipsePerimeterPadéMichonTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterPadéMichon();
+            double value = ellipse.EllipsePerimeterPadéMichon();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterPadéMichon();
+            value = ellipse.EllipsePerimeterPadéMichon();
             Assert.AreEqual(1105.17460778829d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterPadéMichon();
+            value = ellipse.EllipsePerimeterPadéMichon();
             Assert.AreEqual(398.932400455847d.ToString(), value.ToString());
         }
 
@@ -345,20 +343,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterPadéHudsonLipkaBronshteinTest()
+        public void EllipsePerimeterPadéHudsonLipkaBronshteinTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterPadéHudsonLipkaBronshtein();
+            double value = ellipse.EllipsePerimeterPadéHudsonLipkaBronshtein();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterPadéHudsonLipkaBronshtein();
+            value = ellipse.EllipsePerimeterPadéHudsonLipkaBronshtein();
             Assert.AreEqual(1105.21776167395d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterPadéHudsonLipkaBronshtein();
+            value = ellipse.EllipsePerimeterPadéHudsonLipkaBronshtein();
             Assert.AreEqual(438.513974563575d.ToString(), value.ToString());
         }
 
@@ -366,20 +364,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterPadéJacobsenWaadelandTest()
+        public void EllipsePerimeterPadéJacobsenWaadelandTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterPadéJacobsenWaadeland();
+            double value = ellipse.EllipsePerimeterPadéJacobsenWaadeland();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterPadéJacobsenWaadeland();
+            value = ellipse.EllipsePerimeterPadéJacobsenWaadeland();
             Assert.AreEqual(1105.17460803497d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterPadéJacobsenWaadeland();
+            value = ellipse.EllipsePerimeterPadéJacobsenWaadeland();
             Assert.AreEqual(399.644779742375.ToString(), value.ToString());
         }
 
@@ -387,20 +385,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterPadé3_2Test()
+        public void EllipsePerimeterPadé3_2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterPadé3_2();
+            double value = ellipse.EllipsePerimeterPadé3_2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterPadé3_2();
+            value = ellipse.EllipsePerimeterPadé3_2();
             Assert.AreEqual(1105.17460803547d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterPadé3_2();
+            value = ellipse.EllipsePerimeterPadé3_2();
             Assert.AreEqual(399.815958260254.ToString(), value.ToString());
         }
 
@@ -408,20 +406,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterPadé3_3Test()
+        public void EllipsePerimeterPadé3_3Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterPadé3_3();
+            double value = ellipse.EllipsePerimeterPadé3_3();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterPadé3_3();
+            value = ellipse.EllipsePerimeterPadé3_3();
             Assert.AreEqual(1105.17460803547d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterPadé3_3();
+            value = ellipse.EllipsePerimeterPadé3_3();
             Assert.AreEqual(399.893168774002d.ToString(), value.ToString());
         }
 
@@ -429,20 +427,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterOptimizedPeanoTest()
+        public void EllipsePerimeterOptimizedPeanoTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterOptimizedPeano();
+            double value = ellipse.EllipsePerimeterOptimizedPeano();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterOptimizedPeano();
+            value = ellipse.EllipsePerimeterOptimizedPeano();
             Assert.AreEqual(1103.16632802551d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterOptimizedPeano();
+            value = ellipse.EllipsePerimeterOptimizedPeano();
             Assert.AreEqual(414.690230273853.ToString(), value.ToString());
         }
 
@@ -450,20 +448,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterOptimizedQuadratic1Test()
+        public void EllipsePerimeterOptimizedQuadratic1Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterOptimizedQuadratic1();
+            double value = ellipse.EllipsePerimeterOptimizedQuadratic1();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterOptimizedQuadratic1();
+            value = ellipse.EllipsePerimeterOptimizedQuadratic1();
             Assert.AreEqual(1106.19333100019d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterOptimizedQuadratic1();
+            value = ellipse.EllipsePerimeterOptimizedQuadratic1();
             Assert.AreEqual(396.540829769506d.ToString(), value.ToString());
         }
 
@@ -471,20 +469,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterOptimizedQuadratic2Test()
+        public void EllipsePerimeterOptimizedQuadratic2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterOptimizedQuadratic2();
+            double value = ellipse.EllipsePerimeterOptimizedQuadratic2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterOptimizedQuadratic2();
+            value = ellipse.EllipsePerimeterOptimizedQuadratic2();
             Assert.AreEqual(1115.22975969741d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterOptimizedQuadratic2();
+            value = ellipse.EllipsePerimeterOptimizedQuadratic2();
             Assert.AreEqual(487.380298264211d.ToString(), value.ToString());
         }
 
@@ -492,20 +490,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterOptimizedRamanujan1Test()
+        public void EllipsePerimeterOptimizedRamanujan1Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterOptimizedRamanujan1();
+            double value = ellipse.EllipsePerimeterOptimizedRamanujan1();
             Assert.AreEqual(628.318530717958d.ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterOptimizedRamanujan1();
+            value = ellipse.EllipsePerimeterOptimizedRamanujan1();
             Assert.AreEqual(1105.25126379061d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterOptimizedRamanujan1();
+            value = ellipse.EllipsePerimeterOptimizedRamanujan1();
             Assert.AreEqual(399.487026354434.ToString(), value.ToString());
         }
 
@@ -513,20 +511,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterBartolomeuMichonTest()
+        public void EllipsePerimeterBartolomeuMichonTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterBartolomeuMichon();
+            double value = ellipse.EllipsePerimeterBartolomeuMichon();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterBartolomeuMichon();
+            value = ellipse.EllipsePerimeterBartolomeuMichon();
             Assert.AreEqual(1106.99713336319d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterBartolomeuMichon();
+            value = ellipse.EllipsePerimeterBartolomeuMichon();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -534,20 +532,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterCantrell2Test()
+        public void EllipsePerimeterCantrell2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterCantrell2();
+            double value = ellipse.EllipsePerimeterCantrell2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterCantrell2();
+            value = ellipse.EllipsePerimeterCantrell2();
             Assert.AreEqual(1105.17405478863d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterCantrell2();
+            value = ellipse.EllipsePerimeterCantrell2();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -555,20 +553,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterTakakazuSekiTest()
+        public void EllipsePerimeterTakakazuSekiTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterTakakazuSeki();
+            double value = ellipse.EllipsePerimeterTakakazuSeki();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterTakakazuSeki();
+            value = ellipse.EllipsePerimeterTakakazuSeki();
             Assert.AreEqual(1106.50464442348d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterTakakazuSeki();
+            value = ellipse.EllipsePerimeterTakakazuSeki();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -576,20 +574,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterLockwoodTest()
+        public void EllipsePerimeterLockwoodTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterLockwood();
+            double value = ellipse.EllipsePerimeterLockwood();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterLockwood();
+            value = ellipse.EllipsePerimeterLockwood();
             Assert.AreEqual(1103.68403081356d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterLockwood();
+            value = ellipse.EllipsePerimeterLockwood();
             Assert.AreEqual(double.NaN.ToString(), value.ToString());
         }
 
@@ -597,20 +595,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterSykoraRiveraCantrellsParticularlyFruitfulTest()
+        public void EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitfulTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterSykoraRiveraCantrellsParticularlyFruitful();
+            double value = ellipse.EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterSykoraRiveraCantrellsParticularlyFruitful();
+            value = ellipse.EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful();
             Assert.AreEqual(1105.68890980221d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterSykoraRiveraCantrellsParticularlyFruitful();
+            value = ellipse.EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -618,20 +616,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterYNOTTest()
+        public void EllipsePerimeterYNOTTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterYNOT();
+            double value = ellipse.EllipsePerimeterYNOT();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterYNOT();
+            value = ellipse.EllipsePerimeterYNOT();
             Assert.AreEqual(1105.5575586484d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterYNOT();
+            value = ellipse.EllipsePerimeterYNOT();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -640,20 +638,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterCombinedPadéTest()
+        public void EllipsePerimeterCombinedPadéTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterCombinedPadé();
+            double value = ellipse.EllipsePerimeterCombinedPadé();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterCombinedPadé();
+            value = ellipse.EllipsePerimeterCombinedPadé();
             Assert.AreEqual(1105.68890980221d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterCombinedPadé();
+            value = ellipse.EllipsePerimeterCombinedPadé();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -662,20 +660,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterCombinedPadé2Test()
+        public void EllipsePerimeterCombinedPadé2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterCombinedPadé2();
+            double value = ellipse.EllipsePerimeterCombinedPadé2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterCombinedPadé2();
+            value = ellipse.EllipsePerimeterCombinedPadé2();
             Assert.AreEqual(1105.68890980221d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterCombinedPadé2();
+            value = ellipse.EllipsePerimeterCombinedPadé2();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -684,20 +682,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterCombinedPadéHudsonLipkaMichonTest()
+        public void EllipsePerimeterCombinedPadéHudsonLipkaMichonTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterCombinedPadéHudsonLipkaMichon();
+            double value = ellipse.EllipsePerimeterCombinedPadéHudsonLipkaMichon();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterCombinedPadéHudsonLipkaMichon();
+            value = ellipse.EllipsePerimeterCombinedPadéHudsonLipkaMichon();
             Assert.AreEqual(1105.1746116698d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterCombinedPadéHudsonLipkaMichon();
+            value = ellipse.EllipsePerimeterCombinedPadéHudsonLipkaMichon();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -706,20 +704,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterJacobsenWaadelandHudsonLipkaTest()
+        public void EllipsePerimeterJacobsenWaadelandHudsonLipkaTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterJacobsenWaadelandHudsonLipka();
+            double value = ellipse.EllipsePerimeterJacobsenWaadelandHudsonLipka();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterJacobsenWaadelandHudsonLipka();
+            value = ellipse.EllipsePerimeterJacobsenWaadelandHudsonLipka();
             Assert.AreEqual(1105.1746116698d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterJacobsenWaadelandHudsonLipka();
+            value = ellipse.EllipsePerimeterJacobsenWaadelandHudsonLipka();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -728,20 +726,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void Perimeter2_3JacobsenWaadelandTest()
+        public void EllipsePerimeter2_3JacobsenWaadelandTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.Perimeter2_3JacobsenWaadeland();
+            double value = ellipse.EllipsePerimeter2_3JacobsenWaadeland();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.Perimeter2_3JacobsenWaadeland();
+            value = ellipse.EllipsePerimeter2_3JacobsenWaadeland();
             Assert.AreEqual(1105.1746116698d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.Perimeter2_3JacobsenWaadeland();
+            value = ellipse.EllipsePerimeter2_3JacobsenWaadeland();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -750,20 +748,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void Perimeter3_3_3_2Test()
+        public void EllipsePerimeter3_3_3_2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.Perimeter3_3_3_2();
+            double value = ellipse.EllipsePerimeter3_3_3_2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.Perimeter3_3_3_2();
+            value = ellipse.EllipsePerimeter3_3_3_2();
             Assert.AreEqual(1105.1746116698d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.Perimeter3_3_3_2();
+            value = ellipse.EllipsePerimeter3_3_3_2();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -772,20 +770,20 @@ namespace Engine.Tests
         /// </summary>
         [TestMethod()]
         [Ignore]
-        public void PerimeterBartolomeuTest()
+        public void EllipsePerimeterBartolomeuTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterBartolomeu();
+            double value = ellipse.EllipsePerimeterBartolomeu();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterBartolomeu();
+            value = ellipse.EllipsePerimeterBartolomeu();
             Assert.AreEqual(1105.1746116698d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterBartolomeu();
+            value = ellipse.EllipsePerimeterBartolomeu();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -793,20 +791,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterRivera1Test()
+        public void EllipsePerimeterRivera1Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterRivera1();
+            double value = ellipse.EllipsePerimeterRivera1();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterRivera1();
+            value = ellipse.EllipsePerimeterRivera1();
             Assert.AreEqual(1100.37262930979d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterRivera1();
+            value = ellipse.EllipsePerimeterRivera1();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -814,20 +812,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterRivera2Test()
+        public void EllipsePerimeterRivera2Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterRivera2();
+            double value = ellipse.EllipsePerimeterRivera2();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterRivera2();
+            value = ellipse.EllipsePerimeterRivera2();
             Assert.AreEqual(1105.68890980221d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterRivera2();
+            value = ellipse.EllipsePerimeterRivera2();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -835,20 +833,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterCantrellTest()
+        public void EllipsePerimeterCantrellTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterCantrell();
+            double value = ellipse.EllipsePerimeterCantrell();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterCantrell();
+            value = ellipse.EllipsePerimeterCantrell();
             Assert.AreEqual(1105.19458936518d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterCantrell();
+            value = ellipse.EllipsePerimeterCantrell();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -856,20 +854,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterSykoraTest()
+        public void EllipsePerimeterSykoraTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterSykora();
+            double value = ellipse.EllipsePerimeterSykora();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterSykora();
+            value = ellipse.EllipsePerimeterSykora();
             Assert.AreEqual(1105.19458936518d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterSykora();
+            value = ellipse.EllipsePerimeterSykora();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -877,20 +875,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterCantrellRamanujanTest()
+        public void EllipsePerimeterCantrellRamanujanTest()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterCantrellRamanujan();
+            double value = ellipse.EllipsePerimeterCantrellRamanujan();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterCantrellRamanujan();
+            value = ellipse.EllipsePerimeterCantrellRamanujan();
             Assert.AreEqual(1105.17460803538d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterCantrellRamanujan();
+            value = ellipse.EllipsePerimeterCantrellRamanujan();
             Assert.AreEqual(485.679799643358.ToString(), value.ToString());
         }
 
@@ -898,20 +896,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterK13Test()
+        public void EllipsePerimeterK13Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterK13();
+            double value = ellipse.EllipsePerimeterK13();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterK13();
+            value = ellipse.EllipsePerimeterK13();
             Assert.AreEqual(1105.13908164801d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterK13();
+            value = ellipse.EllipsePerimeterK13();
             Assert.AreEqual(379.223779587408d.ToString(), value.ToString());
         }
 
@@ -919,20 +917,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterThomasBlankenhorn1Test()
+        public void EllipsePerimeterThomasBlankenhorn1Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterThomasBlankenhorn1();
+            double value = ellipse.EllipsePerimeterThomasBlankenhorn1();
             Assert.AreEqual(628.318513355998.ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterThomasBlankenhorn1();
+            value = ellipse.EllipsePerimeterThomasBlankenhorn1();
             Assert.AreEqual(1105.17462238101.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterThomasBlankenhorn1();
+            value = ellipse.EllipsePerimeterThomasBlankenhorn1();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -940,38 +938,20 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterThomasBlankenhorn8Test()
+        public void EllipsePerimeterThomasBlankenhorn8Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterThomasBlankenhorn8();
+            double value = ellipse.EllipsePerimeterThomasBlankenhorn8();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterThomasBlankenhorn8();
+            value = ellipse.EllipsePerimeterThomasBlankenhorn8();
             Assert.AreEqual(1105.1746116698d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterThomasBlankenhorn8();
-            Assert.AreEqual(400.ToString(), value.ToString());
-        }
-
-        [TestMethod()]
-        public void PerimeterCantrell2006Test()
-        {
-            // Test a perfect circle.
-            Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterCantrell2006();
-            Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
-
-            ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterCantrell2006();
-            Assert.AreEqual(1105.17412721933d.ToString(), value.ToString());
-
-            // Test a flat line.
-            ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterCantrell2006();
+            value = ellipse.EllipsePerimeterThomasBlankenhorn8();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
 
@@ -979,20 +959,41 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        public void PerimeterAhmadi2006Test()
+        public void EllipsePerimeterCantrell2006Test()
         {
             // Test a perfect circle.
             Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.PerimeterAhmadi2006();
+            double value = ellipse.EllipsePerimeterCantrell2006();
             Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
 
             ellipse = new Ellipse(new Point2D(), 200, 150, 0);
-            value = ellipse.PerimeterAhmadi2006();
+            value = ellipse.EllipsePerimeterCantrell2006();
+            Assert.AreEqual(1105.17412721933d.ToString(), value.ToString());
+
+            // Test a flat line.
+            ellipse = new Ellipse(new Point2D(), 100, 0, 0);
+            value = ellipse.EllipsePerimeterCantrell2006();
+            Assert.AreEqual(400.ToString(), value.ToString());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        public void EllipsePerimeterAhmadi2006Test()
+        {
+            // Test a perfect circle.
+            Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
+            double value = ellipse.EllipsePerimeterAhmadi2006();
+            Assert.AreEqual((2 * Math.PI * 100).ToString(), value.ToString());
+
+            ellipse = new Ellipse(new Point2D(), 200, 150, 0);
+            value = ellipse.EllipsePerimeterAhmadi2006();
             Assert.AreEqual(1105.17434614743d.ToString(), value.ToString());
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
-            value = ellipse.PerimeterAhmadi2006();
+            value = ellipse.EllipsePerimeterAhmadi2006();
             Assert.AreEqual(400.ToString(), value.ToString());
         }
     }

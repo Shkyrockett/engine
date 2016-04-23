@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -32,12 +33,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private PointF offset;
+        private Point2D offset;
 
         /// <summary>
         /// 
         /// </summary>
-        private SizeF multiplyer;
+        private Size2D multiplyer;
 
         /// <summary>
         /// 
@@ -47,20 +48,20 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        private List<PointF> points;
+        private List<Point2D> points;
 
         /// <summary>
         /// 
         /// </summary>
         public Bicorn()
-            : this(new PointF(), new SizeF())
+            : this(new Point2D(), new Size2D())
         {
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Bicorn(PointF offset, SizeF multiplyter)
+        public Bicorn(Point2D offset, Size2D multiplyter)
         {
             this.offset = offset;
             multiplyer = multiplyter;
@@ -73,8 +74,8 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
-        public PointF Offset
+        [TypeConverter(typeof(Point2DConverter))]
+        public Point2D Offset
         {
             get
             {
@@ -90,7 +91,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public SizeF Multiplyer
+        public Size2D Multiplyer
         {
             get
             {
@@ -124,18 +125,18 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Functional")]
         [Description("The array of grab handles for this shape.")]
-        public List<PointF> Handles
+        public List<Point2D> Handles
         {
             get
             {
-                return new List<PointF> { offset, new PointF(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
+                return new List<Point2D> () { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
             }
             set
             {
                 if (value != null && value.Count >= 1)
                 {
                     offset = value[0];
-                    multiplyer = new SizeF(value[1].X - offset.X, value[1].Y - offset.Y);
+                    multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
                 }
             }
         }
@@ -150,9 +151,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
-            return new PointF(
+            return new Point2D(
                     (float)(offset.X + ((2 * Math.Sin(index)) * multiplyer.Width)),
                     (float)(offset.Y + (((Math.Cos(index) * (2 * ((2 + Math.Cos(index)) / (3 + (Math.Sin(index) * 2))))) * -1) * multiplyer.Height))
                     );
@@ -163,9 +164,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints(double precision)
+        public List<Point2D> InterpolatePoints(double precision)
         {
-            List<PointF> points = new List<PointF>();
+            List<Point2D> points = new List<Point2D>();
             for (double Index = (Math.PI * -1); (Index <= Math.PI); Index = (Index + precision))
             {
                 points.Add(Interpolate(Index));

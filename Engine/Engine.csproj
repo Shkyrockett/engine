@@ -91,16 +91,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Experimental.cs" />
+    <Compile Include="Geometry\Curves\Incomplete\ConicSections.cs" />
+    <Compile Include="Geometry\Curves\Incomplete\Hyperbola.cs" />
+    <Compile Include="Geometry\Curves\Incomplete\Parabola.cs" />
+    <Compile Include="Geometry\Experimental.cs" />
     <Compile Include="Geometry\Complex\Incompleete\Heart.cs" />
+    <Compile Include="Geometry\Curves\Incomplete\Curve.cs" />
+    <Compile Include="Geometry\Framework\Size2DConverter.cs" />
     <Compile Include="Geometry\Framework\Point2DConverter.cs" />
+    <Compile Include="Geometry\Framework\Rectangle2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\BoundingRect.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\NGonStar.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\ElipticStar.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\NonIntStar.cs" />
-    <Compile Include="Geometry\Polygons\Incomplete\PolygonExtensions.cs" />
+    <Compile Include="Geometry\Polygons\Extensions\PolygonExtensions.cs" />
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Geometry\Units\Radian.cs" />
     <Compile Include="Geometry\Units\Degree.cs" />
@@ -129,7 +135,7 @@
     <Compile Include="File\FileItem.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CubicBSpline.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Cosine.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\CubicBezier.cs" />
+    <Compile Include="Geometry\Curves\CubicBezier.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CatmullRom.cs" />
     <Compile Include="Geometry\Curves\Incomplete\BSpline.cs" />
     <Compile Include="Geometry\Curves\Butterfly.cs" />
@@ -229,6 +235,7 @@
     <Compile Include="Tools\DrawShape.cs" />
     <Compile Include="Tools\Straightener.cs" />
     <Compile Include="Tools\Tool.cs" />
+    <Compile Include="Geometry\Utilities.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

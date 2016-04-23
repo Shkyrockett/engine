@@ -48,13 +48,13 @@ namespace Engine.Geometry
         /// First Point of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        private double x;
+        private double i;
 
         /// <summary>
         /// Second Component of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        private double y;
+        private double j;
         #endregion
 
         #region Constructors
@@ -64,8 +64,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Vector2D()
         {
-            x = 0;
-            y = 0;
+            i = 0;
+            j = 0;
         }
 
         /// <summary>
@@ -76,8 +76,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Vector2D(double valueX, double valueY)
         {
-            x = (float)valueX;
-            y = (float)valueY;
+            i = (float)valueX;
+            j = (float)valueY;
         }
 
         /// <summary>
@@ -91,8 +91,8 @@ namespace Engine.Geometry
         public Vector2D(double value1X, double value1Y, double value2X, double value2Y)
         {
             Vector2D Temp = new Point2D(value1X, value1Y).Delta(new Point2D(value2X, value2Y)).Unit();
-            x = Temp.x;
-            y = Temp.y;
+            i = Temp.i;
+            j = Temp.j;
         }
 
         /// <summary>
@@ -104,8 +104,8 @@ namespace Engine.Geometry
         public Vector2D(Point2D value1, Point2D value2)
         {
             Vector2D Temp = value1.Delta(value2).Unit();
-            x = Temp.x;
-            y = Temp.y;
+            i = Temp.i;
+            j = Temp.j;
         }
         #endregion
 
@@ -115,10 +115,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public double X
+        public double I
         {
-            get { return x; }
-            set { x = value; }
+            get { return i; }
+            set { i = value; }
         }
 
         /// <summary>
@@ -126,10 +126,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public double Y
+        public double J
         {
-            get { return y; }
-            set { y = value; }
+            get { return j; }
+            set { j = value; }
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Engine.Geometry
         {
             get
             {
-                return x == 0f && y == 0f;
+                return i == 0f && j == 0f;
             }
         }
 
@@ -172,7 +172,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D operator *(Vector2D value, double multiplyer)
         {
-            return new Vector2D(value.X * multiplyer, value.Y * multiplyer);
+            return new Vector2D(value.I * multiplyer, value.J * multiplyer);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D operator *(double multiplyer, Vector2D value)
         {
-            return new Vector2D(value.X * multiplyer, value.Y * multiplyer);
+            return new Vector2D(value.I * multiplyer, value.J * multiplyer);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D operator /(Vector2D Value, double divisor)
         {
-            return new Vector2D(Value.x / divisor, Value.y / divisor);
+            return new Vector2D(Value.i / divisor, Value.j / divisor);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D operator /(double Value, Vector2D divisor)
         {
-            return new Vector2D(Value / divisor.x, Value / divisor.y);
+            return new Vector2D(Value / divisor.i, Value / divisor.j);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator ==(Vector2D left, Vector2D right)
         {
-            return left.X == right.X && left.Y == right.Y;
+            return left.I == right.I && left.J == right.J;
         }
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         public static explicit operator PointF(Vector2D value)
         {
-            return new PointF((int)value.x, (int)value.y);
+            return new PointF((int)value.i, (int)value.j);
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         public static explicit operator Point(Vector2D value)
         {
-            return new Point((int)value.x, (int)value.y);
+            return new Point((int)value.i, (int)value.j);
         }
         #endregion
 
@@ -376,7 +376,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static bool Compare(ref Vector2D value1, ref Vector2D value2)
         {
-            return (value1.x == value2.x) && (value1.y == value2.y);
+            return (value1.i == value2.i) && (value1.j == value2.j);
         }
 
         /// <summary>
@@ -389,8 +389,8 @@ namespace Engine.Geometry
             if (!(obj is PointF)) return false;
             PointF comp = (PointF)obj;
             return
-            comp.X == this.X &&
-            comp.Y == this.Y &&
+            comp.X == this.I &&
+            comp.Y == this.J &&
             comp.GetType().Equals(this.GetType());
         }
 
@@ -400,8 +400,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return X.GetHashCode() ^
-                   Y.GetHashCode();
+            return I.GetHashCode() ^
+                   J.GetHashCode();
         }
 
         /// <summary>
@@ -459,8 +459,8 @@ namespace Engine.Geometry
             return String.Format(provider,
                                  "{1:" + format + "}{0}{2:" + format + "}",
                                  separator,
-                                 x,
-                                 y);
+                                 i,
+                                 j);
         }
 
         /// <summary>
@@ -469,7 +469,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "Vector{X=" + X.ToString(CultureInfo.CurrentCulture) + ",Y=" + Y.ToString(CultureInfo.CurrentCulture) + "}";
+            if (this == null) return "Vector2D";
+            return "Vector{X=" + I.ToString(CultureInfo.CurrentCulture) + ",Y=" + J.ToString(CultureInfo.CurrentCulture) + "}";
         }
         #endregion
     }

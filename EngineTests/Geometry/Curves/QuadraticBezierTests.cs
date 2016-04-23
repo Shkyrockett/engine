@@ -74,7 +74,7 @@ namespace Engine.Geometry.Tests
         public void QuadraticBezierLengthTest()
         {
             QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            double value = bezier.Length();
+            double value = bezier.Length;
             Assert.AreEqual(161.735239810224d.ToString(), value.ToString());
         }
 
@@ -88,7 +88,7 @@ namespace Engine.Geometry.Tests
         public void QuadraticBezierArcLengthByIntegralTest()
         {
             QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            double value = bezier.ArcLengthByIntegral();
+            double value = bezier.QuadraticBezierArcLengthByIntegral();
             Assert.AreEqual(161.735239810224d.ToString(), value.ToString());
         }
 
@@ -102,7 +102,7 @@ namespace Engine.Geometry.Tests
         public void QuadraticBezierArcLengthBySegmentsTest()
         {
             QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            double value = bezier.ArcLengthBySegments();
+            double value = bezier.QuadraticBezierArcLengthBySegments();
             Assert.AreEqual(160.211718695931d.ToString(), value.ToString());
         }
 
@@ -116,22 +116,8 @@ namespace Engine.Geometry.Tests
         public void QuadraticBezierApproxArcLengthTest()
         {
             QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            double value = bezier.ApproxArcLength();
+            double value = bezier.QuadraticBezierApproxArcLength();
             Assert.AreEqual(159.821919863669d.ToString(), value.ToString());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
-        public void QuadraticBezierInterpolateBezierTest()
-        {
-            QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            Point2D value = bezier.InterpolateBezier(0.5);
-            Assert.AreEqual(new Point2D(53, 225), value);
         }
 
         /// <summary>

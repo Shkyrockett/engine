@@ -144,7 +144,7 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this CubicBezier shape, Graphics g, ShapeStyle style)
         {
-            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length());
+            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length);
             if (shape.Points != null && shape.Points.Count > 1)
             {
                 g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
@@ -161,7 +161,7 @@ namespace Engine.Imaging
         public static void Render(this QuadraticBezier shape, Graphics g, ShapeStyle style)
         {
             // ToDo: Need to update point list when the nodes are moved.
-            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length());
+            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length);
             if (shape.Points != null && shape.Points.Count > 1)
             {
                 g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());

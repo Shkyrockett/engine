@@ -1,4 +1,4 @@
-﻿// <copyright file="QuadraticBezier.cs" >
+﻿// <copyright file="CubicBezier.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -13,74 +13,87 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
     /// <summary>
-    /// QuadraticBezier2D
+    /// CubicBezier2D
     /// </summary>
-    /// <structure>Engine.Geometry.QuadraticBezier2D</structure>
+    /// <structure>Engine.Geometry.CubicBezier2D</structure>
     /// <remarks>
     /// http://paulbourke.net/geometry/bezier/index.html
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Quadratic Bezier Curve")]
-    public class QuadraticBezier
+    [DisplayName("Cubic Bezier Curve")]
+    public class CubicBezier
         : Shape
     {
         #region Private Fields
+
         /// <summary>
-        /// The starting node for the <see cref="QuadraticBezier"/> curve.
+        /// Position 1.
         /// </summary>
         [XmlAttribute()]
         private Point2D a;
 
         /// <summary>
-        /// The middle tangent control node for the <see cref="QuadraticBezier"/> curve.
+        /// Tangent 1.
         /// </summary>
         [XmlAttribute()]
         private Point2D b;
 
         /// <summary>
-        /// The closing node for the <see cref="QuadraticBezier"/> curve.
+        /// Position 2.
         /// </summary>
         [XmlAttribute()]
         private Point2D c;
 
         /// <summary>
+        /// Tangent 2.
+        /// </summary>
+        [XmlAttribute()]
+        private Point2D d;
+
+        /// <summary>
         /// 
         /// </summary>
-        private List<Point2D> points = new List<Point2D>();
+        private List<Point2D> points;
+
         #endregion
 
         #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
+        /// Initializes a new instance of the <see cref="CubicBezier"/> class.
         /// </summary>
-        public QuadraticBezier()
-            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
+        public CubicBezier()
+            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
+        /// Initializes a new instance of the <see cref="CubicBezier"/> class.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        public QuadraticBezier(Point2D a, Point2D b, Point2D c)
+        /// <param name="a">Position1</param>
+        /// <param name="b">Tangent1</param>
+        /// <param name="c">Position2</param>
+        /// <param name="d">Tangent2</param>
+        public CubicBezier(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             this.a = a;
             this.b = b;
             this.c = c;
+            this.d = d;
         }
         #endregion
 
         #region Properties
+
         /// <summary>
-        /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
+        /// 
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -93,7 +106,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
+        /// 
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -106,7 +119,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the closing node for the <see cref="QuadraticBezier"/> curve.
+        /// 
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -119,11 +132,25 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// An approximation of the length of a <see cref="QuadraticBezier"/> curve.
+        /// 
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [XmlAttribute()]
+        public Point2D D
+        {
+            get { return d; }
+            set { d = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public double Length
         {
-            get { return Experimental.QuadraticBezierArcLengthByIntegral(this); }
+            get { return Experimental.CubicBezierArcLength(this); }
         }
 
         /// <summary>
@@ -145,8 +172,8 @@ namespace Engine.Geometry
         {
             get
             {
-                // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
-                points = new List<Point2D>(InterpolatePoints((int)(Length / 3)));
+                int sortOfCloseLength = (int)Length;
+                points = new List<Point2D>(InterpolatePoints(sortOfCloseLength));
 
                 double left = points[0].X;
                 double top = points[0].Y;
@@ -172,7 +199,7 @@ namespace Engine.Geometry
         public override ShapeStyle Style { get; set; }
         #endregion
 
-        #region Interpolations
+        #region Interpolation
 
         /// <summary>
         /// 
@@ -181,7 +208,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints(int count)
         {
-            return Experimental.InterpolateQuadraticBezierPoints(this, count);
+            return Experimental.InterpolatePoints(this, count);
         }
 
         /// <summary>
@@ -189,11 +216,34 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
+        /// <remarks></remarks>
         public Point2D Interpolate(double index)
         {
-            return Experimental.InterpolateQuadraticBezier(this, index);
+            return Experimental.InterpolateCubicBezier(this, index);
         }
 
+        #endregion
+
+        #region Rendering
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="pen"></param>
+        /// <param name="points"></param>
+        /// <param name="precision"></param>
+        public void DrawCubicBezierCurve(PaintEventArgs e, Pen pen, Point2D[] points, double precision)
+        {
+            ////Point2D NewPoint;
+            ////Point2D LastPoint = NewPoint;
+            //e.Graphics.DrawLines(pen, CubicBeizerPoints(points, precision));
+            ////for (double Index = 0; (Index <= 1); Index = (Index + Precision))
+            ////{
+            ////    LastPoint = NewPoint;
+            ////    NewPoint = CubicBeizerPoint(Points, Index);
+            ////    e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
+            ////}
+        }
         #endregion
 
         /// <summary>
@@ -202,8 +252,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "QuadraticBezier";
-            return string.Format(CultureInfo.CurrentCulture, "QuadraticBezier={{A={0}, B={1}, C={1}}}", a, b, c);
+            if (this == null) return "CubicBezier";
+            return string.Format(CultureInfo.CurrentCulture, "CubicBezier={{A={0}, B={1}, C={1}, D={1}}}", a, b, c, d);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Smallest such that 1.0+DBL_EPSILON != 1.0
         /// </summary>
-        public const double DoubleEpsilon = 2.2204460492503131e-016;
+        public const double DoubleEpsilon = 2.2204460492503131e-016d;
 
         /// <summary>
         /// Smallest such that 1.0+FLT_EPSILON != 1.0
@@ -31,19 +31,19 @@ namespace Engine.Geometry
         /// <summary>
         /// Number close to zero, where float.MinValue is -float.MaxValue
         /// </summary>
-        public const float FloatMin = 1.175494351e-38F;
+        public const float FloatMin = 1.175494351e-38f;
 
         /// <summary>
         /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data 
         /// type). Used in the Slope of a LineSeg
         /// </summary>
         /// <remarks></remarks>
-        public const double SlopeMax = 9223372036854775807;
+        public const double SlopeMax = 9223372036854775807d;
 
         /// <summary>
         /// One Tau or double Pi.
         /// </summary>
-        public const double Tau = 2f * Math.PI;
+        public const double Tau = 2d * Math.PI;
 
         /// <summary>
         /// Math.PI * 2
@@ -64,7 +64,7 @@ namespace Engine.Geometry
         /// <summary>
         /// One quarter Tau or half Pi.
         /// </summary>
-        public const double QuarterTau = 0.5f * Math.PI;
+        public const double QuarterTau = 0.5d * Math.PI;
 
         /// <summary>
         /// Math.PI / 2
@@ -75,7 +75,7 @@ namespace Engine.Geometry
         /// <summary>
         /// One eighth Tau or a quarter Pi.
         /// </summary>
-        public const double EighthTau = 0.25f * Math.PI;
+        public const double EighthTau = 0.25d * Math.PI;
 
         /// <summary>
         /// Math.PI / 4
@@ -86,7 +86,7 @@ namespace Engine.Geometry
         /// <summary>
         /// One sixteenth Tau or a eighth Pi.
         /// </summary>
-        public const double SixteenthTau = 0.125f * Math.PI;
+        public const double SixteenthTau = 0.125d * Math.PI;
 
         /// <summary>
         /// Math.PI / 8
@@ -107,7 +107,7 @@ namespace Engine.Geometry
         /// <summary>
         /// One Radian.
         /// </summary>
-        public const double Radien = Math.PI / 180f;
+        public const double Radien = Math.PI / 180d;
 
         /// <summary>
         /// Math.PI / 180
@@ -119,7 +119,7 @@ namespace Engine.Geometry
         /// <summary>
         /// One degree.
         /// </summary>
-        public const double Degree = 180f / Math.PI;
+        public const double Degree = 180d / Math.PI;
 
         /// <summary>
         /// 180 / Math.PI
@@ -145,12 +145,12 @@ namespace Engine.Geometry
         /// <summary>
         /// Represents the golden ratio.
         /// </summary>
-        public static readonly double Phi = (1 + Math.Sqrt(5)) / 2; //1.61803398874989484820458683436;
+        public static readonly double Phi = (1d + Math.Sqrt(5)) / 2d; //1.61803398874989484820458683436;
 
         /// <summary>
         /// The natural log of e.
         /// </summary>
-        public const double Log10E = 0.434294481903251827651;
+        public const double Log10E = 0.434294481903251827651d;
 
         #region Gauss Tables
         /// <summary>
@@ -255,6 +255,18 @@ namespace Engine.Geometry
         #endregion
 
         /// <summary>
+        /// Cube root equivalent of the sqrt function. (note that there are actually
+        /// three roots: one real, two complex, and we don't care about the latter):
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
+        public static double Crt(double value)
+        {
+            return value < 0 ? -Math.Pow(-value, 1 / 3) : Math.Pow(value, 1 / 3);
+        }
+
+        /// <summary>
         /// Convert Degrees to Radians.
         /// </summary>
         /// <param name="degrees">Angle in Degrees.</param>
@@ -267,16 +279,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Convert Degrees to Radians.
-        /// </summary>
-        /// <param name="degrees">Angle in Degrees.</param>
-        /// <returns>Angle in Radians.</returns>
-        public static double ToRadians(this float degrees)
-        {
-            return degrees * Radien;
-        }
-
-        /// <summary>
         /// Convert Radians to Degrees.
         /// </summary>
         /// <param name="radiens">Angle in Radians.</param>
@@ -284,16 +286,6 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
         public static double ToDegrees(this double radiens)
-        {
-            return radiens * Degree;
-        }
-
-        /// <summary>
-        /// Convert Radians to Degrees.
-        /// </summary>
-        /// <param name="radiens">Angle in Radians.</param>
-        /// <returns>Angle in Degrees.</returns>
-        public static double ToDegrees(this float radiens)
         {
             return radiens * Degree;
         }
@@ -747,6 +739,27 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static double ToDouble(string text)
+        {
+            return double.Parse(text, CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public static double ToDouble(string text, IFormatProvider provider)
+        {
+            return double.Parse(text, provider);
+        }
+
+        /// <summary>
         /// LessThan - Returns whether or not the first double is less than the second double.
         /// That is, whether or not the first is strictly less than *and* not within epsilon of
         /// the other number.  Note that this epsilon is proportional to the numbers themselves
@@ -762,7 +775,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool LessThan(float value1, float value2)
+        public static bool LessThan(double value1, double value2)
         {
             return (value1 < value2) && !IntersectionExtention.AreClose(value1, value2);
         }
@@ -783,7 +796,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool GreaterThan(float value1, float value2)
+        public static bool GreaterThan(double value1, double value2)
         {
             return (value1 > value2) && !IntersectionExtention.AreClose(value1, value2);
         }
@@ -804,7 +817,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool LessThanOrClose(float value1, float value2)
+        public static bool LessThanOrClose(double value1, double value2)
         {
             return (value1 < value2) || IntersectionExtention.AreClose(value1, value2);
         }
@@ -825,7 +838,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool GreaterThanOrClose(float value1, float value2)
+        public static bool GreaterThanOrClose(double value1, double value2)
         {
             return (value1 > value2) || IntersectionExtention.AreClose(value1, value2);
         }
@@ -840,6 +853,19 @@ namespace Engine.Geometry
         /// <param name="value"> The double to compare to 1. </param>
         public static bool IsOne(this float value)
         {
+            return Math.Abs(value - 1.0) < 10.0 * FloatEpsilon;
+        }
+
+        /// <summary>
+        /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
+        /// but this is faster.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value"> The double to compare to 1. </param>
+        public static bool IsOne(this double value)
+        {
             return Math.Abs(value - 1.0) < 10.0 * DoubleEpsilon;
         }
 
@@ -853,7 +879,7 @@ namespace Engine.Geometry
         /// <param name="value"> The double to compare to 0. </param>
         public static bool IsZero(this float value)
         {
-            return Math.Abs(value) < 10.0 * DoubleEpsilon;
+            return Math.Abs(value) < 10.0 * FloatEpsilon;
         }
 
         /// <summary>
@@ -874,7 +900,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static bool IsBetweenZeroAndOne(float val)
+        public static bool IsBetweenZeroAndOne(double val)
         {
             return (GreaterThanOrClose(val, 0) && LessThanOrClose(val, 1));
         }

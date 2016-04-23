@@ -149,7 +149,7 @@ namespace Engine.Geometry
         /// </returns>
         public static Point2D operator +(Point2D point, Vector2D vector)
         {
-            return new Point2D(point.x + vector.X, point.y + vector.Y);
+            return new Point2D(point.x + vector.I, point.y + vector.J);
         }
 
         /// <summary>
@@ -253,6 +253,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator ==(Point2D left, Point2D right)
         {
+            if (left == null || right == null) return false;
             return left.X == right.X && left.Y == right.Y;
         }
 
@@ -303,7 +304,7 @@ namespace Engine.Geometry
         /// <param name="point"> Point - the Point to convert to a Vector </param>
         public static explicit operator Point2D(Vector2D point)
         {
-            return new Point2D(point.X, point.Y);
+            return new Point2D(point.I, point.J);
         }
         #endregion
 
@@ -358,6 +359,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
+            //if (this == null) return "Point2D";
             return string.Format(CultureInfo.CurrentCulture, "{{X={0}, Y={1}}}", x, y);
         }
     }

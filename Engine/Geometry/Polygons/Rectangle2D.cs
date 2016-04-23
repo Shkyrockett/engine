@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
+using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -119,9 +120,11 @@ namespace Engine.Geometry
         #endregion
 
         #region Properties
+
         /// <summary>
         /// 
         /// </summary>
+        [Browsable(false)]
         public double X
         {
             get { return x; }
@@ -131,6 +134,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [Browsable(false)]
         public double Y
         {
             get { return y; }
@@ -140,6 +144,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [Browsable(false)]
         public double Height
         {
             get { return height; }
@@ -149,6 +154,8 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute()]
+        [Browsable(false)]
         public double Width
         {
             get { return width; }
@@ -158,7 +165,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
             get { return new Point2D(X, Y); }
@@ -172,7 +182,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Size2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
             get { return new Size2D(width, height); }
@@ -274,6 +287,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        [Browsable(false)]
         public override Rectangle2D Bounds
         {
             get { return this; }
@@ -530,7 +548,7 @@ namespace Engine.Geometry
         /// <param name="offsetVector"></param>
         public void Offset(Vector2D offsetVector)
         {
-            Offset(offsetVector.X, offsetVector.Y);
+            Offset(offsetVector.I, offsetVector.J);
         }
 
         /// <summary>
@@ -551,7 +569,7 @@ namespace Engine.Geometry
         /// </summary>
         public static Rectangle2D Offset(Rectangle2D rect, Vector2D offsetVector)
         {
-            rect.Offset(offsetVector.X, offsetVector.Y);
+            rect.Offset(offsetVector.I, offsetVector.J);
             return rect;
         }
 
@@ -676,7 +694,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "{X=" + X.ToString(CultureInfo.CurrentCulture) +
+            //if (this == null) return "Rectangle2D";
+            return "Rectangle2D{X=" + X.ToString(CultureInfo.CurrentCulture) +
                 ",Y=" + Y.ToString(CultureInfo.CurrentCulture) +
                 ",Width=" + Width.ToString(CultureInfo.CurrentCulture) +
                 ",Height=" + Height.ToString(CultureInfo.CurrentCulture) + "}";

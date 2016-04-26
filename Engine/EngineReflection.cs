@@ -32,6 +32,7 @@ namespace Engine
         static EngineReflection()
         {
             // Attempt to inject custom attributes to try to pick up native graphics types.
+            // ToDo: Figure out why the injected attributes aren't getting picked up in reflection.
             TypeDescriptor.AddAttributes(typeof(Size), new GraphicsObjectAttribute());
             TypeDescriptor.AddAttributes(typeof(SizeF), new GraphicsObjectAttribute());
             TypeDescriptor.AddAttributes(typeof(Point), new GraphicsObjectAttribute());
@@ -101,17 +102,9 @@ namespace Engine
         /// <returns>A list of all types that are derived from the <see cref="Tool"/> Class.</returns>
         public static List<Type> ListGraphicsObjects()
         {
-            //// ToDo: Figure out why the injected attributes aren't getting picked up in reflection.
-            //TypeDescriptor.AddAttributes(typeof(Rectangle), new GraphicsObjectAttribute());
-            //TypeDescriptor.AddAttributes(typeof(RectangleF), new GraphicsObjectAttribute());
-            //var test = TypeDescriptor.GetAttributes(typeof(Rectangle));
-
             Type objectType = typeof(GraphicsObjectAttribute);
             Assembly assembly = Assembly.GetAssembly(objectType);
-            List<Type> types = GetAssemblyTypeAttributes(assembly, objectType);
-            //assembly = Assembly.GetAssembly(typeof(Rectangle));
-            //types.AddRange(GetAssemblyAttributes(assembly, objectType));
-            return types;
+            return GetAssemblyTypeAttributes(assembly, objectType);
         }
 
         /// <summary>
@@ -121,10 +114,10 @@ namespace Engine
         /// <returns></returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
         {
-            return new List<MethodInfo>( from method in type.GetMethods()
-                where method.IsStatic == true
-                where method.ReturnType == type
-                select method);
+            return new List<MethodInfo>(from method in type.GetMethods()
+                                        where method.IsStatic == true
+                                        where method.ReturnType == type
+                                        select method);
         }
 
         /// <summary>
@@ -135,16 +128,9 @@ namespace Engine
         /// <returns></returns>
         private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
         {
-            List<Type> typeList = new List<Type>();
-            foreach (Type type in assembly.GetTypes().ToArray())
-            {
-                if (type.BaseType == classType)
-                {
-                    typeList.Add(type);
-                }
-            }
-
-            return typeList;
+            return new List<Type>(from type in assembly.GetTypes()
+                                  where type.BaseType == classType
+                                  select type);
         }
 
         /// <summary>
@@ -155,13 +141,9 @@ namespace Engine
         /// <returns></returns>
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
         {
-            List<Type> typeList = new List<Type>();
-            foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(classType)).ToArray())
-            {
-                typeList.Add(type);
-            }
-
-            return typeList;
+            return new List<Type>(from type in assembly.GetTypes()
+                                  where type.GetInterfaces().Contains(classType)
+                                  select type);
         }
 
         /// <summary>
@@ -175,18 +157,9 @@ namespace Engine
         /// </remarks>
         private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
         {
-            List<Type> typeList = new List<Type>();
-
-            var types = from type in assembly.GetTypes()
-                        where Attribute.IsDefined(type, attributeType)
-                        select type;
-
-            foreach (Type type in types.ToArray())
-            {
-                typeList.Add(type);
-            }
-
-            return typeList;
+            return new List<Type>(from type in assembly.GetTypes()
+                                  where Attribute.IsDefined(type, attributeType)
+                                  select type);
         }
     }
 }

@@ -106,6 +106,7 @@
     <Compile Include="Geometry\iIteratablePathElement.cs" />
     <Compile Include="Geometry\iOpenShape.cs" />
     <Compile Include="Geometry\iPolygon.cs" />
+    <Compile Include="Geometry\iTweenable.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\BoundingRect.cs" />

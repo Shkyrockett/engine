@@ -14,7 +14,7 @@ namespace Engine.Objects
     /// 
     /// </summary>
     public class RasterGraphic
-        : IImage
+        : IImage, IDisposable
     {
         /// <summary>
         /// 
@@ -60,6 +60,41 @@ namespace Engine.Objects
         public object Clone()
         {
             throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ~RasterGraphic()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Unlocks this System.Drawing.Bitmap from system memory.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Unlocks this System.Drawing.Bitmap from system memory.
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // free managed resources
+                if (Bitmap != null)
+                {
+                    Bitmap.Dispose();
+                }
+            }
+            // free native resources if there are any.
         }
     }
 }

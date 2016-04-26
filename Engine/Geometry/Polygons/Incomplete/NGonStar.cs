@@ -60,7 +60,7 @@ namespace Engine.Geometry
 
             // Draw stars.
             int max = NumPoints - 1;
-            if (chkHalfOnly) max = (int)(NumPoints / 2);
+            if (chkHalfOnly) max = NumPoints / 2;
             for (int skip = 1; skip <= max; skip++)
             {
                 // See if they are relatively prime.

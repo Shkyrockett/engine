@@ -38,7 +38,7 @@ namespace Engine.Tools
         /// <summary>
         /// The <see cref="ToolFinishEvent"/> type delegate. 
         /// </summary>
-        public delegate void ToolFinishEvent();
+        public delegate void ToolFinishEvent(object Sender, EventArgs e);
 
         /// <summary>
         /// Check if the tool is in use.
@@ -72,7 +72,7 @@ namespace Engine.Tools
         /// </summary>
         protected virtual void RaiseFinishEvent()
         {
-            if (Finish != null) Finish();
+            if (Finish != null) Finish(this,new EventArgs());
         }
 
         /// <summary>

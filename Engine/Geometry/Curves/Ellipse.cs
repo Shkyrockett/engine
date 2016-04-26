@@ -338,9 +338,9 @@ namespace Engine.Geometry
         public override ShapeStyle Style { get; set; }
 
         /// <summary>
-        /// Gets or sets the size and location of the ellipse, in floating-point pixels, relative to the parent canvas.
+        /// Gets or sets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
         /// </summary>
-        /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
+        /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
         public Rectangle2D UnrotatedBounds()
         {
@@ -362,7 +362,7 @@ namespace Engine.Geometry
             Point2D ellipse_point;
 
             // Ellipse equation for an ellipse at origin.
-            ellipse_point = new Point2D((float)(ellipse.Width * Math.Cos(phi)), (float)(ellipse.Height * Math.Sin(phi)));
+            ellipse_point = new Point2D(ellipse.Width * Math.Cos(phi), ellipse.Height * Math.Sin(phi));
 
             // Apply the rotation transformation and translate to new center.
             rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),

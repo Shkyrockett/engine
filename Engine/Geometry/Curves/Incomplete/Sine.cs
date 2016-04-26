@@ -6,7 +6,6 @@
 
 using Engine.Imaging;
 using System;
-using System.Drawing;
 
 namespace Engine.Geometry
 {
@@ -91,7 +90,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Point2D Interpolate(Point2D a, Point2D b, double index)
         {
-            //Single MU2 = (float)((1.0 - Math.Cos(index * 180)) * 0.5);
+            //Single MU2 = (double)((1.0 - Math.Cos(index * 180)) * 0.5);
             //return Y1 * (1.0 - MU2) + Y2 * MU2;
             double MU2 = (1.0 - Math.Sin(index * 180)) * 0.5;
             return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));

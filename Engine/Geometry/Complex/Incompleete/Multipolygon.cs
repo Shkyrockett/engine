@@ -30,7 +30,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public PointF[] Points;
+        public Point2D[] Points;
 
         /// <summary>
         /// 

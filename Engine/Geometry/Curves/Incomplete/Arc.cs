@@ -11,7 +11,6 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 
 namespace Engine.Geometry
 {
@@ -118,10 +117,7 @@ namespace Engine.Geometry
         [Description("The radius of the circle.")]
         public double Radius
         {
-            get
-            {
-                return radius;
-            }
+            get            {                return radius;            }
             set
             {
                 radius = value;
@@ -140,10 +136,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get
-            {
-                return center;
-            }
+            get            {                return center;            }
             set
             {
                 center = value;
@@ -161,10 +154,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
-            get
-            {
-                return startAngle;
-            }
+            get            {                return startAngle;            }
             set
             {
                 startAngle = value;
@@ -182,10 +172,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
-            get
-            {
-                return endAngle;
-            }
+            get            {                return endAngle;            }
             set
             {
                 endAngle = value;
@@ -247,14 +234,11 @@ namespace Engine.Geometry
         [Description("The array of grab handles for this shape.")]
         public List<Point2D> Handles
         {
-            get
-            {
-                return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) };
-            }
+            get            {                return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) };            }
             set
             {
                 if (value.Count >= 1) center = value[0];
-                if (value.Count >= 2) radius = (float)value[0].Length(value[1]);
+                if (value.Count >= 2) radius = value[0].Length(value[1]);
             }
         }
 
@@ -297,7 +281,7 @@ namespace Engine.Geometry
         public static Rectangle2D TripoinArcBounds(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             Point2D Center = TripointArcCenter(PointA, PointB, PointC);
-            float Radius = (float)(Center.Length(PointA));
+            double Radius = Center.Length(PointA);
             Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
             return Bounds;
         }
@@ -309,7 +293,7 @@ namespace Engine.Geometry
         /// <returns>Returns the interpolated point of the index value.</returns>
         public Point2D Interpolate(double index)
         {
-            return new Point2D((float)(center.X + (Math.Sin(index) * radius)), (float)(center.X + (Math.Cos(index) * radius)));
+            return new Point2D(center.X + (Math.Sin(index) * radius), center.X + (Math.Cos(index) * radius));
         }
 
         /// <summary>
@@ -318,9 +302,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints()
         {
-            float delta_phi = (float)(2 * Math.PI / ArcLength);
+            double delta_phi = 2 * Math.PI / ArcLength;
             List<Point2D> points = new List<Point2D>();
-            for (float i = 0.0f; i <= (float)(2.0 * Math.PI); i += delta_phi)
+            for (double i = 0.0f; i <= 2.0 * Math.PI; i += delta_phi)
             {
                 points.Add(Interpolate(i));
             }

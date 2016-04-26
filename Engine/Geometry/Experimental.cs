@@ -2023,6 +2023,7 @@ namespace Engine
         /// </summary>
         /// <param name="xmin"></param>
         /// <param name="xmax"></param>
+        /// <param name="eis"></param>
         /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
         private static void FindPointsOfIntersectionNewtonsMethod(double xmin, double xmax, EllipseIntersectStuff eis)
         {
@@ -2073,6 +2074,7 @@ namespace Engine
         /// </summary>
         /// <param name="xmin"></param>
         /// <param name="xmax"></param>
+        /// <param name="eis"></param>
         /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/</remarks>
         private static void FindPointsOfIntersectionUsingBinaryDivision(double xmin, double xmax, EllipseIntersectStuff eis)
         {
@@ -3370,6 +3372,52 @@ namespace Engine
 
         #endregion
 
+        #region Cubic Bezier Get T
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="Lut"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
+        public static List<double> findTforCoordinate(Point2D value, List<Point2D> Lut)
+        {
+            Point2D point = new Point2D();
+            List<double> found = new List<double>();
+            for (int i = 0, len = Lut.Count; i < len; i++)
+            {
+                point.X = Lut[i].X;
+                point.Y = Lut[i].Y;
+                if (value.X == point.X && value.Y == point.Y)
+                {
+                    found.Add(i / len);
+                }
+            }
+            return found;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
+        public static List<Point2D> buildLUT(Point2D a, Point2D b, Point2D c, Point2D d)
+        {
+            List<Point2D> Lut = new List<Point2D>(100);
+            for (double t = 0; t <= 1; t += 0.01)
+            {
+                Lut[(int)(t * 100)] = InterpolateCubicBezier(a, b, c, d, t);
+            }
+            return Lut;
+        }
+
+        #endregion
+
         #region Cubic Bezier and Line Intersections
 
         /// <summary>
@@ -3698,5 +3746,103 @@ namespace Engine
         #region Self Intersecting Bezier
         // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
         #endregion
+
+
+
+        #region Interpolations
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y1"></param>
+        /// <param name="y2"></param>
+        /// <param name="mu"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        static double CosineInterpolate(double y1, double y2, double mu)
+        {
+            double mu2 = (1 - Math.Cos(mu * Math.PI)) / 2;
+            return (y1 * (1 - mu2) + y2 * mu2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y0"></param>
+        /// <param name="y1"></param>
+        /// <param name="y2"></param>
+        /// <param name="y3"></param>
+        /// <param name="mu"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        static double CubicInterpolate(double y0, double y1, double y2, double y3, double mu)
+        {
+            double a0, a1, a2, a3, mu2;
+
+            mu2 = mu * mu;
+            a0 = y3 - y2 - y0 + y1;
+            a1 = y0 - y1 - a0;
+            a2 = y2 - y0;
+            a3 = y1;
+
+            return (a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y0"></param>
+        /// <param name="y1"></param>
+        /// <param name="y2"></param>
+        /// <param name="y3"></param>
+        /// <param name="mu"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        static double CubicInterpolateCatmullRomSplines(double y0, double y1, double y2, double y3, double mu)
+        {
+            double a0, a1, a2, a3, mu2;
+
+            mu2 = mu * mu;
+            a0 = -0.5 * y0 + 1.5 * y1 - 1.5 * y2 + 0.5 * y3;
+            a1 = y0 - 2.5 * y1 + 2 * y2 - 0.5 * y3;
+            a2 = -0.5 * y0 + 0.5 * y2;
+            a3 = y1;
+
+            return (a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y0"></param>
+        /// <param name="y1"></param>
+        /// <param name="y2"></param>
+        /// <param name="y3"></param>
+        /// <param name="mu"></param>
+        /// <param name="tension">1 is high, 0 normal, -1 is low</param>
+        /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        static double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
+        {
+            double m0, m1, mu2, mu3;
+            double a0, a1, a2, a3;
+
+            mu2 = mu * mu;
+            mu3 = mu2 * mu;
+            m0 = (y1 - y0) * (1 + bias) * (1 - tension) / 2;
+            m0 += (y2 - y1) * (1 - bias) * (1 - tension) / 2;
+            m1 = (y2 - y1) * (1 + bias) * (1 - tension) / 2;
+            m1 += (y3 - y2) * (1 - bias) * (1 - tension) / 2;
+            a0 = 2 * mu3 - 3 * mu2 + 1;
+            a1 = mu3 - 2 * mu2 + mu;
+            a2 = mu3 - mu2;
+            a3 = -2 * mu3 + 3 * mu2;
+
+            return (a0 * y1 + a1 * m0 + a2 * m1 + a3 * y2);
+        }
+
+        #endregion
+
     }
 }

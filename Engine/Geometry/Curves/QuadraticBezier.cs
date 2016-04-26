@@ -11,7 +11,6 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
 using System.Xml.Serialization;
 
@@ -32,6 +31,7 @@ namespace Engine.Geometry
         : Shape
     {
         #region Private Fields
+       
         /// <summary>
         /// The starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
@@ -54,9 +54,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private List<Point2D> points = new List<Point2D>();
+        
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
         /// </summary>
@@ -76,9 +78,11 @@ namespace Engine.Geometry
             this.b = b;
             this.c = c;
         }
+
         #endregion
 
         #region Properties
+        
         /// <summary>
         /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
@@ -170,6 +174,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public override ShapeStyle Style { get; set; }
+
         #endregion
 
         #region Interpolations
@@ -203,7 +208,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "QuadraticBezier";
-            return string.Format(CultureInfo.CurrentCulture, "QuadraticBezier={{A={0}, B={1}, C={1}}}", a, b, c);
+            return string.Format(CultureInfo.CurrentCulture, "{0}={{A={1}, B={2}, C={3}}}", "QuadraticBezier", a, b, c);
         }
     }
 }

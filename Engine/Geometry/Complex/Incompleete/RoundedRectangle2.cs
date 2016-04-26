@@ -36,13 +36,13 @@ namespace Engine.Geometry
         {
             //base.OnPaint(e);
 
-            GraphicsPath path = Create(new PointF(5, 5), new SizeF(20, 20));
+            GraphicsPath path = Create(new Point2D(5, 5), new Size2D(20, 20));
             e.Graphics.DrawPath(Pens.Black, path);
 
-            path = Create(new PointF(30, 5), new SizeF(40, 40), 5);
+            path = Create(new Point2D(30, 5), new Size2D(40, 40), 5);
             e.Graphics.FillPath(Brushes.Blue, path);
 
-            path = Create(new PointF(8, 50), new SizeF(50, 50), 5);
+            path = Create(new Point2D(8, 50), new Size2D(50, 50), 5);
             e.Graphics.DrawPath(Pens.Black, path);
 
             e.Graphics.SetClip(path);
@@ -59,17 +59,17 @@ namespace Engine.Geometry
         /// <param name="radius"></param>
         /// <param name="corners"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(PointF location, SizeF size, float radius, RectangleCorners corners)
+        public static GraphicsPath Create(Point2D location, Size2D size, double radius, RectangleCorners corners)
         {
-            float xw = location.X + size.Width;
-            float yh = location.Y + size.Height;
-            float xwr = xw - radius;
-            float yhr = yh - radius;
-            float xr = location.X + radius;
-            float yr = location.Y + radius;
-            float r2 = radius * 2;
-            float xwr2 = xw - r2;
-            float yhr2 = yh - r2;
+            double xw = location.X + size.Width;
+            double yh = location.Y + size.Height;
+            double xwr = xw - radius;
+            double yhr = yh - radius;
+            double xr = location.X + radius;
+            double yr = location.Y + radius;
+            double r2 = radius * 2;
+            double xwr2 = xw - r2;
+            double yhr2 = yh - r2;
 
             GraphicsPath p = new GraphicsPath();
             p.StartFigure();
@@ -77,58 +77,58 @@ namespace Engine.Geometry
             //Top Left Corner
             if ((RectangleCorners.TopLeft & corners) == RectangleCorners.TopLeft)
             {
-                p.AddArc(location.X, location.Y, r2, r2, 180, 90);
+                p.AddArc((float)location.X, (float)location.Y, (float)r2, (float)r2, 180, 90);
             }
             else
             {
-                p.AddLine(location.X, yr, location.X, location.Y);
-                p.AddLine(location.X, location.Y, xr, location.Y);
+                p.AddLine((float)location.X, (float)yr, (float)location.X, (float)location.Y);
+                p.AddLine((float)location.X, (float)location.Y, (float)xr, (float)location.Y);
             }
 
             //Top Edge
-            p.AddLine(xr, location.Y, xwr, location.Y);
+            p.AddLine((float)xr, (float)location.Y, (float)xwr, (float)location.Y);
 
             //Top Right Corner
             if ((RectangleCorners.TopRight & corners) == RectangleCorners.TopRight)
             {
-                p.AddArc(xwr2, location.Y, r2, r2, 270, 90);
+                p.AddArc((float)xwr2, (float)location.Y, (float)r2, (float)r2, 270, 90);
             }
             else
             {
-                p.AddLine(xwr, location.Y, xw, location.Y);
-                p.AddLine(xw, location.Y, xw, yr);
+                p.AddLine((float)xwr, (float)location.Y, (float)xw, (float)location.Y);
+                p.AddLine((float)xw, (float)location.Y, (float)xw, (float)yr);
             }
 
             //Right Edge
-            p.AddLine(xw, yr, xw, yhr);
+            p.AddLine((float)xw, (float)yr, (float)xw, (float)yhr);
 
             //Bottom Right Corner
             if ((RectangleCorners.BottomRight & corners) == RectangleCorners.BottomRight)
             {
-                p.AddArc(xwr2, yhr2, r2, r2, 0, 90);
+                p.AddArc((float)xwr2, (float)yhr2, (float)r2, (float)r2, 0, 90);
             }
             else
             {
-                p.AddLine(xw, yhr, xw, yh);
-                p.AddLine(xw, yh, xwr, yh);
+                p.AddLine((float)xw, (float)yhr, (float)xw, (float)yh);
+                p.AddLine((float)xw, (float)yh, (float)xwr, (float)yh);
             }
 
             //Bottom Edge
-            p.AddLine(xwr, yh, xr, yh);
+            p.AddLine((float)xwr, (float)yh, (float)xr, (float)yh);
 
             //Bottom Left Corner
             if ((RectangleCorners.BottomLeft & corners) == RectangleCorners.BottomLeft)
             {
-                p.AddArc(location.X, yhr2, r2, r2, 90, 90);
+                p.AddArc((float)location.X, (float)yhr2, (float)r2, (float)r2, 90, 90);
             }
             else
             {
-                p.AddLine(xr, yh, location.X, yh);
-                p.AddLine(location.X, yh, location.X, yhr);
+                p.AddLine((float)xr, (float)yh, (float)location.X, (float)yh);
+                p.AddLine((float)location.X, (float)yh, (float)location.X, (float)yhr);
             }
 
             //Left Edge
-            p.AddLine(location.X, yhr, location.X, yr);
+            p.AddLine((float)location.X, (float)yhr, (float)location.X, (float)yr);
 
             p.CloseFigure();
             return p;
@@ -141,7 +141,7 @@ namespace Engine.Geometry
         /// <param name="radius"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(RectangleF rect, float radius, RectangleCorners c)
+        public static GraphicsPath Create(Rectangle2D rect, double radius, RectangleCorners c)
         { return Create(rect.Location, rect.Size, radius, c); }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Engine.Geometry
         /// <param name="size"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(PointF location, SizeF size, float radius)
+        public static GraphicsPath Create(Point2D location, Size2D size, double radius)
         { return Create(location, size, radius, RectangleCorners.All); }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(Rectangle rect, int radius)
+        public static GraphicsPath Create(Rectangle2D rect, int radius)
         { return Create(rect.Location, rect.Size, radius); }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Engine.Geometry
         /// <param name="location"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(PointF location, SizeF size)
+        public static GraphicsPath Create(Point2D location, Size2D size)
         { return Create(location, size, 5); }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(Rectangle rect)
+        public static GraphicsPath Create(Rectangle2D rect)
         { return Create(rect.Location, rect.Size); }
 
         /// <summary>

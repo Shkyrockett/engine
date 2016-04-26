@@ -1,5 +1,4 @@
-﻿using Engine.Geometry;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace Engine.Geometry.Tests

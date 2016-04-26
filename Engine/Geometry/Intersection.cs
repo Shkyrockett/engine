@@ -8,7 +8,6 @@
 // <summary></summary>
 
 using System;
-using System.ComponentModel;
 
 namespace Engine.Geometry
 {

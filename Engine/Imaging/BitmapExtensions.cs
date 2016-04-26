@@ -65,7 +65,7 @@ namespace Engine.Imaging
             /// Unlocks this System.Drawing.Bitmap from system memory.
             /// </summary>
             /// <param name="disposing"></param>
-            public void Dispose(bool disposing)
+            protected virtual void Dispose(bool disposing)
             {
                 if (disposing)
                 {

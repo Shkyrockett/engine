@@ -8,7 +8,6 @@
 // <summary></summary>
 
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace Engine.Geometry
 {

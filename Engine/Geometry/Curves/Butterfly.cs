@@ -66,13 +66,10 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D Offset
         {
-            get
-            {
-                return offset;
-            }
+            get { return offset; }
             set
             {
                 offset = value;
@@ -85,10 +82,7 @@ namespace Engine.Geometry
         /// </summary>
         public Size2D Multiplyer
         {
-            get
-            {
-                return multiplyer;
-            }
+            get { return multiplyer; }
             set
             {
                 multiplyer = value;
@@ -101,10 +95,7 @@ namespace Engine.Geometry
         /// </summary>
         public double Precision
         {
-            get
-            {
-                return precision;
-            }
+            get { return precision; }
             set
             {
                 precision = value;
@@ -117,10 +108,7 @@ namespace Engine.Geometry
         /// </summary>
         public List<Point2D> Handles
         {
-            get
-            {
-                return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
-            }
+            get { return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) }; }
             set
             {
                 if (value != null && value.Count >= 1)
@@ -145,8 +133,8 @@ namespace Engine.Geometry
         public Point2D Interpolate(double index)
         {
             return new Point2D(
-                 (float)(offset.X + (Math.Cos(index) * ((Math.Exp(Math.Cos(index)) - ((2 * Math.Cos((4 * index))) - Math.Pow(Math.Sin((index / 12)), 5))) * multiplyer.Width))),
-                 (float)(offset.Y + ((Math.Sin(index) * (Math.Exp(Math.Cos(index)) - ((2 * Math.Cos((4 * index))) - Math.Pow(Math.Sin((index / 12)), 5)))) * multiplyer.Height))
+                 offset.X + (Math.Cos(index) * ((Math.Exp(Math.Cos(index)) - ((2 * Math.Cos((4 * index))) - Math.Pow(Math.Sin((index / 12)), 5))) * multiplyer.Width)),
+                 offset.Y + ((Math.Sin(index) * (Math.Exp(Math.Cos(index)) - ((2 * Math.Cos((4 * index))) - Math.Pow(Math.Sin((index / 12)), 5)))) * multiplyer.Height)
                  );
         }
 
@@ -182,8 +170,8 @@ namespace Engine.Geometry
             double U = (0 * (24 * (Math.PI / N)));
 
             Point2D NewPoint = new Point2D(
-                (float)(Math.Cos(U) * ((Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5))) * Multiplyer.Width)),
-                (float)((Math.Sin(U) * (Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5)))) * Multiplyer.Height)
+                Math.Cos(U) * ((Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5))) * Multiplyer.Width),
+                (Math.Sin(U) * (Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5)))) * Multiplyer.Height
                 );
 
             Point2D LastPoint = NewPoint;
@@ -194,8 +182,8 @@ namespace Engine.Geometry
                 U = (Index * (24 * (Math.PI / N)));
 
                 NewPoint = new Point2D(
-                    (float)(Math.Cos(U) * ((Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5))) * Multiplyer.Width)),
-                    (float)((Math.Sin(U) * (Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5)))) * Multiplyer.Height)
+                    Math.Cos(U) * ((Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5))) * Multiplyer.Width),
+                    (Math.Sin(U) * (Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5)))) * Multiplyer.Height
                     );
 
                 e.Graphics.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
@@ -209,7 +197,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "Butterfly";
-            return string.Format("{0}{{O={1},M={2},P={2}}}", "Butterfly", offset.ToString(), multiplyer.ToString(), precision.ToString());
+            return string.Format("{0}{{O={1},M={2},P={3}}}", "Butterfly", offset.ToString(), multiplyer.ToString(), precision.ToString());
         }
     }
 }

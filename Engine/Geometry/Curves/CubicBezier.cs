@@ -9,6 +9,7 @@
 
 using Engine.Imaging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -88,7 +89,18 @@ namespace Engine.Geometry
             this.c = c;
             this.d = d;
         }
+
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public Point2D this[double index]
+        {
+            get { return Experimental.InterpolateCubicBezier(this, index); }
+        }
 
         #region Properties
 
@@ -197,6 +209,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public override ShapeStyle Style { get; set; }
+
         #endregion
 
         #region Interpolation
@@ -224,7 +237,17 @@ namespace Engine.Geometry
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<Point2D> GetEnumerator()
+        {
+            yield return Experimental.InterpolateCubicBezier(this, Length);
+        }
+
         #region Rendering
+
         /// <summary>
         /// 
         /// </summary>
@@ -244,6 +267,7 @@ namespace Engine.Geometry
             ////    e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
             ////}
         }
+
         #endregion
 
         /// <summary>
@@ -253,7 +277,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "CubicBezier";
-            return string.Format(CultureInfo.CurrentCulture, "CubicBezier={{A={0}, B={1}, C={1}, D={1}}}", a, b, c, d);
+            return string.Format(CultureInfo.CurrentCulture, "{0}={{A={1}, B={2}, C={3}, D={4}}}", "CubicBezier", a, b, c, d);
         }
     }
 }

@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 
 namespace Engine.Geometry
@@ -234,9 +233,9 @@ namespace Engine.Geometry
         ///  Globals which should be set before calling this function:
         ///
         ///  int    polyCorners  =  how many corners the polygon has (no repeats)
-        ///  float  polyX[]      =  horizontal coordinates of corners
-        ///  float  polyY[]      =  vertical coordinates of corners
-        ///  float  x, y         =  point to be tested
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
         ///
         ///  (Globals are used in this example for purposes of speed.  Change as
         ///  desired.)
@@ -280,9 +279,9 @@ namespace Engine.Geometry
         ///  Globals which should be set before calling this function:
         ///
         ///  int    polyCorners  =  how many corners the polygon has (no repeats)
-        ///  float  polyX[]      =  horizontal coordinates of corners
-        ///  float  polyY[]      =  vertical coordinates of corners
-        ///  float  x, y         =  point to be tested
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
         ///
         ///  (Globals are used in this example for purposes of speed.  Change as
         ///  desired.)
@@ -327,9 +326,9 @@ namespace Engine.Geometry
         ///  Globals which should be set before calling this function:
         ///
         ///  int    polyCorners  =  how many corners the polygon has (no repeats)
-        ///  float  polyX[]      =  horizontal coordinates of corners
-        ///  float  polyY[]      =  vertical coordinates of corners
-        ///  float  x, y         =  point to be tested
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
         ///
         ///  (Globals are used in this example for purposes of speed.  Change as
         ///  desired.)
@@ -468,7 +467,7 @@ namespace Engine.Geometry
         public static bool PointInArc(this Arc arc, Point2D point)
         {
             //ToDo: Locate the position in relation to the arc start and end points chord.
-            return (arc.Radius > (float)(arc.Center.Length(point)));
+            return (arc.Radius > arc.Center.Length(point));
         }
 
         /// <summary>
@@ -479,7 +478,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool PointInCircle(this Circle circle, Point2D point)
         {
-            return (circle.Radius > (float)(circle.Center.Length(point)));
+            return (circle.Radius > circle.Center.Length(point));
         }
 
         /// <summary>

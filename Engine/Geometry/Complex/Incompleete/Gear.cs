@@ -36,44 +36,44 @@ namespace Engine.Geometry
             // Draw smoothly.
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-            const float radius = 50;
-            const float tooth_length = 10;
-            float x = bounds.Width / 2 - radius - tooth_length - 1;
-            float y = bounds.Height / 3;
-            DrawGear(e.Graphics, Brushes.Black, Brushes.LightBlue, Pens.Blue, new PointF(x, y),
+            const double radius = 50;
+            const double tooth_length = 10;
+            double x = bounds.Width / 2 - radius - tooth_length - 1;
+            double y = bounds.Height / 3;
+            DrawGear(e.Graphics, Brushes.Black, Brushes.LightBlue, Pens.Blue, new Point2D(x, y),
                 radius, tooth_length, 10, 5, true);
 
             x += 2 * radius + tooth_length + 2;
-            DrawGear(e.Graphics, Brushes.Black, Brushes.LightGreen, Pens.Green, new PointF(x, y),
+            DrawGear(e.Graphics, Brushes.Black, Brushes.LightGreen, Pens.Green, new Point2D(x, y),
                 radius, tooth_length, 10, 5, false);
 
             y += 2 * radius + tooth_length + 2;
-            DrawGear(e.Graphics, Brushes.Black, Brushes.Pink, Pens.Red, new PointF(x, y),
+            DrawGear(e.Graphics, Brushes.Black, Brushes.Pink, Pens.Red, new Point2D(x, y),
                 radius, tooth_length, 10, 5, true);
         }
 
         // Draw a gear.
-        private void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, PointF center, float radius, float tooth_length, int num_teeth, float axle_radius, bool start_with_tooth)
+        private void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
         {
-            float dtheta = (float)(Math.PI / num_teeth);
-            float dtheta_degrees = (float)(dtheta * 180 / Math.PI);     // dtheta in degrees.
+            double dtheta = Math.PI / num_teeth;
+            double dtheta_degrees = dtheta * 180 / Math.PI;     // dtheta in degrees.
 
-            const float chamfer = 2;
-            float tooth_width = radius * dtheta - chamfer;
-            float alpha = tooth_width / (radius + tooth_length);
-            float alpha_degrees = (float)(alpha * 180 / Math.PI);
-            float phi = (dtheta - alpha) / 2;
+            const double chamfer = 2;
+            double tooth_width = radius * dtheta - chamfer;
+            double alpha = tooth_width / (radius + tooth_length);
+            double alpha_degrees = alpha * 180 / Math.PI;
+            double phi = (dtheta - alpha) / 2;
 
             // Set theta for the beginning of the first tooth.
-            float theta;
+            double theta;
             if (start_with_tooth) theta = dtheta / 2;
             else theta = -dtheta / 2;
 
             // Make rectangles to represent the gear's inner and outer arcs.
-            RectangleF inner_rect = new RectangleF(
+            Rectangle2D inner_rect = new Rectangle2D(
                 center.X - radius, center.Y - radius,
                 2 * radius, 2 * radius);
-            RectangleF outer_rect = new RectangleF(
+            Rectangle2D outer_rect = new Rectangle2D(
                 center.X - radius - tooth_length, center.Y - radius - tooth_length,
                 2 * (radius + tooth_length), 2 * (radius + tooth_length));
 
@@ -82,13 +82,13 @@ namespace Engine.Geometry
             for (int i = 0; i < num_teeth; i++)
             {
                 // Move across the gap between teeth.
-                float degrees = (float)(theta * 180 / Math.PI);
-                path.AddArc(inner_rect, degrees, dtheta_degrees);
+                double degrees = theta * 180 / Math.PI;
+                path.AddArc(inner_rect.ToRectangleF(), (float)degrees,(float) dtheta_degrees);
                 theta += dtheta;
 
                 // Move across the tooth's outer edge.
-                degrees = (float)((theta + phi) * 180 / Math.PI);
-                path.AddArc(outer_rect, degrees, alpha_degrees);
+                degrees = (theta + phi) * 180 / Math.PI;
+                path.AddArc(outer_rect.ToRectangleF(), (float)degrees, (float)alpha_degrees);
                 theta += dtheta;
             }
 
@@ -98,8 +98,8 @@ namespace Engine.Geometry
             gr.FillPath(gear_brush, path);
             gr.DrawPath(gear_pen, path);
             gr.FillEllipse(axle_brush,
-                center.X - axle_radius, center.Y - axle_radius,
-                2 * axle_radius, 2 * axle_radius);
+                 (float)(center.X - axle_radius), (float)(center.Y - axle_radius),
+                (float)(2 * axle_radius), (float)(2 * axle_radius));
         }
 
 
@@ -109,7 +109,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "Gear";
+            if (this == null) return "Gear";
+            return string.Format("{0}", "Gear");
         }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -12,6 +8,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class Size2D
     {
         #region Static Implementations
@@ -103,6 +100,7 @@ namespace Engine.Geometry
         {
             get { return width == 0 && height == 0; }
         }
+
         #endregion
 
         #region Operators

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Engine.Imaging.ColorSpace
+﻿namespace Engine.Imaging.ColorSpace
 {
     /// <summary>
     /// Lightness and Channels A and B color spaces.

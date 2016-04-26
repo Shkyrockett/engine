@@ -27,7 +27,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private PointF location;
+        private Point2D location;
 
         /// <summary>
         /// 
@@ -37,12 +37,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<PointF> points = new List<PointF>();
+        private List<Point2D> points = new List<Point2D>();
 
         /// <summary>
         /// 
         /// </summary>
-        public PointF Location
+        public Point2D Location
         {
             get { return location; }
             set { location = value; }
@@ -82,10 +82,10 @@ namespace Engine.Geometry
         /// <param name="Width"></param>
         /// <param name="Height"></param>
         /// <remarks></remarks>
-        private void DrawOval(Graphics GraphicsObject, Brush NoteBrush, Pen NotePen, float X, float Y, float Width, float Height)
+        private void DrawOval(Graphics GraphicsObject, Brush NoteBrush, Pen NotePen, double X, double Y, double Width, double Height)
         {
             //  Determine the orientation.
-            float radius;
+            double radius;
             if ((Height > Width))
             {
                 radius = (Width / 2);
@@ -97,10 +97,10 @@ namespace Engine.Geometry
             //  Start the Path object.
             GraphicsPath GfxPath = new GraphicsPath();
             //  prepare the curves.
-            GfxPath.AddArc((X + (Width - (radius * 2))), Y, (radius * 2), (radius * 2), 270, 90);
-            GfxPath.AddArc((X + (Width - (radius * 2))), (Y + (Height - (radius * 2))), (radius * 2), (radius * 2), 0, 90);
-            GfxPath.AddArc(X, (Y + (Height - (radius * 2))), (radius * 2), (radius * 2), 90, 90);
-            GfxPath.AddArc(X, Y, (radius * 2), (radius * 2), 180, 90);
+            GfxPath.AddArc((float)(X + (Width - (radius * 2))), (float)Y, (float)(radius * 2), (float)(radius * 2), 270, 90);
+            GfxPath.AddArc((float)(X + (Width - (radius * 2))), (float)(Y + (Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 0, 90);
+            GfxPath.AddArc((float)X, (float)(Y + (Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 90, 90);
+            GfxPath.AddArc((float)X, (float)Y, (float)(radius * 2), (float)(radius * 2), 180, 90);
             //  Close the path .
             GfxPath.CloseFigure();
             //  Draw the path.

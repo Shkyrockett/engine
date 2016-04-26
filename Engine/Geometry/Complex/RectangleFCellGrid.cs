@@ -25,7 +25,7 @@ namespace Engine.Geometry
         /// <summary>
         /// The exterior <see cref="RectangleF"/> bounds of the grid.
         /// </summary>
-        private RectangleF bounds;
+        private Rectangle2D bounds;
 
         /// <summary>
         /// The number of cells the grid should contain.
@@ -35,12 +35,12 @@ namespace Engine.Geometry
         /// <summary>
         /// The calculated optimal <see cref="SizeF"/> height and width of the cells in the grid.
         /// </summary>
-        private SizeF cellSize;
+        private Size2D cellSize;
 
         /// <summary>
         /// The calculated inner <see cref="RectangleF"/> bounds of the grid.
         /// </summary>
-        private RectangleF innerBounds;
+        private Rectangle2D innerBounds;
 
         /// <summary>
         /// The calculated optimal number of columns the grid can contain for it's height and width.
@@ -57,7 +57,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
-        public RectangleFCellGrid(RectangleF bounds, int count)
+        public RectangleFCellGrid(Rectangle2D bounds, int count)
         {
             this.bounds = bounds;
             this.count = count;
@@ -69,7 +69,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
         /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
-        public int this[PointF location]
+        public int this[Point2D location]
         {
             get
             {
@@ -90,9 +90,9 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the exterior bounding <see cref="RectangleF"/> to contain the grid. 
         /// </summary>
-        public new RectangleF Bounds
+        public new Rectangle2D Bounds
         {
-            get            {                return bounds;            }
+            get { return bounds; }
             set
             {
                 bounds = value;
@@ -105,7 +105,7 @@ namespace Engine.Geometry
         /// </summary>
         public int Count
         {
-            get            {                return count;            }
+            get { return count; }
             set
             {
                 count = value;
@@ -116,7 +116,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets the calculated optimum <see cref="SizeF"/> height and width of any cell in the grid.
         /// </summary>
-        public SizeF CellSize
+        public Size2D CellSize
         {
             get { return cellSize; }
         }
@@ -124,7 +124,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets the inner-bounding <see cref="RectangleF"/> of the grid. 
         /// </summary>
-        public RectangleF InnerBounds
+        public Rectangle2D InnerBounds
         {
             get { return innerBounds; }
         }
@@ -150,13 +150,13 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">The index of a cell in the grid.</param>
         /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
-        public RectangleF this[int index]
+        public Rectangle2D this[int index]
         {
             get
             {
                 // ToDo: Implement flow orientation options.
-                PointF point = new PointF((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
-                return new RectangleF(point, cellSize);
+                Point2D point = new Point2D((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
+                return new Rectangle2D(point, cellSize);
             }
         }
 
@@ -174,16 +174,16 @@ namespace Engine.Geometry
             {
                 // Find the best fitting rectangular grid for the number of colors.
                 columns = (int)Math.Ceiling(Math.Sqrt((bounds.Width * count) / bounds.Height));
-                rows = (int)Math.Ceiling((float)count / columns);
+                rows = (int)Math.Ceiling((double)count / columns);
 
                 // Calculate the optimum cell size for the grid.
-                float cellScale = Math.Min(bounds.Width / columns, bounds.Height / rows);
+                double cellScale = Math.Min(bounds.Width / columns, bounds.Height / rows);
 
                 // Set the size of the cell.
-                cellSize = new SizeF(cellScale, cellScale);
+                cellSize = new Size2D(cellScale, cellScale);
 
                 // Set up the inner boundaries of the grid to the canvas size.
-                innerBounds = new RectangleF(PointF.Empty, new SizeF(columns * cellSize.Width, rows * cellSize.Height));
+                innerBounds = new Rectangle2D(Point2D.Empty, new Size2D(columns * cellSize.Width, rows * cellSize.Height));
             }
         }
 
@@ -192,7 +192,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
-        private void Recalculate(RectangleF bounds, int count)
+        private void Recalculate(Rectangle2D bounds, int count)
         {
             this.bounds = bounds;
             this.count = count;
@@ -205,7 +205,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "RectangleFCellGrid{Bounds{" + bounds.ToString() + "}, Count "+ count.ToString() + "}";
+            return "RectangleFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
         }
     }
 }

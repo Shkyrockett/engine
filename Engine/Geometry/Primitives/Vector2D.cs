@@ -15,8 +15,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows.Markup;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry

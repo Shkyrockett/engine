@@ -2450,7 +2450,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point Scale(int x, int y, int factor)
         {
-            return new Point((int)(x * factor), (int)(y * factor));
+            return new Point(x * factor, y * factor);
         }
 
         /// <summary>

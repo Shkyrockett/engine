@@ -17,8 +17,6 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -72,10 +70,10 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D Offset
         {
-            get            {                return offset;            }
+            get { return offset; }
             set
             {
                 offset = value;
@@ -88,7 +86,7 @@ namespace Engine.Geometry
         /// </summary>
         public Size2D Multiplyer
         {
-            get            {                return multiplyer;            }
+            get { return multiplyer; }
             set
             {
                 multiplyer = value;
@@ -101,7 +99,7 @@ namespace Engine.Geometry
         /// </summary>
         public double Precision
         {
-            get            {                return precision;            }
+            get { return precision; }
             set
             {
                 precision = value;
@@ -144,8 +142,8 @@ namespace Engine.Geometry
         public Point2D Interpolate(double index)
         {
             return new Point2D(
-                (float)(offset.X + (2 * Math.Tan(index)) * multiplyer.Width),
-                (float)(offset.Y + (2 * -Math.Pow(Math.Cos(index), 2)) * multiplyer.Height)
+                (offset.X + (2 * Math.Tan(index)) * multiplyer.Width),
+                offset.Y + (2 * -Math.Pow(Math.Cos(index), 2)) * multiplyer.Height
                 );
         }
 
@@ -172,7 +170,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "Agnesi";
-            return string.Format("{0}{{O={1},M={2},P={2}}}", "Agnesi", offset.ToString(), multiplyer.ToString(), precision.ToString());
+            return string.Format("{0}{{O={1},M={2},P={3}}}", "Agnesi", offset.ToString(), multiplyer.ToString(), precision.ToString());
         }
     }
 }

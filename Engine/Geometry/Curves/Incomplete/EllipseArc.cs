@@ -11,7 +11,6 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -146,7 +145,7 @@ namespace Engine.Geometry
         /// <param name="Aspect">Aspect of Ellipse Note: Does not currently work.</param>
         /// <param name="Angle">Angle of Ellipse Note: Does not currently work.</param>
         /// <remarks></remarks>
-        public EllipseArc(Point2D PointA, Point2D PointB, Point2D PointC, float Aspect, double Angle)
+        public EllipseArc(Point2D PointA, Point2D PointB, Point2D PointC, double Aspect, double Angle)
         {
             //ToDo: calculate the angles of the start and end points from the center to fill them in.
             //  Calculate the slopes of the lines.
@@ -414,9 +413,9 @@ namespace Engine.Geometry
                 if (value != null && value.Count >= 1)
                 {
                     Center = value[0];
-                    MajorRadius = (float)(new LineSegment(center, value[1]).Length());
-                    Angle = (float)(new LineSegment(center, value[1]).Angle());
-                    Aspect = (float)((new LineSegment(center, value[2]).Length()) / majorRadius);
+                    MajorRadius = new LineSegment(center, value[1]).Length();
+                    Angle = new LineSegment(center, value[1]).Angle();
+                    Aspect = (new LineSegment(center, value[2]).Length()) / majorRadius;
                 }
             }
         }
@@ -441,13 +440,13 @@ namespace Engine.Geometry
                 );
 
             double theta = MathExtensions.ToRadians(angle);
-            Point2D xaxis = new Point2D((float)Math.Cos(theta), (float)Math.Sin(theta));
-            Point2D yaxis = new Point2D(-(float)Math.Sin(theta), (float)Math.Cos(theta));
+            Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
+            Point2D yaxis = new Point2D(-Math.Sin(theta), Math.Cos(theta));
 
             // Ellipse equation for an ellipse at origin.
             Point2D ellipsePoint = new Point2D(
-                (float)(unroatatedBounds.Width * Math.Cos(index)),
-                (float)(unroatatedBounds.Height * Math.Sin(index))
+                unroatatedBounds.Width * Math.Cos(index),
+                unroatatedBounds.Height * Math.Sin(index)
                 );
 
             // Apply the rotation transformation and translate to new center.
@@ -463,9 +462,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints()
         {
-            float delta_phi = (float)(2 * Math.PI / ArcPerimeter);
+            double delta_phi = 2 * Math.PI / ArcPerimeter;
             List<Point2D> points = new List<Point2D>();
-            for (float i = 0.0f; i <= (float)(2.0 * Math.PI); i += delta_phi)
+            for (double i = 0.0f; i <= 2.0 * Math.PI; i += delta_phi)
             {
                 points.Add(Interpolate(i));
             }

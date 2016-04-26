@@ -11,8 +11,6 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -77,10 +75,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D Offset
         {
-            get
-            {
-                return offset;
-            }
+            get { return offset; }
             set
             {
                 offset = value;
@@ -93,10 +88,7 @@ namespace Engine.Geometry
         /// </summary>
         public Size2D Multiplyer
         {
-            get
-            {
-                return multiplyer;
-            }
+            get { return multiplyer; }
             set
             {
                 multiplyer = value;
@@ -109,10 +101,7 @@ namespace Engine.Geometry
         /// </summary>
         public double Precision
         {
-            get
-            {
-                return precision;
-            }
+            get { return precision; }
             set
             {
                 precision = value;
@@ -127,10 +116,7 @@ namespace Engine.Geometry
         [Description("The array of grab handles for this shape.")]
         public List<Point2D> Handles
         {
-            get
-            {
-                return new List<Point2D> () { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
-            }
+            get { return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) }; }
             set
             {
                 if (value != null && value.Count >= 1)
@@ -154,8 +140,8 @@ namespace Engine.Geometry
         public Point2D Interpolate(double index)
         {
             return new Point2D(
-                    (float)(offset.X + ((2 * Math.Sin(index)) * multiplyer.Width)),
-                    (float)(offset.Y + (((Math.Cos(index) * (2 * ((2 + Math.Cos(index)) / (3 + (Math.Sin(index) * 2))))) * -1) * multiplyer.Height))
+                    offset.X + ((2 * Math.Sin(index)) * multiplyer.Width),
+                    offset.Y + (((Math.Cos(index) * (2 * ((2 + Math.Cos(index)) / (3 + (Math.Sin(index) * 2))))) * -1) * multiplyer.Height)
                     );
         }
 
@@ -182,7 +168,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "Bicorn";
-            return string.Format("{0}{{O={1},M={2},P={2}}}", "Bicorn", offset.ToString(), multiplyer.ToString(), precision.ToString());
+            return string.Format("{0}{{O={1},M={2},P={3}}}", "Bicorn", offset.ToString(), multiplyer.ToString(), precision.ToString());
         }
     }
 }

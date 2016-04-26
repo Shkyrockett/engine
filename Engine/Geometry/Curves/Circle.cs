@@ -49,8 +49,7 @@ namespace Engine.Geometry
         /// </summary>
         public Circle()
             : this(Point2D.Empty, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
@@ -188,14 +187,11 @@ namespace Engine.Geometry
         [Description("The array of grab handles for this shape.")]
         public List<Point2D> Handles
         {
-            get
-            {
-                return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) };
-            }
+            get { return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) }; }
             set
             {
                 if (value.Count >= 1) center = value[0];
-                if (value.Count >= 2) radius = (float)value[0].Length(value[1]);
+                if (value.Count >= 2) radius = value[0].Length(value[1]);
             }
         }
 
@@ -254,7 +250,7 @@ namespace Engine.Geometry
         /// <returns>Returns the interpolated point of the index value.</returns>
         public Point2D Interpolate(double index)
         {
-            return new Point2D((float)(center.X + (Math.Sin(index) * radius)), (float)(center.X + (Math.Cos(index) * radius)));
+            return new Point2D(center.X + (Math.Sin(index) * radius), center.X + (Math.Cos(index) * radius));
         }
 
         /// <summary>

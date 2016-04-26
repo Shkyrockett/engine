@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Geometry\Curves\Incomplete\ConicSections.cs" />
+    <Compile Include="Geometry\Curves\Incomplete\CardinalSpline.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Hyperbola.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Parabola.cs" />
     <Compile Include="Geometry\Experimental.cs" />
@@ -100,6 +101,11 @@
     <Compile Include="Geometry\Framework\Size2DConverter.cs" />
     <Compile Include="Geometry\Framework\Point2DConverter.cs" />
     <Compile Include="Geometry\Framework\Rectangle2DConverter.cs" />
+    <Compile Include="Geometry\iClosedShape.cs" />
+    <Compile Include="Geometry\iCurve.cs" />
+    <Compile Include="Geometry\iIteratablePathElement.cs" />
+    <Compile Include="Geometry\iOpenShape.cs" />
+    <Compile Include="Geometry\iPolygon.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\BoundingRect.cs" />

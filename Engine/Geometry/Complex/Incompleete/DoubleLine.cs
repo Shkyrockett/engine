@@ -10,7 +10,6 @@
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace Engine.Geometry
 {
@@ -97,7 +96,7 @@ namespace Engine.Geometry
         ///                   | | |          | | |<BR/>
         ///               A1  A  A2      D2  D  D1<BR/>
         ///</remarks>
-        public static Point2D[] CenteredOffsetLinePoints(Point2D pointA, Point2D pointB, Point2D pointC, Point2D pointD, float offsetDistance)
+        public static Point2D[] CenteredOffsetLinePoints(Point2D pointA, Point2D pointB, Point2D pointC, Point2D pointD, double offsetDistance)
         {
             // To get the vectors of the angles at each corner B and C, Normalize the Unit Delta Vectors along AB, BC, and CD.
             Vector2D UnitVectorAB = pointB.Subtract(pointA).Unit();

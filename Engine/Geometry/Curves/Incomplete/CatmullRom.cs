@@ -34,22 +34,22 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public PointF tangentA;
+        public Point2D tangentA;
 
         /// <summary>
         /// 
         /// </summary>
-        public PointF positionA;
+        public Point2D positionA;
 
         /// <summary>
         /// 
         /// </summary>
-        public PointF positionB;
+        public Point2D positionB;
 
         /// <summary>
         /// 
         /// </summary>
-        public PointF tangentB;
+        public Point2D tangentB;
 
         /// <summary>
         /// 
@@ -59,13 +59,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        private List<PointF> points;
+        private List<Point2D> points;
 
         /// <summary>
         /// 
         /// </summary>
         public CatmullRom()
-            : this(PointF.Empty, PointF.Empty, PointF.Empty, PointF.Empty)
+            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty)
         {
         }
 
@@ -76,7 +76,7 @@ namespace Engine.Geometry
         /// <param name="positionA"></param>
         /// <param name="positionB"></param>
         /// <param name="tangentB"></param>
-        public CatmullRom(PointF tangentA, PointF positionA, PointF positionB, PointF tangentB)
+        public CatmullRom(Point2D tangentA, Point2D positionA, Point2D positionB, Point2D tangentB)
         {
             this.tangentA = tangentA;
             this.positionA = positionA;
@@ -91,9 +91,9 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute()]
-        public PointF TangentA
+        public Point2D TangentA
         {
             get
             {
@@ -111,9 +111,9 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute()]
-        public PointF PositionA
+        public Point2D PositionA
         {
             get
             {
@@ -131,9 +131,9 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute()]
-        public PointF PositionB
+        public Point2D PositionB
         {
             get
             {
@@ -151,9 +151,9 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(PointFConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute()]
-        public PointF TangentB
+        public Point2D TangentB
         {
             get
             {
@@ -185,11 +185,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public  List<PointF> Handles
+        public  List<Point2D> Handles
         {
             get
             {
-                return new List<PointF> { tangentA, positionA, positionB, tangentB };
+                return new List<Point2D> { tangentA, positionA, positionB, tangentB };
             }
             set
             {
@@ -211,13 +211,13 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
             double t2 = index * index;
             double t3 = t2 * index;
-            return new PointF(
-                (float)(0.5f * ((2.0f * positionA.X) + (-tangentA.X + positionB.X) * index + (2.0f * tangentA.X - 5.0f * positionA.X + 4 * positionB.X - tangentB.X) * t2 + (-tangentA.X + 3.0f * positionA.X - 3.0f * positionB.X + tangentB.X) * t3)),
-                (float)(0.5f * ((2.0f * positionA.Y) + (-tangentA.Y + positionB.Y) * index + (2.0f * tangentA.Y - 5.0f * positionA.Y + 4 * positionB.Y - tangentB.Y) * t2 + (-tangentA.Y + 3.0f * positionA.Y - 3.0f * positionB.Y + tangentB.Y) * t3))
+            return new Point2D(
+                0.5f * ((2.0f * positionA.X) + (-tangentA.X + positionB.X) * index + (2.0f * tangentA.X - 5.0f * positionA.X + 4 * positionB.X - tangentB.X) * t2 + (-tangentA.X + 3.0f * positionA.X - 3.0f * positionB.X + tangentB.X) * t3),
+                0.5f * ((2.0f * positionA.Y) + (-tangentA.Y + positionB.Y) * index + (2.0f * tangentA.Y - 5.0f * positionA.Y + 4 * positionB.Y - tangentB.Y) * t2 + (-tangentA.Y + 3.0f * positionA.Y - 3.0f * positionB.Y + tangentB.Y) * t3)
             );
         }
 
@@ -226,9 +226,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints(double precision)
+        public List<Point2D> InterpolatePoints(double precision)
         {
-            List<PointF> points = new List<PointF>();
+            List<Point2D> points = new List<Point2D>();
             for (double Index = 0; (Index == 1); Index += precision)
             {
                 points.Add(Interpolate(Index));
@@ -254,12 +254,12 @@ namespace Engine.Geometry
         /// <returns>
         /// Calculated Spline Point
         /// </returns>
-        static public PointF PointOnCurve(PointF p0, PointF p1, PointF p2, PointF p3, float t)
+        static public Point2D PointOnCurve(Point2D p0, Point2D p1, Point2D p2, Point2D p3, double t)
         {
-            PointF ret = new PointF();
+            Point2D ret = new Point2D();
 
-            float t2 = t * t;
-            float t3 = t2 * t;
+            double t2 = t * t;
+            double t3 = t2 * t;
 
             ret.X = 0.5f * ((2.0f * p1.X) +
             (-p0.X + p2.X) * t +
@@ -280,8 +280,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Catmullrom";
-            return string.Format("{0}{{T1={1},P1={2},T2={2},P2={3},C={4}}}", "Catmullrom", tangentA.ToString(), positionA.ToString(), tangentB.ToString(), positionB.ToString(), precision.ToString());
+            if (this == null) return "CatmullRom";
+            return string.Format("{0}{{T1={1},P1={2},T2={3},P2={4},C={5}}}", "CatmullRom", tangentA.ToString(), positionA.ToString(), tangentB.ToString(), positionB.ToString(), precision.ToString());
         }
     }
 }

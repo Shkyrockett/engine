@@ -180,7 +180,7 @@ namespace Engine.Geometry
             {
                 // Find the best fitting rectangular grid for the number of colors.
                 columns = (int)Math.Ceiling(Math.Sqrt((bounds.Width * count) / bounds.Height));
-                rows = (int)Math.Ceiling((float)count / columns);
+                rows = (int)Math.Ceiling((double)count / columns);
 
                 // Calculate the optimum cell size for the grid.
                 int cellScale = Math.Min(bounds.Width / columns, bounds.Height / rows);

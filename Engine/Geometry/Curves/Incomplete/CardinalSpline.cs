@@ -3,9 +3,9 @@
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    /// http://cubic.org/docs/hermite.htm
     /// </summary>
-    public class Parabola
+    public class CardinalSpline
     {
         /// <summary>
         /// 

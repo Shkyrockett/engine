@@ -32,26 +32,26 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlAttribute()]
-        private List<PointF> nodePoints;
+        private List<Point2D> nodePoints;
 
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        private List<PointF> points = new List<PointF>();
+        private List<Point2D> points = new List<Point2D>();
 
         /// <summary>
         /// 
         /// </summary>
         public BSpline()
         {
-            nodePoints = new List<PointF> { PointF.Empty };
+            nodePoints = new List<Point2D> { Point2D.Empty };
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public BSpline(List<PointF> points)
+        public BSpline(List<Point2D> points)
         {
             nodePoints = points;
             points = InterpolatePoints(1f / 100f);
@@ -61,7 +61,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [RefreshProperties(RefreshProperties.All)]
-        public List<PointF> NodePoints
+        public List<Point2D> NodePoints
         {
             get
             {
@@ -78,7 +78,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [RefreshProperties(RefreshProperties.All)]
-        public List<PointF> Handles
+        public List<Point2D> Handles
         {
             get
             {
@@ -110,7 +110,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public  PointF Interpolate(double index)
+        public  Point2D Interpolate(double index)
         {
             return Interpolate(nodePoints, index);
         }
@@ -120,9 +120,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints(double count)
+        public List<Point2D> InterpolatePoints(double count)
         {
-            List<PointF> points = new List<PointF>();
+            List<Point2D> points = new List<Point2D>();
             for (double i = 0; (i <= 1); i += count)
             {
                 points.Add(Interpolate(i));
@@ -137,7 +137,7 @@ namespace Engine.Geometry
         /// <param name="points"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static PointF Interpolate(List<PointF> points, double index)
+        public static Point2D Interpolate(List<Point2D> points, double index)
         {
             int n = points.Count - 1;
             int kn;
@@ -148,7 +148,7 @@ namespace Engine.Geometry
             double muk = 1;
             double munk = Math.Pow(1 - index, n);
 
-            PointF b = new PointF(0.0f, 0.0f);
+            Point2D b = new Point2D(0.0f, 0.0f);
 
             for (int k = 0; k <= n; k++)
             {
@@ -174,9 +174,9 @@ namespace Engine.Geometry
                     }
                 }
 
-                b = new PointF(
-                (float)(b.X + points[k].X * blend),
-                (float)(b.Y + points[k].Y * blend)
+                b = new Point2D(
+                b.X + points[k].X * blend,
+                b.Y + points[k].Y * blend
                     );
             }
 
@@ -189,35 +189,35 @@ namespace Engine.Geometry
         /// <param name="Points"></param>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public PointF InterpolateCubicBSplinePoint(PointF[] Points, double Index)
+        public Point2D InterpolateCubicBSplinePoint(Point2D[] Points, double Index)
         {
             int A = 0;
             int B = 1;
             int C = 2;
             int D = 3;
             double V1 = Index;
-            PointF[] VPoints = new PointF[4];
+            Point2D[] VPoints = new Point2D[4];
 
-            VPoints[0] = new PointF(
+            VPoints[0] = new Point2D(
                 ((Points[D].X - Points[C].X) - (Points[A].X - Points[B].X)),
                 ((Points[D].Y - Points[C].Y) - (Points[A].Y - Points[B].Y))
                 );
 
-            VPoints[1] = new PointF(
+            VPoints[1] = new Point2D(
                 ((Points[A].X - Points[B].X) - VPoints[A].X),
                 ((Points[A].Y - Points[B].Y) - VPoints[A].Y)
                 );
 
-            VPoints[2] = new PointF(
+            VPoints[2] = new Point2D(
                 (Points[C].X - Points[A].X),
                 (Points[C].Y - Points[A].Y)
                 );
 
             VPoints[3] = Points[1];
 
-            return new PointF(
-                (float)(VPoints[0].X * V1 * V1 * V1 + VPoints[1].X * V1 * V1 * V1 + VPoints[2].X * V1 + VPoints[3].X),
-                (float)(VPoints[0].Y * V1 * V1 * V1 + VPoints[1].Y * V1 * V1 * V1 + VPoints[2].Y * V1 + VPoints[3].Y)
+            return new Point2D(
+                VPoints[0].X * V1 * V1 * V1 + VPoints[1].X * V1 * V1 * V1 + VPoints[2].X * V1 + VPoints[3].X,
+                VPoints[0].Y * V1 * V1 * V1 + VPoints[1].Y * V1 * V1 * V1 + VPoints[2].Y * V1 + VPoints[3].Y
             );
         }
 
@@ -229,7 +229,7 @@ namespace Engine.Geometry
         {
             if (this == null) return "BSpline";
             StringBuilder pts = new StringBuilder();
-            foreach (PointF pt in nodePoints)
+            foreach (Point2D pt in nodePoints)
             {
                 pts.Append(pt.ToString());
                 pts.Append(",");

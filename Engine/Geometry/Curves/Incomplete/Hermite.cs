@@ -10,7 +10,6 @@
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -56,12 +55,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private float tension;
+        private double tension;
 
         /// <summary>
         /// 
         /// </summary>
-        private float bias;
+        private double bias;
 
         /// <summary>
         /// 
@@ -90,7 +89,7 @@ namespace Engine.Geometry
         /// <param name="bTan"></param>
         /// <param name="tension"></param>
         /// <param name="bias"></param>
-        public Hermite(Point2D a, Point2D aTan, Point2D b, Point2D bTan, float tension, float bias)
+        public Hermite(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias)
         {
             this.a = a;
             this.aTan = aTan;
@@ -139,7 +138,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public float Tension
+        public double Tension
         {
             get { return tension; }
             set { tension = value; }
@@ -148,7 +147,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public float Bias
+        public double Bias
         {
             get { return bias; }
             set { bias = value; }
@@ -186,16 +185,16 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Point2D Interpolate1(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias, double index)
         {
-            //float mu2 = mu * mu;
-            //float mu3 = mu2 * mu;
+            //double mu2 = mu * mu;
+            //double mu3 = mu2 * mu;
             //Point2D m0 = (y1 - y0) * (1 + bias) * (1 - tension) * 0.5;
             //m0 += (y2 - y1) * (1 - bias) * (1 - tension) * 0.5;
             //Point2D m1 = (y2 - y1) * (1 + bias) * (1 - tension) * 0.5;
             //m1 += (y3 - y2) * (1 - bias) * (1 - tension) * 0.5;
-            //float a0 = 2 * mu3 - 3 * mu2 + 1;
-            //float a1 = mu3 - 2 * mu2 + mu;
-            //float a2 = mu3 - mu2;
-            //float a3 = -2 * mu3 + 3 * mu2;
+            //double a0 = 2 * mu3 - 3 * mu2 + 1;
+            //double a1 = mu3 - 2 * mu2 + mu;
+            //double a2 = mu3 - mu2;
+            //double a3 = -2 * mu3 + 3 * mu2;
             //return (a0 * y1 + a1 * m0 + a2 * m1 + a3 * y2);
             double mu2 = index * index;
             double mu3 = mu2 * index;
@@ -291,10 +290,20 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
+        public CubicBezier ToCubicBezier()
+        {
+            return new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             if (this == null) return "Hermite";
-            return string.Format("{0}{{A={1},TA={2},B={2},TB={3},T={4},I={5}}}", "Hermite", a.ToString(), aTan.ToString(), b.ToString(), bTan.ToString(), tension.ToString(), bias.ToString());
+            return string.Format("{0}{{A={1},TA={2},B={3},TB={4},T={5},I={6}}}", "Hermite", a.ToString(), aTan.ToString(), b.ToString(), bTan.ToString(), tension.ToString(), bias.ToString());
         }
     }
 }

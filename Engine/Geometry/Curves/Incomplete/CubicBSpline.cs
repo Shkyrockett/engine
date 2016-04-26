@@ -28,26 +28,26 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlAttribute()]
-        private List<PointF> nodePoints;
+        private List<Point2D> nodePoints;
 
         /// <summary>
         /// Interpolated points.
         /// </summary>
-        private List<PointF> points;
+        private List<Point2D> points;
 
         /// <summary>
         /// 
         /// </summary>
         public CubicBSpline()
         {
-            nodePoints = new List<PointF> { PointF.Empty };
+            nodePoints = new List<Point2D> { Point2D.Empty };
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public CubicBSpline(List<PointF> points)
+        public CubicBSpline(List<Point2D> points)
         {
             nodePoints = points;
             points = InterpolatePoints(1f / 100f);
@@ -56,7 +56,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<PointF> NodePoints
+        public List<Point2D> NodePoints
         {
             get
             {
@@ -79,7 +79,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(double index)
+        public Point2D Interpolate(double index)
         {
             return Interpolate(nodePoints, index);
         }
@@ -89,9 +89,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public List<PointF> InterpolatePoints(double count)
+        public List<Point2D> InterpolatePoints(double count)
         {
-            List<PointF> points = new List<PointF>();
+            List<Point2D> points = new List<Point2D>();
             for (double i = 0; (i < 1); i += count)
             {
                 points.Add(Interpolate(i));
@@ -106,7 +106,7 @@ namespace Engine.Geometry
         /// <param name="points"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public PointF Interpolate(List<PointF> points, double index)
+        public Point2D Interpolate(List<Point2D> points, double index)
         {
             if (points.Count >= 4)
             {
@@ -114,38 +114,38 @@ namespace Engine.Geometry
                 int B = 1;
                 int C = 2;
                 int D = 3;
-                List<PointF> VPoints = new List<PointF>(4);
+                List<Point2D> VPoints = new List<Point2D>(4);
 
-                VPoints.Add(new PointF(
+                VPoints.Add(new Point2D(
                     ((points[D].X - points[C].X) - (points[A].X - points[B].X)),
                     ((points[D].Y - points[C].Y) - (points[A].Y - points[B].Y))
                     ));
 
-                VPoints.Add(new PointF(
+                VPoints.Add(new Point2D(
                     ((points[A].X - points[B].X) - VPoints[A].X),
                     ((points[A].Y - points[B].Y) - VPoints[A].Y)
                     ));
 
-                VPoints.Add(new PointF(
+                VPoints.Add(new Point2D(
                     (points[C].X - points[A].X),
                     (points[C].Y - points[A].Y)
                     ));
 
                 VPoints.Add(points[1]);
 
-                return new PointF(
-                    (float)(VPoints[0].X * index * index * index + VPoints[1].X * index * index * index + VPoints[2].X * index + VPoints[3].X),
-                    (float)(VPoints[0].Y * index * index * index + VPoints[1].Y * index * index * index + VPoints[2].Y * index + VPoints[3].Y)
+                return new Point2D(
+                    VPoints[0].X * index * index * index + VPoints[1].X * index * index * index + VPoints[2].X * index + VPoints[3].X,
+                    VPoints[0].Y * index * index * index + VPoints[1].Y * index * index * index + VPoints[2].Y * index + VPoints[3].Y
                 );
             }
 
-            return PointF.Empty;
+            return Point2D.Empty;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public  List<PointF> Handles
+        public  List<Point2D> Handles
         {
             get
             {

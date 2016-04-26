@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Engine.Geometry.Polygons
+﻿namespace Engine.Geometry.Polygons
 {
     /// <summary>
     /// 

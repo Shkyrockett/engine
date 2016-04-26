@@ -78,10 +78,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D Offset
         {
-            get
-            {
-                return offset;
-            }
+            get { return offset; }
             set
             {
                 offset = value;
@@ -94,10 +91,7 @@ namespace Engine.Geometry
         /// </summary>
         public Size2D Multiplyer
         {
-            get
-            {
-                return multiplyer;
-            }
+            get { return multiplyer; }
             set
             {
                 multiplyer = value;
@@ -110,10 +104,7 @@ namespace Engine.Geometry
         /// </summary>
         public double Precision
         {
-            get
-            {
-                return precision;
-            }
+            get { return precision; }
             set
             {
                 precision = value;
@@ -154,8 +145,8 @@ namespace Engine.Geometry
         public Point2D Interpolate(double index)
         {
             return new Point2D(
-                (float)(offset.X + ((1 - (Math.Tan(index) * 2)) * Math.Cos(index)) * multiplyer.Width),
-                (float)(offset.Y + ((1 - (Math.Tan(index) * 2)) * (2 * Math.Sin(index))) * multiplyer.Height)
+                offset.X + ((1 - (Math.Tan(index) * 2)) * Math.Cos(index)) * multiplyer.Width,
+                offset.Y + ((1 - (Math.Tan(index) * 2)) * (2 * Math.Sin(index))) * multiplyer.Height
                 );
         }
 
@@ -190,8 +181,8 @@ namespace Engine.Geometry
         public void DrawBowCurve2D(PaintEventArgs e, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
         {
             Point2D NewPoint = new Point2D(
-                (float)(((1 - (Math.Tan((Math.PI * -1)) * 2)) * Math.Cos((Math.PI * -1))) * Multiplyer.Width),
-                (float)(((1 - (Math.Tan((Math.PI * -1)) * 2)) * (2 * Math.Sin((Math.PI * -1)))) * Multiplyer.Height)
+                ((1 - (Math.Tan((Math.PI * -1)) * 2)) * Math.Cos((Math.PI * -1))) * Multiplyer.Width,
+                ((1 - (Math.Tan((Math.PI * -1)) * 2)) * (2 * Math.Sin((Math.PI * -1)))) * Multiplyer.Height
                 );
 
             Point2D LastPoint = NewPoint;
@@ -200,8 +191,8 @@ namespace Engine.Geometry
             {
                 LastPoint = NewPoint;
                 NewPoint = new Point2D(
-                    (float)(((1 - (Math.Tan(Index) * 2)) * Math.Cos(Index)) * Multiplyer.Width),
-                    (float)(((1 - (Math.Tan(Index) * 2)) * (2 * Math.Sin(Index))) * Multiplyer.Height)
+                    ((1 - (Math.Tan(Index) * 2)) * Math.Cos(Index)) * Multiplyer.Width,
+                    ((1 - (Math.Tan(Index) * 2)) * (2 * Math.Sin(Index))) * Multiplyer.Height
                     );
 
                 e.Graphics.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
@@ -215,7 +206,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "Bow";
-            return string.Format("{0}{{O={1},M={2},P={2}}}", "Bow", offset.ToString(), multiplyer.ToString(), precision.ToString());
+            return string.Format("{0}{{O={1},M={2},P={3}}}", "Bow", offset.ToString(), multiplyer.ToString(), precision.ToString());
         }
     }
 }

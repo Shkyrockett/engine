@@ -8,6 +8,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class Point2D
     {
         #region Static Implementations
@@ -90,6 +91,7 @@ namespace Engine.Geometry
         {
             get { return x == 0 && y == 0; }
         }
+        
         #endregion
 
         /// <summary>

@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Engine.Geometry
@@ -205,8 +206,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Bow";
-            return string.Format("{0}{{O={1},M={2},P={3}}}", "Bow", offset.ToString(), multiplyer.ToString(), precision.ToString());
+            if (this == null) return nameof(Bow);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6}}}", nameof(Bow), nameof(Offset), offset, nameof(Multiplyer), multiplyer, nameof(Precision), precision);
         }
     }
 }

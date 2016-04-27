@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 
 namespace Engine.Geometry
@@ -117,7 +118,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Polygon";
+            if (this == null) return nameof(Polygon);
             StringBuilder pts = new StringBuilder();
             foreach (Point2D pt in points)
             {
@@ -125,7 +126,7 @@ namespace Engine.Geometry
                 pts.Append(",");
             }
             if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format("{0}{{{1}}}", "Polygon", pts.ToString());
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(Polygon), pts.ToString());
         }
     }
 }

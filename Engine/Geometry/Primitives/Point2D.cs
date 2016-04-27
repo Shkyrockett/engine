@@ -361,8 +361,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            //if (this == null) return "Point2D";
-            return string.Format(CultureInfo.CurrentCulture, "{{X={0}, Y={1}}}", x, y);
+            //if (this == null) return nameof(Point2D);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Point2D), nameof(X), x, nameof(Y), y);
         }
     }
 }

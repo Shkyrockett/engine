@@ -11,6 +11,7 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Engine.Geometry
 {
@@ -167,8 +168,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Bicorn";
-            return string.Format("{0}{{O={1},M={2},P={3}}}", "Bicorn", offset.ToString(), multiplyer.ToString(), precision.ToString());
+            if (this == null) return nameof(Bicorn);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6}}}", nameof(Bicorn), nameof(Offset), offset, nameof(Multiplyer), multiplyer, nameof(Precision), precision);
         }
     }
 }

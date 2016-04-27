@@ -276,8 +276,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "CubicBezier";
-            return string.Format(CultureInfo.CurrentCulture, "{0}={{A={1}, B={2}, C={3}, D={4}}}", "CubicBezier", a, b, c, d);
+            if (this == null) return nameof(CubicBezier);
+            return string.Format(CultureInfo.CurrentCulture, "{0}={{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(CubicBezier), nameof(A), a, nameof(B), b, nameof(C), c, nameof(D), d);
         }
     }
 }

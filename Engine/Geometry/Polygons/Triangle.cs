@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -141,7 +142,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Triangle";
+            if (this == null) return nameof(Triangle);
             StringBuilder pts = new StringBuilder();
             foreach (Point2D pt in base.Points)
             {
@@ -149,7 +150,7 @@ namespace Engine.Geometry
                 pts.Append(",");
             }
             if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format("{0}{{{1}}}", "Triangle", pts.ToString());
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(Triangle), pts.ToString());
         }
         #endregion
     }

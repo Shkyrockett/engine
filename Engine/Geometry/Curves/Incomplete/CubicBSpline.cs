@@ -164,8 +164,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "CubicBSpline";
-            return "CubicBSpline";
+            if (this == null) return nameof(CubicBSpline);
+            return string.Format("{0}{{{1}}}", nameof(CubicBSpline), nodePoints.ToString());
         }
     }
 }

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -49,7 +50,8 @@ namespace Engine.Geometry
         private Point2D b;
         #endregion
 
-        #region Public Properties
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
@@ -98,7 +100,10 @@ namespace Engine.Geometry
                 (Point.Y + (Radius * Math.Sin(RadAngle)))
                 );
         }
+
         #endregion
+
+        #region Properties
 
         /// <summary>
         /// First Point of a line segment
@@ -133,43 +138,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Get or sets an array of points representing a line segment.
-        /// </summary>
-        /// <remarks></remarks>
-        public List<Point2D> Points
-        {
-            get
-            {
-                return new List<Point2D>() { a, b };
-            }
-            set
-            {
-                a = value[0];
-                b = value[1];
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Value1"></param>
-        /// <param name="Value2"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Weight"></param>
-        /// <returns></returns>
-        public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
-        {
-            Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
-            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
-            return Interpolate(Value1, Value2, Weight).Inflate(PerpendicularAB);
-        }
-
-        /// <summary>
         /// Gets or the size and location of the segment, in floating-point pixels, relative to the parent canvas.
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
@@ -192,6 +160,45 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Get or sets an array of points representing a line segment.
+        /// </summary>
+        /// <remarks></remarks>
+        public List<Point2D> Points
+        {
+            get
+            {
+                return new List<Point2D>() { a, b };
+            }
+            set
+            {
+                a = value[0];
+                b = value[1];
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ShapeStyle Style { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Value1"></param>
+        /// <param name="Value2"></param>
+        /// <param name="Offset"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
+        {
+            Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
+            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
+            return Experimental.LinearInterpolate0(Value1, Value2, Weight).Inflate(PerpendicularAB);
+        }
+
+        /// <summary>
         /// Render the shape to the canvas.
         /// </summary>
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
@@ -201,75 +208,13 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Interpolates two points
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public Point2D Interpolate(float index)
-        {
-            return new Point2D(
-                (a.X + (index * (b.X - a.X))),
-                (a.Y + (index * (b.Y - a.Y)))
-                );
-        }
-
-        /// <summary>
         /// Interpolates a shape.
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         public Point2D Interpolate(double index)
         {
-            return new Point2D(
-                (a.X * (1 - index)) + (b.X * index),
-                (a.Y * (1 - index)) + (b.Y * index)
-                );
-        }
-
-        /// <summary>
-        /// Interpolates two points
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <param name="alpha"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Point2D Interpolate(Point2D value1, Point2D value2, double alpha)
-        {
-            return new Point2D(
-                value1.X + (alpha * (value2.X - value1.X)),
-                value1.Y + (alpha * (value2.Y - value1.Y))
-                );
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Value1"></param>
-        /// <param name="Value2"></param>
-        /// <param name="Weight"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Point2D Interpolate2(Point2D Value1, Point2D Value2, double Weight)
-        {
-            return new Point2D(
-                Value1.X + ((1 / (Value1.X - Value2.X)) * Weight),
-                Value1.Y + ((1 / (Value1.Y - Value2.Y)) * Weight)
-                );
-        }
-
-        /// <summary>
-        /// Function For normal Line
-        /// </summary>
-        /// <param name="Y1"></param>
-        /// <param name="Y2"></param>
-        /// <param name="MU"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Point2D Linear_Interpolate(Point2D Y1, Point2D Y2, double MU)
-        {
-            return (Point2D)(Y1.Scale(1 - MU)).Add(Y2.Scale(MU));
+            return Experimental.LinearInterpolate2(a, b, index);
         }
 
         /// <summary>
@@ -290,8 +235,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "LineSegment";
-            return string.Format("{0}{{A={1},B={2}}}", "LineSegment", a.ToString(), b.ToString());
+            if (this == null) return nameof(LineSegment);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(LineSegment), nameof(A), a, nameof(B), b);
         }
     }
 }

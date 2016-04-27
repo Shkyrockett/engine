@@ -227,7 +227,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "BSpline";
+            if (this == null) return nameof(BSpline);
             StringBuilder pts = new StringBuilder();
             foreach (Point2D pt in nodePoints)
             {
@@ -235,7 +235,7 @@ namespace Engine.Geometry
                 pts.Append(",");
             }
             pts.Remove(pts.Length - 1, 1);
-            return string.Format("{0}{{{1}}}", "BSpline", pts.ToString());
+            return string.Format("{0}{{{1}}}", nameof(BSpline), pts.ToString());
         }
     }
 }

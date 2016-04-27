@@ -11,6 +11,7 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Engine.Geometry
 {
@@ -85,7 +86,7 @@ namespace Engine.Geometry
         /// <param name="triangle"></param>
         public Arc(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        {        }
+        { }
 
         /// <summary>
         /// 
@@ -117,7 +118,7 @@ namespace Engine.Geometry
         [Description("The radius of the circle.")]
         public double Radius
         {
-            get            {                return radius;            }
+            get { return radius; }
             set
             {
                 radius = value;
@@ -136,7 +137,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get            {                return center;            }
+            get { return center; }
             set
             {
                 center = value;
@@ -154,7 +155,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
-            get            {                return startAngle;            }
+            get { return startAngle; }
             set
             {
                 startAngle = value;
@@ -172,7 +173,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
-            get            {                return endAngle;            }
+            get { return endAngle; }
             set
             {
                 endAngle = value;
@@ -234,7 +235,7 @@ namespace Engine.Geometry
         [Description("The array of grab handles for this shape.")]
         public List<Point2D> Handles
         {
-            get            {                return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) };            }
+            get { return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) }; }
             set
             {
                 if (value.Count >= 1) center = value[0];
@@ -318,8 +319,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Arc";
-            return string.Format("{0}{{C={1},R={2},A1={3},A2{4}}}", "Arc", center.ToString(), radius.ToString(), startAngle.ToString(), endAngle.ToString());
+            if (this == null) return nameof(Arc);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(Arc), nameof(Center), center, nameof(Radius), radius, nameof(StartAngle), startAngle, nameof(EndAngle), endAngle);
         }
     }
 }

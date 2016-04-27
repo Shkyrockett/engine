@@ -6,6 +6,7 @@
 
 using Engine.Imaging;
 using System;
+using System.Globalization;
 
 namespace Engine.Geometry
 {
@@ -102,8 +103,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Sine";
-            return "Sine";
+            if (this == null) return nameof(Sine);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Sine), nameof(A), a, nameof(B), b);
         }
     }
 }

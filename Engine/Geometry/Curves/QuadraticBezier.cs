@@ -207,8 +207,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "QuadraticBezier";
-            return string.Format(CultureInfo.CurrentCulture, "{0}={{A={1}, B={2}, C={3}}}", "QuadraticBezier", a, b, c);
+            if (this == null) return nameof(QuadraticBezier);
+            return string.Format(CultureInfo.CurrentCulture, "{0}={{{1}={2},{3}={4},{5}={6}}}", nameof(QuadraticBezier), nameof(A), a, nameof(B), b, nameof(C), c);
         }
     }
 }

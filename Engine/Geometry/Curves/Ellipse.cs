@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -427,8 +428,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Ellipse";
-            return string.Format("{0}{{C={1},R1={2},R2{3},A={4}}}", "Ellipse", center.ToString(), b.ToString(), a.ToString(), angle.ToString());
+            if (this == null) return nameof(Ellipse);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(Ellipse), nameof(Center), center, nameof(A), a, nameof(B), b, nameof(Angle), angle);
         }
     }
 }

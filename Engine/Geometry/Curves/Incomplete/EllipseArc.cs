@@ -478,8 +478,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "EllipseArc";
-            return string.Format("{0}{{C={1},R1={2},R2{3},A0={4},A1={5},A2={6}}}", "EllipseArc", center.ToString(), minorRadius.ToString(), majorRadius.ToString(), angle.ToString(), startAngle.ToString(), endAngle.ToString());
+            if (this == null) return nameof(EllipseArc);
+            return string.Format("{0}{{{1}={2},{3}={4},{5}={6},{7}={8},{9}={10},{11}={12}}}", nameof(EllipseArc), nameof(Center), center, nameof(MinorRadius), minorRadius, nameof(MajorRadius), majorRadius, nameof(Angle), angle, nameof(StartAngle), startAngle, nameof(EndAngle), endAngle);
         }
     }
 }

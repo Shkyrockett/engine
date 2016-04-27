@@ -9,6 +9,7 @@
 
 using Engine.Imaging;
 using System;
+using System.Globalization;
 
 namespace Engine.Geometry
 {
@@ -121,8 +122,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Cosine";
-            return "Cosine";
+            if (this == null) return nameof(Cosine);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Cosine), nameof(A), a, nameof(B), b);
         }
     }
 }

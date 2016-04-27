@@ -694,11 +694,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            //if (this == null) return "Rectangle2D";
-            return "Rectangle2D{X=" + X.ToString(CultureInfo.CurrentCulture) +
-                ",Y=" + Y.ToString(CultureInfo.CurrentCulture) +
-                ",Width=" + Width.ToString(CultureInfo.CurrentCulture) +
-                ",Height=" + Height.ToString(CultureInfo.CurrentCulture) + "}";
+            //if (this == null) return nameof(Rectangle2D);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(Rectangle2D), nameof(X), x, nameof(Y), y, nameof(Width), width, nameof(Height), height);
         }
     }
 }

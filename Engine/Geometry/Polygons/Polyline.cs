@@ -11,6 +11,7 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 
 namespace Engine.Geometry
@@ -62,7 +63,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Polyline";
+            if (this == null) return nameof(Polyline);
             StringBuilder pts = new StringBuilder();
             foreach (Point2D pt in Points)
             {
@@ -70,7 +71,7 @@ namespace Engine.Geometry
                 pts.Append(",");
             }
             if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format("{0}{{{1}}}", "Polyline", pts.ToString());
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(Polyline), pts.ToString());
         }
     }
 }

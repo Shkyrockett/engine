@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -25,13 +26,11 @@ namespace Engine.Geometry
     public class Circle
         : Shape
     {
+        #region Private Fields
+
         /// <summary>
         /// The center point of the circle.
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
         private Point2D center;
 
         /// <summary>
@@ -43,6 +42,10 @@ namespace Engine.Geometry
         /// Interpolated points.
         /// </summary>
         private List<Point2D> points;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
@@ -103,12 +106,19 @@ namespace Engine.Geometry
             radius = (Center.Length(PointA));
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the radius of the circle.
         /// </summary>
-        [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("The radius of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute()]
         public double Radius
         {
             get { return radius; }
@@ -125,9 +135,10 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The center location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute()]
         public Point2D Center
         {
             get { return center; }
@@ -139,7 +150,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the rectangular boundaries of the circle.
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
@@ -156,6 +167,11 @@ namespace Engine.Geometry
                     (center.X + radius),
                     (center.Y + radius));
                 return bounds;
+            }
+            set
+            {
+                Center = value.Center();
+                radius = value.Width <= value.Height ? value.Width : value.Height;
             }
         }
 
@@ -200,6 +216,10 @@ namespace Engine.Geometry
         /// </summary>
         public override ShapeStyle Style { get; set; }
 
+        #endregion
+
+        #region Static creation methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -243,6 +263,8 @@ namespace Engine.Geometry
             return new Circle(rectangle);
         }
 
+        #endregion
+
         /// <summary>
         /// Interpolates the circle.
         /// </summary>
@@ -273,6 +295,7 @@ namespace Engine.Geometry
         /// Render the shape to the canvas.
         /// </summary>
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
+        [Obsolete]
         public override void Render(Graphics g)
         {
             //g.FillEllipse(Style.BackBrush, Bounds);
@@ -285,8 +308,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Circle";
-            return string.Format("{0}{{C={1},R={2}}}", "Circle", center.ToString(), radius.ToString());
+            if (this == null) return nameof(Circle);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Circle), nameof(Center), center.ToString(), nameof(Radius), radius.ToString());
         }
     }
 }

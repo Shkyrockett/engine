@@ -302,8 +302,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Hermite";
-            return string.Format("{0}{{A={1},TA={2},B={3},TB={4},T={5},I={6}}}", "Hermite", a.ToString(), aTan.ToString(), b.ToString(), bTan.ToString(), tension.ToString(), bias.ToString());
+            if (this == null) return nameof(Hermite);
+            return string.Format("{0}{{{1}={2},{3}={4},{5}={6},{7}={8},{9}={10},{11}={12}}}", nameof(Hermite), nameof(A), a, nameof(ATan), aTan, nameof(B), b, nameof(BTan), bTan, nameof(Tension), tension, nameof(Bias), bias);
         }
     }
 }

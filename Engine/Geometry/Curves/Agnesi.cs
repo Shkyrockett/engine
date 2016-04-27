@@ -17,6 +17,7 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Engine.Geometry
 {
@@ -169,8 +170,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Agnesi";
-            return string.Format("{0}{{O={1},M={2},P={3}}}", "Agnesi", offset.ToString(), multiplyer.ToString(), precision.ToString());
+            if (this == null) return nameof(Agnesi);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6}}}", nameof(Agnesi), nameof(Offset), offset, nameof(Multiplyer), multiplyer, nameof(Precision), precision);
         }
     }
 }

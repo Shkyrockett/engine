@@ -2850,7 +2850,22 @@ namespace Engine
         /// <returns></returns>
         public static Point2D LinearInterpolate(this LineSegment segment, double index)
         {
-            return LinearInterpolate(segment.A, segment.B, index);
+            return LinearInterpolate1(segment.A, segment.B, index);
+        }
+
+        /// <summary>
+        /// Interpolates two points
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D LinearInterpolate0(Point2D a, Point2D b, double index)
+        {
+            return new Point2D(
+                a.X + (index * (b.X - a.X)),
+                a.Y + (index * (b.Y - a.Y)));
         }
 
         /// <summary>
@@ -2861,9 +2876,53 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static Point2D LinearInterpolate(Point2D a, Point2D b, double index)
+        private static Point2D LinearInterpolate1(Point2D a, Point2D b, double index)
         {
-            return new Point2D((a.X + (b.X - a.X) * index), (a.Y + (b.Y - a.Y) * index));
+            return new Point2D(
+                (a.X + (b.X - a.X) * index),
+                (a.Y + (b.Y - a.Y) * index));
+        }
+
+        /// <summary>
+        /// Interpolates a shape.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="index">Index of the point to interpolate.</param>
+        /// <returns>Returns the interpolated point of the index value.</returns>
+        public static Point2D LinearInterpolate2(Point2D a, Point2D b, double index)
+        {
+            return new Point2D(
+                (a.X * (1 - index)) + (b.X * index),
+                (a.Y * (1 - index)) + (b.Y * index));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D LinearInterpolate3(Point2D a, Point2D b, double index)
+        {
+            return new Point2D(
+                a.X + ((1 / (a.X - b.X)) * index),
+                a.Y + ((1 / (a.Y - b.Y)) * index));
+        }
+
+        /// <summary>
+        /// Function For normal Line
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D LinearInterpolate4(Point2D a, Point2D b, double index)
+        {
+            return (Point2D)(a.Scale(1 - index)).Add(b.Scale(index));
         }
 
         #endregion
@@ -3055,17 +3114,17 @@ namespace Engine
         private static Point2D CubicBezierInterpolate0(Point2D a, Point2D b, Point2D c, Point2D d, double t)
         {
             // point between a and b
-            Point2D ab = LinearInterpolate(a, b, t);
+            Point2D ab = LinearInterpolate1(a, b, t);
             // point between b and c
-            Point2D bc = LinearInterpolate(b, c, t);
+            Point2D bc = LinearInterpolate1(b, c, t);
             // point between c and d
-            Point2D cd = LinearInterpolate(c, d, t);
+            Point2D cd = LinearInterpolate1(c, d, t);
             // point between ab and bc
-            Point2D abbc = LinearInterpolate(ab, bc, t);
+            Point2D abbc = LinearInterpolate1(ab, bc, t);
             // point between bc and cd
-            Point2D bccd = LinearInterpolate(bc, cd, t);
+            Point2D bccd = LinearInterpolate1(bc, cd, t);
             // point on the bezier-curve
-            return LinearInterpolate(abbc, bccd, t);
+            return LinearInterpolate1(abbc, bccd, t);
         }
 
         /// <summary>
@@ -3557,11 +3616,11 @@ namespace Engine
         private static Point2D InterpolateQuadraticBezier(Point2D a, Point2D b, Point2D c, double t)
         {
             // point between a and b
-            Point2D ab = LinearInterpolate(a, b, t);
+            Point2D ab = LinearInterpolate1(a, b, t);
             // point between b and c
-            Point2D bc = LinearInterpolate(b, c, t);
+            Point2D bc = LinearInterpolate1(b, c, t);
             // point on the bezier-curve
-            return LinearInterpolate(ab, bc, t);
+            return LinearInterpolate1(ab, bc, t);
         }
 
         /// <summary>

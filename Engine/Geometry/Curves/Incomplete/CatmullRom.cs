@@ -280,8 +280,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "CatmullRom";
-            return string.Format("{0}{{T1={1},P1={2},T2={3},P2={4},C={5}}}", "CatmullRom", tangentA.ToString(), positionA.ToString(), tangentB.ToString(), positionB.ToString(), precision.ToString());
+            if (this == null) return nameof(CatmullRom);
+            return string.Format("{0}{{{1}={2},{3}={4},{5}={6},{7}={8},{9}={10}}}", nameof(CatmullRom), nameof(TangentA), tangentA, nameof(PositionA), positionA, nameof(TangentB), tangentB, nameof(PositionB), positionB, nameof(Precision), precision);
         }
     }
 }

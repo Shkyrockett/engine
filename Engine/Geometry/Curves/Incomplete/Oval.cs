@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Engine.Geometry
 {
@@ -116,8 +117,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Oval";
-            return "Oval";
+            if (this == null) return nameof(Oval);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Oval), nameof(Location), location, nameof(Size), size);
         }
     }
 }

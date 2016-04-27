@@ -431,12 +431,13 @@ namespace Engine.Geometry
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         string IFormattable.ToString(string format, IFormatProvider provider)
         {
-
             // Delegate to the internal method which implements all ToString calls.
             return ConvertToString(format, provider);
         }
@@ -447,18 +448,14 @@ namespace Engine.Geometry
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            // Helper to get the numeric list separator for a given culture.
-            string separator = NumberFormatInfo.InvariantInfo.NumberGroupSeparator;
-            return String.Format(provider,
-                                 "{1:" + format + "}{0}{2:" + format + "}",
-                                 separator,
-                                 i,
-                                 j);
+            return string.Format(provider, "{0}{{{1}={2:"+ format + "},{3}={4:" + format + "}}}", nameof(Vector2D), nameof(I), i, nameof(J), j);
         }
 
         /// <summary>
@@ -467,9 +464,10 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Vector2D";
-            return "Vector{X=" + I.ToString(CultureInfo.CurrentCulture) + ",Y=" + J.ToString(CultureInfo.CurrentCulture) + "}";
+            if (this == null) return nameof(Vector2D);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Vector2D), nameof(I), i, nameof(J), j);
         }
+
         #endregion
     }
 }

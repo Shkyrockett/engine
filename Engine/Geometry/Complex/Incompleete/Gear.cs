@@ -21,7 +21,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     //[GraphicsObject]
-    [DisplayName("Gear Shape")]
+    [DisplayName(nameof(Gear))]
     public class Gear
         : Polygon
     {

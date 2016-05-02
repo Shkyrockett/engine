@@ -20,7 +20,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     //[GraphicsObject]
-    [DisplayName("Path")]
+    [DisplayName(nameof(Path))]
     public class Path
             : Shape
     {

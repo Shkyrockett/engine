@@ -18,7 +18,7 @@ namespace Engine.Geometry
     /// <remarks></remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Intersection")]
+    [DisplayName(nameof(Intersection))]
     public class Intersection
     {
         /// <summary>
@@ -156,7 +156,6 @@ namespace Engine.Geometry
         public bool Paralell
         {
             get { return paralell; }
-
             set { paralell = value; }
         }
 

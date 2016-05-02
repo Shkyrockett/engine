@@ -3832,12 +3832,12 @@ namespace Engine
         /// </summary>
         /// <param name="y1"></param>
         /// <param name="y2"></param>
-        /// <param name="mu"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double CosineInterpolate(double y1, double y2, double mu)
+        static double CosineInterpolate(double y1, double y2, double t)
         {
-            double mu2 = (1 - Math.Cos(mu * Math.PI)) / 2;
+            double mu2 = (1 - Math.Cos(t * Math.PI)) / 2;
             return (y1 * (1 - mu2) + y2 * mu2);
         }
 
@@ -3848,20 +3848,20 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="y2"></param>
         /// <param name="y3"></param>
-        /// <param name="mu"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double CubicInterpolate(double y0, double y1, double y2, double y3, double mu)
+        static double CubicInterpolate(double y0, double y1, double y2, double y3, double t)
         {
             double a0, a1, a2, a3, mu2;
 
-            mu2 = mu * mu;
+            mu2 = t * t;
             a0 = y3 - y2 - y0 + y1;
             a1 = y0 - y1 - a0;
             a2 = y2 - y0;
             a3 = y1;
 
-            return (a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3);
+            return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
         }
 
         /// <summary>
@@ -3871,20 +3871,20 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="y2"></param>
         /// <param name="y3"></param>
-        /// <param name="mu"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double CubicInterpolateCatmullRomSplines(double y0, double y1, double y2, double y3, double mu)
+        static double CubicInterpolateCatmullRomSplines(double y0, double y1, double y2, double y3, double t)
         {
             double a0, a1, a2, a3, mu2;
 
-            mu2 = mu * mu;
+            mu2 = t * t;
             a0 = -0.5 * y0 + 1.5 * y1 - 1.5 * y2 + 0.5 * y3;
             a1 = y0 - 2.5 * y1 + 2 * y2 - 0.5 * y3;
             a2 = -0.5 * y0 + 0.5 * y2;
             a3 = y1;
 
-            return (a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3);
+            return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
         }
 
         /// <summary>
@@ -3920,7 +3920,7 @@ namespace Engine
 
         #endregion
 
-        #region Path finding
+        #region Polygon Path finding
 
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.

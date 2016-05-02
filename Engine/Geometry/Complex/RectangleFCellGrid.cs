@@ -18,7 +18,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("RectangleF Cell Grid")]
+    [DisplayName(nameof(RectangleFCellGrid))]
     public class RectangleFCellGrid
         : Shape
     {

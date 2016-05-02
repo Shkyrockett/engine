@@ -11,7 +11,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     //[GraphicsObject]
-    [DisplayName("Gear Shape")]
+    [DisplayName(nameof(Heart))]
     public class Heart
         :Shape
     {

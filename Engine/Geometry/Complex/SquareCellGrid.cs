@@ -18,7 +18,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Square Cell Grid")]
+    [DisplayName(nameof(SquareCellGrid))]
     public class SquareCellGrid
         : Shape
     {

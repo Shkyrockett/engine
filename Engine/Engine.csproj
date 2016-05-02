@@ -91,6 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Curves\ParametricDelegateCurve.cs" />
+    <Compile Include="Geometry\ParametricInterpolateors.cs" />
+    <Compile Include="TimeLine.cs" />
     <Compile Include="Geometry\Curves\Incomplete\ConicSections.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CardinalSpline.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Hyperbola.cs" />
@@ -101,12 +104,12 @@
     <Compile Include="Geometry\Framework\Size2DConverter.cs" />
     <Compile Include="Geometry\Framework\Point2DConverter.cs" />
     <Compile Include="Geometry\Framework\Rectangle2DConverter.cs" />
-    <Compile Include="Geometry\iClosedShape.cs" />
-    <Compile Include="Geometry\iCurve.cs" />
-    <Compile Include="Geometry\iIteratablePathElement.cs" />
-    <Compile Include="Geometry\iOpenShape.cs" />
-    <Compile Include="Geometry\iPolygon.cs" />
-    <Compile Include="Geometry\iTweenable.cs" />
+    <Compile Include="Geometry\Interfaces\iClosedShape.cs" />
+    <Compile Include="Geometry\Interfaces\iCurve.cs" />
+    <Compile Include="Geometry\Interfaces\iIteratablePathElement.cs" />
+    <Compile Include="Geometry\Interfaces\iOpenShape.cs" />
+    <Compile Include="Geometry\Interfaces\iPolygon.cs" />
+    <Compile Include="Geometry\Interfaces\iTweenable.cs" />
     <Compile Include="Geometry\Primitives\ItPoint2D.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
@@ -118,7 +121,7 @@
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Geometry\Units\Radian.cs" />
     <Compile Include="Geometry\Units\Degree.cs" />
-    <Compile Include="Geometry\Primitives\IShape.cs" />
+    <Compile Include="Geometry\Interfaces\IShape.cs" />
     <Compile Include="Geometry\Framework\VectorConverter.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
     <Compile Include="Imaging\ColorSpace\ACYMK.cs" />

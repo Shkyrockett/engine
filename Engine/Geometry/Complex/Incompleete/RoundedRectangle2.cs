@@ -19,7 +19,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     //[GraphicsObject]
-    [DisplayName("Bad Rounded Rectangle")]
+    [DisplayName(nameof(RoundedRectangle2))]
     public abstract class RoundedRectangle2
         : Shape
     {

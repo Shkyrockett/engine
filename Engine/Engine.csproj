@@ -107,6 +107,7 @@
     <Compile Include="Geometry\iOpenShape.cs" />
     <Compile Include="Geometry\iPolygon.cs" />
     <Compile Include="Geometry\iTweenable.cs" />
+    <Compile Include="Geometry\Primitives\ItPoint2D.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\BoundingRect.cs" />
@@ -160,7 +161,7 @@
     <Compile Include="Geometry\Polygons\Incomplete\Star.cs" />
     <Compile Include="Geometry\Complex\Incompleete\Gear.cs" />
     <Compile Include="Geometry\Complex\Incompleete\Multipolyline.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\Multipolygon.cs" />
+    <Compile Include="Geometry\Complex\PolygonSet.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Line.cs" />
     <Compile Include="Geometry\Complex\Incompleete\DoubleLine.cs" />
     <Compile Include="Geometry\Complex\SquareFCellGrid.cs" />

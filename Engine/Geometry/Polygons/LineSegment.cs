@@ -184,21 +184,6 @@ namespace Engine.Geometry
         #endregion
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Value1"></param>
-        /// <param name="Value2"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Weight"></param>
-        /// <returns></returns>
-        public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
-        {
-            Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
-            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
-            return Experimental.LinearInterpolate0(Value1, Value2, Weight).Inflate(PerpendicularAB);
-        }
-
-        /// <summary>
         /// Render the shape to the canvas.
         /// </summary>
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>

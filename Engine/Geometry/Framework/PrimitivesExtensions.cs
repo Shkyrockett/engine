@@ -926,25 +926,6 @@ namespace Engine.Geometry
         #endregion
 
         #region Distance
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        /// <remarks>
-        /// Source: http://www.vcskicks.com/code-snippet/distance-formula.php.
-        /// Pythagorean theorem c^2 = a^2 + b^2
-        /// thus c = square root(a^2 + b^2)
-        /// </remarks>
-        public static double DistanceV1(int xA, int yA, int xB, int yB)
-        {
-            double a = (xA - xB);
-            double b = (yA - yB);
-            return Math.Sqrt(a * a + b * b);
-        }
 
         /// <summary>
         /// Distance between two points.
@@ -1003,6 +984,37 @@ namespace Engine.Geometry
         /// <summary>
         /// Distance between two points.
         /// </summary>
+        /// <param name="xA">First Point X component.</param>
+        /// <param name="yA">First Point Y component.</param>
+        /// <param name="xB">Second Point X component.</param>
+        /// <param name="yB">Second Point Y component.</param>
+        /// <returns>The distance between two points.</returns>
+        /// <remarks>
+        /// Source: http://www.vcskicks.com/code-snippet/distance-formula.php.
+        /// Pythagorean theorem c^2 = a^2 + b^2
+        /// thus c = square root(a^2 + b^2)
+        /// </remarks>
+        public static double DistanceV1(int xA, int yA, int xB, int yB)
+        {
+            double a = (xA - xB);
+            double b = (yA - yB);
+            return Math.Sqrt(a * a + b * b);
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static double Distance(this Point2D start, Point2D end)
+        {
+            return Math.Sqrt((end.X - start.X) * (end.X - start.X) + (end.Y - start.Y) * (end.Y - start.Y));
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
         /// <param name="point"></param>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -1045,6 +1057,7 @@ namespace Engine.Geometry
         {
             return DistanceV1(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
         }
+
         #endregion
 
         #region Divide

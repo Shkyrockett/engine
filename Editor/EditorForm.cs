@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Editor
@@ -82,51 +81,91 @@ namespace Editor
                 new ShapeStyle(new Pen(Brushes.Maroon), new Pen(Brushes.MediumPurple)),
                 new ShapeStyle(new Pen(Brushes.DarkGoldenrod), new Pen(Brushes.Honeydew)),
                 new ShapeStyle(new Pen(Brushes.AntiqueWhite), new Pen(Brushes.CadetBlue)),
+                new ShapeStyle(new Pen(Brushes.Azure), new Pen(Brushes.Transparent)),
             };
 
-            Shape triangle = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100))
-            { Style = styles[0] };
-            vectorMap.Add(triangle);
+            //Shape triangle = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100))
+            //{ Style = styles[0] };
+            //vectorMap.Add(triangle);
 
-            Shape circle = new Circle(new Point2D(200, 200), 100)
-            { Style = styles[1] };
-            vectorMap.Add(circle);
+            //Shape circle = new Circle(new Point2D(200, 200), 100)
+            //{ Style = styles[1] };
+            //vectorMap.Add(circle);
 
-            Shape rectf = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100))
-            { Style = styles[2] };
-            vectorMap.Add(rectf);
+            //Shape rectf = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100))
+            //{ Style = styles[2] };
+            //vectorMap.Add(rectf);
 
-            Shape polygon = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) })
-            { Style = styles[3] };
-            vectorMap.Add(polygon);
+            //Shape polygon = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) })
+            //{ Style = styles[3] };
+            //vectorMap.Add(polygon);
 
-            Shape polyline = new Polyline(new List<Point2D>() { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) })
-            { Style = styles[4] };
-            vectorMap.Add(polyline);
+            //Shape polyline = new Polyline(new List<Point2D>() { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) })
+            //{ Style = styles[4] };
+            //vectorMap.Add(polyline);
 
-            Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145))
-            { Style = styles[5] };
-            vectorMap.Add(line);
+            //Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145))
+            //{ Style = styles[5] };
+            //vectorMap.Add(line);
 
-            Shape ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45)
+            //Shape ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45)
+            //{ Style = styles[6] };
+            //vectorMap.Add(ellipse);
+
+            //QuadraticBezier quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150))
+            //{ Style = styles[7] };
+            //vectorMap.Add(quadBezier);
+            //StringBuilder quadBezierLengths = new StringBuilder();
+            ////quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.ArcLengthBySegments());
+            ////quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.ArcLengthByIntegral());
+            ////quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.ApproxArcLength());
+            ////MessageBox.Show(quadBezierLengths.ToString());
+
+            //CubicBezier cubicBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300))
+            //{ Style = styles[8] };
+            //vectorMap.Add(cubicBezier);
+            ////StringBuilder cubicBezierLengths = new StringBuilder();
+            ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.BezierArcLength());
+            ////MessageBox.Show(cubicBezierLengths.ToString());
+
+            Shape set = new PolygonSet(
+                new List<Polygon>(
+                    new List<Polygon>() {
+                        new Polygon( // Boundary
+                            new List<Point2D>() {
+                                new Point2D(10, 10),
+                                new Point2D(300, 10),
+                                new Point2D(300, 300),
+                                new Point2D(10, 300),
+                                // Cut out
+                                new Point2D(10, 200),
+                                new Point2D(200, 80),
+                                new Point2D(10, 150),
+                            }
+                        ){ Style = styles[6] },
+                        new Polygon( // First inner triangle
+                            new List<Point2D>() {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30),
+                            }
+                        ){ Style = styles[6] },
+                        new Polygon( // Second inner triangle
+                            new List<Point2D>() {
+                                new Point2D(250, 150),
+                                new Point2D(150, 150),
+                                new Point2D(250, 200),
+                            }
+                        ){ Style = styles[6] },
+                    }
+                )
+            )
             { Style = styles[6] };
-            vectorMap.Add(ellipse);
+            vectorMap.Add(set);
 
-            QuadraticBezier quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150))
-            { Style = styles[7] };
-            vectorMap.Add(quadBezier);
-            StringBuilder quadBezierLengths = new StringBuilder();
-            //quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.ArcLengthBySegments());
-            //quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.ArcLengthByIntegral());
-            //quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.ApproxArcLength());
-            //MessageBox.Show(quadBezierLengths.ToString());
-
-            CubicBezier cubicBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300))
-            { Style = styles[8] };
-            vectorMap.Add(cubicBezier);
-            //StringBuilder cubicBezierLengths = new StringBuilder();
-            //cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.BezierArcLength());
-            //MessageBox.Show(cubicBezierLengths.ToString());
+            Shape pathPolyline = Experimental.ShortestPath(new Point2D(20, 20), new Point2D(200, 200), (PolygonSet)set);
+            pathPolyline.Style = styles[9];
+            vectorMap.Add(pathPolyline);
 
             listBox1.DataSource = vectorMap.Shapes;
             //listBox1.ValueMember = "Name";

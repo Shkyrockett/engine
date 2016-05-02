@@ -24,6 +24,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Private Fields
+
         /// <summary>
         /// X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
@@ -35,6 +36,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         private double y;
+
         #endregion
 
         #region Constructors

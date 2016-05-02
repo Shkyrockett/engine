@@ -944,5 +944,17 @@ namespace Engine.Geometry
         {
             return n & 0xffff;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T swap = a;
+            a = b;
+            b = swap;
+        }
     }
 }

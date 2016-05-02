@@ -2927,6 +2927,25 @@ namespace Engine
 
         #endregion
 
+        #region Linear Offset Interpolation
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Value1"></param>
+        /// <param name="Value2"></param>
+        /// <param name="Offset"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
+        {
+            Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
+            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
+            return Experimental.LinearInterpolate0(Value1, Value2, Weight).Inflate(PerpendicularAB);
+        }
+
+        #endregion
+
         #region List Cubic Bezier Interpolation Points
 
         /// <summary>
@@ -3806,8 +3825,6 @@ namespace Engine
         // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
         #endregion
 
-
-
         #region Interpolations
 
         /// <summary>
@@ -3903,5 +3920,403 @@ namespace Engine
 
         #endregion
 
+        #region Path finding
+
+        /// <summary>
+        /// This function automatically knows that enclosed polygons are "no-go" areas.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="allPolys"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool PointInPolygonSet(Point2D point, PolygonSet allPolys)
+        {
+            bool oddNodes = false;
+            int polyI, i, j;
+
+            for (polyI = 0; polyI < allPolys.Count; polyI++)
+            {
+                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
+                {
+                    j = i + 1; if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
+                    if (allPolys.Polygons[polyI].Points[i].Y < point.Y
+                    && allPolys.Polygons[polyI].Points[j].Y >= point.Y
+                    || allPolys.Polygons[polyI].Points[j].Y < point.Y
+                    && allPolys.Polygons[polyI].Points[i].Y >= point.Y)
+                    {
+                        if (allPolys.Polygons[polyI].Points[i].X + (point.Y - allPolys.Polygons[polyI].Points[i].Y)
+                        / (allPolys.Polygons[polyI].Points[j].Y - allPolys.Polygons[polyI].Points[i].Y)
+                        * (allPolys.Polygons[polyI].Points[j].X - allPolys.Polygons[polyI].Points[i].X) < point.X)
+                        {
+                            oddNodes = !oddNodes;
+                        }
+                    }
+                }
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// The function will return true if the point x,y is inside the polygon, or
+        /// false if it is not.  If the point is exactly on the edge of the polygon,
+        /// then the function may return true or false.
+        /// </summary>
+        /// <param name="point">point to be tested</param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygon0(Point2D point, Polygon polygon)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// The function will return true if the point x,y is inside the polygon, or
+        /// false if it is not.  If the point is exactly on the edge of the polygon,
+        /// then the function may return true or false.
+        /// </summary>
+        /// <param name="point">point to be tested</param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygon1(Point2D point, Polygon polygon)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y
+                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygon2(Point2D point, Polygon polygon)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                {
+                    oddNodes ^= (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X);
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
+        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static void PrecalcPointInPolygon3Values(Polygon polygon, out double[] constant, out double[] multiple)
+        {
+            constant = new double[polygon.Points.Count];
+            multiple = new double[polygon.Points.Count];
+
+            int i, j = polygon.Points.Count - 1;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                if (polygon[j].Y == polygon[i].Y)
+                {
+                    constant[i] = polygon[i].X;
+                    multiple[i] = 0;
+                }
+                else
+                {
+                    constant[i] = polygon[i].X - (polygon[i].Y * polygon[j].X)
+                        / (polygon[j].Y - polygon[i].Y) + (polygon[i].Y * polygon[i].X)
+                        / (polygon[j].Y - polygon[i].Y);
+                    multiple[i] = (polygon[j].X - polygon[i].X) / (polygon[j].Y - polygon[i].Y);
+                }
+                j = i;
+            }
+        }
+
+        /// <summary>
+        ///  USAGE:
+        ///  Call precalc_values() to initialize the constant[] and multiple[] arrays,
+        ///  then call pointInPolygon(x, y) to determine if the point is in the polygon.
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
+        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygon3(Point2D point, Polygon polygon, double[] constant, double[] multiple)
+        {
+            int i, j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y))
+                {
+                    oddNodes ^= (point.Y * multiple[i] + constant[i] < point.X);
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// This function should be called with the full set of *all* relevant polygons.
+        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
+        /// Note:  As much as possible, this algorithm tries to return YES when the
+        /// test line-segment is exactly on the border of the polygon, particularly
+        /// if the test line-segment *is* a side of a polygon.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="allPolys"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool LineInPolygonSet(Point2D start, Point2D end, PolygonSet allPolys)
+        {
+            double theCos, theSin, dist, sX, sY, eX, eY, rotSX, rotSY, rotEX, rotEY, crossX;
+            int i, j, polyI;
+
+            end.X -= start.X;
+            end.Y -= start.Y; dist = Math.Sqrt(end.X * end.X + end.Y * end.Y);
+            theCos = end.X / dist;
+            theSin = end.Y / dist;
+
+            for (polyI = 0; polyI < allPolys.Count; polyI++)
+            {
+                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
+                {
+                    j = i + 1; if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
+
+                    sX = allPolys.Polygons[polyI].Points[i].X - start.X;
+                    sY = allPolys.Polygons[polyI].Points[i].Y - start.Y;
+                    eX = allPolys.Polygons[polyI].Points[j].X - start.X;
+                    eY = allPolys.Polygons[polyI].Points[j].Y - start.Y;
+                    if (sX == 0.0 && sY == 0.0 && eX == end.X && eY == end.Y
+                    || eX == 0.0 && eY == 0.0 && sX == end.X && sY == end.Y)
+                    {
+                        return true;
+                    }
+
+                    rotSX = sX * theCos + sY * theSin;
+                    rotSY = sY * theCos - sX * theSin;
+                    rotEX = eX * theCos + eY * theSin;
+                    rotEY = eY * theCos - eX * theSin;
+                    if (rotSY < 0.0 && rotEY > 0.0
+
+                    || rotEY < 0.0 && rotSY > 0.0)
+                    {
+                        crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
+                        if (crossX >= 0.0 && crossX <= dist) return false;
+                    }
+
+                    if (rotSY == 0.0 && rotEY == 0.0
+
+                    && (rotSX >= 0.0 || rotEX >= 0.0)
+                    && (rotSX <= dist || rotEX <= dist)
+                    && (rotSX < 0.0 || rotEX < 0.0
+
+                    || rotSX > dist || rotEX > dist))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return PointInPolygonSet(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0), allPolys);
+        }
+
+        /// <summary>
+        /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
+        /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
+        ///  to accommodate all the corners of your polygon set (although it is
+        /// unlikely that anywhere near that many elements will ever be needed).
+        /// Returns YES if the optimal solution was found, or NO if there is no solution.
+        /// If a solution was found, solutionX and solutionY will contain the coordinates
+        /// of the intermediate nodes of the path, in order.  (The startpoint and endpoint
+        /// are assumed, and will not be included in the solution.)
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="allPolys"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static Polyline ShortestPath(Point2D start, Point2D end, PolygonSet allPolys)
+        {
+            // (larger than total solution dist could ever be)
+            double maxLength = double.MaxValue;// 9999999.0;
+
+            List<TestPoint2D> pointList = new List<TestPoint2D>();
+            List<Point2D> solution = new List<Point2D>();
+
+            int pointCount, solutionNodes;
+
+            int treeCount, polyI, i, j, bestI = 0, bestJ;
+            double bestDist, newDist;
+
+            //  Fail if either the startpoint or endpoint is outside the polygon set.
+            if (!PointInPolygonSet(start, allPolys)
+            || !PointInPolygonSet(end, allPolys))
+            {
+                return null;
+            }
+
+            //  If there is a straight-line solution, return with it immediately.
+            if (LineInPolygonSet(start, end, allPolys))
+            {
+                return new Polyline(new List<Point2D>() { start, end });
+            }
+
+            //  Build a point list that refers to the corners of the
+            //  polygons, as well as to the startpoint and endpoint.
+            pointList.Add(start);
+            pointCount = 1;
+            for (polyI = 0; polyI < allPolys.Count; polyI++)
+            {
+                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
+                {
+                    pointList.Add(allPolys.Polygons[polyI].Points[i]);
+                    pointCount++;
+                }
+            }
+
+            pointList.Add(end);
+            pointCount++;
+
+            //  Initialize the shortest-path tree to include just the startpoint.
+            treeCount = 1;
+            pointList[0].TotalDistance = 0.0;
+
+            //  Iteratively grow the shortest-path tree until it reaches the endpoint
+            //  -- or until it becomes unable to grow, in which case exit with failure.
+            bestJ = 0;
+            while (bestJ < pointCount - 1)
+            {
+                bestDist = maxLength;
+                for (i = 0; i < treeCount; i++)
+                {
+                    for (j = treeCount; j < pointCount; j++)
+                    {
+                        if (LineInPolygonSet((Point2D)pointList[i], (Point2D)pointList[j], allPolys))
+                        {
+                            newDist = pointList[i].TotalDistance + PrimitivesExtensions.Distance((Point2D)pointList[i], (Point2D)pointList[j]);
+                            if (newDist < bestDist)
+                            {
+                                bestDist = newDist; bestI = i; bestJ = j;
+                            }
+                        }
+                    }
+                }
+
+                if (bestDist == maxLength) return null;   //  (no solution)
+                pointList[bestJ].Previous = bestI;
+                pointList[bestJ].TotalDistance = bestDist;
+
+                // Swap
+                TestPoint2D temp = pointList[bestJ];
+                pointList[bestJ] = pointList[treeCount];
+                pointList[treeCount] = temp;
+
+                treeCount++;
+            }
+
+            //  Load the solution arrays.
+            solution.Add(start);
+            solutionNodes = -1;
+            i = treeCount - 1;
+            while (i > 0)
+            {
+                i = pointList[i].Previous;
+                solutionNodes++;
+            }
+            j = solutionNodes - 1;
+            i = treeCount - 1;
+            while (j >= 0)
+            {
+                i = pointList[i].Previous;
+                solution.Insert(1, (Point2D)pointList[i]);
+                j--;
+            }
+            solution.Add(end);
+
+            //  Success.
+            return new Polyline(solution);
+        }
+
+        #endregion
     }
 }

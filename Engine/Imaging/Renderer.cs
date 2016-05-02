@@ -1,6 +1,7 @@
 ﻿using Engine.Geometry;
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Engine.Imaging
 {
@@ -23,7 +24,7 @@ namespace Engine.Imaging
             {
                 throw new NullReferenceException("shape is null.");
             }
-            else if (shape is LineSegment) // Line segment needs to be in front of Polyline.
+            else if (shape is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
                 ((LineSegment)shape).Render(g, style);
             }
@@ -34,6 +35,10 @@ namespace Engine.Imaging
             else if (shape is Polygon)
             {
                 ((Polygon)shape).Render(g, style);
+            }
+            else if (shape is PolygonSet)
+            {
+                ((PolygonSet)shape).Render(g, style);
             }
             else if (shape is Rectangle2D)
             {
@@ -75,13 +80,31 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="shape"></param>
         /// <param name="g"></param>
         /// <param name="style"></param>
-        /// <param name="shape"></param>
         public static void Render(this Polygon shape, Graphics g, ShapeStyle style)
         {
             g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
             g.DrawPolygon(style.ForePen, shape.Points.ToPointFArray());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="set"></param>
+        /// <param name="g"></param>
+        /// <param name="style"></param>
+        public static void Render(this PolygonSet set, Graphics g, ShapeStyle style)
+        {
+            GraphicsPath path = new GraphicsPath();
+            foreach (Polygon shape in set.Polygons)
+            {
+                path.AddPolygon(shape.Points.ToPointFArray());
+            }
+
+            g.FillPath(style.BackBrush, path);
+            g.DrawPath(style.ForePen, path);
         }
 
         /// <summary>

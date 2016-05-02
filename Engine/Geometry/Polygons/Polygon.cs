@@ -22,7 +22,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Polygon")]
+    [DisplayName(nameof(Polygon))]
     public class Polygon
         : Shape
     {

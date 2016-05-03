@@ -1,4 +1,4 @@
-﻿// <copyright file="EngineEx.cs">
+﻿// <copyright file="EngineReflection.cs">
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -114,10 +114,13 @@ namespace Engine
         /// <returns></returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
         {
-            return new List<MethodInfo>(from method in type.GetMethods()
-                                        where method.IsStatic == true
-                                        where method.ReturnType == type
-                                        select method);
+            return new List<MethodInfo>
+            (
+                from method in type.GetMethods()
+                where method.IsStatic == true
+                where method.ReturnType == type
+                select method
+            );
         }
 
         /// <summary>
@@ -128,9 +131,12 @@ namespace Engine
         /// <returns></returns>
         private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
         {
-            return new List<Type>(from type in assembly.GetTypes()
-                                  where type.BaseType == classType
-                                  select type);
+            return new List<Type>
+            (
+                from type in assembly.GetTypes()
+                where type.BaseType == classType
+                select type
+            );
         }
 
         /// <summary>
@@ -141,9 +147,12 @@ namespace Engine
         /// <returns></returns>
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
         {
-            return new List<Type>(from type in assembly.GetTypes()
-                                  where type.GetInterfaces().Contains(classType)
-                                  select type);
+            return new List<Type>
+            (
+                from type in assembly.GetTypes()
+                where type.GetInterfaces().Contains(classType)
+                select type
+            );
         }
 
         /// <summary>
@@ -157,9 +166,12 @@ namespace Engine
         /// </remarks>
         private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
         {
-            return new List<Type>(from type in assembly.GetTypes()
-                                  where Attribute.IsDefined(type, attributeType)
-                                  select type);
+            return new List<Type>
+            (
+                from type in assembly.GetTypes()
+                where Attribute.IsDefined(type, attributeType)
+                select type
+            );
         }
     }
 }

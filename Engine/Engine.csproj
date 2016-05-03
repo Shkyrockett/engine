@@ -91,9 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Geometry\Curves\ParametricDelegateCurve.cs" />
+    <Compile Include="Geometry\Curves\Incomplete\ParametricDelegateCurve.cs" />
     <Compile Include="Geometry\ParametricInterpolateors.cs" />
-    <Compile Include="TimeLine.cs" />
+    <Compile Include="Experemental\TimeLine.cs" />
     <Compile Include="Geometry\Curves\Incomplete\ConicSections.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CardinalSpline.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Hyperbola.cs" />

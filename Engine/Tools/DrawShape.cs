@@ -1,4 +1,4 @@
-﻿// <copyright file="Draw.cs" >
+﻿// <copyright file="DrawShape.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -167,7 +167,7 @@ namespace Engine.Tools
         /// <returns></returns>
         public override string ToString()
         {
-            return "DrawShape";
+            return nameof(DrawShape);
         }
 
         /// <summary>

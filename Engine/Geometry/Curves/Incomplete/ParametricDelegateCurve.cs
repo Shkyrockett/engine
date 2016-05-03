@@ -23,11 +23,11 @@ namespace Engine.Geometry
     /// </summary>
     /// <remarks></remarks>
     [Serializable]
-    [GraphicsObject]
+    //[GraphicsObject]
     [DisplayName(nameof(ParametricDelegateCurve))]
     public class ParametricDelegateCurve
         : Shape
-    { 
+    {
         /// <summary>
         /// 
         /// </summary>
@@ -135,10 +135,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Point2D Interpolate(double index)
         {
-            return new Point2D(
-                (offset.X + (2 * Math.Tan(index)) * multiplyer.Width),
-                offset.Y + (2 * -Math.Pow(Math.Cos(index), 2)) * multiplyer.Height
-                );
+            return new Point2D();
         }
 
         /// <summary>

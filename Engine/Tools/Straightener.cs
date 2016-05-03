@@ -221,7 +221,7 @@ namespace Engine.Tools
         /// <returns></returns>
         public override string ToString()
         {
-            return "Straightener";
+            return nameof(Straightener);
         }
 
         /// <summary>

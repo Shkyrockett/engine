@@ -167,7 +167,7 @@ namespace Engine.Tools
         /// <returns></returns>
         public override string ToString()
         {
-            return "DrawShape";
+            return nameof(Select);
         }
 
         /// <summary>

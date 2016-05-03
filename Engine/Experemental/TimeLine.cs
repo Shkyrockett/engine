@@ -6,19 +6,39 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class TimeLine
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private double tick;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private Tuple<double, double> range;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private Dictionary<double, List<Tuple<Delegate, List<object>>>> actions;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TimeLine()
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public List<Tuple<Delegate, List<object>>> this[double index]
         {
             get { return actions[index]; }
@@ -35,18 +55,27 @@ namespace Engine
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double Tick
         {
             get { return tick; }
             set { tick = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Tuple<double, double> Range
         {
             get { return range; }
             set { range = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Dictionary<double, List<Tuple<Delegate, List<object>>>> Actions
         {
             get { return actions; }

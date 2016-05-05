@@ -1364,12 +1364,12 @@ namespace Engine.Geometry
             else
             {
                 value = new Matrix2D(
-                    MathExtensions.ToFloat(firstToken, formatProvider),
-                    MathExtensions.ToFloat(th.NextTokenRequired(), formatProvider),
-                    MathExtensions.ToFloat(th.NextTokenRequired(), formatProvider),
-                    MathExtensions.ToFloat(th.NextTokenRequired(), formatProvider),
-                    MathExtensions.ToFloat(th.NextTokenRequired(), formatProvider),
-                    MathExtensions.ToFloat(th.NextTokenRequired(), formatProvider));
+                    Maths.ToFloat(firstToken, formatProvider),
+                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(th.NextTokenRequired(), formatProvider));
             }
 
             // There should be no more tokens in this string.

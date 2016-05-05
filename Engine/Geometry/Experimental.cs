@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Engine
 {
@@ -11,6 +13,308 @@ namespace Engine
     /// </summary>
     public static class Experimental
     {
+        #region Get Angle
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns>
+        /// Return the angle ABC.
+        /// Return a value between PI and -PI.
+        /// Note that the value is the opposite of what you might
+        /// expect because Y coordinates increase downward.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        public static double Angle(Point2D a, Point2D b, Point2D c)
+        {
+            // Get the dot product.
+            double dotProduct = DotProduct(a, b, c);
+
+            // Get the cross product.
+            double crossProduct = CrossProductLength(a, b, c);
+
+            // Calculate the angle.
+            return Math.Atan2(crossProduct, dotProduct);
+        }
+
+        #endregion
+
+        #region Absolute Angle
+
+        /// <summary>
+        /// Find the absolute positive value of a radian angle from two points.
+        /// </summary>
+        /// <param name="aX">Horizontal Component of Point Starting Point</param>
+        /// <param name="aY">Vertical Component of Point Starting Point</param>
+        /// <param name="bX">Horizontal Component of Ending Point</param>
+        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <returns>The absolute angle of a line in radians.</returns>
+        /// <remarks></remarks>
+        public static double AbsoluteAngle0(double aX, double aY, double bX, double bY)
+        {
+            // Find the angle of point a and point b. 
+            double test = -Maths.Angle(aX, aY, bX, bY) % Math.PI;
+
+            // This should only loop once using the modulus of pi.
+            while (test < 0)
+            {
+                test += Math.PI;
+            }
+
+            return test;
+        }
+
+        /// <summary>
+        /// Find the absolute positive value of a radian angle from two points.
+        /// </summary>
+        /// <param name="aX">Horizontal Component of Point Starting Point</param>
+        /// <param name="aY">Vertical Component of Point Starting Point</param>
+        /// <param name="bX">Horizontal Component of Ending Point</param>
+        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <returns>The absolute angle of a line in radians.</returns>
+        /// <remarks></remarks>
+        public static double AbsoluteAngle1(double aX, double aY, double bX, double bY)
+        {
+            // Find the angle of point a and point b. 
+            double test = -Maths.Angle(aX, aY, bX, bY) % Math.PI;
+            return test < 0 ? test += Math.PI : test;
+        }
+
+        #endregion
+
+        #region Distance
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="aX">First X component.</param>
+        /// <param name="aY">First Y component.</param>
+        /// <param name="bX">Second X component.</param>
+        /// <param name="bY">Second Y component.</param>
+        /// <returns>The distance between two points.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(double aX, double aY, double bX, double bY)
+        {
+            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY));
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="aX">First X component.</param>
+        /// <param name="aY">First Y component.</param>
+        /// <param name="bX">Second X component.</param>
+        /// <param name="bY">Second Y component.</param>
+        /// <returns>The distance between two points.</returns>
+        /// <remarks>
+        /// Source: http://www.vcskicks.com/code-snippet/distance-formula.php.
+        /// </remarks>
+        public static double Distance1(double aX, double aY, double bX, double bY)
+        {
+            // Pythagorean theorem c^2 = a^2 + b^2
+            // thus c = square root(a^2 + b^2)
+            double x = (bX - aX);
+            double y = (bY - aY);
+            return Math.Sqrt(x * x + y * y);
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="aX">First X component.</param>
+        /// <param name="aY">First Y component.</param>
+        /// <param name="aZ">First Z component.</param>
+        /// <param name="bX">Second X component.</param>
+        /// <param name="bY">Second Y component.</param>
+        /// <param name="bZ">Second Z component.</param>
+        /// <returns>The distance between two points.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(double aX, double aY, double aZ, double bX, double bY, double bZ)
+        {
+            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="aX">First X component.</param>
+        /// <param name="aY">First Y component.</param>
+        /// <param name="aZ">First Z component.</param>
+        /// <param name="bX">Second X component.</param>
+        /// <param name="bY">Second Y component.</param>
+        /// <param name="bZ">Second Z component.</param>
+        /// <returns>The distance between two points.</returns>
+        public static double Distance1(double aX, double aY, double aZ, double bX, double bY, double bZ)
+        {
+            double x = (bX - aX);
+            double y = (bY - aY);
+            double z = (bZ - aZ);
+            return Math.Sqrt(x * x + y * y + z * z);
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="xA">First Point X component.</param>
+        /// <param name="yA">First Point Y component.</param>
+        /// <param name="xB">Second Point X component.</param>
+        /// <param name="yB">Second Point Y component.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double Distance2(double xA, double yA, double xB, double yB)
+        {
+            return Maths.Modulus(xA - xB, yA - yB);
+        }
+
+        #endregion
+
+        #region Modulus
+
+        /// <summary>
+        /// Modulus of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Modulus0(double i, double j)
+        {
+            return Math.Sqrt((i * i) + (j * j));
+        }
+
+        /// <summary>
+        /// Modulus of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Modulus1(double i, double j)
+        {
+            return Math.Pow((i * i) + (j * j), 0.5d);
+        }
+
+        #endregion
+
+        #region Dot Product
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns>
+        /// Return the dot product AB · BC.
+        /// </returns>
+        /// <remarks>
+        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
+        /// </remarks>
+        public static double DotProduct(Point2D a, Point2D b, Point2D c)
+        {
+            // Get the vectors' coordinates.
+            double BAx = a.X - b.X;
+            double BAy = a.Y - b.Y;
+            double BCx = c.X - b.X;
+            double BCy = c.Y - b.Y;
+
+            // Calculate the dot product.
+            return (BAx * BCx + BAy * BCy);
+        }
+
+        #endregion
+
+        #region Cross Product
+
+        /// <summary>
+        /// The cross product is a vector perpendicular to AB
+        /// and BC having length |AB| * |BC| * Sin(theta) and
+        /// with direction given by the right-hand rule.
+        /// For two vectors in the X-Y plane, the result is a
+        /// vector with X and Y components 0 so the Z component
+        /// gives the vector's length and direction.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns>
+        /// Return the cross product AB x BC.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        public static double CrossProductLength(Point2D a, Point2D b, Point2D c)
+        {
+            // Get the vectors' coordinates.
+            double bax = a.X - b.X;
+            double bay = a.Y - b.Y;
+            double bcx = c.X - b.X;
+            double bcy = c.Y - b.Y;
+
+            // Calculate the Z coordinate of the cross product.
+            return (bax * bcy - bay * bcx);
+        }
+
+        /// <summary>
+        /// The cross product is a vector perpendicular to AB
+        /// and BC having length |AB| * |BC| * Sin(theta) and
+        /// with direction given by the right-hand rule.
+        /// For two vectors in the X-Y plane, the result is a
+        /// vector with X and Y components 0 so the Z component
+        /// gives the vector's length and direction.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns>
+        /// Return the cross product AB x BC.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        public static double CrossProductVector0(double aX, double aY, double bX, double bY, double cX, double cY)
+        {
+            // Get the vectors' coordinates.
+            double BAx = aX - bX;
+            double BAy = aY - bY;
+            double BCx = cX - bX;
+            double BCy = cY - bY;
+
+            // Calculate the Z coordinate of the cross product.
+            return ((BAx) * (BCy) - (BAy) * (BCx));
+        }
+
+        /// <summary>
+        /// The cross product is a vector perpendicular to AB
+        /// and BC having length |AB| * |BC| * Sin(theta) and
+        /// with direction given by the right-hand rule.
+        /// For two vectors in the X-Y plane, the result is a
+        /// vector with X and Y components 0 so the Z component
+        /// gives the vector's length and direction.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns>
+        /// Return the cross product AB x BC.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        public static double CrossProductVector1(double aX, double aY, double bX, double bY, double cX, double cY)
+        {
+            // Calculate the Z coordinate of the cross product.
+            return ((aX - bX) * (cY - bY) - (aY - bY) * (cX - bX));
+        }
+
+        #endregion
+
         #region Intersection of Point and Point
 
         /// <summary>
@@ -40,6 +344,73 @@ namespace Engine
         public static bool PointNearPoint2(double x1, double y1, double x2, double y2, double close_distance)
         {
             return ((Math.Abs((x2 - x1)) <= close_distance) && (Math.Abs((y2 - y1)) <= close_distance));
+        }
+
+        /// <summary>
+        /// Compares two points for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='point1'>The first point to compare</param>
+        /// <param name='point2'>The second point to compare</param>
+        /// <returns>Whether or not the two points are equal</returns>
+        public static bool AreClose(this Point2D point1, Point2D point2)
+        {
+            return Maths.AreClose(point1.X, point2.X) &&
+            Maths.AreClose(point1.Y, point2.Y);
+        }
+
+        /// <summary>
+        /// Compares two Size instances for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='size1'>The first size to compare</param>
+        /// <param name='size2'>The second size to compare</param>
+        /// <returns>Whether or not the two Size instances are equal</returns>
+        public static bool AreClose(this Size2D size1, Size2D size2)
+        {
+            return Maths.AreClose(size1.Width, size2.Width) &&
+                   Maths.AreClose(size1.Height, size2.Height);
+        }
+
+        /// <summary>
+        /// Compares two Vector instances for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='vector1'>The first Vector to compare</param>
+        /// <param name='vector2'>The second Vector to compare</param>
+        /// <returns>Whether or not the two Vector instances are equal</returns>
+        public static bool AreClose(this Vector2D vector1, Vector2D vector2)
+        {
+            return Maths.AreClose(vector1.I, vector2.I) &&
+                   Maths.AreClose(vector1.J, vector2.J);
+        }
+
+        /// <summary>
+        /// Compares two rectangles for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='rect1'>The first rectangle to compare</param>
+        /// <param name='rect2'>The second rectangle to compare</param>
+        /// <returns>Whether or not the two rectangles are equal</returns>
+        public static bool AreClose(this Rectangle2D rect1, Rectangle2D rect2)
+        {
+            // If they're both empty, don't bother with the double logic.
+            if (rect1.IsEmpty)
+            {
+                return rect2.IsEmpty;
+            }
+
+            // At this point, rect1 isn't empty, so the first thing we can test is
+            // rect2.IsEmpty, followed by property-wise compares.
+            return (!rect2.IsEmpty) &&
+                Maths.AreClose(rect1.X, rect2.X) &&
+                Maths.AreClose(rect1.Y, rect2.Y) &&
+                Maths.AreClose(rect1.Height, rect2.Height) &&
+                Maths.AreClose(rect1.Width, rect2.Width);
         }
 
         #endregion
@@ -587,6 +958,130 @@ namespace Engine
                                 );
         }
 
+        /// <summary>
+        /// Return True if the segments intersect.
+        /// </summary>
+        /// <param name="X1"></param>
+        /// <param name="Y1"></param>
+        /// <param name="X2"></param>
+        /// <param name="Y2"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool SegmentsIntersect(double X1, double Y1, double X2, double Y2, double A1, double B1, double A2, double B2)
+        {
+            double dx = (X2 - X1);
+            double dy = (Y2 - Y1);
+            double da = (A2 - A1);
+            double db = (B2 - B1);
+            if ((((da * dy) - (db * dx)) == 0)) return false; //  The segments are parallel.
+            double s = (((dx * (B1 - Y1)) + (dy * (X1 - A1))) / ((da * dy) - (db * dx)));
+            double t = (((da * (Y1 - B1)) + (db * (A1 - X1))) / ((db * dx) - (da * dy)));
+
+            return ((s >= 0.0d) && (s <= 1.0d) && (t >= 0.0d) && (t <= 1.0d));
+
+            // If it exists, the point of intersection is:
+            // (x1 + t * dx, y1 + t * dy)
+        }
+
+        #endregion
+
+        #region Closest Point on line
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        private static Point2D ClosestPointOnLineSegmentMvG(Point2D a, Point2D b, Point2D p)
+        {
+            // Vector A->B
+            Point2D diffAB = new Point2D(a.X - b.X, a.Y - b.Y);
+
+            double det = a.Y * b.X - a.X * b.Y;
+
+            double dot = diffAB.X * p.X + diffAB.Y * p.Y;
+
+            Point2D val = new Point2D(dot * diffAB.X + det * diffAB.Y, dot * diffAB.Y - det * diffAB.X);
+
+            double magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+
+            double inverseDist = 1 / magnitude;
+
+            return new Point2D(val.X * inverseDist, val.Y * inverseDist);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        private static Point2D ClosestPointOnLineSegmentDarienPardinas(Point2D a, Point2D b, Point2D p)
+        {
+            // Vector A->P 
+            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
+
+            // Vector A->B
+            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
+
+            double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+
+            // The dot product of diffAP and diffAB
+            double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+
+            //  # The normalized "distance" from a to the closest point
+            double dist = dotABAP / dotAB;
+
+            if (dist < 0)
+            {
+                return a;
+            }
+            else if (dist > dotABAP)
+            {
+                return b;
+            }
+            else
+            {
+                return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        private static Point2D ClosestPointOnLineDarienPardinas(Point2D a, Point2D b, Point2D p)
+        {
+            // Vector A->P 
+            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
+
+            // Vector A->B
+            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
+
+            double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+
+            // The dot product of diffAP and diffAB
+            double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+
+            // The normalized "distance" from a to the closest point
+            double dist = dotABAP / dotAB;
+
+            return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
+        }
+
         #endregion
 
         #region Circle Properties
@@ -626,6 +1121,37 @@ namespace Engine
             double Radius = (Center.Length(PointA));
             Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
             return Bounds;
+        }
+
+        #endregion
+
+        #region Point in Circle
+
+        /// <summary>
+        /// Find out if a Point is in a Circle. 
+        /// </summary>
+        /// <param name="circle"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static bool PointInCircle(this Circle circle, Point2D point)
+        {
+            return (circle.Radius > circle.Center.Length(point));
+        }
+
+        #endregion
+
+        #region Point in Arc
+
+        /// <summary>
+        /// Find out if a Point is in an Arc. 
+        /// </summary>
+        /// <param name="arc"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static bool PointInArc(this Arc arc, Point2D point)
+        {
+            //ToDo: Locate the position in relation to the arc start and end points chord.
+            return (arc.Radius > arc.Center.Length(point));
         }
 
         #endregion
@@ -3562,16 +4088,16 @@ namespace Engine
                     // deal with IEEE rounding yielding <-1 or >1
                     cosphi = t < -1 ? -1 : t > 1 ? 1 : t,
                     phi = Math.Acos(cosphi),
-                    crtr = MathExtensions.Crt(r),
+                    crtr = Maths.Crt(r),
                     t1 = 2 * crtr;
                 x1 = t1 * Math.Cos(phi / 3) - a / 3;
-                x2 = t1 * Math.Cos((phi + MathExtensions.Tau) / 3) - a / 3;
-                x3 = t1 * Math.Cos((phi + 2 * MathExtensions.Tau) / 3) - a / 3;
+                x2 = t1 * Math.Cos((phi + Maths.Tau) / 3) - a / 3;
+                x3 = t1 * Math.Cos((phi + 2 * Maths.Tau) / 3) - a / 3;
                 return new List<double>() { x1, x2, x3 };
             }
             else if (discriminant == 0)
             {
-                u1 = q2 < 0 ? MathExtensions.Crt(-q2) : -MathExtensions.Crt(q2);
+                u1 = q2 < 0 ? Maths.Crt(-q2) : -Maths.Crt(q2);
                 x1 = 2 * u1 - a / 3;
                 x2 = -u1 - a / 3;
                 return new List<double>() { x1, x2 };
@@ -3581,8 +4107,8 @@ namespace Engine
                 // one real root, and two imaginary roots
                 double sd = Math.Sqrt(discriminant);
                 double tt = -q2 + sd;
-                u1 = MathExtensions.Crt(-q2 + sd);
-                v1 = MathExtensions.Crt(q2 + sd);
+                u1 = Maths.Crt(-q2 + sd);
+                v1 = Maths.Crt(q2 + sd);
                 x1 = u1 - v1 - a / 3;
                 return new List<double>() { x1 };
             }
@@ -3804,7 +4330,7 @@ namespace Engine
             // Evaluate the integral arc length along entire curve from t=0 to t=1.
             for (int index = 0; index < count; ++index)
             {
-                theta = ab2 + mult * MathExtensions.abscissa[startl + index];
+                theta = ab2 + mult * Maths.abscissa[startl + index];
 
                 // First-derivative of the quadratic bezier.
                 xPrime = coeff1X + 2.0 * coeff2X * theta;
@@ -3813,7 +4339,7 @@ namespace Engine
                 // Integrand for Gauss-Legendre numerical integration.
                 integrand = Math.Sqrt(xPrime * xPrime + yPrime * yPrime);
 
-                sum += integrand * MathExtensions.weight[startl + index];
+                sum += integrand * Maths.weight[startl + index];
             }
 
             return mult == 0 ? sum : mult * sum;
@@ -3920,282 +4446,163 @@ namespace Engine
 
         #endregion
 
-        #region Polygon Path finding
+        #region Polygon Centroid
 
         /// <summary>
-        /// This function automatically knows that enclosed polygons are "no-go" areas.
+        /// Find the polygon's centroid.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="allPolys"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static bool PointInPolygonSet(Point2D point, PolygonSet allPolys)
-        {
-            bool oddNodes = false;
-            int polyI, i, j;
-
-            for (polyI = 0; polyI < allPolys.Count; polyI++)
-            {
-                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
-                {
-                    j = i + 1; if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
-                    if (allPolys.Polygons[polyI].Points[i].Y < point.Y
-                    && allPolys.Polygons[polyI].Points[j].Y >= point.Y
-                    || allPolys.Polygons[polyI].Points[j].Y < point.Y
-                    && allPolys.Polygons[polyI].Points[i].Y >= point.Y)
-                    {
-                        if (allPolys.Polygons[polyI].Points[i].X + (point.Y - allPolys.Polygons[polyI].Points[i].Y)
-                        / (allPolys.Polygons[polyI].Points[j].Y - allPolys.Polygons[polyI].Points[i].Y)
-                        * (allPolys.Polygons[polyI].Points[j].X - allPolys.Polygons[polyI].Points[i].X) < point.X)
-                        {
-                            oddNodes = !oddNodes;
-                        }
-                    }
-                }
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        /// The function will return true if the point x,y is inside the polygon, or
-        /// false if it is not.  If the point is exactly on the edge of the polygon,
-        /// then the function may return true or false.
-        /// </summary>
-        /// <param name="point">point to be tested</param>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygon0(Point2D point, Polygon polygon)
-        {
-            int i;
-            int j = polygon.Points.Count - 1;
-            bool oddNodes = false;
-
-            for (i = 0; i < polygon.Points.Count; i++)
-            {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                {
-                    if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
-                    {
-                        oddNodes = !oddNodes;
-                    }
-                }
-
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        /// The function will return true if the point x,y is inside the polygon, or
-        /// false if it is not.  If the point is exactly on the edge of the polygon,
-        /// then the function may return true or false.
-        /// </summary>
-        /// <param name="point">point to be tested</param>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygon1(Point2D point, Polygon polygon)
-        {
-            int i;
-            int j = polygon.Points.Count - 1;
-            bool oddNodes = false;
-
-            for (i = 0; i < polygon.Points.Count; i++)
-            {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
-                {
-                    if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
-                    {
-                        oddNodes = !oddNodes;
-                    }
-                }
-
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        ///  The function will return YES if the point x,y is inside the polygon, or
-        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
-        ///  then the function may return YES or NO.
-        /// </summary>
-        /// <param name="point"></param>
         /// <param name="polygon"></param>
         /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygon2(Point2D point, Polygon polygon)
+        /// <remarks>http://csharphelper.com/blog/2014/07/find-the-centroid-of-a-polygon-in-c/</remarks>
+        public static Point2D Centroid(this Polygon polygon)
         {
-            int i;
-            int j = polygon.Points.Count - 1;
-            bool oddNodes = false;
+            // Add the first point at the end of the array.
+            int num_points = polygon.Points.Count;
+            Point2D[] pts = new Point2D[num_points + 1];
+            polygon.Points.CopyTo(pts, 0);
+            pts[num_points] = polygon.Points[0];
 
-            for (i = 0; i < polygon.Points.Count; i++)
+            // Find the centroid.
+            double X = 0;
+            double Y = 0;
+            double second_factor;
+            for (int i = 0; i < num_points; i++)
             {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
-                {
-                    oddNodes ^= (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X);
-                }
-
-                j = i;
+                second_factor =
+                    pts[i].X * pts[i + 1].Y -
+                    pts[i + 1].X * pts[i].Y;
+                X += (pts[i].X + pts[i + 1].X) * second_factor;
+                Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
             }
 
-            return oddNodes;
+            // Divide by 6 times the polygon's area.
+            double polygon_area = polygon.PolygonArea();
+            X /= (6 * polygon_area);
+            Y /= (6 * polygon_area);
+
+            // If the values are negative, the polygon is
+            // oriented counterclockwise so reverse the signs.
+            if (X < 0)
+            {
+                X = -X;
+                Y = -Y;
+            }
+
+            return new Point2D(X, Y);
+        }
+
+        #endregion
+
+        #region Polygon Area
+
+        /// <summary>
+        /// Add the areas of the trapezoids defined by the
+        /// polygon's edges dropped to the X-axis. When the
+        /// program considers a bottom edge of a polygon, the
+        /// calculation gives a negative area so the space
+        /// between the polygon and the axis is subtracted,
+        /// leaving the polygon's area. This method gives odd
+        /// results for non-simple polygons.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns>
+        /// Return the polygon's area in "square units."
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/</remarks>
+        public static double PolygonArea(this Polygon polygon)
+        {
+            // Return the absolute value of the signed area.
+            // The signed area is negative if the polygon is
+            // oriented clockwise.
+            return Math.Abs(polygon.SignedPolygonArea());
         }
 
         /// <summary>
-        /// 
+        /// Add the areas of the trapezoids defined by the
+        /// polygon's edges dropped to the X-axis. When the
+        /// program considers a bottom edge of a polygon, the
+        /// calculation gives a negative area so the space
+        /// between the polygon and the axis is subtracted,
+        /// leaving the polygon's area. This method gives odd
+        /// results for non-simple polygons.
+        /// The value will be negative if the polygon is
+        /// oriented clockwise.
         /// </summary>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
-        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static void PrecalcPointInPolygon3Values(Polygon polygon, out double[] constant, out double[] multiple)
+        /// <returns>
+        /// Return the polygon's area in "square units."
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/</remarks>
+        public static double SignedPolygonArea(this Polygon polygon)
         {
-            constant = new double[polygon.Points.Count];
-            multiple = new double[polygon.Points.Count];
+            // Add the first point to the end.
+            int num_points = polygon.Points.Count;
+            Point2D[] pts = new Point2D[num_points + 1];
+            polygon.Points.CopyTo(pts, 0);
+            pts[num_points] = polygon.Points[0];
 
-            int i, j = polygon.Points.Count - 1;
-
-            for (i = 0; i < polygon.Points.Count; i++)
+            // Get the areas.
+            double area = 0;
+            for (int i = 0; i < num_points; i++)
             {
-                if (polygon[j].Y == polygon[i].Y)
-                {
-                    constant[i] = polygon[i].X;
-                    multiple[i] = 0;
-                }
-                else
-                {
-                    constant[i] = polygon[i].X - (polygon[i].Y * polygon[j].X)
-                        / (polygon[j].Y - polygon[i].Y) + (polygon[i].Y * polygon[i].X)
-                        / (polygon[j].Y - polygon[i].Y);
-                    multiple[i] = (polygon[j].X - polygon[i].X) / (polygon[j].Y - polygon[i].Y);
-                }
-                j = i;
+                area +=
+                    (pts[i + 1].X - pts[i].X) *
+                    (pts[i + 1].Y + pts[i].Y) / 2;
             }
+
+            // Return the result.
+            return area;
         }
+
+        #endregion
+
+        #region Is Convex
 
         /// <summary>
-        ///  USAGE:
-        ///  Call precalc_values() to initialize the constant[] and multiple[] arrays,
-        ///  then call pointInPolygon(x, y) to determine if the point is in the polygon.
-        ///
-        ///  The function will return YES if the point x,y is inside the polygon, or
-        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
-        ///  then the function may return YES or NO.
+        /// For each set of three adjacent points A, B, C,
+        /// find the dot product AB · BC. If the sign of
+        /// all the dot products is the same, the angles
+        /// are all positive or negative (depending on the
+        /// order in which we visit them) so the polygon
+        /// is convex.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
-        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
-        /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygon3(Point2D point, Polygon polygon, double[] constant, double[] multiple)
+        /// <returns>
+        /// Return true if the polygon is convex.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-polygon-is-convex-in-c/</remarks>
+        public static bool IsConvex(this Polygon polygon)
         {
-            int i, j = polygon.Points.Count - 1;
-            bool oddNodes = false;
-
-            for (i = 0; i < polygon.Points.Count; i++)
+            bool got_negative = false;
+            bool got_positive = false;
+            int num_points = polygon.Points.Count;
+            int B, C;
+            for (int A = 0; A < num_points; A++)
             {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y))
+                B = (A + 1) % num_points;
+                C = (B + 1) % num_points;
+
+                double cross_product =
+                    Maths.CrossProductVector(
+                        polygon.Points[A].X, polygon.Points[A].Y,
+                        polygon.Points[B].X, polygon.Points[B].Y,
+                        polygon.Points[C].X, polygon.Points[C].Y);
+                if (cross_product < 0)
                 {
-                    oddNodes ^= (point.Y * multiple[i] + constant[i] < point.X);
+                    got_negative = true;
                 }
-                j = i;
+                else if (cross_product > 0)
+                {
+                    got_positive = true;
+                }
+                if (got_negative && got_positive) return false;
             }
 
-            return oddNodes;
+            // If we got this far, the polygon is convex.
+            return true;
         }
 
-        /// <summary>
-        /// This function should be called with the full set of *all* relevant polygons.
-        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
-        /// Note:  As much as possible, this algorithm tries to return YES when the
-        /// test line-segment is exactly on the border of the polygon, particularly
-        /// if the test line-segment *is* a side of a polygon.
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="allPolys"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static bool LineInPolygonSet(Point2D start, Point2D end, PolygonSet allPolys)
-        {
-            double theCos, theSin, dist, sX, sY, eX, eY, rotSX, rotSY, rotEX, rotEY, crossX;
-            int i, j, polyI;
+        #endregion
 
-            end.X -= start.X;
-            end.Y -= start.Y; dist = Math.Sqrt(end.X * end.X + end.Y * end.Y);
-            theCos = end.X / dist;
-            theSin = end.Y / dist;
-
-            for (polyI = 0; polyI < allPolys.Count; polyI++)
-            {
-                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
-                {
-                    j = i + 1; if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
-
-                    sX = allPolys.Polygons[polyI].Points[i].X - start.X;
-                    sY = allPolys.Polygons[polyI].Points[i].Y - start.Y;
-                    eX = allPolys.Polygons[polyI].Points[j].X - start.X;
-                    eY = allPolys.Polygons[polyI].Points[j].Y - start.Y;
-                    if (sX == 0.0 && sY == 0.0 && eX == end.X && eY == end.Y
-                    || eX == 0.0 && eY == 0.0 && sX == end.X && sY == end.Y)
-                    {
-                        return true;
-                    }
-
-                    rotSX = sX * theCos + sY * theSin;
-                    rotSY = sY * theCos - sX * theSin;
-                    rotEX = eX * theCos + eY * theSin;
-                    rotEY = eY * theCos - eX * theSin;
-                    if (rotSY < 0.0 && rotEY > 0.0
-
-                    || rotEY < 0.0 && rotSY > 0.0)
-                    {
-                        crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
-                        if (crossX >= 0.0 && crossX <= dist) return false;
-                    }
-
-                    if (rotSY == 0.0 && rotEY == 0.0
-
-                    && (rotSX >= 0.0 || rotEX >= 0.0)
-                    && (rotSX <= dist || rotEX <= dist)
-                    && (rotSX < 0.0 || rotEX < 0.0
-
-                    || rotSX > dist || rotEX > dist))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return PointInPolygonSet(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0), allPolys);
-        }
+        #region Polygon Path finding
 
         /// <summary>
         /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
@@ -4315,6 +4722,822 @@ namespace Engine
 
             //  Success.
             return new Polyline(solution);
+        }
+
+        /// <summary>
+        /// This function automatically knows that enclosed polygons are "no-go" areas.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="allPolys"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool PointInPolygonSet(Point2D point, PolygonSet allPolys)
+        {
+            bool oddNodes = false;
+            int polyI, i, j;
+
+            for (polyI = 0; polyI < allPolys.Count; polyI++)
+            {
+                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
+                {
+                    j = i + 1; if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
+                    if (allPolys.Polygons[polyI].Points[i].Y < point.Y
+                    && allPolys.Polygons[polyI].Points[j].Y >= point.Y
+                    || allPolys.Polygons[polyI].Points[j].Y < point.Y
+                    && allPolys.Polygons[polyI].Points[i].Y >= point.Y)
+                    {
+                        if (allPolys.Polygons[polyI].Points[i].X + (point.Y - allPolys.Polygons[polyI].Points[i].Y)
+                        / (allPolys.Polygons[polyI].Points[j].Y - allPolys.Polygons[polyI].Points[i].Y)
+                        * (allPolys.Polygons[polyI].Points[j].X - allPolys.Polygons[polyI].Points[i].X) < point.X)
+                        {
+                            oddNodes = !oddNodes;
+                        }
+                    }
+                }
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// This function should be called with the full set of *all* relevant polygons.
+        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
+        /// Note:  As much as possible, this algorithm tries to return YES when the
+        /// test line-segment is exactly on the border of the polygon, particularly
+        /// if the test line-segment *is* a side of a polygon.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="allPolys"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool LineInPolygonSet(Point2D start, Point2D end, PolygonSet allPolys)
+        {
+            double theCos, theSin, dist, sX, sY, eX, eY, rotSX, rotSY, rotEX, rotEY, crossX;
+            int i, j, polyI;
+
+            end.X -= start.X;
+            end.Y -= start.Y; dist = Math.Sqrt(end.X * end.X + end.Y * end.Y);
+            theCos = end.X / dist;
+            theSin = end.Y / dist;
+
+            for (polyI = 0; polyI < allPolys.Count; polyI++)
+            {
+                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
+                {
+                    j = i + 1; if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
+
+                    sX = allPolys.Polygons[polyI].Points[i].X - start.X;
+                    sY = allPolys.Polygons[polyI].Points[i].Y - start.Y;
+                    eX = allPolys.Polygons[polyI].Points[j].X - start.X;
+                    eY = allPolys.Polygons[polyI].Points[j].Y - start.Y;
+                    if (sX == 0.0 && sY == 0.0 && eX == end.X && eY == end.Y
+                    || eX == 0.0 && eY == 0.0 && sX == end.X && sY == end.Y)
+                    {
+                        return true;
+                    }
+
+                    rotSX = sX * theCos + sY * theSin;
+                    rotSY = sY * theCos - sX * theSin;
+                    rotEX = eX * theCos + eY * theSin;
+                    rotEY = eY * theCos - eX * theSin;
+                    if (rotSY < 0.0 && rotEY > 0.0
+
+                    || rotEY < 0.0 && rotSY > 0.0)
+                    {
+                        crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
+                        if (crossX >= 0.0 && crossX <= dist) return false;
+                    }
+
+                    if (rotSY == 0.0 && rotEY == 0.0
+
+                    && (rotSX >= 0.0 || rotEX >= 0.0)
+                    && (rotSX <= dist || rotEX <= dist)
+                    && (rotSX < 0.0 || rotEX < 0.0
+
+                    || rotSX > dist || rotEX > dist))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return PointInPolygonSet(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0), allPolys);
+        }
+
+        #endregion
+
+        #region Point in Polygon
+
+        /// <summary>
+        /// The function will return true if the point x,y is inside the polygon, or
+        /// false if it is not.  If the point is exactly on the edge of the polygon,
+        /// then the function may return true or false.
+        /// </summary>
+        /// <param name="point">point to be tested</param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonDarelRexFinley(Point2D point, Polygon polygon)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// The function will return true if the point x,y is inside the polygon, or
+        /// false if it is not.  If the point is exactly on the edge of the polygon,
+        /// then the function may return true or false.
+        /// </summary>
+        /// <param name="point">point to be tested</param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonNathanMercer(Point2D point, Polygon polygon)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y
+                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonLaschaLagidse(Point2D point, Polygon polygon)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                {
+                    oddNodes ^= (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X);
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        ///  USAGE:
+        ///  Call precalc_values() to initialize the constant[] and multiple[] arrays,
+        ///  then call pointInPolygon(x, y) to determine if the point is in the polygon.
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
+        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonPatrickMullen(Point2D point, Polygon polygon, double[] constant, double[] multiple)
+        {
+            int i, j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y))
+                {
+                    oddNodes ^= (point.Y * multiple[i] + constant[i] < point.X);
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
+        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static void PrecalcPointInPolygonPatrickMullenValues(Polygon polygon, out double[] constant, out double[] multiple)
+        {
+            constant = new double[polygon.Points.Count];
+            multiple = new double[polygon.Points.Count];
+
+            int i, j = polygon.Points.Count - 1;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                if (polygon[j].Y == polygon[i].Y)
+                {
+                    constant[i] = polygon[i].X;
+                    multiple[i] = 0;
+                }
+                else
+                {
+                    constant[i] = polygon[i].X - (polygon[i].Y * polygon[j].X)
+                        / (polygon[j].Y - polygon[i].Y) + (polygon[i].Y * polygon[i].X)
+                        / (polygon[j].Y - polygon[i].Y);
+                    multiple[i] = (polygon[j].X - polygon[i].X) / (polygon[j].Y - polygon[i].Y);
+                }
+                j = i;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
+        public static bool PointInPolygonSaeedAmiri(this Polygon polygon, Point2D point)
+        {
+            var coef = polygon.Points.Skip(1).Select((p, i) =>
+                                            (point.Y - polygon[i].Y) * (p.X - polygon[i].X)
+                                          - (point.X - polygon[i].X) * (p.Y - polygon[i].Y))
+                                    .ToList();
+
+            if (coef.Any(p => p == 0))
+                return true;
+
+            for (int i = 1; i < coef.Count(); i++)
+            {
+                if (coef[i] * coef[i - 1] < 0)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+        /// https://social.msdn.microsoft.com/Forums/windows/en-US/95055cdc-60f8-4c22-8270-ab5f9870270a/determine-if-the-point-is-in-the-polygon-c?forum=winforms
+        /// </remarks>
+        public static bool PointInPolygonKeith(this Polygon polygon, Point2D point)
+        {
+            Point2D p1;
+            Point2D p2;
+            bool inside = false;
+            if (polygon.Points.Count < 3)
+            {
+                return inside;
+            }
+            var oldPoint = new Point2D(
+                polygon.Points[polygon.Points.Count - 1].X, polygon.Points[polygon.Points.Count - 1].Y);
+            for (int i = 0; i < polygon.Points.Count; i++)
+            {
+                var newPoint = new Point2D(polygon.Points[i].X, polygon.Points[i].Y);
+                if (newPoint.X > oldPoint.X)
+                {
+                    p1 = oldPoint;
+                    p2 = newPoint;
+                }
+                else
+                {
+                    p1 = newPoint;
+                    p2 = oldPoint;
+                }
+                if ((newPoint.X < point.X) == (point.X <= oldPoint.X)
+                    && (point.Y - (long)p1.Y) * (p2.X - p1.X)
+                    < (p2.Y - (long)p1.Y) * (point.X - p1.X))
+                {
+                    inside = !inside;
+                }
+                oldPoint = newPoint;
+            }
+            return inside;
+        }
+
+        /// <summary>
+        /// Determines if the given point is inside the polygon
+        /// </summary>
+        /// <param name="polygon">the vertices of polygon</param>
+        /// <param name="point">the given point</param>
+        /// <returns>true if the point is inside the polygon; otherwise, false</returns>
+        /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
+        public static bool PointInPolygonMeowNET(this Polygon polygon, Point2D point)
+        {
+            bool result = false;
+            int j = polygon.Points.Count() - 1;
+            for (int i = 0; i < polygon.Points.Count(); i++)
+            {
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        result = !result;
+                    }
+                }
+                j = i;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://alienryderflex.com/polygon/
+        ///  Globals which should be set before calling this function:
+        ///
+        ///  int    polyCorners  =  how many corners the polygon has (no repeats)
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
+        ///
+        ///  (Globals are used in this example for purposes of speed.  Change as
+        ///  desired.)
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        ///
+        ///  Note that division by zero is avoided because the division is protected
+        ///  by the "if" clause which surrounds it.
+        /// </remarks>
+        public static bool PointInPolygonAlienRyderFlex(this Polygon polygon, Point2D point)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                if (polygon.Points[i].Y < point.Y && polygon.Points[j].Y >= point.Y
+                || polygon.Points[j].Y < point.Y && polygon.Points[i].Y >= point.Y)
+                {
+                    if (polygon.Points[i].X + (point.Y - polygon.Points[i].Y) / (polygon.Points[j].Y - polygon.Points[i].Y) * (polygon.Points[j].X - polygon.Points[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://alienryderflex.com/polygon/
+        ///  Globals which should be set before calling this function:
+        ///
+        ///  int    polyCorners  =  how many corners the polygon has (no repeats)
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
+        ///
+        ///  (Globals are used in this example for purposes of speed.  Change as
+        ///  desired.)
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        ///
+        ///  Note that division by zero is avoided because the division is protected
+        ///  by the "if" clause which surrounds it.
+        /// </remarks>
+        public static bool PointInPolygonNathanMercer(this Polygon polygon, Point2D point)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                if ((polygon.Points[i].Y < point.Y && polygon.Points[j].Y >= point.Y
+                || polygon.Points[j].Y < point.Y && polygon.Points[i].Y >= point.Y)
+                && (polygon.Points[i].X <= point.X || polygon.Points[j].X <= point.X))
+                {
+                    if (polygon.Points[i].X + (point.Y - polygon.Points[i].Y) / (polygon.Points[j].Y - polygon.Points[i].Y) * (polygon.Points[j].X - polygon.Points[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://alienryderflex.com/polygon/
+        ///  Globals which should be set before calling this function:
+        ///
+        ///  int    polyCorners  =  how many corners the polygon has (no repeats)
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
+        ///
+        ///  (Globals are used in this example for purposes of speed.  Change as
+        ///  desired.)
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        ///
+        ///  Note that division by zero is avoided because the division is protected
+        ///  by the "if" clause which surrounds it.
+        /// </remarks>
+        public static bool PointInPolygonLaschaLagidse(this Polygon polygon, Point2D point)
+        {
+            int i;
+            int j = polygon.Points.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                if ((polygon.Points[i].Y < point.Y && polygon.Points[j].Y >= point.Y
+                || polygon.Points[j].Y < point.Y && polygon.Points[i].Y >= point.Y)
+                && (polygon.Points[i].X <= point.X || polygon.Points[j].X <= point.X))
+                {
+                    oddNodes ^= (polygon.Points[i].X + (point.Y - polygon.Points[i].Y) / (polygon.Points[j].Y - polygon.Points[i].Y) * (polygon.Points[j].X - polygon.Points[i].X) < point.X);
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+        /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
+        /// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+        /// </remarks>
+        public static bool PointInPolygonGilKr(this Polygon polygon, Point2D point)
+        {
+            int i, j;
+            int nvert = polygon.Points.Count;
+            bool c = false;
+            for (i = 0, j = nvert - 1; i < nvert; j = i++)
+            {
+                if (((polygon.Points[i].Y > point.Y) != (polygon.Points[j].Y > point.Y)) &&
+                 (point.X < (polygon.Points[j].X - polygon.Points[i].X) * (point.Y - polygon.Points[i].Y) / (polygon.Points[j].Y - polygon.Points[i].Y) + polygon.Points[i].X))
+                    c = !c;
+            }
+            return c;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test</remarks>
+        public static bool PointInPolygonMKatz(this Polygon polygon, Point2D point)
+        {
+            double minX = polygon.Points[0].X;
+            double maxX = polygon.Points[0].X;
+            double minY = polygon.Points[0].Y;
+            double maxY = polygon.Points[0].Y;
+            for (int i = 1; i < polygon.Points.Count; i++)
+            {
+                Point2D q = polygon.Points[i];
+                minX = Math.Min(q.X, minX);
+                maxX = Math.Max(q.X, maxX);
+                minY = Math.Min(q.Y, minY);
+                maxY = Math.Max(q.Y, maxY);
+            }
+
+            if (point.X < minX || point.X > maxX || point.Y < minY || point.Y > maxY)
+            {
+                return false;
+            }
+
+            // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+            bool inside = false;
+            for (int i = 0, j = polygon.Points.Count - 1; i < polygon.Points.Count; j = i++)
+            {
+                if ((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y) &&
+                     point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) + polygon[i].X)
+                {
+                    inside = !inside;
+                }
+            }
+
+            return inside;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns>Return true if the point is in the polygon.</returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        public static bool PointInPolygonRodStephens(this Polygon polygon, Point2D point)
+        {
+            // Get the angle between the point and the
+            // first and last vertices.
+            int max_point = polygon.Points.Count - 1;
+            double total_angle = Maths.AngleVector(
+                polygon.Points[max_point].X, polygon.Points[max_point].Y,
+                point.X, point.Y,
+                polygon.Points[0].X, polygon.Points[0].Y);
+
+            // Add the angles from the point
+            // to each other pair of vertices.
+            for (int i = 0; i < max_point; i++)
+            {
+                total_angle += Maths.AngleVector(
+                    polygon.Points[i].X, polygon.Points[i].Y,
+                    point.X, point.Y,
+                    polygon.Points[i + 1].X, polygon.Points[i + 1].Y);
+            }
+
+            // The total angle should be 2 * PI or -2 * PI if
+            // the point is in the polygon and close to zero
+            // if the point is outside the polygon.
+            return (Math.Abs(total_angle) > 0.000001);
+        }
+
+        #endregion
+
+        #region Find Ear
+
+        /// <summary>
+        /// Find the indexes of three points that form an "ear."
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static Triangle FindEar(this Polygon polygon, ref int A, ref int B, ref int C)
+        {
+            int num_points = polygon.Points.Count;
+
+            for (A = 0; A < num_points; A++)
+            {
+                B = (A + 1) % num_points;
+                C = (B + 1) % num_points;
+
+                if (FormsEar(polygon, A, B, C)) return new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]);
+            }
+
+            // We should never get here because there should
+            // always be at least two ears.
+            Debug.Assert(false);
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <returns>Return true if the three points form an ear.</returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        private static bool FormsEar(this Polygon polygon, int A, int B, int C)
+        {
+            // See if the angle ABC is concave.
+            if (Maths.AngleVector(
+                polygon.Points[A].X, polygon.Points[A].Y,
+                polygon.Points[B].X, polygon.Points[B].Y,
+                polygon.Points[C].X, polygon.Points[C].Y) > 0)
+            {
+                // This is a concave corner so the triangle
+                // cannot be an ear.
+                return false;
+            }
+
+            // Make the triangle A, B, C.
+            Triangle triangle = new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]);
+
+            // Check the other points to see 
+            // if they lie in triangle A, B, C.
+            for (int i = 0; i < polygon.Points.Count; i++)
+            {
+                if ((i != A) && (i != B) && (i != C))
+                {
+                    if (triangle.PointInPolygonRodStephens(polygon.Points[i]))
+                    {
+                        // This point is in the triangle 
+                        // do this is not an ear.
+                        return false;
+                    }
+                }
+            }
+
+            // This is an ear.
+            return true;
+        }
+
+        #endregion
+
+        #region Misc
+
+        /// <summary>
+        /// rectHasNaN - this returns true if this rectangle has X, Y , Height or Width as NaN.
+        /// </summary>
+        /// <param name='rect'>The rectangle to test</param>
+        /// <returns>returns whether the Rectangle has NaN</returns>        
+        public static bool RectHasNaN(this Rectangle2D rect)
+        {
+            if (double.IsNaN(rect.X)
+                 || double.IsNaN(rect.Y)
+                 || double.IsNaN(rect.Height)
+                 || double.IsNaN(rect.Width))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Remove an ear from the polygon and add it to the triangles array.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="triangles"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static void RemoveEar(this Polygon polygon, List<Triangle> triangles)
+        {
+            // Find an ear.
+            int A = 0;
+            int B = 0;
+            int C = 0;
+
+            // Create a new triangle for the ear.
+            triangles.Add(polygon.FindEar(ref A, ref B, ref C));
+
+            // Remove the ear from the polygon.
+            polygon.RemovePoint(B);
+        }
+
+        /// <summary>
+        /// Remove point target from the array.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="target"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static void RemovePoint(this Polygon polygon, int target)
+        {
+            polygon.Points.RemoveAt(target);
+            //List<Point2D> points =  new List<Point2D>(polygon.Points.Count - 1);
+            //List.Copy(polygon.Points, 0, points, 0, target);
+            //Array.Copy(polygon.Points, target + 1, points, target, polygon.Points.Count - target - 1);
+            //polygon.Points = points;
+        }
+
+        /// <summary>
+        /// Triangulate the polygon.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// For a nice, detailed explanation of this method,
+        /// see Ian Garton's Web page:
+        /// http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
+        /// </remarks>
+        public static List<Triangle> Triangulate(this Polygon polygon)
+        {
+            // Copy the points into a scratch array.
+            List<Point2D> pts = new List<Point2D>(polygon.Points);
+
+            // Make a scratch polygon.
+            Polygon pgon = new Polygon(pts);
+
+            // Orient the polygon clockwise.
+            pgon.OrientPolygonClockwise();
+
+            // Make room for the triangles.
+            List<Triangle> triangles = new List<Triangle>();
+
+            // While the copy of the polygon has more than
+            // three points, remove an ear.
+            while (pgon.Points.Count > 3)
+            {
+                // Remove an ear from the polygon.
+                pgon.RemoveEar(triangles);
+            }
+
+            // Copy the last three points into their own triangle.
+            triangles.Add(new Triangle(pgon.Points[0], pgon.Points[1], pgon.Points[2]));
+
+            return triangles;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns>
+        /// Return true if the polygon is oriented clockwise.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static bool PolygonIsOrientedClockwise(this Polygon polygon)
+        {
+            return (polygon.SignedPolygonArea() < 0);
+        }
+
+        /// <summary>
+        /// If the polygon is oriented counterclockwise,
+        /// reverse the order of its points.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static void OrientPolygonClockwise(this Polygon polygon)
+        {
+            if (!polygon.PolygonIsOrientedClockwise())
+                polygon.Points.Reverse();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T swap = a;
+            a = b;
+            b = swap;
         }
 
         #endregion

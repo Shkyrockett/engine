@@ -171,12 +171,11 @@
     <Compile Include="Geometry\Complex\SquareCellGrid.cs" />
     <Compile Include="Geometry\Complex\RectangleFCellGrid.cs" />
     <Compile Include="Geometry\Polygons\LineSegment.cs" />
-    <Compile Include="Geometry\Framework\MathExtensions.cs" />
+    <Compile Include="Geometry\Framework\Maths.cs" />
     <Compile Include="Geometry\Primitives\Matrix2D.cs" />
     <Compile Include="Geometry\Enums\MatrixTypes.cs" />
     <Compile Include="Geometry\Intersection.cs" />
     <Compile Include="Geometry\Enums\IntersectionType.cs" />
-    <Compile Include="Geometry\Framework\IntersectionExtention.cs" />
     <Compile Include="Geometry\Framework\Matrix2DConverter.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Ray.cs" />
     <Compile Include="Geometry\Framework\RectangleFConverter.cs" />

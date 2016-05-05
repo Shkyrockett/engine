@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Engine;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Engine.Geometry;
 
@@ -995,6 +996,24 @@ namespace Engine.Tests
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
             value = ellipse.EllipsePerimeterAhmadi2006();
             Assert.AreEqual(400.ToString(), value.ToString());
+        }
+
+        [TestMethod()]
+        public void Modulus0Test()
+        {
+            //for (int i = 0; i < 1000000; i++)
+            //{
+            Experimental.Modulus0(2, 2);
+            //}
+        }
+
+        [TestMethod()]
+        public void Modulus1Test()
+        {
+            //for (int i = 0; i < 1000000; i++)
+            //{
+            Experimental.Modulus1(2, 2);
+            //}
         }
     }
 }

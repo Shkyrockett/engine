@@ -4,8 +4,8 @@ using System;
 namespace Engine.Geometry.Tests
 {
     /// <summary>
-    /// This test class for the <see cref="MathExtensions"/> class, is intended to 
-    /// contain all of the Unit tests for the <see cref="MathExtensions"/> class.
+    /// This test class for the <see cref="Maths"/> class, is intended to 
+    /// contain all of the Unit tests for the <see cref="Maths"/> class.
     /// </summary>
     [TestClass()]
     public class MathExtensionsTests
@@ -82,39 +82,39 @@ namespace Engine.Geometry.Tests
         public void ToRadiansTest()
         {
             double value = 0;
-            value = MathExtensions.ToRadians(0);
+            value = Maths.ToRadians(0);
             Assert.AreEqual(0, value);
-            value = MathExtensions.ToRadians(30);
+            value = Maths.ToRadians(30);
             Assert.AreEqual(30 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(45);
+            value = Maths.ToRadians(45);
             Assert.AreEqual(45 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(60);
+            value = Maths.ToRadians(60);
             Assert.AreEqual(60 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(90);
+            value = Maths.ToRadians(90);
             Assert.AreEqual(90 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(120);
+            value = Maths.ToRadians(120);
             Assert.AreEqual(120 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(135);
+            value = Maths.ToRadians(135);
             Assert.AreEqual(135 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(150);
+            value = Maths.ToRadians(150);
             Assert.AreEqual(150 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(180);
+            value = Maths.ToRadians(180);
             Assert.AreEqual(180 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(210);
+            value = Maths.ToRadians(210);
             Assert.AreEqual(210 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(225);
+            value = Maths.ToRadians(225);
             Assert.AreEqual(225 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(240);
+            value = Maths.ToRadians(240);
             Assert.AreEqual(240 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(270);
+            value = Maths.ToRadians(270);
             Assert.AreEqual(270 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(300);
+            value = Maths.ToRadians(300);
             Assert.AreEqual(300 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(315);
+            value = Maths.ToRadians(315);
             Assert.AreEqual(315 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(330);
+            value = Maths.ToRadians(330);
             Assert.AreEqual(330 * (Math.PI / 180f), value);
-            value = MathExtensions.ToRadians(360);
+            value = Maths.ToRadians(360);
             Assert.AreEqual(360 * (Math.PI / 180f), value);
         }
 
@@ -128,39 +128,39 @@ namespace Engine.Geometry.Tests
         public void ToDegreesTest()
         {
             double value = 0;
-            value = MathExtensions.ToDegrees(0);
+            value = Maths.ToDegrees(0);
             Assert.AreEqual(0, value);
-            value = MathExtensions.ToDegrees(30);
+            value = Maths.ToDegrees(30);
             Assert.AreEqual(30 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(45);
+            value = Maths.ToDegrees(45);
             Assert.AreEqual(45 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(60);
+            value = Maths.ToDegrees(60);
             Assert.AreEqual(60 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(90);
+            value = Maths.ToDegrees(90);
             Assert.AreEqual(90 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(120);
+            value = Maths.ToDegrees(120);
             Assert.AreEqual(120 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(135);
+            value = Maths.ToDegrees(135);
             Assert.AreEqual(135 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(150);
+            value = Maths.ToDegrees(150);
             Assert.AreEqual(150 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(180);
+            value = Maths.ToDegrees(180);
             Assert.AreEqual(180 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(210);
+            value = Maths.ToDegrees(210);
             Assert.AreEqual(210 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(225);
+            value = Maths.ToDegrees(225);
             Assert.AreEqual(225 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(240);
+            value = Maths.ToDegrees(240);
             Assert.AreEqual(240 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(270);
+            value = Maths.ToDegrees(270);
             Assert.AreEqual(270 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(300);
+            value = Maths.ToDegrees(300);
             Assert.AreEqual(300 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(315);
+            value = Maths.ToDegrees(315);
             Assert.AreEqual(315 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(330);
+            value = Maths.ToDegrees(330);
             Assert.AreEqual(330 * (180f / Math.PI), value);
-            value = MathExtensions.ToDegrees(360);
+            value = Maths.ToDegrees(360);
             Assert.AreEqual(360 * (180f / Math.PI), value);
         }
 
@@ -174,7 +174,7 @@ namespace Engine.Geometry.Tests
         public void RoundToMultipleTest()
         {
             double value = 0;
-            value = MathExtensions.RoundToMultiple(3.5, 1.5);
+            value = Maths.RoundToMultiple(3.5, 1.5);
             Assert.AreEqual(3, value);
         }
 
@@ -188,7 +188,7 @@ namespace Engine.Geometry.Tests
         public void ModuloTest()
         {
             double value = 0;
-            value = MathExtensions.Modulo(3.5, 1.5);
+            value = Maths.Modulo(3.5, 1.5);
             Assert.AreEqual(0.5d, value);
         }
 
@@ -203,7 +203,7 @@ namespace Engine.Geometry.Tests
         {
             double value = 0;
             double[] array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            value = MathExtensions.Average(array);
+            value = Maths.Average(array);
             Assert.AreEqual(4.5, value);
         }
 
@@ -218,7 +218,7 @@ namespace Engine.Geometry.Tests
         {
             double value = 0;
             double[] array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            value = MathExtensions.Sum(array);
+            value = Maths.Sum(array);
             Assert.AreEqual(45, value);
         }
 

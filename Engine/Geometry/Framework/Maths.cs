@@ -1,4 +1,4 @@
-﻿// <copyright file="MathEx.cs" >
+﻿// <copyright file="Maths.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -10,14 +10,17 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace Engine.Geometry
 {
     /// <summary>
     /// Extended Math processing library.
     /// </summary>
-    public static class MathExtensions
+    public static class Maths
     {
+        #region Constants
+
         /// <summary>
         /// Smallest such that 1.0+DBL_EPSILON != 1.0
         /// </summary>
@@ -152,6 +155,8 @@ namespace Engine.Geometry
         /// </summary>
         public const double Log10E = 0.434294481903251827651d;
 
+        #endregion
+
         #region Gauss Tables
         /// <summary>
         /// Gauss abscissa table
@@ -255,66 +260,262 @@ namespace Engine.Geometry
         #endregion
 
         /// <summary>
-        /// Cube root equivalent of the sqrt function. (note that there are actually
-        /// three roots: one real, two complex, and we don't care about the latter):
+        /// Initialize random number generator with seed based on time.
         /// </summary>
-        /// <param name="value"></param>
+        private static Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+
+        #region Geometric Methods
+
+        /// <summary>
+        /// Returns the Angle of a line.
+        /// </summary>
+        /// <param name="aX">Horizontal Component of Point Starting Point</param>
+        /// <param name="aY">Vertical Component of Point Starting Point</param>
+        /// <param name="bX">Horizontal Component of Ending Point</param>
+        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <returns>Returns the Angle of a line.</returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Angle(double aX, double aY, double bX, double bY)
+        {
+            return Math.Atan2((aY - bY), (aX - bX));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns>
+        /// Return the angle ABC.
+        /// Return a value between PI and -PI.
+        /// Note that the value is the opposite of what you might
+        /// expect because Y coordinates increase downward.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AngleVector(double aX, double aY, double bX, double bY, double cX, double cY)
+        {
+            // Calculate the angle.
+            return Math.Atan2(CrossProductVector(aX, aY, bX, bY, cX, cY), DotProductVector(aX, aY, bX, bY, cX, cY));
+        }
+
+        /// <summary>
+        /// Find the absolute positive value of a radian angle from two points.
+        /// </summary>
+        /// <param name="aX">Horizontal Component of Point Starting Point</param>
+        /// <param name="aY">Vertical Component of Point Starting Point</param>
+        /// <param name="bX">Horizontal Component of Ending Point</param>
+        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <returns>The absolute angle of a line in radians.</returns>
+        /// <remarks></remarks>
+        public static double AbsoluteAngle(double aX, double aY, double bX, double bY)
+        {
+            // Find the angle of point a and point b. 
+            double test = -Maths.Angle(aX, aY, bX, bY) % Math.PI;
+            return test < 0 ? test += Math.PI : test;
+        }
+
+        /// <summary>
+        /// Cross Product of two points.
+        /// </summary>
+        /// <param name="aX">First Point X component.</param>
+        /// <param name="aY">First Point Y component.</param>
+        /// <param name="bX">Second Point X component.</param>
+        /// <param name="bY">Second Point Y component.</param>
+        /// <returns>the cross product AB · BC.</returns>
+        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double CrossProduct(double aX, double aY, double bX, double bY)
+        {
+            return (aX * bY) - (aY * bX);
+        }
+
+        /// <summary>
+        /// The cross product is a vector perpendicular to AB
+        /// and BC having length |AB| * |BC| * Sin(theta) and
+        /// with direction given by the right-hand rule.
+        /// For two vectors in the X-Y plane, the result is a
+        /// vector with X and Y components 0 so the Z component
+        /// gives the vector's length and direction.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns>
+        /// Return the cross product AB x BC.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double CrossProductVector(double aX, double aY, double bX, double bY, double cX, double cY)
+        {
+            // Calculate the Z coordinate of the cross product.
+            return ((aX - bX) * (cY - bY) - (aY - bY) * (cX - bX));
+        }
+
+        /// <summary>
+        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// </summary>
+        /// <param name="aX">First Point X component.</param>
+        /// <param name="aY">First Point Y component.</param>
+        /// <param name="bX">Second Point X component.</param>
+        /// <param name="bY">Second Point Y component.</param>
+        /// <returns>The Dot Product.</returns>
+        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(double aX, double aY, double bX, double bY)
+        {
+            return ((aX * bX) + (aY * bY));
+        }
+
+        /// <summary>
+        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// </summary>
+        /// <param name="aX">First Point X component.</param>
+        /// <param name="aY">First Point Y component.</param>
+        /// <param name="aZ">First Point Z component.</param>
+        /// <param name="bX">Second Point X component.</param>
+        /// <param name="bY">Second Point Y component.</param>
+        /// <param name="bZ">Second Point Z component.</param>
+        /// <returns>The Dot Product.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(double aX, double aY, double aZ, double bX, double bY, double bZ)
+        {
+            return ((aX * bX) + (aY * bY) + (aZ * bZ));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns>
+        /// Return the dot product AB · BC.
+        /// </returns>
+        /// <remarks>
+        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
+        /// </remarks>
+        public static double DotProductVector(double aX, double aY, double bX, double bY, double cX, double cY)
+        {
+            // Get the vectors' coordinates.
+            double BAx = aX - bX;
+            double BAy = aY - bY;
+            double BCx = cX - bX;
+            double BCy = cY - bY;
+
+            // Calculate the dot product.
+            return (BAx * BCx + BAy * BCy);
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="aX">First X component.</param>
+        /// <param name="aY">First Y component.</param>
+        /// <param name="bX">Second X component.</param>
+        /// <param name="bY">Second Y component.</param>
+        /// <returns>The distance between two points.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(double aX, double aY, double bX, double bY)
+        {
+            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY));
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="aX">First X component.</param>
+        /// <param name="aY">First Y component.</param>
+        /// <param name="aZ">First Z component.</param>
+        /// <param name="bX">Second X component.</param>
+        /// <param name="bY">Second Y component.</param>
+        /// <param name="bZ">Second Z component.</param>
+        /// <returns>The distance between two points.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(double aX, double aY, double aZ, double bX, double bY, double bZ)
+        {
+            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
+        }
+
+        /// <summary>
+        /// Calculates the Slope of a vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns>Returns the slope angle of a vector.</returns>
+        /// <remarks>The slope is calculated with Slope = Y / X or rise over run</remarks>
+        public static double Slope(double i, double j)
+        {
+            //  If the line is vertical, return something close to infinity 
+            //  (Close to the largest value allowed for the data type).
+            if ((i == 0)) return SlopeMax;
+            //  Otherwise calculate and return the slope.
+            return (j / i);
+        }
+
+        /// <summary>
+        /// Returns the slope angle of a line.
+        /// </summary>
+        /// <param name="X1">Horizontal Component of Point Starting Point</param>
+        /// <param name="Y1">Vertical Component of Point Starting Point</param>
+        /// <param name="X2">Horizontal Component of Ending Point</param>
+        /// <param name="Y2">Vertical Component of Ending Point</param>
+        /// <returns>Returns the slope angle of a line.</returns>
+        /// <remarks></remarks>
+        public static double Slope(double X1, double Y1, double X2, double Y2)
+        {
+            //  Vertical line check.
+            //  Check to see if the Line is Vertical. 
+            //  Line is Vertical return something close to infinity (Close to 
+            //  the largest value allowed for the data type).
+            //  The original Version was: If (Line.A.X - Line.B.X) = 0 Then
+            if ((X1 == X2)) return SlopeMax;
+            //  Otherwise calculate and return the slope.
+            return ((Y2 - Y1) / (X2 - X1));
+        }
+
+        /// <summary>
+        /// Modulus of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
-        public static double Crt(double value)
-        {
-            return value < 0 ? -Math.Pow(-value, 1 / 3) : Math.Pow(value, 1 / 3);
-        }
-
-        /// <summary>
-        /// Convert Degrees to Radians.
-        /// </summary>
-        /// <param name="degrees">Angle in Degrees.</param>
-        /// <returns>Angle in Radians.</returns>
         /// <remarks></remarks>
-        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
-        public static double ToRadians(this double degrees)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Modulus(double i, double j)
         {
-            return degrees * Radien;
+            return Math.Sqrt((i * i) + (j * j));
         }
 
         /// <summary>
-        /// Convert Radians to Degrees.
+        /// Modulus of a Vector.
         /// </summary>
-        /// <param name="radiens">Angle in Radians.</param>
-        /// <returns>Angle in Degrees.</returns>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
         /// <remarks></remarks>
-        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
-        public static double ToDegrees(this double radiens)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Modulus(double i, double j, double k)
         {
-            return radiens * Degree;
+            return Math.Sqrt((i * i) + (j * j) + (k * k));
         }
 
-        /// <summary>
-        /// Round a value to the nearest multiple of a number.
-        /// </summary>
-        /// <param name="value">The value to round.</param>
-        /// <param name="multiple">The multiple to round to.</param>
-        /// <returns>Returns a value rounded to an interval of the multiple.</returns>
-        /// <remarks></remarks>
-        public static double RoundToMultiple(this double value, double multiple)
-        {
-            // Convert.ToInt32 does the correct rounding that Math.Round does not do.
-            return Convert.ToInt32(value / multiple) * multiple;
-        }
+        #endregion
 
-        /// <summary>
-        /// Imitation of Excel's Mod Operator
-        /// </summary>
-        /// <param name="valueA">Source parameter</param>
-        /// <param name="valueB">Destination parameter</param>
-        /// <returns>Returns the same Modulus Result that Excel returns.</returns>
-        /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than VB.Net</remarks>
-        public static double Modulo(this double valueA, double valueB)
-        {
-            double temp = valueA;
-            return ((temp %= valueB) < 0) ? temp + valueB : temp;
-        }
+        #region Array Math
 
         /// <summary>
         /// Returns the average value of a numeric array.
@@ -344,31 +545,22 @@ namespace Engine.Geometry
             return Retval;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Lower"></param>
-        /// <param name="Upper"></param>
-        /// <returns></returns>
-        public static int Random(this int Lower, int Upper)
-        {
-            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            return (rnd.Next() * ((Upper - Lower) + 1)) + Lower;
-        }
+        #endregion
+
+        #region Derived Equivalent Math Functions
+        // Derived equivalent Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
 
         /// <summary>
-        /// 
+        /// Cube root equivalent of the sqrt function. (note that there are actually
+        /// three roots: one real, two complex, and we don't care about the latter):
         /// </summary>
-        /// <param name="Lower"></param>
-        /// <param name="Upper"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static double Random(this double Lower, double Upper)
+        /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
+        public static double Crt(double value)
         {
-            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            return ((rnd.Next() * ((Upper - Lower) + 1)) + Lower);
+            return value < 0 ? -Math.Pow(-value, 1 / 3) : Math.Pow(value, 1 / 3);
         }
-
-        //  Derived equivalents Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
 
         /// <summary>
         /// Angle with tangent opp/hyp
@@ -717,6 +909,80 @@ namespace Engine.Geometry
             return 0;
         }
 
+        #endregion
+
+        #region Conversion Extensions
+
+        /// <summary>
+        /// Imitation of Excel's Mod Operator
+        /// </summary>
+        /// <param name="valueA">Source parameter</param>
+        /// <param name="valueB">Destination parameter</param>
+        /// <returns>Returns the same Modulus Result that Excel returns.</returns>
+        /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than .Net</remarks>
+        public static double Modulo(this double valueA, double valueB)
+        {
+            double temp = valueA;
+            return ((temp %= valueB) < 0) ? temp + valueB : temp;
+        }
+
+        /// <summary>
+        /// Convert Degrees to Radians.
+        /// </summary>
+        /// <param name="degrees">Angle in Degrees.</param>
+        /// <returns>Angle in Radians.</returns>
+        /// <remarks></remarks>
+        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        public static double ToRadians(this double degrees)
+        {
+            return degrees * Radien;
+        }
+
+        /// <summary>
+        /// Convert Radians to Degrees.
+        /// </summary>
+        /// <param name="radiens">Angle in Radians.</param>
+        /// <returns>Angle in Degrees.</returns>
+        /// <remarks></remarks>
+        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        public static double ToDegrees(this double radiens)
+        {
+            return radiens * Degree;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static int RoundToInt(this float val)
+        {
+            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static int RoundToInt(this double val)
+        {
+            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
+        }
+
+        /// <summary>
+        /// Round a value to the nearest multiple of a number.
+        /// </summary>
+        /// <param name="value">The value to round.</param>
+        /// <param name="multiple">The multiple to round to.</param>
+        /// <returns>Returns a value rounded to an interval of the multiple.</returns>
+        /// <remarks></remarks>
+        public static double RoundToMultiple(this double value, double multiple)
+        {
+            // Convert.ToInt32 does the correct rounding that Math.Round does not do.
+            return Convert.ToInt32(value / multiple) * multiple;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -759,6 +1025,60 @@ namespace Engine.Geometry
             return double.Parse(text, provider);
         }
 
+        #endregion
+
+        #region Comparisons
+
+        /// <summary>
+        /// AreClose - Returns whether or not two doubles are "close".  That is, whether or 
+        /// not they are within epsilon of each other.  Note that this epsilon is proportional
+        /// to the numbers themselves to that AreClose survives scalar multiplication.
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool AreClose(this float value1, float value2)
+        {
+            //in case they are Infinities (then epsilon check does not work)
+            if (value1 == value2) return true;
+            // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
+            float eps = (float)((Math.Abs(value1) + Math.Abs(value2) + 10.0) * FloatEpsilon);
+            float delta = value1 - value2;
+            return (-eps < delta) && (eps > delta);
+        }
+
+        /// <summary>
+        /// AreClose - Returns whether or not two doubles are "close".  That is, whether or 
+        /// not they are within epsilon of each other.  Note that this epsilon is proportional
+        /// to the numbers themselves to that AreClose survives scalar multiplication.
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool AreClose(this double value1, double value2)
+        {
+            //in case they are Infinities (then epsilon check does not work)
+            if (value1 == value2) return true;
+            // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
+            double eps = (Math.Abs(value1) + Math.Abs(value2) + 10.0) * Maths.DoubleEpsilon;
+            double delta = value1 - value2;
+            return (-eps < delta) && (eps > delta);
+        }
+
         /// <summary>
         /// LessThan - Returns whether or not the first double is less than the second double.
         /// That is, whether or not the first is strictly less than *and* not within epsilon of
@@ -775,9 +1095,30 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool LessThan(double value1, double value2)
+        public static bool LessThan(this float value1, float value2)
         {
-            return (value1 < value2) && !IntersectionExtention.AreClose(value1, value2);
+            return (value1 < value2) && !AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// LessThan - Returns whether or not the first double is less than the second double.
+        /// That is, whether or not the first is strictly less than *and* not within epsilon of
+        /// the other number.  Note that this epsilon is proportional to the numbers themselves
+        /// to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the LessThan comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool LessThan(this double value1, double value2)
+        {
+            return (value1 < value2) && !AreClose(value1, value2);
         }
 
         /// <summary>
@@ -796,9 +1137,30 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool GreaterThan(double value1, double value2)
+        public static bool GreaterThan(this float value1, float value2)
         {
-            return (value1 > value2) && !IntersectionExtention.AreClose(value1, value2);
+            return (value1 > value2) && !AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// GreaterThan - Returns whether or not the first double is greater than the second double.
+        /// That is, whether or not the first is strictly greater than *and* not within epsilon of
+        /// the other number.  Note that this epsilon is proportional to the numbers themselves
+        /// to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the GreaterThan comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool GreaterThan(this double value1, double value2)
+        {
+            return (value1 > value2) && !AreClose(value1, value2);
         }
 
         /// <summary>
@@ -817,9 +1179,51 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool LessThanOrClose(double value1, double value2)
+        public static bool LessThanOrClose(this float value1, float value2)
         {
-            return (value1 < value2) || IntersectionExtention.AreClose(value1, value2);
+            return (value1 < value2) || AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// LessThanOrClose - Returns whether or not the first double is less than or close to
+        /// the second double.  That is, whether or not the first is strictly less than or within
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// themselves to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the LessThanOrClose comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool LessThanOrClose(this double value1, double value2)
+        {
+            return (value1 < value2) || AreClose(value1, value2);
+        }
+
+        /// <summary>
+        /// GreaterThanOrClose - Returns whether or not the first float is greater than or close to
+        /// the second float.  That is, whether or not the first is strictly greater than or within
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// themselves to that AreClose survives scalar multiplication.  Note,
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the GreaterThanOrClose comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        public static bool GreaterThanOrClose(this float value1, float value2)
+        {
+            return (value1 > value2) || AreClose(value1, value2);
         }
 
         /// <summary>
@@ -838,35 +1242,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool GreaterThanOrClose(double value1, double value2)
+        public static bool GreaterThanOrClose(this double value1, double value2)
         {
-            return (value1 > value2) || IntersectionExtention.AreClose(value1, value2);
-        }
-
-        /// <summary>
-        /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
-        /// but this is faster.
-        /// </summary>
-        /// <returns>
-        /// bool - the result of the AreClose comparison.
-        /// </returns>
-        /// <param name="value"> The double to compare to 1. </param>
-        public static bool IsOne(this float value)
-        {
-            return Math.Abs(value - 1.0) < 10.0 * FloatEpsilon;
-        }
-
-        /// <summary>
-        /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
-        /// but this is faster.
-        /// </summary>
-        /// <returns>
-        /// bool - the result of the AreClose comparison.
-        /// </returns>
-        /// <param name="value"> The double to compare to 1. </param>
-        public static bool IsOne(this double value)
-        {
-            return Math.Abs(value - 1.0) < 10.0 * DoubleEpsilon;
+            return (value1 > value2) || AreClose(value1, value2);
         }
 
         /// <summary>
@@ -896,11 +1274,37 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
+        /// but this is faster.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value"> The double to compare to 1. </param>
+        public static bool IsOne(this float value)
+        {
+            return Math.Abs(value - 1.0) < 10.0 * FloatEpsilon;
+        }
+
+        /// <summary>
+        /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
+        /// but this is faster.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value"> The double to compare to 1. </param>
+        public static bool IsOne(this double value)
+        {
+            return Math.Abs(value - 1.0) < 10.0 * DoubleEpsilon;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static bool IsBetweenZeroAndOne(double val)
+        public static bool IsBetweenZeroAndOne(this float val)
         {
             return (GreaterThanOrClose(val, 0) && LessThanOrClose(val, 1));
         }
@@ -910,51 +1314,22 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static int FloatToInt(float val)
+        public static bool IsBetweenZeroAndOne(this double val)
         {
-            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
+            return (GreaterThanOrClose(val, 0) && LessThanOrClose(val, 1));
         }
+
+        #endregion
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="Lower"></param>
+        /// <param name="Upper"></param>
         /// <returns></returns>
-        public static int DoubleToInt(double val)
+        public static double Random(this double Lower, double Upper)
         {
-            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static int HIWORD(int n)
-        {
-            return (n >> 16) & 0xffff;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static int LOWORD(int n)
-        {
-            return n & 0xffff;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        public static void Swap<T>(ref T a, ref T b)
-        {
-            T swap = a;
-            a = b;
-            b = swap;
+            return ((rnd.Next() * ((Upper - Lower) + 1)) + Lower);
         }
     }
 }

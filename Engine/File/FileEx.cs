@@ -9,6 +9,7 @@ namespace Engine.File
     using System;
     using System.IO;
     using System.Runtime;
+    using System.Runtime.CompilerServices;
     using System.Text;
 
     /// <summary>
@@ -141,6 +142,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="network">The number to convert, expressed in network byte order. </param>
         /// <returns>A long value, expressed in host byte order.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [TargetedPatchingOptOut("Performance critical to in-line this type of method across NGen image boundaries")]
         public static long NetworkToHostOrder(long network)
         {
@@ -150,6 +152,7 @@ namespace Engine.File
         /// <summary>Converts an integer value from network byte order to host byte order.</summary>
         /// <param name="network">The number to convert, expressed in network byte order. </param>
         /// <returns>An integer value, expressed in host byte order.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [TargetedPatchingOptOut("Performance critical to in-line this type of method across NGen image boundaries")]
         public static int NetworkToHostOrder(int network)
         {
@@ -159,6 +162,7 @@ namespace Engine.File
         /// <summary>Converts a short value from network byte order to host byte order.</summary>
         /// <param name="network">The number to convert, expressed in network byte order. </param>
         /// <returns>A short value, expressed in host byte order.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [TargetedPatchingOptOut("Performance critical to in-line this type of method across NGen image boundaries")]
         public static short NetworkToHostOrder(short network)
         {
@@ -222,6 +226,26 @@ namespace Engine.File
         public static ushort NetworkToHostOrder(ushort network)
         {
             return HostToNetworkOrder(network);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int HighWord(int n)
+        {
+            return (n >> 16) & 0xffff;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int LowWord(int n)
+        {
+            return n & 0xffff;
         }
     }
 }

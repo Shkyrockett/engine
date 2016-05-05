@@ -24,6 +24,7 @@ namespace Engine.Geometry
     public static class PrimitivesExtensions
     {
         #region Absolute Angle
+
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
         /// </summary>
@@ -31,18 +32,10 @@ namespace Engine.Geometry
         /// <param name="pointB">Second Point.</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this Point pointA, Point pointB)
         {
-            // Find the angle of point a and point b. 
-            double test = -Angle(pointA, pointB) % Math.PI;
-
-            // This should only loop once using the modulus of pi.
-            while (test < 0)
-            {
-                test += Math.PI;
-            }
-
-            return test;
+            return Maths.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
         }
 
         /// <summary>
@@ -52,18 +45,10 @@ namespace Engine.Geometry
         /// <param name="pointB">Second Point.</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this PointF pointA, PointF pointB)
         {
-            // Find the angle of point a and point b. 
-            double test = -Angle(pointA, pointB) % Math.PI;
-
-            // This should only loop once using the modulus of pi.
-            while (test < 0)
-            {
-                test += Math.PI;
-            }
-
-            return test;
+            return Maths.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
         }
 
         /// <summary>
@@ -72,19 +57,12 @@ namespace Engine.Geometry
         /// <param name="segment">Line segment.</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this LineSegment segment)
         {
-            // Find the angle of point a and point b. 
-            double test = -Angle(segment.A, segment.B) % Math.PI;
-
-            // This should only loop once using the modulus of pi.
-            while (test < 0)
-            {
-                test += Math.PI;
-            }
-
-            return test;
+            return Maths.AbsoluteAngle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
         }
+
         #endregion
 
         #region Add
@@ -507,50 +485,6 @@ namespace Engine.Geometry
         #endregion
 
         #region Angle
-        /// <summary>
-        /// Returns the Angle of a line.
-        /// </summary>
-        /// <param name="X1">Horizontal Component of Point Starting Point</param>
-        /// <param name="Y1">Vertical Component of Point Starting Point</param>
-        /// <param name="X2">Horizontal Component of Ending Point</param>
-        /// <param name="Y2">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Angle(int X1, int Y1, int X2, int Y2)
-        {
-            return Math.Atan2((Y1 - Y2), (X1 - X2));
-        }
-
-        /// <summary>
-        /// Returns the Angle of a line.
-        /// </summary>
-        /// <param name="X1">Horizontal Component of Point Starting Point</param>
-        /// <param name="Y1">Vertical Component of Point Starting Point</param>
-        /// <param name="X2">Horizontal Component of Ending Point</param>
-        /// <param name="Y2">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Angle(float X1, float Y1, float X2, float Y2)
-        {
-            return Math.Atan2((Y1 - Y2), (X1 - X2));
-        }
-
-        /// <summary>
-        /// Returns the Angle of a line.
-        /// </summary>
-        /// <param name="X1">Horizontal Component of Point Starting Point</param>
-        /// <param name="Y1">Vertical Component of Point Starting Point</param>
-        /// <param name="X2">Horizontal Component of Ending Point</param>
-        /// <param name="Y2">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Angle(double X1, double Y1, double X2, double Y2)
-        {
-            return Math.Atan2((Y1 - Y2), (X1 - X2));
-        }
 
         /// <summary>
         /// Returns the Angle of a line.
@@ -563,7 +497,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this Point2D PointA, Point2D PointB)
         {
-            return Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
+            return Maths.Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
         }
 
         /// <summary>
@@ -577,7 +511,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this Point PointA, Point PointB)
         {
-            return Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
+            return Maths.Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
         }
 
         /// <summary>
@@ -591,7 +525,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this PointF PointA, PointF PointB)
         {
-            return Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
+            return Maths.Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
         }
 
         /// <summary>
@@ -603,55 +537,12 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this LineSegment segment)
         {
-            return Angle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+            return Maths.Angle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
         }
+
         #endregion
 
         #region Cross Product
-        /// <summary>
-        /// Cross Product of two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProduct(int xA, int yA, int xB, int yB)
-        {
-            return (xA * yB) - (yA * xB);
-        }
-
-        /// <summary>
-        /// Cross Product of two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProduct(float xA, float yA, float xB, float yB)
-        {
-            return (xA * yB) - (yA * xB);
-        }
-
-        /// <summary>
-        /// Cross Product of two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProduct(double xA, double yA, double xB, double yB)
-        {
-            return (xA * yB) - (yA * xB);
-        }
 
         /// <summary>
         /// Cross Product a Perpendicular dot product of two vectors.
@@ -672,7 +563,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point2D valueA, Point2D valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return Maths.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -694,7 +585,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point valueA, Point valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return Maths.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -716,7 +607,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point valueA, PointF valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return Maths.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -730,7 +621,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point point, Vector2D value)
         {
-            return CrossProduct(point.X, point.Y, value.I, value.J);
+            return Maths.CrossProduct(point.X, point.Y, value.I, value.J);
         }
 
         /// <summary>
@@ -752,7 +643,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, Point valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return Maths.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -774,7 +665,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, PointF valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            return Maths.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -796,7 +687,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, Vector2D valueB)
         {
-            return CrossProduct(valueA.X, valueA.Y, valueB.I, valueB.J);
+            return Maths.CrossProduct(valueA.X, valueA.Y, valueB.I, valueB.J);
         }
 
         /// <summary>
@@ -818,7 +709,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, Point valueB)
         {
-            return CrossProduct(valueA.I, valueA.J, valueB.X, valueB.Y);
+            return Maths.CrossProduct(valueA.I, valueA.J, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -840,7 +731,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, PointF valueB)
         {
-            return CrossProduct(valueA.I, valueA.J, valueB.X, valueB.Y);
+            return Maths.CrossProduct(valueA.I, valueA.J, valueB.X, valueB.Y);
         }
 
         /// <summary>
@@ -862,8 +753,9 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, Vector2D valueB)
         {
-            return CrossProduct(valueA.I, valueA.J, valueB.I, valueB.J);
+            return Maths.CrossProduct(valueA.I, valueA.J, valueB.I, valueB.J);
         }
+
         #endregion
 
         #region Delta
@@ -925,81 +817,7 @@ namespace Engine.Geometry
 
         #endregion
 
-        #region Distance
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        /// <remarks>
-        /// Source: http://www.vcskicks.com/code-snippet/distance-formula.php.
-        /// Pythagorean theorem c^2 = a^2 + b^2
-        /// thus c = square root(a^2 + b^2)
-        /// </remarks>
-        public static double DistanceV1(float xA, float yA, float xB, float yB)
-        {
-            double a = (xA - xB);
-            double b = (yA - yB);
-            return Math.Sqrt(a * a + b * b);
-        }
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        /// <remarks>
-        /// Source: http://www.vcskicks.com/code-snippet/distance-formula.php.
-        /// Pythagorean theorem c^2 = a^2 + b^2
-        /// thus c = square root(a^2 + b^2)
-        /// </remarks>
-        public static double DistanceV1(double xA, double yA, double xB, double yB)
-        {
-            double a = (xA - xB);
-            double b = (yA - yB);
-            return Math.Sqrt(a * a + b * b);
-        }
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static double DistanceV2(double xA, double yA, double xB, double yB)
-        {
-            return Modulus(xA - xB, yA - yB);
-        }
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        /// <remarks>
-        /// Source: http://www.vcskicks.com/code-snippet/distance-formula.php.
-        /// Pythagorean theorem c^2 = a^2 + b^2
-        /// thus c = square root(a^2 + b^2)
-        /// </remarks>
-        public static double DistanceV1(int xA, int yA, int xB, int yB)
-        {
-            double a = (xA - xB);
-            double b = (yA - yB);
-            return Math.Sqrt(a * a + b * b);
-        }
+        #region Distance/Length
 
         /// <summary>
         /// Distance between two points.
@@ -1020,7 +838,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static double Distance(this Point point, Point value)
         {
-            return DistanceV1(point.X, point.Y, value.X, value.Y);
+            return Maths.Distance(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1032,7 +850,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static double Distance(this PointF point, PointF value)
         {
-            return DistanceV1(point.X, point.Y, value.X, value.Y);
+            return Maths.Distance(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1044,7 +862,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static double Distance(this Vector2D value1, Vector2D value2)
         {
-            return DistanceV1(value1.I, value1.J, value2.I, value2.J);
+            return Maths.Distance(value1.I, value1.J, value2.I, value2.J);
         }
 
         /// <summary>
@@ -1055,7 +873,121 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static double Distance(this LineSegment segment)
         {
-            return DistanceV1(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+            return Maths.Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+        }
+
+        /// <summary>
+        /// Returns the Length of a lineSeg.
+        /// </summary>
+        /// <param name="xA">Horizontal Component of Point Starting Point</param>
+        /// <param name="yA">Vertical Component of Point Starting Point</param>
+        /// <param name="xB">Horizontal Component of Ending Point</param>
+        /// <param name="yB">Vertical Component of Ending Point</param>
+        /// <returns>Returns the Length of a lineSeg.</returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(int xA, int yA, int xB, int yB)
+        {
+            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
+        }
+
+        /// <summary>
+        /// Returns the Length of a lineSeg.
+        /// </summary>
+        /// <param name="xA">Horizontal Component of Point Starting Point</param>
+        /// <param name="yA">Vertical Component of Point Starting Point</param>
+        /// <param name="xB">Horizontal Component of Ending Point</param>
+        /// <param name="yB">Vertical Component of Ending Point</param>
+        /// <returns>Returns the Length of a lineSeg.</returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(float xA, float yA, float xB, float yB)
+        {
+            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
+        }
+
+        /// <summary>
+        /// Returns the Length of a lineSeg.
+        /// </summary>
+        /// <param name="xA">Horizontal Component of Point Starting Point</param>
+        /// <param name="yA">Vertical Component of Point Starting Point</param>
+        /// <param name="xB">Horizontal Component of Ending Point</param>
+        /// <param name="yB">Vertical Component of Ending Point</param>
+        /// <returns>Returns the Length of a lineSeg.</returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(double xA, double yA, double xB, double yB)
+        {
+            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
+        }
+
+        /// <summary>
+        /// Calculates the Length between two points.
+        /// </summary>
+        /// <param name="point">Starting Point.</param>
+        /// <param name="value">Ending Point.</param>
+        /// <returns>Returns the length of a line segment between two points.</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Point2D point, Point2D value)
+        {
+            return Length(point.X, point.Y, value.X, value.Y);
+        }
+
+        /// <summary>
+        /// Calculates the Length between two points.
+        /// </summary>
+        /// <param name="point">Starting Point.</param>
+        /// <param name="value">Ending Point.</param>
+        /// <returns>Returns the length of a line segment between two points.</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Point point, Point value)
+        {
+            return Length(point.X, point.Y, value.X, value.Y);
+        }
+
+        /// <summary>
+        /// Calculates the Length between two points.
+        /// </summary>
+        /// <param name="point">Starting Point.</param>
+        /// <param name="value">Ending Point.</param>
+        /// <returns>Returns the length of a line segment between two points.</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this PointF point, PointF value)
+        {
+            return Length(point.X, point.Y, value.X, value.Y);
+        }
+
+        /// <summary>
+        /// Finds the length of a 2D vector
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="value"> Point</param>
+        /// <returns>The Length between two Points</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Vector2D vector, Vector2D value)
+        {
+            return Length(vector.I, vector.J, value.I, value.J);
+        }
+
+        /// <summary>
+        /// Finds the Length between two points
+        /// </summary>
+        /// <param name="segment">line segment</param>
+        /// <returns>The Length between two Points</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this LineSegment segment)
+        {
+            return Maths.Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
         }
 
         #endregion
@@ -1075,50 +1007,6 @@ namespace Engine.Geometry
         #endregion
 
         #region Dot Product
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>The Dot Product.</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(int xA, int yA, int xB, int yB)
-        {
-            return ((xA * xB) + (yA * yB));
-        }
-
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>The Dot Product.</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(float xA, float yA, float xB, float yB)
-        {
-            return ((xA * xB) + (yA * yB));
-        }
-
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns>The Dot Product.</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(double xA, double yA, double xB, double yB)
-        {
-            return ((xA * xB) + (yA * yB));
-        }
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 
@@ -1130,7 +1018,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point2D value)
         {
-            return DotProduct(value.X, value.Y, value.X, value.Y);
+            return Maths.DotProduct(value.X, value.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1143,7 +1031,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point value)
         {
-            return DotProduct(value.X, value.Y, value.X, value.Y);
+            return Maths.DotProduct(value.X, value.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1156,7 +1044,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF value)
         {
-            return DotProduct(value.X, value.Y, value.X, value.Y);
+            return Maths.DotProduct(value.X, value.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1169,7 +1057,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D value)
         {
-            return DotProduct(value.I, value.J, value.I, value.J);
+            return Maths.DotProduct(value.I, value.J, value.I, value.J);
         }
 
         /// <summary>
@@ -1185,7 +1073,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point2D point, Point2D value)
         {
-            return DotProduct(point.X, point.Y, value.X, value.Y);
+            return Maths.DotProduct(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1201,7 +1089,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point point, Point value)
         {
-            return DotProduct(point.X, point.Y, value.X, value.Y);
+            return Maths.DotProduct(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1217,7 +1105,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point point, PointF value)
         {
-            return DotProduct(point.X, point.Y, value.X, value.Y);
+            return Maths.DotProduct(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1231,7 +1119,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point point, Vector2D vector)
         {
-            return DotProduct(point.X, point.Y, vector.I, vector.J);
+            return Maths.DotProduct(point.X, point.Y, vector.I, vector.J);
         }
 
         /// <summary>
@@ -1247,7 +1135,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF point, Point value)
         {
-            return DotProduct(point.X, point.Y, value.X, value.Y);
+            return Maths.DotProduct(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1263,7 +1151,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF point, PointF value)
         {
-            return DotProduct(point.X, point.Y, value.X, value.Y);
+            return Maths.DotProduct(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -1279,7 +1167,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF point, Vector2D vector)
         {
-            return DotProduct(point.X, point.Y, vector.I, vector.J);
+            return Maths.DotProduct(point.X, point.Y, vector.I, vector.J);
         }
 
         /// <summary>
@@ -1295,7 +1183,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D vector, Point value)
         {
-            return DotProduct(vector.I, vector.J, value.X, value.Y);
+            return Maths.DotProduct(vector.I, vector.J, value.X, value.Y);
         }
 
         /// <summary>
@@ -1311,7 +1199,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D vector, PointF value)
         {
-            return DotProduct(vector.I, vector.J, value.X, value.Y);
+            return Maths.DotProduct(vector.I, vector.J, value.X, value.Y);
         }
 
         /// <summary>
@@ -1327,8 +1215,9 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D vector, Vector2D value)
         {
-            return DotProduct(vector.I, vector.J, value.I, value.J);
+            return Maths.DotProduct(vector.I, vector.J, value.I, value.J);
         }
+
         #endregion
 
         #region Inflate
@@ -1966,161 +1855,7 @@ namespace Engine.Geometry
         }
         #endregion
 
-        #region Length
-        /// <summary>
-        /// Returns the Length of a lineSeg.
-        /// </summary>
-        /// <param name="xA">Horizontal Component of Point Starting Point</param>
-        /// <param name="yA">Vertical Component of Point Starting Point</param>
-        /// <param name="xB">Horizontal Component of Ending Point</param>
-        /// <param name="yB">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Length of a lineSeg.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(int xA, int yA, int xB, int yB)
-        {
-            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
-        }
-
-        /// <summary>
-        /// Returns the Length of a lineSeg.
-        /// </summary>
-        /// <param name="xA">Horizontal Component of Point Starting Point</param>
-        /// <param name="yA">Vertical Component of Point Starting Point</param>
-        /// <param name="xB">Horizontal Component of Ending Point</param>
-        /// <param name="yB">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Length of a lineSeg.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(float xA, float yA, float xB, float yB)
-        {
-            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
-        }
-
-        /// <summary>
-        /// Returns the Length of a lineSeg.
-        /// </summary>
-        /// <param name="xA">Horizontal Component of Point Starting Point</param>
-        /// <param name="yA">Vertical Component of Point Starting Point</param>
-        /// <param name="xB">Horizontal Component of Ending Point</param>
-        /// <param name="yB">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Length of a lineSeg.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(double xA, double yA, double xB, double yB)
-        {
-            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
-        }
-
-        /// <summary>
-        /// Calculates the Length between two points.
-        /// </summary>
-        /// <param name="point">Starting Point.</param>
-        /// <param name="value">Ending Point.</param>
-        /// <returns>Returns the length of a line segment between two points.</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this Point2D point, Point2D value)
-        {
-            return Length(point.X, point.Y, value.X, value.Y);
-        }
-
-        /// <summary>
-        /// Calculates the Length between two points.
-        /// </summary>
-        /// <param name="point">Starting Point.</param>
-        /// <param name="value">Ending Point.</param>
-        /// <returns>Returns the length of a line segment between two points.</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this Point point, Point value)
-        {
-            return Length(point.X, point.Y, value.X, value.Y);
-        }
-
-        /// <summary>
-        /// Calculates the Length between two points.
-        /// </summary>
-        /// <param name="point">Starting Point.</param>
-        /// <param name="value">Ending Point.</param>
-        /// <returns>Returns the length of a line segment between two points.</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this PointF point, PointF value)
-        {
-            return Length(point.X, point.Y, value.X, value.Y);
-        }
-
-        /// <summary>
-        /// Finds the length of a 2D vector
-        /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"> Point</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this Vector2D vector, Vector2D value)
-        {
-            return Length(vector.I, vector.J, value.I, value.J);
-        }
-
-        /// <summary>
-        /// Finds the Length between two points
-        /// </summary>
-        /// <param name="segment">line segment</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this LineSegment segment)
-        {
-            return Length(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-        }
-        #endregion
-
         #region Modulus
-        /// <summary>
-        /// Modulus of a Vector.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Modulus(int x, int y)
-        {
-            return Math.Pow((x * x) + (y * y), 0.5F);
-        }
-
-        /// <summary>
-        /// Modulus of a Vector.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Modulus(float x, float y)
-        {
-            return Math.Pow((x * x) + (y * y), 0.5F);
-        }
-
-        /// <summary>
-        /// Modulus of a Vector.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Modulus(double x, double y)
-        {
-            return Math.Pow((x * x) + (y * y), 0.5F);
-        }
 
         /// <summary>
         /// Modulus of a Vector.
@@ -2132,8 +1867,9 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(this Vector2D value)
         {
-            return Modulus(value.I, value.J);
+            return Maths.Modulus(value.I, value.J);
         }
+
         #endregion
 
         #region Multiply
@@ -2653,57 +2389,6 @@ namespace Engine.Geometry
         #endregion
 
         #region Slope
-        /// <summary>
-        /// Returns the slope angle of a line.
-        /// </summary>
-        /// <param name="X1">Horizontal Component of Point Starting Point</param>
-        /// <param name="Y1">Vertical Component of Point Starting Point</param>
-        /// <param name="X2">Horizontal Component of Ending Point</param>
-        /// <param name="Y2">Vertical Component of Ending Point</param>
-        /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks></remarks>
-        public static double Slope(ref int X1, ref int Y1, ref int X2, ref int Y2)
-        {
-            //  Check to see if the Line is Vertical. 
-            //  The original Version was: If (Line.A.X - Line.B.X) = 0 Then
-            if ((X1 == X2))
-            {
-                //  Line is Vertical return something close to infinity (Close to 
-                //  the largest value allowed for the data type).
-                return MathExtensions.SlopeMax;
-            }
-            else
-            {
-                return ((Y2 - Y1) / (X2 - X1));
-            }
-        }
-
-        /// <summary>
-        /// Returns the slope angle of a line.
-        /// </summary>
-        /// <param name="X1">Horizontal Component of Point Starting Point</param>
-        /// <param name="Y1">Vertical Component of Point Starting Point</param>
-        /// <param name="X2">Horizontal Component of Ending Point</param>
-        /// <param name="Y2">Vertical Component of Ending Point</param>
-        /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks></remarks>
-        public static double Slope(ref float X1, ref float Y1, ref float X2, ref float Y2)
-        {
-            //  Check to see if the Line is Vertical. 
-            //  The original Version was: If (Line.A.X - Line.B.X) = 0 Then
-            if ((X1 == X2))
-            {
-                //  Vertical line check.
-                //  Line is Vertical return something close to infinity (Close to 
-                //  the largest value allowed for the data type).
-                return MathExtensions.SlopeMax;
-            }
-            else
-            {
-                return ((Y2 - Y1)
-                            / (X2 - X1));
-            }
-        }
 
         /// <summary>
         /// Calculates the Slope of two points.
@@ -2712,16 +2397,10 @@ namespace Engine.Geometry
         /// <param name="PointB">Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Point PointA, Point PointB)
         {
-            //  If the line is vertical, return something close to infinity 
-            //  (Close to the largest value allowed for the data type).
-            if ((PointA.X == PointB.X))
-            {
-                return MathExtensions.SlopeMax;
-            }
-            //  Otherwise calculate and return the slope.
-            return ((PointB.Y - PointA.Y) / (PointB.X - PointA.X));
+            return Maths.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
         }
 
         /// <summary>
@@ -2731,19 +2410,10 @@ namespace Engine.Geometry
         /// <param name="PointB">Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this PointF PointA, PointF PointB)
         {
-            //  Check to see if the Line is Vertical. 
-            //  The original Version was: If (Line.A.X - Line.B.X) = 0 Then
-            if ((PointA.X == PointB.X))
-            {
-                //  If the line is vertical, return something close to infinity 
-                //  (Close to the largest value allowed for the data type).
-                return MathExtensions.SlopeMax;
-            }
-
-            //  Otherwise calculate and return the slope.
-            return ((PointB.Y - PointA.Y) / (PointB.X - PointA.X));
+            return Maths.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
         }
 
         /// <summary>
@@ -2753,19 +2423,10 @@ namespace Engine.Geometry
         /// <param name="PointB">Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Point2D PointA, Point2D PointB)
         {
-            //  Check to see if the Line is Vertical. 
-            //  The original Version was: If (Line.A.X - Line.B.X) = 0 Then
-            if ((PointA.X == PointB.X))
-            {
-                //  If the line is vertical, return something close to infinity 
-                //  (Close to the largest value allowed for the data type).
-                return MathExtensions.SlopeMax;
-            }
-
-            //  Otherwise calculate and return the slope.
-            return ((PointB.Y - PointA.Y) / (PointB.X - PointA.X));
+            return Maths.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
         }
 
         /// <summary>
@@ -2780,7 +2441,7 @@ namespace Engine.Geometry
             //  (Close to the largest value allowed for the data type).
             if ((Point.I == 0))
             {
-                return MathExtensions.SlopeMax;
+                return Maths.SlopeMax;
             }
 
             //  Otherwise calculate and return the slope.
@@ -2801,7 +2462,7 @@ namespace Engine.Geometry
             {
                 //  Line is Vertical return something close to infinity (Close to 
                 //  the largest value allowed for the data type).
-                return MathExtensions.SlopeMax;
+                return Maths.SlopeMax;
             }
 
             //  Otherwise calculate and return the slope.

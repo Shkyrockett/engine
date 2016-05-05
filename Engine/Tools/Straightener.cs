@@ -171,7 +171,7 @@ namespace Engine.Tools
                     angle = PrimitivesExtensions.AbsoluteAngle(points[0], points[1]);
 
                     // theta is the angle to rotate to.
-                    theta = MathExtensions.RoundToMultiple(angle, MathExtensions.HalfPi);
+                    theta = Maths.RoundToMultiple(angle, Maths.HalfPi);
 
                     // delta is the difference between the angle and theta which is the angle to rotate to.
                     delta = theta - angle;

@@ -324,7 +324,7 @@ namespace Engine.Geometry
         {
             get
             {
-                double phi = MathExtensions.ToRadians(angle);
+                double phi = Maths.ToRadians(angle);
                 double ux = majorRadius * Math.Cos(phi);
                 double uy = majorRadius * Math.Sin(phi);
                 double vx = (majorRadius * aspect) * Math.Cos(phi + Math.PI / 2);
@@ -439,7 +439,7 @@ namespace Engine.Geometry
                 majorRadius * aspect
                 );
 
-            double theta = MathExtensions.ToRadians(angle);
+            double theta = Maths.ToRadians(angle);
             Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
             Point2D yaxis = new Point2D(-Math.Sin(theta), Math.Cos(theta));
 

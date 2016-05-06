@@ -3,6 +3,7 @@ using Engine.File.Palettes;
 using Engine.Geometry;
 using Engine.Imaging;
 using Engine.Objects;
+using Engine.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,6 +23,11 @@ namespace Editor
         /// 
         /// </summary>
         VectorMap vectorMap;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ToolStack toolStack;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
@@ -70,6 +76,8 @@ namespace Editor
 
             vectorMap = new VectorMap();
 
+
+
             List<ShapeStyle> styles = new List<ShapeStyle>()
             {
                 new ShapeStyle(new Pen(Brushes.Red), new Pen(Brushes.Plum)),
@@ -82,6 +90,7 @@ namespace Editor
                 new ShapeStyle(new Pen(Brushes.DarkGoldenrod), new Pen(Brushes.Honeydew)),
                 new ShapeStyle(new Pen(Brushes.AntiqueWhite), new Pen(Brushes.CadetBlue)),
                 new ShapeStyle(new Pen(Brushes.Azure), new Pen(Brushes.Transparent)),
+                new ShapeStyle(new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent)), new Pen(Brushes.Transparent)),
             };
 
             //Shape triangle = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100))
@@ -96,9 +105,9 @@ namespace Editor
             //{ Style = styles[2] };
             //vectorMap.Add(rectf);
 
-            //Shape polygon = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) })
-            //{ Style = styles[3] };
-            //vectorMap.Add(polygon);
+            Shape polygon = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) })
+            { Style = styles[3] };
+            vectorMap.Add(polygon);
 
             //Shape polyline = new Polyline(new List<Point2D>() { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) })
             //{ Style = styles[4] };
@@ -163,8 +172,26 @@ namespace Editor
             { Style = styles[6] };
             vectorMap.Add(set);
 
-            Shape pathPolyline = Experimental.ShortestPath(new Point2D(20, 20), new Point2D(200, 200), (PolygonSet)set);
+            Shape innerPolygon = new Polygon( // First inner triangle
+                            new List<Point2D>() {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30),
+                            }
+                        ).Offset(10);
+            innerPolygon.Style = styles[10];
+            vectorMap.Add(innerPolygon);
+
+            Polyline pathPolyline = Experimental.ShortestPath(new Point2D(20, 20), new Point2D(200, 200), (PolygonSet)set);
             pathPolyline.Style = styles[9];
+            //Shape polylineSet = new PolylineSet(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline.Offset(-10) })
+            //{ Style = styles[10] };
+            Polyline pathPolyline2 = pathPolyline.Offset(-10);
+            pathPolyline2.Reverse();
+            Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }))
+            { Style = styles[10] };
+            vectorMap.Add(polygonLine);
+            //vectorMap.Add(polylineSet);
             vectorMap.Add(pathPolyline);
 
             listBox1.DataSource = vectorMap.Shapes;
@@ -186,20 +213,6 @@ namespace Editor
             {
                 Renderer.Render(shape, e.Graphics, shape.Style);
             }
-        }
-
-        /// <summary>
-        /// Set an arbitrary control to double-buffer.
-        /// </summary>
-        /// <param name="control">The control to set as double buffered.</param>
-        /// <remarks>
-        /// Taxes: Remote Desktop Connection and painting: http://blogs.msdn.com/oldnewthing/archive/2006/01/03/508694.aspx
-        /// </remarks>
-        private static void SetDoubleBuffered(Control control)
-        {
-            if (SystemInformation.TerminalServerSession) return;
-            PropertyInfo aProp = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
-            aProp.SetValue(control, true, null);
         }
 
         /// <summary>
@@ -242,6 +255,62 @@ namespace Editor
             {
                 toolStripComboBoxFactories.ComboBox.Text = string.Empty;
             }
+        }
+
+        private void CanvasPanel_Scroll(object sender, ScrollEventArgs e)
+        {
+            //e.NewValue;
+            //e.OldValue;
+            //e.ScrollOrientation;
+            //e.Type;
+            toolStack.MouseScroll((Engine.Tools.ScrollOrientation)e.ScrollOrientation, e.NewValue - e.OldValue);
+        }
+
+        private void CanvasPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            //e.Button;
+            //e.Clicks;
+            //e.Delta;
+            //e.Location;
+            //e.X;
+            //e.Y;
+            toolStack.MouseDown((Engine.Tools.MouseButtons)e.Button, e.Clicks);
+        }
+
+        private void CanvasPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            //e.Button;
+            //e.Clicks;
+            //e.Delta;
+            //e.Location;
+            //e.X;
+            //e.Y;
+            toolStack.MouseUp((Engine.Tools.MouseButtons)e.Button, e.Clicks);
+        }
+
+        private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            //e.Button;
+            //e.Clicks;
+            //e.Delta;
+            //e.Location;
+            //e.X;
+            //e.Y;
+            toolStack.MouseMove(new Point2D(e.X, e.Y));
+        }
+
+        /// <summary>
+        /// Set an arbitrary control to double-buffer.
+        /// </summary>
+        /// <param name="control">The control to set as double buffered.</param>
+        /// <remarks>
+        /// Taxes: Remote Desktop Connection and painting: http://blogs.msdn.com/oldnewthing/archive/2006/01/03/508694.aspx
+        /// </remarks>
+        private static void SetDoubleBuffered(Control control)
+        {
+            if (SystemInformation.TerminalServerSession) return;
+            PropertyInfo aProp = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
+            aProp.SetValue(control, true, null);
         }
     }
 }

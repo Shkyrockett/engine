@@ -1,4 +1,4 @@
-﻿// <copyright file="PolygonSet.cs" >
+﻿// <copyright file="PolylineSet.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -18,14 +18,13 @@ using System.Xml.Serialization;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// Set of a Closed Polygon structures
+    /// Set of a open Polyline structures
     /// </summary>
-    /// <structure>Engine.Geometry.PolyGon2D</structure>
     /// <remarks></remarks>
     [Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(PolygonSet))]
-    public class PolygonSet
+    [DisplayName(nameof(PolylineSet))]
+    public class PolylineSet
         : Shape
     {
         /// <summary>
@@ -33,31 +32,31 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        private List<Polygon> polygons;
+        private List<Polyline> polylines;
 
         /// <summary>
-        /// Initializes a default instance of the <see cref="PolygonSet"/> class.
+        /// Initializes a default instance of the <see cref="PolylineSet"/> class.
         /// </summary>
-        public PolygonSet()
+        public PolylineSet()
         {
-            polygons = new List<Polygon>();
+            polylines = new List<Polyline>();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonSet"/> class.
+        /// Initializes a new instance of the <see cref="PolylineSet"/> class.
         /// </summary>
-        public PolygonSet(List<Polygon> polygons)
+        public PolylineSet(List<Polyline> polylines)
         {
-            this.polygons = polygons;
+            this.polylines = polylines;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Polygon> Polygons
+        public List<Polyline> Polylines
         {
-            get { return polygons; }
-            set { polygons = value; }
+            get { return polylines; }
+            set { polylines = value; }
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace Engine.Geometry
         /// </summary>
         public int Count
         {
-            get { return polygons.Count; }
+            get { return polylines.Count; }
         }
 
         /// <summary>
@@ -78,11 +77,11 @@ namespace Engine.Geometry
         {
             get
             {
-                Rectangle2D bounds = polygons[0].Bounds;
+                Rectangle2D bounds = polylines[0].Bounds;
 
-                foreach (Polygon polygon in polygons)
+                foreach (Polyline polyline in polylines)
                 {
-                    bounds.Union(polygon.Bounds);
+                    bounds.Union(polyline.Bounds);
                 }
 
                 return bounds;
@@ -97,10 +96,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="polygon"></param>
-        public void Add(Polygon polygon)
+        /// <param name="polyline"></param>
+        public void Add(Polyline polyline)
         {
-            polygons.Add(polygon);
+            polylines.Add(polyline);
         }
 
         /// <summary>
@@ -109,15 +108,15 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return nameof(PolygonSet);
-            StringBuilder pts = new StringBuilder();
-            foreach (Polygon pn in Polygons)
+            if (this == null) return nameof(PolylineSet);
+            StringBuilder pointsString = new StringBuilder();
+            foreach (Polyline polyline in Polylines)
             {
-                pts.Append(pn.ToString());
-                pts.Append(",");
+                pointsString.Append(polyline.ToString());
+                pointsString.Append(",");
             }
-            if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(PolygonSet), pts.ToString());
+            if (pointsString.Length > 0) pointsString.Remove(pointsString.Length - 1, 1);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(PolylineSet), pointsString.ToString());
         }
     }
 }

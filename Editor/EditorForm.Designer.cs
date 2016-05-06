@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             this.CanvasPanel = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -45,6 +46,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxObjects = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripComboBoxFactories = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -69,7 +71,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripComboBoxFactories = new System.Windows.Forms.ToolStripComboBox();
             this.CanvasPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -95,12 +96,17 @@
             this.CanvasPanel.BackColor = System.Drawing.Color.CornflowerBlue;
             this.CanvasPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CanvasPanel.Controls.Add(this.comboBox1);
+            this.CanvasPanel.Controls.Add(this.textBox1);
             this.CanvasPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CanvasPanel.Location = new System.Drawing.Point(0, 0);
             this.CanvasPanel.Name = "CanvasPanel";
-            this.CanvasPanel.Size = new System.Drawing.Size(269, 328);
+            this.CanvasPanel.Size = new System.Drawing.Size(271, 328);
             this.CanvasPanel.TabIndex = 5;
+            //this.CanvasPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CanvasPanel_Scroll);
             this.CanvasPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.CanvasPanel_Paint);
+            //this.CanvasPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseDown);
+            //this.CanvasPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseMove);
+            //this.CanvasPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseUp);
             // 
             // comboBox1
             // 
@@ -110,12 +116,22 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 0;
             // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox1.Location = new System.Drawing.Point(0, 249);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(269, 77);
+            this.textBox1.TabIndex = 1;
+            // 
             // propertyGrid1
             // 
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(137, 163);
+            this.propertyGrid1.Size = new System.Drawing.Size(139, 163);
             this.propertyGrid1.TabIndex = 2;
             this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid1_PropertyValueChanged);
             // 
@@ -125,7 +141,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(137, 161);
+            this.listBox1.Size = new System.Drawing.Size(139, 161);
             this.listBox1.TabIndex = 1;
             this.listBox1.SelectedValueChanged += new System.EventHandler(this.listBox1_SelectedValueChanged);
             // 
@@ -149,20 +165,20 @@
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 3);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(144, 300);
+            this.toolStrip1.Size = new System.Drawing.Size(142, 300);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(142, 15);
+            this.toolStripLabel3.Size = new System.Drawing.Size(140, 15);
             this.toolStripLabel3.Text = "Tree";
             // 
             // treeViewToolStripItem1
             // 
             this.treeViewToolStripItem1.Name = "treeViewToolStripItem1";
-            this.treeViewToolStripItem1.Size = new System.Drawing.Size(142, 100);
+            this.treeViewToolStripItem1.Size = new System.Drawing.Size(140, 100);
             // 
             // toolStripButtonAdd
             // 
@@ -170,54 +186,60 @@
             this.toolStripButtonAdd.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAdd.Image")));
             this.toolStripButtonAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAdd.Name = "toolStripButtonAdd";
-            this.toolStripButtonAdd.Size = new System.Drawing.Size(142, 19);
+            this.toolStripButtonAdd.Size = new System.Drawing.Size(140, 19);
             this.toolStripButtonAdd.Text = "Add New:";
             // 
             // toolStripComboBoxFiles
             // 
             this.toolStripComboBoxFiles.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.toolStripComboBoxFiles.Name = "toolStripComboBoxFiles";
-            this.toolStripComboBoxFiles.Size = new System.Drawing.Size(140, 23);
+            this.toolStripComboBoxFiles.Size = new System.Drawing.Size(138, 23);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(140, 6);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(142, 15);
+            this.toolStripLabel1.Size = new System.Drawing.Size(140, 15);
             this.toolStripLabel1.Text = "Tools";
             // 
             // toolStripComboBoxTools
             // 
             this.toolStripComboBoxTools.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.toolStripComboBoxTools.Name = "toolStripComboBoxTools";
-            this.toolStripComboBoxTools.Size = new System.Drawing.Size(140, 23);
+            this.toolStripComboBoxTools.Size = new System.Drawing.Size(138, 23);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(140, 6);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(142, 15);
+            this.toolStripLabel2.Size = new System.Drawing.Size(140, 15);
             this.toolStripLabel2.Text = "Objects";
             // 
             // toolStripComboBoxObjects
             // 
             this.toolStripComboBoxObjects.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.toolStripComboBoxObjects.Name = "toolStripComboBoxObjects";
-            this.toolStripComboBoxObjects.Size = new System.Drawing.Size(140, 23);
+            this.toolStripComboBoxObjects.Size = new System.Drawing.Size(138, 23);
             this.toolStripComboBoxObjects.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxObjects_SelectedIndexChanged);
+            // 
+            // toolStripComboBoxFactories
+            // 
+            this.toolStripComboBoxFactories.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.toolStripComboBoxFactories.Name = "toolStripComboBoxFactories";
+            this.toolStripComboBoxFactories.Size = new System.Drawing.Size(138, 23);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(140, 6);
             // 
             // toolStripContainer1
             // 
@@ -225,7 +247,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(410, 328);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(414, 328);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer1.LeftToolStripPanel
@@ -259,8 +281,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(410, 328);
-            this.splitContainer1.SplitterDistance = 269;
+            this.splitContainer1.Size = new System.Drawing.Size(414, 328);
+            this.splitContainer1.SplitterDistance = 271;
             this.splitContainer1.TabIndex = 6;
             // 
             // splitContainer2
@@ -277,7 +299,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.propertyGrid1);
-            this.splitContainer2.Size = new System.Drawing.Size(137, 328);
+            this.splitContainer2.Size = new System.Drawing.Size(139, 328);
             this.splitContainer2.SplitterDistance = 161;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -289,21 +311,21 @@
             this.paletteToolStripItem1});
             this.toolStrip3.Location = new System.Drawing.Point(0, 3);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(116, 242);
+            this.toolStrip3.Size = new System.Drawing.Size(114, 242);
             this.toolStrip3.TabIndex = 6;
             this.toolStrip3.Text = "toolStrip3";
             // 
             // treeViewToolStripItem2
             // 
             this.treeViewToolStripItem2.Name = "treeViewToolStripItem2";
-            this.treeViewToolStripItem2.Size = new System.Drawing.Size(114, 97);
+            this.treeViewToolStripItem2.Size = new System.Drawing.Size(112, 97);
             this.treeViewToolStripItem2.Text = "treeViewToolStripItem2";
             // 
             // paletteToolStripItem1
             // 
             this.paletteToolStripItem1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("paletteToolStripItem1.BackgroundImage")));
             this.paletteToolStripItem1.Name = "paletteToolStripItem1";
-            this.paletteToolStripItem1.Size = new System.Drawing.Size(114, 128);
+            this.paletteToolStripItem1.Size = new System.Drawing.Size(112, 128);
             this.paletteToolStripItem1.Text = "paletteToolStripItem1";
             // 
             // menuStrip1
@@ -444,12 +466,6 @@
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
             // 
-            // toolStripComboBoxFactories
-            // 
-            this.toolStripComboBoxFactories.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.toolStripComboBoxFactories.Name = "toolStripComboBoxFactories";
-            this.toolStripComboBoxFactories.Size = new System.Drawing.Size(140, 23);
-            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,6 +477,7 @@
             this.Text = "Editor";
             this.Load += new System.EventHandler(this.EditorForm_Load);
             this.CanvasPanel.ResumeLayout(false);
+            this.CanvasPanel.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -531,6 +548,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxFactories;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

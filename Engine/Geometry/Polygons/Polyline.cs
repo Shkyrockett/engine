@@ -10,6 +10,7 @@
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
@@ -23,23 +24,92 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Polyline")]
     public class Polyline
+        //: Shape
         : Polygon
     {
         /// <summary>
         /// 
         /// </summary>
+        private List<Point2D> points;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Polyline()
-        {
-            base.Points = new List<Point2D>();
-        }
+            : this(new List<Point2D>())
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Polyline(List<Point2D> points)
+        public Polyline(ICollection<Point2D> points)
         {
-            base.Points = points;
+            Points = (List<Point2D>)points;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polylines"></param>
+        public Polyline(ICollection<Polyline> polylines)
+        {
+            points = new List<Point2D>();
+            foreach (Polyline polyline in polylines)
+            {
+                points.AddRange(polyline.Points);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        public new Point2D this[int index]
+        {
+            get { return points[index]; }
+            set { points[index] = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public new List<Point2D> Points
+        {
+            get { return points; }
+            set { points = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override Rectangle2D Bounds
+        {
+            get
+            {
+                double left = points[0].X;
+                double top = points[0].Y;
+                double right = points[0].X;
+                double bottom = points[0].Y;
+
+                foreach (Point2D point in points)
+                {
+                    // ToDo: Measure performance impact of overwriting each time.
+                    left = point.X <= left ? point.X : left;
+                    top = point.Y <= top ? point.Y : top;
+                    right = point.X >= right ? point.X : right;
+                    bottom = point.Y >= bottom ? point.Y : bottom;
+                }
+
+                return Rectangle2D.FromLTRB(left, top, right, bottom);
+            }
         }
 
         /// <summary>
@@ -48,9 +118,59 @@ namespace Engine.Geometry
         public override ShapeStyle Style { get; set; }
 
         /// <summary>
-        /// Render the shape to the canvas.
+        /// 
         /// </summary>
-        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
+        /// <param name="point"></param>
+        public new void Add(Point2D point)
+        {
+            Points.Add(point);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public new void Reverse()
+        {
+            Points.Reverse();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public new Polyline Clone()
+        {
+            return new Polyline(Points.ToArray());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public new Polyline Offset(double offset)
+        {
+            Polyline polyline = new Polyline();
+
+            LineSegment offsetLine = Experimental.OffsetSegment(Points[0], Points[1], offset);
+            polyline.Add(offsetLine.A);
+
+            for (int i = 2; i < Points.Count; i++)
+            {
+                LineSegment newOffsetLine = Experimental.OffsetSegment(Points[i - 1], Points[i], offset);
+                polyline.Add(Experimental.Intersect(offsetLine.A, offsetLine.B, newOffsetLine.A, newOffsetLine.B));
+                offsetLine = newOffsetLine;
+            }
+
+            polyline.Add(offsetLine.B);
+
+            return polyline;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
         public override void Render(Graphics g)
         {
             //g.FillPolygon(Style.BackBrush, Points.ToArray());

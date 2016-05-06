@@ -494,6 +494,33 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Magnitude(double i, double j)
+        {
+            return Math.Sqrt((i * i) + (j * j));
+        }
+
+        /// <summary>
+        /// Modulus of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Magnitude(double i, double j, double k)
+        {
+            return Math.Sqrt((i * i) + (j * j) + (k * k));
+        }
+
+        /// <summary>
+        /// Modulus of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j)
         {
             return Math.Sqrt((i * i) + (j * j));
@@ -529,6 +556,17 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Returns the average value of a numeric array.
+        /// </summary>
+        /// <param name="Values"></param>
+        /// <returns></returns>
+        /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        public static double Average(this List<double> Values)
+        {
+            return (Sum(Values) / Values.Count);
+        }
+
+        /// <summary>
         /// Find the sum of an array of Numbers
         /// </summary>
         /// <param name="Values"></param>
@@ -538,6 +576,23 @@ namespace Engine.Geometry
         {
             double Retval = 0;
             for (int i = 0; i < Values.Length; i++)
+            {
+                Retval += Values[i];
+            }
+
+            return Retval;
+        }
+
+        /// <summary>
+        /// Find the sum of an array of Numbers
+        /// </summary>
+        /// <param name="Values"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double Sum(this List<double> Values)
+        {
+            double Retval = 0;
+            for (int i = 0; i < Values.Count; i++)
             {
                 Retval += Values[i];
             }
@@ -559,7 +614,7 @@ namespace Engine.Geometry
         /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
         public static double Crt(double value)
         {
-            return value < 0 ? -Math.Pow(-value, 1 / 3) : Math.Pow(value, 1 / 3);
+            return value < 0 ? -Math.Pow(-value, 1d / 3d) : Math.Pow(value, 1d / 3d);
         }
 
         /// <summary>

@@ -62,7 +62,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Size2D(double width, double height)
         {
-            if (width < 0 || height < 0) throw new ArgumentException("Width and Height cannot be Negative.");
+            // If negative sizes are prohibited, then it would be impossible to inflate a rectangle in the negative direction to shrink it.
+            //if (width < 0 || height < 0) throw new ArgumentException("Width and Height cannot be Negative.");
             this.width = width;
             this.height = height;
         }

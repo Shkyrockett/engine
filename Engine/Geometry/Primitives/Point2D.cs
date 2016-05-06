@@ -93,7 +93,7 @@ namespace Engine.Geometry
         {
             get { return x == 0 && y == 0; }
         }
-        
+
         #endregion
 
         /// <summary>

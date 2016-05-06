@@ -35,17 +35,37 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public Polygon()
-        {
-            points = new List<Point2D>();
-        }
+            : this(new List<Point2D>())
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        public Polygon(Polygon polygon)
+            : this(polygon.points)
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Polygon(List<Point2D> points)
+        public Polygon(ICollection<Point2D> points)
         {
-            this.points = points;
+            this.points = (List<Point2D>)points;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polylines"></param>
+        public Polygon(ICollection<Polyline> polylines)
+        {
+            points = new List<Point2D>();
+            foreach (Polyline polyline in polylines)
+            {
+                points.AddRange(polyline.Points);
+            }
         }
 
         /// <summary>
@@ -103,6 +123,56 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public override ShapeStyle Style { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        public void Add(Point2D point)
+        {
+            Points.Add(point);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Reverse()
+        {
+            Points.Reverse();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Polygon Clone()
+        {
+            return new Polygon(points.ToArray());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public virtual Polygon Offset(double offset)
+        {
+            Polygon polyline = new Polygon();
+
+            LineSegment offsetLine = Experimental.OffsetSegment(Points[Points.Count - 1], Points[0], offset);
+            LineSegment startLine = offsetLine;
+
+            for (int i = 1; i < Points.Count; i++)
+            {
+                LineSegment newOffsetLine = Experimental.OffsetSegment(Points[i - 1], Points[i], offset);
+                polyline.Add(Experimental.Intersect(offsetLine.A, offsetLine.B, newOffsetLine.A, newOffsetLine.B));
+                offsetLine = newOffsetLine;
+            }
+
+            polyline.Add(Experimental.Intersect(offsetLine.A, offsetLine.B, startLine.A, startLine.B));
+
+            return polyline;
+        }
 
         /// <summary>
         /// Render the shape to the canvas.

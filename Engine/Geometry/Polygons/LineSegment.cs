@@ -184,6 +184,16 @@ namespace Engine.Geometry
         #endregion
 
         /// <summary>
+        /// 
+        /// </summary>
+        public void Reverse()
+        {
+            Point2D temp = A;
+            A = B;
+            B = temp;
+        }
+
+        /// <summary>
         /// Render the shape to the canvas.
         /// </summary>
         /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>

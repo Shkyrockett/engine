@@ -694,13 +694,38 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PointA"></param>
+        /// <param name="PointB"></param>
+        /// <param name="PointC"></param>
+        /// <param name="PointD"></param>
+        /// <returns></returns>
+        public static Point2D Intersect(Point2D PointA, Point2D PointB, Point2D PointC, Point2D PointD)
+        {
+            Vector2D DeltaBA = (PointB - PointA);
+            Vector2D DeltaDC = (PointD - PointC);
+            Vector2D DeltaCA = (PointC - PointA);
+            Vector2D DeltaAC = (PointA - PointC);
+            //  If the segments are parallel.
+            if ((DeltaDC.J * DeltaBA.J) == (DeltaDC.I * DeltaBA.I))
+            {
+                return Point2D.Empty;
+            }
+            double s = (((DeltaBA.I * DeltaCA.J) + (DeltaAC.I * DeltaBA.J)) / Maths.CrossProduct(DeltaBA.I, DeltaBA.J, DeltaDC.I, DeltaDC.J));
+            double t = (((DeltaDC.I * DeltaAC.J) + (DeltaCA.I * DeltaDC.J)) / Maths.CrossProduct(DeltaBA.I, DeltaBA.J, DeltaDC.I, DeltaDC.J));
+            //  If it exists, the point of intersection is:
+            return new Point2D((PointA.X + (t * DeltaBA.I)), (PointA.Y + (t * DeltaBA.J)));
+        }
+
+        /// <summary>
         /// Find the Intersection of given lines and returns the intersection point
         /// </summary>
         /// <param name="LineA"></param>
         /// <param name="LineB"></param>
         /// <returns></returns>
         /// <remarks>This function can handle vertical as well as horizontal and Parallel lines. </remarks>
-        public static Point2D Intersect(LineSegment LineA, LineSegment LineB)
+        public static Point2D Intersect0(LineSegment LineA, LineSegment LineB)
         {
             //  Calculate the slopes of the lines.
             double SlopeA = LineA.Slope();
@@ -721,6 +746,7 @@ namespace Engine
             // Dim NewY As Single = SlopeA * NewX + PointSlopeA
             // Return New Point2D(NewX, NewY)
         }
+
 
         /// <summary>
         /// New Return True if the segments intersect.
@@ -3467,8 +3493,28 @@ namespace Engine
         {
             Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
             Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
-            return Experimental.LinearInterpolate0(Value1, Value2, Weight).Inflate(PerpendicularAB);
+            return LinearInterpolate0(Value1, Value2, Weight).Inflate(PerpendicularAB);
         }
+
+        #endregion
+
+        #region Offset Line
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Value1"></param>
+        /// <param name="Value2"></param>
+        /// <param name="Offset"></param>
+        /// <returns></returns>
+        public static LineSegment OffsetSegment(Point2D Value1, Point2D Value2, double Offset)
+        {
+            Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
+            Vector2D PerpendicularAB = (UnitVectorAB.Perpendicular() * 0.5) * Offset;
+            LineSegment Out = new LineSegment((Value1 + PerpendicularAB), (Value2 + PerpendicularAB));
+            return Out;
+        }
+
 
         #endregion
 

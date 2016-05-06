@@ -91,8 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Complex\PolylineSet.cs" />
     <Compile Include="Geometry\Curves\Incomplete\ParametricDelegateCurve.cs" />
-    <Compile Include="Geometry\ParametricInterpolateors.cs" />
+    <Compile Include="Experemental\ParametricInterpolateors.cs" />
     <Compile Include="Experemental\TimeLine.cs" />
     <Compile Include="Geometry\Curves\Incomplete\ConicSections.cs" />
     <Compile Include="Geometry\Curves\Incomplete\CardinalSpline.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Geometry\Units\Degree.cs" />
     <Compile Include="Geometry\Interfaces\IShape.cs" />
     <Compile Include="Geometry\Framework\VectorConverter.cs" />
+    <Compile Include="Geometry\Complex\Incompleete\Voronoi.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
     <Compile Include="Imaging\ColorSpace\ACYMK.cs" />
     <Compile Include="Imaging\ColorSpace\AHSI.cs" />
@@ -227,6 +229,8 @@
     <Compile Include="Objects\VectorGraphic.cs" />
     <Compile Include="Objects\VectorMap.cs" />
     <Compile Include="Objects\Wavform.cs" />
+    <Compile Include="Tools\Pan.cs" />
+    <Compile Include="Tools\Zoom.cs" />
     <Compile Include="Tools\Select.cs" />
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />
@@ -246,6 +250,7 @@
     <Compile Include="Tools\Straightener.cs" />
     <Compile Include="Tools\Tool.cs" />
     <Compile Include="Geometry\Utilities.cs" />
+    <Compile Include="Tools\ToolStack.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

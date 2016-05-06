@@ -18,7 +18,18 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(Shape shape, Graphics g, ShapeStyle style)
         {
-            g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
+            //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
+
+            //// Waiting on c# 7...
+            //switch (shape)
+            //{
+            //    case LineSegment s:
+            //        ((LineSegment)shape).Render(g, style);
+            //        break;
+            //    case null:
+            //    default:
+            //        break;
+            //}
 
             if (shape == null)
             {
@@ -27,6 +38,10 @@ namespace Engine.Imaging
             else if (shape is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
                 ((LineSegment)shape).Render(g, style);
+            }
+            else if (shape is PolylineSet)
+            {
+                ((PolylineSet)shape).Render(g, style);
             }
             else if (shape is Polyline)
             {
@@ -87,6 +102,22 @@ namespace Engine.Imaging
         {
             g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
             g.DrawPolygon(style.ForePen, shape.Points.ToPointFArray());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="set"></param>
+        /// <param name="g"></param>
+        /// <param name="style"></param>
+        public static void Render(this PolylineSet set, Graphics g, ShapeStyle style)
+        {
+            //GraphicsPath path = new GraphicsPath();
+            foreach (Polyline shape in set.Polylines)
+            {
+                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+                g.DrawLines(style.ForePen, shape.Points.ToPointFArray());
+            }
         }
 
         /// <summary>

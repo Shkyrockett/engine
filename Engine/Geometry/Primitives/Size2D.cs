@@ -178,6 +178,18 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Divide a <see cref="Size2D"/> by a <see cref="double"/> value.
+        /// </summary>
+        /// <param name="dividend"></param>
+        /// <param name="divisor"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Size2D operator /(Size2D dividend, double divisor)
+        {
+            return new Size2D(dividend.width / divisor, dividend.height / divisor);
+        }
+
+        /// <summary>
         /// Compares two <see cref="Size2D"/> objects. 
         /// The result specifies whether the values of the <see cref="Width"/> and <see cref="Height"/> 
         /// values of the two <see cref="Size2D"/> objects are equal.
@@ -264,7 +276,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Size2D Truncate()
         {
-            return new Size2D((int)width,(int)height);
+            return new Size2D((int)width, (int)height);
         }
 
         /// <summary>

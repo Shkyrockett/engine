@@ -540,6 +540,83 @@ namespace Engine.Geometry
             return Math.Sqrt((i * i) + (j * j) + (k * k));
         }
 
+        /// <summary>
+        /// Find the determinant of a 2 by 2 matrix.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant2x2(
+            double a, double b,
+            double c, double d)
+        {
+            return ((a * d)
+                  - (b * c));
+        }
+
+        /// <summary>
+        /// Find the determinant of a 3 by 3 matrix.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant3x3(
+            double a, double b, double c,
+            double d, double e, double f,
+            double g, double h, double i)
+        {
+            return ((a * Determinant2x2(e, f, h, i))
+                  - (b * Determinant2x2(d, f, g, i))
+                  + (c * Determinant2x2(d, e, g, h)));
+        }
+
+        /// <summary>
+        /// Find the determinant of a 4 by 4 matrix.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <param name="l"></param>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <param name="o"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant4x4(
+            double a, double b, double c, double d,
+            double e, double f, double g, double h,
+            double i, double j, double k, double l,
+            double m, double n, double o, double p)
+        {
+            return ((a * Determinant3x3(f, g, h, j, k, l, n, o, p))
+                  - (b * Determinant3x3(e, g, h, i, k, l, m, o, p))
+                  + (c * Determinant3x3(e, f, h, i, j, l, m, n, p))
+                  - (d * Determinant3x3(e, f, g, i, j, k, m, n, o)));
+        }
+
         #endregion
 
         #region Array Math

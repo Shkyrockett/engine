@@ -144,6 +144,18 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Add two <see cref="Point2D"/> classes together.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D operator +(Point2D value, Size2D addend)
+        {
+            return value.Add(addend);
+        }
+
+        /// <summary>
         /// Operator Point + Vector
         /// </summary>
         /// <param name="point"> The Point to be added to the Vector </param>
@@ -245,6 +257,18 @@ namespace Engine.Geometry
         public static Point2D operator *(Point2D value, Matrix2D matrix)
         {
             return matrix.Transform(value);
+        }
+
+        /// <summary>
+        /// Add an amount to both values in the <see cref="Point2D"/> classes.
+        /// </summary>
+        /// <param name="divisor">The original value</param>
+        /// <param name="dividend">The amount to add.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D operator /(Point2D divisor, double dividend)
+        {
+            return new Point2D(divisor.X / dividend, divisor.Y / dividend);
         }
 
         /// <summary>

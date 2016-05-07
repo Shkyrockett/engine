@@ -53,6 +53,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a default instance of the <see cref="Rectangle2D"/> class.
         /// </summary>
@@ -304,6 +305,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Operators
+
         /// <summary>
         /// Tests whether two <see cref="Rectangle2D"/> objects have equal location and size.
         /// </summary>
@@ -686,6 +688,15 @@ namespace Engine.Geometry
                 new Point2D(Right, Bottom),
                 new Point2D(Left, Bottom)
             };
+        }
+
+        /// <summary>
+        /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
+        /// </summary>
+        /// <returns>An array of points representing the corners of a rectangle.</returns>
+        public Polygon ToPolygon()
+        {
+            return new Polygon(ToPoints());
         }
 
         /// <summary>

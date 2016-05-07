@@ -5586,6 +5586,229 @@ namespace Engine
             b = swap;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Bounds"></param>
+        /// <param name="Location"></param>
+        /// <param name="Reference"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <history>
+        /// Shkyrockett[Alma Jenks]    16/January/2006    Created
+        /// </history>
+        public static Point2D WrapRectangle(Rectangle2D Bounds, Point2D Location, Point2D Reference)
+        {
+            if ((Location.X <= Bounds.X))
+            {
+                Reference = (Reference - new Size2D(Bounds.X, 0));
+                return new Point2D((Bounds.Width - 2), Location.Y);
+            }
+            if ((Location.Y <= Bounds.Y))
+            {
+                Reference = (Reference - new Size2D(0, Bounds.Y));
+                return new Point2D(Location.X, (Bounds.Height - 2));
+            }
+            if ((Location.X >= (Bounds.Width - 1)))
+            {
+                Reference = (Reference + new Size2D(Bounds.Width, 0));
+                return new Point2D((Bounds.X + 2), Location.Y);
+            }
+            if ((Location.Y >= (Bounds.Height - 1)))
+            {
+                Reference = (Reference + new Size2D(0, Bounds.Height));
+                return new Point2D(Location.X, (Bounds.Y + 2));
+            }
+            return Location;
+            // 'ToDo: Adjust My_StartPoint when Screen is wrapped
+        }
+
+        /// <summary>
+        /// Retrieve Cursor Resource from Executable
+        /// </summary>
+        /// <param name="ResourceName"></param>
+        /// <returns></returns>
+        /// <remarks>BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!</remarks>
+        /// <history>
+        /// Shkyrockett[Alma Jenks]    9/January/2006    Created
+        /// </history>
+        public static System.Windows.Forms.Cursor RetriveCursorResource(string ResourceName)
+        {
+            //  Get the namespace 
+            string strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
+            //  Get the resource into a stream 
+            System.IO.Stream ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
+            if ((ResourceStream == null))
+            {
+                // TODO: #If Then ... Warning!!! not translated
+                System.Windows.Forms.MessageBox.Show(("Unable to find: "
+                                + (ResourceName + ("\r\n" + ("Be Sure "
+                                + (ResourceName + (" Property Build Action is set to Embedded Resource" + ("\r\n" + "Another reason can be that the Project Root Namespace is not the same as the Assembly Name"))))))));
+                // TODO: # ... Warning!!! not translated
+            }
+            else
+            {
+                //  ToDo: Report the Error message in a nicer fashion since this in game. 
+                //  Perhaps on Exit provide a message errors were encountered and 
+                //  ignored would you like to send an error report?
+                // TODO: #End If ... Warning!!! not translated
+                return System.Windows.Forms.Cursors.Default;
+            }
+            //  Return the Resource as a cursor
+            if (ResourceStream.CanRead)
+            {
+                return new System.Windows.Forms.Cursor(ResourceStream);
+            }
+            else
+            {
+                return System.Windows.Forms.Cursors.Default;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="fulcrum"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Rectangle2D RotatedRectangleBounds(this Rectangle2D rectangle, Point2D fulcrum, double angle)
+        {
+            double cosAngle = Math.Abs(Math.Cos(angle));
+            double sinAngle = Math.Abs(Math.Sin(angle));
+
+            Size2D size = new Size2D(
+                (cosAngle * rectangle.Width) + (sinAngle * rectangle.Height),
+                (cosAngle * rectangle.Height) + (sinAngle * rectangle.Width)
+                );
+
+            Point2D loc = new Point2D(
+                fulcrum.X + ((-rectangle.Width / 2) * cosAngle + (-rectangle.Height / 2) * sinAngle),
+                fulcrum.Y + ((-rectangle.Width / 2) * sinAngle + (-rectangle.Height / 2) * cosAngle)
+                );
+
+            return new Rectangle2D(loc, size);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="fulcrum"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Polygon RotateRectangle(this Rectangle2D rectangle, Point2D fulcrum, double angle)
+        {
+            List<Point2D> points = new List<Point2D>();
+
+            Point2D xaxis = new Point2D(Math.Cos(angle), Math.Sin(angle));
+            Point2D yaxis = new Point2D(-Math.Sin(angle), Math.Cos(angle));
+
+            // Apply the rotation transformation and translate to new center.
+            points.Add(new Point2D(
+                fulcrum.X + ((-rectangle.Width / 2) * xaxis.X + (-rectangle.Height / 2) * xaxis.Y),
+                fulcrum.Y + ((-rectangle.Width / 2) * yaxis.X + (-rectangle.Height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((rectangle.Width / 2) * xaxis.X + (-rectangle.Height / 2) * xaxis.Y),
+                fulcrum.Y + ((rectangle.Width / 2) * yaxis.X + (-rectangle.Height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((rectangle.Width / 2) * xaxis.X + (rectangle.Height / 2) * xaxis.Y),
+                fulcrum.Y + ((rectangle.Width / 2) * yaxis.X + (rectangle.Height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((-rectangle.Width / 2) * xaxis.X + (rectangle.Height / 2) * xaxis.Y),
+                fulcrum.Y + ((-rectangle.Width / 2) * yaxis.X + (rectangle.Height / 2) * yaxis.Y)
+                ));
+
+            return new Polygon(points);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="radians"></param>
+        /// <returns></returns>
+        public static Size2D fitRect(Size2D size, double radians)
+        {
+            double angleCos = Math.Cos(radians);
+            double angleSin = Math.Sin(radians);
+
+            double x1 = -size.Width * 0.5f;
+            double x2 = size.Width * 0.5f;
+            double x3 = size.Width * 0.5f;
+            double x4 = -size.Width * 0.5f;
+
+            double y1 = size.Height * 0.5f;
+            double y2 = size.Height * 0.5f;
+            double y3 = -size.Height * 0.5f;
+            double y4 = -size.Height * 0.5f;
+
+            double x11 = (x1 * angleCos) + (y1 * angleSin);
+            double y11 = (-x1 * angleSin) + (y1 * angleCos);
+
+            double x21 = (x2 * angleCos) + (y2 * angleSin);
+            double y21 = (-x2 * angleSin) + (y2 * angleCos);
+
+            double x31 = (x3 * angleCos) + (y3 * angleSin);
+            double y31 = (-x3 * angleSin) + (y3 * angleCos);
+
+            double x41 = (x4 * angleCos) + (y4 * angleSin);
+            double y41 = (-x4 * angleSin) + (y4 * angleCos);
+
+            double x_min = Math.Min(Math.Min(x11, x21), Math.Min(x31, x41));
+            double x_max = Math.Max(Math.Max(x11, x21), Math.Max(x31, x41));
+
+            double y_min = Math.Min(Math.Min(y11, y21), Math.Min(y31, y41));
+            double y_max = Math.Max(Math.Max(y11, y21), Math.Max(y31, y41));
+
+            return new Size2D((x_max - x_min), (y_max - y_min));
+        }
+
+        /// <summary>
+        /// Creates a matrix to rotate an object around a particular point.  
+        /// </summary>
+        /// <param name="center">The point around which to rotate.</param>
+        /// <param name="angle">The angle to rotate in radians.</param>
+        /// <returns>Return a rotation matrix to rotate around a point.</returns>
+        public static Matrix2D RotateAroundPoint(Point2D center, double angle)
+        {
+            // Translate the point to the origin.
+            Matrix2D result = new Matrix2D();
+
+            // We need to go counter-clockwise.
+            result.RotateAt(-angle.ToDegrees(), center.X, center.Y);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        public static double GetAngle(this Point2D pt)
+        {
+            return Math.Atan2(pt.X, -pt.Y) * 180 / Math.PI;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Point2D SetAngle(this Point2D pt, double angle)
+        {
+            var rads = angle * (Math.PI / 180);
+            var dist = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
+            pt.X = Math.Sin(rads) * dist;
+            pt.Y = -(Math.Cos(rads) * dist);
+            return pt;
+        }
+
         #endregion
     }
 }

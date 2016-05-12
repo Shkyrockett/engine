@@ -999,21 +999,12 @@ namespace Engine.Tests
         }
 
         [TestMethod()]
-        public void Modulus0Test()
+        public void DistanceModulusTest()
         {
-            //for (int i = 0; i < 1000000; i++)
-            //{
-            Experimental.Modulus0(2, 2);
-            //}
-        }
-
-        [TestMethod()]
-        public void Modulus1Test()
-        {
-            //for (int i = 0; i < 1000000; i++)
-            //{
-            Experimental.Modulus1(2, 2);
-            //}
+            for (int i = 0; i < 1000000; i++)
+            {
+                //Experimental.DistanceModulus(2, 2, 2, 2);
+            }
         }
     }
 }

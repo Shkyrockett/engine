@@ -92,40 +92,6 @@ namespace Engine
         /// </summary>
         /// <param name="aX">First X component.</param>
         /// <param name="aY">First Y component.</param>
-        /// <param name="bX">Second X component.</param>
-        /// <param name="bY">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(double aX, double aY, double bX, double bY)
-        {
-            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY));
-        }
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="aX">First X component.</param>
-        /// <param name="aY">First Y component.</param>
-        /// <param name="bX">Second X component.</param>
-        /// <param name="bY">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        /// <remarks>
-        /// Source: http://www.vcskicks.com/code-snippet/distance-formula.php.
-        /// </remarks>
-        public static double Distance1(double aX, double aY, double bX, double bY)
-        {
-            // Pythagorean theorem c^2 = a^2 + b^2
-            // thus c = square root(a^2 + b^2)
-            double x = (bX - aX);
-            double y = (bY - aY);
-            return Math.Sqrt(x * x + y * y);
-        }
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="aX">First X component.</param>
-        /// <param name="aY">First Y component.</param>
         /// <param name="aZ">First Z component.</param>
         /// <param name="bX">Second X component.</param>
         /// <param name="bY">Second Y component.</param>
@@ -153,50 +119,6 @@ namespace Engine
             double y = (bY - aY);
             double z = (bZ - aZ);
             return Math.Sqrt(x * x + y * y + z * z);
-        }
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="xA">First Point X component.</param>
-        /// <param name="yA">First Point Y component.</param>
-        /// <param name="xB">Second Point X component.</param>
-        /// <param name="yB">Second Point Y component.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static double Distance2(double xA, double yA, double xB, double yB)
-        {
-            return Maths.Modulus(xA - xB, yA - yB);
-        }
-
-        #endregion
-
-        #region Modulus
-
-        /// <summary>
-        /// Modulus of a Vector.
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Modulus0(double i, double j)
-        {
-            return Math.Sqrt((i * i) + (j * j));
-        }
-
-        /// <summary>
-        /// Modulus of a Vector.
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Modulus1(double i, double j)
-        {
-            return Math.Pow((i * i) + (j * j), 0.5d);
         }
 
         #endregion

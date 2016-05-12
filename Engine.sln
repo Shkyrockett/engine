@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{5EA0C702-64D5-4DA1-A716-A345D936F4D8}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Winforms", "Engine.Winforms\Engine.Winforms.csproj", "{C6593AAE-28D2-494B-9765-B548AA24C8CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTests", "EngineTests\EngineTests.csproj", "{C46FF65A-1EDC-4083-99C2-E9717A825D9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExperimentLogs", "ExperimentLogs", "{2B0AC095-9ECF-40F4-B3F5-089B68742928}"
+	ProjectSection(SolutionItems) = preProject
+		Distance.md = Distance.md
+		Modulus.md = Modulus.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -9,41 +10,42 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [ComVisible(true)]
+    [DisplayName(nameof(Size2D))]
+    [TypeConverter(typeof(Size2DConverter))]
     public class Size2D
+        : IFormattable
     {
         #region Static Implementations
-        /// <summary>
-        /// A Unit <see cref="Size2D"/>.
-        /// </summary>
-        public static readonly Size2D AUnit = new Size2D(1, 1);
 
         /// <summary>
         /// An Empty <see cref="Size2D"/>.
         /// </summary>
         public static readonly Size2D Empty = new Size2D();
-        #endregion
-
-        #region Private Fields
-        /// <summary>
-        /// Width component of a <see cref="Size2D"/> class.
-        /// </summary>
-        /// <remarks></remarks>
-        private double width;
 
         /// <summary>
-        /// Height component of a <see cref="Size2D"/> class.
+        /// A Unit <see cref="Size2D"/>.
         /// </summary>
-        /// <remarks></remarks>
-        private double height;
+        public static readonly Size2D Unit = new Size2D(1, 1);
+
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <remarks></remarks>
         public Size2D()
             : this(0, 0)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Size2D"/> class.
+        /// </summary>
+        /// <remarks></remarks>
+        public Size2D(Size2D size)
+            : this(size.Width, size.Height)
         { }
 
         /// <summary>
@@ -64,47 +66,49 @@ namespace Engine.Geometry
         {
             // If negative sizes are prohibited, then it would be impossible to inflate a rectangle in the negative direction to shrink it.
             //if (width < 0 || height < 0) throw new ArgumentException("Width and Height cannot be Negative.");
-            this.width = width;
-            this.height = height;
+            Width = width;
+            Height = height;
         }
+
         #endregion
 
         #region Properties
+
         /// <summary>
         /// Width component of a <see cref="Size2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
-        public double Width
-        {
-            get { return width; }
-            set { width = value; }
-        }
+        [XmlAttribute]
+        public double Width { get; set; }
 
         /// <summary>
         /// Height component of a <see cref="Size2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
-        public double Height
-        {
-            get { return height; }
-            set { height = value; }
-        }
+        [XmlAttribute]
+        public double Height { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public bool IsEmpty
-        {
-            get { return width == 0 && height == 0; }
-        }
+        public bool IsEmpty => Width == 0 && Height == 0;
 
         #endregion
 
         #region Operators
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Size2D operator +(Size2D value)
+        {
+            return new Size2D(+value.Width, +value.Height);
+        }
+
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D"/> classes.
         /// </summary>
@@ -139,6 +143,16 @@ namespace Engine.Geometry
         public static Size2D operator +(Size2D value, Size2D addend)
         {
             return value.Add(addend);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Size2D operator -(Size2D value)
+        {
+            return new Size2D(-value.Width, -value.Height);
         }
 
         /// <summary>
@@ -186,7 +200,41 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Size2D operator /(Size2D dividend, double divisor)
         {
-            return new Size2D(dividend.width / divisor, dividend.height / divisor);
+            return new Size2D(dividend.Width / divisor, dividend.Height / divisor);
+        }
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool Compare(Size2D a, Size2D b)
+        {
+            return Equals(a, b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool Equals(Size2D a, Size2D b)
+        {
+            return (a.Width == b.Width) & (a.Height == b.Height);
+        }
+
+        /// <summary>
+        /// Tests to see whether the specified object is a <see cref="Size2D"/>
+        /// with the same dimensions as this <see cref="Size2D"/>.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            return obj is Size2D && Equals(this, (Size2D)obj);
         }
 
         /// <summary>
@@ -224,7 +272,7 @@ namespace Engine.Geometry
         /// <param name="size"> Size - the Size to convert to a Vector </param>
         public static explicit operator Vector2D(Size2D size)
         {
-            return new Vector2D(size.width, size.height);
+            return new Vector2D(size.Width, size.Height);
         }
 
         /// <summary>
@@ -236,20 +284,15 @@ namespace Engine.Geometry
         {
             return new Point2D(size.Width, size.Height);
         }
+
         #endregion
 
         /// <summary>
-        /// Tests to see whether the specified object is a <see cref="Size2D"/>
-        /// with the same dimensions as this <see cref="Size2D"/>.
+        /// Create a Random <see cref="Size2D"/>.
         /// </summary>
-        /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Size2D)) return false;
-            Size2D comp = (Size2D)obj;
-            return (comp.Width == Width) && (comp.Height == Height) && (comp.GetType().Equals(GetType()));
-        }
+        /// <remarks></remarks>
+        public static Size2D Random() => new Size2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// 
@@ -257,8 +300,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return Width.GetHashCode() ^
-                       Height.GetHashCode();
+            return Width.GetHashCode() ^ Height.GetHashCode();
         }
 
         /// <summary>
@@ -276,7 +318,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Size2D Truncate()
         {
-            return new Size2D((int)width, (int)height);
+            return new Size2D((int)Width, (int)Height);
         }
 
         /// <summary>
@@ -290,7 +332,7 @@ namespace Engine.Geometry
 
             Size2D value;
 
-            String firstToken = th.NextTokenRequired();
+            string firstToken = th.NextTokenRequired();
 
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
@@ -312,13 +354,39 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Creates a string representation of this object based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this object based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
+        {
+            //if (this == null) return nameof(Size2D);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
+        }
+
+        /// <summary>
         /// Creates a human-readable string that represents this <see cref="Size2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            //if (this == null) return nameof(Size2D);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), width, nameof(Height), height);
-        }
+        public override string ToString() => $"{nameof(Size2D)}({nameof(Width)}={Width},{nameof(Height)}={Height})";
     }
 }

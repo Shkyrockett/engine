@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace Engine.Geometry
 {
@@ -9,34 +10,72 @@ namespace Engine.Geometry
     /// http://referencesource.microsoft.com
     /// </summary>
     [Serializable]
+    [ComVisible(true)]
+    [DisplayName(nameof(Matrix2D))]
     [TypeConverter(typeof(Matrix2DConverter))]
-    [DisplayName("MatrixF")]
     public partial struct Matrix2D
         : IFormattable
     {
-        internal MatrixTypes _type;
+        #region Static Implementations
 
-        internal double _m11;
-        internal double _m12;
-        internal double _m21;
-        internal double _m22;
-        internal double _offsetX;
-        internal double _offsetY;
+        /// <summary>
+        /// An Empty <see cref="Matrix2D"/>.
+        /// </summary>
+        public static readonly Matrix2D Empty = new Matrix2D();
 
-        // This field is only used by unmanaged code which isn't detected by the compiler.
-        // Matrix in blt'd to unmanaged code, so this is padding 
-        // to align structure.
-        //
-        // ToDo: [....], Validate that this blt will work on 64-bit
-        //
-        internal Int32 _padding;
+        /// <summary>
+        /// An Identity <see cref="Matrix2D"/>.
+        /// </summary>
+        public static readonly Matrix2D Identity = CreateIdentity();
 
-        // the transform is identity by default
-        // Actually fill in the fields - some (internal) code uses the fields directly for perf.
-        private static Matrix2D s_identity = CreateIdentity();
+        #endregion
 
-        // The hash code for a matrix is the xor of its element's hashes.
-        // Since the identity matrix has 2 1's and 4 0's its hash is 0.
+        /// <summary>
+        /// 
+        /// </summary>
+        private MatrixTypes type;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double m1x1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double m1x2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double m2x1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double m2x2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double offsetX;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double offsetY;
+
+        /// <summary>
+        /// This field is only used by unmanaged code which isn't detected by the compiler.
+        /// Matrix in blt'd to unmanaged code, so this is padding 
+        /// to align structure.
+        /// </summary>
+        private int padding;
+
+        /// <summary>
+        /// The hash code for a matrix is the xor of its element's hashes.
+        /// Since the identity matrix has 2 1's and 4 0's its hash is 0.
+        /// </summary>
         private const int c_identityHashCode = 0;
 
         /// <summary>
@@ -45,16 +84,16 @@ namespace Engine.Geometry
         ///             | m21, m22, 0 |
         ///             \ offsetX, offsetY, 1 /
         /// </summary>
-        public Matrix2D(double m11, double m12, double m21, double m22, double offsetX, double offsetY)
+        public Matrix2D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
         {
-            _m11 = m11;
-            _m12 = m12;
-            _m21 = m21;
-            _m22 = m22;
-            _offsetX = offsetX;
-            _offsetY = offsetY;
-            _type = MatrixTypes.UNKNOWN;
-            _padding = 0;
+            this.m1x1 = m1x1;
+            this.m1x2 = m1x2;
+            this.m2x1 = m2x1;
+            this.m2x2 = m2x2;
+            this.offsetX = offsetX;
+            this.offsetY = offsetY;
+            type = MatrixTypes.UNKNOWN;
+            padding = 0;
 
             // We will detect EXACT identity, scale, translation or
             // scale+translation and use special case algorithms.
@@ -68,18 +107,18 @@ namespace Engine.Geometry
         {
             get
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     return 1.0f;
                 }
                 else
                 {
-                    return _m11;
+                    return m1x1;
                 }
             }
             set
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     SetMatrix(value, 0,
                               0, 1,
@@ -88,10 +127,10 @@ namespace Engine.Geometry
                 }
                 else
                 {
-                    _m11 = value;
-                    if (_type != MatrixTypes.UNKNOWN)
+                    m1x1 = value;
+                    if (type != MatrixTypes.UNKNOWN)
                     {
-                        _type |= MatrixTypes.SCALING;
+                        type |= MatrixTypes.SCALING;
                     }
                 }
             }
@@ -104,18 +143,18 @@ namespace Engine.Geometry
         {
             get
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     return 0;
                 }
                 else
                 {
-                    return _m12;
+                    return m1x2;
                 }
             }
             set
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     SetMatrix(1, value,
                               0, 1,
@@ -124,8 +163,8 @@ namespace Engine.Geometry
                 }
                 else
                 {
-                    _m12 = value;
-                    _type = MatrixTypes.UNKNOWN;
+                    m1x2 = value;
+                    type = MatrixTypes.UNKNOWN;
                 }
             }
         }
@@ -137,18 +176,18 @@ namespace Engine.Geometry
         {
             get
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     return 0;
                 }
                 else
                 {
-                    return _m21;
+                    return m2x1;
                 }
             }
             set
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     SetMatrix(1, 0,
                               value, 1,
@@ -157,8 +196,8 @@ namespace Engine.Geometry
                 }
                 else
                 {
-                    _m21 = value;
-                    _type = MatrixTypes.UNKNOWN;
+                    m2x1 = value;
+                    type = MatrixTypes.UNKNOWN;
                 }
             }
         }
@@ -170,18 +209,18 @@ namespace Engine.Geometry
         {
             get
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     return 1.0f;
                 }
                 else
                 {
-                    return _m22;
+                    return m2x2;
                 }
             }
             set
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     SetMatrix(1, 0,
                               0, value,
@@ -190,10 +229,10 @@ namespace Engine.Geometry
                 }
                 else
                 {
-                    _m22 = value;
-                    if (_type != MatrixTypes.UNKNOWN)
+                    m2x2 = value;
+                    if (type != MatrixTypes.UNKNOWN)
                     {
-                        _type |= MatrixTypes.SCALING;
+                        type |= MatrixTypes.SCALING;
                     }
                 }
             }
@@ -206,18 +245,18 @@ namespace Engine.Geometry
         {
             get
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     return 0;
                 }
                 else
                 {
-                    return _offsetX;
+                    return offsetX;
                 }
             }
             set
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     SetMatrix(1, 0,
                               0, 1,
@@ -226,10 +265,10 @@ namespace Engine.Geometry
                 }
                 else
                 {
-                    _offsetX = value;
-                    if (_type != MatrixTypes.UNKNOWN)
+                    offsetX = value;
+                    if (type != MatrixTypes.UNKNOWN)
                     {
-                        _type |= MatrixTypes.TRANSLATION;
+                        type |= MatrixTypes.TRANSLATION;
                     }
                 }
             }
@@ -242,18 +281,18 @@ namespace Engine.Geometry
         {
             get
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     return 0;
                 }
                 else
                 {
-                    return _offsetY;
+                    return offsetY;
                 }
             }
             set
             {
-                if (_type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.IDENTITY)
                 {
                     SetMatrix(1, 0,
                               0, 1,
@@ -262,10 +301,10 @@ namespace Engine.Geometry
                 }
                 else
                 {
-                    _offsetY = value;
-                    if (_type != MatrixTypes.UNKNOWN)
+                    offsetY = value;
+                    if (type != MatrixTypes.UNKNOWN)
                     {
-                        _type |= MatrixTypes.TRANSLATION;
+                        type |= MatrixTypes.TRANSLATION;
                     }
                 }
             }
@@ -280,16 +319,8 @@ namespace Engine.Geometry
         {
             get
             {
-                return _type == MatrixTypes.IDENTITY;
+                return type == MatrixTypes.IDENTITY;
             }
-        }
-
-        /// <summary>
-        /// Identity
-        /// </summary>
-        public static Matrix2D Identity
-        {
-            get { return s_identity; }
         }
 
         /// <summary>
@@ -310,7 +341,7 @@ namespace Engine.Geometry
         /// </summary>
         public void SetIdentity()
         {
-            _type = MatrixTypes.IDENTITY;
+            type = MatrixTypes.IDENTITY;
         }
 
         /// <summary>
@@ -320,8 +351,8 @@ namespace Engine.Geometry
         {
             get
             {
-                return (_type == MatrixTypes.IDENTITY ||
-                        (_m11 == 1 && _m12 == 0 && _m21 == 0 && _m22 == 1 && _offsetX == 0 && _offsetY == 0));
+                return (type == MatrixTypes.IDENTITY ||
+                        (m1x1 == 1 && m1x2 == 0 && m2x1 == 0 && m2x2 == 1 && offsetX == 0 && offsetY == 0));
             }
         }
 
@@ -474,7 +505,7 @@ namespace Engine.Geometry
                 return;
             }
 
-            MatrixTypes matrixType = matrix._type;
+            MatrixTypes matrixType = matrix.type;
 
             // If the matrix is identity, don't worry.
             if (matrixType == MatrixTypes.IDENTITY)
@@ -485,10 +516,10 @@ namespace Engine.Geometry
             // Scaling
             if (0 != (matrixType & MatrixTypes.SCALING))
             {
-                rect.X *= matrix._m11;
-                rect.Y *= matrix._m22;
-                rect.Width *= matrix._m11;
-                rect.Height *= matrix._m22;
+                rect.X *= matrix.m1x1;
+                rect.Y *= matrix.m2x2;
+                rect.Width *= matrix.m1x1;
+                rect.Height *= matrix.m2x2;
 
                 // Ensure the width is always positive.  For example, if there was a reflection about the
                 // y axis followed by a translation into the visual area, the width could be negative.
@@ -511,10 +542,10 @@ namespace Engine.Geometry
             if (0 != (matrixType & MatrixTypes.TRANSLATION))
             {
                 // X
-                rect.X += matrix._offsetX;
+                rect.X += matrix.offsetX;
 
                 // Y
-                rect.Y += matrix._offsetY;
+                rect.Y += matrix.offsetY;
             }
 
             if (matrixType == MatrixTypes.UNKNOWN)
@@ -543,8 +574,8 @@ namespace Engine.Geometry
         /// </summary>
         internal static void MultiplyMatrix(ref Matrix2D matrix1, ref Matrix2D matrix2)
         {
-            MatrixTypes type1 = matrix1._type;
-            MatrixTypes type2 = matrix2._type;
+            MatrixTypes type1 = matrix1.type;
+            MatrixTypes type2 = matrix2.type;
 
             // Check for identities
 
@@ -565,13 +596,13 @@ namespace Engine.Geometry
             if (type2 == MatrixTypes.TRANSLATION)
             {
                 // 2 additions
-                matrix1._offsetX += matrix2._offsetX;
-                matrix1._offsetY += matrix2._offsetY;
+                matrix1.offsetX += matrix2.offsetX;
+                matrix1.offsetY += matrix2.offsetY;
 
                 // If matrix 1 wasn't unknown we added a translation
                 if (type1 != MatrixTypes.UNKNOWN)
                 {
-                    matrix1._type |= MatrixTypes.TRANSLATION;
+                    matrix1.type |= MatrixTypes.TRANSLATION;
                 }
 
                 return;
@@ -581,22 +612,22 @@ namespace Engine.Geometry
             if (type1 == MatrixTypes.TRANSLATION)
             {
                 // Save off the old offsets
-                double offsetX = matrix1._offsetX;
-                double offsetY = matrix1._offsetY;
+                double offsetX = matrix1.offsetX;
+                double offsetY = matrix1.offsetY;
 
                 // Copy the matrix
                 matrix1 = matrix2;
 
-                matrix1._offsetX = (float)(offsetX * matrix2._m11 + offsetY * matrix2._m21 + matrix2._offsetX);
-                matrix1._offsetY = (float)(offsetX * matrix2._m12 + offsetY * matrix2._m22 + matrix2._offsetY);
+                matrix1.offsetX = (float)(offsetX * matrix2.m1x1 + offsetY * matrix2.m2x1 + matrix2.offsetX);
+                matrix1.offsetY = (float)(offsetX * matrix2.m1x2 + offsetY * matrix2.m2x2 + matrix2.offsetY);
 
                 if (type2 == MatrixTypes.UNKNOWN)
                 {
-                    matrix1._type = MatrixTypes.UNKNOWN;
+                    matrix1.type = MatrixTypes.UNKNOWN;
                 }
                 else
                 {
-                    matrix1._type = MatrixTypes.SCALING | MatrixTypes.TRANSLATION;
+                    matrix1.type = MatrixTypes.SCALING | MatrixTypes.TRANSLATION;
                 }
                 return;
             }
@@ -613,32 +644,32 @@ namespace Engine.Geometry
             {
                 case 34:  // S * S
                     // 2 multiplications
-                    matrix1._m11 *= matrix2._m11;
-                    matrix1._m22 *= matrix2._m22;
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
                     return;
 
                 case 35:  // S * S|T
-                    matrix1._m11 *= matrix2._m11;
-                    matrix1._m22 *= matrix2._m22;
-                    matrix1._offsetX = matrix2._offsetX;
-                    matrix1._offsetY = matrix2._offsetY;
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
+                    matrix1.offsetX = matrix2.offsetX;
+                    matrix1.offsetY = matrix2.offsetY;
 
                     // Transform set to Translate and Scale
-                    matrix1._type = MatrixTypes.TRANSLATION | MatrixTypes.SCALING;
+                    matrix1.type = MatrixTypes.TRANSLATION | MatrixTypes.SCALING;
                     return;
 
                 case 50: // S|T * S
-                    matrix1._m11 *= matrix2._m11;
-                    matrix1._m22 *= matrix2._m22;
-                    matrix1._offsetX *= matrix2._m11;
-                    matrix1._offsetY *= matrix2._m22;
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
+                    matrix1.offsetX *= matrix2.m1x1;
+                    matrix1.offsetY *= matrix2.m2x2;
                     return;
 
                 case 51: // S|T * S|T
-                    matrix1._m11 *= matrix2._m11;
-                    matrix1._m22 *= matrix2._m22;
-                    matrix1._offsetX = matrix2._m11 * matrix1._offsetX + matrix2._offsetX;
-                    matrix1._offsetY = matrix2._m22 * matrix1._offsetY + matrix2._offsetY;
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
+                    matrix1.offsetX = matrix2.m1x1 * matrix1.offsetX + matrix2.offsetX;
+                    matrix1.offsetY = matrix2.m2x2 * matrix1.offsetY + matrix2.offsetY;
                     return;
                 case 36: // S * U
                 case 52: // S|T * U
@@ -646,14 +677,14 @@ namespace Engine.Geometry
                 case 67: // U * S|T
                 case 68: // U * U
                     matrix1 = new Matrix2D(
-                        matrix1._m11 * matrix2._m11 + matrix1._m12 * matrix2._m21,
-                        matrix1._m11 * matrix2._m12 + matrix1._m12 * matrix2._m22,
+                        matrix1.m1x1 * matrix2.m1x1 + matrix1.m1x2 * matrix2.m2x1,
+                        matrix1.m1x1 * matrix2.m1x2 + matrix1.m1x2 * matrix2.m2x2,
 
-                        matrix1._m21 * matrix2._m11 + matrix1._m22 * matrix2._m21,
-                        matrix1._m21 * matrix2._m12 + matrix1._m22 * matrix2._m22,
+                        matrix1.m2x1 * matrix2.m1x1 + matrix1.m2x2 * matrix2.m2x1,
+                        matrix1.m2x1 * matrix2.m1x2 + matrix1.m2x2 * matrix2.m2x2,
 
-                        matrix1._offsetX * matrix2._m11 + matrix1._offsetY * matrix2._m21 + matrix2._offsetX,
-                        matrix1._offsetX * matrix2._m12 + matrix1._offsetY * matrix2._m22 + matrix2._offsetY);
+                        matrix1.offsetX * matrix2.m1x1 + matrix1.offsetY * matrix2.m2x1 + matrix2.offsetX,
+                        matrix1.offsetX * matrix2.m1x2 + matrix1.offsetY * matrix2.m2x2 + matrix2.offsetY);
                     return;
 #if DEBUG
                 default:
@@ -668,10 +699,10 @@ namespace Engine.Geometry
         /// </summary>
         internal static void PrependOffset(ref Matrix2D matrix, double offsetX, double offsetY)
         {
-            if (matrix._type == MatrixTypes.IDENTITY)
+            if (matrix.type == MatrixTypes.IDENTITY)
             {
                 matrix = new Matrix2D(1, 0, 0, 1, offsetX, offsetY);
-                matrix._type = MatrixTypes.TRANSLATION;
+                matrix.type = MatrixTypes.TRANSLATION;
             }
             else
             {
@@ -685,14 +716,14 @@ namespace Engine.Geometry
                 //       \   m11*tx+m21*ty+ox     m12*tx + m22*ty + oy    1 /
                 //
 
-                matrix._offsetX += matrix._m11 * offsetX + matrix._m21 * offsetY;
-                matrix._offsetY += matrix._m12 * offsetX + matrix._m22 * offsetY;
+                matrix.offsetX += matrix.m1x1 * offsetX + matrix.m2x1 * offsetY;
+                matrix.offsetY += matrix.m1x2 * offsetX + matrix.m2x2 * offsetY;
 
                 // It just gained a translate if was a scale transform. Identity transform is handled above.
-                Debug.Assert(matrix._type != MatrixTypes.IDENTITY);
-                if (matrix._type != MatrixTypes.UNKNOWN)
+                Debug.Assert(matrix.type != MatrixTypes.IDENTITY);
+                if (matrix.type != MatrixTypes.UNKNOWN)
                 {
-                    matrix._type |= MatrixTypes.TRANSLATION;
+                    matrix.type |= MatrixTypes.TRANSLATION;
                 }
             }
         }
@@ -844,7 +875,7 @@ namespace Engine.Geometry
             // (where e = _offsetX and f == _offsetY)
             //
 
-            if (_type == MatrixTypes.IDENTITY)
+            if (type == MatrixTypes.IDENTITY)
             {
                 // Values would be incorrect if matrix was created using default constructor.
                 // or if SetIdentity was called on a matrix which had values.
@@ -854,18 +885,18 @@ namespace Engine.Geometry
                           offsetX, offsetY,
                           MatrixTypes.TRANSLATION);
             }
-            else if (_type == MatrixTypes.UNKNOWN)
+            else if (type == MatrixTypes.UNKNOWN)
             {
-                _offsetX += offsetX;
-                _offsetY += offsetY;
+                this.offsetX += offsetX;
+                this.offsetY += offsetY;
             }
             else
             {
-                _offsetX += offsetX;
-                _offsetY += offsetY;
+                this.offsetX += offsetX;
+                this.offsetY += offsetY;
 
                 // If matrix wasn't unknown we added a translation
-                _type |= MatrixTypes.TRANSLATION;
+                type |= MatrixTypes.TRANSLATION;
             }
         }
 
@@ -944,16 +975,16 @@ namespace Engine.Geometry
         {
             get
             {
-                switch (_type)
+                switch (type)
                 {
                     case MatrixTypes.IDENTITY:
                     case MatrixTypes.TRANSLATION:
-                        return 1.0f;
+                        return 1.0d;
                     case MatrixTypes.SCALING:
                     case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                        return (float)(_m11 * _m22);
+                        return (m1x1 * m2x2);
                     default:
-                        return (float)((_m11 * _m22) - (_m12 * _m21));
+                        return ((m1x1 * m2x2) - (m1x2 * m2x1));
                 }
             }
         }
@@ -984,37 +1015,37 @@ namespace Engine.Geometry
             }
 
             // Inversion does not change the type of a matrix.
-            switch (_type)
+            switch (type)
             {
                 case MatrixTypes.IDENTITY:
                     break;
                 case MatrixTypes.SCALING:
                     {
-                        _m11 = 1.0f / _m11;
-                        _m22 = 1.0f / _m22;
+                        m1x1 = 1.0f / m1x1;
+                        m2x2 = 1.0f / m2x2;
                     }
                     break;
                 case MatrixTypes.TRANSLATION:
-                    _offsetX = -_offsetX;
-                    _offsetY = -_offsetY;
+                    offsetX = -offsetX;
+                    offsetY = -offsetY;
                     break;
                 case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
                     {
-                        _m11 = 1.0f / _m11;
-                        _m22 = 1.0f / _m22;
-                        _offsetX = -_offsetX * _m11;
-                        _offsetY = -_offsetY * _m22;
+                        m1x1 = 1.0f / m1x1;
+                        m2x2 = 1.0f / m2x2;
+                        offsetX = -offsetX * m1x1;
+                        offsetY = -offsetY * m2x2;
                     }
                     break;
                 default:
                     {
                         double invdet = 1.0f / determinant;
-                        SetMatrix(_m22 * invdet,
-                                  -_m12 * invdet,
-                                  -_m21 * invdet,
-                                  _m11 * invdet,
-                                  (_m21 * _offsetY - _offsetX * _m22) * invdet,
-                                  (_offsetX * _m12 - _m11 * _offsetY) * invdet,
+                        SetMatrix(m2x2 * invdet,
+                                  -m1x2 * invdet,
+                                  -m2x1 * invdet,
+                                  m1x1 * invdet,
+                                  (m2x1 * offsetY - offsetX * m2x2) * invdet,
+                                  (offsetX * m1x2 - m1x1 * offsetY) * invdet,
                                   MatrixTypes.UNKNOWN);
                     }
                     break;
@@ -1026,22 +1057,22 @@ namespace Engine.Geometry
         /// </summary>
         internal void MultiplyVector(ref double x, ref double y)
         {
-            switch (_type)
+            switch (type)
             {
                 case MatrixTypes.IDENTITY:
                 case MatrixTypes.TRANSLATION:
                     return;
                 case MatrixTypes.SCALING:
                 case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                    x *= _m11;
-                    y *= _m22;
+                    x *= m1x1;
+                    y *= m2x2;
                     break;
                 default:
-                    double xadd = y * _m21;
-                    double yadd = x * _m12;
-                    x *= _m11;
+                    double xadd = y * m2x1;
+                    double yadd = x * m1x2;
+                    x *= m1x1;
                     x += xadd;
-                    y *= _m22;
+                    y *= m2x2;
                     y += yadd;
                     break;
             }
@@ -1052,22 +1083,22 @@ namespace Engine.Geometry
         /// </summary>
         internal void MultiplyVector(ref Vector2D vector)
         {
-            switch (_type)
+            switch (type)
             {
                 case MatrixTypes.IDENTITY:
                 case MatrixTypes.TRANSLATION:
                     return;
                 case MatrixTypes.SCALING:
                 case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                    vector.I *= _m11;
-                    vector.J *= _m22;
+                    vector.I *= m1x1;
+                    vector.J *= m2x2;
                     break;
                 default:
-                    double xadd = vector.J * _m21;
-                    double yadd = vector.I * _m12;
-                    vector.I *= _m11;
+                    double xadd = vector.J * m2x1;
+                    double yadd = vector.I * m1x2;
+                    vector.I *= m1x1;
                     vector.I += xadd;
-                    vector.J *= _m22;
+                    vector.J *= m2x2;
                     vector.J += yadd;
                     break;
             }
@@ -1078,30 +1109,30 @@ namespace Engine.Geometry
         /// </summary>
         internal void MultiplyPoint(ref double x, ref double y)
         {
-            switch (_type)
+            switch (type)
             {
                 case MatrixTypes.IDENTITY:
                     return;
                 case MatrixTypes.TRANSLATION:
-                    x += _offsetX;
-                    y += _offsetY;
+                    x += offsetX;
+                    y += offsetY;
                     return;
                 case MatrixTypes.SCALING:
-                    x *= _m11;
-                    y *= _m22;
+                    x *= m1x1;
+                    y *= m2x2;
                     return;
                 case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                    x *= _m11;
-                    x += _offsetX;
-                    y *= _m22;
-                    y += _offsetY;
+                    x *= m1x1;
+                    x += offsetX;
+                    y *= m2x2;
+                    y += offsetY;
                     break;
                 default:
-                    double xadd = y * _m21 + _offsetX;
-                    double yadd = x * _m12 + _offsetY;
-                    x *= _m11;
+                    double xadd = y * m2x1 + offsetX;
+                    double yadd = x * m1x2 + offsetY;
+                    x *= m1x1;
                     x += xadd;
-                    y *= _m22;
+                    y *= m2x2;
                     y += yadd;
                     break;
             }
@@ -1112,30 +1143,30 @@ namespace Engine.Geometry
         /// </summary>
         internal void MultiplyPoint(ref Point2D point)
         {
-            switch (_type)
+            switch (type)
             {
                 case MatrixTypes.IDENTITY:
                     return;
                 case MatrixTypes.TRANSLATION:
-                    point.X += _offsetX;
-                    point.Y += _offsetY;
+                    point.X += offsetX;
+                    point.Y += offsetY;
                     return;
                 case MatrixTypes.SCALING:
-                    point.X *= _m11;
-                    point.Y *= _m22;
+                    point.X *= m1x1;
+                    point.Y *= m2x2;
                     return;
                 case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                    point.X *= _m11;
-                    point.X += _offsetX;
-                    point.Y *= _m22;
-                    point.Y += _offsetY;
+                    point.X *= m1x1;
+                    point.X += offsetX;
+                    point.Y *= m2x2;
+                    point.Y += offsetY;
                     break;
                 default:
-                    double xadd = point.Y * _m21 + _offsetX;
-                    double yadd = point.X * _m12 + _offsetY;
-                    point.X *= _m11;
+                    double xadd = point.Y * m2x1 + offsetX;
+                    double yadd = point.X * m1x2 + offsetY;
+                    point.X *= m1x1;
                     point.X += xadd;
-                    point.Y *= _m22;
+                    point.Y *= m2x2;
                     point.Y += yadd;
                     break;
             }
@@ -1248,13 +1279,13 @@ namespace Engine.Geometry
         ///</summary>
         private void SetMatrix(double m11, double m12, double m21, double m22, double offsetX, double offsetY, MatrixTypes type)
         {
-            _m11 = m11;
-            _m12 = m12;
-            _m21 = m21;
-            _m22 = m22;
-            _offsetX = offsetX;
-            _offsetY = offsetY;
-            _type = type;
+            m1x1 = m11;
+            m1x2 = m12;
+            m2x1 = m21;
+            m2x2 = m22;
+            this.offsetX = offsetX;
+            this.offsetY = offsetY;
+            this.type = type;
         }
 
         /// <summary>
@@ -1262,29 +1293,29 @@ namespace Engine.Geometry
         /// </summary>
         private void DeriveMatrixType()
         {
-            _type = 0;
+            type = 0;
 
             // Now classify our matrix.
-            if (!(_m21 == 0 && _m12 == 0))
+            if (!(m2x1 == 0 && m1x2 == 0))
             {
-                _type = MatrixTypes.UNKNOWN;
+                type = MatrixTypes.UNKNOWN;
                 return;
             }
 
-            if (!(_m11 == 1 && _m22 == 1))
+            if (!(m1x1 == 1 && m2x2 == 1))
             {
-                _type = MatrixTypes.SCALING;
+                type = MatrixTypes.SCALING;
             }
 
-            if (!(_offsetX == 0 && _offsetY == 0))
+            if (!(offsetX == 0 && offsetY == 0))
             {
-                _type |= MatrixTypes.TRANSLATION;
+                type |= MatrixTypes.TRANSLATION;
             }
 
-            if (0 == (_type & (MatrixTypes.TRANSLATION | MatrixTypes.SCALING)))
+            if (0 == (type & (MatrixTypes.TRANSLATION | MatrixTypes.SCALING)))
             {
                 // We have an identity matrix.
-                _type = MatrixTypes.IDENTITY;
+                type = MatrixTypes.IDENTITY;
             }
             return;
         }
@@ -1442,12 +1473,12 @@ namespace Engine.Geometry
             return string.Format(provider,
                                  "{1:" + format + "}{0}{2:" + format + "}{0}{3:" + format + "}{0}{4:" + format + "}{0}{5:" + format + "}{0}{6:" + format + "}",
                                  separator,
-                                 _m11,
-                                 _m12,
-                                 _m21,
-                                 _m22,
-                                 _offsetX,
-                                 _offsetY);
+                                 m1x1,
+                                 m1x2,
+                                 m2x1,
+                                 m2x2,
+                                 offsetX,
+                                 offsetY);
         }
     }
 }

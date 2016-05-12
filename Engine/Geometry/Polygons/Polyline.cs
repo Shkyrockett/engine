@@ -158,7 +158,7 @@ namespace Engine.Geometry
             for (int i = 2; i < Points.Count; i++)
             {
                 LineSegment newOffsetLine = Experimental.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Experimental.Intersect(offsetLine.A, offsetLine.B, newOffsetLine.A, newOffsetLine.B));
+                polyline.Add(Experimental.Intersect2(offsetLine.A, offsetLine.B, newOffsetLine.A, newOffsetLine.B));
                 offsetLine = newOffsetLine;
             }
 

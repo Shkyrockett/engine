@@ -1,4 +1,4 @@
-﻿// <copyright file="VectorF.cs" >
+﻿// <copyright file="Vector2D.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -24,283 +24,306 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    [DisplayName("Vector2D")]
+    [DisplayName(nameof(Vector2D))]
     [TypeConverter(typeof(Vector2DConverter))]
     public class Vector2D
          : IFormattable
     {
         #region Static Implementations
-        /// <summary>
-        /// A Unit <see cref="Vector2D"/>.
-        /// </summary>
-        public static readonly Vector2D AUnit = new Vector2D(1, 1);
 
         /// <summary>
         /// An Empty <see cref="Vector2D"/>.
         /// </summary>
         public static readonly Vector2D Empty = new Vector2D();
-        #endregion
-
-        #region Private Fields
-        /// <summary>
-        /// First Point of a 2D Vector
-        /// </summary>
-        /// <remarks></remarks>
-        private double i;
 
         /// <summary>
-        /// Second Component of a 2D Vector
+        /// A Unit <see cref="Vector2D"/>.
         /// </summary>
-        /// <remarks></remarks>
-        private double j;
+        public static readonly Vector2D Unit = new Vector2D(1, 1);
+
         #endregion
 
         #region Constructors
+
         /// <summary>
-        /// Create a new Vector2D
+        /// Initializes a default instance of the <see cref="Vector2D"/>class.
         /// </summary>
         /// <remarks></remarks>
         public Vector2D()
-        {
-            i = 0;
-            j = 0;
-        }
+            : this(0, 0)
+        { }
 
         /// <summary>
-        /// Create a new Vector2D
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
-        /// <param name="valueX"></param>
-        /// <param name="valueY"></param>
+        /// <param name="i">The <see cref="I"/> component of the <see cref="Vector2D"/> class.</param>
+        /// <param name="j">The <see cref="J"/> component of the <see cref="Vector2D"/> class.</param>
         /// <remarks></remarks>
-        public Vector2D(double valueX, double valueY)
+        public Vector2D(double i, double j)
         {
-            i = (float)valueX;
-            j = (float)valueY;
+            I = i;
+            J = j;
         }
 
         /// <summary>
-        /// Create a new Vector2D
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
-        /// <param name="value1X"></param>
-        /// <param name="value1Y"></param>
-        /// <param name="value2X"></param>
-        /// <param name="value2Y"></param>
-        /// <remarks></remarks>
-        public Vector2D(double value1X, double value1Y, double value2X, double value2Y)
-        {
-            Vector2D Temp = new Point2D(value1X, value1Y).Delta(new Point2D(value2X, value2Y)).Unit();
-            i = Temp.i;
-            j = Temp.j;
-        }
+        /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
+        public Vector2D(Vector2D vector2D)
+            : this(vector2D.I, vector2D.J)
+        { }
 
         /// <summary>
-        /// Create a new Vector2D
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// </summary>
+        /// <param name="aI"></param>
+        /// <param name="aJ"></param>
+        /// <param name="bI"></param>
+        /// <param name="bJ"></param>
+        /// <remarks></remarks>
+        public Vector2D(double aI, double aJ, double bI, double bJ)
+            : this(new Point2D(aI, aJ), new Point2D(bI, bJ))
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <remarks></remarks>
         public Vector2D(Point2D value1, Point2D value2)
-        {
-            Vector2D Temp = value1.Delta(value2).Unit();
-            i = Temp.i;
-            j = Temp.j;
-        }
+            : this(value1.Delta(value2).Unit())
+        { }
+
         #endregion
 
         #region Properties
+
         /// <summary>
         /// First Point of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public double I
-        {
-            get { return i; }
-            set { i = value; }
-        }
+        public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
-        public double J
-        {
-            get { return j; }
-            set { j = value; }
-        }
+        public double J { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Vector2D"/> is empty.
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public bool IsEmpty
-        {
-            get
-            {
-                return i == 0f && j == 0f;
-            }
-        }
+        public bool IsEmpty => I == 0f && J == 0f;
 
         /// <summary>
-        /// Create a Random Vector
+        /// 
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
         [XmlIgnore]
         [Browsable(false)]
-        public static Vector2D Random
-        {
-            get
-            {
-                Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                return new Vector2D((2 * rnd.Next()) - 1, (2 * rnd.Next()) - 1);
-            }
-        }
+        public double Magnitude => Math.Sqrt(I * I + J * J);
+
         #endregion
 
         #region Operators
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static Vector2D operator *(Vector2D value, double multiplyer)
-        {
-            return new Vector2D(value.I * multiplyer, value.J * multiplyer);
-        }
 
         /// <summary>
-        /// Scale a Vector
+        /// 
         /// </summary>
-        /// <param name="multiplyer">The Multiplier</param>
-        /// <param name="value">The Point</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
-        public static Vector2D operator *(double multiplyer, Vector2D value)
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Vector2D operator +(Vector2D value)
         {
-            return new Vector2D(value.I * multiplyer, value.J * multiplyer);
-        }
-
-        /// <summary>
-        /// Divide a Vector2D
-        /// </summary>
-        /// <param name="Value">The Vector2D</param>
-        /// <param name="divisor">The divisor</param>
-        /// <returns>A Vector2D divided by the divisor</returns>
-        /// <remarks></remarks>
-        public static Vector2D operator /(Vector2D Value, double divisor)
-        {
-            return new Vector2D(Value.i / divisor, Value.j / divisor);
-        }
-
-        /// <summary>
-        /// Divide a Vector2D
-        /// </summary>
-        /// <param name="Value">The Vector2D</param>
-        /// <param name="divisor">The divisor</param>
-        /// <returns>A Vector2D divided by the divisor</returns>
-        /// <remarks></remarks>
-        public static Vector2D operator /(double Value, Vector2D divisor)
-        {
-            return new Vector2D(Value / divisor.i, Value / divisor.j);
+            return new Vector2D(+value.I, +value.J);
         }
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
+        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator +(Vector2D value1, double value2)
+        public static Vector2D operator +(Vector2D value, double addend)
         {
-            return value1.Add(value2);
+            return value.Add(addend);
         }
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
+        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator +(Vector2D value1, Point2D value2)
+        public static Point2D operator +(Vector2D value, Point2D addend)
         {
-            return value1.Add(value2);
+            return value.Add(addend);
         }
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
+        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator +(Vector2D value1, Vector2D value2)
+        public static Vector2D operator +(Vector2D value, Vector2D addend)
         {
-            return value1.Add(value2);
-        }
-
-        /// <summary>
-        /// Subtract Points
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Vector2D operator -(Vector2D value1, double value2)
-        {
-            return value1.Subtract(value2);
-        }
-
-        /// <summary>
-        /// Subtract Points
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Point2D operator -(Vector2D value1, Point2D value2)
-        {
-            return value1.Subtract(value2);
-        }
-
-        /// <summary>
-        /// Subtract Points
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Vector2D operator -(Vector2D value1, Vector2D value2)
-        {
-            return value1.Subtract(value2);
+            return value.Add(addend);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static bool operator ==(Vector2D left, Vector2D right)
+        public static Vector2D operator -(Vector2D value)
         {
-            return left.I == right.I && left.J == right.J;
+            return new Vector2D(-value.I, -value.J);
+        }
+
+        /// <summary>
+        /// Subtract Points
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="subend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector2D operator -(Vector2D value, double subend)
+        {
+            return value.Subtract(subend);
+        }
+
+        /// <summary>
+        /// Subtract Points
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="subend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D operator -(Vector2D value, Point2D subend)
+        {
+            return value.Subtract(subend);
+        }
+
+        /// <summary>
+        /// Subtract Points
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="subend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector2D operator -(Vector2D value, Vector2D subend)
+        {
+            return value.Subtract(subend);
+        }
+
+        /// <summary>
+        /// Scale a Vector
+        /// </summary>
+        /// <param name="value">The Point</param>
+        /// <param name="factor">The Multiplier</param>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <remarks></remarks>
+        public static Vector2D operator *(Vector2D value, double factor)
+        {
+            return new Vector2D(value.I * factor, value.J * factor);
+        }
+
+        /// <summary>
+        /// Scale a Vector
+        /// </summary>
+        /// <param name="factor">The Multiplier</param>
+        /// <param name="value">The Point</param>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <remarks></remarks>
+        public static Vector2D operator *(double factor, Vector2D value)
+        {
+            return new Vector2D(value.I * factor, value.J * factor);
+        }
+
+        /// <summary>
+        /// Divide a Vector2D
+        /// </summary>
+        /// <param name="divisor">The Vector2D</param>
+        /// <param name="divedend">The divisor</param>
+        /// <returns>A Vector2D divided by the divisor</returns>
+        /// <remarks></remarks>
+        public static Vector2D operator /(Vector2D divisor, double divedend)
+        {
+            return new Vector2D(divisor.I / divedend, divisor.J / divedend);
+        }
+
+        /// <summary>
+        /// Divide a Vector2D
+        /// </summary>
+        /// <param name="divisor">The Vector2D</param>
+        /// <param name="dividend">The divisor</param>
+        /// <returns>A Vector2D divided by the divisor</returns>
+        /// <remarks></remarks>
+        public static Vector2D operator /(double divisor, Vector2D dividend)
+        {
+            return new Vector2D(divisor / dividend.I, divisor / dividend.I);
+        }
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool Compare(Vector2D a, Vector2D b)
+        {
+            return Equals(a, b);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator !=(Vector2D left, Vector2D right)
+        public static bool Equals(Vector2D a, Vector2D b)
         {
-            return !(left == right);
+            return (a.I == b.I) & (a.J == b.J);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            return obj is Vector2D && Equals(this, (Vector2D)obj);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator ==(Vector2D a, Vector2D b)
+        {
+            return Equals(a, b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator !=(Vector2D a, Vector2D b)
+        {
+            return !Equals(a, b);
         }
 
         /// <summary>
@@ -348,7 +371,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         public static explicit operator PointF(Vector2D value)
         {
-            return new PointF((int)value.i, (int)value.j);
+            return new PointF((int)value.I, (int)value.I);
         }
 
         /// <summary>
@@ -360,37 +383,19 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         public static explicit operator Point(Vector2D value)
         {
-            return new Point((int)value.i, (int)value.j);
+            return new Point((int)value.I, (int)value.I);
         }
+
         #endregion
 
         #region Public Methods
-        /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static bool Compare(ref Vector2D value1, ref Vector2D value2)
-        {
-            return (value1.i == value2.i) && (value1.j == value2.j);
-        }
 
         /// <summary>
-        /// 
+        /// Create a Random <see cref="Vector2D"/>.
         /// </summary>
-        /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (!(obj is PointF)) return false;
-            PointF comp = (PointF)obj;
-            return
-            comp.X == this.I &&
-            comp.Y == this.J &&
-            comp.GetType().Equals(this.GetType());
-        }
+        /// <remarks></remarks>
+        public static Vector2D Random() => new Vector2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// 
@@ -398,8 +403,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return I.GetHashCode() ^
-                   J.GetHashCode();
+            return I.GetHashCode() ^ J.GetHashCode();
         }
 
         /// <summary>
@@ -436,11 +440,7 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
-        {
-            // Delegate to the internal method which implements all ToString calls.
-            return ConvertToString(format, provider);
-        }
+        string IFormattable.ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
 
         /// <summary>
         /// Creates a string representation of this object based on the format string
@@ -455,18 +455,14 @@ namespace Engine.Geometry
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            return string.Format(provider, "{0}{{{1}={2:"+ format + "},{3}={4:" + format + "}}}", nameof(Vector2D), nameof(I), i, nameof(J), j);
+            return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Vector2D), nameof(I), I, nameof(J), J);
         }
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="Vector2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            if (this == null) return nameof(Vector2D);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Vector2D), nameof(I), i, nameof(J), j);
-        }
+        public override string ToString() => $"{nameof(Vector2D)}({nameof(I)}={I},{nameof(J)}={J})";
 
         #endregion
     }

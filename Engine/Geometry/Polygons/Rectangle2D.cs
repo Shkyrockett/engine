@@ -240,6 +240,7 @@ namespace Engine.Geometry
         public double Left
         {
             get { return x; }
+            set { x = value; }
         }
 
         /// <summary>
@@ -249,6 +250,7 @@ namespace Engine.Geometry
         public double Top
         {
             get { return y; }
+            set { y = value; }
         }
 
         /// <summary>
@@ -258,6 +260,7 @@ namespace Engine.Geometry
         public double Right
         {
             get { return x + width; }
+            set { width = x - value; }
         }
 
         /// <summary>
@@ -267,6 +270,7 @@ namespace Engine.Geometry
         public double Bottom
         {
             get { return y + height; }
+            set { height = y - value; }
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -9,43 +10,42 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
+    [ComVisible(true)]
+    [DisplayName(nameof(Point2D))]
+    [TypeConverter(typeof(Point2DConverter))]
     public class Point2D
+        : IFormattable
     {
         #region Static Implementations
-        /// <summary>
-        /// A Unit <see cref="Point2D"/>.
-        /// </summary>
-        public static readonly Point2D AUnit = new Point2D(1, 1);
 
         /// <summary>
         /// An Empty <see cref="Point2D"/>.
         /// </summary>
         public static readonly Point2D Empty = new Point2D();
-        #endregion
-
-        #region Private Fields
 
         /// <summary>
-        /// X component of a <see cref="Point2D"/> coordinate.
+        /// A Unit <see cref="Point2D"/>.
         /// </summary>
-        /// <remarks></remarks>
-        private double x;
-
-        /// <summary>
-        /// Y component of a <see cref="Point2D"/> coordinate.
-        /// </summary>
-        /// <remarks></remarks>
-        private double y;
+        public static readonly Point2D Unit = new Point2D(1, 1);
 
         #endregion
 
         #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Point2D"/> class.
+        /// Initializes a new default instance of the <see cref="Point2D"/> class.
         /// </summary>
         /// <remarks></remarks>
         public Point2D()
             : this(0, 0)
+        { }
+
+        /// <summary>
+        /// Initializes a new  instance of the <see cref="Point2D"/> class.
+        /// </summary>
+        /// <remarks></remarks>
+        public Point2D(Point2D point)
+            : this(point.X, point.Y)
         { }
 
         /// <summary>
@@ -56,43 +56,34 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point2D(double x, double y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
+
         #endregion
 
         #region Properties
+
         /// <summary>
         /// X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
-        public double X
-        {
-            get { return x; }
-            set { x = value; }
-        }
+        [XmlAttribute]
+        public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="Point2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
-        public double Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
+        [XmlAttribute]
+        public double Y { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public bool IsEmpty
-        {
-            get { return x == 0 && y == 0; }
-        }
+        public bool IsEmpty => X == 0 && Y == 0;
 
         #endregion
 
@@ -105,18 +96,19 @@ namespace Engine.Geometry
         /// <remarks>http://stackoverflow.com/questions/1476497/multiply-two-point-objects</remarks>
         public static Point2D ComplexProduct(Point2D p1, Point2D p2)
         {
-            return new Point2D(p1.x * p2.x - p1.y * p2.y, p1.x * p2.y + p1.y * p2.x);
+            return new Point2D(p1.X * p2.X - p1.Y * p2.Y, p1.X * p2.Y + p1.Y * p2.X);
         }
 
         #region Operators
+
         /// <summary>
         /// Unary addition operator.
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static Point2D operator +(Point2D p)
+        public static Point2D operator +(Point2D value)
         {
-            return new Point2D(+p.X, +p.Y);
+            return new Point2D(+value.X, +value.Y);
         }
 
         /// <summary>
@@ -165,7 +157,7 @@ namespace Engine.Geometry
         /// </returns>
         public static Point2D operator +(Point2D point, Vector2D vector)
         {
-            return new Point2D(point.x + vector.I, point.y + vector.J);
+            return new Point2D(point.X + vector.I, point.Y + vector.J);
         }
 
         /// <summary>
@@ -272,6 +264,39 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool Compare(Point2D a, Point2D b)
+        {
+            return Equals(a, b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool Equals(Point2D a, Point2D b)
+        {
+            return (a.X == b.X) & (a.Y == b.Y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            return obj is Point2D && Equals(this, (Point2D)obj);
+        }
+
+        /// <summary>
         /// Compares two <see cref="Point2D"/> objects. 
         /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/> 
         /// values of the two <see cref="Point2D"/> objects are equal.
@@ -334,19 +359,15 @@ namespace Engine.Geometry
         {
             return new Point2D(point.I, point.J);
         }
+
         #endregion
 
         /// <summary>
-        /// 
+        /// Create a Random <see cref="Point2D"/>.
         /// </summary>
-        /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Point2D)) return false;
-            Point2D comp = (Point2D)obj;
-            return comp.X == X && comp.Y == Y && comp.GetType().Equals(GetType());
-        }
+        /// <remarks></remarks>
+        public static Point2D Random() => new Point2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// 
@@ -382,13 +403,38 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Creates a string representation of this object based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this object based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
+        {
+            return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Point2D), nameof(X), X, nameof(Y), Y);
+        }
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Point2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            //if (this == null) return nameof(Point2D);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Point2D), nameof(X), x, nameof(Y), y);
-        }
+        public override string ToString() => $"{nameof(Point2D)}({nameof(X)}={X},{nameof(Y)}={Y})";
     }
 }

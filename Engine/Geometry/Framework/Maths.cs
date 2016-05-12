@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Engine.Geometry
@@ -32,6 +33,11 @@ namespace Engine.Geometry
         public const float FloatEpsilon = 1.192092896e-07f;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public const double NearZeroEpsilon = 1E-20;
+
+        /// <summary>
         /// Number close to zero, where float.MinValue is -float.MaxValue
         /// </summary>
         public const float FloatMin = 1.175494351e-38f;
@@ -41,12 +47,29 @@ namespace Engine.Geometry
         /// type). Used in the Slope of a LineSeg
         /// </summary>
         /// <remarks></remarks>
-        public const double SlopeMax = 9223372036854775807d;
+        //public const double SlopeMax = 9223372036854775807d;
+        public const double SlopeMax = double.PositiveInfinity;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static double DoubleRoundLimit = 1E+16;
+
+        /// <summary>
+        /// Represents the ratio of the circumference of a circle to its radius, specified
+        /// by the proposed constant, τ.
         /// One Tau or double Pi.
         /// </summary>
+        /// <value>≈6.28318...</value>
         public const double Tau = 2d * Math.PI;
+
+        /// <summary>
+        /// Represents the ratio of the circumference of a circle to its radius, specified
+        /// by the proposed constant, τ.
+        /// One Tau or double Pi.
+        /// </summary>
+        /// <value>≈6.28318...</value>
+        public static readonly double Τ = Tau;
 
         /// <summary>
         /// Math.PI * 2
@@ -55,9 +78,17 @@ namespace Engine.Geometry
         public const double DoublePi = Tau;
 
         /// <summary>
+        /// Represents the ratio of the circumference of a circle to its diameter, specified
+        /// by the constant, π.
         /// One half Tau or One Pi.
         /// </summary>
+        /// <value>≈3.1415926535897931...</value>
         public const double Pi = Math.PI;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double Π = Pi;
 
         /// <summary>
         /// One half Tau or One Pi.
@@ -98,6 +129,17 @@ namespace Engine.Geometry
         public const double EighthPi = SixteenthTau;
 
         /// <summary>
+        /// Represents the golden ratio as specified by the constant, φ.
+        /// </summary>
+        /// <value>≈1.61803...</value>
+        public static readonly double Phi = (1d + Math.Sqrt(5)) / 2d; //1.61803398874989484820458683436;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly double Φ = Phi;
+
+        /// <summary>
         /// Represents the golden ratio.
         /// </summary>
         public static readonly double Golden = Phi;
@@ -106,6 +148,17 @@ namespace Engine.Geometry
         /// Represents the golden ratio by formula.
         /// </summary>
         public static readonly double GoldenRatio = Phi;
+
+        /// <summary>
+        ///  Represents the plastic constant as specified by the constant, ρ.
+        /// </summary>
+        /// <value>≈1.32471...</value>
+        public static readonly double Rho = Root(0.5 + (1.00 / 6.00 * Math.Sqrt(23.00 / 3.00)), 3.00) + Root(0.50 - (1.00 / 6.00 * Math.Sqrt(23.00 / 3.00)), 3.00);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly double Ρ = Rho;
 
         /// <summary>
         /// One Radian.
@@ -133,22 +186,26 @@ namespace Engine.Geometry
         /// <summary>
         /// Represents the natural logarithmic base, specified by the constant e. 
         /// </summary>
+        /// <value>3.1415926535897931</value>
         public const double E = Math.E;
 
         /// <summary>
-        /// Represents the square root of 2.
+        /// Represents the constant value of the square root of 2.
         /// </summary>
+        /// <value>≈1.41421...</value>
         public static readonly double Sqrt2 = Math.Sqrt(2);
 
         /// <summary>
-        /// Represents the square root of 3.
+        /// Represents the constant value of the square root of 3.
         /// </summary>
-        public static readonly double SQRT3 = Math.Sqrt(3);
+        /// <value>≈1.73205...</value>
+        public static readonly double Sqrt3 = Math.Sqrt(3);
 
         /// <summary>
-        /// Represents the golden ratio.
+        /// Represents the constant value of the square root of 5.
         /// </summary>
-        public static readonly double Phi = (1d + Math.Sqrt(5)) / 2d; //1.61803398874989484820458683436;
+        /// <value>≈2.23606...</value>
+        public static readonly double Sqrt5 = Math.Sqrt(5);
 
         /// <summary>
         /// The natural log of e.
@@ -262,7 +319,17 @@ namespace Engine.Geometry
         /// <summary>
         /// Initialize random number generator with seed based on time.
         /// </summary>
-        private static Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        internal static Random RandomNumberGenerator = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Lower"></param>
+        /// <param name="Upper"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Random(this double Lower, double Upper)
+            => ((RandomNumberGenerator.Next() * ((Upper - Lower) + 1)) + Lower);
 
         #region Geometric Methods
 
@@ -277,9 +344,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(double aX, double aY, double bX, double bY)
-        {
-            return Math.Atan2((aY - bY), (aX - bX));
-        }
+            => Math.Atan2((aY - bY), (aX - bX));
 
         /// <summary>
         /// 
@@ -299,10 +364,7 @@ namespace Engine.Geometry
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleVector(double aX, double aY, double bX, double bY, double cX, double cY)
-        {
-            // Calculate the angle.
-            return Math.Atan2(CrossProductVector(aX, aY, bX, bY, cX, cY), DotProductVector(aX, aY, bX, bY, cX, cY));
-        }
+            => Math.Atan2(CrossProductVector(aX, aY, bX, bY, cX, cY), DotProductVector(aX, aY, bX, bY, cX, cY));
 
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
@@ -331,9 +393,7 @@ namespace Engine.Geometry
         /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(double aX, double aY, double bX, double bY)
-        {
-            return (aX * bY) - (aY * bX);
-        }
+            => (aX * bY) - (aY * bX);
 
         /// <summary>
         /// The cross product is a vector perpendicular to AB
@@ -355,10 +415,7 @@ namespace Engine.Geometry
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProductVector(double aX, double aY, double bX, double bY, double cX, double cY)
-        {
-            // Calculate the Z coordinate of the cross product.
-            return ((aX - bX) * (cY - bY) - (aY - bY) * (cX - bX));
-        }
+            => ((aX - bX) * (cY - bY) - (aY - bY) * (cX - bX));
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 
@@ -371,9 +428,7 @@ namespace Engine.Geometry
         /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(double aX, double aY, double bX, double bY)
-        {
-            return ((aX * bX) + (aY * bY));
-        }
+            => ((aX * bX) + (aY * bY));
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 
@@ -387,9 +442,7 @@ namespace Engine.Geometry
         /// <returns>The Dot Product.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(double aX, double aY, double aZ, double bX, double bY, double bZ)
-        {
-            return ((aX * bX) + (aY * bY) + (aZ * bZ));
-        }
+            => ((aX * bX) + (aY * bY) + (aZ * bZ));
 
         /// <summary>
         /// 
@@ -407,17 +460,9 @@ namespace Engine.Geometry
         /// Note that AB · BC = |AB| * |BC| * Cos(theta).
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector(double aX, double aY, double bX, double bY, double cX, double cY)
-        {
-            // Get the vectors' coordinates.
-            double BAx = aX - bX;
-            double BAy = aY - bY;
-            double BCx = cX - bX;
-            double BCy = cY - bY;
-
-            // Calculate the dot product.
-            return (BAx * BCx + BAy * BCy);
-        }
+            => (((aX - bX) * (cX - bX)) + ((aY - bY) * (cY - bY)));
 
         /// <summary>
         /// Distance between two points.
@@ -429,9 +474,7 @@ namespace Engine.Geometry
         /// <returns>The distance between two points.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(double aX, double aY, double bX, double bY)
-        {
-            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY));
-        }
+            => Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY));
 
         /// <summary>
         /// Distance between two points.
@@ -445,8 +488,36 @@ namespace Engine.Geometry
         /// <returns>The distance between two points.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(double aX, double aY, double aZ, double bX, double bY, double bZ)
+            => Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DistanceSqrd(double aX, double aY, double bX, double bY)
+            => ((aX - bX) * (aX - bX) + (aY - bY) * (aY - bY));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pointX"></param>
+        /// <param name="pointY"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <returns></returns>
+        public static double DistanceFromLineSqrd(double pointX, double pointY, double aX, double aY, double bX, double bY)
         {
-            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
+            double A = aY - bY;
+            double B = bX - aX;
+            double C = (A * pointX + B * pointY) - (A * aX + B * aY);
+            return (C * C) / (A * A + B * B);
         }
 
         /// <summary>
@@ -455,36 +526,32 @@ namespace Engine.Geometry
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns>Returns the slope angle of a vector.</returns>
-        /// <remarks>The slope is calculated with Slope = Y / X or rise over run</remarks>
+        /// <remarks>
+        /// The slope is calculated with Slope = Y / X or rise over run
+        /// If the line is vertical, return something close to infinity
+        /// (Close to the largest value allowed for the data type).
+        /// Otherwise calculate and return the slope.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
-        {
-            //  If the line is vertical, return something close to infinity 
-            //  (Close to the largest value allowed for the data type).
-            if ((i == 0)) return SlopeMax;
-            //  Otherwise calculate and return the slope.
-            return (j / i);
-        }
+            => i == 0 ? SlopeMax : (j / i);
 
         /// <summary>
         /// Returns the slope angle of a line.
         /// </summary>
-        /// <param name="X1">Horizontal Component of Point Starting Point</param>
-        /// <param name="Y1">Vertical Component of Point Starting Point</param>
-        /// <param name="X2">Horizontal Component of Ending Point</param>
-        /// <param name="Y2">Vertical Component of Ending Point</param>
+        /// <param name="aX">Horizontal Component of Point Starting Point</param>
+        /// <param name="aY">Vertical Component of Point Starting Point</param>
+        /// <param name="bX">Horizontal Component of Ending Point</param>
+        /// <param name="bY">Vertical Component of Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks></remarks>
-        public static double Slope(double X1, double Y1, double X2, double Y2)
-        {
-            //  Vertical line check.
-            //  Check to see if the Line is Vertical. 
-            //  Line is Vertical return something close to infinity (Close to 
-            //  the largest value allowed for the data type).
-            //  The original Version was: If (Line.A.X - Line.B.X) = 0 Then
-            if ((X1 == X2)) return SlopeMax;
-            //  Otherwise calculate and return the slope.
-            return ((Y2 - Y1) / (X2 - X1));
-        }
+        /// <remarks>
+        /// If the Line is Vertical return something close to infinity (Close to 
+        /// the largest value allowed for the data type).
+        /// Otherwise calculate and return the slope.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Slope(double aX, double aY, double bX, double bY)
+            => (aX == bX) ? SlopeMax : ((bY - aY) / (bX - aX));
 
         /// <summary>
         /// Modulus of a Vector.
@@ -495,9 +562,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j)
-        {
-            return Math.Sqrt((i * i) + (j * j));
-        }
+            => Math.Sqrt((i * i) + (j * j));
 
         /// <summary>
         /// Modulus of a Vector.
@@ -509,9 +574,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j, double k)
-        {
-            return Math.Sqrt((i * i) + (j * j) + (k * k));
-        }
+            => Math.Sqrt((i * i) + (j * j) + (k * k));
 
         /// <summary>
         /// Modulus of a Vector.
@@ -522,9 +585,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j)
-        {
-            return Math.Sqrt((i * i) + (j * j));
-        }
+            => Math.Sqrt((i * i) + (j * j));
 
         /// <summary>
         /// Modulus of a Vector.
@@ -536,9 +597,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j, double k)
-        {
-            return Math.Sqrt((i * i) + (j * j) + (k * k));
-        }
+            => Math.Sqrt((i * i) + (j * j) + (k * k));
 
         /// <summary>
         /// Find the determinant of a 2 by 2 matrix.
@@ -553,10 +612,8 @@ namespace Engine.Geometry
         public static double Determinant2x2(
             double a, double b,
             double c, double d)
-        {
-            return ((a * d)
-                  - (b * c));
-        }
+            => ((a * d)
+              - (b * c));
 
         /// <summary>
         /// Find the determinant of a 3 by 3 matrix.
@@ -577,11 +634,9 @@ namespace Engine.Geometry
             double a, double b, double c,
             double d, double e, double f,
             double g, double h, double i)
-        {
-            return ((a * Determinant2x2(e, f, h, i))
-                  - (b * Determinant2x2(d, f, g, i))
-                  + (c * Determinant2x2(d, e, g, h)));
-        }
+            => ((a * Determinant2x2(e, f, h, i))
+              - (b * Determinant2x2(d, f, g, i))
+              + (c * Determinant2x2(d, e, g, h)));
 
         /// <summary>
         /// Find the determinant of a 4 by 4 matrix.
@@ -610,12 +665,10 @@ namespace Engine.Geometry
             double e, double f, double g, double h,
             double i, double j, double k, double l,
             double m, double n, double o, double p)
-        {
-            return ((a * Determinant3x3(f, g, h, j, k, l, n, o, p))
-                  - (b * Determinant3x3(e, g, h, i, k, l, m, o, p))
-                  + (c * Determinant3x3(e, f, h, i, j, l, m, n, p))
-                  - (d * Determinant3x3(e, f, g, i, j, k, m, n, o)));
-        }
+            => ((a * Determinant3x3(f, g, h, j, k, l, n, o, p))
+              - (b * Determinant3x3(e, g, h, i, k, l, m, o, p))
+              + (c * Determinant3x3(e, f, h, i, j, l, m, n, p))
+              - (d * Determinant3x3(e, f, g, i, j, k, m, n, o)));
 
         #endregion
 
@@ -624,63 +677,58 @@ namespace Engine.Geometry
         /// <summary>
         /// Returns the average value of a numeric array.
         /// </summary>
-        /// <param name="Values"></param>
+        /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
-        public static double Average(this double[] Values)
-        {
-            return (Sum(Values) / Values.Length);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Average(this double[] values)
+            => (Sum(values) / values.Length);
 
         /// <summary>
         /// Returns the average value of a numeric array.
         /// </summary>
-        /// <param name="Values"></param>
+        /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
-        public static double Average(this List<double> Values)
-        {
-            return (Sum(Values) / Values.Count);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Average(this List<double> values)
+            => (Sum(values) / values.Count);
 
         /// <summary>
         /// Find the sum of an array of Numbers
         /// </summary>
-        /// <param name="Values"></param>
+        /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static double Sum(this double[] Values)
-        {
-            double Retval = 0;
-            for (int i = 0; i < Values.Length; i++)
-            {
-                Retval += Values[i];
-            }
-
-            return Retval;
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Sum(double[] values)
+            => values.Sum();
 
         /// <summary>
         /// Find the sum of an array of Numbers
         /// </summary>
-        /// <param name="Values"></param>
+        /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static double Sum(this List<double> Values)
-        {
-            double Retval = 0;
-            for (int i = 0; i < Values.Count; i++)
-            {
-                Retval += Values[i];
-            }
-
-            return Retval;
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Sum(List<double> values)
+            => values.Sum();
 
         #endregion
 
         #region Derived Equivalent Math Functions
+
         // Derived equivalent Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
+
+        /// <summary>
+        /// Returns the specified root a specified number.
+        /// </summary>
+        /// <param name="x">A double-precision floating-point number to find the specified root of.</param>
+        /// <param name="y">A double-precision floating-point number that specifies a root.</param>
+        /// <returns>The y root of the number x.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Root(double x, double y)
+            => (x < 0 && y % 2 == 1) ? -Math.Pow(-x, (1d / y)) : Math.Pow(x, (1d / y));
 
         /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
@@ -689,10 +737,9 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
-        {
-            return value < 0 ? -Math.Pow(-value, 1d / 3d) : Math.Pow(value, 1d / 3d);
-        }
+            => value < 0 ? -Math.Pow(-value, 1d / 3d) : Math.Pow(value, 1d / 3d);
 
         /// <summary>
         /// Angle with tangent opp/hyp
@@ -701,28 +748,22 @@ namespace Engine.Geometry
         /// <param name="adjacent"></param>
         /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Atan2(double opposite, double adjacent)
-        {
-            //double angle;
-            ////  Get the basic angle.
-            //angle = (Math.PI / 2);
-            //angle = (Math.Abs(Math.Atan((Opposite / Adjacent))));
-            //return angle;
-            return Math.Atan2(opposite, adjacent);
-        }
+            => Math.Atan2(opposite, adjacent);
 
         /// <summary>
         /// Returns the Angle of two deltas.
         /// </summary>
-        /// <param name="DeltaA">Delta Angle 1</param>
-        /// <param name="DeltaB">Delta Angle 2</param>
+        /// <param name="opposite">Delta Angle 1</param>
+        /// <param name="adjacent">Delta Angle 2</param>
         /// <returns>Returns the Angle of a line.</returns>
         /// <remarks></remarks>
-        public static double _Atan2(double DeltaA, double DeltaB)
+        public static double _Atan2(double opposite, double adjacent)
         {
-            if (((DeltaA == 0) && (DeltaB == 0))) return 0;
-            double Value = Math.Asin(DeltaA / Math.Sqrt(DeltaA * DeltaA + DeltaB * DeltaB));
-            if ((DeltaB < 0)) Value = (Math.PI - Value);
+            if (((opposite == 0) && (adjacent == 0))) return 0;
+            double Value = Math.Asin(opposite / Math.Sqrt(opposite * opposite + adjacent * adjacent));
+            if ((adjacent < 0)) Value = (Math.PI - Value);
             if ((Value < 0)) Value = (Value + (2 * Math.PI));
             return Value;
         }
@@ -733,15 +774,9 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-        {
-            if (((value % Pi != HalfPi) && (value % Pi != -HalfPi)))
-            {
-                return (1 / Math.Cos(value));
-            }
-
-            return 0;
-        }
+            => ((value % Pi != HalfPi) && (value % Pi != -HalfPi)) ? (1 / Math.Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -749,15 +784,9 @@ namespace Engine.Geometry
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-        {
-            if (((Value % Pi != 0) && (Value % Pi != Pi)))
-            {
-                return (1 / Math.Sin(Value));
-            }
-
-            return 0;
-        }
+            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Math.Sin(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -765,15 +794,9 @@ namespace Engine.Geometry
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-        {
-            if (((Value % Pi != 0) && (Value % Pi != Pi)))
-            {
-                return (1 / Math.Tan(Value));
-            }
-
-            return 0;
-        }
+            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Math.Tan(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -871,156 +894,130 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>Arc-co-tan(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCotangent(double value)
-        {
-            //  Arc-co-tan(X) 
-            return (Math.Atan(value) + (2 * Math.Atan(1)));
-        }
+            => (Math.Atan(value) + (2 * Math.Atan(1)));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Sine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HSin(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSine(double value)
-        {
-            //  HSin(X) 
-            return ((Math.Exp(value) - Math.Exp((value * -1))) * 0.5d);
-        }
+            => ((Math.Exp(value) - Math.Exp((value * -1))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Cosine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HCos(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosine(double value)
-        {
-            //  HCos(X) 
-            return ((Math.Exp(value) + Math.Exp((value * -1))) * 0.5d);
-        }
+            => ((Math.Exp(value) + Math.Exp((value * -1))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Tangent
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HTan(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicTangent(double value)
-        {
-            //  HTan(X) 
-            return ((Math.Exp(value) - Math.Exp((value * -1))) / (Math.Exp(value) + Math.Exp((value * -1))));
-        }
+            => ((Math.Exp(value) - Math.Exp((value * -1))) / (Math.Exp(value) + Math.Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Secant
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HSec(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSecant(double value)
-        {
-            //  HSec(X) 
-            return (0.5d * (Math.Exp(value) + Math.Exp((value * -1))));
-        }
+            => (0.5d * (Math.Exp(value) + Math.Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Co-secant
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HCosec(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosecant(double value)
-        {
-            //  HCosec(X)
-            return (0.5d * (Math.Exp(value) - Math.Exp((value * -1))));
-        }
+            => (0.5d * (Math.Exp(value) - Math.Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Cotangent
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HCotan(X) </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCotangent(double value)
-        {
-            //  HCotan(X) 
-            return ((Math.Exp(value) + Math.Exp((value * -1))) / (Math.Exp(value) - Math.Exp((value * -1))));
-        }
+            => ((Math.Exp(value) + Math.Exp((value * -1))) / (Math.Exp(value) - Math.Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Sine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HArcsin(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSine(double value)
-        {
-            //  HArcsin(X) 
-            return Math.Log((value + Math.Sqrt(((value * value) + 1))));
-        }
+            => Math.Log((value + Math.Sqrt(((value * value) + 1))));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cosine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HArccos(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosine(double value)
-        {
-            //  HArccos(X) 
-            return Math.Log((value + Math.Sqrt(((value * value) - 1))));
-        }
+            => Math.Log((value + Math.Sqrt(((value * value) - 1))));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Tangent
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HArctan(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicTangent(double value)
-        {
-            //  HArctan(X) 
-            return (Math.Log(((1 + value) / (1 - value))) * 0.5d);
-        }
+            => (Math.Log(((1 + value) / (1 - value))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Secant
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HArcsec(X) </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSecant(double value)
-        {
-            //  HArcsec(X) 
-            return Math.Log(((Math.Sqrt((((value * value) * -1) + 1)) + 1) / value));
-        }
+            => Math.Log(((Math.Sqrt((((value * value) * -1) + 1)) + 1) / value));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Co-secant
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HArccosec(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosecant(double value)
-        {
-            //  HArccosec(X) 
-            return Math.Log((((Math.Sign(value) * Math.Sqrt(((value * value) + 1))) + 1) / value));
-        }
+            => Math.Log((((Math.Sign(value) * Math.Sqrt(((value * value) + 1))) + 1) / value));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cotangent
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>HArccotan(X)</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCotangent(double value)
-        {
-            //  HArccotan(X)
-            return (Math.Log(((value + 1) / (value - 1))) * 0.5d);
-        }
+            => (Math.Log(((value + 1) / (value - 1))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Base N Logarithm
@@ -1028,18 +1025,13 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <param name="numberBase"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// LogN(X)
+        /// Return Log(Value) / Log(NumberBase)
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
-        {
-            //  LogN(X) 
-            // Return Log(Value) / Log(NumberBase)
-            if ((numberBase != 1))
-            {
-                return (Math.Log(value) / Math.Log(numberBase));
-            }
-
-            return 0;
-        }
+            => (numberBase != 1) ? (Math.Log(value) / Math.Log(numberBase)) : 0;
 
         #endregion
 
@@ -1052,11 +1044,9 @@ namespace Engine.Geometry
         /// <param name="valueB">Destination parameter</param>
         /// <returns>Returns the same Modulus Result that Excel returns.</returns>
         /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than .Net</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulo(this double valueA, double valueB)
-        {
-            double temp = valueA;
-            return ((temp %= valueB) < 0) ? temp + valueB : temp;
-        }
+            => ((valueA %= valueB) < 0) ? valueA + valueB : valueA;
 
         /// <summary>
         /// Convert Degrees to Radians.
@@ -1065,10 +1055,9 @@ namespace Engine.Geometry
         /// <returns>Angle in Radians.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToRadians(this double degrees)
-        {
-            return degrees * Radien;
-        }
+            => degrees * Radien;
 
         /// <summary>
         /// Convert Radians to Degrees.
@@ -1077,30 +1066,27 @@ namespace Engine.Geometry
         /// <returns>Angle in Degrees.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDegrees(this double radiens)
-        {
-            return radiens * Degree;
-        }
+            => radiens * Degree;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RoundToInt(this float val)
-        {
-            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
-        }
+            => (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RoundToInt(this double val)
-        {
-            return (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
-        }
+            => (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
 
         /// <summary>
         /// Round a value to the nearest multiple of a number.
@@ -1108,22 +1094,19 @@ namespace Engine.Geometry
         /// <param name="value">The value to round.</param>
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
-        /// <remarks></remarks>
+        /// <remarks>Convert.ToInt32 does the correct rounding that Math.Round does not do.</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
-        {
-            // Convert.ToInt32 does the correct rounding that Math.Round does not do.
-            return Convert.ToInt32(value / multiple) * multiple;
-        }
+            => Convert.ToInt32(value / multiple) * multiple;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ToFloat(string text)
-        {
-            return float.Parse(text, CultureInfo.InvariantCulture);
-        }
+            => float.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// 
@@ -1131,20 +1114,18 @@ namespace Engine.Geometry
         /// <param name="text"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ToFloat(string text, IFormatProvider provider)
-        {
-            return float.Parse(text, provider);
-        }
+            => float.Parse(text, provider);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDouble(string text)
-        {
-            return double.Parse(text, CultureInfo.InvariantCulture);
-        }
+            => double.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// 
@@ -1152,14 +1133,26 @@ namespace Engine.Geometry
         /// <param name="text"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDouble(string text, IFormatProvider provider)
-        {
-            return double.Parse(text, provider);
-        }
+            => double.Parse(text, provider);
 
         #endregion
 
         #region Comparisons
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="epsilonSqrd"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd)
+            => (DistanceSqrd(aX, aY, bX, bY) <= epsilonSqrd);
 
         /// <summary>
         /// AreClose - Returns whether or not two doubles are "close".  That is, whether or 
@@ -1176,12 +1169,14 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool AreClose(this float value1, float value2)
+        /// <param name="epsilon"></param>
+        /// <remarks></remarks>
+        public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
         {
-            //in case they are Infinities (then epsilon check does not work)
+            // in case they are Infinities (then epsilon check does not work)
             if (value1 == value2) return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
-            float eps = (float)((Math.Abs(value1) + Math.Abs(value2) + 10.0) * FloatEpsilon);
+            float eps = (Math.Abs(value1) + Math.Abs(value2) + 10f) * epsilon;
             float delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
         }
@@ -1201,12 +1196,14 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        public static bool AreClose(this double value1, double value2)
+        /// <param name="epsilon"></param>
+        /// <remarks></remarks>
+        public static bool AreClose(this double value1, double value2, double epsilon = DoubleEpsilon)
         {
-            //in case they are Infinities (then epsilon check does not work)
+            // in case they are Infinities (then epsilon check does not work)
             if (value1 == value2) return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
-            double eps = (Math.Abs(value1) + Math.Abs(value2) + 10.0) * Maths.DoubleEpsilon;
+            double eps = (Math.Abs(value1) + Math.Abs(value2) + 10d) * epsilon;
             double delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
         }
@@ -1227,10 +1224,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this float value1, float value2)
-        {
-            return (value1 < value2) && !AreClose(value1, value2);
-        }
+            => (value1 < value2) && !AreClose(value1, value2);
 
         /// <summary>
         /// LessThan - Returns whether or not the first double is less than the second double.
@@ -1248,10 +1244,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this double value1, double value2)
-        {
-            return (value1 < value2) && !AreClose(value1, value2);
-        }
+            => (value1 < value2) && !AreClose(value1, value2);
 
         /// <summary>
         /// GreaterThan - Returns whether or not the first double is greater than the second double.
@@ -1269,10 +1264,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this float value1, float value2)
-        {
-            return (value1 > value2) && !AreClose(value1, value2);
-        }
+            => (value1 > value2) && !AreClose(value1, value2);
 
         /// <summary>
         /// GreaterThan - Returns whether or not the first double is greater than the second double.
@@ -1290,10 +1284,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this double value1, double value2)
-        {
-            return (value1 > value2) && !AreClose(value1, value2);
-        }
+            => (value1 > value2) && !AreClose(value1, value2);
 
         /// <summary>
         /// LessThanOrClose - Returns whether or not the first double is less than or close to
@@ -1311,10 +1304,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this float value1, float value2)
-        {
-            return (value1 < value2) || AreClose(value1, value2);
-        }
+            => (value1 < value2) || AreClose(value1, value2);
 
         /// <summary>
         /// LessThanOrClose - Returns whether or not the first double is less than or close to
@@ -1332,10 +1324,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this double value1, double value2)
-        {
-            return (value1 < value2) || AreClose(value1, value2);
-        }
+            => (value1 < value2) || AreClose(value1, value2);
 
         /// <summary>
         /// GreaterThanOrClose - Returns whether or not the first float is greater than or close to
@@ -1353,10 +1344,9 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this float value1, float value2)
-        {
-            return (value1 > value2) || AreClose(value1, value2);
-        }
+            => (value1 > value2) || AreClose(value1, value2);
 
         /// <summary>
         /// GreaterThanOrClose - Returns whether or not the first double is greater than or close to
@@ -1374,10 +1364,15 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this double value1, double value2)
-        {
-            return (value1 > value2) || AreClose(value1, value2);
-        }
+            => (value1 > value2) || AreClose(value1, value2);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool NearZero(double value, double epsilon = NearZeroEpsilon)
+            => (value > -epsilon) && (value < -epsilon);
 
         /// <summary>
         /// IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
@@ -1387,10 +1382,10 @@ namespace Engine.Geometry
         /// bool - the result of the AreClose comparison.
         /// </returns>
         /// <param name="value"> The double to compare to 0. </param>
-        public static bool IsZero(this float value)
-        {
-            return Math.Abs(value) < 10.0 * FloatEpsilon;
-        }
+        /// <param name="epsilon"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsZero(this float value, float epsilon = FloatEpsilon)
+            => Math.Abs(value) < 10f * epsilon;
 
         /// <summary>
         /// IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
@@ -1400,10 +1395,10 @@ namespace Engine.Geometry
         /// bool - the result of the AreClose comparison.
         /// </returns>
         /// <param name="value"> The double to compare to 0. </param>
-        public static bool IsZero(this double value)
-        {
-            return Math.Abs(value) < 10.0 * DoubleEpsilon;
-        }
+        /// <param name="epsilon"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsZero(this double value, double epsilon = DoubleEpsilon)
+            => Math.Abs(value) < 10d * epsilon;
 
         /// <summary>
         /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
@@ -1413,10 +1408,10 @@ namespace Engine.Geometry
         /// bool - the result of the AreClose comparison.
         /// </returns>
         /// <param name="value"> The double to compare to 1. </param>
-        public static bool IsOne(this float value)
-        {
-            return Math.Abs(value - 1.0) < 10.0 * FloatEpsilon;
-        }
+        /// <param name="epsilon"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsOne(this float value, float epsilon = FloatEpsilon)
+            => Math.Abs(value - 1f) < 10f * epsilon;
 
         /// <summary>
         /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
@@ -1426,42 +1421,29 @@ namespace Engine.Geometry
         /// bool - the result of the AreClose comparison.
         /// </returns>
         /// <param name="value"> The double to compare to 1. </param>
-        public static bool IsOne(this double value)
-        {
-            return Math.Abs(value - 1.0) < 10.0 * DoubleEpsilon;
-        }
+        /// <param name="epsilon"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsOne(this double value, double epsilon = DoubleEpsilon)
+            => Math.Abs(value - 1d) < 10d * epsilon;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this float val)
-        {
-            return (GreaterThanOrClose(val, 0) && LessThanOrClose(val, 1));
-        }
+            => (GreaterThanOrClose(val, 0f) && LessThanOrClose(val, 1));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this double val)
-        {
-            return (GreaterThanOrClose(val, 0) && LessThanOrClose(val, 1));
-        }
+            => (GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1));
 
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Lower"></param>
-        /// <param name="Upper"></param>
-        /// <returns></returns>
-        public static double Random(this double Lower, double Upper)
-        {
-            return ((rnd.Next() * ((Upper - Lower) + 1)) + Lower);
-        }
     }
 }

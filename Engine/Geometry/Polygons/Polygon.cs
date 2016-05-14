@@ -159,17 +159,17 @@ namespace Engine.Geometry
         {
             Polygon polyline = new Polygon();
 
-            LineSegment offsetLine = Experimental.OffsetSegment(Points[Points.Count - 1], Points[0], offset);
+            LineSegment offsetLine = PrimitivesExtensions.OffsetSegment(Points[Points.Count - 1], Points[0], offset);
             LineSegment startLine = offsetLine;
 
             for (int i = 1; i < Points.Count; i++)
             {
-                LineSegment newOffsetLine = Experimental.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Experimental.Intersect2(offsetLine.A, offsetLine.B, newOffsetLine.A, newOffsetLine.B));
+                LineSegment newOffsetLine = PrimitivesExtensions.OffsetSegment(Points[i - 1], Points[i], offset);
+                polyline.Add(Experimental.Intersection0(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y));
                 offsetLine = newOffsetLine;
             }
 
-            polyline.Add(Experimental.Intersect2(offsetLine.A, offsetLine.B, startLine.A, startLine.B));
+            polyline.Add(Experimental.Intersection0(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y));
 
             return polyline;
         }

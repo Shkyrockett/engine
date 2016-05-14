@@ -1,7 +1,6 @@
 ﻿using Engine.Geometry;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -544,199 +543,342 @@ namespace Engine
         #region Intersection of Line segment and Line segment
 
         /// <summary>
-        /// Find the point of intersection between the lines p1 --> p2 and p3 --> p4.
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <param name="p4"></param>
-        /// <param name="lines_intersect"></param>
-        /// <param name="segments_intersect"></param>
-        /// <param name="intersection"></param>
-        /// <param name="close_p1"></param>
-        /// <param name="close_p2"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/</remarks>
-        private static void FindIntersection(Point2D p1, Point2D p2, Point2D p3, Point2D p4, out bool lines_intersect, out bool segments_intersect, out Point2D intersection, out Point2D close_p1, out Point2D close_p2)
-        {
-            // Get the segments' parameters.
-            double dx12 = p2.X - p1.X;
-            double dy12 = p2.Y - p1.Y;
-            double dx34 = p4.X - p3.X;
-            double dy34 = p4.Y - p3.Y;
-
-            // Solve for t1 and t2
-            double denominator = (dy12 * dx34 - dx12 * dy34);
-
-            double t1;
-            try
-            {
-                t1 = ((p1.X - p3.X) * dy34 + (p3.Y - p1.Y) * dx34) / denominator;
-            }
-            catch
-            {
-                // The lines are parallel (or close enough to it).
-                lines_intersect = false;
-                segments_intersect = false;
-                intersection = new Point2D(double.NaN, double.NaN);
-                close_p1 = new Point2D(double.NaN, double.NaN);
-                close_p2 = new Point2D(double.NaN, double.NaN);
-                return;
-            }
-            lines_intersect = true;
-
-            double t2 = ((p3.X - p1.X) * dy12 + (p1.Y - p3.Y) * dx12) / -denominator;
-
-            // Find the point of intersection.
-            intersection = new Point2D(p1.X + dx12 * t1, p1.Y + dy12 * t1);
-
-            // The segments intersect if t1 and t2 are between 0 and 1.
-            segments_intersect = ((t1 >= 0) && (t1 <= 1) && (t2 >= 0) && (t2 <= 1));
-
-            // Find the closest points on the segments.
-            if (t1 < 0)
-            {
-                t1 = 0;
-            }
-            else if (t1 > 1)
-            {
-                t1 = 1;
-            }
-
-            if (t2 < 0)
-            {
-                t2 = 0;
-            }
-            else if (t2 > 1)
-            {
-                t2 = 1;
-            }
-
-            close_p1 = new Point2D(p1.X + dx12 * t1, p1.Y + dy12 * t1);
-            close_p2 = new Point2D(p3.X + dx34 * t2, p3.Y + dy34 * t2);
-        }
-
-        /// <summary>
-        /// Find the Intersection of given lines and returns the intersection point
+        /// Find the intersection point between two lines.
         /// </summary>
         /// <param name="lineA"></param>
         /// <param name="lineB"></param>
-        /// <returns></returns>
-        /// <remarks>This function can handle vertical as well as horizontal and Parallel lines. </remarks>
+        /// <returns>Returns the point of intersection.</returns>
         public static Point2D Intersect0(LineSegment lineA, LineSegment lineB)
         {
-            //  Calculate the slopes of the lines.
-            double slopeA = lineA.Slope();
-            double slopeB = lineB.Slope();
-            //  To avoid an overflow from parallel lines return nothing and exit.
-            if ((slopeA == slopeB)) return Point2D.Empty;
-            double pointSlopeA = (lineA.A.Y - (slopeA * lineA.A.X));
-            double pointSlopeB = (lineB.A.Y - (slopeB * lineB.A.X));
-            // Fastest Method
-            // Use Cramer's rule to compute the returning point structure.
-            double determinantInverse = (1 / (slopeA * -(1 + slopeB)));
-            return new Point2D(
-                -(pointSlopeB + pointSlopeA) * determinantInverse,
-                (((slopeB * pointSlopeA) - (slopeA * pointSlopeB)) * determinantInverse)
-            );
+            return Intersection0(lineA.A.X, lineA.A.Y, lineA.B.X, lineA.B.Y, lineB.A.X, lineB.A.Y, lineB.B.X, lineB.B.Y);
         }
 
         /// <summary>
-        /// Find the Intersection of given lines and returns the intersection point
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="aX">The x component of the first point of the first line.</param>
+        /// <param name="aY">The y component of the first point of the first line.</param>
+        /// <param name="bX">The x component of the second point of the first line.</param>
+        /// <param name="bY">The y component of the second point of the first line.</param>
+        /// <param name="cX">The x component of the first point of the second line.</param>
+        /// <param name="cY">The y component of the first point of the second line.</param>
+        /// <param name="dX">The x component of the second point of the second line.</param>
+        /// <param name="dY">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        public static Point2D Intersection0(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        {
+            // Calculate the delta length vectors for the line segments.
+            double deltaAI = (bX - aX);
+            double deltaAJ = (bY - aY);
+            double deltaBI = (dX - cX);
+            double deltaBJ = (dY - cY);
+
+            // Check if the line are parallel.
+            if ((deltaBI * deltaAJ) == (deltaBJ * deltaAI))
+            {
+                //return false;
+                return null;
+            }
+
+            // Find the index where the intersection point lies on the line.
+            //double thetaA = ((aX - cX) * deltaAJ + (cY - aY) * deltaAI) / ((deltaBI * deltaAJ) - (deltaBJ * deltaAI));
+            double thetaB = ((cX - aX) * deltaBJ + (aY - cY) * deltaBI) / ((deltaBJ * deltaAI) - (deltaBI * deltaAJ));
+
+            //return ((thetaA >= 0.0d) && (thetaA <= 1.0d) && (thetaB >= 0.0d) && (thetaB <= 1.0d));
+
+            // If it exists, the point of intersection is:
+            // Interpolate the point of intersection.
+            return new Point2D(aX + thetaB * deltaAI, aY + thetaB * deltaAJ);
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
         /// </summary>
         /// <param name="lineA"></param>
         /// <param name="lineB"></param>
-        /// <returns></returns>
-        /// <remarks>This function can handle vertical as well as horizontal and Parallel lines. </remarks>
+        /// <returns>Returns the point of intersection.</returns>
         public static Point2D Intersect1(LineSegment lineA, LineSegment lineB)
         {
-            //  Calculate the slopes of the lines.
-            double slopeA = lineA.Slope();
-            double slopeB = lineB.Slope();
-            //  To avoid an overflow from parallel lines return nothing and exit.
-            if ((slopeA == slopeB)) return Point2D.Empty;
-            double pointSlopeA = (lineA.A.Y - (slopeA * lineA.A.X));
-            double pointSlopeB = (lineB.A.Y - (slopeB * lineB.A.X));
-            // Slower Method
-            double newX = (pointSlopeA - pointSlopeB) / (slopeB - slopeA);
-            double newY = slopeA * newX + pointSlopeA;
-            return new Point2D(newX, newY);
+            return Intersection1(lineA.A.X, lineA.A.Y, lineA.B.X, lineA.B.Y, lineB.A.X, lineB.A.Y, lineB.B.X, lineB.B.Y);
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection point between two lines.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        public static Point2D Intersect2(Point2D a, Point2D b, Point2D c, Point2D d)
+        /// <param name="aX">The x component of the first point of the first line.</param>
+        /// <param name="aY">The y component of the first point of the first line.</param>
+        /// <param name="bX">The x component of the second point of the first line.</param>
+        /// <param name="bY">The y component of the second point of the first line.</param>
+        /// <param name="cX">The x component of the first point of the second line.</param>
+        /// <param name="cY">The y component of the first point of the second line.</param>
+        /// <param name="dX">The x component of the second point of the second line.</param>
+        /// <param name="dY">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/</remarks>
+        public static Point2D Intersection1(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
-            Vector2D deltaBA = (b - a);
-            Vector2D deltaDC = (d - c);
-            Vector2D deltaCA = (c - a);
-            Vector2D deltaAC = (a - c);
-            //  If the segments are parallel.
-            if ((deltaDC.J * deltaBA.J) == (deltaDC.I * deltaBA.I))
+            // Calculate the delta length vectors for the line segments.
+            double deltaAI = (aX - bX);
+            double deltaAJ = (bY - aY);
+            double deltaBI = (dY - cY);
+            double deltaBJ = (cX - dX);
+
+            // Calculate the determinant of the vectors.
+            double determinant = deltaAJ * deltaBJ - deltaBI * deltaAI;
+
+            // Check if the lines are parallel.
+            if (determinant == 0)
             {
-                return Point2D.Empty;
+                return null;
             }
+
+            // Find the index where the intersection point lies on the line.
+            double thetaA = deltaAJ * aX + deltaAI * aY;
+            double thetaB = deltaBI * cX + deltaBJ * cY;
+
+            // Interpolate the point of intersection.
+            return new Point2D(
+                (deltaBJ * thetaA - deltaAI * thetaB) / determinant,
+                (deltaAJ * thetaB - deltaBI * thetaA) / determinant
+                );
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect2(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersection2(lineA.A.X, lineA.A.Y, lineA.B.X, lineA.B.Y, lineB.A.X, lineB.A.Y, lineB.B.X, lineB.B.Y);
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="aX">The x component of the first point of the first line.</param>
+        /// <param name="aY">The y component of the first point of the first line.</param>
+        /// <param name="bX">The x component of the second point of the first line.</param>
+        /// <param name="bY">The y component of the second point of the first line.</param>
+        /// <param name="cX">The x component of the first point of the second line.</param>
+        /// <param name="cY">The y component of the first point of the second line.</param>
+        /// <param name="dX">The x component of the second point of the second line.</param>
+        /// <param name="dY">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/</remarks>
+        private static Point2D Intersection2(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        {
+            // Calculate the delta length vectors for the line segments.
+            double deltaAI = (bX - aX);
+            double deltaAJ = (bY - aY);
+            double deltaBI = (dX - cX);
+            double deltaBJ = (dY - cY);
+
+            // Calculate the determinant of the coefficient matrix.
+            double determinant = (deltaAJ * deltaBI - deltaAI * deltaBJ);
+
+            // Check if the lines are parallel.
+            if (determinant == 0)
+            {
+                return null;
+            }
+
+            // Find the index where the intersection point lies on the line.
+            //double thetaA = ((cX - aX) * deltaAJ + (aY - cY) * deltaAI) / -determinant;
+            double thetaB = ((aX - cX) * deltaBJ + (cY - aY) * deltaBI) / determinant;
+
+            // Interpolate the point of intersection.
+            return new Point2D(aX + deltaAI * thetaB, aY + deltaAJ * thetaB);
+
+            //// The segments intersect if t1 and t2 are between 0 and 1.
+            //bool segments_intersect = ((thetaB >= 0) && (thetaB <= 1) && (thetaA >= 0) && (thetaA <= 1));
+
+            //// Find the closest points on the segments.
+            //if (thetaB < 0) thetaB = 0;
+            //else if (thetaB > 1) thetaB = 1;
+            //if (thetaA < 0) thetaA = 0;
+            //else if (thetaA > 1) thetaA = 1;
+
+            //Point2D close_p1 = new Point2D(aX + deltaAI * thetaB, aY + deltaAJ * thetaB);
+            //Point2D close_p2 = new Point2D(cX + deltaBI * thetaA, cY + deltaBJ * thetaA);
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect3(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersection3(lineA.A.X, lineA.A.Y, lineA.B.X, lineA.B.Y, lineB.A.X, lineB.A.Y, lineB.B.X, lineB.B.Y);
+            //return Intersect2(lineA.A, lineA.B, lineB.A, lineB.B);
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersection3(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        {
+            // Calculate the delta length vectors for the line segments.
+            Vector2D deltaBA = new Vector2D(bX - aX, bY - aY);
+            Vector2D deltaDC = new Vector2D(dX - cX, dY - cY);
+            Vector2D deltaCA = new Vector2D(cX - aX, cY - aY);
+            Vector2D deltaAC = new Vector2D(aX - cX, aY - cY);
+            //  If the segments are parallel.
+            if ((deltaDC.J * deltaBA.J) == (deltaDC.I * deltaBA.I)) return null; //Point2D.Empty;
             double s = (((deltaBA.I * deltaCA.J) + (deltaAC.I * deltaBA.J)) / Maths.CrossProduct(deltaBA.I, deltaBA.J, deltaDC.I, deltaDC.J));
             double t = (((deltaDC.I * deltaAC.J) + (deltaCA.I * deltaDC.J)) / Maths.CrossProduct(deltaBA.I, deltaBA.J, deltaDC.I, deltaDC.J));
             //  If it exists, the point of intersection is:
-            return new Point2D((a.X + (t * deltaBA.I)), (a.Y + (t * deltaBA.J)));
+            return new Point2D((aX + (t * deltaBA.I)), (aY + (t * deltaBA.J)));
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection point between two lines.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        public static Point2D Intersect3(Point2D a, Point2D b, Point2D c, Point2D d)
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect4(LineSegment lineA, LineSegment lineB)
         {
-            Vector2D deltaBA = (b - a);
-            Vector2D deltaDC = (d - c);
-            Vector2D deltaAC = (a - c);
+            return Intersection4(lineA.A.X, lineA.A.Y, lineA.B.X, lineA.B.Y, lineB.A.X, lineB.A.Y, lineB.B.X, lineB.B.Y);
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersection4(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        {
+            Vector2D deltaBA = new Vector2D(bX - aX, bY - aY);
+            Vector2D deltaDC = new Vector2D(dX - cX, dY - cY);
+            Vector2D deltaAC = new Vector2D(aX - cX, dY - cY);
             //  If the segments are parallel.
-            if ((deltaDC.J * deltaBA.J) == (deltaDC.I * deltaBA.I)) return Point2D.Empty;
-            double s = (((deltaBA.I * -deltaAC.J) + (deltaAC.I * deltaBA.J))
-                / Maths.CrossProduct(deltaBA.I, deltaBA.J, deltaDC.I, deltaDC.J));
-            double t = (((deltaDC.I * deltaAC.J) + (-deltaAC.I * deltaDC.J))
-                / Maths.CrossProduct(deltaBA.I, deltaBA.J, deltaDC.I, deltaDC.J));
+            if ((deltaDC.J * deltaBA.J) == (deltaDC.I * deltaBA.I)) return null;// Point2D.Empty;
+            double s = (((deltaBA.I * -deltaAC.J) + (deltaAC.I * deltaBA.J)) / Maths.CrossProduct(deltaBA.I, deltaBA.J, deltaDC.I, deltaDC.J));
+            double t = (((deltaDC.I * deltaAC.J) + (-deltaAC.I * deltaDC.J)) / Maths.CrossProduct(deltaBA.I, deltaBA.J, deltaDC.I, deltaDC.J));
             //  If it exists, the point of intersection is:
-            return new Point2D((a.X + (t * deltaBA.I)), (a.Y + (t * deltaBA.J)));
+            return new Point2D((aX + (t * deltaBA.I)), (aY + (t * deltaBA.J)));
         }
 
         /// <summary>
-        /// New Return True if the segments intersect.
+        /// Find the intersection point between two lines.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="ReturnPoint"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        private static Point2D Intersect4(Point2D a, Point2D b, Point2D c, Point2D d)
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect5(LineSegment lineA, LineSegment lineB)
         {
-            bool ReturnValue = false;
-            Point2D deltaBA = new Point2D((b.X - a.X), (b.Y - a.Y));
-            Point2D deltaDC = new Point2D((d.X - c.X), (d.Y - c.Y));
-            Point2D deltaCA = new Point2D((c.X - a.X), (c.Y - a.Y));
-            //  If the segments are parallel return false.
+            return Intersection5(lineA.A.X, lineA.A.Y, lineA.B.X, lineA.B.Y, lineB.A.X, lineB.A.Y, lineB.B.X, lineB.B.Y);
+        }
 
-            if ((deltaDC.X * deltaBA.Y) == (deltaDC.Y * deltaBA.X)) ReturnValue = false;
-            double s = (((deltaBA.X * deltaCA.Y) + (deltaBA.Y * -deltaCA.X))
-                / ((deltaDC.X * deltaBA.Y) - (deltaDC.Y * deltaBA.X)));
-            double t = (((deltaDC.X * -deltaCA.Y) + (deltaDC.Y * deltaCA.X))
-                / ((deltaDC.Y * deltaBA.X) - (deltaDC.X * deltaBA.Y)));
-            ReturnValue = ReturnValue = (s >= 0.0d) && (s <= 1.0d) && (t >= 0.0d) && (t <= 1.0d);
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="x1">The x component of the first point of the first line.</param>
+        /// <param name="y1">The y component of the first point of the first line.</param>
+        /// <param name="x2">The x component of the second point of the first line.</param>
+        /// <param name="y2">The y component of the second point of the first line.</param>
+        /// <param name="x3">The x component of the first point of the second line.</param>
+        /// <param name="y3">The y component of the first point of the second line.</param>
+        /// <param name="x4">The x component of the second point of the second line.</param>
+        /// <param name="y4">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://www.gamedev.net/page/resources/_/technical/math-and-physics/fast-2d-line-intersection-algorithm-r423</remarks>
+        public static Point2D Intersection5(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+        {
+            // Compute the slopes of each line. Note the kludge for infinity, however, this will be close enough.
+            double slope1 = (x2 == x1) ? Maths.SlopeMax : (y2 - y1) / (x2 - x1);
+            double slope2 = (x4 == x3) ? Maths.SlopeMax : (y4 - y3) / (x4 - x3);
+
+            // Check if the lines are parallel.
+            if (slope1 == slope2) return null;
+
+            double pointSlope1 = y1 - (slope1 * x1);
+            double pointSlope2 = y3 - (slope2 * x3);
+
+            // Compute the determinate of the coefficient matrix.
+            double determinate = slope2 - slope1;
+
+            // Use Cramer's rule to compute the return values.
+            return new Point2D(
+                ((pointSlope1 - pointSlope2) / determinate),
+                ((slope2 * pointSlope1 - slope1 * pointSlope2) / determinate)
+                );
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect6(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersection6(lineA.A.X, lineA.A.Y, lineA.B.X, lineA.B.Y, lineB.A.X, lineB.A.Y, lineB.B.X, lineB.B.Y);
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersection6(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        {
+            //bool returnBool = false;
+            // Calculate the delta length vectors for the line segments.
+            Vector2D deltaBA = new Vector2D((bX - aX), (bY - aY));
+            Vector2D deltaDC = new Vector2D((dX - cX), (dY - cY));
+            Vector2D deltaCA = new Vector2D((cX - aX), (cY - aY));
+            //  If the segments are parallel return false.
+            if ((deltaDC.I * deltaBA.J) == (deltaDC.J * deltaBA.I))
+            {
+                //returnBool = false;
+                return null;// Point2D.Empty;
+            }
+            double s = (((deltaBA.I * deltaCA.J) + (deltaBA.J * -deltaCA.I)) / ((deltaDC.I * deltaBA.J) - (deltaDC.J * deltaBA.I)));
+            double t = (((deltaDC.I * -deltaCA.J) + (deltaDC.J * deltaCA.I)) / ((deltaDC.J * deltaBA.I) - (deltaDC.I * deltaBA.J)));
+            //returnBool = returnBool = (s >= 0.0d) && (s <= 1.0d) && (t >= 0.0d) && (t <= 1.0d);
             //  If it exists, the point of intersection is:
-            return new Point2D((a.X + (t * deltaBA.X)), (a.Y + (t * deltaBA.Y)));
+            return new Point2D((aX + (t * deltaBA.I)), (aY + (t * deltaBA.J)));
             //return ReturnValue;
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect7(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersect7(lineA.A, lineA.B, lineB.A, lineB.B).IntersectionPoint[0];
         }
 
         /// <summary>Find the Intersection of two line segments.</summary>
@@ -748,9 +890,8 @@ namespace Engine
         /// The point of intersection. 
         /// A boolean which returns True if the segments intersect</returns>
         /// <remarks></remarks>
-        public static Intersection Intersection5(Point2D a, Point2D b, Point2D c, Point2D d)
+        public static Intersection Intersect7(Point2D a, Point2D b, Point2D c, Point2D d)
         {
-            // -------------------- Experimental Method -----------------------
             bool intersecting = false;
             IntersectionType type = IntersectionType.Cross;
             //  Calculate the slopes of the lines.
@@ -763,15 +904,26 @@ namespace Engine
             }
             // : Return PointA : Exit Function
             //  Create the constants of linear equations.
-            Point2D PointSlope = new Point2D(
+            Point2D pointSlope = new Point2D(
                 (a.Y - (slopes.X * a.X)),
                 (c.Y - (slopes.Y * c.X))
             );
             //  Compute the inverse of the determinate of the coefficient.
-            double Determinant = (1 / (slopes.X - slopes.Y));
+            double determinantInverse = (1 / (slopes.X - slopes.Y));
             return new Intersection(new Point2D(
-                ((PointSlope.Y - PointSlope.X) * Determinant),
-                (((slopes.X * PointSlope.Y) - (slopes.Y * PointSlope.X)) * Determinant)), intersecting, type);
+                ((pointSlope.Y - pointSlope.X) * determinantInverse),
+                (((slopes.X * pointSlope.Y) - (slopes.Y * pointSlope.X)) * determinantInverse)), intersecting, type);
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect8(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersect8(lineA.A, lineA.B, lineB.A, lineB.B).IntersectionPoint[0];
         }
 
         /// <summary>Faster 2D line intersection.</summary>
@@ -790,7 +942,7 @@ namespace Engine
         /// should check if the intersection is done in double point with a result outside
         /// INT_MAX, and consider it a parallel non-intersection. </remarks>
         /// <permission>Permission to copy with the following attribution is hereby granted. Richard J Kinch k...@holonet.net, May 1998.</permission>
-        public static Intersection Intersection6(Point2D a, Point2D b, Point2D c, Point2D d)
+        public static Intersection Intersect8(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             // ----------------------- Faster Method --------------------------
             bool Intersecting = false;
@@ -813,6 +965,17 @@ namespace Engine
             return new Intersection(new Point2D(((((1 * PointSlope.Y) * -1) - ((1 * PointSlope.X) * -1)) * DeterminantInverse), (((Slopes.Y * PointSlope.X) - (Slopes.X * PointSlope.Y)) * DeterminantInverse)), Intersecting, Type);
         }
 
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect9(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersect9(lineA.A, lineA.B, lineB.A, lineB.B).IntersectionPoint[0];
+        }
+
         /// <summary>Slower 2D line intersection.</summary>
         /// <param name="a">First Point on First Line</param>
         /// <param name="b">Second Point on First Line</param>
@@ -829,7 +992,7 @@ namespace Engine
         /// should check if the intersection is done in double point with a result outside
         /// INT_MAX, and consider it a parallel non-intersection. </remarks>
         /// <permission>Permission to copy with the following attribution is hereby granted. Richard J Kinch k...@holonet.net, May 1998.</permission>
-        public static Intersection Intersection7(Point2D a, Point2D b, Point2D c, Point2D d)
+        public static Intersection Intersect9(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             // ---------------------- Slower Method --------------------------
             bool Intersecting = false;
@@ -855,6 +1018,17 @@ namespace Engine
             return new Intersection(new Point2D(NewX, NewY), Intersecting, Type);
         }
 
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect10(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersect10(lineA.A, lineA.B, lineB.A, lineB.B).IntersectionPoint[0];
+        }
+
         /// <summary>2D line intersection.</summary>
         /// <param name="a">First Point on First Line</param>
         /// <param name="b">Second Point on First Line</param>
@@ -871,10 +1045,11 @@ namespace Engine
         /// should check if the intersection is done in double point with a result outside
         /// INT_MAX, and consider it a parallel non-intersection. </remarks>
         /// <permission>Permission to copy with the following attribution is hereby granted. Richard J Kinch k...@holonet.net, May 1998.</permission>
-        public static Intersection Intersection8(Point2D a, Point2D b, Point2D c, Point2D d)
+        public static Intersection Intersect10(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             // ---------------------- Vector Method --------------------------
             //  Direction vectors AA-A and BB-B 
+            // Calculate the delta length vectors for the line segments.
             Vector2D DeltaBA = (b - a);
             Vector2D DeltaDC = (d - c);
             //  Vector B-A
@@ -896,6 +1071,17 @@ namespace Engine
         }
 
         /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="lineA"></param>
+        /// <param name="lineB"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Point2D Intersect11(LineSegment lineA, LineSegment lineB)
+        {
+            return Intersect11(lineA.A, lineA.B, lineB.A, lineB.B).IntersectionPoint[0];
+        }
+
+        /// <summary>
         /// .
         /// </summary>
         /// <param name="a">First Point on First Line</param>
@@ -906,8 +1092,9 @@ namespace Engine
         /// The point of intersection. 
         /// A boolean which returns True if the segments intersect</returns>
         /// <remarks></remarks>
-        public static Intersection Intersection9(Point2D a, Point2D b, Point2D c, Point2D d)
+        public static Intersection Intersect11(Point2D a, Point2D b, Point2D c, Point2D d)
         {
+            // Calculate the delta length vectors for the line segments.
             Vector2D DeltaBA = (b - a);
             Vector2D DeltaDC = (d - c);
             Vector2D DeltaCA = (c - a);
@@ -915,18 +1102,10 @@ namespace Engine
             //  If the segments are parallel.
             if ((DeltaDC.I * DeltaBA.J) == (DeltaDC.J * DeltaBA.I))
             {
-                return new Intersection(Point2D.Empty, false, IntersectionType.Parallel);
+                return new Intersection((Point2D)null, false, IntersectionType.Parallel);
             }
-            // Dim s As Single = (DeltaBA.X * DeltaCA.Y + -DeltaCA.X * DeltaBA.Y) / _
-            //                   CrossProduct(DeltaBA, DeltaDC)
-            // Dim t As Single = (DeltaDC.X * -DeltaCA.Y + DeltaCA.X * DeltaDC.Y) / _
-            //                   CrossProduct(DeltaBA, DeltaDC)
-            double s = (((DeltaBA.I * DeltaCA.J)
-                        + (DeltaAC.I * DeltaBA.J))
-                        / DeltaBA.CrossProduct(DeltaDC));
-            double t = (((DeltaDC.I * DeltaAC.J)
-                        + (DeltaCA.I * DeltaDC.J))
-                        / DeltaBA.CrossProduct(DeltaDC));
+            double s = (((DeltaBA.I * DeltaCA.J) + (DeltaAC.I * DeltaBA.J)) / DeltaBA.CrossProduct(DeltaDC));
+            double t = (((DeltaDC.I * DeltaAC.J) + (DeltaCA.I * DeltaDC.J)) / DeltaBA.CrossProduct(DeltaDC));
             //  If it exists, the point of intersection is:
             return new Intersection(new Point2D(
                 (a.X + (t * DeltaBA.I)),
@@ -934,33 +1113,6 @@ namespace Engine
                 (s >= 0d) && (s <= 1d) && (t >= 0d) && (t <= 1d),
                 IntersectionType.Cross
             );
-        }
-
-        /// <summary>
-        /// Return True if the segments intersect.
-        /// </summary>
-        /// <param name="X1"></param>
-        /// <param name="Y1"></param>
-        /// <param name="X2"></param>
-        /// <param name="Y2"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static bool SegmentsIntersect(double X1, double Y1, double X2, double Y2, double A1, double B1, double A2, double B2)
-        {
-            double dx = (X2 - X1);
-            double dy = (Y2 - Y1);
-            double da = (A2 - A1);
-            double db = (B2 - B1);
-            if ((da * dy) == (db * dx)) return false; //  The segments are parallel.
-            double s = (((dx * (B1 - Y1)) + (dy * (X1 - A1))) / ((da * dy) - (db * dx)));
-            double t = (((da * (Y1 - B1)) + (db * (A1 - X1))) / ((db * dx) - (da * dy)));
-            return ((s >= 0.0d) && (s <= 1.0d) && (t >= 0.0d) && (t <= 1.0d));
-            // If it exists, the point of intersection is:
-            // (x1 + t * dx, y1 + t * dy)
         }
 
         #endregion
@@ -3448,26 +3600,6 @@ namespace Engine
 
         #endregion
 
-        #region Offset Line
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Value1"></param>
-        /// <param name="Value2"></param>
-        /// <param name="Offset"></param>
-        /// <returns></returns>
-        public static LineSegment OffsetSegment(Point2D Value1, Point2D Value2, double Offset)
-        {
-            Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
-            Vector2D PerpendicularAB = (UnitVectorAB.Perpendicular() * 0.5) * Offset;
-            LineSegment Out = new LineSegment((Value1 + PerpendicularAB), (Value2 + PerpendicularAB));
-            return Out;
-        }
-
-
-        #endregion
-
         #region List Cubic Bezier Interpolation Points
 
         /// <summary>
@@ -4577,7 +4709,7 @@ namespace Engine
                 C = (B + 1) % num_points;
 
                 double cross_product =
-                    Maths.CrossProductVector(
+                    Maths.CrossProduct3Point(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);

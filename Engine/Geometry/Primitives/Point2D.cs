@@ -43,16 +43,26 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
+        /// <param name="point"></param>
         /// <remarks></remarks>
         public Point2D(Point2D point)
             : this(point.X, point.Y)
         { }
 
         /// <summary>
+        /// Initializes a new  instance of the <see cref="Point2D"/> class.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <remarks></remarks>
+        public Point2D(Tuple<double, double> tuple)
+            : this(tuple.Item1, tuple.Item2)
+        { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The x component of the Point.</param>
+        /// <param name="y">The y component of the Point.</param>
         /// <remarks></remarks>
         public Point2D(double x, double y)
         {

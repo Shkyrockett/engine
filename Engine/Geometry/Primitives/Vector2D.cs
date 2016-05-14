@@ -26,7 +26,7 @@ namespace Engine.Geometry
     [ComVisible(true)]
     [DisplayName(nameof(Vector2D))]
     [TypeConverter(typeof(Vector2DConverter))]
-    public class Vector2D
+    public struct Vector2D
          : IFormattable
     {
         #region Static Implementations
@@ -45,12 +45,29 @@ namespace Engine.Geometry
 
         #region Constructors
 
+        ///// <summary>
+        ///// Initializes a new default instance of the <see cref="Vector2D"/>class.
+        ///// </summary>
+        ///// <remarks></remarks>
+        //public Vector2D()
+        //    : this(0, 0)
+        //{ }
+
         /// <summary>
-        /// Initializes a default instance of the <see cref="Vector2D"/>class.
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
+        /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
+        public Vector2D(Vector2D vector2D)
+            : this(vector2D.I, vector2D.J)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// </summary>
+        /// <param name="tuple"></param>
         /// <remarks></remarks>
-        public Vector2D()
-            : this(0, 0)
+        public Vector2D(Tuple<double, double> tuple)
+            : this(tuple.Item1, tuple.Item2)
         { }
 
         /// <summary>
@@ -68,14 +85,6 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
-        /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
-        public Vector2D(Vector2D vector2D)
-            : this(vector2D.I, vector2D.J)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2D"/> class.
-        /// </summary>
         /// <param name="aI"></param>
         /// <param name="aJ"></param>
         /// <param name="bI"></param>
@@ -88,11 +97,11 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <remarks></remarks>
-        public Vector2D(Point2D value1, Point2D value2)
-            : this(value1.Delta(value2).Unit())
+        public Vector2D(Point2D a, Point2D b)
+            : this(a.Delta(b).Unit())
         { }
 
         #endregion

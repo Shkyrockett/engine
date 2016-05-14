@@ -1006,5 +1006,389 @@ namespace Engine.Tests
                 //Experimental.DistanceModulus(2, 2, 2, 2);
             }
         }
+
+        [TestMethod()]
+        public void Intersect0Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect0(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect0(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect0(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect0(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect1Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect1(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect1(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect1(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect1(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect2Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect2(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect2(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect2(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect2(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect3Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect3(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect3(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect3(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect3(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect4Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect4(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect4(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect4(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect4(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect5Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect5(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect5(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect5(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect5(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect6Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect6(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect6(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect6(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect6(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect7Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect7(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect7(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect7(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect7(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect8Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect8(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect8(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect8(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect8(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect9Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect9(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect9(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect9(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect9(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect10Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect10(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect10(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect10(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect10(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
+
+        [TestMethod()]
+        public void Intersect11Test()
+        {
+            // Check diagonal crossing lines.
+            LineSegment sement1 = new LineSegment(0, 0, 2, 2);
+            LineSegment sement2 = new LineSegment(2, 0, 0, 2);
+            Point2D value = Point2D.Empty;
+            for (int i = 0; i < 1000000; i++)
+            {
+                value = Experimental.Intersect11(sement1, sement2);
+            }
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking diagonal crossing lines.");
+
+            // Check horizontal and vertical crossing lines.
+            sement1 = new LineSegment(1, 0, 1, 2);
+            sement2 = new LineSegment(0, 1, 2, 1);
+            value = Experimental.Intersect11(sement1, sement2);
+            Assert.AreEqual(new Point2D(1, 1).ToString(), value.ToString(), "Checking horizontal and vertical crossing lines.");
+
+            // Check vertical parallel lines.
+            sement1 = new LineSegment(0, 0, 0, 2);
+            sement2 = new LineSegment(2, 0, 2, 2);
+            value = Experimental.Intersect11(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking vertical parallel lines.");
+
+            // Check horizontal parallel lines.
+            sement1 = new LineSegment(0, 0, 2, 0);
+            sement2 = new LineSegment(0, 2, 2, 2);
+            value = Experimental.Intersect11(sement1, sement2);
+            Assert.AreEqual(null, value, "Checking horizontal parallel lines.");
+        }
     }
 }

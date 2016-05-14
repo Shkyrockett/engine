@@ -13,7 +13,7 @@ namespace Engine.Geometry
     [ComVisible(true)]
     [DisplayName(nameof(Size2D))]
     [TypeConverter(typeof(Size2DConverter))]
-    public class Size2D
+    public struct Size2D
         : IFormattable
     {
         #region Static Implementations
@@ -32,17 +32,18 @@ namespace Engine.Geometry
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Size2D"/> class.
-        /// </summary>
-        /// <remarks></remarks>
-        public Size2D()
-            : this(0, 0)
-        { }
+        ///// <summary>
+        ///// Initializes a new default instance of the <see cref="Size2D"/> class.
+        ///// </summary>
+        ///// <remarks></remarks>
+        //public Size2D()
+        //    : this(0, 0)
+        //{ }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
+        /// <param name="size"></param>
         /// <remarks></remarks>
         public Size2D(Size2D size)
             : this(size.Width, size.Height)
@@ -51,6 +52,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
+        /// <param name="point"></param>
         /// <remarks></remarks>
         public Size2D(Point2D point)
             : this(point.X, point.Y)
@@ -59,8 +61,17 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
+        /// <param name="tuple"></param>
+        /// <remarks></remarks>
+        public Size2D(Tuple<double, double> tuple)
+            : this(tuple.Item1, tuple.Item2)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Size2D"/> class.
+        /// </summary>
+        /// <param name="width">The Width component of the Size.</param>
+        /// <param name="height">The Height component of the Size.</param>
         /// <remarks></remarks>
         public Size2D(double width, double height)
         {

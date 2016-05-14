@@ -9,6 +9,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -66,422 +67,420 @@ namespace Engine.Geometry
         #endregion
 
         #region Add
+
         /// <summary>
         /// Adds a <see cref="Point2D"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="Point2D"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Point2D point, double addendum)
+        public static Point2D Add(this Point2D point, double addend)
         {
-            return new Point2D(point.X + addendum, point.Y + addendum);
+            return new Point2D(point.X + addend, point.Y + addend);
         }
 
         /// <summary>
         /// Adds a <see cref="Point2D"/> to a <see cref="Point2D"/> by value.
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/> to add to.</param>
-        /// <param name="addendum">The <see cref="Point2D"/> to add with.</param>
+        /// <param name="addend">The <see cref="Point2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Point2D"/> structure enlarged by the amount of the other <see cref="Point2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Point2D point, Point2D addendum)
+        public static Vector2D Add(this Point2D point, Point2D addend)
         {
-            return new Vector2D(point.X + addendum.X, point.Y + addendum.Y);
+            return new Vector2D(point.X + addend.X, point.Y + addend.Y);
         }
 
         /// <summary>
         /// Adds a <see cref="Size2D"/> to a <see cref="Point2D"/> by value.
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/> to add to.</param>
-        /// <param name="addendum">The <see cref="Size2D"/> to add with.</param>
+        /// <param name="addend">The <see cref="Size2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Point2D"/> structure enlarged by the amount of the <see cref="Size2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Point2D point, Size2D addendum)
+        public static Point2D Add(this Point2D point, Size2D addend)
         {
-            return new Point2D(point.X + addendum.Width, point.Y + addendum.Height);
+            return new Point2D(point.X + addend.Width, point.Y + addend.Height);
         }
 
         /// <summary>
         /// Adds a <see cref="Vector2D"/> to a <see cref="Point2D"/> by value.
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/> to add to.</param>
-        /// <param name="addendum">The <see cref="Vector2D"/> to add with.</param>
+        /// <param name="addend">The <see cref="Vector2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Point2D"/> structure enlarged by the amount of the <see cref="Size2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Point2D point, Vector2D addendum)
+        public static Point2D Add(this Point2D point, Vector2D addend)
         {
-            return new Point2D(point.X + addendum.I, point.Y + addendum.J);
+            return new Point2D(point.X + addend.I, point.Y + addend.J);
         }
 
         /// <summary>
         /// Adds a <see cref="Size2D"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="Size2D"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="Size2D"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, double addendum)
+        public static Size2D Add(this Size2D point, double addend)
         {
-            return new Size2D(point.Width + addendum, point.Height + addendum);
+            return new Size2D(point.Width + addend, point.Height + addend);
         }
 
         /// <summary>
         /// Adds a <see cref="Point2D"/> to a <see cref="Size2D"/> by value.
         /// </summary>
         /// <param name="point">The <see cref="Size2D"/> to add to.</param>
-        /// <param name="addendum">The <see cref="Point2D"/> to add with.</param>
+        /// <param name="addend">The <see cref="Point2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Size2D"/> structure enlarged by the amount of the <see cref="Point2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, Point2D addendum)
+        public static Size2D Add(this Size2D point, Point2D addend)
         {
-            return new Size2D(point.Width + addendum.X, point.Height + addendum.Y);
+            return new Size2D(point.Width + addend.X, point.Height + addend.Y);
         }
 
         /// <summary>
         /// Adds a <see cref="Size2D"/> to a <see cref="Size2D"/> by value.
         /// </summary>
         /// <param name="point">The <see cref="Size2D"/> to add to.</param>
-        /// <param name="addendum">The <see cref="Size2D"/> to add with.</param>
+        /// <param name="addend">The <see cref="Size2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Size2D"/> structure enlarged by the amount of the other <see cref="Size2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, Size2D addendum)
+        public static Size2D Add(this Size2D point, Size2D addend)
         {
-            return new Size2D(point.Width + addendum.Width, point.Height + addendum.Height);
+            return new Size2D(point.Width + addend.Width, point.Height + addend.Height);
         }
 
         /// <summary>
         /// Adds a <see cref="Vector2D"/> to a <see cref="Size2D"/> by value.
         /// </summary>
         /// <param name="point">The <see cref="Size2D"/> to add to.</param>
-        /// <param name="addendum">The <see cref="Vector2D"/> to add with.</param>
+        /// <param name="addend">The <see cref="Vector2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Size2D"/> structure enlarged by the amount of the <see cref="Point2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, Vector2D addendum)
+        public static Size2D Add(this Size2D point, Vector2D addend)
         {
-            return new Size2D(point.Width + addendum.I, point.Height + addendum.J);
-        }
-
-
-
-
-
-        /// <summary>
-        /// Adds a <see cref="PointF"/> by a value.
-        /// </summary>
-        /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
-        /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, int addendum)
-        {
-            return new Point(point.X + addendum, point.Y + addendum);
+            return new Size2D(point.Width + addend.I, point.Height + addend.J);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, float addendum)
+        public static Point Add(this Point point, int addend)
         {
-            return new Point((int)(point.X + addendum), (int)(point.Y + addendum));
+            return new Point(point.X + addend, point.Y + addend);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, double addendum)
+        public static Point Add(this Point point, float addend)
         {
-            return new Point((int)(point.X + addendum), (int)(point.Y + addendum));
+            return new Point((int)(point.X + addend), (int)(point.Y + addend));
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, Point addendum)
+        public static Point Add(this Point point, double addend)
         {
-            return new Point(point.X + addendum.X, point.Y + addendum.Y);
+            return new Point((int)(point.X + addend), (int)(point.Y + addend));
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, PointF addendum)
+        public static Point Add(this Point point, Point addend)
         {
-            return new Point((int)(point.X + addendum.X), (int)(point.Y + addendum.Y));
+            return new Point(point.X + addend.X, point.Y + addend.Y);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, Size addendum)
+        public static Point Add(this Point point, PointF addend)
         {
-            return new Point(point.X + addendum.Width, point.Y + addendum.Height);
+            return new Point((int)(point.X + addend.X), (int)(point.Y + addend.Y));
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, SizeF addendum)
+        public static Point Add(this Point point, Size addend)
         {
-            return new Point((int)(point.X + addendum.Width), (int)(point.Y + addendum.Height));
+            return new Point(point.X + addend.Width, point.Y + addend.Height);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point Add(this Point point, Vector2D addendum)
+        public static Point Add(this Point point, SizeF addend)
         {
-            return new Point((int)(point.X + addendum.I), (int)(point.Y + addendum.J));
+            return new Point((int)(point.X + addend.Width), (int)(point.Y + addend.Height));
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PointF Add(this PointF point, int addendum)
+        public static Point Add(this Point point, Vector2D addend)
         {
-            return new PointF(point.X + addendum, point.Y + addendum);
+            return new Point((int)(point.X + addend.I), (int)(point.Y + addend.J));
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PointF Add(this PointF point, float addendum)
+        public static PointF Add(this PointF point, int addend)
         {
-            return new PointF(point.X + addendum, point.Y + addendum);
+            return new PointF(point.X + addend, point.Y + addend);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PointF Add(this PointF point, double addendum)
+        public static PointF Add(this PointF point, float addend)
         {
-            return new PointF((float)(point.X + addendum), (float)(point.Y + addendum));
+            return new PointF(point.X + addend, point.Y + addend);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this PointF point, PointF addendum)
+        public static PointF Add(this PointF point, double addend)
         {
-            return new Vector2D(point.X + addendum.X, point.Y + addendum.Y);
+            return new PointF((float)(point.X + addend), (float)(point.Y + addend));
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PointF Add(this PointF point, Size addendum)
+        public static Vector2D Add(this PointF point, PointF addend)
         {
-            return new PointF(point.X + addendum.Width, point.Y + addendum.Height);
+            return new Vector2D(point.X + addend.X, point.Y + addend.Y);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PointF Add(this PointF point, SizeF addendum)
+        public static PointF Add(this PointF point, Size addend)
         {
-            return new PointF(point.X + addendum.Width, point.Y + addendum.Height);
+            return new PointF(point.X + addend.Width, point.Y + addend.Height);
         }
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
         /// <param name="point">The <see cref="PointF"/> to inflate.</param>
-        /// <param name="addendum">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PointF Add(this PointF point, Vector2D addendum)
+        public static PointF Add(this PointF point, SizeF addend)
         {
-            return new PointF((float)(point.X + addendum.I), (float)(point.Y + addendum.J));
+            return new PointF(point.X + addend.Width, point.Y + addend.Height);
+        }
+
+        /// <summary>
+        /// Adds a <see cref="PointF"/> by a value.
+        /// </summary>
+        /// <param name="point">The <see cref="PointF"/> to inflate.</param>
+        /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
+        /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointF Add(this PointF point, Vector2D addend)
+        {
+            return new PointF((float)(point.X + addend.I), (float)(point.Y + addend.J));
         }
 
         /// <summary>
         /// Add VectorF
         /// </summary>
         /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, int value)
+        public static Vector2D Add(this Vector2D vector, int addend)
         {
-            return new Vector2D(vector.I + value, vector.J + value);
+            return new Vector2D(vector.I + addend, vector.J + addend);
         }
 
         /// <summary>
         /// Add VectorF
         /// </summary>
         /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, float value)
+        public static Vector2D Add(this Vector2D vector, float addend)
         {
-            return new Vector2D(vector.I + value, vector.J + value);
+            return new Vector2D(vector.I + addend, vector.J + addend);
         }
 
         /// <summary>
         /// Add VectorF
         /// </summary>
         /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, double value)
+        public static Vector2D Add(this Vector2D vector, double addend)
         {
-            return new Vector2D((float)(vector.I + value), (float)(vector.J + value));
+            return new Vector2D((float)(vector.I + addend), (float)(vector.J + addend));
         }
 
         /// <summary>
         /// Add VectorF
         /// </summary>
         /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Vector2D vector, Point value)
+        public static Point2D Add(this Vector2D vector, Point addend)
         {
-            return new Point2D(vector.I + value.X, vector.J + value.Y);
+            return new Point2D(vector.I + addend.X, vector.J + addend.Y);
         }
 
         /// <summary>
         /// Add VectorF
         /// </summary>
         /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Vector2D vector, Point2D value)
+        public static Point2D Add(this Vector2D vector, Point2D addend)
         {
-            return new Point2D(vector.I + value.X, vector.J + value.Y);
+            return new Point2D(vector.I + addend.X, vector.J + addend.Y);
         }
 
         /// <summary>
         /// Add Vector2D
         /// </summary>
         /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, Vector2D value)
+        public static Vector2D Add(this Vector2D vector, Vector2D addend)
         {
-            return new Vector2D(vector.I + value.I, vector.J + value.J);
+            return new Vector2D(vector.I + addend.I, vector.J + addend.J);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="segment"></param>
-        /// <param name="value"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment Add(this LineSegment segment, LineSegment value)
+        public static LineSegment Add(this LineSegment segment, LineSegment addend)
         {
             return new LineSegment(
-                segment.Points[0].X + value.Points[0].X,
-                segment.Points[0].Y + value.Points[0].Y,
-                segment.Points[1].X + value.Points[1].X,
-                segment.Points[1].Y + value.Points[1].Y);
+                segment.Points[0].X + addend.Points[0].X,
+                segment.Points[0].Y + addend.Points[0].Y,
+                segment.Points[1].X + addend.Points[1].X,
+                segment.Points[1].Y + addend.Points[1].Y);
         }
+
         #endregion
 
         #region Angle
@@ -759,6 +758,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Delta
+
         /// <summary>
         /// Finds the Delta of two Points
         /// </summary>
@@ -822,47 +822,55 @@ namespace Engine.Geometry
         /// <summary>
         /// Distance between two points.
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
-        public static double Distance(this Point2D start, Point2D end)
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Point2D a, Point2D b)
         {
-            return Math.Sqrt((end.X - start.X) * (end.X - start.X) + (end.Y - start.Y) * (end.Y - start.Y));
+            return Maths.Distance(a.X, a.Y, b.X, b.Y);
         }
 
         /// <summary>
         /// Distance between two points.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="value"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
-        public static double Distance(this Point point, Point value)
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Point a, Point b)
         {
-            return Maths.Distance(point.X, point.Y, value.X, value.Y);
+            return Maths.Distance(a.X, a.Y, b.X, b.Y);
+        }
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this PointF a, PointF b)
+        {
+            return Maths.Distance(a.X, a.Y, b.X, b.Y);
         }
 
         /// <summary>
         /// Length of a Vector
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="value"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static double Distance(this PointF point, PointF value)
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Vector2D a, Vector2D b)
         {
-            return Maths.Distance(point.X, point.Y, value.X, value.Y);
-        }
-
-        /// <summary>
-        /// Length of a Vector
-        /// </summary>
-        /// <param name="value1"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static double Distance(this Vector2D value1, Vector2D value2)
-        {
-            return Maths.Distance(value1.I, value1.J, value2.I, value2.J);
+            return Maths.Distance(a.I, a.J, b.I, b.J);
         }
 
         /// <summary>
@@ -871,6 +879,8 @@ namespace Engine.Geometry
         /// <param name="segment"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this LineSegment segment)
         {
             return Maths.Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
@@ -879,46 +889,49 @@ namespace Engine.Geometry
         /// <summary>
         /// Returns the Length of a lineSeg.
         /// </summary>
-        /// <param name="xA">Horizontal Component of Point Starting Point</param>
-        /// <param name="yA">Vertical Component of Point Starting Point</param>
-        /// <param name="xB">Horizontal Component of Ending Point</param>
-        /// <param name="yB">Vertical Component of Ending Point</param>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Length of a lineSeg.</returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(int xA, int yA, int xB, int yB)
+        public static double Length(int x1, int y1, int x2, int y2)
         {
-            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
+            return Maths.Distance(x1, y1, x2, y2);
         }
 
         /// <summary>
         /// Returns the Length of a lineSeg.
         /// </summary>
-        /// <param name="xA">Horizontal Component of Point Starting Point</param>
-        /// <param name="yA">Vertical Component of Point Starting Point</param>
-        /// <param name="xB">Horizontal Component of Ending Point</param>
-        /// <param name="yB">Vertical Component of Ending Point</param>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Length of a lineSeg.</returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(float xA, float yA, float xB, float yB)
+        public static double Length(float x1, float y1, float x2, float y2)
         {
-            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
+            return Maths.Distance(x1, y1, x2, y2);
         }
 
         /// <summary>
         /// Returns the Length of a lineSeg.
         /// </summary>
-        /// <param name="xA">Horizontal Component of Point Starting Point</param>
-        /// <param name="yA">Vertical Component of Point Starting Point</param>
-        /// <param name="xB">Horizontal Component of Ending Point</param>
-        /// <param name="yB">Vertical Component of Ending Point</param>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Length of a lineSeg.</returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(double xA, double yA, double xB, double yB)
+        public static double Length(double x1, double y1, double x2, double y2)
         {
-            return Math.Sqrt(Math.Pow(xB - xA, 2) + Math.Pow(yB - yA, 2));
+            return Maths.Distance(x1, y1, x2, y2);
         }
 
         /// <summary>
@@ -932,7 +945,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this Point2D point, Point2D value)
         {
-            return Length(point.X, point.Y, value.X, value.Y);
+            return Maths.Distance(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -946,7 +959,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this Point point, Point value)
         {
-            return Length(point.X, point.Y, value.X, value.Y);
+            return Maths.Distance(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -960,7 +973,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this PointF point, PointF value)
         {
-            return Length(point.X, point.Y, value.X, value.Y);
+            return Maths.Distance(point.X, point.Y, value.X, value.Y);
         }
 
         /// <summary>
@@ -974,7 +987,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this Vector2D vector, Vector2D value)
         {
-            return Length(vector.I, vector.J, value.I, value.J);
+            return Maths.Distance(vector.I, vector.J, value.I, value.J);
         }
 
         /// <summary>
@@ -1885,6 +1898,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Normalize
+
         /// <summary>
         /// Normalize Two Points
         /// </summary>
@@ -1894,11 +1908,13 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static PointF Normalize(this PointF point, SizeF value)
         {
-            return point.Scale((float)((1 / Math.Sqrt(((point.X * value.Width) + (point.Y * value.Height))))));
+            return new Point2D(Maths.Normalize(point.X, point.Y, value.Width, value.Height)).ToPointF();
         }
+
         #endregion
 
         #region Offset
+
         /// <summary>
         /// 
         /// </summary>
@@ -1907,13 +1923,24 @@ namespace Engine.Geometry
         /// <param name="distance"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static List<Point2D> Offset(this Point2D point, Point2D value, float distance)
+        public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
         {
-            Vector2D UnitVectorAB = new Vector2D(point, value);
-            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(distance);
-            List<Point2D> Out = new List<Point2D>() { point + PerpendicularAB, value + PerpendicularAB };
-            if ((distance <= 0)) Out.Reverse();
-            return Out;
+            Tuple<double, double, double, double> offset = Maths.OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
+            return new List<Point2D>() { new Point2D(offset.Item1, offset.Item2), new Point2D(offset.Item3, offset.Item4) };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="value"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineSegment OffsetSegment(Point2D point, Point2D value, double distance)
+        {
+            return new LineSegment(Maths.OffsetSegment(point.X, point.Y, value.X, value.Y, distance));
         }
 
         /// <summary>
@@ -1923,41 +1950,40 @@ namespace Engine.Geometry
         /// <param name="distance"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static LineSegment Offset(this LineSegment segment, float distance)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineSegment Offset(this LineSegment segment, double distance)
         {
-            Vector2D UnitVectorAB = new Vector2D(segment.A, segment.B);
-            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(distance);
-            LineSegment Out = new LineSegment(segment.A + PerpendicularAB, segment.B + PerpendicularAB);
-            if ((distance <= 0)) Out.Reverse();
-            return Out;
+            return new LineSegment(Maths.OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
         }
+
         #endregion
 
         #region Perpendicular Vector
+
         /// <summary>
         /// Perpendicular of a Vector.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use X = -Y, Y = X</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Perpendicular(float x, float y)
+        public static Vector2D Perpendicular(float i, float j)
         {
-            return new Vector2D(y * -1, x);
+            return new Vector2D(Maths.PerpendicularClockwise(i, j));
         }
 
         /// <summary>
         /// Perpendicular of a Vector.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use X = -Y, Y = X</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Perpendicular(double x, double y)
+        public static Vector2D Perpendicular(double i, double j)
         {
-            return new Vector2D(y * -1, x);
+            return new Vector2D(Maths.PerpendicularClockwise(i, j));
         }
 
         /// <summary>
@@ -1970,8 +1996,9 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(this Vector2D vector)
         {
-            return Perpendicular(vector.I, vector.J);
+            return new Vector2D(Maths.PerpendicularClockwise(vector.I, vector.J));
         }
+
         #endregion
 
         #region Reflect
@@ -2435,17 +2462,10 @@ namespace Engine.Geometry
         /// <param name="Point">Starting Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>The slope is calculated with Slope = Y / X or rise over run</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Vector2D Point)
         {
-            //  If the line is vertical, return something close to infinity 
-            //  (Close to the largest value allowed for the data type).
-            if ((Point.I == 0))
-            {
-                return Maths.SlopeMax;
-            }
-
-            //  Otherwise calculate and return the slope.
-            return (Point.J / Point.I);
+            return Maths.Slope(Point.I, Point.J);
         }
 
         /// <summary>
@@ -2454,24 +2474,16 @@ namespace Engine.Geometry
         /// <param name="Line">Line to get length of</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this LineSegment Line)
         {
-            //  Check to see if the Line is Vertical. 
-            //  The original Version was: If (Line.A.X - Line.B.X) = 0 Then
-            if ((Line.A.X == Line.B.X))
-            {
-                //  Line is Vertical return something close to infinity (Close to 
-                //  the largest value allowed for the data type).
-                return Maths.SlopeMax;
-            }
-
-            //  Otherwise calculate and return the slope.
-            return ((Line.B.Y - Line.A.Y) / (Line.B.X - Line.A.X));
+            return Maths.Slope(Line.A.X, Line.A.Y, Line.B.X, Line.B.Y);
         }
 
         #endregion
 
         #region Subtract
+
         /// <summary>
         /// Subtracts a <see cref="Point2D"/> by a value.
         /// </summary>
@@ -2811,6 +2823,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Unit
+
         /// <summary>
         /// Unit of a Point
         /// </summary>
@@ -2863,7 +2876,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D Unit(this Vector2D value)
         {
-            return value.Scale((float)(1 / Math.Sqrt(((value.I * value.I) + (value.J * value.J)))));
+            return value.Scale(1 / Math.Sqrt(((value.I * value.I) + (value.J * value.J))));
         }
 
         #endregion

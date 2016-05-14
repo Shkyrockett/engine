@@ -19,6 +19,7 @@ namespace Engine.Geometry
         : Shape
     {
         #region Static Implementations
+
         /// <summary>
         /// 
         /// </summary>
@@ -28,9 +29,11 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public static readonly Rectangle2D Unit = new Rectangle2D(0, 0, 1, 1);
+
         #endregion
 
         #region Private Fields
+
         /// <summary>
         /// 
         /// </summary>
@@ -50,28 +53,69 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private double height;
+
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a default instance of the <see cref="Rectangle2D"/> class.
+        /// Initializes a new default instance of the <see cref="Rectangle2D"/> class.
         /// </summary>
         public Rectangle2D()
             : this(0, 0, 0, 0)
         { }
 
         /// <summary>
-        /// Constructor which sets the initial values to bound the (0,0) point and the point 
-        /// that results from (0,0) + size. 
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an empty location, with the provided size.
         /// </summary>
-        /// <param name="size"></param>
+        /// <param name="size">The height and width of the <see cref="Rectangle2D"/>.</param>
         public Rectangle2D(Size2D size)
             : this(0, 0, size.Width, size.Height)
         { }
 
         /// <summary>
-        /// Constructor which sets the initial values to bound the two points provided.
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an initial location and size.
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="size"></param>
+        public Rectangle2D(Point2D location, Size2D size)
+            : this(location.X, location.Y, size.Width, size.Height)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class  with a location and a vector size.
+        /// </summary>
+        public Rectangle2D(Point2D point, Vector2D vector)
+            : this(point, point + vector)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the location and size from a tuple.
+        /// </summary>
+        /// <param name="tuple"></param>
+        public Rectangle2D(Tuple<double, double, double, double> tuple)
+            : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with a location and size.
+        /// </summary>
+        /// <param name="x">The x coordinate of the upper left corner of the rectangle.</param>
+        /// <param name="y">The y coordinate of the upper left corner of the rectangle.</param>
+        /// <param name="width">The width of the rectangle.</param>
+        /// <param name="height">The Height of the rectangle.</param>
+        public Rectangle2D(double x, double y, double width, double height)
+        {
+            if (width < 0 || height < 0) throw new ArgumentException("Width and Height cannot be Negative.");
+
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the upper left and lower right corners.
         /// </summary>
         /// <param name="point1"></param>
         /// <param name="point2"></param>
@@ -85,39 +129,6 @@ namespace Engine.Geometry
             height = Math.Max(Math.Max(point1.Y, point2.Y) - y, 0);
         }
 
-        /// <summary>
-        /// Constructor which sets the initial values to the values of the parameters
-        /// </summary>
-        /// <param name="location"></param>
-        /// <param name="size"></param>
-        public Rectangle2D(Point2D location, Size2D size)
-            : this(location.X, location.Y, size.Width, size.Height)
-        { }
-
-        /// <summary>
-        /// Constructor which sets the initial values to bound the point provided and the point
-        /// which results from point + vector.
-        /// </summary>
-        public Rectangle2D(Point2D point, Vector2D vector)
-            : this(point, point + vector)
-        { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public Rectangle2D(double x, double y, double width, double height)
-        {
-            if (width < 0 || height < 0) throw new ArgumentException("Width and Height cannot be Negative.");
-
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-        }
         #endregion
 
         #region Properties

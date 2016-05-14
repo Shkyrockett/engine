@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -47,8 +48,8 @@ namespace Engine.Geometry
         /// type). Used in the Slope of a LineSeg
         /// </summary>
         /// <remarks></remarks>
-        //public const double SlopeMax = 9223372036854775807d;
-        public const double SlopeMax = double.PositiveInfinity;
+        public const double SlopeMax = 9223372036854775807d;
+        //public const double SlopeMax = double.PositiveInfinity;
 
         /// <summary>
         /// 
@@ -334,27 +335,94 @@ namespace Engine.Geometry
         #region Geometric Methods
 
         /// <summary>
-        /// Returns the Angle of a line.
-        /// </summary>
-        /// <param name="aX">Horizontal Component of Point Starting Point</param>
-        /// <param name="aY">Vertical Component of Point Starting Point</param>
-        /// <param name="bX">Horizontal Component of Ending Point</param>
-        /// <param name="bY">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Angle(double aX, double aY, double bX, double bY)
-            => Math.Atan2((aY - bY), (aX - bX));
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
         /// <param name="bX"></param>
         /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double, double> OffsetSegment(
+            double aX, double aY,
+            double bX, double bY,
+            double distance)
+            => new Tuple<double, double, double, double>(
+                (aX + 0.5 * -((bY - aY) / Distance(aX, aY, bX, bY)) * distance),
+                (aY + 0.5 * ((bX - aX) / Distance(aX, aY, bX, bY)) * distance),
+                (bX + 0.5 * -((bY - aY) / Distance(aX, aY, bX, bY)) * distance),
+                (bY + 0.5 * ((bX - aX) / Distance(aX, aY, bX, bY)) * distance)
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="aZ"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="bZ"></param>
+        /// <param name="distanceX"></param>
+        /// <param name="distanceY"></param>
+        /// <param name="distanceZ"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double, double, double, double> OffsetSegment(
+            double aX, double aY, double aZ,
+            double bX, double bY, double bZ,
+            double distanceX, double distanceY, double distanceZ)
+            => new Tuple<double, double, double, double, double, double>(
+                (aX + 0.5 * -((bY - aY) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceX),
+                (aY + 0.5 * ((bX - aX) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceY),
+                (aZ + 0.5 * ((bZ - aZ) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceZ),
+                (bX + 0.5 * -((bY - aY) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceX),
+                (bY + 0.5 * ((bX - aX) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceY),
+                (bZ + 0.5 * ((bZ - aZ) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceZ)
+                );
+
+        /// <summary>
+        /// Returns the Angle of a line.
+        /// </summary>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
+        /// <returns>Returns the Angle of a line.</returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Angle(
+            double x1, double y1,
+            double x2, double y2)
+            => Math.Atan2((y1 - y2), (x1 - x2));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        public static double Angle(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => (x1 == x2 && y1 == y2 && z1 == z2) ? 0 : Math.Acos(Math.Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
         /// <returns>
         /// Return the angle ABC.
         /// Return a value between PI and -PI.
@@ -363,37 +431,97 @@ namespace Engine.Geometry
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AngleVector(double aX, double aY, double bX, double bY, double cX, double cY)
-            => Math.Atan2(CrossProductVector(aX, aY, bX, bY, cX, cY), DotProductVector(aX, aY, bX, bY, cX, cY));
+        public static double AngleVector(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+            => Math.Atan2(CrossProduct3Point(x1, y1, x2, y2, x3, y3), DotProduct3Point(x1, y1, x2, y2, x3, y3));
 
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
         /// </summary>
-        /// <param name="aX">Horizontal Component of Point Starting Point</param>
-        /// <param name="aY">Vertical Component of Point Starting Point</param>
-        /// <param name="bX">Horizontal Component of Ending Point</param>
-        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
-        public static double AbsoluteAngle(double aX, double aY, double bX, double bY)
+        public static double AbsoluteAngle(
+            double x1, double y1,
+            double x2, double y2)
         {
             // Find the angle of point a and point b. 
-            double test = -Maths.Angle(aX, aY, bX, bY) % Math.PI;
+            double test = -Maths.Angle(x1, y1, x2, y2) % Math.PI;
             return test < 0 ? test += Math.PI : test;
         }
 
         /// <summary>
+        /// Finds the angle between two vectors.
+        /// </summary>
+        /// <param name="uX"></param>
+        /// <param name="uY"></param>
+        /// <param name="vX"></param>
+        /// <param name="vY"></param>
+        /// <returns></returns>
+        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AngleBetween(
+            double uX, double uY,
+            double vX, double vY)
+            => Math.Acos((uX * vX + uY * vY) / Math.Sqrt((uX * uX + uY * uY) * (vX * vX + vY * vY)));
+
+        /// <summary>
+        /// Finds the angle between two vectors.
+        /// </summary>
+        /// <param name="uX"></param>
+        /// <param name="uY"></param>
+        /// <param name="uZ"></param>
+        /// <param name="vX"></param>
+        /// <param name="vY"></param>
+        /// <param name="vZ"></param>
+        /// <returns></returns>
+        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AngleBetween(
+            double uX, double uY, double uZ,
+            double vX, double vY, double vZ)
+            => Math.Acos((uX * vX + uY * vY + uZ * vZ) / Math.Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
+
+        /// <summary>
         /// Cross Product of two points.
         /// </summary>
-        /// <param name="aX">First Point X component.</param>
-        /// <param name="aY">First Point Y component.</param>
-        /// <param name="bX">Second Point X component.</param>
-        /// <param name="bY">Second Point Y component.</param>
+        /// <param name="x1">First Point X component.</param>
+        /// <param name="y1">First Point Y component.</param>
+        /// <param name="x2">Second Point X component.</param>
+        /// <param name="y2">Second Point Y component.</param>
         /// <returns>the cross product AB · BC.</returns>
         /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProduct(double aX, double aY, double bX, double bY)
-            => (aX * bY) - (aY * bX);
+        public static double CrossProduct(
+            double x1, double y1,
+            double x2, double y2)
+            => (x1 * y2) - (y1 * x2);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> CrossProduct(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => new Tuple<double, double, double>(
+                    (y1 * z2) - (z1 * y2), // X
+                    (z1 * x2) - (x1 * z2), // Y
+                    (x1 * y2) - (y1 * x2)  // Z
+                );
 
         /// <summary>
         /// The cross product is a vector perpendicular to AB
@@ -403,56 +531,94 @@ namespace Engine.Geometry
         /// vector with X and Y components 0 so the Z component
         /// gives the vector's length and direction.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
         /// <returns>
         /// Return the cross product AB x BC.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProductVector(double aX, double aY, double bX, double bY, double cX, double cY)
-            => ((aX - bX) * (cY - bY) - (aY - bY) * (cX - bX));
+        public static double CrossProduct3Point(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+            => ((x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2));
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 
         /// </summary>
-        /// <param name="aX">First Point X component.</param>
-        /// <param name="aY">First Point Y component.</param>
-        /// <param name="bX">Second Point X component.</param>
-        /// <param name="bY">Second Point Y component.</param>
+        /// <param name="x1">First Point X component.</param>
+        /// <param name="y1">First Point Y component.</param>
+        /// <param name="x2">Second Point X component.</param>
+        /// <param name="y2">Second Point Y component.</param>
         /// <returns>The Dot Product.</returns>
         /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(double aX, double aY, double bX, double bY)
-            => ((aX * bX) + (aY * bY));
+        public static double DotProduct(
+            double x1, double y1,
+            double x2, double y2)
+            => ((x1 * x2) + (y1 * y2));
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 
         /// </summary>
-        /// <param name="aX">First Point X component.</param>
-        /// <param name="aY">First Point Y component.</param>
-        /// <param name="aZ">First Point Z component.</param>
-        /// <param name="bX">Second Point X component.</param>
-        /// <param name="bY">Second Point Y component.</param>
-        /// <param name="bZ">Second Point Z component.</param>
+        /// <param name="x1">First Point X component.</param>
+        /// <param name="y1">First Point Y component.</param>
+        /// <param name="z1">First Point Z component.</param>
+        /// <param name="x2">Second Point X component.</param>
+        /// <param name="y2">Second Point Y component.</param>
+        /// <param name="z2">Second Point Z component.</param>
+        /// <returns>The Dot Product.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => ((x1 * x2) + (y1 * y2) + (z1 * z2));
+
+        /// <summary>
+        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// </summary>
+        /// <param name="tuple">X, Y, Z components in tuple form.</param>
+        /// <param name="x2">Second Point X component.</param>
+        /// <param name="y2">Second Point Y component.</param>
+        /// <param name="z2">Second Point Z component.</param>
         /// <returns>The Dot Product.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(double aX, double aY, double aZ, double bX, double bY, double bZ)
-            => ((aX * bX) + (aY * bY) + (aZ * bZ));
+        public static double DotProduct(
+            Tuple<double, double, double> tuple,
+            double x2, double y2, double z2)
+            => DotProduct(tuple.Item1, tuple.Item2, tuple.Item3, x2, y2, z2);
+
+        /// <summary>
+        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// </summary>
+        /// <param name="tuple1">First set of X, Y, Z components in tuple form.</param>
+        /// <param name="tuple2">Second set of X, Y, Z components in tuple form.</param>
+        /// <returns>The Dot Product.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(
+            Tuple<double, double, double> tuple1,
+            Tuple<double, double, double> tuple2)
+            => DotProduct(
+                tuple1.Item1, tuple1.Item2, tuple1.Item3,
+                tuple2.Item1, tuple2.Item2, tuple2.Item3
+                );
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
         /// <returns>
         /// Return the dot product AB · BC.
         /// </returns>
@@ -461,62 +627,95 @@ namespace Engine.Geometry
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProductVector(double aX, double aY, double bX, double bY, double cX, double cY)
-            => (((aX - bX) * (cX - bX)) + ((aY - bY) * (cY - bY)));
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="aX">First X component.</param>
-        /// <param name="aY">First Y component.</param>
-        /// <param name="bX">Second X component.</param>
-        /// <param name="bY">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(double aX, double aY, double bX, double bY)
-            => Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY));
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="aX">First X component.</param>
-        /// <param name="aY">First Y component.</param>
-        /// <param name="aZ">First Z component.</param>
-        /// <param name="bX">Second X component.</param>
-        /// <param name="bY">Second Y component.</param>
-        /// <param name="bZ">Second Z component.</param>
-        /// <returns>The distance between two points.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(double aX, double aY, double aZ, double bX, double bY, double bZ)
-            => Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
+        public static double DotProduct3Point(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+            => (((x1 - x2) * (x3 - x2)) + ((y1 - y2) * (y3 - y2)));
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="z3"></param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DistanceSqrd(double aX, double aY, double bX, double bY)
-            => ((aX - bX) * (aX - bX) + (aY - bY) * (aY - bY));
+        public static double MixedProduct(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double x3, double y3, double z3)
+            => DotProduct(CrossProduct(x1, y1, z1, x2, y2, z2), x3, y3, z3);
 
         /// <summary>
-        /// 
+        /// Distance between two points.
         /// </summary>
-        /// <param name="pointX"></param>
-        /// <param name="pointY"></param>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
+        /// <param name="x1">First X component.</param>
+        /// <param name="y1">First Y component.</param>
+        /// <param name="x2">Second X component.</param>
+        /// <param name="y2">Second Y component.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(
+            double x1, double y1,
+            double x2, double y2)
+            => Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="x1">First X component.</param>
+        /// <param name="y1">First Y component.</param>
+        /// <param name="z1">First Z component.</param>
+        /// <param name="x2">Second X component.</param>
+        /// <param name="y2">Second Y component.</param>
+        /// <param name="z2">Second Z component.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+
+        /// <summary>
+        /// The square of the distance between two points.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
         /// <returns></returns>
-        public static double DistanceFromLineSqrd(double pointX, double pointY, double aX, double aY, double bX, double bY)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistance(
+            double x1, double y1,
+            double x2, double y2)
+            => ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+        /// <summary>
+        /// Find the square of the distance of a point from a line.
+        /// </summary>
+        /// <param name="x1">The x component of the Point.</param>
+        /// <param name="y1">The y component of the Point.</param>
+        /// <param name="x2_">The x component of the first point on the line.</param>
+        /// <param name="y2_">The y component of the first point on the line.</param>
+        /// <param name="x3_">The x component of the second point on the line.</param>
+        /// <param name="y3_">The y component of the second point on the line.</param>
+        /// <returns></returns>
+        public static double SquareDistanceToLine(
+            double x1, double y1,
+            double x2_, double y2_,
+            double x3_, double y3_)
         {
-            double A = aY - bY;
-            double B = bX - aX;
-            double C = (A * pointX + B * pointY) - (A * aX + B * aY);
+            double A = y2_ - y3_;
+            double B = x3_ - x2_;
+            double C = (A * x1 + B * y1) - (A * x2_ + B * y2_);
             return (C * C) / (A * A + B * B);
         }
 
@@ -539,10 +738,10 @@ namespace Engine.Geometry
         /// <summary>
         /// Returns the slope angle of a line.
         /// </summary>
-        /// <param name="aX">Horizontal Component of Point Starting Point</param>
-        /// <param name="aY">Vertical Component of Point Starting Point</param>
-        /// <param name="bX">Horizontal Component of Ending Point</param>
-        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>
         /// If the Line is Vertical return something close to infinity (Close to 
@@ -550,28 +749,56 @@ namespace Engine.Geometry
         /// Otherwise calculate and return the slope.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Slope(double aX, double aY, double bX, double bY)
-            => (aX == bX) ? SlopeMax : ((bY - aY) / (bX - aX));
+        public static double Slope(
+            double x1, double y1,
+            double x2, double y2)
+            => (x1 == x2) ? SlopeMax : ((y2 - y1) / (x2 - x1));
 
         /// <summary>
-        /// Modulus of a Vector.
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Abs(double i, double j)
+            => Magnitude(i, j);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Abs(double i, double j, double k)
+            => Magnitude(i, j, k);
+
+        /// <summary>
+        /// Magnitude of a two dimensional Vector.
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j)
             => Math.Sqrt((i * i) + (j * j));
 
         /// <summary>
-        /// Modulus of a Vector.
+        /// Magnitude of a three dimensional Vector.
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j, double k)
             => Math.Sqrt((i * i) + (j * j) + (k * k));
@@ -583,9 +810,10 @@ namespace Engine.Geometry
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j)
-            => Math.Sqrt((i * i) + (j * j));
+            => Magnitude(i, j);
 
         /// <summary>
         /// Modulus of a Vector.
@@ -595,9 +823,126 @@ namespace Engine.Geometry
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j, double k)
-            => Math.Sqrt((i * i) + (j * j) + (k * k));
+            => Magnitude(i, j, k);
+
+        /// <summary>
+        /// Unitize a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Unitize(double i, double j)
+            => Normalize(i, j);
+
+        /// <summary>
+        /// Unitize a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Unitize(double i, double j, double k)
+            => Normalize(i, j, k);
+
+        /// <summary>
+        /// Normalize a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Normalize(double i, double j)
+            => new Tuple<double, double>(
+                i / Math.Sqrt((i * i) + (j * j)),
+                j / Math.Sqrt((i * i) + (j * j))
+                );
+
+        /// <summary>
+        /// Normalize a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Normalize(double i, double j, double k)
+            => new Tuple<double, double, double>(
+                i / Math.Sqrt((i * i) + (j * j) + (k * k)),
+                j / Math.Sqrt((i * i) + (j * j) + (k * k)),
+                k / Math.Sqrt((i * i) + (j * j) + (k * k))
+                );
+
+        /// <summary>
+        /// Find the Normal of Two points.
+        /// </summary>
+        /// <param name="x1">The x component of the first Point.</param>
+        /// <param name="y1">The y component of the first Point.</param>
+        /// <param name="x2">The x component of the second Point.</param>
+        /// <param name="y2">The y component of the second Point.</param>
+        /// <returns>The Normal of two Points</returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Normalize(
+            double x1, double y1,
+            double x2, double y2)
+            => new Tuple<double, double>(
+                x1 / Math.Sqrt(((x1 * x2) + (y1 * y2))),
+                y1 / Math.Sqrt(((x1 * x2) + (y1 * y2)))
+                );
+
+        /// <summary>
+        /// Find the Normal of Two points.
+        /// </summary>
+        /// <param name="x1">The x component of the first Point.</param>
+        /// <param name="y1">The y component of the first Point.</param>
+        /// <param name="z1">The z component of the first Point.</param>
+        /// <param name="x2">The x component of the second Point.</param>
+        /// <param name="y2">The y component of the second Point.</param>
+        /// <param name="z2">The z component of the second Point.</param>
+        /// <returns>The Normal of two Points</returns>
+        /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Normalize(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => new Tuple<double, double, double>(
+                x1 / Math.Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
+                y1 / Math.Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
+                z1 / Math.Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2))
+                );
+
+        /// <summary>
+        /// Find the Clockwise Perpendicular of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> PerpendicularClockwise(double i, double j)
+            => new Tuple<double, double>(-j, i);
+
+        /// <summary>
+        /// Find the Counter Clockwise Perpendicular of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> PerpendicularCounterClockwise(double i, double j)
+            => new Tuple<double, double>(j, -i);
 
         /// <summary>
         /// Find the determinant of a 2 by 2 matrix.
@@ -609,11 +954,12 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant2x2(
+        public static double Determinant(
             double a, double b,
             double c, double d)
             => ((a * d)
-              - (b * c));
+              - (b * c)
+            );
 
         /// <summary>
         /// Find the determinant of a 3 by 3 matrix.
@@ -630,13 +976,14 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant3x3(
+        public static double Determinant(
             double a, double b, double c,
             double d, double e, double f,
             double g, double h, double i)
-            => ((a * Determinant2x2(e, f, h, i))
-              - (b * Determinant2x2(d, f, g, i))
-              + (c * Determinant2x2(d, e, g, h)));
+            => ((a * Determinant(e, f, h, i))
+              - (b * Determinant(d, f, g, i))
+              + (c * Determinant(d, e, g, h))
+            );
 
         /// <summary>
         /// Find the determinant of a 4 by 4 matrix.
@@ -660,15 +1007,390 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant4x4(
+        public static double Determinant(
             double a, double b, double c, double d,
             double e, double f, double g, double h,
             double i, double j, double k, double l,
             double m, double n, double o, double p)
-            => ((a * Determinant3x3(f, g, h, j, k, l, n, o, p))
-              - (b * Determinant3x3(e, g, h, i, k, l, m, o, p))
-              + (c * Determinant3x3(e, f, h, i, j, l, m, n, p))
-              - (d * Determinant3x3(e, f, g, i, j, k, m, n, o)));
+            => ((a * Determinant(f, g, h, j, k, l, n, o, p))
+              - (b * Determinant(e, g, h, i, k, l, m, o, p))
+              + (c * Determinant(e, f, h, i, j, l, m, n, p))
+              - (d * Determinant(e, f, g, i, j, k, m, n, o))
+            );
+
+
+        /// <summary>
+        /// Find the inverse of the determinant of a 2 by 2 matrix.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double InverseDeterminant(
+            double a, double b,
+            double c, double d)
+            => 1 / ((a * d)
+              - (b * c)
+            );
+
+        /// <summary>
+        /// Find the inverse of the determinant of a 3 by 3 matrix.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double InverseDeterminant(
+            double a, double b, double c,
+            double d, double e, double f,
+            double g, double h, double i)
+            => 1 / ((a * Determinant(e, f, h, i))
+              - (b * Determinant(d, f, g, i))
+              + (c * Determinant(d, e, g, h))
+            );
+
+        /// <summary>
+        /// Find the inverse of the determinant of a 4 by 4 matrix.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <param name="l"></param>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <param name="o"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double InverseDeterminant(
+            double a, double b, double c, double d,
+            double e, double f, double g, double h,
+            double i, double j, double k, double l,
+            double m, double n, double o, double p)
+            => 1 / ((a * Determinant(f, g, h, j, k, l, n, o, p))
+              - (b * Determinant(e, g, h, i, k, l, m, o, p))
+              + (c * Determinant(e, f, h, i, j, l, m, n, p))
+              - (d * Determinant(e, f, g, i, j, k, m, n, o))
+            );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Projection(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => new Tuple<double, double, double>(
+                x2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
+                y2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
+                z2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2)
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Rejection(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => new Tuple<double, double, double>(
+                x1 - x2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
+                z1 - y2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
+                z1 - z2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2)
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="j1"></param>
+        /// <param name="k1"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <param name="k2"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Reflection(
+            double i1, double j1, double k1,
+            double i2, double j2, double k2)
+        {
+            // if v2 has a right angle to vector, return -vector and stop
+            if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - Math.PI / 2) < double.Epsilon)
+            {
+                return new Tuple<double, double, double>(-i1, -j1, -k1);
+            }
+
+            Tuple<double, double, double> projection = Projection(i1, j1, k1, i2, j2, k2);
+            return new Tuple<double, double, double>(
+                (2 * projection.Item1 - i1) * Magnitude(i1, j1, k1),
+                (2 * projection.Item2 - j1) * Magnitude(i1, j1, k1),
+                (2 * projection.Item3 - k1) * Magnitude(i1, j1, k1)
+                );
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double rad)
+            => new Tuple<double, double, double>(
+                x1,
+                (y1 * Math.Cos(rad)) - (z1 * Math.Sin(rad)),
+                (y1 * Math.Sin(rad)) + (z1 * Math.Cos(rad))
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Pitch(double x1, double y1, double z1, double rad)
+            => RotateX(x1, y1, z1, rad);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double rad)
+            => new Tuple<double, double, double>(
+                (z1 * Math.Sin(rad)) + (x1 * Math.Cos(rad)),
+                y1,
+                (z1 * Math.Cos(rad)) - (x1 * Math.Sin(rad))
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Yaw(double x1, double y1, double z1, double rad)
+            => RotateY(x1, y1, z1, rad);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double rad)
+            => new Tuple<double, double, double>(
+                (x1 * Math.Cos(rad)) - (y1 * Math.Sin(rad)),
+                (x1 * Math.Sin(rad)) + (y1 * Math.Cos(rad)),
+                z1
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Roll(double x1, double y1, double z1, double rad)
+            => RotateZ(x1, y1, z1, rad);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="yOff"></param>
+        /// <param name="zOff"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
+            => new Tuple<double, double, double>(
+                x1,
+                (y1 * Math.Cos(rad)) - (z1 * Math.Sin(rad)) + (yOff * (1 - Math.Cos(rad)) + zOff * Math.Sin(rad)),
+                (y1 * Math.Sin(rad)) + (z1 * Math.Cos(rad)) + (zOff * (1 - Math.Cos(rad)) - yOff * Math.Sin(rad))
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="xOff"></param>
+        /// <param name="zOff"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
+            => new Tuple<double, double, double>(
+                (z1 * Math.Sin(rad)) + (x1 * Math.Cos(rad)) + (xOff * (1 - Math.Cos(rad)) - zOff * Math.Sin(rad)),
+                y1,
+                (z1 * Math.Cos(rad)) - (x1 * Math.Sin(rad)) + (zOff * (1 - Math.Cos(rad)) + xOff * Math.Sin(rad))
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="xOff"></param>
+        /// <param name="yOff"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
+            => new Tuple<double, double, double>(
+                (x1 * Math.Cos(rad)) - (y1 * Math.Sin(rad)) + (xOff * (1 - Math.Cos(rad)) + yOff * Math.Sin(rad)),
+                (x1 * Math.Sin(rad)) + (y1 * Math.Cos(rad)) + (yOff * (1 - Math.Cos(rad)) - xOff * Math.Sin(rad)),
+                z1
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="normalI1"></param>
+        /// <param name="normalJ1"></param>
+        /// <param name="normalK1"></param>
+        /// <param name="lineOfSightI2"></param>
+        /// <param name="lineOfSightJ2"></param>
+        /// <param name="lineOfSightK2"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsBackFace(
+            double normalI1, double normalJ1, double normalK1,
+            double lineOfSightI2, double lineOfSightJ2, double lineOfSightK2)
+            => DotProduct(normalI1, normalJ1, normalK1, lineOfSightI2, lineOfSightJ2, lineOfSightK2) < 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="j1"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsUnitVector(double i1, double j1)
+            => Magnitude(i1, j1) == 1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="j1"></param>
+        /// <param name="k1"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsUnitVector(double i1, double j1, double k1)
+            => Magnitude(i1, j1, k1) == 1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="theta"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Interpolate(
+            double x1, double y1,
+            double x2, double y2,
+            double theta)
+            => new Tuple<double, double>(
+                x1 * (1 - theta) + x2 * theta,
+                y1 * (1 - theta) + y2 * theta
+                );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="theta"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Interpolate(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double theta)
+            => new Tuple<double, double, double>(
+                x1 * (1 - theta) + x2 * theta,
+                y1 * (1 - theta) + y2 * theta,
+                z1 * (1 - theta) + z2 * theta
+                );
 
         #endregion
 
@@ -682,7 +1404,7 @@ namespace Engine.Geometry
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this double[] values)
-            => (Sum(values) / values.Length);
+            => (values.Sum() / values.Length);
 
         /// <summary>
         /// Returns the average value of a numeric array.
@@ -692,7 +1414,17 @@ namespace Engine.Geometry
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this List<double> values)
-            => (Sum(values) / values.Count);
+            => (values.Sum() / values.Count);
+
+        /// <summary>
+        /// Returns the average value of a numeric array.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Average(this IEnumerable<double> values)
+            => values.Sum() / values.Count();
 
         /// <summary>
         /// Find the sum of an array of Numbers
@@ -712,6 +1444,16 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(List<double> values)
+            => values.Sum();
+
+        /// <summary>
+        /// Find the sum of an array of Numbers
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Sum(IEnumerable<double> values)
             => values.Sum();
 
         #endregion
@@ -737,6 +1479,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
             => value < 0 ? -Math.Pow(-value, 1d / 3d) : Math.Pow(value, 1d / 3d);
@@ -1055,6 +1798,7 @@ namespace Engine.Geometry
         /// <returns>Angle in Radians.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToRadians(this double degrees)
             => degrees * Radien;
@@ -1066,6 +1810,7 @@ namespace Engine.Geometry
         /// <returns>Angle in Degrees.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDegrees(this double radiens)
             => radiens * Degree;
@@ -1152,7 +1897,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd)
-            => (DistanceSqrd(aX, aY, bX, bY) <= epsilonSqrd);
+            => (SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
 
         /// <summary>
         /// AreClose - Returns whether or not two doubles are "close".  That is, whether or 

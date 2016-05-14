@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExperimentLogs", "ExperimentLogs", "{2B0AC095-9ECF-40F4-B3F5-089B68742928}"
 	ProjectSection(SolutionItems) = preProject
 		Distance.md = Distance.md
+		LineIntersectionBool.md = LineIntersectionBool.md
+		LineIntersectionPoint.md = LineIntersectionPoint.md
 		Modulus.md = Modulus.md
 	EndProjectSection
 EndProject

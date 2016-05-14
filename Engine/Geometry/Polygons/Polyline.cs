@@ -152,13 +152,13 @@ namespace Engine.Geometry
         {
             Polyline polyline = new Polyline();
 
-            LineSegment offsetLine = Experimental.OffsetSegment(Points[0], Points[1], offset);
+            LineSegment offsetLine = PrimitivesExtensions.OffsetSegment(Points[0], Points[1], offset);
             polyline.Add(offsetLine.A);
 
             for (int i = 2; i < Points.Count; i++)
             {
-                LineSegment newOffsetLine = Experimental.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Experimental.Intersect2(offsetLine.A, offsetLine.B, newOffsetLine.A, newOffsetLine.B));
+                LineSegment newOffsetLine = PrimitivesExtensions.OffsetSegment(Points[i - 1], Points[i], offset);
+                polyline.Add(Experimental.Intersection1(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y));
                 offsetLine = newOffsetLine;
             }
 

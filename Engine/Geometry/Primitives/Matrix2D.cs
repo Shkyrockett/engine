@@ -7,8 +7,9 @@ using System.Runtime.InteropServices;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// http://referencesource.microsoft.com
+    /// 
     /// </summary>
+    /// <remarks>http://referencesource.microsoft.com</remarks>
     [Serializable]
     [ComVisible(true)]
     [DisplayName(nameof(Matrix2D))]
@@ -29,6 +30,8 @@ namespace Engine.Geometry
         public static readonly Matrix2D Identity = CreateIdentity();
 
         #endregion
+
+        #region Private Fields
 
         /// <summary>
         /// 
@@ -72,17 +75,25 @@ namespace Engine.Geometry
         /// </summary>
         private int padding;
 
+        #endregion
+
+        #region Constants
+
         /// <summary>
         /// The hash code for a matrix is the xor of its element's hashes.
         /// Since the identity matrix has 2 1's and 4 0's its hash is 0.
         /// </summary>
         private const int c_identityHashCode = 0;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
-        /// Creates a matrix of the form
-        ///             / m11, m12, 0 \
-        ///             | m21, m22, 0 |
-        ///             \ offsetX, offsetY, 1 /
+        /// Initializes a new instance of the <see cref="Matrix2D"/> class of the form:<br/>
+        /// / m11, m12, 0 \<br/>
+        /// | m21, m22, 0 |<br/>
+        /// \ offsetX, offsetY, 1 /<br/>
         /// </summary>
         public Matrix2D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
         {
@@ -99,6 +110,10 @@ namespace Engine.Geometry
             // scale+translation and use special case algorithms.
             DeriveMatrixType();
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// M11
@@ -356,6 +371,10 @@ namespace Engine.Geometry
             }
         }
 
+        #endregion
+
+        #region Operators
+
         /// <summary>
         /// Compares two Matrix instances for exact equality.
         /// Note that double values can acquire error when operated upon, such that
@@ -492,6 +511,8 @@ namespace Engine.Geometry
             MultiplyMatrix(ref trans1, ref trans2);
             return trans1;
         }
+
+        #endregion
 
         /// <summary>
         /// TransformRect - Internal helper for perf

@@ -37,6 +37,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Private Fields
+
         /// <summary>
         /// First Point of a line segment
         /// </summary>
@@ -48,6 +49,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         private Point2D b;
+
         #endregion
 
         #region Constructors
@@ -57,6 +59,27 @@ namespace Engine.Geometry
         /// </summary>
         public LineSegment()
             : this(Point2D.Empty, Point2D.Empty)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <remarks></remarks>
+        public LineSegment(Tuple<double, double, double, double> tuple)
+            : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// </summary>
+        /// <param name="x1">Horizontal component of starting point</param>
+        /// <param name="y1">Vertical component of starting point</param>
+        /// <param name="X2">Horizontal component of ending point</param>
+        /// <param name="Y2">Vertical component of ending point</param>
+        /// <remarks></remarks>
+        public LineSegment(double x1, double y1, double X2, double Y2)
+            : this(new Point2D(x1, y1), new Point2D(X2, Y2))
         { }
 
         /// <summary>
@@ -74,32 +97,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
-        /// <param name="x1">Horizontal component of starting point</param>
-        /// <param name="y1">Vertical component of starting point</param>
-        /// <param name="X2">Horizontal component of ending point</param>
-        /// <param name="Y2">Vertical component of ending point</param>
-        /// <remarks></remarks>
-        public LineSegment(double x1, double y1, double X2, double Y2)
-        {
-            a = new Point2D(x1, y1);
-            b = new Point2D(X2, Y2);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
-        /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
         /// <param name="Radius">Ending Line Segment Length</param>
         /// <remarks></remarks>
         public LineSegment(Point2D Point, double RadAngle, double Radius)
-        {
-            a = new Point2D(Point.X, Point.Y);
-            b = new Point2D(
-                (Point.X + (Radius * Math.Cos(RadAngle))),
-                (Point.Y + (Radius * Math.Sin(RadAngle)))
-                );
-        }
+            : this(new Point2D(Point.X, Point.Y), new Point2D((Point.X + (Radius * Math.Cos(RadAngle))), (Point.Y + (Radius * Math.Sin(RadAngle)))))
+        { }
 
         #endregion
 

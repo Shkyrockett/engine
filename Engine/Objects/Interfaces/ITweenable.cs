@@ -5,7 +5,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    public interface iTweenable
+    public interface ITweenable
     {
         /// <summary>
         /// 

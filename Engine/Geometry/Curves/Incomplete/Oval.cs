@@ -61,11 +61,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="g"></param>
         public override void Render(Graphics g)
         {

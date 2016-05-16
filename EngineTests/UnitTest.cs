@@ -90,18 +90,18 @@ namespace EngineTests
             //MessageBox.Show("AssemblyCleanup");
         }
 
-        /// <summary>
-        /// A Garbage test of dividing by 0.
-        /// </summary>
-        [TestMethod()]
-        [ExpectedException(typeof(DivideByZeroException))]
-        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void DivideMethodTest()
-        {
-            int x = 0;
-            int value = 1 / x;
-            Assert.Fail("No exception was thrown.");
-        }
+        ///// <summary>
+        ///// A Garbage test of dividing by 0.
+        ///// </summary>
+        //[TestMethod()]
+        //[ExpectedException(typeof(DivideByZeroException))]
+        ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //public void DivideMethodTest()
+        //{
+        //    int x = 0;
+        //    int value = 1 / x;
+        //    Assert.Fail("No exception was thrown.");
+        //}
 
         [TestMethod]
         public void TestMethod1()

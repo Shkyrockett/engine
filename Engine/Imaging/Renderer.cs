@@ -1,4 +1,14 @@
-﻿using Engine.Geometry;
+﻿// <copyright file="Renderer.cs" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using Engine.Geometry;
+using Engine.Objects;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -16,11 +26,11 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="style"></param>
         /// <param name="shape"></param>
-        public static void Render(Shape shape, Graphics g, ShapeStyle style)
+        public static void Render(GraphicsObject shape, Graphics g, IStyle style)
         {
             //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
-            //// Waiting on c# 7...
+            //// Waiting on c# 7... https://channel9.msdn.com/Events/Build/2016/B889
             //switch (shape)
             //{
             //    case LineSegment s:
@@ -37,47 +47,51 @@ namespace Engine.Imaging
             }
             else if (shape is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
-                ((LineSegment)shape).Render(g, style);
+                ((LineSegment)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is PolylineSet)
             {
-                ((PolylineSet)shape).Render(g, style);
+                ((PolylineSet)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is Polyline)
             {
-                ((Polyline)shape).Render(g, style);
+                ((Polyline)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is Polygon)
             {
-                ((Polygon)shape).Render(g, style);
+                ((Polygon)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is PolygonSet)
             {
-                ((PolygonSet)shape).Render(g, style);
+                ((PolygonSet)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is Rectangle2D)
             {
-                ((Rectangle2D)shape).Render(g, style);
+                ((Rectangle2D)shape).Render(g, (ShapeStyle)style);
+            }
+            else if (shape is Arc)
+            {
+                ((Arc)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is Circle)
             {
-                ((Circle)shape).Render(g, style);
+                ((Circle)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is Ellipse)
             {
-                ((Ellipse)shape).Render(g, style);
+                ((Ellipse)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is CubicBezier)
             {
-                ((CubicBezier)shape).Render(g, style);
+                ((CubicBezier)shape).Render(g, (ShapeStyle)style);
             }
             else if (shape is QuadraticBezier)
             {
-                ((QuadraticBezier)shape).Render(g, style);
+                ((QuadraticBezier)shape).Render(g, (ShapeStyle)style);
             }
             else
             {
-                shape.Render(g);
+                //shape.Render(g);
             }
         }
 
@@ -168,6 +182,17 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="style"></param>
         /// <param name="shape"></param>
+        public static void Render(this Arc shape, Graphics g, ShapeStyle style)
+        {
+            g.DrawArc(style.ForePen, shape.CircleBounds.ToRectangleF(), -(float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="style"></param>
+        /// <param name="shape"></param>
         public static void Render(this Circle shape, Graphics g, ShapeStyle style)
         {
             g.FillEllipse(style.BackBrush, shape.Bounds.ToRectangleF());
@@ -198,12 +223,12 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this CubicBezier shape, Graphics g, ShapeStyle style)
         {
-            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length);
-            if (shape.Points != null && shape.Points.Count > 1)
-            {
-                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
-                g.DrawBezier(style.ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
-            }
+            //if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length);
+            //if (shape.Points != null && shape.Points.Count > 1)
+            //{
+            //    g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+            g.DrawBezier(style.ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
+            //}
         }
 
         /// <summary>
@@ -218,7 +243,7 @@ namespace Engine.Imaging
             if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length);
             if (shape.Points != null && shape.Points.Count > 1)
             {
-                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
+                //g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
                 g.DrawCurve(style.ForePen, shape.Points.ToPointFArray());
             }
         }

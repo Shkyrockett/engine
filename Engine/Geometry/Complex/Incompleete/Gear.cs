@@ -25,11 +25,6 @@ namespace Engine.Geometry
     public class Gear
         : Polygon
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
         // Draw the gear.
         private void picGears_Paint(object sender, PaintEventArgs e, Rectangle bounds)
         {

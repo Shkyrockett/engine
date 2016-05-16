@@ -66,11 +66,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
         /// Function For sine interpolated Line
         /// </summary>
         /// <param name="index"></param>

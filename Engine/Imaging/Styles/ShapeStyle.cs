@@ -1,4 +1,13 @@
-﻿using System;
+﻿// <copyright file="ShapeStyle.cs" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System;
 using System.Drawing;
 
 namespace Engine.Imaging
@@ -9,6 +18,17 @@ namespace Engine.Imaging
     public class ShapeStyle
         : IStyle, IDisposable
     {
+        #region Public Implementations
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly ShapeStyle DefaultStyle = new ShapeStyle(new Pen(Brushes.Black), new Pen(Brushes.White));
+
+        #endregion
+
+        #region Private Fields
+
         /// <summary>
         /// 
         /// </summary>
@@ -23,6 +43,10 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         private bool disposed = false;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -50,6 +74,10 @@ namespace Engine.Imaging
             this.backPen = backPen;
             this.forePen = forePen;
         }
+
+        #endregion
+
+        #region Destructors
 
         /// <summary>
         /// 
@@ -87,6 +115,10 @@ namespace Engine.Imaging
             Dispose(false);
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// 
         /// </summary>
@@ -122,5 +154,20 @@ namespace Engine.Imaging
             get { return backPen.Brush; }
             set { backPen.Brush = value; }
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"{nameof(ShapeStyle)}{{{nameof(ForePen)}={forePen},{nameof(BackPen)}={backPen}}}";
+        }
+
+        #endregion
     }
 }

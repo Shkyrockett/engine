@@ -421,11 +421,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
         /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
         /// </summary>
         /// <param name="index"></param>

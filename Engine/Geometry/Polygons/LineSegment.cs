@@ -26,7 +26,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Line Segment")]
     public class LineSegment
-        : Shape
+        : Shape, IOpenShape
     {
         #region Static Implementations
         /// <summary>
@@ -183,7 +183,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
+        public double Length
+        {
+            get { return Maths.Distance(a.X, a.Y, b.X, b.Y); }
+        }
 
         #endregion
 

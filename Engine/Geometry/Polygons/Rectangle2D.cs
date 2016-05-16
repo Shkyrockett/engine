@@ -16,7 +16,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Rectangle2D")]
     public class Rectangle2D
-        : Shape
+        : Shape, IClosedShape
     {
         #region Static Implementations
 
@@ -71,6 +71,14 @@ namespace Engine.Geometry
         /// <param name="size">The height and width of the <see cref="Rectangle2D"/>.</param>
         public Rectangle2D(Size2D size)
             : this(0, 0, size.Width, size.Height)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an initial location and size.
+        /// </summary>
+        /// <param name="rectangle">The rectangle to clone.</param>
+        public Rectangle2D(Rectangle2D rectangle)
+            : this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.height)
         { }
 
         /// <summary>
@@ -136,6 +144,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [Browsable(false)]
         public double X
         {
@@ -146,6 +155,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [Browsable(false)]
         public double Y
         {
@@ -156,6 +166,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [Browsable(false)]
         public double Height
         {
@@ -166,7 +177,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         [Browsable(false)]
         public double Width
         {
@@ -177,8 +188,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
@@ -194,8 +206,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Size2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
@@ -211,82 +224,127 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D TopLeft
         {
-            get { return new Point2D(X, Y); }
+            get { return new Point2D(Left, Top); }
+            set
+            {
+                Left = value.X;
+                Top = value.Y;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D TopRight
         {
-            get { return new Point2D(X, Right); }
+            get { return new Point2D(Top, Right); }
+            set
+            {
+                Right = value.X;
+                Top = value.Y;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D BottomLeft
         {
-            get { return new Point2D(x, Bottom); }
+            get { return new Point2D(Left, Bottom); }
+            set
+            {
+                Left = value.X;
+                Bottom = value.Y;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D BottomRight
         {
             get { return new Point2D(Right, Bottom); }
+            set
+            {
+                Right = value.X;
+                Bottom = value.Y;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Left
         {
             get { return x; }
-            set { x = value; }
+            set
+            {
+                width += x - value;
+                x = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Top
         {
             get { return y; }
-            set { y = value; }
+            set
+            {
+                height += y - value;
+                y = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Right
         {
             get { return x + width; }
-            set { width = x - value; }
+            set { width = value - x; }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Bottom
         {
             get { return y + height; }
-            set { height = y - value; }
+            set { height = value - y; }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public bool IsEmpty
         {
             get { return (Width <= 0) || (Height <= 0); }
@@ -295,6 +353,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Returns true if this Rectangle2D has area.
         /// </summary>
+        [XmlIgnore]
         public bool HasArea
         {
             get { return width > 0 && height > 0; }
@@ -303,20 +362,17 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlIgnore]
+        [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [Browsable(false)]
         public override Rectangle2D Bounds
         {
             get { return this; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
         #endregion
 
         #region Operators

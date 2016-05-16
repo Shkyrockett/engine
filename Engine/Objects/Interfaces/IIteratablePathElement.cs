@@ -5,7 +5,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    interface iIteratablePathElement
+    interface IIteratablePathElement
     {
         /// <summary>
         /// 

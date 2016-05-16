@@ -20,11 +20,6 @@ namespace Engine.Geometry
         /// </summary>
         Rectangle2D Bounds { get; set; }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //IStyle Style { get; set; }
-
         /// <summary>
         /// 
         /// </summary>

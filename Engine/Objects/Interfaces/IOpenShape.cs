@@ -1,6 +1,6 @@
 ﻿namespace Engine.Geometry
 {
-    interface iCurve
+    public interface IOpenShape
     {
     }
 }

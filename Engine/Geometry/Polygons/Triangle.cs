@@ -23,7 +23,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Triangle")]
     public class Triangle
-         : Polygon
+         : Polygon, IClosedShape
     {
         #region Constructors
         /// <summary>

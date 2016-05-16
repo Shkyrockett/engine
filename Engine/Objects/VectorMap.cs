@@ -1,4 +1,5 @@
 ﻿using Engine.Geometry;
+using Engine.Imaging;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,25 +9,25 @@ namespace Engine.Objects
     /// 
     /// </summary>
     public class VectorMap
-        : ICollection<Shape>
+        : ICollection<GraphicItem>
     {
         /// <summary>
         /// 
         /// </summary>
-        private List<Shape> shapes;
+        private List<GraphicItem> shapes;
 
         /// <summary>
         /// 
         /// </summary>
         public VectorMap()
-            : this(new List<Shape>())
+            : this(new List<GraphicItem>())
         { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="shapes"></param>
-        public VectorMap(List<Shape> shapes)
+        public VectorMap(List<GraphicItem> shapes)
         {
             this.shapes = shapes;
         }
@@ -34,7 +35,7 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
-        public List<Shape> Shapes
+        public List<GraphicItem> Shapes
         {
             get { return shapes; }
             set { shapes = value; }
@@ -61,14 +62,14 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="area"></param>
         /// <returns></returns>
-        public List<Shape> this[Rectangle2D area]
+        public List<GraphicItem> this[Rectangle2D area]
         {
             get
             {
-                List<Shape> list = new List<Shape>();
-                foreach (Shape shape in Shapes)
+                List<GraphicItem> list = new List<GraphicItem>();
+                foreach (GraphicItem shape in Shapes)
                 {
-                    if (shape.Bounds.IntersectsWith(area)|| shape.Bounds.Contains(area))
+                    if (shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area))
                     {
                         list.Add(shape);
                     }
@@ -83,12 +84,12 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public List<Shape> this[Point2D point]
+        public List<GraphicItem> this[Point2D point]
         {
             get
             {
-                List<Shape> list = new List<Shape>();
-                foreach (Shape shape in Shapes)
+                List<GraphicItem> list = new List<GraphicItem>();
+                foreach (GraphicItem shape in Shapes)
                 {
                     if (shape.Bounds.Contains(point))
                     {
@@ -107,7 +108,7 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public void Add(Shape item)
+        public void Add(GraphicItem item)
         {
             shapes.Add(item);
         }
@@ -116,8 +117,31 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <param name="item"></param>
+        /// <param name="style"></param>
+        /// <param name="metadata"></param>
+        public void Add(GraphicsObject item, IStyle style, Metadata metadata = null)
+        {
+            shapes.Add(new GraphicItem(item, style, metadata));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
+        /// <param name="metadata"></param>
+        public void Add(Shape item, ShapeStyle style = null, Metadata metadata = null)
+        {
+            if (style == null) style = ShapeStyle.DefaultStyle;
+            shapes.Add(new GraphicItem(item, style, metadata));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         /// <returns></returns>
-        public bool Remove(Shape item)
+        public bool Remove(GraphicItem item)
         {
             return shapes.Remove(item);
         }
@@ -135,7 +159,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Contains(Shape item)
+        public bool Contains(GraphicItem item)
         {
             return shapes.Contains(item);
         }
@@ -145,7 +169,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
-        public void CopyTo(Shape[] array, int arrayIndex)
+        public void CopyTo(GraphicItem[] array, int arrayIndex)
         {
             shapes.CopyTo(array, arrayIndex);
         }
@@ -154,7 +178,7 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<Shape> GetEnumerator()
+        public IEnumerator<GraphicItem> GetEnumerator()
         {
             return shapes.GetEnumerator();
         }

@@ -97,6 +97,16 @@ namespace Engine.Geometry
         public const double HalfTau = Math.PI;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public const double ThreeQuarterTau = Math.PI * 6d / 4d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneAndAHalfPi = ThreeQuarterTau;
+
+        /// <summary>
         /// One quarter Tau or half Pi.
         /// </summary>
         public const double QuarterTau = 0.5d * Math.PI;
@@ -1145,7 +1155,6 @@ namespace Engine.Geometry
         /// <param name="k2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Reflection(
             double i1, double j1, double k1,
             double i2, double j2, double k2)
@@ -1779,6 +1788,18 @@ namespace Engine.Geometry
         #endregion
 
         #region Conversion Extensions
+
+        /// <summary>
+        /// Find the absolute positive value of a radian angle.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>The absolute positive angle in radians.</returns>
+        /// <remarks></remarks>
+        public static double AbsoluteAngle(this double angle)
+        {
+            double test = angle % Maths.Tau;
+            return test < 0 ? test + Maths.Tau : test;
+        }
 
         /// <summary>
         /// Imitation of Excel's Mod Operator

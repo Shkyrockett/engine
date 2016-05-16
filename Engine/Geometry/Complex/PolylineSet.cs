@@ -91,11 +91,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="polyline"></param>
         public void Add(Polyline polyline)
         {

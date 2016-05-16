@@ -24,7 +24,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Polygon))]
     public class Polygon
-        : Shape
+        : Shape, IClosedShape
     {
         /// <summary>
         /// 
@@ -122,11 +122,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="point"></param>
         public void Add(Point2D point)
         {
@@ -165,11 +160,11 @@ namespace Engine.Geometry
             for (int i = 1; i < Points.Count; i++)
             {
                 LineSegment newOffsetLine = PrimitivesExtensions.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Experimental.Intersection0(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y));
+                polyline.Add(Experimental.Intersection2(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
                 offsetLine = newOffsetLine;
             }
 
-            polyline.Add(Experimental.Intersection0(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y));
+            polyline.Add(Experimental.Intersection2(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y).Item2);
 
             return polyline;
         }

@@ -92,11 +92,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="polygon"></param>
         public void Add(Polygon polygon)
         {

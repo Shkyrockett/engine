@@ -8,6 +8,7 @@
 // <summary></summary>
 
 using Engine.Imaging;
+using Engine.Objects;
 using System;
 using System.Drawing;
 
@@ -17,27 +18,8 @@ namespace Engine.Geometry
     /// Base <see cref="Shape"/> class for using as a template for various shapes.
     /// </summary>
     public abstract class Shape
-        :IShape
+        : GraphicsObject, IShape
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual Rectangle2D Bounds { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public abstract ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public virtual bool HitTest(Point2D point)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Render the shape to the canvas.

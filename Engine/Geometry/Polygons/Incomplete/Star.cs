@@ -22,11 +22,6 @@ namespace Engine.Geometry
     public class Star
         : Polygon
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
         // Draw the indicated star in the rectangle.
         private void DrawStar(Graphics gr, Pen the_pen, Brush the_brush, int num_points, int skip, Rectangle rect)
         {

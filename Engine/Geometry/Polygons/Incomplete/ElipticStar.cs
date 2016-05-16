@@ -20,14 +20,8 @@ namespace Engine.Geometry
     //[GraphicsObject]
     [DisplayName("ElipticStar")]
     public class ElipticStar
-        : Polygon
+        : Polygon, IClosedShape
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>

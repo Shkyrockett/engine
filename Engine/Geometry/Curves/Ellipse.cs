@@ -334,11 +334,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
         /// Gets or sets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>

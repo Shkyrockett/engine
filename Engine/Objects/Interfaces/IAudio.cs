@@ -15,7 +15,6 @@ namespace Engine.Audio
         /// </summary>
         string Filename { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>

@@ -15,11 +15,6 @@ namespace Engine.Geometry
     public class Heart
         :Shape
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
         // Draw the curve on a bitmap.
         private Bitmap DrawHeart(int width, int height)
         {

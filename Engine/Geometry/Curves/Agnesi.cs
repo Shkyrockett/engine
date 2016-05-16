@@ -133,11 +133,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
         public Point2D Interpolate(double index)

@@ -11,6 +11,7 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace Engine.Geometry
@@ -19,11 +20,13 @@ namespace Engine.Geometry
     /// 
     /// </summary>
     [Serializable]
-    //[GraphicsObject]
+    [GraphicsObject]
     [DisplayName("Arc")]
     public class Arc
-        : Shape
+        : Shape, IOpenShape
     {
+        #region Private Fields
+
         /// <summary>
         /// The center point of the circle.
         /// </summary>
@@ -49,6 +52,10 @@ namespace Engine.Geometry
         /// </summary>
         private List<Point2D> points;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Arc"/> class.
         /// </summary>
@@ -57,12 +64,19 @@ namespace Engine.Geometry
         { }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="triangle"></param>
+        public Arc(Triangle triangle)
+            : this(triangle.A, triangle.B, triangle.C)
+        { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Arc"/> class.
         /// </summary>
         public Arc(Circle circle, double startAngle, double endAngle)
             : this(circle.Center, circle.Radius, startAngle, endAngle)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Arc"/> class.
@@ -77,16 +91,7 @@ namespace Engine.Geometry
             this.radius = radius;
             this.startAngle = startAngle;
             this.endAngle = endAngle;
-            points = InterpolatePoints();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="triangle"></param>
-        public Arc(Triangle triangle)
-            : this(triangle.A, triangle.B, triangle.C)
-        { }
 
         /// <summary>
         /// 
@@ -96,8 +101,8 @@ namespace Engine.Geometry
         /// <param name="PointC"></param>
         public Arc(Point2D PointA, Point2D PointB, Point2D PointC)
         {
-            //ToDo: calculate the angles of the start and end points from the center to fill them in.
-            //  Calculate the slopes of the lines.
+            // ToDo: calculate the angles of the start and end points from the center to fill them in.
+            // Calculate the slopes of the lines.
             double slopeA = (PointA.Slope(PointB));
             double slopeB = (PointC.Slope(PointB));
             Vector2D f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
@@ -110,6 +115,10 @@ namespace Engine.Geometry
             radius = (Center.Length(PointA));
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the radius of the circle.
         /// </summary>
@@ -119,11 +128,7 @@ namespace Engine.Geometry
         public double Radius
         {
             get { return radius; }
-            set
-            {
-                radius = value;
-                points = InterpolatePoints();
-            }
+            set { radius = value; }
         }
 
         /// <summary>
@@ -138,11 +143,22 @@ namespace Engine.Geometry
         public Point2D Center
         {
             get { return center; }
-            set
-            {
-                center = value;
-                points = InterpolatePoints();
-            }
+            set { center = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Point2D StartPoint
+        {
+            get { return new Point2D(center.X + radius * Math.Cos(-startAngle), center.Y + radius * Math.Sin(-startAngle)); }
+            //set;
+        }
+
+        public Point2D EndPoint
+        {
+            get { return new Point2D(center.X + radius * Math.Cos(-endAngle), center.Y + radius * Math.Sin(-endAngle)); }
+            //set;
         }
 
         /// <summary>
@@ -151,33 +167,58 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The start angle of the ellipse.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
             get { return startAngle; }
-            set
-            {
-                startAngle = value;
-                points = InterpolatePoints();
-            }
+            set { startAngle = value; }
         }
 
         /// <summary>
         /// Gets or sets the end angle of the ellipse.
         /// </summary>
         [Category("Elements")]
-        [Description("The start angle of the ellipse.")]
+        [Description("The end angle of the ellipse.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
             get { return endAngle; }
-            set
+            set { endAngle = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the sweep angle of the ellipse.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The sweep angle of the ellipse.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double SweepAngle
+        {
+            get { return startAngle - endAngle; }
+            set { endAngle = value + startAngle; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Category("Properties")]
+        [Description("The tight rectangular boundaries of the arc.")]
+        public override Rectangle2D Bounds
+        {
+            get
             {
-                endAngle = value;
-                points = InterpolatePoints();
+                Rectangle2D bounds = new Rectangle2D(StartPoint, EndPoint);
+                double angleEnd = endAngle;
+                // check that angle2 > angle1
+                if (angleEnd < startAngle) angleEnd += 2 * Math.PI;
+                if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = center.X + radius;
+                if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi)) bounds.Top = center.Y - radius;
+                if ((angleEnd >= Math.PI) && (startAngle <= Math.PI)) bounds.Left = center.X - radius;
+                if ((angleEnd >= Maths.ThreeQuarterTau) && (startAngle <= Maths.ThreeQuarterTau)) bounds.Bottom = center.Y + radius;
+                if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = center.X + radius;
+                return bounds;
             }
         }
 
@@ -186,17 +227,9 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
-        public new Rectangle2D Bounds
+        public Rectangle2D CircleBounds
         {
-            get
-            {
-                Rectangle2D bounds = Rectangle2D.FromLTRB(
-                    (center.X - radius),
-                    (center.Y - radius),
-                    (center.X + radius),
-                    (center.Y + radius));
-                return bounds;
-            }
+            get { return Rectangle2D.FromLTRB((center.X - radius), (center.Y - radius), (center.X + radius), (center.Y + radius)); }
         }
 
         /// <summary>
@@ -207,85 +240,39 @@ namespace Engine.Geometry
         [Description("The distance around the arc.")]
         public double ArcLength
         {
-            get
-            {
-                // TODO: Divide by the arc length of the arc.
-                return 2 * radius * Math.PI;
-            }
+            get { return 2 * Math.PI * radius * -SweepAngle; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Category("Properties")]
-        [Description("The area of the arc.")]
-        public double Area
-        {
-            get
-            {
-                //ToDo: Divide by the Arc-length.
-                return Math.PI * radius * radius;
-            }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //[Category("Properties")]
+        //[Description("The area of the arc.")]
+        //public double Area
+        //{
+        //    get
+        //    {
+        //        //ToDo: Divide by the Arc-length.
+        //        return Math.PI * radius * radius;
+        //    }
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Category("Functional")]
-        [Description("The array of grab handles for this shape.")]
-        public List<Point2D> Handles
-        {
-            get { return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) }; }
-            set
-            {
-                if (value.Count >= 1) center = value[0];
-                if (value.Count >= 2) radius = value[0].Length(value[1]);
-            }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //[Category("Functional")]
+        //[Description("The array of grab handles for this shape.")]
+        //public List<Point2D> Handles
+        //{
+        //    get { return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) }; }
+        //    set
+        //    {
+        //        if (value.Count >= 1) center = value[0];
+        //        if (value.Count >= 2) radius = value[0].Length(value[1]);
+        //    }
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// Find the Center of A Circle from Three Points
-        /// </summary>
-        /// <param name="PointA">First Point on the Ellipse</param>
-        /// <param name="PointB">Second Point on the Ellipse</param>
-        /// <param name="PointC">Last Point on the Ellipse</param>
-        /// <returns>Returns the Center point of a Circle defined by three points</returns>
-        /// <remarks>Note: this may become Obsolete when I figure out how to further 
-        /// Integrate this into the Ellipse Structure</remarks>
-        public static Point2D TripointArcCenter(Point2D PointA, Point2D PointB, Point2D PointC)
-        {
-            //  Calculate the slopes of the lines.
-            double SlopeA = (PointA.Slope(PointB));
-            double SlopeB = (PointC.Slope(PointB));
-            double FY = ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
-            double FX = ((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)));
-            double NewY = ((FX - FY) / (SlopeB - SlopeA));
-            double NewX = (FX - (SlopeB * NewY));
-            return new Point2D(NewX, NewY);
-        }
-
-        /// <summary>
-        /// Find the Bounds of A Circle from Three Points 
-        /// </summary>
-        /// <param name="PointA">First Point on the Ellipse</param>
-        /// <param name="PointB">Second Point on the Ellipse</param>
-        /// <param name="PointC">Last Point on the Ellipse</param>
-        /// <returns>A Rectangle Representing the bounds of A Circle Defined from three 
-        /// Points</returns>
-        /// <remarks>Note: this may become Obsolete when I figure out how to further 
-        /// Integrate this into the Ellipse Structure</remarks>
-        public static Rectangle2D TripoinArcBounds(Point2D PointA, Point2D PointB, Point2D PointC)
-        {
-            Point2D Center = TripointArcCenter(PointA, PointB, PointC);
-            double Radius = Center.Length(PointA);
-            Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
-            return Bounds;
-        }
+        #endregion
 
         /// <summary>
         /// Interpolates the circle.
@@ -294,7 +281,10 @@ namespace Engine.Geometry
         /// <returns>Returns the interpolated point of the index value.</returns>
         public Point2D Interpolate(double index)
         {
-            return new Point2D(center.X + (Math.Sin(index) * radius), center.X + (Math.Cos(index) * radius));
+            double t = startAngle + SweepAngle * index;
+            return new Point2D(
+                center.X + (Math.Sin(t) * radius),
+                center.X + (Math.Cos(t) * radius));
         }
 
         /// <summary>

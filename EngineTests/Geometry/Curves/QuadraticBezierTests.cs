@@ -102,7 +102,7 @@ namespace Engine.Geometry.Tests
         {
             QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             double value = bezier.QuadraticBezierArcLengthBySegments();
-            Assert.AreEqual(160.211718695931d.ToString(), value.ToString());
+            Assert.AreEqual(160.211711355793d.ToString(), value.ToString());
         }
 
         /// <summary>

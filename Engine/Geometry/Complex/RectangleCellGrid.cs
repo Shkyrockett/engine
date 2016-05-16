@@ -167,11 +167,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 
         /// </summary>
         private void Recalculate()

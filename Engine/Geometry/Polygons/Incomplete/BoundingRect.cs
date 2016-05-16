@@ -4,6 +4,7 @@
     /// 
     /// </summary>
     public class BoundingRect
+        : IClosedShape
     {
         /// <summary>
         /// 

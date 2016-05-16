@@ -23,11 +23,6 @@ namespace Engine.Geometry
     public class NGonStar
         : Polygon
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
         // Draw the stars. 
         private void picCanvas_Paint(object sender, PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
         {

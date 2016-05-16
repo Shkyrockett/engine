@@ -69,11 +69,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
         /// Function For cosine interpolated Line
         /// </summary>
         /// <param name="index"></param>

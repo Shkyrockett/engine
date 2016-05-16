@@ -22,11 +22,6 @@ namespace Engine.Geometry
     public class NonIntStar
         : Polygon
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ShapeStyle Style { get; set; }
-
         // Return PointFs to define a non-intersecting star.
         private PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
         {

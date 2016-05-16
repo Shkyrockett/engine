@@ -1,4 +1,4 @@
-﻿// <copyright file="Multipolyline.cs" >
+﻿// <copyright file="Path.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -7,8 +7,8 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Imaging;
 using System;
+using System.Collections.Generic;
 
 namespace Engine.Geometry
 {
@@ -17,15 +17,23 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(Multipolyline))]
-    public class Multipolyline
-        : Shape
+    [DisplayName(nameof(PolyPath))]
+    public class PolyPath
+            : Shape
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<IOpenShape> shapes;
 
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
+        public List<IOpenShape> Shapes
+        {
+            get { return shapes; }
+            set { shapes = value; }
+        }
 
         /// <summary>
         /// 
@@ -33,7 +41,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "Multi-polyline";
+            return "Path";
         }
     }
 }

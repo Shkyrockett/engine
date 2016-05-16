@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,8 +23,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Polyline")]
     public class Polyline
-        //: Shape
-        : Polygon
+        : Polygon, IOpenShape
     {
         /// <summary>
         /// 
@@ -115,11 +113,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override ShapeStyle Style { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="point"></param>
         public new void Add(Point2D point)
         {
@@ -158,7 +151,7 @@ namespace Engine.Geometry
             for (int i = 2; i < Points.Count; i++)
             {
                 LineSegment newOffsetLine = PrimitivesExtensions.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Experimental.Intersection1(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y));
+                polyline.Add(Experimental.Intersection2(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)?.Item2);
                 offsetLine = newOffsetLine;
             }
 

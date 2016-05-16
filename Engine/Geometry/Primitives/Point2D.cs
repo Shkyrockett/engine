@@ -423,7 +423,8 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
 
         /// <summary>
         /// Creates a string representation of this object based on the format string
@@ -438,13 +439,18 @@ namespace Engine.Geometry
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Point2D), nameof(X), X, nameof(Y), Y);
+            return $"{nameof(Point2D)}{{{nameof(X)}={X},{nameof(Y)}={Y}}}";
+            //return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Point2D), nameof(X), X, nameof(Y), Y);
         }
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{nameof(Point2D)}({nameof(X)}={X},{nameof(Y)}={Y})";
+        public override string ToString()
+        {
+            //return string.Format("{0}{{{1}={2},{3}={4}}}", nameof(Point2D), nameof(X), X, nameof(Y), Y);
+            return $"{nameof(Point2D)}{{{nameof(X)}={X},{nameof(Y)}={Y}}}";
+        }
     }
 }

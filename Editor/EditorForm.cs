@@ -166,40 +166,40 @@ namespace Editor
             ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
             ////MessageBox.Show(cubicBezierLengths.ToString());
 
-            //Shape set = new PolygonSet(
-            //    new List<Polygon>(
-            //        new List<Polygon>() {
-            //            new Polygon( // Boundary
-            //                new List<Point2D>() {
-            //                    new Point2D(10, 10),
-            //                    new Point2D(300, 10),
-            //                    new Point2D(300, 300),
-            //                    new Point2D(10, 300),
-            //                    // Cut out
-            //                    new Point2D(10, 200),
-            //                    new Point2D(200, 80),
-            //                    new Point2D(10, 150),
-            //                }
-            //            ),
-            //            new Polygon( // First inner triangle
-            //                new List<Point2D>() {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30),
-            //                }
-            //            ),
-            //            new Polygon( // Second inner triangle
-            //                new List<Point2D>() {
-            //                    new Point2D(250, 150),
-            //                    new Point2D(150, 150),
-            //                    new Point2D(250, 200),
-            //                }
-            //            ),
-            //        }
-            //    )
-            //);
-            //GraphicItem setItem = new GraphicItem(set, styles[8]);
-            //vectorMap.Add(setItem);
+            Shape set = new PolygonSet(
+                new List<Polygon>(
+                    new List<Polygon>() {
+                        new Polygon( // Boundary
+                            new List<Point2D>() {
+                                new Point2D(10, 10),
+                                new Point2D(300, 10),
+                                new Point2D(300, 300),
+                                new Point2D(10, 300),
+                                // Cut out
+                                new Point2D(10, 200),
+                                new Point2D(200, 80),
+                                new Point2D(10, 150),
+                            }
+                        ),
+                        new Polygon( // First inner triangle
+                            new List<Point2D>() {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30),
+                            }
+                        ),
+                        new Polygon( // Second inner triangle
+                            new List<Point2D>() {
+                                new Point2D(250, 150),
+                                new Point2D(150, 150),
+                                new Point2D(250, 200),
+                            }
+                        ),
+                    }
+                )
+            );
+            GraphicItem setItem = new GraphicItem(set, styles[8]);
+            vectorMap.Add(setItem);
 
             //Shape innerPolygon = new Polygon( // First inner triangle
             //                new List<Point2D>() {
@@ -211,29 +211,29 @@ namespace Editor
             //GraphicItem innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
             //vectorMap.Add(innerPolygonItem);
 
-            //Polyline pathPolyline = Experimental.ShortestPath(new Point2D(20, 20), new Point2D(200, 200), (PolygonSet)set);
-            //Shape polylineSet = new PolylineSet(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
-            //Polyline pathPolyline2 = pathPolyline.Offset(-10);
-            //pathPolyline2.Reverse();
-            //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
-            //GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
-            //GraphicItem polylineSetItem = new GraphicItem(polylineSet, styles[10]);
-            //GraphicItem pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
+            Polyline pathPolyline = Experimental.ShortestPath(new Point2D(20, 20), new Point2D(200, 200), (PolygonSet)set);
+            Shape polylineSet = new PolylineSet(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
+            Polyline pathPolyline2 = pathPolyline.Offset(-10);
+            pathPolyline2.Reverse();
+            Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
+            GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
+            GraphicItem polylineSetItem = new GraphicItem(polylineSet, styles[10]);
+            GraphicItem pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
             //vectorMap.Add(polygonLineItem);
             //vectorMap.Add(polylineSetItem);
-            //vectorMap.Add(pathPolylineItem);
+            vectorMap.Add(pathPolylineItem);
 
-            Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
-            GraphicItem arcItem = new GraphicItem(arc, styles[8]);
-            vectorMap.Add(arcItem);
+            //Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
+            //GraphicItem arcItem = new GraphicItem(arc, styles[8]);
+            //vectorMap.Add(arcItem);
 
-            Shape chord = new LineSegment(arc.StartPoint, arc.EndPoint);
-            GraphicItem chordItem = new GraphicItem(chord, styles[5]);
-            vectorMap.Add(chordItem);
+            //Shape chord = new LineSegment(arc.StartPoint, arc.EndPoint);
+            //GraphicItem chordItem = new GraphicItem(chord, styles[5]);
+            //vectorMap.Add(chordItem);
 
-            Rectangle2D arcBounds = new Rectangle2D(arc.Bounds);
-            GraphicItem arcBoundsItem = new GraphicItem(arcBounds, styles[9]);
-            vectorMap.Add(arcBoundsItem);
+            //Rectangle2D arcBounds = new Rectangle2D(arc.Bounds);
+            //GraphicItem arcBoundsItem = new GraphicItem(arcBounds, styles[9]);
+            //vectorMap.Add(arcBoundsItem);
 
             listBox1.DataSource = vectorMap.Shapes;
             //listBox1.ValueMember = "Name";

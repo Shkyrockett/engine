@@ -31,7 +31,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Bow Curve")]
     public class Bow
-        : Shape
+        : Shape, IClosedShape
     {
         /// <summary>
         /// 

@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary>http://csharphelper.com/blog/2014/08/draw-a-star-with-a-given-number-of-points-in-c/</summary>
 
-using Engine.Imaging;
 using System;
 using System.Drawing;
 

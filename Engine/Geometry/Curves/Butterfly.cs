@@ -30,7 +30,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Butterfly")]
     public class Butterfly
-        : Shape
+        : Shape, IClosedShape
     {
         /// <summary>
         /// 

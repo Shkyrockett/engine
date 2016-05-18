@@ -91,7 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Bezier.cs" />
     <Compile Include="Geometry\Complex\PolylineSet.cs" />
+    <Compile Include="Geometry\Curves\Chord.cs" />
     <Compile Include="Geometry\Curves\Incomplete\ParametricDelegateCurve.cs" />
     <Compile Include="Experemental\ParametricInterpolateors.cs" />
     <Compile Include="Experemental\TimeLine.cs" />
@@ -105,6 +107,9 @@
     <Compile Include="Geometry\Framework\Size2DConverter.cs" />
     <Compile Include="Geometry\Framework\Point2DConverter.cs" />
     <Compile Include="Geometry\Framework\Rectangle2DConverter.cs" />
+    <Compile Include="Geometry\PolyBezier.cs" />
+    <Compile Include="Geometry\Primitives\Point3D.cs" />
+    <Compile Include="Objects\Interfaces\IInfinateShape.cs" />
     <Compile Include="Objects\Interfaces\IClosedShape.cs" />
     <Compile Include="Objects\Interfaces\ICurve.cs" />
     <Compile Include="Objects\Interfaces\IIteratablePathElement.cs" />
@@ -255,7 +260,9 @@
     <Compile Include="Geometry\Utilities.cs" />
     <Compile Include="Tools\ToolStack.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Objects\Interfaces\Geometry\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

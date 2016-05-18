@@ -16,6 +16,10 @@ using System.Runtime.CompilerServices;
 
 namespace Engine.Geometry
 {
+    public delegate double DoubleMethodDelegate(double t);
+    public delegate Point2D Method2DDelegate(double t);
+    public delegate Point3D Method3DDelegate(double t);
+
     /// <summary>
     /// Extended Math processing library.
     /// </summary>

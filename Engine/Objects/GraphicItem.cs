@@ -76,6 +76,36 @@ namespace Engine.Objects
         public Rectangle2D Bounds => Item.Bounds;
         //public Rectangle2D Bounds => CachingProperty(ref Item.Bounds);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public Point2D Interpolate(double t)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public List<Point2D> SmoothInterpolate(double t)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public List<Point2D> InterpolateToPolygon(double points)
+        {
+            return null;
+        }
+
         #endregion
 
         #region Public methods

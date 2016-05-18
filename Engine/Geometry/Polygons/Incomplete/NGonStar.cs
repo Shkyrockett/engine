@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary>http://csharphelper.com/blog/2015/05/draw-stars-inside-polygons-in-c/</summary>
 
-using Engine.Imaging;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

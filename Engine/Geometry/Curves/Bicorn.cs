@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +26,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Bicorn")]
     public class Bicorn
-        : Shape
+        : Shape, IClosedShape
     {
         /// <summary>
         /// 

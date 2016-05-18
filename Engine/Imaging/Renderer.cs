@@ -184,7 +184,7 @@ namespace Engine.Imaging
         /// <param name="shape"></param>
         public static void Render(this Arc shape, Graphics g, ShapeStyle style)
         {
-            g.DrawArc(style.ForePen, shape.CircleBounds.ToRectangleF(), -(float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            g.DrawArc(style.ForePen, shape.DrawingBounds.ToRectangleF(), -(float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
         }
 
         /// <summary>

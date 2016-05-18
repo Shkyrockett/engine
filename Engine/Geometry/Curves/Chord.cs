@@ -1,4 +1,4 @@
-﻿// <copyright file="Arc.cs" >
+﻿// <copyright file="Chord.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Engine.Geometry
 {
@@ -18,19 +19,19 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(Arc))]
-    public class Arc
-        : Shape, IOpenShape
+    [DisplayName(nameof(Chord))]
+    public class Chord
+        : Shape, IClosedShape
     {
         #region Private Fields
 
         /// <summary>
-        /// The center point of the Arc.
+        /// The center point of the circle.
         /// </summary>
         private Point2D center;
 
         /// <summary>
-        /// The radius of the Arc.
+        /// The radius of the circle.
         /// </summary>
         private double radius;
 
@@ -44,40 +45,45 @@ namespace Engine.Geometry
         /// </summary>
         private double endAngle;
 
+        /// <summary>
+        /// Interpolated points.
+        /// </summary>
+        private List<Point2D> points;
+
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new default instance of the <see cref="Arc"/> class.
+        /// Initializes a new default instance of the <see cref="Chord"/> class.
         /// </summary>
-        public Arc()
+        public Chord()
             : this(Point2D.Empty, 0, 0, 0)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="Chord"/> class.
         /// </summary>
         /// <param name="triangle"></param>
-        public Arc(Triangle triangle)
+        public Chord(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="Chord"/> class.
         /// </summary>
-        public Arc(Circle circle, double startAngle, double endAngle)
+        public Chord(Circle circle, double startAngle, double endAngle)
             : this(circle.Center, circle.Radius, startAngle, endAngle)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="Chord"/> class.
         /// </summary>
         /// <param name="center">The center point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
-        public Arc(Point2D center, double radius, double startAngle, double endAngle)
+        public Chord(Point2D center, double radius, double startAngle, double endAngle)
         {
             this.center = center;
             this.radius = radius;
@@ -86,12 +92,12 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="Chord"/> class.
         /// </summary>
         /// <param name="PointA"></param>
         /// <param name="PointB"></param>
         /// <param name="PointC"></param>
-        public Arc(Point2D PointA, Point2D PointB, Point2D PointC)
+        public Chord(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             // ToDo: calculate the angles of the start and end points from the center to fill them in.
             // Calculate the slopes of the lines.
@@ -112,11 +118,11 @@ namespace Engine.Geometry
         #region Properties
 
         /// <summary>
-        /// Gets or sets the radius of the Arc.
+        /// Gets or sets the radius of the Chord.
         /// </summary>
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
-        [Description("The radius of the Arc.")]
+        [Description("The radius of the Chord.")]
         public double Radius
         {
             get { return radius; }
@@ -124,10 +130,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the center of the Arc.
+        /// Gets or sets the center of the Chord.
         /// </summary>
         [Category("Elements")]
-        [Description("The center location of the Arc.")]
+        [Description("The center location of the Chord.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -157,10 +163,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the start angle of the Arc.
+        /// Gets or sets the start angle of the Chord.
         /// </summary>
         [Category("Elements")]
-        [Description("The start angle of the Arc.")]
+        [Description("The start angle of the Chord.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
@@ -170,10 +176,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the end angle of the Arc.
+        /// Gets or sets the end angle of the Chord.
         /// </summary>
         [Category("Elements")]
-        [Description("The end angle of the Arc.")]
+        [Description("The end angle of the ellipse.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
@@ -183,10 +189,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the sweep angle of the Arc.
+        /// Gets or sets the sweep angle of the ellipse.
         /// </summary>
         [Category("Elements")]
-        [Description("The sweep angle of the Arc.")]
+        [Description("The sweep angle of the Chord.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
@@ -199,7 +205,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [Category("Properties")]
-        [Description("The tight rectangular boundaries of the Arc.")]
+        [Description("The tight rectangular boundaries of the Chord.")]
         public override Rectangle2D Bounds
         {
             get
@@ -221,7 +227,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [Category("Properties")]
-        [Description("The rectangular boundaries of the circle containing the Arc.")]
+        [Description("The rectangular boundaries of the circle containing the Chord.")]
         public Rectangle2D DrawingBounds
         {
             get { return Rectangle2D.FromLTRB((center.X - radius), (center.Y - radius), (center.X + radius), (center.Y + radius)); }
@@ -232,50 +238,59 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Category("Properties")]
-        [Description("The distance around the Arc.")]
-        public double ArcLength
+        [Description("The distance around the Chord.")]
+        public double ChordLength
         {
-            get { return 2 * Math.PI * radius * -SweepAngle; }
+            get { return Math.Abs(SweepAngle) * radius; }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[Category("Properties")]
-        //[Description("The area of the arc.")]
-        //public double Area
-        //{
-        //    get
-        //    {
-        //        //ToDo: Divide by the Arc-length.
-        //        return Math.PI * radius * radius;
-        //    }
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Category("Properties")]
+        [Description("The distance around the Chord.")]
+        public double Perimiter
+        {
+            get { return (2 * Math.PI * radius * -SweepAngle) + (Math.Abs(SweepAngle) * radius); }
+        }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[Category("Functional")]
-        //[Description("The array of grab handles for this shape.")]
-        //public List<Point2D> Handles
-        //{
-        //    get { return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) }; }
-        //    set
-        //    {
-        //        if (value.Count >= 1) center = value[0];
-        //        if (value.Count >= 2) radius = value[0].Length(value[1]);
-        //    }
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        [Category("Properties")]
+        [Description("The area of the Chord.")]
+        public double Area
+        {
+            get { return (radius * radius * 0.5d) * (SweepAngle - Math.Sign(SweepAngle)); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        [Category("Properties")]
+        [Description("The sagitta of the Chord.")]
+        public double Sagitta
+        {
+            get
+            {
+                //return radius * (1 - Math.Cos(SweepAngle * 0.5d));
+                return radius - Math.Sqrt(radius * radius - ((SweepAngle * SweepAngle) / 4));
+            }
+        }
 
         #endregion
 
         /// <summary>
-        /// Interpolates the Arc.
+        /// Interpolates the circle.
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         public Point2D Interpolate(double index)
         {
+            // ToDo: Add the 
             double t = startAngle + SweepAngle * index;
             return new Point2D(
                 center.X + (Math.Sin(t) * radius),
@@ -288,12 +303,12 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints()
         {
-            double delta_phi = 2 * Math.PI / ArcLength;
+            //double delta_phi = 2 * Math.PI / ArcLength;
             List<Point2D> points = new List<Point2D>();
-            for (double i = 0.0f; i <= 2.0 * Math.PI; i += delta_phi)
-            {
-                points.Add(Interpolate(i));
-            }
+            //for (double i = 0.0f; i <= 2.0 * Math.PI; i += delta_phi)
+            //{
+            //    points.Add(Interpolate(i));
+            //}
 
             return points;
         }
@@ -305,7 +320,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(Arc);
-            return $"{nameof(Arc)}{{{nameof(Center)}={center},{nameof(Radius)}={radius},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(Arc), nameof(Center), center, nameof(Radius), radius, nameof(StartAngle), startAngle, nameof(EndAngle), endAngle);
         }
     }
 }

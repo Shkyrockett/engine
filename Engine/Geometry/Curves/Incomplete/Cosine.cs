@@ -7,7 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Imaging;
 using System;
 using System.Globalization;
 

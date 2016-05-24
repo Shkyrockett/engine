@@ -19,14 +19,5 @@ namespace Engine.Geometry
     public abstract class Shape
         : GraphicsObject, IShape
     {
-
-        /// <summary>
-        /// Render the shape to the canvas.
-        /// </summary>
-        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        public virtual void Render(Graphics g)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

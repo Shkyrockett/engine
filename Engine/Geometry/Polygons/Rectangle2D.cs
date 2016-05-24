@@ -738,14 +738,6 @@ namespace Engine.Geometry
         //}
 
         /// <summary>
-        /// Render the shape to the canvas.
-        /// </summary>
-        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        public override void Render(Graphics g)
-        {
-        }
-
-        /// <summary>
         /// Convert a rectangle to an array of it's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>

@@ -200,15 +200,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Render the shape to the canvas.
-        /// </summary>
-        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        public override void Render(Graphics g)
-        {
-            //g.DrawLine(Style.ForePen, a, b);
-        }
-
-        /// <summary>
         /// Interpolates a shape.
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>

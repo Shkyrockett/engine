@@ -286,17 +286,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Render the shape to the canvas.
-        /// </summary>
-        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        [Obsolete]
-        public override void Render(Graphics g)
-        {
-            //g.FillEllipse(Style.BackBrush, Bounds);
-            //g.DrawEllipse(Style.ForePen, Bounds);
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>

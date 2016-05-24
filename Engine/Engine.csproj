@@ -91,6 +91,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chrono\DateTimeExtentions.cs" />
+    <Compile Include="Chrono\Enums\EventType.cs" />
+    <Compile Include="Chrono\Enums\Months.cs" />
+    <Compile Include="Chrono\JapanEras.cs" />
+    <Compile Include="Chrono\Lunar.cs" />
+    <Compile Include="Chrono\Occasion.cs" />
+    <Compile Include="Chrono\Occasions.cs" />
+    <Compile Include="Chrono\Enums\OccasionDateType.cs" />
+    <Compile Include="Chrono\Enums\Season.cs" />
+    <Compile Include="Chrono\Enums\TimeFormat.cs" />
     <Compile Include="Geometry\Bezier.cs" />
     <Compile Include="Geometry\Complex\PolylineSet.cs" />
     <Compile Include="Geometry\Curves\Chord.cs" />
@@ -109,6 +119,13 @@
     <Compile Include="Geometry\Framework\Rectangle2DConverter.cs" />
     <Compile Include="Geometry\PolyBezier.cs" />
     <Compile Include="Geometry\Primitives\Point3D.cs" />
+    <Compile Include="Localization\Enums\Countries.cs" />
+    <Compile Include="Localization\Culture.cs" />
+    <Compile Include="Localization\Cultures.cs" />
+    <Compile Include="Localization\Enums\Languages.cs" />
+    <Compile Include="Localization\Enums\ISO3166_2.cs" />
+    <Compile Include="Localization\Enums\ISO3166_3.cs" />
+    <Compile Include="Localization\Enums\ISO639.cs" />
     <Compile Include="Objects\Interfaces\IInfinateShape.cs" />
     <Compile Include="Objects\Interfaces\IClosedShape.cs" />
     <Compile Include="Objects\Interfaces\ICurve.cs" />
@@ -262,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Objects\Interfaces\Geometry\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chrono\Occasion.partial.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

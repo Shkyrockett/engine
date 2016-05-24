@@ -169,14 +169,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Render the shape to the canvas.
-        /// </summary>
-        /// <param name="g">The <see cref="Graphics"/> object to draw on.</param>
-        public override void Render(Graphics g)
-        {
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>

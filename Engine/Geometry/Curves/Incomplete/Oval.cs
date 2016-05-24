@@ -57,14 +57,14 @@ namespace Engine.Geometry
             set { size = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="g"></param>
-        public override void Render(Graphics g)
-        {
-            DrawOval(g, new SolidBrush(Color.Beige), new Pen(Brushes.Black), location.X, location.Y, size.Width, size.Height);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="g"></param>
+        //public override void Render(Graphics g)
+        //{
+        //    DrawOval(g, new SolidBrush(Color.Beige), new Pen(Brushes.Black), location.X, location.Y, size.Width, size.Height);
+        //}
 
         /// <summary>
         /// Draw the notes as elongated circles. This should be called from the Paint event. Also come up with oter variations.

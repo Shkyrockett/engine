@@ -1,5 +1,5 @@
 ﻿/*
-  A javascript Bezier curve Utility library by Pomax.
+  Aport of the javascript Bezier curve Utility library by Pomax.
 
   Based on http://pomax.github.io/bezierinfo
 
@@ -193,8 +193,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Point2D lerp(double r, Point2D v1, Point2D v2)
         {
-            Point2D ret = new Point2D(v1.X + r * (v2.X - v1.X), v1.Y + r * (v2.Y - v1.Y));
-            return ret;
+            return new Point2D(
+                v1.X + r * (v2.X - v1.X),
+                v1.Y + r * (v2.Y - v1.Y));
         }
 
         /// <summary>
@@ -206,12 +207,11 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Point3D lerp(double r, Point3D v1, Point3D v2)
         {
-            Point3D ret = new Point3D(
+            return new Point3D(
                 v1.X + r * (v2.X - v1.X),
                 v1.Y + r * (v2.Y - v1.Y),
                 v1.Z + r * (v2.Z - v1.Z)
                 );
-            return ret;
         }
 
         /// <summary>
@@ -307,9 +307,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static double dist(Point2D p1, Point2D p2)
         {
-            double dx = p1.X - p2.X;
-            double dy = p1.Y - p2.Y;
-            return Math.Sqrt(dx * dx + dy * dy);
+            return Maths.Distance(p1.X, p1.Y, p2.X, p2.Y);
         }
 
         /// <summary>
@@ -320,10 +318,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static double dist(Point3D p1, Point3D p2)
         {
-            double dx = p1.X - p2.X;
-            double dy = p1.Y - p2.Y;
-            double dz = p1.Z - p2.Z;
-            return Math.Sqrt(dx * dx + dy * dy + dz * dz);
+            return Maths.Distance(p1.X, p1.Y, p1.Z, p2.X, p2.Y, p2.Z);
         }
 
         /// <summary>

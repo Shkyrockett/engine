@@ -163,16 +163,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="g"></param>
-        public override void Render(Graphics g)
-        {
-            //g.FillPolygon(Style.BackBrush, Points.ToArray());
-            //g.DrawLines(Style.ForePen, Points.ToArray());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
         public override string ToString()
         {

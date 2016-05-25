@@ -1,5 +1,6 @@
 ﻿using Engine.Localization;
 using System;
+using static System.Math;
 
 namespace Engine.Chrono
 {
@@ -1185,7 +1186,7 @@ namespace Engine.Chrono
             float daysPer400Years = 146097f;
             float fudgedDaysPer4000Years = 1460970f + 31f;
 
-            float jdn = (float)Math.Floor(val);
+            float jdn = (float)Floor(val);
             float ut = val - jdn;
             bool julian = (jdn <= LASTJULJDN);
             float x = jdn + 68569f;

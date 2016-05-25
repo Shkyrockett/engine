@@ -10,6 +10,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -141,18 +143,20 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public Point2D StartPoint
         {
-            get { return new Point2D(center.X + radius * Math.Cos(-startAngle), center.Y + radius * Math.Sin(-startAngle)); }
+            get { return new Point2D(center.X + radius * Cos(-startAngle), center.Y + radius * Sin(-startAngle)); }
             //set;
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public Point2D EndPoint
         {
-            get { return new Point2D(center.X + radius * Math.Cos(-endAngle), center.Y + radius * Math.Sin(-endAngle)); }
+            get { return new Point2D(center.X + radius * Cos(-endAngle), center.Y + radius * Sin(-endAngle)); }
             //set;
         }
 
@@ -189,6 +193,7 @@ namespace Engine.Geometry
         [Description("The sweep angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
+        [XmlIgnore]
         public double SweepAngle
         {
             get { return startAngle - endAngle; }
@@ -198,8 +203,15 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        public override double Perimeter => ArcLength;
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Properties")]
         [Description("The tight rectangular boundaries of the Arc.")]
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
@@ -207,10 +219,10 @@ namespace Engine.Geometry
                 Rectangle2D bounds = new Rectangle2D(StartPoint, EndPoint);
                 double angleEnd = endAngle;
                 // check that angle2 > angle1
-                if (angleEnd < startAngle) angleEnd += 2 * Math.PI;
+                if (angleEnd < startAngle) angleEnd += 2 * PI;
                 if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = center.X + radius;
                 if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi)) bounds.Top = center.Y - radius;
-                if ((angleEnd >= Math.PI) && (startAngle <= Math.PI)) bounds.Left = center.X - radius;
+                if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = center.X - radius;
                 if ((angleEnd >= Maths.ThreeQuarterTau) && (startAngle <= Maths.ThreeQuarterTau)) bounds.Bottom = center.Y + radius;
                 if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = center.X + radius;
                 return bounds;
@@ -235,7 +247,7 @@ namespace Engine.Geometry
         [Description("The distance around the Arc.")]
         public double ArcLength
         {
-            get { return 2 * Math.PI * radius * -SweepAngle; }
+            get { return 2 * PI * radius * -SweepAngle; }
         }
 
         ///// <summary>
@@ -248,7 +260,7 @@ namespace Engine.Geometry
         //    get
         //    {
         //        //ToDo: Divide by the Arc-length.
-        //        return Math.PI * radius * radius;
+        //        return PI * radius * radius;
         //    }
         //}
 
@@ -274,12 +286,12 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             double t = startAngle + SweepAngle * index;
             return new Point2D(
-                center.X + (Math.Sin(t) * radius),
-                center.X + (Math.Cos(t) * radius));
+                center.X + (Sin(t) * radius),
+                center.X + (Cos(t) * radius));
         }
 
         /// <summary>
@@ -288,9 +300,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints()
         {
-            double delta_phi = 2 * Math.PI / ArcLength;
+            double delta_phi = 2 * PI / ArcLength;
             List<Point2D> points = new List<Point2D>();
-            for (double i = 0.0f; i <= 2.0 * Math.PI; i += delta_phi)
+            for (double i = 0.0f; i <= 2.0 * PI; i += delta_phi)
             {
                 points.Add(Interpolate(i));
             }

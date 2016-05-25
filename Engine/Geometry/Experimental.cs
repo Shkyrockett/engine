@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using static System.Math;
 
 namespace Engine
 {
@@ -36,7 +37,7 @@ namespace Engine
             double crossProduct = CrossProductLength(a, b, c);
 
             // Calculate the angle.
-            return Math.Atan2(crossProduct, dotProduct);
+            return Atan2(crossProduct, dotProduct);
         }
 
         #endregion
@@ -55,12 +56,12 @@ namespace Engine
         public static double AbsoluteAngle0(double aX, double aY, double bX, double bY)
         {
             // Find the angle of point a and point b. 
-            double test = -Maths.Angle(aX, aY, bX, bY) % Math.PI;
+            double test = -Maths.Angle(aX, aY, bX, bY) % PI;
 
             // This should only loop once using the modulus of pi.
             while (test < 0)
             {
-                test += Math.PI;
+                test += PI;
             }
 
             return test;
@@ -78,8 +79,8 @@ namespace Engine
         public static double AbsoluteAngle1(double aX, double aY, double bX, double bY)
         {
             // Find the angle of point a and point b. 
-            double test = -Maths.Angle(aX, aY, bX, bY) % Math.PI;
-            return test < 0 ? test += Math.PI : test;
+            double test = -Maths.Angle(aX, aY, bX, bY) % PI;
+            return test < 0 ? test += PI : test;
         }
 
         #endregion
@@ -99,7 +100,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(double aX, double aY, double aZ, double bX, double bY, double bZ)
         {
-            return Math.Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
+            return Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace Engine
             double x = (bX - aX);
             double y = (bY - aY);
             double z = (bZ - aZ);
-            return Math.Sqrt(x * x + y * y + z * z);
+            return Sqrt(x * x + y * y + z * z);
         }
 
         #endregion
@@ -249,7 +250,7 @@ namespace Engine
         /// <returns>Return True if (x1, y1) is within close_distance vertically and horizontally of (x2, y2).</returns>
         public static bool PointNearPoint(double x1, double y1, double x2, double y2, double close_distance)
         {
-            return (Math.Abs(x2 - x1) <= close_distance) && (Math.Abs(y2 - y1) <= close_distance);
+            return (Abs(x2 - x1) <= close_distance) && (Abs(y2 - y1) <= close_distance);
         }
 
         /// <summary>
@@ -264,7 +265,7 @@ namespace Engine
         /// <remarks></remarks>
         public static bool PointNearPoint2(double x1, double y1, double x2, double y2, double close_distance)
         {
-            return ((Math.Abs((x2 - x1)) <= close_distance) && (Math.Abs((y2 - y1)) <= close_distance));
+            return ((Abs((x2 - x1)) <= close_distance) && (Abs((y2 - y1)) <= close_distance));
         }
 
         /// <summary>
@@ -355,20 +356,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="PointA"></param>
-        /// <param name="PointB"></param>
-        /// <param name="PointC"></param>
-        /// <returns></returns>
-        public static double Distance(Point2D PointA, Point2D PointB, Point2D PointC)
-        {
-            //  ToDo: Add Point Distance from line Method.
-            // Dim P As Single = (1 - r)A + rB = A + r(B  A)
-            return 0;
-        }
-
-        /// <summary>
         /// Calculate the distance between the point and the segment.
         /// </summary>
         /// <param name="p"></param>
@@ -388,7 +375,7 @@ namespace Engine
                 Delta.Y = (p.Y - A.Y);
                 RetNear.X = A.X;
                 RetNear.Y = A.Y;
-                return (Math.Sqrt(((Delta.X * Delta.X) + (Delta.Y * Delta.Y))));
+                return (Sqrt(((Delta.X * Delta.X) + (Delta.Y * Delta.Y))));
             }
             //  Calculate the t that minimizes the distance.
             double t = ((((p.X - A.X) * Delta.X) + ((p.Y - A.Y) * Delta.Y)) / ((Delta.X * Delta.X) + (Delta.Y * Delta.Y)));
@@ -413,7 +400,7 @@ namespace Engine
                 Delta.X = (p.X - RetNear.X);
                 Delta.Y = (p.Y - RetNear.Y);
             }
-            return (Math.Sqrt(((Delta.X * Delta.X) + (Delta.Y * Delta.Y))));
+            return (Sqrt(((Delta.X * Delta.X) + (Delta.Y * Delta.Y))));
         }
 
         /// <summary>
@@ -438,7 +425,7 @@ namespace Engine
                 //  It's a point not a line segment.
                 dx = (px - x1);
                 dy = (py - y1);
-                return Math.Sqrt(((dx * dx) + (dy * dy)));
+                return Sqrt(((dx * dx) + (dy * dy)));
 
             }
             t = ((px + (py - (x1 - y1))) / (dx + dy));
@@ -459,7 +446,7 @@ namespace Engine
                 dx = (px - x3);
                 dy = (py - y3);
             }
-            return Math.Sqrt(((dx * dx) + (dy * dy)));
+            return Sqrt(((dx * dx) + (dy * dy)));
         }
 
         /// <summary>
@@ -515,7 +502,7 @@ namespace Engine
                 //  It's a point not a line segment.
                 dx = (px - x1);
                 dy = (py - y1);
-                return Math.Sqrt(((dx * dx) + (dy * dy)));
+                return Sqrt(((dx * dx) + (dy * dy)));
             }
             double t = ((px + (py - (x1 - y1))) / (dx + dy));
             if ((t < 0))
@@ -535,7 +522,7 @@ namespace Engine
                 dx = (px - x3);
                 dy = (py - y3);
             }
-            return Math.Sqrt(((dx * dx) + (dy * dy)));
+            return Sqrt(((dx * dx) + (dy * dy)));
         }
 
         #endregion
@@ -1004,9 +991,9 @@ namespace Engine
             else
             {
                 // Two solutions.
-                t = ((-B + Math.Sqrt(det)) / (2 * A));
+                t = ((-B + Sqrt(det)) / (2 * A));
                 intersection1 = new Point2D(point1.X + t * dx, point1.Y + t * dy);
-                t = ((-B - Math.Sqrt(det)) / (2 * A));
+                t = ((-B - Sqrt(det)) / (2 * A));
                 intersection2 = new Point2D(point1.X + t * dx, point1.Y + t * dy);
                 return 2;
             }
@@ -1034,7 +1021,7 @@ namespace Engine
             // Find the distance between the centers.
             double dx = cx0 - cx1;
             double dy = cy0 - cy1;
-            double dist = Math.Sqrt(dx * dx + dy * dy);
+            double dist = Sqrt(dx * dx + dy * dy);
 
             // See how many solutions there are.
             if (dist > radius0 + radius1)
@@ -1044,7 +1031,7 @@ namespace Engine
                 intersection2 = new Point2D(double.NaN, double.NaN);
                 return 0;
             }
-            else if (dist < Math.Abs(radius0 - radius1))
+            else if (dist < Abs(radius0 - radius1))
             {
                 // No solutions, one circle contains the other.
                 intersection1 = new Point2D(double.NaN, double.NaN);
@@ -1063,7 +1050,7 @@ namespace Engine
                 // Find a and h.
                 double a = (radius0 * radius0 -
                     radius1 * radius1 + dist * dist) / (2 * dist);
-                double h = Math.Sqrt(radius0 * radius0 - a * a);
+                double h = Sqrt(radius0 * radius0 - a * a);
 
                 // Find P2.
                 double cx2 = cx0 + a * (cx1 - cx0) / dist;
@@ -1106,7 +1093,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeter1(double a, double b)
         {
-            return 2 * Math.PI * (Math.Sqrt(0.5 * ((b * b) + (a * a))));
+            return 2 * PI * (Sqrt(0.5 * ((b * b) + (a * a))));
         }
 
         /// <summary>
@@ -1130,8 +1117,8 @@ namespace Engine
         {
             double h = (((b - a) * (b - a)) / ((b + a) * (b + a)));
             double H2 = 4 - 3 * h;
-            double d = ((11 * Math.PI / (44 - 14 * Math.PI)) + 24100) - 24100 * h;
-            return Math.PI * (b + a) * (1 + (3 * h) / (10 + Math.Pow(H2, 0.5)) + (1.5 * Math.Pow(h, 6) - .5 * Math.Pow(h, 12)) / d);
+            double d = ((11 * PI / (44 - 14 * PI)) + 24100) - 24100 * h;
+            return PI * (b + a) * (1 + (3 * h) / (10 + Pow(H2, 0.5)) + (1.5 * Pow(h, 6) - .5 * Pow(h, 12)) / d);
         }
 
         /// <summary>
@@ -1153,7 +1140,7 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterKepler(double a, double b)
         {
-            return 2 * Math.PI * (Math.Sqrt(a * b));
+            return 2 * PI * (Sqrt(a * b));
         }
 
         /// <summary>
@@ -1175,7 +1162,7 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterSipos(double a, double b)
         {
-            return 2 * Math.PI * (((a + b) * (a + b)) / ((Math.Sqrt(a) + Math.Sqrt(a)) * (Math.Sqrt(b) + Math.Sqrt(b))));
+            return 2 * PI * (((a + b) * (a + b)) / ((Sqrt(a) + Sqrt(a)) * (Sqrt(b) + Sqrt(b))));
         }
 
         /// <summary>
@@ -1197,7 +1184,7 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterNaive(double a, double b)
         {
-            return Math.PI * (a + b);
+            return PI * (a + b);
         }
 
         /// <summary>
@@ -1219,7 +1206,7 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterPeano(double a, double b)
         {
-            return Math.PI * ((3 * (a + b) / 2) - Math.Sqrt(a * b));
+            return PI * ((3 * (a + b) / 2) - Sqrt(a * b));
         }
 
         /// <summary>
@@ -1241,7 +1228,7 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterEuler(double a, double b)
         {
-            return 2 * Math.PI * Math.Sqrt(((a * a) + (b * b)) / 2);
+            return 2 * PI * Sqrt(((a * a) + (b * b)) / 2);
         }
 
         /// <summary>
@@ -1263,9 +1250,9 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterAlmkvist(double a, double b)
         {
-            return 2 * Math.PI
-                * ((2 * Math.Pow(a + b, 2) - Math.Pow(Math.Sqrt(a) - Math.Sqrt(b), 4))
-                / (Math.Pow(Math.Sqrt(a) - Math.Sqrt(b), 2) + (2 * Math.Sqrt(2 * (a + b)) * Math.Pow(a * b, (1 / 4)))));
+            return 2 * PI
+                * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
+                / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, (1 / 4)))));
         }
 
         /// <summary>
@@ -1287,7 +1274,7 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterQuadratic(double a, double b)
         {
-            return (Math.PI / 2) * Math.Sqrt((6) * (a * a + b * b) + (4 * a * b));
+            return (PI / 2) * Sqrt((6) * (a * a + b * b) + (4 * a * b));
         }
 
         /// <summary>
@@ -1309,7 +1296,7 @@ namespace Engine
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterMuir(double a, double b)
         {
-            return 2 * Math.PI * Math.Pow((Math.Pow(a, 3 / 2) + Math.Pow(b, 3 / 2)) / 2, 2 / 3);
+            return 2 * PI * Pow((Pow(a, 3 / 2) + Pow(b, 3 / 2)) / 2, 2 / 3);
         }
 
         /// <summary>
@@ -1332,7 +1319,7 @@ namespace Engine
         private static double EllipsePerimeterLindner(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * Math.Sqrt(1 + (h / 8));
+            return PI * (a + b) * Sqrt(1 + (h / 8));
         }
 
         /// <summary>
@@ -1354,7 +1341,7 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(double a, double b)
         {
-            return 4 * ((Math.PI * a * b) + ((a - b) * (a - b))) / (a + b);
+            return 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
         }
 
         /// <summary>
@@ -1376,8 +1363,8 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeterYNOT(double a, double b)
         {
-            double s = Math.Log(2, Math.E) / Math.Log(Math.PI / 2, Math.E);
-            return 4 * Math.Pow(Math.Pow(a, s) + Math.Pow(b, s), 1 / s);
+            double s = Log(2, E) / Log(PI / 2, E);
+            return 4 * Pow(Pow(a, s) + Pow(b, s), 1 / s);
         }
 
         /// <summary>
@@ -1399,11 +1386,11 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeterCombinedPadé(double a, double b)
         {
-            double d1 = (Math.PI / 4) * (19 / 15) - 1;
-            double d2 = (Math.PI / 4) * (80 / 63) - 1;
+            double d1 = (PI / 4) * (19 / 15) - 1;
+            double d2 = (PI / 4) * (80 / 63) - 1;
             double p = d1 / (d1 - d2);
             double h = 1;
-            return Math.PI * (a + b) * (p * ((64 + 16 * h)
+            return PI * (a + b) * (p * ((64 + 16 * h)
                 / (64 - h * h))
                 + (1 - p) * ((16 + 3 * h) / (16 - h)));
         }
@@ -1427,13 +1414,13 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeterCombinedPadé2(double a, double b)
         {
-            double d1 = (Math.PI / 4) * (81 / 64) - 1;
-            double d2 = (Math.PI / 4) * (19 / 15) - 1;
+            double d1 = (PI / 4) * (81 / 64) - 1;
+            double d2 = (PI / 4) * (19 / 15) - 1;
             double p = d1 / (d1 - d2);
             double h = 1;
-            return Math.PI * (a + b) * (p * ((16 - 3 * h)
+            return PI * (a + b) * (p * ((16 - 3 * h)
                 / (16 - h))
-                + (1 - p) * Math.Pow(1 + (h) / 8, 2));
+                + (1 - p) * Pow(1 + (h) / 8, 2));
         }
 
         /// <summary>
@@ -1455,11 +1442,11 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeterJacobsenWaadelandHudsonLipka(double a, double b)
         {
-            double d1 = (Math.PI / 4) * (61 / 48) - 1;
-            double d2 = (Math.PI / 4) * (187 / 147) - 1;
+            double d1 = (PI / 4) * (61 / 48) - 1;
+            double d2 = (PI / 4) * (187 / 147) - 1;
             double p = d1 / (d1 - d2);
             double h = 1;
-            return Math.PI * (a + b) * (p * ((256 - 48 * h - 21 * h * h)
+            return PI * (a + b) * (p * ((256 - 48 * h - 21 * h * h)
                 / (256 - 112 * h + 3 * h * h))
                 + (1 - p) * ((64 - 3 * h * h) / (64 - 16 * h)));
         }
@@ -1483,11 +1470,11 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeter2_3JacobsenWaadeland(double a, double b)
         {
-            double d1 = (Math.PI / 4) * (61 / 48) - 1;
-            double d2 = (Math.PI / 4) * (187 / 147) - 1;
+            double d1 = (PI / 4) * (61 / 48) - 1;
+            double d2 = (PI / 4) * (187 / 147) - 1;
             double p = d1 / (d1 - d2);
             double h = 1;
-            return Math.PI * (a + b) * (p * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
+            return PI * (a + b) * (p * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
                 / (3072 - 2048 * h + 212 * h * h))
                 + (1 - p) * ((256 - 48 * h - 21 * h * h) / (256 - 112 * h + 3 * h * h)));
         }
@@ -1511,11 +1498,11 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeter3_3_3_2(double a, double b)
         {
-            double d1 = (Math.PI / 4) * (61 / 48) - 1;
-            double d2 = (Math.PI / 4) * (187 / 147) - 1;
+            double d1 = (PI / 4) * (61 / 48) - 1;
+            double d2 = (PI / 4) * (187 / 147) - 1;
             double p = d1 / (d1 - d2);
             double h = 1;
-            return Math.PI * (a + b) * (p * ((135168 - 85760 * h - 5568 * h * h + 3867 * h * h * h)
+            return PI * (a + b) * (p * ((135168 - 85760 * h - 5568 * h * h + 3867 * h * h * h)
                 / (135168 - 119552 * h + 22208 * h * h - 345 * h * h * h))
                 + (1 - p) * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
                 / (3072 - 2048 * h + 212 * h * h)));
@@ -1540,7 +1527,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterRamanujan(double a, double b)
         {
-            return Math.PI * (3 * (a + b) - Math.Sqrt((3 * a + b) * (a + 3 * b)));
+            return PI * (3 * (a + b) - Sqrt((3 * a + b) * (a + 3 * b)));
         }
 
         /// <summary>
@@ -1562,7 +1549,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterSelmer(double a, double b)
         {
-            return (Math.PI / 4) * ((6 + .5 * (Math.Pow(a - b, 2) * Math.Pow(a - b, 2) / Math.Pow(a + b, 2) * Math.Pow(a + b, 2))) * (a + b) - Math.Sqrt(2 * (a * a + 3 * a * b + b * b)));
+            return (PI / 4) * ((6 + .5 * (Pow(a - b, 2) * Pow(a - b, 2) / Pow(a + b, 2) * Pow(a + b, 2))) * (a + b) - Sqrt(2 * (a * a + 3 * a * b + b * b)));
         }
 
         /// <summary>
@@ -1585,7 +1572,7 @@ namespace Engine
         private static double EllipsePerimeterRamanujan2(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * (1 + ((3 * h) / (10 + Math.Sqrt(4 - 3 * h))));
+            return PI * (a + b) * (1 + ((3 * h) / (10 + Sqrt(4 - 3 * h))));
         }
 
         /// <summary>
@@ -1608,7 +1595,7 @@ namespace Engine
         private static double EllipsePerimeterPadéSelmer(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * ((16 + (3 * h)) / (16 - h));
+            return PI * (a + b) * ((16 + (3 * h)) / (16 - h));
         }
 
         /// <summary>
@@ -1631,7 +1618,7 @@ namespace Engine
         private static double EllipsePerimeterPadéMichon(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * ((64 + (16 * h)) / (64 - (h * h)));
+            return PI * (a + b) * ((64 + (16 * h)) / (64 - (h * h)));
         }
 
         /// <summary>
@@ -1654,7 +1641,7 @@ namespace Engine
         private static double EllipsePerimeterPadéHudsonLipkaBronshtein(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
+            return PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
         }
 
         /// <summary>
@@ -1677,7 +1664,7 @@ namespace Engine
         private static double EllipsePerimeterCombinedPadéHudsonLipkaMichon(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
+            return PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
         }
 
         /// <summary>
@@ -1700,7 +1687,7 @@ namespace Engine
         private static double EllipsePerimeterPadéJacobsenWaadeland(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * ((256 - (48 * h) - (21 * h * h)) / (256 - (112 * h) + 3 * h * h));
+            return PI * (a + b) * ((256 - (48 * h) - (21 * h * h)) / (256 - (112 * h) + 3 * h * h));
         }
 
         /// <summary>
@@ -1723,7 +1710,7 @@ namespace Engine
         private static double EllipsePerimeterPadé3_2(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * ((3072 - (1280 * h) - (252 * h * h) + (33 * h * h * h)) / (3072 - (2048 * h) + 212 * h * h));
+            return PI * (a + b) * ((3072 - (1280 * h) - (252 * h * h) + (33 * h * h * h)) / (3072 - (2048 * h) + 212 * h * h));
         }
 
         /// <summary>
@@ -1746,7 +1733,7 @@ namespace Engine
         private static double EllipsePerimeterPadé3_3(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) *
+            return PI * (a + b) *
                 ((135168 - (85760 * h) - (5568 * h * h) + (3867 * h * h * h))
                 / (135168 - (119552 * h) + (22208 * h * h) - (345 * h * h * h)));
         }
@@ -1771,7 +1758,7 @@ namespace Engine
         private static double EllipsePerimeterOptimizedPeano(double a, double b)
         {
             double p = 1.32;
-            return 2 * Math.PI * (p * ((a + b) / 2) + (1 - p) * Math.Sqrt(a * b));
+            return 2 * PI * (p * ((a + b) / 2) + (1 - p) * Sqrt(a * b));
         }
 
         /// <summary>
@@ -1794,7 +1781,7 @@ namespace Engine
         private static double EllipsePerimeterOptimizedQuadratic1(double a, double b)
         {
             double w = 0.7966106;
-            return 2 * Math.PI * Math.Sqrt(w * ((a * a + b * b) / 2) + (1 - w) * a * b);
+            return 2 * PI * Sqrt(w * ((a * a + b * b) / 2) + (1 - w) * a * b);
         }
 
         /// <summary>
@@ -1816,7 +1803,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterOptimizedQuadratic2(double a, double b)
         {
-            return Math.PI * Math.Sqrt(2 * (a * a + b * b) + (a - b) * (a - b) / 2.458338);
+            return PI * Sqrt(2 * (a * a + b * b) + (a - b) * (a - b) / 2.458338);
         }
 
         /// <summary>
@@ -1840,7 +1827,7 @@ namespace Engine
         {
             double p = 3.0273;
             double w = 3;
-            return 2 * Math.PI * (p * ((a + b) / 2) + (1 - p) * Math.Sqrt((a + w * b) * (w * a + b)) / (1 + w));
+            return 2 * PI * (p * ((a + b) / 2) + (1 - p) * Sqrt((a + w * b) * (w * a + b)) / (1 + w));
         }
 
         /// <summary>
@@ -1862,7 +1849,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterBartolomeuMichon(double a, double b)
         {
-            return a == b ? 2 * Math.PI * a : Math.PI * ((a - b) / Math.Atan((a - b) / (a + b)));
+            return a == b ? 2 * PI * a : PI * ((a - b) / Atan((a - b) / (a + b)));
         }
 
         /// <summary>
@@ -1886,8 +1873,8 @@ namespace Engine
         {
             double p = 0.410117;
             double w = 74;
-            return 4 * (a + b) - ((8 - 2 * Math.PI) * a * b) /
-                (p * (a + b) + (1 - 2 * p) * (Math.Sqrt((a + w * b) * (w * a + b)) / (1 + w)));
+            return 4 * (a + b) - ((8 - 2 * PI) * a * b) /
+                (p * (a + b) + (1 - 2 * p) * (Sqrt((a + w * b) * (w * a + b)) / (1 + w)));
         }
 
         /// <summary>
@@ -1909,7 +1896,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterTakakazuSeki(double a, double b)
         {
-            return 2 * Math.Sqrt(Math.PI * Math.PI * a * b + 4 * (a - b) * (a - b));
+            return 2 * Sqrt(PI * PI * a * b + 4 * (a - b) * (a - b));
         }
 
         /// <summary>
@@ -1931,7 +1918,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterLockwood(double a, double b)
         {
-            return 4 * (((b * b) / a) * Math.Atan(a / b) + ((a * a) / b) * Math.Atan(b / a));
+            return 4 * (((b * b) / a) * Atan(a / b) + ((a * a) / b) * Atan(b / a));
         }
 
         /// <summary>
@@ -1953,8 +1940,8 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterBartolomeu(double a, double b)
         {
-            double t = (Math.PI / 4) * ((a - b) / b);
-            return Math.PI * Math.Sqrt(2 * (a * a + b * b)) * (Math.Sin(t) / t);
+            double t = (PI / 4) * ((a - b) / b);
+            return PI * Sqrt(2 * (a * a + b * b)) * (Sin(t) / t);
         }
 
         /// <summary>
@@ -1976,7 +1963,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterRivera1(double a, double b)
         {
-            return 4 * a + 2 * (Math.PI - 2) * a * Math.Pow(b / a, 1.456);
+            return 4 * a + 2 * (PI - 2) * a * Pow(b / a, 1.456);
         }
 
         /// <summary>
@@ -1998,7 +1985,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterRivera2(double a, double b)
         {
-            return 4 * ((Math.PI * a * b + (a - b) * (a - b)) / (a + b)) - (89 / 146) * Math.Pow((b * Math.Sqrt(a) - a * Math.Sqrt(b)) / (a + b), 2);
+            return 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - (89 / 146) * Pow((b * Sqrt(a) - a * Sqrt(b)) / (a + b), 2);
         }
 
         /// <summary>
@@ -2020,8 +2007,8 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterCantrell(double a, double b)
         {
-            double s = Math.Log(2) / Math.Log(2 / (4 - Math.PI));
-            return 4 * (a + b) - ((2 * (4 - Math.PI) * a * b) / Math.Pow(Math.Pow(a, s) + Math.Pow(b, s), 1 / s));
+            double s = Log(2) / Log(2 / (4 - PI));
+            return 4 * (a + b) - ((2 * (4 - PI) * a * b) / Pow(Pow(a, s) + Pow(b, s), 1 / s));
         }
 
         /// <summary>
@@ -2043,7 +2030,7 @@ namespace Engine
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterSykora(double a, double b)
         {
-            return 4 * (((Math.PI * a * b + (a - b) * (a - b))) / (a + b)) - 0.5 * ((a * b) / (a + b)) * (((a - b) * (a - b)) / (Math.PI * a * b + (a + b) * (a + b)));
+            return 4 * (((PI * a * b + (a - b) * (a - b))) / (a + b)) - 0.5 * ((a * b) / (a + b)) * (((a - b) * (a - b)) / (PI * a * b + (a + b) * (a + b)));
         }
 
         /// <summary>
@@ -2066,7 +2053,7 @@ namespace Engine
         private static double EllipsePerimeterCantrellRamanujan(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return Math.PI * (a + b) * (1 + ((3 * h) / (10 + Math.Sqrt(4 - 3 * h))) + ((4 / Math.PI) - ((14) / (11))) * Math.Pow(h, 12));
+            return PI * (a + b) * (1 + ((3 * h) / (10 + Sqrt(4 - 3 * h))) + ((4 / PI) - ((14) / (11))) * Pow(h, 12));
         }
 
         /// <summary>
@@ -2088,7 +2075,7 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeterK13(double a, double b)
         {
-            return Math.PI * (((a + b) / 2) + Math.Sqrt((a * a + b * b) / 2));
+            return PI * (((a + b) / 2) + Sqrt((a * a + b * b) / 2));
         }
 
         /// <summary>
@@ -2112,10 +2099,10 @@ namespace Engine
         {
             double X1 = a;
             double X2 = b;
-            double HMX = Math.Max(X1, X2);
-            double HMN = Math.Min(X1, X2);
+            double HMX = Max(X1, X2);
+            double HMN = Min(X1, X2);
             double H1 = HMN / HMX;
-            return 2 * Math.PI * HMX * ((2 / Math.PI) + 0.0000122 * Math.Pow(H1, 0.6125) - 0.0021973 * Math.Pow(H1, 1.225) + 0.919315 * Math.Pow(H1, 1.8375) - 1.0359227 * Math.Pow(H1, 2.45) + 0.861913 * Math.Pow(H1, 3.0625) - 0.7274398 * Math.Pow(H1, 3.675) + 0.6352295 * Math.Pow(H1, 4.2875) - 0.436051 * Math.Pow(H1, 4.9) + 0.1818904 * Math.Pow(H1, 5.5125) - 0.0333691 * Math.Pow(H1, 6.125));
+            return 2 * PI * HMX * ((2 / PI) + 0.0000122 * Pow(H1, 0.6125) - 0.0021973 * Pow(H1, 1.225) + 0.919315 * Pow(H1, 1.8375) - 1.0359227 * Pow(H1, 2.45) + 0.861913 * Pow(H1, 3.0625) - 0.7274398 * Pow(H1, 3.675) + 0.6352295 * Pow(H1, 4.2875) - 0.436051 * Pow(H1, 4.9) + 0.1818904 * Pow(H1, 5.5125) - 0.0333691 * Pow(H1, 6.125));
         }
 
         /// <summary>
@@ -2139,10 +2126,10 @@ namespace Engine
         {
             double X1 = a;
             double X2 = b;
-            double HMX = Math.Max(X1, X2);
-            double HMN = Math.Min(X1, X2);
+            double HMX = Max(X1, X2);
+            double HMN = Min(X1, X2);
             double H1 = HMN / HMX;
-            return HMX * (4 + (3929 * Math.Pow(H1, 1.5) + 1639157 * Math.Pow(H1, 2) + 19407215 * Math.Pow(H1, 2.5) + 24302653 * Math.Pow(H1, 3) + 12892432 * Math.Pow(H1, 3.5)) / (86251 + 1924742 * Math.Pow(H1, 0.5) + 6612384 * Math.Pow(H1, 1) + 7291509 * Math.Pow(H1, 1.5) + 6436977 * Math.Pow(H1, 2) + 3158719 * Math.Pow(H1, 2.5)));
+            return HMX * (4 + (3929 * Pow(H1, 1.5) + 1639157 * Pow(H1, 2) + 19407215 * Pow(H1, 2.5) + 24302653 * Pow(H1, 3) + 12892432 * Pow(H1, 3.5)) / (86251 + 1924742 * Pow(H1, 0.5) + 6612384 * Pow(H1, 1) + 7291509 * Pow(H1, 1.5) + 6436977 * Pow(H1, 2) + 3158719 * Pow(H1, 2.5)));
         }
 
         /// <summary>
@@ -2168,7 +2155,7 @@ namespace Engine
             double q = 66.71674;
             double s = 18.31287;
             double t = 23.39728;
-            double r = 4 * ((4 - Math.PI) * (4 * s + t + 16) - (4 * p + q));
+            double r = 4 * ((4 - PI) * (4 * s + t + 16) - (4 * p + q));
             return 4 * (a + b)
                 - ((a * b) / (a + b))
                 * ((p * (a + b) * (a + b) + q * a * b + r * ((a * b) / (a + b)) * ((a * b) / (a + b)))
@@ -2194,13 +2181,13 @@ namespace Engine
         /// </remarks>
         private static double EllipsePerimeterAhmadi2006(double a, double b)
         {
-            double c1 = Math.PI - 3;
-            double c2 = Math.PI;
+            double c1 = PI - 3;
+            double c2 = PI;
             double c3 = 0.5;
-            double c4 = (Math.PI + 1) / 2;
+            double c4 = (PI + 1) / 2;
             double c5 = 4;
-            double k = 1 - ((c1 * a * b) / ((a * a + b * b) + c2 * Math.Sqrt(c3 * a * b * a * b + a * b * Math.Sqrt(a * b * (c4 * (a * a + b * b) + c5 * a * b)))));
-            return 4 * ((Math.PI * a * b + k * (a - b) * (a - b)) / (a + b));
+            double k = 1 - ((c1 * a * b) / ((a * a + b * b) + c2 * Sqrt(c3 * a * b * a * b + a * b * Sqrt(a * b * (c4 * (a * a + b * b) + c5 * a * b)))));
+            return 4 * ((PI * a * b + k * (a - b) * (a - b)) / (a + b));
         }
 
         #endregion
@@ -2220,8 +2207,8 @@ namespace Engine
         /// <returns>Return True if the point is inside the ellipse (expanded by distance close_distance vertically and horizontally).</returns>
         public static bool PointNearEllipse(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
         {
-            double a = ((Math.Abs((x2 - x1)) / 2) + close_distance);
-            double b = ((Math.Abs((y2 - y1)) / 2) + close_distance);
+            double a = ((Abs((x2 - x1)) / 2) + close_distance);
+            double b = ((Abs((y2 - y1)) / 2) + close_distance);
             px = (px - (x2 + x1) / 2);
             py = (py - (y2 + y1) / 2);
             return (((px * px) / (a * a)) + (((py * py) / (b * b))) <= 1);
@@ -2243,8 +2230,8 @@ namespace Engine
         /// <remarks></remarks>
         public static bool PointNearEllipse2(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
         {
-            double a = ((Math.Abs((x2 - x1)) / 2) + close_distance);
-            double b = ((Math.Abs((y2 - y1)) / 2) + close_distance);
+            double a = ((Abs((x2 - x1)) / 2) + close_distance);
+            double b = ((Abs((y2 - y1)) / 2) + close_distance);
             px = (px - (x2 + x1) / 2);
             py = (py - (y2 + y1) / 2);
             return ((((px * px) / (a * a)) + (((py * py) / (b * b))) <= 1));
@@ -2280,8 +2267,8 @@ namespace Engine
             double A = (1 + (SlopeA * SlopeA));
             double B = ((2 * (SlopeA * (SlopeB - ellipse.Center.Y))) - (2 * ellipse.Center.X));
             double C = ((ellipse.Center.X * ellipse.Center.X) + (((SlopeB - ellipse.Center.Y) * (SlopeB - ellipse.Center.X)) - (ellipse.MajorRadius * ellipse.MajorRadius)));
-            double XA = ((((B * -1) + Math.Sqrt(((B * B) - (A * C)))) / (2 * A)));
-            double XB = ((((B - Math.Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
+            double XA = ((((B * -1) + Sqrt(((B * B) - (A * C)))) / (2 * A)));
+            double XB = ((((B - Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
             double YA = ((SlopeA * XA) + SlopeB);
             double YB = ((SlopeA * XB) + SlopeB);
             return new LineSegment(XA, YA, XB, YB);
@@ -2300,22 +2287,22 @@ namespace Engine
         /// <remarks></remarks>
         public static LineSegment Intersect(Ellipse ellipseA, Ellipse ellipseB)
         {
-            double d = (ellipseB.Center.X * ellipseB.Center.X - ellipseA.Center.X * ellipseA.Center.X - ellipseB.MajorRadius * ellipseB.MajorRadius - Math.Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + ellipseA.MajorRadius * ellipseA.MajorRadius);
-            double a = (Math.Pow(2 * ellipseA.Center.X - 2 * ellipseB.Center.X, 2) + 4 * Math.Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2));
-            double b = (2 * d * (2 * ellipseA.Center.X - 2 * ellipseB.Center.X) - 8 * ellipseB.Center.X * Math.Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2));
-            double C = (4 * ellipseB.Center.X * ellipseB.Center.X * Math.Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + d * d - 4 * Math.Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) * ellipseB.MajorRadius * ellipseB.MajorRadius);
-            double XA = ((-b + Math.Sqrt(b * b - 4 * a * C)) / (2 * a));
-            double XB = ((-b - Math.Sqrt(b * b - 4 * a * C)) / (2 * a));
-            double YA = (Math.Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Math.Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
-            double YB = (-Math.Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Math.Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
-            double YC = (Math.Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Math.Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
-            double YD = (-Math.Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Math.Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
-            double E = ((XA - ellipseB.Center.X) + Math.Pow(YA - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
-            double F = ((XA - ellipseB.Center.X) + Math.Pow(YB - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
-            double G = ((XB - ellipseB.Center.X) + Math.Pow(YC - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
-            double H = ((XB - ellipseB.Center.X) + Math.Pow(YD - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
-            if (Math.Abs(F) < Math.Abs(E)) YA = YB;
-            if (Math.Abs(H) < Math.Abs(G)) YC = YD;
+            double d = (ellipseB.Center.X * ellipseB.Center.X - ellipseA.Center.X * ellipseA.Center.X - ellipseB.MajorRadius * ellipseB.MajorRadius - Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + ellipseA.MajorRadius * ellipseA.MajorRadius);
+            double a = (Pow(2 * ellipseA.Center.X - 2 * ellipseB.Center.X, 2) + 4 * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2));
+            double b = (2 * d * (2 * ellipseA.Center.X - 2 * ellipseB.Center.X) - 8 * ellipseB.Center.X * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2));
+            double C = (4 * ellipseB.Center.X * ellipseB.Center.X * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + d * d - 4 * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) * ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double XA = ((-b + Sqrt(b * b - 4 * a * C)) / (2 * a));
+            double XB = ((-b - Sqrt(b * b - 4 * a * C)) / (2 * a));
+            double YA = (Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double YB = (-Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double YC = (Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double YD = (-Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double E = ((XA - ellipseB.Center.X) + Pow(YA - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double F = ((XA - ellipseB.Center.X) + Pow(YB - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double G = ((XB - ellipseB.Center.X) + Pow(YC - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double H = ((XB - ellipseB.Center.X) + Pow(YD - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            if (Abs(F) < Abs(E)) YA = YB;
+            if (Abs(H) < Abs(G)) YC = YD;
             if (ellipseA.Center.Y == ellipseB.Center.Y) YC = 2 * ellipseA.Center.Y - YA;
             return new LineSegment(XA, YA, XB, YC);
         }
@@ -2326,13 +2313,32 @@ namespace Engine
         public class EllipseIntersectStuff
         {
             internal bool GotEllipse1 = false, GotEllipse2 = false;
-            private Rectangle2D Ellipse1, Ellipse2;
+            private Rectangle2D Ellipse1 = new Rectangle2D();
+            private Rectangle2D Ellipse2 = new Rectangle2D();
 
             // Equations that define the ellipses.
-            internal double Dx2, Dy2, Rx2, Ry2;
-            internal double A2, B2, C2, D2, E2, F2;
-            internal double Dx1, Dy1, Rx1, Ry1;
-            internal double A1, B1, C1, D1, E1, F1;
+            internal double Dx1 = 0;
+            internal double Dy1 = 0;
+            internal double Dx2 = 0;
+            internal double Dy2 = 0;
+
+            internal double Rx1 = 0;
+            internal double Ry1 = 0;
+            internal double Rx2 = 0;
+            internal double Ry2 = 0;
+
+            internal double A1 = 0;
+            internal double B1 = 0;
+            internal double C1 = 0;
+            internal double D1 = 0;
+            internal double E1 = 0;
+            internal double F1 = 0;
+            internal double A2 = 0;
+            internal double B2 = 0;
+            internal double C2 = 0;
+            internal double D2 = 0;
+            internal double E2 = 0;
+            internal double F2 = 0;
 
             // The points of intersection.
             internal List<Point2D> Roots = new List<Point2D>();
@@ -2396,7 +2402,7 @@ namespace Engine
 
                 // Validation.
                 const double small = 0.001f;
-                Debug.Assert(Math.Abs(y1 - y2) < small);
+                Debug.Assert(Abs(y1 - y2) < small);
             }
         }
 
@@ -2446,7 +2452,7 @@ namespace Engine
                 eis.PointsOfIntersection.Add(new Point2D(eis.Roots[i].X, y1));
 
                 // Validation.
-                Debug.Assert(Math.Abs(y1 - y2) < small);
+                Debug.Assert(Abs(y1 - y2) < small);
             }
         }
 
@@ -2496,7 +2502,7 @@ namespace Engine
                     foreach (Point2D pt in roots)
                     {
                         const double small = 0.001f;
-                        if (Math.Abs(pt.X - x) < small)
+                        if (Abs(pt.X - x) < small)
                         {
                             is_new = false;
                             break;
@@ -2564,7 +2570,7 @@ namespace Engine
                     bool is_new = true;
                     foreach (Point2D pt in roots)
                     {
-                        if (Math.Abs(pt.X - x) < small)
+                        if (Abs(pt.X - x) < small)
                         {
                             is_new = false;
                             break;
@@ -2627,7 +2633,7 @@ namespace Engine
                 double g_prime = GPrime(x0,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
-                while (Math.Abs(g_prime) < tiny)
+                while (Abs(g_prime) < tiny)
                 {
                     x0 += tiny;
                     g_prime = GPrime(x0,
@@ -2641,7 +2647,7 @@ namespace Engine
                     A2, B2, C2, D2, E2, F2, sign2);
                 epsilon = -g / g_prime;
                 x0 += epsilon;
-            } while ((Math.Abs(epsilon) > cutoff) && (iterations < max_iterations));
+            } while ((Abs(epsilon) > cutoff) && (iterations < max_iterations));
 
             x = x0;
             y = G(x0,
@@ -2687,7 +2693,7 @@ namespace Engine
             double g_xmin = G(xmin,
                 A1, B1, C1, D1, E1, F1, sign1,
                 A2, B2, C2, D2, E2, F2, sign2);
-            if (Math.Abs(g_xmin) < small)
+            if (Abs(g_xmin) < small)
             {
                 x = xmin;
                 y = g_xmin;
@@ -2698,7 +2704,7 @@ namespace Engine
             double g_xmax = G(xmax,
                 A1, B1, C1, D1, E1, F1, sign1,
                 A2, B2, C2, D2, E2, F2, sign2);
-            if (Math.Abs(g_xmax) < small)
+            if (Abs(g_xmax) < small)
             {
                 x = xmax;
                 y = g_xmax;
@@ -2707,9 +2713,9 @@ namespace Engine
 
             // Get the sign of the values.
             int sgn_min, sgn_max;
-            if (IsNumber(g_xmin)) sgn_min = Math.Sign(g_xmin);
+            if (IsNumber(g_xmin)) sgn_min = Sign(g_xmin);
             else sgn_min = sgn_nan;
-            if (IsNumber(g_xmax)) sgn_max = Math.Sign(g_xmax);
+            if (IsNumber(g_xmax)) sgn_max = Sign(g_xmax);
             else sgn_max = sgn_nan;
 
             // If the two values have the same sign,
@@ -2731,7 +2737,7 @@ namespace Engine
                 g_xmid = G(xmid,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
-                if (IsNumber(g_xmid)) sgn_mid = Math.Sign(g_xmid);
+                if (IsNumber(g_xmid)) sgn_mid = Sign(g_xmid);
                 else sgn_mid = sgn_nan;
 
                 // If sgn_mid is 0, gxmid is 0 so this is the root.
@@ -2779,17 +2785,17 @@ namespace Engine
                 }
             }
 
-            if (IsNumber(g_xmid) && (Math.Abs(g_xmid) < small))
+            if (IsNumber(g_xmid) && (Abs(g_xmid) < small))
             {
                 x = xmid;
                 y = g_xmid;
             }
-            else if (IsNumber(g_xmin) && (Math.Abs(g_xmin) < small))
+            else if (IsNumber(g_xmin) && (Abs(g_xmin) < small))
             {
                 x = xmin;
                 y = g_xmin;
             }
-            else if (IsNumber(g_xmax) && (Math.Abs(g_xmax) < small))
+            else if (IsNumber(g_xmax) && (Abs(g_xmax) < small))
             {
                 x = xmax;
                 y = g_xmax;
@@ -2858,8 +2864,8 @@ namespace Engine
             double A1, double B1, double C1, double D1, double E1, double F1,
             double A2, double B2, double C2, double D2, double E2, double F2)
         {
-            double xmin = Math.Min(xmin1, xmin2);
-            double xmax = Math.Max(xmax1, xmax2);
+            double xmin = Min(xmin1, xmin2);
+            double xmax = Max(xmax1, xmax2);
             List<List<Point2D>> result = new List<List<Point2D>>();
 
             double[] signs = { -1f, +1f };
@@ -2910,7 +2916,7 @@ namespace Engine
                     G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
                 if (IsNumber(slope))
                 {
-                    double delta_x = Math.Sqrt(
+                    double delta_x = Sqrt(
                         tangent_length * tangent_length / (1 + slope * slope)) / 2;
                     eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
                     eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
@@ -2929,7 +2935,7 @@ namespace Engine
                     G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
                 if (IsNumber(slope))
                 {
-                    double delta_x = Math.Sqrt(
+                    double delta_x = Sqrt(
                         tangent_length * tangent_length / (1 + slope * slope)) / 2;
                     eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
                     eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
@@ -2948,7 +2954,7 @@ namespace Engine
                     G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
                 if (IsNumber(slope))
                 {
-                    double delta_x = Math.Sqrt(
+                    double delta_x = Sqrt(
                         tangent_length * tangent_length / (1 + slope * slope)) / 2;
                     eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
                     eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
@@ -2967,7 +2973,7 @@ namespace Engine
                     G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
                 if (IsNumber(slope))
                 {
-                    double delta_x = Math.Sqrt(
+                    double delta_x = Sqrt(
                         tangent_length * tangent_length / (1 + slope * slope)) / 2;
                     eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
                     eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
@@ -3034,7 +3040,7 @@ namespace Engine
         {
             double total = A * x * x + B * x * y + C * y * y + D * x + E * y + F;
             Console.WriteLine("VerifyEquation (" + x + ", " + y + ") = " + total);
-            Debug.Assert(Math.Abs(total) < 0.001f);
+            Debug.Assert(Abs(total) < 0.001f);
         }
 
         /// <summary>
@@ -3055,7 +3061,7 @@ namespace Engine
             double result = B * x + E;
             result = result * result;
             result = result - 4 * C * (A * x * x + D * x + F);
-            result = root_sign * Math.Sqrt(result);
+            result = root_sign * Sqrt(result);
             result = -(B * x + E) + result;
             result = result / 2 / C;
 
@@ -3077,14 +3083,10 @@ namespace Engine
         /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
         private static double G1Prime(double x, double A, double B, double C, double D, double E, double F, double root_sign)
         {
-            double numerator = 2 * (B * x + E) * B -
-                4 * C * (2 * A * x + D);
-            double denominator = 2 * Math.Sqrt(
-                (B * x + E) * (B * x + E) -
-                4 * C * (A * x * x + D * x + F));
+            double numerator = 2 * (B * x + E) * B - 4 * C * (2 * A * x + D);
+            double denominator = 2 * Sqrt((B * x + E) * (B * x + E) - 4 * C * (A * x * x + D * x + F));
             double result = -B + root_sign * numerator / denominator;
             result = result / 2 / C;
-
             return result;
         }
 
@@ -3602,7 +3604,7 @@ namespace Engine
             //Point2D Q = (v0 - v1) - P;
             //Point2D R = v2 - v0;
             //Point2D S = v1;
-            //return P * Math.Pow(x, 3) + Q * Math.Pow(x, 2) + R * x + S;
+            //return P * Pow(x, 3) + Q * Pow(x, 2) + R * x + S;
             Vector2D P = d.Subtract(c).Subtract(a.Subtract(b));
             Vector2D Q = a.Subtract(b).Subtract(P);
             Vector2D R = c.Subtract(a);
@@ -3668,11 +3670,11 @@ namespace Engine
             Point2D k3 = (Point2D)(3 * (p2 - p1));
             Point2D k4 = p1;
 
-            double q1 = 9.0 * (Math.Sqrt(Math.Abs(k1.X)) + Math.Sqrt((Math.Abs(k1.Y))));
+            double q1 = 9.0 * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
             double q2 = 12.0 * (k1.X * k2.X + k1.Y * k2.Y);
-            double q3 = 3.0 * (k1.X * k3.X + k1.Y * k3.Y) + 4.0 * (Math.Sqrt(Math.Abs(k2.X)) + Math.Sqrt(Math.Abs(k2.Y)));
+            double q3 = 3.0 * (k1.X * k3.X + k1.Y * k3.Y) + 4.0 * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y)));
             double q4 = 4.0 * (k2.X * k3.X + k2.Y * k3.Y);
-            double q5 = Math.Sqrt(Math.Abs(k3.X)) + Math.Sqrt(Math.Abs(k3.Y));
+            double q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
 
             // Approximation algorithm based on Simpson. 
             double a = 0;
@@ -3690,7 +3692,7 @@ namespace Engine
             double est1 = multiplier * (endsum + 2 * asum + 4 * bsum);
             double est0 = 2 * est1;
 
-            while (n < n_limit && (Math.Abs(est1) > 0 && Math.Abs((est1 - est0) / est1) > TOLERANCE))
+            while (n < n_limit && (Abs(est1) > 0 && Abs((est1 - est0) / est1) > TOLERANCE))
             {
                 n *= 2;
                 multiplier /= 2;
@@ -3726,7 +3728,7 @@ namespace Engine
         private static double CubicBezierArcLengthHelper(ref double q1, ref double q2, ref double q3, ref double q4, ref double q5, double t)
         {
             double result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
-            result = Math.Sqrt(Math.Abs(result));
+            result = Sqrt(Abs(result));
             return result;
         }
 
@@ -3767,7 +3769,7 @@ namespace Engine
                 {
                     double x_diff = dot.X - previous_dot.X;
                     double y_diff = dot.Y - previous_dot.Y;
-                    length += Math.Sqrt(x_diff * x_diff + y_diff * y_diff);
+                    length += Sqrt(x_diff * x_diff + y_diff * y_diff);
                 }
                 previous_dot = dot;
             }
@@ -3946,13 +3948,13 @@ namespace Engine
             double b = 4 * (ax * bx + ay * by);
             double c = bx * bx + by * by;
 
-            double abc = 2 * Math.Sqrt(a + b + c);
-            double a2 = Math.Sqrt(a);
+            double abc = 2 * Sqrt(a + b + c);
+            double a2 = Sqrt(a);
             double a32 = 2 * a * a2;
-            double c2 = 2 * Math.Sqrt(c);
+            double c2 = 2 * Sqrt(c);
             double ba = b / a2;
 
-            return (a32 * abc + a2 * b * (abc - c2) + (4 * c * a - b * b) * Math.Log((2 * a2 + ba + abc) / (ba + c2))) / (4 * a32);
+            return (a32 * abc + a2 * b * (abc - c2) + (4 * c * a - b * b) * Log((2 * a2 + ba + abc) / (ba + c2))) / (4 * a32);
         }
 
         /// <summary>
@@ -3985,7 +3987,7 @@ namespace Engine
                 p = InterpolateQuadraticBezier(pointA, pointB, pointC, t);
                 double deltaX = p.X - prevX;
                 double deltaY = p.Y - prevY;
-                length += Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+                length += Sqrt(deltaX * deltaX + deltaY * deltaY);
 
                 prevX = p.X;
                 prevY = p.Y;
@@ -4052,7 +4054,7 @@ namespace Engine
                 yPrime = coeff1Y + 2.0 * coeff2Y * theta;
 
                 // Integrand for Gauss-Legendre numerical integration.
-                integrand = Math.Sqrt(xPrime * xPrime + yPrime * yPrime);
+                integrand = Sqrt(xPrime * xPrime + yPrime * yPrime);
 
                 sum += integrand * Maths.weight[startl + index];
             }
@@ -4078,7 +4080,7 @@ namespace Engine
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         static double CosineInterpolate(double y1, double y2, double t)
         {
-            double mu2 = (1 - Math.Cos(t * Math.PI)) / 2;
+            double mu2 = (1 - Cos(t * PI)) / 2;
             return (y1 * (1 - mu2) + y2 * mu2);
         }
 
@@ -4229,7 +4231,7 @@ namespace Engine
             // Return the absolute value of the signed area.
             // The signed area is negative if the polygon is
             // oriented clockwise.
-            return Math.Abs(polygon.SignedPolygonArea());
+            return Abs(polygon.SignedPolygonArea());
         }
 
         /// <summary>
@@ -4498,7 +4500,7 @@ namespace Engine
             int i, j, polyI;
 
             end.X -= start.X;
-            end.Y -= start.Y; dist = Math.Sqrt(end.X * end.X + end.Y * end.Y);
+            end.Y -= start.Y; dist = Sqrt(end.X * end.X + end.Y * end.Y);
             theCos = end.X / dist;
             theSin = end.Y / dist;
 
@@ -4989,10 +4991,10 @@ namespace Engine
             for (int i = 1; i < polygon.Points.Count; i++)
             {
                 Point2D q = polygon.Points[i];
-                minX = Math.Min(q.X, minX);
-                maxX = Math.Max(q.X, maxX);
-                minY = Math.Min(q.Y, minY);
-                maxY = Math.Max(q.Y, maxY);
+                minX = Min(q.X, minX);
+                maxX = Max(q.X, maxX);
+                minY = Min(q.Y, minY);
+                maxY = Max(q.Y, maxY);
             }
 
             if (point.X < minX || point.X > maxX || point.Y < minY || point.Y > maxY)
@@ -5044,7 +5046,7 @@ namespace Engine
             // The total angle should be 2 * PI or -2 * PI if
             // the point is in the polygon and close to zero
             // if the point is outside the polygon.
-            return (Math.Abs(total_angle) > 0.000001);
+            return (Abs(total_angle) > 0.000001);
         }
 
         #endregion
@@ -5343,8 +5345,8 @@ namespace Engine
         /// <returns></returns>
         public static Rectangle2D RotatedRectangleBounds(this Rectangle2D rectangle, Point2D fulcrum, double angle)
         {
-            double cosAngle = Math.Abs(Math.Cos(angle));
-            double sinAngle = Math.Abs(Math.Sin(angle));
+            double cosAngle = Abs(Cos(angle));
+            double sinAngle = Abs(Sin(angle));
 
             Size2D size = new Size2D(
                 (cosAngle * rectangle.Width) + (sinAngle * rectangle.Height),
@@ -5370,8 +5372,8 @@ namespace Engine
         {
             List<Point2D> points = new List<Point2D>();
 
-            Point2D xaxis = new Point2D(Math.Cos(angle), Math.Sin(angle));
-            Point2D yaxis = new Point2D(-Math.Sin(angle), Math.Cos(angle));
+            Point2D xaxis = new Point2D(Cos(angle), Sin(angle));
+            Point2D yaxis = new Point2D(-Sin(angle), Cos(angle));
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(
@@ -5402,8 +5404,8 @@ namespace Engine
         /// <returns></returns>
         public static Size2D fitRect(Size2D size, double radians)
         {
-            double angleCos = Math.Cos(radians);
-            double angleSin = Math.Sin(radians);
+            double angleCos = Cos(radians);
+            double angleSin = Sin(radians);
 
             double x1 = -size.Width * 0.5f;
             double x2 = size.Width * 0.5f;
@@ -5427,11 +5429,11 @@ namespace Engine
             double x41 = (x4 * angleCos) + (y4 * angleSin);
             double y41 = (-x4 * angleSin) + (y4 * angleCos);
 
-            double x_min = Math.Min(Math.Min(x11, x21), Math.Min(x31, x41));
-            double x_max = Math.Max(Math.Max(x11, x21), Math.Max(x31, x41));
+            double x_min = Min(Min(x11, x21), Min(x31, x41));
+            double x_max = Max(Max(x11, x21), Max(x31, x41));
 
-            double y_min = Math.Min(Math.Min(y11, y21), Math.Min(y31, y41));
-            double y_max = Math.Max(Math.Max(y11, y21), Math.Max(y31, y41));
+            double y_min = Min(Min(y11, y21), Min(y31, y41));
+            double y_max = Max(Max(y11, y21), Max(y31, y41));
 
             return new Size2D((x_max - x_min), (y_max - y_min));
         }
@@ -5460,7 +5462,7 @@ namespace Engine
         /// <returns></returns>
         public static double GetAngle(this Point2D pt)
         {
-            return Math.Atan2(pt.X, -pt.Y) * 180 / Math.PI;
+            return Atan2(pt.X, -pt.Y) * 180 / PI;
         }
 
         /// <summary>
@@ -5471,10 +5473,10 @@ namespace Engine
         /// <returns></returns>
         public static Point2D SetAngle(this Point2D pt, double angle)
         {
-            var rads = angle * (Math.PI / 180);
-            var dist = Math.Sqrt(pt.X * pt.X + pt.Y * pt.Y);
-            pt.X = Math.Sin(rads) * dist;
-            pt.Y = -(Math.Cos(rads) * dist);
+            var rads = angle * (PI / 180);
+            var dist = Sqrt(pt.X * pt.X + pt.Y * pt.Y);
+            pt.X = Sin(rads) * dist;
+            pt.Y = -(Cos(rads) * dist);
             return pt;
         }
 
@@ -5511,6 +5513,34 @@ namespace Engine
             double Radius = Center.Length(PointA);
             Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
             return Bounds;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public static double Perimeter0(List<Point2D> points)
+        {
+            var last = points[0];
+            double dist = 0;
+            foreach (var cur in points.Skip(1))
+            {
+                dist += Maths.Distance(last.X, last.Y, cur.X, cur.Y);
+                last = cur;
+            }
+            return dist;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/2227828/find-the-distance-required-to-navigate-a-list-of-points-using-linq</remarks>
+        public static double Perimeter1(List<Point2D> points)
+        {
+            return points.Zip(points.Skip(1), Maths.Distance).Sum();
         }
 
         #endregion

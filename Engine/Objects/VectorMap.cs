@@ -1,7 +1,17 @@
-﻿using Engine.Geometry;
+﻿// <copyright file="VectorMap.cs" >
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using Engine.Geometry;
 using Engine.Imaging;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine.Objects
 {
@@ -11,10 +21,16 @@ namespace Engine.Objects
     public class VectorMap
         : ICollection<GraphicItem>
     {
+        #region Private Fields
+
         /// <summary>
         /// 
         /// </summary>
         private List<GraphicItem> shapes;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -31,6 +47,46 @@ namespace Engine.Objects
         {
             this.shapes = shapes;
         }
+
+        #endregion
+
+        #region Indexers
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="area"></param>
+        /// <returns></returns>
+        public List<GraphicItem> this[Rectangle2D area]
+        {
+            get
+            {
+                return new List<GraphicItem>(
+                    from shape in Shapes
+                    where shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area)
+                    select shape);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public List<GraphicItem> this[Point2D point]
+        {
+            get
+            {
+                return new List<GraphicItem>(
+                    from shape in Shapes
+                    where shape.Bounds.Contains(point) && shape.HitTest(point)
+                    select shape);
+            }
+        }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -57,52 +113,7 @@ namespace Engine.Objects
             get { return false; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="area"></param>
-        /// <returns></returns>
-        public List<GraphicItem> this[Rectangle2D area]
-        {
-            get
-            {
-                List<GraphicItem> list = new List<GraphicItem>();
-                foreach (GraphicItem shape in Shapes)
-                {
-                    if (shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area))
-                    {
-                        list.Add(shape);
-                    }
-                }
-
-                return list;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public List<GraphicItem> this[Point2D point]
-        {
-            get
-            {
-                List<GraphicItem> list = new List<GraphicItem>();
-                foreach (GraphicItem shape in Shapes)
-                {
-                    if (shape.Bounds.Contains(point))
-                    {
-                        if (shape.HitTest(point))
-                        {
-                            list.Add(shape);
-                        }
-                    }
-                }
-
-                return list;
-            }
-        }
+        #endregion
 
         /// <summary>
         /// 

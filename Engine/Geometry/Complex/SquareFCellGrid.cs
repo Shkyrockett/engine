@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -106,7 +107,7 @@ namespace Engine.Geometry
         /// </summary>
         public new Rectangle2D Bounds
         {
-            get            {                return bounds;            }
+            get { return bounds; }
             set
             {
                 bounds = value;
@@ -119,7 +120,7 @@ namespace Engine.Geometry
         /// </summary>
         public int Count
         {
-            get            {                return count;            }
+            get { return count; }
             set
             {
                 count = value;
@@ -167,11 +168,11 @@ namespace Engine.Geometry
             if (count > 0)
             {
                 // Find the best fitting square grid for the number of colors.
-                columns = (int)Math.Ceiling(Math.Sqrt(count));
+                columns = (int)Ceiling(Sqrt(count));
                 rows = columns;
 
                 // Calculate the optimum cell size for the grid.
-                double cellScale = Math.Min(bounds.Width / columns, bounds.Height / rows);
+                double cellScale = Min(bounds.Width / columns, bounds.Height / rows);
 
                 // Set the size of the cell.
                 cellSize = new Size2D(cellScale, cellScale);
@@ -199,7 +200,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "SquareFCellGrid{Bounds{" + bounds.ToString() + "}, Count "+ count.ToString() + "}";
+            return "SquareFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
         }
     }
 }

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -24,7 +25,7 @@ namespace Engine.Geometry
     /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Bicorn")]
+    [DisplayName(nameof(Bicorn))]
     public class Bicorn
         : Shape, IClosedShape
     {
@@ -44,17 +45,11 @@ namespace Engine.Geometry
         private double precision;
 
         /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        private List<Point2D> points;
-
-        /// <summary>
         /// 
         /// </summary>
         public Bicorn()
             : this(new Point2D(), new Size2D())
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -64,7 +59,6 @@ namespace Engine.Geometry
             this.offset = offset;
             multiplyer = multiplyter;
             precision = 0.1;
-            points = InterpolatePoints(precision);
         }
 
         /// <summary>
@@ -76,11 +70,7 @@ namespace Engine.Geometry
         public Point2D Offset
         {
             get { return offset; }
-            set
-            {
-                offset = value;
-                points = InterpolatePoints(precision);
-            }
+            set { offset = value; }
         }
 
         /// <summary>
@@ -89,11 +79,7 @@ namespace Engine.Geometry
         public Size2D Multiplyer
         {
             get { return multiplyer; }
-            set
-            {
-                multiplyer = value;
-                points = InterpolatePoints(precision);
-            }
+            set { multiplyer = value; }
         }
 
         /// <summary>
@@ -102,11 +88,7 @@ namespace Engine.Geometry
         public double Precision
         {
             get { return precision; }
-            set
-            {
-                precision = value;
-                points = InterpolatePoints(precision);
-            }
+            set { precision = value; }
         }
 
         /// <summary>
@@ -132,11 +114,11 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return new Point2D(
-                    offset.X + ((2 * Math.Sin(index)) * multiplyer.Width),
-                    offset.Y + (((Math.Cos(index) * (2 * ((2 + Math.Cos(index)) / (3 + (Math.Sin(index) * 2))))) * -1) * multiplyer.Height)
+                    offset.X + ((2 * Sin(index)) * multiplyer.Width),
+                    offset.Y + (((Cos(index) * (2 * ((2 + Cos(index)) / (3 + (Sin(index) * 2))))) * -1) * multiplyer.Height)
                     );
         }
 
@@ -145,10 +127,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints(double precision)
+        public override List<Point2D> InterpolatePoints(int precision)
         {
             List<Point2D> points = new List<Point2D>();
-            for (double Index = (Math.PI * -1); (Index <= Math.PI); Index = (Index + precision))
+            for (double Index = (PI * -1); (Index <= PI); Index = (Index + (1d / precision)))
             {
                 points.Add(Interpolate(Index));
             }

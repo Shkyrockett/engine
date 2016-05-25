@@ -52,11 +52,12 @@ namespace Engine.Geometry
         {
             if (points.Count > 3) throw new IndexOutOfRangeException();
             if (points.Count < 3) throw new IndexOutOfRangeException();
-            base.Points = points;
+            Points = points;
         }
         #endregion
 
         #region Properties
+
         /// <summary>
         /// 
         /// </summary>
@@ -67,8 +68,8 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public Point2D A
         {
-            get { return base.Points[0]; }
-            set { base.Points[0] = value; }
+            get { return Points[0]; }
+            set { Points[0] = value; }
         }
 
         /// <summary>
@@ -81,8 +82,8 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public Point2D B
         {
-            get { return base.Points[1]; }
-            set { base.Points[1] = value; }
+            get { return Points[1]; }
+            set { Points[1] = value; }
         }
 
         /// <summary>
@@ -95,43 +96,10 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public Point2D C
         {
-            get { return base.Points[2]; }
-            set { base.Points[2] = value; }
+            get { return Points[2]; }
+            set { Points[2] = value; }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public override List<PointF> Points
-        //{
-        //    get { return base.Points; }
-        //    set { base.Points = value; }
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public override RectangleF Bounds
-        //{
-        //    get
-        //    {
-        //        float left = base.Points[0].X;
-        //        float top = base.Points[0].Y;
-        //        float right = base.Points[0].X;
-        //        float bottom = base.Points[0].Y;
-
-        //        foreach (PointF point in base.Points)
-        //        {
-        //            // ToDo: Measure performance impact of overwriting each time.
-        //            left = point.X <= left ? point.X : left;
-        //            top = point.Y <= top ? point.Y : top;
-        //            right = point.X >= right ? point.X : right;
-        //            bottom = point.Y >= bottom ? point.Y : bottom;
-        //        }
-
-        //        return RectangleF.FromLTRB(left, top, right, bottom);
-        //    }
-        //}
         #endregion
 
         #region Methods
@@ -144,7 +112,7 @@ namespace Engine.Geometry
         {
             if (this == null) return nameof(Triangle);
             StringBuilder pts = new StringBuilder();
-            foreach (Point2D pt in base.Points)
+            foreach (Point2D pt in Points)
             {
                 pts.Append(pt.ToString());
                 pts.Append(",");
@@ -152,6 +120,7 @@ namespace Engine.Geometry
             if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
             return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(Triangle), pts.ToString());
         }
+
         #endregion
     }
 }

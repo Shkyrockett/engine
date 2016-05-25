@@ -10,9 +10,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -25,10 +26,16 @@ namespace Engine.Geometry
     public class Polygon
         : Shape, IClosedShape
     {
+        #region Private Fields
+
         /// <summary>
         /// 
         /// </summary>
         private List<Point2D> points;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -67,6 +74,10 @@ namespace Engine.Geometry
             }
         }
 
+        #endregion
+
+        #region Indexers
+
         /// <summary>
         /// 
         /// </summary>
@@ -80,6 +91,10 @@ namespace Engine.Geometry
             get { return points[index]; }
             set { points[index] = value; }
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -95,7 +110,22 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [XmlIgnore]
+        public override double Perimeter
+        {
+            get
+            {
+                return points.Count > 0 ? points.Zip(points.Skip(1), Maths.Distance).Sum() + Maths.Distance(points[0], points[points.Count - 1]) : 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
@@ -117,6 +147,8 @@ namespace Engine.Geometry
                 return Rectangle2D.FromLTRB(left, top, right, bottom);
             }
         }
+
+        #endregion
 
         /// <summary>
         /// 

@@ -10,9 +10,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Engine.Geometry
 {
@@ -21,14 +22,20 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Polyline")]
+    [DisplayName(nameof(Polyline))]
     public class Polyline
-        : Polygon, IOpenShape
+        : Shape, IOpenShape
     {
+        #region Private Fields
+
         /// <summary>
         /// 
         /// </summary>
         private List<Point2D> points;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -59,6 +66,10 @@ namespace Engine.Geometry
             }
         }
 
+        #endregion
+
+        #region Indexers
+
         /// <summary>
         /// 
         /// </summary>
@@ -67,19 +78,38 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        public new Point2D this[int index]
+        public Point2D this[int index]
         {
             get { return points[index]; }
             set { points[index] = value; }
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// 
         /// </summary>
-        public new List<Point2D> Points
+        [XmlAttribute]
+        public List<Point2D> Points
         {
             get { return points; }
             set { points = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [XmlIgnore]
+        public override double Perimeter
+        {
+            get
+            {
+                return points.Zip(points.Skip(1), Maths.Distance).Sum();
+            }
         }
 
         /// <summary>
@@ -110,11 +140,13 @@ namespace Engine.Geometry
             }
         }
 
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="point"></param>
-        public new void Add(Point2D point)
+        public void Add(Point2D point)
         {
             Points.Add(point);
         }
@@ -122,7 +154,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public new void Reverse()
+        public void Reverse()
         {
             Points.Reverse();
         }
@@ -131,7 +163,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public new Polyline Clone()
+        public Polyline Clone()
         {
             return new Polyline(Points.ToArray());
         }
@@ -141,7 +173,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public new Polyline Offset(double offset)
+        public Polyline Offset(double offset)
         {
             Polyline polyline = new Polyline();
 

@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -2128,8 +2129,8 @@ namespace Engine.Geometry
             double deltaX = point.X - axis.X;
             double deltaY = point.Y - axis.Y;
 
-            double angleCos = Math.Cos(angle);
-            double angleSin = Math.Sin(angle);
+            double angleCos = Cos(angle);
+            double angleSin = Sin(angle);
 
             return new Point(
                 (int)(axis.X + (deltaX * angleCos - deltaY * angleSin)),
@@ -2149,8 +2150,8 @@ namespace Engine.Geometry
             double deltaX = point.X - axis.X;
             double deltaY = point.Y - axis.Y;
 
-            double angleCos = Math.Cos(angle);
-            double angleSin = Math.Sin(angle);
+            double angleCos = Cos(angle);
+            double angleSin = Sin(angle);
 
             return new PointF(
                 (float)(axis.X + (deltaX * angleCos - deltaY * angleSin)),
@@ -2832,7 +2833,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Point Unit(this Point value)
         {
-            return value.Scale((float)(1 / Math.Sqrt((value.X * value.X) + (value.Y * value.Y))));
+            return value.Scale((float)(1 / Sqrt((value.X * value.X) + (value.Y * value.Y))));
         }
 
         /// <summary>
@@ -2843,7 +2844,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static PointF Unit(this PointF value)
         {
-            return value.Scale((float)(1 / Math.Sqrt((value.X * value.X) + (value.Y * value.Y))));
+            return value.Scale((float)(1 / Sqrt((value.X * value.X) + (value.Y * value.Y))));
         }
 
         /// <summary>
@@ -2854,7 +2855,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Size Unit(this Size value)
         {
-            return value.Inflate((float)(1 / Math.Sqrt((value.Width * value.Width) + (value.Height * value.Height))));
+            return value.Inflate((float)(1 / Sqrt((value.Width * value.Width) + (value.Height * value.Height))));
         }
 
         /// <summary>
@@ -2865,7 +2866,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static SizeF Unit(this SizeF value)
         {
-            return value.Inflate((float)(1 / Math.Sqrt((value.Width * value.Width) + (value.Height * value.Height))));
+            return value.Inflate((float)(1 / Sqrt((value.Width * value.Width) + (value.Height * value.Height))));
         }
 
         /// <summary>
@@ -2876,7 +2877,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector2D Unit(this Vector2D value)
         {
-            return value.Scale(1 / Math.Sqrt(((value.I * value.I) + (value.J * value.J))));
+            return value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
         }
 
         #endregion

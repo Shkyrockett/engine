@@ -1,7 +1,7 @@
-#Speed testing Distance Methods
+﻿#Speed testing Distance Methods
 
-The distance formula is based on the Pythagorean theorem `c^2 = a^2 + b^2` where `c` is the length of the hypotenuse. 
-Thus `c = square root(a^2 + b^2)`.
+The distance formula is based on the Pythagorean theorem c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> where c is the length of the hypotenuse. 
+Thus c = √(a<sup>2</sup> + b<sup>2</sup>).
 
 ## Results
 

@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -21,7 +22,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Ellipse")]
+    [DisplayName(nameof(Ellipse))]
     public class Ellipse
         : Shape
     {
@@ -54,11 +55,6 @@ namespace Engine.Geometry
         private double angle;
 
         /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        internal List<Point2D> Points;
-
-        /// <summary>
         /// 
         /// </summary>
         public Ellipse()
@@ -86,9 +82,8 @@ namespace Engine.Geometry
             center = new Point2D(NewX, NewY);
             //  Find the Radius
             a = (center.Length(pointA));
-            this.Aspect = aspect;
+            Aspect = aspect;
             this.angle = angle;
-            Points = InterpolatePoints();
         }
 
         /// <summary>
@@ -105,7 +100,6 @@ namespace Engine.Geometry
             this.a = a;
             this.b = b;
             this.angle = angle;
-            Points = InterpolatePoints();
         }
 
         /// <summary>
@@ -122,11 +116,7 @@ namespace Engine.Geometry
         public Point2D Center
         {
             get { return center; }
-            set
-            {
-                center = value;
-                Points = InterpolatePoints();
-            }
+            set { center = value; }
         }
 
         /// <summary>
@@ -140,11 +130,7 @@ namespace Engine.Geometry
         public double A
         {
             get { return a; }
-            set
-            {
-                a = value;
-                Points = InterpolatePoints();
-            }
+            set { a = value; }
         }
 
         /// <summary>
@@ -158,11 +144,7 @@ namespace Engine.Geometry
         public double B
         {
             get { return b; }
-            set
-            {
-                b = value;
-                Points = InterpolatePoints();
-            }
+            set { b = value; }
         }
 
         /// <summary>
@@ -204,7 +186,6 @@ namespace Engine.Geometry
             {
                 b = a * value;
                 a = b / value;
-                Points = InterpolatePoints();
             }
         }
 
@@ -218,11 +199,7 @@ namespace Engine.Geometry
         public double Angle
         {
             get { return angle; }
-            set
-            {
-                angle = value;
-                Points = InterpolatePoints();
-            }
+            set { angle = value; }
         }
 
         /// <summary>
@@ -234,7 +211,7 @@ namespace Engine.Geometry
         [Description("The focus radius of the ellipse.")]
         public double FocusRadius
         {
-            get { return Math.Sqrt((a * a) - (b * b)); }
+            get { return Sqrt((a * a) - (b * b)); }
         }
 
         /// <summary>
@@ -246,7 +223,7 @@ namespace Engine.Geometry
         [Description("The eccentricity radius of the ellipse.")]
         public double Eccentricity
         {
-            get { return Math.Sqrt(1 - ((a / b) * (a / b))); }
+            get { return Sqrt(1 - ((a / b) * (a / b))); }
         }
 
         /// <summary>
@@ -262,13 +239,13 @@ namespace Engine.Geometry
             get
             {
                 double phi = Maths.ToRadians(angle);
-                double ux = a * Math.Cos(phi);
-                double uy = a * Math.Sin(phi);
-                double vx = (a * Aspect) * Math.Cos(phi + Math.PI / 2);
-                double vy = (a * Aspect) * Math.Sin(phi + Math.PI / 2);
+                double ux = a * Cos(phi);
+                double uy = a * Sin(phi);
+                double vx = (a * Aspect) * Cos(phi + PI / 2);
+                double vy = (a * Aspect) * Sin(phi + PI / 2);
 
-                double bbox_halfwidth = Math.Sqrt(ux * ux + vx * vx);
-                double bbox_halfheight = Math.Sqrt(uy * uy + vy * vy);
+                double bbox_halfwidth = Sqrt(ux * ux + vx * vx);
+                double bbox_halfheight = Sqrt(uy * uy + vy * vy);
 
                 return Rectangle2D.FromLTRB(
                     (center.X - bbox_halfwidth),
@@ -285,7 +262,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Category("Properties")]
         [Description("The distance around the ellipse.")]
-        public double Perimeter
+        public override double Perimeter
         {
             get
             {
@@ -301,7 +278,7 @@ namespace Engine.Geometry
         [Description("The area of the ellipse.")]
         public double Area
         {
-            get { return Math.PI * b * a; }
+            get { return PI * b * a; }
         }
 
         /// <summary>
@@ -317,7 +294,7 @@ namespace Engine.Geometry
                 {
                     center,
                     Interpolate(0),
-                    Interpolate(-Math.PI * 0.5)
+                    Interpolate(-PI * 0.5)
                 };
             }
             set
@@ -352,12 +329,12 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         private void draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
         {
-            Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
-            Point2D yaxis = new Point2D(-Math.Sin(theta), Math.Cos(theta));
+            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
+            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
             Point2D ellipse_point;
 
             // Ellipse equation for an ellipse at origin.
-            ellipse_point = new Point2D(ellipse.Width * Math.Cos(phi), ellipse.Height * Math.Sin(phi));
+            ellipse_point = new Point2D(ellipse.Width * Cos(phi), ellipse.Height * Sin(phi));
 
             // Apply the rotation transformation and translate to new center.
             rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
@@ -369,20 +346,22 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double t)
         {
+            double phi = ((2 * PI)) * t;
+
             Rectangle2D unroatatedBounds = UnrotatedBounds();
 
             double theta = Maths.ToRadians(angle);
-            Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
-            Point2D yaxis = new Point2D(-Math.Sin(theta), Math.Cos(theta));
+            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
+            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
 
             // Ellipse equation for an ellipse at origin.
             Point2D ellipsePoint = new Point2D(
-                (unroatatedBounds.Width * Math.Cos(index)),
-                (unroatatedBounds.Height * Math.Sin(index))
+                (unroatatedBounds.Width * Cos(phi)),
+                (unroatatedBounds.Height * Sin(phi))
                 );
 
             // Apply the rotation transformation and translate to new center.
@@ -392,21 +371,21 @@ namespace Engine.Geometry
                 );
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<Point2D> InterpolatePoints()
-        {
-            double delta_phi = (2 * Math.PI / Perimeter);
-            List<Point2D> points = new List<Point2D>();
-            for (double i = 0.0f; i <= (2.0 * Math.PI); i += delta_phi)
-            {
-                points.Add(Interpolate(i));
-            }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //public List<Point2D> InterpolatePoints()
+        //{
+        //    double phi = (2 * PI / Perimeter);
+        //    List<Point2D> points = new List<Point2D>();
+        //    for (double i = 0d; i <= (2d * PI); i += phi)
+        //    {
+        //        points.Add(Interpolate(i));
+        //    }
 
-            return points;
-        }
+        //    return points;
+        //}
 
         /// <summary>
         /// 

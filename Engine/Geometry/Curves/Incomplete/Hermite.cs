@@ -157,7 +157,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return Interpolate1(a, aTan, b, bTan, tension, bias, index);
         }

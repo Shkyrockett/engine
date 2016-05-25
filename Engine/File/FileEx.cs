@@ -1,17 +1,18 @@
 ﻿// <copyright file="FileEx.cs" >
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <author id="shkyrockett">shkyrockett</author>
 // <summary></summary>
+
+using System;
+using System.IO;
+using System.Runtime;
+using System.Runtime.CompilerServices;
+using System.Text;
+using static System.Math;
 
 namespace Engine.File
 {
-    using System;
-    using System.IO;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-
     /// <summary>
     /// Extended File processing class.
     /// </summary>
@@ -41,7 +42,7 @@ namespace Engine.File
         {
             // If the value is 0, return 1 byte. Otherwise calculate the number of bytes. 
             // The number of bytes to use is found by rounding up the 128th log of the value provided plus one. 
-            return value != 0 ? (int)Math.Ceiling(Math.Log(value + 1, VarLenClearBits)) : 1;
+            return value != 0 ? (int)Ceiling(Log(value + 1, VarLenClearBits)) : 1;
         }
 
         /// <summary>

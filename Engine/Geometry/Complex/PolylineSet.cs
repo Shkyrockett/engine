@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -21,17 +22,22 @@ namespace Engine.Geometry
     /// </summary>
     /// <remarks></remarks>
     [Serializable]
-    //[GraphicsObject]
+    [GraphicsObject]
     [DisplayName(nameof(PolylineSet))]
     public class PolylineSet
         : Shape
     {
+        #region Private Fields
+
         /// <summary>
         /// An array of Polygons representing a set.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
         private List<Polyline> polylines;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a default instance of the <see cref="PolylineSet"/> class.
@@ -49,9 +55,14 @@ namespace Engine.Geometry
             this.polylines = polylines;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute()]
         public List<Polyline> Polylines
         {
             get { return polylines; }
@@ -61,6 +72,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [XmlIgnore]
         public int Count
         {
             get { return polylines.Count; }
@@ -71,7 +85,22 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [XmlIgnore]
+        public double Perimeters
+        {
+            get
+            {
+                return polylines.Sum(p => p.Perimeter);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
@@ -86,6 +115,8 @@ namespace Engine.Geometry
                 return bounds;
             }
         }
+
+        #endregion
 
         /// <summary>
         /// 

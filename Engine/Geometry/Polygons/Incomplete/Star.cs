@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -25,7 +26,7 @@ namespace Engine.Geometry
         private void DrawStar(Graphics gr, Pen the_pen, Brush the_brush, int num_points, int skip, Rectangle rect)
         {
             // Get the star's points.
-            PointF[] star_points = MakeStarPoints(-Math.PI / 2, num_points, skip, rect);
+            PointF[] star_points = MakeStarPoints(-PI / 2, num_points, skip, rect);
 
             // Draw the star.
             gr.FillPolygon(the_brush, star_points);
@@ -45,12 +46,12 @@ namespace Engine.Geometry
             {
                 result = new PointF[num_points];
                 theta = start_theta;
-                dtheta = 2 * Math.PI / num_points;
+                dtheta = 2 * PI / num_points;
                 for (int i = 0; i < num_points; i++)
                 {
                     result[i] = new PointF(
-                        (float)(cx + cx * Math.Cos(theta)),
-                        (float)(cy + cy * Math.Sin(theta)));
+                        (float)(cx + cx * Cos(theta)),
+                        (float)(cy + cy * Sin(theta)));
                     theta += dtheta;
                 }
                 return result;
@@ -62,16 +63,16 @@ namespace Engine.Geometry
             // Make the points.
             result = new PointF[2 * num_points];
             theta = start_theta;
-            dtheta = Math.PI / num_points;
+            dtheta = PI / num_points;
             for (int i = 0; i < num_points; i++)
             {
                 result[2 * i] = new PointF(
-                    (float)(cx + cx * Math.Cos(theta)),
-                    (float)(cy + cy * Math.Sin(theta)));
+                    (float)(cx + cx * Cos(theta)),
+                    (float)(cy + cy * Sin(theta)));
                 theta += dtheta;
                 result[2 * i + 1] = new PointF(
-                    (float)(cx + cx * Math.Cos(theta) * concave_radius),
-                    (float)(cy + cy * Math.Sin(theta) * concave_radius));
+                    (float)(cx + cx * Cos(theta) * concave_radius),
+                    (float)(cy + cy * Sin(theta) * concave_radius));
                 theta += dtheta;
             }
             return result;
@@ -84,25 +85,25 @@ namespace Engine.Geometry
             if (num_points < 5) return 0.33f;
 
             // Calculate angles to key points.
-            double dtheta = 2 * Math.PI / num_points;
-            double theta00 = -Math.PI / 2;
+            double dtheta = 2 * PI / num_points;
+            double theta00 = -PI / 2;
             double theta01 = theta00 + dtheta * skip;
             double theta10 = theta00 + dtheta;
             double theta11 = theta10 - dtheta * skip;
 
             // Find the key points.
             PointF pt00 = new PointF(
-                (float)Math.Cos(theta00),
-                (float)Math.Sin(theta00));
+                (float)Cos(theta00),
+                (float)Sin(theta00));
             PointF pt01 = new PointF(
-                (float)Math.Cos(theta01),
-                (float)Math.Sin(theta01));
+                (float)Cos(theta01),
+                (float)Sin(theta01));
             PointF pt10 = new PointF(
-                (float)Math.Cos(theta10),
-                (float)Math.Sin(theta10));
+                (float)Cos(theta10),
+                (float)Sin(theta10));
             PointF pt11 = new PointF(
-                (float)Math.Cos(theta11),
-                (float)Math.Sin(theta11));
+                (float)Cos(theta11),
+                (float)Sin(theta11));
 
             // See where the segments connecting the points intersect.
             bool lines_intersect, segments_intersect;
@@ -113,7 +114,7 @@ namespace Engine.Geometry
 
             // Calculate the distance between the
             // point of intersection and the center.
-            return Math.Sqrt(
+            return Sqrt(
                 intersection.X * intersection.X +
                 intersection.Y * intersection.Y);
         }

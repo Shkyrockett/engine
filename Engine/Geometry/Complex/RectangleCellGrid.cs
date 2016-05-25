@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -173,11 +174,11 @@ namespace Engine.Geometry
             if (count > 0)
             {
                 // Find the best fitting rectangular grid for the number of colors.
-                columns = (int)Math.Ceiling(Math.Sqrt((bounds.Width * count) / bounds.Height));
-                rows = (int)Math.Ceiling((double)count / columns);
+                columns = (int)Ceiling(Sqrt((bounds.Width * count) / bounds.Height));
+                rows = (int)Ceiling((double)count / columns);
 
                 // Calculate the optimum cell size for the grid.
-                int cellScale = Math.Min(bounds.Width / columns, bounds.Height / rows);
+                int cellScale = Min(bounds.Width / columns, bounds.Height / rows);
 
                 // Set the size of the cell.
                 cellSize = new Size(cellScale, cellScale);
@@ -205,7 +206,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return "RectangleCellGrid{Bounds{" + bounds.ToString() + "}, Count "+ count.ToString() + "}";
+            return "RectangleCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
         }
     }
 }

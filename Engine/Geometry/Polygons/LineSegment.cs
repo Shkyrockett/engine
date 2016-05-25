@@ -10,9 +10,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -101,7 +101,7 @@ namespace Engine.Geometry
         /// <param name="Radius">Ending Line Segment Length</param>
         /// <remarks></remarks>
         public LineSegment(Point2D Point, double RadAngle, double Radius)
-            : this(new Point2D(Point.X, Point.Y), new Point2D((Point.X + (Radius * Math.Cos(RadAngle))), (Point.Y + (Radius * Math.Sin(RadAngle)))))
+            : this(new Point2D(Point.X, Point.Y), new Point2D((Point.X + (Radius * Cos(RadAngle))), (Point.Y + (Radius * Sin(RadAngle)))))
         { }
 
         #endregion
@@ -204,7 +204,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return Experimental.LinearInterpolate2(a, b, index);
         }

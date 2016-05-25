@@ -8,8 +8,6 @@
 // <summary></summary>
 
 using Engine.Objects;
-using System;
-using System.Drawing;
 
 namespace Engine.Geometry
 {

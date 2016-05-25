@@ -9,6 +9,7 @@
 
 using System;
 using System.Globalization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -73,7 +74,7 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return Interpolate(a, b, index);
         }
@@ -88,9 +89,9 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Point2D Interpolate(Point2D a, Point2D b, double index)
         {
-            //Single MU2 = (double)((1.0 - Math.Cos(index * 180)) * 0.5);
+            //Single MU2 = (double)((1.0 - Cos(index * 180)) * 0.5);
             //return Y1 * (1.0 - MU2) + Y2 * MU2;
-            double MU2 = (1.0 - Math.Cos(index * 180)) * 0.5;
+            double MU2 = (1.0 - Cos(index * 180)) * 0.5;
             return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
         }
 
@@ -103,7 +104,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Point2D CosineInterpolate(Point2D a, Point2D b, double Index)
         {
-            double MU = ((1 - Math.Cos((Index * 180))) / 2);
+            double MU = ((1 - Cos((Index * 180))) / 2);
             return new Point2D(
                 (a.X * (1 - MU)) + (b.X * MU),
                 (a.Y * (1 - MU)) + (b.Y * MU)

@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -123,8 +124,8 @@ namespace Engine.Geometry
             }
 
             return new RectangleF(left, top,
-                                 Math.Abs(right - left),
-                                 Math.Abs(bottom - top));
+                                 Abs(right - left),
+                                 Abs(bottom - top));
         }
 
         /// <summary>
@@ -172,8 +173,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static RectangleF RotatedOffsetBounds(this RectangleF rectangle, double angle)
         {
-            double cosAngle = Math.Abs(Math.Cos(angle));
-            double sinAngle = Math.Abs(Math.Sin(angle));
+            double cosAngle = Abs(Cos(angle));
+            double sinAngle = Abs(Sin(angle));
 
             return new RectangleF(rectangle.Location, new SizeF(
                 (int)((cosAngle * rectangle.Width) + (sinAngle * rectangle.Height)),

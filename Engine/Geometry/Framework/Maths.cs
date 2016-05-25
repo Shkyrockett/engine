@@ -13,11 +13,29 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using static System.Math;
 
 namespace Engine.Geometry
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
     public delegate double DoubleMethodDelegate(double t);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
     public delegate Point2D Point2DMethodDelegate(double t);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
     public delegate Point3D Point3DMethodDelegate(double t);
 
     /// <summary>
@@ -66,7 +84,7 @@ namespace Engine.Geometry
         /// One Tau or double Pi.
         /// </summary>
         /// <value>≈6.28318...</value>
-        public const double Tau = 2d * Math.PI;
+        public const double Tau = 2d * PI;
 
         /// <summary>
         /// Represents the ratio of the circumference of a circle to its radius, specified
@@ -77,7 +95,7 @@ namespace Engine.Geometry
         public static readonly double Τ = Tau;
 
         /// <summary>
-        /// Math.PI * 2
+        /// PI * 2
         /// </summary>
         /// <remarks></remarks>
         public const double DoublePi = Tau;
@@ -88,7 +106,7 @@ namespace Engine.Geometry
         /// One half Tau or One Pi.
         /// </summary>
         /// <value>≈3.1415926535897931...</value>
-        public const double Pi = Math.PI;
+        public const double Pi = PI;
 
         /// <summary>
         /// 
@@ -98,12 +116,12 @@ namespace Engine.Geometry
         /// <summary>
         /// One half Tau or One Pi.
         /// </summary>
-        public const double HalfTau = Math.PI;
+        public const double HalfTau = PI;
 
         /// <summary>
         /// 
         /// </summary>
-        public const double ThreeQuarterTau = Math.PI * 6d / 4d;
+        public const double ThreeQuarterTau = PI * 6d / 4d;
 
         /// <summary>
         /// 
@@ -113,10 +131,10 @@ namespace Engine.Geometry
         /// <summary>
         /// One quarter Tau or half Pi.
         /// </summary>
-        public const double QuarterTau = 0.5d * Math.PI;
+        public const double QuarterTau = 0.5d * PI;
 
         /// <summary>
-        /// Math.PI / 2
+        /// PI / 2
         /// </summary>
         /// <remarks></remarks>
         public const double HalfPi = QuarterTau;
@@ -124,10 +142,10 @@ namespace Engine.Geometry
         /// <summary>
         /// One eighth Tau or a quarter Pi.
         /// </summary>
-        public const double EighthTau = 0.25d * Math.PI;
+        public const double EighthTau = 0.25d * PI;
 
         /// <summary>
-        /// Math.PI / 4
+        /// PI / 4
         /// </summary>
         /// <remarks></remarks>
         public const double QuarterPi = EighthTau;
@@ -135,10 +153,10 @@ namespace Engine.Geometry
         /// <summary>
         /// One sixteenth Tau or a eighth Pi.
         /// </summary>
-        public const double SixteenthTau = 0.125d * Math.PI;
+        public const double SixteenthTau = 0.125d * PI;
 
         /// <summary>
-        /// Math.PI / 8
+        /// PI / 8
         /// </summary>
         /// <remarks></remarks>
         public const double EighthPi = SixteenthTau;
@@ -147,7 +165,7 @@ namespace Engine.Geometry
         /// Represents the golden ratio as specified by the constant, φ.
         /// </summary>
         /// <value>≈1.61803...</value>
-        public static readonly double Phi = (1d + Math.Sqrt(5)) / 2d; //1.61803398874989484820458683436;
+        public static readonly double Phi = (1d + Sqrt(5)) / 2d; //1.61803398874989484820458683436;
 
         /// <summary>
         /// 
@@ -168,7 +186,7 @@ namespace Engine.Geometry
         ///  Represents the plastic constant as specified by the constant, ρ.
         /// </summary>
         /// <value>≈1.32471...</value>
-        public static readonly double Rho = Root(0.5 + (1.00 / 6.00 * Math.Sqrt(23.00 / 3.00)), 3.00) + Root(0.50 - (1.00 / 6.00 * Math.Sqrt(23.00 / 3.00)), 3.00);
+        public static readonly double Rho = Root(0.5 + (1.00 / 6.00 * Sqrt(23.00 / 3.00)), 3.00) + Root(0.50 - (1.00 / 6.00 * Sqrt(23.00 / 3.00)), 3.00);
 
         /// <summary>
         /// 
@@ -178,10 +196,10 @@ namespace Engine.Geometry
         /// <summary>
         /// One Radian.
         /// </summary>
-        public const double Radien = Math.PI / 180d;
+        public const double Radien = PI / 180d;
 
         /// <summary>
-        /// Math.PI / 180
+        /// PI / 180
         /// </summary>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for Accuracy</optimisation>
@@ -190,37 +208,31 @@ namespace Engine.Geometry
         /// <summary>
         /// One degree.
         /// </summary>
-        public const double Degree = 180d / Math.PI;
+        public const double Degree = 180d / PI;
 
         /// <summary>
-        /// 180 / Math.PI
+        /// 180 / PI
         /// </summary>
         /// <remarks></remarks>
         public const double OneEightythPi = Degree;
 
         /// <summary>
-        /// Represents the natural logarithmic base, specified by the constant e. 
-        /// </summary>
-        /// <value>3.1415926535897931</value>
-        public const double E = Math.E;
-
-        /// <summary>
         /// Represents the constant value of the square root of 2.
         /// </summary>
         /// <value>≈1.41421...</value>
-        public static readonly double Sqrt2 = Math.Sqrt(2);
+        public static readonly double Sqrt2 = Sqrt(2);
 
         /// <summary>
         /// Represents the constant value of the square root of 3.
         /// </summary>
         /// <value>≈1.73205...</value>
-        public static readonly double Sqrt3 = Math.Sqrt(3);
+        public static readonly double Sqrt3 = Sqrt(3);
 
         /// <summary>
         /// Represents the constant value of the square root of 5.
         /// </summary>
         /// <value>≈2.23606...</value>
-        public static readonly double Sqrt5 = Math.Sqrt(5);
+        public static readonly double Sqrt5 = Sqrt(5);
 
         /// <summary>
         /// The natural log of e.
@@ -426,7 +438,7 @@ namespace Engine.Geometry
         public static double Angle(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => (x1 == x2 && y1 == y2 && z1 == z2) ? 0 : Math.Acos(Math.Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
+            => (x1 == x2 && y1 == y2 && z1 == z2) ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
 
         /// <summary>
         /// 
@@ -465,8 +477,8 @@ namespace Engine.Geometry
             double x2, double y2)
         {
             // Find the angle of point a and point b. 
-            double test = -Maths.Angle(x1, y1, x2, y2) % Math.PI;
-            return test < 0 ? test += Math.PI : test;
+            double test = -Maths.Angle(x1, y1, x2, y2) % PI;
+            return test < 0 ? test += PI : test;
         }
 
         /// <summary>
@@ -482,7 +494,7 @@ namespace Engine.Geometry
         public static double AngleBetween(
             double uX, double uY,
             double vX, double vY)
-            => Math.Acos((uX * vX + uY * vY) / Math.Sqrt((uX * uX + uY * uY) * (vX * vX + vY * vY)));
+            => Acos((uX * vX + uY * vY) / Sqrt((uX * uX + uY * uY) * (vX * vX + vY * vY)));
 
         /// <summary>
         /// Finds the angle between two vectors.
@@ -499,7 +511,7 @@ namespace Engine.Geometry
         public static double AngleBetween(
             double uX, double uY, double uZ,
             double vX, double vY, double vZ)
-            => Math.Acos((uX * vX + uY * vY + uZ * vZ) / Math.Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
+            => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
 
         /// <summary>
         /// Cross Product of two points.
@@ -679,7 +691,29 @@ namespace Engine.Geometry
         public static double Distance(
             double x1, double y1,
             double x2, double y2)
-            => Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+            => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="p1">First point.</param>
+        /// <param name="p2">Second point.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(Point2D p1, Point2D p2)
+            => Distance(p1.X, p1.Y, p2.X, p2.Y);
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="p1">First point.</param>
+        /// <param name="p2">Second point.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(Tuple<double,double> p1, Tuple<double, double> p2)
+            => Distance(p1.Item1, p1.Item2, p2.Item1, p2.Item2);
 
         /// <summary>
         /// Distance between two points.
@@ -696,7 +730,7 @@ namespace Engine.Geometry
         public static double Distance(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+            => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
 
         /// <summary>
         /// The square of the distance between two points.
@@ -706,6 +740,7 @@ namespace Engine.Geometry
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(
             double x1, double y1,
@@ -802,7 +837,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j)
-            => Math.Sqrt((i * i) + (j * j));
+            => Sqrt((i * i) + (j * j));
 
         /// <summary>
         /// Magnitude of a three dimensional Vector.
@@ -815,7 +850,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j, double k)
-            => Math.Sqrt((i * i) + (j * j) + (k * k));
+            => Sqrt((i * i) + (j * j) + (k * k));
 
         /// <summary>
         /// Modulus of a Vector.
@@ -875,8 +910,8 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Normalize(double i, double j)
             => new Tuple<double, double>(
-                i / Math.Sqrt((i * i) + (j * j)),
-                j / Math.Sqrt((i * i) + (j * j))
+                i / Sqrt((i * i) + (j * j)),
+                j / Sqrt((i * i) + (j * j))
                 );
 
         /// <summary>
@@ -890,9 +925,9 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Normalize(double i, double j, double k)
             => new Tuple<double, double, double>(
-                i / Math.Sqrt((i * i) + (j * j) + (k * k)),
-                j / Math.Sqrt((i * i) + (j * j) + (k * k)),
-                k / Math.Sqrt((i * i) + (j * j) + (k * k))
+                i / Sqrt((i * i) + (j * j) + (k * k)),
+                j / Sqrt((i * i) + (j * j) + (k * k)),
+                k / Sqrt((i * i) + (j * j) + (k * k))
                 );
 
         /// <summary>
@@ -909,8 +944,8 @@ namespace Engine.Geometry
             double x1, double y1,
             double x2, double y2)
             => new Tuple<double, double>(
-                x1 / Math.Sqrt(((x1 * x2) + (y1 * y2))),
-                y1 / Math.Sqrt(((x1 * x2) + (y1 * y2)))
+                x1 / Sqrt(((x1 * x2) + (y1 * y2))),
+                y1 / Sqrt(((x1 * x2) + (y1 * y2)))
                 );
 
         /// <summary>
@@ -929,9 +964,9 @@ namespace Engine.Geometry
             double x1, double y1, double z1,
             double x2, double y2, double z2)
             => new Tuple<double, double, double>(
-                x1 / Math.Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
-                y1 / Math.Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
-                z1 / Math.Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2))
+                x1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
+                y1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
+                z1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2))
                 );
 
         /// <summary>
@@ -1361,7 +1396,7 @@ namespace Engine.Geometry
             double i2, double j2, double k2)
         {
             // if v2 has a right angle to vector, return -vector and stop
-            if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - Math.PI / 2) < double.Epsilon)
+            if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - PI / 2) < double.Epsilon)
             {
                 return new Tuple<double, double, double>(-i1, -j1, -k1);
             }
@@ -1387,8 +1422,8 @@ namespace Engine.Geometry
         public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double rad)
             => new Tuple<double, double, double>(
                 x1,
-                (y1 * Math.Cos(rad)) - (z1 * Math.Sin(rad)),
-                (y1 * Math.Sin(rad)) + (z1 * Math.Cos(rad))
+                (y1 * Cos(rad)) - (z1 * Sin(rad)),
+                (y1 * Sin(rad)) + (z1 * Cos(rad))
                 );
 
         /// <summary>
@@ -1416,9 +1451,9 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double rad)
             => new Tuple<double, double, double>(
-                (z1 * Math.Sin(rad)) + (x1 * Math.Cos(rad)),
+                (z1 * Sin(rad)) + (x1 * Cos(rad)),
                 y1,
-                (z1 * Math.Cos(rad)) - (x1 * Math.Sin(rad))
+                (z1 * Cos(rad)) - (x1 * Sin(rad))
                 );
 
         /// <summary>
@@ -1446,8 +1481,8 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double rad)
             => new Tuple<double, double, double>(
-                (x1 * Math.Cos(rad)) - (y1 * Math.Sin(rad)),
-                (x1 * Math.Sin(rad)) + (y1 * Math.Cos(rad)),
+                (x1 * Cos(rad)) - (y1 * Sin(rad)),
+                (x1 * Sin(rad)) + (y1 * Cos(rad)),
                 z1
                 );
 
@@ -1479,8 +1514,8 @@ namespace Engine.Geometry
         public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
             => new Tuple<double, double, double>(
                 x1,
-                (y1 * Math.Cos(rad)) - (z1 * Math.Sin(rad)) + (yOff * (1 - Math.Cos(rad)) + zOff * Math.Sin(rad)),
-                (y1 * Math.Sin(rad)) + (z1 * Math.Cos(rad)) + (zOff * (1 - Math.Cos(rad)) - yOff * Math.Sin(rad))
+                (y1 * Cos(rad)) - (z1 * Sin(rad)) + (yOff * (1 - Cos(rad)) + zOff * Sin(rad)),
+                (y1 * Sin(rad)) + (z1 * Cos(rad)) + (zOff * (1 - Cos(rad)) - yOff * Sin(rad))
                 );
 
         /// <summary>
@@ -1497,9 +1532,9 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
             => new Tuple<double, double, double>(
-                (z1 * Math.Sin(rad)) + (x1 * Math.Cos(rad)) + (xOff * (1 - Math.Cos(rad)) - zOff * Math.Sin(rad)),
+                (z1 * Sin(rad)) + (x1 * Cos(rad)) + (xOff * (1 - Cos(rad)) - zOff * Sin(rad)),
                 y1,
-                (z1 * Math.Cos(rad)) - (x1 * Math.Sin(rad)) + (zOff * (1 - Math.Cos(rad)) + xOff * Math.Sin(rad))
+                (z1 * Cos(rad)) - (x1 * Sin(rad)) + (zOff * (1 - Cos(rad)) + xOff * Sin(rad))
                 );
 
         /// <summary>
@@ -1516,8 +1551,8 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
             => new Tuple<double, double, double>(
-                (x1 * Math.Cos(rad)) - (y1 * Math.Sin(rad)) + (xOff * (1 - Math.Cos(rad)) + yOff * Math.Sin(rad)),
-                (x1 * Math.Sin(rad)) + (y1 * Math.Cos(rad)) + (yOff * (1 - Math.Cos(rad)) - xOff * Math.Sin(rad)),
+                (x1 * Cos(rad)) - (y1 * Sin(rad)) + (xOff * (1 - Cos(rad)) + yOff * Sin(rad)),
+                (x1 * Sin(rad)) + (y1 * Cos(rad)) + (yOff * (1 - Cos(rad)) - xOff * Sin(rad)),
                 z1
                 );
 
@@ -1680,7 +1715,7 @@ namespace Engine.Geometry
         /// <returns>The y root of the number x.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
-            => (x < 0 && y % 2 == 1) ? -Math.Pow(-x, (1d / y)) : Math.Pow(x, (1d / y));
+            => (x < 0 && y % 2 == 1) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
 
         /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
@@ -1692,7 +1727,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
-            => value < 0 ? -Math.Pow(-value, 1d / 3d) : Math.Pow(value, 1d / 3d);
+            => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
 
         /// <summary>
         /// Angle with tangent opp/hyp
@@ -1715,9 +1750,9 @@ namespace Engine.Geometry
         public static double _Atan2(double opposite, double adjacent)
         {
             if (((opposite == 0) && (adjacent == 0))) return 0;
-            double Value = Math.Asin(opposite / Math.Sqrt(opposite * opposite + adjacent * adjacent));
-            if ((adjacent < 0)) Value = (Math.PI - Value);
-            if ((Value < 0)) Value = (Value + (2 * Math.PI));
+            double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
+            if ((adjacent < 0)) Value = (PI - Value);
+            if ((Value < 0)) Value = (Value + (2 * PI));
             return Value;
         }
 
@@ -1729,7 +1764,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => ((value % Pi != HalfPi) && (value % Pi != -HalfPi)) ? (1 / Math.Cos(value)) : 0;
+            => ((value % Pi != HalfPi) && (value % Pi != -HalfPi)) ? (1 / Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -1739,7 +1774,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Math.Sin(Value)) : 0;
+            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Sin(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -1749,7 +1784,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Math.Tan(Value)) : 0;
+            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Tan(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -1767,7 +1802,7 @@ namespace Engine.Geometry
             {
                 if ((Math.Abs(value) < 1))
                 {
-                    return Math.Atan(value / Math.Sqrt(-value * value + 1));
+                    return Atan(value / Sqrt(-value * value + 1));
                 }
             }
 
@@ -1790,7 +1825,7 @@ namespace Engine.Geometry
             {
                 if ((Math.Abs(value) < 1))
                 {
-                    return Math.Atan(-value / Math.Sqrt(-value * value + 1)) + 2 * Math.Atan(1);
+                    return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
                 }
             }
 
@@ -1808,12 +1843,12 @@ namespace Engine.Geometry
             //  Arc-sec(X) 
             // Return Atan(Value / Sqrt(Value * Value - 1)) + Sign((Value) - 1) * (2 * Atan(1))
             if (value == 1) return 0;
-            else if (value == -1) return Math.PI;
+            else if (value == -1) return PI;
             else
             {
                 if ((Math.Abs(value) < 1))
                 {
-                    return Math.Atan(value / Math.Sqrt(value * value - 1)) + Math.Sign((value) - 1) * (2 * Math.Atan(1));
+                    return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
                 }
             }
 
@@ -1836,7 +1871,7 @@ namespace Engine.Geometry
             {
                 if ((Math.Abs(value) < 1))
                 {
-                    return Math.Atan(value / Math.Sqrt(value * value - 1)) + (Math.Sign(value) - 1) * (2 * Math.Atan(1));
+                    return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
                 }
             }
             return 0;
@@ -1850,7 +1885,7 @@ namespace Engine.Geometry
         /// <remarks>Arc-co-tan(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCotangent(double value)
-            => (Math.Atan(value) + (2 * Math.Atan(1)));
+            => (Atan(value) + (2 * Atan(1)));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Sine
@@ -1860,7 +1895,7 @@ namespace Engine.Geometry
         /// <remarks>HSin(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSine(double value)
-            => ((Math.Exp(value) - Math.Exp((value * -1))) * 0.5d);
+            => ((Exp(value) - Exp((value * -1))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Cosine
@@ -1870,7 +1905,7 @@ namespace Engine.Geometry
         /// <remarks>HCos(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosine(double value)
-            => ((Math.Exp(value) + Math.Exp((value * -1))) * 0.5d);
+            => ((Exp(value) + Exp((value * -1))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Tangent
@@ -1880,7 +1915,7 @@ namespace Engine.Geometry
         /// <remarks>HTan(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicTangent(double value)
-            => ((Math.Exp(value) - Math.Exp((value * -1))) / (Math.Exp(value) + Math.Exp((value * -1))));
+            => ((Exp(value) - Exp((value * -1))) / (Exp(value) + Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Secant
@@ -1890,7 +1925,7 @@ namespace Engine.Geometry
         /// <remarks>HSec(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSecant(double value)
-            => (0.5d * (Math.Exp(value) + Math.Exp((value * -1))));
+            => (0.5d * (Exp(value) + Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Co-secant
@@ -1900,7 +1935,7 @@ namespace Engine.Geometry
         /// <remarks>HCosec(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosecant(double value)
-            => (0.5d * (Math.Exp(value) - Math.Exp((value * -1))));
+            => (0.5d * (Exp(value) - Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Cotangent
@@ -1910,7 +1945,7 @@ namespace Engine.Geometry
         /// <remarks>HCotan(X) </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCotangent(double value)
-            => ((Math.Exp(value) + Math.Exp((value * -1))) / (Math.Exp(value) - Math.Exp((value * -1))));
+            => ((Exp(value) + Exp((value * -1))) / (Exp(value) - Exp((value * -1))));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Sine
@@ -1920,7 +1955,7 @@ namespace Engine.Geometry
         /// <remarks>HArcsin(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSine(double value)
-            => Math.Log((value + Math.Sqrt(((value * value) + 1))));
+            => Log((value + Sqrt(((value * value) + 1))));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cosine
@@ -1930,7 +1965,7 @@ namespace Engine.Geometry
         /// <remarks>HArccos(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosine(double value)
-            => Math.Log((value + Math.Sqrt(((value * value) - 1))));
+            => Log((value + Sqrt(((value * value) - 1))));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Tangent
@@ -1940,7 +1975,7 @@ namespace Engine.Geometry
         /// <remarks>HArctan(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicTangent(double value)
-            => (Math.Log(((1 + value) / (1 - value))) * 0.5d);
+            => (Log(((1 + value) / (1 - value))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Secant
@@ -1950,7 +1985,7 @@ namespace Engine.Geometry
         /// <remarks>HArcsec(X) </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSecant(double value)
-            => Math.Log(((Math.Sqrt((((value * value) * -1) + 1)) + 1) / value));
+            => Log(((Sqrt((((value * value) * -1) + 1)) + 1) / value));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Co-secant
@@ -1960,7 +1995,7 @@ namespace Engine.Geometry
         /// <remarks>HArccosec(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosecant(double value)
-            => Math.Log((((Math.Sign(value) * Math.Sqrt(((value * value) + 1))) + 1) / value));
+            => Log((((Sin(value) * Sqrt(((value * value) + 1))) + 1) / value));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cotangent
@@ -1970,7 +2005,7 @@ namespace Engine.Geometry
         /// <remarks>HArccotan(X)</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCotangent(double value)
-            => (Math.Log(((value + 1) / (value - 1))) * 0.5d);
+            => (Log(((value + 1) / (value - 1))) * 0.5d);
 
         /// <summary>
         /// Derived math functions equivalent Base N Logarithm
@@ -1984,7 +2019,7 @@ namespace Engine.Geometry
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
-            => (numberBase != 1) ? (Math.Log(value) / Math.Log(numberBase)) : 0;
+            => (numberBase != 1) ? (Log(value) / Log(numberBase)) : 0;
 
         #endregion
 
@@ -2061,7 +2096,7 @@ namespace Engine.Geometry
         /// <param name="value">The value to round.</param>
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
-        /// <remarks>Convert.ToInt32 does the correct rounding that Math.Round does not do.</remarks>
+        /// <remarks>Convert.ToInt32 does the correct rounding that Round does not do.</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
             => Convert.ToInt32(value / multiple) * multiple;

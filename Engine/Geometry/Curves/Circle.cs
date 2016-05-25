@@ -10,9 +10,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -182,7 +182,7 @@ namespace Engine.Geometry
         [Description("The distance around the circle.")]
         public double Circumference
         {
-            get { return 2 * radius * Math.PI; }
+            get { return 2 * radius * PI; }
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Engine.Geometry
         [Description("The area of the circle.")]
         public double Area
         {
-            get { return Math.PI * radius * radius; }
+            get { return PI * radius * radius; }
         }
 
         /// <summary>
@@ -264,9 +264,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
-            return new Point2D(center.X + (Math.Sin(index) * radius), center.X + (Math.Cos(index) * radius));
+            return new Point2D(center.X + (Sin(index) * radius), center.X + (Cos(index) * radius));
         }
 
         /// <summary>
@@ -275,9 +275,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints()
         {
-            double delta_phi = (2 * Math.PI / Circumference);
+            double delta_phi = (2 * PI / Circumference);
             List<Point2D> points = new List<Point2D>();
-            for (double i = 0.0f; i <= (2.0 * Math.PI); i += delta_phi)
+            for (double i = 0.0f; i <= (2.0 * PI); i += delta_phi)
             {
                 points.Add(Interpolate(i));
             }

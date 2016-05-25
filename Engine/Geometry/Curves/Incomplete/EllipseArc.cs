@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -324,13 +325,13 @@ namespace Engine.Geometry
             get
             {
                 double phi = Maths.ToRadians(angle);
-                double ux = majorRadius * Math.Cos(phi);
-                double uy = majorRadius * Math.Sin(phi);
-                double vx = (majorRadius * aspect) * Math.Cos(phi + Math.PI / 2);
-                double vy = (majorRadius * aspect) * Math.Sin(phi + Math.PI / 2);
+                double ux = majorRadius * Cos(phi);
+                double uy = majorRadius * Sin(phi);
+                double vx = (majorRadius * aspect) * Cos(phi + PI / 2);
+                double vy = (majorRadius * aspect) * Sin(phi + PI / 2);
 
-                double bbox_halfwidth = Math.Sqrt(ux * ux + vx * vx);
-                double bbox_halfheight = Math.Sqrt(uy * uy + vy * vy);
+                double bbox_halfwidth = Sqrt(ux * ux + vx * vx);
+                double bbox_halfheight = Sqrt(uy * uy + vy * vy);
 
                 return Rectangle2D.FromLTRB(
                     (center.X - bbox_halfwidth),
@@ -352,23 +353,23 @@ namespace Engine.Geometry
             get
             {
                 double minor = (majorRadius * aspect);
-                return ((Math.Sqrt(0.5 * ((minor * minor) + (majorRadius * majorRadius)))) * (Math.PI * 2));
+                return ((Sqrt(0.5 * ((minor * minor) + (majorRadius * majorRadius)))) * (PI * 2));
 
                 // http://ellipse-circumference.blogspot.com/
                 // X1=eval(form.A.value)
                 // X2=eval(form.B.value)
-                //MIN=Math.min(X1,X2);
-                //MAX=Math.max(X1,X2);
+                //MIN=min(X1,X2);
+                //MAX=max(X1,X2);
                 //RA=MAX/MIN;
                 //RA=RA.toPrecision(6);
                 //RB=MIN/MAX;
                 //RB=RB.toPrecision(6);
                 //HT1 = X2-X1;
                 //HB1 = X2+X1;
-                //H1 = (Math.pow(HT1,2))/(Math.pow(HB1,2));
+                //H1 = (pow(HT1,2))/(pow(HB1,2));
                 //H2 = 4-3*H1;
-                //D1 = ((11*Math.PI/(44-14*Math.PI))+24100)-24100*H1;
-                //C1 = Math.PI*HB1*(1+(3*H1)/(10+Math.pow(H2,0.5))+(1.5*Math.pow(H1,6)-.5*Math.pow(H1,12))/D1);
+                //D1 = ((11*PI/(44-14*PI))+24100)-24100*H1;
+                //C1 = PI*HB1*(1+(3*H1)/(10+pow(H2,0.5))+(1.5*pow(H1,6)-.5*pow(H1,12))/D1);
                 //P = 6;
                 //C1 = C1.toPrecision(P);
                 //form.C.value = C1;
@@ -387,7 +388,7 @@ namespace Engine.Geometry
         {
             get
             {
-                return Math.PI * minorRadius * majorRadius;
+                return PI * minorRadius * majorRadius;
             }
         }
 
@@ -404,7 +405,7 @@ namespace Engine.Geometry
                 {
                     center,
                     Interpolate(0),
-                    Interpolate(-Math.PI * 0.5)
+                    Interpolate(-PI * 0.5)
                 };
             }
             set
@@ -422,10 +423,12 @@ namespace Engine.Geometry
         /// <summary>
         /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double t)
         {
+            double phi = 2 * PI / t;
+
             Rectangle2D unroatatedBounds = new Rectangle2D(
                 center.X - majorRadius,
                 center.Y - majorRadius,
@@ -434,13 +437,13 @@ namespace Engine.Geometry
                 );
 
             double theta = Maths.ToRadians(angle);
-            Point2D xaxis = new Point2D(Math.Cos(theta), Math.Sin(theta));
-            Point2D yaxis = new Point2D(-Math.Sin(theta), Math.Cos(theta));
+            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
+            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
 
             // Ellipse equation for an ellipse at origin.
             Point2D ellipsePoint = new Point2D(
-                unroatatedBounds.Width * Math.Cos(index),
-                unroatatedBounds.Height * Math.Sin(index)
+                unroatatedBounds.Width * Cos(phi),
+                unroatatedBounds.Height * Sin(phi)
                 );
 
             // Apply the rotation transformation and translate to new center.
@@ -456,9 +459,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints()
         {
-            double delta_phi = 2 * Math.PI / ArcPerimeter;
+            double phi = 2 * PI / ArcPerimeter;
             List<Point2D> points = new List<Point2D>();
-            for (double i = 0.0f; i <= 2.0 * Math.PI; i += delta_phi)
+            for (double i = 0.0f; i <= 2.0 * PI; i += phi)
             {
                 points.Add(Interpolate(i));
             }

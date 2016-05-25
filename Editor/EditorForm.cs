@@ -134,6 +134,10 @@ namespace Editor
             //GraphicItem rectangle8Item = new GraphicItem(rectangle8, styles[9]);
             //vectorMap.Add(rectangle8Item);
 
+            //Shape oval = new Oval(new Point2D(200, 200), new Size2D(100, 200));
+            //GraphicItem ovalItem = new GraphicItem(oval, styles[6]);
+            //vectorMap.Add(ovalItem);
+
             //Shape polygon = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) });
             //GraphicItem polygonItem = new GraphicItem(polygon, styles[3]);
             //vectorMap.Add(polygonItem);
@@ -145,26 +149,6 @@ namespace Editor
             //Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
             //GraphicItem lineItem = new GraphicItem(line, styles[5]);
             //vectorMap.Add(lineItem);
-
-            //Shape ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45);
-            //GraphicItem ellipseItem = new GraphicItem(ellipse, styles[6]);
-            //vectorMap.Add(ellipseItem);
-
-            //QuadraticBezier quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            //GraphicItem quadBezierItem = new GraphicItem(quadBezier, styles[7]);
-            //vectorMap.Add(quadBezierItem);
-            ////StringBuilder quadBezierLengths = new StringBuilder();
-            ////quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.QuadraticBezierArcLengthBySegments());
-            ////quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.QuadraticBezierArcLengthByIntegral());
-            ////quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.QuadraticBezierApproxArcLength());
-            ////MessageBox.Show(quadBezierLengths.ToString());
-
-            //CubicBezier cubicBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
-            //GraphicItem cubicBezierItem = new GraphicItem(cubicBezier, styles[8]);
-            //vectorMap.Add(cubicBezierItem);
-            ////StringBuilder cubicBezierLengths = new StringBuilder();
-            ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
-            ////MessageBox.Show(cubicBezierLengths.ToString());
 
             Shape set = new PolygonSet(
                 new List<Polygon>(
@@ -235,6 +219,26 @@ namespace Editor
             //GraphicItem arcBoundsItem = new GraphicItem(arcBounds, styles[9]);
             //vectorMap.Add(arcBoundsItem);
 
+            QuadraticBezier quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
+            GraphicItem quadBezierItem = new GraphicItem(quadBezier, styles[7]);
+            vectorMap.Add(quadBezierItem);
+            //StringBuilder quadBezierLengths = new StringBuilder();
+            //quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.QuadraticBezierArcLengthBySegments());
+            //quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.QuadraticBezierArcLengthByIntegral());
+            //quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.QuadraticBezierApproxArcLength());
+            //MessageBox.Show(quadBezierLengths.ToString());
+
+            CubicBezier cubicBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
+            GraphicItem cubicBezierItem = new GraphicItem(cubicBezier, styles[8]);
+            vectorMap.Add(cubicBezierItem);
+            //StringBuilder cubicBezierLengths = new StringBuilder();
+            //cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
+            //MessageBox.Show(cubicBezierLengths.ToString());
+
+            Shape ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45);
+            GraphicItem ellipseItem = new GraphicItem(ellipse, styles[6]);
+            vectorMap.Add(ellipseItem);
+
             listBox1.DataSource = vectorMap.Shapes;
             //listBox1.ValueMember = "Name";
         }
@@ -252,7 +256,7 @@ namespace Editor
             // Only need to draw the shapes that are on screen.
             foreach (GraphicItem shape in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
             {
-                Renderer.Render(shape.Item, e.Graphics, shape.Style);
+                Renderer.Render(shape.Item, e.Graphics, shape);
             }
         }
 
@@ -264,7 +268,7 @@ namespace Editor
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             ListBox list = (ListBox)sender;
-            propertyGrid1.SelectedObject = ((GraphicItem)list.SelectedItem);//?.Item;
+            propertyGrid1.SelectedObject = ((GraphicItem)list?.SelectedItem);//?.Item;
         }
 
         /// <summary>

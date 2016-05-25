@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Imaging.ColorSpace
 {
@@ -296,8 +297,8 @@ namespace Engine.Imaging.ColorSpace
             hue = 0; // default to black
             saturation = 0;
             luminance = 0;
-            double vertex = Math.Max(Math.Max(red, green), blue);
-            double min = Math.Min(Math.Min(red, green), blue);
+            double vertex = Max(Max(red, green), blue);
+            double min = Min(Min(red, green), blue);
             luminance = (min + vertex) / 2.0;
             if (luminance <= 0.0)
             {
@@ -474,8 +475,8 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="value"></param>
         public static void ColorToHSV(this Color color, out double hue, out double saturation, out double value)
         {
-            int max = Math.Max(color.R, Math.Max(color.G, color.B));
-            int min = Math.Min(color.R, Math.Min(color.G, color.B));
+            int max = Max(color.R, Max(color.G, color.B));
+            int min = Min(color.R, Min(color.G, color.B));
 
             hue = color.GetHue();
             saturation = (max == 0) ? 0 : 1d - (1d * min / max);
@@ -491,8 +492,8 @@ namespace Engine.Imaging.ColorSpace
         /// <returns></returns>
         public static Color ColorFromHSV(double hue, double saturation, double value)
         {
-            int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
-            double f = hue / 60 - Math.Floor(hue / 60);
+            int hi = Convert.ToInt32(Floor(hue / 60)) % 6;
+            double f = hue / 60 - Floor(hue / 60);
 
             value = value * 255;
             int v = Convert.ToInt32(value);
@@ -526,17 +527,18 @@ namespace Engine.Imaging.ColorSpace
             double green = 1.0 - (color.G / 255.0);
             double blue = 1.0 - (color.B / 255.0);
 
-            double min = Math.Min(red, green);
-            min = Math.Min(min, blue);
-            double max = Math.Max(red, green);
-            max = Math.Max(max, blue);
+            double min = Min(red, green);
+            min = Min(min, blue);
+            double max = Max(red, green);
+            max = Max(max, blue);
             double h;
             double s;
             double v = max;               // v
             double delta = max - min;
             if (max != 0)
                 s = delta / max;       // s
-            else {
+            else
+            {
                 // r = g = b = 0		// s = 0, v is undefined
                 s = 0;
                 h = -1;
@@ -585,7 +587,7 @@ namespace Engine.Imaging.ColorSpace
             }
 
             h /= 60;            // sector 0 to 5
-            i = (int)Math.Floor(h);
+            i = (int)Floor(h);
             f = h - i;          // factorial part of h
             p = v * (1 - s);
             q = v * (1 - s * f);
@@ -650,7 +652,7 @@ namespace Engine.Imaging.ColorSpace
             double I = color.Intensity;
 
             int r, g, b;
-            H = Math.IEEERemainder(H, 360); // cycle H around to 0-360 degrees
+            H = IEEERemainder(H, 360); // cycle H around to 0-360 degrees
             H = 3.14159 * H / (float)180; // Convert to radians.
             S = S > 0 ? (S < 1 ? S : 1) : 0; // clamp S and I to interval [0,1]
             I = I > 0 ? (I < 1 ? I : 1) : 0;
@@ -658,21 +660,22 @@ namespace Engine.Imaging.ColorSpace
             // Math! Thanks in part to Kyle Miller.
             if (H < 2.09439)
             {
-                r = (byte)(255 * I / 3 * (1 + S * Math.Cos(H) / Math.Cos(1.047196667 - H)));
-                g = (byte)(255 * I / 3 * (1 + S * (1 - Math.Cos(H) / Math.Cos(1.047196667 - H))));
+                r = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
+                g = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
                 b = (byte)(255 * I / 3 * (1 - S));
             }
             else if (H < 4.188787)
             {
                 H = H - 2.09439;
-                g = (byte)(255 * I / 3 * (1 + S * Math.Cos(H) / Math.Cos(1.047196667 - H)));
-                b = (byte)(255 * I / 3 * (1 + S * (1 - Math.Cos(H) / Math.Cos(1.047196667 - H))));
+                g = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
+                b = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
                 r = (byte)(255 * I / 3 * (1 - S));
             }
-            else {
+            else
+            {
                 H = H - 4.188787;
-                b = (byte)(255 * I / 3 * (1 + S * Math.Cos(H) / Math.Cos(1.047196667 - H)));
-                r = (byte)(255 * I / 3 * (1 + S * (1 - Math.Cos(H) / Math.Cos(1.047196667 - H))));
+                b = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
+                r = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
                 g = (byte)(255 * I / 3 * (1 - S));
             }
 
@@ -690,10 +693,10 @@ namespace Engine.Imaging.ColorSpace
         /// <returns></returns>
         public static AHSI Hsi_CreateFromRgbF(byte a, double r, double g, double b)
         {
-            double m = Math.Min(r, g);
-            m = Math.Min(m, b);
-            double M = Math.Max(r, g);
-            M = Math.Max(m, b);
+            double m = Min(r, g);
+            m = Min(m, b);
+            double M = Max(r, g);
+            M = Max(m, b);
             double c = M - m;
 
             double I = (1.0 / 3.0) * (r + g + b);
@@ -708,7 +711,7 @@ namespace Engine.Imaging.ColorSpace
             {
                 if (M == r)
                 {
-                    H = Math.IEEERemainder(((g - b) / c), 6.0);
+                    H = IEEERemainder(((g - b) / c), 6.0);
                 }
                 else if (M == g)
                 {
@@ -744,14 +747,14 @@ namespace Engine.Imaging.ColorSpace
             if (h >= 0.0 && h <= (HUE_UPPER_LIMIT / 3.0))
             {
                 B = (1.0 / 3.0) * (1.0 - s);
-                R = (1.0 / 3.0) * ((s * Math.Cos(h)) / Math.Cos(60.0 - h));
+                R = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 G = 1.0 - (B + R);
             }
             else if (h > (HUE_UPPER_LIMIT / 3.0) && h <= (2.0 * HUE_UPPER_LIMIT / 3.0))
             {
                 h -= (HUE_UPPER_LIMIT / 3.0);
                 R = (1.0 / 3.0) * (1.0 - s);
-                G = (1.0 / 3.0) * ((s * Math.Cos(h)) / Math.Cos(60.0 - h));
+                G = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 B = 1.0 - (G + R);
 
             }
@@ -759,7 +762,7 @@ namespace Engine.Imaging.ColorSpace
             {
                 h -= (2.0 * HUE_UPPER_LIMIT / 3.0);
                 G = (1.0 / 3.0) * (1.0 - s);
-                B = (1.0 / 3.0) * ((s * Math.Cos(h)) / Math.Cos(60.0 - h));
+                B = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 R = 1.0 - (G + B);
             }
 

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -578,11 +579,11 @@ namespace Engine.Geometry
                 Point2D point3 = matrix.Transform(rect.BottomLeft);
 
                 // Width and height is always positive here.
-                rect.X = Math.Min(Math.Min(point0.X, point1.X), Math.Min(point2.X, point3.X));
-                rect.Y = Math.Min(Math.Min(point0.Y, point1.Y), Math.Min(point2.Y, point3.Y));
+                rect.X = Min(Min(point0.X, point1.X), Min(point2.X, point3.X));
+                rect.Y = Min(Min(point0.Y, point1.Y), Min(point2.Y, point3.Y));
 
-                rect.Width = Math.Max(Math.Max(point0.X, point1.X), Math.Max(point2.X, point3.X)) - rect.X;
-                rect.Height = Math.Max(Math.Max(point0.Y, point1.Y), Math.Max(point2.Y, point3.Y)) - rect.Y;
+                rect.Width = Max(Max(point0.X, point1.X), Max(point2.X, point3.X)) - rect.X;
+                rect.Height = Max(Max(point0.Y, point1.Y), Max(point2.Y, point3.Y)) - rect.Y;
             }
         }
 
@@ -774,7 +775,7 @@ namespace Engine.Geometry
         public void Rotate(double angle)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this *= CreateRotationRadians((angle * (Math.PI / 180.0)));
+            this *= CreateRotationRadians((angle * (PI / 180.0)));
         }
 
         /// <summary>
@@ -784,7 +785,7 @@ namespace Engine.Geometry
         public void RotatePrepend(double angle)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this = CreateRotationRadians((angle * (Math.PI / 180.0))) * this;
+            this = CreateRotationRadians((angle * (PI / 180.0))) * this;
         }
 
         /// <summary>
@@ -796,7 +797,7 @@ namespace Engine.Geometry
         public void RotateAt(double angle, double centerX, double centerY)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this *= CreateRotationRadians((angle * (Math.PI / 180.0)), centerX, centerY);
+            this *= CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY);
         }
 
         /// <summary>
@@ -808,7 +809,7 @@ namespace Engine.Geometry
         public void RotateAtPrepend(double angle, double centerX, double centerY)
         {
             angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this = CreateRotationRadians((angle * (Math.PI / 180.0)), centerX, centerY) * this;
+            this = CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY) * this;
         }
 
         /// <summary>
@@ -864,8 +865,8 @@ namespace Engine.Geometry
         {
             skewX %= 360;
             skewY %= 360;
-            this *= CreateSkewRadians((skewX * (Math.PI / 180.0)),
-                                      (skewY * (Math.PI / 180.0)));
+            this *= CreateSkewRadians((skewX * (PI / 180.0)),
+                                      (skewY * (PI / 180.0)));
         }
 
         /// <summary>
@@ -877,8 +878,8 @@ namespace Engine.Geometry
         {
             skewX %= 360;
             skewY %= 360;
-            this = CreateSkewRadians((skewX * (Math.PI / 180.0)),
-                                     (skewY * (Math.PI / 180.0))) * this;
+            this = CreateSkewRadians((skewX * (PI / 180.0)),
+                                     (skewY * (PI / 180.0))) * this;
         }
 
         /// <summary>
@@ -1211,10 +1212,10 @@ namespace Engine.Geometry
         internal static Matrix2D CreateRotationRadians(double angle, double centerX, double centerY)
         {
             Matrix2D matrix = new Matrix2D();
-            float sin = (float)Math.Sin(angle);
-            float cos = (float)Math.Cos(angle);
-            float dx = (float)((centerX * (1.0 - cos)) + (centerY * sin));
-            float dy = (float)((centerY * (1.0 - cos)) - (centerX * sin));
+            double sin = Sin(angle);
+            double cos = Cos(angle);
+            double dx = ((centerX * (1.0 - cos)) + (centerY * sin));
+            double dy = ((centerY * (1.0 - cos)) - (centerX * sin));
 
             matrix.SetMatrix(cos, sin,
                               -sin, cos,
@@ -1266,8 +1267,8 @@ namespace Engine.Geometry
         {
             Matrix2D matrix = new Matrix2D();
 
-            matrix.SetMatrix(1.0f, Math.Tan(skewY),
-                             Math.Tan(skewX), 1.0f,
+            matrix.SetMatrix(1.0f, Tan(skewY),
+                             Tan(skewX), 1.0f,
                              0.0f, 0.0f,
                              MatrixTypes.UNKNOWN);
 

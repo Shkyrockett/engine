@@ -9,11 +9,12 @@
 
 using Engine.Geometry;
 using Engine.Imaging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 namespace Engine.Objects
 {
@@ -27,7 +28,7 @@ namespace Engine.Objects
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
-        private Dictionary<string, object> propertyCache = new Dictionary<string, object>();
+        private Dictionary<object, object> propertyCache = new Dictionary<object, object>();
 
         #endregion
 
@@ -53,10 +54,11 @@ namespace Engine.Objects
         /// 
         /// </summary>
         [Browsable(true)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         [NotifyParentProperty(true)]
+        [XmlElement]
         public GraphicsObject Item { get; set; }
 
         /// <summary>
@@ -73,28 +75,44 @@ namespace Engine.Objects
         /// 
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public Rectangle2D Bounds => Item.Bounds;
-        //public Rectangle2D Bounds => CachingProperty(ref Item.Bounds);
+        [XmlIgnore]
+        public double Perimeter => (double)CachingProperty(() => Item.Perimeter);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [XmlIgnore]
+        public Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Item.Bounds);
+
+        // ToDo: Need to update point list when the nodes are moved.
+        /// <summary>
+        /// 
+        /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        [XmlIgnore]
+        public List<Point2D> LengthInterpolatedPoints
+            => (List<Point2D>)CachingProperty(() => Item.InterpolatePoints(Perimeter.RoundToInt()));
+
+        #endregion
+
+        #region Public methods
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double t)
-        {
-            return null;
-        }
+        public Point2D Interpolate(double t) => Item.Interpolate(t);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public List<Point2D> SmoothInterpolate(double t)
-        {
-            return null;
-        }
+        public List<Point2D> SmoothInterpolate(double t) => ((List<Point2D>)CachingProperty(() => Item.Interpolate(t)));
 
         /// <summary>
         /// 
@@ -105,10 +123,6 @@ namespace Engine.Objects
         {
             return null;
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// 
@@ -135,15 +149,27 @@ namespace Engine.Objects
         #region Private methods
 
         /// <summary>
-        /// 
+        /// This should be run anytime a property of the item is modified.
+        /// </summary>
+        private void ClearCache()
+        {
+            propertyCache.Clear();
+        }
+
+        /// <summary>
+        /// Private method for caching computationally and memory intensive properties of child objects
+        /// so the child object's properties only get touched when necessary.
         /// </summary>
         /// <param name="property"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        internal object CachingProperty(ref object property, [CallerMemberName]string name = "")
+        /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
+        private object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {
-            // This is a failed attempt to build auto caching properties. Leaving in as there are rumors on what c# 7 can do. 
-            if (!propertyCache.Keys.Contains(name)) propertyCache.Add(name, property);
+            if (!propertyCache.ContainsKey(name))
+            {
+                propertyCache.Add(name, property.Invoke());
+            }
             return propertyCache[name];
         }
 

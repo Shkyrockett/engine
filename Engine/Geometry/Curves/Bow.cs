@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -29,7 +30,7 @@ namespace Engine.Geometry
     /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Bow Curve")]
+    [DisplayName(nameof(Bow))]
     public class Bow
         : Shape, IClosedShape
     {
@@ -49,11 +50,6 @@ namespace Engine.Geometry
         private double precision;
 
         /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        private List<Point2D> points;
-
-        /// <summary>
         /// 
         /// </summary>
         public Bow()
@@ -68,7 +64,6 @@ namespace Engine.Geometry
             this.offset = offset;
             this.multiplyer = multiplyer;
             precision = 0.1;
-            points = InterpolatePoints(precision);
         }
 
         /// <summary>
@@ -80,11 +75,7 @@ namespace Engine.Geometry
         public Point2D Offset
         {
             get { return offset; }
-            set
-            {
-                offset = value;
-                points = InterpolatePoints(precision);
-            }
+            set { offset = value; }
         }
 
         /// <summary>
@@ -93,11 +84,7 @@ namespace Engine.Geometry
         public Size2D Multiplyer
         {
             get { return multiplyer; }
-            set
-            {
-                multiplyer = value;
-                points = InterpolatePoints(precision);
-            }
+            set { multiplyer = value; }
         }
 
         /// <summary>
@@ -106,11 +93,7 @@ namespace Engine.Geometry
         public double Precision
         {
             get { return precision; }
-            set
-            {
-                precision = value;
-                points = InterpolatePoints(precision);
-            }
+            set { precision = value; }
         }
 
         /// <summary>
@@ -128,7 +111,6 @@ namespace Engine.Geometry
                 {
                     offset = value[0];
                     multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
-                    points = InterpolatePoints(precision);
                 }
             }
         }
@@ -138,11 +120,11 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return new Point2D(
-                offset.X + ((1 - (Math.Tan(index) * 2)) * Math.Cos(index)) * multiplyer.Width,
-                offset.Y + ((1 - (Math.Tan(index) * 2)) * (2 * Math.Sin(index))) * multiplyer.Height
+                offset.X + ((1 - (Tan(index) * 2)) * Cos(index)) * multiplyer.Width,
+                offset.Y + ((1 - (Tan(index) * 2)) * (2 * Sin(index))) * multiplyer.Height
                 );
         }
 
@@ -151,10 +133,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints(double precision)
+        public override List<Point2D> InterpolatePoints(int precision)
         {
             List<Point2D> points = new List<Point2D>();
-            for (double Index = (Math.PI * -1); (Index <= Math.PI); Index += precision)
+            for (double Index = (PI * -1); (Index <= PI); Index += (1d / precision))
             {
                 points.Add(Interpolate(Index));
             }
@@ -177,18 +159,18 @@ namespace Engine.Geometry
         public void DrawBowCurve2D(PaintEventArgs e, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
         {
             Point2D NewPoint = new Point2D(
-                ((1 - (Math.Tan((Math.PI * -1)) * 2)) * Math.Cos((Math.PI * -1))) * Multiplyer.Width,
-                ((1 - (Math.Tan((Math.PI * -1)) * 2)) * (2 * Math.Sin((Math.PI * -1)))) * Multiplyer.Height
+                ((1 - (Tan((PI * -1)) * 2)) * Cos((PI * -1))) * Multiplyer.Width,
+                ((1 - (Tan((PI * -1)) * 2)) * (2 * Sin((PI * -1)))) * Multiplyer.Height
                 );
 
             Point2D LastPoint = NewPoint;
 
-            for (double Index = (Math.PI * -1); (Index <= Math.PI); Index += Precision)
+            for (double Index = (PI * -1); (Index <= PI); Index += Precision)
             {
                 LastPoint = NewPoint;
                 NewPoint = new Point2D(
-                    ((1 - (Math.Tan(Index) * 2)) * Math.Cos(Index)) * Multiplyer.Width,
-                    ((1 - (Math.Tan(Index) * 2)) * (2 * Math.Sin(Index))) * Multiplyer.Height
+                    ((1 - (Tan(Index) * 2)) * Cos(Index)) * Multiplyer.Width,
+                    ((1 - (Tan(Index) * 2)) * (2 * Sin(Index))) * Multiplyer.Height
                     );
 
                 e.Graphics.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -343,7 +344,7 @@ namespace Engine.Geometry
         /// <param name="point"> Point - the Point to convert to a Size </param>
         public static explicit operator Size2D(Point2D point)
         {
-            return new Size2D(Math.Abs(point.X), Math.Abs(point.Y));
+            return new Size2D(Abs(point.X), Abs(point.Y));
         }
 
         /// <summary>

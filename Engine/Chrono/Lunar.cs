@@ -5,6 +5,7 @@
 // <summary></summary>
 
 using System;
+using static System.Math;
 
 namespace Engine.Chrono
 {
@@ -58,7 +59,7 @@ namespace Engine.Chrono
             int j = JulianDate(d, m, y);
             //Calculate the approximate phase of the moon
             ip = (j + 4.867) / 29.53059;
-            ip = ip - Math.Floor(ip);
+            ip = ip - Floor(ip);
             //After several trials I've seen to add the following lines, 
             //which gave the result was not bad 
             if (ip < 0.5)
@@ -66,7 +67,7 @@ namespace Engine.Chrono
             else
                 ag = ip * 29.53059 - 29.53059 / 2;
             // Moon's age in days
-            ag = Math.Floor(ag) + 1;
+            ag = Floor(ag) + 1;
             return ag;
         }
 
@@ -93,13 +94,13 @@ namespace Engine.Chrono
             }
 
             ++month;
-            c = (int)Math.Round(365.25 * year);
-            e = (int)Math.Round(30.6 * month);
+            c = (int)Round(365.25 * year);
+            e = (int)Round(30.6 * month);
             jd = c + e + day - 694039.09;  /* jd is total days elapsed */
             jd /= 29.53;           /* divide by the moon cycle (29.53 days) */
-            b = (int)Math.Round(jd);		   /* int(jd) -> b, take integer part of jd */
+            b = (int)Round(jd);		   /* int(jd) -> b, take integer part of jd */
             jd -= b;		   /* subtract integer part to leave fractional part of original jd */
-            b = (int)Math.Round(jd * 8 + 0.5);	   /* scale fraction from 0-8 and round by adding 0.5 */
+            b = (int)Round(jd * 8 + 0.5);	   /* scale fraction from 0-8 and round by adding 0.5 */
             b = b & 7;		   /* 0 and 8 are the same so turn 8 into 0 */
             return b;
         }

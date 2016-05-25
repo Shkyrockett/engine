@@ -182,7 +182,7 @@
     <Compile Include="Geometry\Curves\Ellipse.cs" />
     <Compile Include="Geometry\Curves\Incomplete\EllipseArc.cs" />
     <Compile Include="Geometry\Curves\Incomplete\Hermite.cs" />
-    <Compile Include="Geometry\Curves\Incomplete\Oval.cs" />
+    <Compile Include="Geometry\Curves\Oval.cs" />
     <Compile Include="Geometry\Complex\Incompleete\PolyPath.cs" />
     <Compile Include="Geometry\Framework\PathExtensions.cs" />
     <Compile Include="Geometry\Polygons\Incomplete\Star.cs" />

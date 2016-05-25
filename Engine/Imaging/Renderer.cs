@@ -24,9 +24,9 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(GraphicsObject shape, Graphics g, IStyle style)
+        public static void Render(GraphicsObject shape, Graphics g, GraphicItem item)
         {
             //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
@@ -47,47 +47,51 @@ namespace Engine.Imaging
             }
             else if (shape is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
-                ((LineSegment)shape).Render(g, (ShapeStyle)style);
-            }
-            else if (shape is PolylineSet)
-            {
-                ((PolylineSet)shape).Render(g, (ShapeStyle)style);
+                ((LineSegment)shape).Render(g, item);
             }
             else if (shape is Polyline)
             {
-                ((Polyline)shape).Render(g, (ShapeStyle)style);
+                ((Polyline)shape).Render(g, item);
+            }
+            else if (shape is PolylineSet)
+            {
+                ((PolylineSet)shape).Render(g, item);
             }
             else if (shape is Polygon)
             {
-                ((Polygon)shape).Render(g, (ShapeStyle)style);
+                ((Polygon)shape).Render(g, item);
             }
             else if (shape is PolygonSet)
             {
-                ((PolygonSet)shape).Render(g, (ShapeStyle)style);
+                ((PolygonSet)shape).Render(g, item);
+            }
+            else if (shape is Oval)
+            {
+                ((Oval)shape).Render(g, item);
             }
             else if (shape is Rectangle2D)
             {
-                ((Rectangle2D)shape).Render(g, (ShapeStyle)style);
+                ((Rectangle2D)shape).Render(g, item);
             }
             else if (shape is Arc)
             {
-                ((Arc)shape).Render(g, (ShapeStyle)style);
+                ((Arc)shape).Render(g, item);
             }
             else if (shape is Circle)
             {
-                ((Circle)shape).Render(g, (ShapeStyle)style);
+                ((Circle)shape).Render(g, item);
             }
             else if (shape is Ellipse)
             {
-                ((Ellipse)shape).Render(g, (ShapeStyle)style);
+                ((Ellipse)shape).Render(g, item);
             }
             else if (shape is CubicBezier)
             {
-                ((CubicBezier)shape).Render(g, (ShapeStyle)style);
+                ((CubicBezier)shape).Render(g, item);
             }
             else if (shape is QuadraticBezier)
             {
-                ((QuadraticBezier)shape).Render(g, (ShapeStyle)style);
+                ((QuadraticBezier)shape).Render(g, item);
             }
             else
             {
@@ -99,11 +103,11 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this LineSegment shape, Graphics g, ShapeStyle style)
+        public static void Render(this LineSegment shape, Graphics g, GraphicItem item)
         {
-            g.DrawLine(style.ForePen, shape.A.ToPointF(), shape.B.ToPointF());
+            g.DrawLine(((ShapeStyle)item.Style).ForePen, shape.A.ToPointF(), shape.B.ToPointF());
         }
 
         /// <summary>
@@ -111,11 +115,11 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="shape"></param>
         /// <param name="g"></param>
-        /// <param name="style"></param>
-        public static void Render(this Polygon shape, Graphics g, ShapeStyle style)
+        /// <param name="item"></param>
+        public static void Render(this Polygon shape, Graphics g, GraphicItem item)
         {
-            g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
-            g.DrawPolygon(style.ForePen, shape.Points.ToPointFArray());
+            g.FillPolygon(((ShapeStyle)item.Style).BackBrush, shape.Points.ToPointFArray());
+            g.DrawPolygon(((ShapeStyle)item.Style).ForePen, shape.Points.ToPointFArray());
         }
 
         /// <summary>
@@ -123,14 +127,13 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="set"></param>
         /// <param name="g"></param>
-        /// <param name="style"></param>
-        public static void Render(this PolylineSet set, Graphics g, ShapeStyle style)
+        /// <param name="item"></param>
+        public static void Render(this PolylineSet set, Graphics g, GraphicItem item)
         {
-            //GraphicsPath path = new GraphicsPath();
             foreach (Polyline shape in set.Polylines)
             {
-                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
-                g.DrawLines(style.ForePen, shape.Points.ToPointFArray());
+                g.FillPolygon(((ShapeStyle)item.Style).BackBrush, shape.Points.ToPointFArray());
+                g.DrawLines(((ShapeStyle)item.Style).ForePen, shape.Points.ToPointFArray());
             }
         }
 
@@ -139,113 +142,129 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="set"></param>
         /// <param name="g"></param>
-        /// <param name="style"></param>
-        public static void Render(this PolygonSet set, Graphics g, ShapeStyle style)
+        /// <param name="item"></param>
+        public static void Render(this PolygonSet set, Graphics g, GraphicItem item)
         {
+            // Start the Path object.
             GraphicsPath path = new GraphicsPath();
             foreach (Polygon shape in set.Polygons)
             {
                 path.AddPolygon(shape.Points.ToPointFArray());
             }
 
-            g.FillPath(style.BackBrush, path);
-            g.DrawPath(style.ForePen, path);
+            g.FillPath(((ShapeStyle)item.Style).BackBrush, path);
+            g.DrawPath(((ShapeStyle)item.Style).ForePen, path);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        public static void Render(this Oval shape, Graphics g, GraphicItem item)
+        {
+            // Determine the orientation.
+            double radius = (shape.Size.Height > shape.Size.Width) ? shape.Size.Width / 2 : shape.Size.Height / 2;
+            
+            // Start the Path object.
+            GraphicsPath path = new GraphicsPath();
+            
+            //  prepare the curves.
+            path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 270, 90);
+            path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 0, 90);
+            path.AddArc((float)shape.Location.X, (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 90, 90);
+            path.AddArc((float)shape.Location.X, (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 180, 90);
+            
+            // Close the path.
+            path.CloseFigure();
+            
+            //  Draw the path.
+            g.FillPath(((ShapeStyle)item.Style).BackBrush, path);
+            g.DrawPath(((ShapeStyle)item.Style).ForePen, path);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this Polyline shape, Graphics g, ShapeStyle style)
+        public static void Render(this Polyline shape, Graphics g, GraphicItem item)
         {
-            g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
-            g.DrawLines(style.ForePen, shape.Points.ToPointFArray());
+            g.FillPolygon(((ShapeStyle)item.Style).BackBrush, shape.Points.ToPointFArray());
+            g.DrawLines(((ShapeStyle)item.Style).ForePen, shape.Points.ToPointFArray());
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this Rectangle2D shape, Graphics g, ShapeStyle style)
+        public static void Render(this Rectangle2D shape, Graphics g, GraphicItem item)
         {
-            g.FillRectangles(style.BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
-            g.DrawRectangles(style.ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
+            g.FillRectangles(((ShapeStyle)item.Style).BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
+            g.DrawRectangles(((ShapeStyle)item.Style).ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this Arc shape, Graphics g, ShapeStyle style)
+        public static void Render(this Arc shape, Graphics g, GraphicItem item)
         {
-            g.DrawArc(style.ForePen, shape.DrawingBounds.ToRectangleF(), -(float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            g.DrawArc(((ShapeStyle)item.Style).ForePen, shape.DrawingBounds.ToRectangleF(), -(float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this Circle shape, Graphics g, ShapeStyle style)
+        public static void Render(this Circle shape, Graphics g, GraphicItem item)
         {
-            g.FillEllipse(style.BackBrush, shape.Bounds.ToRectangleF());
-            g.DrawEllipse(style.ForePen, shape.Bounds.ToRectangleF());
+            g.FillEllipse(((ShapeStyle)item.Style).BackBrush, shape.Bounds.ToRectangleF());
+            g.DrawEllipse(((ShapeStyle)item.Style).ForePen, shape.Bounds.ToRectangleF());
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this Ellipse shape, Graphics g, ShapeStyle style)
+        public static void Render(this Ellipse shape, Graphics g, GraphicItem item)
         {
-            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints();
-            if (shape.Points != null && shape.Points.Count > 1)
-            {
-                g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
-                g.DrawPolygon(style.ForePen, shape.Points.ToPointFArray());
-            }
+            g.FillPolygon(((ShapeStyle)item.Style).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
+            g.DrawPolygon(((ShapeStyle)item.Style).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this CubicBezier shape, Graphics g, ShapeStyle style)
+        public static void Render(this CubicBezier shape, Graphics g, GraphicItem item)
         {
-            //if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length);
-            //if (shape.Points != null && shape.Points.Count > 1)
-            //{
-            //    g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
-            g.DrawBezier(style.ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
-            //}
+            // g.FillPolygon(style.BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
+            g.DrawBezier(((ShapeStyle)item.Style).ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="style"></param>
+        /// <param name="item"></param>
         /// <param name="shape"></param>
-        public static void Render(this QuadraticBezier shape, Graphics g, ShapeStyle style)
+        public static void Render(this QuadraticBezier shape, Graphics g, GraphicItem item)
         {
-            // ToDo: Need to update point list when the nodes are moved.
-            if (shape.Points == null || shape.Points.Count <= 0) shape.Points = shape.InterpolatePoints((int)shape.Length);
-            if (shape.Points != null && shape.Points.Count > 1)
-            {
-                //g.FillPolygon(style.BackBrush, shape.Points.ToPointFArray());
-                g.DrawCurve(style.ForePen, shape.Points.ToPointFArray());
-            }
+            //g.FillPolygon(((ShapeStyle)item.Style).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
+            g.DrawCurve(((ShapeStyle)item.Style).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
         }
     }
 }

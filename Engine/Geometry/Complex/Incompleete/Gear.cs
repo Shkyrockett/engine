@@ -12,6 +12,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -50,13 +51,13 @@ namespace Engine.Geometry
         // Draw a gear.
         private void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
         {
-            double dtheta = Math.PI / num_teeth;
-            double dtheta_degrees = dtheta * 180 / Math.PI;     // dtheta in degrees.
+            double dtheta = PI / num_teeth;
+            double dtheta_degrees = dtheta * 180 / PI; // dtheta in degrees.
 
             const double chamfer = 2;
             double tooth_width = radius * dtheta - chamfer;
             double alpha = tooth_width / (radius + tooth_length);
-            double alpha_degrees = alpha * 180 / Math.PI;
+            double alpha_degrees = alpha * 180 / PI;
             double phi = (dtheta - alpha) / 2;
 
             // Set theta for the beginning of the first tooth.
@@ -77,12 +78,12 @@ namespace Engine.Geometry
             for (int i = 0; i < num_teeth; i++)
             {
                 // Move across the gap between teeth.
-                double degrees = theta * 180 / Math.PI;
-                path.AddArc(inner_rect.ToRectangleF(), (float)degrees,(float) dtheta_degrees);
+                double degrees = theta * 180 / PI;
+                path.AddArc(inner_rect.ToRectangleF(), (float)degrees, (float)dtheta_degrees);
                 theta += dtheta;
 
                 // Move across the tooth's outer edge.
-                degrees = (theta + phi) * 180 / Math.PI;
+                degrees = (theta + phi) * 180 / PI;
                 path.AddArc(outer_rect.ToRectangleF(), (float)degrees, (float)alpha_degrees);
                 theta += dtheta;
             }

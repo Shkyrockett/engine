@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Imaging.ColorSpace
 {
@@ -49,10 +50,10 @@ namespace Engine.Imaging.ColorSpace
             double r = color.R;
             double g = color.G;
             double b = color.B;
-            double m = Math.Min(r, g);
-            m = Math.Min(m, b);
-            double M = Math.Max(r, g);
-            M = Math.Max(m, b);
+            double m = Min(r, g);
+            m = Min(m, b);
+            double M = Max(r, g);
+            M = Max(m, b);
             double c = M - m;
 
             double I = (1.0 / 3.0) * (r + g + b);
@@ -67,7 +68,7 @@ namespace Engine.Imaging.ColorSpace
             {
                 if (M == r)
                 {
-                    H = Math.IEEERemainder(((g - b) / c), 6.0);
+                    H = IEEERemainder(((g - b) / c), 6.0);
                 }
                 else if (M == g)
                 {
@@ -169,14 +170,14 @@ namespace Engine.Imaging.ColorSpace
             if (h >= 0.0 && h <= (HUE_UPPER_LIMIT / 3.0))
             {
                 B = (1.0 / 3.0) * (1.0 - s);
-                R = (1.0 / 3.0) * ((s * Math.Cos(h)) / Math.Cos(60.0 - h));
+                R = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 G = 1.0 - (B + R);
             }
             else if (h > (HUE_UPPER_LIMIT / 3.0) && h <= (2.0 * HUE_UPPER_LIMIT / 3.0))
             {
                 h -= (HUE_UPPER_LIMIT / 3.0);
                 R = (1.0 / 3.0) * (1.0 - s);
-                G = (1.0 / 3.0) * ((s * Math.Cos(h)) / Math.Cos(60.0 - h));
+                G = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 B = 1.0 - (G + R);
 
             }
@@ -184,7 +185,7 @@ namespace Engine.Imaging.ColorSpace
             {
                 h -= (2.0 * HUE_UPPER_LIMIT / 3.0);
                 G = (1.0 / 3.0) * (1.0 - s);
-                B = (1.0 / 3.0) * ((s * Math.Cos(h)) / Math.Cos(60.0 - h));
+                B = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 R = 1.0 - (G + B);
             }
 

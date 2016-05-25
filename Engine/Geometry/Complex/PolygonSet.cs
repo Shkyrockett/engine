@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -22,17 +23,23 @@ namespace Engine.Geometry
     /// <structure>Engine.Geometry.PolyGon2D</structure>
     /// <remarks></remarks>
     [Serializable]
-    //[GraphicsObject]
+    [GraphicsObject]
     [DisplayName(nameof(PolygonSet))]
     public class PolygonSet
         : Shape
     {
+        #region Private Fields
+
         /// <summary>
         /// An array of Polygons representing a set.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute()]
         private List<Polygon> polygons;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a default instance of the <see cref="PolygonSet"/> class.
@@ -49,6 +56,25 @@ namespace Engine.Geometry
         {
             this.polygons = polygons;
         }
+
+        #endregion
+
+        #region Indexers
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public Polygon this[int index]
+        {
+            get { return polygons[index]; }
+            set { polygons[index] = value; }
+        }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -72,6 +98,21 @@ namespace Engine.Geometry
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [XmlIgnore]
+        public override double Perimeter
+        {
+            get
+            {
+                double lengths = polygons.Sum(p => p.Perimeter);
+                return lengths;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
@@ -87,6 +128,8 @@ namespace Engine.Geometry
                 return bounds;
             }
         }
+
+        #endregion
 
         /// <summary>
         /// 

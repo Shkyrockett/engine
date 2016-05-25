@@ -6,6 +6,7 @@
 
 using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Imaging.ColorSpace
 {
@@ -57,17 +58,18 @@ namespace Engine.Imaging.ColorSpace
             double green = 1.0 - (color.G / 255.0);
             double blue = 1.0 - (color.B / 255.0);
 
-            double min = Math.Min(red, green);
-            min = Math.Min(min, blue);
-            double max = Math.Max(red, green);
-            max = Math.Max(max, blue);
+            double min = Min(red, green);
+            min = Min(min, blue);
+            double max = Max(red, green);
+            max = Max(max, blue);
             double h;
             double s;
             double v = max;               // v
             double delta = max - min;
             if (max != 0)
                 s = delta / max;       // s
-            else {
+            else
+            {
                 // r = g = b = 0		// s = 0, v is undefined
                 s = 0;
                 h = -1;
@@ -184,7 +186,7 @@ namespace Engine.Imaging.ColorSpace
             }
 
             hue /= 60;            // sector 0 to 5
-            i = (int)Math.Floor(hue);
+            i = (int)Floor(hue);
             f = hue - i;          // factorial part of h
             p = value * (1 - saturation);
             q = value * (1 - saturation * f);

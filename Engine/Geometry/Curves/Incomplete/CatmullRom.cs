@@ -55,17 +55,11 @@ namespace Engine.Geometry
         private double precision;
 
         /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        private List<Point2D> points;
-
-        /// <summary>
         /// 
         /// </summary>
         public CatmullRom()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -81,7 +75,6 @@ namespace Engine.Geometry
             this.positionB = positionB;
             this.tangentB = tangentB;
             precision = 0.1;
-            points = InterpolatePoints(precision);
         }
 
         /// <summary>
@@ -93,15 +86,8 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public Point2D TangentA
         {
-            get
-            {
-                return tangentA;
-            }
-            set
-            {
-                tangentA = value;
-                points = InterpolatePoints(precision);
-            }
+            get { return tangentA; }
+            set { tangentA = value; }
         }
 
         /// <summary>
@@ -113,15 +99,8 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public Point2D PositionA
         {
-            get
-            {
-                return positionA;
-            }
-            set
-            {
-                positionA = value;
-                points = InterpolatePoints(precision);
-            }
+            get { return positionA; }
+            set { positionA = value; }
         }
 
         /// <summary>
@@ -133,15 +112,8 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public Point2D PositionB
         {
-            get
-            {
-                return positionB;
-            }
-            set
-            {
-                positionB = value;
-                points = InterpolatePoints(precision);
-            }
+            get { return positionB; }
+            set { positionB = value; }
         }
 
         /// <summary>
@@ -153,15 +125,8 @@ namespace Engine.Geometry
         [XmlAttribute()]
         public Point2D TangentB
         {
-            get
-            {
-                return tangentB;
-            }
-            set
-            {
-                tangentB = value;
-                points = InterpolatePoints(precision);
-            }
+            get { return tangentB; }
+            set { tangentB = value; }
         }
 
         /// <summary>
@@ -169,21 +134,14 @@ namespace Engine.Geometry
         /// </summary>
         public double Precision
         {
-            get
-            {
-                return precision;
-            }
-            set
-            {
-                precision = value;
-                points = InterpolatePoints(precision);
-            }
+            get { return precision; }
+            set { precision = value; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public  List<Point2D> Handles
+        public List<Point2D> Handles
         {
             get
             {
@@ -195,7 +153,6 @@ namespace Engine.Geometry
                 positionA = value[1];
                 positionB = value[2];
                 tangentB = value[3];
-                points = InterpolatePoints(precision);
             }
         }
 
@@ -204,7 +161,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             double t2 = index * index;
             double t3 = t2 * index;
@@ -219,10 +176,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints(double precision)
+        public override List<Point2D> InterpolatePoints(int precision)
         {
             List<Point2D> points = new List<Point2D>();
-            for (double Index = 0; (Index == 1); Index += precision)
+            for (double Index = 0; (Index == 1); Index += (1d / precision))
             {
                 points.Add(Interpolate(Index));
             }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -13,7 +14,7 @@ namespace Engine.Geometry
     //[GraphicsObject]
     [DisplayName(nameof(Heart))]
     public class Heart
-        :Shape
+        : Shape
     {
         // Draw the curve on a bitmap.
         private Bitmap DrawHeart(int width, int height)
@@ -26,8 +27,8 @@ namespace Engine.Geometry
                 // Generate the points.
                 const int num_points = 100;
                 List<Point2D> points = new List<Point2D>();
-                double dt = 2 * Math.PI / num_points;
-                for (double t = 0; t <= 2 * Math.PI; t += dt)
+                double dt = 2 * PI / num_points;
+                for (double t = 0; t <= 2 * PI; t += dt)
                     points.Add(new Point2D(X(t), Y(t)));
 
                 // Get the coordinate bounds.
@@ -84,17 +85,17 @@ namespace Engine.Geometry
         // The curve's parametric equations.
         private double X(double t)
         {
-            double sin_t = Math.Sin(t);
+            double sin_t = Sin(t);
             return 16 * sin_t * sin_t * sin_t;
         }
 
         private double Y(double t)
         {
             return
-                13 * Math.Cos(t) -
-                5 * Math.Cos(2 * t) -
-                2 * Math.Cos(3 * t) -
-                Math.Cos(4 * t);
+                13 * Cos(t) -
+                5 * Cos(2 * t) -
+                2 * Cos(3 * t) -
+                Cos(4 * t);
         }
 
         // Map from world coordinates to device coordinates

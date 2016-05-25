@@ -29,11 +29,6 @@ namespace Engine.Geometry
         private List<Point2D> nodePoints;
 
         /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        private List<Point2D> points;
-
-        /// <summary>
         /// 
         /// </summary>
         public CubicBSpline()
@@ -48,7 +43,7 @@ namespace Engine.Geometry
         public CubicBSpline(List<Point2D> points)
         {
             nodePoints = points;
-            points = InterpolatePoints(1f / 100f);
+            points = InterpolatePoints(100);
         }
 
         /// <summary>
@@ -56,15 +51,8 @@ namespace Engine.Geometry
         /// </summary>
         public List<Point2D> NodePoints
         {
-            get
-            {
-                return nodePoints;
-            }
-            set
-            {
-                nodePoints = value;
-               points = InterpolatePoints(1f / 100f);
-            }
+            get { return nodePoints; }
+            set { nodePoints = value; }
         }
 
         /// <summary>
@@ -72,7 +60,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return Interpolate(nodePoints, index);
         }
@@ -82,12 +70,12 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints(double count)
+        public override List<Point2D> InterpolatePoints(int count)
         {
             List<Point2D> points = new List<Point2D>();
             for (double i = 0; (i < 1); i += count)
             {
-                points.Add(Interpolate(i));
+                points.Add(Interpolate(1d / i));
             }
 
             return points;
@@ -138,17 +126,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public  List<Point2D> Handles
+        public List<Point2D> Handles
         {
-            get
-            {
-                return nodePoints;
-            }
-            set
-            {
-                nodePoints = value;
-                points = InterpolatePoints(1f / 100f);
-            }
+            get { return nodePoints; }
+            set { nodePoints = value; }
         }
 
         /// <summary>

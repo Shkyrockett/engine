@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -45,17 +46,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<Point2D> points;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public ParametricDelegateCurve()
         {
             offset = new Point2D();
             multiplyer = new Size2D();
             precision = 0.1;
-            points = InterpolatePoints(precision);
         }
 
         /// <summary>
@@ -67,11 +62,7 @@ namespace Engine.Geometry
         public Point2D Offset
         {
             get { return offset; }
-            set
-            {
-                offset = value;
-                points = InterpolatePoints(precision);
-            }
+            set { offset = value; }
         }
 
         /// <summary>
@@ -80,11 +71,7 @@ namespace Engine.Geometry
         public Size2D Multiplyer
         {
             get { return multiplyer; }
-            set
-            {
-                multiplyer = value;
-                points = InterpolatePoints(precision);
-            }
+            set { multiplyer = value; }
         }
 
         /// <summary>
@@ -93,11 +80,7 @@ namespace Engine.Geometry
         public double Precision
         {
             get { return precision; }
-            set
-            {
-                precision = value;
-                points = InterpolatePoints(precision);
-            }
+            set { precision = value; }
         }
 
         /// <summary>
@@ -117,7 +100,6 @@ namespace Engine.Geometry
                 {
                     offset = value[0];
                     multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
-                    points = InterpolatePoints(precision);
                 }
             }
         }
@@ -127,7 +109,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return new Point2D();
         }
@@ -139,8 +121,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints(double precision)
         {
-            points = new List<Point2D>();
-            for (double Index = (Math.PI * -1); (Index < Math.PI); Index = (Index + precision))
+            List<Point2D> points = new List<Point2D>();
+            for (double Index = (PI * -1); (Index < PI); Index = (Index + precision))
             {
                 points.Add(Interpolate(Index));
             }

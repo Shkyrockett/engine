@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
+using static System.Math;
 
 namespace Engine.Imaging
 {
@@ -175,7 +176,7 @@ namespace Engine.Imaging
         /// </remarks>
         private unsafe void Compare1(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
         {
-            *cPtr = (byte)(aPtr + bPtr - 2 * System.Math.Min(aPtr, bPtr));
+            *cPtr = (byte)(aPtr + bPtr - 2 * Min(aPtr, bPtr));
         }
     }
 }

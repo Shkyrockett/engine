@@ -56,8 +56,8 @@ namespace Engine.Imaging
         /// <param name="image"></param>
         public MasterStyle(Brush foreBrush, Brush backBrush, Font font, Icon icon, Image image)
         {
-            this.forePen = new Pen(foreBrush);
-            this.backPen = new Pen(backBrush);
+            forePen = new Pen(foreBrush);
+            backPen = new Pen(backBrush);
             this.font = font;
             this.icon = icon;
             this.image = image;

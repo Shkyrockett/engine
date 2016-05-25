@@ -331,10 +331,10 @@ namespace Engine.Tools
             switch (orientation)
             {
                 case ScrollOrientation.HorizontalScroll:
-                    this.mouseHorizontalScrollDelta = delta;
+                    mouseHorizontalScrollDelta = delta;
                     break;
                 case ScrollOrientation.VerticalScroll:
-                    this.mouseVerticalScrollDelta = delta;
+                    mouseVerticalScrollDelta = delta;
                     break;
                 default:
                     break;

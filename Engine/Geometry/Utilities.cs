@@ -9,11 +9,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Math;
 
 namespace Engine.Geometry
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
     public delegate double DerivitiveMethodDouble(double x);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
     public delegate Point2D DerivitiveMethod2D(double x);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
     public delegate Point3D DerivitiveMethod3D(double x);
 
     /// <summary>
@@ -21,27 +39,32 @@ namespace Engine.Geometry
     /// </summary>
     internal class Utilities
     {
-        // math-inlining.
-        static double abs(double value) => Math.Abs(value);
-        static double cos(double value) => Math.Cos(value);
-        static double sin(double value) => Math.Sin(value);
-        static double acos(double value) => Math.Acos(value);
-        static double atan2(double x, double y) => Math.Atan2(x, y);
-        static double sqrt(double value) => Math.Sqrt(value);
-        static double pow(double x, double y) => Math.Pow(x, y);
-
-        // cube root function yielding real roots
-        static double crt(double value) => value < 0 ? -Math.Pow(-value, 1d / 3d) : Math.Pow(value, 1d / 3d);
+        /// <summary>
+        /// cube root function yielding real roots
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        static double crt(double value) => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
 
         // trig constants
-        const double pi = Math.PI;
-        const double tau = 2d * pi;
-        const double quart = pi / 2d;
+        /// <summary>
+        /// 
+        /// </summary>
+        const double tau = 2d * PI;
 
-        // float precision significant decimal
+        /// <summary>
+        /// 
+        /// </summary>
+        const double quart = PI / 2d;
+
+        /// <summary>
+        /// float precision significant decimal
+        /// </summary>
         const double epsilon = 0.000001d;
 
-        // Legendre-Gauss abscissae with n=24 (x_i values, defined at i=n as the roots of the nth order Legendre polynomial Pn(x))
+        /// <summary>
+        /// Legendre-Gauss abscissae with n=24 (x_i values, defined at i=n as the roots of the nth order Legendre polynomial Pn(x))
+        /// </summary>
         public static List<double> Tvalues = new List<double>()
         {
           -0.0640568928626056260850430826247450385909,
@@ -70,7 +93,9 @@ namespace Engine.Geometry
            0.9951872199970213601799974097007368118745
         };
 
-        // Legendre-Gauss weights with n=24 (w_i values, defined by a function linked to in the Bezier primer article)
+        /// <summary>
+        /// Legendre-Gauss weights with n=24 (w_i values, defined by a function linked to in the Bezier primer article)
+        /// </summary>
         public static List<double> Cvalues = new List<double>()
         {
             0.1279381953467521569740561652246953718517,
@@ -109,7 +134,7 @@ namespace Engine.Geometry
         {
             var d = derivativeFn(t);
             var l = d.X * d.X + d.Y * d.Y;
-            return Math.Sqrt(l);
+            return Sqrt(l);
         }
 
         /// <summary>
@@ -122,7 +147,7 @@ namespace Engine.Geometry
         {
             var d = derivativeFn(t);
             var l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
-            return Math.Sqrt(l);
+            return Sqrt(l);
         }
 
         /// <summary>
@@ -146,7 +171,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool approximately(double a, double b, double precision = epsilon)
         {
-            return Math.Abs(a - b) <= precision;// (precision || epsilon);
+            return Abs(a - b) <= precision;// (precision || epsilon);
         }
 
         /// <summary>
@@ -278,14 +303,14 @@ namespace Engine.Geometry
             double dx2 = v2.X - o.X;
             double dy2 = v2.Y - o.Y;
             double cross = dx1 * dy2 - dy1 * dx2;
-            double m1 = Math.Sqrt(dx1 * dx1 + dy1 * dy1);
-            double m2 = Math.Sqrt(dx2 * dx2 + dy2 * dy2);
+            double m1 = Sqrt(dx1 * dx1 + dy1 * dy1);
+            double m2 = Sqrt(dx2 * dx2 + dy2 * dy2);
             dx1 /= m1;
             dy1 /= m1;
             dx2 /= m2;
             dy2 /= m2;
             double dot = dx1 * dx2 + dy1 * dy2;
-            return Math.Atan2(cross, dot);
+            return Atan2(cross, dot);
         }
 
         /// <summary>
@@ -296,7 +321,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static double round(double v, int d)
         {
-            return Math.Round(v, d, MidpointRounding.AwayFromZero);
+            return Round(v, d, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>
@@ -329,7 +354,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Tuple<double, double> closest(List<Point3D> LUT, Point3D point)
         {
-            double mdist = Math.Pow(2, 63);
+            double mdist = Pow(2, 63);
             double mpos = 0;
             for (int i = 0; i < LUT.Count; i++)
             {
@@ -362,9 +387,9 @@ namespace Engine.Geometry
             {
                 return t;
             }
-            double bottom = Math.Pow(t, n) + Math.Pow(1 - t, n);
+            double bottom = Pow(t, n) + Pow(1 - t, n);
             double top = bottom - 1;
-            return Math.Abs(top / bottom);
+            return Abs(top / bottom);
         }
 
         /// <summary>
@@ -385,8 +410,8 @@ namespace Engine.Geometry
             {
                 return t;
             }
-            double top = Math.Pow(1 - t, n);
-            double bottom = Math.Pow(t, n) + top;
+            double top = Pow(1 - t, n);
+            double bottom = Pow(t, n) + top;
             return top / bottom;
         }
 
@@ -600,11 +625,11 @@ namespace Engine.Geometry
         {
             double tx = line.P1.X;
             double ty = line.P1.Y;
-            double a = -Math.Atan2(line.P2.Y - ty, line.P2.X - tx);
+            double a = -Atan2(line.P2.Y - ty, line.P2.X - tx);
             List<Point3D> results = new List<Point3D>();
             foreach (Point3D v in points)
             {
-                results.Add(new Point3D((v.X - tx) * Math.Cos(a) - (v.Y - ty) * Math.Sin(a), (v.X - tx) * Math.Sin(a) + (v.Y - ty) * Math.Cos(a), 0));
+                results.Add(new Point3D((v.X - tx) * Cos(a) - (v.Y - ty) * Sin(a), (v.X - tx) * Sin(a) + (v.Y - ty) * Cos(a), 0));
             }
 
             return results;
@@ -638,7 +663,7 @@ namespace Engine.Geometry
                 d = a - 2 * b + c;
                 if (d != 0)
                 {
-                    m1 = -sqrt(b * b - a * c);
+                    m1 = -Sqrt(b * b - a * c);
                     m2 = -a + b;
                     double v1_ = -(m1 + m2) / d;
                     double v2_ = -(-m1 + m2) / d;
@@ -679,15 +704,15 @@ namespace Engine.Geometry
             {
                 double mp3 = -p_ / 3,
                     mp33 = mp3 * mp3 * mp3,
-                    r = sqrt(mp33),
+                    r = Sqrt(mp33),
                     t = -q / (2 * r),
                     cosphi = t < -1 ? -1 : t > 1 ? 1 : t,
-                    phi = acos(cosphi),
+                    phi = Acos(cosphi),
                     crtr = crt(r),
                     t1 = 2 * crtr;
-                x1 = t1 * cos(phi / 3) - a / 3;
-                x2 = t1 * cos((phi + tau) / 3) - a / 3;
-                x3 = t1 * cos((phi + 2 * tau) / 3) - a / 3;
+                x1 = t1 * Cos(phi / 3) - a / 3;
+                x2 = t1 * Cos((phi + tau) / 3) - a / 3;
+                x3 = t1 * Cos((phi + 2 * tau) / 3) - a / 3;
 
                 return new List<double>(
                     from t2 in new List<double>() { x1, x2, x3 }
@@ -709,7 +734,7 @@ namespace Engine.Geometry
             }
             else
             {
-                var sd = sqrt(discriminant);
+                var sd = Sqrt(discriminant);
                 u1 = crt(-q2 + sd);
                 v1 = crt(q2 + sd);
 
@@ -737,7 +762,7 @@ namespace Engine.Geometry
                     d = a - 2 * b + c;
                 if (d != 0)
                 {
-                    double m1 = -sqrt(b * b - a * c),
+                    double m1 = -Sqrt(b * b - a * c),
                         m2 = -a + b,
                         v1 = -(m1 + m2) / d,
                         v2 = -(-m1 + m2) / d;
@@ -780,7 +805,7 @@ namespace Engine.Geometry
             if (approximately(v1, 0)) return new List<double>();
 
             double trm = v2 * v2 - 4 * v1 * v3;
-            double sq = Math.Sqrt(trm);
+            double sq = Sqrt(trm);
             d = 2 * v1;
 
             if (approximately(d, 0)) return new List<double>();
@@ -808,11 +833,11 @@ namespace Engine.Geometry
             l = b1.x.mid;
             t = b2.x.mid;
             d = (b1.x.size + b2.x.size) / 2;
-            if (abs(l - t) >= d) return false;
+            if (Abs(l - t) >= d) return false;
             l = b1.y.mid;
             t = b2.y.mid;
             d = (b1.y.size + b2.y.size) / 2;
-            if (abs(l - t) >= d) return false;
+            if (Abs(l - t) >= d) return false;
             return true;
         }
 
@@ -850,7 +875,7 @@ namespace Engine.Geometry
             double threshold = 0.5;
             if (c1b.x.size + c1b.y.size < threshold && c2b.x.size + c2b.y.size < threshold)
             {
-                //return new List<Pair>() {  ((r * (c1._t1 + c1._t2) / 2) | 0d) / r + "/" + ((r * (c2._t1 + c2._t2) / 2) | 0) / r };
+                //return new List<Pair>() { ((r * (c1._t1 + c1._t2) / 2) | 0d) / r + "/" + ((r * (c2._t1 + c2._t2) / 2) | 0) / r };
             }
             Pair cc1 = c1.split(0.5),
                 cc2 = c2.split(0.5);
@@ -890,10 +915,10 @@ namespace Engine.Geometry
             double dy1 = (p2.Y - p1.Y);
             double dx2 = (p3.X - p2.X);
             double dy2 = (p3.Y - p2.Y);
-            double dx1p = dx1 * cos(quart) - dy1 * sin(quart);
-            double dy1p = dx1 * sin(quart) + dy1 * cos(quart);
-            double dx2p = dx2 * cos(quart) - dy2 * sin(quart);
-            double dy2p = dx2 * sin(quart) + dy2 * cos(quart);
+            double dx1p = dx1 * Cos(quart) - dy1 * Sin(quart);
+            double dy1p = dx1 * Sin(quart) + dy1 * Cos(quart);
+            double dx2p = dx2 * Cos(quart) - dy2 * Sin(quart);
+            double dy2p = dx2 * Sin(quart) + dy2 * Cos(quart);
             // chord midpoints
             double mx1 = (p1.X + p2.X) / 2d;
             double my1 = (p1.Y + p2.Y) / 2d;
@@ -908,9 +933,9 @@ namespace Engine.Geometry
             Point3D arcCenter = lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
             double r = dist(arcCenter, p1);
             // arc start/end values, over mid point:
-            double s = atan2(p1.Y - arcCenter.Y, p1.X - arcCenter.X);
-            double m = atan2(p2.Y - arcCenter.Y, p2.X - arcCenter.X);
-            double e = atan2(p3.Y - arcCenter.Y, p3.X - arcCenter.X);
+            double s = Atan2(p1.Y - arcCenter.Y, p1.X - arcCenter.X);
+            double m = Atan2(p2.Y - arcCenter.Y, p2.X - arcCenter.X);
+            double e = Atan2(p3.Y - arcCenter.Y, p3.X - arcCenter.X);
             double _;
             // determine arc direction (cw/ccw correction)
             if (s < e)
@@ -930,10 +955,10 @@ namespace Engine.Geometry
             }
             // assign and done.
             Arc1 arc = new Arc1();
-            arc.c = arcCenter;
+            arc.center = arcCenter;
             arc.s = s;
             arc.e = e;
-            arc.r = r;
+            arc.radius = r;
             return arc;
         }
     }
@@ -943,9 +968,24 @@ namespace Engine.Geometry
     /// </summary>
     public class Arc1
     {
-        public Point3D c { get; internal set; }
-        public double r { get; internal set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Point3D center { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double radius { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public double e { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public double s { get; internal set; }
     }
 
@@ -954,8 +994,20 @@ namespace Engine.Geometry
     /// </summary>
     public class Shape1
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s2"></param>
         public delegate void IntersectionsDelegate(Bezier s2);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="startcap"></param>
+        /// <param name="forward"></param>
+        /// <param name="back"></param>
+        /// <param name="endcap"></param>
+        /// <param name="bbox"></param>
         public Shape1(Bezier startcap, Bezier forward, Bezier back, Bezier endcap, BBox bbox)
         {
             this.startcap = startcap;
@@ -965,11 +1017,34 @@ namespace Engine.Geometry
             this.bbox = bbox;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Bezier startcap { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Bezier forward { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Bezier back { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Bezier endcap { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public BBox bbox { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IntersectionsDelegate intersections { get; internal set; }
     }
 
@@ -978,6 +1053,12 @@ namespace Engine.Geometry
     /// </summary>
     public class BBox
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
         public BBox(Range x, Range y, Range z = null)
         {
             this.x = x;
@@ -985,8 +1066,19 @@ namespace Engine.Geometry
             this.z = z;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Range x { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Range y { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Range z { get; set; }
     }
 
@@ -995,10 +1087,22 @@ namespace Engine.Geometry
     /// </summary>
     public class Range
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
         public Range(int min, int max)
             : this(min, min + (max - min) / 2d, max, min - max)
         { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="mid"></param>
+        /// <param name="max"></param>
+        /// <param name="size"></param>
         public Range(double min, double mid, double max, double size)
         {
             this.min = min;
@@ -1007,9 +1111,24 @@ namespace Engine.Geometry
             this.size = size;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double min { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public double mid { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public double max { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public double size { get; set; }
     }
 
@@ -1018,16 +1137,26 @@ namespace Engine.Geometry
     /// </summary>
     public class Line1
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
         public Line1(Point3D p1, Point3D p2)
         {
-            this.P1 = p1;
-            this.P2 = p2;
+            P1 = p1;
+            P2 = p2;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point3D P1 { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point3D P2 { get; set; }
-
     }
 
     /// <summary>
@@ -1035,46 +1164,115 @@ namespace Engine.Geometry
     /// </summary>
     public class Pair
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
         public Pair(Bezier left, Bezier right)
         {
             this.left = left;
             this.right = right;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="span"></param>
         public Pair(Bezier left, Bezier right, List<Point3D> span) : this(left, right)
         {
             this.span = span;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Bezier left { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Bezier right { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public int length { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Shape1 s1 { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Shape1 s2 { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public List<Point3D> span { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public double _t1 { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public double _t2 { get; internal set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(Pair left, Pair right)
         {
             return left.Equals(right);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator !=(Pair left, Pair right)
         {
             return !left.Equals(right);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool Equals(Pair left, Pair right)
         {
             return left.left == right.left && right.right == left.right;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             return obj is Pair && Equals(this, (Pair)obj);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return left.GetHashCode() ^ right.GetHashCode();
@@ -1087,7 +1285,12 @@ namespace Engine.Geometry
     internal class PairComparer
         : IEqualityComparer<Pair>
     {
-        // Products are equal if their names and product numbers are equal.
+        /// <summary>
+        /// Products are equal if their names and product numbers are equal.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool Equals(Pair x, Pair y)
         {
 
@@ -1102,8 +1305,12 @@ namespace Engine.Geometry
             return x == y && x == y;
         }
 
-        // If Equals() returns true for a pair of objects 
-        // then GetHashCode() must return the same value for these objects.
+        /// <summary>
+        /// If Equals() returns true for a pair of objects 
+        /// then GetHashCode() must return the same value for these objects.
+        /// </summary>
+        /// <param name="pair"></param>
+        /// <returns></returns>
         public int GetHashCode(Pair pair)
         {
             //Check whether the object is null

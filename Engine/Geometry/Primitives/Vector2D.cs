@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -134,7 +135,7 @@ namespace Engine.Geometry
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public double Magnitude => Math.Sqrt(I * I + J * J);
+        public double Magnitude => Sqrt(I * I + J * J);
 
         #endregion
 

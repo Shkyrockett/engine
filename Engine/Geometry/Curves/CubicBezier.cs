@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// CubicBezier2D
+    /// CubicBezier
     /// </summary>
     /// <structure>Engine.Geometry.CubicBezier2D</structure>
     /// <remarks>
@@ -27,7 +27,7 @@ namespace Engine.Geometry
     /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Cubic Bezier Curve")]
+    [DisplayName(nameof(CubicBezier))]
     public class CubicBezier
         : Shape
     {
@@ -90,15 +90,19 @@ namespace Engine.Geometry
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public Point2D this[double index]
-        {
-            get { return Experimental.InterpolateCubicBezier(this, index); }
-        }
+        #region Indexers
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="index"></param>
+        ///// <returns></returns>
+        //public Point2D this[double index]
+        //{
+        //    get { return Experimental.InterpolateCubicBezier(this, index); }
+        //} 
+
+        #endregion
 
         #region Properties
 
@@ -154,10 +158,20 @@ namespace Engine.Geometry
             set { d = value; }
         }
 
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public List<Point2D> Points
+        //{
+        //    get { return points; }
+        //    set { points = value; }
+        //}
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        [XmlIgnore]
         public double Length
         {
             get { return Experimental.CubicBezierArcLength(this); }
@@ -166,11 +180,8 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<Point2D> Points
-        {
-            get { return points; }
-            set { points = value; }
-        }
+        [XmlIgnore]
+        public override double Perimeter => Length;
 
         /// <summary>
         /// 
@@ -178,6 +189,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
@@ -210,20 +222,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public List<Point2D> InterpolatePoints(int count)
-        {
-            return Experimental.InterpolatePoints(this, count);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return Experimental.InterpolateCubicBezier(this, index);
         }

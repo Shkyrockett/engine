@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using static System.Math;
 
 namespace Engine.Geometry.Polygons
 {
@@ -83,7 +84,7 @@ namespace Engine.Geometry.Polygons
             // The total angle should be 2 * PI or -2 * PI if
             // the point is in the polygon and close to zero
             // if the point is outside the polygon.
-            return (Math.Abs(total_angle) > 0.000001);
+            return (Abs(total_angle) > 0.000001);
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace Engine.Geometry.Polygons
             // Return the absolute value of the signed area.
             // The signed area is negative if the polygon is
             // oriented clockwise.
-            return Math.Abs(SignedPolygonArea(polygon));
+            return Abs(SignedPolygonArea(polygon));
         }
 
         /// <summary>
@@ -281,7 +282,7 @@ namespace Engine.Geometry.Polygons
             double cross_product = CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
 
             // Calculate the angle.
-            return Math.Atan2(cross_product, dot_product);
+            return Atan2(cross_product, dot_product);
         }
 
         /// <summary>
@@ -594,10 +595,10 @@ namespace Engine.Geometry.Polygons
 
             // Find the next point on an edge to use.
             double dx0, dy0, dx1, dy1, dx2, dy2, dx3, dy3;
-            FindDxDy(polygon,boundingRect, out dx0, out dy0, boundingRect.ControlPoints[0]);
-            FindDxDy(polygon,boundingRect, out dx1, out dy1, boundingRect.ControlPoints[1]);
-            FindDxDy(polygon,boundingRect, out dx2, out dy2, boundingRect.ControlPoints[2]);
-            FindDxDy(polygon,boundingRect, out dx3, out dy3, boundingRect.ControlPoints[3]);
+            FindDxDy(polygon, boundingRect, out dx0, out dy0, boundingRect.ControlPoints[0]);
+            FindDxDy(polygon, boundingRect, out dx1, out dy1, boundingRect.ControlPoints[1]);
+            FindDxDy(polygon, boundingRect, out dx2, out dy2, boundingRect.ControlPoints[2]);
+            FindDxDy(polygon, boundingRect, out dx3, out dy3, boundingRect.ControlPoints[3]);
 
             // Switch so we can look for the smallest opposite/adjacent ratio.
             double opp0 = dx0;
@@ -709,11 +710,11 @@ namespace Engine.Geometry.Polygons
             // Get the area of the bounding rectangle.
             double vx0 = boundingRect.CurrentRectangle[0].X - boundingRect.CurrentRectangle[1].X;
             double vy0 = boundingRect.CurrentRectangle[0].Y - boundingRect.CurrentRectangle[1].Y;
-            double len0 = (float)Math.Sqrt(vx0 * vx0 + vy0 * vy0);
+            double len0 = Sqrt(vx0 * vx0 + vy0 * vy0);
 
             double vx1 = boundingRect.CurrentRectangle[1].X - boundingRect.CurrentRectangle[2].X;
             double vy1 = boundingRect.CurrentRectangle[1].Y - boundingRect.CurrentRectangle[2].Y;
-            double len1 = (float)Math.Sqrt(vx1 * vx1 + vy1 * vy1);
+            double len1 = Sqrt(vx1 * vx1 + vy1 * vy1);
 
             // See if this is an improvement.
             boundingRect.CurrentArea = len0 * len1;
@@ -763,7 +764,7 @@ namespace Engine.Geometry.Polygons
             double s, t;
 
             // If the segments are parallel, return False.
-            if (Math.Abs(da * dy - db * dx) < 0.001) return false;
+            if (Abs(da * dy - db * dx) < 0.001) return false;
 
             // Find the point of intersection.
             s = (dx * (B1 - Y1) + dy * (X1 - A1)) / (da * dy - db * dx);

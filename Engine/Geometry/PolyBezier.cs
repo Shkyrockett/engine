@@ -3,31 +3,49 @@ using System.Linq;
 
 namespace Engine.Geometry
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PolyBezier
     {
-        /**
-        * Poly Bezier
-        * @param {[type]} curves [description]
-        */
+        /// <summary>
+        /// Poly Bezier
+        /// </summary>
+        /// <param name="curves"></param>
         public PolyBezier(List<Bezier> curves)
         {
-            this._3d = false;
+            _3d = false;
             if (curves == null)
             {
                 this.curves = curves;
-                this._3d = this.curves[0]._3d;
+                _3d = this.curves[0]._3d;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public List<Bezier> curves { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool _3d { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curve"></param>
         public void addCurve(Bezier curve)
         {
-            this.curves.Add(curve);
-            this._3d = this._3d || curve._3d;
+            curves.Add(curve);
+            _3d = _3d || curve._3d;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public double length()
         {
             return new List<double>(
@@ -35,14 +53,23 @@ namespace Engine.Geometry
                 select v.length()).Sum();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idx"></param>
+        /// <returns></returns>
         public Bezier curve(int idx)
         {
-            return this.curves[idx];
+            return curves[idx];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public BBox bbox()
         {
-            var c = this.curves;
+            var c = curves;
             var bbox = c[0].bbox();
             for (var i = 1; i < c.Count; i++)
             {
@@ -51,6 +78,11 @@ namespace Engine.Geometry
             return bbox;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         public List<Bezier> offset(double d)
         {
             List<Bezier> offset = new List<Bezier>();

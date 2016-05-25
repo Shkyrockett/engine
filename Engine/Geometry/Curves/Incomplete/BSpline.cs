@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -33,11 +34,6 @@ namespace Engine.Geometry
         private List<Point2D> nodePoints;
 
         /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        private List<Point2D> points = new List<Point2D>();
-
-        /// <summary>
         /// 
         /// </summary>
         public BSpline()
@@ -52,7 +48,7 @@ namespace Engine.Geometry
         public BSpline(List<Point2D> points)
         {
             nodePoints = points;
-            points = InterpolatePoints(1f / 100f);
+            points = InterpolatePoints(100);
         }
 
         /// <summary>
@@ -61,15 +57,8 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public List<Point2D> NodePoints
         {
-            get
-            {
-                return nodePoints;
-            }
-            set
-            {
-                nodePoints = value;
-                Update();
-            }
+            get { return nodePoints; }
+            set { nodePoints = value; }
         }
 
         /// <summary>
@@ -78,24 +67,8 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public List<Point2D> Handles
         {
-            get
-            {
-                return nodePoints;
-            }
-            set
-            {
-                nodePoints = value;
-                Update();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Update()
-        {
-            points.Clear();
-            points.AddRange(InterpolatePoints(1f / 100f));
+            get { return nodePoints; }
+            set { nodePoints = value; }
         }
 
         /// <summary>
@@ -103,7 +76,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public  Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return Interpolate(nodePoints, index);
         }
@@ -113,7 +86,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints(double count)
+        public override List<Point2D> InterpolatePoints(int count)
         {
             List<Point2D> points = new List<Point2D>();
             for (double i = 0; (i <= 1); i += count)
@@ -139,7 +112,7 @@ namespace Engine.Geometry
 
             double blend;
             double muk = 1;
-            double munk = Math.Pow(1 - index, n);
+            double munk = Pow(1 - index, n);
 
             Point2D b = new Point2D(0.0f, 0.0f);
 

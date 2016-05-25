@@ -1,21 +1,22 @@
 ﻿// <copyright file="BinaryWriterEx.cs" >
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <author id="shkyrockett">shkyrockett</author>
 // <summary></summary>
+
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
+using System.Text;
+using static System.Math;
 
 namespace Engine.File
 {
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Net;
-    using System.Text;
-
     /// <summary>
     /// Overloads BinaryWriter to write extended primitive data types in specific encodings to a stream.
     /// </summary>
-    public class BinaryWriterExtensions 
+    public class BinaryWriterExtensions
         : BinaryWriter
     {
         /// <summary>
@@ -106,7 +107,7 @@ namespace Engine.File
             // Allocate a value buffer with room for bit shifting.  
             ulong value = input;
 
-            int len = input != 0 ? (int)Math.Ceiling(Math.Log(input + 1, 0x80)) : 1;
+            int len = input != 0 ? (int)Ceiling(Log(input + 1, 0x80)) : 1;
 
             // In theory, you could have a very long VLV number which was quite large; however, in the standard MIDI file specification,
             // the maximum length of a VLV value is 5 bytes, and the number it represents can not be larger than 4 bytes.

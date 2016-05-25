@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -25,12 +26,12 @@ namespace Engine.Geometry
     /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Quadratic Bezier Curve")]
+    [DisplayName(nameof(QuadraticBezier))]
     public class QuadraticBezier
         : Shape
     {
         #region Private Fields
-       
+
         /// <summary>
         /// The starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
@@ -53,7 +54,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private List<Point2D> points = new List<Point2D>();
-        
+
         #endregion
 
         #region Constructors
@@ -81,7 +82,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Properties
-        
+
         /// <summary>
         /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
@@ -121,9 +122,19 @@ namespace Engine.Geometry
             set { c = value; }
         }
 
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public List<Point2D> Points
+        //{
+        //    get { return points; }
+        //    set { points = value; }
+        //}
+
         /// <summary>
         /// An approximation of the length of a <see cref="QuadraticBezier"/> curve.
         /// </summary>
+        [XmlIgnore]
         public double Length
         {
             get { return Experimental.QuadraticBezierArcLengthByIntegral(this); }
@@ -132,11 +143,8 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<Point2D> Points
-        {
-            get { return points; }
-            set { points = value; }
-        }
+        [XmlIgnore]
+        public override double Perimeter => Length;
 
         /// <summary>
         /// 
@@ -144,6 +152,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
@@ -176,19 +185,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public List<Point2D> InterpolatePoints(int count)
-        {
-            return Experimental.InterpolateQuadraticBezierPoints(this, count);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return Experimental.InterpolateQuadraticBezier(this, index);
         }

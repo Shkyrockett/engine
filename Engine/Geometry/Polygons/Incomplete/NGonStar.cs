@@ -10,6 +10,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -29,7 +30,7 @@ namespace Engine.Geometry
 
             // Get the radii.
             int r1, r2, r3;
-            r3 = Math.Min(bounds.Width, bounds.Height) / 2;
+            r3 = Min(bounds.Width, bounds.Height) / 2;
             r1 = r3 / 2;
             r2 = r3 / 4;
             r3 = r1 + r2;
@@ -41,14 +42,14 @@ namespace Engine.Geometry
             // Position the original points.
             PointF[] pts1 = new PointF[NumPoints];
             PointF[] pts2 = new PointF[NumPoints];
-            double theta = -Math.PI / 2;
-            double dtheta = 2 * Math.PI / NumPoints;
+            double theta = -PI / 2;
+            double dtheta = 2 * PI / NumPoints;
             for (int i = 0; i < NumPoints; i++)
             {
-                pts1[i].X = (float)(r1 * Math.Cos(theta));
-                pts1[i].Y = (float)(r1 * Math.Sin(theta));
-                pts2[i].X = (float)(r2 * Math.Cos(theta));
-                pts2[i].Y = (float)(r2 * Math.Sin(theta));
+                pts1[i].X = (float)(r1 * Cos(theta));
+                pts1[i].Y = (float)(r1 * Sin(theta));
+                pts2[i].X = (float)(r2 * Cos(theta));
+                pts2[i].Y = (float)(r2 * Sin(theta));
                 theta += dtheta;
             }
 
@@ -65,9 +66,9 @@ namespace Engine.Geometry
                     DrawStar(e.Graphics, cx, cy, pts1, skip, NumPoints);
 
                     // Draw the smaller version.
-                    theta = -Math.PI / 2 + skip * 2 * Math.PI / NumPoints;
-                    int x = (int)(cx + r3 * Math.Cos(theta));
-                    int y = (int)(cy + r3 * Math.Sin(theta));
+                    theta = -PI / 2 + skip * 2 * PI / NumPoints;
+                    int x = (int)(cx + r3 * Cos(theta));
+                    int y = (int)(cy + r3 * Sin(theta));
 
                     DrawStar(e.Graphics, x, y, pts2, skip, NumPoints);
                 }

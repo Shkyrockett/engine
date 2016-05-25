@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -35,18 +36,18 @@ namespace Engine.Geometry
             double cy = bounds.Y + ry1;
 
             // Start at the top.
-            double theta = -Math.PI / 2;
-            double dtheta = Math.PI / num_points;
+            double theta = -PI / 2;
+            double dtheta = PI / num_points;
             for (int i = 0; i < 2 * num_points; i += 2)
             {
                 pts[i] = new PointF(
-                    (float)(cx + rx1 * Math.Cos(theta)),
-                    (float)(cy + ry1 * Math.Sin(theta)));
+                    (float)(cx + rx1 * Cos(theta)),
+                    (float)(cy + ry1 * Sin(theta)));
                 theta += dtheta;
 
                 pts[i + 1] = new PointF(
-                    (float)(cx + rx2 * Math.Cos(theta)),
-                    (float)(cy + ry2 * Math.Sin(theta)));
+                    (float)(cx + rx2 * Cos(theta)),
+                    (float)(cy + ry2 * Sin(theta)));
                 theta += dtheta;
             }
 

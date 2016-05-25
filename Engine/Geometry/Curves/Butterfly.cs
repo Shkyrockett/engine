@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -28,7 +29,7 @@ namespace Engine.Geometry
     /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Butterfly")]
+    [DisplayName(nameof(Butterfly))]
     public class Butterfly
         : Shape, IClosedShape
     {
@@ -46,11 +47,6 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private double precision;
-
-        /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        private List<Point2D> points;
 
         /// <summary>
         /// 
@@ -71,11 +67,7 @@ namespace Engine.Geometry
         public Point2D Offset
         {
             get { return offset; }
-            set
-            {
-                offset = value;
-                points = InterpolatePoints(0.1);
-            }
+            set { offset = value; }
         }
 
         /// <summary>
@@ -84,11 +76,7 @@ namespace Engine.Geometry
         public Size2D Multiplyer
         {
             get { return multiplyer; }
-            set
-            {
-                multiplyer = value;
-                points = InterpolatePoints(precision);
-            }
+            set { multiplyer = value; }
         }
 
         /// <summary>
@@ -97,11 +85,7 @@ namespace Engine.Geometry
         public double Precision
         {
             get { return precision; }
-            set
-            {
-                precision = value;
-                points = InterpolatePoints(precision);
-            }
+            set { precision = value; }
         }
 
         /// <summary>
@@ -116,7 +100,6 @@ namespace Engine.Geometry
                 {
                     offset = value[0];
                     multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
-                    points = InterpolatePoints(precision);
                 }
             }
         }
@@ -126,11 +109,11 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double index)
+        public override Point2D Interpolate(double index)
         {
             return new Point2D(
-                 offset.X + (Math.Cos(index) * ((Math.Exp(Math.Cos(index)) - ((2 * Math.Cos((4 * index))) - Math.Pow(Math.Sin((index / 12)), 5))) * multiplyer.Width)),
-                 offset.Y + ((Math.Sin(index) * (Math.Exp(Math.Cos(index)) - ((2 * Math.Cos((4 * index))) - Math.Pow(Math.Sin((index / 12)), 5)))) * multiplyer.Height)
+                 offset.X + (Cos(index) * ((Exp(Cos(index)) - ((2 * Cos((4 * index))) - Pow(Sin((index / 12)), 5))) * multiplyer.Width)),
+                 offset.Y + ((Sin(index) * (Exp(Cos(index)) - ((2 * Cos((4 * index))) - Pow(Sin((index / 12)), 5)))) * multiplyer.Height)
                  );
         }
 
@@ -139,14 +122,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints(double precision)
+        public override List<Point2D> InterpolatePoints(int precision)
         {
             const double n = 10000;
-            double u = (0 * (24 * (Math.PI / n)));
+            double u = (0 * (24 * (PI / n)));
             List<Point2D> points = new List<Point2D>();
-            for (double Index = 1; (Index <= n); Index = (Index + precision))
+            for (double Index = 1; (Index <= n); Index = (Index + (1d / precision)))
             {
-                u = (Index * (24 * (Math.PI / n)));
+                u = (Index * (24 * (PI / n)));
                 points.Add(Interpolate(u));
             }
             return points;
@@ -163,11 +146,11 @@ namespace Engine.Geometry
         public void DrawButterflyCurve2D(PaintEventArgs e, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
         {
             const double N = 10000;
-            double U = (0 * (24 * (Math.PI / N)));
+            double U = (0 * (24 * (PI / N)));
 
             Point2D NewPoint = new Point2D(
-                Math.Cos(U) * ((Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5))) * Multiplyer.Width),
-                (Math.Sin(U) * (Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5)))) * Multiplyer.Height
+                Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
+                (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
                 );
 
             Point2D LastPoint = NewPoint;
@@ -175,11 +158,11 @@ namespace Engine.Geometry
             for (double Index = 1; (Index <= N); Index = (Index + Precision))
             {
                 LastPoint = NewPoint;
-                U = (Index * (24 * (Math.PI / N)));
+                U = (Index * (24 * (PI / N)));
 
                 NewPoint = new Point2D(
-                    Math.Cos(U) * ((Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5))) * Multiplyer.Width),
-                    (Math.Sin(U) * (Math.Exp(Math.Cos(U)) - ((2 * Math.Cos((4 * U))) - Math.Pow(Math.Sin((U / 12)), 5)))) * Multiplyer.Height
+                    Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
+                    (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
                     );
 
                 e.Graphics.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());

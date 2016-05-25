@@ -12,6 +12,7 @@ using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Tools
 {
@@ -232,11 +233,11 @@ namespace Engine.Tools
         {
             StringBuilder output = new StringBuilder();
             output.Append("Angle: ");
-            output.Append(Math.Round(angle.ToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(angle.ToDegrees(), 3).ToString("N3").PadLeft(8));
             output.Append(", Snap to: ");
-            output.Append(Math.Round(theta.ToDegrees(), 3).ToString("N0").PadLeft(3));
+            output.Append(Round(theta.ToDegrees(), 3).ToString("N0").PadLeft(3));
             output.Append(", Difference: ");
-            output.Append(Math.Round(delta.ToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(delta.ToDegrees(), 3).ToString("N3").PadLeft(8));
             output.Append(".");
             return output.ToString();
         }

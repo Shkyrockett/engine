@@ -5,6 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -128,12 +129,12 @@ namespace Engine.Geometry
         /// <param name="point2"></param>
         public Rectangle2D(Point2D point1, Point2D point2)
         {
-            x = Math.Min(point1.X, point2.X);
-            y = Math.Min(point1.Y, point2.Y);
+            x = Min(point1.X, point2.X);
+            y = Min(point1.Y, point2.Y);
 
             //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-            width = Math.Max(Math.Max(point1.X, point2.X) - x, 0);
-            height = Math.Max(Math.Max(point1.Y, point2.Y) - y, 0);
+            width = Max(Max(point1.X, point2.X) - x, 0);
+            height = Max(Max(point1.Y, point2.Y) - y, 0);
         }
 
         #endregion
@@ -361,6 +362,20 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [XmlIgnore]
+        public override double Perimeter
+        {
+            get
+            {
+                return (Maths.Distance(TopLeft, TopRight) * 2) + (Maths.Distance(TopLeft, BottomLeft) * 2);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlIgnore]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -408,7 +423,7 @@ namespace Engine.Geometry
         {
             if (!(obj is Rectangle2D)) return false;
             Rectangle2D comp = (Rectangle2D)obj;
-            return (comp.X == this.X) && (comp.Y == this.Y) && (comp.Width == this.Width) && (comp.Height == this.Height);
+            return (comp.X == X) && (comp.Y == Y) && (comp.Width == Width) && (comp.Height == Height);
         }
 
         /// <summary>
@@ -456,7 +471,7 @@ namespace Engine.Geometry
         [Pure]
         public bool Contains(double x, double y)
         {
-            return this.x <= x && x < this.x + this.width && this.y <= y && y < this.y + this.height;
+            return this.x <= x && x < this.x + width && this.y <= y && y < this.y + height;
         }
 
         /// <summary>
@@ -478,10 +493,10 @@ namespace Engine.Geometry
         [Pure]
         public bool Contains(Rectangle2D rect)
         {
-            return (this.x <= rect.X)
-                && ((rect.X + rect.Width) <= (this.x + this.Width))
-                && (this.y <= rect.Y)
-                && ((rect.Y + rect.Height) <= (this.y + this.Height));
+            return (x <= rect.X)
+                && ((rect.X + rect.Width) <= (x + Width))
+                && (y <= rect.Y)
+                && ((rect.Y + rect.Height) <= (y + Height));
         }
 
         /// <summary>
@@ -490,12 +505,12 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         public void Intersect(Rectangle2D rect)
         {
-            Rectangle2D result = Rectangle2D.Intersect(rect, this);
+            Rectangle2D result = Intersect(rect, this);
 
-            this.x = result.X;
-            this.y = result.Y;
-            this.width = result.Width;
-            this.height = result.Height;
+            x = result.X;
+            y = result.Y;
+            width = result.Width;
+            height = result.Height;
         }
 
         /// <summary>
@@ -507,17 +522,17 @@ namespace Engine.Geometry
         [Pure]
         public static Rectangle2D Intersect(Rectangle2D a, Rectangle2D b)
         {
-            double x1 = Math.Max(a.X, b.X);
-            double x2 = Math.Min(a.X + a.Width, b.X + b.Width);
-            double y1 = Math.Max(a.Y, b.Y);
-            double y2 = Math.Min(a.Y + a.Height, b.Y + b.Height);
+            double x1 = Max(a.X, b.X);
+            double x2 = Min(a.X + a.Width, b.X + b.Width);
+            double y1 = Max(a.Y, b.Y);
+            double y2 = Min(a.Y + a.Height, b.Y + b.Height);
 
             if (x2 >= x1 && y2 >= y1)
             {
                 return new Rectangle2D(x1, y1, x2 - x1, y2 - y1);
             }
 
-            return Rectangle2D.Empty;
+            return Empty;
         }
 
         /// <summary>
@@ -528,10 +543,10 @@ namespace Engine.Geometry
         [Pure]
         public bool IntersectsWith(Rectangle2D rect)
         {
-            return (rect.X < this.x + this.width)
-                && (this.x < (rect.X + rect.Width))
-                && (rect.Y < this.y + this.height)
-                && (this.y < rect.Y + rect.Height);
+            return (rect.X < x + width)
+                && (x < (rect.X + rect.Width))
+                && (rect.Y < y + height)
+                && (y < rect.Y + rect.Height);
         }
 
         /// <summary>
@@ -539,8 +554,8 @@ namespace Engine.Geometry
         /// </summary>
         public void Union(Rectangle2D rect)
         {
-            double left = Math.Min(Left, rect.Left);
-            double top = Math.Min(Top, rect.Top);
+            double left = Min(Left, rect.Left);
+            double top = Min(Top, rect.Top);
 
             // We need this check so that the math does not result in NaN
             if ((rect.Width == double.PositiveInfinity) || (Width == double.PositiveInfinity))
@@ -550,8 +565,8 @@ namespace Engine.Geometry
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)                    
-                double maxRight = Math.Max(Right, rect.Right);
-                width = Math.Max(maxRight - left, 0);
+                double maxRight = Max(Right, rect.Right);
+                width = Max(maxRight - left, 0);
             }
 
             // We need this check so that the math does not result in NaN
@@ -562,8 +577,8 @@ namespace Engine.Geometry
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                double maxBottom = Math.Max(Bottom, rect.Bottom);
-                height = Math.Max(maxBottom - top, 0);
+                double maxBottom = Max(Bottom, rect.Bottom);
+                height = Max(maxBottom - top, 0);
             }
 
             x = left;
@@ -587,10 +602,10 @@ namespace Engine.Geometry
         [Pure]
         public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
         {
-            double left = Math.Min(a.X, b.X);
-            double top = Math.Min(a.Y, b.Y);
-            double x2 = Math.Max(a.X + a.Width, b.X + b.Width);
-            double y2 = Math.Max(a.Y + a.Height, b.Y + b.Height);
+            double left = Min(a.X, b.X);
+            double top = Min(a.Y, b.Y);
+            double x2 = Max(a.X + a.Width, b.X + b.Width);
+            double y2 = Max(a.Y + a.Height, b.Y + b.Height);
 
             return new Rectangle2D(left, top, x2 - left, y2 - top);
         }
@@ -664,8 +679,8 @@ namespace Engine.Geometry
         {
             this.x -= x;
             this.y -= y;
-            this.width += 2 * x;
-            this.height += 2 * y;
+            width += 2 * x;
+            height += 2 * y;
         }
 
         /// <summary>

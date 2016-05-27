@@ -86,7 +86,7 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        private Lerper.Behavior behavior;
+        private LerpBehavior behavior;
 
         /// <summary>
         /// 
@@ -160,7 +160,7 @@ namespace Engine.Tweening
             lerpers = new List<Lerper>();
             start = new List<object>();
             end = new List<object>();
-            behavior = Lerper.Behavior.None;
+            behavior = LerpBehavior.None;
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Engine.Tweening
 
                 //	If the timer is zero here, we just restarted.
                 //	If reflect mode is on, flip start to end
-                if (time == 0 && behavior.HasFlag(Lerper.Behavior.Reflect))
+                if (time == 0 && behavior.HasFlag(LerpBehavior.Reflect))
                     Reverse();
 
                 if (update != null)
@@ -372,7 +372,7 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween Reflect()
         {
-            behavior |= Lerper.Behavior.Reflect;
+            behavior |= LerpBehavior.Reflect;
             return this;
         }
 
@@ -404,8 +404,8 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween Rotation(RotationUnit unit = RotationUnit.Degrees)
         {
-            behavior |= Lerper.Behavior.Rotation;
-            behavior |= (unit == RotationUnit.Degrees) ? Lerper.Behavior.RotationDegrees : Lerper.Behavior.RotationRadians;
+            behavior |= LerpBehavior.Rotation;
+            behavior |= (unit == RotationUnit.Degrees) ? LerpBehavior.RotationDegrees : LerpBehavior.RotationRadians;
 
             return this;
         }
@@ -416,7 +416,7 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween Round()
         {
-            behavior |= Lerper.Behavior.Round;
+            behavior |= LerpBehavior.Round;
             return this;
         }
 

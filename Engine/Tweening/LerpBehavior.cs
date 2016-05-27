@@ -1,4 +1,4 @@
-﻿// <copyright file="Lerper.cs" >
+﻿// <copyright file="LerpBehavior.cs" >
 //     Copyright (c) 2013 Jacob Albano. All rights reserved.
 // </copyright>
 // <license> 
@@ -8,29 +8,44 @@
 // <summary></summary>
 // <remarks>Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
+using System;
 
 namespace Engine.Tweening
 {
     /// <summary>
     /// 
     /// </summary>
-    public abstract class Lerper
+    [Flags]
+    public enum LerpBehavior
     {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fromValue"></param>
-        /// <param name="toValue"></param>
-        /// <param name="behavior"></param>
-        public abstract void Initialize(object fromValue, object toValue, LerpBehavior behavior);
+        None = 0,
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="currentValue"></param>
-        /// <param name="behavior"></param>
-        /// <returns></returns>
-		public abstract object Interpolate(double t, object currentValue, LerpBehavior behavior);
+        Reflect = 1,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Rotation = 2,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RotationRadians = 4,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RotationDegrees = 8,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Round = 16
     }
 }

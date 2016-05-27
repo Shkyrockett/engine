@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Tweening
 {
@@ -40,14 +41,14 @@ namespace Engine.Tweening
             {
                 registeredLerpers = new Dictionary<Type, ConstructorInfo>();
                 var numericTypes = new Type[] {
-                    typeof(Int16),
-                    typeof(Int32),
-                    typeof(Int64),
-                    typeof(UInt16),
-                    typeof(UInt32),
-                    typeof(UInt64),
-                    typeof(Single),
-                    typeof(Double)
+                    typeof(short),
+                    typeof(int),
+                    typeof(long),
+                    typeof(ushort),
+                    typeof(uint),
+                    typeof(ulong),
+                    typeof(float),
+                    typeof(double)
                 };
 
                 for (int i = 0; i < numericTypes.Length; i++)
@@ -400,17 +401,17 @@ namespace Engine.Tweening
                 /// <param name="fromValue"></param>
                 /// <param name="toValue"></param>
                 /// <param name="behavior"></param>
-                public override void Initialize(object fromValue, object toValue, Behavior behavior)
+                public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
                 {
                     from = Convert.ToSingle(fromValue);
                     to = Convert.ToSingle(toValue);
                     range = to - from;
 
-                    if (behavior.HasFlag(Behavior.Rotation))
+                    if (behavior.HasFlag(LerpBehavior.Rotation))
                     {
                         double angle = from;
-                        if (behavior.HasFlag(Behavior.RotationRadians))
-                            angle *= DEG;
+                        if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                            angle *= Degree;
 
                         if (angle < 0)
                             angle = 360 + angle;
@@ -431,24 +432,24 @@ namespace Engine.Tweening
                 /// <param name="current"></param>
                 /// <param name="behavior"></param>
                 /// <returns></returns>
-                public override object Interpolate(double t, object current, Behavior behavior)
+                public override object Interpolate(double t, object current, LerpBehavior behavior)
                 {
                     var value = from + range * t;
-                    if (behavior.HasFlag(Behavior.Rotation))
+                    if (behavior.HasFlag(LerpBehavior.Rotation))
                     {
-                        if (behavior.HasFlag(Behavior.RotationRadians))
-                            value *= DEG;
+                        if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                            value *= Degree;
 
                         value %= 360.0f;
 
                         if (value < 0)
                             value += 360.0f;
 
-                        if (behavior.HasFlag(Behavior.RotationRadians))
-                            value *= RAD;
+                        if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                            value *= Radien;
                     }
 
-                    if (behavior.HasFlag(Behavior.Round)) value = Math.Round(value);
+                    if (behavior.HasFlag(LerpBehavior.Round)) value = Math.Round(value);
 
                     var type = current.GetType();
                     return Convert.ChangeType(value, type);

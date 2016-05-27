@@ -227,7 +227,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public override Point2D Interpolate(double index)
         {
-            return Experimental.InterpolateCubicBezier(this, index);
+            return new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, index));
         }
 
         #endregion
@@ -238,7 +238,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public IEnumerator<Point2D> GetEnumerator()
         {
-            yield return Experimental.InterpolateCubicBezier(this, Length);
+            yield return new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, Length));
         }
 
         #region Rendering

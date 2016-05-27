@@ -39,7 +39,7 @@ namespace Engine.Tweening
         /// <param name="fromValue"></param>
         /// <param name="toValue"></param>
         /// <param name="behavior"></param>
-        public override void Initialize(object fromValue, object toValue, Behavior behavior)
+        public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
             from = (Vector3)fromValue;
             to = (Vector3)toValue;
@@ -57,13 +57,13 @@ namespace Engine.Tweening
         /// <param name="currentValue"></param>
         /// <param name="behavior"></param>
         /// <returns></returns>
-        public override object Interpolate(double t, object currentValue, Behavior behavior)
+        public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
         {
             var x = from.X + range.X * t;
             var y = from.Y + range.Y * t;
             var z = from.Z + range.Z * t;
 
-            if (behavior.HasFlag(Behavior.Round))
+            if (behavior.HasFlag(LerpBehavior.Round))
             {
                 x = Math.Round(x);
                 y = Math.Round(y);

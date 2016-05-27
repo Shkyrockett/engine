@@ -189,7 +189,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override Point2D Interpolate(double index)
         {
-            return Experimental.InterpolateQuadraticBezier(this, index);
+            return new Point2D(Interpolaters.QuadraticBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, index));
         }
 
         #endregion

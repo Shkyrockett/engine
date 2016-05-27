@@ -12,35 +12,6 @@ namespace Engine
     /// </summary>
     public static class Experimental
     {
-        #region Get Angle
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns>
-        /// Return the angle ABC.
-        /// Return a value between PI and -PI.
-        /// Note that the value is the opposite of what you might
-        /// expect because Y coordinates increase downward.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double Angle(Point2D a, Point2D b, Point2D c)
-        {
-            // Get the dot product.
-            double dotProduct = Maths.DotProduct3Point(a.X, a.Y, b.X, b.Y, c.X, c.Y);
-
-            // Get the cross product.
-            double crossProduct = CrossProductLength(a, b, c);
-
-            // Calculate the angle.
-            return Atan2(crossProduct, dotProduct);
-        }
-
-        #endregion
-
         #region Absolute Angle
 
         /// <summary>
@@ -80,120 +51,6 @@ namespace Engine
             // Find the angle of point a and point b. 
             double test = -Maths.Angle(aX, aY, bX, bY) % PI;
             return test < 0 ? test += PI : test;
-        }
-
-        #endregion
-
-        #region Cross Product
-
-        /// <summary>
-        /// Return the cross product AB x BC.
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="Ax"></param>
-        /// <param name="Ay"></param>
-        /// <param name="Bx"></param>
-        /// <param name="By"></param>
-        /// <param name="Cx"></param>
-        /// <param name="Cy"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static double CrossProductLength(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
-        {
-            // Get the vectors' coordinates.
-            double BAx = Ax - Bx;
-            double BAy = Ay - By;
-            double BCx = Cx - Bx;
-            double BCy = Cy - By;
-
-            // Calculate the Z coordinate of the cross product.
-            return (BAx * BCy - BAy * BCx);
-        }
-
-        /// <summary>
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double CrossProductLength(Point2D a, Point2D b, Point2D c)
-        {
-            // Get the vectors' coordinates.
-            double bax = a.X - b.X;
-            double bay = a.Y - b.Y;
-            double bcx = c.X - b.X;
-            double bcy = c.Y - b.Y;
-
-            // Calculate the Z coordinate of the cross product.
-            return (bax * bcy - bay * bcx);
-        }
-
-        /// <summary>
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double CrossProductVector0(double aX, double aY, double bX, double bY, double cX, double cY)
-        {
-            // Get the vectors' coordinates.
-            double BAx = aX - bX;
-            double BAy = aY - bY;
-            double BCx = cX - bX;
-            double BCy = cY - bY;
-
-            // Calculate the Z coordinate of the cross product.
-            return ((BAx) * (BCy) - (BAy) * (BCx));
-        }
-
-        /// <summary>
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double CrossProductVector1(double aX, double aY, double bX, double bY, double cX, double cY)
-        {
-            // Calculate the Z coordinate of the cross product.
-            return ((aX - bX) * (cY - bY) - (aY - bY) * (cX - bX));
         }
 
         #endregion
@@ -3202,7 +3059,7 @@ namespace Engine
             for (double Index = 0; Index < 1; Index += Precision)
             {
                 Node++;
-                BPoints[Node] = InterpolateCubicBeizerPoint2(a, b, c, d, Index);
+                BPoints[Node] = new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, Index));
             }
 
             return new List<Point2D>(BPoints);
@@ -3237,7 +3094,7 @@ namespace Engine
             for (int i = 0; (i <= numberOfPoints); i++)
             {
                 t += dt;
-                curve.Add(InterpolatePointOnCubicBezier(a, b, c, d, t));
+                curve.Add(new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t)));
             }
             return curve;
         }
@@ -3271,248 +3128,10 @@ namespace Engine
             for (double Index = 0; (Index <= 1); Index = (Index + Precision))
             {
                 Node++;
-                BPoints[Node] = InterpolateCubicBSplinePoint(a, b, c, d, Index);
+                BPoints[Node] = new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, Index));
             }
 
             return new List<Point2D>(BPoints);
-        }
-
-        #endregion
-
-        #region Cubic Bezier Interpolation
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D InterpolateCubicBezier(this CubicBezier bezier, double t)
-        {
-            return InterpolateCubicBezier(bezier.A, bezier.B, bezier.C, bezier.D, t);
-        }
-
-        /// <summary>
-        /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <history>
-        /// </history>
-        private static Point2D InterpolateCubicBezier(Point2D a, Point2D b, Point2D c, Point2D d, double index)
-        {
-            double mum1 = 1 - index;
-            double mum13 = mum1 * mum1 * mum1;
-            double mu3 = index * index * index;
-
-            return new Point2D(
-                (mum13 * a.X + 3 * index * mum1 * mum1 * b.X + 3 * index * index * mum1 * c.X + mu3 * d.X),
-                (mum13 * a.Y + 3 * index * mum1 * mum1 * b.Y + 3 * index * index * mum1 * c.Y + mu3 * d.Y)
-                );
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D CubicBezierInterpolate0(this CubicBezier bezier, double t)
-        {
-            return CubicBezierInterpolate0(bezier.A, bezier.B, bezier.C, bezier.D, t);
-        }
-
-        /// <summary>
-        /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static Point2D CubicBezierInterpolate0(Point2D a, Point2D b, Point2D c, Point2D d, double t)
-        {
-            // point between a and b
-            Point2D ab = Maths.LinearInterpolate(a, b, t);
-            // point between b and c
-            Point2D bc = Maths.LinearInterpolate(b, c, t);
-            // point between c and d
-            Point2D cd = Maths.LinearInterpolate(c, d, t);
-            // point between ab and bc
-            Point2D abbc = Maths.LinearInterpolate(ab, bc, t);
-            // point between bc and cd
-            Point2D bccd = Maths.LinearInterpolate(bc, cd, t);
-            // point on the bezier-curve
-            return Maths.LinearInterpolate(abbc, bccd, t);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D InterpolateCubicBezierPoint1(this CubicBezier bezier, double t)
-        {
-            return InterpolateCubicBezierPoint1(bezier.A, bezier.B, bezier.C, bezier.D, t);
-        }
-
-        /// <summary>
-        /// Calculate parametric value of x or y given t and the four point
-        /// coordinates of a cubic bezier curve. This is a separate function
-        /// because we need it for both x and y values.
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.lemoda.net/maths/bezier-length/index.html</remarks>
-        private static Point2D InterpolateCubicBezierPoint1(Point2D a, Point2D b, Point2D c, Point2D d, double t)
-        {
-            // Formula from Wikipedia article on Bezier curves.
-            return new Point2D(
-            a.X * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * b.X * (1.0 - t) * (1.0 - t) * t + 3.0 * c.X * (1.0 - t) * t * t + d.X * t * t * t,
-            a.Y * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * b.Y * (1.0 - t) * (1.0 - t) * t + 3.0 * c.Y * (1.0 - t) * t * t + d.Y * t * t * t);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D InterpolateCubicBeizerPoint2(this CubicBezier bezier, double t)
-        {
-            return InterpolateCubicBeizerPoint2(bezier.A, bezier.B, bezier.C, bezier.D, t);
-        }
-
-        /// <summary>
-        /// Function to Plot a Cubic Bezier
-        /// </summary>
-        /// <param name="a">the starting point, or A in the above diagram</param>
-        /// <param name="b">the first control point, or B</param>
-        /// <param name="c">the second control point, or C</param>
-        /// <param name="d">the end point, or D</param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        private static Point2D InterpolateCubicBeizerPoint2(Point2D a, Point2D b, Point2D c, Point2D d, double t)
-        {
-            double V1 = t;
-            double V2 = (1 - t);
-            return new Point2D(
-                (a.X * V2 * V2 * V2) + (3 * b.X * V1 * V2 * V2) + (3 * c.X * V1 * V1 * V2) + (d.X * V2 * V2 * V2),
-                ((a.Y * V2 * V2 * V2) + (3 * b.Y * V1 * V2 * V2) + (3 * c.Y * V1 * V1 * V2) + (d.Y * V2 * V2 * V2)));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D InterpolatePointOnCubicBezier(this CubicBezier bezier, double t)
-        {
-            return InterpolatePointOnCubicBezier(bezier.A, bezier.B, bezier.C, bezier.D, t);
-        }
-
-        /// <summary>
-        ///  Code to generate a cubic Bezier curve
-        /// </summary>
-        /// <param name="a">the starting point, or A in the above diagram</param>
-        /// <param name="b">the first control point, or B</param>
-        /// <param name="c">the second control point, or C</param>
-        /// <param name="d">the end point, or D</param>
-        /// <param name="t">
-        ///  t is the parameter value, 0 less than or equal to t less than or equal to 1
-        /// </param>
-        /// <returns></returns>
-        /// <remarks>
-        ///  Warning - untested code
-        /// </remarks>
-        private static Point2D InterpolatePointOnCubicBezier(Point2D a, Point2D b, Point2D c, Point2D d, double t)
-        {
-            // calculate the curve point at parameter value t 
-            double tSquared = (t * t);
-            double tCubed = (tSquared * t);
-
-            // calculate the polynomial coefficients 
-            Point2D cC = new Point2D((3 * (b.X - a.X)), (3 * (b.Y - a.Y)));
-            Point2D cB = new Point2D(((3 * (c.X - b.X)) - cC.X), ((3 * (c.Y - b.Y)) - cC.Y));
-            Point2D cA = new Point2D((d.X - (a.X - (cC.X - cB.X))), (d.Y - (a.Y - (cC.Y - cB.Y))));
-            return new Point2D(((cA.X * tCubed) + ((cB.X * tSquared) + ((cC.X * t) + a.X))), ((cA.Y * tCubed) + ((cB.Y * tSquared) + ((cC.Y * t) + a.Y))));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D Interpolate1(this CubicBezier bezier, double t)
-        {
-            return Interpolate1(bezier.A, bezier.B, bezier.C, bezier.D, t);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        private static Point2D Interpolate1(Point2D a, Point2D b, Point2D c, Point2D d, double index)
-        {
-            //Point2D P = (v3 - v2) - (v0 - v1);
-            //Point2D Q = (v0 - v1) - P;
-            //Point2D R = v2 - v0;
-            //Point2D S = v1;
-            //return P * Pow(x, 3) + Q * Pow(x, 2) + R * x + S;
-            Vector2D P = d.Subtract(c).Subtract(a.Subtract(b));
-            Vector2D Q = a.Subtract(b).Subtract(P);
-            Vector2D R = c.Subtract(a);
-            Vector2D S = b;
-            return (Point2D)P.Scale(index * index * index).Add(Q.Scale(index * index)).Add(R.Scale(index)).Add(S);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D InterpolateCubicBSplinePoint(this CubicBezier bezier, double t)
-        {
-            return InterpolateCubicBSplinePoint(bezier.A, bezier.B, bezier.C, bezier.D, t);
-        }
-
-        /// <summary>
-        /// Function to Interpolate a Cubic Bezier Spline 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        private static Point2D InterpolateCubicBSplinePoint(Point2D a, Point2D b, Point2D c, Point2D d, double t)
-        {
-            Point2D c1 = new Point2D(((d.X - c.X) - (a.X - b.X)), ((d.Y - c.Y) - (a.Y - b.Y)));
-            Point2D c2 = new Point2D(((a.X - b.X) - a.X), ((a.Y - b.Y) - a.Y));
-            Point2D c3 = new Point2D((c.X - a.X), (c.Y - a.Y));
-            Point2D c4 = a;
-            return new Point2D((c1.X * t * t * t + c2.X * t * t * t + c3.X * t + c4.X), (c1.Y * t * t * t + c2.Y * t * t * t + c3.Y * t + c4.Y));
         }
 
         #endregion
@@ -3638,7 +3257,7 @@ namespace Engine
             for (int i = 0; i <= steps; i++)
             {
                 t = (double)i / steps;
-                dot = InterpolateCubicBezierPoint1(p1, p2, p3, p4, t);
+                dot = new Point2D(Interpolaters.CubicBezier(p1.X, p1.Y, p2.X, p2.Y, p3.X, p3.Y, p4.X, p4.Y, t));
                 if (i > 0)
                 {
                     double x_diff = dot.X - previous_dot.X;
@@ -3696,7 +3315,7 @@ namespace Engine
             List<Point2D> Lut = new List<Point2D>(100);
             for (double t = 0; t <= 1; t += 0.01)
             {
-                Lut[(int)(t * 100)] = InterpolateCubicBezier(a, b, c, d, t);
+                Lut[(int)(t * 100)] = new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t));
             }
             return Lut;
         }
@@ -3725,67 +3344,6 @@ namespace Engine
             }
 
             return new List<Point2D>(ipoints);
-        }
-
-        #endregion
-
-        #region Quadratic Bezier Interpolation
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static Point2D InterpolateQuadraticBezier(this QuadraticBezier bezier, double t)
-        {
-            return InterpolateQuadraticBezier(bezier.A, bezier.B, bezier.C, t);
-        }
-
-        /// <summary>
-        /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static Point2D InterpolateQuadraticBezier(Point2D a, Point2D b, Point2D c, double t)
-        {
-            // point between a and b
-            Point2D ab = Maths.LinearInterpolate(a, b, t);
-            // point between b and c
-            Point2D bc = Maths.LinearInterpolate(b, c, t);
-            // point on the bezier-curve
-            return Maths.LinearInterpolate(ab, bc, t);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static Point2D QuadraticBezierInterpolate(this QuadraticBezier bezier, double t)
-        {
-            return QuadraticBezierInterpolate(bezier.A, bezier.B, bezier.C, t);
-        }
-
-        /// <summary>
-        /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="mu"></param>
-        /// <returns></returns>
-        private static Point2D QuadraticBezierInterpolate(Point2D a, Point2D b, Point2D c, double mu)
-        {
-            double mu1 = 1 - mu;
-            double mu12 = mu1 * mu1;
-            double mu2 = mu * mu;
-
-            return new Point2D(
-                (a.X * mu12 + 2 * b.X * mu1 * mu + c.X * mu2),
-                (a.Y * mu12 + 2 * b.Y * mu1 * mu + c.Y * mu2)
-                );
         }
 
         #endregion
@@ -3853,12 +3411,12 @@ namespace Engine
         private static double QuadraticBezierArcLengthBySegments(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             double length = 0;
-            Point2D p = InterpolateQuadraticBezier(pointA, pointB, pointC, 0);
+            Point2D p = new Point2D(Interpolaters.QuadraticBezier(pointA.X, pointA.Y, pointB.X, pointB.Y, pointC.X, pointC.Y, 0));
             double prevX = p.X;
             double prevY = p.Y;
             for (double t = 0.005; t <= 1.0; t += 0.005)
             {
-                p = InterpolateQuadraticBezier(pointA, pointB, pointC, t);
+                p = new Point2D(Interpolaters.QuadraticBezier(pointA.Y, pointA.X, pointB.Y, pointB.X, pointC.X, pointC.Y, t));
                 double deltaX = p.X - prevX;
                 double deltaY = p.Y - prevY;
                 length += Sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -5292,34 +4850,6 @@ namespace Engine
             double Radius = Center.Length(PointA);
             Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
             return Bounds;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        public static double Perimeter0(List<Point2D> points)
-        {
-            var last = points[0];
-            double dist = 0;
-            foreach (var cur in points.Skip(1))
-            {
-                dist += Maths.Distance(last.X, last.Y, cur.X, cur.Y);
-                last = cur;
-            }
-            return dist;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/2227828/find-the-distance-required-to-navigate-a-list-of-points-using-linq</remarks>
-        public static double Perimeter1(List<Point2D> points)
-        {
-            return points.Zip(points.Skip(1), Maths.Distance).Sum();
         }
 
         #endregion

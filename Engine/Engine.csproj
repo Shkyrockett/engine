@@ -279,6 +279,7 @@
     <Compile Include="Geometry\Utilities.cs" />
     <Compile Include="Tools\ToolStack.cs" />
     <Compile Include="Tweening\GlideInfo.cs" />
+    <Compile Include="Tweening\LerpBehavior.cs" />
     <Compile Include="Tweening\Lerper.cs" />
     <Compile Include="Tweening\Tween.cs" />
     <Compile Include="Tweening\Tween.partial.cs" />

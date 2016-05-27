@@ -47,51 +47,51 @@ namespace Engine.Imaging
             }
             else if (shape is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
-                ((LineSegment)shape).Render(g, item);
+                (shape as LineSegment).Render(g, item);
             }
             else if (shape is Polyline)
             {
-                ((Polyline)shape).Render(g, item);
+                (shape as Polyline).Render(g, item);
             }
             else if (shape is PolylineSet)
             {
-                ((PolylineSet)shape).Render(g, item);
+                (shape as PolylineSet).Render(g, item);
             }
             else if (shape is Polygon)
             {
-                ((Polygon)shape).Render(g, item);
+                (shape as Polygon).Render(g, item);
             }
             else if (shape is PolygonSet)
             {
-                ((PolygonSet)shape).Render(g, item);
+                (shape as PolygonSet).Render(g, item);
             }
             else if (shape is Oval)
             {
-                ((Oval)shape).Render(g, item);
+                (shape as Oval).Render(g, item);
             }
             else if (shape is Rectangle2D)
             {
-                ((Rectangle2D)shape).Render(g, item);
+                (shape as Rectangle2D).Render(g, item);
             }
             else if (shape is Arc)
             {
-                ((Arc)shape).Render(g, item);
+                (shape as Arc).Render(g, item);
             }
             else if (shape is Circle)
             {
-                ((Circle)shape).Render(g, item);
+                (shape as Circle).Render(g, item);
             }
             else if (shape is Ellipse)
             {
-                ((Ellipse)shape).Render(g, item);
+                (shape as Ellipse).Render(g, item);
             }
             else if (shape is CubicBezier)
             {
-                ((CubicBezier)shape).Render(g, item);
+                (shape as CubicBezier).Render(g, item);
             }
             else if (shape is QuadraticBezier)
             {
-                ((QuadraticBezier)shape).Render(g, item);
+                (shape as QuadraticBezier).Render(g, item);
             }
             else
             {
@@ -166,19 +166,19 @@ namespace Engine.Imaging
         {
             // Determine the orientation.
             double radius = (shape.Size.Height > shape.Size.Width) ? shape.Size.Width / 2 : shape.Size.Height / 2;
-            
+
             // Start the Path object.
             GraphicsPath path = new GraphicsPath();
-            
+
             //  prepare the curves.
             path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 270, 90);
             path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 0, 90);
             path.AddArc((float)shape.Location.X, (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 90, 90);
             path.AddArc((float)shape.Location.X, (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 180, 90);
-            
+
             // Close the path.
             path.CloseFigure();
-            
+
             //  Draw the path.
             g.FillPath(((ShapeStyle)item.Style).BackBrush, path);
             g.DrawPath(((ShapeStyle)item.Style).ForePen, path);

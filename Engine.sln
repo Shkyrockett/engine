@@ -19,7 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExperimentLogs", "Experimen
 		Modulus.md = Modulus.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodSpeedTester", "MethodSpeedTester\MethodSpeedTester.csproj", "{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}"
+EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -77,6 +82,18 @@ Global
 		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|x64.Build.0 = Release|Any CPU
 		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|x86.ActiveCfg = Release|Any CPU
 		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|x86.Build.0 = Release|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Debug|x64.Build.0 = Debug|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Debug|x86.Build.0 = Debug|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Release|x64.ActiveCfg = Release|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Release|x64.Build.0 = Release|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Release|x86.ActiveCfg = Release|Any CPU
+		{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

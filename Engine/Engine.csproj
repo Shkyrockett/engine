@@ -101,6 +101,7 @@
     <Compile Include="Chrono\Enums\OccasionDateType.cs" />
     <Compile Include="Chrono\Enums\Season.cs" />
     <Compile Include="Chrono\Enums\TimeFormat.cs" />
+    <Compile Include="Tweening\Ease.cs" />
     <Compile Include="Geometry\Bezier.cs" />
     <Compile Include="Geometry\Complex\PolylineSet.cs" />
     <Compile Include="Geometry\Curves\Chord.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Geometry\Framework\Rectangle2DConverter.cs" />
     <Compile Include="Geometry\PolyBezier.cs" />
     <Compile Include="Geometry\Primitives\Point3D.cs" />
+    <Compile Include="Geometry\Framework\Interpolaters.cs" />
     <Compile Include="Localization\Enums\Countries.cs" />
     <Compile Include="Localization\Culture.cs" />
     <Compile Include="Localization\Cultures.cs" />
@@ -276,12 +278,22 @@
     <Compile Include="Tools\Tool.cs" />
     <Compile Include="Geometry\Utilities.cs" />
     <Compile Include="Tools\ToolStack.cs" />
+    <Compile Include="Tweening\GlideInfo.cs" />
+    <Compile Include="Tweening\Lerper.cs" />
+    <Compile Include="Tweening\Tween.cs" />
+    <Compile Include="Tweening\Tween.partial.cs" />
+    <Compile Include="Tweening\Tweener.cs" />
+    <Compile Include="Tweening\Vector3.cs" />
+    <Compile Include="Tweening\Vector3Lerper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Objects\Interfaces\Geometry\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chrono\Occasion.partial.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tweening\readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

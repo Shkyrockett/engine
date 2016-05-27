@@ -9,6 +9,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using static Engine.Geometry.Maths;
 using static System.Math;
 
 namespace Engine.Geometry
@@ -39,28 +41,7 @@ namespace Engine.Geometry
     /// </summary>
     internal class Utilities
     {
-        /// <summary>
-        /// cube root function yielding real roots
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        static double crt(double value) => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
-
-        // trig constants
-        /// <summary>
-        /// 
-        /// </summary>
-        const double tau = 2d * PI;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        const double quart = PI / 2d;
-
-        /// <summary>
-        /// float precision significant decimal
-        /// </summary>
-        const double epsilon = 0.000001d;
+        #region Gauss Tables
 
         /// <summary>
         /// Legendre-Gauss abscissae with n=24 (x_i values, defined at i=n as the roots of the nth order Legendre polynomial Pn(x))
@@ -124,6 +105,8 @@ namespace Engine.Geometry
             0.0123412297999871995468056670700372915759
         };
 
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -169,7 +152,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public static bool approximately(double a, double b, double precision = epsilon)
+        public static bool approximately(double a, double b, double precision = DoubleEpsilon)
         {
             return Abs(a - b) <= precision;// (precision || epsilon);
         }
@@ -207,36 +190,6 @@ namespace Engine.Geometry
             double v2 = v - ds;
             double r = v2 / d1;
             return ts + d2 * r;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="r"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        public static Point2D lerp(double r, Point2D v1, Point2D v2)
-        {
-            return new Point2D(
-                v1.X + r * (v2.X - v1.X),
-                v1.Y + r * (v2.Y - v1.Y));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="r"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        public static Point3D lerp(double r, Point3D v1, Point3D v2)
-        {
-            return new Point3D(
-                v1.X + r * (v2.X - v1.X),
-                v1.Y + r * (v2.Y - v1.Y),
-                v1.Z + r * (v2.Z - v1.Z)
-                );
         }
 
         /// <summary>
@@ -316,39 +269,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="v"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        public static double round(double v, int d)
-        {
-            return Round(v, d, MidpointRounding.AwayFromZero);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
-        public static double dist(Point2D p1, Point2D p2)
-        {
-            return Maths.Distance(p1.X, p1.Y, p2.X, p2.Y);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
-        public static double dist(Point3D p1, Point3D p2)
-        {
-            return Maths.Distance(p1.X, p1.Y, p1.Z, p2.X, p2.Y, p2.Z);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="LUT"></param>
         /// <param name="point"></param>
         /// <returns></returns>
@@ -358,7 +278,7 @@ namespace Engine.Geometry
             double mpos = 0;
             for (int i = 0; i < LUT.Count; i++)
             {
-                double d = dist(point, LUT[i]);
+                double d = Distance(point, LUT[i]);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -708,11 +628,11 @@ namespace Engine.Geometry
                     t = -q / (2 * r),
                     cosphi = t < -1 ? -1 : t > 1 ? 1 : t,
                     phi = Acos(cosphi),
-                    crtr = crt(r),
+                    crtr = Crt(r),
                     t1 = 2 * crtr;
                 x1 = t1 * Cos(phi / 3) - a / 3;
-                x2 = t1 * Cos((phi + tau) / 3) - a / 3;
-                x3 = t1 * Cos((phi + 2 * tau) / 3) - a / 3;
+                x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
+                x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
 
                 return new List<double>(
                     from t2 in new List<double>() { x1, x2, x3 }
@@ -722,7 +642,7 @@ namespace Engine.Geometry
             }
             else if (discriminant == 0)
             {
-                u1 = q2 < 0 ? crt(-q2) : -crt(q2);
+                u1 = q2 < 0 ? Crt(-q2) : -Crt(q2);
                 x1 = 2 * u1 - a / 3;
                 x2 = -u1 - a / 3;
 
@@ -735,8 +655,8 @@ namespace Engine.Geometry
             else
             {
                 var sd = Sqrt(discriminant);
-                u1 = crt(-q2 + sd);
-                v1 = crt(q2 + sd);
+                u1 = Crt(-q2 + sd);
+                v1 = Crt(q2 + sd);
 
                 return new List<double>(
                     from t4 in new List<double>() { u1 - v1 - a / 3 }
@@ -915,10 +835,10 @@ namespace Engine.Geometry
             double dy1 = (p2.Y - p1.Y);
             double dx2 = (p3.X - p2.X);
             double dy2 = (p3.Y - p2.Y);
-            double dx1p = dx1 * Cos(quart) - dy1 * Sin(quart);
-            double dy1p = dx1 * Sin(quart) + dy1 * Cos(quart);
-            double dx2p = dx2 * Cos(quart) - dy2 * Sin(quart);
-            double dy2p = dx2 * Sin(quart) + dy2 * Cos(quart);
+            double dx1p = dx1 * Cos(Quart) - dy1 * Sin(Quart);
+            double dy1p = dx1 * Sin(Quart) + dy1 * Cos(Quart);
+            double dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
+            double dy2p = dx2 * Sin(Quart) + dy2 * Cos(Quart);
             // chord midpoints
             double mx1 = (p1.X + p2.X) / 2d;
             double my1 = (p1.Y + p2.Y) / 2d;
@@ -931,7 +851,7 @@ namespace Engine.Geometry
             double my2n = my2 + dy2p;
             // intersection of these lines:
             Point3D arcCenter = lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
-            double r = dist(arcCenter, p1);
+            double r = Distance(arcCenter, p1);
             // arc start/end values, over mid point:
             double s = Atan2(p1.Y - arcCenter.Y, p1.X - arcCenter.X);
             double m = Atan2(p2.Y - arcCenter.Y, p2.X - arcCenter.X);
@@ -943,7 +863,7 @@ namespace Engine.Geometry
                 // if s<m<e, arc(s, e)
                 // if m<s<e, arc(e, s + tau)
                 // if s<e<m, arc(e, s + tau)
-                if (s > m || m > e) { s += tau; }
+                if (s > m || m > e) { s += Tau; }
                 if (s > e) { _ = e; e = s; s = _; }
             }
             else
@@ -951,7 +871,7 @@ namespace Engine.Geometry
                 // if e<m<s, arc(e, s)
                 // if m<e<s, arc(s, e + tau)
                 // if e<s<m, arc(s, e + tau)
-                if (e < m && m < s) { _ = e; e = s; s = _; } else { e += tau; }
+                if (e < m && m < s) { _ = e; e = s; s = _; } else { e += Tau; }
             }
             // assign and done.
             Arc1 arc = new Arc1();

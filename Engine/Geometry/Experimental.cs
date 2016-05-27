@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace Engine
@@ -31,7 +30,7 @@ namespace Engine
         public static double Angle(Point2D a, Point2D b, Point2D c)
         {
             // Get the dot product.
-            double dotProduct = DotProduct(a, b, c);
+            double dotProduct = Maths.DotProduct3Point(a.X, a.Y, b.X, b.Y, c.X, c.Y);
 
             // Get the cross product.
             double crossProduct = CrossProductLength(a, b, c);
@@ -85,74 +84,36 @@ namespace Engine
 
         #endregion
 
-        #region Distance
+        #region Cross Product
 
         /// <summary>
-        /// Distance between two points.
+        /// Return the cross product AB x BC.
+        /// The cross product is a vector perpendicular to AB
+        /// and BC having length |AB| * |BC| * Sin(theta) and
+        /// with direction given by the right-hand rule.
+        /// For two vectors in the X-Y plane, the result is a
+        /// vector with X and Y components 0 so the Z component
+        /// gives the vector's length and direction.
         /// </summary>
-        /// <param name="aX">First X component.</param>
-        /// <param name="aY">First Y component.</param>
-        /// <param name="aZ">First Z component.</param>
-        /// <param name="bX">Second X component.</param>
-        /// <param name="bY">Second Y component.</param>
-        /// <param name="bZ">Second Z component.</param>
-        /// <returns>The distance between two points.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(double aX, double aY, double aZ, double bX, double bY, double bZ)
-        {
-            return Sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY) + (bZ - aZ) * (bZ - aZ));
-        }
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="aX">First X component.</param>
-        /// <param name="aY">First Y component.</param>
-        /// <param name="aZ">First Z component.</param>
-        /// <param name="bX">Second X component.</param>
-        /// <param name="bY">Second Y component.</param>
-        /// <param name="bZ">Second Z component.</param>
-        /// <returns>The distance between two points.</returns>
-        public static double Distance1(double aX, double aY, double aZ, double bX, double bY, double bZ)
-        {
-            double x = (bX - aX);
-            double y = (bY - aY);
-            double z = (bZ - aZ);
-            return Sqrt(x * x + y * y + z * z);
-        }
-
-        #endregion
-
-        #region Dot Product
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns>
-        /// Return the dot product AB · BC.
-        /// </returns>
-        /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
-        /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
-        /// </remarks>
-        public static double DotProduct(Point2D a, Point2D b, Point2D c)
+        /// <param name="Ax"></param>
+        /// <param name="Ay"></param>
+        /// <param name="Bx"></param>
+        /// <param name="By"></param>
+        /// <param name="Cx"></param>
+        /// <param name="Cy"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
+        public static double CrossProductLength(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the vectors' coordinates.
-            double BAx = a.X - b.X;
-            double BAy = a.Y - b.Y;
-            double BCx = c.X - b.X;
-            double BCy = c.Y - b.Y;
+            double BAx = Ax - Bx;
+            double BAy = Ay - By;
+            double BCx = Cx - Bx;
+            double BCy = Cy - By;
 
-            // Calculate the dot product.
-            return (BAx * BCx + BAy * BCy);
+            // Calculate the Z coordinate of the cross product.
+            return (BAx * BCy - BAy * BCx);
         }
-
-        #endregion
-
-        #region Cross Product
 
         /// <summary>
         /// The cross product is a vector perpendicular to AB
@@ -3173,93 +3134,6 @@ namespace Engine
         // http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/
         #endregion
 
-        #region Linear Interpolation
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="segment"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public static Point2D LinearInterpolate(this LineSegment segment, double index)
-        {
-            return LinearInterpolate1(segment.A, segment.B, index);
-        }
-
-        /// <summary>
-        /// Interpolates two points
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Point2D LinearInterpolate0(Point2D a, Point2D b, double index)
-        {
-            return new Point2D(
-                a.X + (index * (b.X - a.X)),
-                a.Y + (index * (b.Y - a.Y)));
-        }
-
-        /// <summary>
-        /// simple linear interpolation between two points
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static Point2D LinearInterpolate1(Point2D a, Point2D b, double index)
-        {
-            return new Point2D(
-                (a.X + (b.X - a.X) * index),
-                (a.Y + (b.Y - a.Y) * index));
-        }
-
-        /// <summary>
-        /// Interpolates a shape.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="index">Index of the point to interpolate.</param>
-        /// <returns>Returns the interpolated point of the index value.</returns>
-        public static Point2D LinearInterpolate2(Point2D a, Point2D b, double index)
-        {
-            return new Point2D(
-                (a.X * (1 - index)) + (b.X * index),
-                (a.Y * (1 - index)) + (b.Y * index));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Point2D LinearInterpolate3(Point2D a, Point2D b, double index)
-        {
-            return new Point2D(
-                a.X + ((1 / (a.X - b.X)) * index),
-                a.Y + ((1 / (a.Y - b.Y)) * index));
-        }
-
-        /// <summary>
-        /// Function For normal Line
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Point2D LinearInterpolate4(Point2D a, Point2D b, double index)
-        {
-            return (Point2D)(a.Scale(1 - index)).Add(b.Scale(index));
-        }
-
-        #endregion
-
         #region Linear Offset Interpolation
 
         /// <summary>
@@ -3274,7 +3148,7 @@ namespace Engine
         {
             Vector2D UnitVectorAB = new Vector2D(Value1, Value2);
             Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
-            return LinearInterpolate0(Value1, Value2, Weight).Inflate(PerpendicularAB);
+            return Maths.LinearInterpolate(Value1, Value2, Weight).Inflate(PerpendicularAB);
         }
 
         #endregion
@@ -3466,17 +3340,17 @@ namespace Engine
         private static Point2D CubicBezierInterpolate0(Point2D a, Point2D b, Point2D c, Point2D d, double t)
         {
             // point between a and b
-            Point2D ab = LinearInterpolate1(a, b, t);
+            Point2D ab = Maths.LinearInterpolate(a, b, t);
             // point between b and c
-            Point2D bc = LinearInterpolate1(b, c, t);
+            Point2D bc = Maths.LinearInterpolate(b, c, t);
             // point between c and d
-            Point2D cd = LinearInterpolate1(c, d, t);
+            Point2D cd = Maths.LinearInterpolate(c, d, t);
             // point between ab and bc
-            Point2D abbc = LinearInterpolate1(ab, bc, t);
+            Point2D abbc = Maths.LinearInterpolate(ab, bc, t);
             // point between bc and cd
-            Point2D bccd = LinearInterpolate1(bc, cd, t);
+            Point2D bccd = Maths.LinearInterpolate(bc, cd, t);
             // point on the bezier-curve
-            return LinearInterpolate1(abbc, bccd, t);
+            return Maths.LinearInterpolate(abbc, bccd, t);
         }
 
         /// <summary>
@@ -3878,11 +3752,11 @@ namespace Engine
         private static Point2D InterpolateQuadraticBezier(Point2D a, Point2D b, Point2D c, double t)
         {
             // point between a and b
-            Point2D ab = LinearInterpolate1(a, b, t);
+            Point2D ab = Maths.LinearInterpolate(a, b, t);
             // point between b and c
-            Point2D bc = LinearInterpolate1(b, c, t);
+            Point2D bc = Maths.LinearInterpolate(b, c, t);
             // point on the bezier-curve
-            return LinearInterpolate1(ab, bc, t);
+            return Maths.LinearInterpolate(ab, bc, t);
         }
 
         /// <summary>
@@ -4068,101 +3942,6 @@ namespace Engine
         // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
         #endregion
 
-        #region Interpolations
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="y1"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double CosineInterpolate(double y1, double y2, double t)
-        {
-            double mu2 = (1 - Cos(t * PI)) / 2;
-            return (y1 * (1 - mu2) + y2 * mu2);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="y0"></param>
-        /// <param name="y1"></param>
-        /// <param name="y2"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double CubicInterpolate(double y0, double y1, double y2, double y3, double t)
-        {
-            double a0, a1, a2, a3, mu2;
-
-            mu2 = t * t;
-            a0 = y3 - y2 - y0 + y1;
-            a1 = y0 - y1 - a0;
-            a2 = y2 - y0;
-            a3 = y1;
-
-            return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="y0"></param>
-        /// <param name="y1"></param>
-        /// <param name="y2"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double CubicInterpolateCatmullRomSplines(double y0, double y1, double y2, double y3, double t)
-        {
-            double a0, a1, a2, a3, mu2;
-
-            mu2 = t * t;
-            a0 = -0.5 * y0 + 1.5 * y1 - 1.5 * y2 + 0.5 * y3;
-            a1 = y0 - 2.5 * y1 + 2 * y2 - 0.5 * y3;
-            a2 = -0.5 * y0 + 0.5 * y2;
-            a3 = y1;
-
-            return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="y0"></param>
-        /// <param name="y1"></param>
-        /// <param name="y2"></param>
-        /// <param name="y3"></param>
-        /// <param name="mu"></param>
-        /// <param name="tension">1 is high, 0 normal, -1 is low</param>
-        /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
-        {
-            double m0, m1, mu2, mu3;
-            double a0, a1, a2, a3;
-
-            mu2 = mu * mu;
-            mu3 = mu2 * mu;
-            m0 = (y1 - y0) * (1 + bias) * (1 - tension) / 2;
-            m0 += (y2 - y1) * (1 - bias) * (1 - tension) / 2;
-            m1 = (y2 - y1) * (1 + bias) * (1 - tension) / 2;
-            m1 += (y3 - y2) * (1 - bias) * (1 - tension) / 2;
-            a0 = 2 * mu3 - 3 * mu2 + 1;
-            a1 = mu3 - 2 * mu2 + mu;
-            a2 = mu3 - mu2;
-            a3 = -2 * mu3 + 3 * mu2;
-
-            return (a0 * y1 + a1 * m0 + a2 * m1 + a3 * y2);
-        }
-
-        #endregion
-
         #region Polygon Centroid
 
         /// <summary>
@@ -4298,7 +4077,7 @@ namespace Engine
                 C = (B + 1) % num_points;
 
                 double cross_product =
-                    Maths.CrossProduct3Point(
+                    Maths.CrossProductLength(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);

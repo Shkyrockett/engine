@@ -1,4 +1,13 @@
-﻿using System;
+﻿// <copyright file="PolygonExtensions.cs" >
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using static System.Math;
@@ -187,7 +196,7 @@ namespace Engine.Geometry.Polygons
                 C = (B + 1) % num_points;
 
                 double cross_product =
-                    CrossProductLength(
+                    Maths.CrossProductLength(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
@@ -207,59 +216,6 @@ namespace Engine.Geometry.Polygons
         }
 
         /// <summary>
-        /// Return the cross product AB x BC.
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="Ax"></param>
-        /// <param name="Ay"></param>
-        /// <param name="Bx"></param>
-        /// <param name="By"></param>
-        /// <param name="Cx"></param>
-        /// <param name="Cy"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static double CrossProductLength(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
-        {
-            // Get the vectors' coordinates.
-            double BAx = Ax - Bx;
-            double BAy = Ay - By;
-            double BCx = Cx - Bx;
-            double BCy = Cy - By;
-
-            // Calculate the Z coordinate of the cross product.
-            return (BAx * BCy - BAy * BCx);
-        }
-
-        /// <summary>
-        /// Return the dot product AB · BC.
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
-        /// </summary>
-        /// <param name="Ax"></param>
-        /// <param name="Ay"></param>
-        /// <param name="Bx"></param>
-        /// <param name="By"></param>
-        /// <param name="Cx"></param>
-        /// <param name="Cy"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static double DotProduct(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
-        {
-            // Get the vectors' coordinates.
-            double BAx = Ax - Bx;
-            double BAy = Ay - By;
-            double BCx = Cx - Bx;
-            double BCy = Cy - By;
-
-            // Calculate the dot product.
-            return (BAx * BCx + BAy * BCy);
-        }
-
-        /// <summary>
         /// Return the angle ABC.
         /// Return a value between PI and -PI.
         /// Note that the value is the opposite of what you might
@@ -276,10 +232,10 @@ namespace Engine.Geometry.Polygons
         public static double GetAngle(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the dot product.
-            double dot_product = DotProduct(Ax, Ay, Bx, By, Cx, Cy);
+            double dot_product = Maths.DotProduct3Point(Ax, Ay, Bx, By, Cx, Cy);
 
             // Get the cross product.
-            double cross_product = CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
+            double cross_product = Maths.CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
 
             // Calculate the angle.
             return Atan2(cross_product, dot_product);

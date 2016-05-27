@@ -206,7 +206,7 @@ namespace Engine.Geometry
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double index)
         {
-            return Experimental.LinearInterpolate2(a, b, index);
+            return Maths.LinearInterpolate(a, b, index);
         }
 
         /// <summary>

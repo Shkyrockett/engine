@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using static Engine.Geometry.Maths;
 using static Engine.Geometry.Utilities;
 using static System.Math;
 
@@ -20,8 +21,21 @@ namespace Engine.Geometry
     /// </summary>
     public class Bezier
     {
-        // a zero coordinate, which is surprisingly useful
-        static readonly Point3D Zero = new Point3D(x: 0, y: 0, z: 0);
+        #region Private Fields
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<Point3D> _lut = new List<Point3D>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<char> dims = new List<char>() { 'x', 'y', 'z' };
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -101,6 +115,10 @@ namespace Engine.Geometry
             : this(new List<Point3D>() { p1, p2, p3, p4 })
         { }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// 
         /// </summary>
@@ -110,11 +128,6 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public List<Point3D> dpoints { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<Point3D> _lut = new List<Point3D>();
 
         /// <summary>
         /// 
@@ -150,6 +163,10 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public bool _linear { get; private set; }
+
+        #endregion
+
+        #region Operators
 
         /// <summary>
         /// 
@@ -203,6 +220,8 @@ namespace Engine.Geometry
         {
             return obj is Bezier && Equals(this, (Bezier)obj);
         }
+
+        #endregion
 
         /// <summary>
         /// 
@@ -277,10 +296,10 @@ namespace Engine.Geometry
         public static Bezier cubicFromPoints(Point3D S, Point3D B, Point3D E, double t = 0.5, double d1 = 0)
         {
             var abc = getABC(3, S, B, E, t);
-            if (d1 == 0) { d1 = dist(B, abc.Item3); }
+            if (d1 == 0) { d1 = Distance(B, abc.Item3); }
             var d2 = d1 * (1 - t) / t;
 
-            double selen = dist(S, E);
+            double selen = Distance(S, E);
             double lx = (E.X - S.X) / selen;
             double ly = (E.Y - S.Y) / selen;
             double lz = (E.Z - S.Z) / selen;
@@ -404,7 +423,7 @@ namespace Engine.Geometry
             for (int i = 0; i < lut.Count(); i++)
             {
                 c = lut[i];
-                if (dist(c, point) < error)
+                if (Distance(c, point) < error)
                 {
                     hits.Add(c);
                     t += i / lut.Count();
@@ -450,7 +469,7 @@ namespace Engine.Geometry
             for (t = t1, ft = t; t < t2 + step; t += step)
             {
                 p = compute(t);
-                d = dist(point, p);
+                d = Distance(point, p);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -519,7 +538,7 @@ namespace Engine.Geometry
                 double d = 0;
                 if (order == 2)
                 {
-                    p = new List<Point3D>() { points[0], points[1], points[2], Zero };
+                    p = new List<Point3D>() { points[0], points[1], points[2], Point3D.Empty };
                     a = mt2;
                     b = mt * t * 2;
                     c = t2;
@@ -596,7 +615,7 @@ namespace Engine.Geometry
             List<Point3D> p = new List<Point3D>(3) { dpoints[0] };
             if (order == 2)
             {
-                p = new List<Point3D>() { p[0], p[1], Zero };
+                p = new List<Point3D>() { p[0], p[1], Point3D.Empty };
                 a = mt;
                 b = t;
             }
@@ -709,7 +728,7 @@ namespace Engine.Geometry
                 _p = new List<Point3D>();
                 for (i = 0, l = p.Count - 1; i < l; i++)
                 {
-                    pt = Utilities.lerp(t, p[i], p[i + 1]);
+                    pt = LinearInterpolate(p[i], p[i + 1],t);
                     q[idx++] = pt;
                     _p.Add(pt);
                 }
@@ -762,11 +781,6 @@ namespace Engine.Geometry
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<char> dims = new List<char>() { 'x', 'y', 'z' };
 
         /// <summary>
         /// 
@@ -1333,9 +1347,9 @@ namespace Engine.Geometry
             double q = (e - s) / 4;
             Point3D c1 = get(s + q);
             Point3D c2 = get(e - q);
-            double reff = dist(pc.center, np1);
-            double d1 = dist(pc.center, c1);
-            double d2 = dist(pc.center, c2);
+            double reff = Distance(pc.center, np1);
+            double d1 = Distance(pc.center, c1);
+            double d2 = Distance(pc.center, c2);
             return Abs(d1 - reff) + Abs(d2 - reff);
         }
 

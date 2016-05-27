@@ -55,6 +55,11 @@ namespace Engine.Geometry
         /// </summary>
         public const float FloatEpsilon = 1.192092896e-07f;
 
+        ///// <summary>
+        ///// float precision significant decimal
+        ///// </summary>
+        //const double FloatEpsilon = 0.000001d;
+
         /// <summary>
         /// 
         /// </summary>
@@ -100,18 +105,18 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public const double DoublePi = Tau;
 
-        /// <summary>
-        /// Represents the ratio of the circumference of a circle to its diameter, specified
-        /// by the constant, π.
-        /// One half Tau or One Pi.
-        /// </summary>
-        /// <value>≈3.1415926535897931...</value>
-        public const double Pi = PI;
+        ///// <summary>
+        ///// Represents the ratio of the circumference of a circle to its diameter, specified
+        ///// by the constant, π.
+        ///// One half Tau or One Pi.
+        ///// </summary>
+        ///// <value>≈3.1415926535897931...</value>
+        //public const double PI = Math.PI;
 
         /// <summary>
         /// 
         /// </summary>
-        public const double Π = Pi;
+        public const double Π = PI;
 
         /// <summary>
         /// One half Tau or One Pi.
@@ -148,7 +153,7 @@ namespace Engine.Geometry
         /// PI / 4
         /// </summary>
         /// <remarks></remarks>
-        public const double QuarterPi = EighthTau;
+        public const double Quart = EighthTau;
 
         /// <summary>
         /// One sixteenth Tau or a eighth Pi.
@@ -422,7 +427,7 @@ namespace Engine.Geometry
         public static double Angle(
             double x1, double y1,
             double x2, double y2)
-            => Math.Atan2((y1 - y2), (x1 - x2));
+            => Atan2((y1 - y2), (x1 - x2));
 
         /// <summary>
         /// 
@@ -461,7 +466,7 @@ namespace Engine.Geometry
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
-            => Math.Atan2(CrossProduct3Point(x1, y1, x2, y2, x3, y3), DotProduct3Point(x1, y1, x2, y2, x3, y3));
+            => Math.Atan2(CrossProductLength(x1, y1, x2, y2, x3, y3), DotProduct3Point(x1, y1, x2, y2, x3, y3));
 
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
@@ -568,7 +573,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProduct3Point(
+        public static double CrossProductLength(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
@@ -712,7 +717,7 @@ namespace Engine.Geometry
         /// <returns>The distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Tuple<double,double> p1, Tuple<double, double> p2)
+        public static double Distance(Tuple<double, double> p1, Tuple<double, double> p2)
             => Distance(p1.Item1, p1.Item2, p2.Item1, p2.Item2);
 
         /// <summary>
@@ -731,6 +736,17 @@ namespace Engine.Geometry
             double x1, double y1, double z1,
             double x2, double y2, double z2)
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(Point3D p1, Point3D p2)
+            => Distance(p1.X, p1.Y, p1.Z, p2.X, p2.Y, p2.Z);
 
         /// <summary>
         /// The square of the distance between two points.
@@ -1599,43 +1615,25 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="theta"></param>
+        /// <param name="t"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> LinearInterpolate(
-            double x1, double y1,
-            double x2, double y2,
-            double theta)
-            => new Tuple<double, double>(
-                x1 * (1 - theta) + x2 * theta,
-                y1 * (1 - theta) + y2 * theta
-                );
+        public static Point2D LinearInterpolate(Point2D v1, Point2D v2, double t)
+            => new Point2D(Interpolaters.Linear(v1.X, v1.Y, v2.X, v2.Y, t));
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="theta"></param>
+        /// <param name="t"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> LinearInterpolate(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double theta)
-            => new Tuple<double, double, double>(
-                x1 * (1 - theta) + x2 * theta,
-                y1 * (1 - theta) + y2 * theta,
-                z1 * (1 - theta) + z2 * theta
-                );
+        public static Point3D LinearInterpolate(Point3D v1, Point3D v2, double t)
+            => new Point3D(Interpolaters.Linear(v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, t));
 
         #endregion
 
@@ -1729,32 +1727,32 @@ namespace Engine.Geometry
         public static double Crt(double value)
             => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
 
-        /// <summary>
-        /// Angle with tangent opp/hyp
-        /// </summary>
-        /// <param name="opposite"></param>
-        /// <param name="adjacent"></param>
-        /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Atan2(double opposite, double adjacent)
-            => Math.Atan2(opposite, adjacent);
+        ///// <summary>
+        ///// Angle with tangent opp/hyp
+        ///// </summary>
+        ///// <param name="opposite"></param>
+        ///// <param name="adjacent"></param>
+        ///// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
+        ///// <remarks></remarks>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static double Atan2(double opposite, double adjacent)
+        //    => Math.Atan2(opposite, adjacent);
 
-        /// <summary>
-        /// Returns the Angle of two deltas.
-        /// </summary>
-        /// <param name="opposite">Delta Angle 1</param>
-        /// <param name="adjacent">Delta Angle 2</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
-        public static double _Atan2(double opposite, double adjacent)
-        {
-            if (((opposite == 0) && (adjacent == 0))) return 0;
-            double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
-            if ((adjacent < 0)) Value = (PI - Value);
-            if ((Value < 0)) Value = (Value + (2 * PI));
-            return Value;
-        }
+        ///// <summary>
+        ///// Returns the Angle of two deltas.
+        ///// </summary>
+        ///// <param name="opposite">Delta Angle 1</param>
+        ///// <param name="adjacent">Delta Angle 2</param>
+        ///// <returns>Returns the Angle of a line.</returns>
+        ///// <remarks></remarks>
+        //public static double _Atan2(double opposite, double adjacent)
+        //{
+        //    if (((opposite == 0) && (adjacent == 0))) return 0;
+        //    double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
+        //    if ((adjacent < 0)) Value = (PI - Value);
+        //    if ((Value < 0)) Value = (Value + (2 * PI));
+        //    return Value;
+        //}
 
         /// <summary>
         /// Derived math functions equivalent Secant
@@ -1764,7 +1762,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => ((value % Pi != HalfPi) && (value % Pi != -HalfPi)) ? (1 / Cos(value)) : 0;
+            => ((value % PI != HalfPi) && (value % PI != -HalfPi)) ? (1 / Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -1774,7 +1772,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Sin(Value)) : 0;
+            => ((Value % PI != 0) && (Value % PI != PI)) ? (1 / Sin(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -1784,7 +1782,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-            => ((Value % Pi != 0) && (Value % Pi != Pi)) ? (1 / Tan(Value)) : 0;
+            => ((Value % PI != 0) && (Value % PI != PI)) ? (1 / Tan(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -1820,7 +1818,7 @@ namespace Engine.Geometry
             //  Arc-cos(X) 
             // Return Atan(-Value / Sqrt(-Value * Value + 1)) + 2 * Atan(1)
             if (value == 1) return 0;
-            else if (value == -1) return Pi;
+            else if (value == -1) return PI;
             else
             {
                 if ((Math.Abs(value) < 1))
@@ -2071,6 +2069,17 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDegrees(this double radiens)
             => radiens * Degree;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public static double RoundAFZ(double v, int d)
+        {
+            return Round(v, d, MidpointRounding.AwayFromZero);
+        }
 
         /// <summary>
         /// 

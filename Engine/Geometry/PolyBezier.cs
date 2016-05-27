@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using static Engine.Geometry.Utilities;
 
 namespace Engine.Geometry
 {
@@ -73,7 +74,7 @@ namespace Engine.Geometry
             var bbox = c[0].bbox();
             for (var i = 1; i < c.Count; i++)
             {
-                Utilities.expandbox(bbox, c[i].bbox());
+                expandbox(bbox, c[i].bbox());
             }
             return bbox;
         }

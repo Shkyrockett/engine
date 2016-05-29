@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static System.Math;
@@ -22,7 +23,7 @@ namespace MethodSpeedTester
     /// </summary>
     public class Experiments
     {
-        #region Angle of Three 2D Points
+        #region Angle of the vector of Three 2D Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of three 2D points.
@@ -32,10 +33,35 @@ namespace MethodSpeedTester
         public static List<SpeedTester> Angle3Points2DTests()
         {
             return new List<SpeedTester>() {
-                new SpeedTester(() => Angle(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.Angle)}(0, 0, 1, 0, 1, 1)"),
-            };
+                new SpeedTester(() => AngleVector_0(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.AngleVector_0)}(0, 0, 1, 0, 1, 1)"),
+                 new SpeedTester(() => AngleVector_1(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.AngleVector_1)}(0, 0, 1, 0, 1, 1)"),
+           };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns>
+        /// Return the angle ABC.
+        /// Return a value between PI and -PI.
+        /// Note that the value is the opposite of what you might
+        /// expect because Y coordinates increase downward.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AngleVector_0(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+            => Atan2(CrossProductVector2D_0(x1, y1, x2, y2, x3, y3), DotProductVector2D_0(x1, y1, x2, y2, x3, y3));
 
         /// <summary>
         /// 
@@ -50,16 +76,16 @@ namespace MethodSpeedTester
         /// expect because Y coordinates increase downward.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double Angle(
+        public static double AngleVector_1(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY)
         {
             // Get the dot product.
-            double dotProduct = DotProduct3Points2D_0(aX, aY, bX, bY, cX, cY);
+            double dotProduct = DotProductVector2D_0(aX, aY, bX, bY, cX, cY);
 
             // Get the cross product.
-            double crossProduct = CrossProduct3Points2D_0(aX, aY, bX, bY, cX, cY);
+            double crossProduct = CrossProductVector2D_0(aX, aY, bX, bY, cX, cY);
 
             // Calculate the angle.
             return Atan2(crossProduct, dotProduct);
@@ -253,16 +279,16 @@ namespace MethodSpeedTester
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(CrossProduct3Points2DTests))]
-        public static List<SpeedTester> CrossProduct3Points2DTests()
+        [DisplayName(nameof(CrossProductVector2DTests))]
+        public static List<SpeedTester> CrossProductVector2DTests()
         {
             return new List<SpeedTester>() {
-                new SpeedTester(() => CrossProduct3Points2D_0(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.CrossProduct3Points2D_0)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => CrossProduct3Points2D_1(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.CrossProduct3Points2D_1)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => CrossProduct3Points2D_2(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.CrossProduct3Points2D_2)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => CrossProductVector2D_0(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.CrossProductVector2D_0)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => CrossProductVector2D_1(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.CrossProductVector2D_1)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => CrossProductVector2D_2(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.CrossProductVector2D_2)}(0, 0, 1, 0, 1, 1)"),
             };
         }
 
@@ -286,7 +312,7 @@ namespace MethodSpeedTester
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProduct3Points2D_0(
+        public static double CrossProductVector2D_0(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY)
@@ -310,7 +336,7 @@ namespace MethodSpeedTester
         /// Return the cross product AB x BC.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double CrossProduct3Points2D_1(
+        public static double CrossProductVector2D_1(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY)
@@ -342,7 +368,7 @@ namespace MethodSpeedTester
         /// <param name="Cy"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static double CrossProduct3Points2D_2(
+        public static double CrossProductVector2D_2(
             double Ax, double Ay,
             double Bx, double By,
             double Cx, double Cy)
@@ -1199,22 +1225,22 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Dot Product of Three 2D Points
+        #region Dot Product of the Vector of Three 2D Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the dot product of three 2D points.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(DotProduct3Points2DTests))]
-        public static List<SpeedTester> DotProduct3Points2DTests()
+        [DisplayName(nameof(DotProductVector2DTests))]
+        public static List<SpeedTester> DotProductVector2DTests()
         {
             return new List<SpeedTester>() {
-                new SpeedTester(() => DotProduct3Points2D_0(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.DotProduct3Points2D_0)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => DotProduct3Points2D_1(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.DotProduct3Points2D_1)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => DotProduct3Points2D_2(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.DotProduct3Points2D_2)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => DotProductVector2D_0(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.DotProductVector2D_0)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => DotProductVector2D_1(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.DotProductVector2D_1)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => DotProductVector2D_2(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.DotProductVector2D_2)}(0, 0, 1, 0, 1, 1)"),
             };
         }
 
@@ -1232,7 +1258,7 @@ namespace MethodSpeedTester
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct3Points2D_0(
+        public static double DotProductVector2D_0(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
@@ -1253,7 +1279,7 @@ namespace MethodSpeedTester
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct3Points2D_1(
+        public static double DotProductVector2D_1(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
@@ -1275,7 +1301,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         [DebuggerStepThrough]
-        public static double DotProduct3Points2D_2(
+        public static double DotProductVector2D_2(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
@@ -1827,6 +1853,751 @@ namespace MethodSpeedTester
         public static double Perimeter1(List<Tuple<double, double>> points)
         {
             return points.Zip(points.Skip(1), Distance2D_1).Sum();
+        }
+
+        #endregion
+
+        #region Point in Circle
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate whether a point is within a circle.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(PointInCircle2DTests))]
+        public static List<SpeedTester> PointInCircle2DTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => PointInCircle(0, 0, 2, 1, 1),
+                $"{nameof(Experiments.PointInCircle)}(0, 0, 2, 1, 1)"),
+            };
+        }
+
+        /// <summary>
+        /// Find out if a Point is in a Circle. 
+        /// </summary>
+        /// <returns></returns>
+        public static bool PointInCircle(
+            double centerX,
+            double centerY,
+            double radius,
+            double X,
+            double Y)
+        {
+            return (radius > Distance2D_0(centerX, centerY, X, Y));
+        }
+
+        #endregion
+
+        #region Point in Polygon
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the cross product of three 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(PointInPolygonTests))]
+        public static List<SpeedTester> PointInPolygonTests()
+        {
+            List<PointF> polygon = new List<PointF>() {
+                new PointF(0, 0),
+                new PointF(2, 0),
+                new PointF(0, 2) };
+            Tuple<List<double>, List<double>> PatrickMullenValues = PrecalcPointInPolygonPatrickMullenValues(polygon);
+            PointF point = new PointF(1, 1);
+            return new List<SpeedTester>() {
+                new SpeedTester(() => PointInPolygonDarelRexFinley(polygon, point),
+                $"{nameof(Experiments.PointInPolygonDarelRexFinley)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonNathanMercer(polygon, point),
+                $"{nameof(Experiments.PointInPolygonNathanMercer)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonLaschaLagidse(polygon, point),
+                $"{nameof(Experiments.PointInPolygonLaschaLagidse)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonPatrickMullen(polygon, point, PatrickMullenValues.Item1, PatrickMullenValues.Item2),
+                $"{nameof(Experiments.PointInPolygonPatrickMullen)}(polygon, {point}, constant, multiple)"),
+                //new SpeedTester(() => PointInPolygonMeowNET(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonMeowNET)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonAlienRyderFlex(polygon, point),
+                $"{nameof(Experiments.PointInPolygonAlienRyderFlex)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonLaschaLagidse2(polygon, point),
+                $"{nameof(Experiments.PointInPolygonLaschaLagidse2)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonGilKr(polygon, point),
+                $"{nameof(Experiments.PointInPolygonGilKr)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonMKatzWRandolphFranklin(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonMKatzWRandolphFranklin)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonRodStephens(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonRodStephens)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonSaeedAmiri(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonSaeedAmiri)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonKeith(polygon, point),
+                $"{nameof(Experiments.PointInPolygonKeith)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonJerryKnauss(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonJerryKnauss)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonJerryKnauss2(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonJerryKnauss2)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonPaulBourke(polygon, point),
+                $"{nameof(Experiments.PointInPolygonPaulBourke)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonWRandolphFranklin(polygon, point),
+                $"{nameof(Experiments.PointInPolygonWRandolphFranklin)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonPhilippeReverdy(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonPhilippeReverdy)}(polygon, {point})"),
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://paulbourke.net/geometry/polygonmesh/
+        /// http://paulbourke.net/geometry/polygonmesh/contains.txt
+        /// </remarks>
+        public static bool PointInPolygonJerryKnauss(
+            List<PointF> polygon, PointF point)
+        {
+            bool result = false;
+
+            for (int i = 0; i < polygon.Count - 1; i++)
+            {
+                if ((((polygon[i + 1].Y < point.Y) && (point.Y < polygon[i].Y))
+                    || ((polygon[i].Y < point.Y) && (point.Y < polygon[i + 1].Y)))
+                    && (point.X < (polygon[i].X - polygon[i + 1].X)
+                    * (point.Y - polygon[i + 1].Y)
+                    / (polygon[i].Y - polygon[i + 1].Y) + polygon[i + 1].X))
+                {
+                    result = !result;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://paulbourke.net/geometry/polygonmesh/
+        /// http://paulbourke.net/geometry/polygonmesh/contains.txt
+        /// </remarks>
+        public static bool PointInPolygonJerryKnauss2(
+            List<PointF> polygon, PointF point)
+        {
+            int j = polygon.Count - 1;
+            bool result = false;
+
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                if ((((polygon[j].Y < point.Y) && (point.Y < polygon[i].Y))
+                    || ((polygon[i].Y < point.Y) && (point.Y < polygon[j].Y)))
+                    && (point.X < (polygon[i].X - polygon[j].X)
+                    * (point.Y - polygon[j].Y)
+                    / (polygon[i].Y - polygon[j].Y) + polygon[j].X))
+                {
+                    result = !result;
+                }
+
+                j = i;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// The function will return true if the point x,y is inside the polygon, or
+        /// false if it is not.  If the point is exactly on the edge of the polygon,
+        /// then the function may return true or false.
+        /// </summary>
+        /// <param name="point">point to be tested</param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonDarelRexFinley(
+            List<PointF> polygon, PointF point)
+        {
+            int j = polygon.Count - 1;
+            bool oddNodes = false;
+
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y)
+                        / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// The function will return true if the point x,y is inside the polygon, or
+        /// false if it is not.  If the point is exactly on the edge of the polygon,
+        /// then the function may return true or false.
+        /// </summary>
+        /// <param name="point">point to be tested</param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonNathanMercer(
+            List<PointF> polygon, PointF point)
+        {
+            int j = polygon.Count - 1;
+            bool oddNodes = false;
+
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y
+                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y)
+                        / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonLaschaLagidse(
+            List<PointF> polygon, PointF point)
+        {
+            int i;
+            int j = polygon.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                {
+                    oddNodes ^= (polygon[i].X + (point.Y - polygon[i].Y)
+                        / (polygon[j].Y - polygon[i].Y)
+                        * (polygon[j].X - polygon[i].X) < point.X);
+                }
+
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        ///  USAGE:
+        ///  Call precalc_values() to initialize the constant[] and multiple[] arrays,
+        ///  then call pointInPolygon(x, y) to determine if the point is in the polygon.
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
+        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        /// <returns></returns>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static bool PointInPolygonPatrickMullen(
+            List<PointF> polygon, PointF point,
+            List<double> constant, List<double> multiple)
+        {
+            int i, j = polygon.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Count; i++)
+            {
+                //  Note that division by zero is avoided because the division is protected
+                //  by the "if" clause which surrounds it.
+                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y))
+                {
+                    oddNodes ^= (point.Y * multiple[i] + constant[i] < point.X);
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon">coordinates of corners</param>
+        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
+        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        /// <remarks>http://alienryderflex.com/polygon/</remarks>
+        public static Tuple<List<double>, List<double>> PrecalcPointInPolygonPatrickMullenValues(
+            List<PointF> polygon)
+        {
+            if (polygon == null) return null;
+
+            double[] constant = new double[polygon.Count];
+            double[] multiple = new double[polygon.Count];
+
+            int i, j = polygon.Count - 1;
+
+            for (i = 0; i < polygon.Count; i++)
+            {
+                if (polygon[j].Y == polygon[i].Y)
+                {
+                    constant[i] = polygon[i].X;
+                    multiple[i] = 0;
+                }
+                else
+                {
+                    constant[i] = polygon[i].X - (polygon[i].Y * polygon[j].X)
+                        / (polygon[j].Y - polygon[i].Y) + (polygon[i].Y * polygon[i].X)
+                        / (polygon[j].Y - polygon[i].Y);
+                    multiple[i] = (polygon[j].X - polygon[i].X) / (polygon[j].Y - polygon[i].Y);
+                }
+                j = i;
+            }
+
+            return new Tuple<List<double>, List<double>>(new List<double>(constant), new List<double>(multiple));
+        }
+
+        /// <summary>
+        /// Determines if the given point is inside the polygon
+        /// </summary>
+        /// <param name="polygon">the vertices of polygon</param>
+        /// <param name="point">the given point</param>
+        /// <returns>true if the point is inside the polygon; otherwise, false</returns>
+        /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
+        public static bool PointInPolygonMeowNET(
+            List<PointF> polygon, PointF point)
+        {
+            bool result = false;
+            int j = polygon.Count() - 1;
+            for (int i = 0; i < polygon.Count(); i++)
+            {
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y)
+                        / (polygon[j].Y - polygon[i].Y)
+                        * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        result = !result;
+                    }
+                }
+                j = i;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://alienryderflex.com/polygon/
+        ///  Globals which should be set before calling this function:
+        ///
+        ///  int    polygon.Count  =  how many corners the polygon has (no repeats)
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
+        ///
+        ///  (Globals are used in this example for purposes of speed.  Change as
+        ///  desired.)
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        ///
+        ///  Note that division by zero is avoided because the division is protected
+        ///  by the "if" clause which surrounds it.
+        /// </remarks>
+        public static bool PointInPolygonAlienRyderFlex(
+            List<PointF> polygon, PointF point)
+        {
+            int i;
+            int j = polygon.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Count; i++)
+            {
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                {
+                    if (polygon[i].X + (point.Y - polygon[i].Y)
+                        / (polygon[j].Y - polygon[i].Y)
+                        * (polygon[j].X - polygon[i].X) < point.X)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://alienryderflex.com/polygon/
+        ///  Globals which should be set before calling this function:
+        ///
+        ///  int    polygon.Count  =  how many corners the polygon has (no repeats)
+        ///  double  polyX[]      =  horizontal coordinates of corners
+        ///  double  polyY[]      =  vertical coordinates of corners
+        ///  double  x, y         =  point to be tested
+        ///
+        ///  (Globals are used in this example for purposes of speed.  Change as
+        ///  desired.)
+        ///
+        ///  The function will return YES if the point x,y is inside the polygon, or
+        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
+        ///  then the function may return YES or NO.
+        ///
+        ///  Note that division by zero is avoided because the division is protected
+        ///  by the "if" clause which surrounds it.
+        /// </remarks>
+        public static bool PointInPolygonLaschaLagidse2(
+            List<PointF> polygon, PointF point)
+        {
+            int i;
+            int j = polygon.Count - 1;
+            bool oddNodes = false;
+
+            for (i = 0; i < polygon.Count; i++)
+            {
+                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                {
+                    oddNodes ^= (polygon[i].X + (point.Y - polygon[i].Y)
+                        / (polygon[j].Y - polygon[i].Y)
+                        * (polygon[j].X - polygon[i].X) < point.X);
+                }
+                j = i;
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+        /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
+        /// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+        /// </remarks>
+        public static bool PointInPolygonGilKr(
+            List<PointF> polygon, PointF point)
+        {
+            int nvert = polygon.Count;
+            bool c = false;
+            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
+            {
+                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)) &&
+                 (point.X < (polygon[j].X - polygon[i].X)
+                 * (point.Y - polygon[i].Y)
+                 / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
+                    c = !c;
+            }
+            return c;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
+        /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
+        /// </remarks>
+        public static bool PointInPolygonMKatzWRandolphFranklin(
+            List<PointF> polygon, PointF point)
+        {
+            double minX = polygon[0].X;
+            double maxX = polygon[0].X;
+            double minY = polygon[0].Y;
+            double maxY = polygon[0].Y;
+            for (int i = 1; i < polygon.Count; i++)
+            {
+                PointF q = polygon[i];
+                minX = Min(q.X, minX);
+                maxX = Max(q.X, maxX);
+                minY = Min(q.Y, minY);
+                maxY = Max(q.Y, maxY);
+            }
+
+            if (point.X < minX || point.X > maxX || point.Y < minY || point.Y > maxY)
+            {
+                return false;
+            }
+
+            // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+            bool inside = false;
+            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
+            {
+                if ((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y) &&
+                     point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
+                     / (polygon[j].Y - polygon[i].Y) + polygon[i].X)
+                {
+                    inside = !inside;
+                }
+            }
+
+            return inside;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://paulbourke.net/geometry/polygonmesh/
+        /// http://astronomy.swin.edu.au/pbourke/geometry/
+        /// http://www.eecs.umich.edu/courses/eecs380/HANDOUTS/PROJ2/InsidePoly.html
+        /// </remarks>
+        public static bool PointInPolygonPaulBourke(
+            List<PointF> polygon, PointF point)
+        {
+            PointF p1, p2;
+            int counter = 0;
+            int i;
+            int N = polygon.Count;
+            double xinters;
+            p1 = polygon[0];
+            for (i = 1; i <= N; i++)
+            {
+                p2 = polygon[i % N];
+                if (point.Y > Min(p1.Y, p2.Y))
+                {
+                    if (point.Y <= Max(p1.Y, p2.Y))
+                    {
+                        if (point.X <= Max(p1.X, p2.X))
+                        {
+                            if (p1.Y != p2.Y)
+                            {
+                                xinters = (point.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y) + p1.X;
+                                if (p1.X == p2.X || point.X <= xinters) counter++;
+                            }
+                        }
+                    }
+                }
+                p1 = p2;
+            }
+
+            return (counter % 2 != 0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html</remarks>
+        public static bool PointInPolygonWRandolphFranklin(
+            List<PointF> polygon, PointF point)
+        {
+            bool inside = false;
+            int nvert = polygon.Count;
+            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
+            {
+                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)) &&
+                 (point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
+                 / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
+                    inside = !inside;
+            }
+            return inside;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
+        public static bool PointInPolygonSaeedAmiri(
+            List<PointF> polygon, PointF point)
+        {
+            var coef = polygon.Skip(1).Select((p, i) =>
+                  (p.X - polygon[i].X) * (point.Y - polygon[i].Y)
+                - (p.Y - polygon[i].Y) * (point.X - polygon[i].X)
+                ).ToList();
+
+            if (coef.Any(p => p == 0)) return true;
+
+            for (int i = 1; i < coef.Count(); i++)
+            {
+                if (coef[i] * coef[i - 1] < 0) return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/geometry/polygonmesh/</remarks>
+        public static bool PointInPolygonPhilippeReverdy(
+            List<PointF> polygon, PointF point)
+        {
+            int i;
+            double angle = 0;
+            PointF p1 = new PointF();
+            PointF p2 = new PointF();
+            int n = polygon.Count;
+            for (i = 0; i < n; i++)
+            {
+                p1.X = polygon[i].X - point.X;
+                p1.Y = polygon[i].Y - point.Y;
+                p2.X = polygon[(i + 1) % n].X - point.X;
+                p2.Y = polygon[(i + 1) % n].Y - point.Y;
+                angle += Angle2D(p1.X, p1.Y, p2.X, p2.Y);
+            }
+
+            return !(Abs(angle) < PI);
+        }
+        /// <summary>
+        /// Return the angle between two vectors on a plane
+        /// The angle is from vector 1 to vector 2, positive anticlockwise
+        /// The result is between -pi -> pi
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        public static double Angle2D(double x1, double y1, double x2, double y2)
+        {
+            double dtheta, theta1, theta2;
+
+            theta1 = Atan2(y1, x1);
+            theta2 = Atan2(y2, x2);
+            dtheta = theta2 - theta1;
+            while (dtheta > PI)
+                dtheta -= (PI * 2);
+            while (dtheta < -PI)
+                dtheta += (PI * 2);
+
+            return (dtheta);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns>Return true if the point is in the polygon.</returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        public static bool PointInPolygonRodStephens(
+            List<PointF> polygon, PointF point)
+        {
+            // Get the angle between the point and the
+            // first and last vertices.
+            int max_point = polygon.Count - 1;
+            double total_angle = AngleVector_0(
+                polygon[max_point].X, polygon[max_point].Y,
+                point.X, point.Y,
+                polygon[0].X, polygon[0].Y);
+
+            // Add the angles from the point
+            // to each other pair of vertices.
+            for (int i = 0; i < max_point; i++)
+            {
+                total_angle += AngleVector_0(
+                    polygon[i].X, polygon[i].Y,
+                    point.X, point.Y,
+                    polygon[i + 1].X, polygon[i + 1].Y);
+            }
+
+            // The total angle should be 2 * PI or -2 * PI if
+            // the point is in the polygon and close to zero
+            // if the point is outside the polygon.
+            return (Abs(total_angle) > 0.000001);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+        /// https://social.msdn.microsoft.com/Forums/windows/en-US/95055cdc-60f8-4c22-8270-ab5f9870270a/determine-if-the-point-is-in-the-polygon-c?forum=winforms
+        /// </remarks>
+        public static bool PointInPolygonKeith(
+            List<PointF> polygon, PointF point)
+        {
+            PointF p1, p2;
+
+            bool inside = false;
+
+            if (polygon.Count < 3) return inside;
+
+            var oldPoint = polygon[polygon.Count - 1];
+
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                var newPoint = polygon[i];
+
+                if (newPoint.X > oldPoint.X)
+                {
+                    p1 = oldPoint;
+                    p2 = newPoint;
+                }
+                else
+                {
+                    p1 = newPoint;
+                    p2 = oldPoint;
+                }
+
+                if ((newPoint.X < point.X) == (point.X <= oldPoint.X)
+                    && (point.Y - (long)p1.Y) * (p2.X - p1.X)
+                    < (p2.Y - (long)p1.Y) * (point.X - p1.X))
+                {
+                    inside = !inside;
+                }
+
+                oldPoint = newPoint;
+            }
+
+            return inside;
         }
 
         #endregion

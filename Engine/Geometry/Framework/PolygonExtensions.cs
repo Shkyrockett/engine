@@ -61,6 +61,19 @@ namespace Engine.Geometry.Polygons
 
             return new Point2D(X, Y);
         }
+        
+        /// <summary>
+        /// Return true if the point is in the polygon.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
+        public static bool PointInPolygon(this Polygon polygon, Point2D point)
+        {
+            return PointInPolygon(polygon, point.X, point.Y);
+        }
 
         /// <summary>
         /// Return true if the point is in the polygon.
@@ -196,7 +209,7 @@ namespace Engine.Geometry.Polygons
                 C = (B + 1) % num_points;
 
                 double cross_product =
-                    Maths.CrossProductLength(
+                    Maths.CrossProductVector(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
@@ -232,10 +245,10 @@ namespace Engine.Geometry.Polygons
         public static double GetAngle(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
         {
             // Get the dot product.
-            double dot_product = Maths.DotProduct3Point(Ax, Ay, Bx, By, Cx, Cy);
+            double dot_product = Maths.DotProductVector(Ax, Ay, Bx, By, Cx, Cy);
 
             // Get the cross product.
-            double cross_product = Maths.CrossProductLength(Ax, Ay, Bx, By, Cx, Cy);
+            double cross_product = Maths.CrossProductVector(Ax, Ay, Bx, By, Cx, Cy);
 
             // Calculate the angle.
             return Atan2(cross_product, dot_product);

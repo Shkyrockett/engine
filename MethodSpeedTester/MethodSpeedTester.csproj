@@ -53,12 +53,22 @@
     <Compile Include="FormSpeedTester.Designer.cs">
       <DependentUpon>FormSpeedTester.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListHelper.cs" />
+    <Compile Include="PolygonPointTester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PolygonPointTester.Designer.cs">
+      <DependentUpon>PolygonPointTester.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="SpeedTester.cs" />
     <EmbeddedResource Include="FormSpeedTester.resx">
       <DependentUpon>FormSpeedTester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PolygonPointTester.resx">
+      <DependentUpon>PolygonPointTester.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -78,6 +88,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Reports\Distance.md" />
+    <None Include="Reports\LineIntersectionBool.md" />
+    <None Include="Reports\LineIntersectionPoint.md" />
+    <None Include="Reports\Modulus.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />

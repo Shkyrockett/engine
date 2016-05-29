@@ -466,7 +466,7 @@ namespace Engine.Geometry
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
-            => Math.Atan2(CrossProductLength(x1, y1, x2, y2, x3, y3), DotProduct3Point(x1, y1, x2, y2, x3, y3));
+            => Atan2(CrossProductVector(x1, y1, x2, y2, x3, y3), DotProductVector(x1, y1, x2, y2, x3, y3));
 
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
@@ -573,7 +573,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProductLength(
+        public static double CrossProductVector(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
@@ -642,7 +642,7 @@ namespace Engine.Geometry
                 );
 
         /// <summary>
-        /// 
+        /// Dot Product of the vector of three points
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -658,7 +658,7 @@ namespace Engine.Geometry
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct3Point(
+        public static double DotProductVector(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)

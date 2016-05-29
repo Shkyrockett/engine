@@ -13,6 +13,36 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        public static Point ToPoint(this Tuple<double, double> tuple)
+        {
+            return new Point((int)tuple.Item1, (int)tuple.Item2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        public static PointF ToPointF(this Tuple<double, double> tuple)
+        {
+            return new PointF((float)tuple.Item1, (float)tuple.Item2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        public static Point2D ToPoint2D(this Tuple<double, double> tuple)
+        {
+            return new Point2D(tuple.Item1, tuple.Item2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
         public static Point ToPoint(this Point2D point)
@@ -128,6 +158,36 @@ namespace Engine.Imaging
         public static Rectangle2D ToRectangle2D(this Rectangle rectangle)
         {
             return new Rectangle2D(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static Point[] ToPointArray(this List<Tuple<double, double>> list)
+        {
+            return list.ConvertAll(new Converter<Tuple<double, double>, Point>(ToPoint)).ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static PointF[] ToPointFArray(this List<Tuple<double, double>> list)
+        {
+            return list.ConvertAll(new Converter<Tuple<double, double>, PointF>(ToPointF)).ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<Point2D> ToPoint2DArray(this List<Tuple<double, double>> list)
+        {
+            return list.ConvertAll(new Converter<Tuple<double, double>, Point2D>(ToPoint2D));
         }
 
         /// <summary>

@@ -11,14 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Winforms", "Engine.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTests", "EngineTests\EngineTests.csproj", "{C46FF65A-1EDC-4083-99C2-E9717A825D9E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExperimentLogs", "ExperimentLogs", "{2B0AC095-9ECF-40F4-B3F5-089B68742928}"
-	ProjectSection(SolutionItems) = preProject
-		Distance.md = Distance.md
-		LineIntersectionBool.md = LineIntersectionBool.md
-		LineIntersectionPoint.md = LineIntersectionPoint.md
-		Modulus.md = Modulus.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodSpeedTester", "MethodSpeedTester\MethodSpeedTester.csproj", "{13A3EFB5-7FCF-45C3-B64B-D7AAF55D2943}"
 EndProject
 Global

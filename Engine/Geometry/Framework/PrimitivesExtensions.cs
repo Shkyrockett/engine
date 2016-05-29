@@ -2095,6 +2095,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Rotate Point
+
         /// <summary>
         /// Rotate a point around the world origin.
         /// </summary>

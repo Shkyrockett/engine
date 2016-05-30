@@ -253,7 +253,9 @@ namespace MethodSpeedTester
 
         private void pictureBox18_Paint(object sender, PaintEventArgs e)
         {
-
+            DrawPolys(e.Graphics, Font, polygon, points,
+                (s, p) => Experiments.PointInPolygonBobStein(s, p),
+                nameof(Experiments.PointInPolygonBobStein));
         }
 
         private void pictureBox16_Paint(object sender, PaintEventArgs e)

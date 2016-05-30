@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Polyline))]
     public class Polyline
-        : Shape, IOpenShape
+        : Shape, IOpenShape, IFormattable
     {
         #region Private Fields
 
@@ -108,7 +109,7 @@ namespace Engine.Geometry
         {
             get
             {
-                return points.Zip(points.Skip(1), Maths.Distance).Sum();
+                return points.Zip(points.Skip(1), Primitives.Distance).Sum();
             }
         }
 
@@ -142,6 +143,8 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Mutators
+
         /// <summary>
         /// 
         /// </summary>
@@ -158,6 +161,10 @@ namespace Engine.Geometry
         {
             Points.Reverse();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// 
@@ -177,13 +184,13 @@ namespace Engine.Geometry
         {
             Polyline polyline = new Polyline();
 
-            LineSegment offsetLine = PrimitivesExtensions.OffsetSegment(Points[0], Points[1], offset);
+            LineSegment offsetLine = Primitives.OffsetSegment(Points[0], Points[1], offset);
             polyline.Add(offsetLine.A);
 
             for (int i = 2; i < Points.Count; i++)
             {
-                LineSegment newOffsetLine = PrimitivesExtensions.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Experimental.Intersection2(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)?.Item2);
+                LineSegment newOffsetLine = Primitives.OffsetSegment(Points[i - 1], Points[i], offset);
+                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)?.Item2);
                 offsetLine = newOffsetLine;
             }
 
@@ -193,20 +200,59 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="Polyline"/> struct.
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Polyline"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Polyline"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Polyline"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Polyline);
-            StringBuilder pts = new StringBuilder();
-            foreach (Point2D pt in Points)
-            {
-                pts.Append(pt.ToString());
-                pts.Append(",");
-            }
-            if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(Polyline), pts.ToString());
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Polyline)}{{{string.Join(sep.ToString(), Points)}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

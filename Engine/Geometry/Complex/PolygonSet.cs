@@ -34,7 +34,7 @@ namespace Engine.Geometry
         /// An array of Polygons representing a set.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
+        [XmlAttribute]
         private List<Polygon> polygons;
 
         #endregion

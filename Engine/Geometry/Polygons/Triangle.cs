@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text;
 using System.Xml.Serialization;
@@ -21,7 +22,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Triangle")]
+    [DisplayName(nameof(Triangle))]
     public class Triangle
          : Polygon, IClosedShape
     {
@@ -65,7 +66,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D A
         {
             get { return Points[0]; }
@@ -79,7 +80,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D B
         {
             get { return Points[1]; }
@@ -93,7 +94,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D C
         {
             get { return Points[2]; }
@@ -105,20 +106,23 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// 
+        /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <returns></returns>
-        public override string ToString()
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Triangle);
-            StringBuilder pts = new StringBuilder();
-            foreach (Point2D pt in Points)
-            {
-                pts.Append(pt.ToString());
-                pts.Append(",");
-            }
-            if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(Triangle), pts.ToString());
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Triangle)}{{{string.Join(sep.ToString(), Points)}}}";
+            return formatable.ToString(format, provider);
         }
 
         #endregion

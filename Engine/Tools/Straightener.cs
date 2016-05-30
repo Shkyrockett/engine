@@ -160,7 +160,7 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (PrimitivesExtensions.Length(points[0], e.Location) > 8)
+                    if (Primitives.Length(points[0], e.Location) > 8)
                     {
                         if (MouseDown) index = 1;
                         points[index] = e.Location;
@@ -169,7 +169,7 @@ namespace Engine.Tools
                     if (index == 0) Points[1] = e.Location;
 
                     // angle is the absolute angle of the line.
-                    angle = PrimitivesExtensions.AbsoluteAngle(points[0], points[1]);
+                    angle = Primitives.AbsoluteAngle(points[0], points[1]);
 
                     // theta is the angle to rotate to.
                     theta = Maths.RoundToMultiple(angle, Maths.HalfPi);

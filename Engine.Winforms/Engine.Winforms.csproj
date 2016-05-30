@@ -91,6 +91,15 @@
     <Compile Include="ColorTrackBarControl.Designer.cs">
       <DependentUpon>ColorTrackBarControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Geometry\Primitives\Converters\PointFConverter.cs" />
+    <Compile Include="Geometry\Primitives\Converters\RectangleFConverter.cs" />
+    <Compile Include="Geometry\Primitives\Converters\SizeFConverter.cs" />
+    <Compile Include="Geometry\Primitives\SizeFExtentions.cs" />
+    <Compile Include="Geometry\Primitives\SizeExtentions.cs" />
+    <Compile Include="Geometry\Primitives\PointFExtentions.cs" />
+    <Compile Include="Geometry\Primitives\PointExtentions.cs" />
+    <Compile Include="Geometry\Primitives\RectangleExtensions.cs" />
+    <Compile Include="Geometry\Primitives\RectangleFExtensions.cs" />
     <Compile Include="PaletteControl.cs">
       <SubType>Component</SubType>
     </Compile>

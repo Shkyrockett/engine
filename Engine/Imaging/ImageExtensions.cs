@@ -97,87 +97,87 @@ namespace Engine.Imaging
             return b;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="canvas"></param>
-        /// <param name="radienAngle"></param>
-        /// <returns></returns>
-        public static Image RotateImage(this Image canvas, double radienAngle)
-        {
-            // Image bounds.
-            RectangleF imageBounds = canvas.Bounds();
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="canvas"></param>
+        ///// <param name="radienAngle"></param>
+        ///// <returns></returns>
+        //public static Image RotateImage(this Image canvas, double radienAngle)
+        //{
+        //    // Image bounds.
+        //    RectangleF imageBounds = canvas.Bounds();
 
-            // Corners of the image.
-            PointF[] rotationPoints = imageBounds.ToPoints();
+        //    // Corners of the image.
+        //    PointF[] rotationPoints = imageBounds.ToPoints();
 
-            // Rotate the corners.
-            PrimitivesExtensions.RotatePoints(rotationPoints, imageBounds.Center(), radienAngle);
+        //    // Rotate the corners.
+        //    PrimitivesExtensions.RotatePoints(rotationPoints, imageBounds.Center(), radienAngle);
 
-            // Get the new bounds given from the rotation of the corners to avoid clipping of the image.
-            Rectangle newBounds = RectangleFExtensions.GetBounds(rotationPoints);
+        //    // Get the new bounds given from the rotation of the corners to avoid clipping of the image.
+        //    Rectangle newBounds = RectangleFExtensions.GetBounds(rotationPoints);
 
-            // An empty bitmap to draw the rotated image.
-            Bitmap rotatedBitmap = new Bitmap(newBounds.Width, newBounds.Height);
+        //    // An empty bitmap to draw the rotated image.
+        //    Bitmap rotatedBitmap = new Bitmap(newBounds.Width, newBounds.Height);
 
-            using (Graphics graphics = Graphics.FromImage(rotatedBitmap))
-            {
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        //    using (Graphics graphics = Graphics.FromImage(rotatedBitmap))
+        //    {
+        //        graphics.SmoothingMode = SmoothingMode.HighQuality;
+        //        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                // Transformation matrix
-                Matrix matrix = new PointF(canvas.Width / 2.0f, canvas.Height / 2.0f).RotateAroundPoint(radienAngle);
-                matrix.Translate(-newBounds.Left, -newBounds.Top, MatrixOrder.Append); //shift to compensate for the rotation
+        //        // Transformation matrix
+        //        Matrix matrix = new PointF(canvas.Width / 2.0f, canvas.Height / 2.0f).RotateAroundPoint(radienAngle);
+        //        matrix.Translate(-newBounds.Left, -newBounds.Top, MatrixOrder.Append); //shift to compensate for the rotation
 
-                graphics.Transform = matrix;
-                graphics.DrawImage(canvas, 0, 0);
-                graphics.ResetTransform();
-                graphics.TranslateTransform(-newBounds.Left, -newBounds.Top);
-                graphics.DrawRectangle(Pens.CornflowerBlue, newBounds);
-            }
+        //        graphics.Transform = matrix;
+        //        graphics.DrawImage(canvas, 0, 0);
+        //        graphics.ResetTransform();
+        //        graphics.TranslateTransform(-newBounds.Left, -newBounds.Top);
+        //        graphics.DrawRectangle(Pens.CornflowerBlue, newBounds);
+        //    }
 
-            return rotatedBitmap;
-        }
+        //    return rotatedBitmap;
+        //}
 
-        /// <summary>
-        ///  Rotate an image to an angle.
-        /// </summary>
-        /// <param name="canvas">The image to rotate.</param>
-        /// <returns>The rotated image.</returns>
-        /// <param name="angle">The angle in radians, to rotate the image.</param>
-        public static Image RotateByAngle(this Image canvas, double angle)
-        {
-            // If there is nothing to rotate, return what was given.
-            if (canvas == null) return canvas;
+        ///// <summary>
+        /////  Rotate an image to an angle.
+        ///// </summary>
+        ///// <param name="canvas">The image to rotate.</param>
+        ///// <returns>The rotated image.</returns>
+        ///// <param name="angle">The angle in radians, to rotate the image.</param>
+        //public static Image RotateByAngle(this Image canvas, double angle)
+        //{
+        //    // If there is nothing to rotate, return what was given.
+        //    if (canvas == null) return canvas;
 
-            // New canvas bounding size.
-            RectangleF bounds = new RectangleF(PointF.Empty, canvas.Size).RotatedOffsetBounds(angle);
+        //    // New canvas bounding size.
+        //    RectangleF bounds = new RectangleF(PointF.Empty, canvas.Size).RotatedOffsetBounds(angle);
 
-            // Center point of the new canvas.
-            PointF center = bounds.Center();
+        //    // Center point of the new canvas.
+        //    PointF center = bounds.Center();
 
-            // The bounding rectangle for the image to draw.
-            RectangleF imageBounds = RectangleFExtensions.RectangleFFromCenter(center, canvas.Size);
+        //    // The bounding rectangle for the image to draw.
+        //    RectangleF imageBounds = RectangleFExtensions.RectangleFFromCenter(center, canvas.Size);
 
-            // Create the new Bitmap to draw on with it's new boundaries.
-            Bitmap picture = new Bitmap((int)bounds.Size.Width, (int)bounds.Size.Height, PixelFormat.Format32bppArgb);
-            Graphics graphics = Graphics.FromImage(picture);
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.CompositingQuality = CompositingQuality.HighQuality;
-            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        //    // Create the new Bitmap to draw on with it's new boundaries.
+        //    Bitmap picture = new Bitmap((int)bounds.Size.Width, (int)bounds.Size.Height, PixelFormat.Format32bppArgb);
+        //    Graphics graphics = Graphics.FromImage(picture);
+        //    graphics.SmoothingMode = SmoothingMode.HighQuality;
+        //    graphics.CompositingQuality = CompositingQuality.HighQuality;
+        //    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-            // Draw the background with a transparent colored brush.
-            graphics.FillRectangle(Brushes.Transparent, bounds);
+        //    // Draw the background with a transparent colored brush.
+        //    graphics.FillRectangle(Brushes.Transparent, bounds);
 
-            // Setup the transform for drawing the picture back on to the canvas.
-            graphics.Transform = center.RotateAroundPoint(angle);
+        //    // Setup the transform for drawing the picture back on to the canvas.
+        //    graphics.Transform = center.RotateAroundPoint(angle);
 
-            // Draw the picture back onto the new canvas.
-            graphics.DrawImage(canvas, imageBounds);
+        //    // Draw the picture back onto the new canvas.
+        //    graphics.DrawImage(canvas, imageBounds);
 
-            // Return the result.
-            return picture;
-        }
+        //    // Return the result.
+        //    return picture;
+        //}
 
         /// <summary>
         /// Retrieve Cursor Resource from Executable

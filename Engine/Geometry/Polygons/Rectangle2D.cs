@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -16,7 +17,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Rectangle2D")]
     public class Rectangle2D
-        : Shape, IClosedShape
+        : Shape, IClosedShape, IFormattable
     {
         #region Static Implementations
 
@@ -369,7 +370,7 @@ namespace Engine.Geometry
         {
             get
             {
-                return (Maths.Distance(TopLeft, TopRight) * 2) + (Maths.Distance(TopLeft, BottomLeft) * 2);
+                return (Primitives.Distance(TopLeft, TopRight) * 2) + (Primitives.Distance(TopLeft, BottomLeft) * 2);
             }
         }
 
@@ -399,7 +400,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator ==(Rectangle2D left, Rectangle2D right)
         {
-            return (left.X == right.X && left.Y == right.Y && left.Width == right.Width && left.Height == right.Height);
+            return Equals(left, right);
         }
 
         /// <summary>
@@ -410,33 +411,47 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator !=(Rectangle2D left, Rectangle2D right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
-        #endregion
 
         /// <summary>
-        /// Tests whether <paramref name="obj"/> is a <see cref="RectangleF"/> with the same location and size of this <see cref="Rectangle2D"/>.
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Rectangle2D left, Rectangle2D right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Rectangle2D left, Rectangle2D right)
+        {
+            return (left?.X == right?.X && left?.Y == right?.Y && left?.Width == right?.Width && left?.Height == right?.Height);
+        }
+
+        /// <summary>
+        /// Tests whether <paramref name="obj"/> is a <see cref="Rectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is Rectangle2D)) return false;
-            Rectangle2D comp = (Rectangle2D)obj;
-            return (comp.X == X) && (comp.Y == Y) && (comp.Width == Width) && (comp.Height == Height);
+            return obj is Rectangle2D && Equals(this, obj as Rectangle2D);
         }
 
-        /// <summary>
-        /// Gets the hash code for this <see cref="RectangleF"/>.
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return unchecked((int)((UInt32)X ^
-            (((UInt32)Y << 13) | ((UInt32)Y >> 19)) ^
-            (((UInt32)Width << 26) | ((UInt32)Width >> 6)) ^
-            (((UInt32)Height << 7) | ((UInt32)Height >> 25))));
-        }
+        #endregion
+
+        #region Factories
 
         /// <summary>
         /// Creates a new <see cref="Rectangle2D"/> with the specified location and size.
@@ -446,6 +461,7 @@ namespace Engine.Geometry
         /// <param name="right"></param>
         /// <param name="bottom"></param>
         /// <returns></returns>
+        [Pure]
         public static Rectangle2D FromLTRB(double left, double top, double right, double bottom)
         {
             return new Rectangle2D(left, top, right - left, bottom - top);
@@ -457,60 +473,37 @@ namespace Engine.Geometry
         /// <param name="center">The center point to create the <see cref="Rectangle"/> as a <see cref="Point"/>.</param>
         /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
         /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
+        [Pure]
         public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
         {
             return new Rectangle2D(center - size.Inflate(0.5d), size);
         }
 
         /// <summary>
-        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/> .
+        /// Creates a rectangle that represents the union between a and b.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
         [Pure]
-        public bool Contains(double x, double y)
+        public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
         {
-            return this.x <= x && x < this.x + width && this.y <= y && y < this.y + height;
+            double left = Min(a.X, b.X);
+            double top = Min(a.Y, b.Y);
+            double x2 = Max(a.X + a.Width, b.X + b.Width);
+            double y2 = Max(a.Y + a.Height, b.Y + b.Height);
+
+            return new Rectangle2D(left, top, x2 - left, y2 - top);
         }
 
         /// <summary>
-        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle"/> .
+        /// Union - Return the result of the union of Rectangle2D and point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
         [Pure]
-        public bool Contains(Point2D point)
+        public static Rectangle2D Union(Rectangle2D rect, Point2D point)
         {
-            return Contains(point.X, point.Y);
-        }
-
-        /// <summary>
-        /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
-        /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
-        [Pure]
-        public bool Contains(Rectangle2D rect)
-        {
-            return (x <= rect.X)
-                && ((rect.X + rect.Width) <= (x + Width))
-                && (y <= rect.Y)
-                && ((rect.Y + rect.Height) <= (y + Height));
-        }
-
-        /// <summary>
-        /// Creates a Rectangle that represents the intersection between this Rectangle and rect.
-        /// </summary>
-        /// <param name="rect"></param>
-        public void Intersect(Rectangle2D rect)
-        {
-            Rectangle2D result = Intersect(rect, this);
-
-            x = result.X;
-            y = result.Y;
-            width = result.Width;
-            height = result.Height;
+            rect.Union(new Rectangle2D(point, point));
+            return rect;
         }
 
         /// <summary>
@@ -536,18 +529,83 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Determines if this rectangle interests with another rectangle.
+        /// Offset - return the result of offsetting Rectangle2D by the offset provided
+        /// If this is Empty, this method is illegal.
+        /// </summary>
+        [Pure]
+        public static Rectangle2D Offset(Rectangle2D rect, Vector2D offsetVector)
+        {
+            rect.Offset(offsetVector.I, offsetVector.J);
+            return rect;
+        }
+
+        /// <summary>
+        /// Offset - return the result of offsetting Rectangle2D by the offset provided
+        /// If this is Empty, this method is illegal.
+        /// </summary>
+        [Pure]
+        public static Rectangle2D Offset(Rectangle2D rect, double offsetX, double offsetY)
+        {
+            rect.Offset(offsetX, offsetY);
+            return rect;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Rectangle2D"/> that is inflated by the specified amount.
         /// </summary>
         /// <param name="rect"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         /// <returns></returns>
         [Pure]
-        public bool IntersectsWith(Rectangle2D rect)
+        public static Rectangle2D Inflate(Rectangle2D rect, float x, float y)
         {
-            return (rect.X < x + width)
-                && (x < (rect.X + rect.Width))
-                && (rect.Y < y + height)
-                && (y < rect.Y + rect.Height);
+            Rectangle2D r = rect;
+            r.Inflate(x, y);
+            return r;
         }
+
+        /// <summary>
+        /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
+        /// If this is Empty, this method is illegal.
+        /// </summary>
+        [Pure]
+        public static Rectangle2D Inflate(Rectangle2D rect, Size size)
+        {
+            rect.Inflate(size.Width, size.Height);
+            return rect;
+        }
+
+        /// <summary>
+        /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
+        /// If this is Empty, this method is illegal.
+        /// </summary>
+        [Pure]
+        public static Rectangle2D Inflate(Rectangle2D rect, double width, double height)
+        {
+            rect.Inflate(width, height);
+            return rect;
+        }
+
+        /// <summary>
+        /// Returns the bounds of the transformed rectangle.
+        /// The Empty Rectangle2D is not affected by this call.
+        /// </summary>
+        /// <returns>
+        /// The Rectangle2D which results from the transformation.
+        /// </returns>
+        /// <param name="rect"> The Rectangle2D to transform. </param>
+        /// <param name="matrix"> The Matrix by which to transform. </param>
+        [Pure]
+        public static Rectangle2D Transform(Rectangle2D rect, Matrix2D matrix)
+        {
+            Matrix2D.TransformRect(ref rect, ref matrix);
+            return rect;
+        }
+
+        #endregion
+
+        #region Mutators
 
         /// <summary>
         /// Union - Update this rectangle to be the union of this and Rectangle2D.
@@ -594,29 +652,17 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Creates a rectangle that represents the union between a and b.
+        /// Creates a Rectangle that represents the intersection between this Rectangle and rect.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [Pure]
-        public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
+        /// <param name="rect"></param>
+        public void Intersect(Rectangle2D rect)
         {
-            double left = Min(a.X, b.X);
-            double top = Min(a.Y, b.Y);
-            double x2 = Max(a.X + a.Width, b.X + b.Width);
-            double y2 = Max(a.Y + a.Height, b.Y + b.Height);
+            Rectangle2D result = Intersect(rect, this);
 
-            return new Rectangle2D(left, top, x2 - left, y2 - top);
-        }
-
-        /// <summary>
-        /// Union - Return the result of the union of Rectangle2D and point.
-        /// </summary>
-        public static Rectangle2D Union(Rectangle2D rect, Point2D point)
-        {
-            rect.Union(new Rectangle2D(point, point));
-            return rect;
+            x = result.X;
+            y = result.Y;
+            width = result.Width;
+            height = result.Height;
         }
 
         /// <summary>
@@ -651,26 +697,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Offset - return the result of offsetting Rectangle2D by the offset provided
-        /// If this is Empty, this method is illegal.
-        /// </summary>
-        public static Rectangle2D Offset(Rectangle2D rect, Vector2D offsetVector)
-        {
-            rect.Offset(offsetVector.I, offsetVector.J);
-            return rect;
-        }
-
-        /// <summary>
-        /// Offset - return the result of offsetting Rectangle2D by the offset provided
-        /// If this is Empty, this method is illegal.
-        /// </summary>
-        public static Rectangle2D Offset(Rectangle2D rect, double offsetX, double offsetY)
-        {
-            rect.Offset(offsetX, offsetY);
-            return rect;
-        }
-
-        /// <summary>
         /// Inflates this <see cref="Rectangle2D"/> by the specified amount.
         /// </summary>
         /// <param name="x"></param>
@@ -692,55 +718,6 @@ namespace Engine.Geometry
             Inflate(size.Width, size.Height);
         }
 
-        /// <summary>
-        /// Creates a <see cref="Rectangle2D"/> that is inflated by the specified amount.
-        /// </summary>
-        /// <param name="rect"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public static Rectangle2D Inflate(Rectangle2D rect, float x, float y)
-        {
-            Rectangle2D r = rect;
-            r.Inflate(x, y);
-            return r;
-        }
-
-        /// <summary>
-        /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
-        /// If this is Empty, this method is illegal.
-        /// </summary>
-        public static Rectangle2D Inflate(Rectangle2D rect, Size size)
-        {
-            rect.Inflate(size.Width, size.Height);
-            return rect;
-        }
-
-        /// <summary>
-        /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
-        /// If this is Empty, this method is illegal.
-        /// </summary>
-        public static Rectangle2D Inflate(Rectangle2D rect, double width, double height)
-        {
-            rect.Inflate(width, height);
-            return rect;
-        }
-
-        /// <summary>
-        /// Returns the bounds of the transformed rectangle.
-        /// The Empty Rectangle2D is not affected by this call.
-        /// </summary>
-        /// <returns>
-        /// The Rectangle2D which results from the transformation.
-        /// </returns>
-        /// <param name="rect"> The Rectangle2D to transform. </param>
-        /// <param name="matrix"> The Matrix by which to transform. </param>
-        public static Rectangle2D Transform(Rectangle2D rect, Matrix2D matrix)
-        {
-            Matrix2D.TransformRect(ref rect, ref matrix);
-            return rect;
-        }
-
         ///// <summary>
         ///// Updates rectangle to be the bounds of the original value transformed
         ///// by the matrix.
@@ -751,6 +728,61 @@ namespace Engine.Geometry
         //{
         //    Matrix2D.TransformRect(ref this, ref matrix);
         //}
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/> .
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        [Pure]
+        public bool Contains(double x, double y)
+        {
+            return this.x <= x && x < this.x + width && this.y <= y && y < this.y + height;
+        }
+
+        /// <summary>
+        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle"/> .
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [Pure]
+        public bool Contains(Point2D point)
+        {
+            return Contains(point.X, point.Y);
+        }
+
+        /// <summary>
+        /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        [Pure]
+        public bool Contains(Rectangle2D rect)
+        {
+            return (x <= rect.X)
+                && ((rect.X + rect.Width) <= (x + Width))
+                && (y <= rect.Y)
+                && ((rect.Y + rect.Height) <= (y + Height));
+        }
+
+        /// <summary>
+        /// Determines if this rectangle interests with another rectangle.
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        [Pure]
+        public bool IntersectsWith(Rectangle2D rect)
+        {
+            return (rect.X < x + width)
+                && (x < (rect.X + rect.Width))
+                && (rect.Y < y + height)
+                && (y < rect.Y + rect.Height);
+        }
 
         /// <summary>
         /// Convert a rectangle to an array of it's corner points.
@@ -768,6 +800,18 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Gets the hash code for this <see cref="Rectangle2D"/>.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return unchecked((int)((uint)X ^
+            (((uint)Y << 13) | ((uint)Y >> 19)) ^
+            (((uint)Width << 26) | ((uint)Width >> 6)) ^
+            (((uint)Height << 7) | ((uint)Height >> 25))));
+        }
+
+        /// <summary>
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
@@ -777,13 +821,56 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Converts the <see cref="Location"/> and <see cref="Size"/> of this <see cref="RectangleF"/> to a human-readable string.
+        /// Creates a human-readable string that represents this <see cref="Rectangle2D"/> struct.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
-            //if (this == null) return nameof(Rectangle2D);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(Rectangle2D), nameof(X), x, nameof(Y), y, nameof(Width), width, nameof(Height), height);
+            if (this == null) return nameof(Rectangle2D);
+            //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Rectangle2D)}{{{nameof(X)}={x},{nameof(Y)}={y},{nameof(Width)}={width},{nameof(Height)}={height}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

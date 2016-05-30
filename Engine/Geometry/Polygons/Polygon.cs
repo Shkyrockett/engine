@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Polygon))]
     public class Polygon
-        : Shape, IClosedShape
+        : Shape, IClosedShape, IFormattable
     {
         #region Private Fields
 
@@ -115,7 +116,7 @@ namespace Engine.Geometry
         {
             get
             {
-                return points.Count > 0 ? points.Zip(points.Skip(1), Maths.Distance).Sum() + Maths.Distance(points[0], points[points.Count - 1]) : 0;
+                return points.Count > 0 ? points.Zip(points.Skip(1), Primitives.Distance).Sum() + Primitives.Distance(points[0], points[points.Count - 1]) : 0;
             }
         }
 
@@ -150,6 +151,8 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Mutators
+
         /// <summary>
         /// 
         /// </summary>
@@ -167,10 +170,15 @@ namespace Engine.Geometry
             Points.Reverse();
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public Polygon Clone()
         {
             return new Polygon(points.ToArray());
@@ -181,40 +189,80 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
+        [Pure]
         public virtual Polygon Offset(double offset)
         {
             Polygon polyline = new Polygon();
 
-            LineSegment offsetLine = PrimitivesExtensions.OffsetSegment(Points[Points.Count - 1], Points[0], offset);
+            LineSegment offsetLine = Primitives.OffsetSegment(Points[Points.Count - 1], Points[0], offset);
             LineSegment startLine = offsetLine;
 
             for (int i = 1; i < Points.Count; i++)
             {
-                LineSegment newOffsetLine = PrimitivesExtensions.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Experimental.Intersection2(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
+                LineSegment newOffsetLine = Primitives.OffsetSegment(Points[i - 1], Points[i], offset);
+                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
                 offsetLine = newOffsetLine;
             }
 
-            polyline.Add(Experimental.Intersection2(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y).Item2);
+            polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y).Item2);
 
             return polyline;
         }
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="Polygon"/> struct.
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Polygon"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal virtual string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Polygon);
-            StringBuilder pts = new StringBuilder();
-            foreach (Point2D pt in points)
-            {
-                pts.Append(pt.ToString());
-                pts.Append(",");
-            }
-            if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(Polygon), pts.ToString());
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Points)}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
@@ -19,7 +20,6 @@ namespace Engine.Geometry
     /// <summary>
     /// QuadraticBezier2D
     /// </summary>
-    /// <structure>Engine.Geometry.QuadraticBezier2D</structure>
     /// <remarks>
     /// http://paulbourke.net/geometry/bezier/index.html
     /// http://pomax.github.io/bezierinfo/
@@ -28,26 +28,26 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(QuadraticBezier))]
     public class QuadraticBezier
-        : Shape
+        : Shape, IOpenShape, IFormattable
     {
         #region Private Fields
 
         /// <summary>
         /// The starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         private Point2D a;
 
         /// <summary>
         /// The middle tangent control node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         private Point2D b;
 
         /// <summary>
         /// The closing node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         private Point2D c;
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D A
         {
             get { return a; }
@@ -102,7 +102,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D B
         {
             get { return b; }
@@ -115,7 +115,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D C
         {
             get { return c; }
@@ -194,14 +194,62 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Methods
+
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="QuadraticBezier"/> struct.
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="QuadraticBezier"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="QuadraticBezier"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="QuadraticBezier"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(QuadraticBezier);
-            return string.Format(CultureInfo.CurrentCulture, "{0}={{{1}={2},{3}={4},{5}={6}}}", nameof(QuadraticBezier), nameof(A), a, nameof(B), b, nameof(C), c);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(QuadraticBezier)}={{{nameof(A)}={a}{sep}{nameof(B)}={b}{sep}{nameof(C)}={c}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
@@ -17,7 +19,7 @@ namespace Engine.Geometry
     public class Point2D
         : IFormattable
     {
-        #region Static Implementations
+        #region Implementations
 
         /// <summary>
         /// An Empty <see cref="Point2D"/>.
@@ -97,18 +99,6 @@ namespace Engine.Geometry
         public bool IsEmpty => X == 0 && Y == 0;
 
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/1476497/multiply-two-point-objects</remarks>
-        public static Point2D ComplexProduct(Point2D p1, Point2D p2)
-        {
-            return new Point2D(p1.X * p2.X - p1.Y * p2.Y, p1.X * p2.Y + p1.Y * p2.X);
-        }
 
         #region Operators
 
@@ -275,39 +265,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static bool Compare(Point2D a, Point2D b)
-        {
-            return Equals(a, b);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static bool Equals(Point2D a, Point2D b)
-        {
-            return (a.X == b.X) & (a.Y == b.Y);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Point2D && Equals(this, (Point2D)obj);
-        }
-
-        /// <summary>
         /// Compares two <see cref="Point2D"/> objects. 
         /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/> 
         /// values of the two <see cref="Point2D"/> objects are equal.
@@ -317,8 +274,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator ==(Point2D left, Point2D right)
         {
-            if (left == null || right == null) return false;
-            return left.X == right.X && left.Y == right.Y;
+            return Equals(left, right);
         }
 
         /// <summary>
@@ -331,7 +287,54 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator !=(Point2D left, Point2D right)
         {
-            return !(left == right);
+            return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Point2D a, Point2D b)
+        {
+            return Equals(a, b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Point2D a, Point2D b)
+        {
+            return (a?.X == b?.X) & (a?.Y == b?.Y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+        {
+            return obj is Point2D && Equals(this, obj as Point2D);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Point2D value)
+        {
+            return Equals(this, value);
         }
 
         /// <summary>
@@ -373,17 +376,45 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Factories
+
         /// <summary>
         /// Create a Random <see cref="Point2D"/>.
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         public static Point2D Random() => new Point2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Point2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Point2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Point2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [Pure]
+        public static Point2D Parse(string source)
+        {
+            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            Point2D value = new Point2D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override int GetHashCode()
         {
             return X.GetHashCode() ^
@@ -391,30 +422,26 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Parse - returns an instance converted from the provided string using
-        /// the culture "en-US"
-        /// <param name="source"> string with Point data </param>
+        /// Creates a human-readable string that represents this <see cref="Point2D"/>.
         /// </summary>
-        public static Point2D Parse(string source)
-        {
-            TokenizerHelper th = new TokenizerHelper(source, CultureInfo.InvariantCulture);
-
-            Point2D value;
-
-            String firstToken = th.NextTokenRequired();
-
-            value = new Point2D(
-                Convert.ToDouble(firstToken, CultureInfo.InvariantCulture),
-                Convert.ToDouble(th.NextTokenRequired(), CultureInfo.InvariantCulture));
-
-            // There should be no more tokens in this string.
-            th.LastTokenRequired();
-
-            return value;
-        }
+        /// <returns></returns>
+        [Pure]
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a string representation of this <see cref="Point2D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point2D"/> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -424,11 +451,12 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [Pure]
         string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a string representation of this <see cref="Point2D"/> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -438,20 +466,16 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [Pure]
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            return $"{nameof(Point2D)}{{{nameof(X)}={X},{nameof(Y)}={Y}}}";
+            if (this == null) return nameof(Point2D);
             //return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Point2D), nameof(X), X, nameof(Y), Y);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Point2D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}}}";
+            return formatable.ToString(format, provider);
         }
 
-        /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Point2D"/>.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            //return string.Format("{0}{{{1}={2},{3}={4}}}", nameof(Point2D), nameof(X), X, nameof(Y), Y);
-            return $"{nameof(Point2D)}{{{nameof(X)}={X},{nameof(Y)}={Y}}}";
-        }
+        #endregion
     }
 }

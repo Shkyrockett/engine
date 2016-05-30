@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -29,32 +30,32 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(CubicBezier))]
     public class CubicBezier
-        : Shape
+        : Shape, IOpenShape, IFormattable
     {
         #region Private Fields
 
         /// <summary>
         /// Position 1.
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         private Point2D a;
 
         /// <summary>
         /// Tangent 1.
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         private Point2D b;
 
         /// <summary>
         /// Position 2.
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         private Point2D c;
 
         /// <summary>
         /// Tangent 2.
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         private Point2D d;
 
         /// <summary>
@@ -112,7 +113,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D A
         {
             get { return a; }
@@ -125,7 +126,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D B
         {
             get { return b; }
@@ -138,7 +139,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D C
         {
             get { return c; }
@@ -151,7 +152,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D D
         {
             get { return d; }
@@ -217,7 +218,7 @@ namespace Engine.Geometry
 
         #endregion
 
-        #region Interpolation
+        #region Interpolations
 
         /// <summary>
         /// 
@@ -230,8 +231,6 @@ namespace Engine.Geometry
             return new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, index));
         }
 
-        #endregion
-
         /// <summary>
         /// 
         /// </summary>
@@ -241,38 +240,64 @@ namespace Engine.Geometry
             yield return new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, Length));
         }
 
-        #region Rendering
+        #endregion
+
+        #region Methods
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="CubicBezier"/> struct.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="pen"></param>
-        /// <param name="points"></param>
-        /// <param name="precision"></param>
-        public void DrawCubicBezierCurve(PaintEventArgs e, Pen pen, Point2D[] points, double precision)
+        /// <returns></returns>
+        [Pure]
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
-            ////Point2D NewPoint;
-            ////Point2D LastPoint = NewPoint;
-            //e.Graphics.DrawLines(pen, CubicBeizerPoints(points, precision));
-            ////for (double Index = 0; (Index <= 1); Index = (Index + Precision))
-            ////{
-            ////    LastPoint = NewPoint;
-            ////    NewPoint = CubicBeizerPoint(Points, Index);
-            ////    e.Graphics.DrawLine(DPen, NewPoint, LastPoint);
-            ////}
+            if (this == null) return nameof(CubicBezier);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(CubicBezier)}={{{nameof(A)}={a}{sep}{nameof(B)}={b}{sep}{nameof(C)}={c}{sep}{nameof(D)}={d}}}";
+            return formatable.ToString(format, provider);
         }
 
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            if (this == null) return nameof(CubicBezier);
-            return string.Format(CultureInfo.CurrentCulture, "{0}={{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(CubicBezier), nameof(A), a, nameof(B), b, nameof(C), c, nameof(D), d);
-        }
     }
 }

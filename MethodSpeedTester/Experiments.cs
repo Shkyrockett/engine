@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,6 +24,132 @@ namespace MethodSpeedTester
     /// </summary>
     public class Experiments
     {
+        #region Absolute Angle
+
+        /// <summary>
+        /// Find the absolute positive value of a radian angle from two points.
+        /// </summary>
+        /// <param name="aX">Horizontal Component of Point Starting Point</param>
+        /// <param name="aY">Vertical Component of Point Starting Point</param>
+        /// <param name="bX">Horizontal Component of Ending Point</param>
+        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <returns>The absolute angle of a line in radians.</returns>
+        /// <remarks></remarks>
+        public static double AbsoluteAngle0(double aX, double aY, double bX, double bY)
+        {
+            // Find the angle of point a and point b. 
+            double test = -Angle(aX, aY, bX, bY) % PI;
+
+            // This should only loop once using the modulus of pi.
+            while (test < 0)
+            {
+                test += PI;
+            }
+
+            return test;
+        }
+
+        /// <summary>
+        /// Find the absolute positive value of a radian angle from two points.
+        /// </summary>
+        /// <param name="aX">Horizontal Component of Point Starting Point</param>
+        /// <param name="aY">Vertical Component of Point Starting Point</param>
+        /// <param name="bX">Horizontal Component of Ending Point</param>
+        /// <param name="bY">Vertical Component of Ending Point</param>
+        /// <returns>The absolute angle of a line in radians.</returns>
+        /// <remarks></remarks>
+        public static double AbsoluteAngle1(double aX, double aY, double bX, double bY)
+        {
+            // Find the angle of point a and point b. 
+            double test = -Angle(aX, aY, bX, bY) % PI;
+            return test < 0 ? test += PI : test;
+        }
+
+        #endregion
+
+        #region Angle Between Two 2D Points
+
+        /// <summary>
+        /// Finds the angle between two vectors.
+        /// </summary>
+        /// <param name="uX"></param>
+        /// <param name="uY"></param>
+        /// <param name="vX"></param>
+        /// <param name="vY"></param>
+        /// <returns></returns>
+        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AngleBetween(
+            double uX, double uY,
+            double vX, double vY)
+            => Acos((uX * vX + uY * vY) / Sqrt((uX * uX + uY * uY) * (vX * vX + vY * vY)));
+
+        #endregion
+
+        #region Angle Between Two 3D Points
+
+        /// <summary>
+        /// Finds the angle between two vectors.
+        /// </summary>
+        /// <param name="uX"></param>
+        /// <param name="uY"></param>
+        /// <param name="uZ"></param>
+        /// <param name="vX"></param>
+        /// <param name="vY"></param>
+        /// <param name="vZ"></param>
+        /// <returns></returns>
+        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AngleBetween(
+            double uX, double uY, double uZ,
+            double vX, double vY, double vZ)
+            => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
+
+        #endregion
+
+        #region Angle of Two 2D Points
+
+        /// <summary>
+        /// Returns the Angle of a line.
+        /// </summary>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
+        /// <returns>Returns the Angle of a line.</returns>
+        /// <remarks></remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Angle(
+            double x1, double y1,
+            double x2, double y2)
+            => Atan2((y1 - y2), (x1 - x2));
+
+        #endregion
+
+        #region Angle of Two 3D Points
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
+        public static double Angle(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => (x1 == x2 && y1 == y2 && z1 == z2) ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
+
+        #endregion
+
         #region Angle of the vector of Three 2D Points
 
         /// <summary>
@@ -90,6 +217,58 @@ namespace MethodSpeedTester
             // Calculate the angle.
             return Atan2(crossProduct, dotProduct);
         }
+
+        #endregion
+
+        #region  Angle Tangent of Two deltas Atan2
+
+        ///// <summary>
+        ///// Angle with tangent opp/hyp
+        ///// </summary>
+        ///// <param name="opposite"></param>
+        ///// <param name="adjacent"></param>
+        ///// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
+        ///// <remarks></remarks>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static double Atan2(double opposite, double adjacent)
+        //    => Math.Atan2(opposite, adjacent);
+
+        ///// <summary>
+        ///// Returns the Angle of two deltas.
+        ///// </summary>
+        ///// <param name="opposite">Delta Angle 1</param>
+        ///// <param name="adjacent">Delta Angle 2</param>
+        ///// <returns>Returns the Angle of a line.</returns>
+        ///// <remarks></remarks>
+        //public static double _Atan2(double opposite, double adjacent)
+        //{
+        //    if (((opposite == 0) && (adjacent == 0))) return 0;
+        //    double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
+        //    if ((adjacent < 0)) Value = (PI - Value);
+        //    if ((Value < 0)) Value = (Value + (2 * PI));
+        //    return Value;
+        //}
+
+        #endregion
+
+        #region Complex Product of Two 2D Points
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> ComplexProduct(double x0, double y0, double x1, double y1)
+            => new Tuple<double, double>(x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
 
         #endregion
 
@@ -273,7 +452,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Cross Product of Three 2D Points
+        #region Cross Product of the Vector of Three 2D Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
@@ -1502,6 +1681,438 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Intersection of Circle and Circle
+
+        /// <summary>
+        /// Find the points where the two circles intersect.
+        /// </summary>
+        /// <param name="cx0"></param>
+        /// <param name="cy0"></param>
+        /// <param name="radius0"></param>
+        /// <param name="cx1"></param>
+        /// <param name="cy1"></param>
+        /// <param name="radius1"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
+        private static Tuple<int, Tuple<double, double>, Tuple<double, double>> FindCircleCircleIntersections(
+            double cx0,
+            double cy0,
+            double radius0,
+            double cx1,
+            double cy1,
+            double radius1)
+        {
+            // Find the distance between the centers.
+            double dx = cx0 - cx1;
+            double dy = cy0 - cy1;
+            double dist = Sqrt(dx * dx + dy * dy);
+
+            Tuple<double, double> intersection1;
+            Tuple<double, double> intersection2;
+
+            // See how many solutions there are.
+            if (dist > radius0 + radius1)
+            {
+                // No solutions, the circles are too far apart.
+                intersection1 = new Tuple<double, double>(double.NaN, double.NaN);
+                intersection2 = new Tuple<double, double>(double.NaN, double.NaN);
+                return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(0, intersection1, intersection2);
+            }
+            else if (dist < Abs(radius0 - radius1))
+            {
+                // No solutions, one circle contains the other.
+                intersection1 = new Tuple<double, double>(double.NaN, double.NaN);
+                intersection2 = new Tuple<double, double>(double.NaN, double.NaN);
+                return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(0, intersection1, intersection2);
+            }
+            else if ((dist == 0) && (radius0 == radius1))
+            {
+                // No solutions, the circles coincide.
+                intersection1 = new Tuple<double, double>(double.NaN, double.NaN);
+                intersection2 = new Tuple<double, double>(double.NaN, double.NaN);
+                return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(0, intersection1, intersection2);
+            }
+            else
+            {
+                // Find a and h.
+                double a = (radius0 * radius0 -
+                    radius1 * radius1 + dist * dist) / (2 * dist);
+                double h = Sqrt(radius0 * radius0 - a * a);
+
+                // Find P2.
+                double cx2 = cx0 + a * (cx1 - cx0) / dist;
+                double cy2 = cy0 + a * (cy1 - cy0) / dist;
+
+                // Get the points P3.
+                intersection1 = new Tuple<double, double>(
+                    (cx2 + h * (cy1 - cy0) / dist),
+                    (cy2 - h * (cx1 - cx0) / dist));
+                intersection2 = new Tuple<double, double>(
+                    (cx2 - h * (cy1 - cy0) / dist),
+                    (cy2 + h * (cx1 - cx0) / dist));
+
+                // See if we have 1 or 2 solutions.
+                if (dist == radius0 + radius1)
+                {
+                    return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(1, intersection1, intersection2);
+                }
+
+                return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(2, intersection1, intersection2);
+            }
+        }
+
+        #endregion
+
+        #region Intersection of Circle and line
+
+        /// <summary>
+        /// Find the points of intersection.
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="radius"></param>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/</remarks>
+        private static Tuple<int, Tuple<double, double>, Tuple<double, double>> LineCircle(
+            Tuple<double, double> center,
+            double radius,
+            Tuple<double, double> point1,
+            Tuple<double, double> point2)
+        {
+            double t;
+
+            double dx = point2.Item1 - point1.Item1;
+            double dy = point2.Item2 - point1.Item2;
+
+            double A = dx * dx + dy * dy;
+            double B = 2 * (dx * (point1.Item1 - center.Item1) + dy * (point1.Item2 - center.Item2));
+            double C = (point1.Item1 - center.Item1) * (point1.Item1 - center.Item1) + (point1.Item2 - center.Item2) * (point1.Item2 - center.Item2) - radius * radius;
+
+            Tuple<double, double> intersection1;
+            Tuple<double, double> intersection2;
+
+            double det = B * B - 4 * A * C;
+            if ((A <= 0.0000001) || (det < 0))
+            {
+                // No real solutions.
+                intersection1 = new Tuple<double, double>(double.NaN, double.NaN);
+                intersection2 = new Tuple<double, double>(double.NaN, double.NaN);
+                return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(0, intersection1, intersection2);
+            }
+            else if (det == 0)
+            {
+                // One solution.
+                t = -B / (2 * A);
+                intersection1 = new Tuple<double, double>(point1.Item1 + t * dx, point1.Item2 + t * dy);
+                intersection2 = new Tuple<double, double>(double.NaN, double.NaN);
+                return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(1, intersection1, intersection2);
+            }
+            else
+            {
+                // Two solutions.
+                t = ((-B + Sqrt(det)) / (2 * A));
+                intersection1 = new Tuple<double, double>(point1.Item1 + t * dx, point1.Item2 + t * dy);
+                t = ((-B - Sqrt(det)) / (2 * A));
+                intersection2 = new Tuple<double, double>(point1.Item1 + t * dx, point1.Item2 + t * dy);
+                return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(2, intersection1, intersection2);
+            }
+        }
+
+        #endregion
+
+        #region Intersection of two Line Segments
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(LineIntersection2DTests))]
+        public static List<SpeedTester> LineIntersection2DTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => Intersection0(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.Intersection0)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => Intersection1(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.Intersection1)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => Intersection2(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.Intersection2)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => Intersection3(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.Intersection3)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => Intersection4(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.Intersection4)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => Intersection5(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+            };
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="x4"></param>
+        /// <param name="y4"></param>
+        /// <returns>Returns the point of intersection.</returns>
+        public static Tuple<bool, Tuple<double, double>> Intersection0(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double x4, double y4)
+        {
+            // Calculate the delta length vectors for the line segments.
+            double deltaBAI = (x2 - x1);
+            double deltaBAJ = (y2 - y1);
+            double deltaDCI = (x4 - x3);
+            double deltaDCJ = (y4 - y3);
+            double deltaCAI = (x3 - x1);
+            double deltaCAJ = (y3 - y1);
+
+            //  If the segments are parallel return false.
+            if ((deltaDCI * deltaBAJ) == (deltaDCJ * deltaBAI)) return new Tuple<bool, Tuple<double, double>>(false, null);
+
+            // Find the index where the intersection point lies on the line.
+            double s = (((deltaBAI * deltaCAJ) + (deltaBAJ * -deltaCAI)) / ((deltaDCI * deltaBAJ) - (deltaDCJ * deltaBAI)));
+            double t = (((deltaDCI * -deltaCAJ) + (deltaDCJ * deltaCAI)) / ((deltaDCJ * deltaBAI) - (deltaDCI * deltaBAJ)));
+
+            return new Tuple<bool, Tuple<double, double>>(
+                // Check whether the point is on the segment.
+                (s >= 0d) && (s <= 1d) && (t >= 0d) && (t <= 1d),
+                // If the point exists, the point of intersection is:
+                new Tuple<double, double>(x1 + (t * deltaBAI), y1 + (t * deltaBAJ)));
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="x1">The x component of the first point of the first line.</param>
+        /// <param name="y1">The y component of the first point of the first line.</param>
+        /// <param name="x2">The x component of the second point of the first line.</param>
+        /// <param name="y2">The y component of the second point of the first line.</param>
+        /// <param name="x3">The x component of the first point of the second line.</param>
+        /// <param name="y3">The y component of the first point of the second line.</param>
+        /// <param name="x4">The x component of the second point of the second line.</param>
+        /// <param name="y4">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/</remarks>
+        public static Tuple<bool, Tuple<double, double>> Intersection1(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double x4, double y4)
+        {
+            // Calculate the delta length vectors for the line segments.
+            double deltaAI = (x1 - x2);
+            double deltaAJ = (y2 - y1);
+            double deltaBI = (y4 - y3);
+            double deltaBJ = (x3 - x4);
+
+            // Calculate the determinant of the vectors.
+            double determinant = (deltaAJ * deltaBJ) - (deltaBI * deltaAI);
+
+            // Check if the lines are parallel.
+            if (determinant == 0) return new Tuple<bool, Tuple<double, double>>(false, null);
+
+            // Find the index where the intersection point lies on the line.
+            double s = (deltaAJ * x1 + deltaAI * y1) / -determinant;
+            double t = (deltaBI * x3 + deltaBJ * y3) / determinant;
+
+            // Interpolate the point of intersection.
+            return new Tuple<bool, Tuple<double, double>>(
+                // Check whether the point is on the segment.
+                (s >= 0d) && (s <= 1d) && (t >= 0d) && (t <= 1d),
+                // If the point exists, the point of intersection is:
+                new Tuple<double, double>(-((deltaAI * t) + (deltaBJ * s)), (deltaAJ * t) + (deltaBI * s)));
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="x1">The x component of the first point of the first line.</param>
+        /// <param name="y1">The y component of the first point of the first line.</param>
+        /// <param name="x2">The x component of the second point of the first line.</param>
+        /// <param name="y2">The y component of the second point of the first line.</param>
+        /// <param name="x3">The x component of the first point of the second line.</param>
+        /// <param name="y3">The y component of the first point of the second line.</param>
+        /// <param name="x4">The x component of the second point of the second line.</param>
+        /// <param name="y4">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        public static Tuple<bool, Tuple<double, double>> Intersection2(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double x4, double y4)
+        {
+            // Calculate the delta length vectors for the line segments.
+            double deltaAI = (x2 - x1);
+            double deltaAJ = (y2 - y1);
+            double deltaBI = (x4 - x3);
+            double deltaBJ = (y4 - y3);
+
+            // Calculate the determinant of the coefficient matrix.
+            double determinant = (deltaBJ * deltaAI) - (deltaBI * deltaAJ);
+
+            // Check if the line are parallel.
+            if (determinant == 0) return new Tuple<bool, Tuple<double, double>>(false, null);
+
+            // Find the index where the intersection point lies on the line.
+            double s = ((x1 - x3) * deltaAJ + (y3 - y1) * deltaAI) / -determinant;
+            double t = ((x3 - x1) * deltaBJ + (y1 - y3) * deltaBI) / determinant;
+
+            return new Tuple<bool, Tuple<double, double>>(
+                 // Check whether the point is on the segment.
+                 (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d),
+                // If it exists, the point of intersection is:
+                new Tuple<double, double>(x1 + t * deltaAI, y1 + t * deltaAJ));
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="x1">The x component of the first point of the first line.</param>
+        /// <param name="y1">The y component of the first point of the first line.</param>
+        /// <param name="x2">The x component of the second point of the first line.</param>
+        /// <param name="y2">The y component of the second point of the first line.</param>
+        /// <param name="x3">The x component of the first point of the second line.</param>
+        /// <param name="y3">The y component of the first point of the second line.</param>
+        /// <param name="x4">The x component of the second point of the second line.</param>
+        /// <param name="y4">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/</remarks>
+        public static Tuple<bool, Tuple<double, double>> Intersection3(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double x4, double y4)
+        {
+            // Calculate the delta length vectors for the line segments.
+            double deltaAI = (x2 - x1);
+            double deltaAJ = (y2 - y1);
+            double deltaBI = (x4 - x3);
+            double deltaBJ = (y4 - y3);
+
+            // Calculate the determinant of the coefficient matrix.
+            double determinant = (deltaBI * deltaAJ) - (deltaBJ * deltaAI);
+
+            // Check if the lines are parallel.
+            if (determinant == 0) return new Tuple<bool, Tuple<double, double>>(false, null);
+
+            // Find the index where the intersection point lies on the line.
+            double s = ((x3 - x1) * deltaAJ + (y1 - y3) * deltaAI) / -determinant;
+            double t = ((x1 - x3) * deltaBJ + (y3 - y1) * deltaBI) / determinant;
+
+            // Interpolate the point of intersection.
+            return new Tuple<bool, Tuple<double, double>>(
+                // The segments intersect if t1 and t2 are between 0 and 1.
+                (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d),
+                // If it exists, the point of intersection is:
+                new Tuple<double, double>(x1 + t * deltaAI, y1 + t * deltaAJ));
+
+            //// Find the closest points on the segments.
+            //if (t < 0) t = 0;
+            //else if (t > 1) t = 1;
+            //if (s < 0) s = 0;
+            //else if (s > 1) s = 1;
+
+            //Point2D close_p1 = new Point2D(aX + deltaAI * t, aY + deltaAJ * t);
+            //Point2D close_p2 = new Point2D(cX + deltaBI * s, cY + deltaBJ * s);
+        }
+
+        /// <summary>
+        /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data 
+        /// type). Used in the Slope of a LineSeg
+        /// </summary>
+        /// <remarks></remarks>
+        public const double SlopeMax = 9223372036854775807d;
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="x1">The x component of the first point of the first line.</param>
+        /// <param name="y1">The y component of the first point of the first line.</param>
+        /// <param name="x2">The x component of the second point of the first line.</param>
+        /// <param name="y2">The y component of the second point of the first line.</param>
+        /// <param name="x3">The x component of the first point of the second line.</param>
+        /// <param name="y3">The y component of the first point of the second line.</param>
+        /// <param name="x4">The x component of the second point of the second line.</param>
+        /// <param name="y4">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://www.gamedev.net/page/resources/_/technical/math-and-physics/fast-2d-line-intersection-algorithm-r423</remarks>
+        public static Tuple<bool, Tuple<double, double>> Intersection4(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double x4, double y4)
+        {
+            // Compute the slopes of each line. Note the kludge for infinity, however, this will be close enough.
+            double slope1 = (x2 == x1) ? SlopeMax : (y2 - y1) / (x2 - x1);
+            double slope2 = (x4 == x3) ? SlopeMax : (y4 - y3) / (x4 - x3);
+
+            // Check if the lines are parallel.
+            if (slope1 == slope2) return new Tuple<bool, Tuple<double, double>>(false, null);
+
+            // Compute the determinate of the coefficient matrix.
+            double determinate = slope2 - slope1;
+
+            double s = (y3 - (slope2 * x3)) / -determinate;
+            double t = (y1 - (slope1 * x1)) / determinate;
+
+            // Use Cramer's rule to compute the return values.
+            return new Tuple<bool, Tuple<double, double>>(
+                (s >= 0) && (s <= 1) && (t >= 0) && (t <= 1),
+                new Tuple<double, double>(t + s, slope2 * t + slope1 * s));
+        }
+
+        /// <summary>
+        /// Returns the intersection of the two lines (line segments are passed in, but they are treated like infinite lines)
+        /// </summary>
+        /// <remarks>
+        /// http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
+        /// Got this here:
+        /// http://stackoverflow.com/questions/14480124/how-do-i-detect-triangle-and-rectangle-intersection
+        /// </remarks>
+        public static Tuple<bool, Tuple<double, double>> Intersection5(
+            double x0, double y0,
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+        {
+            double direction1I = x1 - x0;
+            double direction1J = y1 - y0;
+            double direction2I = x3 - x2;
+            double direction2J = y3 - y2;
+
+            double dotPerp = (direction1I * direction2J) - (direction1J * direction2I);
+
+            // Check if the lines are parallel.
+            if (dotPerp == 0) return new Tuple<bool, Tuple<double, double>>(false, null);
+
+            // If it's 0, it means the lines are parallel so have infinite intersection points
+            if (NearZero0(dotPerp)) return null;
+
+            double cI = x2 - x0;
+            double cJ = y2 - y0;
+            double t = (cI * direction2J - cJ * direction2I) / dotPerp;
+            //if ((t < 0) || (t > 1)) return null; // lies outside the line segment
+
+            double u = (cI * direction1J - cJ * direction1I) / dotPerp;
+            //if ((u < 0) || (u > 1)) return null; // lies outside the line segment
+
+            //	Return the intersection point
+            return new Tuple<bool, Tuple<double, double>>(
+                (t > 0) && (t < 1) && (u > 0) && (u < 1),
+                new Tuple<double, double>(
+                x0 + (t * direction1I),
+                y0 + (t * direction1J)));
+        }
+
+        #endregion
+
         #region Linear Interpolation of Two 1D Points
 
         /// <summary>
@@ -1810,6 +2421,143 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Near Zero Inquiry
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double NearZeroEpsilon = 1E-20;
+
+        /// <summary>
+        /// Set of tests to run testing methods that query whether a number is near zero.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(NearZeroTests))]
+        public static List<SpeedTester> NearZeroTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => NearZero0(0.000000001d),
+                $"{nameof(Experiments.NearZero0)}(0.000000001d)"),
+                new SpeedTester(() => NearZero1(0.000000001d),
+                $"{nameof(Experiments.NearZero1)}(0.000000001d)"),
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool NearZero0(double value, double epsilon = NearZeroEpsilon)
+            => (value > -epsilon) && (value < -epsilon);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool NearZero1(double value, double epsilon = NearZeroEpsilon)
+            => Abs(value) <= epsilon;
+
+        #endregion
+
+        #region Normalize a 2D Vector
+
+        /// <summary>
+        /// Normalize a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Normalize(
+            double i, double j)
+            => new Tuple<double, double>(
+                i / Sqrt((i * i) + (j * j)),
+                j / Sqrt((i * i) + (j * j))
+                );
+
+        #endregion
+
+        #region Normalize a 3D Vector
+
+        /// <summary>
+        /// Normalize a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Normalize(
+            double i, double j, double k)
+            => new Tuple<double, double, double>(
+                i / Sqrt((i * i) + (j * j) + (k * k)),
+                j / Sqrt((i * i) + (j * j) + (k * k)),
+                k / Sqrt((i * i) + (j * j) + (k * k))
+                );
+
+        #endregion
+
+        #region Normalize the Vector Between Two 2D Points
+
+        /// <summary>
+        /// Find the Normal of Two points.
+        /// </summary>
+        /// <param name="x1">The x component of the first Point.</param>
+        /// <param name="y1">The y component of the first Point.</param>
+        /// <param name="x2">The x component of the second Point.</param>
+        /// <param name="y2">The y component of the second Point.</param>
+        /// <returns>The Normal of two Points</returns>
+        /// <remarks></remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Normalize(
+            double x1, double y1,
+            double x2, double y2)
+            => new Tuple<double, double>(
+                x1 / Sqrt(((x1 * x2) + (y1 * y2))),
+                y1 / Sqrt(((x1 * x2) + (y1 * y2)))
+                );
+
+        #endregion
+
+        #region Normalize the Vector Between Two 3D Points
+
+        /// <summary>
+        /// Find the Normal of Two points.
+        /// </summary>
+        /// <param name="x1">The x component of the first Point.</param>
+        /// <param name="y1">The y component of the first Point.</param>
+        /// <param name="z1">The z component of the first Point.</param>
+        /// <param name="x2">The x component of the second Point.</param>
+        /// <param name="y2">The y component of the second Point.</param>
+        /// <param name="z2">The z component of the second Point.</param>
+        /// <returns>The Normal of two Points</returns>
+        /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> Normalize(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => new Tuple<double, double, double>(
+                x1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
+                y1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
+                z1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2))
+                );
+
+        #endregion
+
         #region Perimeter of a Polygon
 
         /// <summary>
@@ -1854,6 +2602,40 @@ namespace MethodSpeedTester
         {
             return points.Zip(points.Skip(1), Distance2D_1).Sum();
         }
+
+        #endregion
+
+        #region Perpendicular Vector in the Clockwise Direction
+
+        /// <summary>
+        /// Find the Clockwise Perpendicular of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> PerpendicularClockwise(double i, double j)
+            => new Tuple<double, double>(-j, i);
+
+        #endregion
+
+        #region Perpendicular Vector in the Counter Clockwise Direction
+
+        /// <summary>
+        /// Find the Counter Clockwise Perpendicular of a Vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> PerpendicularCounterClockwise(double i, double j)
+            => new Tuple<double, double>(j, -i);
 
         #endregion
 
@@ -1938,6 +2720,8 @@ namespace MethodSpeedTester
                 $"{nameof(Experiments.PointInPolygonWRandolphFranklin)}(polygon, {point})"),
                 //new SpeedTester(() => PointInPolygonPhilippeReverdy(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonPhilippeReverdy)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonBobStein(polygon, point),
+                $"{nameof(Experiments.PointInPolygonBobStein)}(polygon, {point})"),
             };
         }
 
@@ -2600,6 +3384,97 @@ namespace MethodSpeedTester
             return inside;
         }
 
+        //        /// <summary>
+        //        /// 
+        //        /// </summary>
+        //        /// <param name="polygon"></param>
+        //        /// <param name="point"></param>
+        //        /// <returns></returns>
+        //        /// <remarks>
+        //        /// http://stackoverflow.com/questions/11716268/point-in-polygon-algorithm
+        //        /// </remarks>
+        //        public static bool point_in_polygon_check_edge(List<PointF> polygon, PointF point, double edge_error = 1.192092896e-07f)
+        //        {
+        //            int x = 0;
+        //            int y = 1;
+        //            bool r = false;
+        //            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
+        //            {
+        //                PointF pi = polygon[i];
+        //                PointF pj = polygon[j];
+        //            if (fabs(pi[y] - pj[y]) <= edge_error && fabs(pj[y] - v[y]) <= edge_error && (pi[x] >= v[x]) != (pj[x] >= v[x]))
+        //            {
+        //                return true;
+        //            }
+
+        //            if ((pi[y] > v[y]) != (pj[y] > v[y]))
+        //            {
+        //                double c = (pj[x] - pi[x]) * (v[y] - pi[y]) / (pj[y] - pi[y]) + pi[x];
+        //                if (fabs(v[x] - c) <= edge_error)
+        //                {
+        //                    return true;
+        //                }
+        //                if (v[x] < c)
+        //                {
+        //                    r = !r;
+        //                }
+        //            }
+        //        }
+        //    return r;
+        //}
+
+        /// <summary>
+        /// is target point inside a 2D polygon?
+        /// </summary>
+        /// <param name="poly">polygon points</param>
+        /// <param name="xt">x (horizontal) of target point</param>
+        /// <param name="yt"> y (vertical) of target point</param>
+        /// <returns></returns>
+        public static bool PointInPolygonBobStein(
+            List<PointF> polygon, PointF point)
+        {
+            double xnew, ynew;
+            double xold, yold;
+            double x1, y1;
+            double x2, y2;
+            int i;
+            bool inside = false;
+            int npoints = polygon.Count;
+            if (npoints < 3)
+            {
+                return (false);
+            }
+            xold = polygon[npoints - 1].X;
+            yold = polygon[npoints - 1].Y;
+            for (i = 0; i < npoints; i++)
+            {
+                xnew = polygon[i].X;
+                ynew = polygon[i].Y;
+                if (xnew > xold)
+                {
+                    x1 = xold;
+                    x2 = xnew;
+                    y1 = yold;
+                    y2 = ynew;
+                }
+                else
+                {
+                    x1 = xnew;
+                    x2 = xold;
+                    y1 = ynew;
+                    y2 = yold;
+                }
+                if ((xnew < point.X) == (point.X <= xold)          /* edge "open" at one end */
+                 && ((long)point.Y - (long)y1) * (long)(x2 - x1)
+                  < ((long)point.Y - (long)y1) * (long)(point.X - x1))
+                {
+                    inside = !inside;
+                }
+                xold = xnew;
+                yold = ynew;
+            }
+            return (inside);
+        }
         #endregion
 
         #region Quadratic Bezier Interpolation of 1D Points
@@ -2811,6 +3686,97 @@ namespace MethodSpeedTester
             Tuple<double, double, double> bc = LinearInterpolate3D_0(x1, y1, z1, x2, y2, z2, t);
             // point on the bezier-curve
             return LinearInterpolate3D_0(ab.Item1, ab.Item2, ab.Item3, bc.Item1, bc.Item2, bc.Item3, t);
+        }
+
+        #endregion
+
+        #region Slope of a 2D Vector
+
+        /// <summary>
+        /// Calculates the Slope of a vector.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns>Returns the slope angle of a vector.</returns>
+        /// <remarks>
+        /// The slope is calculated with Slope = Y / X or rise over run
+        /// If the line is vertical, return something close to infinity
+        /// (Close to the largest value allowed for the data type).
+        /// Otherwise calculate and return the slope.
+        /// </remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Slope(double i, double j)
+            => i == 0 ? SlopeMax : (j / i);
+
+        #endregion
+
+        #region Slope of a 2D Line
+
+        /// <summary>
+        /// Returns the slope angle of a line.
+        /// </summary>
+        /// <param name="x1">Horizontal Component of Point Starting Point</param>
+        /// <param name="y1">Vertical Component of Point Starting Point</param>
+        /// <param name="x2">Horizontal Component of Ending Point</param>
+        /// <param name="y2">Vertical Component of Ending Point</param>
+        /// <returns>Returns the slope angle of a line.</returns>
+        /// <remarks>
+        /// If the Line is Vertical return something close to infinity (Close to 
+        /// the largest value allowed for the data type).
+        /// Otherwise calculate and return the slope.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Pure]
+        public static double Slope(
+            double x1, double y1,
+            double x2, double y2)
+            => (x1 == x2) ? SlopeMax : ((y2 - y1) / (x2 - x1));
+
+        #endregion
+
+        #region Squared Distance Between Two 2D Points
+
+        /// <summary>
+        /// The square of the distance between two points.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistance(
+            double x1, double y1,
+            double x2, double y2)
+            => ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+        #endregion
+
+        #region Squared Distance to a Line
+
+        /// <summary>
+        /// Find the square of the distance of a point from a line.
+        /// </summary>
+        /// <param name="x1">The x component of the Point.</param>
+        /// <param name="y1">The y component of the Point.</param>
+        /// <param name="x2_">The x component of the first point on the line.</param>
+        /// <param name="y2_">The y component of the first point on the line.</param>
+        /// <param name="x3_">The x component of the second point on the line.</param>
+        /// <param name="y3_">The y component of the second point on the line.</param>
+        /// <returns></returns>
+        [Pure]
+        public static double SquareDistanceToLine(
+            double x1, double y1,
+            double x2_, double y2_,
+            double x3_, double y3_)
+        {
+            double A = y2_ - y3_;
+            double B = x3_ - x2_;
+            double C = (A * x1 + B * y1) - (A * x2_ + B * y2_);
+            return (C * C) / (A * A + B * B);
         }
 
         #endregion

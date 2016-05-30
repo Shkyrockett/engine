@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -23,9 +24,9 @@ namespace Engine.Geometry
     /// <remarks></remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Line Segment")]
+    [DisplayName(nameof(LineSegment))]
     public class LineSegment
-        : Shape, IOpenShape
+        : Shape, IOpenShape, IFormattable
     {
         #region Static Implementations
         /// <summary>
@@ -33,22 +34,6 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         public static readonly LineSegment Empty = new LineSegment();
-        #endregion
-
-        #region Private Fields
-
-        /// <summary>
-        /// First Point of a line segment
-        /// </summary>
-        /// <remarks></remarks>
-        private Point2D a;
-
-        /// <summary>
-        /// Ending Point of a Line Segment
-        /// </summary>
-        /// <remarks></remarks>
-        private Point2D b;
-
         #endregion
 
         #region Constructors
@@ -84,18 +69,6 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
-        /// <param name="a">Starting Point</param>
-        /// <param name="b">Ending Point</param>
-        /// <remarks></remarks>
-        public LineSegment(Point2D a, Point2D b)
-        {
-            this.a = a;
-            this.b = b;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
-        /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
         /// <param name="Radius">Ending Line Segment Length</param>
@@ -103,6 +76,18 @@ namespace Engine.Geometry
         public LineSegment(Point2D Point, double RadAngle, double Radius)
             : this(new Point2D(Point.X, Point.Y), new Point2D((Point.X + (Radius * Cos(RadAngle))), (Point.Y + (Radius * Sin(RadAngle)))))
         { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// </summary>
+        /// <param name="a">Starting Point</param>
+        /// <param name="b">Ending Point</param>
+        /// <remarks></remarks>
+        public LineSegment(Point2D a, Point2D b)
+        {
+            this.A = a;
+            this.B = b;
+        }
 
         #endregion
 
@@ -117,12 +102,8 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
-        public Point2D A
-        {
-            get { return a; }
-            set { a = value; }
-        }
+        [XmlAttribute]
+        public Point2D A { get; private set; }
 
         /// <summary>
         /// Ending Point of a Line Segment
@@ -133,12 +114,8 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
-        public Point2D B
-        {
-            get { return b; }
-            set { b = value; }
-        }
+        [XmlAttribute]
+        public Point2D B { get; private set; }
 
         /// <summary>
         /// Gets or the size and location of the segment, in floating-point pixels, relative to the parent canvas.
@@ -154,10 +131,10 @@ namespace Engine.Geometry
             {
                 return Rectangle2D.FromLTRB
                     (
-                    a.X <= b.X ? a.X : b.X,
-                    a.Y <= b.Y ? a.Y : b.Y,
-                    a.X >= b.X ? a.X : b.X,
-                    a.Y >= b.Y ? a.Y : b.Y
+                    A.X <= B.X ? A.X : B.X,
+                    A.Y <= B.Y ? A.Y : B.Y,
+                    A.X >= B.X ? A.X : B.X,
+                    A.Y >= B.Y ? A.Y : B.Y
                     );
             }
         }
@@ -170,12 +147,12 @@ namespace Engine.Geometry
         {
             get
             {
-                return new List<Point2D>() { a, b };
+                return new List<Point2D>() { A, B };
             }
             set
             {
-                a = value[0];
-                b = value[1];
+                A = value[0];
+                B = value[1];
             }
         }
 
@@ -184,10 +161,12 @@ namespace Engine.Geometry
         /// </summary>
         public double Length
         {
-            get { return Maths.Distance(a.X, a.Y, b.X, b.Y); }
+            get { return Maths.Distance(A.X, A.Y, B.X, B.Y); }
         }
 
         #endregion
+
+        #region Mutators
 
         /// <summary>
         /// 
@@ -199,6 +178,10 @@ namespace Engine.Geometry
             B = temp;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Interpolates a shape.
         /// </summary>
@@ -206,7 +189,7 @@ namespace Engine.Geometry
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double index)
         {
-            return Maths.LinearInterpolate(a, b, index);
+            return Maths.LinearInterpolate(A, B, index);
         }
 
         /// <summary>
@@ -217,19 +200,65 @@ namespace Engine.Geometry
         public Point2D[] ToArray()
         {
             return new Point2D[] {
-                 a,
-                 b};
+                 A,
+                 B};
         }
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="LineSegment"/> struct.
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="LineSegment"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(LineSegment);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(LineSegment), nameof(A), a, nameof(B), b);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(LineSegment)}{{{nameof(A)}={A},{nameof(B)}={B}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }
 

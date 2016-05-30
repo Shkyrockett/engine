@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
@@ -16,7 +18,7 @@ namespace Engine.Geometry
     public struct Size2D
         : IFormattable
     {
-        #region Static Implementations
+        #region Implementations
 
         /// <summary>
         /// An Empty <see cref="Size2D"/>.
@@ -215,40 +217,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static bool Compare(Size2D a, Size2D b)
-        {
-            return Equals(a, b);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static bool Equals(Size2D a, Size2D b)
-        {
-            return (a.Width == b.Width) & (a.Height == b.Height);
-        }
-
-        /// <summary>
-        /// Tests to see whether the specified object is a <see cref="Size2D"/>
-        /// with the same dimensions as this <see cref="Size2D"/>.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Size2D && Equals(this, (Size2D)obj);
-        }
-
-        /// <summary>
         /// Compares two <see cref="Size2D"/> objects. 
         /// The result specifies whether the values of the <see cref="Width"/> and <see cref="Height"/> 
         /// values of the two <see cref="Size2D"/> objects are equal.
@@ -258,7 +226,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator ==(Size2D left, Size2D right)
         {
-            return left.Width == right.Width && left.Height == right.Height;
+            return Equals(left, right);
         }
 
         /// <summary>
@@ -271,7 +239,55 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator !=(Size2D left, Size2D right)
         {
-            return !(left == right);
+            return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Size2D a, Size2D b)
+        {
+            return Equals(a, b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Size2D a, Size2D b)
+        {
+            return (a.Width == b.Width) & (a.Height == b.Height);
+        }
+
+        /// <summary>
+        /// Tests to see whether the specified object is a <see cref="Size2D"/>
+        /// with the same dimensions as this <see cref="Size2D"/>.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+        {
+            return obj is Size2D && Equals(this, (Size2D)obj);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Size2D value)
+        {
+            return Equals(this, value);
         }
 
         /// <summary>
@@ -298,52 +314,33 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Factories
+
         /// <summary>
         /// Create a Random <see cref="Size2D"/>.
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Size2D Random() => new Size2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+        [Pure]
+        public static Size2D Random()
+            => new Size2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
-        /// 
+        /// Parse a string for a <see cref="Size2D"/> value.
         /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return Width.GetHashCode() ^ Height.GetHashCode();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Point2D ToPoint2D()
-        {
-            return (Point2D)this;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Size2D Truncate()
-        {
-            return new Size2D((int)Width, (int)Height);
-        }
-
-        /// <summary>
-        /// Parse - returns an instance converted from the provided string using
-        /// the culture "en-US"
-        /// <param name="source"> string with Size data </param>
-        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Size2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Size2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [Pure]
         public static Size2D Parse(string source)
         {
-            TokenizerHelper th = new TokenizerHelper(source, CultureInfo.InvariantCulture);
+            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
 
             Size2D value;
 
-            string firstToken = th.NextTokenRequired();
+            string firstToken = tokenizer.NextTokenRequired();
 
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
@@ -355,49 +352,105 @@ namespace Engine.Geometry
             {
                 value = new Size2D(
                     Convert.ToDouble(firstToken, CultureInfo.InvariantCulture),
-                    Convert.ToDouble(th.NextTokenRequired(), CultureInfo.InvariantCulture));
+                    Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
             }
 
             // There should be no more tokens in this string.
-            th.LastTokenRequired();
+            tokenizer.LastTokenRequired();
 
             return value;
         }
 
-        /// <summary>
-        /// Creates a string representation of this object based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
+        #endregion
+
+        #region Methods
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
+        /// 
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        /// <returns></returns>
+        [Pure]
+        public override int GetHashCode()
         {
-            //if (this == null) return nameof(Size2D);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
+            return Width.GetHashCode()
+                ^ Height.GetHashCode();
         }
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Size2D"/>.
+        /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{nameof(Size2D)}({nameof(Width)}={Width},{nameof(Height)}={Height})";
+        [Pure]
+        public Point2D ToPoint2D()
+        {
+            return (Point2D)this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Pure]
+        public Size2D Truncate()
+        {
+            return new Size2D((int)Width, (int)Height);
+        }
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Size2D"/> struct.
+        /// </summary>
+        /// <returns></returns>
+        [Pure]
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Size2D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Size2D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Size2D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
+        {
+            if (this == null) return nameof(Size2D);
+            //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Size2D)}({nameof(Width)}={Width}{sep}{nameof(Height)}={Height})";
+            return formatable.ToString(format, provider);
+        }
+
+        #endregion
     }
 }

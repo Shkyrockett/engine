@@ -62,7 +62,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute()]
+        [XmlAttribute]
         public List<Polyline> Polylines
         {
             get { return polylines; }

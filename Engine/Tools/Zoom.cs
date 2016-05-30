@@ -114,7 +114,7 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (PrimitivesExtensions.Length(points[0], e.Location) > 8)
+                    if (Primitives.Length(points[0], e.Location) > 8)
                     {
                         if (MouseDown) index = 1;
                         points[index] = e.Location;

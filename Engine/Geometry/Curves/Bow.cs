@@ -15,6 +15,7 @@ using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -32,8 +33,10 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Bow))]
     public class Bow
-        : Shape, IClosedShape
+        : Shape, IClosedShape, IFormattable
     {
+        #region Fields
+
         /// <summary>
         /// 
         /// </summary>
@@ -48,6 +51,10 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         private double precision;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -65,6 +72,10 @@ namespace Engine.Geometry
             this.multiplyer = multiplyer;
             precision = 0.1;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -115,6 +126,10 @@ namespace Engine.Geometry
             }
         }
 
+        #endregion
+
+        #region Interpolaters
+
         /// <summary>
         /// 
         /// </summary>
@@ -143,6 +158,10 @@ namespace Engine.Geometry
 
             return points;
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Bow Curve (2D)
@@ -178,13 +197,59 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="Bow"/> struct.
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Bow"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Bow"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Bow"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Bow);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6}}}", nameof(Bow), nameof(Offset), offset, nameof(Multiplyer), multiplyer, nameof(Precision), precision);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Bow)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

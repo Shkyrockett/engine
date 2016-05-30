@@ -61,13 +61,12 @@ namespace Engine.Geometry.Polygons
 
             return new Point2D(X, Y);
         }
-        
+
         /// <summary>
         /// Return true if the point is in the polygon.
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="X"></param>
-        /// <param name="Y"></param>
+        /// <param name="point"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         public static bool PointInPolygon(this Polygon polygon, Point2D point)

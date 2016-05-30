@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -21,9 +22,9 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Circle")]
+    [DisplayName(nameof(Circle))]
     public class Circle
-        : Shape
+        : Shape, IClosedShape, IFormattable
     {
         #region Private Fields
 
@@ -66,6 +67,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="triangle"></param>
+        public Circle(Triangle triangle)
+            : this(triangle.A, triangle.B, triangle.C)
+        { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
         /// </summary>
         /// <param name="bounds">The bounding box of the circle.</param>
@@ -75,14 +84,6 @@ namespace Engine.Geometry
             radius = bounds.Height <= bounds.Width ? bounds.Height * 0.25f : bounds.Width * 0.25f;
             points = InterpolatePoints();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="triangle"></param>
-        public Circle(Triangle triangle)
-            : this(triangle.A, triangle.B, triangle.C)
-        { }
 
         /// <summary>
         /// 
@@ -117,15 +118,11 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute()]
+        [XmlAttribute]
         public double Radius
         {
             get { return radius; }
-            set
-            {
-                radius = value;
-                points = InterpolatePoints();
-            }
+            set { radius = value; }
         }
 
         /// <summary>
@@ -137,15 +134,11 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute()]
+        [XmlAttribute]
         public Point2D Center
         {
             get { return center; }
-            set
-            {
-                center = value;
-                points = InterpolatePoints();
-            }
+            set { center = value; }
         }
 
         /// <summary>
@@ -259,6 +252,8 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Methods
+
         /// <summary>
         /// Interpolates the circle.
         /// </summary>
@@ -286,13 +281,59 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="Circle"/> struct.
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Circle"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Circle"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Circle"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Circle);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Circle), nameof(Center), center.ToString(), nameof(Radius), radius.ToString());
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Circle)}{{{nameof(Center)}={center}{sep}{nameof(Radius)}={radius}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

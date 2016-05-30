@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -247,6 +248,7 @@ namespace Engine.Geometry
         #endregion
 
         #region Gauss Tables
+
         /// <summary>
         /// Gauss abscissa table
         /// </summary>
@@ -374,6 +376,7 @@ namespace Engine.Geometry
         /// <param name="bY"></param>
         /// <param name="distance"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double, double> OffsetSegment(
@@ -400,6 +403,7 @@ namespace Engine.Geometry
         /// <param name="distanceY"></param>
         /// <param name="distanceZ"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double, double, double, double> OffsetSegment(
             double aX, double aY, double aZ,
@@ -423,6 +427,7 @@ namespace Engine.Geometry
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Angle of a line.</returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1,
@@ -440,6 +445,7 @@ namespace Engine.Geometry
         /// <param name="z2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         public static double Angle(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
@@ -461,6 +467,7 @@ namespace Engine.Geometry
         /// expect because Y coordinates increase downward.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleVector(
             double x1, double y1,
@@ -477,12 +484,13 @@ namespace Engine.Geometry
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
+        [Pure]
         public static double AbsoluteAngle(
             double x1, double y1,
             double x2, double y2)
         {
             // Find the angle of point a and point b. 
-            double test = -Maths.Angle(x1, y1, x2, y2) % PI;
+            double test = -Angle(x1, y1, x2, y2) % PI;
             return test < 0 ? test += PI : test;
         }
 
@@ -495,6 +503,7 @@ namespace Engine.Geometry
         /// <param name="vY"></param>
         /// <returns></returns>
         /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY,
@@ -512,11 +521,29 @@ namespace Engine.Geometry
         /// <param name="vZ"></param>
         /// <returns></returns>
         /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY, double uZ,
             double vX, double vY, double vZ)
             => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> ComplexProduct(double x0, double y0, double x1, double y1)
+            => new Tuple<double, double>(x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
 
         /// <summary>
         /// Cross Product of two points.
@@ -527,6 +554,7 @@ namespace Engine.Geometry
         /// <param name="y2">Second Point Y component.</param>
         /// <returns>the cross product AB · BC.</returns>
         /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(
@@ -544,6 +572,7 @@ namespace Engine.Geometry
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> CrossProduct(
             double x1, double y1, double z1,
@@ -572,6 +601,7 @@ namespace Engine.Geometry
         /// Return the cross product AB x BC.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProductVector(
             double x1, double y1,
@@ -588,6 +618,7 @@ namespace Engine.Geometry
         /// <param name="y2">Second Point Y component.</param>
         /// <returns>The Dot Product.</returns>
         /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
@@ -605,6 +636,7 @@ namespace Engine.Geometry
         /// <param name="y2">Second Point Y component.</param>
         /// <param name="z2">Second Point Z component.</param>
         /// <returns>The Dot Product.</returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
@@ -620,6 +652,7 @@ namespace Engine.Geometry
         /// <param name="y2">Second Point Y component.</param>
         /// <param name="z2">Second Point Z component.</param>
         /// <returns>The Dot Product.</returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             Tuple<double, double, double> tuple,
@@ -632,6 +665,7 @@ namespace Engine.Geometry
         /// <param name="tuple1">First set of X, Y, Z components in tuple form.</param>
         /// <param name="tuple2">Second set of X, Y, Z components in tuple form.</param>
         /// <returns>The Dot Product.</returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             Tuple<double, double, double> tuple1,
@@ -657,6 +691,7 @@ namespace Engine.Geometry
         /// Note that AB · BC = |AB| * |BC| * Cos(theta).
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector(
             double x1, double y1,
@@ -677,6 +712,8 @@ namespace Engine.Geometry
         /// <param name="y3"></param>
         /// <param name="z3"></param>
         /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MixedProduct(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -691,34 +728,13 @@ namespace Engine.Geometry
         /// <param name="x2">Second X component.</param>
         /// <param name="y2">Second Y component.</param>
         /// <returns>The distance between two points.</returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(
             double x1, double y1,
             double x2, double y2)
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Point2D p1, Point2D p2)
-            => Distance(p1.X, p1.Y, p2.X, p2.Y);
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Tuple<double, double> p1, Tuple<double, double> p2)
-            => Distance(p1.Item1, p1.Item2, p2.Item1, p2.Item2);
 
         /// <summary>
         /// Distance between two points.
@@ -730,6 +746,7 @@ namespace Engine.Geometry
         /// <param name="y2">Second Y component.</param>
         /// <param name="z2">Second Z component.</param>
         /// <returns>The distance between two points.</returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(
@@ -743,6 +760,7 @@ namespace Engine.Geometry
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(Point3D p1, Point3D p2)
@@ -756,6 +774,7 @@ namespace Engine.Geometry
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(
@@ -773,6 +792,7 @@ namespace Engine.Geometry
         /// <param name="x3_">The x component of the second point on the line.</param>
         /// <param name="y3_">The y component of the second point on the line.</param>
         /// <returns></returns>
+        [Pure]
         public static double SquareDistanceToLine(
             double x1, double y1,
             double x2_, double y2_,
@@ -796,6 +816,7 @@ namespace Engine.Geometry
         /// (Close to the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
             => i == 0 ? SlopeMax : (j / i);
@@ -814,6 +835,7 @@ namespace Engine.Geometry
         /// Otherwise calculate and return the slope.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Pure]
         public static double Slope(
             double x1, double y1,
             double x2, double y2)
@@ -825,6 +847,7 @@ namespace Engine.Geometry
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Abs(double i, double j)
@@ -838,6 +861,7 @@ namespace Engine.Geometry
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Abs(double i, double j, double k)
@@ -850,6 +874,7 @@ namespace Engine.Geometry
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j)
@@ -863,6 +888,7 @@ namespace Engine.Geometry
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j, double k)
@@ -875,6 +901,7 @@ namespace Engine.Geometry
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j)
@@ -888,6 +915,7 @@ namespace Engine.Geometry
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j, double k)
@@ -900,6 +928,7 @@ namespace Engine.Geometry
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Unitize(double i, double j)
             => Normalize(i, j);
@@ -912,6 +941,7 @@ namespace Engine.Geometry
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Unitize(double i, double j, double k)
             => Normalize(i, j, k);
@@ -923,8 +953,10 @@ namespace Engine.Geometry
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Normalize(double i, double j)
+        public static Tuple<double, double> Normalize(
+            double i, double j)
             => new Tuple<double, double>(
                 i / Sqrt((i * i) + (j * j)),
                 j / Sqrt((i * i) + (j * j))
@@ -938,8 +970,10 @@ namespace Engine.Geometry
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Normalize(double i, double j, double k)
+        public static Tuple<double, double, double> Normalize(
+            double i, double j, double k)
             => new Tuple<double, double, double>(
                 i / Sqrt((i * i) + (j * j) + (k * k)),
                 j / Sqrt((i * i) + (j * j) + (k * k)),
@@ -955,6 +989,7 @@ namespace Engine.Geometry
         /// <param name="y2">The y component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Normalize(
             double x1, double y1,
@@ -975,6 +1010,7 @@ namespace Engine.Geometry
         /// <param name="z2">The z component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
         /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Normalize(
             double x1, double y1, double z1,
@@ -992,6 +1028,7 @@ namespace Engine.Geometry
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> PerpendicularClockwise(double i, double j)
@@ -1004,6 +1041,7 @@ namespace Engine.Geometry
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> PerpendicularCounterClockwise(double i, double j)
@@ -1018,6 +1056,7 @@ namespace Engine.Geometry
         /// <param name="m2x2"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double m1x1, double m1x2,
@@ -1040,6 +1079,7 @@ namespace Engine.Geometry
         /// <param name="i"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c,
@@ -1071,6 +1111,7 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c, double d,
@@ -1112,6 +1153,7 @@ namespace Engine.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c, double d, double e,
@@ -1166,6 +1208,7 @@ namespace Engine.Geometry
         /// <param name="ii"></param>
         /// <param name="jj"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c, double d, double e, double f,
@@ -1190,6 +1233,7 @@ namespace Engine.Geometry
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b,
@@ -1212,6 +1256,7 @@ namespace Engine.Geometry
         /// <param name="i"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c,
@@ -1243,6 +1288,7 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c, double d,
@@ -1284,6 +1330,7 @@ namespace Engine.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c, double d, double e,
@@ -1338,6 +1385,7 @@ namespace Engine.Geometry
         /// <param name="ii"></param>
         /// <param name="jj"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c, double d, double e, double f,
@@ -1365,6 +1413,7 @@ namespace Engine.Geometry
         /// <param name="z2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Projection(
             double x1, double y1, double z1,
@@ -1386,6 +1435,7 @@ namespace Engine.Geometry
         /// <param name="z2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Rejection(
             double x1, double y1, double z1,
@@ -1407,6 +1457,7 @@ namespace Engine.Geometry
         /// <param name="k2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         public static Tuple<double, double, double> Reflection(
             double i1, double j1, double k1,
             double i2, double j2, double k2)
@@ -1434,6 +1485,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double rad)
             => new Tuple<double, double, double>(
@@ -1451,6 +1503,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Pitch(double x1, double y1, double z1, double rad)
             => RotateX(x1, y1, z1, rad);
@@ -1464,6 +1517,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double rad)
             => new Tuple<double, double, double>(
@@ -1481,6 +1535,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Yaw(double x1, double y1, double z1, double rad)
             => RotateY(x1, y1, z1, rad);
@@ -1494,6 +1549,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double rad)
             => new Tuple<double, double, double>(
@@ -1511,6 +1567,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Roll(double x1, double y1, double z1, double rad)
             => RotateZ(x1, y1, z1, rad);
@@ -1526,6 +1583,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
             => new Tuple<double, double, double>(
@@ -1545,6 +1603,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
             => new Tuple<double, double, double>(
@@ -1564,6 +1623,7 @@ namespace Engine.Geometry
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
             => new Tuple<double, double, double>(
@@ -1583,6 +1643,7 @@ namespace Engine.Geometry
         /// <param name="lineOfSightK2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBackFace(
             double normalI1, double normalJ1, double normalK1,
@@ -1596,6 +1657,7 @@ namespace Engine.Geometry
         /// <param name="j1"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1)
             => Magnitude(i1, j1) == 1;
@@ -1608,6 +1670,7 @@ namespace Engine.Geometry
         /// <param name="k1"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1, double k1)
             => Magnitude(i1, j1, k1) == 1;
@@ -1619,6 +1682,7 @@ namespace Engine.Geometry
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D LinearInterpolate(Point2D v1, Point2D v2, double t)
@@ -1631,6 +1695,7 @@ namespace Engine.Geometry
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D LinearInterpolate(Point3D v1, Point3D v2, double t)
             => new Point3D(Interpolaters.Linear(v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, t));
@@ -1645,6 +1710,7 @@ namespace Engine.Geometry
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this double[] values)
             => (values.Sum() / values.Length);
@@ -1655,6 +1721,7 @@ namespace Engine.Geometry
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this List<double> values)
             => (values.Sum() / values.Count);
@@ -1665,6 +1732,7 @@ namespace Engine.Geometry
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this IEnumerable<double> values)
             => values.Sum() / values.Count();
@@ -1675,6 +1743,7 @@ namespace Engine.Geometry
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(double[] values)
             => values.Sum();
@@ -1685,6 +1754,7 @@ namespace Engine.Geometry
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(List<double> values)
             => values.Sum();
@@ -1695,6 +1765,7 @@ namespace Engine.Geometry
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(IEnumerable<double> values)
             => values.Sum();
@@ -1711,6 +1782,7 @@ namespace Engine.Geometry
         /// <param name="x">A double-precision floating-point number to find the specified root of.</param>
         /// <param name="y">A double-precision floating-point number that specifies a root.</param>
         /// <returns>The y root of the number x.</returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
             => (x < 0 && y % 2 == 1) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
@@ -1722,37 +1794,11 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
             => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
-
-        ///// <summary>
-        ///// Angle with tangent opp/hyp
-        ///// </summary>
-        ///// <param name="opposite"></param>
-        ///// <param name="adjacent"></param>
-        ///// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
-        ///// <remarks></remarks>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static double Atan2(double opposite, double adjacent)
-        //    => Math.Atan2(opposite, adjacent);
-
-        ///// <summary>
-        ///// Returns the Angle of two deltas.
-        ///// </summary>
-        ///// <param name="opposite">Delta Angle 1</param>
-        ///// <param name="adjacent">Delta Angle 2</param>
-        ///// <returns>Returns the Angle of a line.</returns>
-        ///// <remarks></remarks>
-        //public static double _Atan2(double opposite, double adjacent)
-        //{
-        //    if (((opposite == 0) && (adjacent == 0))) return 0;
-        //    double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
-        //    if ((adjacent < 0)) Value = (PI - Value);
-        //    if ((Value < 0)) Value = (Value + (2 * PI));
-        //    return Value;
-        //}
 
         /// <summary>
         /// Derived math functions equivalent Secant
@@ -1760,6 +1806,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
             => ((value % PI != HalfPi) && (value % PI != -HalfPi)) ? (1 / Cos(value)) : 0;
@@ -1770,6 +1817,7 @@ namespace Engine.Geometry
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
             => ((Value % PI != 0) && (Value % PI != PI)) ? (1 / Sin(Value)) : 0;
@@ -1780,6 +1828,7 @@ namespace Engine.Geometry
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
             => ((Value % PI != 0) && (Value % PI != PI)) ? (1 / Tan(Value)) : 0;
@@ -1790,6 +1839,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         public static double InverseSine(double value)
         {
             //  Arc-sin(X) 
@@ -1813,6 +1863,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         public static double InverseCosine(double value)
         {
             //  Arc-cos(X) 
@@ -1836,6 +1887,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         public static double InverseSecant(double value)
         {
             //  Arc-sec(X) 
@@ -1859,6 +1911,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
         public static double InverseCosecant(double value)
         {
             //  Arc-co-sec(X) 
@@ -1881,6 +1934,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>Arc-co-tan(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCotangent(double value)
             => (Atan(value) + (2 * Atan(1)));
@@ -1891,6 +1945,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HSin(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSine(double value)
             => ((Exp(value) - Exp((value * -1))) * 0.5d);
@@ -1901,6 +1956,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCos(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosine(double value)
             => ((Exp(value) + Exp((value * -1))) * 0.5d);
@@ -1911,6 +1967,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HTan(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicTangent(double value)
             => ((Exp(value) - Exp((value * -1))) / (Exp(value) + Exp((value * -1))));
@@ -1921,6 +1978,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HSec(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSecant(double value)
             => (0.5d * (Exp(value) + Exp((value * -1))));
@@ -1931,6 +1989,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCosec(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosecant(double value)
             => (0.5d * (Exp(value) - Exp((value * -1))));
@@ -1941,6 +2000,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCotan(X) </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCotangent(double value)
             => ((Exp(value) + Exp((value * -1))) / (Exp(value) - Exp((value * -1))));
@@ -1951,6 +2011,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArcsin(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSine(double value)
             => Log((value + Sqrt(((value * value) + 1))));
@@ -1961,6 +2022,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccos(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosine(double value)
             => Log((value + Sqrt(((value * value) - 1))));
@@ -1971,6 +2033,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArctan(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicTangent(double value)
             => (Log(((1 + value) / (1 - value))) * 0.5d);
@@ -1981,6 +2044,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArcsec(X) </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSecant(double value)
             => Log(((Sqrt((((value * value) * -1) + 1)) + 1) / value));
@@ -1991,6 +2055,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccosec(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosecant(double value)
             => Log((((Sin(value) * Sqrt(((value * value) + 1))) + 1) / value));
@@ -2001,6 +2066,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccotan(X)</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCotangent(double value)
             => (Log(((value + 1) / (value - 1))) * 0.5d);
@@ -2015,6 +2081,7 @@ namespace Engine.Geometry
         /// LogN(X)
         /// Return Log(Value) / Log(NumberBase)
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
             => (numberBase != 1) ? (Log(value) / Log(numberBase)) : 0;
@@ -2029,6 +2096,7 @@ namespace Engine.Geometry
         /// <param name="angle"></param>
         /// <returns>The absolute positive angle in radians.</returns>
         /// <remarks></remarks>
+        [Pure]
         public static double AbsoluteAngle(this double angle)
         {
             double test = angle % Maths.Tau;
@@ -2042,6 +2110,7 @@ namespace Engine.Geometry
         /// <param name="valueB">Destination parameter</param>
         /// <returns>Returns the same Modulus Result that Excel returns.</returns>
         /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than .Net</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulo(this double valueA, double valueB)
             => ((valueA %= valueB) < 0) ? valueA + valueB : valueA;
@@ -2053,6 +2122,7 @@ namespace Engine.Geometry
         /// <returns>Angle in Radians.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToRadians(this double degrees)
@@ -2065,6 +2135,7 @@ namespace Engine.Geometry
         /// <returns>Angle in Degrees.</returns>
         /// <remarks></remarks>
         /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDegrees(this double radiens)
@@ -2076,6 +2147,7 @@ namespace Engine.Geometry
         /// <param name="v"></param>
         /// <param name="d"></param>
         /// <returns></returns>
+        [Pure]
         public static double RoundAFZ(double v, int d)
         {
             return Round(v, d, MidpointRounding.AwayFromZero);
@@ -2086,6 +2158,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RoundToInt(this float val)
             => (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
@@ -2095,6 +2168,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RoundToInt(this double val)
             => (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
@@ -2106,6 +2180,7 @@ namespace Engine.Geometry
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
         /// <remarks>Convert.ToInt32 does the correct rounding that Round does not do.</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
             => Convert.ToInt32(value / multiple) * multiple;
@@ -2115,6 +2190,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ToFloat(string text)
             => float.Parse(text, CultureInfo.InvariantCulture);
@@ -2125,6 +2201,7 @@ namespace Engine.Geometry
         /// <param name="text"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ToFloat(string text, IFormatProvider provider)
             => float.Parse(text, provider);
@@ -2134,6 +2211,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDouble(string text)
             => double.Parse(text, CultureInfo.InvariantCulture);
@@ -2144,6 +2222,7 @@ namespace Engine.Geometry
         /// <param name="text"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDouble(string text, IFormatProvider provider)
             => double.Parse(text, provider);
@@ -2160,6 +2239,7 @@ namespace Engine.Geometry
         /// <param name="precision"></param>
         /// <returns></returns>
         /// <remarks>http://pomax.github.io/bezierinfo</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool approximately(double a, double b, double precision = DoubleEpsilon)
             => Math.Abs(a - b) <= precision;
@@ -2173,6 +2253,7 @@ namespace Engine.Geometry
         /// <param name="bY"></param>
         /// <param name="epsilonSqrd"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd = DoubleEpsilon)
             => (SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
@@ -2194,6 +2275,7 @@ namespace Engine.Geometry
         /// <param name="value2"> The second double to compare. </param>
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
+        [Pure]
         public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
@@ -2221,6 +2303,7 @@ namespace Engine.Geometry
         /// <param name="value2"> The second double to compare. </param>
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
+        [Pure]
         public static bool AreClose(this double value1, double value2, double epsilon = DoubleEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
@@ -2247,6 +2330,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this float value1, float value2)
             => (value1 < value2) && !AreClose(value1, value2);
@@ -2267,6 +2351,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this double value1, double value2)
             => (value1 < value2) && !AreClose(value1, value2);
@@ -2287,6 +2372,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this float value1, float value2)
             => (value1 > value2) && !AreClose(value1, value2);
@@ -2307,6 +2393,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this double value1, double value2)
             => (value1 > value2) && !AreClose(value1, value2);
@@ -2327,6 +2414,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this float value1, float value2)
             => (value1 < value2) || AreClose(value1, value2);
@@ -2347,6 +2435,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this double value1, double value2)
             => (value1 < value2) || AreClose(value1, value2);
@@ -2367,6 +2456,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this float value1, float value2)
             => (value1 > value2) || AreClose(value1, value2);
@@ -2387,6 +2477,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this double value1, double value2)
             => (value1 > value2) || AreClose(value1, value2);
@@ -2394,6 +2485,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="value"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearZero(double value, double epsilon = NearZeroEpsilon)
             => (value > -epsilon) && (value < -epsilon);
 
@@ -2406,6 +2502,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value"> The double to compare to 0. </param>
         /// <param name="epsilon"></param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsZero(this float value, float epsilon = FloatEpsilon)
             => Math.Abs(value) < 10f * epsilon;
@@ -2419,6 +2516,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value"> The double to compare to 0. </param>
         /// <param name="epsilon"></param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsZero(this double value, double epsilon = DoubleEpsilon)
             => Math.Abs(value) < 10d * epsilon;
@@ -2432,6 +2530,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value"> The double to compare to 1. </param>
         /// <param name="epsilon"></param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOne(this float value, float epsilon = FloatEpsilon)
             => Math.Abs(value - 1f) < 10f * epsilon;
@@ -2445,6 +2544,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name="value"> The double to compare to 1. </param>
         /// <param name="epsilon"></param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOne(this double value, double epsilon = DoubleEpsilon)
             => Math.Abs(value - 1d) < 10d * epsilon;
@@ -2454,6 +2554,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this float val)
             => (GreaterThanOrClose(val, 0f) && LessThanOrClose(val, 1));
@@ -2463,6 +2564,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this double val)
             => (GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1));

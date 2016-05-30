@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using static System.Math;
 
@@ -372,9 +373,43 @@ namespace Engine.Geometry
             }
         }
 
+        /// <summary>
+        /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
+        /// </summary>
+        public bool HasInverse
+        {
+            get { return !Determinant.IsZero(); }
+        }
+
         #endregion
 
         #region Operators
+
+        /// <summary>
+        /// Operator Point * Matrix
+        /// </summary>
+        public static Point2D operator *(Point2D point, Matrix2D matrix)
+        {
+            return matrix.Transform(point);
+        }
+
+        /// <summary>
+        /// Multiplies two transformations.
+        /// </summary>
+        public static Matrix2D operator *(Matrix2D trans1, Matrix2D trans2)
+        {
+            MultiplyMatrix(ref trans1, ref trans2);
+            return trans1;
+        }
+
+        /// <summary>
+        /// Multiply
+        /// </summary>
+        public static Matrix2D Multiply(Matrix2D trans1, Matrix2D trans2)
+        {
+            MultiplyMatrix(ref trans1, ref trans2);
+            return trans1;
+        }
 
         /// <summary>
         /// Compares two Matrix instances for exact equality.
@@ -389,19 +424,7 @@ namespace Engine.Geometry
         /// <param name='matrix2'>The second Matrix to compare</param>
         public static bool operator ==(Matrix2D matrix1, Matrix2D matrix2)
         {
-            if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
-            {
-                return matrix1.IsIdentity == matrix2.IsIdentity;
-            }
-            else
-            {
-                return matrix1.M11 == matrix2.M11 &&
-                       matrix1.M12 == matrix2.M12 &&
-                       matrix1.M21 == matrix2.M21 &&
-                       matrix1.M22 == matrix2.M22 &&
-                       matrix1.OffsetX == matrix2.OffsetX &&
-                       matrix1.OffsetY == matrix2.OffsetY;
-            }
+            return Equals(matrix1, matrix2);
         }
 
         /// <summary>
@@ -417,15 +440,20 @@ namespace Engine.Geometry
         /// <param name='matrix2'>The second Matrix to compare</param>
         public static bool operator !=(Matrix2D matrix1, Matrix2D matrix2)
         {
-            return !(matrix1 == matrix2);
+            return !Equals(matrix1, matrix2);
         }
 
         /// <summary>
-        /// Operator Point * Matrix
+        /// Compares two Matrix2D
         /// </summary>
-        public static Point2D operator *(Point2D point, Matrix2D matrix)
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Matrix2D a, Matrix2D b)
         {
-            return matrix.Transform(point);
+            return Equals(a, b);
         }
 
         /// <summary>
@@ -440,6 +468,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Matrix2D matrix1, Matrix2D matrix2)
         {
             if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
@@ -467,16 +496,11 @@ namespace Engine.Geometry
         /// <returns>
         /// bool - true if the object is an instance of Matrix and if it's equal to "this".
         /// </returns>
-        /// <param name='o'>The object to compare to "this"</param>
-        public override bool Equals(object o)
+        /// <param name='obj'>The object to compare to "this"</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
         {
-            if ((null == o) || !(o is Matrix2D))
-            {
-                return false;
-            }
-
-            Matrix2D value = (Matrix2D)o;
-            return Matrix2D.Equals(this, value);
+            return obj is Matrix2D && Equals(this, (Matrix2D)obj);
         }
 
         /// <summary>
@@ -490,30 +514,152 @@ namespace Engine.Geometry
         /// bool - true if "value" is equal to "this".
         /// </returns>
         /// <param name='value'>The Matrix to compare to "this"</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix2D value)
         {
-            return Matrix2D.Equals(this, value);
-        }
-
-        /// <summary>
-        /// Multiplies two transformations.
-        /// </summary>
-        public static Matrix2D operator *(Matrix2D trans1, Matrix2D trans2)
-        {
-            MultiplyMatrix(ref trans1, ref trans2);
-            return trans1;
-        }
-
-        /// <summary>
-        /// Multiply
-        /// </summary>
-        public static Matrix2D Multiply(Matrix2D trans1, Matrix2D trans2)
-        {
-            MultiplyMatrix(ref trans1, ref trans2);
-            return trans1;
+            return Equals(this, value);
         }
 
         #endregion
+
+        #region Factories
+
+        /// <summary>
+        /// Creates a rotation transformation about the given point
+        /// </summary>
+        /// <param name='angle'>The angle to rotate specified in radians</param>
+        internal static Matrix2D CreateRotationRadians(double angle)
+        {
+            return CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
+        }
+
+        /// <summary>
+        /// Creates a rotation transformation about the given point
+        /// </summary>
+        /// <param name='angle'>The angle to rotate specified in radians</param>
+        /// <param name='centerX'>The centerX of rotation</param>
+        /// <param name='centerY'>The centerY of rotation</param>
+        internal static Matrix2D CreateRotationRadians(double angle, double centerX, double centerY)
+        {
+            Matrix2D matrix = new Matrix2D();
+            double sin = Sin(angle);
+            double cos = Cos(angle);
+            double dx = ((centerX * (1.0 - cos)) + (centerY * sin));
+            double dy = ((centerY * (1.0 - cos)) - (centerX * sin));
+
+            matrix.SetMatrix(cos, sin,
+                              -sin, cos,
+                              dx, dy,
+                              MatrixTypes.UNKNOWN);
+            return matrix;
+        }
+
+        /// <summary>
+        /// Creates a scaling transform around the given point
+        /// </summary>
+        /// <param name='scaleX'>The scale factor in the x dimension</param>
+        /// <param name='scaleY'>The scale factor in the y dimension</param>
+        /// <param name='centerX'>The centerX of scaling</param>
+        /// <param name='centerY'>The centerY of scaling</param>
+        internal static Matrix2D CreateScaling(double scaleX, double scaleY, double centerX, double centerY)
+        {
+            Matrix2D matrix = new Matrix2D();
+
+            matrix.SetMatrix(scaleX, 0,
+                             0, scaleY,
+                             centerX - scaleX * centerX, centerY - scaleY * centerY,
+                             MatrixTypes.SCALING | MatrixTypes.TRANSLATION);
+
+            return matrix;
+        }
+
+        /// <summary>
+        /// Creates a scaling transform around the origin
+        /// </summary>
+        /// <param name='scaleX'>The scale factor in the x dimension</param>
+        /// <param name='scaleY'>The scale factor in the y dimension</param>
+        internal static Matrix2D CreateScaling(double scaleX, double scaleY)
+        {
+            Matrix2D matrix = new Matrix2D();
+            matrix.SetMatrix(scaleX, 0,
+                             0, scaleY,
+                             0, 0,
+                             MatrixTypes.SCALING);
+            return matrix;
+        }
+
+        /// <summary>
+        /// Creates a skew transform
+        /// </summary>
+        /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
+        /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
+        internal static Matrix2D CreateSkewRadians(double skewX, double skewY)
+        {
+            Matrix2D matrix = new Matrix2D();
+
+            matrix.SetMatrix(1.0f, Tan(skewY),
+                             Tan(skewX), 1.0f,
+                             0.0f, 0.0f,
+                             MatrixTypes.UNKNOWN);
+
+            return matrix;
+        }
+
+        /// <summary>
+        /// Sets the transformation to the given translation specified by the offset vector.
+        /// </summary>
+        /// <param name='offsetX'>The offset in X</param>
+        /// <param name='offsetY'>The offset in Y</param>
+        internal static Matrix2D CreateTranslation(double offsetX, double offsetY)
+        {
+            Matrix2D matrix = new Matrix2D();
+
+            matrix.SetMatrix(1, 0,
+                             0, 1,
+                             offsetX, offsetY,
+                             MatrixTypes.TRANSLATION);
+
+            return matrix;
+        }
+
+        /// <summary>
+        /// Parse a string for a <see cref="Matrix2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Matrix2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Matrix2D Parse(string source)
+        {
+            IFormatProvider formatProvider = CultureInfo.InvariantCulture;
+            Tokenizer tokenizer = new Tokenizer(source, formatProvider);
+            Matrix2D value;
+            string firstToken = tokenizer.NextTokenRequired();
+            // The token will already have had whitespace trimmed so we can do a
+            // simple string compare.
+            if (firstToken == "Identity")
+            {
+                value = Identity;
+            }
+            else
+            {
+                value = new Matrix2D(
+                    Maths.ToFloat(firstToken, formatProvider),
+                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider));
+            }
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+
+        #endregion
+
+        #region Mutators
 
         /// <summary>
         /// TransformRect - Internal helper for perf
@@ -933,49 +1079,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Transform - returns the result of transforming the point by this matrix
-        /// </summary>
-        /// <returns>
-        /// The transformed point
-        /// </returns>
-        /// <param name="point"> The Point to transform </param>
-        public Point2D Transform(Point2D point)
-        {
-            Point2D newPoint = point;
-            MultiplyPoint(ref newPoint);
-            return newPoint;
-        }
-
-        /// <summary>
-        /// Transform - Transforms each point in the array by this matrix
-        /// </summary>
-        /// <param name="points"> The Point array to transform </param>
-        public void Transform(Point2D[] points)
-        {
-            if (points != null)
-            {
-                for (int i = 0; i < points.Length; i++)
-                {
-                    MultiplyPoint(ref points[i]);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Transform - returns the result of transforming the Vector by this matrix.
-        /// </summary>
-        /// <returns>
-        /// The transformed vector
-        /// </returns>
-        /// <param name="vector"> The Vector to transform </param>
-        public Vector2D Transform(Vector2D vector)
-        {
-            Vector2D newVector = vector;
-            MultiplyVector(ref newVector);
-            return newVector;
-        }
-
-        /// <summary>
         /// Transform - Transforms each Vector in the array by this matrix.
         /// </summary>
         /// <param name="vectors"> The Vector array to transform </param>
@@ -991,32 +1094,18 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// The determinant of this matrix
+        /// Transform - Transforms each point in the array by this matrix
         /// </summary>
-        public double Determinant
+        /// <param name="points"> The Point array to transform </param>
+        public void Transform(Point2D[] points)
         {
-            get
+            if (points != null)
             {
-                switch (type)
+                for (int i = 0; i < points.Length; i++)
                 {
-                    case MatrixTypes.IDENTITY:
-                    case MatrixTypes.TRANSLATION:
-                        return 1.0d;
-                    case MatrixTypes.SCALING:
-                    case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
-                        return (m1x1 * m2x2);
-                    default:
-                        return ((m1x1 * m2x2) - (m1x2 * m2x1));
+                    MultiplyPoint(ref points[i]);
                 }
             }
-        }
-
-        /// <summary>
-        /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
-        /// </summary>
-        public bool HasInverse
-        {
-            get { return !Determinant.IsZero(); }
         }
 
         /// <summary>
@@ -1194,104 +1283,6 @@ namespace Engine.Geometry
             }
         }
 
-        /// <summary>
-        /// Creates a rotation transformation about the given point
-        /// </summary>
-        /// <param name='angle'>The angle to rotate specified in radians</param>
-        internal static Matrix2D CreateRotationRadians(double angle)
-        {
-            return CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
-        }
-
-        /// <summary>
-        /// Creates a rotation transformation about the given point
-        /// </summary>
-        /// <param name='angle'>The angle to rotate specified in radians</param>
-        /// <param name='centerX'>The centerX of rotation</param>
-        /// <param name='centerY'>The centerY of rotation</param>
-        internal static Matrix2D CreateRotationRadians(double angle, double centerX, double centerY)
-        {
-            Matrix2D matrix = new Matrix2D();
-            double sin = Sin(angle);
-            double cos = Cos(angle);
-            double dx = ((centerX * (1.0 - cos)) + (centerY * sin));
-            double dy = ((centerY * (1.0 - cos)) - (centerX * sin));
-
-            matrix.SetMatrix(cos, sin,
-                              -sin, cos,
-                              dx, dy,
-                              MatrixTypes.UNKNOWN);
-            return matrix;
-        }
-
-        /// <summary>
-        /// Creates a scaling transform around the given point
-        /// </summary>
-        /// <param name='scaleX'>The scale factor in the x dimension</param>
-        /// <param name='scaleY'>The scale factor in the y dimension</param>
-        /// <param name='centerX'>The centerX of scaling</param>
-        /// <param name='centerY'>The centerY of scaling</param>
-        internal static Matrix2D CreateScaling(double scaleX, double scaleY, double centerX, double centerY)
-        {
-            Matrix2D matrix = new Matrix2D();
-
-            matrix.SetMatrix(scaleX, 0,
-                             0, scaleY,
-                             centerX - scaleX * centerX, centerY - scaleY * centerY,
-                             MatrixTypes.SCALING | MatrixTypes.TRANSLATION);
-
-            return matrix;
-        }
-
-        /// <summary>
-        /// Creates a scaling transform around the origin
-        /// </summary>
-        /// <param name='scaleX'>The scale factor in the x dimension</param>
-        /// <param name='scaleY'>The scale factor in the y dimension</param>
-        internal static Matrix2D CreateScaling(double scaleX, double scaleY)
-        {
-            Matrix2D matrix = new Matrix2D();
-            matrix.SetMatrix(scaleX, 0,
-                             0, scaleY,
-                             0, 0,
-                             MatrixTypes.SCALING);
-            return matrix;
-        }
-
-        /// <summary>
-        /// Creates a skew transform
-        /// </summary>
-        /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
-        /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
-        internal static Matrix2D CreateSkewRadians(double skewX, double skewY)
-        {
-            Matrix2D matrix = new Matrix2D();
-
-            matrix.SetMatrix(1.0f, Tan(skewY),
-                             Tan(skewX), 1.0f,
-                             0.0f, 0.0f,
-                             MatrixTypes.UNKNOWN);
-
-            return matrix;
-        }
-
-        /// <summary>
-        /// Sets the transformation to the given translation specified by the offset vector.
-        /// </summary>
-        /// <param name='offsetX'>The offset in X</param>
-        /// <param name='offsetY'>The offset in Y</param>
-        internal static Matrix2D CreateTranslation(double offsetX, double offsetY)
-        {
-            Matrix2D matrix = new Matrix2D();
-
-            matrix.SetMatrix(1, 0,
-                             0, 1,
-                             offsetX, offsetY,
-                             MatrixTypes.TRANSLATION);
-
-            return matrix;
-        }
-
         ///<summary>
         /// Sets the transform to
         ///             / m11, m12, 0 \
@@ -1342,31 +1333,57 @@ namespace Engine.Geometry
             return;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// Helper to get the numeric list separator for a given IFormatProvider.
-        /// Separator is a comma [,] if the decimal separator is not a comma, or a semicolon [;] otherwise.
+        /// Transform - returns the result of transforming the point by this matrix
         /// </summary>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        static internal char GetNumericListSeparator(IFormatProvider provider)
+        /// <returns>
+        /// The transformed point
+        /// </returns>
+        /// <param name="point"> The Point to transform </param>
+        public Point2D Transform(Point2D point)
         {
-            char numericSeparator = ',';
+            Point2D newPoint = point;
+            MultiplyPoint(ref newPoint);
+            return newPoint;
+        }
 
-            // Get the NumberFormatInfo out of the provider, if possible
-            // If the IFormatProvider doesn't not contain a NumberFormatInfo, then
-            // this method returns the current culture's NumberFormatInfo.
-            NumberFormatInfo numberFormat = NumberFormatInfo.GetInstance(provider);
+        /// <summary>
+        /// Transform - returns the result of transforming the Vector by this matrix.
+        /// </summary>
+        /// <returns>
+        /// The transformed vector
+        /// </returns>
+        /// <param name="vector"> The Vector to transform </param>
+        public Vector2D Transform(Vector2D vector)
+        {
+            Vector2D newVector = vector;
+            MultiplyVector(ref newVector);
+            return newVector;
+        }
 
-            Debug.Assert(null != numberFormat);
-
-            // Is the decimal separator is the same as the list separator?
-            // If so, we use the ";".
-            if ((numberFormat.NumberDecimalSeparator.Length > 0) && (numericSeparator == numberFormat.NumberDecimalSeparator[0]))
+        /// <summary>
+        /// The determinant of this matrix
+        /// </summary>
+        public double Determinant
+        {
+            get
             {
-                numericSeparator = ';';
+                switch (type)
+                {
+                    case MatrixTypes.IDENTITY:
+                    case MatrixTypes.TRANSLATION:
+                        return 1.0d;
+                    case MatrixTypes.SCALING:
+                    case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
+                        return (m1x1 * m2x2);
+                    default:
+                        return ((m1x1 * m2x2) - (m1x2 * m2x1));
+                }
             }
-
-            return numericSeparator;
         }
 
         /// <summary>
@@ -1394,72 +1411,26 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Parse - returns an instance converted from the provided string using
-        /// the culture "en-US"
-        /// <param name="source"> string with Matrix data </param>
-        /// </summary>
-        public static Matrix2D Parse(string source)
-        {
-            IFormatProvider formatProvider = CultureInfo.InvariantCulture;
-
-            TokenizerHelper th = new TokenizerHelper(source, formatProvider);
-
-            Matrix2D value;
-
-            string firstToken = th.NextTokenRequired();
-
-            // The token will already have had whitespace trimmed so we can do a
-            // simple string compare.
-            if (firstToken == "Identity")
-            {
-                value = Identity;
-            }
-            else
-            {
-                value = new Matrix2D(
-                    Maths.ToFloat(firstToken, formatProvider),
-                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(th.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(th.NextTokenRequired(), formatProvider));
-            }
-
-            // There should be no more tokens in this string.
-            th.LastTokenRequired();
-
-            return value;
-        }
-
-        /// <summary>
-        /// Creates a string representation of this object based on the current culture.
+        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the current culture.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         public override string ToString()
-        {
-            if (this == null) return "Matrix2D";
-            // Delegate to the internal method which implements all ToString calls.
-            return ConvertToString(null /* format string */, null /* format provider */);
-        }
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this object based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         public string ToString(IFormatProvider provider)
-        {
-            if (this == null) return "Matrix2D";
-            // Delegate to the internal method which implements all ToString calls.
-            return ConvertToString(null /* format string */, provider);
-        }
+            => ConvertToString(null /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -1468,14 +1439,10 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         string IFormattable.ToString(string format, IFormatProvider provider)
-        {
-            if (this == null) return "Matrix2D";
-            // Delegate to the internal method which implements all ToString calls.
-            return ConvertToString(format, provider);
-        }
+            => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -1485,22 +1452,14 @@ namespace Engine.Geometry
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            if (IsIdentity)
-            {
-                return "Identity";
-            }
-
+            if (this == null) return nameof(Matrix2D);
+            if (IsIdentity) return "Identity";
             // Helper to get the numeric list separator for a given culture.
-            char separator = GetNumericListSeparator(provider);
-            return string.Format(provider,
-                                 "{1:" + format + "}{0}{2:" + format + "}{0}{3:" + format + "}{0}{4:" + format + "}{0}{5:" + format + "}{0}{6:" + format + "}",
-                                 separator,
-                                 m1x1,
-                                 m1x2,
-                                 m2x1,
-                                 m2x2,
-                                 offsetX,
-                                 offsetY);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Matrix2D)}{{{nameof(M11)}={m1x1}{sep}{nameof(M12)}={m1x2}{sep}{nameof(M21)}={m2x1}{sep}{nameof(M22)}={m2x2}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

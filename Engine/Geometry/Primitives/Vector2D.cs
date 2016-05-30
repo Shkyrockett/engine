@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
@@ -113,14 +114,14 @@ namespace Engine.Geometry
         /// First Point of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
+        [XmlAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
+        [XmlAttribute]
         public double J { get; set; }
 
         /// <summary>
@@ -282,39 +283,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static bool Compare(Vector2D a, Vector2D b)
-        {
-            return Equals(a, b);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static bool Equals(Vector2D a, Vector2D b)
-        {
-            return (a.I == b.I) & (a.J == b.J);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Vector2D && Equals(this, (Vector2D)obj);
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="a"></param>
@@ -334,6 +302,53 @@ namespace Engine.Geometry
         public static bool operator !=(Vector2D a, Vector2D b)
         {
             return !Equals(a, b);
+        }
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Vector2D a, Vector2D b)
+        {
+            return Equals(a, b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Vector2D a, Vector2D b)
+        {
+            return a.I == b.I & a.J == b.J;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+        {
+            return obj is Vector2D && Equals(this, (Vector2D)obj);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Vector2D value)
+        {
+            return Equals(this, value);
         }
 
         /// <summary>
@@ -417,30 +432,33 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Parse - returns an instance converted from the provided string using
-        /// the culture "en-US"
-        /// <param name="source"> string with Vector data </param>
+        /// Parse a string for a <see cref="Vector2D"/> value.
         /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
         public static Vector2D Parse(string source)
         {
-            TokenizerHelper th = new TokenizerHelper(source, CultureInfo.InvariantCulture);
-
-            Vector2D value;
-
-            String firstToken = th.NextTokenRequired();
-
-            value = new Vector2D(
-                Convert.ToDouble(firstToken, CultureInfo.InvariantCulture),
-                Convert.ToDouble(th.NextTokenRequired(), CultureInfo.InvariantCulture));
-
+            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            Vector2D value = new Vector2D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
             // There should be no more tokens in this string.
-            th.LastTokenRequired();
-
+            tokenizer.LastTokenRequired();
             return value;
         }
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a human-readable string that represents this <see cref="Vector2D"/>.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+            => ConvertToString(null, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Vector2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -450,10 +468,11 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a string representation of this <see cref="Vector2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -465,14 +484,10 @@ namespace Engine.Geometry
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Vector2D), nameof(I), I, nameof(J), J);
+            //return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Vector2D), nameof(I), I, nameof(J), J);
+            IFormattable formatable = $"{nameof(Vector2D)}({nameof(I)}={I},{nameof(J)}={J})";
+            return formatable.ToString(format, provider);
         }
-
-        /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Vector2D"/>.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString() => $"{nameof(Vector2D)}({nameof(I)}={I},{nameof(J)}={J})";
 
         #endregion
     }

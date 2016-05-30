@@ -1,4 +1,4 @@
-﻿// <copyright file="Circle.cs" >
+﻿// <copyright file="Ellipse.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Serialization;
@@ -24,16 +25,14 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Ellipse))]
     public class Ellipse
-        : Shape
+        : Shape, IClosedShape, IFormattable
     {
+        #region Fields
+
         /// <summary>
         /// Center Point of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute()]
         private Point2D center;
 
         /// <summary>
@@ -53,6 +52,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         private double angle;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -102,11 +105,15 @@ namespace Engine.Geometry
             this.angle = angle;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Center Point of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
+        [XmlAttribute]
         [Category("Elements")]
         [Description("The center location of the ellipse.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -123,7 +130,7 @@ namespace Engine.Geometry
         /// First radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
+        [XmlAttribute]
         [Category("Elements")]
         [Description("The first radius of the ellipse.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -137,7 +144,7 @@ namespace Engine.Geometry
         /// Second radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute()]
+        [XmlAttribute]
         [Category("Elements")]
         [Description("The second radius of the ellipse.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -195,7 +202,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [Category("Elements")]
         [Description("The angle to rotate the ellipse.")]
-        [XmlAttribute()]
+        [XmlAttribute]
         public double Angle
         {
             get { return angle; }
@@ -309,6 +316,10 @@ namespace Engine.Geometry
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Gets or sets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
         /// </summary>
@@ -388,13 +399,59 @@ namespace Engine.Geometry
         //}
 
         /// <summary>
-        /// 
+        /// Creates a human-readable string that represents this <see cref="Ellipse"/> struct.
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Ellipse"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Ellipse"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Ellipse"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Ellipse);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6},{7}={8}}}", nameof(Ellipse), nameof(Center), center, nameof(A), a, nameof(B), b, nameof(Angle), angle);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={center},{nameof(A)}={a},{nameof(B)}={b},{nameof(Angle)}={angle}}}";
+            return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

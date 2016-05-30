@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
@@ -16,7 +18,7 @@ namespace Engine.Geometry
     public class Point3D
         : IFormattable
     {
-        #region Static Implementations
+        #region Implementations
 
         /// <summary>
         /// An Empty <see cref="Point3D"/>.
@@ -184,7 +186,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Point3D operator *(double value, Point3D factor)
         {
-            return new Point3D(value * factor.X, value * factor.Y,value * factor.Z);
+            return new Point3D(value * factor.X, value * factor.Y, value * factor.Z);
         }
 
         /// <summary>
@@ -211,39 +213,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static bool Compare(Point3D a, Point3D b)
-        {
-            return Equals(a, b);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static bool Equals(Point3D a, Point3D b)
-        {
-            return (a.X == b.X) & (a.Y == b.Y) & (a.Z == b.Z);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Point3D && Equals(this, (Point3D)obj);
-        }
-
-        /// <summary>
         /// Compares two <see cref="Point3D"/> objects. 
         /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/> 
         /// values of the two <see cref="Point3D"/> objects are equal.
@@ -253,8 +222,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator ==(Point3D left, Point3D right)
         {
-            if (left == null || right == null) return false;
-            return left.X == right.X && left.Y == right.Y;
+            return Equals(left, right);
         }
 
         /// <summary>
@@ -267,22 +235,100 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static bool operator !=(Point3D left, Point3D right)
         {
-            return !(left == right);
+            return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Point3D a, Point3D b)
+        {
+            return Equals(a, b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Point3D a, Point3D b)
+        {
+            return (a?.X == b?.X) & (a?.Y == b?.Y) & (a?.Z == b?.Z);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+        {
+            return obj is Point3D && Equals(this, obj as Point3D);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Point3D value)
+        {
+            return Equals(this, value);
         }
 
         #endregion
+
+        #region Factories
 
         /// <summary>
         /// Create a Random <see cref="Point3D"/>.
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point3D Random() => new Point3D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+        [Pure]
+        public static Point3D Random()
+            => new Point3D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Point3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Point3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [Pure]
+        public static Point3D Parse(string source)
+        {
+            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            Point3D value = new Point3D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture)
+                );
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public override int GetHashCode()
         {
             return X.GetHashCode() ^
@@ -291,32 +337,26 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Parse - returns an instance converted from the provided string using
-        /// the culture "en-US"
-        /// <param name="source"> string with Point data </param>
+        /// Creates a human-readable string that represents this <see cref="Point3D"/> class.
         /// </summary>
-        public static Point3D Parse(string source)
-        {
-            TokenizerHelper th = new TokenizerHelper(source, CultureInfo.InvariantCulture);
-
-            Point3D value;
-
-            string firstToken = th.NextTokenRequired();
-
-            value = new Point3D(
-                Convert.ToDouble(firstToken, CultureInfo.InvariantCulture),
-                Convert.ToDouble(th.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(th.NextTokenRequired(), CultureInfo.InvariantCulture)
-                );
-
-            // There should be no more tokens in this string.
-            th.LastTokenRequired();
-
-            return value;
-        }
+        /// <returns></returns>
+        [Pure]
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a string representation of this <see cref="Point3D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point3D"/> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -326,11 +366,12 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [Pure]
         string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this object based on the format string
+        /// Creates a string representation of this <see cref="Point3D"/> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -340,18 +381,15 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [Pure]
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            return $"{nameof(Point3D)}{{{nameof(X)}={X},{nameof(Y)}={Y},{nameof(Z)}={Z}}}";
+            if (this == null) return nameof(Point3D);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Point3D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}{sep}{nameof(Z)}={Z}}}";
+            return formatable.ToString(format, provider);
         }
 
-        /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Point2D"/>.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return $"{nameof(Point2D)}{{{nameof(X)}={X},{nameof(Y)}={Y},{nameof(Z)}={Z}}}";
-        }
+        #endregion
     }
 }

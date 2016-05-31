@@ -78,7 +78,11 @@ namespace Engine.Geometry
         public Point2D Offset
         {
             get { return offset; }
-            set { offset = value; }
+            set
+            {
+                offset = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -87,7 +91,11 @@ namespace Engine.Geometry
         public Size2D Multiplyer
         {
             get { return multiplyer; }
-            set { multiplyer = value; }
+            set
+            {
+                multiplyer = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -96,22 +104,10 @@ namespace Engine.Geometry
         public double Precision
         {
             get { return precision; }
-            set { precision = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<Point2D> Handles
-        {
-            get { return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) }; }
             set
             {
-                if (value != null && value.Count >= 1)
-                {
-                    offset = value[0];
-                    multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
-                }
+                precision = value;
+                update?.Invoke();
             }
         }
 
@@ -153,40 +149,6 @@ namespace Engine.Geometry
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Butterfly Curve
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="DPen"></param>
-        /// <param name="Precision"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Multiplyer"></param>
-        public void DrawButterflyCurve2D(PaintEventArgs e, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
-        {
-            const double N = 10000;
-            double U = (0 * (24 * (PI / N)));
-
-            Point2D NewPoint = new Point2D(
-                Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
-                (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
-                );
-
-            Point2D LastPoint = NewPoint;
-
-            for (double Index = 1; (Index <= N); Index = (Index + Precision))
-            {
-                LastPoint = NewPoint;
-                U = (Index * (24 * (PI / N)));
-
-                NewPoint = new Point2D(
-                    Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
-                    (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
-                    );
-
-                e.Graphics.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
-            }
-        }
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Butterfly"/> struct.

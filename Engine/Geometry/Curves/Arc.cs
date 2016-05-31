@@ -124,7 +124,11 @@ namespace Engine.Geometry
         public double Radius
         {
             get { return radius; }
-            set { radius = value; }
+            set
+            {
+                radius = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -139,7 +143,11 @@ namespace Engine.Geometry
         public Point2D Center
         {
             get { return center; }
-            set { center = value; }
+            set
+            {
+                center = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -172,7 +180,11 @@ namespace Engine.Geometry
         public double StartAngle
         {
             get { return startAngle; }
-            set { startAngle = value; }
+            set
+            {
+                startAngle = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -185,7 +197,11 @@ namespace Engine.Geometry
         public double EndAngle
         {
             get { return endAngle; }
-            set { endAngle = value; }
+            set
+            {
+                endAngle = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -199,7 +215,11 @@ namespace Engine.Geometry
         public double SweepAngle
         {
             get { return startAngle - endAngle; }
-            set { endAngle = value + startAngle; }
+            set
+            {
+                endAngle = value + startAngle;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -252,34 +272,15 @@ namespace Engine.Geometry
             get { return 2 * PI * radius * -SweepAngle; }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[Category("Properties")]
-        //[Description("The area of the arc.")]
-        //public double Area
-        //{
-        //    get
-        //    {
-        //        //ToDo: Divide by the Arc-length.
-        //        return PI * radius * radius;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[Category("Functional")]
-        //[Description("The array of grab handles for this shape.")]
-        //public List<Point2D> Handles
-        //{
-        //    get { return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) }; }
-        //    set
-        //    {
-        //        if (value.Count >= 1) center = value[0];
-        //        if (value.Count >= 2) radius = value[0].Length(value[1]);
-        //    }
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        [Category("Properties")]
+        [Description("The area of the arc.")]
+        public override double Area
+        {
+            get { return (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle)); }
+        }
 
         #endregion
 

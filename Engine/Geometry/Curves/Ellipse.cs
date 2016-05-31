@@ -48,7 +48,7 @@ namespace Engine.Geometry
         private double b;
 
         /// <summary>
-        /// Angle of Ellipse. 
+        /// Angle of <see cref="Ellipse"/>. 
         /// </summary>
         /// <remarks></remarks>
         private double angle;
@@ -90,12 +90,12 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Creates a new Instance of Ellipse
+        /// Initializes a new instance of the <see cref="Ellipse"/> class.
         /// </summary>
-        /// <param name="center">Center Point of Ellipse</param>
-        /// <param name="a">Major radius of Ellipse</param>
-        /// <param name="b">Minor radius of Ellipse.</param>
-        /// <param name="angle">Angle of Ellipse.</param>
+        /// <param name="center">Center Point of <see cref="Ellipse"/>.</param>
+        /// <param name="a">Major radius of <see cref="Ellipse"/>.</param>
+        /// <param name="b">Minor radius of <see cref="Ellipse"/>.</param>
+        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         /// <remarks></remarks>
         public Ellipse(Point2D center, double a, double b, double angle)
         {
@@ -105,17 +105,28 @@ namespace Engine.Geometry
             this.angle = angle;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Ellipse"/> class.
+        /// </summary>
+        /// <param name="center">Center Point of <see cref="Ellipse"/>.</param>
+        /// <param name="size">Major and Minor radii of <see cref="Ellipse"/>.</param>
+        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
+        /// <remarks></remarks>
+        public Ellipse(Point2D center, Size2D size, double angle)
+            : this(center, size.Width, size.Height, angle)
+        { }
+
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Center Point of Ellipse
+        /// Gets or sets the Center Point of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute]
         [Category("Elements")]
-        [Description("The center location of the ellipse.")]
+        [Description("The " + nameof(Center) + " location of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -123,56 +134,68 @@ namespace Engine.Geometry
         public Point2D Center
         {
             get { return center; }
-            set { center = value; }
+            set
+            {
+                center = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
-        /// First radius of Ellipse
+        /// Gets or sets the first radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute]
         [Category("Elements")]
-        [Description("The first radius of the ellipse.")]
+        [Description("The first radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         public double A
         {
             get { return a; }
-            set { a = value; }
+            set
+            {
+                a = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
-        /// Second radius of Ellipse
+        /// Gets or sets the second radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute]
         [Category("Elements")]
-        [Description("The second radius of the ellipse.")]
+        [Description("The second radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         public double B
         {
             get { return b; }
-            set { b = value; }
+            set
+            {
+                b = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
-        /// Major radius of Ellipse
+        /// Gets the Major radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
         [Category("Elements")]
-        [Description("The larger radius of the ellipse.")]
+        [Description("The larger radius of the " + nameof(Ellipse) + ".")]
         public double MajorRadius
         {
             get { return a >= b ? a : b; }
         }
 
         /// <summary>
-        /// Minor radius of Ellipse
+        /// Gets the Minor radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
         [Category("Elements")]
-        [Description("The smaller radius of the ellipse.")]
+        [Description("The smaller radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         public double MinorRadius
         {
@@ -180,11 +203,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Aspect of Ellipse. 
+        /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>. 
         /// </summary>
         /// <remarks></remarks>
         [Category("Properties")]
-        [Description("The aspect ratio of the major and minor axis.")]
+        [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
@@ -193,51 +216,57 @@ namespace Engine.Geometry
             {
                 b = a * value;
                 a = b / value;
+                update?.Invoke();
             }
         }
 
         /// <summary>
-        /// Angle of lEllipse.
+        /// Gets or sets the Angle of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         [Category("Elements")]
-        [Description("The angle to rotate the ellipse.")]
+        [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + ".")]
         [XmlAttribute]
         public double Angle
         {
             get { return angle; }
-            set { angle = value; }
+            set
+            {
+                angle = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
-        /// 
+        /// Gets the Focus Radius of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore]
-        [Category("Elements")]
-        [Description("The focus radius of the ellipse.")]
+        [Category("Properties")]
+        [Description("The focus radius of the " + nameof(Ellipse) + ".")]
         public double FocusRadius
         {
             get { return Sqrt((a * a) - (b * b)); }
         }
 
         /// <summary>
-        /// 
+        /// Gets the <see cref="Eccentricity"/> of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore]
-        [Category("Elements")]
-        [Description("The eccentricity radius of the ellipse.")]
+        [Category("Properties")]
+        [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
         public double Eccentricity
         {
             get { return Sqrt(1 - ((a / b) * (a / b))); }
         }
 
         /// <summary>
-        /// 
+        /// Gets the Bounding box of the <see cref="Ellipse"/>.
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
-        [Description("The rectangular bounds of the ellipse.")]
+        [Description("The rectangular bounds of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -264,11 +293,12 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets the <see cref="Perimeter"/> of the <see cref="Ellipse"/>.
         /// </summary>
         /// <returns></returns>
+        [XmlIgnore]
         [Category("Properties")]
-        [Description("The distance around the ellipse.")]
+        [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
         {
             get
@@ -279,80 +309,35 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
-        [Description("The area of the ellipse.")]
-        public double Area
+        [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
+        public override double Area
         {
             get { return PI * b * a; }
         }
 
         /// <summary>
-        /// 
+        /// Gets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
         /// </summary>
-        [Category("Functional")]
-        [Description("The array of grab handles for this shape.")]
-        public List<Point2D> Handles
+        /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
+        /// <remarks></remarks>
+        [XmlIgnore]
+        [Category("Properties")]
+        [Description("The unrotated rectangular bounds of the " + nameof(Ellipse) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public Rectangle2D UnrotatedBounds
         {
-            get
-            {
-                return new List<Point2D>
-                {
-                    center,
-                    Interpolate(0),
-                    Interpolate(-PI * 0.5)
-                };
-            }
-            set
-            {
-                if (value != null && value.Count >= 1)
-                {
-                    Center = value[0];
-                    A = (new LineSegment(center, value[1]).Length());
-                    Angle = (new LineSegment(center, value[1]).Angle());
-                    Aspect = ((new LineSegment(center, value[2]).Length()) / a);
-                }
-            }
+            get { return new Rectangle2D(center.X - a, center.Y - a, a, b); }
         }
 
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// Gets or sets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
-        /// </summary>
-        /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
-        /// <remarks></remarks>
-        public Rectangle2D UnrotatedBounds()
-        {
-            return new Rectangle2D(center.X - a, center.Y - a, a, b);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="theta"></param>
-        /// <param name="ellipse"></param>
-        /// <param name="phi"></param>
-        /// <param name="rect"></param>
-        private void draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
-        {
-            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
-            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
-            Point2D ellipse_point;
-
-            // Ellipse equation for an ellipse at origin.
-            ellipse_point = new Point2D(ellipse.Width * Cos(phi), ellipse.Height * Sin(phi));
-
-            // Apply the rotation transformation and translate to new center.
-            rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
-                                       ellipse.Top + (ellipse_point.X * yaxis.X + ellipse_point.Y * yaxis.Y));
-
-            g.DrawRectangle(Pens.AntiqueWhite, (float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
-        }
+        #region Interpolaters
 
         /// <summary>
         /// 
@@ -363,9 +348,9 @@ namespace Engine.Geometry
         {
             double phi = ((2 * PI)) * t;
 
-            Rectangle2D unroatatedBounds = UnrotatedBounds();
+            Rectangle2D unroatatedBounds = UnrotatedBounds;
 
-            double theta = Maths.ToRadians(angle);
+            double theta = angle;
             Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
             Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
 
@@ -397,6 +382,10 @@ namespace Engine.Geometry
 
         //    return points;
         //}
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Ellipse"/> struct.

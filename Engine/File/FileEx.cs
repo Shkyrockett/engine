@@ -4,7 +4,6 @@
 // <author id="shkyrockett">shkyrockett</author>
 // <summary></summary>
 
-using System;
 using System.IO;
 using System.Runtime;
 using System.Runtime.CompilerServices;

@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using static Engine.Geometry.Maths;
 using static System.Math;
 
@@ -791,7 +790,7 @@ namespace Engine.Geometry
         {
             BBox c1b = c1.bbox();
             BBox c2b = c2.bbox();
-            double r = 100000;
+            //double r = 100000;
             double threshold = 0.5;
             if (c1b.x.size + c1b.y.size < threshold && c2b.x.size + c2b.y.size < threshold)
             {

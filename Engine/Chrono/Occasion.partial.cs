@@ -1166,9 +1166,9 @@ namespace Engine.Chrono
             //  Convert astronomical JDN to chronological
             val += 0.5f;
 
-            // Pope Gregory XIII's decree
-            // last day to use Julian calendar
-            float LASTJULDATE = 15821004f;
+            //// Pope Gregory XIII's decree
+            //// last day to use Julian calendar
+            //float LASTJULDATE = 15821004f;
 
             // jdn of same
             float LASTJULJDN = 2299160f;
@@ -1176,8 +1176,8 @@ namespace Engine.Chrono
             // British-American usage
             if (culture.Language == Languages.en && (culture.Country == Countries.US || culture.Country == Countries.GB))
             {
-                // last day to use Julian calendar
-                LASTJULDATE = 17520902f;
+                //// last day to use Julian calendar
+                //LASTJULDATE = 17520902f;
 
                 // jdn of same
                 LASTJULJDN = 2361221f;

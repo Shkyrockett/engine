@@ -15,7 +15,7 @@ namespace Engine.Geometry
     [ComVisible(true)]
     [DisplayName(nameof(Size2D))]
     [TypeConverter(typeof(Size2DConverter))]
-    public struct Size2D
+    public class Size2D
         : IFormattable
     {
         #region Implementations
@@ -34,13 +34,13 @@ namespace Engine.Geometry
 
         #region Constructors
 
-        ///// <summary>
-        ///// Initializes a new default instance of the <see cref="Size2D"/> class.
-        ///// </summary>
-        ///// <remarks></remarks>
-        //public Size2D()
-        //    : this(0, 0)
-        //{ }
+        /// <summary>
+        /// Initializes a new default instance of the <see cref="Size2D"/> class.
+        /// </summary>
+        /// <remarks></remarks>
+        public Size2D()
+            : this(0, 0)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
@@ -264,7 +264,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Size2D a, Size2D b)
         {
-            return (a.Width == b.Width) & (a.Height == b.Height);
+            return (a?.Width == b?.Width) & (a?.Height == b?.Height);
         }
 
         /// <summary>

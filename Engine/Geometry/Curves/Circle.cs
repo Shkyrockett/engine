@@ -122,7 +122,11 @@ namespace Engine.Geometry
         public double Radius
         {
             get { return radius; }
-            set { radius = value; }
+            set
+            {
+                radius = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -138,7 +142,11 @@ namespace Engine.Geometry
         public Point2D Center
         {
             get { return center; }
-            set { center = value; }
+            set
+            {
+                center = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -164,6 +172,7 @@ namespace Engine.Geometry
             {
                 Center = value.Center();
                 radius = value.Width <= value.Height ? value.Width : value.Height;
+                update?.Invoke();
             }
         }
 
@@ -183,24 +192,9 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The area of the circle.")]
-        public double Area
+        public override double Area
         {
             get { return PI * radius * radius; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Category("Functional")]
-        [Description("The array of grab handles for this shape.")]
-        public List<Point2D> Handles
-        {
-            get { return new List<Point2D> { center, new Point2D(center.X + radius, center.Y) }; }
-            set
-            {
-                if (value.Count >= 1) center = value[0];
-                if (value.Count >= 2) radius = value[0].Length(value[1]);
-            }
         }
 
         #endregion
@@ -252,7 +246,7 @@ namespace Engine.Geometry
 
         #endregion
 
-        #region Methods
+        #region Interpolaters
 
         /// <summary>
         /// Interpolates the circle.
@@ -279,6 +273,10 @@ namespace Engine.Geometry
 
             return points;
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Circle"/> struct.

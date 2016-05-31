@@ -13,7 +13,6 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -82,7 +81,11 @@ namespace Engine.Geometry
         public Point2D this[int index]
         {
             get { return points[index]; }
-            set { points[index] = value; }
+            set
+            {
+                points[index] = value;
+                update?.Invoke();
+            }
         }
 
         #endregion
@@ -96,7 +99,11 @@ namespace Engine.Geometry
         public List<Point2D> Points
         {
             get { return points; }
-            set { points = value; }
+            set
+            {
+                points = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -152,6 +159,7 @@ namespace Engine.Geometry
         public void Add(Point2D point)
         {
             Points.Add(point);
+            update?.Invoke();
         }
 
         /// <summary>
@@ -160,6 +168,7 @@ namespace Engine.Geometry
         public void Reverse()
         {
             Points.Reverse();
+            update?.Invoke();
         }
 
         #endregion

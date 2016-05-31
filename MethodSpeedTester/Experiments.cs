@@ -27,6 +27,21 @@ namespace MethodSpeedTester
         #region Absolute Angle
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the absolute angle of Two 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(AbsoluteAngleTests))]
+        public static List<SpeedTester> AbsoluteAngleTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => AbsoluteAngle0(0, 0, 1, 1),
+                $"{nameof(Experiments.AbsoluteAngle0)}(0, 0, 1, 1)"),
+                 new SpeedTester(() => AbsoluteAngle1(0, 0, 1, 1),
+                $"{nameof(Experiments.AbsoluteAngle1)}(0, 0,, 1, 1)"),
+           };
+        }
+
+        /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
         /// </summary>
         /// <param name="aX">Horizontal Component of Point Starting Point</param>
@@ -70,6 +85,19 @@ namespace MethodSpeedTester
         #region Angle Between Two 2D Points
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(AngleBetweenTests))]
+        public static List<SpeedTester> AngleBetweenTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => AngleBetween(0, 0, 1, 1),
+                $"{nameof(Experiments.AngleBetween)}(0, 0, 1, 1)"),
+           };
+        }
+
+        /// <summary>
         /// Finds the angle between two vectors.
         /// </summary>
         /// <param name="uX"></param>
@@ -88,6 +116,19 @@ namespace MethodSpeedTester
         #endregion
 
         #region Angle Between Two 3D Points
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(AngleBetween3DTests))]
+        public static List<SpeedTester> AngleBetween3DTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => AngleBetween(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.AngleBetween)}(0, 0, 0, 1, 1, 1)"),
+           };
+        }
 
         /// <summary>
         /// Finds the angle between two vectors.
@@ -112,6 +153,19 @@ namespace MethodSpeedTester
         #region Angle of Two 2D Points
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the angle of Two 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(Angle2DTests))]
+        public static List<SpeedTester> Angle2DTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => Angle(0, 0, 1, 1),
+                $"{nameof(Experiments.Angle)}(0, 0, 1, 1)"),
+           };
+        }
+
+        /// <summary>
         /// Returns the Angle of a line.
         /// </summary>
         /// <param name="x1">Horizontal Component of Point Starting Point</param>
@@ -130,6 +184,19 @@ namespace MethodSpeedTester
         #endregion
 
         #region Angle of Two 3D Points
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle of Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(Angle3DTests))]
+        public static List<SpeedTester> Angle3DTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => Angle(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.Angle)}(0, 0, 0, 1, 1, 1)"),
+           };
+        }
 
         /// <summary>
         /// 
@@ -254,6 +321,19 @@ namespace MethodSpeedTester
         #region Complex Product of Two 2D Points
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the complex product of Two 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(ComplexProduct2DTests))]
+        public static List<SpeedTester> ComplexProduct2DTests()
+        {
+            return new List<SpeedTester>() {
+                new SpeedTester(() => ComplexProduct(0, 0, 1, 1),
+                $"{nameof(Experiments.ComplexProduct)}(0, 0, 1, 1)"),
+           };
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="x0"></param>
@@ -267,7 +347,9 @@ namespace MethodSpeedTester
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> ComplexProduct(double x0, double y0, double x1, double y1)
+        public static Tuple<double, double> ComplexProduct(
+            double x0, double y0,
+            double x1, double y1)
             => new Tuple<double, double>(x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
 
         #endregion

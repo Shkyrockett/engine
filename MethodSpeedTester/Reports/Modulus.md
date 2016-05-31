@@ -12,7 +12,7 @@ It looks like Math.Pow is rather slow. Math.Sqrt runs comparably quicker in the 
 
 ## Method 1: Using Math.Sqrt
 
-```
+```c#
         /// <summary>
         /// Modulus of a Vector.
         /// </summary>
@@ -27,7 +27,7 @@ It looks like Math.Pow is rather slow. Math.Sqrt runs comparably quicker in the 
 
 ## Method 2: Raising Math.Pow to 1/2
 
-```
+```c#
         /// <summary>
         /// Modulus of a Vector.
         /// </summary>

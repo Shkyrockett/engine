@@ -14,7 +14,7 @@ Calling the outside Modulus method adds even more overhead.
 
 ## Method 1: Fully Unrolled
 
-```
+```c#
         /// <summary>
         /// Distance between two points.
         /// </summary>
@@ -31,7 +31,7 @@ Calling the outside Modulus method adds even more overhead.
 
 ## Method 2: Caching the Vector Components
 
-```
+```c#
         /// <summary>
         /// Distance between two points.
         /// </summary>
@@ -50,7 +50,7 @@ Calling the outside Modulus method adds even more overhead.
 
 ## Method 3: Using Vector Modulus Method
 
-```
+```c#
         /// <summary>
         /// Distance between two points.
         /// </summary>

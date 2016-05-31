@@ -8,10 +8,7 @@
 // <summary></summary>
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Globalization;
 
 namespace Engine.Geometry
@@ -62,7 +59,11 @@ namespace Engine.Geometry
         public Point2D Location
         {
             get { return location; }
-            set { location = value; }
+            set
+            {
+                location = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -71,7 +72,11 @@ namespace Engine.Geometry
         public Size2D Size
         {
             get { return size; }
-            set { size = value; }
+            set
+            {
+                size = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>

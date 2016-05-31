@@ -4,7 +4,6 @@
 // <author id="shkyrockett">Alma Jenks</author>
 // <summary></summary>
 
-using System;
 using System.Drawing;
 using static System.Math;
 

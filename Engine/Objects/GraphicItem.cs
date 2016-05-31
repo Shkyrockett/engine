@@ -43,6 +43,7 @@ namespace Engine.Objects
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             Item = item;
+            item.OnUpdate(ClearCache);
             Style = style;
         }
 
@@ -137,6 +138,11 @@ namespace Engine.Objects
         /// <param name="bounds"></param>
         /// <returns></returns>
         public bool VisibleTest(Rectangle2D bounds) => (Item.Bounds.IntersectsWith(bounds) || Item.Bounds.Contains(bounds));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Refresh() => ClearCache();
 
         /// <summary>
         /// 

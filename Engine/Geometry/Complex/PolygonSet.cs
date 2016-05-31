@@ -69,7 +69,11 @@ namespace Engine.Geometry
         public Polygon this[int index]
         {
             get { return polygons[index]; }
-            set { polygons[index] = value; }
+            set
+            {
+                polygons[index] = value;
+                update?.Invoke();
+            }
         }
 
         #endregion
@@ -82,7 +86,11 @@ namespace Engine.Geometry
         public List<Polygon> Polygons
         {
             get { return polygons; }
-            set { polygons = value; }
+            set
+            {
+                polygons = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -131,6 +139,8 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Mutators
+
         /// <summary>
         /// 
         /// </summary>
@@ -138,7 +148,12 @@ namespace Engine.Geometry
         public void Add(Polygon polygon)
         {
             polygons.Add(polygon);
+            update?.Invoke();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// 
@@ -156,5 +171,7 @@ namespace Engine.Geometry
             if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
             return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(PolygonSet), pts.ToString());
         }
+
+        #endregion
     }
 }

@@ -91,6 +91,13 @@ namespace Engine.Geometry
 
         #region Constructors
 
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public Matrix2D()
+        //    : this(0,0,0,0,0,0)
+        //{ }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix2D"/> class of the form:<br/>
         /// / m11, m12, 0 \<br/>

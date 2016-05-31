@@ -384,7 +384,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The area of the ellipse.")]
-        public double Area
+        public override double Area
         {
             get
             {

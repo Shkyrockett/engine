@@ -4,7 +4,6 @@
 // <author id="shkyrockett">shkyrockett</author>
 // <summary></summary>
 
-using System;
 using static System.Math;
 
 namespace Engine.Chrono

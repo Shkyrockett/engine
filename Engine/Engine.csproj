@@ -102,6 +102,12 @@
     <Compile Include="Chrono\Enums\Season.cs" />
     <Compile Include="Chrono\Enums\TimeFormat.cs" />
     <Compile Include="Geometry\Intersections.cs" />
+    <Compile Include="Tweening\Lerpers\NumericLerper.cs" />
+    <Compile Include="Tweening\Lerpers\Size2DLerper.cs" />
+    <Compile Include="Tweening\Lerpers\Point2DLerper.cs" />
+    <Compile Include="Tweening\Lerpers\Vector2DLerper.cs" />
+    <Compile Include="Tweening\Lerpers\Point3DLerper.cs" />
+    <Compile Include="Geometry\Primitives\Vector3D.cs" />
     <Compile Include="Physics\Units\Acceleration\Acceleration.cs" />
     <Compile Include="Physics\Units\Speed\AverageSpeed.cs" />
     <Compile Include="Physics\Constants.cs" />
@@ -199,7 +205,7 @@
     <Compile Include="Experemental\Hyperbola.cs" />
     <Compile Include="Experemental\Parabola.cs" />
     <Compile Include="Experemental\Experimental.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\Heart.cs" />
+    <Compile Include="Experemental\Heart.cs" />
     <Compile Include="Experemental\Curve.cs" />
     <Compile Include="Geometry\Primitives\Converters\Size2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Converters\Point2DConverter.cs" />
@@ -234,7 +240,7 @@
     <Compile Include="Physics\Units\Angle\Degrees.cs" />
     <Compile Include="Objects\Interfaces\IShape.cs" />
     <Compile Include="Geometry\Primitives\Converters\Vector2DConverter.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\Voronoi.cs" />
+    <Compile Include="Experemental\Voronoi.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
     <Compile Include="Imaging\ColorSpace\ACYMK.cs" />
     <Compile Include="Imaging\ColorSpace\AHSI.cs" />
@@ -270,14 +276,14 @@
     <Compile Include="Geometry\Curves\Ellipse.cs" />
     <Compile Include="Experemental\EllipseArc.cs" />
     <Compile Include="Experemental\Hermite.cs" />
-    <Compile Include="Geometry\Curves\Oval.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\PolyPath.cs" />
+    <Compile Include="Geometry\Complex\Oval.cs" />
+    <Compile Include="Experemental\PolyPath.cs" />
     <Compile Include="Geometry\Framework\PathExtensions.cs" />
     <Compile Include="Experemental\Star.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\Gear.cs" />
+    <Compile Include="Experemental\Gear.cs" />
     <Compile Include="Geometry\Complex\PolygonSet.cs" />
     <Compile Include="Experemental\Line.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\DoubleLine.cs" />
+    <Compile Include="Experemental\DoubleLine.cs" />
     <Compile Include="Geometry\Complex\SquareFCellGrid.cs" />
     <Compile Include="Geometry\Complex\SquareCellGrid.cs" />
     <Compile Include="Geometry\Complex\RectangleFCellGrid.cs" />
@@ -290,9 +296,9 @@
     <Compile Include="Geometry\Primitives\Converters\Matrix2DConverter.cs" />
     <Compile Include="Experemental\Ray.cs" />
     <Compile Include="Geometry\Curves\QuadraticBezier.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\RoundRectangle.cs" />
+    <Compile Include="Experemental\RoundRectangle.cs" />
     <Compile Include="Geometry\Enums\RectangleCorners.cs" />
-    <Compile Include="Geometry\Complex\Incompleete\RoundedRectangle2.cs" />
+    <Compile Include="Experemental\RoundedRectangle2.cs" />
     <Compile Include="Experemental\Sine.cs" />
     <Compile Include="File\Codecs\Palettes\Palette.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteFileExtensions.cs" />
@@ -362,12 +368,11 @@
     <Compile Include="Tools\ToolStack.cs" />
     <Compile Include="Tweening\GlideInfo.cs" />
     <Compile Include="Tweening\LerpBehavior.cs" />
-    <Compile Include="Tweening\Lerper.cs" />
+    <Compile Include="Tweening\Lerpers\Lerper.cs" />
+    <Compile Include="Tweening\RotationUnit.cs" />
     <Compile Include="Tweening\Tween.cs" />
-    <Compile Include="Tweening\Tween.partial.cs" />
     <Compile Include="Tweening\Tweener.cs" />
-    <Compile Include="Tweening\Vector3.cs" />
-    <Compile Include="Tweening\Vector3Lerper.cs" />
+    <Compile Include="Tweening\Lerpers\Vector3DLerper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Objects\Interfaces\Geometry\" />

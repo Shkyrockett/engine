@@ -81,7 +81,11 @@ namespace Engine.Geometry
         public Point2D Offset
         {
             get { return offset; }
-            set { offset = value; }
+            set
+            {
+                offset = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -90,7 +94,11 @@ namespace Engine.Geometry
         public Size2D Multiplyer
         {
             get { return multiplyer; }
-            set { multiplyer = value; }
+            set
+            {
+                multiplyer = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -99,24 +107,10 @@ namespace Engine.Geometry
         public double Precision
         {
             get { return precision; }
-            set { precision = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Category("Functional")]
-        [Description("The array of grab handles for this shape.")]
-        public List<Point2D> Handles
-        {
-            get { return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) }; }
             set
             {
-                if (value != null && value.Count >= 1)
-                {
-                    offset = value[0];
-                    multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
-                }
+                precision = value;
+                update?.Invoke();
             }
         }
 

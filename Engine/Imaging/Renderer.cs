@@ -12,6 +12,8 @@ using Engine.Objects;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Imaging
 {
@@ -265,6 +267,97 @@ namespace Engine.Imaging
         {
             //g.FillPolygon(((ShapeStyle)item.Style).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
             g.DrawCurve(((ShapeStyle)item.Style).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="theta"></param>
+        /// <param name="ellipse"></param>
+        /// <param name="phi"></param>
+        /// <param name="rect"></param>
+        private static void Draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
+        {
+            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
+            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
+            Point2D ellipse_point;
+
+            // Ellipse equation for an ellipse at origin.
+            ellipse_point = new Point2D(ellipse.Width * Cos(phi), ellipse.Height * Sin(phi));
+
+            // Apply the rotation transformation and translate to new center.
+            rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
+                                       ellipse.Top + (ellipse_point.X * yaxis.X + ellipse_point.Y * yaxis.Y));
+
+            g.DrawRectangle(Pens.AntiqueWhite, (float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+        }
+
+        /// <summary>
+        /// Bow Curve (2D)
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="DPen"></param>
+        /// <param name="Precision"></param>
+        /// <param name="Offset"></param>
+        /// <param name="Multiplyer"></param>
+        /// <remarks>
+        ///  Also known as the "cocked hat", it was first documented by Sylvester around 
+        ///  1864 and Cayley in 1867. 
+        /// </remarks>
+        private static void DrawBowCurve2D(Graphics g, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
+        {
+            Point2D NewPoint = new Point2D(
+                ((1 - (Tan((PI * -1)) * 2)) * Cos((PI * -1))) * Multiplyer.Width,
+                ((1 - (Tan((PI * -1)) * 2)) * (2 * Sin((PI * -1)))) * Multiplyer.Height
+                );
+
+            Point2D LastPoint = NewPoint;
+
+            for (double Index = (PI * -1); (Index <= PI); Index += Precision)
+            {
+                LastPoint = NewPoint;
+                NewPoint = new Point2D(
+                    ((1 - (Tan(Index) * 2)) * Cos(Index)) * Multiplyer.Width,
+                    ((1 - (Tan(Index) * 2)) * (2 * Sin(Index))) * Multiplyer.Height
+                    );
+
+                g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
+            }
+        }
+
+        /// <summary>
+        /// Butterfly Curve
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="DPen"></param>
+        /// <param name="Precision"></param>
+        /// <param name="Offset"></param>
+        /// <param name="Multiplyer"></param>
+        private static void DrawButterflyCurve2D(Graphics g, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
+        {
+            const double N = 10000;
+            double U = (0 * (24 * (PI / N)));
+
+            Point2D NewPoint = new Point2D(
+                Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
+                (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
+                );
+
+            Point2D LastPoint = NewPoint;
+
+            for (double Index = 1; (Index <= N); Index = (Index + Precision))
+            {
+                LastPoint = NewPoint;
+                U = (Index * (24 * (PI / N)));
+
+                NewPoint = new Point2D(
+                    Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
+                    (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
+                    );
+
+                g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
+            }
         }
     }
 }

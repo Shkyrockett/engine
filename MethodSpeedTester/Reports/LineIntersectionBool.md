@@ -10,7 +10,7 @@
 
 ## Method 1:
 
-```
+```c#
         /// <summary>
         /// Find the intersection point between two lines.
         /// </summary>
@@ -45,10 +45,10 @@
 
 ## Method 2:
 
-```
+```c#
 ```
 
 ## Method 3:
 
-```
+```c#
 ```

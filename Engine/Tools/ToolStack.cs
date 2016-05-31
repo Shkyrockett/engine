@@ -194,10 +194,7 @@ namespace Engine.Tools
         public ButtonState MouseLeftStatus
         {
             get { return mouseLeftStatus; }
-            set
-            {
-                mouseLeftStatus = value;
-            }
+            set { mouseLeftStatus = value; }
         }
 
         /// <summary>

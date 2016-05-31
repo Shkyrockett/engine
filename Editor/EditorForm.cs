@@ -4,12 +4,12 @@ using Engine.Geometry;
 using Engine.Imaging;
 using Engine.Objects;
 using Engine.Tools;
+using Engine.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Editor
@@ -29,6 +29,16 @@ namespace Editor
         /// 
         /// </summary>
         ToolStack toolStack;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        int tick = 1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Tweener tweener = new Tweener();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
@@ -257,8 +267,55 @@ namespace Editor
             GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
             vectorMap.Add(intersectionItem);
 
+            Ellipse ellipseTween = new Ellipse(
+                new Point2D(100, 100),
+                56, 30, 0d);
+            GraphicItem ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
+
+            Rectangle2D rectangleTween = new Rectangle2D(
+                new Point2D(100, 100),
+                new Size2D(100, 100));
+            GraphicItem rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
+
+            double duration = 300;
+            double delay = 20;
+
+            //tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
+            Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay).OnUpdate(() => rectangleTweenItem.Refresh());
+
+            //tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
+            tweener.Tween(ellipseTween, new { Angle = -360d.ToRadians() }, duration, delay)
+                .From(new { Angle = 0d.ToRadians() })
+                .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
+            tweener.Timer(duration).OnComplete(CompleteCallback);
+
+            vectorMap.Add(rectangleTweenItem);
+            vectorMap.Add(ellipseTweenItem);
+
             listBox1.DataSource = vectorMap.Shapes;
             //listBox1.ValueMember = "Name";
+        }
+
+        private void UpdateCallback()
+        {
+           CanvasPanel.Invalidate(true);
+        }
+
+        private void CompleteCallback()
+        {
+            CanvasPanel.Invalidate(true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            tweener.Update(tick);
         }
 
         /// <summary>

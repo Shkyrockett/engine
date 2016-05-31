@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks>Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
-
 namespace Engine.Tweening
 {
     /// <summary>

@@ -123,7 +123,11 @@ namespace Engine.Geometry
         public double Radius
         {
             get { return radius; }
-            set { radius = value; }
+            set
+            {
+                radius = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -138,7 +142,11 @@ namespace Engine.Geometry
         public Point2D Center
         {
             get { return center; }
-            set { center = value; }
+            set
+            {
+                center = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -169,7 +177,11 @@ namespace Engine.Geometry
         public double StartAngle
         {
             get { return startAngle; }
-            set { startAngle = value; }
+            set
+            {
+                startAngle = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -182,7 +194,11 @@ namespace Engine.Geometry
         public double EndAngle
         {
             get { return endAngle; }
-            set { endAngle = value; }
+            set
+            {
+                endAngle = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -195,7 +211,11 @@ namespace Engine.Geometry
         public double SweepAngle
         {
             get { return startAngle - endAngle; }
-            set { endAngle = value + startAngle; }
+            set
+            {
+                endAngle = value + startAngle;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -258,7 +278,7 @@ namespace Engine.Geometry
         /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
         [Category("Properties")]
         [Description("The area of the Chord.")]
-        public double Area
+        public override double Area
         {
             get { return (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle)); }
         }

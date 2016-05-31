@@ -22,6 +22,8 @@ namespace Engine.Geometry
     public class RectangleCellGrid
         : Shape
     {
+        #region Fields
+
         /// <summary>
         /// The exterior <see cref="Rectangle"/> bounds of the grid.
         /// </summary>
@@ -52,6 +54,10 @@ namespace Engine.Geometry
         /// </summary>
         private int rows;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RectangleCellGrid"/> class.
         /// </summary>
@@ -63,6 +69,8 @@ namespace Engine.Geometry
             this.count = count;
             Recalculate();
         }
+
+        #endregion
 
         /// <summary>
         /// Gets the index of a cell at a given point in the grid.
@@ -100,6 +108,7 @@ namespace Engine.Geometry
             {
                 bounds = value;
                 Recalculate();
+                update?.Invoke();
             }
         }
 
@@ -116,6 +125,7 @@ namespace Engine.Geometry
             {
                 count = value;
                 Recalculate();
+                update?.Invoke();
             }
         }
 

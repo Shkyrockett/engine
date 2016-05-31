@@ -13,38 +13,38 @@ using System;
 namespace Engine.Tweening
 {
     /// <summary>
-    /// 
+    /// Lerp behavior 
     /// </summary>
     [Flags]
     public enum LerpBehavior
     {
         /// <summary>
-        /// 
+        /// No special behaviors.
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// 
+        /// Reflect the interpolation back at the end.
         /// </summary>
         Reflect = 1,
 
         /// <summary>
-        /// 
+        /// Rotation interpolation.
         /// </summary>
         Rotation = 2,
 
         /// <summary>
-        /// 
+        /// Use Radians.
         /// </summary>
         RotationRadians = 4,
 
         /// <summary>
-        /// 
+        /// Use Degrees.
         /// </summary>
         RotationDegrees = 8,
 
         /// <summary>
-        /// 
+        /// Round result to integers.
         /// </summary>
         Round = 16
     }

@@ -19,12 +19,16 @@ namespace Engine.Tweening
     /// </summary>
     public class Ease
     {
+        #region Constants
+
         const double B1 = 1d / 2.75d;
         const double B2 = 2d / 2.75d;
         const double B3 = 1.5d / 2.75d;
         const double B4 = 2.5d / 2.75d;
         const double B5 = 2.25d / 2.75d;
         const double B6 = 2.625d / 2.75d;
+
+        #endregion
 
         /// <summary>
         /// Ease a value to its target and then back. Use this to wrap another easing function.

@@ -18,23 +18,6 @@ namespace Engine.Tweening
     /// </summary>
     public partial class Tween
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Flags]
-        public enum RotationUnit
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            Degrees,
-
-            /// <summary>
-            /// 
-            /// </summary>
-            Radians
-        }
-
         #region Callbacks
 
         /// <summary>
@@ -45,7 +28,17 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        private Action begin, update, complete;
+        private Action begin;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Action update;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Action complete;
 
         #endregion
 
@@ -59,12 +52,17 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        private double Delay, repeatDelay;
+        private double delay;
 
         /// <summary>
         /// 
         /// </summary>
-        private double Duration;
+        private double repeatDelay;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double duration;
 
         /// <summary>
         /// 
@@ -72,6 +70,8 @@ namespace Engine.Tweening
         private double time;
 
         #endregion
+
+        #region Fields
 
         /// <summary>
         /// 
@@ -81,7 +81,12 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        private int repeatCount, timesRepeated;
+        private int repeatCount;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int timesRepeated;
 
         /// <summary>
         /// 
@@ -101,7 +106,12 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        private List<object> start, end;
+        private List<object> end;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<object> start;
 
         /// <summary>
         /// 
@@ -111,32 +121,16 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        private TweenerImpl Parent;
+        private Tweener Parent;
 
         /// <summary>
         /// 
         /// </summary>
-        private IRemoveTweens Remover;
+        private Tweener Remover;
 
-        /// <summary>
-        /// The time remaining before the tween ends or repeats.
-        /// </summary>
-        public double TimeRemaining { get { return Duration - time; } }
+        #endregion
 
-        /// <summary>
-        /// A value between 0 and 1, where 0 means the tween has not been started and 1 means that it has completed.
-        /// </summary>
-        public double Completion { get { var c = time / Duration; return c < 0 ? 0 : (c > 1 ? 1 : c); } }
-
-        /// <summary>
-        /// Whether the tween is currently looping.
-        /// </summary>
-        public bool Looping { get { return repeatCount != 0; } }
-
-        /// <summary>
-        /// The object this tween targets. Will be null if the tween represents a timer.
-        /// </summary>
-        public object Target { get; private set; }
+        #region Constructors
 
         /// <summary>
         /// 
@@ -145,11 +139,11 @@ namespace Engine.Tweening
         /// <param name="duration"></param>
         /// <param name="delay"></param>
         /// <param name="parent"></param>
-        private Tween(object target, double duration, double delay, TweenerImpl parent)
+        internal Tween(object target, double duration, double delay, Tweener parent)
         {
             Target = target;
-            Duration = duration;
-            Delay = delay;
+            this.duration = duration;
+            this.delay = delay;
             Parent = parent;
             Remover = parent;
 
@@ -163,6 +157,32 @@ namespace Engine.Tweening
             behavior = LerpBehavior.None;
         }
 
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The time remaining before the tween ends or repeats.
+        /// </summary>
+        public double TimeRemaining { get { return duration - time; } }
+
+        /// <summary>
+        /// A value between 0 and 1, where 0 means the tween has not been started and 1 means that it has completed.
+        /// </summary>
+        public double Completion { get { var c = time / duration; return c < 0 ? 0 : (c > 1 ? 1 : c); } }
+
+        /// <summary>
+        /// Whether the tween is currently looping.
+        /// </summary>
+        public bool Looping { get { return repeatCount != 0; } }
+
+        /// <summary>
+        /// The object this tween targets. Will be null if the tween represents a timer.
+        /// </summary>
+        public object Target { get; private set; }
+
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -170,7 +190,7 @@ namespace Engine.Tweening
         /// <param name="info"></param>
         /// <param name="from"></param>
         /// <param name="to"></param>
-        private void AddLerp(Lerper lerper, GlideInfo info, object from, object to)
+        internal void AddLerp(Lerper lerper, GlideInfo info, object from, object to)
         {
             varHash.Add(info.PropertyName, vars.Count);
             vars.Add(info);
@@ -185,7 +205,7 @@ namespace Engine.Tweening
         /// 
         /// </summary>
         /// <param name="elapsed"></param>
-        private void Update(double elapsed)
+        internal void Update(double elapsed)
         {
             if (firstUpdate)
             {
@@ -194,36 +214,32 @@ namespace Engine.Tweening
                 var i = vars.Count;
                 while (i-- > 0)
                 {
-                    if (lerpers[i] != null)
-                        lerpers[i].Initialize(start[i], end[i], behavior);
+                    lerpers[i]?.Initialize(start[i], end[i], behavior);
                 }
             }
             else
             {
-                if (Paused)
-                    return;
+                if (Paused) return;
 
-                if (Delay > 0)
+                if (delay > 0)
                 {
-                    Delay -= elapsed;
-                    if (Delay > 0)
-                        return;
+                    delay -= elapsed;
+                    if (delay > 0) return;
                 }
 
-                if (time == 0 && timesRepeated == 0 && begin != null)
-                    begin();
+                if (time == 0 && timesRepeated == 0 && begin != null) begin();
 
                 time += elapsed;
                 double setTimeTo = time;
-                double t = time / Duration;
+                double t = time / duration;
                 bool doComplete = false;
 
-                if (time >= Duration)
+                if (time >= duration)
                 {
                     if (repeatCount != 0)
                     {
                         setTimeTo = 0;
-                        Delay = repeatDelay;
+                        delay = repeatDelay;
                         timesRepeated++;
 
                         if (repeatCount > 0)
@@ -234,7 +250,7 @@ namespace Engine.Tweening
                     }
                     else
                     {
-                        time = Duration;
+                        time = duration;
                         t = 1;
                         Remover.Remove(this);
                         doComplete = true;
@@ -248,7 +264,7 @@ namespace Engine.Tweening
                 while (i-- > 0)
                 {
                     if (vars[i] != null)
-                        vars[i].Value = lerpers[i].Interpolate(t, vars[i].Value, behavior);
+                        vars[i].Value = lerpers[i]?.Interpolate(t, vars[i]?.Value, behavior);
                 }
 
                 time = setTimeTo;
@@ -258,8 +274,7 @@ namespace Engine.Tweening
                 if (time == 0 && behavior.HasFlag(LerpBehavior.Reflect))
                     Reverse();
 
-                if (update != null)
-                    update();
+                update?.Invoke();
 
                 if (doComplete && complete != null)
                     complete();
@@ -463,7 +478,7 @@ namespace Engine.Tweening
         /// </summary>
         public void CancelAndComplete()
         {
-            time = Duration;
+            time = duration;
             update = null;
             Remover.Remove(this);
         }

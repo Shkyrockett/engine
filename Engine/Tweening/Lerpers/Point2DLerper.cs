@@ -8,30 +8,31 @@
 // <summary></summary>
 // <remarks>Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
-using System;
+using Engine.Geometry;
+using static System.Math;
 
 namespace Engine.Tweening
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Vector3Lerper
+    public class Point2DLerper
         : Lerper
     {
         /// <summary>
         /// 
         /// </summary>
-        private Vector3 from;
+        private Point2D from;
 
         /// <summary>
         /// 
         /// </summary>
-        private Vector3 to;
+        private Point2D to;
 
         /// <summary>
         /// 
         /// </summary>
-        private Vector3 range;
+        private Point2D range;
 
         /// <summary>
         /// 
@@ -41,13 +42,11 @@ namespace Engine.Tweening
         /// <param name="behavior"></param>
         public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
-            from = (Vector3)fromValue;
-            to = (Vector3)toValue;
-
-            range = new Vector3();
-            range.X = to.X - from.X;
-            range.Y = to.Y - from.Y;
-            range.Z = to.Z - from.Z;
+            from = fromValue as Point2D;
+            to = toValue as Point2D;
+            range = new Point2D(
+                to.X - from.X,
+                to.Y - from.Y);
         }
 
         /// <summary>
@@ -59,22 +58,19 @@ namespace Engine.Tweening
         /// <returns></returns>
         public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
         {
-            var x = from.X + range.X * t;
-            var y = from.Y + range.Y * t;
-            var z = from.Z + range.Z * t;
+            var x = from.X + (range.X * t);
+            var y = from.Y + (range.Y * t);
 
             if (behavior.HasFlag(LerpBehavior.Round))
             {
-                x = Math.Round(x);
-                y = Math.Round(y);
-                z = Math.Round(z);
+                x = Round(x);
+                y = Round(y);
             }
 
-            var current = (Vector3)currentValue;
-            if (range.X != 0) current.X = x;
-            if (range.Y != 0) current.Y = y;
-            if (range.Z != 0) current.Z = z;
-            return current;
+            var current = currentValue as Point2D;
+            return new Point2D(
+                (range.X == 0) ? current.X : x,
+                (range.Y == 0) ? current.X : y);
         }
     }
 }

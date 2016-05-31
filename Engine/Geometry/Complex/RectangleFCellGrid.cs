@@ -22,6 +22,8 @@ namespace Engine.Geometry
     public class RectangleFCellGrid
         : Shape
     {
+        #region Fields
+
         /// <summary>
         /// The exterior <see cref="RectangleF"/> bounds of the grid.
         /// </summary>
@@ -52,6 +54,10 @@ namespace Engine.Geometry
         /// </summary>
         private int rows;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RectangleFCellGrid"/> class.
         /// </summary>
@@ -63,6 +69,10 @@ namespace Engine.Geometry
             this.count = count;
             Recalculate();
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets the index of a cell at a given point in the grid.
@@ -97,6 +107,7 @@ namespace Engine.Geometry
             {
                 bounds = value;
                 Recalculate();
+                update?.Invoke();
             }
         }
 
@@ -110,6 +121,7 @@ namespace Engine.Geometry
             {
                 count = value;
                 Recalculate();
+                update?.Invoke();
             }
         }
 
@@ -159,6 +171,8 @@ namespace Engine.Geometry
                 return new Rectangle2D(point, cellSize);
             }
         }
+
+        #endregion
 
         /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 

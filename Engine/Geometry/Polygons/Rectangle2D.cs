@@ -150,7 +150,11 @@ namespace Engine.Geometry
         public double X
         {
             get { return x; }
-            set { x = value; }
+            set
+            {
+                x = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -161,7 +165,11 @@ namespace Engine.Geometry
         public double Y
         {
             get { return y; }
-            set { y = value; }
+            set
+            {
+                y = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -172,7 +180,11 @@ namespace Engine.Geometry
         public double Height
         {
             get { return height; }
-            set { height = value; }
+            set
+            {
+                height = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -183,7 +195,11 @@ namespace Engine.Geometry
         public double Width
         {
             get { return width; }
-            set { width = value; }
+            set
+            {
+                width = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -201,6 +217,7 @@ namespace Engine.Geometry
             {
                 x = value.X;
                 y = value.Y;
+                update?.Invoke();
             }
         }
 
@@ -219,6 +236,7 @@ namespace Engine.Geometry
             {
                 width = value.Width;
                 height = value.Height;
+                update?.Invoke();
             }
         }
 
@@ -235,6 +253,7 @@ namespace Engine.Geometry
             {
                 Left = value.X;
                 Top = value.Y;
+                update?.Invoke();
             }
         }
 
@@ -251,6 +270,7 @@ namespace Engine.Geometry
             {
                 Right = value.X;
                 Top = value.Y;
+                update?.Invoke();
             }
         }
 
@@ -267,6 +287,7 @@ namespace Engine.Geometry
             {
                 Left = value.X;
                 Bottom = value.Y;
+                update?.Invoke();
             }
         }
 
@@ -283,6 +304,7 @@ namespace Engine.Geometry
             {
                 Right = value.X;
                 Bottom = value.Y;
+                update?.Invoke();
             }
         }
 
@@ -299,6 +321,7 @@ namespace Engine.Geometry
             {
                 width += x - value;
                 x = value;
+                update?.Invoke();
             }
         }
 
@@ -315,6 +338,7 @@ namespace Engine.Geometry
             {
                 height += y - value;
                 y = value;
+                update?.Invoke();
             }
         }
 
@@ -327,7 +351,11 @@ namespace Engine.Geometry
         public double Right
         {
             get { return x + width; }
-            set { width = value - x; }
+            set
+            {
+                width = value - x;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -339,7 +367,11 @@ namespace Engine.Geometry
         public double Bottom
         {
             get { return y + height; }
-            set { height = value - y; }
+            set
+            {
+                height = value - y;
+                update?.Invoke();
+            }
         }
 
         /// <summary>

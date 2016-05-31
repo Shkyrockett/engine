@@ -17,7 +17,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Geometry.Maths;
 
 namespace Engine.Geometry
 {
@@ -463,6 +462,48 @@ namespace Engine.Geometry
         public static Vector2D Add(this Vector2D vector, Vector2D addend)
         {
             return new Vector2D(vector.I + addend.I, vector.J + addend.J);
+        }
+
+        /// <summary>
+        /// Add VectorF
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(this Vector3D vector, double addend)
+        {
+            return new Vector3D((vector.I + addend), (vector.J + addend), (vector.K + addend));
+        }
+
+        /// <summary>
+        /// Add Vector3D
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Add(this Vector3D vector, Point3D addend)
+        {
+            return new Point3D(vector.I + addend.X, vector.J + addend.Y, vector.K + addend.Z);
+        }
+
+        /// <summary>
+        /// Add Vector2D
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(this Vector3D vector, Vector3D addend)
+        {
+            return new Vector3D(vector.I + addend.I, vector.J + addend.J, vector.K + addend.K);
         }
 
         /// <summary>
@@ -2305,7 +2346,21 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Scale(double x, double y, double factor)
         {
-            return new Point2D((float)(x * factor), (float)(y * factor));
+            return new Point2D((x * factor), (y * factor));
+        }
+
+        /// <summary>
+        /// Inflates a <see cref="Point"/> by a given factor.
+        /// </summary>
+        /// <param name="x">The x value to inflate.</param>
+        /// <param name="y">The y value to inflate.</param>
+        /// <param name="z">The z value to inflate.</param>
+        /// <param name="factor">The factor to inflate the <see cref="Point"/>.</param>
+        /// <returns>Returns a <see cref="Point"/> structure inflated by the factor provided.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Scale(double x, double y, double z, double factor)
+        {
+            return new Point3D((x * factor), (y * factor), (z * factor));
         }
 
         /// <summary>
@@ -2439,6 +2494,20 @@ namespace Engine.Geometry
         public static Vector2D Scale(this Vector2D value, double factor)
         {
             return Scale(value.I, value.J, factor);
+        }
+
+        /// <summary>
+        /// Scale a Vector
+        /// </summary>
+        /// <param name="value">The Point</param>
+        /// <param name="factor">The Multiplier</param>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Scale(this Vector3D value, double factor)
+        {
+            return Scale(value.I, value.J, value.K, factor);
         }
         #endregion
 
@@ -2833,6 +2902,42 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Subtract Points
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector3D Subtract(this Vector3D vector, double value)
+        {
+            return new Vector3D(vector.I - value, vector.J - value, vector.K - value);
+        }
+
+        /// <summary>
+        /// Subtract Points
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point3D Subtract(this Vector3D vector, Point3D value)
+        {
+            return new Point3D((vector.I - value.X), (vector.J - value.Y), (vector.K - value.Z));
+        }
+
+        /// <summary>
+        /// Subtract Points
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector3D Subtract(this Vector3D vector, Vector3D Value)
+        {
+            return new Vector3D(vector.I - Value.I, vector.J - Value.J, vector.K - Value.K);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="segment"></param>
@@ -2902,6 +3007,17 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         public static Vector2D Unit(this Vector2D value)
+        {
+            return value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
+        }
+
+        /// <summary>
+        /// Unit of a Vector
+        /// </summary>
+        /// <param name="value">The Point to Unitize</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector3D Unit(this Vector3D value)
         {
             return value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
         }

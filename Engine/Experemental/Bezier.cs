@@ -791,7 +791,7 @@ namespace Engine.Geometry
             List<char> dims = this.dims;
             List<double> result = new List<double>();
             List<double> roots = new List<double>();
-            Point3D p;
+            //Point3D p;
             //Func<T> mfn;
 
             //dims.forEach(function(dim) {

@@ -8,6 +8,7 @@
 // <summary></summary>
 
 using Engine.Geometry;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,23 +16,43 @@ using System.Linq;
 namespace Engine.Objects
 {
     /// <summary>
-    /// 
+    /// Graphic objects base class.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GraphicsObject
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual double Perimeter { get; set; }
+        #region Callbacks
 
         /// <summary>
-        /// 
+        /// Action delegate for notifying callbacks on object updates.
+        /// </summary>
+        internal Action update;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
+        /// </summary>
+        public virtual double Area { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
+        /// </summary>
+        public virtual double Perimeter { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
         /// </summary>
         public virtual Rectangle2D Bounds { get; set; }
 
+        #endregion
+
+        #region Interpolation
+
         /// <summary>
-        /// 
+        /// Interpolates a <see cref="Shape"/>.
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -41,9 +62,9 @@ namespace Engine.Objects
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a list of points interpolated from a<see cref="Shape"/>.
         /// </summary>
-        /// <param name="count"></param>
+        /// <param name="count">The number of points desired.</param>
         /// <returns></returns>
         public virtual List<Point2D> InterpolatePoints(int count)
         {
@@ -59,14 +80,32 @@ namespace Engine.Objects
             //return points;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// 
+        /// Test whether a point intersects with the object.
         /// </summary>
         /// <param name="point"></param>
-        /// <returns></returns>
+        /// <returns>A <see cref="bool"/> value indicating whether the point intersects the object.</returns>
         public virtual bool HitTest(Point2D point)
         {
             return false;
         }
+
+        /// <summary>
+        /// Register one or more methods to call when properties change to the shape.
+        /// </summary>
+        /// <param name="callback">The method to use.</param>
+        /// <returns>A reference to object.</returns>
+        internal GraphicsObject OnUpdate(Action callback)
+        {
+            if (update == null) update = callback;
+            else update += callback;
+            return this;
+        }
+
+        #endregion
     }
 }

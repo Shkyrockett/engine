@@ -9,11 +9,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -32,7 +33,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<Point2D> points;
+        private ICollection<Point2D> points;
 
         #endregion
 
@@ -59,7 +60,7 @@ namespace Engine.Geometry
         /// <param name="points"></param>
         public Polygon(ICollection<Point2D> points)
         {
-            this.points = (List<Point2D>)points;
+            this.points = points;
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Engine.Geometry
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
             {
-                points.AddRange(polyline.Points);
+                points.Concat(polyline.Points);
             }
         }
 
@@ -89,8 +90,12 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
-            get { return points[index]; }
-            set { points[index] = value; }
+            get { return (points as List<Point2D>)[index]; }
+            set
+            {
+                (points as List<Point2D>)[index] = value;
+                update?.Invoke();
+            }
         }
 
         #endregion
@@ -102,8 +107,12 @@ namespace Engine.Geometry
         /// </summary>
         public List<Point2D> Points
         {
-            get { return points; }
-            set { points = value; }
+            get { return points as List<Point2D>; }
+            set
+            {
+                points = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -116,6 +125,7 @@ namespace Engine.Geometry
         {
             get
             {
+                var points = (this.points as List<Point2D>);
                 return points.Count > 0 ? points.Zip(points.Skip(1), Primitives.Distance).Sum() + Primitives.Distance(points[0], points[points.Count - 1]) : 0;
             }
         }
@@ -131,6 +141,8 @@ namespace Engine.Geometry
         {
             get
             {
+                var points = (this.points as List<Point2D>);
+
                 double left = points[0].X;
                 double top = points[0].Y;
                 double right = points[0].X;
@@ -160,6 +172,7 @@ namespace Engine.Geometry
         public void Add(Point2D point)
         {
             Points.Add(point);
+            update?.Invoke();
         }
 
         /// <summary>
@@ -168,6 +181,7 @@ namespace Engine.Geometry
         public void Reverse()
         {
             Points.Reverse();
+            update?.Invoke();
         }
 
         #endregion
@@ -192,14 +206,16 @@ namespace Engine.Geometry
         [Pure]
         public virtual Polygon Offset(double offset)
         {
+            var points = (this.points as List<Point2D>);
+
             Polygon polyline = new Polygon();
 
-            LineSegment offsetLine = Primitives.OffsetSegment(Points[Points.Count - 1], Points[0], offset);
+            LineSegment offsetLine = Primitives.OffsetSegment(points[Points.Count - 1], points[0], offset);
             LineSegment startLine = offsetLine;
 
             for (int i = 1; i < Points.Count; i++)
             {
-                LineSegment newOffsetLine = Primitives.OffsetSegment(Points[i - 1], Points[i], offset);
+                LineSegment newOffsetLine = Primitives.OffsetSegment(points[i - 1], points[i], offset);
                 polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
                 offsetLine = newOffsetLine;
             }

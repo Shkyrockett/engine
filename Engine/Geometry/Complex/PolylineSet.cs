@@ -66,7 +66,11 @@ namespace Engine.Geometry
         public List<Polyline> Polylines
         {
             get { return polylines; }
-            set { polylines = value; }
+            set
+            {
+                polylines = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -118,6 +122,8 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Mutators
+
         /// <summary>
         /// 
         /// </summary>
@@ -126,6 +132,10 @@ namespace Engine.Geometry
         {
             polylines.Add(polyline);
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// 
@@ -143,5 +153,7 @@ namespace Engine.Geometry
             if (pointsString.Length > 0) pointsString.Remove(pointsString.Length - 1, 1);
             return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(PolylineSet), pointsString.ToString());
         }
+
+        #endregion
     }
 }

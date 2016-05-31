@@ -1,7 +1,5 @@
 ﻿namespace Engine.Physics
 {
-    using System.ComponentModel;
-
     /// <summary>
     /// 
     /// </summary>

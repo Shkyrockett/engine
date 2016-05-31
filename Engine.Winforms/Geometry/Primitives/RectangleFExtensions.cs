@@ -7,7 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using System;
 using System.Drawing;
 using static System.Math;
 

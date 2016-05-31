@@ -86,7 +86,11 @@ namespace Engine.Geometry
         public Point2D Offset
         {
             get { return offset; }
-            set { offset = value; }
+            set
+            {
+                offset = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -95,7 +99,11 @@ namespace Engine.Geometry
         public Size2D Multiplyer
         {
             get { return multiplyer; }
-            set { multiplyer = value; }
+            set
+            {
+                multiplyer = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -104,25 +112,10 @@ namespace Engine.Geometry
         public double Precision
         {
             get { return precision; }
-            set { precision = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<Point2D> Handles
-        {
-            get
-            {
-                return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
-            }
             set
             {
-                if (value != null && value.Count >= 1)
-                {
-                    offset = value[0];
-                    multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
-                }
+                precision = value;
+                update?.Invoke();
             }
         }
 
@@ -162,39 +155,6 @@ namespace Engine.Geometry
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Bow Curve (2D)
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="DPen"></param>
-        /// <param name="Precision"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Multiplyer"></param>
-        /// <remarks>
-        ///  Also known as the "cocked hat", it was first documented by Sylvester around 
-        ///  1864 and Cayley in 1867. 
-        /// </remarks>
-        public void DrawBowCurve2D(PaintEventArgs e, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
-        {
-            Point2D NewPoint = new Point2D(
-                ((1 - (Tan((PI * -1)) * 2)) * Cos((PI * -1))) * Multiplyer.Width,
-                ((1 - (Tan((PI * -1)) * 2)) * (2 * Sin((PI * -1)))) * Multiplyer.Height
-                );
-
-            Point2D LastPoint = NewPoint;
-
-            for (double Index = (PI * -1); (Index <= PI); Index += Precision)
-            {
-                LastPoint = NewPoint;
-                NewPoint = new Point2D(
-                    ((1 - (Tan(Index) * 2)) * Cos(Index)) * Multiplyer.Width,
-                    ((1 - (Tan(Index) * 2)) * (2 * Sin(Index))) * Multiplyer.Height
-                    );
-
-                e.Graphics.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
-            }
-        }
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Bow"/> struct.

@@ -11,8 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Globalization;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -70,7 +68,11 @@ namespace Engine.Geometry
         public Point2D A
         {
             get { return Points[0]; }
-            set { Points[0] = value; }
+            set
+            {
+                Points[0] = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -84,7 +86,11 @@ namespace Engine.Geometry
         public Point2D B
         {
             get { return Points[1]; }
-            set { Points[1] = value; }
+            set
+            {
+                Points[1] = value;
+                update?.Invoke();
+            }
         }
 
         /// <summary>
@@ -98,7 +104,11 @@ namespace Engine.Geometry
         public Point2D C
         {
             get { return Points[2]; }
-            set { Points[2] = value; }
+            set
+            {
+                Points[2] = value;
+                update?.Invoke();
+            }
         }
 
         #endregion

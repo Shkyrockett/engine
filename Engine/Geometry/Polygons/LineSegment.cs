@@ -176,6 +176,7 @@ namespace Engine.Geometry
             Point2D temp = A;
             A = B;
             B = temp;
+            update?.Invoke();
         }
 
         #endregion

@@ -102,6 +102,14 @@
     <Compile Include="Chrono\Enums\Season.cs" />
     <Compile Include="Chrono\Enums\TimeFormat.cs" />
     <Compile Include="Geometry\Intersections.cs" />
+    <Compile Include="Tools\Enums\UpDown.cs" />
+    <Compile Include="Tools\Enums\MouseButtons.cs" />
+    <Compile Include="Tools\Enums\ScrollOrientation.cs" />
+    <Compile Include="Tools\Enums\Keys.cs" />
+    <Compile Include="Tools\Enums\ScrollEventType.cs" />
+    <Compile Include="Tools\SelectStack.cs" />
+    <Compile Include="Tools\TweenTo.cs" />
+    <Compile Include="Tools\TypeConverters\YesNoTypeConverter.cs" />
     <Compile Include="Tweening\Lerpers\NumericLerper.cs" />
     <Compile Include="Tweening\Lerpers\Size2DLerper.cs" />
     <Compile Include="Tweening\Lerpers\Point2DLerper.cs" />
@@ -324,7 +332,7 @@
     <Compile Include="Objects\FileContainer.cs" />
     <Compile Include="Objects\FileObject.cs" />
     <Compile Include="Objects\Game.cs" />
-    <Compile Include="Objects\GameElementListTypeConverter.cs" />
+    <Compile Include="Objects\TypeConverters\GameElementListTypeConverter.cs" />
     <Compile Include="Objects\GraphicItem.cs" />
     <Compile Include="Objects\GraphicsObject.cs" />
     <Compile Include="Objects\Group.cs" />
@@ -349,7 +357,7 @@
     <Compile Include="Objects\Wavform.cs" />
     <Compile Include="Tools\Pan.cs" />
     <Compile Include="Tools\Zoom.cs" />
-    <Compile Include="Tools\Select.cs" />
+    <Compile Include="Tools\SelectTop.cs" />
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />
     <Compile Include="Geometry\Framework\Primitives.cs" />

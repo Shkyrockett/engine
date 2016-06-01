@@ -89,6 +89,37 @@ namespace Engine.Geometry
             this.B = b;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        public LineSegment(List<Point2D> points)
+        {
+            Points = points;
+        }
+
+        #endregion
+
+        #region Indexers
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        public Point2D this[int index]
+        {
+            get { return (Points as List<Point2D>)[index]; }
+            set
+            {
+                (Points as List<Point2D>)[index] = value;
+                update?.Invoke();
+            }
+        }
+
         #endregion
 
         #region Properties
@@ -103,7 +134,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute]
-        public Point2D A { get; private set; }
+        public Point2D A { get; set; }
 
         /// <summary>
         /// Ending Point of a Line Segment
@@ -115,7 +146,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute]
-        public Point2D B { get; private set; }
+        public Point2D B { get; set; }
 
         /// <summary>
         /// Gets or the size and location of the segment, in floating-point pixels, relative to the parent canvas.

@@ -70,12 +70,14 @@ namespace Engine.Geometry
         /// </summary>
         private double offsetY;
 
+#pragma warning disable CS0414
         /// <summary>
         /// This field is only used by unmanaged code which isn't detected by the compiler.
         /// Matrix in blt'd to unmanaged code, so this is padding 
         /// to align structure.
         /// </summary>
         private int padding;
+#pragma warning restore CS0414
 
         #endregion
 

@@ -113,12 +113,12 @@ namespace Engine.Tweening
         /// <para>To tween static properties/fields, pass the type of the object, using typeof(ObjectType) or object.GetType().</para>
         /// </summary>
         /// <param name="target">The object or type to tween.</param>
-        /// <param name="values">The values to tween to, in an anonymous type ( new { prop1 = 100, prop2 = 0} ).</param>
+        /// <param name="dests">The values to tween to, in an anonymous type ( new { prop1 = 100, prop2 = 0} ).</param>
         /// <param name="duration">Duration of the tween in seconds.</param>
         /// <param name="delay">Delay before the tween starts, in seconds.</param>
         /// <param name="overwrite">Whether preexisting tweens should be overwritten if this tween involves the same properties.</param>
         /// <returns>The tween created, for setting properties on.</returns>
-        public Tween Tween<T>(T target, object values, double duration, double delay = 0, bool overwrite = true) where T : class
+        public Tween Tween<T>(T target, object dests, double duration, double delay = 0, bool overwrite = true) where T : class
         {
             if (target == null)
                 throw new ArgumentNullException("target");
@@ -132,9 +132,9 @@ namespace Engine.Tweening
             toAdd.Add(tween);
 
             // valid in case of manual timer
-            if (values == null) return tween;
+            if (dests == null) return tween;
 
-            var props = values.GetType().GetProperties();
+            var props = dests.GetType().GetProperties();
             for (int i = 0; i < props.Length; ++i)
             {
                 List<Tween> library = null;
@@ -146,7 +146,7 @@ namespace Engine.Tweening
 
                 var property = props[i];
                 var info = new GlideInfo(target, property.Name);
-                var to = new GlideInfo(values, property.Name, false);
+                var to = new GlideInfo(dests, property.Name, false);
                 var lerper = CreateLerper(info.PropertyType);
 
                 tween.AddLerp(lerper, info, info.Value, to.Value);

@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace Engine.Tools
 {
@@ -19,28 +18,33 @@ namespace Engine.Tools
     /// </summary>
     public interface ITool
     {
+        #region Callbacks
+
         /// <summary>
         /// 
         /// </summary>
         event Tool.ToolFinishEvent Finish;
 
-        /// <summary>
-        /// Check to determine if the tool is in use.
-        /// </summary>
-        bool InUse
-        {
-            get;
-            set;
-        }
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Check if first action of tool has taken place.
+        /// Gets or sets a value indicating whether the tool is in use.
         /// </summary>
-        bool Started
-        {
-            get;
-            set;
-        }
+        bool InUse { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the first action of tool has taken place.
+        /// </summary>
+        bool Started { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the mouse button is up.
+        /// </summary>
+        bool MouseUp { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Reset the tool.
@@ -50,47 +54,26 @@ namespace Engine.Tools
         /// <summary>
         /// Update tool on mouse down.
         /// </summary>
-        /// <param name="e"></param>
-        void MouseDownUpdate(MouseEventArgs e);
+        /// <param name="tools"></param>
+        void MouseDownUpdate(ToolStack tools);
 
         /// <summary>
         /// Update Tool on Mouse Move.
         /// </summary>
-        /// <param name="e">The Mouse Move event arguments.</param>
-        /// <param name="MouseDown">A bool indicating whether a mouse button has been pressed.</param>
-        void MouseMoveUpdate(MouseEventArgs e, bool MouseDown);
+        /// <param name="tools">The Mouse Move event arguments.</param>
+        void MouseMoveUpdate(ToolStack tools);
 
         /// <summary>
         /// Update Tool on Mouse UP signal.
         /// </summary>
-        /// <param name="e"></param>
-        void MouseUpUpdate(MouseEventArgs e);
+        /// <param name="tools"></param>
+        void MouseUpUpdate(ToolStack tools);
 
         /// <summary>
         /// Update Tool on Mouse scroll signal.
         /// </summary>
-        /// <param name="e"></param>
-        void MouseScrollUpdate(MouseEventArgs e);
-
-        /// <summary>
-        /// Provide rendering support to the canvas.
-        /// </summary>
-        void Render(Graphics graphics);
-
-        /// <summary>
-        /// Provide rendering support to the canvas.
-        /// </summary>
-        /// <param name="graphics"></param>
-        /// <param name="pen"></param>
-        /// <param name="brush"></param>
-        void Render(Graphics graphics, Pen pen, Brush brush);
-
-        /// <summary>
-        /// Provide rendering support to the canvas.
-        /// </summary>
-        /// <param name="graphics"></param>
-        /// <param name="penBrush"></param>
-        void Render(Graphics graphics, List<Tuple<Pen, Brush>> penBrush);
+        /// <param name="tools"></param>
+        void MouseScrollUpdate(ToolStack tools);
 
         /// <summary>
         /// 

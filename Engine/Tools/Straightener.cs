@@ -8,9 +8,9 @@
 // <summary></summary>
 
 using Engine.Geometry;
-using System.Drawing;
+using Engine.Objects;
+using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 using static System.Math;
 
 namespace Engine.Tools
@@ -24,12 +24,17 @@ namespace Engine.Tools
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        private Point[] points;
+        private LineSegment line;
 
         /// <summary>
         /// Index value in the array.
         /// </summary>
         private int index;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        bool mouseDown;
 
         /// <summary>
         /// Absolute angle of Rubber-band line.
@@ -55,20 +60,21 @@ namespace Engine.Tools
             index = 0;
 
             // Setup the storage properties. 
-            points = new Point[2];
+            line = LineSegment.Empty;
 
             // Setup the calculation properties.
             angle = 0;
             theta = 0;
+            delta = 0;
         }
 
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public Point[] Points
+        public LineSegment Line
         {
-            get { return points; }
-            set { points = value; }
+            get { return line; }
+            set { line = value; }
         }
 
         /// <summary>
@@ -109,39 +115,20 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// Render the tool to a Graphics object.
-        /// </summary>
-        /// <param name="graphics">The graphics object to draw to.</param>
-        /// <param name="pen">The drawing pen for the line to render.</param>
-        /// <param name="brush">The drawing brush for the line to render. Null.</param>
-        public override void Render(Graphics graphics, Pen pen, Brush brush)
-        {
-            if (graphics != null)
-            {
-                if (brush != null)
-                {
-
-                }
-
-                if (pen != null)
-                {
-                    graphics.DrawLines(pen, points);
-                }
-            }
-        }
-
-        /// <summary>
         /// Update tool on mouse down.
         /// </summary>
-        /// <param name="e"></param>
-        public override void MouseDownUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public override void MouseDownUpdate(ToolStack tools)
         {
+            mouseDown = true;
+            InUse = true;
             if (InUse)
             {
-                points[index] = e.Location;
+                Line.B = tools.MouseLocation;
                 if (!Started)
                 {
-                    Points[1] = e.Location;
+                    Line.A = tools.MouseLocation;
+                    tools.Surface.RubberbandItems = new List<GraphicItem>() { new GraphicItem(Line, null) };
                 }
 
                 Started = true;
@@ -151,24 +138,19 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse Move.
         /// </summary>
-        /// <param name="e">The Mouse Move event arguments.</param>
-        /// <param name="MouseDown">A bool indicating whether a mouse button has been pressed.</param>
-        public override void MouseMoveUpdate(MouseEventArgs e, bool MouseDown)
+        /// <param name="tools">The Mouse Move event arguments.</param>
+        public override void MouseMoveUpdate(ToolStack tools)
         {
             if (InUse)
             {
                 if (Started)
                 {
-                    if (Primitives.Length(points[0], e.Location) > 8)
-                    {
-                        if (MouseDown) index = 1;
-                        points[index] = e.Location;
-                    }
+                    if (mouseDown) index = 1;
 
-                    if (index == 0) Points[1] = e.Location;
+                    line.B = tools.MouseLocation;
 
                     // angle is the absolute angle of the line.
-                    angle = Primitives.AbsoluteAngle(points[0], points[1]);
+                    angle = Maths.AbsoluteAngle(line[0].X, line[0].Y, line[1].X, line[1].Y);
 
                     // theta is the angle to rotate to.
                     theta = Maths.RoundToMultiple(angle, Maths.HalfPi);
@@ -182,12 +164,13 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse UP.
         /// </summary>
-        /// <param name="e"></param>
-        public override void MouseUpUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public override void MouseUpUpdate(ToolStack tools)
         {
+            mouseDown = false;
             if (InUse)
             {
-                points[index] = e.Location;
+                line[index] = tools.MouseLocation;
                 switch (index)
                 {
                     case 0:
@@ -196,7 +179,8 @@ namespace Engine.Tools
                     case 1:
                         index = 0;
                         Started = false;
-                        RaiseFinishEvent();
+                        tools.Surface.RubberbandItems.Clear();
+                        RaiseFinishEvent(tools);
                         break;
                     default:
                         break;
@@ -212,7 +196,10 @@ namespace Engine.Tools
             InUse = false;
             Started = false;
             index = 0;
-            points = new Point[2];
+            angle = 0;
+            theta = 0;
+            delta = 0;
+            line = LineSegment.Empty;
         }
 
         /// <summary>

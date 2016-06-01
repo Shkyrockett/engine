@@ -1,4 +1,4 @@
-﻿// <copyright file="Select.cs" >
+﻿// <copyright file="SelectTop.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -7,7 +7,9 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
+// ToDo: Implement shape drawing tool.
+
+using Engine.Objects;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,14 +18,9 @@ namespace Engine.Tools
     /// <summary>
     /// Image drawing tool class.
     /// </summary>
-    public class Zoom
+    public class SelectTop
         : Tool, ITool
     {
-        /// <summary>
-        /// Array of points for the Rubber-band line.
-        /// </summary>
-        private List<Point2D> points;
-
         /// <summary>
         /// Index value in the array.
         /// </summary>
@@ -37,28 +34,15 @@ namespace Engine.Tools
         /// <summary>
         /// Initializes a new instance of the <see cref="SelectTop"/> class.
         /// </summary>
-        public Zoom()
+        public SelectTop()
         {
-            // Setup the tool properties.
             index = 0;
-
-            // Setup the storage properties. 
-            points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
 
         /// <summary>
-        /// Array of points for the Rubber-band line.
+        /// Provides the current index of the select tool.
         /// </summary>
-        public List<Point2D> Points
-        {
-            get { return points; }
-            set { points = value; }
-        }
-
-        /// <summary>
-        /// Provides the current index of the rubber-band line used to find the angle.
-        /// </summary>
-        /// <returns>Returns the current index of the rubber-band line.</returns>
+        /// <returns>Returns the current index of the select tool.</returns>
         public int Index
         {
             get { return index; }
@@ -81,16 +65,9 @@ namespace Engine.Tools
         public override void MouseDownUpdate(ToolStack tools)
         {
             mouseDown = true;
-            if (InUse)
-            {
-                points[index] = tools.MouseLocation;
-                if (!Started)
-                {
-                    Points[1] = tools.MouseLocation;
-                }
-
-                Started = true;
-            }
+            Started = true;
+            InUse = true;
+            index = 1;
         }
 
         /// <summary>
@@ -99,19 +76,6 @@ namespace Engine.Tools
         /// <param name="tools">The Mouse Move event arguments.</param>
         public override void MouseMoveUpdate(ToolStack tools)
         {
-            if (InUse)
-            {
-                if (Started)
-                {
-                    if (Primitives.Length(points[0], tools.MouseLocation) > 8)
-                    {
-                        if (mouseDown) index = 1;
-                        points[index] = tools.MouseLocation;
-                    }
-
-                    if (index == 0) Points[1] = tools.MouseLocation;
-                }
-            }
         }
 
         /// <summary>
@@ -121,32 +85,15 @@ namespace Engine.Tools
         public override void MouseUpUpdate(ToolStack tools)
         {
             mouseDown = false;
-            if (InUse)
+            if (Started && InUse)
             {
-                points[index] = tools.MouseLocation;
-                switch (index)
-                {
-                    case 0:
-                        index = 1;
-                        break;
-                    case 1:
-                        index = 0;
-                        Started = false;
-                        RaiseFinishEvent(tools);
-                        break;
-                    default:
-                        break;
-                }
+                mouseDown = false;
+                tools.Surface.SelectedItems = new List<GraphicItem>(1) { tools.Surface.SelectItem(tools.MouseLocation) };
+                RaiseFinishEvent(tools);
+                Started = false;
+                InUse = false;
+                index = 0;
             }
-        }
-
-        /// <summary>
-        /// Update Tool on Mouse scroll signal.
-        /// </summary>
-        /// <param name="tools"></param>
-        public override void MouseScrollUpdate(ToolStack tools)
-        {
-            tools.Surface.Zoom += 120d / tools.MouseScrollDelta;
         }
 
         /// <summary>
@@ -154,10 +101,10 @@ namespace Engine.Tools
         /// </summary>
         public override void Reset()
         {
-            InUse = false;
+            mouseDown = false;
             Started = false;
+            InUse = false;
             index = 0;
-            points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
 
         /// <summary>

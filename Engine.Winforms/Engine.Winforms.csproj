@@ -85,6 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CanvasPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CanvasPanel.Designer.cs">
+      <DependentUpon>CanvasPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColorTrackBarControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -100,6 +106,7 @@
     <Compile Include="Geometry\Primitives\PointExtentions.cs" />
     <Compile Include="Geometry\Primitives\RectangleExtensions.cs" />
     <Compile Include="Geometry\Primitives\RectangleFExtensions.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="PaletteControl.cs">
       <SubType>Component</SubType>
     </Compile>

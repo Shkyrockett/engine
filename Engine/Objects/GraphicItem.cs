@@ -23,7 +23,7 @@ namespace Engine.Objects
     /// </summary>
     public class GraphicItem
     {
-        #region Private properties
+        #region Fields
 
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
@@ -50,6 +50,11 @@ namespace Engine.Objects
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// 
@@ -130,7 +135,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public bool HitTest(Point2D point) => Item.HitTest(point);
+        public bool Contains(Point2D point) => Item.Contains(point);
 
         /// <summary>
         /// 

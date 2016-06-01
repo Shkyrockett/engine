@@ -25,6 +25,6 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        bool HitTest(Point2D point);
+        bool Contains(Point2D point);
     }
 }

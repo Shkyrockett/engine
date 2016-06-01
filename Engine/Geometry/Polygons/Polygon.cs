@@ -33,7 +33,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private ICollection<Point2D> points;
+        private List<Point2D> points;
 
         #endregion
 
@@ -60,7 +60,7 @@ namespace Engine.Geometry
         /// <param name="points"></param>
         public Polygon(ICollection<Point2D> points)
         {
-            this.points = points;
+            this.points = points as List<Point2D>;
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Engine.Geometry
         /// </summary>
         public List<Point2D> Points
         {
-            get { return points as List<Point2D>; }
+            get { return points; }
             set
             {
                 points = value;
@@ -187,6 +187,16 @@ namespace Engine.Geometry
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public override bool Contains(Point2D point)
+        {
+            return Intersections.PointPolygon(points, point);
+        }
 
         /// <summary>
         /// 

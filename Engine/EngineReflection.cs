@@ -120,7 +120,7 @@ namespace Engine
                 where method.IsStatic == true
                 where method.ReturnType == type
                 select method
-            );
+            ).OrderBy(x => x.Name).ToList();
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Engine
                 from type in assembly.GetTypes()
                 where type.BaseType == classType
                 select type
-            );
+            ).OrderBy(x => x.Name).ToList();
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Engine
                 from type in assembly.GetTypes()
                 where type.GetInterfaces().Contains(classType)
                 select type
-            );
+            ).OrderBy(x => x.Name).ToList();
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Engine
                 from type in assembly.GetTypes()
                 where Attribute.IsDefined(type, attributeType)
                 select type
-            );
+            ).OrderBy(x => x.Name).ToList();
         }
     }
 }

@@ -1,138 +1,105 @@
 ﻿using Engine.Geometry;
+using Engine.Objects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Engine.Tools
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum ButtonState
+    public class ToolStack
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        Up = 0,
+        #region Callbacks
 
         /// <summary>
         /// 
         /// </summary>
-        Down = 1,
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Flags]
-    public enum MouseButtons
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        None = 0,
+        internal Action<ToolStack> keyboardKeyUp;
 
         /// <summary>
         /// 
         /// </summary>
-        Left = 1048576,
+        internal Action<ToolStack> keyboardKeyDown;
 
         /// <summary>
         /// 
         /// </summary>
-        Right = 2097152,
+        internal Action<ToolStack> mouseMove;
 
         /// <summary>
         /// 
         /// </summary>
-        Middle = 4194304,
+        internal Action<ToolStack> mouseScroll;
 
         /// <summary>
         /// 
         /// </summary>
-        XButton1 = 8388608,
+        internal Action<ToolStack> mouseScrollTilt;
 
         /// <summary>
         /// 
         /// </summary>
-        XButton2 = 16777216
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum ScrollOrientation
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        HorizontalScroll = 0,
+        internal Action<ToolStack> mouseLeftButtonDown;
 
         /// <summary>
         /// 
         /// </summary>
-        VerticalScroll = 1
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum ScrollEventType
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        SmallDecrement = 0,
+        internal Action<ToolStack> mouseMiddleButtonDown;
 
         /// <summary>
         /// 
         /// </summary>
-        SmallIncrement = 1,
+        internal Action<ToolStack> mouseRightButtonDown;
 
         /// <summary>
         /// 
         /// </summary>
-        LargeDecrement = 2,
+        internal Action<ToolStack> mouseBackButtonDown;
 
         /// <summary>
         /// 
         /// </summary>
-        LargeIncrement = 3,
+        internal Action<ToolStack> mouseForwardButtonDown;
 
         /// <summary>
         /// 
         /// </summary>
-        ThumbPosition = 4,
+        internal Action<ToolStack> mouseLeftButtonUp;
 
         /// <summary>
         /// 
         /// </summary>
-        ThumbTrack = 5,
+        internal Action<ToolStack> mouseMiddleButtonUp;
 
         /// <summary>
         /// 
         /// </summary>
-        First = 6,
+        internal Action<ToolStack> mouseRightButtonUp;
 
         /// <summary>
         /// 
         /// </summary>
-        Last = 7,
+        internal Action<ToolStack> mouseBackButtonUp;
 
         /// <summary>
         /// 
         /// </summary>
-        EndScroll = 8
-    }
+        internal Action<ToolStack> mouseForwardButtonUp;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public struct ToolStack
-    {
+        #endregion
+
+        #region Fields
+
+        private VectorMap surface;
+
+        private Dictionary<MouseButtons, Tool> tools;
+
         /// <summary>
         /// 
         /// </summary>
-        public List<Tool> Tools;
+        private Keys keyboardKeys;
 
         /// <summary>
         /// 
@@ -142,32 +109,12 @@ namespace Engine.Tools
         /// <summary>
         /// 
         /// </summary>
-        private ButtonState mouseLeftStatus;
+        MouseButtons mouseButtonStates;
 
         /// <summary>
         /// 
         /// </summary>
-        private ButtonState mouseMiddleStatus;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ButtonState mouseRightStatus;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ButtonState mouseXButton1Status;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ButtonState mouseXButton2Status;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double mouseHorizontalScrollDelta;
+        private double mouseScrollTiltDelta;
 
         /// <summary>
         /// 
@@ -179,97 +126,283 @@ namespace Engine.Tools
         /// </summary>
         private int clicks;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
+        public ToolStack(VectorMap surface)
+        {
+            this.surface = surface;
+            tools = new Dictionary<MouseButtons, Tool>();
+            keyboardKeys = Keys.None;
+            mouseLocation = Point2D.Empty;
+            MouseButtonStates = MouseButtons.None;
+            mouseScrollTiltDelta = 0;
+            clicks = 0;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the press state of the keyboard keys.
+        /// </summary>
+        [Category("Buttons")]
+        [Description("The press state of the keyboard keys.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public Keys KeyboardKeyStates
+        {
+            get { return keyboardKeys; }
+            set
+            {
+                keyboardKeys = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the location of the mouse cursor.
+        /// </summary>
+        [Category("Location")]
+        [Description("The location of the mouse cursor.")]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D MouseLocation
         {
             get { return mouseLocation; }
-            set { mouseLocation = value; }
+            set
+            {
+                mouseLocation = value;
+                mouseMove?.Invoke(this);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the number of times a mouse button has been clicked.
         /// </summary>
-        public ButtonState MouseLeftStatus
-        {
-            get { return mouseLeftStatus; }
-            set { mouseLeftStatus = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ButtonState MouseMiddleStatus
-        {
-            get { return mouseMiddleStatus; }
-            set { mouseMiddleStatus = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ButtonState MouseRightStatus
-        {
-            get { return mouseRightStatus; }
-            set { mouseRightStatus = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ButtonState MouseXButton1Status
-        {
-            get { return mouseXButton1Status; }
-            set { mouseXButton1Status = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ButtonState MouseXButton2Status
-        {
-            get { return mouseXButton2Status; }
-            set { mouseXButton2Status = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double MouseHorizontalScrollDelta
-        {
-            get { return mouseHorizontalScrollDelta; }
-            set { mouseHorizontalScrollDelta = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double MouseVerticalScrollDelta
-        {
-            get { return mouseVerticalScrollDelta; }
-            set { mouseVerticalScrollDelta = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
+        [Category("Buttons")]
+        [Description("The number of times a mouse button has been clicked.")]
+        [RefreshProperties(RefreshProperties.All)]
         public int Clicks
         {
             get { return clicks; }
-            set { clicks = value; }
+            set
+            {
+                clicks = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the click state of the mouse buttons.
+        /// </summary>
+        [Category("Buttons")]
+        [Description("The click state of the mouse buttons.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public MouseButtons MouseButtonStates
+        {
+            get { return mouseButtonStates; }
+            set
+            {
+                mouseButtonStates = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the click state of the <see cref="MouseButtons.Left"/> mouse button.
+        /// </summary>
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Left) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public UpDown MouseLeftButtonStatus
+        {
+            get { return ((MouseButtonStates & MouseButtons.Left) != 0) ? UpDown.Down : UpDown.Up; }
+            set
+            {
+                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Left : MouseButtonStates &= ~MouseButtons.Left;
+                switch (value)
+                {
+                    case UpDown.Up:
+                        //mouseButtonUp?.Invoke(this);
+                        mouseLeftButtonUp?.Invoke(this);
+                        break;
+                    case UpDown.Down:
+                        //mouseButtonDown?.Invoke(this);
+                        mouseLeftButtonDown?.Invoke(this);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the click state of the <see cref="MouseButtons.Middle"/> mouse button.
+        /// </summary>
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Middle) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public UpDown MouseMiddleButtonStatus
+        {
+            get { return ((MouseButtonStates & MouseButtons.Middle) != 0) ? UpDown.Down : UpDown.Up; }
+            set
+            {
+                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Middle : MouseButtonStates &= ~MouseButtons.Middle;
+                switch (value)
+                {
+                    case UpDown.Up:
+                        mouseMiddleButtonUp?.Invoke(this);
+                        break;
+                    case UpDown.Down:
+                        mouseMiddleButtonDown?.Invoke(this);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the click state of the <see cref="MouseButtons.Right"/> mouse button.
+        /// </summary>
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Right) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public UpDown MouseRightButtonStatus
+        {
+            get { return ((MouseButtonStates & MouseButtons.Right) != 0) ? UpDown.Down : UpDown.Up; }
+            set
+            {
+                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Right : MouseButtonStates &= ~MouseButtons.Right;
+                switch (value)
+                {
+                    case UpDown.Up:
+                        mouseRightButtonUp?.Invoke(this);
+                        break;
+                    case UpDown.Down:
+                        mouseRightButtonDown?.Invoke(this);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the  click state of the <see cref="MouseButtons.Back"/> mouse button.
+        /// </summary>
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Back) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public UpDown MouseBackButtonStatus
+        {
+            get { return ((MouseButtonStates & MouseButtons.Back) != 0) ? UpDown.Down : UpDown.Up; }
+            set
+            {
+                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Back : MouseButtonStates &= ~MouseButtons.Back;
+                switch (value)
+                {
+                    case UpDown.Up:
+                        mouseBackButtonUp?.Invoke(this);
+                        break;
+                    case UpDown.Down:
+                        mouseBackButtonDown?.Invoke(this);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the click state of the <see cref="MouseButtons.Forward"/> mouse button.
+        /// </summary>
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Forward) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public UpDown MouseForwardButtonStatus
+        {
+            get { return ((MouseButtonStates & MouseButtons.Forward) != 0) ? UpDown.Down : UpDown.Up; }
+            set
+            {
+                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Forward : MouseButtonStates &= ~MouseButtons.Forward;
+                switch (value)
+                {
+                    case UpDown.Up:
+                        mouseForwardButtonUp?.Invoke(this);
+                        break;
+                    case UpDown.Down:
+                        mouseForwardButtonDown?.Invoke(this);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the last scroll delta of the mouse scroll wheel.
+        /// </summary>
+        [Category("Scrolling")]
+        [Description("The last scroll delta of the mouse scroll wheel.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public double MouseScrollDelta
+        {
+            get { return mouseVerticalScrollDelta; }
+            set
+            {
+                mouseVerticalScrollDelta = value;
+                mouseScroll?.Invoke(this);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the last tilt delta of the mouse scroll wheel.
+        /// </summary>
+        [Category("Scrolling")]
+        [Description("The last tilt delta of the mouse scroll wheel.")]
+        [RefreshProperties(RefreshProperties.All)]
+        public double MouseScrollTiltDelta
+        {
+            get { return mouseScrollTiltDelta; }
+            set
+            {
+                mouseScrollTiltDelta = value;
+                mouseScrollTilt?.Invoke(this);
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="location"></param>
-        public void MouseUpdate(Point2D location)
+        public VectorMap Surface
         {
-            if (mouseLocation != location)
-            {
-                mouseLocation = location;
-            }
+            get { return surface; }
+            set { surface = value; }
+        }
+
+        #endregion
+
+        #region Mutators
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keys"></param>
+        public void KeyUp(Keys keys)
+        {
+            keyboardKeys |= ~keys;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keys"></param>
+        public void KeyDown(Keys keys)
+        {
+            keyboardKeys |= keys;
         }
 
         /// <summary>
@@ -278,10 +411,7 @@ namespace Engine.Tools
         /// <param name="location"></param>
         public void MouseMove(Point2D location)
         {
-            if (mouseLocation != location)
-            {
-                mouseLocation = location;
-            }
+            if (mouseLocation != location) MouseLocation = location;
         }
 
         /// <summary>
@@ -293,11 +423,11 @@ namespace Engine.Tools
         {
             if (buttons != MouseButtons.None)
             {
-                if (buttons == MouseButtons.Left) MouseLeftStatus = ButtonState.Up;
-                if (buttons == MouseButtons.Middle) MouseMiddleStatus = ButtonState.Up;
-                if (buttons == MouseButtons.Right) MouseRightStatus = ButtonState.Up;
-                if (buttons == MouseButtons.XButton1) MouseXButton1Status = ButtonState.Up;
-                if (buttons == MouseButtons.XButton2) MouseXButton2Status = ButtonState.Up;
+                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != UpDown.Up) MouseLeftButtonStatus = UpDown.Up;
+                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != UpDown.Up) MouseMiddleButtonStatus = UpDown.Up;
+                if (buttons == MouseButtons.Right && MouseRightButtonStatus != UpDown.Up) MouseRightButtonStatus = UpDown.Up;
+                if (buttons == MouseButtons.Back && MouseBackButtonStatus != UpDown.Up) MouseBackButtonStatus = UpDown.Up;
+                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != UpDown.Up) MouseForwardButtonStatus = UpDown.Up;
             }
         }
 
@@ -310,11 +440,11 @@ namespace Engine.Tools
         {
             if (buttons != MouseButtons.None)
             {
-                if (buttons == MouseButtons.Left) MouseLeftStatus = ButtonState.Down;
-                if (buttons == MouseButtons.Middle) MouseMiddleStatus = ButtonState.Down;
-                if (buttons == MouseButtons.Right) MouseRightStatus = ButtonState.Down;
-                if (buttons == MouseButtons.XButton1) MouseXButton1Status = ButtonState.Down;
-                if (buttons == MouseButtons.XButton2) MouseXButton2Status = ButtonState.Down;
+                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != UpDown.Down) MouseLeftButtonStatus = UpDown.Down;
+                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != UpDown.Down) MouseMiddleButtonStatus = UpDown.Down;
+                if (buttons == MouseButtons.Right && MouseRightButtonStatus != UpDown.Down) MouseRightButtonStatus = UpDown.Down;
+                if (buttons == MouseButtons.Back && MouseBackButtonStatus != UpDown.Down) MouseBackButtonStatus = UpDown.Down;
+                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != UpDown.Down) MouseForwardButtonStatus = UpDown.Down;
             }
         }
 
@@ -328,14 +458,205 @@ namespace Engine.Tools
             switch (orientation)
             {
                 case ScrollOrientation.HorizontalScroll:
-                    mouseHorizontalScrollDelta = delta;
+                    MouseScrollTiltDelta = delta;
                     break;
                 case ScrollOrientation.VerticalScroll:
-                    mouseVerticalScrollDelta = delta;
+                    MouseScrollDelta = delta;
                     break;
                 default:
                     break;
             }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterObserver(Tool tool)
+        {
+            keyboardKeyDown += tool.KeyboardKeyDown;
+            keyboardKeyUp += tool.KeyboardKeyUp;
+            mouseMove += tool.MouseMoveUpdate;
+            mouseLeftButtonDown += tool.MouseDownUpdate;
+            mouseLeftButtonUp += tool.MouseUpUpdate;
+            mouseMiddleButtonDown += tool.MouseDownUpdate;
+            mouseMiddleButtonUp += tool.MouseUpUpdate;
+            mouseRightButtonDown += tool.MouseDownUpdate;
+            mouseRightButtonUp += tool.MouseUpUpdate;
+            mouseBackButtonDown += tool.MouseDownUpdate;
+            mouseBackButtonUp += tool.MouseUpUpdate;
+            mouseForwardButtonDown += tool.MouseDownUpdate;
+            mouseForwardButtonUp += tool.MouseUpUpdate;
+            mouseScroll += tool.MouseScrollUpdate;
+            mouseScrollTilt += tool.MouseScrollUpdate;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterMouseLeftButton(Tool tool)
+        {
+            if (!tools.ContainsKey(MouseButtons.Left))
+            {
+                tools.Add(MouseButtons.Left, tool);
+                mouseMove += tool.MouseMoveUpdate;
+                mouseLeftButtonDown += tool.MouseDownUpdate;
+                mouseLeftButtonUp += tool.MouseUpUpdate;
+            }
+            else
+            {
+                Tool t = tools[MouseButtons.Left];
+                mouseMove -= t.MouseMoveUpdate;
+                mouseLeftButtonDown -= t.MouseDownUpdate;
+                mouseLeftButtonUp -= t.MouseUpUpdate;
+
+                tools.Remove(MouseButtons.Left);
+                tools.Add(MouseButtons.Left, tool);
+
+                mouseMove += tool.MouseMoveUpdate;
+                mouseLeftButtonDown += tool.MouseDownUpdate;
+                mouseLeftButtonUp += tool.MouseUpUpdate;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterMouseMiddleButton(Tool tool)
+        {
+            if (!tools.ContainsKey(MouseButtons.Middle))
+            {
+                tools.Add(MouseButtons.Middle, tool);
+                mouseMove += tool.MouseMoveUpdate;
+                mouseMiddleButtonDown += tool.MouseDownUpdate;
+                mouseMiddleButtonUp += tool.MouseUpUpdate;
+            }
+            else
+            {
+                Tool t = tools[MouseButtons.Middle];
+                tools.Add(MouseButtons.Middle, tool);
+                mouseMove += t.MouseMoveUpdate;
+                mouseMiddleButtonDown += t.MouseDownUpdate;
+                mouseMiddleButtonUp += t.MouseUpUpdate;
+
+                tools.Remove(MouseButtons.Middle);
+                tools.Add(MouseButtons.Middle, tool);
+
+                mouseMove += tool.MouseMoveUpdate;
+                mouseMiddleButtonDown += tool.MouseDownUpdate;
+                mouseMiddleButtonUp += tool.MouseUpUpdate;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterMouseRightButton(Tool tool)
+        {
+            if (!tools.ContainsKey(MouseButtons.Right))
+            {
+                tools.Add(MouseButtons.Right, tool);
+                mouseMove += tool.MouseMoveUpdate;
+                mouseRightButtonDown += tool.MouseDownUpdate;
+                mouseRightButtonUp += tool.MouseUpUpdate;
+            }
+            else
+            {
+                Tool t = tools[MouseButtons.Right];
+                mouseMove += t.MouseMoveUpdate;
+                mouseRightButtonDown += t.MouseDownUpdate;
+                mouseRightButtonUp += t.MouseUpUpdate;
+
+                tools.Remove(MouseButtons.Right);
+                tools.Add(MouseButtons.Right, tool);
+
+                mouseMove += tool.MouseMoveUpdate;
+                mouseRightButtonDown += tool.MouseDownUpdate;
+                mouseRightButtonUp += tool.MouseUpUpdate;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterMouseBackButton(Tool tool)
+        {
+            if (!tools.ContainsKey(MouseButtons.Back))
+            {
+                tools.Add(MouseButtons.Back, tool);
+                mouseMove += tool.MouseMoveUpdate;
+                mouseBackButtonDown += tool.MouseDownUpdate;
+                mouseBackButtonUp += tool.MouseUpUpdate;
+            }
+            else
+            {
+                Tool t = tools[MouseButtons.Back];
+                mouseMove += t.MouseMoveUpdate;
+                mouseBackButtonDown += t.MouseDownUpdate;
+                mouseBackButtonUp += t.MouseUpUpdate;
+
+                tools.Remove(MouseButtons.Back);
+                tools.Add(MouseButtons.Back, tool);
+
+                mouseMove += tool.MouseMoveUpdate;
+                mouseBackButtonDown += tool.MouseDownUpdate;
+                mouseBackButtonUp += tool.MouseUpUpdate;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterMouseForwardButton(Tool tool)
+        {
+            if (!tools.ContainsKey(MouseButtons.Forward))
+            {
+                tools.Add(MouseButtons.Forward, tool);
+                mouseMove += tool.MouseMoveUpdate;
+                mouseForwardButtonDown += tool.MouseDownUpdate;
+                mouseForwardButtonUp += tool.MouseUpUpdate;
+            }
+            else
+            {
+                Tool t = tools[MouseButtons.Forward];
+                mouseMove += t.MouseMoveUpdate;
+                mouseForwardButtonDown += t.MouseDownUpdate;
+                mouseForwardButtonUp += t.MouseUpUpdate;
+
+                tools.Remove(MouseButtons.Forward);
+                tools.Add(MouseButtons.Forward, tool);
+
+                mouseMove += tool.MouseMoveUpdate;
+                mouseForwardButtonDown += tool.MouseDownUpdate;
+                mouseForwardButtonUp += tool.MouseUpUpdate;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterMouseScroll(Tool tool)
+        {
+            mouseMove += tool.MouseMoveUpdate;
+            mouseScroll += tool.MouseScrollUpdate;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
+        public void RegisterMouseScrollTilt(Tool tool)
+        {
+            mouseMove += tool.MouseMoveUpdate;
+            mouseScrollTilt += tool.MouseScrollUpdate;
         }
     }
 }

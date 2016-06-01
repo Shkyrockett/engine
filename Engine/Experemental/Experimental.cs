@@ -447,7 +447,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeter1(this Ellipse ellipse)
         {
-            return EllipsePerimeter1(ellipse.A, ellipse.B);
+            return EllipsePerimeter1(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeter2(this Ellipse ellipse)
         {
-            return EllipsePerimeter2(ellipse.A, ellipse.B);
+            return EllipsePerimeter2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -494,7 +494,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterKepler(this Ellipse ellipse)
         {
-            return EllipsePerimeterKepler(ellipse.A, ellipse.B);
+            return EllipsePerimeterKepler(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -516,7 +516,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterSipos(this Ellipse ellipse)
         {
-            return EllipsePerimeterSipos(ellipse.A, ellipse.B);
+            return EllipsePerimeterSipos(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -538,7 +538,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterNaive(this Ellipse ellipse)
         {
-            return EllipsePerimeterNaive(ellipse.A, ellipse.B);
+            return EllipsePerimeterNaive(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -560,7 +560,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterPeano(this Ellipse ellipse)
         {
-            return EllipsePerimeterPeano(ellipse.A, ellipse.B);
+            return EllipsePerimeterPeano(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -582,7 +582,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterEuler(this Ellipse ellipse)
         {
-            return EllipsePerimeterEuler(ellipse.A, ellipse.B);
+            return EllipsePerimeterEuler(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -604,7 +604,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterAlmkvist(this Ellipse ellipse)
         {
-            return EllipsePerimeterAlmkvist(ellipse.A, ellipse.B);
+            return EllipsePerimeterAlmkvist(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -628,7 +628,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterQuadratic(this Ellipse ellipse)
         {
-            return EllipsePerimeterQuadratic(ellipse.A, ellipse.B);
+            return EllipsePerimeterQuadratic(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -650,7 +650,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterMuir(this Ellipse ellipse)
         {
-            return EllipsePerimeterMuir(ellipse.A, ellipse.B);
+            return EllipsePerimeterMuir(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -672,7 +672,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterLindner(this Ellipse ellipse)
         {
-            return EllipsePerimeterLindner(ellipse.A, ellipse.B);
+            return EllipsePerimeterLindner(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -695,7 +695,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(this Ellipse ellipse)
         {
-            return EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(ellipse.A, ellipse.B);
+            return EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -717,7 +717,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterYNOT(this Ellipse ellipse)
         {
-            return EllipsePerimeterYNOT(ellipse.A, ellipse.B);
+            return EllipsePerimeterYNOT(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -740,7 +740,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterCombinedPadé(this Ellipse ellipse)
         {
-            return EllipsePerimeterCombinedPadé(ellipse.A, ellipse.B);
+            return EllipsePerimeterCombinedPadé(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -768,7 +768,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterCombinedPadé2(this Ellipse ellipse)
         {
-            return EllipsePerimeterCombinedPadé2(ellipse.A, ellipse.B);
+            return EllipsePerimeterCombinedPadé2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -796,7 +796,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterJacobsenWaadelandHudsonLipka(this Ellipse ellipse)
         {
-            return EllipsePerimeterJacobsenWaadelandHudsonLipka(ellipse.A, ellipse.B);
+            return EllipsePerimeterJacobsenWaadelandHudsonLipka(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -824,7 +824,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeter2_3JacobsenWaadeland(this Ellipse ellipse)
         {
-            return EllipsePerimeter2_3JacobsenWaadeland(ellipse.A, ellipse.B);
+            return EllipsePerimeter2_3JacobsenWaadeland(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -852,7 +852,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeter3_3_3_2(this Ellipse ellipse)
         {
-            return EllipsePerimeter3_3_3_2(ellipse.A, ellipse.B);
+            return EllipsePerimeter3_3_3_2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -881,7 +881,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterRamanujan(this Ellipse ellipse)
         {
-            return EllipsePerimeterRamanujan(ellipse.A, ellipse.B);
+            return EllipsePerimeterRamanujan(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -903,7 +903,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterSelmer(this Ellipse ellipse)
         {
-            return EllipsePerimeterSelmer(ellipse.A, ellipse.B);
+            return EllipsePerimeterSelmer(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -925,7 +925,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterRamanujan2(this Ellipse ellipse)
         {
-            return EllipsePerimeterRamanujan2(ellipse.A, ellipse.B);
+            return EllipsePerimeterRamanujan2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -948,7 +948,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterPadéSelmer(this Ellipse ellipse)
         {
-            return EllipsePerimeterPadéSelmer(ellipse.A, ellipse.B);
+            return EllipsePerimeterPadéSelmer(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -971,7 +971,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterPadéMichon(this Ellipse ellipse)
         {
-            return EllipsePerimeterPadéMichon(ellipse.A, ellipse.B);
+            return EllipsePerimeterPadéMichon(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -994,7 +994,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterPadéHudsonLipkaBronshtein(this Ellipse ellipse)
         {
-            return EllipsePerimeterPadéHudsonLipkaBronshtein(ellipse.A, ellipse.B);
+            return EllipsePerimeterPadéHudsonLipkaBronshtein(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1017,7 +1017,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterCombinedPadéHudsonLipkaMichon(this Ellipse ellipse)
         {
-            return EllipsePerimeterCombinedPadéHudsonLipkaMichon(ellipse.A, ellipse.B);
+            return EllipsePerimeterCombinedPadéHudsonLipkaMichon(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1040,7 +1040,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterPadéJacobsenWaadeland(this Ellipse ellipse)
         {
-            return EllipsePerimeterPadéJacobsenWaadeland(ellipse.A, ellipse.B);
+            return EllipsePerimeterPadéJacobsenWaadeland(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1063,7 +1063,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterPadé3_2(this Ellipse ellipse)
         {
-            return EllipsePerimeterPadé3_2(ellipse.A, ellipse.B);
+            return EllipsePerimeterPadé3_2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1086,7 +1086,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterPadé3_3(this Ellipse ellipse)
         {
-            return EllipsePerimeterPadé3_3(ellipse.A, ellipse.B);
+            return EllipsePerimeterPadé3_3(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1111,7 +1111,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterOptimizedPeano(this Ellipse ellipse)
         {
-            return EllipsePerimeterOptimizedPeano(ellipse.A, ellipse.B);
+            return EllipsePerimeterOptimizedPeano(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1134,7 +1134,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterOptimizedQuadratic1(this Ellipse ellipse)
         {
-            return EllipsePerimeterOptimizedQuadratic1(ellipse.A, ellipse.B);
+            return EllipsePerimeterOptimizedQuadratic1(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1157,7 +1157,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterOptimizedQuadratic2(this Ellipse ellipse)
         {
-            return EllipsePerimeterOptimizedQuadratic2(ellipse.A, ellipse.B);
+            return EllipsePerimeterOptimizedQuadratic2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1179,7 +1179,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterOptimizedRamanujan1(this Ellipse ellipse)
         {
-            return EllipsePerimeterOptimizedRamanujan1(ellipse.A, ellipse.B);
+            return EllipsePerimeterOptimizedRamanujan1(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1203,7 +1203,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterBartolomeuMichon(this Ellipse ellipse)
         {
-            return EllipsePerimeterBartolomeuMichon(ellipse.A, ellipse.B);
+            return EllipsePerimeterBartolomeuMichon(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1225,7 +1225,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterCantrell2(this Ellipse ellipse)
         {
-            return EllipsePerimeterCantrell2(ellipse.A, ellipse.B);
+            return EllipsePerimeterCantrell2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1250,7 +1250,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterTakakazuSeki(this Ellipse ellipse)
         {
-            return EllipsePerimeterTakakazuSeki(ellipse.A, ellipse.B);
+            return EllipsePerimeterTakakazuSeki(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1272,7 +1272,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterLockwood(this Ellipse ellipse)
         {
-            return EllipsePerimeterLockwood(ellipse.A, ellipse.B);
+            return EllipsePerimeterLockwood(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1294,7 +1294,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterBartolomeu(this Ellipse ellipse)
         {
-            return EllipsePerimeterBartolomeu(ellipse.A, ellipse.B);
+            return EllipsePerimeterBartolomeu(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1317,7 +1317,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterRivera1(this Ellipse ellipse)
         {
-            return EllipsePerimeterRivera1(ellipse.A, ellipse.B);
+            return EllipsePerimeterRivera1(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1339,7 +1339,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterRivera2(this Ellipse ellipse)
         {
-            return EllipsePerimeterRivera2(ellipse.A, ellipse.B);
+            return EllipsePerimeterRivera2(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1361,7 +1361,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterCantrell(this Ellipse ellipse)
         {
-            return EllipsePerimeterSykora(ellipse.A, ellipse.B);
+            return EllipsePerimeterSykora(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1384,7 +1384,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterSykora(this Ellipse ellipse)
         {
-            return EllipsePerimeterSykora(ellipse.A, ellipse.B);
+            return EllipsePerimeterSykora(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1406,7 +1406,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterCantrellRamanujan(this Ellipse ellipse)
         {
-            return EllipsePerimeterCantrellRamanujan(ellipse.A, ellipse.B);
+            return EllipsePerimeterCantrellRamanujan(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1429,7 +1429,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterK13(this Ellipse ellipse)
         {
-            return EllipsePerimeterK13(ellipse.A, ellipse.B);
+            return EllipsePerimeterK13(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1451,7 +1451,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterThomasBlankenhorn1(this Ellipse ellipse)
         {
-            return EllipsePerimeterThomasBlankenhorn1(ellipse.A, ellipse.B);
+            return EllipsePerimeterThomasBlankenhorn1(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1478,7 +1478,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterThomasBlankenhorn8(this Ellipse ellipse)
         {
-            return EllipsePerimeterThomasBlankenhorn8(ellipse.A, ellipse.B);
+            return EllipsePerimeterThomasBlankenhorn8(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1505,7 +1505,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterCantrell2006(this Ellipse ellipse)
         {
-            return EllipsePerimeterCantrell2006(ellipse.A, ellipse.B);
+            return EllipsePerimeterCantrell2006(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>
@@ -1535,7 +1535,7 @@ namespace Engine
         /// <returns></returns>
         public static double EllipsePerimeterAhmadi2006(this Ellipse ellipse)
         {
-            return EllipsePerimeterAhmadi2006(ellipse.A, ellipse.B);
+            return EllipsePerimeterAhmadi2006(ellipse.R1, ellipse.R2);
         }
 
         /// <summary>

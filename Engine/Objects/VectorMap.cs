@@ -9,6 +9,7 @@
 
 using Engine.Geometry;
 using Engine.Imaging;
+using Engine.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,6 @@ namespace Engine.Objects
     public class VectorMap
         : ICollection<GraphicItem>
     {
-        #region Private Fields
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<GraphicItem> shapes;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -45,7 +37,7 @@ namespace Engine.Objects
         /// <param name="shapes"></param>
         public VectorMap(List<GraphicItem> shapes)
         {
-            this.shapes = shapes;
+            this.Items = shapes;
         }
 
         #endregion
@@ -62,7 +54,7 @@ namespace Engine.Objects
             get
             {
                 return new List<GraphicItem>(
-                    from shape in Shapes
+                    from shape in Items
                     where shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area)
                     select shape);
             }
@@ -78,8 +70,8 @@ namespace Engine.Objects
             get
             {
                 return new List<GraphicItem>(
-                    from shape in Shapes
-                    where shape.Bounds.Contains(point) && shape.HitTest(point)
+                    from shape in Items
+                    where shape.Bounds.Contains(point) && shape.Contains(point)
                     select shape);
             }
         }
@@ -91,27 +83,47 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
-        public List<GraphicItem> Shapes
-        {
-            get { return shapes; }
-            set { shapes = value; }
-        }
+        public bool IsReadOnly { get; private set; } = false;
 
         /// <summary>
         /// 
         /// </summary>
-        public int Count
-        {
-            get { return shapes.Count; }
-        }
+        public double Zoom { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public Point2D Pan { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Rectangle2D VisibleBounds { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Tweener Tweener { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<GraphicItem> Items { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<GraphicItem> SelectedItems { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<GraphicItem> RubberbandItems { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Count => Items.Count;
 
         #endregion
 
@@ -121,7 +133,7 @@ namespace Engine.Objects
         /// <param name="item"></param>
         public void Add(GraphicItem item)
         {
-            shapes.Add(item);
+            Items.Add(item);
         }
 
         /// <summary>
@@ -132,7 +144,7 @@ namespace Engine.Objects
         /// <param name="metadata"></param>
         public void Add(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
-            shapes.Add(new GraphicItem(item, style, metadata));
+            Items.Add(new GraphicItem(item, style, metadata));
         }
 
         /// <summary>
@@ -144,7 +156,7 @@ namespace Engine.Objects
         public void Add(Shape item, ShapeStyle style = null, Metadata metadata = null)
         {
             if (style == null) style = ShapeStyle.DefaultStyle;
-            shapes.Add(new GraphicItem(item, style, metadata));
+            Items.Add(new GraphicItem(item, style, metadata));
         }
 
         /// <summary>
@@ -154,7 +166,16 @@ namespace Engine.Objects
         /// <returns></returns>
         public bool Remove(GraphicItem item)
         {
-            return shapes.Remove(item);
+            bool success = false;
+            if (SelectedItems.Contains(item))
+            {
+                success |= SelectedItems.Remove(item);
+            }
+            if (Items.Contains(item))
+            {
+                success |= Items.Remove(item);
+            }
+            return success;
         }
 
         /// <summary>
@@ -162,7 +183,29 @@ namespace Engine.Objects
         /// </summary>
         public void Clear()
         {
-            shapes.Clear();
+            SelectedItems.Clear();
+            Items.Clear();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        public GraphicItem SelectItem(Point2D point)
+        {
+            return Items.LastOrDefault(shape => shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        public List<GraphicItem> SelectItems(Point2D point)
+        {
+            return new List<GraphicItem>(
+                from shape in Items
+                where shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
+                select shape);
         }
 
         /// <summary>
@@ -172,7 +215,7 @@ namespace Engine.Objects
         /// <returns></returns>
         public bool Contains(GraphicItem item)
         {
-            return shapes.Contains(item);
+            return Items.Contains(item);
         }
 
         /// <summary>
@@ -182,7 +225,7 @@ namespace Engine.Objects
         /// <param name="arrayIndex"></param>
         public void CopyTo(GraphicItem[] array, int arrayIndex)
         {
-            shapes.CopyTo(array, arrayIndex);
+            Items.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
@@ -191,7 +234,7 @@ namespace Engine.Objects
         /// <returns></returns>
         public IEnumerator<GraphicItem> GetEnumerator()
         {
-            return shapes.GetEnumerator();
+            return Items.GetEnumerator();
         }
 
         /// <summary>
@@ -200,7 +243,7 @@ namespace Engine.Objects
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return shapes.GetEnumerator();
+            return Items.GetEnumerator();
         }
     }
 }

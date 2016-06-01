@@ -1,4 +1,4 @@
-﻿// <copyright file="Select.cs" >
+﻿// <copyright file="TweenTo.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -7,25 +7,25 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-// ToDo: Implement shape drawing tool.
-
 using Engine.Geometry;
-using System.Drawing;
+using Engine.Objects;
+using Engine.Tweening;
+using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Tools
 {
     /// <summary>
-    /// Image drawing tool class.
+    /// Tween to tool class.
     /// </summary>
-    public class Select
+    public class TweenTo
         : Tool, ITool
     {
         /// <summary>
-        /// Array of points for the Rubber-band line.
+        /// Rubber-band line.
         /// </summary>
-        private Point[] points;
+        private LineSegment line;
 
         /// <summary>
         /// Index value in the array.
@@ -33,24 +33,29 @@ namespace Engine.Tools
         private int index;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Select"/> class.
+        /// 
         /// </summary>
-        public Select()
+        bool mouseDown;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Straightener"/> class.
+        /// </summary>
+        public TweenTo()
         {
             // Setup the tool properties.
             index = 0;
 
             // Setup the storage properties. 
-            points = new Point[2];
+            line = LineSegment.Empty;
         }
 
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public Point[] Points
+        public LineSegment Line
         {
-            get { return points; }
-            set { points = value; }
+            get { return line; }
+            set { line = value; }
         }
 
         /// <summary>
@@ -64,63 +69,40 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// Render the tool to a Graphics object.
-        /// </summary>
-        /// <param name="graphics">The graphics object to draw to.</param>
-        /// <param name="pen">The drawing pen for the line to render.</param>
-        /// <param name="brush">The drawing brush for the line to render. Null.</param>
-        public override void Render(Graphics graphics, Pen pen, Brush brush)
-        {
-            if (graphics != null)
-            {
-                if (brush != null)
-                {
-
-                }
-
-                if (pen != null)
-                {
-                    graphics.DrawLines(pen, points);
-                }
-            }
-        }
-
-        /// <summary>
         /// Update tool on mouse down.
         /// </summary>
-        /// <param name="e"></param>
-        public override void MouseDownUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public override void MouseDownUpdate(ToolStack tools)
         {
+            mouseDown = true;
+            InUse = true;
             if (InUse)
             {
-                points[index] = e.Location;
+                Line.B = tools.MouseLocation;
                 if (!Started)
                 {
-                    Points[1] = e.Location;
+                    Line.A = tools.MouseLocation;
+                    tools.Surface.RubberbandItems = new List<GraphicItem>() { new GraphicItem(Line, null) };
+                    tools.Surface.SelectedItems = new List<GraphicItem>(1) { tools.Surface.SelectItem(tools.MouseLocation) };
+                    if (tools.Surface.SelectedItems == null) return;
+                    Started = true;
                 }
-
-                Started = true;
             }
         }
 
         /// <summary>
         /// Update Tool on Mouse Move.
         /// </summary>
-        /// <param name="e">The Mouse Move event arguments.</param>
-        /// <param name="MouseDown">A bool indicating whether a mouse button has been pressed.</param>
-        public override void MouseMoveUpdate(MouseEventArgs e, bool MouseDown)
+        /// <param name="tools">The Mouse Move event arguments.</param>
+        public override void MouseMoveUpdate(ToolStack tools)
         {
             if (InUse)
             {
                 if (Started)
                 {
-                    if (Primitives.Length(points[0], e.Location) > 8)
-                    {
-                        if (MouseDown) index = 1;
-                        points[index] = e.Location;
-                    }
+                    if (mouseDown) index = 1;
 
-                    if (index == 0) Points[1] = e.Location;
+                    line.B = tools.MouseLocation;
                 }
             }
         }
@@ -128,12 +110,13 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse UP.
         /// </summary>
-        /// <param name="e"></param>
-        public override void MouseUpUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public override void MouseUpUpdate(ToolStack tools)
         {
+            mouseDown = false;
             if (InUse)
             {
-                points[index] = e.Location;
+                line[index] = tools.MouseLocation;
                 switch (index)
                 {
                     case 0:
@@ -142,7 +125,12 @@ namespace Engine.Tools
                     case 1:
                         index = 0;
                         Started = false;
-                        RaiseFinishEvent();
+                        tools.Surface.RubberbandItems.Clear();
+                        if (tools.Surface?.SelectedItems?.Count > 0)
+                        {
+                            Tween tt = tools.Surface.Tweener.Tween(tools.Surface.SelectedItems[0].Item, new { Location = tools.MouseLocation }, 100, 0);
+                        }
+                        RaiseFinishEvent(tools);
                         break;
                     default:
                         break;
@@ -158,7 +146,7 @@ namespace Engine.Tools
             InUse = false;
             Started = false;
             index = 0;
-            points = new Point[2];
+            line = LineSegment.Empty;
         }
 
         /// <summary>
@@ -167,7 +155,7 @@ namespace Engine.Tools
         /// <returns></returns>
         public override string ToString()
         {
-            return nameof(Select);
+            return nameof(Straightener);
         }
 
         /// <summary>

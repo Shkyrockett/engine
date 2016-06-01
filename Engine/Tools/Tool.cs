@@ -8,9 +8,6 @@
 // <summary></summary>
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace Engine.Tools
 {
@@ -20,6 +17,22 @@ namespace Engine.Tools
     public abstract class Tool
         : ITool
     {
+        #region Callbacks
+
+        /// <summary>
+        /// Signal the canvas to provide feedback to finish the command.
+        /// </summary>
+        public event ToolFinishEvent Finish;
+
+        /// <summary>
+        /// The <see cref="ToolFinishEvent"/> type delegate. 
+        /// </summary>
+        public delegate void ToolFinishEvent(object Sender, ToolStack e);
+
+        #endregion
+
+        #region Fields
+
         /// <summary>
         /// Check to determine if the tool is in use.
         /// </summary>
@@ -31,14 +44,26 @@ namespace Engine.Tools
         protected bool started;
 
         /// <summary>
-        /// Signal the canvas to provide feedback to finish the command.
+        /// 
         /// </summary>
-        public event ToolFinishEvent Finish;
+        private bool mouseUp;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
-        /// The <see cref="ToolFinishEvent"/> type delegate. 
+        /// Initializes a new instance of the <see cref="Tool"/> class.
         /// </summary>
-        public delegate void ToolFinishEvent(object Sender, EventArgs e);
+        public Tool()
+        {
+            inUse = false;
+            started = false;
+        }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Check if the tool is in use.
@@ -59,20 +84,22 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tool"/> class.
+        /// 
         /// </summary>
-        public Tool()
+        public bool MouseUp
         {
-            inUse = false;
-            started = false;
+            get { return mouseUp; }
+            set { mouseUp = value; }
         }
+
+        #endregion
 
         /// <summary>
         /// Signal the parent to provide feedback to finish the command.
         /// </summary>
-        protected virtual void RaiseFinishEvent()
+        protected virtual void RaiseFinishEvent(ToolStack tools)
         {
-            if (Finish != null) Finish(this,new EventArgs());
+            Finish?.Invoke(this, tools);
         }
 
         /// <summary>
@@ -84,10 +111,28 @@ namespace Engine.Tools
         }
 
         /// <summary>
+        /// Update the tool with the keys that have been pressed.
+        /// </summary>
+        /// <param name="obj"></param>
+        public virtual void KeyboardKeyDown(ToolStack obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Update the tool with the keys that have been released.
+        /// </summary>
+        /// <param name="obj"></param>
+        public virtual void KeyboardKeyUp(ToolStack obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Update tool on mouse down.
         /// </summary>
-        /// <param name="e"></param>
-        public virtual void MouseDownUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public virtual void MouseDownUpdate(ToolStack tools)
         {
             throw new NotImplementedException();
         }
@@ -95,9 +140,8 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse Move.
         /// </summary>
-        /// <param name="e">The Mouse Move event arguments.</param>
-        /// <param name="MouseDown">A bool indicating whether a mouse button has been pressed.</param>
-        public virtual void MouseMoveUpdate(MouseEventArgs e, bool MouseDown)
+        /// <param name="tools">The Mouse Move event arguments.</param>
+        public virtual void MouseMoveUpdate(ToolStack tools)
         {
             throw new NotImplementedException();
         }
@@ -105,8 +149,8 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse UP signal.
         /// </summary>
-        /// <param name="e"></param>
-        public virtual void MouseUpUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public virtual void MouseUpUpdate(ToolStack tools)
         {
             throw new NotImplementedException();
         }
@@ -114,42 +158,10 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse scroll signal.
         /// </summary>
-        /// <param name="e"></param>
-        public void MouseScrollUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public virtual void MouseScrollUpdate(ToolStack tools)
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Render the tool to the provided graphics object.
-        /// </summary>
-        public virtual void Render(Graphics graphics)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Render the tool to a Graphics object.
-        /// </summary>
-        /// <param name="graphics">The graphics object to draw on to.</param>
-        /// <param name="pen">The custom drawing pen for the tool to render.</param>
-        /// <param name="brush">The drawing brush for the tool to render.</param>
-        public virtual void Render(Graphics graphics, Pen pen, Brush brush)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Render the tool to a Graphics object.
-        /// </summary>
-        /// <param name="graphics">The graphics object to draw to.</param>
-        /// <param name="penBrush">The drawing pen and drawing brush combination for the line to render.</param>
-        public virtual void Render(Graphics graphics, List<Tuple<Pen, Brush>> penBrush)
-        {
-            foreach (Tuple<Pen, Brush> item in penBrush)
-            {
-                Render(graphics, item.Item1, item.Item2);
-            }
         }
 
         /// <summary>

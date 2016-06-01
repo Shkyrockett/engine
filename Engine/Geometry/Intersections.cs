@@ -3,14 +3,146 @@ using System.Collections.Generic;
 using System.Linq;
 using static System.Math;
 using static Engine.Geometry.Maths;
+using System.Diagnostics.Contracts;
 
 namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Intersections
+    public static class Intersections
     {
+
+        /// <summary>
+        /// Find out if a Point is in a Circle. 
+        /// </summary>
+        /// <returns></returns>
+        [Pure]
+        public static bool CircleContainsPoint(
+            double centerX,
+            double centerY,
+            double radius,
+            double X,
+            double Y)
+        {
+            return (radius > Distance(centerX, centerY, X, Y));
+        }
+
+        /// <summary>
+        /// tests if a point[xp,yp] is within boundaries defined by the ellipse
+        /// of center[x,y], diameter d D, and tilted at angle
+        /// </summary>
+        /// <param name="ellipse"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </remarks>
+        public static bool EllipseContainsPoint(Ellipse ellipse, Point2D point)
+        {
+            double cosa = Cos(-ellipse.Angle);
+            double sina = Sin(-ellipse.Angle);
+
+            double dd = ellipse.R1 * ellipse.R1;
+            double DD = ellipse.R2 * ellipse.R2;
+
+            double a = (cosa * (point.X - ellipse.Center.X) + sina * (point.Y - ellipse.Center.Y))
+                * (cosa * (point.X - ellipse.Center.X) + sina * (point.Y - ellipse.Center.Y));
+            double b = (sina * (point.X - ellipse.Center.X) - cosa * (point.Y - ellipse.Center.Y))
+                * (sina * (point.X - ellipse.Center.X) - cosa * (point.Y - ellipse.Center.Y));
+            return ((a / dd) + (b / DD) <= 1);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ellipse"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static bool UnrotatedEllipseContainsPoint(Ellipse Ellipse, Point2D point)
+        {
+            if (Ellipse.R1 <= 0.0 || Ellipse.R2 <= 0.0) return false;
+
+            Point2D normalized = new Point2D(
+                point.X - Ellipse.Center.X,
+                point.Y - Ellipse.Center.Y);
+
+            return normalized.X * normalized.X
+                / (Ellipse.R1 * Ellipse.R1)
+                + normalized.Y * normalized.Y
+                / (Ellipse.R2 * Ellipse.R2) <= 1d;
+        }
+
+        /// <summary>
+        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/> .
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [Pure]
+        public static bool RectangleContainsPoint(Rectangle2D rectangle, Point2D point)
+        {
+            return rectangle.X <= point.X && point.X < rectangle.X + rectangle.Width && rectangle.Y <= point.Y && point.Y < rectangle.Y + rectangle.Height;
+        }
+
+        /// <summary>
+        /// Determines if the rectangular region represented by <paramref name="rect2"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
+        /// </summary>
+        /// <param name="rect1"></param>
+        /// <param name="rect2"></param>
+        /// <returns></returns>
+        [Pure]
+        public static bool RectangleContainsRectangle(Rectangle2D rect1, Rectangle2D rect2)
+        {
+            return (rect1.X <= rect2.X)
+                && ((rect2.X + rect2.Width) <= (rect1.X + rect1.Width))
+                && (rect1.Y <= rect2.Y)
+                && ((rect2.Y + rect2.Height) <= (rect1.Y + rect1.Height));
+        }
+
+        /// <summary>
+        /// Determines if this rectangle interests with another rectangle.
+        /// </summary>
+        /// <param name="rect1"></param>
+        /// <param name="rect2"></param>
+        /// <returns></returns>
+        [Pure]
+        public static bool RectangleIntersectsRectangle(Rectangle2D rect1, Rectangle2D rect2)
+        {
+            return (rect2.X < rect1.X + rect1.Width)
+                && (rect1.X < (rect2.X + rect2.Width))
+                && (rect2.Y < rect1.Y + rect1.Height)
+                && (rect1.Y < rect2.Y + rect2.Height);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+        /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
+        /// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+        /// </remarks>
+        [Pure]
+        public static bool PointPolygon(
+            List<Point2D> polygon,
+            Point2D point)
+        {
+            int nvert = polygon.Count;
+            bool c = false;
+            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
+            {
+                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)) &&
+                 (point.X < (polygon[j].X - polygon[i].X)
+                 * (point.Y - polygon[i].Y)
+                 / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
+                    c = !c;
+            }
+            return c;
+        }
+
         /// <summary>
         /// Find the points where the two circles intersect.
         /// </summary>
@@ -22,6 +154,7 @@ namespace Engine.Geometry
         /// <param name="radius1"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
+        [Pure]
         private static Tuple<int, Point2D, Point2D> CircleCircle(
             double cx0,
             double cy0,
@@ -101,6 +234,7 @@ namespace Engine.Geometry
         /// <param name="y2"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/</remarks>
+        [Pure]
         private static Tuple<int, Point2D, Point2D> CircleLine(
             double centerX, double centerY,
             double radius,
@@ -160,6 +294,7 @@ namespace Engine.Geometry
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        [Pure]
         public static Tuple<bool, Point2D> LineLine(
             double x0, double y0,
             double x1, double y1,
@@ -200,6 +335,7 @@ namespace Engine.Geometry
         /// Based on the psuedocode from:
         /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman
         /// </remarks>
+        [Pure]
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
         {
             if (subjectPoly.Count < 3 || clipPoly.Count < 3)

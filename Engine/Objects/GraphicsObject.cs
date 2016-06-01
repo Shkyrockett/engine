@@ -89,7 +89,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="point"></param>
         /// <returns>A <see cref="bool"/> value indicating whether the point intersects the object.</returns>
-        public virtual bool HitTest(Point2D point)
+        public virtual bool Contains(Point2D point)
         {
             return false;
         }

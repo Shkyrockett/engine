@@ -10,9 +10,8 @@
 // ToDo: Implement shape drawing tool.
 
 using Engine.Geometry;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 
 namespace Engine.Tools
 {
@@ -25,12 +24,17 @@ namespace Engine.Tools
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        private Point[] points;
+        private List<Point2D> points;
 
         /// <summary>
         /// Index value in the array.
         /// </summary>
         private int index;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool mouseDown;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawShape"/> class.
@@ -41,13 +45,13 @@ namespace Engine.Tools
             index = 0;
 
             // Setup the storage properties. 
-            points = new Point[2];
+            points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
 
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public Point[] Points
+        public List<Point2D> Points
         {
             get { return points; }
             set { points = value; }
@@ -64,39 +68,27 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// Render the tool to a Graphics object.
+        /// 
         /// </summary>
-        /// <param name="graphics">The graphics object to draw to.</param>
-        /// <param name="pen">The drawing pen for the line to render.</param>
-        /// <param name="brush">The drawing brush for the line to render. Null.</param>
-        public override void Render(Graphics graphics, Pen pen, Brush brush)
+        public bool MouseDown
         {
-            if (graphics != null)
-            {
-                if (brush != null)
-                {
-
-                }
-
-                if (pen != null)
-                {
-                    graphics.DrawLines(pen, points);
-                }
-            }
+            get { return mouseDown; }
+            set { mouseDown = value; }
         }
 
         /// <summary>
         /// Update tool on mouse down.
         /// </summary>
-        /// <param name="e"></param>
-        public override void MouseDownUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public override void MouseDownUpdate(ToolStack tools)
         {
+            mouseDown = true;
             if (InUse)
             {
-                points[index] = e.Location;
+                points[index] = tools.MouseLocation;
                 if (!Started)
                 {
-                    Points[1] = e.Location;
+                    Points[1] = tools.MouseLocation;
                 }
 
                 Started = true;
@@ -106,21 +98,20 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse Move.
         /// </summary>
-        /// <param name="e">The Mouse Move event arguments.</param>
-        /// <param name="MouseDown">A bool indicating whether a mouse button has been pressed.</param>
-        public override void MouseMoveUpdate(MouseEventArgs e, bool MouseDown)
+        /// <param name="tools">The Mouse Move event arguments.</param>
+        public override void MouseMoveUpdate(ToolStack tools)
         {
             if (InUse)
             {
                 if (Started)
                 {
-                    if (Primitives.Length(points[0], e.Location) > 8)
+                    if (Primitives.Length(points[0], tools.MouseLocation) > 8)
                     {
-                        if (MouseDown) index = 1;
-                        points[index] = e.Location;
+                        if (mouseDown) index = 1;
+                        points[index] = tools.MouseLocation;
                     }
 
-                    if (index == 0) Points[1] = e.Location;
+                    if (index == 0) Points[1] = tools.MouseLocation;
                 }
             }
         }
@@ -128,12 +119,13 @@ namespace Engine.Tools
         /// <summary>
         /// Update Tool on Mouse UP.
         /// </summary>
-        /// <param name="e"></param>
-        public override void MouseUpUpdate(MouseEventArgs e)
+        /// <param name="tools"></param>
+        public override void MouseUpUpdate(ToolStack tools)
         {
+            mouseDown = false;
             if (InUse)
             {
-                points[index] = e.Location;
+                points[index] = tools.MouseLocation;
                 switch (index)
                 {
                     case 0:
@@ -142,7 +134,7 @@ namespace Engine.Tools
                     case 1:
                         index = 0;
                         Started = false;
-                        RaiseFinishEvent();
+                        RaiseFinishEvent(tools);
                         break;
                     default:
                         break;
@@ -158,7 +150,7 @@ namespace Engine.Tools
             InUse = false;
             Started = false;
             index = 0;
-            points = new Point[2];
+            points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
 
         /// <summary>

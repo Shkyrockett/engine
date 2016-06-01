@@ -766,26 +766,13 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/> .
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        [Pure]
-        public bool Contains(double x, double y)
-        {
-            return this.x <= x && x < this.x + width && this.y <= y && y < this.y + height;
-        }
-
-        /// <summary>
-        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle"/> .
+        /// 
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        [Pure]
-        public bool Contains(Point2D point)
+        public override bool Contains(Point2D point)
         {
-            return Contains(point.X, point.Y);
+            return Intersections.RectangleContainsPoint(this, point);
         }
 
         /// <summary>
@@ -796,10 +783,7 @@ namespace Engine.Geometry
         [Pure]
         public bool Contains(Rectangle2D rect)
         {
-            return (x <= rect.X)
-                && ((rect.X + rect.Width) <= (x + Width))
-                && (y <= rect.Y)
-                && ((rect.Y + rect.Height) <= (y + Height));
+            return Intersections.RectangleContainsRectangle(this, rect);
         }
 
         /// <summary>
@@ -810,10 +794,7 @@ namespace Engine.Geometry
         [Pure]
         public bool IntersectsWith(Rectangle2D rect)
         {
-            return (rect.X < x + width)
-                && (x < (rect.X + rect.Width))
-                && (rect.Y < y + height)
-                && (y < rect.Y + rect.Height);
+            return Intersections.RectangleIntersectsRectangle(this, rect);
         }
 
         /// <summary>

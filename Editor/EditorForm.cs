@@ -5,6 +5,7 @@ using Engine.Imaging;
 using Engine.Objects;
 using Engine.Tools;
 using Engine.Tweening;
+using Engine.Winforms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -53,7 +54,7 @@ namespace Editor
             toolStripComboBoxTools.ComboBox.DataSource = tools;
             toolStripComboBoxTools.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxTools.ComboBox.Items.Count > 0)
-                toolStripComboBoxTools.ComboBox.SelectedItem = toolStripComboBoxTools.ComboBox.Items[0];
+                toolStripComboBoxTools.ComboBox.SelectedItem = typeof(SelectTop);
 
             List<Type> fileTypes = EngineReflection.ListFileObjects();
             toolStripComboBoxFiles.ComboBox.DataSource = fileTypes;
@@ -71,7 +72,9 @@ namespace Editor
             comboBox1.DataSource = brushTypes;
             comboBox1.ValueMember = "Name";
             if (comboBox1.Items.Count > 0)
-                comboBox1.SelectedItem = comboBox1.Items[0];
+                comboBox1.SelectedItem = typeof(SolidBrush);
+
+            //propertyGrid1.SelectedObject = toolStack;
         }
 
         /// <summary>
@@ -86,6 +89,11 @@ namespace Editor
             paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
 
             vectorMap = new VectorMap();
+            vectorMap.Tweener = tweener;
+            toolStack = new ToolStack(vectorMap);
+            toolStack?.RegisterMouseLeftButton(new SelectTop());
+            toolStack?.RegisterMouseMiddleButton(new Pan());
+            toolStack?.RegisterMouseScroll(new Zoom());
 
             List<ShapeStyle> styles = new List<ShapeStyle>()
             {
@@ -281,24 +289,24 @@ namespace Editor
             double delay = 20;
 
             //tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
-            Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay).OnUpdate(() => rectangleTweenItem.Refresh());
+            Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
 
             //tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
-            tweener.Tween(ellipseTween, new { Angle = -360d.ToRadians() }, duration, delay)
-                .From(new { Angle = 0d.ToRadians() })
+            tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
+                .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
                 .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
             tweener.Timer(duration).OnComplete(CompleteCallback);
 
             vectorMap.Add(rectangleTweenItem);
             vectorMap.Add(ellipseTweenItem);
 
-            listBox1.DataSource = vectorMap.Shapes;
+            listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";
         }
 
         private void UpdateCallback()
         {
-           CanvasPanel.Invalidate(true);
+            CanvasPanel.Invalidate(true);
         }
 
         private void CompleteCallback()
@@ -323,27 +331,9 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CanvasPanel_Paint(object sender, PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-
-            // Only need to draw the shapes that are on screen.
-            foreach (GraphicItem shape in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
-            {
-                Renderer.Render(shape.Item, e.Graphics, shape);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            ListBox list = (ListBox)sender;
-            propertyGrid1.SelectedObject = ((GraphicItem)list?.SelectedItem);//?.Item;
+            //propertyGrid1.SelectedObject = (sender as ListBox)?.SelectedItem as GraphicItem;
         }
 
         /// <summary>
@@ -361,9 +351,22 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void toolStripComboBoxTools_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var box = sender as ToolStripComboBox;
+            var item = box.SelectedItem as Type;
+            var constructor = Activator.CreateInstance(item);
+            toolStack?.RegisterMouseLeftButton(constructor as Tool);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripComboBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ToolStripComboBox box = (ToolStripComboBox)sender;
+            ToolStripComboBox box = sender as ToolStripComboBox;
             List<MethodInfo> constructors = EngineReflection.ListStaticFactoryConstructors((Type)box.SelectedItem);
             toolStripComboBoxFactories.ComboBox.DataSource = constructors;
             toolStripComboBoxFactories.ComboBox.ValueMember = "Name";
@@ -377,60 +380,145 @@ namespace Editor
             }
         }
 
-        private void CanvasPanel_Scroll(object sender, ScrollEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_Paint(object sender, PaintEventArgs e)
         {
-            //e.NewValue;
-            //e.OldValue;
-            //e.ScrollOrientation;
-            //e.Type;
-            toolStack.MouseScroll((Engine.Tools.ScrollOrientation)e.ScrollOrientation, e.NewValue - e.OldValue);
-        }
+            base.OnPaint(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-        private void CanvasPanel_MouseDown(object sender, MouseEventArgs e)
-        {
-            //e.Button;
-            //e.Clicks;
-            //e.Delta;
-            //e.Location;
-            //e.X;
-            //e.Y;
-            toolStack.MouseDown((Engine.Tools.MouseButtons)e.Button, e.Clicks);
-        }
+            // Only need to draw the shapes that are on screen.
+            foreach (var item in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
+            {
+                if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
+                {
+                    Renderer.Render(item.Item, e.Graphics, item, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
+                }
+                else
+                {
+                    Renderer.Render(item.Item, e.Graphics, item);
+                }
+            }
 
-        private void CanvasPanel_MouseUp(object sender, MouseEventArgs e)
-        {
-            //e.Button;
-            //e.Clicks;
-            //e.Delta;
-            //e.Location;
-            //e.X;
-            //e.Y;
-            toolStack.MouseUp((Engine.Tools.MouseButtons)e.Button, e.Clicks);
-        }
-
-        private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
-        {
-            //e.Button;
-            //e.Clicks;
-            //e.Delta;
-            //e.Location;
-            //e.X;
-            //e.Y;
-            toolStack.MouseMove(new Point2D(e.X, e.Y));
+            if (vectorMap?.RubberbandItems != null)
+            {
+                foreach (var item in vectorMap?.RubberbandItems)
+                {
+                    Renderer.Render(item.Item, e.Graphics, item, new ShapeStyle(Brushes.Red, Brushes.Red));
+                }
+            }
         }
 
         /// <summary>
-        /// Set an arbitrary control to double-buffer.
+        /// 
         /// </summary>
-        /// <param name="control">The control to set as double buffered.</param>
-        /// <remarks>
-        /// Taxes: Remote Desktop Connection and painting: http://blogs.msdn.com/oldnewthing/archive/2006/01/03/508694.aspx
-        /// </remarks>
-        private static void SetDoubleBuffered(Control control)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (SystemInformation.TerminalServerSession) return;
-            PropertyInfo aProp = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
-            aProp.SetValue(control, true, null);
+            toolStack.MouseDown((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
+            //propertyGrid1.Refresh();
+            CanvasPanel.Invalidate(true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            toolStack.MouseUp((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
+            //propertyGrid1.Refresh();
+            CanvasPanel.Invalidate(true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            toolStack.MouseMove(new Point2D(e.X, e.Y));
+            //propertyGrid1.Refresh();
+            CanvasPanel.Invalidate(true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_MouseWheel(object sender, MouseEventArgs e)
+        {
+            toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
+            //propertyGrid1.Refresh();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_MouseWheelTilt(object sender, MouseEventArgs e)
+        {
+            toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
+            //propertyGrid1.Refresh();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_KeyDown(object sender, KeyEventArgs e)
+        {
+            //toolStack.KeyDown((Engine.Tools.Keys)e.KeyData);
+            //propertyGrid1.Refresh();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_KeyUp(object sender, KeyEventArgs e)
+        {
+            //toolStack.KeyUp((Engine.Tools.Keys)e.KeyData);
+            //propertyGrid1.Refresh();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanvasPanel_Resize(object sender, EventArgs e)
+        {
+            var panel = sender as CanvasPanel;
+            vectorMap.VisibleBounds = new Rectangle2D(panel.Bounds.X, panel.Bounds.Y, panel.Bounds.Width, panel.Bounds.Height);
         }
     }
 }

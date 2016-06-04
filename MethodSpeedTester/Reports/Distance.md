@@ -1,7 +1,7 @@
 ﻿#Speed testing Distance Methods
 
-The distance formula is based on the Pythagorean theorem c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> where c is the length of the hypotenuse. 
-Thus c = √(a<sup>2</sup> + b<sup>2</sup>).
+The distance formula is based on the Pythagorean theorem ![][PythagoreanTheorem.Inline] where c is the length of the hypotenuse. 
+Thus ![][Distance.Inline].
 
 ## Results
 
@@ -75,3 +75,5 @@ Calling the outside Modulus method adds even more overhead.
             return Math.Sqrt((i * i) + (j * j));
         }
 ```
+[PythagoreanTheorem.Inline]: http://latex.codecogs.com/svg.latex?\inline&space;c^{2}&space;=&space;a^{2}&space;&plus;&space;b^{2}
+[Distance.Inline]: http://latex.codecogs.com/svg.latex?\inline&space;c&space;=&space;\sqrt{a^{2}&space;&plus;&space;b^{2}}

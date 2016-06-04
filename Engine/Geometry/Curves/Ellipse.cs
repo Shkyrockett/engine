@@ -120,6 +120,9 @@ namespace Engine.Geometry
 
         #region Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point2D Location
         {
             get { return new Point2D(center.X - r1, center.Y - r2); }
@@ -299,6 +302,25 @@ namespace Engine.Geometry
                     (center.X + bbox_halfwidth),
                     (center.Y + bbox_halfheight)
                     );
+            }
+            set
+            {
+                var bounds1 = Bounds;
+                var aspect = Aspect;
+                var bounds2 = value;
+                var locDif = bounds2.Location - bounds1.Location;
+                var scaleDif = bounds2.Size - bounds1.Size;
+                center += locDif;
+                if (aspect > 1)
+                {
+                    r1 = r1 / bounds1.Width * bounds2.Width;
+                    r2 = r2 / bounds1.Height * bounds2.Height;
+                }
+                else
+                {
+                    r2 = r2 / bounds1.Width * bounds2.Width;
+                    r1 = r1 / bounds1.Height * bounds2.Height;
+                }
             }
         }
 

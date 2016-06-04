@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodSpeedTester", "Method
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodSpeedTesterTests", "MethodSpeedTesterTests\MethodSpeedTesterTests.csproj", "{78FE9EC9-7BDD-4636-8A52-89F390969550}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{972FD154-B0FA-4B53-A6F6-5108024D2E77}"
+	ProjectSection(SolutionItems) = preProject
+		Math.md = Math.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

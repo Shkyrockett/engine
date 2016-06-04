@@ -81,10 +81,10 @@ namespace Engine.Tools
                 Line.B = tools.MouseLocation;
                 if (!Started)
                 {
-                    Line.A = tools.MouseLocation;
-                    tools.Surface.RubberbandItems = new List<GraphicItem>() { new GraphicItem(Line, null) };
                     tools.Surface.SelectedItems = new List<GraphicItem>(1) { tools.Surface.SelectItem(tools.MouseLocation) };
                     if (tools.Surface.SelectedItems == null) return;
+                    Line.A = tools.Surface.SelectedItems[0].Bounds.Location;
+                    tools.Surface.RubberbandItems = new List<GraphicItem>() { new GraphicItem(Line, null) };
                     Started = true;
                 }
             }

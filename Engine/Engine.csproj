@@ -228,12 +228,12 @@
     <Compile Include="Localization\Enums\ISO3166_2.cs" />
     <Compile Include="Localization\Enums\ISO3166_3.cs" />
     <Compile Include="Localization\Enums\ISO639.cs" />
-    <Compile Include="Objects\Interfaces\IInfinateShape.cs" />
-    <Compile Include="Objects\Interfaces\IClosedShape.cs" />
-    <Compile Include="Objects\Interfaces\ICurve.cs" />
-    <Compile Include="Objects\Interfaces\IIteratablePathElement.cs" />
-    <Compile Include="Objects\Interfaces\IOpenShape.cs" />
-    <Compile Include="Objects\Interfaces\IPolygon.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IInfinateShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IClosedShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\ICurve.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IIteratablePathElement.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IOpenShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
     <Compile Include="Objects\Interfaces\ITweenable.cs" />
     <Compile Include="Geometry\Primitives\TestPoint2D.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
@@ -246,7 +246,7 @@
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Physics\Units\Angle\Radians.cs" />
     <Compile Include="Physics\Units\Angle\Degrees.cs" />
-    <Compile Include="Objects\Interfaces\IShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IShape.cs" />
     <Compile Include="Geometry\Primitives\Converters\Vector2DConverter.cs" />
     <Compile Include="Experemental\Voronoi.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
@@ -383,7 +383,6 @@
     <Compile Include="Tweening\Lerpers\Vector3DLerper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Objects\Interfaces\Geometry\" />
     <Folder Include="Physics\Units\Area\" />
     <Folder Include="Physics\Units\DigitalStorage\" />
     <Folder Include="Physics\Units\FuelConsumption\" />

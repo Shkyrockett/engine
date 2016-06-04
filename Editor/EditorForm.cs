@@ -75,6 +75,11 @@ namespace Editor
                 comboBox1.SelectedItem = typeof(SolidBrush);
 
             //propertyGrid1.SelectedObject = toolStack;
+
+
+            Tuple<double, int, Point2D> val = new Tuple<double, int, Point2D>(0, 3, new Point2D());
+
+            propertyGrid1.SelectedObject = val;
         }
 
         /// <summary>

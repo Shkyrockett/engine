@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Drawing;
-using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
@@ -17,7 +16,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName("Rectangle2D")]
     public class Rectangle2D
-        : Shape, IClosedShape, IFormattable
+        : Shape, IClosedShape
     {
         #region Static Implementations
 
@@ -772,7 +771,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override bool Contains(Point2D point)
         {
-            return Intersections.RectangleContainsPoint(this, point);
+            return Intersections.Contains(this, point)!= InsideOutside.Outside;
         }
 
         /// <summary>
@@ -783,7 +782,7 @@ namespace Engine.Geometry
         [Pure]
         public bool Contains(Rectangle2D rect)
         {
-            return Intersections.RectangleContainsRectangle(this, rect);
+            return Intersections.Contains(this, rect);
         }
 
         /// <summary>
@@ -794,7 +793,7 @@ namespace Engine.Geometry
         [Pure]
         public bool IntersectsWith(Rectangle2D rect)
         {
-            return Intersections.RectangleIntersectsRectangle(this, rect);
+            return Intersections.RectangleRectangle(this, rect);
         }
 
         /// <summary>
@@ -834,23 +833,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Rectangle2D"/> struct.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
-
-        /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -861,21 +843,7 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Rectangle2D);
             //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);

@@ -7,9 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace Engine.Tools
 {

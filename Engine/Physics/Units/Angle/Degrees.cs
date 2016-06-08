@@ -12,7 +12,7 @@ namespace Engine.Physics
     /// 
     /// </summary>
     [Serializable]
-    [DisplayName(nameof(Degrees))]
+    //[DisplayName(nameof(Degrees))]
     public struct Degrees
         : IDirection, IFormattable
     {

@@ -7,6 +7,8 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine;
+using Engine.Geometry;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -464,6 +466,101 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Closest Point on line
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        private static Point2D ClosestPointOnLineSegmentMvG(Point2D a, Point2D b, Point2D p)
+        {
+            // Vector A->B
+            Point2D diffAB = new Point2D(a.X - b.X, a.Y - b.Y);
+
+            double det = a.Y * b.X - a.X * b.Y;
+
+            double dot = diffAB.X * p.X + diffAB.Y * p.Y;
+
+            Point2D val = new Point2D(dot * diffAB.X + det * diffAB.Y, dot * diffAB.Y - det * diffAB.X);
+
+            double magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+
+            double inverseDist = 1 / magnitude;
+
+            return new Point2D(val.X * inverseDist, val.Y * inverseDist);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        private static Point2D ClosestPointOnLineSegmentDarienPardinas(Point2D a, Point2D b, Point2D p)
+        {
+            // Vector A->P 
+            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
+
+            // Vector A->B
+            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
+
+            double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+
+            // The dot product of diffAP and diffAB
+            double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+
+            //  # The normalized "distance" from a to the closest point
+            double dist = dotABAP / dotAB;
+
+            if (dist < 0)
+            {
+                return a;
+            }
+            else if (dist > dotABAP)
+            {
+                return b;
+            }
+            else
+            {
+                return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        private static Point2D ClosestPointOnLineDarienPardinas(Point2D a, Point2D b, Point2D p)
+        {
+            // Vector A->P 
+            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
+
+            // Vector A->B
+            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
+
+            double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+
+            // The dot product of diffAP and diffAB
+            double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+
+            // The normalized "distance" from a to the closest point
+            double dist = dotABAP / dotAB;
+
+            return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
+        }
+
+        #endregion
+
         #region Cross Product of Two 2D Points
 
         /// <summary>
@@ -642,6 +739,121 @@ namespace MethodSpeedTester
 
             // Calculate the Z coordinate of the cross product.
             return (BAx * BCy - BAy * BCx);
+        }
+
+        #endregion
+
+        #region Cubic Bezier Length approximations
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <param name="p4"></param>
+        /// <returns></returns>
+        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
+        private static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
+        {
+            Point2D k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
+            Point2D k2 = 3 * (p1 + p3) - 6 * p2;
+            Point2D k3 = (Point2D)(3 * (p2 - p1));
+            Point2D k4 = p1;
+
+            double q1 = 9.0 * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
+            double q2 = 12.0 * (k1.X * k2.X + k1.Y * k2.Y);
+            double q3 = 3.0 * (k1.X * k3.X + k1.Y * k3.Y) + 4.0 * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y)));
+            double q4 = 4.0 * (k2.X * k3.X + k2.Y * k3.Y);
+            double q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
+
+            // Approximation algorithm based on Simpson. 
+            double a = 0;
+            double b = 1;
+            int n_limit = 1024;
+            double TOLERANCE = 0.001;
+
+            int n = 1;
+
+            double multiplier = (b - a) / 6.0;
+            double endsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a) + CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, b);
+            double interval = (b - a) / 2.0;
+            double asum = 0;
+            double bsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a + interval);
+            double est1 = multiplier * (endsum + 2 * asum + 4 * bsum);
+            double est0 = 2 * est1;
+
+            while (n < n_limit && (Abs(est1) > 0 && Abs((est1 - est0) / est1) > TOLERANCE))
+            {
+                n *= 2;
+                multiplier /= 2;
+                interval /= 2;
+                asum += bsum;
+                bsum = 0;
+                est0 = est1;
+                double interval_div_2n = interval / (2.0 * n);
+
+                for (int i = 1; i < 2 * n; i += 2)
+                {
+                    double t = a + i * interval_div_2n;
+                    bsum += CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, t);
+                }
+
+                est1 = multiplier * (endsum + 2 * asum + 4 * bsum);
+            }
+
+            return est1 * 10;
+        }
+
+        /// <summary>
+        /// Bezier Arc Length Function
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="q1"></param>
+        /// <param name="q2"></param>
+        /// <param name="q3"></param>
+        /// <param name="q4"></param>
+        /// <param name="q5"></param>
+        /// <returns></returns>
+        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
+        private static double CubicBezierArcLengthHelper(ref double q1, ref double q2, ref double q3, ref double q4, ref double q5, double t)
+        {
+            double result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
+            result = Sqrt(Abs(result));
+            return result;
+        }
+
+        /// <summary>
+        /// Approximate length of the Bezier curve which starts at "start" and
+        /// is defined by "c". According to Computing the Arc Length of Cubic Bezier Curves
+        /// there is no closed form integral for it.
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <param name="p4"></param>
+        /// <param name="steps"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.lemoda.net/maths/bezier-length/index.html</remarks>
+        private static double CubicBezierLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4, int steps = 10)
+        {
+            double t;
+            Point2D dot;
+            Point2D previous_dot = new Point2D();
+            double length = 0.0;
+            for (int i = 0; i <= steps; i++)
+            {
+                t = (double)i / steps;
+                dot = new Point2D(Interpolaters.CubicBezier(p1.X, p1.Y, p2.X, p2.Y, p3.X, p3.Y, p4.X, p4.Y, t));
+                if (i > 0)
+                {
+                    double x_diff = dot.X - previous_dot.X;
+                    double y_diff = dot.Y - previous_dot.Y;
+                    length += Sqrt(x_diff * x_diff + y_diff * y_diff);
+                }
+                previous_dot = dot;
+            }
+            return length;
         }
 
         #endregion
@@ -1193,6 +1405,10 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Cubic Bezier and Line Intersections
+
+        #endregion
+
         #region Distance Between Two 3D Points
 
         /// <summary>
@@ -1579,6 +1795,656 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Ellipse Perimeter Length
+
+        /// <summary>
+        /// This approximation is within about 5% of the true value, so long as a is not more than 3 times longer than b (in other words, the ellipse is not too "squashed"):
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeter1(double a, double b)
+        {
+            return 2 * PI * (Sqrt(0.5 * ((b * b) + (a * a))));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://ellipse-circumference.blogspot.com/
+        /// </remarks>
+        private static double EllipsePerimeter2(double a, double b)
+        {
+            double h = (((b - a) * (b - a)) / ((b + a) * (b + a)));
+            double H2 = 4 - 3 * h;
+            double d = ((11 * PI / (44 - 14 * PI)) + 24100) - 24100 * h;
+            return PI * (b + a) * (1 + (3 * h) / (10 + Pow(H2, 0.5)) + (1.5 * Pow(h, 6) - .5 * Pow(h, 12)) / d);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterKepler(double a, double b)
+        {
+            return 2 * PI * (Sqrt(a * b));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterSipos(double a, double b)
+        {
+            return 2 * PI * (((a + b) * (a + b)) / ((Sqrt(a) + Sqrt(a)) * (Sqrt(b) + Sqrt(b))));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterNaive(double a, double b)
+        {
+            return PI * (a + b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterPeano(double a, double b)
+        {
+            return PI * ((3 * (a + b) / 2) - Sqrt(a * b));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterEuler(double a, double b)
+        {
+            return 2 * PI * Sqrt(((a * a) + (b * b)) / 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterAlmkvist(double a, double b)
+        {
+            return 2 * PI
+                * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
+                / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, (1 / 4)))));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterQuadratic(double a, double b)
+        {
+            return (PI / 2) * Sqrt((6) * (a * a + b * b) + (4 * a * b));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterMuir(double a, double b)
+        {
+            return 2 * PI * Pow((Pow(a, 3 / 2) + Pow(b, 3 / 2)) / 2, 2 / 3);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
+        private static double EllipsePerimeterLindner(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * Sqrt(1 + (h / 8));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
+        /// </remarks>
+        private static double EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(double a, double b)
+        {
+            return 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
+        /// </remarks>
+        private static double EllipsePerimeterYNOT(double a, double b)
+        {
+            double s = Log(2, E) / Log(PI / 2, E);
+            return 4 * Pow(Pow(a, s) + Pow(b, s), 1 / s);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
+        /// </remarks>
+        private static double EllipsePerimeterCombinedPadé(double a, double b)
+        {
+            double d1 = (PI / 4) * (19 / 15) - 1;
+            double d2 = (PI / 4) * (80 / 63) - 1;
+            double p = d1 / (d1 - d2);
+            double h = 1;
+            return PI * (a + b) * (p * ((64 + 16 * h)
+                / (64 - h * h))
+                + (1 - p) * ((16 + 3 * h) / (16 - h)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
+        /// </remarks>
+        private static double EllipsePerimeterCombinedPadé2(double a, double b)
+        {
+            double d1 = (PI / 4) * (81 / 64) - 1;
+            double d2 = (PI / 4) * (19 / 15) - 1;
+            double p = d1 / (d1 - d2);
+            double h = 1;
+            return PI * (a + b) * (p * ((16 - 3 * h)
+                / (16 - h))
+                + (1 - p) * Pow(1 + (h) / 8, 2));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
+        /// </remarks>
+        private static double EllipsePerimeterJacobsenWaadelandHudsonLipka(double a, double b)
+        {
+            double d1 = (PI / 4) * (61 / 48) - 1;
+            double d2 = (PI / 4) * (187 / 147) - 1;
+            double p = d1 / (d1 - d2);
+            double h = 1;
+            return PI * (a + b) * (p * ((256 - 48 * h - 21 * h * h)
+                / (256 - 112 * h + 3 * h * h))
+                + (1 - p) * ((64 - 3 * h * h) / (64 - 16 * h)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
+        /// </remarks>
+        private static double EllipsePerimeter2_3JacobsenWaadeland(double a, double b)
+        {
+            double d1 = (PI / 4) * (61 / 48) - 1;
+            double d2 = (PI / 4) * (187 / 147) - 1;
+            double p = d1 / (d1 - d2);
+            double h = 1;
+            return PI * (a + b) * (p * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
+                / (3072 - 2048 * h + 212 * h * h))
+                + (1 - p) * ((256 - 48 * h - 21 * h * h) / (256 - 112 * h + 3 * h * h)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
+        /// </remarks>
+        private static double EllipsePerimeter3_3_3_2(double a, double b)
+        {
+            double d1 = (PI / 4) * (61 / 48) - 1;
+            double d2 = (PI / 4) * (187 / 147) - 1;
+            double p = d1 / (d1 - d2);
+            double h = 1;
+            return PI * (a + b) * (p * ((135168 - 85760 * h - 5568 * h * h + 3867 * h * h * h)
+                / (135168 - 119552 * h + 22208 * h * h - 345 * h * h * h))
+                + (1 - p) * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
+                / (3072 - 2048 * h + 212 * h * h)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterRamanujan(double a, double b)
+        {
+            return PI * (3 * (a + b) - Sqrt((3 * a + b) * (a + 3 * b)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterSelmer(double a, double b)
+        {
+            return (PI / 4) * ((6 + .5 * (Pow(a - b, 2) * Pow(a - b, 2) / Pow(a + b, 2) * Pow(a + b, 2))) * (a + b) - Sqrt(2 * (a * a + 3 * a * b + b * b)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterRamanujan2(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * (1 + ((3 * h) / (10 + Sqrt(4 - 3 * h))));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterPadéSelmer(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * ((16 + (3 * h)) / (16 - h));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterPadéMichon(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * ((64 + (16 * h)) / (64 - (h * h)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterPadéHudsonLipkaBronshtein(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
+        }
+
+        /// <summary>
+        /// Not correct.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterCombinedPadéHudsonLipkaMichon(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterPadéJacobsenWaadeland(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * ((256 - (48 * h) - (21 * h * h)) / (256 - (112 * h) + 3 * h * h));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterPadé3_2(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * ((3072 - (1280 * h) - (252 * h * h) + (33 * h * h * h)) / (3072 - (2048 * h) + 212 * h * h));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterPadé3_3(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) *
+                ((135168 - (85760 * h) - (5568 * h * h) + (3867 * h * h * h))
+                / (135168 - (119552 * h) + (22208 * h * h) - (345 * h * h * h)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterOptimizedPeano(double a, double b)
+        {
+            double p = 1.32;
+            return 2 * PI * (p * ((a + b) / 2) + (1 - p) * Sqrt(a * b));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterOptimizedQuadratic1(double a, double b)
+        {
+            double w = 0.7966106;
+            return 2 * PI * Sqrt(w * ((a * a + b * b) / 2) + (1 - w) * a * b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterOptimizedQuadratic2(double a, double b)
+        {
+            return PI * Sqrt(2 * (a * a + b * b) + (a - b) * (a - b) / 2.458338);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterOptimizedRamanujan1(double a, double b)
+        {
+            double p = 3.0273;
+            double w = 3;
+            return 2 * PI * (p * ((a + b) / 2) + (1 - p) * Sqrt((a + w * b) * (w * a + b)) / (1 + w));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterBartolomeuMichon(double a, double b)
+        {
+            return a == b ? 2 * PI * a : PI * ((a - b) / Atan((a - b) / (a + b)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterCantrell2(double a, double b)
+        {
+            double p = 0.410117;
+            double w = 74;
+            return 4 * (a + b) - ((8 - 2 * PI) * a * b) /
+                (p * (a + b) + (1 - 2 * p) * (Sqrt((a + w * b) * (w * a + b)) / (1 + w)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterTakakazuSeki(double a, double b)
+        {
+            return 2 * Sqrt(PI * PI * a * b + 4 * (a - b) * (a - b));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterLockwood(double a, double b)
+        {
+            return 4 * (((b * b) / a) * Atan(a / b) + ((a * a) / b) * Atan(b / a));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterBartolomeu(double a, double b)
+        {
+            double t = (PI / 4) * ((a - b) / b);
+            return PI * Sqrt(2 * (a * a + b * b)) * (Sin(t) / t);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterRivera1(double a, double b)
+        {
+            return 4 * a + 2 * (PI - 2) * a * Pow(b / a, 1.456);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterRivera2(double a, double b)
+        {
+            return 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - (89 / 146) * Pow((b * Sqrt(a) - a * Sqrt(b)) / (a + b), 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterCantrell(double a, double b)
+        {
+            double s = Log(2) / Log(2 / (4 - PI));
+            return 4 * (a + b) - ((2 * (4 - PI) * a * b) / Pow(Pow(a, s) + Pow(b, s), 1 / s));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterSykora(double a, double b)
+        {
+            return 4 * (((PI * a * b + (a - b) * (a - b))) / (a + b)) - 0.5 * ((a * b) / (a + b)) * (((a - b) * (a - b)) / (PI * a * b + (a + b) * (a + b)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
+        private static double EllipsePerimeterCantrellRamanujan(double a, double b)
+        {
+            double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
+            return PI * (a + b) * (1 + ((3 * h) / (10 + Sqrt(4 - 3 * h))) + ((4 / PI) - ((14) / (11))) * Pow(h, 12));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
+        /// </remarks>
+        private static double EllipsePerimeterK13(double a, double b)
+        {
+            return PI * (((a + b) / 2) + Sqrt((a * a + b * b) / 2));
+        }
+
+        /// <summary>
+        /// This one is not as good with a circle. 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://ellipse-circumference2.blogspot.com/2011/12/accurate-online-ellipse-circumference.html</remarks>
+        private static double EllipsePerimeterThomasBlankenhorn1(double a, double b)
+        {
+            double X1 = a;
+            double X2 = b;
+            double HMX = Max(X1, X2);
+            double HMN = Min(X1, X2);
+            double H1 = HMN / HMX;
+            return 2 * PI * HMX * ((2 / PI) + 0.0000122 * Pow(H1, 0.6125) - 0.0021973 * Pow(H1, 1.225) + 0.919315 * Pow(H1, 1.8375) - 1.0359227 * Pow(H1, 2.45) + 0.861913 * Pow(H1, 3.0625) - 0.7274398 * Pow(H1, 3.675) + 0.6352295 * Pow(H1, 4.2875) - 0.436051 * Pow(H1, 4.9) + 0.1818904 * Pow(H1, 5.5125) - 0.0333691 * Pow(H1, 6.125));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://ellipse-circumference3.blogspot.com/
+        /// </remarks>
+        private static double EllipsePerimeterThomasBlankenhorn8(double a, double b)
+        {
+            double X1 = a;
+            double X2 = b;
+            double HMX = Max(X1, X2);
+            double HMN = Min(X1, X2);
+            double H1 = HMN / HMX;
+            return HMX * (4 + (3929 * Pow(H1, 1.5) + 1639157 * Pow(H1, 2) + 19407215 * Pow(H1, 2.5) + 24302653 * Pow(H1, 3) + 12892432 * Pow(H1, 3.5)) / (86251 + 1924742 * Pow(H1, 0.5) + 6612384 * Pow(H1, 1) + 7291509 * Pow(H1, 1.5) + 6436977 * Pow(H1, 2) + 3158719 * Pow(H1, 2.5)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox06.html
+        /// </remarks>
+        private static double EllipsePerimeterCantrell2006(double a, double b)
+        {
+            double p = 3.982901;
+            double q = 66.71674;
+            double s = 18.31287;
+            double t = 23.39728;
+            double r = 4 * ((4 - PI) * (4 * s + t + 16) - (4 * p + q));
+            return 4 * (a + b)
+                - ((a * b) / (a + b))
+                * ((p * (a + b) * (a + b) + q * a * b + r * ((a * b) / (a + b)) * ((a * b) / (a + b)))
+                / ((a + b) * (a + b) + s * a * b + t * ((a * b) / (a + b)) * ((a * b) / (a + b))));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox06.html
+        /// </remarks>
+        private static double EllipsePerimeterAhmadi2006(double a, double b)
+        {
+            double c1 = PI - 3;
+            double c2 = PI;
+            double c3 = 0.5;
+            double c4 = (PI + 1) / 2;
+            double c5 = 4;
+            double k = 1 - ((c1 * a * b) / ((a * a + b * b) + c2 * Sqrt(c3 * a * b * a * b + a * b * Sqrt(a * b * (c4 * (a * a + b * b) + c5 * a * b)))));
+            return 4 * ((PI * a * b + k * (a - b) * (a - b)) / (a + b));
+        }
+
+        #endregion
+
         #region Hermite Interpolation of 1D Points
 
         /// <summary>
@@ -1901,6 +2767,928 @@ namespace MethodSpeedTester
             }
         }
 
+        #endregion
+
+        #region Intersection of Conic Section with Line segment
+        // http://csharphelper.com/blog/2014/11/see-where-a-line-intersects-a-conic-section-in-c/
+        #endregion
+
+        #region Intersection of Conic Section with Conic Section
+        // http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/
+        #endregion
+
+        #region Intersection of Ellipse and Ellipse
+
+        /// <summary>
+        /// Finds Intersection of two Ellipse'
+        /// </summary>
+        /// <param name="ellipseA"></param>
+        /// <param name="ellipseB"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static LineSegment Intersect(Ellipse ellipseA, Ellipse ellipseB)
+        {
+            double d = (ellipseB.Center.X * ellipseB.Center.X - ellipseA.Center.X * ellipseA.Center.X - ellipseB.MajorRadius * ellipseB.MajorRadius - Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + ellipseA.MajorRadius * ellipseA.MajorRadius);
+            double a = (Pow(2 * ellipseA.Center.X - 2 * ellipseB.Center.X, 2) + 4 * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2));
+            double b = (2 * d * (2 * ellipseA.Center.X - 2 * ellipseB.Center.X) - 8 * ellipseB.Center.X * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2));
+            double C = (4 * ellipseB.Center.X * ellipseB.Center.X * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + d * d - 4 * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) * ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double XA = ((-b + Sqrt(b * b - 4 * a * C)) / (2 * a));
+            double XB = ((-b - Sqrt(b * b - 4 * a * C)) / (2 * a));
+            double YA = (Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double YB = (-Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double YC = (Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double YD = (-Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y);
+            double E = ((XA - ellipseB.Center.X) + Pow(YA - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double F = ((XA - ellipseB.Center.X) + Pow(YB - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double G = ((XB - ellipseB.Center.X) + Pow(YC - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            double H = ((XB - ellipseB.Center.X) + Pow(YD - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
+            if (Abs(F) < Abs(E)) YA = YB;
+            if (Abs(H) < Abs(G)) YC = YD;
+            if (ellipseA.Center.Y == ellipseB.Center.Y) YC = 2 * ellipseA.Center.Y - YA;
+            return new LineSegment(XA, YA, XB, YC);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class EllipseIntersectStuff
+        {
+            internal bool GotEllipse1 = false, GotEllipse2 = false;
+            private Rectangle2D Ellipse1 = new Rectangle2D();
+            private Rectangle2D Ellipse2 = new Rectangle2D();
+
+            // Equations that define the ellipses.
+            internal double Dx1 = 0;
+            internal double Dy1 = 0;
+            internal double Dx2 = 0;
+            internal double Dy2 = 0;
+
+            internal double Rx1 = 0;
+            internal double Ry1 = 0;
+            internal double Rx2 = 0;
+            internal double Ry2 = 0;
+
+            internal double A1 = 0;
+            internal double B1 = 0;
+            internal double C1 = 0;
+            internal double D1 = 0;
+            internal double E1 = 0;
+            internal double F1 = 0;
+            internal double A2 = 0;
+            internal double B2 = 0;
+            internal double C2 = 0;
+            internal double D2 = 0;
+            internal double E2 = 0;
+            internal double F2 = 0;
+
+            // The points of intersection.
+            internal List<Point2D> Roots = new List<Point2D>();
+            internal List<double> RootSign1 = new List<double>();
+            internal List<double> RootSign2 = new List<double>();
+            internal List<Point2D> PointsOfIntersection = new List<Point2D>();
+
+            // Difference function tangent lines.
+            internal double TangentX = 0;
+            internal List<Point2D> TangentCenters = null;
+            internal List<Point2D> TangentP1 = null;
+            internal List<Point2D> TangentP2 = null;
+        }
+
+        private const double small = 0.1f;
+
+        /// <summary>
+        /// Find the points of intersection.
+        /// </summary>
+        /// <param name="xmin"></param>
+        /// <param name="xmax"></param>
+        /// <param name="eis"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static void FindPointsOfIntersectionNewtonsMethod(double xmin, double xmax, EllipseIntersectStuff eis)
+        {
+            eis.Roots = new List<Point2D>();
+            eis.RootSign1 = new List<double>();
+            eis.RootSign2 = new List<double>();
+
+            if (!eis.GotEllipse1 || !eis.GotEllipse2) return;
+
+            // Find roots for each of the difference equations.
+            double[] signs = { +1f, -1f };
+            foreach (double sign1 in signs)
+            {
+                foreach (double sign2 in signs)
+                {
+                    List<Point2D> points = FindRootsUsingNewtonsMethod(
+                        xmin, xmax,
+                        eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, sign1,
+                        eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, sign2);
+                    if (points.Count > 0)
+                    {
+                        eis.Roots.AddRange(points);
+                        for (int i = 0; i < points.Count; i++)
+                        {
+                            eis.RootSign1.Add(sign1);
+                            eis.RootSign2.Add(sign2);
+                        }
+                    }
+                }
+            }
+
+            // Find corresponding points of intersection.
+            eis.PointsOfIntersection = new List<Point2D>();
+            for (int i = 0; i < eis.Roots.Count; i++)
+            {
+                double y1 = G1(eis.Roots[i].X, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, eis.RootSign1[i]);
+                double y2 = G1(eis.Roots[i].X, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, eis.RootSign2[i]);
+                eis.PointsOfIntersection.Add(new Point2D(eis.Roots[i].X, y1));
+
+                // Validation.
+                const double small = 0.001f;
+                Debug.Assert(Abs(y1 - y2) < small);
+            }
+        }
+
+        /// <summary>
+        /// Find the points of intersection.
+        /// </summary>
+        /// <param name="xmin"></param>
+        /// <param name="xmax"></param>
+        /// <param name="eis"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/</remarks>
+        private static void FindPointsOfIntersectionUsingBinaryDivision(double xmin, double xmax, EllipseIntersectStuff eis)
+        {
+            eis.Roots = new List<Point2D>();
+            eis.RootSign1 = new List<double>();
+            eis.RootSign2 = new List<double>();
+
+            if (!eis.GotEllipse1 || !eis.GotEllipse2) return;
+
+            // Find roots for each of the difference equations.
+            double[] signs = { +1f, -1f };
+            foreach (double sign1 in signs)
+            {
+                foreach (double sign2 in signs)
+                {
+                    List<Point2D> points = FindRootsUsingBinaryDivision(
+                        xmin, xmax,
+                        eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, sign1,
+                        eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, sign2);
+                    if (points.Count > 0)
+                    {
+                        eis.Roots.AddRange(points);
+                        for (int i = 0; i < points.Count; i++)
+                        {
+                            eis.RootSign1.Add(sign1);
+                            eis.RootSign2.Add(sign2);
+                        }
+                    }
+                }
+            }
+
+            // Find corresponding points of intersection.
+            eis.PointsOfIntersection = new List<Point2D>();
+            for (int i = 0; i < eis.Roots.Count; i++)
+            {
+                double y1 = G1(eis.Roots[i].X, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, eis.RootSign1[i]);
+                double y2 = G1(eis.Roots[i].X, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, eis.RootSign2[i]);
+                eis.PointsOfIntersection.Add(new Point2D(eis.Roots[i].X, y1));
+
+                // Validation.
+                Debug.Assert(Abs(y1 - y2) < small);
+            }
+        }
+
+        /// <summary>
+        /// Find roots by using Newton's method.
+        /// </summary>
+        /// <param name="xmin"></param>
+        /// <param name="xmax"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="C1"></param>
+        /// <param name="D1"></param>
+        /// <param name="E1"></param>
+        /// <param name="F1"></param>
+        /// <param name="sign1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="C2"></param>
+        /// <param name="D2"></param>
+        /// <param name="E2"></param>
+        /// <param name="F2"></param>
+        /// <param name="sign2"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static List<Point2D> FindRootsUsingNewtonsMethod(double xmin, double xmax,
+            double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+        {
+            List<Point2D> roots = new List<Point2D>();
+            const int num_tests = 1000;
+            double delta_x = (xmax - xmin) / (num_tests - 1);
+
+            // Loop over the possible x values looking for roots.
+            double x0 = xmin;
+            double x, y;
+            for (int i = 0; i < num_tests; i++)
+            {
+                // Try to find a root at this position.
+                UseNewtonsMethod(x0, out x, out y,
+                    A1, B1, C1, D1, E1, F1, sign1,
+                    A2, B2, C2, D2, E2, F2, sign2);
+
+                // See if we have already found this root.
+                if (IsNumber(y))
+                {
+                    bool is_new = true;
+                    foreach (Point2D pt in roots)
+                    {
+                        const double small = 0.001f;
+                        if (Abs(pt.X - x) < small)
+                        {
+                            is_new = false;
+                            break;
+                        }
+                    }
+
+                    // If this is a new point, save it.
+                    if (is_new)
+                    {
+                        roots.Add(new Point2D(x, y));
+
+                        // If we've found two roots, we won't find any more.
+                        if (roots.Count > 1) return roots;
+                    }
+                }
+
+                x0 += delta_x;
+            }
+
+            return roots;
+        }
+
+        /// <summary>
+        /// Find roots by using binary division.
+        /// </summary>
+        /// <param name="xmin"></param>
+        /// <param name="xmax"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="C1"></param>
+        /// <param name="D1"></param>
+        /// <param name="E1"></param>
+        /// <param name="F1"></param>
+        /// <param name="sign1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="C2"></param>
+        /// <param name="D2"></param>
+        /// <param name="E2"></param>
+        /// <param name="F2"></param>
+        /// <param name="sign2"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/</remarks>
+        private static List<Point2D> FindRootsUsingBinaryDivision(double xmin, double xmax,
+            double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+        {
+            List<Point2D> roots = new List<Point2D>();
+            const int num_tests = 10;
+            double delta_x = (xmax - xmin) / (num_tests - 1);
+
+            // Loop over the possible x values looking for roots.
+            double x0 = xmin;
+            double x, y;
+            for (int i = 0; i < num_tests; i++)
+            {
+                // Try to find a root in this range.
+                UseBinaryDivision(x0, delta_x, out x, out y,
+                    A1, B1, C1, D1, E1, F1, sign1,
+                    A2, B2, C2, D2, E2, F2, sign2);
+
+                // See if we have already found this root.
+                if (IsNumber(y))
+                {
+                    bool is_new = true;
+                    foreach (Point2D pt in roots)
+                    {
+                        if (Abs(pt.X - x) < small)
+                        {
+                            is_new = false;
+                            break;
+                        }
+                    }
+
+                    // If this is a new point, save it.
+                    if (is_new)
+                    {
+                        roots.Add(new Point2D(x, y));
+
+                        // If we've found two roots, we won't find any more.
+                        if (roots.Count > 1) return roots;
+                    }
+                }
+
+                x0 += delta_x;
+            }
+
+            return roots;
+        }
+
+        /// <summary>
+        /// Find a root by using Newton's method.
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="C1"></param>
+        /// <param name="D1"></param>
+        /// <param name="E1"></param>
+        /// <param name="F1"></param>
+        /// <param name="sign1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="C2"></param>
+        /// <param name="D2"></param>
+        /// <param name="E2"></param>
+        /// <param name="F2"></param>
+        /// <param name="sign2"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static void UseNewtonsMethod(double x0, out double x, out double y,
+            double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+        {
+            const double cutoff = 0.0000001f;
+            const double tiny = 0.00001f;
+            const int max_iterations = 100;
+            double epsilon;
+            int iterations = 0;
+
+            do
+            {
+                // Display this guess x0.
+                iterations++;
+
+                // Make sure x0 isn't on a flat spot.
+                double g_prime = GPrime(x0,
+                    A1, B1, C1, D1, E1, F1, sign1,
+                    A2, B2, C2, D2, E2, F2, sign2);
+                while (Abs(g_prime) < tiny)
+                {
+                    x0 += tiny;
+                    g_prime = GPrime(x0,
+                        A1, B1, C1, D1, E1, F1, sign1,
+                        A2, B2, C2, D2, E2, F2, sign2);
+                }
+
+                // Calculate the next estimate for x0.
+                double g = G(x0,
+                    A1, B1, C1, D1, E1, F1, sign1,
+                    A2, B2, C2, D2, E2, F2, sign2);
+                epsilon = -g / g_prime;
+                x0 += epsilon;
+            } while ((Abs(epsilon) > cutoff) && (iterations < max_iterations));
+
+            x = x0;
+            y = G(x0,
+                A1, B1, C1, D1, E1, F1, sign1,
+                A2, B2, C2, D2, E2, F2, sign2);
+            //Console.WriteLine("G1(" + x + ") = " + y +
+            //    ", Epsilon: " + epsilon +
+            //    ", Iterations: " + iterations);
+        }
+
+        /// <summary>
+        /// Find a root by using binary division.
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="delta_x"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="C1"></param>
+        /// <param name="D1"></param>
+        /// <param name="E1"></param>
+        /// <param name="F1"></param>
+        /// <param name="sign1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="C2"></param>
+        /// <param name="D2"></param>
+        /// <param name="E2"></param>
+        /// <param name="F2"></param>
+        /// <param name="sign2"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/</remarks>
+        private static void UseBinaryDivision(double x0, double delta_x,
+            out double x, out double y,
+            double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+        {
+            const int num_trials = 200;
+            const int sgn_nan = -2;
+
+            // Get G(x) for the bounds.
+            double xmin = x0;
+            double g_xmin = G(xmin,
+                A1, B1, C1, D1, E1, F1, sign1,
+                A2, B2, C2, D2, E2, F2, sign2);
+            if (Abs(g_xmin) < small)
+            {
+                x = xmin;
+                y = g_xmin;
+                return;
+            }
+
+            double xmax = xmin + delta_x;
+            double g_xmax = G(xmax,
+                A1, B1, C1, D1, E1, F1, sign1,
+                A2, B2, C2, D2, E2, F2, sign2);
+            if (Abs(g_xmax) < small)
+            {
+                x = xmax;
+                y = g_xmax;
+                return;
+            }
+
+            // Get the sign of the values.
+            int sgn_min, sgn_max;
+            if (IsNumber(g_xmin)) sgn_min = Sign(g_xmin);
+            else sgn_min = sgn_nan;
+            if (IsNumber(g_xmax)) sgn_max = Sign(g_xmax);
+            else sgn_max = sgn_nan;
+
+            // If the two values have the same sign,
+            // then there is no root here.
+            if (sgn_min == sgn_max)
+            {
+                x = 1;
+                y = double.NaN;
+                return;
+            }
+
+            // Use binary division to find the point of intersection.
+            double xmid = 0, g_xmid = 0;
+            int sgn_mid = 0;
+            for (int i = 0; i < num_trials; i++)
+            {
+                // Get values for the midpoint.
+                xmid = (xmin + xmax) / 2;
+                g_xmid = G(xmid,
+                    A1, B1, C1, D1, E1, F1, sign1,
+                    A2, B2, C2, D2, E2, F2, sign2);
+                if (IsNumber(g_xmid)) sgn_mid = Sign(g_xmid);
+                else sgn_mid = sgn_nan;
+
+                // If sgn_mid is 0, gxmid is 0 so this is the root.
+                if (sgn_mid == 0) break;
+
+                // See which half contains the root.
+                if (sgn_mid == sgn_min)
+                {
+                    // The min and mid values have the same sign.
+                    // Search the right half.
+                    xmin = xmid;
+                    g_xmin = g_xmid;
+                }
+                else if (sgn_mid == sgn_max)
+                {
+                    // The max and mid values have the same sign.
+                    // Search the left half.
+                    xmax = xmid;
+                    g_xmax = g_xmid;
+                }
+                else
+                {
+                    // The three values have different signs.
+                    // Assume min or max is NaN.
+                    if (sgn_min == sgn_nan)
+                    {
+                        // Value g_xmin is NaN. Use the right half.
+                        xmin = xmid;
+                        g_xmin = g_xmid;
+                    }
+                    else if (sgn_max == sgn_nan)
+                    {
+                        // Value g_xmax is NaN. Use the right half.
+                        xmax = xmid;
+                        g_xmax = g_xmid;
+                    }
+                    else
+                    {
+                        // This is a weird case. Just trap it.
+                        throw new InvalidOperationException(
+                            "Unexpected difference curve. " +
+                            "Cannot find a root between X = " +
+                            xmin + " and X = " + xmax);
+                    }
+                }
+            }
+
+            if (IsNumber(g_xmid) && (Abs(g_xmid) < small))
+            {
+                x = xmid;
+                y = g_xmid;
+            }
+            else if (IsNumber(g_xmin) && (Abs(g_xmin) < small))
+            {
+                x = xmin;
+                y = g_xmin;
+            }
+            else if (IsNumber(g_xmax) && (Abs(g_xmax) < small))
+            {
+                x = xmax;
+                y = g_xmax;
+            }
+            else
+            {
+                x = xmid;
+                y = double.NaN;
+            }
+        }
+
+        /// <summary>
+        /// Get an ellipse's points from its equation.
+        /// </summary>
+        /// <param name="xmin"></param>
+        /// <param name="xmax"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <param name="D"></param>
+        /// <param name="E"></param>
+        /// <param name="F"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static List<Point2D> GetPointsFromEquation(double xmin, double xmax,
+            double A, double B, double C, double D, double E, double F)
+        {
+            List<Point2D> points = new List<Point2D>();
+            for (double x = xmin; x <= xmax; x++)
+            {
+                double y = G1(A, B, C, D, E, F, x, +1f);
+                if (IsNumber(y)) points.Add(new Point2D(x, y));
+            }
+            for (double x = xmax; x >= xmin; x--)
+            {
+                double y = G1(A, B, C, D, E, F, x, -1f);
+                if (IsNumber(y)) points.Add(new Point2D(x, y));
+            }
+            return points;
+        }
+
+        /// <summary>
+        /// Get points representing the difference between the two ellipses' equations. 
+        /// </summary>
+        /// <param name="xmin1"></param>
+        /// <param name="xmax1"></param>
+        /// <param name="xmin2"></param>
+        /// <param name="xmax2"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="C1"></param>
+        /// <param name="D1"></param>
+        /// <param name="E1"></param>
+        /// <param name="F1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="C2"></param>
+        /// <param name="D2"></param>
+        /// <param name="E2"></param>
+        /// <param name="F2"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static List<List<Point2D>> GetDifferencePoints(
+            double xmin1, double xmax1,
+            double xmin2, double xmax2,
+            double A1, double B1, double C1, double D1, double E1, double F1,
+            double A2, double B2, double C2, double D2, double E2, double F2)
+        {
+            double xmin = Min(xmin1, xmin2);
+            double xmax = Max(xmax1, xmax2);
+            List<List<Point2D>> result = new List<List<Point2D>>();
+
+            double[] signs = { -1f, +1f };
+            foreach (double sign1 in signs)
+            {
+                foreach (double sign2 in signs)
+                {
+                    List<Point2D> points = new List<Point2D>();
+                    result.Add(points);
+                    for (double x = xmin; x <= xmax; x++)
+                    {
+                        double y1 = G1(A1, B1, C1, D1, E1, F1, x, sign1);
+                        if (IsNumber(y1))
+                        {
+                            double y2 = G1(A2, B2, C2, D2, E2, F2, x, sign2);
+                            if (IsNumber(y2)) points.Add(new Point2D(x, y1 - y2));
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find tangents to the difference functions.
+        /// </summary>
+        /// <param name="eis"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static void FindDifferenceTangents(EllipseIntersectStuff eis)
+        {
+            eis.TangentCenters = new List<Point2D>();
+            eis.TangentP1 = new List<Point2D>();
+            eis.TangentP2 = new List<Point2D>();
+
+            if (!eis.GotEllipse1 || !eis.GotEllipse2) return;
+
+            const double tangent_length = 50;
+
+            //++
+            double tangent_y = G(eis.TangentX,
+                eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f,
+                eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
+            if (IsNumber(tangent_y))
+            {
+                double slope =
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f) -
+                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
+                if (IsNumber(slope))
+                {
+                    double delta_x = Sqrt(
+                        tangent_length * tangent_length / (1 + slope * slope)) / 2;
+                    eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
+                    eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
+                    eis.TangentP2.Add(new Point2D(eis.TangentX + delta_x, tangent_y + slope * delta_x));
+                }
+            }
+
+            //+-
+            tangent_y = G(eis.TangentX,
+                eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f,
+                eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
+            if (IsNumber(tangent_y))
+            {
+                double slope =
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f) -
+                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
+                if (IsNumber(slope))
+                {
+                    double delta_x = Sqrt(
+                        tangent_length * tangent_length / (1 + slope * slope)) / 2;
+                    eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
+                    eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
+                    eis.TangentP2.Add(new Point2D(eis.TangentX + delta_x, tangent_y + slope * delta_x));
+                }
+            }
+
+            //-+
+            tangent_y = G(eis.TangentX,
+                eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f,
+                eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
+            if (IsNumber(tangent_y))
+            {
+                double slope =
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f) -
+                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
+                if (IsNumber(slope))
+                {
+                    double delta_x = Sqrt(
+                        tangent_length * tangent_length / (1 + slope * slope)) / 2;
+                    eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
+                    eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
+                    eis.TangentP2.Add(new Point2D(eis.TangentX + delta_x, tangent_y + slope * delta_x));
+                }
+            }
+
+            //--
+            tangent_y = G(eis.TangentX,
+                eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f,
+                eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
+            if (IsNumber(tangent_y))
+            {
+                double slope =
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f) -
+                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
+                if (IsNumber(slope))
+                {
+                    double delta_x = Sqrt(
+                        tangent_length * tangent_length / (1 + slope * slope)) / 2;
+                    eis.TangentCenters.Add(new Point2D(eis.TangentX, tangent_y));
+                    eis.TangentP1.Add(new Point2D(eis.TangentX - delta_x, tangent_y - slope * delta_x));
+                    eis.TangentP2.Add(new Point2D(eis.TangentX + delta_x, tangent_y + slope * delta_x));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get the equation for this ellipse.
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <param name="Dx"></param>
+        /// <param name="Dy"></param>
+        /// <param name="Rx"></param>
+        /// <param name="Ry"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <param name="D"></param>
+        /// <param name="E"></param>
+        /// <param name="F"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static void GetEllipseFormula(Rectangle2D rect,
+            out double Dx, out double Dy, out double Rx, out double Ry,
+            out double A, out double B, out double C, out double D,
+            out double E, out double F)
+        {
+            Dx = rect.X + rect.Width / 2f;
+            Dy = rect.Y + rect.Height / 2f;
+            Rx = rect.Width / 2f;
+            Ry = rect.Height / 2f;
+
+            A = 1f / Rx / Rx;
+            B = 0;
+            C = 1f / Ry / Ry;
+            D = -2f * Dx / Rx / Rx;
+            E = -2f * Dy / Ry / Ry;
+            F = Dx * Dx / Rx / Rx + Dy * Dy / Ry / Ry - 1;
+
+            // Verify the parameters.
+            Console.WriteLine();
+            double xmid = rect.Left + rect.Width / 2f;
+            double ymid = rect.Top + rect.Height / 2f;
+            VerifyEquation(A, B, C, D, E, F, rect.Left, ymid);
+            VerifyEquation(A, B, C, D, E, F, rect.Right, ymid);
+            VerifyEquation(A, B, C, D, E, F, xmid, rect.Top);
+            VerifyEquation(A, B, C, D, E, F, xmid, rect.Bottom);
+        }
+
+        /// <summary>
+        /// Verify that the equation gives a value close to 0 for the given point (x, y).
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <param name="D"></param>
+        /// <param name="E"></param>
+        /// <param name="F"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static void VerifyEquation(double A, double B, double C, double D, double E, double F, double x, double y)
+        {
+            double total = A * x * x + B * x * y + C * y * y + D * x + E * y + F;
+            Console.WriteLine("VerifyEquation (" + x + ", " + y + ") = " + total);
+            Debug.Assert(Abs(total) < 0.001f);
+        }
+
+        /// <summary>
+        /// Calculate G1(x). root_sign is -1 or 1.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <param name="D"></param>
+        /// <param name="E"></param>
+        /// <param name="F"></param>
+        /// <param name="root_sign"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static double G1(double x, double A, double B, double C, double D, double E, double F, double root_sign)
+        {
+            double result = B * x + E;
+            result = result * result;
+            result = result - 4 * C * (A * x * x + D * x + F);
+            result = root_sign * Sqrt(result);
+            result = -(B * x + E) + result;
+            result = result / 2 / C;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Calculate G1'(x). root_sign is -1 or 1.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <param name="D"></param>
+        /// <param name="E"></param>
+        /// <param name="F"></param>
+        /// <param name="root_sign"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static double G1Prime(double x, double A, double B, double C, double D, double E, double F, double root_sign)
+        {
+            double numerator = 2 * (B * x + E) * B - 4 * C * (2 * A * x + D);
+            double denominator = 2 * Sqrt((B * x + E) * (B * x + E) - 4 * C * (A * x * x + D * x + F));
+            double result = -B + root_sign * numerator / denominator;
+            result = result / 2 / C;
+            return result;
+        }
+
+        /// <summary>
+        /// Calculate G(x).
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="C1"></param>
+        /// <param name="D1"></param>
+        /// <param name="E1"></param>
+        /// <param name="F1"></param>
+        /// <param name="sign1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="C2"></param>
+        /// <param name="D2"></param>
+        /// <param name="E2"></param>
+        /// <param name="F2"></param>
+        /// <param name="sign2"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static double G(double x,
+            double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+        {
+            return
+                G1(x, A1, B1, C1, D1, E1, F1, sign1) -
+                G1(x, A2, B2, C2, D2, E2, F2, sign2);
+        }
+
+        /// <summary>
+        /// Calculate G'(x).
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="C1"></param>
+        /// <param name="D1"></param>
+        /// <param name="E1"></param>
+        /// <param name="F1"></param>
+        /// <param name="sign1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="C2"></param>
+        /// <param name="D2"></param>
+        /// <param name="E2"></param>
+        /// <param name="F2"></param>
+        /// <param name="sign2"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static double GPrime(double x,
+            double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+        {
+            return
+                G1Prime(x, A1, B1, C1, D1, E1, F1, sign1) -
+                G1Prime(x, A2, B2, C2, D2, E2, F2, sign2);
+        }
+
+        /// <summary>
+        /// Return true if the number is not infinity or NaN.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
+        private static bool IsNumber(double number)
+        {
+            return !(double.IsNaN(number) || double.IsInfinity(number));
+        }
+
+        #endregion
+
+        #region Intersection of Ellipse and line
+
+        /// <summary>
+        /// Finds the Intersection of a Ellipse and a Line
+        /// </summary>
+        /// <param name="ellipse"></param>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static LineSegment Intersect(Ellipse ellipse, LineSegment line)
+        {
+            double SlopeA = line.Slope();
+            double SlopeB = (line.A.Y - (SlopeA * line.A.X));
+            double A = (1 + (SlopeA * SlopeA));
+            double B = ((2 * (SlopeA * (SlopeB - ellipse.Center.Y))) - (2 * ellipse.Center.X));
+            double C = ((ellipse.Center.X * ellipse.Center.X) + (((SlopeB - ellipse.Center.Y) * (SlopeB - ellipse.Center.X)) - (ellipse.MajorRadius * ellipse.MajorRadius)));
+            double XA = ((((B * -1) + Sqrt(((B * B) - (A * C)))) / (2 * A)));
+            double XB = ((((B - Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
+            double YA = ((SlopeA * XA) + SlopeB);
+            double YB = ((SlopeA * XB) + SlopeB);
+            return new LineSegment(XA, YA, XB, YB);
+        }
+
+        #endregion
+
+        #region Intersection of Parabola and Hyperbola
+        //http://csharphelper.com/blog/2014/11/see-where-a-parabola-and-hyperbola-intersect-in-c/
         #endregion
 
         #region Intersection of two Line Segments
@@ -2467,6 +4255,304 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Line in Polyline
+
+        /// <summary>
+        /// This function should be called with the full set of *all* relevant polygons.
+        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
+        /// Note:  As much as possible, this algorithm tries to return YES when the
+        /// test line-segment is exactly on the border of the polygon, particularly
+        /// if the test line-segment *is* a side of a polygon.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool LineInPolygon(Point2D start, Point2D end, Polygon polygon)
+        {
+            int i;
+            int j;
+            double sX;
+            double sY;
+            double eX;
+            double eY;
+            double rotSX;
+            double rotSY;
+            double rotEX;
+            double rotEY;
+            double crossX;
+
+            end.X -= start.X;
+            end.Y -= start.Y;
+            double dist = Sqrt(end.X * end.X + end.Y * end.Y);
+            double theCos = end.X / dist;
+            double theSin = end.Y / dist;
+            for (i = 0; i < polygon.Points.Count; i++)
+            {
+                j = i + 1;
+                if (j == polygon.Points.Count) j = 0;
+
+                sX = polygon.Points[i].X - start.X;
+                sY = polygon.Points[i].Y - start.Y;
+                eX = polygon.Points[j].X - start.X;
+                eY = polygon.Points[j].Y - start.Y;
+                if (sX == 0.0 && sY == 0.0 && eX == end.X && eY == end.Y
+                || eX == 0.0 && eY == 0.0 && sX == end.X && sY == end.Y)
+                {
+                    return true;
+                }
+
+                rotSX = sX * theCos + sY * theSin;
+                rotSY = sY * theCos - sX * theSin;
+                rotEX = eX * theCos + eY * theSin;
+                rotEY = eY * theCos - eX * theSin;
+                if (rotSY < 0.0 && rotEY > 0.0
+                || rotEY < 0.0 && rotSY > 0.0)
+                {
+                    crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
+                    if (crossX >= 0.0 && crossX <= dist) return false;
+                }
+
+                if (rotSY == 0.0 && rotEY == 0.0
+                && (rotSX >= 0.0 || rotEX >= 0.0)
+                && (rotSX <= dist || rotEX <= dist)
+                && (rotSX < 0.0 || rotEX < 0.0
+                || rotSX > dist || rotEX > dist))
+                {
+                    return false;
+                }
+            }
+
+            return polygon.Contains(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0));
+        }
+
+        #endregion
+
+        #region Line in Polyline set
+
+        /// <summary>
+        /// This function should be called with the full set of *all* relevant polygons.
+        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
+        /// Note:  As much as possible, this algorithm tries to return YES when the
+        /// test line-segment is exactly on the border of the polygon, particularly
+        /// if the test line-segment *is* a side of a polygon.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="allPolys"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool LineInPolygonSet(PolygonSet allPolys, Point2D start, Point2D end)
+        {
+            double theCos, theSin, dist, sX, sY, eX, eY, rotSX, rotSY, rotEX, rotEY, crossX;
+            int i, j, polyI;
+
+            end.X -= start.X;
+            end.Y -= start.Y; dist = Sqrt(end.X * end.X + end.Y * end.Y);
+            theCos = end.X / dist;
+            theSin = end.Y / dist;
+
+            for (polyI = 0; polyI < allPolys.Count; polyI++)
+            {
+                for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
+                {
+                    j = i + 1; if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
+
+                    sX = allPolys.Polygons[polyI].Points[i].X - start.X;
+                    sY = allPolys.Polygons[polyI].Points[i].Y - start.Y;
+                    eX = allPolys.Polygons[polyI].Points[j].X - start.X;
+                    eY = allPolys.Polygons[polyI].Points[j].Y - start.Y;
+                    if (sX == 0.0 && sY == 0.0 && eX == end.X && eY == end.Y
+                    || eX == 0.0 && eY == 0.0 && sX == end.X && sY == end.Y)
+                    {
+                        return true;
+                    }
+
+                    rotSX = sX * theCos + sY * theSin;
+                    rotSY = sY * theCos - sX * theSin;
+                    rotEX = eX * theCos + eY * theSin;
+                    rotEY = eY * theCos - eX * theSin;
+                    if (rotSY < 0.0 && rotEY > 0.0
+
+                    || rotEY < 0.0 && rotSY > 0.0)
+                    {
+                        crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
+                        if (crossX >= 0.0 && crossX <= dist) return false;
+                    }
+
+                    if (rotSY == 0.0 && rotEY == 0.0
+
+                    && (rotSX >= 0.0 || rotEX >= 0.0)
+                    && (rotSX <= dist || rotEX <= dist)
+                    && (rotSX < 0.0 || rotEX < 0.0
+
+                    || rotSX > dist || rotEX > dist))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return allPolys.Contains(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0));
+        }
+
+        #endregion
+
+        #region List Interpolation Points of Cubic Bezier 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static List<Point2D> InterpolatePoints(CubicBezier bezier, int count)
+        {
+            Point2D[] ipoints = new Point2D[count + 1];
+            for (int i = 0; i <= count; i += 1)
+            {
+                double v = (1d / count) * i;
+                ipoints[i] = bezier.Interpolate(v);
+            }
+
+            return new List<Point2D>(ipoints);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static List<Point2D> InterpolateCubicBeizerPoints(CubicBezier bezier, int count)
+        {
+            return InterpolateCubicBeizerPoints(bezier.A, bezier.B, bezier.C, bezier.D, count);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a">the starting point, or A in the above diagram</param>
+        /// <param name="b">the first control point, or B</param>
+        /// <param name="c">the second control point, or C</param>
+        /// <param name="d">the end point, or D</param>
+        /// <param name="Precision"></param>
+        /// <returns></returns>
+        private static List<Point2D> InterpolateCubicBeizerPoints(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
+        {
+            Point2D[] BPoints = new Point2D[(int)((1 / Precision) + 2)];
+            BPoints[0] = a;
+            BPoints[BPoints.Length - 1] = d;
+            int Node = 0;
+            for (double Index = 0; Index < 1; Index += Precision)
+            {
+                Node++;
+                BPoints[Node] = new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, Index));
+            }
+
+            return new List<Point2D>(BPoints);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static List<Point2D> ComputeBezierInterpolations(CubicBezier bezier, int count)
+        {
+            return ComputeBezierInterpolations(bezier.A, bezier.B, bezier.C, bezier.D, count);
+        }
+
+        /// <summary>
+        ///  ComputeBezier fills an array of Point2D structs with the curve points
+        ///  generated from the control points cp. Caller must allocate sufficient memory
+        ///  for the result, which is [sizeof(Point2D) * numberOfPoints]
+        /// </summary>
+        /// <param name="a">the starting point, or A in the above diagram</param>
+        /// <param name="b">the first control point, or B</param>
+        /// <param name="c">the second control point, or C</param>
+        /// <param name="d">the end point, or D</param>
+        /// <param name="numberOfPoints"></param>
+        private static List<Point2D> ComputeBezierInterpolations(Point2D a, Point2D b, Point2D c, Point2D d, int numberOfPoints)
+        {
+            List<Point2D> curve = new List<Point2D>();
+            double t = 0;
+            double dt = (1.0d / (numberOfPoints - 1));
+            for (int i = 0; (i <= numberOfPoints); i++)
+            {
+                t += dt;
+                curve.Add(new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t)));
+            }
+            return curve;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static List<Point2D> InterpolateCubicBeizerPoints0(CubicBezier bezier, int count)
+        {
+            return InterpolateCubicBeizerPoints0(bezier.A, bezier.B, bezier.C, bezier.D, count);
+        }
+
+        /// <summary>
+        /// Function to Plot a Cubic Bezier
+        /// </summary>
+        /// <param name="a">the starting point, or A in the above diagram</param>
+        /// <param name="b">the first control point, or B</param>
+        /// <param name="c">the second control point, or C</param>
+        /// <param name="d">the end point, or D</param>
+        /// <param name="Precision"></param>
+        /// <returns></returns>
+        private static List<Point2D> InterpolateCubicBeizerPoints0(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
+        {
+            Point2D[] BPoints = new Point2D[(int)((1 / Precision) + 2)];
+            BPoints[0] = a;
+            BPoints[BPoints.Length - 1] = d;
+            int Node = 0;
+            for (double Index = 0; (Index <= 1); Index = (Index + Precision))
+            {
+                Node++;
+                BPoints[Node] = new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, Index));
+            }
+
+            return new List<Point2D>(BPoints);
+        }
+
+        #endregion
+
+        #region List Interpolation points of Quadratic Bezier
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static List<Point2D> InterpolateQuadraticBezierPoints(QuadraticBezier bezier, int count)
+        {
+            Point2D[] ipoints = new Point2D[count + 1];
+            for (int i = 0; i <= count; i += 1)
+            {
+                double v = (1f / count) * i;
+                ipoints[i] = bezier.Interpolate(v);
+            }
+
+            return new List<Point2D>(ipoints);
+        }
+
+        #endregion
+
         #region Mixed product of Three 3D Points
 
         /// <summary>
@@ -2733,6 +4819,28 @@ namespace MethodSpeedTester
             return new List<SpeedTester>() {
                 new SpeedTester(() => PointInCircle(0, 0, 2, 1, 1),
                 $"{nameof(Experiments.PointInCircle)}(0, 0, 2, 1, 1)"),
+                new SpeedTester(() => PointInCircle(0, 0, 2, 3, 3),
+                $"{nameof(Experiments.PointInCircle)}(0, 0, 2, 3, 3)"),
+                new SpeedTester(() => PointInCircleInline(0, 0, 2, 1, 1),
+                $"{nameof(Experiments.PointInCircleInline)}(0, 0, 2, 1, 1)"),
+                new SpeedTester(() => PointInCircleInline(0, 0, 2, 3, 3),
+                $"{nameof(Experiments.PointInCircleInline)}(0, 0, 2, 3, 3)"),
+                new SpeedTester(() => PointInCirclePhilcolbourn(0, 0, 2, 1, 1),
+                $"{nameof(Experiments.PointInCirclePhilcolbourn)}(0, 0, 2, 1, 1)"),
+                new SpeedTester(() => PointInCirclePhilcolbourn(0, 0, 2, 3, 3),
+                $"{nameof(Experiments.PointInCirclePhilcolbourn)}(0, 0, 2, 3, 3)"),
+                new SpeedTester(() => PointInCircleNPhilcolbourn(0, 0, 2, 1, 1),
+                $"{nameof(Experiments.PointInCircleNPhilcolbourn)}(0, 0, 2, 1, 1)"),
+                new SpeedTester(() => PointInCircleNPhilcolbourn(0, 0, 2, 3, 3),
+                $"{nameof(Experiments.PointInCircleNPhilcolbourn)}(0, 0, 2, 3, 3)"),
+                new SpeedTester(() => PointInCircleWilliamMorrison(0, 0, 2, 1, 1),
+                $"{nameof(Experiments.PointInCircleWilliamMorrison)}(0, 0, 2, 1, 1)"),
+                new SpeedTester(() => PointInCircleWilliamMorrison(0, 0, 2, 3, 3),
+                $"{nameof(Experiments.PointInCircleWilliamMorrison)}(0, 0, 2, 3, 3)"),
+                new SpeedTester(() => PointInCircleX(0, 0, 2, 1, 1),
+                $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 1, 1)"),
+                new SpeedTester(() => PointInCircleX(0, 0, 2, 3, 3),
+                $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 3, 3)"),
             };
         }
 
@@ -2740,14 +4848,206 @@ namespace MethodSpeedTester
         /// Find out if a Point is in a Circle. 
         /// </summary>
         /// <returns></returns>
-        public static bool PointInCircle(
+        /// <remarks></remarks>
+        public static InsideOutside PointInCircle(
+            double centerX, double centerY,
+            double radius,
+            double x, double y)
+        {
+            double distance = Distance2D_0(centerX, centerY, x, y);
+            return (radius >= distance) ? ((radius == distance) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+        }
+
+        /// <summary>
+        /// Find out if a Point is in a Circle. 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static InsideOutside PointInCircleInline(
+            double centerX, double centerY,
+            double radius,
+            double x, double y)
+        {
+            double distance = Sqrt((x - centerX) * (x - centerX) + (y - centerY) * (y - centerY));
+            return (radius >= distance) ? ((radius == distance) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="centerX"></param>
+        /// <param name="centerY"></param>
+        /// <param name="radius"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
+        public static InsideOutside PointInCirclePhilcolbourn(
             double centerX,
             double centerY,
             double radius,
-            double X,
-            double Y)
+            double x,
+            double y)
         {
-            return (radius > Distance2D_0(centerX, centerY, X, Y));
+            double dx = Abs(x - centerX);
+            if (dx > radius) return InsideOutside.Outside;
+            double dy = Abs(y - centerY);
+            if (dy > radius) return InsideOutside.Outside;
+            //if (dx + dy <= radius) return InsideOutside.Inside;
+            double distanceSquared = dx * dx + dy * dy;
+            double radiusSquared = radius * radius;
+            return (radiusSquared >= distanceSquared) ? ((radiusSquared == distanceSquared) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="centerX"></param>
+        /// <param name="centerY"></param>
+        /// <param name="radius"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
+        public static InsideOutside PointInCircleNPhilcolbourn(
+            double centerX,
+            double centerY,
+            double radius,
+            double x,
+            double y)
+        {
+            double dx = Abs(x - centerX);
+            double dy = Abs(y - centerY);
+            double distanceSquared = dx * dx + dy * dy;
+            double radiusSquared = radius * radius;
+            return (radiusSquared >= distanceSquared) ? ((radiusSquared == distanceSquared) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+        }
+
+        /// <summary>
+        /// test if coordinate (x, y) is within a radius from coordinate (centerX, centerY)
+        /// </summary>
+        /// <param name="centerX"></param>
+        /// <param name="centerY"></param>
+        /// <param name="radius"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
+        public static InsideOutside PointInCircleWilliamMorrison(
+            double centerX,
+            double centerY,
+            double radius,
+            double x,
+            double y)
+        {
+            if (x >= centerX - radius && x <= centerX + radius &&
+                y >= centerY - radius && y <= centerY + radius)
+            {
+                double dx = centerX - x;
+                double dy = centerY - y;
+                dx *= dx;
+                dy *= dy;
+                double distanceSquared = dx + dy;
+                double radiusSquared = radius * radius;
+                return (radiusSquared >= distanceSquared) ? ((radiusSquared == distanceSquared) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            }
+            return InsideOutside.Outside;
+        }
+
+        /// <summary>
+        /// test if coordinate (x, y) is within a radius from coordinate (centerX, centerY)
+        /// </summary>
+        /// <param name="centerX"></param>
+        /// <param name="centerY"></param>
+        /// <param name="radius"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static InsideOutside PointInCircleX(
+            double centerX,
+            double centerY,
+            double radius,
+            double x,
+            double y)
+        {
+            if (x >= centerX - radius && x <= centerX + radius &&
+                y >= centerY - radius && y <= centerY + radius)
+            {
+                double dx = ((centerX > x) ? (x - centerX) : (centerX - x));
+                double dy = ((centerY > y) ? (y - centerY) : (centerY - y));
+                if (dx > radius || dy > radius) return InsideOutside.Outside;
+                dx *= dx;
+                dy *= dy;
+                double distanceSquared = dx + dy;
+                double radiusSquared = radius * radius;
+                return (radiusSquared >= distanceSquared) ? ((radiusSquared == distanceSquared) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            }
+            return InsideOutside.Outside;
+        }
+
+        #endregion
+
+        #region Point in Ellipse
+
+        /// <summary>
+        /// Checks whether a point is found within the boundaries of an ellipse.
+        /// </summary>
+        /// <param name="ellipse"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        public static InsideOutside PointInEllipse(Ellipse ellipse, Point2D point)
+        {
+            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return InsideOutside.Outside;
+
+            double cosT = Cos(-ellipse.Angle);
+            double sinT = Sin(-ellipse.Angle);
+
+            double u = point.X - ellipse.Center.X;
+            double v = point.Y - ellipse.Center.Y;
+
+            double a = (cosT * u + sinT * v) * (cosT * u + sinT * v);
+            double b = (sinT * u - cosT * v) * (sinT * u - cosT * v);
+
+            double d1Squared = 4 * ellipse.R1 * ellipse.R1;
+            double d2Squared = 4 * ellipse.R2 * ellipse.R2;
+
+            double normalizedRadius = (a / d1Squared)
+                                    + (b / d2Squared);
+
+            return (normalizedRadius <= 1d) ? ((normalizedRadius == 1d) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+        }
+
+        #endregion
+
+        #region Point in Ellipse Unrotated
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ellipse"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static bool UnrotatedEllipseContainsPoint(Ellipse ellipse, Point2D point)
+        {
+            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return false;
+
+            double u = point.X - ellipse.Center.X;
+            double v = point.Y - ellipse.Center.Y;
+
+            double a = u * u;
+            double b = u * u;
+
+            double d1Squared = ellipse.R1 * ellipse.R1;
+            double d2Squared = ellipse.R2 * ellipse.R2;
+
+            return (a / d1Squared)
+                 + (b / d2Squared) <= 1d;
         }
 
         #endregion
@@ -2768,42 +5068,46 @@ namespace MethodSpeedTester
             Tuple<List<double>, List<double>> PatrickMullenValues = PrecalcPointInPolygonPatrickMullenValues(polygon);
             PointF point = new PointF(1, 1);
             return new List<SpeedTester>() {
-                new SpeedTester(() => PointInPolygonDarelRexFinley(polygon, point),
-                $"{nameof(Experiments.PointInPolygonDarelRexFinley)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonNathanMercer(polygon, point),
-                $"{nameof(Experiments.PointInPolygonNathanMercer)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonLaschaLagidse(polygon, point),
-                $"{nameof(Experiments.PointInPolygonLaschaLagidse)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonPatrickMullen(polygon, point, PatrickMullenValues.Item1, PatrickMullenValues.Item2),
-                $"{nameof(Experiments.PointInPolygonPatrickMullen)}(polygon, {point}, constant, multiple)"),
+                //new SpeedTester(() => PointInPolygonDarelRexFinley(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonDarelRexFinley)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonNathanMercer(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonNathanMercer)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonLaschaLagidse(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonLaschaLagidse)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonPatrickMullen(polygon, point, PatrickMullenValues.Item1, PatrickMullenValues.Item2),
+                //$"{nameof(Experiments.PointInPolygonPatrickMullen)}(polygon, {point}, constant, multiple)"),
                 //new SpeedTester(() => PointInPolygonMeowNET(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonMeowNET)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonAlienRyderFlex(polygon, point),
-                $"{nameof(Experiments.PointInPolygonAlienRyderFlex)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonLaschaLagidse2(polygon, point),
-                $"{nameof(Experiments.PointInPolygonLaschaLagidse2)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonGilKr(polygon, point),
-                $"{nameof(Experiments.PointInPolygonGilKr)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonAlienRyderFlex(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonAlienRyderFlex)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonLaschaLagidse2(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonLaschaLagidse2)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonGilKr(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonGilKr)}(polygon, {point})"),
                 //new SpeedTester(() => PointInPolygonMKatzWRandolphFranklin(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonMKatzWRandolphFranklin)}(polygon, {point})"),
                 //new SpeedTester(() => PointInPolygonRodStephens(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonRodStephens)}(polygon, {point})"),
                 //new SpeedTester(() => PointInPolygonSaeedAmiri(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonSaeedAmiri)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonKeith(polygon, point),
-                $"{nameof(Experiments.PointInPolygonKeith)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonKeith(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonKeith)}(polygon, {point})"),
                 //new SpeedTester(() => PointInPolygonJerryKnauss(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonJerryKnauss)}(polygon, {point})"),
                 //new SpeedTester(() => PointInPolygonJerryKnauss2(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonJerryKnauss2)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonPaulBourke(polygon, point),
-                $"{nameof(Experiments.PointInPolygonPaulBourke)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonWRandolphFranklin(polygon, point),
-                $"{nameof(Experiments.PointInPolygonWRandolphFranklin)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonPaulBourke(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonPaulBourke)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonWRandolphFranklin(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonWRandolphFranklin)}(polygon, {point})"),
                 //new SpeedTester(() => PointInPolygonPhilippeReverdy(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonPhilippeReverdy)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonBobStein(polygon, point),
-                $"{nameof(Experiments.PointInPolygonBobStein)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonBobStein(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonBobStein)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonHormannAgathos(polygon, point),
+                $"{nameof(Experiments.PointInPolygonHormannAgathos)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonHormannAgathosX(polygon, point),
+                $"{nameof(Experiments.PointInPolygonHormannAgathosX)}(polygon, {point})"),
             };
         }
 
@@ -2856,8 +5160,11 @@ namespace MethodSpeedTester
 
             for (int i = 0; i < polygon.Count; i++)
             {
-                if ((((polygon[j].Y < point.Y) && (point.Y < polygon[i].Y))
-                    || ((polygon[i].Y < point.Y) && (point.Y < polygon[j].Y)))
+                if (((
+                    (polygon[j].Y < point.Y)
+                    && (point.Y < polygon[i].Y))
+                    || ((polygon[i].Y < point.Y)
+                    && (point.Y < polygon[j].Y)))
                     && (point.X < (polygon[i].X - polygon[j].X)
                     * (point.Y - polygon[j].Y)
                     / (polygon[i].Y - polygon[j].Y) + polygon[j].X))
@@ -2887,11 +5194,15 @@ namespace MethodSpeedTester
 
             for (int i = 0; i < polygon.Count; i++)
             {
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                if (
+                    polygon[i].Y < point.Y
+                    && polygon[j].Y >= point.Y
+                    || polygon[j].Y < point.Y
+                    && polygon[i].Y >= point.Y)
                 {
                     if (polygon[i].X + (point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
+                        / (polygon[j].Y - polygon[i].Y)
+                        * (polygon[j].X - polygon[i].X) < point.X)
                     {
                         oddNodes = !oddNodes;
                     }
@@ -3466,45 +5777,6 @@ namespace MethodSpeedTester
             return inside;
         }
 
-        //        /// <summary>
-        //        /// 
-        //        /// </summary>
-        //        /// <param name="polygon"></param>
-        //        /// <param name="point"></param>
-        //        /// <returns></returns>
-        //        /// <remarks>
-        //        /// http://stackoverflow.com/questions/11716268/point-in-polygon-algorithm
-        //        /// </remarks>
-        //        public static bool point_in_polygon_check_edge(List<PointF> polygon, PointF point, double edge_error = 1.192092896e-07f)
-        //        {
-        //            int x = 0;
-        //            int y = 1;
-        //            bool r = false;
-        //            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
-        //            {
-        //                PointF pi = polygon[i];
-        //                PointF pj = polygon[j];
-        //            if (fabs(pi[y] - pj[y]) <= edge_error && fabs(pj[y] - v[y]) <= edge_error && (pi[x] >= v[x]) != (pj[x] >= v[x]))
-        //            {
-        //                return true;
-        //            }
-
-        //            if ((pi[y] > v[y]) != (pj[y] > v[y]))
-        //            {
-        //                double c = (pj[x] - pi[x]) * (v[y] - pi[y]) / (pj[y] - pi[y]) + pi[x];
-        //                if (fabs(v[x] - c) <= edge_error)
-        //                {
-        //                    return true;
-        //                }
-        //                if (v[x] < c)
-        //                {
-        //                    r = !r;
-        //                }
-        //            }
-        //        }
-        //    return r;
-        //}
-
         /// <summary>
         /// is target point inside a 2D polygon?
         /// </summary>
@@ -3557,6 +5829,513 @@ namespace MethodSpeedTester
             }
             return (inside);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        public static InsideOutside PointInPolygonHormannAgathos(List<PointF> polygon, PointF point)
+        {
+            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
+            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
+            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
+            InsideOutside result = InsideOutside.Outside;
+
+            // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
+            if (polygon.Count < 3) return InsideOutside.Outside;
+            PointF curPoint = polygon[0];
+            for (int i = 1; i <= polygon.Count; ++i)
+            {
+                PointF nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
+                if (nextPoint.Y == point.Y)
+                {
+                    if ((nextPoint.X == point.X) || (curPoint.Y == point.Y
+                    && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
+                    {
+                        return InsideOutside.Boundary;
+                    }
+                }
+
+                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                {
+                    if (curPoint.X >= point.X)
+                    {
+                        if (nextPoint.X > point.X)
+                        {
+                            result = 1 - result;
+                        }
+                        else
+                        {
+                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                            if (determinant == 0)
+                            {
+                                return InsideOutside.Boundary;
+                            }
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                        }
+                    }
+                    else
+                    {
+                        if (nextPoint.X > point.X)
+                        {
+                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                            if (determinant == 0)
+                            {
+                                return InsideOutside.Boundary;
+                            }
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                        }
+                    }
+                }
+
+                curPoint = nextPoint;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        public static InsideOutside PointInPolygonHormannAgathosX(List<PointF> polygon, PointF point)
+        {
+            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
+            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
+            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
+            InsideOutside result = InsideOutside.Outside;
+
+            // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
+            if (polygon.Count < 3) return InsideOutside.Outside;
+            PointF curPoint = polygon[0];
+            PointF nextPoint = polygon[1];
+            for (int i = 1; i <= polygon.Count; ++i)
+            {
+                nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
+                if (nextPoint.Y == point.Y)
+                {
+                    if ((nextPoint.X == point.X) || (curPoint.Y == point.Y
+                    && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
+                    {
+                        return InsideOutside.Boundary;
+                    }
+                }
+
+                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                {
+                    if (curPoint.X >= point.X)
+                    {
+                        if (nextPoint.X > point.X)
+                        {
+                            result = 1 - result;
+                        }
+                        else
+                        {
+                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                            if (determinant == 0)
+                            {
+                                return InsideOutside.Boundary;
+                            }
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                            {
+                                result = 1 - result;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (nextPoint.X > point.X)
+                        {
+                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                            if (determinant == 0)
+                            {
+                                return InsideOutside.Boundary;
+                            }
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                            {
+                                result = 1 - result;
+                            }
+                        }
+                    }
+                }
+
+                curPoint = nextPoint;
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region Point in Polygon set
+
+        /// <summary>
+        /// This function automatically knows that enclosed polygons are "no-go" areas.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygons"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool PointInPolygonSet(PolygonSet polygons, Point2D point)
+        {
+            bool oddNodes = false;
+            int j;
+
+            for (int polyI = 0; polyI < polygons.Count; polyI++)
+            {
+                for (int i = 0; i < polygons.Polygons[polyI].Points.Count; i++)
+                {
+                    j = i + 1;
+                    if (j == polygons.Polygons[polyI].Points.Count) j = 0;
+                    if (polygons.Polygons[polyI].Points[i].Y < point.Y
+                    && polygons.Polygons[polyI].Points[j].Y >= point.Y
+                    || polygons.Polygons[polyI].Points[j].Y < point.Y
+                    && polygons.Polygons[polyI].Points[i].Y >= point.Y)
+                    {
+                        if (polygons.Polygons[polyI].Points[i].X + (point.Y - polygons.Polygons[polyI].Points[i].Y)
+                        / (polygons.Polygons[polyI].Points[j].Y - polygons.Polygons[polyI].Points[i].Y)
+                        * (polygons.Polygons[polyI].Points[j].X - polygons.Polygons[polyI].Points[i].X) < point.X)
+                        {
+                            oddNodes = !oddNodes;
+                        }
+                    }
+                }
+            }
+
+            return oddNodes;
+        }
+
+        /// <summary>
+        /// This function automatically knows that enclosed polygons are "no-go" areas.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygons"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool PointInPolygonSetShkyrockett(PolygonSet polygons, Point2D point)
+        {
+            bool returnValue = false;
+
+            foreach (var poly in polygons.Polygons)
+            {
+                returnValue = !poly.Points.Contains(point);
+            }
+
+            return returnValue;
+        }
+
+        #endregion
+
+        #region Point in Rectangle
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [Pure]
+        //[DebuggerStepThrough]
+        public static InsideOutside Contains(Rectangle2D rectangle, Point2D point)
+        {
+            return (rectangle.X <= point.X
+                && point.X < rectangle.X + rectangle.Width
+                && rectangle.Y <= point.Y
+                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [Pure]
+        //[DebuggerStepThrough]
+        public static InsideOutside Contains2(Rectangle2D rectangle, Point2D point)
+        {
+            if (((rectangle.X == point.X || rectangle.Bottom == point.X) && ((rectangle.Y <= point.Y) == (rectangle.Bottom >= point.Y)))
+             || ((rectangle.Right == point.Y || rectangle.Left == point.Y) && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
+            {
+                return InsideOutside.Boundary;
+            }
+
+            return (rectangle.X <= point.X
+                && point.X < rectangle.X + rectangle.Width
+                && rectangle.Y <= point.Y
+                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [Pure]
+        //[DebuggerStepThrough]
+        public static InsideOutside PointOnRectangleX(Rectangle2D rectangle, Point2D point)
+        {
+            double top = Sqrt((rectangle.TopRight.X - rectangle.TopLeft.X) * (rectangle.TopRight.X - rectangle.TopLeft.X) + (rectangle.TopRight.Y - rectangle.TopLeft.Y) * (rectangle.TopRight.Y - rectangle.TopLeft.Y));
+            double right = Sqrt((rectangle.BottomRight.X - rectangle.TopRight.X) * (rectangle.BottomRight.X - rectangle.TopRight.X) + (rectangle.BottomRight.Y - rectangle.TopRight.Y) * (rectangle.BottomRight.Y - rectangle.TopRight.Y));
+            double tlp = (point.X - rectangle.TopLeft.X) * (point.X - rectangle.TopLeft.X) + (point.Y - rectangle.TopLeft.Y) * (point.Y - rectangle.TopLeft.Y);
+            double trp = (point.X - rectangle.TopRight.X) * (point.X - rectangle.TopRight.X) + (point.Y - rectangle.TopRight.Y) * (point.Y - rectangle.TopRight.Y);
+            double brp = (point.X - rectangle.BottomRight.X) * (point.X - rectangle.BottomRight.X) + (point.Y - rectangle.BottomRight.Y) * (point.Y - rectangle.BottomRight.Y);
+            double blp = (point.X - rectangle.BottomLeft.X) * (point.X - rectangle.BottomLeft.X) + (point.Y - rectangle.BottomLeft.Y) * (point.Y - rectangle.BottomLeft.Y);
+
+            if (top == Sqrt(tlp - trp) || right == Sqrt(trp - brp) || top == Sqrt(brp - blp) || right == Sqrt(blp - tlp)) return InsideOutside.Boundary;
+
+            return (rectangle.X <= point.X
+                && point.X < rectangle.X + rectangle.Width
+                && rectangle.Y <= point.Y
+                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+        }
+
+        #endregion
+
+        #region Point Near Ellipse
+
+        /// <summary>
+        /// Return True if the point is inside the ellipse
+        /// (expanded by distance close_distance vertically
+        /// and horizontally).
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="close_distance"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool PointNearEllipse(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
+        {
+            double a = ((Abs((x2 - x1)) / 2) + close_distance);
+            double b = ((Abs((y2 - y1)) / 2) + close_distance);
+            px = (px - (x2 + x1) / 2);
+            py = (py - (y2 + y1) / 2);
+            return ((((px * px) / (a * a)) + (((py * py) / (b * b))) <= 1));
+        }
+
+        #endregion
+
+        #region Point on Line Segment
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segmentAX"></param>
+        /// <param name="segmentAY"></param>
+        /// <param name="segmentBX"></param>
+        /// <param name="segmentBY"></param>
+        /// <param name="pointX"></param>
+        /// <param name="pointY"></param>
+        /// <returns></returns>
+        public static bool PointOnLineSegment(double segmentAX, double segmentAY, double segmentBX, double segmentBY, double pointX, double pointY)
+        {
+            return ((pointX == segmentAX) && (pointY == segmentAY)) ||
+              ((pointX == segmentBX) && (pointY == segmentBY)) ||
+              (((pointX > segmentAX) == (pointX < segmentBX)) &&
+              ((pointY > segmentAY) == (pointY < segmentBY)) &&
+              ((pointX - segmentAX) * (segmentBY - segmentAY) ==
+              (segmentBX - segmentAX) * (pointY - segmentAY)));
+        }
+
+        #endregion
+
+        #region Points are Close
+
+        /// <summary>
+        /// Return True if (x1, y1) is within close_distance vertically and horizontally of (x2, y2).
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = Maths.DoubleEpsilon)
+        {
+            return (Abs(x2 - x1) <= epsilon) && (Abs(y2 - y1) <= epsilon);
+        }
+
+        /// <summary>
+        /// Compares two points for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='point1'>The first point to compare</param>
+        /// <param name='point2'>The second point to compare</param>
+        /// <returns>Whether or not the two points are equal</returns>
+        public static bool AreClose(Point2D point1, Point2D point2, double epsilon = Maths.DoubleEpsilon)
+        {
+            return Maths.AreClose(point1.X, point2.X, epsilon) &&
+            Maths.AreClose(point1.Y, point2.Y, epsilon);
+        }
+
+        /// <summary>
+        /// Compares two Size instances for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='size1'>The first size to compare</param>
+        /// <param name='size2'>The second size to compare</param>
+        /// <returns>Whether or not the two Size instances are equal</returns>
+        public static bool AreClose(Size2D size1, Size2D size2, double epsilon = Maths.DoubleEpsilon)
+        {
+            return Maths.AreClose(size1.Width, size2.Width, epsilon) &&
+                   Maths.AreClose(size1.Height, size2.Height, epsilon);
+        }
+
+        /// <summary>
+        /// Compares two Vector instances for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='vector1'>The first Vector to compare</param>
+        /// <param name='vector2'>The second Vector to compare</param>
+        /// <returns>Whether or not the two Vector instances are equal</returns>
+        public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = Maths.DoubleEpsilon)
+        {
+            return Maths.AreClose(vector1.I, vector2.I, epsilon) &&
+                   Maths.AreClose(vector1.J, vector2.J, epsilon);
+        }
+
+        #endregion
+
+        #region Polygon Area
+
+        /// <summary>
+        /// Add the areas of the trapezoids defined by the
+        /// polygon's edges dropped to the X-axis. When the
+        /// program considers a bottom edge of a polygon, the
+        /// calculation gives a negative area so the space
+        /// between the polygon and the axis is subtracted,
+        /// leaving the polygon's area. This method gives odd
+        /// results for non-simple polygons.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns>
+        /// Return the polygon's area in "square units."
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/</remarks>
+        public static double PolygonArea(Polygon polygon)
+        {
+            // Return the absolute value of the signed area.
+            // The signed area is negative if the polygon is
+            // oriented clockwise.
+            return Abs(SignedPolygonArea(polygon));
+        }
+
+        /// <summary>
+        /// Add the areas of the trapezoids defined by the
+        /// polygon's edges dropped to the X-axis. When the
+        /// program considers a bottom edge of a polygon, the
+        /// calculation gives a negative area so the space
+        /// between the polygon and the axis is subtracted,
+        /// leaving the polygon's area. This method gives odd
+        /// results for non-simple polygons.
+        /// The value will be negative if the polygon is
+        /// oriented clockwise.
+        /// </summary>
+        /// <returns>
+        /// Return the polygon's area in "square units."
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/</remarks>
+        public static double SignedPolygonArea(Polygon polygon)
+        {
+            // Add the first point to the end.
+            int num_points = polygon.Points.Count;
+            Point2D[] pts = new Point2D[num_points + 1];
+            polygon.Points.CopyTo(pts, 0);
+            pts[num_points] = polygon.Points[0];
+
+            // Get the areas.
+            double area = 0;
+            for (int i = 0; i < num_points; i++)
+            {
+                area +=
+                    (pts[i + 1].X - pts[i].X) *
+                    (pts[i + 1].Y + pts[i].Y) / 2;
+            }
+
+            // Return the result.
+            return area;
+        }
+
+        #endregion
+
+        #region Polygon Centroid
+
+        /// <summary>
+        /// Find the polygon's centroid.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/find-the-centroid-of-a-polygon-in-c/</remarks>
+        public static Point2D Centroid(Polygon polygon)
+        {
+            // Add the first point at the end of the array.
+            int num_points = polygon.Points.Count;
+            Point2D[] pts = new Point2D[num_points + 1];
+            polygon.Points.CopyTo(pts, 0);
+            pts[num_points] = polygon.Points[0];
+
+            // Find the centroid.
+            double X = 0;
+            double Y = 0;
+            double second_factor;
+            for (int i = 0; i < num_points; i++)
+            {
+                second_factor =
+                    pts[i].X * pts[i + 1].Y -
+                    pts[i + 1].X * pts[i].Y;
+                X += (pts[i].X + pts[i + 1].X) * second_factor;
+                Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
+            }
+
+            // Divide by 6 times the polygon's area.
+            double polygon_area = PolygonArea(polygon);
+            X /= (6 * polygon_area);
+            Y /= (6 * polygon_area);
+
+            // If the values are negative, the polygon is
+            // oriented counterclockwise so reverse the signs.
+            if (X < 0)
+            {
+                X = -X;
+                Y = -Y;
+            }
+
+            return new Point2D(X, Y);
+        }
+
+        #endregion
+
+        #region Polygon Oriented Clockwise
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns>
+        /// Return true if the polygon is oriented clockwise.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static bool PolygonIsOrientedClockwise(Polygon polygon)
+        {
+            return (SignedPolygonArea(polygon) < 0);
+        }
+
         #endregion
 
         #region Quadratic Bezier Interpolation of 1D Points
@@ -3772,6 +6551,201 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Rectangles are Close
+
+        /// <summary>
+        /// Compares two rectangles for fuzzy equality.  This function
+        /// helps compensate for the fact that double values can 
+        /// acquire error when operated upon
+        /// </summary>
+        /// <param name='rect1'>The first rectangle to compare</param>
+        /// <param name='rect2'>The second rectangle to compare</param>
+        /// <returns>Whether or not the two rectangles are equal</returns>
+        public static bool AreClose(Rectangle2D rect1, Rectangle2D rect2, double epsilon = Maths.DoubleEpsilon)
+        {
+            // If they're both empty, don't bother with the double logic.
+            if (rect1.IsEmpty)
+            {
+                return rect2.IsEmpty;
+            }
+
+            // At this point, rect1 isn't empty, so the first thing we can test is
+            // rect2.IsEmpty, followed by property-wise compares.
+            return (!rect2.IsEmpty) &&
+                Maths.AreClose(rect1.X, rect2.X, epsilon) &&
+                Maths.AreClose(rect1.Y, rect2.Y, epsilon) &&
+                Maths.AreClose(rect1.Height, rect2.Height, epsilon) &&
+                Maths.AreClose(rect1.Width, rect2.Width, epsilon);
+        }
+
+        #endregion
+
+        #region Rotated Rectangle Bounds
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <param name="fulcrum"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Rectangle2D RotatedRectangleBounds(double x, double y, double width, double height, Point2D fulcrum, double angle)
+        {
+            double cosAngle = Abs(Cos(angle));
+            double sinAngle = Abs(Sin(angle));
+
+            Size2D size = new Size2D(
+                (cosAngle * width) + (sinAngle * height),
+                (cosAngle * height) + (sinAngle * width)
+                );
+
+            Point2D loc = new Point2D(
+                fulcrum.X + ((-width / 2) * cosAngle + (-height / 2) * sinAngle),
+                fulcrum.Y + ((-width / 2) * sinAngle + (-height / 2) * cosAngle)
+                );
+
+            return new Rectangle2D(loc, size);
+        }
+
+        #endregion
+
+        #region Rotated Rectangle Points
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <param name="fulcrum"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static List<Point2D> RotatedRectangleCorners(double x, double y, double width, double height, Point2D fulcrum, double angle)
+        {
+            List<Point2D> points = new List<Point2D>();
+
+            Point2D xaxis = new Point2D(Cos(angle), Sin(angle));
+            Point2D yaxis = new Point2D(-Sin(angle), Cos(angle));
+
+            // Apply the rotation transformation and translate to new center.
+            points.Add(new Point2D(
+                fulcrum.X + ((-width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
+                fulcrum.Y + ((-width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
+                fulcrum.Y + ((width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((width / 2) * xaxis.X + (height / 2) * xaxis.Y),
+                fulcrum.Y + ((width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((-width / 2) * xaxis.X + (height / 2) * xaxis.Y),
+                fulcrum.Y + ((-width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                ));
+
+            return points;
+        }
+
+        #endregion
+
+        #region Round
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(RoundTests))]
+        public static List<SpeedTester> RoundTests()
+        {
+            double value = 0.5d;
+            return new List<SpeedTester>() {
+                new SpeedTester(() => RoundAFZ(value),
+                $"{nameof(Experiments.RoundAFZ)}({value})"),
+                new SpeedTester(() => RoundToEven(value),
+                $"{nameof(Experiments.RoundToEven)}({value})"),
+                new SpeedTester(() => RoundToInt32(value),
+                $"{nameof(Experiments.RoundToInt32)}({value})"),
+                new SpeedTester(() => Round(value),
+                $"{nameof(Experiments.Round)}({value})"),
+                new SpeedTester(() => Truncate(value),
+                $"{nameof(Experiments.Truncate)}({value})"),
+            };
+        }
+
+        /// <summary>
+        /// Away from zero rounding.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decimals"></param>
+        /// <returns></returns>
+        [Pure]
+        public static double RoundAFZ(double value, int decimals)
+        {
+            return Math.Round(value, decimals, MidpointRounding.AwayFromZero);
+        }
+
+        /// <summary>
+        /// Away from zero rounding.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decimals"></param>
+        /// <returns></returns>
+        [Pure]
+        public static double RoundAFZ(double value)
+        {
+            return Math.Round(value, 0, MidpointRounding.AwayFromZero);
+        }
+
+        /// <summary>
+        /// To Even, or Bankers rounding.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decimals"></param>
+        /// <returns></returns>
+        [Pure]
+        public static double RoundToEven(double value)
+        {
+            return Math.Round(value, 0, MidpointRounding.ToEven);
+        }
+
+        /// <summary>
+        /// To Even, or Bankers rounding.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static double RoundToInt32(double value)
+        {
+            return Convert.ToInt32(value);
+        }
+
+        /// <summary>
+        /// Away from zero rounding.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static double Round(double value)
+        {
+            return value < 0 ? (int)(value - 0.5) : (int)(value + 0.5);
+        }
+
+        /// <summary>
+        /// Truncate rounding.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static double Truncate(double value)
+        {
+            return (int)value;
+        }
+
+        #endregion
+
         #region Slope of a 2D Vector
 
         /// <summary>
@@ -3859,6 +6833,324 @@ namespace MethodSpeedTester
             double B = x3_ - x2_;
             double C = (A * x1 + B * y1) - (A * x2_ + B * y2_);
             return (C * C) / (A * A + B * B);
+        }
+
+        #endregion
+
+        #region Shortest Path
+
+        /// <summary>
+        /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
+        /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
+        ///  to accommodate all the corners of your polygon set (although it is
+        /// unlikely that anywhere near that many elements will ever be needed).
+        /// Returns YES if the optimal solution was found, or NO if there is no solution.
+        /// If a solution was found, solutionX and solutionY will contain the coordinates
+        /// of the intermediate nodes of the path, in order.  (The startpoint and endpoint
+        /// are assumed, and will not be included in the solution.)
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="polygons"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static Polyline ShortestPath(PolygonSet polygons, Point2D start, Point2D end)
+        {
+            // (larger than total solution dist could ever be)
+            double maxLength = double.MaxValue;// 9999999.0;
+
+            List<TestPoint2D> pointList = new List<TestPoint2D>();
+            List<Point2D> solution = new List<Point2D>();
+
+            int pointCount, solutionNodes;
+
+            int treeCount, polyI, i, j, bestI = 0, bestJ;
+            double bestDist, newDist;
+
+            //  Fail if either the startpoint or endpoint is outside the polygon set.
+            if (!polygons.Contains(start)
+            || !polygons.Contains(end))
+            {
+                return null;
+            }
+
+            //  If there is a straight-line solution, return with it immediately.
+            if (LineInPolygonSet(polygons, start, end))
+            {
+                return new Polyline(new List<Point2D>() { start, end });
+            }
+
+            //  Build a point list that refers to the corners of the
+            //  polygons, as well as to the startpoint and endpoint.
+            pointList.Add(start);
+            pointCount = 1;
+            for (polyI = 0; polyI < polygons.Count; polyI++)
+            {
+                for (i = 0; i < polygons.Polygons[polyI].Points.Count; i++)
+                {
+                    pointList.Add(polygons.Polygons[polyI].Points[i]);
+                    pointCount++;
+                }
+            }
+
+            pointList.Add(end);
+            pointCount++;
+
+            //  Initialize the shortest-path tree to include just the startpoint.
+            treeCount = 1;
+            pointList[0].TotalDistance = 0.0;
+
+            //  Iteratively grow the shortest-path tree until it reaches the endpoint
+            //  -- or until it becomes unable to grow, in which case exit with failure.
+            bestJ = 0;
+            while (bestJ < pointCount - 1)
+            {
+                bestDist = maxLength;
+                for (i = 0; i < treeCount; i++)
+                {
+                    for (j = treeCount; j < pointCount; j++)
+                    {
+                        if (LineInPolygonSet(polygons, (Point2D)pointList[i], (Point2D)pointList[j]))
+                        {
+                            newDist = pointList[i].TotalDistance + Primitives.Distance((Point2D)pointList[i], (Point2D)pointList[j]);
+                            if (newDist < bestDist)
+                            {
+                                bestDist = newDist; bestI = i; bestJ = j;
+                            }
+                        }
+                    }
+                }
+
+                if (bestDist == maxLength) return null;   //  (no solution)
+                pointList[bestJ].Previous = bestI;
+                pointList[bestJ].TotalDistance = bestDist;
+
+                // Swap
+                TestPoint2D temp = pointList[bestJ];
+                pointList[bestJ] = pointList[treeCount];
+                pointList[treeCount] = temp;
+
+                treeCount++;
+            }
+
+            //  Load the solution arrays.
+            solution.Add(start);
+            solutionNodes = -1;
+            i = treeCount - 1;
+            while (i > 0)
+            {
+                i = pointList[i].Previous;
+                solutionNodes++;
+            }
+            j = solutionNodes - 1;
+            i = treeCount - 1;
+            while (j >= 0)
+            {
+                i = pointList[i].Previous;
+                solution.Insert(1, (Point2D)pointList[i]);
+                j--;
+            }
+            solution.Add(end);
+
+            //  Success.
+            return new Polyline(solution);
+        }
+
+        /// <summary>
+        /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
+        /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
+        ///  to accommodate all the corners of your polygon set (although it is
+        /// unlikely that anywhere near that many elements will ever be needed).
+        /// Returns YES if the optimal solution was found, or NO if there is no solution.
+        /// If a solution was found, solutionX and solutionY will contain the coordinates
+        /// of the intermediate nodes of the path, in order.  (The startpoint and endpoint
+        /// are assumed, and will not be included in the solution.)
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="polygons"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static Polyline ShortestPathX(PolygonSet polygons, Point2D start, Point2D end)
+        {
+            // (larger than total solution dist could ever be)
+            double maxLength = double.MaxValue;
+
+            List<TestPoint2D> pointList = new List<TestPoint2D>();
+            List<Point2D> solution = new List<Point2D>();
+
+            int pointCount;
+            int solutionNodes;
+
+            int treeCount;
+            int bestI = 0;
+            int bestJ;
+            double bestDist;
+            double newDist;
+
+            //  Fail if either the startpoint or endpoint is outside the polygon set.
+            if (!polygons.Contains(start)
+            || !polygons.Contains(end))
+            {
+                return null;
+            }
+
+            //  If there is a straight-line solution, return with it immediately.
+            if (polygons.Contains(start, end))
+            {
+                return new Polyline(new List<Point2D>() { start, end });
+            }
+
+            //  Build a point list that refers to the corners of the
+            //  polygons, as well as to the startpoint and endpoint.
+            pointList.Add(start);
+            pointCount = 1;
+            foreach (var poly in polygons.Polygons)
+            {
+                foreach (var point in poly.Points)
+                {
+                    pointList.Add(point);
+                    pointCount++;
+                }
+            }
+
+            pointList.Add(end);
+            pointCount++;
+
+            //  Initialize the shortest-path tree to include just the startpoint.
+            treeCount = 1;
+            pointList[0].TotalDistance = 0.0;
+
+            //  Iteratively grow the shortest-path tree until it reaches the endpoint
+            //  -- or until it becomes unable to grow, in which case exit with failure.
+            bestJ = 0;
+            while (bestJ < pointCount - 1)
+            {
+                bestDist = maxLength;
+                for (int ti = 0; ti < treeCount; ti++)
+                {
+                    for (int tj = treeCount; tj < pointCount; tj++)
+                    {
+                        if (polygons.Contains((Point2D)pointList[ti], (Point2D)pointList[tj]))
+                        {
+                            newDist = pointList[ti].TotalDistance + Primitives.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
+                            if (newDist < bestDist)
+                            {
+                                bestDist = newDist; bestI = ti; bestJ = tj;
+                            }
+                        }
+                    }
+                }
+
+                if (bestDist == maxLength) return null;   //  (no solution)
+                pointList[bestJ].Previous = bestI;
+                pointList[bestJ].TotalDistance = bestDist;
+
+                // Swap
+                TestPoint2D temp = pointList[bestJ];
+                pointList[bestJ] = pointList[treeCount];
+                pointList[treeCount] = temp;
+
+                treeCount++;
+            }
+
+            //  Load the solution arrays.
+            solution.Add(start);
+            solutionNodes = -1;
+            int i = treeCount - 1;
+            while (i > 0)
+            {
+                i = pointList[i].Previous;
+                solutionNodes++;
+            }
+            int j = solutionNodes - 1;
+            i = treeCount - 1;
+            while (j >= 0)
+            {
+                i = pointList[i].Previous;
+                solution.Insert(1, (Point2D)pointList[i]);
+                j--;
+            }
+            solution.Add(end);
+
+            //  Success.
+            return new Polyline(solution);
+        }
+
+        #endregion
+
+        #region Values are Close
+
+        /// <summary>
+        /// AreClose - Returns whether or not two doubles are "close".  That is, whether or 
+        /// not they are within epsilon of each other.  Note that this epsilon is proportional
+        /// to the numbers themselves to that AreClose survives scalar multiplication.
+        /// There are plenty of ways for this to return false even for numbers which
+        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// returns false.  This is important enough to repeat:
+        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// used for optimizations *only*.
+        /// </summary>
+        /// <returns>
+        /// bool - the result of the AreClose comparison.
+        /// </returns>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
+        /// <param name="epsilon"></param>
+        /// <remarks></remarks>
+        [Pure]
+        public static bool AreClose(double value1, double value2, double epsilon = Maths.DoubleEpsilon)
+        {
+            // in case they are Infinities (then epsilon check does not work)
+            if (value1 == value2) return true;
+            // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
+            double eps = (Abs(value1) + Abs(value2) + 10d) * epsilon;
+            double delta = value1 - value2;
+            return (-eps < delta) && (eps > delta);
+        }
+
+        #endregion
+
+        #region Wrap Point on Rectangle Bounds
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bounds"></param>
+        /// <param name="point"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D WrapPointToRectangle(Rectangle2D bounds, Point2D point, ref Point2D reference)
+        {
+            if ((point.X <= bounds.X))
+            {
+                reference = (reference - new Size2D(bounds.X, 0));
+                return new Point2D((bounds.Width - 2), point.Y);
+            }
+            if ((point.Y <= bounds.Y))
+            {
+                reference = (reference - new Size2D(0, bounds.Y));
+                return new Point2D(point.X, (bounds.Height - 2));
+            }
+            if ((point.X >= (bounds.Width - 1)))
+            {
+                reference = (reference + new Size2D(bounds.Width, 0));
+                return new Point2D((bounds.X + 2), point.Y);
+            }
+            if ((point.Y >= (bounds.Height - 1)))
+            {
+                reference = (reference + new Size2D(0, bounds.Height));
+                return new Point2D(point.X, (bounds.Y + 2));
+            }
+            return point;
+            // 'ToDo: Adjust My_StartPoint when Screen is wrapped
         }
 
         #endregion

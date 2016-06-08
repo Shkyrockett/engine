@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -24,24 +24,24 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Circle))]
     public class Circle
-        : Shape, IClosedShape, IFormattable
+        : Shape, IClosedShape
     {
         #region Private Fields
 
         /// <summary>
-        /// The center point of the circle.
+        /// The center x coordinate point of the circle.
         /// </summary>
-        private Point2D center;
+        private double x;
+
+        /// <summary>
+        /// The center y coordinate point of the circle.
+        /// </summary>
+        private double y;
 
         /// <summary>
         /// The radius of the circle.
         /// </summary>
         private double radius;
-
-        /// <summary>
-        /// Interpolated points.
-        /// </summary>
-        private List<Point2D> points;
 
         #endregion
 
@@ -51,8 +51,21 @@ namespace Engine.Geometry
         /// Initializes a new instance of the <see cref="Circle"/> class.
         /// </summary>
         public Circle()
-            : this(Point2D.Empty, 0)
+            : this(0, 0, 0)
         { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> class.
+        /// </summary>
+        /// <param name="x">The center x coordinate point of the circle.</param>
+        /// <param name="y">The center y coordinate point of the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
+        public Circle(double x, double y, double radius)
+        {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
@@ -61,9 +74,20 @@ namespace Engine.Geometry
         /// <param name="radius">The radius of the circle.</param>
         public Circle(Point2D center, double radius)
         {
-            this.center = center;
+            x = center.X;
+            y = center.Y;
             this.radius = radius;
-            points = InterpolatePoints();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> class.
+        /// </summary>
+        /// <param name="bounds">The bounding box of the circle.</param>
+        public Circle(Rectangle2D bounds)
+        {
+            x = bounds.Center().X;
+            y = bounds.Center().Y;
+            radius = bounds.Height <= bounds.Width ? bounds.Height * 0.25d : bounds.Width * 0.25d;
         }
 
         /// <summary>
@@ -73,17 +97,6 @@ namespace Engine.Geometry
         public Circle(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
         { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Circle"/> class.
-        /// </summary>
-        /// <param name="bounds">The bounding box of the circle.</param>
-        public Circle(Rectangle2D bounds)
-        {
-            center = bounds.Center();
-            radius = bounds.Height <= bounds.Width ? bounds.Height * 0.25f : bounds.Width * 0.25f;
-            points = InterpolatePoints();
-        }
 
         /// <summary>
         /// 
@@ -100,7 +113,8 @@ namespace Engine.Geometry
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
             // Find the center.
-            center = new Point2D(f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA))), (f.I - f.J) / (slopeB - slopeA));
+            x = f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA)));
+            y = (f.I - f.J) / (slopeB - slopeA);
 
             // Get the radius.
             radius = (Center.Length(PointA));
@@ -130,7 +144,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the center of the circle.
+        /// Gets or sets the center point of the circle.
         /// </summary>
         [Category("Elements")]
         [Description("The center location of the circle.")]
@@ -138,13 +152,51 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public Point2D Center
         {
-            get { return center; }
+            get { return new Point2D(x, y); }
             set
             {
-                center = value;
+                x = value.X;
+                y = value.Y;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate location of the center of the circle.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The center x coordinate location of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute]
+        public double X
+        {
+            get { return x; }
+            set
+            {
+                x = value;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate location of the center of the circle.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The center y coordinate location of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute]
+        public double Y
+        {
+            get { return y; }
+            set
+            {
+                y = value;
                 update?.Invoke();
             }
         }
@@ -157,15 +209,16 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
             {
                 Rectangle2D bounds = Rectangle2D.FromLTRB(
-                    (center.X - radius),
-                    (center.Y - radius),
-                    (center.X + radius),
-                    (center.Y + radius));
+                    (x - radius),
+                    (y - radius),
+                    (x + radius),
+                    (y + radius));
                 return bounds;
             }
             set
@@ -182,6 +235,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Category("Properties")]
         [Description("The distance around the circle.")]
+        [XmlIgnore]
         public double Circumference
         {
             get { return 2 * radius * PI; }
@@ -192,6 +246,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The area of the circle.")]
+        [XmlIgnore]
         public override double Area
         {
             get { return PI * radius * radius; }
@@ -253,9 +308,12 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double index)
         {
-            return new Point2D(center.X + (Sin(index) * radius), center.X + (Cos(index) * radius));
+            return new Point2D(
+                x + (Sin(index) * radius),
+                y + (Cos(index) * radius));
         }
 
         /// <summary>
@@ -279,23 +337,14 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Circle"/> struct.
+        /// 
         /// </summary>
+        /// <param name="point"></param>
         /// <returns></returns>
-        [Pure]
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Circle"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+        public override bool Contains(Point2D point)
+        {
+            return Intersections.Contains(this, point) != InsideOutside.Outside;
+        }
 
         /// <summary>
         /// Creates a string representation of this <see cref="Circle"/> struct based on the format string
@@ -309,26 +358,11 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Circle"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Circle);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Circle)}{{{nameof(Center)}={center}{sep}{nameof(Radius)}={radius}}}";
+            IFormattable formatable = $"{nameof(Circle)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}}}";
             return formatable.ToString(format, provider);
         }
 

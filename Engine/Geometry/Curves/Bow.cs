@@ -11,14 +11,10 @@
 //  Class based on information found at: <see cref="http://paulbourke.net/geometry/bicorn/"/>. <br />
 // </remarks>
 
-using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Globalization;
-using System.Windows.Forms;
 using static System.Math;
 
 namespace Engine.Geometry
@@ -157,25 +153,6 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Bow"/> struct.
-        /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Bow"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
-
-        /// <summary>
         /// Creates a string representation of this <see cref="Bow"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -187,22 +164,7 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Bow"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Bow);
             char sep = Tokenizer.GetNumericListSeparator(provider);

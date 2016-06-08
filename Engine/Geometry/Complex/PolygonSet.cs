@@ -158,6 +158,16 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public override bool Contains(Point2D point)
+        {
+            return Intersections.Contains(this, point);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public override string ToString()
         {

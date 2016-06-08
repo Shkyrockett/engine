@@ -25,8 +25,10 @@ namespace MethodSpeedTester
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new RectanglePointTester());
+            //Application.Run(new CirclePointTester());
             //Application.Run(new PolygonPointTester());
-            Application.Run(new FormSpeedTester());
+            //Application.Run(new FormSpeedTester());
         }
     }
 }

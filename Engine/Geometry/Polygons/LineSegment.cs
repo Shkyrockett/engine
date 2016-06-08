@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -26,7 +25,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(LineSegment))]
     public class LineSegment
-        : Shape, IOpenShape, IFormattable
+        : Shape, IOpenShape
     {
         #region Static Implementations
         /// <summary>
@@ -197,6 +196,20 @@ namespace Engine.Geometry
 
         #endregion
 
+        #region Interpolaters
+
+        /// <summary>
+        /// Interpolates a shape.
+        /// </summary>
+        /// <param name="index">Index of the point to interpolate.</param>
+        /// <returns>Returns the interpolated point of the index value.</returns>
+        public override Point2D Interpolate(double index)
+        {
+            return Maths.LinearInterpolate(A, B, index);
+        }
+
+        #endregion
+
         #region Mutators
 
         /// <summary>
@@ -215,16 +228,6 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// Interpolates a shape.
-        /// </summary>
-        /// <param name="index">Index of the point to interpolate.</param>
-        /// <returns>Returns the interpolated point of the index value.</returns>
-        public override Point2D Interpolate(double index)
-        {
-            return Maths.LinearInterpolate(A, B, index);
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <returns>an array of points</returns>
@@ -237,25 +240,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="LineSegment"/> struct.
-        /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="LineSegment"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
-
-        /// <summary>
         /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -267,22 +251,7 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(LineSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);

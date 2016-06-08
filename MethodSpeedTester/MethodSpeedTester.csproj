@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MethodSpeedTester</RootNamespace>
     <AssemblyName>MethodSpeedTester</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RectanglePointTester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RectanglePointTester.Designer.cs">
+      <DependentUpon>RectanglePointTester.cs</DependentUpon>
+    </Compile>
     <Compile Include="Experiments.cs" />
     <Compile Include="FormSpeedTester.cs">
       <SubType>Form</SubType>
@@ -54,6 +61,12 @@
       <DependentUpon>FormSpeedTester.cs</DependentUpon>
     </Compile>
     <Compile Include="ListHelper.cs" />
+    <Compile Include="CirclePointTester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CirclePointTester.Designer.cs">
+      <DependentUpon>CirclePointTester.cs</DependentUpon>
+    </Compile>
     <Compile Include="PolygonPointTester.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,8 +78,14 @@
     <Compile Include="ptinpoly.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="SpeedTester.cs" />
+    <EmbeddedResource Include="RectanglePointTester.resx">
+      <DependentUpon>RectanglePointTester.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSpeedTester.resx">
       <DependentUpon>FormSpeedTester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CirclePointTester.resx">
+      <DependentUpon>CirclePointTester.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PolygonPointTester.resx">
       <DependentUpon>PolygonPointTester.cs</DependentUpon>
@@ -79,7 +98,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -96,6 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{5ea0c702-64d5-4da1-a716-a345d936f4d8}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

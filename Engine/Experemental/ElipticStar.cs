@@ -8,6 +8,7 @@
 // <summary>http://csharphelper.com/blog/2014/08/draw-a-star-in-c/</summary>
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using static System.Math;
 

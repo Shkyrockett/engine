@@ -11,7 +11,11 @@ using Engine.Geometry;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Engine.Objects
 {
@@ -20,6 +24,7 @@ namespace Engine.Objects
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GraphicsObject
+        : IFormattable
     {
         #region Callbacks
 
@@ -104,6 +109,76 @@ namespace Engine.Objects
             if (update == null) update = callback;
             else update += callback;
             return this;
+        }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //[Pure]
+        //public virtual T Clone<T>()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="GraphicsObject"/> inherited class.
+        /// </summary>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [Pure]
+        internal virtual string ConvertToString(string format, IFormatProvider provider)
+        {
+            if (this == null) return nameof(GraphicsObject);
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(GraphicsObject)}";
+            return formatable.ToString(format, provider);
         }
 
         #endregion

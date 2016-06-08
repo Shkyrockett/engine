@@ -100,7 +100,7 @@ namespace Engine.Objects
         [Browsable(false)]
         [XmlIgnore]
         public List<Point2D> LengthInterpolatedPoints
-            => (List<Point2D>)CachingProperty(() => Item.InterpolatePoints(Perimeter.RoundToInt()));
+            => (List<Point2D>)CachingProperty(() => Item.InterpolatePoints((int)Perimeter.Round()));
 
         #endregion
 

@@ -7,12 +7,10 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Geometry.Polygons;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Globalization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -25,24 +23,28 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Ellipse))]
     public class Ellipse
-        : Shape, IClosedShape, IFormattable
+        : Shape, IClosedShape
     {
         #region Fields
 
         /// <summary>
-        /// Center Point of Ellipse
+        /// The center x coordinate point of the <see cref="Ellipse"/>.
         /// </summary>
-        /// <remarks></remarks>
-        private Point2D center;
+        private double x;
 
         /// <summary>
-        /// Major Radius of Ellipse
+        /// The center y coordinate point of the <see cref="Ellipse"/>.
+        /// </summary>
+        private double y;
+
+        /// <summary>
+        /// Major Radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         private double r1;
 
         /// <summary>
-        /// Minor Radius of Ellipse
+        /// Minor Radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         private double r2;
@@ -61,31 +63,24 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public Ellipse()
-            : this(new Point2D(), 0, 0, 0)
+            : this(0, 0, 0, 0, 0)
         { }
 
         /// <summary>
-        /// Creates a new Instance of Ellipse
+        /// Initializes a new instance of the <see cref="Ellipse"/> class.
         /// </summary>
-        /// <param name="pointA">First Point on the Ellipse</param>
-        /// <param name="pointB">Second Point on the Ellipse</param>
-        /// <param name="pointC">Last Point on the Ellipse</param>
-        /// <param name="aspect">Aspect of Ellipse Note: Does not currently work.</param>
-        /// <param name="angle">Angle of Ellipse Note: Does not currently work.</param>
+        /// <param name="x">Center Point x coordinate of <see cref="Ellipse"/>.</param>
+        /// <param name="y">Center Point x coordinate of <see cref="Ellipse"/>.</param>
+        /// <param name="r1">Major radius of <see cref="Ellipse"/>.</param>
+        /// <param name="r2">Minor radius of <see cref="Ellipse"/>.</param>
+        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         /// <remarks></remarks>
-        public Ellipse(Point2D pointA, Point2D pointB, Point2D pointC, double aspect, double angle)
+        public Ellipse(double x, double y, double r1, double r2, double angle)
         {
-            //  Calculate the slopes of the lines.
-            double SlopeA = pointA.Slope(pointB);
-            double SlopeB = pointC.Slope(pointB);
-            double FY = ((((pointA.X - pointB.X) * (pointA.X + pointB.X)) + ((pointA.Y - pointB.Y) * (pointA.Y + pointB.Y))) / (2 * (pointA.X - pointB.X)));
-            double FX = ((((pointC.X - pointB.X) * (pointC.X + pointB.X)) + ((pointC.Y - pointB.Y) * (pointC.Y + pointB.Y))) / (2 * (pointC.X - pointB.X)));
-            double NewY = ((FX - FY) / (SlopeB - SlopeA));
-            double NewX = (FX - (SlopeB * NewY));
-            center = new Point2D(NewX, NewY);
-            //  Find the Radius
-            r1 = (center.Length(pointA));
-            Aspect = aspect;
+            this.x = x;
+            this.y = y;
+            this.r1 = r1;
+            this.r2 = r2;
             this.angle = angle;
         }
 
@@ -99,9 +94,10 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Ellipse(Point2D center, double a, double b, double angle)
         {
-            this.center = center;
-            this.r1 = a;
-            this.r2 = b;
+            x = center.X;
+            y = center.Y;
+            r1 = a;
+            r2 = b;
             this.angle = angle;
         }
 
@@ -125,10 +121,11 @@ namespace Engine.Geometry
         /// </summary>
         public Point2D Location
         {
-            get { return new Point2D(center.X - r1, center.Y - r2); }
+            get { return new Point2D(x - r1, y - r2); }
             set
             {
-                center = new Point2D(value.X + r1, value.Y + r2);
+                x = value.X + r1;
+                y = value.Y + r2;
                 update?.Invoke();
             }
         }
@@ -146,10 +143,49 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return center; }
+            get { return new Point2D(x, y); }
             set
             {
-                center = value;
+                x = value.X;
+                y = value.Y;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate location of the center of the circle.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The center x coordinate location of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute]
+        public double X
+        {
+            get { return x; }
+            set
+            {
+                x = value;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate location of the center of the circle.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The center y coordinate location of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute]
+        public double Y
+        {
+            get { return y; }
+            set
+            {
+                y = value;
                 update?.Invoke();
             }
         }
@@ -297,10 +333,10 @@ namespace Engine.Geometry
                 double bbox_halfheight = Sqrt(uy * uy + vy * vy);
 
                 return Rectangle2D.FromLTRB(
-                    (center.X - bbox_halfwidth),
-                    (center.Y - bbox_halfheight),
-                    (center.X + bbox_halfwidth),
-                    (center.Y + bbox_halfheight)
+                    (x - bbox_halfwidth),
+                    (y - bbox_halfheight),
+                    (x + bbox_halfwidth),
+                    (y + bbox_halfheight)
                     );
             }
             set
@@ -310,7 +346,7 @@ namespace Engine.Geometry
                 var bounds2 = value;
                 var locDif = bounds2.Location - bounds1.Location;
                 var scaleDif = bounds2.Size - bounds1.Size;
-                center += locDif;
+                Center += locDif;
                 if (aspect > 1)
                 {
                     r1 = r1 / bounds1.Width * bounds2.Width;
@@ -335,8 +371,7 @@ namespace Engine.Geometry
         {
             get
             {
-                return this.EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful();
-                //return this.PerimeterAhmadi2006();
+                return PolygonExtensions.EllipsePerimeter(r1, r2);
             }
         }
 
@@ -364,7 +399,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
         {
-            get { return new Rectangle2D(center.X - r1, center.Y - r1, r1, r2); }
+            get { return new Rectangle2D(x - r1, y - r1, r1 * 2, r2 * 2); }
         }
 
         #endregion
@@ -410,29 +445,10 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override bool Contains(Point2D point)
         {
-            return Intersections.EllipseContainsPoint(this, point);
+            return Intersections.Contains(this, point) != InsideOutside.Outside;
         }
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Ellipse"/> struct.
-        /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Ellipse"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
-
-        /// <summary>
         /// Creates a string representation of this <see cref="Ellipse"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -444,26 +460,11 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Ellipse"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Ellipse);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={center},{nameof(R1)}={r1},{nameof(R2)}={r2},{nameof(Angle)}={angle}}}";
+            IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={Center},{nameof(R1)}={r1},{nameof(R2)}={r2},{nameof(Angle)}={angle}}}";
             return formatable.ToString(format, provider);
         }
 

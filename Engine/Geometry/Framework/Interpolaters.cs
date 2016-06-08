@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Geometry;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -17,8 +18,35 @@ namespace Engine
     /// <summary>
     /// Interpolaters
     /// </summary>
-    public class Interpolaters
+    public static class Interpolaters
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ellipse"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Tuple<double, double> Ellipse(Ellipse ellipse, double t)
+        {
+            double phi = (2 * PI) * t;
+
+            double theta = ellipse.Angle;
+            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
+            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
+
+            // Ellipse equation for an ellipse at origin.
+            Point2D ellipsePoint = new Point2D(
+                (ellipse.R1 * Cos(phi)),
+                (ellipse.R2 * Sin(phi))
+                );
+
+            // Apply the rotation transformation and translate to new center.
+            return new Tuple<double, double>(
+                ellipse.X + (ellipsePoint.X * xaxis.X + ellipsePoint.Y * xaxis.Y),
+                ellipse.Y + (ellipsePoint.X * yaxis.X + ellipsePoint.Y * yaxis.Y)
+                );
+        }
+
         /// <summary>
         /// 
         /// </summary>

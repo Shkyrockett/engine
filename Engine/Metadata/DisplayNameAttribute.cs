@@ -15,34 +15,34 @@ using System;
 
 namespace Engine
 {
-    /// <summary>
-    /// Attribute used to attach a display string to the meta-data of a class.
-    /// </summary>
-    //[AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class DisplayNameAttribute
-        : Attribute
-    {
-        /// <summary>
-        /// The string to use as a display name.
-        /// </summary>
-        private string displayName;
+    ///// <summary>
+    ///// Attribute used to attach a display string to the meta-data of a class.
+    ///// </summary>
+    ////[AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    //public class DisplayNameAttribute
+    //    : Attribute
+    //{
+    //    /// <summary>
+    //    /// The string to use as a display name.
+    //    /// </summary>
+    //    private string displayName;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DisplayNameAttribute"/> class.
-        /// </summary>
-        /// <param name="displayName">The string to use as a display name.</param>
-        public DisplayNameAttribute(string displayName)
-        {
-            this.displayName = displayName;
-        }
+    //    /// <summary>
+    //    /// Initializes a new instance of the <see cref="DisplayNameAttribute"/> class.
+    //    /// </summary>
+    //    /// <param name="displayName">The string to use as a display name.</param>
+    //    public DisplayNameAttribute(string displayName)
+    //    {
+    //        this.displayName = displayName;
+    //    }
 
-        /// <summary>
-        /// Gets or sets the string used as a display name.
-        /// </summary>
-        public string DisplayName
-        {
-            get { return displayName; }
-            set { displayName = value; }
-        }
-    }
+    //    /// <summary>
+    //    /// Gets or sets the string used as a display name.
+    //    /// </summary>
+    //    public string DisplayName
+    //    {
+    //        get { return displayName; }
+    //        set { displayName = value; }
+    //    }
+    //}
 }

@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.File.Palettes;
 using Engine.Geometry;
+using Engine.Geometry.Polygons;
 using Engine.Imaging;
 using Engine.Objects;
 using Engine.Tools;
@@ -169,66 +170,66 @@ namespace Editor
             //GraphicItem polylineItem = new GraphicItem(polyline, styles[4]);
             //vectorMap.Add(polylineItem);
 
-            //Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
-            //GraphicItem lineItem = new GraphicItem(line, styles[5]);
-            //vectorMap.Add(lineItem);
+            Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
+            GraphicItem lineItem = new GraphicItem(line, styles[5]);
+            vectorMap.Add(lineItem);
 
-            //Shape set = new PolygonSet(
-            //    new List<Polygon>(
-            //        new List<Polygon>() {
-            //            new Polygon( // Boundary
-            //                new List<Point2D>() {
-            //                    new Point2D(10, 10),
-            //                    new Point2D(300, 10),
-            //                    new Point2D(300, 300),
-            //                    new Point2D(10, 300),
-            //                    // Cut out
-            //                    new Point2D(10, 200),
-            //                    new Point2D(200, 80),
-            //                    new Point2D(10, 150),
-            //                }
-            //            ),
-            //            new Polygon( // First inner triangle
-            //                new List<Point2D>() {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30),
-            //                }
-            //            ),
-            //            new Polygon( // Second inner triangle
-            //                new List<Point2D>() {
-            //                    new Point2D(250, 150),
-            //                    new Point2D(150, 150),
-            //                    new Point2D(250, 200),
-            //                }
-            //            ),
-            //        }
-            //    )
-            //);
-            //GraphicItem setItem = new GraphicItem(set, styles[8]);
-            //vectorMap.Add(setItem);
+            Shape set = new PolygonSet(
+                new List<Polygon>(
+                    new List<Polygon>() {
+                        new Polygon( // Boundary
+                            new List<Point2D>() {
+                                new Point2D(10, 10),
+                                new Point2D(300, 10),
+                                new Point2D(300, 300),
+                                new Point2D(10, 300),
+                                // Cut out
+                                new Point2D(10, 200),
+                                new Point2D(200, 80),
+                                new Point2D(10, 150),
+                            }
+                        ),
+                        new Polygon( // First inner triangle
+                            new List<Point2D>() {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30),
+                            }
+                        ),
+                        new Polygon( // Second inner triangle
+                            new List<Point2D>() {
+                                new Point2D(250, 150),
+                                new Point2D(150, 150),
+                                new Point2D(250, 200),
+                            }
+                        ),
+                    }
+                )
+            );
+            GraphicItem setItem = new GraphicItem(set, styles[8]);
+            vectorMap.Add(setItem);
 
-            //Shape innerPolygon = new Polygon( // First inner triangle
-            //                new List<Point2D>() {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30),
-            //                }
-            //            ).Offset(10);
-            //GraphicItem innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
-            //vectorMap.Add(innerPolygonItem);
+            Shape innerPolygon = new Polygon( // First inner triangle
+                            new List<Point2D>() {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30),
+                            }
+                        ).Offset(10);
+            GraphicItem innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
+            vectorMap.Add(innerPolygonItem);
 
-            //Polyline pathPolyline = Experimental.ShortestPath(new Point2D(20, 20), new Point2D(200, 200), (PolygonSet)set);
-            //Shape polylineSet = new PolylineSet(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
-            //Polyline pathPolyline2 = pathPolyline.Offset(-10);
-            //pathPolyline2.Reverse();
+            Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
+            Shape polylineSet = new PolylineSet(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
+            Polyline pathPolyline2 = pathPolyline.Offset(-10);
+            pathPolyline2.Reverse();
             //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
             //GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
-            //GraphicItem polylineSetItem = new GraphicItem(polylineSet, styles[10]);
-            //GraphicItem pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
+            GraphicItem polylineSetItem = new GraphicItem(polylineSet, styles[10]);
+            GraphicItem pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
             //vectorMap.Add(polygonLineItem);
-            //vectorMap.Add(polylineSetItem);
-            //vectorMap.Add(pathPolylineItem);
+            vectorMap.Add(polylineSetItem);
+            vectorMap.Add(pathPolylineItem);
 
             //Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
             //GraphicItem arcItem = new GraphicItem(arc, styles[8]);
@@ -262,48 +263,48 @@ namespace Editor
             //GraphicItem ellipseItem = new GraphicItem(ellipse, styles[6]);
             //vectorMap.Add(ellipseItem);
 
-            Polygon triangleI = new Triangle(
-                new Point2D(75, 125),
-                new Point2D(225, 125),
-                new Point2D(150, 250));
-            GraphicItem triangleIItem = new GraphicItem(triangleI, styles[0]);
-            vectorMap.Add(triangleIItem);
+            //Polygon triangleI = new Triangle(
+            //    new Point2D(75, 125),
+            //    new Point2D(225, 125),
+            //    new Point2D(150, 250));
+            //GraphicItem triangleIItem = new GraphicItem(triangleI, styles[0]);
+            //vectorMap.Add(triangleIItem);
 
-            Polygon rectangle = new Rectangle2D(
-                new Point2D(100, 100),
-                new Size2D(100, 100)).ToPolygon();
-            GraphicItem rectangleItem = new GraphicItem(rectangle, styles[2]);
-            vectorMap.Add(rectangleItem);
+            //Polygon rectangle = new Rectangle2D(
+            //    new Point2D(100, 100),
+            //    new Size2D(100, 100)).ToPolygon();
+            //GraphicItem rectangleItem = new GraphicItem(rectangle, styles[2]);
+            //vectorMap.Add(rectangleItem);
 
-            Polygon intersection = new Polygon(
-                Intersections.PolygonPolygon(triangleI.Points, rectangle.Points));
-            GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
-            vectorMap.Add(intersectionItem);
+            //Polygon intersection = new Polygon(
+            //    Intersections.PolygonPolygon(triangleI.Points, rectangle.Points));
+            //GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
+            //vectorMap.Add(intersectionItem);
 
-            Ellipse ellipseTween = new Ellipse(
-                new Point2D(100, 100),
-                56, 30, 0d);
-            GraphicItem ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
+            //Ellipse ellipseTween = new Ellipse(
+            //    new Point2D(100, 100),
+            //    56, 30, 0d);
+            //GraphicItem ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
 
-            Rectangle2D rectangleTween = new Rectangle2D(
-                new Point2D(100, 100),
-                new Size2D(100, 100));
-            GraphicItem rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
+            //Rectangle2D rectangleTween = new Rectangle2D(
+            //    new Point2D(100, 100),
+            //    new Size2D(100, 100));
+            //GraphicItem rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
 
-            double duration = 300;
-            double delay = 20;
+            //double duration = 300;
+            //double delay = 20;
 
-            //tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
-            Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
+            ////tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
+            //Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
 
-            //tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
-            tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
-                .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
-                .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
-            tweener.Timer(duration).OnComplete(CompleteCallback);
+            ////tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
+            //tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
+            //    .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
+            //    .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
+            //tweener.Timer(duration).OnComplete(CompleteCallback);
 
-            vectorMap.Add(rectangleTweenItem);
-            vectorMap.Add(ellipseTweenItem);
+            //vectorMap.Add(rectangleTweenItem);
+            //vectorMap.Add(ellipseTweenItem);
 
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";

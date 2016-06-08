@@ -11,7 +11,7 @@ namespace Engine.Physics
     /// 
     /// </summary>
     [Serializable]
-    [DisplayName(nameof(Radians))]
+    //[DisplayName(nameof(Radians))]
     public struct Radians
         : IDirection, IFormattable
     {

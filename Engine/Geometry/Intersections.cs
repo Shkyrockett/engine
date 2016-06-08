@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using static System.Math;
-using static Engine.Geometry.Maths;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Linq;
+using static Engine.Geometry.Maths;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -12,25 +13,37 @@ namespace Engine.Geometry
     /// </summary>
     public static class Intersections
     {
-
         /// <summary>
-        /// Find out if a Point is in a Circle. 
+        /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
         /// </summary>
+        /// <param name="circle"></param>
+        /// <param name="point"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
+        /// </remarks>
         [Pure]
-        public static bool CircleContainsPoint(
-            double centerX,
-            double centerY,
-            double radius,
-            double X,
-            double Y)
+        //[DebuggerStepThrough]
+        public static InsideOutside Contains(this Circle circle, Point2D point)
         {
-            return (radius > Distance(centerX, centerY, X, Y));
+            // Check if it is within the bounding rectangle.
+            if (point.X >= circle.X - circle.Radius && point.X <= circle.X + circle.Radius &&
+                point.Y >= circle.Y - circle.Radius && point.Y <= circle.Y + circle.Radius)
+            {
+                double dx = circle.X - point.X;
+                double dy = circle.Y - point.Y;
+                dx *= dx;
+                dy *= dy;
+                double distanceSquared = dx + dy;
+                double radiusSquared = circle.Radius * circle.Radius;
+                return (radiusSquared >= distanceSquared) ? ((radiusSquared == distanceSquared) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            }
+
+            return InsideOutside.Outside;
         }
 
         /// <summary>
-        /// tests if a point[xp,yp] is within boundaries defined by the ellipse
-        /// of center[x,y], diameter d D, and tilted at angle
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
         /// </summary>
         /// <param name="ellipse"></param>
         /// <param name="point"></param>
@@ -38,51 +51,50 @@ namespace Engine.Geometry
         /// <remarks>
         /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </remarks>
-        public static bool EllipseContainsPoint(Ellipse ellipse, Point2D point)
+        [Pure]
+        //[DebuggerStepThrough]
+        public static InsideOutside Contains(this Ellipse ellipse, Point2D point)
         {
-            double cosa = Cos(-ellipse.Angle);
-            double sina = Sin(-ellipse.Angle);
+            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return InsideOutside.Outside;
 
-            double dd = ellipse.R1 * ellipse.R1;
-            double DD = ellipse.R2 * ellipse.R2;
+            double cosT = Cos(-ellipse.Angle);
+            double sinT = Sin(-ellipse.Angle);
 
-            double a = (cosa * (point.X - ellipse.Center.X) + sina * (point.Y - ellipse.Center.Y))
-                * (cosa * (point.X - ellipse.Center.X) + sina * (point.Y - ellipse.Center.Y));
-            double b = (sina * (point.X - ellipse.Center.X) - cosa * (point.Y - ellipse.Center.Y))
-                * (sina * (point.X - ellipse.Center.X) - cosa * (point.Y - ellipse.Center.Y));
-            return ((a / dd) + (b / DD) <= 1);
+            double u = point.X - ellipse.Center.X;
+            double v = point.Y - ellipse.Center.Y;
+
+            double a = (cosT * u + sinT * v) * (cosT * u + sinT * v);
+            double b = (sinT * u - cosT * v) * (sinT * u - cosT * v);
+
+            double d1Squared = 4 * ellipse.R1 * ellipse.R1;
+            double d2Squared = 4 * ellipse.R2 * ellipse.R2;
+
+            double normalizedRadius = (a / d1Squared)
+                                    + (b / d2Squared);
+
+            return (normalizedRadius <= 1d) ? ((normalizedRadius == 1d) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Ellipse"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public static bool UnrotatedEllipseContainsPoint(Ellipse Ellipse, Point2D point)
-        {
-            if (Ellipse.R1 <= 0.0 || Ellipse.R2 <= 0.0) return false;
-
-            Point2D normalized = new Point2D(
-                point.X - Ellipse.Center.X,
-                point.Y - Ellipse.Center.Y);
-
-            return normalized.X * normalized.X
-                / (Ellipse.R1 * Ellipse.R1)
-                + normalized.Y * normalized.Y
-                / (Ellipse.R2 * Ellipse.R2) <= 1d;
-        }
-
-        /// <summary>
-        /// Determines if the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/> .
+        /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="rectangle"></param>
         /// <param name="point"></param>
         /// <returns></returns>
         [Pure]
-        public static bool RectangleContainsPoint(Rectangle2D rectangle, Point2D point)
+        //[DebuggerStepThrough]
+        public static InsideOutside Contains(this Rectangle2D rectangle, Point2D point)
         {
-            return rectangle.X <= point.X && point.X < rectangle.X + rectangle.Width && rectangle.Y <= point.Y && point.Y < rectangle.Y + rectangle.Height;
+            if (((rectangle.X == point.X || rectangle.Bottom == point.X) && ((rectangle.Y <= point.Y) == (rectangle.Bottom >= point.Y)))
+             || ((rectangle.Right == point.Y || rectangle.Left == point.Y) && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
+            {
+                return InsideOutside.Boundary;
+            }
+
+            return (rectangle.X <= point.X
+                && point.X < rectangle.X + rectangle.Width
+                && rectangle.Y <= point.Y
+                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
         }
 
         /// <summary>
@@ -92,12 +104,177 @@ namespace Engine.Geometry
         /// <param name="rect2"></param>
         /// <returns></returns>
         [Pure]
-        public static bool RectangleContainsRectangle(Rectangle2D rect1, Rectangle2D rect2)
+        public static bool Contains(this Rectangle2D rect1, Rectangle2D rect2)
         {
             return (rect1.X <= rect2.X)
                 && ((rect2.X + rect2.Width) <= (rect1.X + rect1.Width))
                 && (rect1.Y <= rect2.Y)
                 && ((rect2.Y + rect2.Height) <= (rect1.Y + rect1.Height));
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        public static InsideOutside Contains(this Polygon polygon, Point2D point)
+        {
+            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
+            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
+            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
+            InsideOutside result = InsideOutside.Outside;
+
+            // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
+            if (polygon.Points.Count < 3) return InsideOutside.Outside;
+            Point2D curPoint = polygon[0];
+            for (int i = 1; i <= polygon.Points.Count; ++i)
+            {
+                Point2D nextPoint = (i == polygon.Points.Count ? polygon[0] : polygon[i]);
+                if (nextPoint.Y == point.Y)
+                {
+                    if ((nextPoint.X == point.X) || (curPoint.Y == point.Y
+                    && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
+                    {
+                        return InsideOutside.Boundary;
+                    }
+                }
+
+                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                {
+                    if (curPoint.X >= point.X)
+                    {
+                        if (nextPoint.X > point.X)
+                        {
+                            result = 1 - result;
+                        }
+                        else
+                        {
+                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                            if (determinant == 0)
+                            {
+                                return InsideOutside.Boundary;
+                            }
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                        }
+                    }
+                    else
+                    {
+                        if (nextPoint.X > point.X)
+                        {
+                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                            if (determinant == 0)
+                            {
+                                return InsideOutside.Boundary;
+                            }
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                        }
+                    }
+                }
+
+                curPoint = nextPoint;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="PolygonSet"/>.
+        /// </summary>
+        /// <param name="polygons"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
+        [Pure]
+        //[DebuggerStepThrough]
+        public static bool Contains(this PolygonSet polygons, Point2D point)
+        {
+            bool returnValue = false;
+
+            foreach (var poly in polygons.Polygons)
+            {
+                returnValue = !poly.Points.Contains(point);
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// This function should be called with the full set of *all* relevant polygons.
+        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
+        /// Note:  As much as possible, this algorithm tries to return YES when the
+        /// test line-segment is exactly on the border of the polygon, particularly
+        /// if the test line-segment *is* a side of a polygon.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="allPolys"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static bool Contains(this PolygonSet allPolys, Point2D start, Point2D end)
+        {
+            int i;
+            int j;
+            double sX;
+            double sY;
+            double eX;
+            double eY;
+            double rotSX;
+            double rotSY;
+            double rotEX;
+            double rotEY;
+            double crossX;
+
+            end.X -= start.X;
+            end.Y -= start.Y;
+            double dist = Sqrt(end.X * end.X + end.Y * end.Y);
+            double theCos = end.X / dist;
+            double theSin = end.Y / dist;
+            foreach (var poly in allPolys.Polygons)
+            {
+                for (i = 0; i < poly.Points.Count; i++)
+                {
+                    j = i + 1;
+                    if (j == poly.Points.Count) j = 0;
+
+                    sX = poly.Points[i].X - start.X;
+                    sY = poly.Points[i].Y - start.Y;
+                    eX = poly.Points[j].X - start.X;
+                    eY = poly.Points[j].Y - start.Y;
+                    if (sX == 0.0 && sY == 0.0 && eX == end.X && eY == end.Y
+                    || eX == 0.0 && eY == 0.0 && sX == end.X && sY == end.Y)
+                    {
+                        return true;
+                    }
+
+                    rotSX = sX * theCos + sY * theSin;
+                    rotSY = sY * theCos - sX * theSin;
+                    rotEX = eX * theCos + eY * theSin;
+                    rotEY = eY * theCos - eX * theSin;
+                    if (rotSY < 0.0 && rotEY > 0.0
+                    || rotEY < 0.0 && rotSY > 0.0)
+                    {
+                        crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
+                        if (crossX >= 0.0 && crossX <= dist) return false;
+                    }
+
+                    if (rotSY == 0.0 && rotEY == 0.0
+                    && (rotSX >= 0.0 || rotEX >= 0.0)
+                    && (rotSX <= dist || rotEX <= dist)
+                    && (rotSX < 0.0 || rotEX < 0.0
+                    || rotSX > dist || rotEX > dist))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return allPolys.Contains(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0));
         }
 
         /// <summary>
@@ -107,40 +284,12 @@ namespace Engine.Geometry
         /// <param name="rect2"></param>
         /// <returns></returns>
         [Pure]
-        public static bool RectangleIntersectsRectangle(Rectangle2D rect1, Rectangle2D rect2)
+        public static bool RectangleRectangle(Rectangle2D rect1, Rectangle2D rect2)
         {
             return (rect2.X < rect1.X + rect1.Width)
                 && (rect1.X < (rect2.X + rect2.Width))
                 && (rect2.Y < rect1.Y + rect1.Height)
                 && (rect1.Y < rect2.Y + rect2.Height);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
-        /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
-        /// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-        /// </remarks>
-        [Pure]
-        public static bool PointPolygon(
-            List<Point2D> polygon,
-            Point2D point)
-        {
-            int nvert = polygon.Count;
-            bool c = false;
-            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
-            {
-                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)) &&
-                 (point.X < (polygon[j].X - polygon[i].X)
-                 * (point.Y - polygon[i].Y)
-                 / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
-                    c = !c;
-            }
-            return c;
         }
 
         /// <summary>

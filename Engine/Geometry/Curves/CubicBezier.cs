@@ -7,11 +7,11 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Geometry.Polygons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -28,7 +28,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(CubicBezier))]
     public class CubicBezier
-        : Shape, IOpenShape, IFormattable
+        : Shape, IOpenShape
     {
         #region Private Fields
 
@@ -189,7 +189,7 @@ namespace Engine.Geometry
         [XmlIgnore]
         public double Length
         {
-            get { return Experimental.CubicBezierArcLength(this); }
+            get { return PolygonExtensions.CubicBezierArcLength(a, b, c, d); }
         }
 
         /// <summary>
@@ -259,25 +259,6 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="CubicBezier"/> struct.
-        /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
-
-        /// <summary>
         /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -289,22 +270,7 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(CubicBezier);
             char sep = Tokenizer.GetNumericListSeparator(provider);

@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Globalization;
+using System.Xml.Serialization;
 using static System.Math;
 
 namespace Engine.Geometry
@@ -23,14 +23,19 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(CircularSegment))]
     public class CircularSegment
-        : Shape, IClosedShape, IFormattable
+        : Shape, IClosedShape
     {
         #region Private Fields
 
         /// <summary>
-        /// The center point of the circle.
+        /// The center x coordinate point of the circle.
         /// </summary>
-        private Point2D center;
+        private double x;
+
+        /// <summary>
+        /// The center y coordinate point of the circle.
+        /// </summary>
+        private double y;
 
         /// <summary>
         /// The radius of the circle.
@@ -76,13 +81,31 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment"/> class.
         /// </summary>
+        /// <param name="x">The center x coordinate point of the circle.</param>
+        /// <param name="y">The center y coordinate point of the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="endAngle"></param>
+        public CircularSegment(double x, double y, double radius, double startAngle, double endAngle)
+        {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.startAngle = startAngle;
+            this.endAngle = endAngle;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CircularSegment"/> class.
+        /// </summary>
         /// <param name="center">The center point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
         public CircularSegment(Point2D center, double radius, double startAngle, double endAngle)
         {
-            this.center = center;
+            x = center.X;
+            y = center.Y;
             this.radius = radius;
             this.startAngle = startAngle;
             this.endAngle = endAngle;
@@ -104,7 +127,8 @@ namespace Engine.Geometry
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
             // Find the center.
-            center = new Point2D(f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA))), (f.I - f.J) / (slopeB - slopeA));
+            x = f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA)));
+            y = (f.I - f.J) / (slopeB - slopeA);
 
             // Get the radius.
             radius = (Center.Length(PointA));
@@ -120,6 +144,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("The radius of the Chord.")]
+        [XmlAttribute]
         public double Radius
         {
             get { return radius; }
@@ -139,12 +164,52 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
+        [XmlIgnore]
         public Point2D Center
         {
-            get { return center; }
+            get { return new Point2D(x, y); }
             set
             {
-                center = value;
+                x = value.X;
+                y = value.Y;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate location of the center of the circle.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The center x coordinate location of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute]
+        public double X
+        {
+            get { return x; }
+            set
+            {
+                x = value;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate location of the center of the circle.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The center y coordinate location of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [XmlAttribute]
+        public double Y
+        {
+            get { return y; }
+            set
+            {
+                y = value;
                 update?.Invoke();
             }
         }
@@ -152,18 +217,20 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public Point2D StartPoint
         {
-            get { return new Point2D(center.X + radius * Cos(-startAngle), center.Y + radius * Sin(-startAngle)); }
+            get { return new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle)); }
             //set;
         }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public Point2D EndPoint
         {
-            get { return new Point2D(center.X + radius * Cos(-endAngle), center.Y + radius * Sin(-endAngle)); }
+            get { return new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle)); }
             //set;
         }
 
@@ -231,11 +298,11 @@ namespace Engine.Geometry
                 double angleEnd = endAngle;
                 // check that angle2 > angle1
                 if (angleEnd < startAngle) angleEnd += 2 * PI;
-                if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = center.X + radius;
-                if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi)) bounds.Top = center.Y - radius;
-                if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = center.X - radius;
-                if ((angleEnd >= Maths.ThreeQuarterTau) && (startAngle <= Maths.ThreeQuarterTau)) bounds.Bottom = center.Y + radius;
-                if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = center.X + radius;
+                if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = x + radius;
+                if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi)) bounds.Top = y - radius;
+                if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = x - radius;
+                if ((angleEnd >= Maths.ThreeQuarterTau) && (startAngle <= Maths.ThreeQuarterTau)) bounds.Bottom = y + radius;
+                if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = x + radius;
                 return bounds;
             }
         }
@@ -247,7 +314,7 @@ namespace Engine.Geometry
         [Description("The rectangular boundaries of the circle containing the Chord.")]
         public Rectangle2D DrawingBounds
         {
-            get { return Rectangle2D.FromLTRB((center.X - radius), (center.Y - radius), (center.X + radius), (center.Y + radius)); }
+            get { return Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius)); }
         }
 
         /// <summary>
@@ -312,8 +379,8 @@ namespace Engine.Geometry
             // ToDo: Add the 
             double t = startAngle + SweepAngle * index;
             return new Point2D(
-                center.X + (Sin(t) * radius),
-                center.X + (Cos(t) * radius));
+                x + (Sin(t) * radius),
+                y + (Cos(t) * radius));
         }
 
         /// <summary>
@@ -337,25 +404,6 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="CircularSegment"/> struct.
-        /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="CircularSegment"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
-
-        /// <summary>
         /// Creates a string representation of this <see cref="CircularSegment"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -367,26 +415,11 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="CircularSegment"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(CircularSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(CircularSegment)}{{{nameof(Center)}={center},{nameof(Radius)}={radius},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
+            IFormattable formatable = $"{nameof(CircularSegment)}{{{nameof(Center)}={Center},{nameof(Radius)}={radius},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
             return formatable.ToString(format, provider);
         }
 

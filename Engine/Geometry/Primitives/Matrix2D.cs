@@ -14,7 +14,7 @@ namespace Engine.Geometry
     /// <remarks>http://referencesource.microsoft.com</remarks>
     [Serializable]
     [ComVisible(true)]
-    [DisplayName(nameof(Matrix2D))]
+    //[DisplayName(nameof(Matrix2D))]
     [TypeConverter(typeof(Matrix2DConverter))]
     public partial struct Matrix2D
         : IFormattable
@@ -654,12 +654,12 @@ namespace Engine.Geometry
             else
             {
                 value = new Matrix2D(
-                    Maths.ToFloat(firstToken, formatProvider),
-                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ToFloat(tokenizer.NextTokenRequired(), formatProvider));
+                    Maths.ParseFloat(firstToken, formatProvider),
+                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
+                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider));
             }
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();

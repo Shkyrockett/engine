@@ -12,7 +12,6 @@ using Engine.Objects;
 using Engine.Tweening;
 using System.Collections.Generic;
 using System.Text;
-using static System.Math;
 
 namespace Engine.Tools
 {
@@ -22,6 +21,8 @@ namespace Engine.Tools
     public class TweenTo
         : Tool, ITool
     {
+        #region Fields
+
         /// <summary>
         /// Rubber-band line.
         /// </summary>
@@ -37,6 +38,10 @@ namespace Engine.Tools
         /// </summary>
         bool mouseDown;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Straightener"/> class.
         /// </summary>
@@ -48,6 +53,10 @@ namespace Engine.Tools
             // Setup the storage properties. 
             line = LineSegment.Empty;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Array of points for the Rubber-band line.
@@ -67,6 +76,8 @@ namespace Engine.Tools
             get { return index; }
             set { index = value; }
         }
+
+        #endregion
 
         /// <summary>
         /// Update tool on mouse down.

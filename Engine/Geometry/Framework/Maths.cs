@@ -350,6 +350,8 @@ namespace Engine.Geometry
             };
         #endregion
 
+        #region Random
+
         /// <summary>
         /// Initialize random number generator with seed based on time.
         /// </summary>
@@ -364,6 +366,8 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Random(this double Lower, double Upper)
             => ((RandomNumberGenerator.Next() * ((Upper - Lower) + 1)) + Lower);
+
+        #endregion
 
         #region Geometric Methods
 
@@ -1777,6 +1781,20 @@ namespace Engine.Geometry
         // Derived equivalent Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static Tuple<double, double> QuadraticEquation(double a, double b, double c)
+        {
+            return new Tuple<double, double>(
+                (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
+                (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
+        }
+
+        /// <summary>
         /// Returns the specified root a specified number.
         /// </summary>
         /// <param name="x">A double-precision floating-point number to find the specified root of.</param>
@@ -2121,7 +2139,6 @@ namespace Engine.Geometry
         /// <param name="degrees">Angle in Degrees.</param>
         /// <returns>Angle in Radians.</returns>
         /// <remarks></remarks>
-        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2134,7 +2151,6 @@ namespace Engine.Geometry
         /// <param name="radiens">Angle in Radians.</param>
         /// <returns>Angle in Degrees.</returns>
         /// <remarks></remarks>
-        /// <optimisation>This code has been optimized for speed by removing division from each call</optimisation>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2144,14 +2160,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="v"></param>
-        /// <param name="d"></param>
+        /// <param name="val"></param>
         /// <returns></returns>
         [Pure]
-        public static double RoundAFZ(double v, int d)
-        {
-            return Round(v, d, MidpointRounding.AwayFromZero);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Round(this float val)
+            => (0f < val) ? (int)(val + 0.5f) : (int)(val - 0.5f);
 
         /// <summary>
         /// 
@@ -2160,18 +2174,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int RoundToInt(this float val)
-            => (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int RoundToInt(this double val)
-            => (0 < val) ? (int)(val + 0.5) : (int)(val - 0.5);
+        public static double Round(this double val)
+            => (0d < val) ? (int)(val + 0.5d) : (int)(val - 0.5d);
 
         /// <summary>
         /// Round a value to the nearest multiple of a number.
@@ -2179,11 +2183,15 @@ namespace Engine.Geometry
         /// <param name="value">The value to round.</param>
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
-        /// <remarks>Convert.ToInt32 does the correct rounding that Round does not do.</remarks>
+        /// <remarks>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
             => Convert.ToInt32(value / multiple) * multiple;
+
+        #endregion
+
+        #region Parsing.
 
         /// <summary>
         /// 
@@ -2192,7 +2200,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float ToFloat(string text)
+        public static float ParseFloat(this string text)
             => float.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -2203,7 +2211,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float ToFloat(string text, IFormatProvider provider)
+        public static float ParseFloat(this string text, IFormatProvider provider)
             => float.Parse(text, provider);
 
         /// <summary>
@@ -2213,7 +2221,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToDouble(string text)
+        public static double ParseDouble(this string text)
             => double.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -2224,7 +2232,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToDouble(string text, IFormatProvider provider)
+        public static double ParseDouble(this string text, IFormatProvider provider)
             => double.Parse(text, provider);
 
         #endregion

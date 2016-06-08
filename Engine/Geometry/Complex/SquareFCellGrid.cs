@@ -8,6 +8,7 @@
 // <summary></summary>
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using static System.Math;
 

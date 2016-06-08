@@ -1,4 +1,4 @@
-﻿namespace Engine.Tools
+﻿namespace Engine.Geometry
 {
     /// <summary>
     /// 

@@ -17,7 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodSpeedTesterTests", "M
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{972FD154-B0FA-4B53-A6F6-5108024D2E77}"
 	ProjectSection(SolutionItems) = preProject
-		Math.md = Math.md
+		Conventions.md = Conventions.md
+		LICENSE = LICENSE
+		MathPrimer.md = MathPrimer.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global

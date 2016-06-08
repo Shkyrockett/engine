@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine.Geometry;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace MethodSpeedTester
         private void PolygonPointTester_Load(object sender, EventArgs e)
         {
             points = GenerateGrid(25, 25, 125, 125, 5, 5);
-            
+
             polygons.Add(new Tuple<string, List<PointF>>("Square", new List<PointF>() {
                 new PointF(25, 25),
                 new PointF(100, 25),
@@ -260,12 +261,16 @@ namespace MethodSpeedTester
 
         private void pictureBox16_Paint(object sender, PaintEventArgs e)
         {
-
+            DrawPolys(e.Graphics, Font, polygon, points,
+                (s, p) => Experiments.PointInPolygonHormannAgathos(s, p) != InsideOutside.Outside,
+                nameof(Experiments.PointInPolygonHormannAgathos));
         }
 
         private void pictureBox17_Paint(object sender, PaintEventArgs e)
         {
-
+            DrawPolys(e.Graphics, Font, polygon, points,
+                (s, p) => Experiments.PointInPolygonHormannAgathosX(s, p) != InsideOutside.Outside,
+                nameof(Experiments.PointInPolygonHormannAgathosX));
         }
     }
 }

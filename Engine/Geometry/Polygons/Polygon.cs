@@ -9,11 +9,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -26,7 +23,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(Polygon))]
     public class Polygon
-        : Shape, IClosedShape, IFormattable
+        : Shape, IClosedShape
     {
         #region Private Fields
 
@@ -141,6 +138,7 @@ namespace Engine.Geometry
         {
             get
             {
+                if (this.points?.Count < 1) return null;
                 var points = (this.points as List<Point2D>);
 
                 double left = points[0].X;
@@ -195,7 +193,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override bool Contains(Point2D point)
         {
-            return Intersections.PointPolygon(points, point);
+            return Intersections.Contains(this, point) != InsideOutside.Outside;
         }
 
         /// <summary>
@@ -236,25 +234,6 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Polygon"/> struct.
-        /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Polygon"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
-
-        /// <summary>
         /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -266,22 +245,7 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal virtual string ConvertToString(string format, IFormatProvider provider)
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Polygon);
             char sep = Tokenizer.GetNumericListSeparator(provider);

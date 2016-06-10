@@ -11,54 +11,39 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private double value;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public BritishThermalUnits(double value)
         {
-            this.value = value;
+            Value = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "British Thermal Units"; } }
+        public string Name => "British Thermal Units";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "Btu"; } }
+        public string Abreviation => "Btu";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator BritishThermalUnits(double value)
-        {
-            return new BritishThermalUnits(value);
-        }
+        public static implicit operator BritishThermalUnits(double value) => new BritishThermalUnits(value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} Btu", value);
-        }
+        public override string ToString() => string.Format("{0} Btu", Value);
     }
 }

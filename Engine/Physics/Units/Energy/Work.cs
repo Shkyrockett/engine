@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IForce force;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ILength distance;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="force"></param>
         /// <param name="distance"></param>
         public Work(IForce force, ILength distance)
         {
-            this.force = force;
-            this.distance = distance;
+            Force = force;
+            Distance = distance;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IForce Force
-        {
-            get { return force; }
-            set { force = value; }
-        }
+        public IForce Force { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ILength Distance
-        {
-            get { return distance; }
-            set { distance = value; }
-        }
+        public ILength Distance { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return force.Value * distance.Value; }
-        }
+        public double Value => Force.Value * Distance.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Work"; } }
+        public string Name => "Work";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}{1}", Value, force.Abreviation, distance.Abreviation); } }
+        public string Abreviation => string.Format("{0}{1}", Value, Force.Abreviation, Distance.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1}{2}", Value, force.Abreviation, distance.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1}{2}", Value, Force.Abreviation, Distance.Abreviation);
     }
 }

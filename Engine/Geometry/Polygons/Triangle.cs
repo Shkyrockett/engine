@@ -30,7 +30,8 @@ namespace Engine.Geometry
         /// </summary>
         public Triangle()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -40,7 +41,8 @@ namespace Engine.Geometry
         /// <param name="c"></param>
         public Triangle(Point2D a, Point2D b, Point2D c)
             : base(new List<Point2D>() { a, b, c })
-        { }
+        {
+        }
 
         /// <summary>
         /// 

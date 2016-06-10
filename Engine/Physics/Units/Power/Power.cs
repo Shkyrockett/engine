@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IEnergy work;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ITime time;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="work"></param>
         /// <param name="time"></param>
         public Power(IEnergy work, ITime time)
         {
-            this.work = work;
-            this.time = time;
+            Work = work;
+            Time = time;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IEnergy Work
-        {
-            get { return work; }
-            set { work = value; }
-        }
+        public IEnergy Work { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITime Time
-        {
-            get { return time; }
-            set { time = value; }
-        }
+        public ITime Time { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return work.Value / time.Value; }
-        }
+        public double Value => Work.Value / Time.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Power"; } }
+        public string Name => "Power";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "J"; } }
+        public string Abreviation => "J";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0}", Value);
-        }
+        public override string ToString() => string.Format("{0}", Value);
     }
 }

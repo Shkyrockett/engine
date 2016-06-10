@@ -53,7 +53,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Vector2D()
             : this(0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -61,7 +62,8 @@ namespace Engine.Geometry
         /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
         public Vector2D(Vector2D vector2D)
             : this(vector2D.I, vector2D.J)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -70,7 +72,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Vector2D(Tuple<double, double> tuple)
             : this(tuple.Item1, tuple.Item2)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -94,7 +97,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Vector2D(double aI, double aJ, double bI, double bJ)
             : this(new Point2D(aI, aJ), new Point2D(bI, bJ))
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -104,7 +108,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Vector2D(Point2D a, Point2D b)
             : this(a.Delta(b).Unit())
-        { }
+        {
+        }
 
         #endregion
 
@@ -147,10 +152,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Vector2D operator +(Vector2D value)
-        {
-            return new Vector2D(+value.I, +value.J);
-        }
+        public static Vector2D operator +(Vector2D value) => new Vector2D(+value.I, +value.J);
 
         /// <summary>
         /// Add Points
@@ -159,10 +161,7 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator +(Vector2D value, double addend)
-        {
-            return value.Add(addend);
-        }
+        public static Vector2D operator +(Vector2D value, double addend) => value.Add(addend);
 
         /// <summary>
         /// Add Points
@@ -171,10 +170,7 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator +(Vector2D value, Point2D addend)
-        {
-            return value.Add(addend);
-        }
+        public static Point2D operator +(Vector2D value, Point2D addend) => value.Add(addend);
 
         /// <summary>
         /// Add Points
@@ -183,20 +179,14 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator +(Vector2D value, Vector2D addend)
-        {
-            return value.Add(addend);
-        }
+        public static Vector2D operator +(Vector2D value, Vector2D addend) => value.Add(addend);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Vector2D operator -(Vector2D value)
-        {
-            return new Vector2D(-value.I, -value.J);
-        }
+        public static Vector2D operator -(Vector2D value) => new Vector2D(-value.I, -value.J);
 
         /// <summary>
         /// Subtract Points
@@ -205,10 +195,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator -(Vector2D value, double subend)
-        {
-            return value.Subtract(subend);
-        }
+        public static Vector2D operator -(Vector2D value, double subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract Points
@@ -217,10 +204,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator -(Vector2D value, Point2D subend)
-        {
-            return value.Subtract(subend);
-        }
+        public static Point2D operator -(Vector2D value, Point2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract Points
@@ -229,10 +213,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator -(Vector2D value, Vector2D subend)
-        {
-            return value.Subtract(subend);
-        }
+        public static Vector2D operator -(Vector2D value, Vector2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Scale a Vector
@@ -241,10 +222,7 @@ namespace Engine.Geometry
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
         /// <remarks></remarks>
-        public static Vector2D operator *(Vector2D value, double factor)
-        {
-            return new Vector2D(value.I * factor, value.J * factor);
-        }
+        public static Vector2D operator *(Vector2D value, double factor) => new Vector2D(value.I * factor, value.J * factor);
 
         /// <summary>
         /// Scale a Vector
@@ -253,10 +231,7 @@ namespace Engine.Geometry
         /// <param name="value">The Point</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
         /// <remarks></remarks>
-        public static Vector2D operator *(double factor, Vector2D value)
-        {
-            return new Vector2D(value.I * factor, value.J * factor);
-        }
+        public static Vector2D operator *(double factor, Vector2D value) => new Vector2D(value.I * factor, value.J * factor);
 
         /// <summary>
         /// Divide a Vector2D
@@ -265,10 +240,7 @@ namespace Engine.Geometry
         /// <param name="divedend">The divisor</param>
         /// <returns>A Vector2D divided by the divisor</returns>
         /// <remarks></remarks>
-        public static Vector2D operator /(Vector2D divisor, double divedend)
-        {
-            return new Vector2D(divisor.I / divedend, divisor.J / divedend);
-        }
+        public static Vector2D operator /(Vector2D divisor, double divedend) => new Vector2D(divisor.I / divedend, divisor.J / divedend);
 
         /// <summary>
         /// Divide a Vector2D
@@ -277,10 +249,7 @@ namespace Engine.Geometry
         /// <param name="dividend">The divisor</param>
         /// <returns>A Vector2D divided by the divisor</returns>
         /// <remarks></remarks>
-        public static Vector2D operator /(double divisor, Vector2D dividend)
-        {
-            return new Vector2D(divisor / dividend.I, divisor / dividend.I);
-        }
+        public static Vector2D operator /(double divisor, Vector2D dividend) => new Vector2D(divisor / dividend.I, divisor / dividend.I);
 
         /// <summary>
         /// 
@@ -288,10 +257,7 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator ==(Vector2D a, Vector2D b)
-        {
-            return Equals(a, b);
-        }
+        public static bool operator ==(Vector2D a, Vector2D b) => Equals(a, b);
 
         /// <summary>
         /// 
@@ -299,10 +265,7 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator !=(Vector2D a, Vector2D b)
-        {
-            return !Equals(a, b);
-        }
+        public static bool operator !=(Vector2D a, Vector2D b) => !Equals(a, b);
 
         /// <summary>
         /// Compares two Vectors
@@ -312,10 +275,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Vector2D a, Vector2D b)
-        {
-            return Equals(a, b);
-        }
+        public static bool Compare(Vector2D a, Vector2D b) => Equals(a, b);
 
         /// <summary>
         /// 
@@ -324,10 +284,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Vector2D a, Vector2D b)
-        {
-            return a?.I == b?.I & a?.J == b?.J;
-        }
+        public static bool Equals(Vector2D a, Vector2D b) => a?.I == b?.I & a?.J == b?.J;
 
         /// <summary>
         /// 
@@ -335,10 +292,7 @@ namespace Engine.Geometry
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-        {
-            return obj is Vector2D && Equals(this, (Vector2D)obj);
-        }
+        public override bool Equals(object obj) => obj is Vector2D && Equals(this, (Vector2D)obj);
 
         /// <summary>
         /// 
@@ -346,10 +300,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector2D value)
-        {
-            return Equals(this, value);
-        }
+        public bool Equals(Vector2D value) => Equals(this, value);
 
         /// <summary>
         /// Vector2D to PointF
@@ -358,10 +309,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static implicit operator Vector2D(PointF value)
-        {
-            return new Vector2D(value.X, value.Y);
-        }
+        public static implicit operator Vector2D(PointF value) => new Vector2D(value.X, value.Y);
 
         /// <summary>
         /// Vector2D to Point
@@ -370,10 +318,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static implicit operator Vector2D(Point value)
-        {
-            return new Vector2D(value.X, value.Y);
-        }
+        public static implicit operator Vector2D(Point value) => new Vector2D(value.X, value.Y);
 
         /// <summary>
         /// Vector2D to Point
@@ -382,10 +327,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static implicit operator Vector2D(Point2D value)
-        {
-            return new Vector2D(value.X, value.Y);
-        }
+        public static implicit operator Vector2D(Point2D value) => new Vector2D(value.X, value.Y);
 
         /// <summary>
         /// PointF to Vector2D
@@ -394,10 +336,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static explicit operator PointF(Vector2D value)
-        {
-            return new PointF((int)value.I, (int)value.I);
-        }
+        public static explicit operator PointF(Vector2D value) => new PointF((int)value.I, (int)value.I);
 
         /// <summary>
         /// Point to Vector2D
@@ -406,10 +345,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static explicit operator Point(Vector2D value)
-        {
-            return new Point((int)value.I, (int)value.I);
-        }
+        public static explicit operator Point(Vector2D value) => new Point((int)value.I, (int)value.I);
 
         #endregion
 
@@ -426,10 +362,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return I.GetHashCode() ^ J.GetHashCode();
-        }
+        public override int GetHashCode() => I.GetHashCode() ^ J.GetHashCode();
 
         /// <summary>
         /// Parse a string for a <see cref="Vector2D"/> value.
@@ -441,8 +374,8 @@ namespace Engine.Geometry
         /// </returns>
         public static Vector2D Parse(string source)
         {
-            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            Vector2D value = new Vector2D(
+            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            var value = new Vector2D(
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
             // There should be no more tokens in this string.

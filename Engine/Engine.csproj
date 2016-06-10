@@ -107,6 +107,7 @@
     <Compile Include="Geometry\Intersections.cs" />
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
+    <Compile Include="Physics\UnitStrings.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />
     <Compile Include="Tools\Enums\ScrollOrientation.cs" />
     <Compile Include="Tools\Enums\Keys.cs" />
@@ -216,7 +217,6 @@
     <Compile Include="Experemental\CardinalSpline.cs" />
     <Compile Include="Experemental\Hyperbola.cs" />
     <Compile Include="Experemental\Parabola.cs" />
-    <Compile Include="Experemental\Experimental.cs" />
     <Compile Include="Experemental\Heart.cs" />
     <Compile Include="Experemental\Curve.cs" />
     <Compile Include="Geometry\Primitives\Converters\Size2DConverter.cs" />
@@ -244,7 +244,7 @@
     <Compile Include="Geometry\Primitives\Point2D.cs" />
     <Compile Include="Experemental\BoundingRect.cs" />
     <Compile Include="Experemental\NGonStar.cs" />
-    <Compile Include="Experemental\ElipticStar.cs" />
+    <Compile Include="Experemental\EllipticStar.cs" />
     <Compile Include="Experemental\NonIntStar.cs" />
     <Compile Include="Geometry\Framework\PolygonExtensions.cs" />
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
@@ -278,7 +278,6 @@
     <Compile Include="Experemental\Cosine.cs" />
     <Compile Include="Geometry\Curves\CubicBezier.cs" />
     <Compile Include="Experemental\CatmullRom.cs" />
-    <Compile Include="Experemental\BSpline.cs" />
     <Compile Include="Geometry\Curves\Butterfly.cs" />
     <Compile Include="Geometry\Curves\Bow.cs" />
     <Compile Include="Geometry\Curves\Bicorn.cs" />

@@ -52,7 +52,8 @@ namespace Engine.Geometry
         /// </summary>
         public Circle()
             : this(0, 0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
@@ -96,7 +97,8 @@ namespace Engine.Geometry
         /// <param name="triangle"></param>
         public Circle(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -109,7 +111,7 @@ namespace Engine.Geometry
             //  Calculate the slopes of the lines.
             double slopeA = (PointA.Slope(PointB));
             double slopeB = (PointC.Slope(PointB));
-            Vector2D f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
+            var f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
             // Find the center.
@@ -236,10 +238,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The distance around the circle.")]
         [XmlIgnore]
-        public double Circumference
-        {
-            get { return 2 * radius * PI; }
-        }
+        public double Circumference => 2 * radius * PI;
 
         /// <summary>
         /// 
@@ -247,10 +246,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The area of the circle.")]
         [XmlIgnore]
-        public override double Area
-        {
-            get { return PI * radius * radius; }
-        }
+        public override double Area => PI * radius * radius;
 
         #endregion
 
@@ -262,10 +258,7 @@ namespace Engine.Geometry
         /// <param name="point"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static Circle FromCenterAndRadius(Point2D point, double radius)
-        {
-            return new Circle(point, radius);
-        }
+        public static Circle FromCenterAndRadius(Point2D point, double radius) => new Circle(point, radius);
 
         /// <summary>
         /// 
@@ -274,30 +267,21 @@ namespace Engine.Geometry
         /// <param name="pointB"></param>
         /// <param name="pointC"></param>
         /// <returns></returns>
-        public static Circle FromThreePoints(Point2D pointA, Point2D pointB, Point2D pointC)
-        {
-            return new Circle(pointA, pointB, pointC);
-        }
+        public static Circle FromThreePoints(Point2D pointA, Point2D pointB, Point2D pointC) => new Circle(pointA, pointB, pointC);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="triangle"></param>
         /// <returns></returns>
-        public static Circle FromTriangle(Triangle triangle)
-        {
-            return new Circle(triangle.A, triangle.B, triangle.C);
-        }
+        public static Circle FromTriangle(Triangle triangle) => new Circle(triangle.A, triangle.B, triangle.C);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="rectangle"></param>
         /// <returns></returns>
-        public static Circle FromRectangle(Rectangle2D rectangle)
-        {
-            return new Circle(rectangle);
-        }
+        public static Circle FromRectangle(Rectangle2D rectangle) => new Circle(rectangle);
 
         #endregion
 
@@ -309,12 +293,9 @@ namespace Engine.Geometry
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Interpolate(double index)
-        {
-            return new Point2D(
-                x + (Sin(index) * radius),
-                y + (Cos(index) * radius));
-        }
+        public override Point2D Interpolate(double index) => new Point2D(
+    x + (Sin(index) * radius),
+    y + (Cos(index) * radius));
 
         /// <summary>
         /// 
@@ -323,11 +304,9 @@ namespace Engine.Geometry
         public List<Point2D> InterpolatePoints()
         {
             double delta_phi = (2 * PI / Circumference);
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
             for (double i = 0.0f; i <= (2.0 * PI); i += delta_phi)
-            {
                 points.Add(Interpolate(i));
-            }
 
             return points;
         }
@@ -341,10 +320,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point)
-        {
-            return Intersections.Contains(this, point) != InsideOutside.Outside;
-        }
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != InsideOutside.Outside;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Circle"/> struct based on the format string

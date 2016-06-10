@@ -9,8 +9,8 @@ namespace Engine.Imaging
     /// </summary>
     public class ImageCompare
     {
-        const int bytes = 4;
-        const byte max = 255;
+        private const int bytes = 4;
+        private const byte max = 255;
 
         /// <summary>
         /// Differences the pixels of two images.
@@ -25,15 +25,15 @@ namespace Engine.Imaging
             else if (a == null) return b;
             else if (b == null) return a;
 
-            Rectangle aRect = new Rectangle(Point.Empty, a.Size);
-            Rectangle bRect = new Rectangle(Point.Empty, b.Size);
-            Rectangle cRect = new Rectangle(Point.Empty, new Size(a.Width > b.Width ? a.Width : b.Width, a.Height > b.Height ? a.Height : b.Height));
+            var aRect = new Rectangle(Point.Empty, a.Size);
+            var bRect = new Rectangle(Point.Empty, b.Size);
+            var cRect = new Rectangle(Point.Empty, new Size(a.Width > b.Width ? a.Width : b.Width, a.Height > b.Height ? a.Height : b.Height));
 
-            Bitmap c = new Bitmap(cRect.Width, cRect.Height, PixelFormat.Format32bppArgb);
+            var c = new Bitmap(cRect.Width, cRect.Height, PixelFormat.Format32bppArgb);
 
-            using (var aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (var bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (var cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
+            using (BitmapExtensions.DisposableImageData aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (BitmapExtensions.DisposableImageData bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (BitmapExtensions.DisposableImageData cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
             {
                 byte* aPtr = (byte*)aData.Scan0;
                 byte* bPtr = (byte*)bData.Scan0;
@@ -94,15 +94,15 @@ namespace Engine.Imaging
             else if (a == null) return b;
             else if (b == null) return a;
 
-            Rectangle aRect = new Rectangle(Point.Empty, a.Size);
-            Rectangle bRect = new Rectangle(Point.Empty, b.Size);
-            Rectangle cRect = new Rectangle(Point.Empty, new Size(a.Width > b.Width ? a.Width : b.Width, a.Height > b.Height ? a.Height : b.Height));
+            var aRect = new Rectangle(Point.Empty, a.Size);
+            var bRect = new Rectangle(Point.Empty, b.Size);
+            var cRect = new Rectangle(Point.Empty, new Size(a.Width > b.Width ? a.Width : b.Width, a.Height > b.Height ? a.Height : b.Height));
 
-            Bitmap c = new Bitmap(cRect.Width, cRect.Height, PixelFormat.Format32bppArgb);
+            var c = new Bitmap(cRect.Width, cRect.Height, PixelFormat.Format32bppArgb);
 
-            using (var aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (var bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (var cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
+            using (BitmapExtensions.DisposableImageData aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (BitmapExtensions.DisposableImageData bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (BitmapExtensions.DisposableImageData cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
             {
                 byte* aPtr = (byte*)aData.Scan0;
                 byte* bPtr = (byte*)bData.Scan0;

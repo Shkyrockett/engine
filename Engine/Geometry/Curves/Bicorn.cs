@@ -55,7 +55,8 @@ namespace Engine.Geometry
         /// </summary>
         public Bicorn()
             : this(new Point2D(), new Size2D())
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -122,13 +123,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index)
-        {
-            return new Point2D(
-                    offset.X + ((2 * Sin(index)) * multiplyer.Width),
-                    offset.Y + (((Cos(index) * (2 * ((2 + Cos(index)) / (3 + (Sin(index) * 2))))) * -1) * multiplyer.Height)
-                    );
-        }
+        public override Point2D Interpolate(double index) => new Point2D(
+        offset.X + ((2 * Sin(index)) * multiplyer.Width),
+        offset.Y + (((Cos(index) * (2 * ((2 + Cos(index)) / (3 + (Sin(index) * 2))))) * -1) * multiplyer.Height)
+        );
 
         /// <summary>
         /// 
@@ -137,11 +135,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override List<Point2D> InterpolatePoints(int precision)
         {
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
             for (double Index = (PI * -1); (Index <= PI); Index = (Index + (1d / precision)))
-            {
                 points.Add(Interpolate(Index));
-            }
 
             return points;
         }

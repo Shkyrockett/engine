@@ -29,7 +29,8 @@ namespace Engine.Objects
         /// </summary>
         public VectorMap()
             : this(new List<GraphicItem>())
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -37,7 +38,7 @@ namespace Engine.Objects
         /// <param name="shapes"></param>
         public VectorMap(List<GraphicItem> shapes)
         {
-            this.Items = shapes;
+            Items = shapes;
         }
 
         #endregion
@@ -49,32 +50,20 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="area"></param>
         /// <returns></returns>
-        public List<GraphicItem> this[Rectangle2D area]
-        {
-            get
-            {
-                return new List<GraphicItem>(
-                    from shape in Items
-                    where shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area)
-                    select shape);
-            }
-        }
+        public List<GraphicItem> this[Rectangle2D area] => new List<GraphicItem>(
+    from shape in Items
+    where shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area)
+    select shape);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public List<GraphicItem> this[Point2D point]
-        {
-            get
-            {
-                return new List<GraphicItem>(
-                    from shape in Items
-                    where shape.Bounds.Contains(point) && shape.Contains(point)
-                    select shape);
-            }
-        }
+        public List<GraphicItem> this[Point2D point] => new List<GraphicItem>(
+    from shape in Items
+    where shape.Bounds.Contains(point) && shape.Contains(point)
+    select shape);
 
         #endregion
 
@@ -83,7 +72,7 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
-        public bool IsReadOnly { get; private set; } = false;
+        public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// 
@@ -168,13 +157,9 @@ namespace Engine.Objects
         {
             bool success = false;
             if (SelectedItems.Contains(item))
-            {
                 success |= SelectedItems.Remove(item);
-            }
             if (Items.Contains(item))
-            {
                 success |= Items.Remove(item);
-            }
             return success;
         }
 
@@ -191,32 +176,23 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <param name="point"></param>
-        public GraphicItem SelectItem(Point2D point)
-        {
-            return Items.LastOrDefault(shape => shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
-        }
+        public GraphicItem SelectItem(Point2D point) => Items.LastOrDefault(shape => shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="point"></param>
-        public List<GraphicItem> SelectItems(Point2D point)
-        {
-            return new List<GraphicItem>(
-                from shape in Items
-                where shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
-                select shape);
-        }
+        public List<GraphicItem> SelectItems(Point2D point) => new List<GraphicItem>(
+    from shape in Items
+    where shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
+    select shape);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Contains(GraphicItem item)
-        {
-            return Items.Contains(item);
-        }
+        public bool Contains(GraphicItem item) => Items.Contains(item);
 
         /// <summary>
         /// 
@@ -232,18 +208,12 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<GraphicItem> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
+        public IEnumerator<GraphicItem> GetEnumerator() => Items.GetEnumerator();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => Items.GetEnumerator();
     }
 }

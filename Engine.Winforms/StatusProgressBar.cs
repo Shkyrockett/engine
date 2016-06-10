@@ -23,7 +23,7 @@ namespace Engine.Winforms
             UpdateStyles();
         }
 
-        const int WmPaint = 0x0F;
+        private const int WmPaint = 0x0F;
 
         /// <summary>
         /// 
@@ -36,16 +36,15 @@ namespace Engine.Winforms
             switch (m.Msg)
             {
                 case WmPaint:
-                    using (var graphics = Graphics.FromHwnd(Handle))
+                    using (Graphics graphics = Graphics.FromHwnd(Handle))
                     {
-                        var textSize = graphics.MeasureString(Text, Font);
+                        SizeF textSize = graphics.MeasureString(Text, Font);
 
                         using (var textBrush = new SolidBrush(ForeColor))
                             graphics.DrawString(Text, Font, textBrush, (Width / 2) - (textSize.Width / 2), (Height / 2) - (textSize.Height / 2));
                     }
                     break;
             }
-
         }
 
         /// <summary>
@@ -61,17 +60,17 @@ namespace Engine.Winforms
             rect.Inflate(-3, -3);
             if (this.Value > 0)
             {
-                Rectangle clip = new Rectangle(rect.X, rect.Y, (int)Math.Round(((float)this.Value / this.Maximum) * rect.Width), rect.Height);
+                var clip = new Rectangle(rect.X, rect.Y, (int)Math.Round(((float)this.Value / this.Maximum) * rect.Width), rect.Height);
                 ProgressBarRenderer.DrawHorizontalChunks(g, clip);
             }
 
             // assumes this.Maximum == 100
             string text = this.Value.ToString() + '%';
 
-            using (Font f = new Font(FontFamily.GenericMonospace, 10))
+            using (var f = new Font(FontFamily.GenericMonospace, 10))
             {
                 SizeF strLen = g.MeasureString(text, f);
-                Point location = new Point((int)((rect.Width / 2) - (strLen.Width / 2)), (int)((rect.Height / 2) - (strLen.Height / 2)));
+                var location = new Point((int)((rect.Width / 2) - (strLen.Width / 2)), (int)((rect.Height / 2) - (strLen.Height / 2)));
                 g.DrawString(text, f, Brushes.Black, location);
             }
         }

@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IMass mass;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ISpeed velocity;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="mass"></param>
         /// <param name="velocity"></param>
         public Momentum(IMass mass, ISpeed velocity)
         {
-            this.mass = mass;
-            this.velocity = velocity;
+            Mass = mass;
+            Velocity = velocity;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IMass Mass
-        {
-            get { return mass; }
-            set { mass = value; }
-        }
+        public IMass Mass { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ISpeed Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
+        public ISpeed Velocity { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return mass.Value * velocity.Value; }
-        }
+        public double Value => Mass.Value * Velocity.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Momentum"; } }
+        public string Name => "Momentum";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}{1}", Value, mass.Abreviation, velocity.Abreviation); } }
+        public string Abreviation => string.Format("{0}{1}", Value, Mass.Abreviation, Velocity.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1}{2}", Value, mass.Abreviation, velocity.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1}{2}", Value, Mass.Abreviation, Velocity.Abreviation);
     }
 }

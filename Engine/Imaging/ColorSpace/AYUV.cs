@@ -14,26 +14,6 @@ namespace Engine.Imaging.ColorSpace
     public class AYUV
     {
         /// <summary>
-        /// y color component
-        /// </summary>
-        private byte y;
-
-        /// <summary>
-        /// u color component.
-        /// </summary>
-        private byte u;
-
-        /// <summary>
-        /// v color component.
-        /// </summary>
-        private byte v;
-
-        /// <summary>
-        /// Alpha color component.
-        /// </summary>
-        private byte alpha;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AYUV"/> class.
         /// </summary>
         public AYUV()
@@ -81,50 +61,31 @@ namespace Engine.Imaging.ColorSpace
         /// <summary>
         /// 
         /// </summary>
-        public byte Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
+        public byte Y { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public byte V
-        {
-            get { return v; }
-            set { v = value; }
-        }
+        public byte V { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public byte U
-        {
-            get { return u; }
-            set { u = value; }
-        }
+        public byte U { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public byte Alpha
-        {
-            get { return alpha; }
-            set { alpha = value; }
-        }
+        public byte Alpha { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public Color ToColor()
-        {
-            return Color.FromArgb(alpha,
-                (byte)(Y + 0 * U + 1.13983 * V),
-                (byte)(Y + -0.39465 * U + -0.58060 * V),
-                (byte)(Y + -0.03211 * U + 0 * V));
-        }
+        public Color ToColor() => Color.FromArgb(Alpha,
+    (byte)(Y + 0 * U + 1.13983 * V),
+    (byte)(Y + -0.39465 * U + -0.58060 * V),
+    (byte)(Y + -0.03211 * U + 0 * V));
 
         /// <summary>
         /// 
@@ -132,10 +93,10 @@ namespace Engine.Imaging.ColorSpace
         /// <returns></returns>
         public Color ToColorRounded()
         {
-            byte r = (byte)(y + 1.140 * v);
-            byte g = (byte)(y - 0.395 * u - 0.581 * v);
-            byte b = (byte)(y + 2.032 * u);
-            return Color.FromArgb(alpha, r, g, b);
+            var r = (byte)(Y + 1.140 * V);
+            var g = (byte)(Y - 0.395 * U - 0.581 * V);
+            var b = (byte)(Y + 2.032 * U);
+            return Color.FromArgb(Alpha, r, g, b);
         }
     }
 }

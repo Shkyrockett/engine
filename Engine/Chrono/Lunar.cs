@@ -8,7 +8,7 @@ using static System.Math;
 
 namespace Engine.Chrono
 {
-    class Lunar
+    internal class Lunar
     {
         //Variables for Moon program
         private double ip;
@@ -29,10 +29,7 @@ namespace Engine.Chrono
 
             yy = y - (12 - m) / 10;
             mm = m + 9;
-            if (mm >= 12)
-            {
-                mm = mm - 12;
-            }
+            if (mm >= 12) mm -= 12;
             k1 = (int)(365.25 * (yy + 4712));
             k2 = (int)(30.6001 * mm + 0.5);
             k3 = (int)(((yy / 100) + 49) * 0.75) - 38;
@@ -41,7 +38,7 @@ namespace Engine.Chrono
             if (j > 2299160)
             {
                 // For Gregorian calendar:
-                j = j - k3; // 'j' is the Julian date at 12h UT (Universal Time)
+                j -= k3; // 'j' is the Julian date at 12h UT (Universal Time)
             }
             return j;
         }
@@ -58,7 +55,7 @@ namespace Engine.Chrono
             int j = JulianDate(d, m, y);
             //Calculate the approximate phase of the moon
             ip = (j + 4.867) / 29.53059;
-            ip = ip - Floor(ip);
+            ip -= Floor(ip);
             //After several trials I've seen to add the following lines, 
             //which gave the result was not bad 
             if (ip < 0.5)
@@ -80,7 +77,7 @@ namespace Engine.Chrono
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        int moon_phase(int year, int month, int day)
+        private int moon_phase(int year, int month, int day)
         {
             int c, e;
             double jd;
@@ -100,7 +97,7 @@ namespace Engine.Chrono
             b = (int)Round(jd);		   /* int(jd) -> b, take integer part of jd */
             jd -= b;		   /* subtract integer part to leave fractional part of original jd */
             b = (int)Round(jd * 8 + 0.5);	   /* scale fraction from 0-8 and round by adding 0.5 */
-            b = b & 7;		   /* 0 and 8 are the same so turn 8 into 0 */
+            b &= 7;		   /* 0 and 8 are the same so turn 8 into 0 */
             return b;
         }
     }

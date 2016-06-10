@@ -26,9 +26,6 @@ namespace Engine.Winforms
         /// <summary>
         /// 
         /// </summary>
-        public PaletteControl PaletteControl
-        {
-            get { return Control as PaletteControl; }
-        }
+        public PaletteControl PaletteControl => Control as PaletteControl;
     }
 }

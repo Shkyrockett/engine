@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IMass mass;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ISpeed velocity;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="mass"></param>
         /// <param name="velocity"></param>
         public KineticEnergy(IMass mass, ISpeed velocity)
         {
-            this.mass = mass;
-            this.velocity = velocity;
+            Mass = mass;
+            Velocity = velocity;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IMass Mass
-        {
-            get { return mass; }
-            set { mass = value; }
-        }
+        public IMass Mass { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ISpeed Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
+        public ISpeed Velocity { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return 0.5 * (mass.Value * velocity.Value * velocity.Value); }
-        }
+        public double Value => 0.5 * (Mass.Value * Velocity.Value * Velocity.Value);
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Kinetic energy"; } }
+        public string Name => "Kinetic energy";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "J Ke"; } }
+        public string Abreviation => "J Ke";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} J Ke", Value);
-        }
+        public override string ToString() => string.Format("{0} J Ke", Value);
     }
 }

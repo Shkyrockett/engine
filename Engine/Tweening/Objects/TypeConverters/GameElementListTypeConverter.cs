@@ -25,7 +25,7 @@ namespace Engine.Objects
             if (destinationType != typeof(string))
                 return base.ConvertTo(context, culture, value, destinationType);
 
-            List<IGameElement> gameElements = value as List<IGameElement>;
+            var gameElements = value as List<IGameElement>;
             if (gameElements == null)
                 return "-";
 
@@ -37,10 +37,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public override bool GetPropertiesSupported(ITypeDescriptorContext context)
-        {
-            return true;
-        }
+        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
         /// 
@@ -51,16 +48,14 @@ namespace Engine.Objects
         /// <returns></returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            List<PropertyDescriptor> list = new List<PropertyDescriptor>();
-            List<IGameElement> gameElements = value as List<IGameElement>;
+            var list = new List<PropertyDescriptor>();
+            var gameElements = value as List<IGameElement>;
             if (gameElements != null)
             {
                 foreach (IGameElement gameElement in gameElements)
                 {
                     if (gameElement.Name != null)
-                    {
                         list.Add(new GameElementDescriptor(gameElement, list.Count));
-                    }
                 }
             }
 
@@ -70,7 +65,7 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
-        private class GameElementDescriptor 
+        private class GameElementDescriptor
             : SimplePropertyDescriptor
         {
             public GameElementDescriptor(IGameElement gameElement, int index)
@@ -79,12 +74,9 @@ namespace Engine.Objects
                 GameElement = gameElement;
             }
 
-            public IGameElement GameElement { get; private set; }
+            public IGameElement GameElement { get; }
 
-            public override object GetValue(object component)
-            {
-                return GameElement.Name;
-            }
+            public override object GetValue(object component) => GameElement.Name;
 
             public override void SetValue(object component, object value)
             {

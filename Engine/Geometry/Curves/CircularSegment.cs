@@ -61,7 +61,8 @@ namespace Engine.Geometry
         /// </summary>
         public CircularSegment()
             : this(Point2D.Empty, 0, 0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment"/> class.
@@ -69,14 +70,16 @@ namespace Engine.Geometry
         /// <param name="triangle"></param>
         public CircularSegment(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment"/> class.
         /// </summary>
         public CircularSegment(Circle circle, double startAngle, double endAngle)
             : this(circle.Center, circle.Radius, startAngle, endAngle)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment"/> class.
@@ -123,7 +126,7 @@ namespace Engine.Geometry
             // Calculate the slopes of the lines.
             double slopeA = (PointA.Slope(PointB));
             double slopeB = (PointC.Slope(PointB));
-            Vector2D f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
+            var f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
             // Find the center.
@@ -218,21 +221,13 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlIgnore]
-        public Point2D StartPoint
-        {
-            get { return new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle)); }
-            //set;
-        }
+        public Point2D StartPoint => new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
-        public Point2D EndPoint
-        {
-            get { return new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle)); }
-            //set;
-        }
+        public Point2D EndPoint => new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle));
 
         /// <summary>
         /// Gets or sets the start angle of the Chord.
@@ -294,7 +289,7 @@ namespace Engine.Geometry
         {
             get
             {
-                Rectangle2D bounds = new Rectangle2D(StartPoint, EndPoint);
+                var bounds = new Rectangle2D(StartPoint, EndPoint);
                 double angleEnd = endAngle;
                 // check that angle2 > angle1
                 if (angleEnd < startAngle) angleEnd += 2 * PI;
@@ -312,10 +307,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Chord.")]
-        public Rectangle2D DrawingBounds
-        {
-            get { return Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius)); }
-        }
+        public Rectangle2D DrawingBounds => Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius));
 
         /// <summary>
         /// 
@@ -323,10 +315,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Category("Properties")]
         [Description("The distance around the Chord.")]
-        public double ChordLength
-        {
-            get { return Abs(SweepAngle) * radius; }
-        }
+        public double ChordLength => Abs(SweepAngle) * radius;
 
         /// <summary>
         /// 
@@ -334,10 +323,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Category("Properties")]
         [Description("The distance around the Chord.")]
-        public double Perimiter
-        {
-            get { return (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius); }
-        }
+        public double Perimiter => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius);
 
         /// <summary>
         /// 
@@ -345,25 +331,16 @@ namespace Engine.Geometry
         /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
         [Category("Properties")]
         [Description("The area of the Chord.")]
-        public override double Area
-        {
-            get { return (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle)); }
-        }
+        public override double Area => (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle));
 
         /// <summary>
         /// 
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        //return radius * (1 - Cos(SweepAngle * 0.5d));
         [Category("Properties")]
         [Description("The sagitta of the Chord.")]
-        public double Sagitta
-        {
-            get
-            {
-                //return radius * (1 - Cos(SweepAngle * 0.5d));
-                return radius - Sqrt(radius * radius - ((SweepAngle * SweepAngle) / 4));
-            }
-        }
+        public double Sagitta => radius - Sqrt(radius * radius - ((SweepAngle * SweepAngle) / 4));
 
         #endregion
 
@@ -390,7 +367,7 @@ namespace Engine.Geometry
         public List<Point2D> InterpolatePoints()
         {
             //double delta_phi = 2 * PI / ArcLength;
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
             //for (double i = 0.0f; i <= 2.0 * PI; i += delta_phi)
             //{
             //    points.Add(Interpolate(i));

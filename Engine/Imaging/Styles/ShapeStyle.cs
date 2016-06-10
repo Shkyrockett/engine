@@ -32,16 +32,6 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        private Pen forePen;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Pen backPen;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private bool disposed = false;
 
         #endregion
@@ -53,7 +43,8 @@ namespace Engine.Imaging
         /// </summary>
         public ShapeStyle()
             : this(Pens.Transparent, Pens.Transparent)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -62,7 +53,8 @@ namespace Engine.Imaging
         /// <param name="backPen"></param>
         public ShapeStyle(Brush forePen, Brush backPen)
             : this(new Pen(backPen), new Pen(forePen))
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -71,8 +63,8 @@ namespace Engine.Imaging
         /// <param name="backPen"></param>
         public ShapeStyle(Pen forePen, Pen backPen)
         {
-            this.backPen = backPen;
-            this.forePen = forePen;
+            BackPen = backPen;
+            ForePen = forePen;
         }
 
         #endregion
@@ -99,8 +91,8 @@ namespace Engine.Imaging
             if (disposing)
             {
                 // Free any other managed objects here.
-                forePen.Dispose();
-                backPen.Dispose();
+                ForePen.Dispose();
+                BackPen.Dispose();
             }
 
             // Free any unmanaged objects here.
@@ -122,37 +114,29 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        public Pen ForePen
-        {
-            get { return forePen; }
-            set { forePen = value; }
-        }
+        public Pen ForePen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Brush ForeBrush
         {
-            get { return forePen.Brush; }
-            set { forePen.Brush = value; }
+            get { return ForePen.Brush; }
+            set { ForePen.Brush = value; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Pen BackPen
-        {
-            get { return backPen; }
-            set { backPen = value; }
-        }
+        public Pen BackPen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Brush BackBrush
         {
-            get { return backPen.Brush; }
-            set { backPen.Brush = value; }
+            get { return BackPen.Brush; }
+            set { BackPen.Brush = value; }
         }
 
         #endregion
@@ -163,10 +147,7 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return $"{nameof(ShapeStyle)}{{{nameof(ForePen)}={forePen},{nameof(BackPen)}={backPen}}}";
-        }
+        public override string ToString() => $"{nameof(ShapeStyle)}{{{nameof(ForePen)}={ForePen},{nameof(BackPen)}={BackPen}}}";
 
         #endregion
     }

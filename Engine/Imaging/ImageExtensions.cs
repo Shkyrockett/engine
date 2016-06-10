@@ -22,10 +22,7 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="image">The image to get the bounds from.</param>
         /// <returns>A rectangle the size of the image.</returns>
-        public static RectangleF Bounds(this Image image)
-        {
-            return new RectangleF(PointF.Empty, image.Size);
-        }
+        public static RectangleF Bounds(this Image image) => new RectangleF(PointF.Empty, image.Size);
 
         /// <summary>
         /// Convert an image to a different bit format.
@@ -37,8 +34,8 @@ namespace Engine.Imaging
         {
             if (canvas == null) return canvas;
 
-            Rectangle NewRect = new Rectangle(Point.Empty, canvas.Size);
-            Bitmap New_Bmp = new Bitmap(canvas.Width, canvas.Height, format);
+            var NewRect = new Rectangle(Point.Empty, canvas.Size);
+            var New_Bmp = new Bitmap(canvas.Width, canvas.Height, format);
             Graphics gr = Graphics.FromImage(New_Bmp);
             gr.DrawImage(canvas, NewRect, NewRect, GraphicsUnit.Pixel);
             return New_Bmp;
@@ -53,7 +50,7 @@ namespace Engine.Imaging
         /// <remarks>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</remarks>
         public static Image CropImage(this Image canvas, Rectangle cropArea)
         {
-            Bitmap bmpImage = new Bitmap(canvas);
+            var bmpImage = new Bitmap(canvas);
             Bitmap bmpCrop = bmpImage.Clone(cropArea,
             bmpImage.PixelFormat);
             return bmpCrop;
@@ -83,10 +80,10 @@ namespace Engine.Imaging
             else
                 nPercent = nPercentW;
 
-            int destWidth = (int)(sourceWidth * nPercent);
-            int destHeight = (int)(sourceHeight * nPercent);
+            var destWidth = (int)(sourceWidth * nPercent);
+            var destHeight = (int)(sourceHeight * nPercent);
 
-            Bitmap b = new Bitmap(destWidth, destHeight);
+            var b = new Bitmap(destWidth, destHeight);
             Graphics g = Graphics.FromImage(b);
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
@@ -190,7 +187,7 @@ namespace Engine.Imaging
             string strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
             //  Get the resource into a stream 
             Stream ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
-            if ((ResourceStream == null))
+            if (ResourceStream == null)
             {
                 // TODO: #If Then ... Warning!!! not translated
                 MessageBox.Show(("Unable to find: "
@@ -208,13 +205,9 @@ namespace Engine.Imaging
             }
             //  Return the Resource as a cursor
             if (ResourceStream.CanRead)
-            {
                 return new Cursor(ResourceStream);
-            }
             else
-            {
                 return Cursors.Default;
-            }
         }
     }
 }

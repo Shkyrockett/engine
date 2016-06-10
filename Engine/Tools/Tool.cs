@@ -43,11 +43,6 @@ namespace Engine.Tools
         /// </summary>
         protected bool started;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool mouseUp;
-
         #endregion
 
         #region Constructors
@@ -86,11 +81,7 @@ namespace Engine.Tools
         /// <summary>
         /// 
         /// </summary>
-        public bool MouseUp
-        {
-            get { return mouseUp; }
-            set { mouseUp = value; }
-        }
+        public bool MouseUp { get; set; }
 
         #endregion
 
@@ -107,7 +98,6 @@ namespace Engine.Tools
         /// </summary>
         public virtual void Reset()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -116,7 +106,6 @@ namespace Engine.Tools
         /// <param name="obj"></param>
         public virtual void KeyboardKeyDown(ToolStack obj)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -125,7 +114,6 @@ namespace Engine.Tools
         /// <param name="obj"></param>
         public virtual void KeyboardKeyUp(ToolStack obj)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -134,7 +122,6 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public virtual void MouseDownUpdate(ToolStack tools)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -143,7 +130,6 @@ namespace Engine.Tools
         /// <param name="tools">The Mouse Move event arguments.</param>
         public virtual void MouseMoveUpdate(ToolStack tools)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -152,7 +138,6 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public virtual void MouseUpUpdate(ToolStack tools)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -161,16 +146,12 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public virtual void MouseScrollUpdate(ToolStack tools)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
         /// A string representing a string output of the tool.
         /// </summary>
         /// <returns>Returns a <see cref="string"/> representing the type of the tool.</returns>
-        public override string ToString()
-        {
-            return GetType().ToString();
-        }
+        public override string ToString() => GetType().ToString();
     }
 }

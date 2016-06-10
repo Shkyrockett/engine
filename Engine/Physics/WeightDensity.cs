@@ -10,69 +10,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IMass weight;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private IVolume volume;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="weight"></param>
         /// <param name="volume"></param>
         public WeightDensity(IMass weight, IVolume volume)
         {
-            this.weight = weight;
-            this.volume = volume;
+            Weight = weight;
+            Volume = volume;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IMass Weight
-        {
-            get { return weight; }
-            set { weight = value; }
-        }
+        public IMass Weight { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IVolume Volume
-        {
-            get { return volume; }
-            set { volume = value; }
-        }
+        public IVolume Volume { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return weight.Value / volume.Value; }
-        }
+        public double Value => Weight.Value / Volume.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Weight Density"; } }
+        public string Name => "Weight Density";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}/{1}³", this.weight.Abreviation, this.volume.Abreviation); } }
+        public string Abreviation => string.Format("{0}/{1}³", Weight.Abreviation, Volume.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0}{1}/{2}³", Value, this.weight.Abreviation, this.volume.Abreviation);
-        }
+        public override string ToString() => string.Format("{0}{1}/{2}³", Value, Weight.Abreviation, Volume.Abreviation);
     }
 }

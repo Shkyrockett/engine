@@ -8,26 +8,6 @@ namespace Engine.Imaging.ColorSpace
     public class ARGB
     {
         /// <summary>
-        /// Red color component
-        /// </summary>
-        private byte red;
-
-        /// <summary>
-        /// Green color component.
-        /// </summary>
-        private byte green;
-
-        /// <summary>
-        /// Blue color component.
-        /// </summary>
-        private byte blue;
-
-        /// <summary>
-        /// Alpha color component.
-        /// </summary>
-        private byte alpha;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ARGB"/> class.
         /// </summary>
         public ARGB()
@@ -64,66 +44,44 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="blue">Blue color component.</param>
         public ARGB(byte alpha, byte red, byte green, byte blue)
         {
-            this.red = red;
-            this.green = green;
-            this.blue = blue;
-            this.alpha = alpha;
+            Red = red;
+            Green = green;
+            Blue = blue;
+            Alpha = alpha;
         }
 
         /// <summary>
         /// Gets or sets the red color value.
         /// </summary>
-        public byte Red
-        {
-            get { return red; }
-            set { red = value; }
-        }
+        public byte Red { get; set; }
 
         /// <summary>
         /// Gets or sets the green color value.
         /// </summary>
-        public byte Green
-        {
-            get { return green; }
-            set { green = value; }
-        }
+        public byte Green { get; set; }
 
         /// <summary>
         /// Gets or sets the blue color value.
         /// </summary>
-        public byte Blue
-        {
-            get { return blue; }
-            set { blue = value; }
-        }
+        public byte Blue { get; set; }
 
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
-        public byte Alpha
-        {
-            get { return alpha; }
-            set { alpha = value; }
-        }
+        public byte Alpha { get; set; }
 
         /// <summary>
         /// Convert between a <see cref="Color"/> and a <see cref="ARGB"/> structures.
         /// </summary>
         /// <param name="argb">A fully qualified <see cref="ARGB"/> structure.</param>
         /// <returns>Returns a fully qualified <see cref="Color"/> structure.</returns>
-        public static implicit operator Color(ARGB argb)
-        {
-            return Color.FromArgb(argb.alpha, argb.red, argb.green, argb.blue);
-        }
+        public static implicit operator Color(ARGB argb) => Color.FromArgb(argb.Alpha, argb.Red, argb.Green, argb.Blue);
 
         /// <summary>
         /// Convert between a <see cref="ARGB"/> and a <see cref="Color"/> structures.
         /// </summary>
         /// <param name="color">A fully qualified <see cref="Color"/> structure.</param>
         /// <returns>Returns a fully qualified <see cref="ARGB"/> structure.</returns>
-        public static explicit operator ARGB(Color color)
-        {
-            return new ARGB(color);
-        }
+        public static explicit operator ARGB(Color color) => new ARGB(color);
     }
 }

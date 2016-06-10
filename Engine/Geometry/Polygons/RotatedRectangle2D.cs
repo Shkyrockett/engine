@@ -69,7 +69,8 @@ namespace Engine.Geometry
         /// </summary>
         public RotatedRectangle2D()
             : this(0, 0, 0, 0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an empty location, with the provided size.
@@ -77,7 +78,8 @@ namespace Engine.Geometry
         /// <param name="size">The height and width of the <see cref="RotatedRectangle2D"/>.</param>
         public RotatedRectangle2D(Size2D size)
             : this(0, 0, size.Width, size.Height, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an initial location and size.
@@ -85,7 +87,8 @@ namespace Engine.Geometry
         /// <param name="rectangle">The rectangle to clone.</param>
         public RotatedRectangle2D(RotatedRectangle2D rectangle)
             : this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.height, rectangle.angle)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an initial location and size.
@@ -94,7 +97,8 @@ namespace Engine.Geometry
         /// <param name="size"></param>
         public RotatedRectangle2D(Point2D location, Size2D size)
             : this(location.X, location.Y, size.Width, size.Height, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an initial location and size.
@@ -104,7 +108,8 @@ namespace Engine.Geometry
         /// <param name="angle"></param>
         public RotatedRectangle2D(Point2D location, Size2D size, double angle)
             : this(location.X, location.Y, size.Width, size.Height, angle)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with the location and size from a tuple.
@@ -112,7 +117,8 @@ namespace Engine.Geometry
         /// <param name="tuple"></param>
         public RotatedRectangle2D(Tuple<double, double, double, double> tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with the location and size from a tuple.
@@ -120,7 +126,8 @@ namespace Engine.Geometry
         /// <param name="tuple"></param>
         public RotatedRectangle2D(Tuple<double, double, double, double, double> tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with a location and size.
@@ -279,19 +286,13 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlIgnore]
-        public bool IsEmpty
-        {
-            get { return (Width <= 0) || (Height <= 0); }
-        }
+        public bool IsEmpty => (Width <= 0) || (Height <= 0);
 
         /// <summary>
         /// Returns true if this Rectangle2D has area.
         /// </summary>
         [XmlIgnore]
-        public bool HasArea
-        {
-            get { return width > 0 && height > 0; }
-        }
+        public bool HasArea => width > 0 && height > 0;
 
         /// <summary>
         /// 
@@ -299,13 +300,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public override double Perimeter
-        {
-            get
-            {
-                return (Maths.Distance(0, 0, width, 0) * 2) + (Maths.Distance(0, 0, 0, height) * 2);
-            }
-        }
+        public override double Perimeter => (Maths.Distance(0, 0, width, 0) * 2) + (Maths.Distance(0, 0, 0, height) * 2);
 
         /// <summary>
         /// 
@@ -316,10 +311,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public override Rectangle2D Bounds
-        {
-            get { return PolygonExtensions.RotatedRectangleBounds(X - (width / 2d), Y - (height / 2d), width, height, Center, angle); }
-        }
+        public override Rectangle2D Bounds => PolygonExtensions.RotatedRectangleBounds(X - (width / 2d), Y - (height / 2d), width, height, Center, angle);
 
         #endregion
 
@@ -331,10 +323,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(RotatedRectangle2D left, RotatedRectangle2D right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(RotatedRectangle2D left, RotatedRectangle2D right) => Equals(left, right);
 
         /// <summary>
         /// Tests whether two <see cref="RotatedRectangle2D"/> objects differ in location, size or angle.
@@ -342,10 +331,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(RotatedRectangle2D left, RotatedRectangle2D right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(RotatedRectangle2D left, RotatedRectangle2D right) => !Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="RotatedRectangle2D"/>.
@@ -355,10 +341,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(RotatedRectangle2D left, RotatedRectangle2D right)
-        {
-            return Equals(left, right);
-        }
+        public static bool Compare(RotatedRectangle2D left, RotatedRectangle2D right) => Equals(left, right);
 
         /// <summary>
         /// 
@@ -367,24 +350,18 @@ namespace Engine.Geometry
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(RotatedRectangle2D left, RotatedRectangle2D right)
-        {
-            return (left?.X == right?.X
-                && left?.Y == right?.Y
-                && left?.Width == right?.Width
-                && left?.Height == right?.Height
-                && left.Angle == right.Angle);
-        }
+        public static bool Equals(RotatedRectangle2D left, RotatedRectangle2D right) => (left?.X == right?.X
+    && left?.Y == right?.Y
+    && left?.Width == right?.Width
+    && left?.Height == right?.Height
+    && left.Angle == right.Angle);
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is RotatedRectangle2D && Equals(this, obj as RotatedRectangle2D);
-        }
+        public override bool Equals(object obj) => obj is RotatedRectangle2D && Equals(this, obj as RotatedRectangle2D);
 
         #endregion
 
@@ -400,10 +377,7 @@ namespace Engine.Geometry
         /// <param name="angle"></param>
         /// <returns></returns>
         [Pure]
-        public static RotatedRectangle2D FromLTRBA(double left, double top, double right, double bottom, double angle)
-        {
-            return new RotatedRectangle2D(left, top, right - left, bottom - top, angle);
-        }
+        public static RotatedRectangle2D FromLTRBA(double left, double top, double right, double bottom, double angle) => new RotatedRectangle2D(left, top, right - left, bottom - top, angle);
 
         /// <summary>
         /// Creates a <see cref="Rectangle"/> from a center point and it's size.
@@ -413,10 +387,7 @@ namespace Engine.Geometry
         /// <param name="angle"></param>
         /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
         [Pure]
-        public static RotatedRectangle2D RectangleFromCenter(Point2D center, Size2D size, double angle)
-        {
-            return new RotatedRectangle2D(center - size.Inflate(0.5d), size, angle);
-        }
+        public static RotatedRectangle2D RectangleFromCenter(Point2D center, Size2D size, double angle) => new RotatedRectangle2D(center - size.Inflate(0.5d), size, angle);
 
         ///// <summary>
         ///// Creates a rectangle that represents the union between a and b.
@@ -688,10 +659,7 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <returns></returns>
         [Pure]
-        public bool Contains(Rectangle2D rect)
-        {
-            return Intersections.Contains(Bounds, rect);
-        }
+        public bool Contains(Rectangle2D rect) => Intersections.Contains(Bounds, rect);
 
         ///// <summary>
         ///// Determines if this rectangle interests with another rectangle.
@@ -708,31 +676,22 @@ namespace Engine.Geometry
         /// Convert a rectangle to an array of it's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public List<Point2D> ToPoints()
-        {
-            return PolygonExtensions.RotatedRectangle(x - (width / 2d), y - (height / 2d), width, height, Center, angle);
-        }
+        public List<Point2D> ToPoints() => PolygonExtensions.RotatedRectangle(x - (width / 2d), y - (height / 2d), width, height, Center, angle);
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return unchecked((int)((uint)X ^
-            (((uint)Y << 13) | ((uint)Y >> 19)) ^
-            (((uint)Width << 26) | ((uint)Width >> 6)) ^
-            (((uint)Height << 7) | ((uint)Height >> 25))));
-        }
+        public override int GetHashCode() => unchecked((int)((uint)X ^
+(((uint)Y << 13) | ((uint)Y >> 19)) ^
+(((uint)Width << 26) | ((uint)Width >> 6)) ^
+(((uint)Height << 7) | ((uint)Height >> 25))));
 
         /// <summary>
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public Polygon ToPolygon()
-        {
-            return new Polygon(ToPoints());
-        }
+        public Polygon ToPolygon() => new Polygon(ToPoints());
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

@@ -21,9 +21,7 @@ namespace Engine.Geometry
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertFrom(context, sourceType);
         }
@@ -39,9 +37,7 @@ namespace Engine.Geometry
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertTo(context, destinationType);
         }
@@ -62,16 +58,12 @@ namespace Engine.Geometry
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
-            {
                 throw GetConvertFromException(value);
-            }
 
-            string source = value as string;
+            var source = value as string;
 
             if (source != null)
-            {
                 return Vector2D.Parse(source);
-            }
 
             return base.ConvertFrom(context, culture, value);
         }
@@ -94,7 +86,7 @@ namespace Engine.Geometry
         {
             if (destinationType != null && value is Vector2D)
             {
-                Vector2D instance = (Vector2D)value;
+                var instance = (Vector2D)value;
 
                 if (destinationType == typeof(string))
                 {
@@ -107,5 +99,4 @@ namespace Engine.Geometry
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
-
 }

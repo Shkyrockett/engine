@@ -8,21 +8,6 @@
         /// <summary>
         /// 
         /// </summary>
-        private CIEXYZ red;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private CIEXYZ green;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private CIEXYZ blue;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public CIEXYZTriple()
             : this(new CIEXYZ(), new CIEXYZ(), new CIEXYZ())
         {
@@ -36,36 +21,24 @@
         /// <param name="blue"></param>
         public CIEXYZTriple(CIEXYZ red, CIEXYZ green, CIEXYZ blue)
         {
-            this.red = red;
-            this.green = green;
-            this.blue = blue;
+            Red = red;
+            Green = green;
+            Blue = blue;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public CIEXYZ Red
-        {
-            get { return red; }
-            set { red = value; }
-        }
+        public CIEXYZ Red { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public CIEXYZ Green
-        {
-            get { return green; }
-            set { green = value; }
-        }
+        public CIEXYZ Green { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public CIEXYZ Blue
-        {
-            get { return blue; }
-            set { blue = value; }
-        }
+        public CIEXYZ Blue { get; set; }
     }
 }

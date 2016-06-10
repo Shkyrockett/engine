@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IAcceleration gravity;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ITime time;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gravity"></param>
         /// <param name="time"></param>
         public VelocityFreeFall(IAcceleration gravity, ITime time)
         {
-            this.gravity = gravity;
-            this.time = time;
+            Gravity = gravity;
+            Time = time;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IAcceleration Gravity
-        {
-            get { return gravity; }
-            set { gravity = value; }
-        }
+        public IAcceleration Gravity { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITime Time
-        {
-            get { return time; }
-            set { time = value; }
-        }
+        public ITime Time { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return gravity.Value * time.Value; }
-        }
+        public double Value => Gravity.Value * Time.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Velocity at free fall"; } }
+        public string Name => "Velocity at free fall";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}{1}", Value, gravity.Abreviation, time.Abreviation); } }
+        public string Abreviation => string.Format("{0}{1}", Value, Gravity.Abreviation, Time.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1}{2}", Value, time.Abreviation, time.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1}{2}", Value, Time.Abreviation, Time.Abreviation);
     }
 }

@@ -125,10 +125,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolateToPolygon(double points)
-        {
-            return null;
-        }
+        public List<Point2D> InterpolateToPolygon(double points) => null;
 
         /// <summary>
         /// 
@@ -178,9 +175,7 @@ namespace Engine.Objects
         private object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {
             if (!propertyCache.ContainsKey(name))
-            {
                 propertyCache.Add(name, property.Invoke());
-            }
             return propertyCache[name];
         }
 

@@ -28,22 +28,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
-        private Point location;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Vector2D vector;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <remarks></remarks>
         public Line()
         {
-            location = Point.Empty;
-            vector = Vector2D.Empty;
+            Location = Point.Empty;
+            Vector = Vector2D.Empty;
         }
 
         /// <summary>
@@ -54,29 +43,21 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Line(Point location, Vector2D vector)
         {
-            this.location = location;
-            this.vector = vector;
+            Location = location;
+            Vector = vector;
         }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlAttribute]
-        public Point Location
-        {
-            get { return location; }
-            set { location = value; }
-        }
+        public Point Location { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlAttribute]
-        public Vector2D Vector
-        {
-            get { return vector; }
-            set { vector = value; }
-        }
+        public Vector2D Vector { get; set; }
 
         /// <summary>
         /// 

@@ -26,7 +26,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<Bezier> curves { get; private set; }
+        public List<Bezier> curves { get; }
 
         /// <summary>
         /// 
@@ -48,11 +48,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         public double length()
-        {
-            return new List<double>(
-                from v in curves
-                select v.length()).Sum();
-        }
+            => new List<double>(
+            from v in curves
+            select v.length()).Sum();
 
         /// <summary>
         /// 
@@ -60,9 +58,7 @@ namespace Engine.Geometry
         /// <param name="idx"></param>
         /// <returns></returns>
         public Bezier curve(int idx)
-        {
-            return curves[idx];
-        }
+            => curves[idx];
 
         /// <summary>
         /// 
@@ -70,12 +66,10 @@ namespace Engine.Geometry
         /// <returns></returns>
         public BBox bbox()
         {
-            var c = curves;
-            var bbox = c[0].bbox();
-            for (var i = 1; i < c.Count; i++)
-            {
+            List<Bezier> c = curves;
+            BBox bbox = c[0].bbox();
+            for (int i = 1; i < c.Count; i++)
                 expandbox(bbox, c[i].bbox());
-            }
             return bbox;
         }
 
@@ -86,12 +80,10 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Bezier> offset(double d)
         {
-            List<Bezier> offset = new List<Bezier>();
+            var offset = new List<Bezier>();
 
-            foreach(var v in curves)
-            {
+            foreach(Bezier v in curves)
                 offset.AddRange(v.offset(d));
-            }
 
             return offset;
         }

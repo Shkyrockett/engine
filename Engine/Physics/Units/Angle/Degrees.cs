@@ -28,11 +28,6 @@ namespace Engine.Physics
 
         #region Fields
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private double value;
-
         #endregion
 
         #region Constructors
@@ -43,7 +38,7 @@ namespace Engine.Physics
         /// <param name="degrees"></param>
         public Degrees(double degrees)
         {
-            value = degrees;
+            Value = degrees;
         }
 
         /// <summary>
@@ -52,7 +47,7 @@ namespace Engine.Physics
         /// <param name="degrees"></param>
         public Degrees(Degrees degrees)
         {
-            value = degrees.Value;
+            Value = degrees.Value;
         }
 
         /// <summary>
@@ -61,7 +56,7 @@ namespace Engine.Physics
         /// <param name="radians"></param>
         public Degrees(Radians radians)
         {
-            value = radians.Value.ToDegrees();
+            Value = radians.Value.ToDegrees();
         }
 
         #endregion
@@ -71,32 +66,28 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public double Radiens
         {
-            get { return Radien * value; }
-            set { this.value = value / Radien; }
+            get { return Radien * Value; }
+            set { Value = value / Radien; }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Degrees"; } }
+        public string Name => "Degrees";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "deg"; } }
+        public string Abreviation => "deg";
 
         #endregion
 
@@ -108,10 +99,7 @@ namespace Engine.Physics
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(Degrees left, Degrees right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Degrees left, Degrees right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="Degrees"/> objects. 
@@ -119,10 +107,7 @@ namespace Engine.Physics
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(Degrees left, Degrees right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Degrees left, Degrees right) => !Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="Degrees"/> objects.
@@ -132,10 +117,7 @@ namespace Engine.Physics
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Degrees a, Degrees b)
-        {
-            return Equals(a, b);
-        }
+        public static bool Compare(Degrees a, Degrees b) => Equals(a, b);
 
         /// <summary>
         /// 
@@ -144,27 +126,21 @@ namespace Engine.Physics
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Degrees a, Degrees b)
-        {
-            return (a.Value == b.Value) & (a.Value == b.Value);
-        }
+        public static bool Equals(Degrees a, Degrees b) => (a.Value == b.Value) & (a.Value == b.Value);
 
         /// <summary>
         /// override object.Equals
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+        //       
+        // See the full list of guidelines at
+        //   https://msdn.microsoft.com/en-us/library/ms173147.aspx 
+        // and also the guidance for operator== at
+        //   https://msdn.microsoft.com/en-us/library/53k8ybth.aspx
+        //
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-        {
-            //       
-            // See the full list of guidelines at
-            //   https://msdn.microsoft.com/en-us/library/ms173147.aspx 
-            // and also the guidance for operator== at
-            //   https://msdn.microsoft.com/en-us/library/53k8ybth.aspx
-            //
-            return (obj is Degrees || obj is Radians) && obj is Degrees ? Equals(this, (Degrees)obj) : Equals(this, ((Radians)obj).ToDegrees());
-        }
+        public override bool Equals(object obj) => (obj is Degrees || obj is Radians) && obj is Degrees ? Equals(this, (Degrees)obj) : Equals(this, ((Radians)obj).ToDegrees());
 
         /// <summary>
         /// 
@@ -172,10 +148,7 @@ namespace Engine.Physics
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Degrees value)
-        {
-            return Equals(this, value);
-        }
+        public bool Equals(Degrees value) => Equals(this, value);
 
         /// <summary>
         /// 
@@ -184,10 +157,7 @@ namespace Engine.Physics
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static implicit operator Degrees(double value)
-        {
-            return new Degrees(value);
-        }
+        public static implicit operator Degrees(double value) => new Degrees(value);
 
         #endregion
 
@@ -204,8 +174,8 @@ namespace Engine.Physics
         [Pure]
         public static Degrees Parse(string source)
         {
-            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            Degrees value = new Degrees(Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
+            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            var value = new Degrees(Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
             return value;
@@ -220,20 +190,14 @@ namespace Engine.Physics
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode()
-        {
-            return value.GetHashCode();
-        }
+        public override int GetHashCode() => Value.GetHashCode();
 
         /// <summary>
         /// Convert Degrees to Radians.
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public Radians ToRadian()
-        {
-            return value.ToRadians();
-        }
+        public Radians ToRadian() => Value.ToRadians();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Degrees"/> struct.
@@ -285,7 +249,7 @@ namespace Engine.Physics
         {
             if (this == null) return nameof(Degrees);
             //return string.Format(provider, "{0:" + format + "}°", value);
-            IFormattable formatable = $"{value}°";
+            IFormattable formatable = $"{Value}°";
             return formatable.ToString(format, provider);
         }
 

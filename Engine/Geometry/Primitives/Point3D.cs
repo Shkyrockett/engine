@@ -40,7 +40,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point3D()
             : this(0, 0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
@@ -49,7 +50,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point3D(Point3D point)
             : this(point.X, point.Y, point.Z)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
@@ -58,7 +60,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point3D(Tuple<double, double, double> tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
@@ -115,10 +118,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Point3D operator +(Point3D value)
-        {
-            return new Point3D(+value.X, +value.Y, +value.Z);
-        }
+        public static Point3D operator +(Point3D value) => new Point3D(+value.X, +value.Y, +value.Z);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D"/> classes.
@@ -127,10 +127,7 @@ namespace Engine.Geometry
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point3D operator +(Point3D value, double addend)
-        {
-            return new Point3D(value.X + addend, value.Y + addend, value.Z + addend);
-        }
+        public static Point3D operator +(Point3D value, double addend) => new Point3D(value.X + addend, value.Y + addend, value.Z + addend);
 
         /// <summary>
         /// Add two <see cref="Point3D"/> classes together.
@@ -139,20 +136,14 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point3D operator +(Point3D value, Point3D addend)
-        {
-            return new Point3D(value.X + addend.X, value.Y + addend.Y, value.Z + addend.Z);
-        }
+        public static Point3D operator +(Point3D value, Point3D addend) => new Point3D(value.X + addend.X, value.Y + addend.Y, value.Z + addend.Z);
 
         /// <summary>
         /// Unary subtraction operator.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Point3D operator -(Point3D value)
-        {
-            return new Point3D(-value.X, -value.Y, -value.Z);
-        }
+        public static Point3D operator -(Point3D value) => new Point3D(-value.X, -value.Y, -value.Z);
 
         /// <summary>
         /// Subtract a <see cref="Point3D"/> from a <see cref="double"/> value.
@@ -161,10 +152,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point3D operator -(Point3D value, double subend)
-        {
-            return new Point3D(value.X - subend, value.Y - subend, value.Z - subend);
-        }
+        public static Point3D operator -(Point3D value, double subend) => new Point3D(value.X - subend, value.Y - subend, value.Z - subend);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -173,10 +161,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point3D operator -(Point3D value, Point3D subend)
-        {
-            return new Point3D(value.X - subend.X, value.Y - subend.Y, value.Z - subend.Z);
-        }
+        public static Point3D operator -(Point3D value, Point3D subend) => new Point3D(value.X - subend.X, value.Y - subend.Y, value.Z - subend.Z);
 
         /// <summary>
         /// Scale a point
@@ -184,10 +169,7 @@ namespace Engine.Geometry
         /// <param name="factor"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Point3D operator *(double value, Point3D factor)
-        {
-            return new Point3D(value * factor.X, value * factor.Y, value * factor.Z);
-        }
+        public static Point3D operator *(double value, Point3D factor) => new Point3D(value * factor.X, value * factor.Y, value * factor.Z);
 
         /// <summary>
         /// Scale a point.
@@ -195,10 +177,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
-        public static Point3D operator *(Point3D value, double factor)
-        {
-            return new Point3D(value.X * factor, value.Y * factor, value.Z * factor);
-        }
+        public static Point3D operator *(Point3D value, double factor) => new Point3D(value.X * factor, value.Y * factor, value.Z * factor);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D"/> classes.
@@ -207,10 +186,7 @@ namespace Engine.Geometry
         /// <param name="dividend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point3D operator /(Point3D divisor, double dividend)
-        {
-            return new Point3D(divisor.X / dividend, divisor.Y / dividend, divisor.Z / dividend);
-        }
+        public static Point3D operator /(Point3D divisor, double dividend) => new Point3D(divisor.X / dividend, divisor.Y / dividend, divisor.Z / dividend);
 
         /// <summary>
         /// Compares two <see cref="Point3D"/> objects. 
@@ -220,10 +196,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(Point3D left, Point3D right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Point3D left, Point3D right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="Point3D"/> objects. 
@@ -233,10 +206,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(Point3D left, Point3D right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Point3D left, Point3D right) => !Equals(left, right);
 
         /// <summary>
         /// Compares two Vectors
@@ -246,10 +216,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Point3D a, Point3D b)
-        {
-            return Equals(a, b);
-        }
+        public static bool Compare(Point3D a, Point3D b) => Equals(a, b);
 
         /// <summary>
         /// 
@@ -258,10 +225,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Point3D a, Point3D b)
-        {
-            return (a?.X == b?.X) & (a?.Y == b?.Y) & (a?.Z == b?.Z);
-        }
+        public static bool Equals(Point3D a, Point3D b) => (a?.X == b?.X) & (a?.Y == b?.Y) & (a?.Z == b?.Z);
 
         /// <summary>
         /// 
@@ -269,10 +233,7 @@ namespace Engine.Geometry
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-        {
-            return obj is Point3D && Equals(this, obj as Point3D);
-        }
+        public override bool Equals(object obj) => obj is Point3D && Equals(this, obj as Point3D);
 
         /// <summary>
         /// 
@@ -280,10 +241,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Point3D value)
-        {
-            return Equals(this, value);
-        }
+        public bool Equals(Point3D value) => Equals(this, value);
 
         #endregion
 
@@ -309,8 +267,8 @@ namespace Engine.Geometry
         [Pure]
         public static Point3D Parse(string source)
         {
-            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            Point3D value = new Point3D(
+            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            var value = new Point3D(
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture)
@@ -329,12 +287,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode()
-        {
-            return X.GetHashCode() ^
-                   Y.GetHashCode() ^
-                   Z.GetHashCode();
-        }
+        public override int GetHashCode() => X.GetHashCode() ^
+       Y.GetHashCode() ^
+       Z.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point3D"/> class.

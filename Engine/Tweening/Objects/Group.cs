@@ -1,6 +1,6 @@
 ﻿namespace Engine.Objects
 {
-    class Group
+    internal class Group
     {
     }
 }

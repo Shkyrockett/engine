@@ -6,21 +6,6 @@
     public class CIELAB
     {
         /// <summary>
-        /// Lightness component.
-        /// </summary>
-        private double lightness;
-
-        /// <summary>
-        /// Channel A.
-        /// </summary>
-        private double channelA;
-
-        /// <summary>
-        /// Channel B.
-        /// </summary>
-        private double channelB;
-
-        /// <summary>
         /// Initializes a new instance of the Lightness and Channels A and B color space structure.
         /// </summary>
         public CIELAB()
@@ -36,36 +21,24 @@
         /// <param name="b">Channel B.</param>
         public CIELAB(byte lightness, byte a, byte b)
         {
-            this.lightness = lightness;
-            channelA = a;
-            channelB = b;
+            Lightness = lightness;
+            ChannelA = a;
+            ChannelB = b;
         }
 
         /// <summary>
         /// Lightness component.
         /// </summary>
-        public double Lightness
-        {
-            get { return lightness; }
-            set { lightness = value; }
-        }
+        public double Lightness { get; set; }
 
         /// <summary>
         /// Channel A.
         /// </summary>
-        public double ChannelA
-        {
-            get { return channelA; }
-            set { channelA = value; }
-        }
+        public double ChannelA { get; set; }
 
         /// <summary>
         /// Channel B.
         /// </summary>
-        public double ChannelB
-        {
-            get { return channelB; }
-            set { channelB = value; }
-        }
+        public double ChannelB { get; set; }
     }
 }

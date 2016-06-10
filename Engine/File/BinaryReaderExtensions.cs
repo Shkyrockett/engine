@@ -31,7 +31,8 @@ namespace Engine.File
         /// </exception>
         public BinaryReaderExtensions(Stream input) :
             base(input)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryReaderExtensions"/> class based on the
@@ -46,7 +47,8 @@ namespace Engine.File
         /// <exception cref="System.ArgumentNullException">encoding is null.</exception>
         public BinaryReaderExtensions(Stream input, Encoding encoding) :
             base(input, encoding)
-        { }
+        {
+        }
 
         #endregion
         #region Properties
@@ -68,10 +70,7 @@ namespace Engine.File
         /// </summary>
         /// <exception cref="System.NotSupportedException">A class derived from Stream does not support seeking.</exception>
         /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
-        public long Length
-        {
-            get { return BaseStream.Length; }
-        }
+        public long Length => BaseStream.Length;
 
         #endregion
         #region Methods
@@ -130,11 +129,8 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        public short ReadNetworkInt16()
-        {
-            // Read a 16 bit integer and change it to Big-endian.
-            return IPAddress.NetworkToHostOrder(ReadInt16());
-        }
+        // Read a 16 bit integer and change it to Big-endian.
+        public short ReadNetworkInt16() => IPAddress.NetworkToHostOrder(ReadInt16());
 
         /// <summary>
         /// Reads a 2-byte unsigned integer from the current stream using big-endian
@@ -144,10 +140,7 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        public ushort ReadNetworkUInt16()
-        {
-            return (ushort)IPAddress.NetworkToHostOrder(ReadUInt16());
-        }
+        public ushort ReadNetworkUInt16() => (ushort)IPAddress.NetworkToHostOrder(ReadUInt16());
 
         /// <summary>
         /// Reads a 3-byte signed integer from the current stream using big-endinan
@@ -177,10 +170,7 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        public int ReadNetworkInt32()
-        {
-            return IPAddress.NetworkToHostOrder(ReadInt32());
-        }
+        public int ReadNetworkInt32() => IPAddress.NetworkToHostOrder(ReadInt32());
 
         /// <summary>
         /// Reads a 4-byte unsigned integer from the current stream using big-endinan
@@ -190,10 +180,7 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        public uint ReadNetworkUInt32()
-        {
-            return (uint)IPAddress.NetworkToHostOrder(ReadInt32());
-        }
+        public uint ReadNetworkUInt32() => (uint)IPAddress.NetworkToHostOrder(ReadInt32());
 
         /// <summary>
         /// Reads an 8-byte signed integer from the current stream using big-endinan
@@ -203,10 +190,7 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        public long ReadNetworkInt64()
-        {
-            return IPAddress.NetworkToHostOrder(ReadInt64());
-        }
+        public long ReadNetworkInt64() => IPAddress.NetworkToHostOrder(ReadInt64());
 
         /// <summary>
         /// Reads an 8-byte unsigned integer from the current stream using big-endinan
@@ -216,10 +200,7 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        public ulong ReadNetworkUInt64()
-        {
-            return (ulong)IPAddress.NetworkToHostOrder(ReadInt64());
-        }
+        public ulong ReadNetworkUInt64() => (ulong)IPAddress.NetworkToHostOrder(ReadInt64());
 
         /// <summary>
         /// Utility function that can read a variable length integer from a binary stream
@@ -337,7 +318,7 @@ namespace Engine.File
         public static int ReadVarLen1x(BinaryReader file)
         {
             byte buffer = file.ReadByte();
-            uint value = (uint)(buffer & 0x7f);
+            var value = (uint)(buffer & 0x7f);
 
             for (int i = 0; i < 3; i++)
             {
@@ -375,9 +356,7 @@ namespace Engine.File
                 value <<= 7;
                 value += buffer & 0x7F;
                 if ((buffer & 0x80) == 0)
-                {
                     return value;
-                }
             }
 
             throw new FormatException("Invalid Var Int");
@@ -394,8 +373,8 @@ namespace Engine.File
         /// <remarks>This method needs to be omitted from Windows phone and X-Box development, because ASCII is not supported on those platforms.</remarks>
         public string ReadASCIIString(int Bytes)
         {
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            byte[] BBuffer = new byte[Bytes];
+            var encoding = new ASCIIEncoding();
+            var BBuffer = new byte[Bytes];
             Read(BBuffer, 0, Bytes);
             return encoding.GetString(BBuffer, 0, Bytes);
         }
@@ -411,7 +390,7 @@ namespace Engine.File
         public string ReadUTF8String(int length)
         {
             Encoding encoding = Encoding.UTF8; // .ASCII
-            byte[] buffer = new byte[length];
+            var buffer = new byte[length];
             Read(buffer, 0, length);
             return encoding.GetString(buffer, 0, length);
         }
@@ -427,9 +406,7 @@ namespace Engine.File
         public byte PeekByte()
         {
             if (!BaseStream.CanSeek)
-            {
                 return 0; // -1;
-            }
 
             byte temp = ReadByte();
             BaseStream.Position -= sizeof(byte);
@@ -447,9 +424,7 @@ namespace Engine.File
         public short PeekInt16()
         {
             if (!BaseStream.CanSeek)
-            {
                 return -1;
-            }
 
             short temp = ReadInt16();
             BaseStream.Position -= sizeof(short);
@@ -467,9 +442,7 @@ namespace Engine.File
         public short PeekNetworkInt16()
         {
             if (!BaseStream.CanSeek)
-            {
                 return -1;
-            }
 
             short temp = ReadNetworkInt16();
             BaseStream.Position -= sizeof(short);
@@ -487,9 +460,7 @@ namespace Engine.File
         public int PeekInt32()
         {
             if (!BaseStream.CanSeek)
-            {
                 return -1;
-            }
 
             int temp = ReadInt32();
             BaseStream.Position -= sizeof(int);
@@ -507,9 +478,7 @@ namespace Engine.File
         public int PeekNetworkInt32()
         {
             if (!BaseStream.CanSeek)
-            {
                 return -1;
-            }
 
             int temp = ReadNetworkInt32();
             BaseStream.Position -= sizeof(int);
@@ -527,9 +496,7 @@ namespace Engine.File
         public long PeekInt64()
         {
             if (!BaseStream.CanSeek)
-            {
                 return -1;
-            }
 
             long temp = ReadInt64();
             BaseStream.Position -= sizeof(long);
@@ -547,9 +514,7 @@ namespace Engine.File
         public long PeekNetworkInt64()
         {
             if (!BaseStream.CanSeek)
-            {
                 return -1;
-            }
 
             long temp = ReadNetworkInt64();
             BaseStream.Position -= sizeof(long);

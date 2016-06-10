@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace Engine.Objects
@@ -57,9 +56,6 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <returns></returns>
-        public object Clone()
-        {
-            throw new NotImplementedException();
-        }
+        public object Clone() => new object();
     }
 }

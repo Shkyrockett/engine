@@ -86,12 +86,10 @@ namespace Engine.Geometry
             {
                 // Check whether the point is inside the grid.
                 if (!innerBounds.Contains(location))
-                {
                     return -1;
-                }
 
                 // Calculate the index of the item under the point location.
-                int value = (int)((((location.Y / cellSize.Height) % rows) * columns) + ((location.X / cellSize.Width) % columns));
+                var value = (int)((((location.Y / cellSize.Height) % rows) * columns) + ((location.X / cellSize.Width) % columns));
 
                 // Return only valid cells.
                 return (value < count) ? value : -1;
@@ -129,34 +127,22 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets the calculated optimum <see cref="SizeF"/> height and width of any cell in the grid.
         /// </summary>
-        public Size2D CellSize
-        {
-            get { return cellSize; }
-        }
+        public Size2D CellSize => cellSize;
 
         /// <summary>
         /// Gets the inner-bounding <see cref="RectangleF"/> of the grid. 
         /// </summary>
-        public Rectangle2D InnerBounds
-        {
-            get { return innerBounds; }
-        }
+        public Rectangle2D InnerBounds => innerBounds;
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
-        public int Columns
-        {
-            get { return columns; }
-        }
+        public int Columns => columns;
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
-        public int Rows
-        {
-            get { return rows; }
-        }
+        public int Rows => rows;
 
         /// <summary>
         /// Gets the <see cref="RectangleF"/> representing the bounding box of the cell at a given index of the grid. 
@@ -168,7 +154,7 @@ namespace Engine.Geometry
             get
             {
                 // ToDo: Implement flow orientation options.
-                Point2D point = new Point2D((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
+                var point = new Point2D((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
                 return new Rectangle2D(point, cellSize);
             }
         }
@@ -213,9 +199,6 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return "RectangleFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
-        }
+        public override string ToString() => "RectangleFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
     }
 }

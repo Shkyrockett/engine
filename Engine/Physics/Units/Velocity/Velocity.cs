@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private ISpeed speed;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private IDirection direction;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="speed"></param>
         /// <param name="direction"></param>
         public Velocity(ISpeed speed, IDirection direction)
         {
-            this.direction = direction;
-            this.speed = speed;
+            Direction = direction;
+            Acceleration = speed;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public ISpeed Acceleration
-        {
-            get { return speed; }
-            set { speed = value; }
-        }
+        public ISpeed Acceleration { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IDirection Direction
-        {
-            get { return direction; }
-            set { direction = value; }
-        }
+        public IDirection Direction { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return speed.Value * direction.Value; }
-        }
+        public double Value => Acceleration.Value * Direction.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Velocity"; } }
+        public string Name => "Velocity";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0} {1}", speed.Abreviation, direction.Abreviation); } }
+        public string Abreviation => string.Format("{0} {1}", Acceleration.Abreviation, Direction.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1} {2}", Value, speed.Abreviation, direction.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1} {2}", Value, Acceleration.Abreviation, Direction.Abreviation);
     }
 }

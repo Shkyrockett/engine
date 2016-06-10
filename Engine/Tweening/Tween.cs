@@ -164,22 +164,25 @@ namespace Engine.Tweening
         /// <summary>
         /// The time remaining before the tween ends or repeats.
         /// </summary>
-        public double TimeRemaining { get { return duration - time; } }
+        public double TimeRemaining => duration - time;
 
         /// <summary>
         /// A value between 0 and 1, where 0 means the tween has not been started and 1 means that it has completed.
         /// </summary>
-        public double Completion { get { var c = time / duration; return c < 0 ? 0 : (c > 1 ? 1 : c); } }
+        public double Completion
+        {
+            get { double c = time / duration; return c < 0 ? 0 : (c > 1 ? 1 : c); }
+        }
 
         /// <summary>
         /// Whether the tween is currently looping.
         /// </summary>
-        public bool Looping { get { return repeatCount != 0; } }
+        public bool Looping => repeatCount != 0;
 
         /// <summary>
         /// The object this tween targets. Will be null if the tween represents a timer.
         /// </summary>
-        public object Target { get; private set; }
+        public object Target { get; }
 
         #endregion
 
@@ -211,11 +214,9 @@ namespace Engine.Tweening
             {
                 firstUpdate = false;
 
-                var i = vars.Count;
+                int i = vars.Count;
                 while (i-- > 0)
-                {
                     lerpers[i]?.Initialize(start[i], end[i], behavior);
-                }
             }
             else
             {
@@ -290,11 +291,11 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween From(object values)
         {
-            var props = values.GetType().GetProperties();
+            System.Reflection.PropertyInfo[] props = values.GetType().GetProperties();
             for (int i = 0; i < props.Length; ++i)
             {
-                var property = props[i];
-                var propValue = property.GetValue(values, null);
+                System.Reflection.PropertyInfo property = props[i];
+                object propValue = property.GetValue(values, null);
 
                 int index = -1;
                 if (varHash.TryGetValue(property.Name, out index))
@@ -400,8 +401,8 @@ namespace Engine.Tweening
             int i = vars.Count;
             while (i-- > 0)
             {
-                var s = start[i];
-                var e = end[i];
+                object s = start[i];
+                object e = end[i];
 
                 //	Set start to end and end to start
                 start[i] = e;
@@ -445,10 +446,10 @@ namespace Engine.Tweening
         /// <param name="properties"></param>
         public void Cancel(params string[] properties)
         {
-            var canceled = 0;
+            int canceled = 0;
             for (int i = 0; i < properties.Length; ++i)
             {
-                var index = 0;
+                int index = 0;
                 if (!varHash.TryGetValue(properties[i], out index))
                     continue;
 

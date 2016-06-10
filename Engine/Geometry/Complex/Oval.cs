@@ -82,10 +82,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override Rectangle2D Bounds
-        {
-            get { return new Rectangle2D(location, size); }
-        }
+        public override Rectangle2D Bounds => new Rectangle2D(location, size);
 
         #endregion
 

@@ -57,7 +57,8 @@ namespace Engine.Geometry
         /// </summary>
         public Bow()
             : this(new Point2D(), new Size2D())
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -124,13 +125,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index)
-        {
-            return new Point2D(
-                offset.X + ((1 - (Tan(index) * 2)) * Cos(index)) * multiplyer.Width,
-                offset.Y + ((1 - (Tan(index) * 2)) * (2 * Sin(index))) * multiplyer.Height
-                );
-        }
+        public override Point2D Interpolate(double index) => new Point2D(
+    offset.X + ((1 - (Tan(index) * 2)) * Cos(index)) * multiplyer.Width,
+    offset.Y + ((1 - (Tan(index) * 2)) * (2 * Sin(index))) * multiplyer.Height
+    );
 
         /// <summary>
         /// 
@@ -139,11 +137,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override List<Point2D> InterpolatePoints(int precision)
         {
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
             for (double Index = (PI * -1); (Index <= PI); Index += (1d / precision))
-            {
                 points.Add(Interpolate(Index));
-            }
 
             return points;
         }

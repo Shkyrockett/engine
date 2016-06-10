@@ -80,7 +80,7 @@ namespace Engine.Tweening
             this.target = target;
             PropertyName = property;
 
-            var targetType = target as Type ?? target.GetType();
+            Type targetType = target as Type ?? target.GetType();
 
             if ((member = targetType.GetField(property, flags)) != null)
             {
@@ -104,12 +104,12 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        public string PropertyName { get; private set; }
+        public string PropertyName { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Type PropertyType { get; private set; }
+        public Type PropertyType { get; }
 
         /// <summary>
         /// 

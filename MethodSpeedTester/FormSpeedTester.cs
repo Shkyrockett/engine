@@ -26,7 +26,7 @@ namespace MethodSpeedTester
         /// <summary>
         /// List of tests to run.
         /// </summary>
-        List<SpeedTester> tests = new List<SpeedTester>();
+        private List<SpeedTester> tests = new List<SpeedTester>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormSpeedTester"/> class.
@@ -50,7 +50,7 @@ namespace MethodSpeedTester
         private void comboBoxTests_SelectionChangeCommitted(object sender, EventArgs e)
         {
             tests.Clear();
-            MethodInfo testSet = comboBoxTests.SelectedItem as MethodInfo;
+            var testSet = comboBoxTests.SelectedItem as MethodInfo;
             tests.AddRange(testSet?.Invoke(null, null) as List<SpeedTester>);
 
             dataGridView1.DataSource = null;
@@ -93,10 +93,8 @@ namespace MethodSpeedTester
         /// </summary>
         private void RunTests()
         {
-            foreach (var test in tests)
-            {
+            foreach (SpeedTester test in tests)
                 test.RunTest((int)numericUpDownTrials.Value);
-            }
 
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = tests;

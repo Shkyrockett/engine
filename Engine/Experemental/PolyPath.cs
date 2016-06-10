@@ -25,24 +25,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<IOpenShape> shapes;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<IOpenShape> Shapes
-        {
-            get { return shapes; }
-            set { shapes = value; }
-        }
+        public List<IOpenShape> Shapes { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return "Path";
-        }
+        public override string ToString() => "Path";
     }
 }

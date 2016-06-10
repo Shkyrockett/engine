@@ -31,33 +31,24 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private double value;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public Seconds(double value)
         {
-            this.value = value;
+            Value = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public double Minutes
         {
-            get { return value * Minute; }
-            set { this.value = value / Minute; }
+            get { return Value * Minute; }
+            set { Value = value / Minute; }
         }
 
         /// <summary>
@@ -65,8 +56,8 @@ namespace Engine.Physics
         /// </summary>
         public double Hours
         {
-            get { return value * Hour; }
-            set { this.value = value / Hour; }
+            get { return Value * Hour; }
+            set { Value = value / Hour; }
         }
 
         /// <summary>
@@ -74,8 +65,8 @@ namespace Engine.Physics
         /// </summary>
         public double Days
         {
-            get { return value * Day; }
-            set { this.value = value / Day; }
+            get { return Value * Day; }
+            set { Value = value / Day; }
         }
 
         /// <summary>
@@ -83,38 +74,32 @@ namespace Engine.Physics
         /// </summary>
         public double Years
         {
-            get { return value * Year; }
-            set { this.value = value / Year; }
+            get { return Value * Year; }
+            set { Value = value / Year; }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Seconds(double value)
-        {
-            return new Seconds(value);
-        }
+        public static implicit operator Seconds(double value) => new Seconds(value);
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Seconds"; } }
+        public string Name => "Seconds";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "s"; } }
+        public string Abreviation => "s";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} s", value);
-        }
+        public override string ToString() => string.Format("{0} s", Value);
     }
 }

@@ -20,7 +20,6 @@ namespace Engine.Audio
             Filename = "Wavform.wav";
             TimeSyncPoints = new Dictionary<int, DateTimeOffset>();
             Lyrics = new List<string>();
-
         }
 
         /// <summary>

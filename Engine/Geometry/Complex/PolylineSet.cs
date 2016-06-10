@@ -79,10 +79,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public int Count
-        {
-            get { return polylines.Count; }
-        }
+        public int Count => polylines.Count;
 
         /// <summary>
         /// 
@@ -90,13 +87,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public double Perimeters
-        {
-            get
-            {
-                return polylines.Sum(p => p.Perimeter);
-            }
-        }
+        public double Perimeters => polylines.Sum(p => p.Perimeter);
 
         /// <summary>
         /// 
@@ -112,9 +103,7 @@ namespace Engine.Geometry
                 Rectangle2D bounds = polylines[0].Bounds;
 
                 foreach (Polyline polyline in polylines)
-                {
                     bounds.Union(polyline.Bounds);
-                }
 
                 return bounds;
             }
@@ -144,7 +133,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(PolylineSet);
-            StringBuilder pointsString = new StringBuilder();
+            var pointsString = new StringBuilder();
             foreach (Polyline polyline in Polylines)
             {
                 pointsString.Append(polyline.ToString());

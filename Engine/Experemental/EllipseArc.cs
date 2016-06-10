@@ -27,7 +27,6 @@ namespace Engine.Geometry
     public class EllipseArc
         : Shape
     {
-
         /// <summary>
         /// Center Point of Ellipse
         /// </summary>
@@ -78,7 +77,8 @@ namespace Engine.Geometry
         /// </summary>
         public EllipseArc()
             : this(new Point2D(), 0, 0, 0, 0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -89,7 +89,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public EllipseArc(Circle circle, double startAngle, double endAngle)
             : this(circle.Center, circle.Radius, circle.Radius, 0, startAngle, endAngle)
-        { }
+        {
+        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -101,7 +102,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public EllipseArc(Rectangle2D rectangle, double angle, double startAngle, double endAngle)
             : this(rectangle.Center(), rectangle.Width, rectangle.Height, angle, startAngle, endAngle)
-        { }
+        {
+        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -112,7 +114,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public EllipseArc(Ellipse ellipse, double startAngle, double endAngle)
             : this(ellipse.Center, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
-        { }
+        {
+        }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -176,10 +179,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get
-            {
-                return center;
-            }
+            get { return center; }
             set
             {
                 center = value;
@@ -196,10 +196,7 @@ namespace Engine.Geometry
         [XmlAttribute]
         public double MajorRadius
         {
-            get
-            {
-                return majorRadius;
-            }
+            get { return majorRadius; }
             set
             {
                 majorRadius = value;
@@ -217,10 +214,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double MinorRadius
         {
-            get
-            {
-                return minorRadius;
-            }
+            get { return minorRadius; }
             set
             {
                 minorRadius = value;
@@ -238,10 +232,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get
-            {
-                return aspect;
-            }
+            get { return aspect; }
             set
             {
                 aspect = value;
@@ -262,10 +253,7 @@ namespace Engine.Geometry
         [XmlAttribute]
         public double Angle
         {
-            get
-            {
-                return angle;
-            }
+            get { return angle; }
             set
             {
                 angle = value;
@@ -283,10 +271,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
-            get
-            {
-                return startAngle;
-            }
+            get { return startAngle; }
             set
             {
                 startAngle = value;
@@ -304,10 +289,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
-            get
-            {
-                return endAngle;
-            }
+            get { return endAngle; }
             set
             {
                 endAngle = value;
@@ -384,13 +366,7 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The area of the ellipse.")]
-        public override double Area
-        {
-            get
-            {
-                return PI * minorRadius * majorRadius;
-            }
-        }
+        public override double Area => PI * minorRadius * majorRadius;
 
         /// <summary>
         /// 
@@ -429,7 +405,7 @@ namespace Engine.Geometry
         {
             double phi = 2 * PI / t;
 
-            Rectangle2D unroatatedBounds = new Rectangle2D(
+            var unroatatedBounds = new Rectangle2D(
                 center.X - majorRadius,
                 center.Y - majorRadius,
                 majorRadius,
@@ -437,11 +413,11 @@ namespace Engine.Geometry
                 );
 
             double theta = Maths.ToRadians(angle);
-            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
-            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
+            var xaxis = new Point2D(Cos(theta), Sin(theta));
+            var yaxis = new Point2D(-Sin(theta), Cos(theta));
 
             // Ellipse equation for an ellipse at origin.
-            Point2D ellipsePoint = new Point2D(
+            var ellipsePoint = new Point2D(
                 unroatatedBounds.Width * Cos(phi),
                 unroatatedBounds.Height * Sin(phi)
                 );
@@ -460,11 +436,9 @@ namespace Engine.Geometry
         public List<Point2D> InterpolatePoints()
         {
             double phi = 2 * PI / ArcPerimeter;
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
             for (double i = 0.0f; i <= 2.0 * PI; i += phi)
-            {
                 points.Add(Interpolate(i));
-            }
 
             return points;
         }

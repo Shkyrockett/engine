@@ -18,9 +18,7 @@ namespace Engine.Tools
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertFrom(context, sourceType);
         }
@@ -34,9 +32,7 @@ namespace Engine.Tools
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertTo(context, destinationType);
         }
@@ -53,14 +49,10 @@ namespace Engine.Tools
             if (value.GetType() == typeof(string))
             {
                 if (((string)value).ToLower() == "yes")
-                {
                     return true;
-                }
 
                 if (((string)value).ToLower() == "no")
-                {
                     return false;
-                }
 
                 throw new Exception("Values must be \"Yes\" or \"No\"");
             }
@@ -79,9 +71,7 @@ namespace Engine.Tools
         public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
-            {
                 return (((bool)value) ? "Yes" : "No");
-            }
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -90,10 +80,7 @@ namespace Engine.Tools
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
-        {
-            return true;
-        }
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
         /// 
@@ -102,8 +89,8 @@ namespace Engine.Tools
         /// <returns></returns>
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            bool[] bools = new bool[] { true, false };
-            StandardValuesCollection svc = new StandardValuesCollection(bools);
+            var bools = new bool[] { true, false };
+            var svc = new StandardValuesCollection(bools);
             return svc;
         }
     }

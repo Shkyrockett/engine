@@ -25,7 +25,8 @@ namespace Engine.Geometry
         /// Initializes a new instance of the <see cref="Rectangle2DConverter" /> class. 
         /// </summary>
         public Rectangle2DConverter()
-        { }
+        {
+        }
 
         /// <summary>
         /// Determines whether an object can be converted from a given type to an instance of <see cref="Rectangle2D" />.
@@ -39,10 +40,7 @@ namespace Engine.Geometry
         /// </param>
         /// <param name="sourceType">The type of the source that is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
-        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// Determines whether a <see cref="Rectangle2D" /> can be converted to the specified type. 
@@ -54,10 +52,7 @@ namespace Engine.Geometry
         /// </param>
         /// <param name="destinationType">The desired type this <see cref="Rectangle2D" /> is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            return destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
-        }
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>Attempts to convert the specified object to a <see cref="T:System.Windows.Rect" />. </summary>
         /// <returns>The <see cref="T:System.Windows.Rect" /> created from converting <paramref name="value" />.</returns>
@@ -67,18 +62,16 @@ namespace Engine.Geometry
         /// <exception cref="T:System.NotSupportedException">Thrown if the specified object is NULL or is a type that cannot be converted to a <see cref="T:System.Windows.Rect" />.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            string str = value as string;
+            var str = value as string;
             if (str == null) return base.ConvertFrom(context, culture, value);
             string str2 = str.Trim();
             if (str2.Length == 0) return null;
             if (culture == null) culture = CultureInfo.CurrentCulture;
             string[] strArray = str2.Split(new char[] { culture.TextInfo.ListSeparator[0] });
-            double[] numArray = new double[strArray.Length];
+            var numArray = new double[strArray.Length];
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(double));
             for (int i = 0; i < numArray.Length; i++)
-            {
                 numArray[i] = (double)converter.ConvertFromString(context, culture, strArray[i].Trim());
-            }
 
             if (numArray.Length != 4) throw new ArgumentException("Parse failed.");
 
@@ -96,23 +89,19 @@ namespace Engine.Geometry
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == null)
-            {
-                throw new ArgumentNullException("destinationType");
-            }
+                throw new ArgumentNullException(nameof(destinationType));
 
             if (value is Rectangle2D)
             {
                 if (destinationType == typeof(string))
                 {
-                    Rectangle2D rectangle2D = (Rectangle2D)value;
+                    var rectangle2D = (Rectangle2D)value;
                     if (culture == null)
-                    {
                         culture = CultureInfo.CurrentCulture;
-                    }
 
                     string separator = culture.TextInfo.ListSeparator + " ";
                     TypeConverter converter = TypeDescriptor.GetConverter(typeof(double));
-                    string[] strArray = new string[4];
+                    var strArray = new string[4];
                     int num = 0;
                     strArray[num++] = converter.ConvertToString(context, culture, rectangle2D.X);
                     strArray[num++] = converter.ConvertToString(context, culture, rectangle2D.Y);
@@ -122,12 +111,10 @@ namespace Engine.Geometry
                 }
                 if (destinationType == typeof(InstanceDescriptor))
                 {
-                    Rectangle2D rectangle2 = (Rectangle2D)value;
+                    var rectangle2 = (Rectangle2D)value;
                     ConstructorInfo constructor = typeof(Rectangle2D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
                     if (constructor != null)
-                    {
                         return new InstanceDescriptor(constructor, new object[] { rectangle2.X, rectangle2.Y, rectangle2.Width, rectangle2.Height });
-                    }
                 }
             }
 

@@ -7,14 +7,9 @@ namespace Engine.Geometry.Tests
     /// This test class for the <see cref="Maths"/> class, is intended to 
     /// contain all of the Unit tests for the <see cref="Maths"/> class.
     /// </summary>
-    [TestClass()]
+    [TestClass]
     public class MathExtensionsTests
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private TestContext testContextInstance;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MathExtensionsTests"/> class.
         /// </summary>
@@ -29,17 +24,13 @@ namespace Engine.Geometry.Tests
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
-        }
+        public TestContext TestContext { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        [ClassInitialize()]
+        [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
             //MessageBox.Show("ClassInit " + context.TestName);
@@ -48,7 +39,7 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestInitialize()]
+        [TestInitialize]
         public void Initialize()
         {
             //MessageBox.Show("TestMethodInit");
@@ -57,7 +48,7 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestCleanup()]
+        [TestCleanup]
         public void Cleanup()
         {
             //MessageBox.Show("TestMethodCleanup");
@@ -66,7 +57,7 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// 
         /// </summary>
-        [ClassCleanup()]
+        [ClassCleanup]
         public static void ClassCleanup()
         {
             //MessageBox.Show("ClassCleanup");
@@ -75,7 +66,7 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// A Test for converting Radians to Degrees.
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathExtensions")]
@@ -121,7 +112,7 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// A Test for converting Degrees to Radians.
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathExtensions")]
@@ -167,7 +158,7 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// A Test for rounding a number to an arbitrary value.
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathExtensions")]
@@ -181,7 +172,7 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// A Test for retrieving the modulo of an arbitrary value, the same way Excel does.
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathExtensions")]
@@ -195,14 +186,14 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// A Test for finding the average value from a list of numbers.
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathExtensions")]
         public void AverageTest()
         {
             double value = 0;
-            double[] array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             value = Maths.Average(array);
             Assert.AreEqual(4.5, value);
         }
@@ -210,268 +201,340 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// A Test for finding the sum value from a list of numbers.
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathExtensions")]
         public void SumTest()
         {
             double value = 0;
-            double[] array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             value = Maths.Sum(array);
             Assert.AreEqual(45, value);
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void RandomTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void Atan2Test()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void _Atan2Test()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void SecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void CosecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void CotangentTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseSineTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseCosineTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseSecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseCosecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseCotangentTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void HyperbolicSineTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void HyperbolicCosineTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void HyperbolicTangentTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void HyperbolicSecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void HyperbolicCosecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void HyperbolicCotangentTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseHyperbolicSineTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseHyperbolicCosineTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseHyperbolicTangentTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseHyperbolicSecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseHyperbolicCosecantTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InverseHyperbolicCotangentTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void LogarithmTobaseNTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void ToFloatTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void LessThanTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void GreaterThanTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void LessThanOrCloseTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void GreaterThanOrCloseTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void IsOneTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void IsZeroTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void IsBetweenZeroAndOneTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void FloatToIntTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void DoubleToIntTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void HIWORDTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void LOWORDTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
     }
 }

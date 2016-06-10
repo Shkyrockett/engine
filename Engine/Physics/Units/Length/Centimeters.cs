@@ -56,33 +56,24 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private double value;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public Centimeters(double value)
         {
-            this.value = value;
+            Value = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public double Mils
         {
-            get { return value * Mil; }
-            set { this.value = value / Mil; }
+            get { return Value * Mil; }
+            set { Value = value / Mil; }
         }
 
         /// <summary>
@@ -90,8 +81,8 @@ namespace Engine.Physics
         /// </summary>
         public double Inches
         {
-            get { return value * Inch; }
-            set { this.value = value / Inch; }
+            get { return Value * Inch; }
+            set { Value = value / Inch; }
         }
 
         /// <summary>
@@ -99,8 +90,8 @@ namespace Engine.Physics
         /// </summary>
         public double Feet
         {
-            get { return value * Foot; }
-            set { this.value = value / Foot; }
+            get { return Value * Foot; }
+            set { Value = value / Foot; }
         }
 
         /// <summary>
@@ -108,8 +99,8 @@ namespace Engine.Physics
         /// </summary>
         public double Yards
         {
-            get { return value * Yard; }
-            set { this.value = value / Yard; }
+            get { return Value * Yard; }
+            set { Value = value / Yard; }
         }
 
         /// <summary>
@@ -117,8 +108,8 @@ namespace Engine.Physics
         /// </summary>
         public double Meters
         {
-            get { return value * Meter; }
-            set { this.value = value / Meter; }
+            get { return Value * Meter; }
+            set { Value = value / Meter; }
         }
 
         /// <summary>
@@ -126,8 +117,8 @@ namespace Engine.Physics
         /// </summary>
         public double Kilometers
         {
-            get { return value * Kilometer; }
-            set { this.value = value / Kilometer; }
+            get { return Value * Kilometer; }
+            set { Value = value / Kilometer; }
         }
 
         /// <summary>
@@ -135,8 +126,8 @@ namespace Engine.Physics
         /// </summary>
         public double Miles
         {
-            get { return value * Mile; }
-            set { this.value = value / Mile; }
+            get { return Value * Mile; }
+            set { Value = value / Mile; }
         }
 
         /// <summary>
@@ -144,38 +135,32 @@ namespace Engine.Physics
         /// </summary>
         public double NauticalMiles
         {
-            get { return value * NauticalMile; }
-            set { this.value = value / NauticalMile; }
+            get { return Value * NauticalMile; }
+            set { Value = value / NauticalMile; }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Centimeters"; } }
+        public string Name => "Centimeters";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "cm"; } }
+        public string Abreviation => "cm";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Centimeters(double value)
-        {
-            return new Centimeters(value);
-        }
+        public static implicit operator Centimeters(double value) => new Centimeters(value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} cm", value);
-        }
+        public override string ToString() => string.Format("{0} cm", Value);
     }
 }

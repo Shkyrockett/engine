@@ -134,13 +134,9 @@ namespace Engine.Geometry
             get
             {
                 if (type == MatrixTypes.IDENTITY)
-                {
                     return 1.0f;
-                }
                 else
-                {
                     return m1x1;
-                }
             }
             set
             {
@@ -155,9 +151,7 @@ namespace Engine.Geometry
                 {
                     m1x1 = value;
                     if (type != MatrixTypes.UNKNOWN)
-                    {
                         type |= MatrixTypes.SCALING;
-                    }
                 }
             }
         }
@@ -170,13 +164,9 @@ namespace Engine.Geometry
             get
             {
                 if (type == MatrixTypes.IDENTITY)
-                {
                     return 0;
-                }
                 else
-                {
                     return m1x2;
-                }
             }
             set
             {
@@ -203,13 +193,9 @@ namespace Engine.Geometry
             get
             {
                 if (type == MatrixTypes.IDENTITY)
-                {
                     return 0;
-                }
                 else
-                {
                     return m2x1;
-                }
             }
             set
             {
@@ -236,13 +222,9 @@ namespace Engine.Geometry
             get
             {
                 if (type == MatrixTypes.IDENTITY)
-                {
                     return 1.0f;
-                }
                 else
-                {
                     return m2x2;
-                }
             }
             set
             {
@@ -257,9 +239,7 @@ namespace Engine.Geometry
                 {
                     m2x2 = value;
                     if (type != MatrixTypes.UNKNOWN)
-                    {
                         type |= MatrixTypes.SCALING;
-                    }
                 }
             }
         }
@@ -272,13 +252,9 @@ namespace Engine.Geometry
             get
             {
                 if (type == MatrixTypes.IDENTITY)
-                {
                     return 0;
-                }
                 else
-                {
                     return offsetX;
-                }
             }
             set
             {
@@ -293,9 +269,7 @@ namespace Engine.Geometry
                 {
                     offsetX = value;
                     if (type != MatrixTypes.UNKNOWN)
-                    {
                         type |= MatrixTypes.TRANSLATION;
-                    }
                 }
             }
         }
@@ -308,13 +282,9 @@ namespace Engine.Geometry
             get
             {
                 if (type == MatrixTypes.IDENTITY)
-                {
                     return 0;
-                }
                 else
-                {
                     return offsetY;
-                }
             }
             set
             {
@@ -329,9 +299,7 @@ namespace Engine.Geometry
                 {
                     offsetY = value;
                     if (type != MatrixTypes.UNKNOWN)
-                    {
                         type |= MatrixTypes.TRANSLATION;
-                    }
                 }
             }
         }
@@ -341,20 +309,14 @@ namespace Engine.Geometry
         /// true if the matrix is identity.  If it returns false
         /// the matrix may still be identity.
         /// </summary>
-        private bool IsDistinguishedIdentity
-        {
-            get
-            {
-                return type == MatrixTypes.IDENTITY;
-            }
-        }
+        private bool IsDistinguishedIdentity => type == MatrixTypes.IDENTITY;
 
         /// <summary>
         /// Sets the transformation to the identity.
         /// </summary>
         private static Matrix2D CreateIdentity()
         {
-            Matrix2D matrix = new Matrix2D();
+            var matrix = new Matrix2D();
             matrix.SetMatrix(1, 0,
                              0, 1,
                              0, 0,
@@ -373,22 +335,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
-        public bool IsIdentity
-        {
-            get
-            {
-                return (type == MatrixTypes.IDENTITY ||
-                        (m1x1 == 1 && m1x2 == 0 && m2x1 == 0 && m2x2 == 1 && offsetX == 0 && offsetY == 0));
-            }
-        }
+        public bool IsIdentity => (type == MatrixTypes.IDENTITY ||
+        (m1x1 == 1 && m1x2 == 0 && m2x1 == 0 && m2x2 == 1 && offsetX == 0 && offsetY == 0));
 
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
         /// </summary>
-        public bool HasInverse
-        {
-            get { return !Determinant.IsZero(); }
-        }
+        public bool HasInverse => !Determinant.IsZero();
 
         #endregion
 
@@ -397,10 +350,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Operator Point * Matrix
         /// </summary>
-        public static Point2D operator *(Point2D point, Matrix2D matrix)
-        {
-            return matrix.Transform(point);
-        }
+        public static Point2D operator *(Point2D point, Matrix2D matrix) => matrix.Transform(point);
 
         /// <summary>
         /// Multiplies two transformations.
@@ -431,10 +381,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator ==(Matrix2D matrix1, Matrix2D matrix2)
-        {
-            return Equals(matrix1, matrix2);
-        }
+        public static bool operator ==(Matrix2D matrix1, Matrix2D matrix2) => Equals(matrix1, matrix2);
 
         /// <summary>
         /// Compares two Matrix instances for exact inequality.
@@ -447,10 +394,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator !=(Matrix2D matrix1, Matrix2D matrix2)
-        {
-            return !Equals(matrix1, matrix2);
-        }
+        public static bool operator !=(Matrix2D matrix1, Matrix2D matrix2) => !Equals(matrix1, matrix2);
 
         /// <summary>
         /// Compares two Matrix2D
@@ -460,10 +404,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Matrix2D a, Matrix2D b)
-        {
-            return Equals(a, b);
-        }
+        public static bool Compare(Matrix2D a, Matrix2D b) => Equals(a, b);
 
         /// <summary>
         /// Compares two Matrix instances for object equality.  In this equality
@@ -507,10 +448,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='obj'>The object to compare to "this"</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-        {
-            return obj is Matrix2D && Equals(this, (Matrix2D)obj);
-        }
+        public override bool Equals(object obj) => obj is Matrix2D && Equals(this, (Matrix2D)obj);
 
         /// <summary>
         /// Equals - compares this Matrix with the passed in object.  In this equality
@@ -524,10 +462,7 @@ namespace Engine.Geometry
         /// </returns>
         /// <param name='value'>The Matrix to compare to "this"</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Matrix2D value)
-        {
-            return Equals(this, value);
-        }
+        public bool Equals(Matrix2D value) => Equals(this, value);
 
         #endregion
 
@@ -537,10 +472,7 @@ namespace Engine.Geometry
         /// Creates a rotation transformation about the given point
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in radians</param>
-        internal static Matrix2D CreateRotationRadians(double angle)
-        {
-            return CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
-        }
+        internal static Matrix2D CreateRotationRadians(double angle) => CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
 
         /// <summary>
         /// Creates a rotation transformation about the given point
@@ -550,7 +482,7 @@ namespace Engine.Geometry
         /// <param name='centerY'>The centerY of rotation</param>
         internal static Matrix2D CreateRotationRadians(double angle, double centerX, double centerY)
         {
-            Matrix2D matrix = new Matrix2D();
+            var matrix = new Matrix2D();
             double sin = Sin(angle);
             double cos = Cos(angle);
             double dx = ((centerX * (1.0 - cos)) + (centerY * sin));
@@ -572,7 +504,7 @@ namespace Engine.Geometry
         /// <param name='centerY'>The centerY of scaling</param>
         internal static Matrix2D CreateScaling(double scaleX, double scaleY, double centerX, double centerY)
         {
-            Matrix2D matrix = new Matrix2D();
+            var matrix = new Matrix2D();
 
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
@@ -589,7 +521,7 @@ namespace Engine.Geometry
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         internal static Matrix2D CreateScaling(double scaleX, double scaleY)
         {
-            Matrix2D matrix = new Matrix2D();
+            var matrix = new Matrix2D();
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
                              0, 0,
@@ -604,7 +536,7 @@ namespace Engine.Geometry
         /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
         internal static Matrix2D CreateSkewRadians(double skewX, double skewY)
         {
-            Matrix2D matrix = new Matrix2D();
+            var matrix = new Matrix2D();
 
             matrix.SetMatrix(1.0f, Tan(skewY),
                              Tan(skewX), 1.0f,
@@ -621,7 +553,7 @@ namespace Engine.Geometry
         /// <param name='offsetY'>The offset in Y</param>
         internal static Matrix2D CreateTranslation(double offsetX, double offsetY)
         {
-            Matrix2D matrix = new Matrix2D();
+            var matrix = new Matrix2D();
 
             matrix.SetMatrix(1, 0,
                              0, 1,
@@ -642,7 +574,7 @@ namespace Engine.Geometry
         public static Matrix2D Parse(string source)
         {
             IFormatProvider formatProvider = CultureInfo.InvariantCulture;
-            Tokenizer tokenizer = new Tokenizer(source, formatProvider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             Matrix2D value;
             string firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
@@ -678,17 +610,13 @@ namespace Engine.Geometry
         internal static void TransformRect(ref Rectangle2D rect, ref Matrix2D matrix)
         {
             if (rect.IsEmpty)
-            {
                 return;
-            }
 
             MatrixTypes matrixType = matrix.type;
 
             // If the matrix is identity, don't worry.
             if (matrixType == MatrixTypes.IDENTITY)
-            {
                 return;
-            }
 
             // Scaling
             if (0 != (matrixType & MatrixTypes.SCALING))
@@ -758,9 +686,7 @@ namespace Engine.Geometry
 
             // If the second is identities, we can just return
             if (type2 == MatrixTypes.IDENTITY)
-            {
                 return;
-            }
 
             // If the first is identities, we can just copy the memory across.
             if (type1 == MatrixTypes.IDENTITY)
@@ -778,9 +704,7 @@ namespace Engine.Geometry
 
                 // If matrix 1 wasn't unknown we added a translation
                 if (type1 != MatrixTypes.UNKNOWN)
-                {
                     matrix1.type |= MatrixTypes.TRANSLATION;
-                }
 
                 return;
             }
@@ -799,13 +723,9 @@ namespace Engine.Geometry
                 matrix1.offsetY = (float)(offsetX * matrix2.m1x2 + offsetY * matrix2.m2x2 + matrix2.offsetY);
 
                 if (type2 == MatrixTypes.UNKNOWN)
-                {
                     matrix1.type = MatrixTypes.UNKNOWN;
-                }
                 else
-                {
                     matrix1.type = MatrixTypes.SCALING | MatrixTypes.TRANSLATION;
-                }
                 return;
             }
 
@@ -899,9 +819,7 @@ namespace Engine.Geometry
                 // It just gained a translate if was a scale transform. Identity transform is handled above.
                 Debug.Assert(matrix.type != MatrixTypes.IDENTITY);
                 if (matrix.type != MatrixTypes.UNKNOWN)
-                {
                     matrix.type |= MatrixTypes.TRANSLATION;
-                }
             }
         }
 
@@ -1096,9 +1014,7 @@ namespace Engine.Geometry
             if (vectors != null)
             {
                 for (int i = 0; i < vectors.Length; i++)
-                {
                     MultiplyVector(ref vectors[i]);
-                }
             }
         }
 
@@ -1111,9 +1027,7 @@ namespace Engine.Geometry
             if (points != null)
             {
                 for (int i = 0; i < points.Length; i++)
-                {
                     MultiplyPoint(ref points[i]);
-                }
             }
         }
 
@@ -1325,14 +1239,10 @@ namespace Engine.Geometry
             }
 
             if (!(m1x1 == 1 && m2x2 == 1))
-            {
                 type = MatrixTypes.SCALING;
-            }
 
             if (!(offsetX == 0 && offsetY == 0))
-            {
                 type |= MatrixTypes.TRANSLATION;
-            }
 
             if (0 == (type & (MatrixTypes.TRANSLATION | MatrixTypes.SCALING)))
             {

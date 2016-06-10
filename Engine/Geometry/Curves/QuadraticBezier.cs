@@ -7,6 +7,7 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Geometry.Polygons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,7 +63,8 @@ namespace Engine.Geometry
         /// </summary>
         public QuadraticBezier()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
@@ -145,10 +147,7 @@ namespace Engine.Geometry
         /// An approximation of the length of a <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [XmlIgnore]
-        public double Length
-        {
-            get { return Experimental.QuadraticBezierArcLengthByIntegral(this); }
-        }
+        public double Length => PolygonExtensions.QuadraticBezierArcLengthByIntegral(a, b, c);
 
         /// <summary>
         /// 
@@ -197,10 +196,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index)
-        {
-            return new Point2D(Interpolaters.QuadraticBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, index));
-        }
+        public override Point2D Interpolate(double index) => new Point2D(Interpolaters.QuadraticBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, index));
 
         #endregion
 

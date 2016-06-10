@@ -27,33 +27,18 @@ namespace Engine.File.Palettes
     public class Palette
         : IEnumerable
     {
-        /// <summary>
-        /// The list of <see cref="Color"/>s as palette entries.
-        /// </summary>
-        private List<Color> colors;
-
         ///// <summary>
         ///// // ToDo: Add a named color lookup.
         ///// </summary>
         //private HashSet<KeyValuePair<string, Color>> values;
 
         /// <summary>
-        /// The name of the palette file.
-        /// </summary>
-        private string fileName;
-
-        /// <summary>
-        /// The palette's MIME format
-        /// </summary>
-        private PaletteMimeFormats paletteMimeFormat;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Palette" /> class.
         /// </summary>
         public Palette()
         {
-            colors = new List<Color>();
-            paletteMimeFormat = PaletteMimeFormats.Default;
+            Colors = new List<Color>();
+            PaletteMimeFormat = PaletteMimeFormats.Default;
         }
 
         /// <summary>
@@ -62,55 +47,37 @@ namespace Engine.File.Palettes
         /// <param name="colors">An array of colors to add to the palette.</param>
         public Palette(Color[] colors)
         {
-            this.colors = new List<Color>();
+            Colors = new List<Color>();
             AddRange(colors);
-            paletteMimeFormat = PaletteMimeFormats.Default;
+            PaletteMimeFormat = PaletteMimeFormats.Default;
         }
 
         /// <summary>
         /// Gets or sets the list of colors in the palette.
         /// </summary>
-        public List<Color> Colors
-        {
-            get { return colors; }
-            set { colors = value; }
-        }
+        public List<Color> Colors { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the palette file.
         /// </summary>
-        public string FileName
-        {
-            get { return fileName; }
-            set { fileName = value; }
-        }
+        public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets the palette's MIME format.
         /// </summary>
-        public PaletteMimeFormats PaletteMimeFormat
-        {
-            get { return paletteMimeFormat; }
-            set { paletteMimeFormat = value; }
-        }
+        public PaletteMimeFormats PaletteMimeFormat { get; set; }
 
         /// <summary>
         /// Gets the number of colors in the palette.
         /// </summary>
-        public int Count
-        {
-            get { return colors.Count; }
-        }
+        public int Count => Colors.Count;
 
         /// <summary>
         /// Gets the palette color entry at a specific index.
         /// </summary>
         /// <param name="index"><see cref="int"/> index of a <see cref="Palette"/> entry <see cref="Color"/>.</param>
         /// <returns>A value representing the <see cref="Color"/> at the specified index in the <see cref="Palette"/>.</returns>
-        public Color this[int index]
-        {
-            get { return colors[index]; }
-        }
+        public Color this[int index] => Colors[index];
 
         /// <summary>
         /// Load a palette file from a file path.
@@ -118,14 +85,12 @@ namespace Engine.File.Palettes
         /// <param name="fileName">A string representing the name of a palette file to open.</param>
         public void Load(string fileName)
         {
-            this.fileName = fileName;
-            PaletteFileExtensions format = checkExtensionSupport(this.fileName);
+            FileName = fileName;
+            PaletteFileExtensions format = checkExtensionSupport(FileName);
             if (format != PaletteFileExtensions.unknown)
             {
-                using (Stream paletteStream = new FileStream(this.fileName, FileMode.Open))
-                {
+                using (Stream paletteStream = new FileStream(FileName, FileMode.Open))
                     Load(paletteStream, format);
-                }
             }
         }
 
@@ -139,7 +104,7 @@ namespace Engine.File.Palettes
             if (stream == Stream.Null) return;
 
             // If we have a stream, the file should have successfully opened. Clear the colors list.
-            colors = new List<Color>();
+            Colors = new List<Color>();
 
             switch (format)
             {
@@ -160,6 +125,7 @@ namespace Engine.File.Palettes
                     ReadPalPalette(stream);
                     break;
                 case PaletteFileExtensions.unknown:
+                    break;
                 default:
                     string header = null;
                     //header = this.ReadString(stream, 4);
@@ -181,14 +147,16 @@ namespace Engine.File.Palettes
                 case PaletteMimeFormats.Adobe:
                 case PaletteMimeFormats.AutoDesk:
                 case PaletteMimeFormats.Corel:
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
+                    break;
                 case PaletteMimeFormats.JascPal0100:
                     WriteJascPalette(fileName);
                     break;
                 case PaletteMimeFormats.Text:
                 case PaletteMimeFormats.ComaDelimiated:
                 case PaletteMimeFormats.SpaceDelimiated:
-                    throw new NotImplementedException();
+                //throw new NotImplementedException();
+                    break;
                 case PaletteMimeFormats.PaintDotNet:
                     WritePaintDotNetPalette(fileName);
                     break;
@@ -197,10 +165,12 @@ namespace Engine.File.Palettes
                     break;
                 case PaletteMimeFormats.Binary:
                 case PaletteMimeFormats.Win31Pal:
-                    throw new NotImplementedException();
+                //throw new NotImplementedException();
                 case PaletteMimeFormats.Default:
+                    break;
                 default:
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
+                    break;
             }
         }
 
@@ -218,26 +188,22 @@ namespace Engine.File.Palettes
         public Bitmap DrawPalette(Rectangle bounds, int selection1, int selection2, int selection3, int selection4, int selection5, int highlight = -1)
         {
             // Exit if data is not properly formated.
-            if (colors == null)
-            {
+            if (Colors == null)
                 return null;
-            }
 
-            if (colors.Count == 0)
-            {
+            if (Colors.Count == 0)
                 return null;
-            }
 
-            RectangleCellGrid grid = new RectangleCellGrid(new Rectangle(bounds.Location, new Size(bounds.Size.Width - 1, bounds.Size.Height - 1)), colors.Count);
+            var grid = new RectangleCellGrid(new Rectangle(bounds.Location, new Size(bounds.Size.Width - 1, bounds.Size.Height - 1)), Colors.Count);
             //RectangleCellGrid grid = new RectangleCellGrid(bounds, this.colors.Count);
 
             // Create the Bitmap and graphics object to draw on.
-            Bitmap image = new Bitmap(grid.InnerBounds.Width + 1, grid.InnerBounds.Height + 1);
+            var image = new Bitmap(grid.InnerBounds.Width + 1, grid.InnerBounds.Height + 1);
             Graphics canvas = Graphics.FromImage(image);
 
             // Iterate through each color in the list and draw it on the canvas
             int index = 0;
-            foreach (Color item in colors)
+            foreach (Color item in Colors)
             {
                 // Calculate the location of the cell to draw.
                 RectangleF cell = grid[index];
@@ -251,37 +217,37 @@ namespace Engine.File.Palettes
             }
 
             // Add any borders for any selected colors.
-            if (selection1 >= 0 && selection1 <= colors.Count)
+            if (selection1 >= 0 && selection1 <= Colors.Count)
             {
                 RectangleF cell = grid[selection1];
                 canvas.DrawRectangle(new Pen(Color.Yellow), Rectangle.Round(cell));
             }
 
-            if (selection2 >= 0 && selection2 <= colors.Count)
+            if (selection2 >= 0 && selection2 <= Colors.Count)
             {
                 RectangleF cell = grid[selection2];
                 canvas.DrawRectangle(new Pen(Color.Red), Rectangle.Round(cell));
             }
 
-            if (selection3 >= 0 && selection3 <= colors.Count)
+            if (selection3 >= 0 && selection3 <= Colors.Count)
             {
                 RectangleF cell = grid[selection3];
                 canvas.DrawRectangle(new Pen(Color.Blue), Rectangle.Round(cell));
             }
 
-            if (selection4 >= 0 && selection4 <= colors.Count)
+            if (selection4 >= 0 && selection4 <= Colors.Count)
             {
                 RectangleF cell = grid[selection4];
                 canvas.DrawRectangle(new Pen(Color.Lime), Rectangle.Round(cell));
             }
 
-            if (selection5 >= 0 && selection5 <= colors.Count)
+            if (selection5 >= 0 && selection5 <= Colors.Count)
             {
                 RectangleF cell = grid[selection5];
                 canvas.DrawRectangle(new Pen(Color.Cyan), Rectangle.Round(cell));
             }
 
-            if (highlight >= 0 && highlight <= colors.Count + 1)
+            if (highlight >= 0 && highlight <= Colors.Count + 1)
             {
                 RectangleF cell = grid[highlight];
                 Color highlightColor = Color.FromArgb(128, Color.CornflowerBlue.R, Color.CornflowerBlue.G, Color.CornflowerBlue.B);
@@ -302,13 +268,13 @@ namespace Engine.File.Palettes
             int value = -1;
 
             // Exit if data is not properly formated.
-            if (colors != null || colors.Count != 0)
+            if (Colors != null || Colors.Count != 0)
             {
-                RectangleCellGrid grid = new RectangleCellGrid(bounds, colors.Count);
+                var grid = new RectangleCellGrid(bounds, Colors.Count);
 
                 // Calculate the index of the item under the point location.
                 value = grid[location];
-                value = (value < colors.Count) ? value : -1;
+                value = (value < Colors.Count) ? value : -1;
             }
 
             return value;
@@ -320,7 +286,7 @@ namespace Engine.File.Palettes
         /// <param name="item">The color to add to the palette.</param>
         public void Add(Color item)
         {
-            colors.Add(item);
+            Colors.Add(item);
         }
 
         /// <summary>
@@ -329,7 +295,7 @@ namespace Engine.File.Palettes
         /// <param name="items">The colors to add to the palette.</param>
         public void AddRange(IEnumerable<Color> items)
         {
-            colors.AddRange(items);
+            Colors.AddRange(items);
         }
 
         /// <summary>
@@ -339,7 +305,7 @@ namespace Engine.File.Palettes
         /// <param name="item">Palette entry color to add to the list.</param>
         public void Insert(int index, Color item)
         {
-            colors.Insert(index, item);
+            Colors.Insert(index, item);
         }
 
         /// <summary>
@@ -349,7 +315,7 @@ namespace Engine.File.Palettes
         /// <param name="item">List of palette entry colors to add to the list.</param>
         public void InsertRange(int index, IEnumerable<Color> item)
         {
-            colors.InsertRange(index, item);
+            Colors.InsertRange(index, item);
         }
 
         /// <summary>
@@ -357,74 +323,56 @@ namespace Engine.File.Palettes
         /// </summary>
         public void Clear()
         {
-            colors.Clear();
+            Colors.Clear();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator GetEnumerator()
-        {
-            return (IEnumerator)colors;
-        }
+        public IEnumerator GetEnumerator() => (IEnumerator)Colors;
 
         /// <summary>
         /// Remove the first instance of a specified color entry in the palette.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was removed.</returns>
-        public bool RemoveFirstInstance(Color item)
-        {
-            return colors.Remove(colors[colors.IndexOf(item)]);
-        }
+        public bool RemoveFirstInstance(Color item) => Colors.Remove(Colors[Colors.IndexOf(item)]);
 
         /// <summary>
         /// Remove the last instance of a specified color entry in the palette.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was removed.</returns>
-        public bool RemoveLastInstance(Color item)
-        {
-            return colors.Remove(colors[colors.LastIndexOf(item)]);
-        }
+        public bool RemoveLastInstance(Color item) => Colors.Remove(Colors[Colors.LastIndexOf(item)]);
 
         /// <summary>
         /// Determines whether the specified palette item is in the palette list of colors.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was found in the list.</returns>
-        public bool Contains(Color item)
-        {
-            return colors.Contains(item);
-        }
+        public bool Contains(Color item) => Colors.Contains(item);
 
         /// <summary>
         /// Searches for a the specific color in the palette and returns its index if found.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>The first index of the color in the palette.</returns>
-        public int IndexOf(Color item)
-        {
-            return colors.IndexOf(item);
-        }
+        public int IndexOf(Color item) => Colors.IndexOf(item);
 
         /// <summary>
         /// Returns the last index of a given color in the palette.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>Returns the index of the last instance of the given color.</returns>
-        public int LastIndexOf(Color item)
-        {
-            return colors.LastIndexOf(item);
-        }
+        public int LastIndexOf(Color item) => Colors.LastIndexOf(item);
 
         /// <summary>
         /// Reverses the order of the colors in the colors in the palette.
         /// </summary>
         public void Reverse()
         {
-            colors.Reverse();
+            Colors.Reverse();
         }
 
         /// <summary>
@@ -432,7 +380,7 @@ namespace Engine.File.Palettes
         /// </summary>
         public void Sort()
         {
-            colors.Sort();
+            Colors.Sort();
         }
 
         /// <summary>
@@ -441,7 +389,7 @@ namespace Engine.File.Palettes
         /// <param name="stream"></param>
         private void ReadAutoDeskPalette(Stream stream)
         {
-            paletteMimeFormat = PaletteMimeFormats.AutoDesk;
+            PaletteMimeFormat = PaletteMimeFormats.AutoDesk;
             long startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -456,7 +404,7 @@ namespace Engine.File.Palettes
         /// <param name="stream"></param>
         private void ReadAdobePalette(Stream stream)
         {
-            paletteMimeFormat = PaletteMimeFormats.Adobe;
+            PaletteMimeFormat = PaletteMimeFormats.Adobe;
             long startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -471,18 +419,19 @@ namespace Engine.File.Palettes
         /// <param name="stream"></param>
         private void ReadCorelPalette(Stream stream)
         {
-            paletteMimeFormat = PaletteMimeFormats.Corel;
+            PaletteMimeFormat = PaletteMimeFormats.Corel;
             long startPossition = stream.Position;
 
-            using (BinaryReader binaryReader = new BinaryReader(stream))
+            using (var binaryReader = new BinaryReader(stream))
             //using (StreamReader streamReader = new StreamReader(stream))
             {
                 ushort mimeVersion = FileEx.NetworkToHostOrder(binaryReader.ReadUInt16());
                 ushort colorCount = 0;
                 string name = string.Empty;
-#pragma warning disable
-                if (mimeVersion == 0xccbc) ; // Version 5-8
-#pragma warning restore
+                if (mimeVersion == 0xccbc)
+                {
+                     // Version 5-8
+                }
                 else if (mimeVersion == 0xdddc) // Version 9-X3
                 {
                     int headerBlocks = binaryReader.ReadInt32();
@@ -506,10 +455,10 @@ namespace Engine.File.Palettes
                         byte green = binaryReader.ReadByte();
                         byte red = binaryReader.ReadByte();
                         byte alpha = binaryReader.ReadByte();
-                        colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
+                        Colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
                         byte stringLen2 = binaryReader.ReadByte();
                         string colorName = binaryReader.ReadString16(stringLen2 * 2);
-                        if (colors.Count == entryCount) break;
+                        if (Colors.Count == entryCount) break;
                     }
                     //while (stream.Position < stream.Length)
                     //{
@@ -523,16 +472,25 @@ namespace Engine.File.Palettes
                     //}
                 }
 #pragma warning disable
-                else if (mimeVersion == 0xccdc) ; // ?
-                else if (mimeVersion == 0xcddc) ; // ?
-                else if (mimeVersion == 0xcddd) ; // Version X4
+                else if (mimeVersion == 0xccdc)
+                {
+                    ; // ?
+                }
+                else if (mimeVersion == 0xcddc)
+                {
+                    ; // ?
+                }
+                else if (mimeVersion == 0xcddd)
+                {
+                    ; // Version X4
+                }
 #pragma warning restore
                 else if (mimeVersion == 0xdcdc) // Custom palettes
                 {
                     byte namelength = binaryReader.ReadByte();
                     name = binaryReader.ReadString(namelength);
                     colorCount = binaryReader.ReadUInt16();
-                    CorelColorModel colorModel = (CorelColorModel)binaryReader.ReadUInt16();
+                    var colorModel = (CorelColorModel)binaryReader.ReadUInt16();
                     ushort colorType = binaryReader.ReadUInt16();
                     long streamEnd = stream.Position + colorCount;
                     // Three byte RGB 
@@ -548,7 +506,7 @@ namespace Engine.File.Palettes
                         //byte epsilon = binaryReader.ReadByte();
                         //byte colorNameLength = binaryReader.ReadByte();
                         //string colorName = binaryReader.ReadString(colorNameLength);
-                        colors.Add(Color.FromArgb(red, green, blue));
+                        Colors.Add(Color.FromArgb(red, green, blue));
                         //this.colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
                     }
                 }
@@ -588,10 +546,10 @@ namespace Engine.File.Palettes
         /// <returns></returns>
         private void ReadRiffPalette(Stream stream)
         {
-            paletteMimeFormat = PaletteMimeFormats.RiffPal;
+            PaletteMimeFormat = PaletteMimeFormats.RiffPal;
             long startPossition = stream.Position;
 
-            using (BinaryReader binaryReader = new BinaryReader(stream))
+            using (var binaryReader = new BinaryReader(stream))
             {
                 // RIFF header
                 string riff = binaryReader.ReadString(4); // "RIFF"
@@ -611,7 +569,7 @@ namespace Engine.File.Palettes
                     byte green = binaryReader.ReadByte();
                     byte blue = binaryReader.ReadByte();
                     byte alpha = binaryReader.ReadByte();
-                    colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
+                    Colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
                     //this.colors.Add(Color.FromArgb(br.ReadInt32()));
                 }
             }
@@ -623,10 +581,10 @@ namespace Engine.File.Palettes
         /// <param name="stream"></param>
         private void ReadBinaryPalette(Stream stream)
         {
-            paletteMimeFormat = PaletteMimeFormats.Binary;
+            PaletteMimeFormat = PaletteMimeFormats.Binary;
             long startPossition = stream.Position;
 
-            using (BinaryReader binaryReader = new BinaryReader(stream))
+            using (var binaryReader = new BinaryReader(stream))
             //using (StreamReader streamReader = new StreamReader(stream))
             {
                 long Length = binaryReader.BaseStream.Length / 4 - 1;
@@ -636,7 +594,7 @@ namespace Engine.File.Palettes
                     byte green = binaryReader.ReadByte();
                     byte red = binaryReader.ReadByte();
                     byte alpha = binaryReader.ReadByte();
-                    colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
+                    Colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
                 }
             }
         }
@@ -647,12 +605,12 @@ namespace Engine.File.Palettes
         /// <param name="stream"></param>
         private void ReadJascPalette(Stream stream)
         {
-            paletteMimeFormat = PaletteMimeFormats.JascPal0100;
+            PaletteMimeFormat = PaletteMimeFormats.JascPal0100;
             long startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
-            using (StreamReader streamReader = new StreamReader(stream))
-            using (StringReader StrReader = new StringReader(streamReader.ReadToEnd()))
+            using (var streamReader = new StreamReader(stream))
+            using (var StrReader = new StringReader(streamReader.ReadToEnd()))
             {
                 string head = StrReader.ReadLine();
                 string version = StrReader.ReadLine();
@@ -662,13 +620,9 @@ namespace Engine.File.Palettes
                 {
                     string[] ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
                     if (ReadStr.Length == 3)
-                    {
-                        colors.Add(Color.FromArgb(int.Parse(ReadStr[0]), int.Parse(ReadStr[1]), int.Parse(ReadStr[2])));
-                    }
+                        Colors.Add(Color.FromArgb(int.Parse(ReadStr[0]), int.Parse(ReadStr[1]), int.Parse(ReadStr[2])));
                     else if (ReadStr.Length == 4)
-                    {
-                        colors.Add(Color.FromArgb(int.Parse(ReadStr[3]), int.Parse(ReadStr[0]), int.Parse(ReadStr[1]), int.Parse(ReadStr[2])));
-                    }
+                        Colors.Add(Color.FromArgb(int.Parse(ReadStr[3]), int.Parse(ReadStr[0]), int.Parse(ReadStr[1]), int.Parse(ReadStr[2])));
                 }
             }
         }
@@ -679,10 +633,10 @@ namespace Engine.File.Palettes
         /// <param name="stream"></param>
         private void ReadTextPalette(Stream stream)
         {
-            paletteMimeFormat = PaletteMimeFormats.Text;
+            PaletteMimeFormat = PaletteMimeFormats.Text;
             long startPossition = stream.Position;
 
-            using (StreamReader streamReader = new StreamReader(stream))
+            using (var streamReader = new StreamReader(stream))
             {
                 string line;
                 while ((line = streamReader.ReadLine()) != null)
@@ -690,33 +644,25 @@ namespace Engine.File.Palettes
                     line = line.Trim();
                     if (line.StartsWith(";"))
                     {
-                        paletteMimeFormat = PaletteMimeFormats.PaintDotNet;
+                        PaletteMimeFormat = PaletteMimeFormats.PaintDotNet;
                     }
                     else if (!string.IsNullOrWhiteSpace(line))
                     {
                         string[] argb;
-                        Color color = new Color();
+                        var color = new Color();
                         if (line.Contains(" ") || line.Contains(","))
                         {
-                            if (paletteMimeFormat == PaletteMimeFormats.Text && line.Contains(" "))
-                            {
-                                paletteMimeFormat = PaletteMimeFormats.SpaceDelimiated;
-                            }
-                            else if (paletteMimeFormat == PaletteMimeFormats.Text && line.Contains(","))
-                            {
-                                paletteMimeFormat = PaletteMimeFormats.ComaDelimiated;
-                            }
+                            if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(" "))
+                                PaletteMimeFormat = PaletteMimeFormats.SpaceDelimiated;
+                            else if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(","))
+                                PaletteMimeFormat = PaletteMimeFormats.ComaDelimiated;
 
                             argb = line.Split(new char[] { ' ', ',' });
 
                             if (argb.Length == 3)
-                            {
                                 color = Color.FromArgb(int.Parse(argb[0]), int.Parse(argb[1]), int.Parse(argb[2]));
-                            }
                             else if (argb.Length == 4)
-                            {
                                 color = Color.FromArgb(int.Parse(argb[3]), int.Parse(argb[0]), int.Parse(argb[1]), int.Parse(argb[2]));
-                            }
                         }
                         else
                         {
@@ -724,7 +670,7 @@ namespace Engine.File.Palettes
                         }
 
                         color = LookupNamedColor(color);
-                        colors.Add(color);
+                        Colors.Add(color);
                     }
                 }
             }
@@ -737,10 +683,10 @@ namespace Engine.File.Palettes
         private void WriteRiffPalette(string filename)
         {
             // Calculate file length
-            int length = 4 + 4 + 4 + 4 + 2 + 2 + colors.Count * 4;
+            int length = 4 + 4 + 4 + 4 + 2 + 2 + Colors.Count * 4;
 
-            FileStream stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
-            using (BinaryWriter bw = new BinaryWriter(stream))
+            var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
+            using (var bw = new BinaryWriter(stream))
             {
                 // RIFF header
                 bw.WriteString("RIFF");
@@ -749,12 +695,12 @@ namespace Engine.File.Palettes
 
                 // Data chunk
                 bw.WriteString("data");
-                bw.Write(colors.Count * 4 + 4);
+                bw.Write(Colors.Count * 4 + 4);
                 bw.Write((short)0x0300); // PAL version
-                bw.Write((short)colors.Count);
+                bw.Write((short)Colors.Count);
 
                 // Colors
-                foreach (Color color in colors)
+                foreach (Color color in Colors)
                 {
                     bw.Write(color.R);
                     bw.Write(color.G);
@@ -770,8 +716,8 @@ namespace Engine.File.Palettes
         /// <param name="filename"></param>
         private void WriteJascPalette(string filename)
         {
-            FileStream stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
-            using (StreamWriter bw = new StreamWriter(stream))
+            var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
+            using (var bw = new StreamWriter(stream))
             {
                 // RIFF header
                 bw.WriteLine("JASC-PAL");
@@ -780,13 +726,11 @@ namespace Engine.File.Palettes
                 bw.WriteLine("0100");
 
                 // length
-                bw.WriteLine(colors.Count);
+                bw.WriteLine(Colors.Count);
 
                 // Colors
-                foreach (Color color in colors)
-                {
+                foreach (Color color in Colors)
                     bw.WriteLine(color.R + " " + color.G + " " + color.B + " " + color.A);
-                }
             }
         }
 
@@ -796,8 +740,8 @@ namespace Engine.File.Palettes
         /// <param name="filename"></param>
         private void WritePaintDotNetPalette(string filename)
         {
-            FileStream stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
-            using (StreamWriter bw = new StreamWriter(stream))
+            var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
+            using (var bw = new StreamWriter(stream))
             {
                 // Header
                 bw.WriteLine("; paint.net Palette File");
@@ -809,10 +753,8 @@ namespace Engine.File.Palettes
                 bw.WriteLine("; slots will be set to white (FFFFFFFF). If there are more, then the remaining colors will be ignored.");
 
                 // Colors
-                foreach (Color color in colors)
-                {
+                foreach (Color color in Colors)
                     bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", color.A, color.R, color.G, color.B);
-                }
             }
         }
 

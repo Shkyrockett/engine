@@ -10,69 +10,45 @@
         /// <summary>
         /// 
         /// </summary>
-        private IMass mass;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private IVolume volume;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="mass"></param>
         /// <param name="volume"></param>
         public Density(IMass mass, IVolume volume)
         {
-            this.mass = mass;
-            this.volume = volume;
+            Mass = mass;
+            Volume = volume;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IMass Mass
-        {
-            get { return mass; }
-            set { mass = value; }
-        }
+        public IMass Mass { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IVolume Volume
-        {
-            get { return volume; }
-            set { volume = value; }
-        }
+        public IVolume Volume { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return mass.Value / volume.Value; }
-        }
+        public double Value => Mass.Value / Volume.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Density"; } }
+        public string Name => "Density";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}/{1}³", this.mass.Abreviation, this.volume.Abreviation); } }
+        public string Abreviation => string.Format("{0}/{1}³", Mass.Abreviation, Volume.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0}{1}/{2}³", Value, this.mass.Abreviation, this.volume.Abreviation);
-        }
+        public override string ToString() => string.Format("{0}{1}/{2}³", Value, Mass.Abreviation, Volume.Abreviation);
     }
 }

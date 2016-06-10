@@ -8,31 +8,6 @@ namespace Engine.Imaging.ColorSpace
     public class ACYMK
     {
         /// <summary>
-        /// Alpha color component.
-        /// </summary>
-        private byte alpha;
-
-        /// <summary>
-        /// Cyan color component
-        /// </summary>
-        private byte cyan;
-
-        /// <summary>
-        /// Yellow color component.
-        /// </summary>
-        private byte yellow;
-
-        /// <summary>
-        /// Magenta color component.
-        /// </summary>
-        private byte magenta;
-
-        /// <summary>
-        /// Black color component.
-        /// </summary>
-        private byte black;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ACYMK"/> class.
         /// </summary>
         public ACYMK()
@@ -67,11 +42,11 @@ namespace Engine.Imaging.ColorSpace
             double M = (green - K) / (1.0 - K);
             double Y = (blue - K) / (1.0 - K);
 
-            alpha = color.A;
-            cyan = (byte)((C * 100) + 0.5);
-            yellow = (byte)((Y * 100) + 0.5);
-            magenta = (byte)((M * 100) + 0.5);
-            black = (byte)((K * 100) + 0.5);
+            Alpha = color.A;
+            Cyan = (byte)((C * 100) + 0.5);
+            Yellow = (byte)((Y * 100) + 0.5);
+            Magenta = (byte)((M * 100) + 0.5);
+            Black = (byte)((K * 100) + 0.5);
         }
 
         /// <summary>
@@ -96,57 +71,37 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="black">Black color component.</param>
         public ACYMK(byte alpha, byte cyan, byte yellow, byte magenta, byte black)
         {
-            this.cyan = cyan;
-            this.yellow = yellow;
-            this.magenta = magenta;
-            this.black = black;
-            this.alpha = alpha;
+            Cyan = cyan;
+            Yellow = yellow;
+            Magenta = magenta;
+            Black = black;
+            Alpha = alpha;
         }
 
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
-        public byte Alpha
-        {
-            get { return alpha; }
-            set { alpha = value; }
-        }
+        public byte Alpha { get; set; }
 
         /// <summary>
         /// Gets or sets the cyan color value.
         /// </summary>
-        public byte Cyan
-        {
-            get { return cyan; }
-            set { cyan = value; }
-        }
+        public byte Cyan { get; set; }
 
         /// <summary>
         /// Gets or sets the green color value.
         /// </summary>
-        public byte Yellow
-        {
-            get { return yellow; }
-            set { yellow = value; }
-        }
+        public byte Yellow { get; set; }
 
         /// <summary>
         /// Gets or sets the blue color value.
         /// </summary>
-        public byte Magenta
-        {
-            get { return magenta; }
-            set { magenta = value; }
-        }
+        public byte Magenta { get; set; }
 
         /// <summary>
         /// Gets or sets the black color value.
         /// </summary>
-        public byte Black
-        {
-            get { return black; }
-            set { black = value; }
-        }
+        public byte Black { get; set; }
 
         /// <summary>
         /// Converts the <see cref="ACYMK"/> class to a <see cref="Color"/> class.
@@ -162,10 +117,10 @@ namespace Engine.Imaging.ColorSpace
         /// </remarks>
         public Color ToARGB()
         {
-            double C = cyan / 255.0;
-            double M = magenta / 255.0;
-            double Y = yellow / 255.0;
-            double K = black / 255.0;
+            double C = Cyan / 255.0;
+            double M = Magenta / 255.0;
+            double Y = Yellow / 255.0;
+            double K = Black / 255.0;
 
             double R = C * (1.0 - K) + K;
             double G = M * (1.0 - K) + K;

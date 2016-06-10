@@ -11,72 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private ISpeed speed;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ITime time;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="speed"></param>
         /// <param name="time"></param>
         public Distance(ISpeed speed, ITime time)
         {
-            this.speed = speed;
-            this.time = time;
+            Speed = speed;
+            Time = time;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public ISpeed Speed
-        {
-            get { return speed; }
-            set { speed = value; }
-        }
+        public ISpeed Speed { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITime Time
-        {
-            get { return time; }
-            set { time = value; }
-        }
+        public ITime Time { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get
-            {
-                return time.Value * speed.Value;
-            }
-        }
+        public double Value => Time.Value * Speed.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Distance"; } }
+        public string Name => "Distance";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "Distance"; } }
+        public string Abreviation => "Distance";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1}{2}", Value, speed.Abreviation, time.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1}{2}", Value, Speed.Abreviation, Time.Abreviation);
     }
 }

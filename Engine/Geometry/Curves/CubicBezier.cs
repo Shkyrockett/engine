@@ -70,7 +70,8 @@ namespace Engine.Geometry
         /// </summary>
         public CubicBezier()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CubicBezier"/> class.
@@ -187,10 +188,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [XmlIgnore]
-        public double Length
-        {
-            get { return PolygonExtensions.CubicBezierArcLength(a, b, c, d); }
-        }
+        public double Length => PolygonExtensions.CubicBezierArcLength(a, b, c, d);
 
         /// <summary>
         /// 
@@ -209,7 +207,7 @@ namespace Engine.Geometry
         {
             get
             {
-                int sortOfCloseLength = (int)Length;
+                var sortOfCloseLength = (int)Length;
                 points = new List<Point2D>(InterpolatePoints(sortOfCloseLength));
 
                 double left = points[0].X;
@@ -240,10 +238,7 @@ namespace Engine.Geometry
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public override Point2D Interpolate(double index)
-        {
-            return new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, index));
-        }
+        public override Point2D Interpolate(double index) => new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, index));
 
         /// <summary>
         /// 

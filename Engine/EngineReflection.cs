@@ -113,15 +113,13 @@ namespace Engine
         /// <param name="type"></param>
         /// <returns></returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
-        {
-            return new List<MethodInfo>
-            (
-                from method in type.GetMethods()
-                where method.IsStatic == true
-                where method.ReturnType == type
-                select method
-            ).OrderBy(x => x.Name).ToList();
-        }
+            => new List<MethodInfo>
+        (
+            from method in type.GetMethods()
+            where method.IsStatic
+            where method.ReturnType == type
+            select method
+        ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
         /// List all of the assembly types of a specific type.
@@ -130,14 +128,12 @@ namespace Engine
         /// <param name="classType">The type to look for.</param>
         /// <returns></returns>
         private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
-        {
-            return new List<Type>
-            (
-                from type in assembly.GetTypes()
-                where type.BaseType == classType
-                select type
-            ).OrderBy(x => x.Name).ToList();
-        }
+            => new List<Type>
+        (
+            from type in assembly.GetTypes()
+            where type.BaseType == classType
+            select type
+        ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
         /// List all of the assembly types based on a particular interface. 
@@ -146,14 +142,12 @@ namespace Engine
         /// <param name="classType">The interface type to look for.</param>
         /// <returns></returns>
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
-        {
-            return new List<Type>
-            (
-                from type in assembly.GetTypes()
-                where type.GetInterfaces().Contains(classType)
-                select type
-            ).OrderBy(x => x.Name).ToList();
-        }
+            => new List<Type>
+        (
+            from type in assembly.GetTypes()
+            where type.GetInterfaces().Contains(classType)
+            select type
+        ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
         /// List all of the assembly types based on a particular attribute. 
@@ -165,13 +159,11 @@ namespace Engine
         /// http://stackoverflow.com/questions/4852879/get-all-types-in-assembly-with-custom-attribute
         /// </remarks>
         private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
-        {
-            return new List<Type>
-            (
-                from type in assembly.GetTypes()
-                where Attribute.IsDefined(type, attributeType)
-                select type
-            ).OrderBy(x => x.Name).ToList();
-        }
+            => new List<Type>
+        (
+            from type in assembly.GetTypes()
+            where Attribute.IsDefined(type, attributeType)
+            select type
+        ).OrderBy(x => x.Name).ToList();
     }
 }

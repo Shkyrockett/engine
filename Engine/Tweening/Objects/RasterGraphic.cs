@@ -57,11 +57,7 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <returns></returns>
-        public object Clone()
-        {
-            throw new NotImplementedException();
-        }
-
+        public object Clone() => new object();
 
         /// <summary>
         /// 
@@ -86,13 +82,10 @@ namespace Engine.Objects
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && Bitmap != null)
             {
                 // free managed resources
-                if (Bitmap != null)
-                {
-                    Bitmap.Dispose();
-                }
+                Bitmap.Dispose();
             }
             // free native resources if there are any.
         }

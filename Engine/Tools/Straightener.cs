@@ -22,34 +22,9 @@ namespace Engine.Tools
         : Tool, ITool
     {
         /// <summary>
-        /// Array of points for the Rubber-band line.
-        /// </summary>
-        private LineSegment line;
-
-        /// <summary>
-        /// Index value in the array.
-        /// </summary>
-        private int index;
-
-        /// <summary>
         /// 
         /// </summary>
-        bool mouseDown;
-
-        /// <summary>
-        /// Absolute angle of Rubber-band line.
-        /// </summary>
-        private double angle;
-
-        /// <summary>
-        /// The angle to snap to.
-        /// </summary>
-        private double theta;
-
-        /// <summary>
-        /// The difference angle from the rotation angle to the angle to snap to.
-        /// </summary>
-        private double delta;
+        private bool mouseDown;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Straightener"/> class.
@@ -57,62 +32,42 @@ namespace Engine.Tools
         public Straightener()
         {
             // Setup the tool properties.
-            index = 0;
+            Index = 0;
 
             // Setup the storage properties. 
-            line = LineSegment.Empty;
+            Line = LineSegment.Empty;
 
             // Setup the calculation properties.
-            angle = 0;
-            theta = 0;
-            delta = 0;
+            Angle = 0;
+            Theta = 0;
+            Delta = 0;
         }
 
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public LineSegment Line
-        {
-            get { return line; }
-            set { line = value; }
-        }
+        public LineSegment Line { get; set; }
 
         /// <summary>
         /// Provides the current index of the rubber-band line used to find the angle.
         /// </summary>
         /// <returns>Returns the current index of the rubber-band line.</returns>
-        public int Index
-        {
-            get { return index; }
-            set { index = value; }
-        }
+        public int Index { get; set; }
 
         /// <summary>
         /// Absolute angle of Rubber-band line.
         /// </summary>
-        public double Angle
-        {
-            get { return angle; }
-            set { angle = value; }
-        }
+        public double Angle { get; set; }
 
         /// <summary>
         /// The angle to snap to.
         /// </summary>
-        public double Theta
-        {
-            get { return theta; }
-            set { theta = value; }
-        }
+        public double Theta { get; set; }
 
         /// <summary>
         /// The difference angle from the rotation angle to the angle to snap to.
         /// </summary>
-        public double Delta
-        {
-            get { return delta; }
-            set { delta = value; }
-        }
+        public double Delta { get; set; }
 
         /// <summary>
         /// Update tool on mouse down.
@@ -145,18 +100,18 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (mouseDown) index = 1;
+                    if (mouseDown) Index = 1;
 
-                    line.B = tools.MouseLocation;
+                    Line.B = tools.MouseLocation;
 
                     // angle is the absolute angle of the line.
-                    angle = Maths.AbsoluteAngle(line[0].X, line[0].Y, line[1].X, line[1].Y);
+                    Angle = Maths.AbsoluteAngle(Line[0].X, Line[0].Y, Line[1].X, Line[1].Y);
 
                     // theta is the angle to rotate to.
-                    theta = Maths.RoundToMultiple(angle, Maths.HalfPi);
+                    Theta = Maths.RoundToMultiple(Angle, Maths.HalfPi);
 
                     // delta is the difference between the angle and theta which is the angle to rotate to.
-                    delta = theta - angle;
+                    Delta = Theta - Angle;
                 }
             }
         }
@@ -170,14 +125,14 @@ namespace Engine.Tools
             mouseDown = false;
             if (InUse)
             {
-                line[index] = tools.MouseLocation;
-                switch (index)
+                Line[Index] = tools.MouseLocation;
+                switch (Index)
                 {
                     case 0:
-                        index = 1;
+                        Index = 1;
                         break;
                     case 1:
-                        index = 0;
+                        Index = 0;
                         Started = false;
                         tools.Surface.RubberbandItems.Clear();
                         RaiseFinishEvent(tools);
@@ -195,21 +150,18 @@ namespace Engine.Tools
         {
             InUse = false;
             Started = false;
-            index = 0;
-            angle = 0;
-            theta = 0;
-            delta = 0;
-            line = LineSegment.Empty;
+            Index = 0;
+            Angle = 0;
+            Theta = 0;
+            Delta = 0;
+            Line = LineSegment.Empty;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return nameof(Straightener);
-        }
+        public override string ToString() => nameof(Straightener);
 
         /// <summary>
         /// 
@@ -217,13 +169,13 @@ namespace Engine.Tools
         /// <returns></returns>
         public string Output()
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
             output.Append("Angle: ");
-            output.Append(Round(angle.ToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(Angle.ToDegrees(), 3).ToString("N3").PadLeft(8));
             output.Append(", Snap to: ");
-            output.Append(Round(theta.ToDegrees(), 3).ToString("N0").PadLeft(3));
+            output.Append(Round(Theta.ToDegrees(), 3).ToString("N0").PadLeft(3));
             output.Append(", Difference: ");
-            output.Append(Round(delta.ToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(Delta.ToDegrees(), 3).ToString("N3").PadLeft(8));
             output.Append(".");
             return output.ToString();
         }

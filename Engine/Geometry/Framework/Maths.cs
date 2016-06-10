@@ -19,27 +19,6 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="t"></param>
-    /// <returns></returns>
-    public delegate double DoubleMethodDelegate(double t);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="t"></param>
-    /// <returns></returns>
-    public delegate Point2D Point2DMethodDelegate(double t);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="t"></param>
-    /// <returns></returns>
-    public delegate Point3D Point3DMethodDelegate(double t);
-
-    /// <summary>
     /// Extended Math processing library.
     /// </summary>
     public static class Maths
@@ -1468,9 +1447,7 @@ namespace Engine.Geometry
         {
             // if v2 has a right angle to vector, return -vector and stop
             if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - PI / 2) < double.Epsilon)
-            {
                 return new Tuple<double, double, double>(-i1, -j1, -k1);
-            }
 
             Tuple<double, double, double> projection = Projection(i1, j1, k1, i2, j2, k2);
             return new Tuple<double, double, double>(
@@ -1788,11 +1765,9 @@ namespace Engine.Geometry
         /// <param name="c"></param>
         /// <returns></returns>
         public static Tuple<double, double> QuadraticEquation(double a, double b, double c)
-        {
-            return new Tuple<double, double>(
-                (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
-                (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
-        }
+            => new Tuple<double, double>(
+            (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
+            (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
 
         /// <summary>
         /// Returns the specified root a specified number.
@@ -1864,13 +1839,7 @@ namespace Engine.Geometry
             // Return Atan(Value / Sqrt(-Value * Value + 1))
             if (value == 1) return HalfPi;
             else if (value == -1) return -HalfPi;
-            else
-            {
-                if ((Math.Abs(value) < 1))
-                {
-                    return Atan(value / Sqrt(-value * value + 1));
-                }
-            }
+            else if (Math.Abs(value) < 1) return Atan(value / Sqrt(-value * value + 1));
 
             return 0;
         }
@@ -1888,13 +1857,7 @@ namespace Engine.Geometry
             // Return Atan(-Value / Sqrt(-Value * Value + 1)) + 2 * Atan(1)
             if (value == 1) return 0;
             else if (value == -1) return PI;
-            else
-            {
-                if ((Math.Abs(value) < 1))
-                {
-                    return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
-                }
-            }
+            else if (Math.Abs(value) < 1) return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
 
             return 0;
         }
@@ -1912,13 +1875,7 @@ namespace Engine.Geometry
             // Return Atan(Value / Sqrt(Value * Value - 1)) + Sign((Value) - 1) * (2 * Atan(1))
             if (value == 1) return 0;
             else if (value == -1) return PI;
-            else
-            {
-                if ((Math.Abs(value) < 1))
-                {
-                    return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
-                }
-            }
+            else if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
 
             return 0;
         }
@@ -1936,13 +1893,7 @@ namespace Engine.Geometry
             // Return Atan(Value / Sqrt(Value * Value - 1)) + (Sign(Value) - 1) * (2 * Atan(1))
             if (value == 1) return HalfPi;
             else if (value == -1) return -HalfPi;
-            else
-            {
-                if ((Math.Abs(value) < 1))
-                {
-                    return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
-                }
-            }
+            else if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
             return 0;
         }
 
@@ -2117,8 +2068,8 @@ namespace Engine.Geometry
         [Pure]
         public static double AbsoluteAngle(this double angle)
         {
-            double test = angle % Maths.Tau;
-            return test < 0 ? test + Maths.Tau : test;
+            double test = angle % Tau;
+            return test < 0 ? test + Tau : test;
         }
 
         /// <summary>

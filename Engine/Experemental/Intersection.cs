@@ -23,34 +23,12 @@ namespace Engine.Geometry
     public class Intersection
     {
         /// <summary>
-        /// Return Value of whether an intersection occurred
-        /// </summary>
-        /// <remarks></remarks>
-        private bool itersecting;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool paralell;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private IntersectionType type;
-
-        /// <summary>
-        /// Returns of the point(s) of Intersection
-        /// </summary>
-        /// <remarks></remarks>
-        private Point2D[] intersectionPoint;
-
-        /// <summary>
         /// 
         /// </summary>
         public Intersection()
         {
             Itersecting = false;
-            intersectionPoint = new Point2D[] { Point2D.Empty };
+            IntersectionPoint = new Point2D[] { Point2D.Empty };
         }
 
         /// <summary>
@@ -61,7 +39,7 @@ namespace Engine.Geometry
         public Intersection(bool isIntersection, Point2D[] intersectionPoint)
         {
             Itersecting = isIntersection;
-            this.intersectionPoint = intersectionPoint;
+            IntersectionPoint = intersectionPoint;
         }
 
         /// <summary>
@@ -73,7 +51,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Intersection(Point2D[] Locations, bool Intersects, IntersectionType Type)
         {
-            intersectionPoint = Locations;
+            IntersectionPoint = Locations;
             Itersecting = Intersects;
             Paralell = false;
             this.Type = Type;
@@ -88,13 +66,11 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Intersection(Point2D[] Locations, bool Intersects, bool Paralell)
         {
-            intersectionPoint = Locations;
+            IntersectionPoint = Locations;
             Itersecting = Intersects;
             this.Paralell = Paralell;
             if (Paralell)
-            {
                 Type = IntersectionType.Parallel;
-            }
         }
 
         /// <summary>
@@ -106,13 +82,11 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Intersection(Point2D Locations, bool Intersects, bool Paralell)
         {
-            intersectionPoint = new Point2D[] { Locations };
+            IntersectionPoint = new Point2D[] { Locations };
             Itersecting = Intersects;
             this.Paralell = Paralell;
             if (Paralell)
-            {
                 Type = IntersectionType.Parallel;
-            }
         }
 
         /// <summary>
@@ -124,7 +98,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Intersection(Point2D Locations, bool Intersects, IntersectionType Type)
         {
-            intersectionPoint = new Point2D[] {
+            IntersectionPoint = new Point2D[] {
                      Locations};
             Paralell = false;
             Itersecting = Intersects;
@@ -135,38 +109,22 @@ namespace Engine.Geometry
         /// Return Value of whether an intersection occurred
         /// </summary>
         /// <remarks></remarks>
-        public bool Itersecting
-        {
-            get { return itersecting; }
-            set { itersecting = value; }
-        }
+        public bool Itersecting { get; set; }
 
         /// <summary>
         /// Returns of the point(s) of Intersection
         /// </summary>
         /// <remarks></remarks>
-        public Point2D[] IntersectionPoint
-        {
-            get { return intersectionPoint; }
-            set { intersectionPoint = value; }
-        }
+        public Point2D[] IntersectionPoint { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool Paralell
-        {
-            get { return paralell; }
-            set { paralell = value; }
-        }
+        public bool Paralell { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IntersectionType Type
-        {
-            get { return type; }
-            set { type = value; }
-        }
+        public IntersectionType Type { get; set; }
     }
 }

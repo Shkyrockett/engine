@@ -71,5 +71,5 @@ namespace Engine.Chrono
         /// December, the twelfth month of the Year.
         /// </summary>
         December
-    };
+    }
 }

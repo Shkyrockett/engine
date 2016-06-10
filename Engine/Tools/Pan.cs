@@ -23,21 +23,8 @@ namespace Engine.Tools
     {
         #region Fields
 
-        /// <summary>
-        /// Array of points for the Rubber-band line.
-        /// </summary>
-        private List<Point2D> points;
-
-        /// <summary>
-        /// Index value in the array.
-        /// </summary>
-        private int index;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        bool mouseDown;
-
+        
+        
         #endregion
 
         #region Constructors
@@ -48,10 +35,10 @@ namespace Engine.Tools
         public Pan()
         {
             // Setup the tool properties.
-            index = 0;
+            Index = 0;
 
             // Setup the storage properties. 
-            points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
+            Points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
 
         #endregion
@@ -61,30 +48,18 @@ namespace Engine.Tools
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public List<Point2D> Points
-        {
-            get { return points; }
-            set { points = value; }
-        }
+        public List<Point2D> Points { get; set; }
 
         /// <summary>
         /// Provides the current index of the rubber-band line used to find the angle.
         /// </summary>
         /// <returns>Returns the current index of the rubber-band line.</returns>
-        public int Index
-        {
-            get { return index; }
-            set { index = value; }
-        }
+        public int Index { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool MouseDown
-        {
-            get { return mouseDown; }
-            set { mouseDown = value; }
-        }
+        public bool MouseDown { get; set; }
 
         #endregion
 
@@ -94,14 +69,12 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseDownUpdate(ToolStack tools)
         {
-            mouseDown = true;
+            MouseDown = true;
             if (InUse)
             {
-                points[index] = tools.MouseLocation;
+                Points[Index] = tools.MouseLocation;
                 if (!Started)
-                {
                     Points[1] = tools.MouseLocation;
-                }
 
                 Started = true;
             }
@@ -117,13 +90,13 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (Primitives.Length(points[0], tools.MouseLocation) > 8)
+                    if (Primitives.Length(Points[0], tools.MouseLocation) > 8)
                     {
-                        if (MouseDown) index = 1;
-                        points[index] = tools.MouseLocation;
+                        if (MouseDown) Index = 1;
+                        Points[Index] = tools.MouseLocation;
                     }
 
-                    if (index == 0) Points[1] = tools.MouseLocation;
+                    if (Index == 0) Points[1] = tools.MouseLocation;
                 }
             }
         }
@@ -134,17 +107,17 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseUpUpdate(ToolStack tools)
         {
-            mouseDown = false;
+            MouseDown = false;
             if (InUse)
             {
-                points[index] = tools.MouseLocation;
-                switch (index)
+                Points[Index] = tools.MouseLocation;
+                switch (Index)
                 {
                     case 0:
-                        index = 1;
+                        Index = 1;
                         break;
                     case 1:
-                        index = 0;
+                        Index = 0;
                         Started = false;
                         RaiseFinishEvent(tools);
                         break;
@@ -161,18 +134,15 @@ namespace Engine.Tools
         {
             InUse = false;
             Started = false;
-            index = 0;
-            points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
+            Index = 0;
+            Points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return nameof(SelectTop);
-        }
+        public override string ToString() => nameof(SelectTop);
 
         /// <summary>
         /// 
@@ -180,7 +150,7 @@ namespace Engine.Tools
         /// <returns></returns>
         public string Output()
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
             return output.ToString();
         }
     }

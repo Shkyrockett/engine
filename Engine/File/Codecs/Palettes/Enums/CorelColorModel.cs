@@ -4,13 +4,12 @@
 // <author id="shkyrockett">Alma Jenks</author>
 // <summary></summary>
 
-
 namespace Engine.File
 {
     /// <summary>
     /// 
     /// </summary>
-    internal enum CorelColorModel 
+    internal enum CorelColorModel
         : ushort
     {
         Pantone = 1,

@@ -21,9 +21,7 @@ namespace Engine.Chrono
         /// </example>
         /// <param name="date">Start date</param>
         public static DateTime AtMidnight(this DateTime date)
-        {
-            return new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
-        }
+            => new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
 
         /// <summary>
         /// Returns the same day, at midday
@@ -33,9 +31,7 @@ namespace Engine.Chrono
         /// </example>
         /// <param name="date">Start date</param>
         public static DateTime AtMidday(this DateTime date)
-        {
-            return new DateTime(date.Year, date.Month, date.Day, 12, 0, 0);
-        }
+            => new DateTime(date.Year, date.Month, date.Day, 12, 0, 0);
 
         /// <summary>
         /// If the date falls on a weekend, adjust to the nearest business day.
@@ -106,9 +102,7 @@ namespace Engine.Chrono
         /// <param name="date">Start date</param>
         /// <returns></returns>
         public static DateTime FirstDayOfMonth(this DateTime date)
-        {
-            return new DateTime(date.Year, date.Month, 1).AtMidnight();
-        }
+            => new DateTime(date.Year, date.Month, 1).AtMidnight();
 
         /// <summary>
         /// Returns the first day of the month
@@ -119,9 +113,7 @@ namespace Engine.Chrono
         /// <param name="date">Start date</param>
         /// <returns></returns>
         public static DateTime FirstDayOfMonth02(this DateTime date)
-        {
-            return (date.AddDays(1 - date.Day)).AtMidnight();
-        }
+            => (date.AddDays(1 - date.Day)).AtMidnight();
 
         /// <summary>
         /// Returns the first specified day of the week in the current month
@@ -145,9 +137,7 @@ namespace Engine.Chrono
         /// <param name="date"></param>
         /// <returns></returns>
         public static DateTime LastDayOfMonth(this DateTime date)
-        {
-            return new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).AtMidnight();
-        }
+            => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).AtMidnight();
 
         /// <summary>
         /// Returns the last day in the current month
@@ -170,10 +160,7 @@ namespace Engine.Chrono
         /// <param name="weekday"></param>
         /// <returns></returns>
         public static int WeekdayCountInMonth(this DateTime date, DayOfWeek weekday)
-        {
-            return ((LastInstanceWeekdayOfMonth(date, weekday).Day -
-            FirstInstanceWeekdayOfMonth(date, weekday).Day) / 7) + 1;
-        }
+            => ((LastInstanceWeekdayOfMonth(date, weekday).Day - FirstInstanceWeekdayOfMonth(date, weekday).Day) / 7) + 1;
 
         /// <summary>
         /// Returns the last specified day of the week in the current month
@@ -202,9 +189,7 @@ namespace Engine.Chrono
         public static DateTime FirstInstanceWeekdayOfMonth(this DateTime date, int instance, DayOfWeek weekday)
         {
             if (instance <= 0)
-            {
-                throw new ArgumentException("Instance count must be greater than zero", "instance");
-            }
+                throw new ArgumentException("Instance count must be greater than zero", nameof(instance));
 
             DateTime dtRet;
             DateTime dtFirstDay = FirstInstanceWeekdayOfMonth(date, weekday);
@@ -216,7 +201,7 @@ namespace Engine.Chrono
             }
             else
             {
-                throw new ArgumentException("Instance range exceeded, max: " + instancesInMonth.ToString(), "instance");
+                throw new ArgumentException("Instance range exceeded, max: " + instancesInMonth.ToString(), nameof(instance));
             }
 
             return dtRet;
@@ -232,10 +217,10 @@ namespace Engine.Chrono
         /// <remarks></remarks>
         public static DateTime FirstInstanceWeekdayOfMonth01(this DateTime date, int instance, DayOfWeek weekday)
         {
-            DateTime firstDay = new DateTime(date.Year, date.Month, 1);
+            var firstDay = new DateTime(date.Year, date.Month, 1);
             DateTime fOc = firstDay.DayOfWeek == weekday ? firstDay : firstDay.AddDays(weekday - firstDay.DayOfWeek);
             // CurDate = 2011.10.1 Occurrence = 1, Day = Friday >> 2011.09.30 FIX. 
-            if (fOc.Month < date.Month) instance = instance + 1;
+            if (fOc.Month < date.Month) instance += 1;
             return fOc.AddDays(7 * (instance - 1));
         }
 
@@ -266,15 +251,11 @@ namespace Engine.Chrono
         /// <returns></returns>
         public static DateTime FirstInstanceWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
-            DateTime dtFirstDay = new DateTime(date.Year, date.Month, 1);
+            var dtFirstDay = new DateTime(date.Year, date.Month, 1);
             if (weekday < dtFirstDay.DayOfWeek)
-            {
                 dtFirstDay = dtFirstDay.AddDays(weekday - dtFirstDay.DayOfWeek + 7);
-            }
             else
-            {
                 dtFirstDay = dtFirstDay.AddDays(weekday - dtFirstDay.DayOfWeek);
-            }
 
             return dtFirstDay;
         }
@@ -289,13 +270,9 @@ namespace Engine.Chrono
         {
             DateTime dtLastDay = new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1);
             if (weekday > dtLastDay.DayOfWeek)
-            {
                 dtLastDay = dtLastDay.AddDays(weekday - dtLastDay.DayOfWeek - 7);
-            }
             else
-            {
                 dtLastDay = dtLastDay.AddDays(weekday - dtLastDay.DayOfWeek);
-            }
 
             return dtLastDay;
         }
@@ -308,8 +285,6 @@ namespace Engine.Chrono
         /// <param name="weekday"></param>
         /// <returns></returns>
         public static DateTime LastInstanceWeekdayOfMonth(this DateTime date, int occurance, DayOfWeek weekday)
-        {
-            return LastDayOfMonth(date).NextDayOfWeek(weekday).AddDays(-(7 * occurance));
-        }
+            => LastDayOfMonth(date).NextDayOfWeek(weekday).AddDays(-(7 * occurance));
     }
 }

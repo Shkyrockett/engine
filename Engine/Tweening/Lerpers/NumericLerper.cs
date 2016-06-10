@@ -23,17 +23,17 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        double from;
+        private double from;
 
         /// <summary>
         /// 
         /// </summary>
-        double to;
+        private double to;
 
         /// <summary>
         /// 
         /// </summary>
-        double range;
+        private double range;
 
         /// <summary>
         /// 
@@ -74,7 +74,7 @@ namespace Engine.Tweening
         /// <returns></returns>
         public override object Interpolate(double t, object current, LerpBehavior behavior)
         {
-            var value = from + range * t;
+            double value = from + range * t;
             if (behavior.HasFlag(LerpBehavior.Rotation))
             {
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))
@@ -91,7 +91,7 @@ namespace Engine.Tweening
 
             if (behavior.HasFlag(LerpBehavior.Round)) value = Math.Round(value);
 
-            var type = current.GetType();
+            Type type = current.GetType();
             return Convert.ChangeType(value, type);
         }
     }

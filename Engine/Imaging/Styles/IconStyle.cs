@@ -12,26 +12,6 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        private Pen forePen;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Pen backPen;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Font font;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Icon icon;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private bool disposed = false;
 
         /// <summary>
@@ -39,14 +19,16 @@ namespace Engine.Imaging
         /// </summary>
         public IconStyle()
             : this(Pens.Transparent, Pens.Transparent, null, null)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
         /// </summary>
         public IconStyle(Brush foreBrush, Brush backBrush, Font font, Icon icon)
             : this(new Pen(foreBrush), new Pen(backBrush), null, null)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -57,10 +39,10 @@ namespace Engine.Imaging
         /// <param name="icon"></param>
         public IconStyle(Pen forePen, Pen backPen, Font font, Icon icon)
         {
-            this.backPen = backPen;
-            this.forePen = forePen;
-            this.font = font;
-            this.icon = icon;
+            BackPen = backPen;
+            ForePen = forePen;
+            Font = font;
+            Icon = icon;
         }
 
         /// <summary>
@@ -83,8 +65,8 @@ namespace Engine.Imaging
             if (disposing)
             {
                 // Free any other managed objects here.
-                forePen.Dispose();
-                backPen.Dispose();
+                ForePen.Dispose();
+                BackPen.Dispose();
             }
 
             // Free any unmanaged objects here.
@@ -102,55 +84,39 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        public Pen ForePen
-        {
-            get { return forePen; }
-            set { forePen = value; }
-        }
+        public Pen ForePen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Brush ForeBrush
         {
-            get { return forePen.Brush; }
-            set { forePen.Brush = value; }
+            get { return ForePen.Brush; }
+            set { ForePen.Brush = value; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Pen BackPen
-        {
-            get { return backPen; }
-            set { backPen = value; }
-        }
+        public Pen BackPen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Brush BackBrush
         {
-            get { return backPen.Brush; }
-            set { backPen.Brush = value; }
+            get { return BackPen.Brush; }
+            set { BackPen.Brush = value; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Font Font
-        {
-            get { return font; }
-            set { font = value; }
-        }
+        public Font Font { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Icon Icon
-        {
-            get { return icon; }
-            set { icon = value; }
-        }
+        public Icon Icon { get; set; }
     }
 }

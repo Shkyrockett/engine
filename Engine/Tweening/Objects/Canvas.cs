@@ -1,6 +1,6 @@
 ﻿namespace Engine.Objects
 {
-    class Canvas
+    internal class Canvas
     {
     }
 }

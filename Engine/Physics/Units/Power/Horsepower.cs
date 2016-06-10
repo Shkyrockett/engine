@@ -11,54 +11,39 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private double value;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public Horsepower(double value)
         {
-            this.value = value;
+            Value = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Horsepower"; } }
+        public string Name => "Horsepower";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "hp"; } }
+        public string Abreviation => "hp";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Horsepower(double value)
-        {
-            return new Horsepower(value);
-        }
+        public static implicit operator Horsepower(double value) => new Horsepower(value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} hp", value);
-        }
+        public override string ToString() => string.Format("{0} hp", Value);
     }
 }

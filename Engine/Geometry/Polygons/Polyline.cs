@@ -41,7 +41,8 @@ namespace Engine.Geometry
         /// </summary>
         public Polyline()
             : this(new List<Point2D>())
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -60,9 +61,7 @@ namespace Engine.Geometry
         {
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
-            {
                 points.AddRange(polyline.Points);
-            }
         }
 
         #endregion
@@ -111,13 +110,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public override double Perimeter
-        {
-            get
-            {
-                return points.Zip(points.Skip(1), Primitives.Distance).Sum();
-            }
-        }
+        public override double Perimeter => points.Zip(points.Skip(1), Primitives.Distance).Sum();
 
         /// <summary>
         /// 
@@ -178,10 +171,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public Polyline Clone()
-        {
-            return new Polyline(Points.ToArray());
-        }
+        public Polyline Clone() => new Polyline(Points.ToArray());
 
         /// <summary>
         /// 
@@ -190,7 +180,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Polyline Offset(double offset)
         {
-            Polyline polyline = new Polyline();
+            var polyline = new Polyline();
 
             LineSegment offsetLine = Primitives.OffsetSegment(Points[0], Points[1], offset);
             polyline.Add(offsetLine.A);

@@ -11,70 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private ILength distance;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ITime time;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="distance"></param>
         /// <param name="time"></param>
         public Speed(ILength distance, ITime time)
         {
-            this.distance = distance;
-            this.time = time;
+            Distance = distance;
+            Time = time;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public ILength Distance
-        {
-            get { return distance; }
-            set { distance = value; }
-        }
+        public ILength Distance { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITime Time
-        {
-            get { return time; }
-            set { time = value; }
-        }
+        public ITime Time { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return distance.Value / time.Value; }
-        }
+        public double Value => Distance.Value / Time.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Seconds"; } }
+        public string Name => "Seconds";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{1}/{2}", Value, distance.Abreviation, time.Abreviation); } }
-
+        public string Abreviation => string.Format("{1}/{2}", Value, Distance.Abreviation, Time.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1}/{2}", Value, distance.Abreviation, time.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1}/{2}", Value, Distance.Abreviation, Time.Abreviation);
     }
 }

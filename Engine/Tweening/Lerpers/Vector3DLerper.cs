@@ -60,9 +60,9 @@ namespace Engine.Tweening
         /// <returns></returns>
         public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
         {
-            var i = from.I + (range.I * t);
-            var j = from.J + (range.J * t);
-            var k = from.K + (range.K * t);
+            double i = from.I + (range.I * t);
+            double j = from.J + (range.J * t);
+            double k = from.K + (range.K * t);
 
             if (behavior.HasFlag(LerpBehavior.Round))
             {

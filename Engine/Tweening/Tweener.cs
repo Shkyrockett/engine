@@ -69,10 +69,8 @@ namespace Engine.Tweening
                     typeof(double)
                 };
 
-            foreach (var numericType in numericTypes)
-            {
+            foreach (Type numericType in numericTypes)
                 SetLerper<NumericLerper>(numericType);
-            }
 
             // Adding custom Lerpers. Normally these would be added to project initializer, but I want these global.
             Tweener.SetLerper<Point2DLerper>(typeof(Point2D));
@@ -121,10 +119,10 @@ namespace Engine.Tweening
         public Tween Tween<T>(T target, object dests, double duration, double delay = 0, bool overwrite = true) where T : class
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
 
             // Prevent tweening on structs if you cheat by casting target as Object
-            var targetType = target.GetType();
+            Type targetType = target.GetType();
             if (targetType.IsValueType) throw new Exception("Target of tween cannot be a struct!");
 
             var tween = new Tween(target, duration, delay, this);
@@ -134,7 +132,7 @@ namespace Engine.Tweening
             // valid in case of manual timer
             if (dests == null) return tween;
 
-            var props = dests.GetType().GetProperties();
+            PropertyInfo[] props = dests.GetType().GetProperties();
             for (int i = 0; i < props.Length; ++i)
             {
                 List<Tween> library = null;
@@ -144,10 +142,10 @@ namespace Engine.Tweening
                         library[j].Cancel(props[i].Name);
                 }
 
-                var property = props[i];
+                PropertyInfo property = props[i];
                 var info = new GlideInfo(target, property.Name);
                 var to = new GlideInfo(dests, property.Name, false);
-                var lerper = CreateLerper(info.PropertyType);
+                Lerper lerper = CreateLerper(info.PropertyType);
 
                 tween.AddLerp(lerper, info, info.Value, to.Value);
             }
@@ -182,10 +180,8 @@ namespace Engine.Tweening
         /// </summary>
         public void CancelAndComplete()
         {
-            foreach (var tween in allTweens)
-            {
+            foreach (Tween tween in allTweens)
                 tween.CancelAndComplete();
-            }
         }
 
         /// <summary>
@@ -193,10 +189,8 @@ namespace Engine.Tweening
         /// </summary>
         public void Pause()
         {
-            foreach (var tween in allTweens)
-            {
+            foreach (Tween tween in allTweens)
                 tween.Pause();
-            }
         }
 
         /// <summary>
@@ -204,10 +198,8 @@ namespace Engine.Tweening
         /// </summary>
         public void PauseToggle()
         {
-            foreach (var tween in allTweens)
-            {
+            foreach (Tween tween in allTweens)
                 tween.PauseToggle();
-            }
         }
 
         /// <summary>
@@ -215,10 +207,8 @@ namespace Engine.Tweening
         /// </summary>
         public void Resume()
         {
-            foreach (var tween in allTweens)
-            {
+            foreach (Tween tween in allTweens)
                 tween.Resume();
-            }
         }
 
         /// <summary>
@@ -227,10 +217,8 @@ namespace Engine.Tweening
         /// <param name="secondsElapsed">Seconds elapsed since last update.</param>
         public void Update(double secondsElapsed)
         {
-            foreach (var tween in allTweens)
-            {
+            foreach (Tween tween in allTweens)
                 tween.Update(secondsElapsed);
-            }
 
             AddAndRemove();
         }
@@ -244,9 +232,7 @@ namespace Engine.Tweening
         {
             ConstructorInfo lerper = null;
             if (!registeredLerpers.TryGetValue(propertyType, out lerper))
-            {
                 throw new Exception($"No {nameof(Lerper)} found for type {propertyType.FullName}.");
-            }
 
             return lerper.Invoke(null) as Lerper;
         }
@@ -265,7 +251,7 @@ namespace Engine.Tweening
         /// </summary>
         private void AddAndRemove()
         {
-            foreach (var tween in toAdd)
+            foreach (Tween tween in toAdd)
             {
                 allTweens.Add(tween);
 
@@ -274,14 +260,12 @@ namespace Engine.Tweening
 
                 List<Tween> list = null;
                 if (!tweens.TryGetValue(tween.Target, out list))
-                {
                     tweens[tween.Target] = list = new List<Tween>();
-                }
 
                 list.Add(tween);
             }
 
-            foreach (var tween in toRemove)
+            foreach (Tween tween in toRemove)
             {
                 allTweens.Remove(tween);
 
@@ -293,9 +277,7 @@ namespace Engine.Tweening
                 {
                     list.Remove(tween);
                     if (list.Count == 0)
-                    {
                         tweens.Remove(tween.Target);
-                    }
                 }
 
                 allTweens.Remove(tween);
@@ -316,10 +298,8 @@ namespace Engine.Tweening
             List<Tween> list;
             if (tweens.TryGetValue(target, out list))
             {
-                foreach (var tween in list)
-                {
+                foreach (Tween tween in list)
                     tween.Cancel();
-                }
             }
         }
 
@@ -333,10 +313,8 @@ namespace Engine.Tweening
             List<Tween> list;
             if (tweens.TryGetValue(target, out list))
             {
-                foreach (var tween in list)
-                {
+                foreach (Tween tween in list)
                     tween.Cancel(properties);
-                }
             }
         }
 
@@ -349,10 +327,8 @@ namespace Engine.Tweening
             List<Tween> list;
             if (tweens.TryGetValue(target, out list))
             {
-                foreach (var tween in list)
-                {
+                foreach (Tween tween in list)
                     tween.CancelAndComplete();
-                }
             }
         }
 
@@ -365,10 +341,8 @@ namespace Engine.Tweening
             List<Tween> list;
             if (tweens.TryGetValue(target, out list))
             {
-                foreach (var tween in list)
-                {
+                foreach (Tween tween in list)
                     tween.Pause();
-                }
             }
         }
 
@@ -381,10 +355,8 @@ namespace Engine.Tweening
             List<Tween> list;
             if (tweens.TryGetValue(target, out list))
             {
-                foreach (var tween in list)
-                {
+                foreach (Tween tween in list)
                     tween.PauseToggle();
-                }
             }
         }
 
@@ -397,10 +369,8 @@ namespace Engine.Tweening
             List<Tween> list;
             if (tweens.TryGetValue(target, out list))
             {
-                foreach (var tween in list)
-                {
+                foreach (Tween tween in list)
                     tween.Resume();
-                }
             }
         }
 

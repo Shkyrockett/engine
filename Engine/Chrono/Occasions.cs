@@ -312,7 +312,7 @@ namespace Engine.Chrono
         /// <remarks>http://solidcoding.blogspot.com/2007/11/c30-extension-method-to-check-holidays.html</remarks>
         public Tuple<bool, List<Occasion>> IsHoliday(DateTime currentDate)
         {
-            List<Occasion> occasions = new List<Occasion>(
+            var occasions = new List<Occasion>(
                 from h in HolidayList
                 where h.Date.Month == currentDate.Month
                 && h.Date.Day == currentDate.Day

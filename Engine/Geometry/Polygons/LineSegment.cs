@@ -42,7 +42,8 @@ namespace Engine.Geometry
         /// </summary>
         public LineSegment()
             : this(Point2D.Empty, Point2D.Empty)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
@@ -51,7 +52,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public LineSegment(Tuple<double, double, double, double> tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
@@ -63,7 +65,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public LineSegment(double x1, double y1, double X2, double Y2)
             : this(new Point2D(x1, y1), new Point2D(X2, Y2))
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
@@ -74,7 +77,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public LineSegment(Point2D Point, double RadAngle, double Radius)
             : this(new Point2D(Point.X, Point.Y), new Point2D((Point.X + (Radius * Cos(RadAngle))), (Point.Y + (Radius * Sin(RadAngle)))))
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
@@ -84,8 +88,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public LineSegment(Point2D a, Point2D b)
         {
-            this.A = a;
-            this.B = b;
+            A = a;
+            B = b;
         }
 
         /// <summary>
@@ -155,19 +159,13 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-        {
-            get
-            {
-                return Rectangle2D.FromLTRB
-                    (
-                    A.X <= B.X ? A.X : B.X,
-                    A.Y <= B.Y ? A.Y : B.Y,
-                    A.X >= B.X ? A.X : B.X,
-                    A.Y >= B.Y ? A.Y : B.Y
-                    );
-            }
-        }
+        public override Rectangle2D Bounds => Rectangle2D.FromLTRB
+    (
+    A.X <= B.X ? A.X : B.X,
+    A.Y <= B.Y ? A.Y : B.Y,
+    A.X >= B.X ? A.X : B.X,
+    A.Y >= B.Y ? A.Y : B.Y
+    );
 
         /// <summary>
         /// Get or sets an array of points representing a line segment.
@@ -175,10 +173,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public List<Point2D> Points
         {
-            get
-            {
-                return new List<Point2D>() { A, B };
-            }
+            get { return new List<Point2D>() { A, B }; }
             set
             {
                 A = value[0];
@@ -189,10 +184,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public double Length
-        {
-            get { return Maths.Distance(A.X, A.Y, B.X, B.Y); }
-        }
+        public double Length => Maths.Distance(A.X, A.Y, B.X, B.Y);
 
         #endregion
 
@@ -203,10 +195,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="index">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public override Point2D Interpolate(double index)
-        {
-            return Maths.LinearInterpolate(A, B, index);
-        }
+        public override Point2D Interpolate(double index) => Maths.LinearInterpolate(A, B, index);
 
         #endregion
 
@@ -232,12 +221,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>an array of points</returns>
         /// <remarks></remarks>
-        public Point2D[] ToArray()
-        {
-            return new Point2D[] {
+        public Point2D[] ToArray() => new Point2D[] {
                  A,
                  B};
-        }
 
         /// <summary>
         /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string

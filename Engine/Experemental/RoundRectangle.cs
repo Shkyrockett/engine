@@ -91,32 +91,8 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<Point2D> Handles
-        {
-            get
-            {
-                return new List<Point2D> {
-                    bounds.Location,
-                    new Point2D(bounds.Right,bounds.Top),
-                    new Point2D(bounds.Right, bounds.Bottom),
-                    new Point2D(bounds.Left, bounds.Bottom),
-                    new Point2D(bounds.Left+radius,bounds.Top)
-                };
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
-        public GraphicsPath InterpolatePath()
-        {
-            return GetGraphicsPath(bounds, radius);
-        }
+        public GraphicsPath InterpolatePath() => GetGraphicsPath(bounds, radius);
 
         /// <summary>
         /// 
@@ -128,7 +104,7 @@ namespace Engine.Geometry
         public static GraphicsPath GetGraphicsPath(Rectangle2D bounds, double radius)
         {
             //  Start the Path object.
-            GraphicsPath GfxPath = new GraphicsPath();
+            var GfxPath = new GraphicsPath();
             if (!bounds.IsEmpty)
             {
                 if (radius > 0)

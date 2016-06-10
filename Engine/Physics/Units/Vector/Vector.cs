@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private double magnitude;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double direction;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="magnitude"></param>
         /// <param name="direction"></param>
         public Vector(double magnitude, double direction)
         {
-            this.magnitude = magnitude;
-            this.direction = direction;
+            Magnitude = magnitude;
+            Direction = direction;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Magnitude
-        {
-            get { return magnitude; }
-            set { magnitude = value; }
-        }
+        public double Magnitude { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Direction
-        {
-            get { return direction; }
-            set { direction = value; }
-        }
+        public double Direction { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return magnitude * Direction; }
-        }
+        public double Value => Magnitude * Direction;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Vector"; } }
+        public string Name => "Vector";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}{1}", "?", "?"); } }
+        public string Abreviation => string.Format("{0}{1}", "?", "?");
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} K", Value);
-        }
+        public override string ToString() => string.Format("{0} K", Value);
     }
 }

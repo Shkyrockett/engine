@@ -93,16 +93,16 @@ namespace Engine.Geometry
             double theta11 = theta10 - dtheta * skip;
 
             // Find the key points.
-            PointF pt00 = new PointF(
+            var pt00 = new PointF(
                 (float)Cos(theta00),
                 (float)Sin(theta00));
-            PointF pt01 = new PointF(
+            var pt01 = new PointF(
                 (float)Cos(theta01),
                 (float)Sin(theta01));
-            PointF pt10 = new PointF(
+            var pt10 = new PointF(
                 (float)Cos(theta10),
                 (float)Sin(theta10));
-            PointF pt11 = new PointF(
+            var pt11 = new PointF(
                 (float)Cos(theta11),
                 (float)Sin(theta11));
 
@@ -162,22 +162,14 @@ namespace Engine.Geometry
 
             // Find the closest points on the segments.
             if (t1 < 0)
-            {
                 t1 = 0;
-            }
             else if (t1 > 1)
-            {
                 t1 = 1;
-            }
 
             if (t2 < 0)
-            {
                 t2 = 0;
-            }
             else if (t2 > 1)
-            {
                 t2 = 1;
-            }
 
             close_p1 = new PointF(p1.X + dx12 * t1, p1.Y + dy12 * t1);
             close_p2 = new PointF(p3.X + dx34 * t2, p3.Y + dy34 * t2);

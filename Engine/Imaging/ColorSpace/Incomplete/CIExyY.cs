@@ -14,21 +14,6 @@ namespace Engine.Imaging.ColorSpace
         /// <summary>
         /// 
         /// </summary>
-        private double x;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double y1;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double y2;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public CIExyY()
             : this(0, 0, 0)
         {
@@ -42,36 +27,24 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="y2"></param>
         public CIExyY(double x,double y1,double y2)
         {
-            this.x = x;
-            this.y1 = y1;
-            this.y2 = y2;
+            X = x;
+            Y1 = y1;
+            Y2 = y2;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double X
-        {
-            get { return x; }
-            set { x = value; }
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Y1
-        {
-            get { return y1; }
-            set { y1 = value; }
-        }
+        public double Y1 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Y2
-        {
-            get { return y2; }
-            set { y2 = value; }
-        }
+        public double Y2 { get; set; }
     }
 }

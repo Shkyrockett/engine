@@ -11,9 +11,9 @@ namespace MethodSpeedTester
     public partial class CirclePointTester
         : Form
     {
-        List<PointF> points;
-        Circle circle;
-        List<Tuple<string, Circle>> circles = new List<Tuple<string, Circle>>();
+        private List<PointF> points;
+        private Circle circle;
+        private List<Tuple<string, Circle>> circles = new List<Tuple<string, Circle>>();
 
         public CirclePointTester()
         {
@@ -44,10 +44,8 @@ namespace MethodSpeedTester
             g.DrawString(text, font, Brushes.Black, new Point());
             g.FillEllipse(Brushes.White, circle.Bounds.ToRectangleF());
             g.DrawEllipse(Pens.Black, circle.Bounds.ToRectangleF());
-            foreach (var point in points)
-            {
+            foreach (PointF point in points)
                 DrawHitPoint(g, point, method.Invoke(circle, point));
-            }
         }
 
         public static void DrawHitPoint(Graphics g, PointF point, InsideOutside hit)

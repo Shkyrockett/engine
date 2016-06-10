@@ -11,8 +11,6 @@
 //   Based on the information found in the MSDN topic <a href="https://msdn.microsoft.com/library/71s1zwct.aspx">Retrieving Information Stored in Attributes</a>.
 // </references>
 
-using System;
-
 namespace Engine
 {
     ///// <summary>

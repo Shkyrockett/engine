@@ -7,7 +7,6 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -23,20 +22,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private Point2D a;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Point2D b;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public Sine()
         {
-            a = Point2D.Empty;
-            b = Point2D.Empty;
+            A = Point2D.Empty;
+            B = Point2D.Empty;
         }
 
         /// <summary>
@@ -44,54 +33,27 @@ namespace Engine.Geometry
         /// </summary>
         public Sine(Point2D a, Point2D b)
         {
-            this.a = a;
-            this.b = b;
+            A = a;
+            B = b;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Point2D A
-        {
-            get { return a; }
-            set { a = value; }
-        }
+        public Point2D A { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Point2D B
-        {
-            get { return b; }
-            set { b = value; }
-        }
+        public Point2D B { get; set; }
 
         /// <summary>
         /// Function For sine interpolated Line
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        public override Point2D Interpolate(double index)
-        {
-            return Interpolate(a, b, index);
-        }
-
-        /// <summary>
-        /// Function For sine interpolated Line
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="index"></param>
-        /// <returns>Returns the interpolated point of the index value.</returns>
-        /// <remarks></remarks>
-        public static Point2D Interpolate(Point2D a, Point2D b, double index)
-        {
-            //Single MU2 = (double)((1.0 - Cos(index * 180)) * 0.5);
-            //return Y1 * (1.0 - MU2) + Y2 * MU2;
-            double MU2 = (1.0 - Sin(index * 180)) * 0.5;
-            return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
-        }
+        public override Point2D Interpolate(double t) => new Point2D(Interpolaters.Sine(A.X, A.Y, B.X, B.Y, t));
 
         /// <summary>
         /// 
@@ -100,7 +62,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(Sine);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Sine), nameof(A), a, nameof(B), b);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Sine), nameof(A), A, nameof(B), B);
         }
     }
 }

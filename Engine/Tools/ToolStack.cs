@@ -92,24 +92,12 @@ namespace Engine.Tools
 
         #region Fields
 
-        private VectorMap surface;
-
         private Dictionary<MouseButtons, Tool> tools;
 
         /// <summary>
         /// 
         /// </summary>
-        private Keys keyboardKeys;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private Point2D mouseLocation;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        MouseButtons mouseButtonStates;
 
         /// <summary>
         /// 
@@ -121,11 +109,6 @@ namespace Engine.Tools
         /// </summary>
         private double mouseVerticalScrollDelta;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private int clicks;
-
         #endregion
 
         #region Constructors
@@ -135,13 +118,13 @@ namespace Engine.Tools
         /// </summary>
         public ToolStack(VectorMap surface)
         {
-            this.surface = surface;
+            Surface = surface;
             tools = new Dictionary<MouseButtons, Tool>();
-            keyboardKeys = Keys.None;
+            KeyboardKeyStates = Keys.None;
             mouseLocation = Point2D.Empty;
             MouseButtonStates = MouseButtons.None;
             mouseScrollTiltDelta = 0;
-            clicks = 0;
+            Clicks = 0;
         }
 
         #endregion
@@ -154,14 +137,7 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The press state of the keyboard keys.")]
         [RefreshProperties(RefreshProperties.All)]
-        public Keys KeyboardKeyStates
-        {
-            get { return keyboardKeys; }
-            set
-            {
-                keyboardKeys = value;
-            }
-        }
+        public Keys KeyboardKeyStates { get; set; }
 
         /// <summary>
         /// Gets or sets the location of the mouse cursor.
@@ -186,14 +162,7 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The number of times a mouse button has been clicked.")]
         [RefreshProperties(RefreshProperties.All)]
-        public int Clicks
-        {
-            get { return clicks; }
-            set
-            {
-                clicks = value;
-            }
-        }
+        public int Clicks { get; set; }
 
         /// <summary>
         /// Gets or sets the click state of the mouse buttons.
@@ -201,14 +170,7 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The click state of the mouse buttons.")]
         [RefreshProperties(RefreshProperties.All)]
-        public MouseButtons MouseButtonStates
-        {
-            get { return mouseButtonStates; }
-            set
-            {
-                mouseButtonStates = value;
-            }
-        }
+        public MouseButtons MouseButtonStates { get; set; }
 
         /// <summary>
         /// Gets or sets the click state of the <see cref="MouseButtons.Left"/> mouse button.
@@ -377,11 +339,7 @@ namespace Engine.Tools
         /// <summary>
         /// 
         /// </summary>
-        public VectorMap Surface
-        {
-            get { return surface; }
-            set { surface = value; }
-        }
+        public VectorMap Surface { get; set; }
 
         #endregion
 
@@ -393,7 +351,7 @@ namespace Engine.Tools
         /// <param name="keys"></param>
         public void KeyUp(Keys keys)
         {
-            keyboardKeys |= ~keys;
+            KeyboardKeyStates |= ~keys;
         }
 
         /// <summary>
@@ -402,7 +360,7 @@ namespace Engine.Tools
         /// <param name="keys"></param>
         public void KeyDown(Keys keys)
         {
-            keyboardKeys |= keys;
+            KeyboardKeyStates |= keys;
         }
 
         /// <summary>

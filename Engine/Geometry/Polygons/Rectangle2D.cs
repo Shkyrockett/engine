@@ -63,7 +63,8 @@ namespace Engine.Geometry
         /// </summary>
         public Rectangle2D()
             : this(0, 0, 0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an empty location, with the provided size.
@@ -71,7 +72,8 @@ namespace Engine.Geometry
         /// <param name="size">The height and width of the <see cref="Rectangle2D"/>.</param>
         public Rectangle2D(Size2D size)
             : this(0, 0, size.Width, size.Height)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an initial location and size.
@@ -79,7 +81,8 @@ namespace Engine.Geometry
         /// <param name="rectangle">The rectangle to clone.</param>
         public Rectangle2D(Rectangle2D rectangle)
             : this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.height)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an initial location and size.
@@ -88,14 +91,16 @@ namespace Engine.Geometry
         /// <param name="size"></param>
         public Rectangle2D(Point2D location, Size2D size)
             : this(location.X, location.Y, size.Width, size.Height)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class  with a location and a vector size.
         /// </summary>
         public Rectangle2D(Point2D point, Vector2D vector)
             : this(point, point + vector)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the location and size from a tuple.
@@ -103,7 +108,8 @@ namespace Engine.Geometry
         /// <param name="tuple"></param>
         public Rectangle2D(Tuple<double, double, double, double> tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with a location and size.
@@ -377,19 +383,13 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlIgnore]
-        public bool IsEmpty
-        {
-            get { return (Width <= 0) || (Height <= 0); }
-        }
+        public bool IsEmpty => (Width <= 0) || (Height <= 0);
 
         /// <summary>
         /// Returns true if this Rectangle2D has area.
         /// </summary>
         [XmlIgnore]
-        public bool HasArea
-        {
-            get { return width > 0 && height > 0; }
-        }
+        public bool HasArea => width > 0 && height > 0;
 
         /// <summary>
         /// 
@@ -397,13 +397,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public override double Perimeter
-        {
-            get
-            {
-                return (Primitives.Distance(TopLeft, TopRight) * 2) + (Primitives.Distance(TopLeft, BottomLeft) * 2);
-            }
-        }
+        public override double Perimeter => (Primitives.Distance(TopLeft, TopRight) * 2) + (Primitives.Distance(TopLeft, BottomLeft) * 2);
 
         /// <summary>
         /// 
@@ -414,10 +408,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public override Rectangle2D Bounds
-        {
-            get { return this; }
-        }
+        public override Rectangle2D Bounds => this;
 
         #endregion
 
@@ -429,10 +420,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(Rectangle2D left, Rectangle2D right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Rectangle2D left, Rectangle2D right) => Equals(left, right);
 
         /// <summary>
         /// Tests whether two <see cref="RectangleF"/> objects differ in location or size.
@@ -440,10 +428,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(Rectangle2D left, Rectangle2D right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Rectangle2D left, Rectangle2D right) => !Equals(left, right);
 
         /// <summary>
         /// Compares two Vectors
@@ -453,10 +438,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Rectangle2D left, Rectangle2D right)
-        {
-            return Equals(left, right);
-        }
+        public static bool Compare(Rectangle2D left, Rectangle2D right) => Equals(left, right);
 
         /// <summary>
         /// 
@@ -465,20 +447,14 @@ namespace Engine.Geometry
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Rectangle2D left, Rectangle2D right)
-        {
-            return (left?.X == right?.X && left?.Y == right?.Y && left?.Width == right?.Width && left?.Height == right?.Height);
-        }
+        public static bool Equals(Rectangle2D left, Rectangle2D right) => (left?.X == right?.X && left?.Y == right?.Y && left?.Width == right?.Width && left?.Height == right?.Height);
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="Rectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Rectangle2D && Equals(this, obj as Rectangle2D);
-        }
+        public override bool Equals(object obj) => obj is Rectangle2D && Equals(this, obj as Rectangle2D);
 
         #endregion
 
@@ -493,10 +469,7 @@ namespace Engine.Geometry
         /// <param name="bottom"></param>
         /// <returns></returns>
         [Pure]
-        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom)
-        {
-            return new Rectangle2D(left, top, right - left, bottom - top);
-        }
+        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom) => new Rectangle2D(left, top, right - left, bottom - top);
 
         /// <summary>
         /// Creates a <see cref="Rectangle"/> from a center point and it's size.
@@ -505,10 +478,7 @@ namespace Engine.Geometry
         /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
         /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
         [Pure]
-        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
-        {
-            return new Rectangle2D(center - size.Inflate(0.5d), size);
-        }
+        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size) => new Rectangle2D(center - size.Inflate(0.5d), size);
 
         /// <summary>
         /// Creates a rectangle that represents the union between a and b.
@@ -552,9 +522,7 @@ namespace Engine.Geometry
             double y2 = Min(a.Y + a.Height, b.Y + b.Height);
 
             if (x2 >= x1 && y2 >= y1)
-            {
                 return new Rectangle2D(x1, y1, x2 - x1, y2 - y1);
-            }
 
             return Empty;
         }
@@ -769,10 +737,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point)
-        {
-            return Intersections.Contains(this, point)!= InsideOutside.Outside;
-        }
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != InsideOutside.Outside;
 
         /// <summary>
         /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
@@ -780,10 +745,7 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <returns></returns>
         [Pure]
-        public bool Contains(Rectangle2D rect)
-        {
-            return Intersections.Contains(this, rect);
-        }
+        public bool Contains(Rectangle2D rect) => Intersections.Contains(this, rect);
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.
@@ -791,46 +753,34 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <returns></returns>
         [Pure]
-        public bool IntersectsWith(Rectangle2D rect)
-        {
-            return Intersections.RectangleRectangle(this, rect);
-        }
+        public bool IntersectsWith(Rectangle2D rect) => Intersections.RectangleRectangle(this, rect);
 
         /// <summary>
         /// Convert a rectangle to an array of it's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public List<Point2D> ToPoints()
-        {
-            return new List<Point2D>()
+        public List<Point2D> ToPoints() => new List<Point2D>()
             {
                 Location,
                 new Point2D(Right, Top),
                 new Point2D(Right, Bottom),
                 new Point2D(Left, Bottom)
             };
-        }
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return unchecked((int)((uint)X ^
-            (((uint)Y << 13) | ((uint)Y >> 19)) ^
-            (((uint)Width << 26) | ((uint)Width >> 6)) ^
-            (((uint)Height << 7) | ((uint)Height >> 25))));
-        }
+        public override int GetHashCode() => unchecked((int)((uint)X ^
+(((uint)Y << 13) | ((uint)Y >> 19)) ^
+(((uint)Width << 26) | ((uint)Width >> 6)) ^
+(((uint)Height << 7) | ((uint)Height >> 25))));
 
         /// <summary>
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public Polygon ToPolygon()
-        {
-            return new Polygon(ToPoints());
-        }
+        public Polygon ToPolygon() => new Polygon(ToPoints());
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

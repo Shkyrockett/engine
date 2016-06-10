@@ -4,7 +4,6 @@
 // <author id="shkyrockett">Alma Jenks</author>
 // <summary></summary>
 
-
 namespace Engine.Imaging.ColorSpace
 {
     /// <summary>
@@ -12,21 +11,6 @@ namespace Engine.Imaging.ColorSpace
     /// </summary>
     public class CIELUV
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private double luminance;
-
-        /// <summary>
-        /// red to green
-        /// </summary>
-        private double u;
-
-        /// <summary>
-        /// blue to yellow
-        /// </summary>
-        private double v;
-
         /// <summary>
         /// 
         /// </summary>
@@ -43,36 +27,24 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="v">blue to yellow</param>
         public CIELUV(double luminance, double u, double v)
         {
-            this.luminance = luminance;
-            this.u = u;
-            this.v = v;
+            Luminance = luminance;
+            U = u;
+            V = v;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Luminance
-        {
-            get { return luminance; }
-            set { luminance = value; }
-        }
+        public double Luminance { get; set; }
 
         /// <summary>
         /// red to green
         /// </summary>
-        public double U
-        {
-            get { return u; }
-            set { u = value; }
-        }
+        public double U { get; set; }
 
         /// <summary>
         /// blue to yellow
         /// </summary>
-        public double V
-        {
-            get { return v; }
-            set { v = value; }
-        }
+        public double V { get; set; }
     }
 }

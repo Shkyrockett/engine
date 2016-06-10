@@ -19,7 +19,7 @@ namespace Engine.Chrono
     /// http://blogs.msdn.com/b/shawnste/archive/2009/09/24/japanese-calendars-how-do-i-test-support-for-additional-eras.aspx
     /// [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\Calendars\Japanese\Eras]
     /// </remarks>
-    class JapanEras
+    public class JapanEras
     {
         /// <summary>
         /// 
@@ -270,7 +270,6 @@ namespace Engine.Chrono
             //{new DateTime(1860, 01, 01), "万延"},  // 万 Man'ei
             //{new DateTime(1861, 01, 01), "文久"},  // 文 Bunkyū
             //{new DateTime(1864, 01, 01), "元治"},  // 元 Genji
-
 
             {new DateTime(1865, 01, 01), "慶応"},  // 慶 Keiō
             {new DateTime(1868, 01, 01), "明治"}, // 明 Meiji

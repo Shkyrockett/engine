@@ -17,7 +17,7 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>an adjusted color</returns> 
         public static Color SetBrightness(this Color color, double brightness)
         {
-            AHSL hsl = new AHSL(color);
+            var hsl = new AHSL(color);
             hsl.Luminance = brightness;
             return ToRGB(hsl);
         }
@@ -33,7 +33,7 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An adjusted color</returns> 
         public static Color ModifyBrightness(this Color color, double brightness)
         {
-            AHSL hsl = new AHSL(color);
+            var hsl = new AHSL(color);
             hsl.Luminance *= brightness;
             return ToRGB(hsl);
         }
@@ -47,7 +47,7 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An adjusted color</returns> 
         public static Color SetSaturation(this Color color, double Saturation)
         {
-            AHSL hsl = new AHSL(color);
+            var hsl = new AHSL(color);
             hsl.Saturation = Saturation;
             return ToRGB(hsl);
         }
@@ -63,7 +63,7 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An adjusted color</returns> 
         public static Color ModifySaturation(this Color color, double Saturation)
         {
-            AHSL hsl = new AHSL(color);
+            var hsl = new AHSL(color);
             hsl.Saturation *= Saturation;
             return ToRGB(hsl);
         }
@@ -77,7 +77,7 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An adjusted color</returns> 
         public static Color SetHue(this Color color, double Hue)
         {
-            AHSL hsl = new AHSL(color);
+            var hsl = new AHSL(color);
             hsl.Hue = Hue;
             return ToRGB(hsl);
         }
@@ -93,7 +93,7 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An adjusted color</returns> 
         public static Color ModifyHue(this Color color, double Hue)
         {
-            AHSL hsl = new AHSL(color);
+            var hsl = new AHSL(color);
             hsl.Hue *= Hue;
             return ToRGB(hsl);
         }
@@ -126,8 +126,8 @@ namespace Engine.Imaging.ColorSpace
                 {
                     temp2 = ((hsl.Luminance <= 0.5) ? hsl.Luminance * (1.0 + hsl.Saturation) : hsl.Luminance + hsl.Saturation - (hsl.Luminance * hsl.Saturation));
                     temp1 = 2.0 * hsl.Luminance - temp2;
-                    double[] t3 = new double[] { hsl.Hue + 1.0 / 3.0, hsl.Hue, hsl.Hue - 1.0 / 3.0 };
-                    double[] clr = new double[] { 0, 0, 0 };
+                    var t3 = new double[] { hsl.Hue + 1.0 / 3.0, hsl.Hue, hsl.Hue - 1.0 / 3.0 };
+                    var clr = new double[] { 0, 0, 0 };
                     for (int i = 0; i < 3; i++)
                     {
                         if (t3[i] < 0)
@@ -181,8 +181,8 @@ namespace Engine.Imaging.ColorSpace
                 {
                     temp2 = ((hsl.Luminance <= 0.5) ? hsl.Luminance * (1.0 + hsl.Saturation) : hsl.Luminance + hsl.Saturation - (hsl.Luminance * hsl.Saturation));
                     temp1 = 2.0 * hsl.Luminance - temp2;
-                    double[] t3 = new double[] { hsl.Hue + 1.0 / 3.0, hsl.Hue, hsl.Hue - 1.0 / 3.0 };
-                    double[] clr = new double[] { 0, 0, 0 };
+                    var t3 = new double[] { hsl.Hue + 1.0 / 3.0, hsl.Hue, hsl.Hue - 1.0 / 3.0 };
+                    var clr = new double[] { 0, 0, 0 };
                     for (int i = 0; i < 3; i++)
                     {
                         if (t3[i] < 0)
@@ -231,7 +231,7 @@ namespace Engine.Imaging.ColorSpace
                 double m = luminance + luminance - vertex;
                 double sv = (vertex - m) / vertex;
                 hue *= 6.0;
-                int sextant = (int)hue;
+                var sextant = (int)hue;
                 double fract = hue - sextant;
                 double vsf = vertex * sv * fract;
                 double mid1 = m + vsf;
@@ -301,36 +301,24 @@ namespace Engine.Imaging.ColorSpace
             double min = Min(Min(red, green), blue);
             luminance = (min + vertex) / 2.0;
             if (luminance <= 0.0)
-            {
                 return;
-            }
 
             vertexMin = vertex - min;
             saturation = vertexMin;
             if (saturation > 0.0)
-            {
                 saturation /= (luminance <= 0.5) ? (vertex + min) : (2.0 - vertex - min);
-            }
             else
-            {
                 return;
-            }
 
             double red2 = (vertex - red) / vertexMin;
             double green2 = (vertex - green) / vertexMin;
             double blue2 = (vertex - blue) / vertexMin;
             if (red == vertex)
-            {
                 hue = green == min ? 5.0 + blue2 : 1.0 - green2;
-            }
             else if (green == vertex)
-            {
                 hue = blue == min ? 1.0 + red2 : 3.0 - blue2;
-            }
             else
-            {
                 hue = red == min ? 3.0 + green2 : 5.0 - red2;
-            }
 
             hue /= 6.0;
         }
@@ -450,10 +438,10 @@ namespace Engine.Imaging.ColorSpace
             Y = yellow;
             K = black;
 
-            C = C / 255.0;
-            M = M / 255.0;
-            Y = Y / 255.0;
-            K = K / 255.0;
+            C /= 255.0;
+            M /= 255.0;
+            Y /= 255.0;
+            K /= 255.0;
 
             R = C * (1.0 - K) + K;
             G = M * (1.0 - K) + K;
@@ -495,7 +483,7 @@ namespace Engine.Imaging.ColorSpace
             int hi = Convert.ToInt32(Floor(hue / 60)) % 6;
             double f = hue / 60 - Floor(hue / 60);
 
-            value = value * 255;
+            value *= 255;
             int v = Convert.ToInt32(value);
             int p = Convert.ToInt32(value * (1 - saturation));
             int q = Convert.ToInt32(value * (1 - f * saturation));
@@ -536,7 +524,9 @@ namespace Engine.Imaging.ColorSpace
             double v = max;               // v
             double delta = max - min;
             if (max != 0)
+            {
                 s = delta / max;       // s
+            }
             else
             {
                 // r = g = b = 0		// s = 0, v is undefined
@@ -666,14 +656,14 @@ namespace Engine.Imaging.ColorSpace
             }
             else if (H < 4.188787)
             {
-                H = H - 2.09439;
+                H -= 2.09439;
                 g = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
                 b = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
                 r = (byte)(255 * I / 3 * (1 - S));
             }
             else
             {
-                H = H - 4.188787;
+                H -= 4.188787;
                 b = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
                 r = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
                 g = (byte)(255 * I / 3 * (1 - S));
@@ -710,17 +700,11 @@ namespace Engine.Imaging.ColorSpace
             else
             {
                 if (M == r)
-                {
                     H = IEEERemainder(((g - b) / c), 6.0);
-                }
                 else if (M == g)
-                {
                     H = (b - r) / c + 2.0;
-                }
                 else if (M == b)
-                {
                     H = (r - g) / c + 4.0;
-                }
                 H *= 60.0;
                 S = 1.0 - (m / I);
             }
@@ -756,7 +740,6 @@ namespace Engine.Imaging.ColorSpace
                 R = (1.0 / 3.0) * (1.0 - s);
                 G = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 B = 1.0 - (G + R);
-
             }
             else /* h>240 h<360 */
             {

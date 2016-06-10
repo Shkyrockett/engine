@@ -9,14 +9,18 @@
 
 using Engine;
 using Engine.Geometry;
+using Engine.Geometry.Polygons;
+using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using static System.Math;
 
 namespace MethodSpeedTester
@@ -33,15 +37,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(AbsoluteAngleTests))]
-        public static List<SpeedTester> AbsoluteAngleTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> AbsoluteAngleTests() => new List<SpeedTester>() {
                 new SpeedTester(() => AbsoluteAngle0(0, 0, 1, 1),
                 $"{nameof(Experiments.AbsoluteAngle0)}(0, 0, 1, 1)"),
                  new SpeedTester(() => AbsoluteAngle1(0, 0, 1, 1),
                 $"{nameof(Experiments.AbsoluteAngle1)}(0, 0,, 1, 1)"),
            };
-        }
 
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
@@ -59,9 +60,7 @@ namespace MethodSpeedTester
 
             // This should only loop once using the modulus of pi.
             while (test < 0)
-            {
                 test += PI;
-            }
 
             return test;
         }
@@ -91,13 +90,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(AngleBetweenTests))]
-        public static List<SpeedTester> AngleBetweenTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> AngleBetweenTests() => new List<SpeedTester>() {
                 new SpeedTester(() => AngleBetween(0, 0, 1, 1),
                 $"{nameof(Experiments.AngleBetween)}(0, 0, 1, 1)"),
            };
-        }
 
         /// <summary>
         /// Finds the angle between two vectors.
@@ -124,13 +120,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(AngleBetween3DTests))]
-        public static List<SpeedTester> AngleBetween3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> AngleBetween3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => AngleBetween(0, 0, 0, 1, 1, 1),
                 $"{nameof(Experiments.AngleBetween)}(0, 0, 0, 1, 1, 1)"),
            };
-        }
 
         /// <summary>
         /// Finds the angle between two vectors.
@@ -152,6 +145,17 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Angle of a Vector
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        public static double GetAngle(Point2D pt) => Atan2(pt.X, -pt.Y) * 180 / PI;
+
+        #endregion
+
         #region Angle of Two 2D Points
 
         /// <summary>
@@ -159,13 +163,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(Angle2DTests))]
-        public static List<SpeedTester> Angle2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> Angle2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Angle(0, 0, 1, 1),
                 $"{nameof(Experiments.Angle)}(0, 0, 1, 1)"),
            };
-        }
 
         /// <summary>
         /// Returns the Angle of a line.
@@ -192,13 +193,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(Angle3DTests))]
-        public static List<SpeedTester> Angle3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> Angle3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Angle(0, 0, 0, 1, 1, 1),
                 $"{nameof(Experiments.Angle)}(0, 0, 0, 1, 1, 1)"),
            };
-        }
 
         /// <summary>
         /// 
@@ -226,15 +224,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(Angle3Points2DTests))]
-        public static List<SpeedTester> Angle3Points2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> Angle3Points2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => AngleVector_0(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.AngleVector_0)}(0, 0, 1, 0, 1, 1)"),
                  new SpeedTester(() => AngleVector_1(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.AngleVector_1)}(0, 0, 1, 0, 1, 1)"),
            };
-        }
 
         /// <summary>
         /// 
@@ -320,6 +315,101 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Calculate Rectangular boundaries of a circle defined by three points
+
+        /// <summary>
+        /// Find the Bounds of A Circle from Three Points 
+        /// </summary>
+        /// <param name="PointA">First Point on the Ellipse</param>
+        /// <param name="PointB">Second Point on the Ellipse</param>
+        /// <param name="PointC">Last Point on the Ellipse</param>
+        /// <returns>A Rectangle Representing the bounds of A Circle Defined from three 
+        /// Points</returns>
+        public static Rectangle2D TripointCircleBounds(Point2D PointA, Point2D PointB, Point2D PointC)
+        {
+            Point2D Center = TripointCircleCenter(PointA, PointB, PointC);
+            double Radius = (Center.Length(PointA));
+            Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
+            return Bounds;
+        }
+
+        #endregion
+
+        #region Catmull-Rom Spline Interpolation
+
+        /// <summary>
+        /// Calculates interpolated point between two points using Catmull-Rom Spline
+        /// </summary>
+        /// <remarks>
+        /// Points calculated exist on the spline between points two and three.
+        /// </remarks>
+        /// <param name="p0">First Point</param>
+        /// <param name="p1">Second Point</param>
+        /// <param name="p2">Third Point</param>
+        /// <param name="p3">Fourth Point</param>
+        /// <param name="t">
+        /// Normalized distance between second and third point 
+        /// where the spline point will be calculated
+        /// </param>
+        /// <returns>
+        /// Calculated Spline Point
+        /// </returns>
+        public static Point2D PointOnCurve(Point2D p0, Point2D p1, Point2D p2, Point2D p3, double t)
+        {
+            var ret = new Point2D();
+
+            double t2 = t * t;
+            double t3 = t2 * t;
+
+            ret.X = 0.5f * ((2.0f * p1.X)
+            + (-p0.X + p2.X) * t
+            + (2.0f * p0.X - 5.0f * p1.X + 4 * p2.X - p3.X) * t2
+            + (-p0.X + 3.0f * p1.X - 3.0f * p2.X + p3.X) * t3);
+
+            ret.Y = 0.5f * ((2.0f * p1.Y)
+            + (-p0.Y + p2.Y) * t
+            + (2.0f * p0.Y - 5.0f * p1.Y + 4 * p2.Y - p3.Y) * t2
+            + (-p0.Y + 3.0f * p1.Y - 3.0f * p2.Y + p3.Y) * t3);
+
+            return ret;
+        }
+
+        /// <summary>
+        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Point2D InterpolateCatmullRom(Point2D tangentA, Point2D positionA, Point2D positionB, Point2D tangentB, double t)
+        {
+            double t2 = t * t;
+            double t3 = t2 * t;
+            return new Point2D(
+                0.5f * ((2.0f * positionA.X) + (-tangentA.X + positionB.X) * t + (2.0f * tangentA.X - 5.0f * positionA.X + 4 * positionB.X - tangentB.X) * t2 + (-tangentA.X + 3.0f * positionA.X - 3.0f * positionB.X + tangentB.X) * t3),
+                0.5f * ((2.0f * positionA.Y) + (-tangentA.Y + positionB.Y) * t + (2.0f * tangentA.Y - 5.0f * positionA.Y + 4 * positionB.Y - tangentB.Y) * t2 + (-tangentA.Y + 3.0f * positionA.Y - 3.0f * positionB.Y + tangentB.Y) * t3)
+            );
+        }
+
+        #endregion
+
+        #region Change the Angle of a Vector
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Point2D SetAngle(Point2D pt, double angle)
+        {
+            var rads = angle * (PI / 180);
+            var dist = Sqrt(pt.X * pt.X + pt.Y * pt.Y);
+            pt.X = Sin(rads) * dist;
+            pt.Y = -(Cos(rads) * dist);
+            return pt;
+        }
+
+        #endregion
+
         #region Complex Product of Two 2D Points
 
         /// <summary>
@@ -327,13 +417,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(ComplexProduct2DTests))]
-        public static List<SpeedTester> ComplexProduct2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> ComplexProduct2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => ComplexProduct(0, 0, 1, 1),
                 $"{nameof(Experiments.ComplexProduct)}(0, 0, 1, 1)"),
            };
-        }
 
         /// <summary>
         /// 
@@ -363,13 +450,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CosineInterpolateTests1D))]
-        public static List<SpeedTester> CosineInterpolateTests1D()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CosineInterpolateTests1D() => new List<SpeedTester>() {
                 new SpeedTester(() => CosineInterpolate1D(0, 1, 0.5d),
                 $"{nameof(Experiments.CosineInterpolate1D)}(0, 1, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -394,13 +478,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CosineInterpolate2DTests))]
-        public static List<SpeedTester> CosineInterpolate2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CosineInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CosineInterpolate2D(0, 0, 1, 1, 0.5d),
                 $"{nameof(Experiments.CosineInterpolate2D)}(0, 0, 1, 1, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -423,6 +504,38 @@ namespace MethodSpeedTester
                 y1 * (1 - mu2) + y2 * mu2);
         }
 
+        /// <summary>
+        /// Function For cosine interpolated Line
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="index"></param>
+        /// <returns>Returns the interpolated point of the index value.</returns>
+        /// <remarks></remarks>
+        public static Point2D Interpolate(Point2D a, Point2D b, double index)
+        {
+            //Single MU2 = (double)((1.0 - Cos(index * 180)) * 0.5);
+            //return Y1 * (1.0 - MU2) + Y2 * MU2;
+            double MU2 = (1.0 - Cos(index * 180)) * 0.5;
+            return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
+        }
+
+        /// <summary>
+        /// Function For cosine interpolated Line
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="Index"></param>
+        /// <returns></returns>
+        public Point2D CosineInterpolate(Point2D a, Point2D b, double Index)
+        {
+            double MU = ((1 - Cos((Index * 180))) / 2);
+            return new Point2D(
+                (a.X * (1 - MU)) + (b.X * MU),
+                (a.Y * (1 - MU)) + (b.Y * MU)
+                );
+        }
+
         #endregion
 
         #region Cosine Interpolation of 3D Points
@@ -432,13 +545,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CosineInterpolate3DTests))]
-        public static List<SpeedTester> CosineInterpolate3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CosineInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CosineInterpolate3D(0, 0, 0, 1, 1, 1, 0.5d),
                 $"{nameof(Experiments.CosineInterpolate3D)}(0, 0, 0, 1, 1, 1, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -479,13 +589,13 @@ namespace MethodSpeedTester
         private static Point2D ClosestPointOnLineSegmentMvG(Point2D a, Point2D b, Point2D p)
         {
             // Vector A->B
-            Point2D diffAB = new Point2D(a.X - b.X, a.Y - b.Y);
+            var diffAB = new Point2D(a.X - b.X, a.Y - b.Y);
 
             double det = a.Y * b.X - a.X * b.Y;
 
             double dot = diffAB.X * p.X + diffAB.Y * p.Y;
 
-            Point2D val = new Point2D(dot * diffAB.X + det * diffAB.Y, dot * diffAB.Y - det * diffAB.X);
+            var val = new Point2D(dot * diffAB.X + det * diffAB.Y, dot * diffAB.Y - det * diffAB.X);
 
             double magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
 
@@ -505,10 +615,10 @@ namespace MethodSpeedTester
         private static Point2D ClosestPointOnLineSegmentDarienPardinas(Point2D a, Point2D b, Point2D p)
         {
             // Vector A->P 
-            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
+            var diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
 
             // Vector A->B
-            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
+            var diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
 
             double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
 
@@ -519,17 +629,11 @@ namespace MethodSpeedTester
             double dist = dotABAP / dotAB;
 
             if (dist < 0)
-            {
                 return a;
-            }
             else if (dist > dotABAP)
-            {
                 return b;
-            }
             else
-            {
                 return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
-            }
         }
 
         /// <summary>
@@ -543,10 +647,10 @@ namespace MethodSpeedTester
         private static Point2D ClosestPointOnLineDarienPardinas(Point2D a, Point2D b, Point2D p)
         {
             // Vector A->P 
-            Point2D diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
+            var diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
 
             // Vector A->B
-            Point2D diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
+            var diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
 
             double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
 
@@ -561,6 +665,31 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Create a Circle From Three points
+
+        /// <summary>
+        /// Find the Center of A Circle from Three Points
+        /// </summary>
+        /// <param name="pointA">First Point on the Ellipse</param>
+        /// <param name="pointB">Second Point on the Ellipse</param>
+        /// <param name="pointC">Last Point on the Ellipse</param>
+        /// <returns>Returns the Center point of a Circle defined by three points</returns>
+        /// <remarks>
+        /// </remarks>
+        public static Point2D TripointCircleCenter(Point2D pointA, Point2D pointB, Point2D pointC)
+        {
+            //  Calculate the slopes of the lines.
+            double slopeA = (pointA.Slope(pointB));
+            double slopeB = (pointC.Slope(pointB));
+            double fY = ((((pointA.X - pointB.X) * (pointA.X + pointB.X)) + ((pointA.Y - pointB.Y) * (pointA.Y + pointB.Y))) / (2 * (pointA.X - pointB.X)));
+            double fX = ((((pointC.X - pointB.X) * (pointC.X + pointB.X)) + ((pointC.Y - pointB.Y) * (pointC.Y + pointB.Y))) / (2 * (pointC.X - pointB.X)));
+            double newY = ((fX - fY) / (slopeB - slopeA));
+            double newX = (fX - (slopeB * newY));
+            return new Point2D(newX, newY);
+        }
+
+        #endregion
+
         #region Cross Product of Two 2D Points
 
         /// <summary>
@@ -568,13 +697,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CrossProduct2Points2DTests))]
-        public static List<SpeedTester> CrossProduct2Points2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CrossProduct2Points2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CrossProduct2Points2D_0(0, 0, 1, 0),
                 $"{nameof(Experiments.CrossProduct2Points2D_0)}(0, 0, 1, 0)"),
             };
-        }
 
         /// <summary>
         /// Cross Product of two points.
@@ -601,13 +727,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CrossProduct2Points3DTests))]
-        public static List<SpeedTester> CrossProduct2Points3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CrossProduct2Points3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CrossProduct2Points3D_0(0, 0, 0, 1, 1, 1),
                 $"{nameof(Experiments.CrossProduct2Points3D_0)}(0, 0, 0, 1, 1, 1)"),
             };
-        }
 
         /// <summary>
         /// Cross Product of two points.
@@ -638,9 +761,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CrossProductVector2DTests))]
-        public static List<SpeedTester> CrossProductVector2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CrossProductVector2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CrossProductVector2D_0(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.CrossProductVector2D_0)}(0, 0, 1, 0, 1, 1)"),
                 new SpeedTester(() => CrossProductVector2D_1(0, 0, 1, 0, 1, 1),
@@ -648,7 +769,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => CrossProductVector2D_2(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.CrossProductVector2D_2)}(0, 0, 1, 0, 1, 1)"),
             };
-        }
 
         /// <summary>
         /// The cross product is a vector perpendicular to AB
@@ -743,6 +863,48 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Cubic Bezier Get T
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="Lut"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
+        public static List<double> findTforCoordinate(Point2D value, List<Point2D> Lut)
+        {
+            var point = new Point2D();
+            var found = new List<double>();
+            for (int i = 0, len = Lut.Count; i < len; i++)
+            {
+                point.X = Lut[i].X;
+                point.Y = Lut[i].Y;
+                if (value.X == point.X && value.Y == point.Y)
+                    found.Add(i / len);
+            }
+            return found;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
+        public static List<Point2D> buildLUT(Point2D a, Point2D b, Point2D c, Point2D d)
+        {
+            var Lut = new List<Point2D>(100);
+            for (double t = 0; t <= 1; t += 0.01)
+                Lut[(int)(t * 100)] = new Point2D(Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t));
+            return Lut;
+        }
+
+        #endregion
+
         #region Cubic Bezier Length approximations
 
         /// <summary>
@@ -756,9 +918,9 @@ namespace MethodSpeedTester
         /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
         private static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
         {
-            Point2D k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
+            var k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
             Point2D k2 = 3 * (p1 + p3) - 6 * p2;
-            Point2D k3 = (Point2D)(3 * (p2 - p1));
+            var k3 = (Point2D)(3 * (p2 - p1));
             Point2D k4 = p1;
 
             double q1 = 9.0 * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
@@ -839,7 +1001,7 @@ namespace MethodSpeedTester
         {
             double t;
             Point2D dot;
-            Point2D previous_dot = new Point2D();
+            var previous_dot = new Point2D();
             double length = 0.0;
             for (int i = 0; i <= steps; i++)
             {
@@ -865,13 +1027,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CubicInterpolate1DTests))]
-        public static List<SpeedTester> CubicInterpolate1DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CubicInterpolate1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolate1D(0, 1, 2, 3, 0.5d),
                 $"{nameof(Experiments.CubicInterpolate1D)}(0, 1, 2, 3, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -905,13 +1064,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CubicInterpolate2DTests))]
-        public static List<SpeedTester> CubicInterpolate2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CubicInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolate2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
                 $"{nameof(Experiments.CubicInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -957,13 +1113,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CubicInterpolate3DTests))]
-        public static List<SpeedTester> CubicInterpolate3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CubicInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolate3D(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d),
                 $"{nameof(Experiments.CubicInterpolate3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -1017,13 +1170,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CubicInterpolateCatmullRomSplines1DTests))]
-        public static List<SpeedTester> CubicInterpolateCatmullRomSplines1DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CubicInterpolateCatmullRomSplines1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolateCatmullRomSplines1D(0, 1, 2, 3, 0.5d),
                 $"{nameof(Experiments.CubicInterpolateCatmullRomSplines1D)}(0, 1, 2, 3, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -1057,13 +1207,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CubicInterpolateCatmullRomSplines2DTests))]
-        public static List<SpeedTester> CubicInterpolateCatmullRomSplines2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CubicInterpolateCatmullRomSplines2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolateCatmullRomSplines2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
                 $"{nameof(Experiments.CubicInterpolateCatmullRomSplines2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -1109,13 +1256,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CubicInterpolateCatmullRomSplines3DTests))]
-        public static List<SpeedTester> CubicInterpolateCatmullRomSplines3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CubicInterpolateCatmullRomSplines3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolateCatmullRomSplines3D(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d),
                 $"{nameof(Experiments.CubicInterpolateCatmullRomSplines3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -1173,9 +1317,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(CubicBezierInterpolate2DTests))]
-        public static List<SpeedTester> CubicBezierInterpolate2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> CubicBezierInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicBezierInterpolate2D_0(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
                 $"{nameof(Experiments.CubicBezierInterpolate2D_0)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
                 new SpeedTester(() => CubicBezierInterpolate2D_1(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
@@ -1189,7 +1331,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => CubicBezierInterpolate2D_6(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
                 $"{nameof(Experiments.CubicBezierInterpolate2D_6)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
@@ -1236,18 +1377,15 @@ namespace MethodSpeedTester
         /// <param name="d"></param>
         /// <returns></returns>
         /// <remarks>http://www.lemoda.net/maths/bezier-length/index.html</remarks>
+        // Formula from Wikipedia article on Bezier curves.
         public static Tuple<double, double> CubicBezierInterpolate2D_1(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
-        {
-            // Formula from Wikipedia article on Bezier curves.
-            return new Tuple<double, double>(
-            aX * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bX * (1.0 - t) * (1.0 - t) * t + 3.0 * cX * (1.0 - t) * t * t + dX * t * t * t,
-            aY * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bY * (1.0 - t) * (1.0 - t) * t + 3.0 * cY * (1.0 - t) * t * t + dY * t * t * t);
-        }
+        double aX, double aY,
+        double bX, double bY,
+        double cX, double cY,
+        double dX, double dY,
+        double t) => new Tuple<double, double>(
+        aX * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bX * (1.0 - t) * (1.0 - t) * t + 3.0 * cX * (1.0 - t) * t * t + dX * t * t * t,
+        aY * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bY * (1.0 - t) * (1.0 - t) * t + 3.0 * cY * (1.0 - t) * t * t + dY * t * t * t);
 
         /// <summary>
         /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
@@ -1368,9 +1506,9 @@ namespace MethodSpeedTester
             double tCubed = (tSquared * t);
 
             // calculate the polynomial coefficients 
-            Tuple<double, double> cC = new Tuple<double, double>((3 * (bX - aX)), (3 * (bY - aY)));
-            Tuple<double, double> cB = new Tuple<double, double>(((3 * (cX - bX)) - cC.Item1), ((3 * (cY - bY)) - cC.Item2));
-            Tuple<double, double> cA = new Tuple<double, double>((dX - (aX - (cC.Item1 - cB.Item1))), (dY - (aY - (cC.Item2 - cB.Item2))));
+            var cC = new Tuple<double, double>((3 * (bX - aX)), (3 * (bY - aY)));
+            var cB = new Tuple<double, double>(((3 * (cX - bX)) - cC.Item1), ((3 * (cY - bY)) - cC.Item2));
+            var cA = new Tuple<double, double>((dX - (aX - (cC.Item1 - cB.Item1))), (dY - (aY - (cC.Item2 - cB.Item2))));
             return new Tuple<double, double>(((cA.Item1 * tCubed) + ((cB.Item1 * tSquared) + ((cC.Item1 * t) + aX))), ((cA.Item2 * tCubed) + ((cB.Item2 * tSquared) + ((cC.Item2 * t) + aY))));
         }
 
@@ -1390,10 +1528,10 @@ namespace MethodSpeedTester
             double dX, double dY,
             double t)
         {
-            Tuple<double, double> c1 = new Tuple<double, double>(((dX - cX) - (aX - bX)), ((dY - cY) - (aY - bY)));
-            Tuple<double, double> c2 = new Tuple<double, double>(((aX - bX) - aX), ((aY - bY) - aY));
-            Tuple<double, double> c3 = new Tuple<double, double>((cX - aX), (cY - aY));
-            Tuple<double, double> c4 = new Tuple<double, double>(aX, aY);
+            var c1 = new Tuple<double, double>(((dX - cX) - (aX - bX)), ((dY - cY) - (aY - bY)));
+            var c2 = new Tuple<double, double>(((aX - bX) - aX), ((aY - bY) - aY));
+            var c3 = new Tuple<double, double>((cX - aX), (cY - aY));
+            var c4 = new Tuple<double, double>(aX, aY);
             return new Tuple<double, double>(
                 (c1.Item1 * t * t * t + c2.Item1 * t * t * t + c3.Item1 * t + c4.Item1),
                 (c1.Item2 * t * t * t + c2.Item2 * t * t * t + c3.Item2 * t + c4.Item2));
@@ -1409,6 +1547,143 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Cubic BSpline Interpolation
+
+        /// <summary>
+        /// Function to Interpolate a Cubic Bezier Spline 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public Point2D InterpolateBSpline(List<Point2D> points, double index)
+        {
+            if (points.Count >= 4)
+            {
+                int A = 0;
+                int B = 1;
+                int C = 2;
+                int D = 3;
+                var VPoints = new List<Point2D>(4);
+
+                VPoints.Add(new Point2D(
+                    ((points[D].X - points[C].X) - (points[A].X - points[B].X)),
+                    ((points[D].Y - points[C].Y) - (points[A].Y - points[B].Y))
+                    ));
+
+                VPoints.Add(new Point2D(
+                    ((points[A].X - points[B].X) - VPoints[A].X),
+                    ((points[A].Y - points[B].Y) - VPoints[A].Y)
+                    ));
+
+                VPoints.Add(new Point2D(
+                    (points[C].X - points[A].X),
+                    (points[C].Y - points[A].Y)
+                    ));
+
+                VPoints.Add(points[1]);
+
+                return new Point2D(
+                    VPoints[0].X * index * index * index + VPoints[1].X * index * index * index + VPoints[2].X * index + VPoints[3].X,
+                    VPoints[0].Y * index * index * index + VPoints[1].Y * index * index * index + VPoints[2].Y * index + VPoints[3].Y
+                );
+            }
+
+            return Point2D.Empty;
+        }
+
+        /// <summary>
+        /// General Bezier curve Number of control points is n+1 0 less than or equal to mu less than 1
+        /// IMPORTANT, the last point is not computed.
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static Point2D Interpolate(List<Point2D> points, double index)
+        {
+            int n = points.Count - 1;
+            int kn;
+            int nn;
+            int nkn;
+
+            double blend;
+            double muk = 1;
+            double munk = Pow(1 - index, n);
+
+            var b = new Point2D(0.0f, 0.0f);
+
+            for (int k = 0; k <= n; k++)
+            {
+                nn = n;
+                kn = k;
+                nkn = n - k;
+                blend = muk * munk;
+                muk *= index;
+                munk /= (1 - index);
+                while (nn >= 1)
+                {
+                    blend *= nn;
+                    nn--;
+                    if (kn > 1)
+                    {
+                        blend /= kn;
+                        kn--;
+                    }
+                    if (nkn > 1)
+                    {
+                        blend /= nkn;
+                        nkn--;
+                    }
+                }
+
+                b = new Point2D(
+                b.X + points[k].X * blend,
+                b.Y + points[k].Y * blend
+                    );
+            }
+
+            return (b);
+        }
+
+        /// <summary>
+        /// Function to Interpolate a Cubic Bezier Spline 
+        /// </summary>
+        /// <param name="Points"></param>
+        /// <param name="Index"></param>
+        /// <returns></returns>
+        public Point2D InterpolateCubicBSplinePoint(Point2D[] Points, double Index)
+        {
+            int A = 0;
+            int B = 1;
+            int C = 2;
+            int D = 3;
+            double V1 = Index;
+            var VPoints = new Point2D[4];
+
+            VPoints[0] = new Point2D(
+                ((Points[D].X - Points[C].X) - (Points[A].X - Points[B].X)),
+                ((Points[D].Y - Points[C].Y) - (Points[A].Y - Points[B].Y))
+                );
+
+            VPoints[1] = new Point2D(
+                ((Points[A].X - Points[B].X) - VPoints[A].X),
+                ((Points[A].Y - Points[B].Y) - VPoints[A].Y)
+                );
+
+            VPoints[2] = new Point2D(
+                (Points[C].X - Points[A].X),
+                (Points[C].Y - Points[A].Y)
+                );
+
+            VPoints[3] = Points[1];
+
+            return new Point2D(
+                VPoints[0].X * V1 * V1 * V1 + VPoints[1].X * V1 * V1 * V1 + VPoints[2].X * V1 + VPoints[3].X,
+                VPoints[0].Y * V1 * V1 * V1 + VPoints[1].Y * V1 * V1 * V1 + VPoints[2].Y * V1 + VPoints[3].Y
+            );
+        }
+
+        #endregion
+
         #region Distance Between Two 3D Points
 
         /// <summary>
@@ -1416,9 +1691,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(Distance3DTests))]
-        public static List<SpeedTester> Distance3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> Distance3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Distance3D_0(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.Distance3D_0)}(0, 0, 1, 0, 1, 1)"),
                 new SpeedTester(() => Distance3D_1(0, 0, 1, 0, 1, 1),
@@ -1426,7 +1699,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => Distance3D_2(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.Distance3D_2)}(0, 0, 1, 0, 1, 1)"),
             };
-        }
 
         /// <summary>
         /// Distance between two 3D points.
@@ -1460,13 +1732,10 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance3D_1(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2)
-        {
-            return Sqrt((x2 - x1) * (x2 - x1)
-                + (y2 - y1) * (y2 - y1)
-                + (z2 - z1) * (z2 - z1));
-        }
+double x1, double y1, double z1,
+double x2, double y2, double z2) => Sqrt((x2 - x1) * (x2 - x1)
+    + (y2 - y1) * (y2 - y1)
+    + (z2 - z1) * (z2 - z1));
 
         /// <summary>
         /// Distance between two 3D points.
@@ -1498,9 +1767,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(Distance2DTests))]
-        public static List<SpeedTester> Distance2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> Distance2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Distance2D_0(0, 0, 1, 0),
                 $"{nameof(Experiments.Distance2D_0)}(0, 0, 1, 0)"),
                 new SpeedTester(() => Distance2D_1(new Tuple<double, double>(0, 0), new Tuple<double, double>(1, 0)),
@@ -1510,7 +1777,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => Distance2D_3(0, 0, 1, 0),
                 $"{nameof(Experiments.Distance2D_3)}(0, 0, 1, 0)"),
             };
-        }
 
         /// <summary>
         /// Distance between two 2D points.
@@ -1555,12 +1821,9 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance2D_2(
-            double x1, double y1,
-            double x2, double y2)
-        {
-            return Sqrt((x2 - x1) * (x2 - x1)
-                + (y2 - y1) * (y2 - y1));
-        }
+double x1, double y1,
+double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
+    + (y2 - y1) * (y2 - y1));
 
         /// <summary>
         /// Distance between two 2D points.
@@ -1582,6 +1845,146 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Distance of Point to Line Segment
+
+        /// <summary>
+        /// Calculate the distance between the point and the segment.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="RetNear"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double DistanceToSegment(Point2D p, Point2D A, Point2D B, out Point2D RetNear)
+        {
+            RetNear = new Point2D();
+            var Delta = new Point2D((B.X - A.X), (B.Y - A.Y));
+            if ((Delta.X == 0) && (Delta.Y == 0))
+            {
+                //  It's a point not a line segment.
+                Delta.X = (p.X - A.X);
+                Delta.Y = (p.Y - A.Y);
+                RetNear.X = A.X;
+                RetNear.Y = A.Y;
+                return (Sqrt(((Delta.X * Delta.X) + (Delta.Y * Delta.Y))));
+            }
+            //  Calculate the t that minimizes the distance.
+            double t = ((((p.X - A.X) * Delta.X) + ((p.Y - A.Y) * Delta.Y)) / ((Delta.X * Delta.X) + (Delta.Y * Delta.Y)));
+            if (t < 0)
+            {
+                Delta.X = (p.X - A.X);
+                Delta.Y = (p.Y - A.Y);
+                RetNear.X = A.X;
+                RetNear.Y = A.Y;
+            }
+            else if (t > 1)
+            {
+                Delta.X = (p.X - B.X);
+                Delta.Y = (p.Y - B.Y);
+                RetNear.X = B.X;
+                RetNear.Y = B.Y;
+            }
+            else
+            {
+                RetNear.X = (A.X + (t * Delta.X));
+                RetNear.Y = (A.Y + (t * Delta.Y));
+                Delta.X = (p.X - RetNear.X);
+                Delta.Y = (p.Y - RetNear.Y);
+            }
+            return (Sqrt(((Delta.X * Delta.X) + (Delta.Y * Delta.Y))));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        public static double DistToSegment2(double px, double py, double x1, double y1, double x2, double y2)
+        {
+            double dx;
+            double dy;
+            double t;
+            dx = (x2 - x1);
+            dy = (y2 - y1);
+            if ((dx == 0) && (dy == 0))
+            {
+                //  It's a point not a line segment.
+                dx = (px - x1);
+                dy = (py - y1);
+                return Sqrt(((dx * dx) + (dy * dy)));
+            }
+            t = ((px + (py - (x1 - y1))) / (dx + dy));
+            if (t < 0)
+            {
+                dx = (px - x1);
+                dy = (py - y1);
+            }
+            else if (t > 1)
+            {
+                dx = (px - x2);
+                dy = (py - y2);
+            }
+            else
+            {
+                double x3 = (x1 + (t * dx));
+                double y3 = (y1 + (t * dy));
+                dx = (px - x3);
+                dy = (py - y3);
+            }
+            return Sqrt(((dx * dx) + (dy * dy)));
+        }
+
+        /// <summary>
+        /// Calculate the distance between the point and the segment.
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static double DistToSegment(double px, double py, double x1, double y1, double x2, double y2)
+        {
+            double dx = (x2 - x1);
+            double dy = (y2 - y1);
+            if ((dx == 0) && (dy == 0))
+            {
+                //  It's a point not a line segment.
+                dx = (px - x1);
+                dy = (py - y1);
+                return Sqrt(((dx * dx) + (dy * dy)));
+            }
+            double t = ((px + (py - (x1 - y1))) / (dx + dy));
+            if (t < 0)
+            {
+                dx = (px - x1);
+                dy = (py - y1);
+            }
+            else if (t > 1)
+            {
+                dx = (px - x2);
+                dy = (py - y2);
+            }
+            else
+            {
+                double x3 = (x1 + (t * dx));
+                double y3 = (y1 + (t * dy));
+                dx = (px - x3);
+                dy = (py - y3);
+            }
+            return Sqrt(((dx * dx) + (dy * dy)));
+        }
+
+        #endregion
+
         #region Dot Product of Two 2D Points
 
         /// <summary>
@@ -1589,15 +1992,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(DotProduct2Points2DTests))]
-        public static List<SpeedTester> DotProduct2Points2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> DotProduct2Points2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => DotProduct2Points2D_0(0, 0, 1, 0),
                 $"{nameof(Experiments.DotProduct2Points2D_0)}(0, 0, 1, 0)"),
                 new SpeedTester(() => DotProduct2Points2D_1(0, 0, 1, 0),
                 $"{nameof(Experiments.DotProduct2Points2D_1)}(0, 0, 1, 0)"),
             };
-        }
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 
@@ -1627,11 +2027,8 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct2Points2D_1(
-            double x1, double y1,
-            double x2, double y2)
-        {
-            return ((x1 * x2) + (y1 * y2));
-        }
+double x1, double y1,
+double x2, double y2) => ((x1 * x2) + (y1 * y2));
 
         #endregion
 
@@ -1642,9 +2039,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(DotProduct3D_0Tests))]
-        public static List<SpeedTester> DotProduct3D_0Tests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> DotProduct3D_0Tests() => new List<SpeedTester>() {
                 new SpeedTester(() => DotProduct(0, 0, 0, 1, 1, 1),
                 $"{nameof(Experiments.DotProduct)}(0, 0, 0, 1, 1, 1)"),
                 new SpeedTester(() => DotProduct(new Tuple<double, double, double>(0, 0, 0), 1, 1, 1),
@@ -1652,7 +2047,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => DotProduct(new Tuple<double, double, double>(0, 0, 0), new Tuple<double, double, double>(1, 1, 1)),
                 $"{nameof(Experiments.DotProduct)}((0, 0, 0), (1, 1, 1))"),
             };
-        }
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 
@@ -1709,9 +2103,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(DotProductVector2DTests))]
-        public static List<SpeedTester> DotProductVector2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> DotProductVector2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => DotProductVector2D_0(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.DotProductVector2D_0)}(0, 0, 1, 0, 1, 1)"),
                 new SpeedTester(() => DotProductVector2D_1(0, 0, 1, 0, 1, 1),
@@ -1719,7 +2111,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => DotProductVector2D_2(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.DotProductVector2D_2)}(0, 0, 1, 0, 1, 1)"),
             };
-        }
 
         /// <summary>
         /// Return the dot product AB · BC.
@@ -1757,13 +2148,10 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector2D_1(
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3)
-        {
-            return ((x1 - x2) * (x3 - x2)
-                + (y1 - y2) * (y3 - y2));
-        }
+double x1, double y1,
+double x2, double y2,
+double x3, double y3) => ((x1 - x2) * (x3 - x2)
+    + (y1 - y2) * (y3 - y2));
 
         /// <summary>
         /// Return the dot product AB · BC.
@@ -1804,10 +2192,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeter1(double a, double b)
-        {
-            return 2 * PI * (Sqrt(0.5 * ((b * b) + (a * a))));
-        }
+        private static double EllipsePerimeter1(double a, double b) => 2 * PI * (Sqrt(0.5 * ((b * b) + (a * a))));
 
         /// <summary>
         /// 
@@ -1831,10 +2216,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterKepler(double a, double b)
-        {
-            return 2 * PI * (Sqrt(a * b));
-        }
+        private static double EllipsePerimeterKepler(double a, double b) => 2 * PI * (Sqrt(a * b));
 
         /// <summary>
         /// 
@@ -1843,10 +2225,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterSipos(double a, double b)
-        {
-            return 2 * PI * (((a + b) * (a + b)) / ((Sqrt(a) + Sqrt(a)) * (Sqrt(b) + Sqrt(b))));
-        }
+        private static double EllipsePerimeterSipos(double a, double b) => 2 * PI * (((a + b) * (a + b)) / ((Sqrt(a) + Sqrt(a)) * (Sqrt(b) + Sqrt(b))));
 
         /// <summary>
         /// 
@@ -1855,10 +2234,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterNaive(double a, double b)
-        {
-            return PI * (a + b);
-        }
+        private static double EllipsePerimeterNaive(double a, double b) => PI * (a + b);
 
         /// <summary>
         /// 
@@ -1867,10 +2243,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterPeano(double a, double b)
-        {
-            return PI * ((3 * (a + b) / 2) - Sqrt(a * b));
-        }
+        private static double EllipsePerimeterPeano(double a, double b) => PI * ((3 * (a + b) / 2) - Sqrt(a * b));
 
         /// <summary>
         /// 
@@ -1879,10 +2252,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterEuler(double a, double b)
-        {
-            return 2 * PI * Sqrt(((a * a) + (b * b)) / 2);
-        }
+        private static double EllipsePerimeterEuler(double a, double b) => 2 * PI * Sqrt(((a * a) + (b * b)) / 2);
 
         /// <summary>
         /// 
@@ -1891,12 +2261,9 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterAlmkvist(double a, double b)
-        {
-            return 2 * PI
-                * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
-                / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, (1 / 4)))));
-        }
+        private static double EllipsePerimeterAlmkvist(double a, double b) => 2 * PI
+    * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
+    / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, (1 / 4)))));
 
         /// <summary>
         /// 
@@ -1905,10 +2272,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterQuadratic(double a, double b)
-        {
-            return (PI / 2) * Sqrt((6) * (a * a + b * b) + (4 * a * b));
-        }
+        private static double EllipsePerimeterQuadratic(double a, double b) => (PI / 2) * Sqrt((6) * (a * a + b * b) + (4 * a * b));
 
         /// <summary>
         /// 
@@ -1917,10 +2281,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterMuir(double a, double b)
-        {
-            return 2 * PI * Pow((Pow(a, 3 / 2) + Pow(b, 3 / 2)) / 2, 2 / 3);
-        }
+        private static double EllipsePerimeterMuir(double a, double b) => 2 * PI * Pow((Pow(a, 3 / 2) + Pow(b, 3 / 2)) / 2, 2 / 3);
 
         /// <summary>
         /// 
@@ -1942,10 +2303,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
         /// </remarks>
-        private static double EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(double a, double b)
-        {
-            return 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
-        }
+        private static double EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(double a, double b) => 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
 
         /// <summary>
         /// 
@@ -2058,10 +2416,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterRamanujan(double a, double b)
-        {
-            return PI * (3 * (a + b) - Sqrt((3 * a + b) * (a + 3 * b)));
-        }
+        private static double EllipsePerimeterRamanujan(double a, double b) => PI * (3 * (a + b) - Sqrt((3 * a + b) * (a + 3 * b)));
 
         /// <summary>
         /// 
@@ -2070,10 +2425,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterSelmer(double a, double b)
-        {
-            return (PI / 4) * ((6 + .5 * (Pow(a - b, 2) * Pow(a - b, 2) / Pow(a + b, 2) * Pow(a + b, 2))) * (a + b) - Sqrt(2 * (a * a + 3 * a * b + b * b)));
-        }
+        private static double EllipsePerimeterSelmer(double a, double b) => (PI / 4) * ((6 + .5 * (Pow(a - b, 2) * Pow(a - b, 2) / Pow(a + b, 2) * Pow(a + b, 2))) * (a + b) - Sqrt(2 * (a * a + 3 * a * b + b * b)));
 
         /// <summary>
         /// 
@@ -2176,8 +2528,8 @@ namespace MethodSpeedTester
         private static double EllipsePerimeterPadé3_3(double a, double b)
         {
             double h = ((a - b) * (a - b)) / ((a + b) * (a + b));
-            return PI * (a + b) *
-                ((135168 - (85760 * h) - (5568 * h * h) + (3867 * h * h * h))
+            return PI * (a + b)
+                * ((135168 - (85760 * h) - (5568 * h * h) + (3867 * h * h * h))
                 / (135168 - (119552 * h) + (22208 * h * h) - (345 * h * h * h)));
         }
 
@@ -2214,10 +2566,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterOptimizedQuadratic2(double a, double b)
-        {
-            return PI * Sqrt(2 * (a * a + b * b) + (a - b) * (a - b) / 2.458338);
-        }
+        private static double EllipsePerimeterOptimizedQuadratic2(double a, double b) => PI * Sqrt(2 * (a * a + b * b) + (a - b) * (a - b) / 2.458338);
 
         /// <summary>
         /// 
@@ -2240,10 +2589,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterBartolomeuMichon(double a, double b)
-        {
-            return a == b ? 2 * PI * a : PI * ((a - b) / Atan((a - b) / (a + b)));
-        }
+        private static double EllipsePerimeterBartolomeuMichon(double a, double b) => a == b ? 2 * PI * a : PI * ((a - b) / Atan((a - b) / (a + b)));
 
         /// <summary>
         /// 
@@ -2256,8 +2602,8 @@ namespace MethodSpeedTester
         {
             double p = 0.410117;
             double w = 74;
-            return 4 * (a + b) - ((8 - 2 * PI) * a * b) /
-                (p * (a + b) + (1 - 2 * p) * (Sqrt((a + w * b) * (w * a + b)) / (1 + w)));
+            return 4 * (a + b) - ((8 - 2 * PI) * a * b)
+                / (p * (a + b) + (1 - 2 * p) * (Sqrt((a + w * b) * (w * a + b)) / (1 + w)));
         }
 
         /// <summary>
@@ -2267,10 +2613,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterTakakazuSeki(double a, double b)
-        {
-            return 2 * Sqrt(PI * PI * a * b + 4 * (a - b) * (a - b));
-        }
+        private static double EllipsePerimeterTakakazuSeki(double a, double b) => 2 * Sqrt(PI * PI * a * b + 4 * (a - b) * (a - b));
 
         /// <summary>
         /// 
@@ -2279,10 +2622,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterLockwood(double a, double b)
-        {
-            return 4 * (((b * b) / a) * Atan(a / b) + ((a * a) / b) * Atan(b / a));
-        }
+        private static double EllipsePerimeterLockwood(double a, double b) => 4 * (((b * b) / a) * Atan(a / b) + ((a * a) / b) * Atan(b / a));
 
         /// <summary>
         /// 
@@ -2304,10 +2644,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterRivera1(double a, double b)
-        {
-            return 4 * a + 2 * (PI - 2) * a * Pow(b / a, 1.456);
-        }
+        private static double EllipsePerimeterRivera1(double a, double b) => 4 * a + 2 * (PI - 2) * a * Pow(b / a, 1.456);
 
         /// <summary>
         /// 
@@ -2316,10 +2653,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterRivera2(double a, double b)
-        {
-            return 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - (89 / 146) * Pow((b * Sqrt(a) - a * Sqrt(b)) / (a + b), 2);
-        }
+        private static double EllipsePerimeterRivera2(double a, double b) => 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - (89 / 146) * Pow((b * Sqrt(a) - a * Sqrt(b)) / (a + b), 2);
 
         /// <summary>
         /// 
@@ -2341,10 +2675,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterSykora(double a, double b)
-        {
-            return 4 * (((PI * a * b + (a - b) * (a - b))) / (a + b)) - 0.5 * ((a * b) / (a + b)) * (((a - b) * (a - b)) / (PI * a * b + (a + b) * (a + b)));
-        }
+        private static double EllipsePerimeterSykora(double a, double b) => 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - 0.5 * ((a * b) / (a + b)) * (((a - b) * (a - b)) / (PI * a * b + (a + b) * (a + b)));
 
         /// <summary>
         /// 
@@ -2366,10 +2697,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
-        private static double EllipsePerimeterK13(double a, double b)
-        {
-            return PI * (((a + b) / 2) + Sqrt((a * a + b * b) / 2));
-        }
+        private static double EllipsePerimeterK13(double a, double b) => PI * (((a + b) / 2) + Sqrt((a * a + b * b) / 2));
 
         /// <summary>
         /// This one is not as good with a circle. 
@@ -2445,6 +2773,387 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Elliptic Star Points
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="num_points"></param>
+        /// <param name="bounds"></param>
+        /// <returns>Return PointFs to define a star.</returns>
+        private PointF[] StarPoints(int num_points, Rectangle bounds)
+        {
+            // Make room for the points.
+            var pts = new PointF[num_points];
+
+            double rx = bounds.Width / 2;
+            double ry = bounds.Height / 2;
+            double cx = bounds.X + rx;
+            double cy = bounds.Y + ry;
+
+            // Start at the top.
+            double theta = -PI / 2;
+            double dtheta = 4 * PI / num_points;
+            for (int i = 0; i < num_points; i++)
+            {
+                pts[i] = new PointF(
+                    (float)(cx + rx * Cos(theta)),
+                    (float)(cy + ry * Sin(theta)));
+                theta += dtheta;
+            }
+
+            return pts;
+        }
+
+        #endregion
+
+        #region Find Polygon Ear
+
+        /// <summary>
+        /// Find the indexes of three points that form an "ear."
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static Triangle FindEar(Polygon polygon, ref int A, ref int B, ref int C)
+        {
+            int num_points = polygon.Points.Count;
+
+            for (A = 0; A < num_points; A++)
+            {
+                B = (A + 1) % num_points;
+                C = (B + 1) % num_points;
+
+                if (FormsEar(polygon, A, B, C)) return new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]);
+            }
+
+            // We should never get here because there should
+            // always be at least two ears.
+            Debug.Assert(false);
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <returns>Return true if the three points form an ear.</returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        private static bool FormsEar(Polygon polygon, int A, int B, int C)
+        {
+            // See if the angle ABC is concave.
+            if (Maths.AngleVector(
+                polygon.Points[A].X, polygon.Points[A].Y,
+                polygon.Points[B].X, polygon.Points[B].Y,
+                polygon.Points[C].X, polygon.Points[C].Y) > 0)
+            {
+                // This is a concave corner so the triangle
+                // cannot be an ear.
+                return false;
+            }
+
+            // Make the triangle A, B, C.
+            var triangle = new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]);
+
+            // Check the other points to see 
+            // if they lie in triangle A, B, C.
+            for (int i = 0; i < polygon.Points.Count; i++)
+            {
+                if ((i != A) && (i != B) && (i != C))
+                {
+                    if (triangle.PointInPolygon(polygon.Points[i]))
+                    {
+                        // This point is in the triangle 
+                        // do this is not an ear.
+                        return false;
+                    }
+                }
+            }
+
+            // This is an ear.
+            return true;
+        }
+
+        #endregion
+
+        #region Fit in Rectangle
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="radians"></param>
+        /// <returns></returns>
+        public static Size2D fitRect(Size2D size, double radians)
+        {
+            double angleCos = Cos(radians);
+            double angleSin = Sin(radians);
+
+            double x1 = -size.Width * 0.5f;
+            double x2 = size.Width * 0.5f;
+            double x3 = size.Width * 0.5f;
+            double x4 = -size.Width * 0.5f;
+
+            double y1 = size.Height * 0.5f;
+            double y2 = size.Height * 0.5f;
+            double y3 = -size.Height * 0.5f;
+            double y4 = -size.Height * 0.5f;
+
+            double x11 = (x1 * angleCos) + (y1 * angleSin);
+            double y11 = (-x1 * angleSin) + (y1 * angleCos);
+
+            double x21 = (x2 * angleCos) + (y2 * angleSin);
+            double y21 = (-x2 * angleSin) + (y2 * angleCos);
+
+            double x31 = (x3 * angleCos) + (y3 * angleSin);
+            double y31 = (-x3 * angleSin) + (y3 * angleCos);
+
+            double x41 = (x4 * angleCos) + (y4 * angleSin);
+            double y41 = (-x4 * angleSin) + (y4 * angleCos);
+
+            double x_min = Min(Min(x11, x21), Min(x31, x41));
+            double x_max = Max(Max(x11, x21), Max(x31, x41));
+
+            double y_min = Min(Min(y11, y21), Min(y31, y41));
+            double y_max = Max(Max(y11, y21), Max(y31, y41));
+
+            return new Size2D((x_max - x_min), (y_max - y_min));
+        }
+
+        #endregion
+
+        #region Gear Points
+
+        // Draw the gear.
+        private void picGears_Paint(object sender, PaintEventArgs e, Rectangle bounds)
+        {
+            // Draw smoothly.
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            const double radius = 50;
+            const double tooth_length = 10;
+            double x = bounds.Width / 2 - radius - tooth_length - 1;
+            double y = bounds.Height / 3;
+            DrawGear(e.Graphics, Brushes.Black, Brushes.LightBlue, Pens.Blue, new Point2D(x, y),
+                radius, tooth_length, 10, 5, true);
+
+            x += 2 * radius + tooth_length + 2;
+            DrawGear(e.Graphics, Brushes.Black, Brushes.LightGreen, Pens.Green, new Point2D(x, y),
+                radius, tooth_length, 10, 5, false);
+
+            y += 2 * radius + tooth_length + 2;
+            DrawGear(e.Graphics, Brushes.Black, Brushes.Pink, Pens.Red, new Point2D(x, y),
+                radius, tooth_length, 10, 5, true);
+        }
+
+        // Draw a gear.
+        private void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
+        {
+            double dtheta = PI / num_teeth;
+            double dtheta_degrees = dtheta * 180 / PI; // dtheta in degrees.
+
+            const double chamfer = 2;
+            double tooth_width = radius * dtheta - chamfer;
+            double alpha = tooth_width / (radius + tooth_length);
+            double alpha_degrees = alpha * 180 / PI;
+            double phi = (dtheta - alpha) / 2;
+
+            // Set theta for the beginning of the first tooth.
+            double theta;
+            if (start_with_tooth) theta = dtheta / 2;
+            else theta = -dtheta / 2;
+
+            // Make rectangles to represent the gear's inner and outer arcs.
+            var inner_rect = new Rectangle2D(
+                center.X - radius, center.Y - radius,
+                2 * radius, 2 * radius);
+            var outer_rect = new Rectangle2D(
+                center.X - radius - tooth_length, center.Y - radius - tooth_length,
+                2 * (radius + tooth_length), 2 * (radius + tooth_length));
+
+            // Make a path representing the gear.
+            var path = new GraphicsPath();
+            for (int i = 0; i < num_teeth; i++)
+            {
+                // Move across the gap between teeth.
+                double degrees = theta * 180 / PI;
+                path.AddArc(inner_rect.ToRectangleF(), (float)degrees, (float)dtheta_degrees);
+                theta += dtheta;
+
+                // Move across the tooth's outer edge.
+                degrees = (theta + phi) * 180 / PI;
+                path.AddArc(outer_rect.ToRectangleF(), (float)degrees, (float)alpha_degrees);
+                theta += dtheta;
+            }
+
+            path.CloseFigure();
+
+            // Draw the gear.
+            gr.FillPath(gear_brush, path);
+            gr.DrawPath(gear_pen, path);
+            gr.FillEllipse(axle_brush,
+                 (float)(center.X - axle_radius), (float)(center.Y - axle_radius),
+                (float)(2 * axle_radius), (float)(2 * axle_radius));
+        }
+
+        #endregion
+
+        #region Heart Interpolation
+
+        // The curve's parametric equations.
+        private Point2D Heart(double t)
+        {
+            double sin_t = Sin(t);
+            return new Point2D(16 * sin_t * sin_t * sin_t,
+                 13 * Cos(t)
+                - 5 * Cos(2 * t)
+                - 2 * Cos(3 * t)
+                - Cos(4 * t));
+        }
+
+        // Draw the curve on a bitmap.
+        private Bitmap DrawHeart(int width, int height)
+        {
+            var bm = new Bitmap(width, height);
+            using (Graphics gr = Graphics.FromImage(bm))
+            {
+                gr.SmoothingMode = SmoothingMode.AntiAlias;
+
+                // Generate the points.
+                const int num_points = 100;
+                var points = new List<Point2D>();
+                double dt = 2 * PI / num_points;
+                for (double t = 0; t <= 2 * PI; t += dt)
+                    points.Add(new Point2D(Heart(t).X, Heart(t).Y));
+
+                // Get the coordinate bounds.
+                double wxmin = points[0].X;
+                double wxmax = wxmin;
+                double wymin = points[0].Y;
+                double wymax = wymin;
+                foreach (Point2D point in points)
+                {
+                    if (wxmin > point.X) wxmin = point.X;
+                    if (wxmax < point.X) wxmax = point.X;
+                    if (wymin > point.Y) wymin = point.Y;
+                    if (wymax < point.Y) wymax = point.Y;
+                }
+
+                // Make the world coordinate rectangle.
+                var world_rect = new Rectangle2D(
+                    wxmin, wymin, wxmax - wxmin, wymax - wymin);
+
+                // Make the device coordinate rectangle with a margin.
+                const int margin = 5;
+                var device_rect = new Rectangle2D(
+                    margin, margin,
+                    width - 2 * margin,
+                    height - 2 * margin);
+
+                // Map world to device coordinates without distortion.
+                // Flip vertically so Y increases downward.
+                SetTransformationWithoutDisortion(gr, world_rect, device_rect, false, true);
+
+                // Draw the curve.
+                gr.FillPolygon(Brushes.Pink, points.ToPointFArray());
+                using (var pen = new Pen(Color.Red, 0))
+                {
+                    gr.DrawPolygon(pen, points.ToPointFArray());
+
+                    //// Draw a rectangle around the coordinate bounds.
+                    //pen.Color = Color.Blue;
+                    //gr.DrawRectangle(pen, Rectangle.Round( world_rect));
+
+                    //// Draw the X and Y axes.
+                    //pen.Color = Color.Green;
+                    //gr.DrawLine(pen, -20, 0, 20, 0);
+                    //gr.DrawLine(pen, 0, -20, 0, 20);
+                    //for (int x = -20; x <= 20; x++)
+                    //    gr.DrawLine(pen, x, -0.3f, x, 0.3f);
+                    //for (int y = -20; y <= 20; y++)
+                    //    gr.DrawLine(pen, -0.3f, y, 0.3f, y);
+                }
+            }
+            return bm;
+        }
+
+        // Map from world coordinates to device coordinates
+        // without distortion.
+        private void SetTransformationWithoutDisortion(Graphics gr,
+            Rectangle2D world_rect, Rectangle2D device_rect,
+            bool invert_x, bool invert_y)
+        {
+            // Get the aspect ratios.
+            double world_aspect = world_rect.Width / world_rect.Height;
+            double device_aspect = device_rect.Width / device_rect.Height;
+
+            // Adjust the world rectangle to maintain the aspect ratio.
+            double world_cx = world_rect.X + world_rect.Width / 2f;
+            double world_cy = world_rect.Y + world_rect.Height / 2f;
+            if (world_aspect > device_aspect)
+            {
+                // The world coordinates are too short and width.
+                // Make them taller.
+                double world_height = world_rect.Width / device_aspect;
+                world_rect = new Rectangle2D(
+                    world_rect.Left,
+                    world_cy - world_height / 2f,
+                    world_rect.Width,
+                    world_height);
+            }
+            else
+            {
+                // The world coordinates are too tall and thin.
+                // Make them wider.
+                double world_width = device_aspect * world_rect.Height;
+                world_rect = new Rectangle2D(
+                    world_cx - world_width / 2f,
+                    world_rect.Top,
+                    world_width,
+                    world_rect.Height);
+            }
+
+            // Map the new world coordinates into the device coordinates.
+            SetTransformation(gr, world_rect, device_rect, invert_x, invert_y);
+        }
+
+        // Map from world coordinates to device coordinates.
+        private void SetTransformation(Graphics gr,
+            Rectangle2D world_rect, Rectangle2D device_rect,
+            bool invert_x, bool invert_y)
+        {
+            var device_points = new List<Point2D>()
+            {
+                new Point2D(device_rect.Left, device_rect.Top),      // Upper left.
+                new Point2D(device_rect.Right, device_rect.Top),     // Upper right.
+                new Point2D(device_rect.Left, device_rect.Bottom),   // Lower left.
+            };
+
+            if (invert_x)
+            {
+                device_points[0].X = device_rect.Right;
+                device_points[1].X = device_rect.Left;
+                device_points[2].X = device_rect.Right;
+            }
+            if (invert_y)
+            {
+                device_points[0].Y = device_rect.Bottom;
+                device_points[1].Y = device_rect.Bottom;
+                device_points[2].Y = device_rect.Top;
+            }
+
+            gr.Transform = new Matrix(world_rect.ToRectangleF(), device_points.ToPointFArray());
+        }
+
+        #endregion
+
         #region Hermite Interpolation of 1D Points
 
         /// <summary>
@@ -2452,13 +3161,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(HermiteInterpolate1DTests))]
-        public static List<SpeedTester> HermiteInterpolate1DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> HermiteInterpolate1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => HermiteInterpolate1D(0, 1, 2, 3, 0.5d, 1, 0),
                 $"{nameof(Experiments.HermiteInterpolate1D)}(0, 1, 2, 3, 0.5d, 1, 0)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -2472,7 +3178,7 @@ namespace MethodSpeedTester
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double HermiteInterpolate1D(
+        private static double HermiteInterpolate1D(
             double v0,
             double v1,
             double v2,
@@ -2505,13 +3211,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(HermiteInterpolate2DTests))]
-        public static List<SpeedTester> HermiteInterpolate2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> HermiteInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => HermiteInterpolate2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d, 1, 0),
                 $"{nameof(Experiments.HermiteInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d, 1, 0)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -2529,7 +3232,7 @@ namespace MethodSpeedTester
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static Tuple<double, double> HermiteInterpolate2D(
+        private static Tuple<double, double> HermiteInterpolate2D(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -2557,6 +3260,124 @@ namespace MethodSpeedTester
                 a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2);
         }
 
+        /// <summary>
+        /// Tension: 1 is high, 0 normal, -1 is low
+        /// Bias: 0 is even,
+        /// positive is towards First segment,
+        /// negative towards the other
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="aTan"></param>
+        /// <param name="b"></param>
+        /// <param name="bTan"></param>
+        /// <param name="index"></param>
+        /// <param name="tension"></param>
+        /// <param name="bias"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D Interpolate1(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias, double index)
+        {
+            //double mu2 = mu * mu;
+            //double mu3 = mu2 * mu;
+            //Point2D m0 = (y1 - y0) * (1 + bias) * (1 - tension) * 0.5;
+            //m0 += (y2 - y1) * (1 - bias) * (1 - tension) * 0.5;
+            //Point2D m1 = (y2 - y1) * (1 + bias) * (1 - tension) * 0.5;
+            //m1 += (y3 - y2) * (1 - bias) * (1 - tension) * 0.5;
+            //double a0 = 2 * mu3 - 3 * mu2 + 1;
+            //double a1 = mu3 - 2 * mu2 + mu;
+            //double a2 = mu3 - mu2;
+            //double a3 = -2 * mu3 + 3 * mu2;
+            //return (a0 * y1 + a1 * m0 + a2 * m1 + a3 * y2);
+            double mu2 = index * index;
+            double mu3 = mu2 * index;
+            Vector2D m0 = aTan.Subtract(a).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
+            m0 = m0.Add(b.Subtract(aTan).Scale(1 - bias).Scale(1 - tension).Scale(0.5));
+            Vector2D m1 = b.Subtract(aTan).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
+            m1 = m1.Add(bTan.Subtract(b).Scale(1 - bias).Scale(1 - tension).Scale(0.5));
+            double a0 = 2 * mu3 - 3 * mu2 + 1;
+            double a1 = mu3 - 2 * mu2 + index;
+            double a2 = mu3 - mu2;
+            double a3 = -2 * mu3 + 3 * mu2;
+            return ((Point2D)aTan.Scale(a0).Add(m0.Scale(a1)).Add(m1.Scale(a2)).Add(b.Scale(a3)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y0"></param>
+        /// <param name="y1"></param>
+        /// <param name="y2"></param>
+        /// <param name="y3"></param>
+        /// <param name="mu"></param>
+        /// <param name="tension">Tension: 1 is high, 0 normal, -1 is low</param>
+        /// <param name="bias">Bias: 0 is even,</param>
+        /// <remarks>positive is towards First segment, negative towards the other</remarks>
+        /// <returns></returns>
+        private double Hermite_Interpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
+        {
+            double m0 = ((y1 - y0) * ((1 + bias) * ((1 - tension) / 2)));
+            m0 += ((y2 - y1) * ((1 - bias) * ((1 - tension) / 2)));
+            double m1 = ((y2 - y1) * ((1 + bias) * ((1 - tension) / 2)));
+            m1 += ((y3 - y2) * ((1 - bias) * ((1 - tension) / 2)));
+            double mu2 = (mu * mu);
+            double mu3 = (mu2 * mu);
+            double a0 = (((2 * mu3) - (3 * mu2)) + 1);
+            double a1 = ((mu3 - (2 * mu2)) + mu);
+            double a2 = (mu3 - mu2);
+            double a3 = (((2 * mu3) * -1) + (3 * mu2));
+            return ((a0 * y1) + ((a1 * m0) + ((a2 * m1) + (a3 * y2))));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y0"></param>
+        /// <param name="y1"></param>
+        /// <param name="y2"></param>
+        /// <param name="y3"></param>
+        /// <param name="mu"></param>
+        /// <param name="tension"></param>
+        /// <param name="bias"></param>
+        /// <returns></returns>
+        private double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
+        {
+            double m0 = ((y1 - y0) * ((1 + bias) * ((1 - tension) / 2)));
+            m0 += ((y2 - y1) * ((1 - bias) * ((1 - tension) / 2)));
+            double m1 = ((y2 - y1) * ((1 + bias) * ((1 - tension) / 2)));
+            m1 += ((y3 - y2) * ((1 - bias) * ((1 - tension) / 2)));
+            double mu2 = (mu * mu);
+            double mu3 = (mu2 * mu);
+            double a0 = (((2 * mu3) - (3 * mu2)) + 1);
+            double a1 = ((mu3 - (2 * mu2)) + mu);
+            double a2 = (mu3 - mu2);
+            double a3 = (((2 * mu3) * -1) + (3 * mu2));
+
+            return ((a0 * y1) + ((a1 * m0) + ((a2 * m1) + (a3 * y2))));
+        }
+
+        /// <summary>
+        /// Tension: 1 is high, 0 normal, -1 is low
+        /// Bias: 0 is even,
+        /// positive is towards First segment,
+        /// negative towards the other
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="aTan"></param>
+        /// <param name="b"></param>
+        /// <param name="bTan"></param>
+        /// <param name="index"></param>
+        /// <param name="tension"></param>
+        /// <param name="bias"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Point2D Interpolate2(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias, double index)
+        {
+            double t2 = (index * index);
+            double t3 = (t2 * index);
+            double tb = ((1 + bias) * ((1 - tension) / 2));
+            return (Point2D)aTan.Scale(((2 * t3) - (3 * t2)) + 1).Add(aTan.Subtract(a).Add(b.Subtract(aTan)).Scale((t3 - (2 * t2)) + index).Add(b.Subtract(aTan).Add(bTan.Subtract(b)).Scale(t3 - t2)).Scale(tb).Add(b.Scale((3 * t2) - (2 * t3))));
+        }
+
         #endregion
 
         #region Hermite Interpolation of 3D Points
@@ -2566,13 +3387,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(HermiteInterpolate3DTests))]
-        public static List<SpeedTester> HermiteInterpolate3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> HermiteInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => HermiteInterpolate3D(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d, 1, 0),
                 $"{nameof(Experiments.HermiteInterpolate3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d, 1, 0)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -2594,7 +3412,7 @@ namespace MethodSpeedTester
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static Tuple<double, double, double> HermiteInterpolate3D(
+        private static Tuple<double, double, double> HermiteInterpolate3D(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -2626,6 +3444,17 @@ namespace MethodSpeedTester
                 a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2,
                 a0 * z1 + a1 * mZ0 + a2 * mZ1 + a3 * z2);
         }
+
+        #endregion
+
+        #region Hermite to Cubic Bezier
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
+        public CubicBezier ToCubicBezier(Point2D a, Point2D aTan, Point2D b, Point2D bTan) => new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
 
         #endregion
 
@@ -2683,8 +3512,8 @@ namespace MethodSpeedTester
             else
             {
                 // Find a and h.
-                double a = (radius0 * radius0 -
-                    radius1 * radius1 + dist * dist) / (2 * dist);
+                double a = (radius0 * radius0
+                    - radius1 * radius1 + dist * dist) / (2 * dist);
                 double h = Sqrt(radius0 * radius0 - a * a);
 
                 // Find P2.
@@ -2701,9 +3530,7 @@ namespace MethodSpeedTester
 
                 // See if we have 1 or 2 solutions.
                 if (dist == radius0 + radius1)
-                {
                     return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(1, intersection1, intersection2);
-                }
 
                 return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(2, intersection1, intersection2);
             }
@@ -2982,7 +3809,7 @@ namespace MethodSpeedTester
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
         {
-            List<Point2D> roots = new List<Point2D>();
+            var roots = new List<Point2D>();
             const int num_tests = 1000;
             double delta_x = (xmax - xmin) / (num_tests - 1);
 
@@ -3051,7 +3878,7 @@ namespace MethodSpeedTester
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
         {
-            List<Point2D> roots = new List<Point2D>();
+            var roots = new List<Point2D>();
             const int num_tests = 10;
             double delta_x = (xmax - xmin) / (num_tests - 1);
 
@@ -3324,7 +4151,7 @@ namespace MethodSpeedTester
         private static List<Point2D> GetPointsFromEquation(double xmin, double xmax,
             double A, double B, double C, double D, double E, double F)
         {
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
             for (double x = xmin; x <= xmax; x++)
             {
                 double y = G1(A, B, C, D, E, F, x, +1f);
@@ -3367,14 +4194,14 @@ namespace MethodSpeedTester
         {
             double xmin = Min(xmin1, xmin2);
             double xmax = Max(xmax1, xmax2);
-            List<List<Point2D>> result = new List<List<Point2D>>();
+            var result = new List<List<Point2D>>();
 
             double[] signs = { -1f, +1f };
             foreach (double sign1 in signs)
             {
                 foreach (double sign2 in signs)
                 {
-                    List<Point2D> points = new List<Point2D>();
+                    var points = new List<Point2D>();
                     result.Add(points);
                     for (double x = xmin; x <= xmax; x++)
                     {
@@ -3413,8 +4240,8 @@ namespace MethodSpeedTester
             if (IsNumber(tangent_y))
             {
                 double slope =
-                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f) -
-                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f)
+                    - G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
                 if (IsNumber(slope))
                 {
                     double delta_x = Sqrt(
@@ -3432,8 +4259,8 @@ namespace MethodSpeedTester
             if (IsNumber(tangent_y))
             {
                 double slope =
-                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f) -
-                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, +1f)
+                    - G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
                 if (IsNumber(slope))
                 {
                     double delta_x = Sqrt(
@@ -3451,8 +4278,8 @@ namespace MethodSpeedTester
             if (IsNumber(tangent_y))
             {
                 double slope =
-                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f) -
-                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f)
+                    - G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, +1f);
                 if (IsNumber(slope))
                 {
                     double delta_x = Sqrt(
@@ -3470,8 +4297,8 @@ namespace MethodSpeedTester
             if (IsNumber(tangent_y))
             {
                 double slope =
-                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f) -
-                    G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
+                    G1Prime(eis.TangentX, eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, -1f)
+                    - G1Prime(eis.TangentX, eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, -1f);
                 if (IsNumber(slope))
                 {
                     double delta_x = Sqrt(
@@ -3560,8 +4387,8 @@ namespace MethodSpeedTester
         private static double G1(double x, double A, double B, double C, double D, double E, double F, double root_sign)
         {
             double result = B * x + E;
-            result = result * result;
-            result = result - 4 * C * (A * x * x + D * x + F);
+            result *= result;
+            result -= 4 * C * (A * x * x + D * x + F);
             result = root_sign * Sqrt(result);
             result = -(B * x + E) + result;
             result = result / 2 / C;
@@ -3614,11 +4441,8 @@ namespace MethodSpeedTester
         private static double G(double x,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
-        {
-            return
-                G1(x, A1, B1, C1, D1, E1, F1, sign1) -
-                G1(x, A2, B2, C2, D2, E2, F2, sign2);
-        }
+            => G1(x, A1, B1, C1, D1, E1, F1, sign1)
+            - G1(x, A2, B2, C2, D2, E2, F2, sign2);
 
         /// <summary>
         /// Calculate G'(x).
@@ -3643,11 +4467,8 @@ namespace MethodSpeedTester
         private static double GPrime(double x,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
-        {
-            return
-                G1Prime(x, A1, B1, C1, D1, E1, F1, sign1) -
-                G1Prime(x, A2, B2, C2, D2, E2, F2, sign2);
-        }
+            => G1Prime(x, A1, B1, C1, D1, E1, F1, sign1)
+            - G1Prime(x, A2, B2, C2, D2, E2, F2, sign2);
 
         /// <summary>
         /// Return true if the number is not infinity or NaN.
@@ -3655,10 +4476,7 @@ namespace MethodSpeedTester
         /// <param name="number"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static bool IsNumber(double number)
-        {
-            return !(double.IsNaN(number) || double.IsInfinity(number));
-        }
+        private static bool IsNumber(double number) => !(double.IsNaN(number) || double.IsInfinity(number));
 
         #endregion
 
@@ -3678,8 +4496,8 @@ namespace MethodSpeedTester
             double A = (1 + (SlopeA * SlopeA));
             double B = ((2 * (SlopeA * (SlopeB - ellipse.Center.Y))) - (2 * ellipse.Center.X));
             double C = ((ellipse.Center.X * ellipse.Center.X) + (((SlopeB - ellipse.Center.Y) * (SlopeB - ellipse.Center.X)) - (ellipse.MajorRadius * ellipse.MajorRadius)));
-            double XA = ((((B * -1) + Sqrt(((B * B) - (A * C)))) / (2 * A)));
-            double XB = ((((B - Sqrt(((B * B) - (A * C)))) * -1) / (2 * A)));
+            double XA = (((B * -1) + Sqrt(((B * B) - (A * C)))) / (2 * A));
+            double XB = (((B - Sqrt(((B * B) - (A * C)))) * -1) / (2 * A));
             double YA = ((SlopeA * XA) + SlopeB);
             double YB = ((SlopeA * XB) + SlopeB);
             return new LineSegment(XA, YA, XB, YB);
@@ -3698,9 +4516,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(LineIntersection2DTests))]
-        public static List<SpeedTester> LineIntersection2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> LineIntersection2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Intersection0(0, 0, 2, 2, 0, 2, 2, 0),
                 $"{nameof(Experiments.Intersection0)}(0, 0, 2, 2, 0, 2, 2, 0)"),
                 new SpeedTester(() => Intersection1(0, 0, 2, 2, 0, 2, 2, 0),
@@ -3714,7 +4530,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => Intersection5(0, 0, 2, 2, 0, 2, 2, 0),
                 $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)"),
             };
-        }
 
         /// <summary>
         /// Find the intersection point between two lines.
@@ -3983,6 +4798,49 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Is Convex
+
+        /// <summary>
+        /// For each set of three adjacent points A, B, C,
+        /// find the dot product AB · BC. If the sign of
+        /// all the dot products is the same, the angles
+        /// are all positive or negative (depending on the
+        /// order in which we visit them) so the polygon
+        /// is convex.
+        /// </summary>
+        /// <returns>
+        /// Return true if the polygon is convex.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-polygon-is-convex-in-c/</remarks>
+        public static bool IsConvex(Polygon polygon)
+        {
+            bool got_negative = false;
+            bool got_positive = false;
+            int num_points = polygon.Points.Count;
+            int B, C;
+            for (int A = 0; A < num_points; A++)
+            {
+                B = (A + 1) % num_points;
+                C = (B + 1) % num_points;
+
+                double cross_product =
+                    Maths.CrossProductVector(
+                        polygon.Points[A].X, polygon.Points[A].Y,
+                        polygon.Points[B].X, polygon.Points[B].Y,
+                        polygon.Points[C].X, polygon.Points[C].Y);
+                if (cross_product < 0)
+                    got_negative = true;
+                else if (cross_product > 0)
+                    got_positive = true;
+                if (got_negative && got_positive) return false;
+            }
+
+            // If we got this far, the polygon is convex.
+            return true;
+        }
+
+        #endregion
+
         #region Linear Interpolation of Two 1D Points
 
         /// <summary>
@@ -3990,9 +4848,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(LinearInterpolate1DTests))]
-        public static List<SpeedTester> LinearInterpolate1DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> LinearInterpolate1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => LinearInterpolate1D_0(0, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate1D_0)}(0, 1, 0.5d)"),
                 new SpeedTester(() => LinearInterpolate1D_1(0, 1, 0.5d),
@@ -4000,7 +4856,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => LinearInterpolate1D_2(0, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate1D_2)}(0, 1, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
@@ -4054,9 +4909,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(LinearInterpolate2DTests))]
-        public static List<SpeedTester> LinearInterpolate2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> LinearInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => LinearInterpolate2D_0(0, 0, 1, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate2D_0)}(0, 0, 1, 1, 0.5d)"),
                 new SpeedTester(() => LinearInterpolate2D_1(0, 0, 1, 1, 0.5d),
@@ -4066,7 +4919,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => LinearInterpolate2D_3(0, 0, 1, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate2D_3)}(0, 0, 1, 1, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
@@ -4156,9 +5008,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(LinearInterpolate3DTests))]
-        public static List<SpeedTester> LinearInterpolate3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> LinearInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => LinearInterpolate3D_0(0, 0, 0, 1, 1, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate3D_0)}(0, 0, 0, 1, 1, 1, 0.5d)"),
                 new SpeedTester(() => LinearInterpolate3D_1(0, 0, 0, 1, 1, 1, 0.5d),
@@ -4168,7 +5018,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => LinearInterpolate3D_3(0, 0, 0, 1, 1, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate3D_3)}(0, 0, 0, 1, 1, 1, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
@@ -4252,6 +5101,25 @@ namespace MethodSpeedTester
                 (x1 == x2) ? 0 : x1 - ((1 / (x1 - x2)) * t),
                 (y1 == y2) ? 0 : y1 - ((1 / (y1 - y2)) * t),
                 (z1 == z2) ? 0 : z1 - ((1 / (z1 - z2)) * t));
+
+        #endregion
+
+        #region Linear Offset Interpolation
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Value1"></param>
+        /// <param name="Value2"></param>
+        /// <param name="Offset"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
+        {
+            var UnitVectorAB = new Vector2D(Value1, Value2);
+            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
+            return Maths.LinearInterpolate(Value1, Value2, Weight).Inflate(PerpendicularAB);
+        }
 
         #endregion
 
@@ -4415,7 +5283,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static List<Point2D> InterpolatePoints(CubicBezier bezier, int count)
         {
-            Point2D[] ipoints = new Point2D[count + 1];
+            var ipoints = new Point2D[count + 1];
             for (int i = 0; i <= count; i += 1)
             {
                 double v = (1d / count) * i;
@@ -4431,10 +5299,7 @@ namespace MethodSpeedTester
         /// <param name="bezier"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static List<Point2D> InterpolateCubicBeizerPoints(CubicBezier bezier, int count)
-        {
-            return InterpolateCubicBeizerPoints(bezier.A, bezier.B, bezier.C, bezier.D, count);
-        }
+        public static List<Point2D> InterpolateCubicBeizerPoints(CubicBezier bezier, int count) => InterpolateCubicBeizerPoints(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
         /// 
@@ -4447,7 +5312,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         private static List<Point2D> InterpolateCubicBeizerPoints(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
         {
-            Point2D[] BPoints = new Point2D[(int)((1 / Precision) + 2)];
+            var BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = a;
             BPoints[BPoints.Length - 1] = d;
             int Node = 0;
@@ -4466,10 +5331,7 @@ namespace MethodSpeedTester
         /// <param name="bezier"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static List<Point2D> ComputeBezierInterpolations(CubicBezier bezier, int count)
-        {
-            return ComputeBezierInterpolations(bezier.A, bezier.B, bezier.C, bezier.D, count);
-        }
+        public static List<Point2D> ComputeBezierInterpolations(CubicBezier bezier, int count) => ComputeBezierInterpolations(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
         ///  ComputeBezier fills an array of Point2D structs with the curve points
@@ -4483,7 +5345,7 @@ namespace MethodSpeedTester
         /// <param name="numberOfPoints"></param>
         private static List<Point2D> ComputeBezierInterpolations(Point2D a, Point2D b, Point2D c, Point2D d, int numberOfPoints)
         {
-            List<Point2D> curve = new List<Point2D>();
+            var curve = new List<Point2D>();
             double t = 0;
             double dt = (1.0d / (numberOfPoints - 1));
             for (int i = 0; (i <= numberOfPoints); i++)
@@ -4500,10 +5362,7 @@ namespace MethodSpeedTester
         /// <param name="bezier"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static List<Point2D> InterpolateCubicBeizerPoints0(CubicBezier bezier, int count)
-        {
-            return InterpolateCubicBeizerPoints0(bezier.A, bezier.B, bezier.C, bezier.D, count);
-        }
+        public static List<Point2D> InterpolateCubicBeizerPoints0(CubicBezier bezier, int count) => InterpolateCubicBeizerPoints0(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
         /// Function to Plot a Cubic Bezier
@@ -4516,7 +5375,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         private static List<Point2D> InterpolateCubicBeizerPoints0(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
         {
-            Point2D[] BPoints = new Point2D[(int)((1 / Precision) + 2)];
+            var BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = a;
             BPoints[BPoints.Length - 1] = d;
             int Node = 0;
@@ -4541,7 +5400,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static List<Point2D> InterpolateQuadraticBezierPoints(QuadraticBezier bezier, int count)
         {
-            Point2D[] ipoints = new Point2D[count + 1];
+            var ipoints = new Point2D[count + 1];
             for (int i = 0; i <= count; i += 1)
             {
                 double v = (1f / count) * i;
@@ -4560,13 +5419,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(MixedProduct3D_0Tests))]
-        public static List<SpeedTester> MixedProduct3D_0Tests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> MixedProduct3D_0Tests() => new List<SpeedTester>() {
                 new SpeedTester(() => MixedProduct3D_0(0, 0,0, 1, 1, 1,2,2,2),
                 $"{nameof(Experiments.MixedProduct3D_0)}(0, 0, 1, 1, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -4601,15 +5457,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(NearZeroTests))]
-        public static List<SpeedTester> NearZeroTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> NearZeroTests() => new List<SpeedTester>() {
                 new SpeedTester(() => NearZero0(0.000000001d),
                 $"{nameof(Experiments.NearZero0)}(0.000000001d)"),
                 new SpeedTester(() => NearZero1(0.000000001d),
                 $"{nameof(Experiments.NearZero1)}(0.000000001d)"),
             };
-        }
 
         /// <summary>
         /// 
@@ -4726,6 +5579,208 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region N Polygon Star
+
+        // Draw the stars. 
+        private void picCanvas_Paint(object sender, PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
+        {
+            if (NumPoints < 3) return;
+
+            // Get the radii.
+            int r1, r2, r3;
+            r3 = Min(bounds.Width, bounds.Height) / 2;
+            r1 = r3 / 2;
+            r2 = r3 / 4;
+            r3 = r1 + r2;
+
+            // Position variables.
+            int cx = bounds.Width / 2;
+            int cy = bounds.Height / 2;
+
+            // Position the original points.
+            var pts1 = new PointF[NumPoints];
+            var pts2 = new PointF[NumPoints];
+            double theta = -PI / 2;
+            double dtheta = 2 * PI / NumPoints;
+            for (int i = 0; i < NumPoints; i++)
+            {
+                pts1[i].X = (float)(r1 * Cos(theta));
+                pts1[i].Y = (float)(r1 * Sin(theta));
+                pts2[i].X = (float)(r2 * Cos(theta));
+                pts2[i].Y = (float)(r2 * Sin(theta));
+                theta += dtheta;
+            }
+
+            // Draw stars.
+            int max = NumPoints - 1;
+            if (chkHalfOnly) max = NumPoints / 2;
+            for (int skip = 1; skip <= max; skip++)
+            {
+                // See if they are relatively prime.
+                bool draw_all = !chkRelPrimeOnly;
+                if (draw_all || GCD(skip, NumPoints) == 1)
+                {
+                    // Draw the big version of the star.
+                    DrawStar(e.Graphics, cx, cy, pts1, skip, NumPoints);
+
+                    // Draw the smaller version.
+                    theta = -PI / 2 + skip * 2 * PI / NumPoints;
+                    var x = (int)(cx + r3 * Cos(theta));
+                    var y = (int)(cy + r3 * Sin(theta));
+
+                    DrawStar(e.Graphics, x, y, pts2, skip, NumPoints);
+                }
+            }
+        }
+
+        // Return the greatest common divisor (GCD) of a and b.
+        private long GCD(long a, long b)
+        {
+            long remainder;
+
+            // Pull out remainders.
+            for (;;)
+            {
+                remainder = a % b;
+                if (remainder == 0) break;
+                a = b;
+                b = remainder;
+            }
+
+            return b;
+        }
+
+        // Draw a star centered at (x, y) using this skip value.
+        private void DrawStar(Graphics gr, int x, int y, PointF[] orig_pts, int skip, int NumPoints)
+        {
+            // Make a PointF array with the points in the proper order.
+            var pts = new PointF[NumPoints];
+            for (int i = 0; i < NumPoints; i++)
+                pts[i] = orig_pts[(i * skip) % NumPoints];
+
+            // Draw the star.
+            gr.TranslateTransform(x, y);
+            gr.DrawPolygon(Pens.Blue, pts);
+            gr.ResetTransform();
+        }
+
+        #endregion
+
+        #region N Polygon Intersecting Star
+
+        // Return PointFs to define a non-intersecting star.
+        private PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
+        {
+            // Make room for the points.
+            var pts = new PointF[2 * num_points];
+
+            double rx1 = bounds.Width / 2;
+            double ry1 = bounds.Height / 2;
+            double rx2 = rx1 * 0.5;
+            double ry2 = ry1 * 0.5;
+            double cx = bounds.X + rx1;
+            double cy = bounds.Y + ry1;
+
+            // Start at the top.
+            double theta = -PI / 2;
+            double dtheta = PI / num_points;
+            for (int i = 0; i < 2 * num_points; i += 2)
+            {
+                pts[i] = new PointF(
+                    (float)(cx + rx1 * Cos(theta)),
+                    (float)(cy + ry1 * Sin(theta)));
+                theta += dtheta;
+
+                pts[i + 1] = new PointF(
+                    (float)(cx + rx2 * Cos(theta)),
+                    (float)(cy + ry2 * Sin(theta)));
+                theta += dtheta;
+            }
+
+            return pts;
+        }
+
+        #endregion
+
+        #region Offset Line
+
+        /// <summary>
+        /// Calculate the geometry of points offset at a specified distance. aka Double Line.
+        /// </summary>
+        /// <param name="pointA">First reference point.</param>
+        /// <param name="pointB">First inclusive point.</param>
+        /// <param name="pointC">Second inclusive point.</param>
+        /// <param name="pointD">Second reference point.</param>
+        /// <param name="offsetDistance">Offset Distance</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Suppose you have 4 points; A, B C, and D. With Lines AB, BC, and CD.<BR/>
+        ///<BR/>
+        ///                 B1         BC1       C1<BR/>
+        ///                   |\¯B¯¯¯¯¯BC¯¯¯C¯¯¯/|<BR/>
+        ///                   | \--------------/ |<BR/>
+        ///                   | |\____________/| |<BR/>
+        ///                   | | |B2  BC2 C2| | |<BR/>
+        ///                 AB| | |          | | |CD<BR/>
+        ///                AB1| | |AB2    CD2| | |CD1<BR/>
+        ///                   | | |          | | |<BR/>
+        ///                   | | |          | | |<BR/>
+        ///               A1  A  A2      D2  D  D1<BR/>
+        ///</remarks>
+        public static Point2D[] CenteredOffsetLinePoints(Point2D pointA, Point2D pointB, Point2D pointC, Point2D pointD, double offsetDistance)
+        {
+            // To get the vectors of the angles at each corner B and C, Normalize the Unit Delta Vectors along AB, BC, and CD.
+            Vector2D UnitVectorAB = pointB.Subtract(pointA).Unit();
+            Vector2D UnitVectorBC = pointC.Subtract(pointB).Unit();
+            Vector2D UnitVectorCD = pointD.Subtract(pointC).Unit();
+
+            //  Find the Perpendicular of the outside vectors
+            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular();
+            Vector2D PerpendicularCD = UnitVectorCD.Perpendicular();
+
+            //  Normalized Vectors pointing out from B and C.
+            Vector2D OutUnitVectorB = (UnitVectorAB - UnitVectorBC).Unit();
+            Vector2D OutUnitVectorC = (UnitVectorCD - UnitVectorBC).Unit();
+
+            //  The distance out from B is the radius / Cos(theta) where theta is the angle
+            //  from the perpendicular of BC of the UnitVector. The cosine can also be
+            //  calculated by doing the dot product of  Unit(Perpendicular(AB)) and 
+            //  UnitVector.
+            double BPointScale = PerpendicularAB.DotProduct(OutUnitVectorB) * offsetDistance;
+            double CPointScale = PerpendicularCD.DotProduct(OutUnitVectorC) * offsetDistance;
+
+            OutUnitVectorB = OutUnitVectorB.Scale(CPointScale);
+            OutUnitVectorC = OutUnitVectorC.Scale(BPointScale);
+
+            // Corners of the parallelogram to draw
+            var Out = new Point2D[] {
+                (pointC + OutUnitVectorC),
+                (pointB + OutUnitVectorB),
+                (pointB - OutUnitVectorB),
+                (pointC - OutUnitVectorC),
+                (pointC + OutUnitVectorC)
+            };
+            return Out;
+        }
+
+        #endregion
+
+        #region Orient Polygon Clockwise
+
+        /// <summary>
+        /// If the polygon is oriented counterclockwise,
+        /// reverse the order of its points.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static void OrientPolygonClockwise(Polygon polygon)
+        {
+            if (!polygon.PolygonIsOrientedClockwise())
+                polygon.Points.Reverse();
+        }
+
+        #endregion
+
         #region Perimeter of a Polygon
 
         /// <summary>
@@ -4733,15 +5788,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(Perimeter2DTests))]
-        public static List<SpeedTester> Perimeter2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> Perimeter2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Perimeter0(new List<Tuple<double, double>>() {new Tuple<double, double>(0,0), new Tuple<double, double>(1,0), new Tuple<double, double>(0,1)}),
                 $"{nameof(Experiments.Perimeter0)}((x, y){{(0,0),(1,0),(0,1)}})"),
                 new SpeedTester(() => Perimeter1(new List<Tuple<double, double>>() {new Tuple<double, double>(0,0), new Tuple<double, double>(1,0), new Tuple<double, double>(0,1)}),
                 $"{nameof(Experiments.Perimeter1)}((x, y){{(0,0),(1,0),(0,1)}})"),
             };
-        }
 
         /// <summary>
         /// 
@@ -4752,7 +5804,7 @@ namespace MethodSpeedTester
         {
             var last = points[0];
             double dist = 0;
-            foreach (var cur in points.Skip(1))
+            foreach (Tuple<double, double> cur in points.Skip(1))
             {
                 dist += Distance2D_0(last.Item1, last.Item2, cur.Item1, cur.Item2);
                 last = cur;
@@ -4766,10 +5818,7 @@ namespace MethodSpeedTester
         /// <param name="points"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/2227828/find-the-distance-required-to-navigate-a-list-of-points-using-linq</remarks>
-        public static double Perimeter1(List<Tuple<double, double>> points)
-        {
-            return points.Zip(points.Skip(1), Distance2D_1).Sum();
-        }
+        public static double Perimeter1(List<Tuple<double, double>> points) => points.Zip(points.Skip(1), Distance2D_1).Sum();
 
         #endregion
 
@@ -4814,9 +5863,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(PointInCircle2DTests))]
-        public static List<SpeedTester> PointInCircle2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> PointInCircle2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => PointInCircle(0, 0, 2, 1, 1),
                 $"{nameof(Experiments.PointInCircle)}(0, 0, 2, 1, 1)"),
                 new SpeedTester(() => PointInCircle(0, 0, 2, 3, 3),
@@ -4842,7 +5889,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => PointInCircleX(0, 0, 2, 3, 3),
                 $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 3, 3)"),
             };
-        }
 
         /// <summary>
         /// Find out if a Point is in a Circle. 
@@ -4940,8 +5986,8 @@ namespace MethodSpeedTester
             double x,
             double y)
         {
-            if (x >= centerX - radius && x <= centerX + radius &&
-                y >= centerY - radius && y <= centerY + radius)
+            if (x >= centerX - radius && x <= centerX + radius
+                && y >= centerY - radius && y <= centerY + radius)
             {
                 double dx = centerX - x;
                 double dy = centerY - y;
@@ -4971,8 +6017,8 @@ namespace MethodSpeedTester
             double x,
             double y)
         {
-            if (x >= centerX - radius && x <= centerX + radius &&
-                y >= centerY - radius && y <= centerY + radius)
+            if (x >= centerX - radius && x <= centerX + radius
+                && y >= centerY - radius && y <= centerY + radius)
             {
                 double dx = ((centerX > x) ? (x - centerX) : (centerX - x));
                 double dy = ((centerY > y) ? (y - centerY) : (centerY - y));
@@ -5061,12 +6107,12 @@ namespace MethodSpeedTester
         [DisplayName(nameof(PointInPolygonTests))]
         public static List<SpeedTester> PointInPolygonTests()
         {
-            List<PointF> polygon = new List<PointF>() {
+            var polygon = new List<PointF>() {
                 new PointF(0, 0),
                 new PointF(2, 0),
                 new PointF(0, 2) };
             Tuple<List<double>, List<double>> PatrickMullenValues = PrecalcPointInPolygonPatrickMullenValues(polygon);
-            PointF point = new PointF(1, 1);
+            var point = new PointF(1, 1);
             return new List<SpeedTester>() {
                 //new SpeedTester(() => PointInPolygonDarelRexFinley(polygon, point),
                 //$"{nameof(Experiments.PointInPolygonDarelRexFinley)}(polygon, {point})"),
@@ -5310,8 +6356,8 @@ namespace MethodSpeedTester
             {
                 //  Note that division by zero is avoided because the division is protected
                 //  by the "if" clause which surrounds it.
-                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y))
+                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
                 {
                     oddNodes ^= (point.Y * multiple[i] + constant[i] < point.X);
                 }
@@ -5333,8 +6379,8 @@ namespace MethodSpeedTester
         {
             if (polygon == null) return null;
 
-            double[] constant = new double[polygon.Count];
-            double[] multiple = new double[polygon.Count];
+            var constant = new double[polygon.Count];
+            var multiple = new double[polygon.Count];
 
             int i, j = polygon.Count - 1;
 
@@ -5369,8 +6415,8 @@ namespace MethodSpeedTester
             List<PointF> polygon, PointF point)
         {
             bool result = false;
-            int j = polygon.Count() - 1;
-            for (int i = 0; i < polygon.Count(); i++)
+            int j = polygon.Count - 1;
+            for (int i = 0; i < polygon.Count; i++)
             {
                 if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
                 {
@@ -5499,11 +6545,13 @@ namespace MethodSpeedTester
             bool c = false;
             for (int i = 0, j = nvert - 1; i < nvert; j = i++)
             {
-                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)) &&
-                 (point.X < (polygon[j].X - polygon[i].X)
+                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
+                 && (point.X < (polygon[j].X - polygon[i].X)
                  * (point.Y - polygon[i].Y)
                  / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
+                {
                     c = !c;
+                }
             }
             return c;
         }
@@ -5535,16 +6583,14 @@ namespace MethodSpeedTester
             }
 
             if (point.X < minX || point.X > maxX || point.Y < minY || point.Y > maxY)
-            {
                 return false;
-            }
 
             // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
             bool inside = false;
             for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
             {
-                if ((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y) &&
-                     point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
+                if ((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)
+                     && point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
                      / (polygon[j].Y - polygon[i].Y) + polygon[i].X)
                 {
                     inside = !inside;
@@ -5611,10 +6657,12 @@ namespace MethodSpeedTester
             int nvert = polygon.Count;
             for (int i = 0, j = nvert - 1; i < nvert; j = i++)
             {
-                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)) &&
-                 (point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
+                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
+                 && (point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
                  / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
+                {
                     inside = !inside;
+                }
             }
             return inside;
         }
@@ -5636,10 +6684,8 @@ namespace MethodSpeedTester
 
             if (coef.Any(p => p == 0)) return true;
 
-            for (int i = 1; i < coef.Count(); i++)
-            {
+            for (int i = 1; i < coef.Count; i++)
                 if (coef[i] * coef[i - 1] < 0) return false;
-            }
 
             return true;
         }
@@ -5656,8 +6702,8 @@ namespace MethodSpeedTester
         {
             int i;
             double angle = 0;
-            PointF p1 = new PointF();
-            PointF p2 = new PointF();
+            var p1 = new PointF();
+            var p2 = new PointF();
             int n = polygon.Count;
             for (i = 0; i < n; i++)
             {
@@ -5795,9 +6841,7 @@ namespace MethodSpeedTester
             bool inside = false;
             int npoints = polygon.Count;
             if (npoints < 3)
-            {
                 return (false);
-            }
             xold = polygon[npoints - 1].X;
             yold = polygon[npoints - 1].Y;
             for (i = 0; i < npoints; i++)
@@ -5870,23 +6914,16 @@ namespace MethodSpeedTester
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (determinant == 0)
-                            {
                                 return InsideOutside.Boundary;
-                            }
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                         }
                     }
-                    else
+                    else if (nextPoint.X > point.X)
                     {
-                        if (nextPoint.X > point.X)
-                        {
-                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                            if (determinant == 0)
-                            {
-                                return InsideOutside.Boundary;
-                            }
-                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
-                        }
+                        double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                        if (determinant == 0)
+                            return InsideOutside.Boundary;
+                        else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                     }
                 }
 
@@ -5937,29 +6974,18 @@ namespace MethodSpeedTester
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (determinant == 0)
-                            {
                                 return InsideOutside.Boundary;
-                            }
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
-                            {
                                 result = 1 - result;
-                            }
                         }
                     }
-                    else
+                    else if (nextPoint.X > point.X)
                     {
-                        if (nextPoint.X > point.X)
-                        {
-                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                            if (determinant == 0)
-                            {
-                                return InsideOutside.Boundary;
-                            }
-                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
-                            {
-                                result = 1 - result;
-                            }
-                        }
+                        double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                        if (determinant == 0)
+                            return InsideOutside.Boundary;
+                        else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                            result = 1 - result;
                     }
                 }
 
@@ -6023,10 +7049,8 @@ namespace MethodSpeedTester
         {
             bool returnValue = false;
 
-            foreach (var poly in polygons.Polygons)
-            {
+            foreach (Polygon poly in polygons.Polygons)
                 returnValue = !poly.Points.Contains(point);
-            }
 
             return returnValue;
         }
@@ -6043,13 +7067,10 @@ namespace MethodSpeedTester
         /// <returns></returns>
         [Pure]
         //[DebuggerStepThrough]
-        public static InsideOutside Contains(Rectangle2D rectangle, Point2D point)
-        {
-            return (rectangle.X <= point.X
-                && point.X < rectangle.X + rectangle.Width
-                && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
-        }
+        public static InsideOutside Contains(Rectangle2D rectangle, Point2D point) => (rectangle.X <= point.X
+    && point.X < rectangle.X + rectangle.Width
+    && rectangle.Y <= point.Y
+    && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
@@ -6122,8 +7143,39 @@ namespace MethodSpeedTester
             double b = ((Abs((y2 - y1)) / 2) + close_distance);
             px = (px - (x2 + x1) / 2);
             py = (py - (y2 + y1) / 2);
-            return ((((px * px) / (a * a)) + (((py * py) / (b * b))) <= 1));
+            return (((px * px) / (a * a)) + ((py * py) / (b * b)) <= 1);
         }
+
+        #endregion
+
+        #region Point Near a Line Segment
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="close_distance"></param>
+        /// <returns>Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).</returns>
+        public static bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double close_distance) => (DistToSegment2(px, py, x1, y1, x2, y2) <= close_distance);
+
+        /// <summary>
+        /// Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="close_distance"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool PointNearSegment2(double px, double py, double x1, double y1, double x2, double y2, double close_distance) => (DistToSegment(px, py, x1, y1, x2, y2) <= close_distance);
 
         #endregion
 
@@ -6139,14 +7191,27 @@ namespace MethodSpeedTester
         /// <param name="pointX"></param>
         /// <param name="pointY"></param>
         /// <returns></returns>
-        public static bool PointOnLineSegment(double segmentAX, double segmentAY, double segmentBX, double segmentBY, double pointX, double pointY)
+        public static bool PointOnLineSegment(double segmentAX, double segmentAY, double segmentBX, double segmentBY, double pointX, double pointY) => ((pointX == segmentAX) && (pointY == segmentAY))
+  || ((pointX == segmentBX) && (pointY == segmentBY))
+  || (((pointX > segmentAX) == (pointX < segmentBX))
+  && ((pointY > segmentAY) == (pointY < segmentBY))
+  && ((pointX - segmentAX) * (segmentBY - segmentAY)
+  == (segmentBX - segmentAX) * (pointY - segmentAY)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Point"></param>
+        /// <param name="Line"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static bool PointOnLine(Point2D Point, LineSegment Line)
         {
-            return ((pointX == segmentAX) && (pointY == segmentAY)) ||
-              ((pointX == segmentBX) && (pointY == segmentBY)) ||
-              (((pointX > segmentAX) == (pointX < segmentBX)) &&
-              ((pointY > segmentAY) == (pointY < segmentBY)) &&
-              ((pointX - segmentAX) * (segmentBY - segmentAY) ==
-              (segmentBX - segmentAX) * (pointY - segmentAY)));
+            double Length1 = Point.Length(Line.B);
+            // Sqrt((Point.X - Line.B.X) ^ 2 + (Point.Y - Line.B.Y))
+            double Length2 = Point.Length(Line.A);
+            // Sqrt((Point.X - Line.A.X) ^ 2 + (Point.Y - Line.A.Y))
+            return Line.Length() == Length1 + Length2;
         }
 
         #endregion
@@ -6163,10 +7228,7 @@ namespace MethodSpeedTester
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = Maths.DoubleEpsilon)
-        {
-            return (Abs(x2 - x1) <= epsilon) && (Abs(y2 - y1) <= epsilon);
-        }
+        public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = Maths.DoubleEpsilon) => (Abs(x2 - x1) <= epsilon) && (Abs(y2 - y1) <= epsilon);
 
         /// <summary>
         /// Compares two points for fuzzy equality.  This function
@@ -6176,11 +7238,8 @@ namespace MethodSpeedTester
         /// <param name='point1'>The first point to compare</param>
         /// <param name='point2'>The second point to compare</param>
         /// <returns>Whether or not the two points are equal</returns>
-        public static bool AreClose(Point2D point1, Point2D point2, double epsilon = Maths.DoubleEpsilon)
-        {
-            return Maths.AreClose(point1.X, point2.X, epsilon) &&
-            Maths.AreClose(point1.Y, point2.Y, epsilon);
-        }
+        public static bool AreClose(Point2D point1, Point2D point2, double epsilon = Maths.DoubleEpsilon) => Maths.AreClose(point1.X, point2.X, epsilon)
+&& Maths.AreClose(point1.Y, point2.Y, epsilon);
 
         /// <summary>
         /// Compares two Size instances for fuzzy equality.  This function
@@ -6190,11 +7249,8 @@ namespace MethodSpeedTester
         /// <param name='size1'>The first size to compare</param>
         /// <param name='size2'>The second size to compare</param>
         /// <returns>Whether or not the two Size instances are equal</returns>
-        public static bool AreClose(Size2D size1, Size2D size2, double epsilon = Maths.DoubleEpsilon)
-        {
-            return Maths.AreClose(size1.Width, size2.Width, epsilon) &&
-                   Maths.AreClose(size1.Height, size2.Height, epsilon);
-        }
+        public static bool AreClose(Size2D size1, Size2D size2, double epsilon = Maths.DoubleEpsilon) => Maths.AreClose(size1.Width, size2.Width, epsilon)
+       && Maths.AreClose(size1.Height, size2.Height, epsilon);
 
         /// <summary>
         /// Compares two Vector instances for fuzzy equality.  This function
@@ -6204,11 +7260,8 @@ namespace MethodSpeedTester
         /// <param name='vector1'>The first Vector to compare</param>
         /// <param name='vector2'>The second Vector to compare</param>
         /// <returns>Whether or not the two Vector instances are equal</returns>
-        public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = Maths.DoubleEpsilon)
-        {
-            return Maths.AreClose(vector1.I, vector2.I, epsilon) &&
-                   Maths.AreClose(vector1.J, vector2.J, epsilon);
-        }
+        public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = Maths.DoubleEpsilon) => Maths.AreClose(vector1.I, vector2.I, epsilon)
+       && Maths.AreClose(vector1.J, vector2.J, epsilon);
 
         #endregion
 
@@ -6228,13 +7281,10 @@ namespace MethodSpeedTester
         /// Return the polygon's area in "square units."
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/</remarks>
-        public static double PolygonArea(Polygon polygon)
-        {
-            // Return the absolute value of the signed area.
-            // The signed area is negative if the polygon is
-            // oriented clockwise.
-            return Abs(SignedPolygonArea(polygon));
-        }
+        // Return the absolute value of the signed area.
+        // The signed area is negative if the polygon is
+        // oriented clockwise.
+        public static double PolygonArea(Polygon polygon) => Abs(SignedPolygonArea(polygon));
 
         /// <summary>
         /// Add the areas of the trapezoids defined by the
@@ -6255,7 +7305,7 @@ namespace MethodSpeedTester
         {
             // Add the first point to the end.
             int num_points = polygon.Points.Count;
-            Point2D[] pts = new Point2D[num_points + 1];
+            var pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
@@ -6264,8 +7314,8 @@ namespace MethodSpeedTester
             for (int i = 0; i < num_points; i++)
             {
                 area +=
-                    (pts[i + 1].X - pts[i].X) *
-                    (pts[i + 1].Y + pts[i].Y) / 2;
+                    (pts[i + 1].X - pts[i].X)
+                    * (pts[i + 1].Y + pts[i].Y) / 2;
             }
 
             // Return the result.
@@ -6286,7 +7336,7 @@ namespace MethodSpeedTester
         {
             // Add the first point at the end of the array.
             int num_points = polygon.Points.Count;
-            Point2D[] pts = new Point2D[num_points + 1];
+            var pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
@@ -6297,8 +7347,8 @@ namespace MethodSpeedTester
             for (int i = 0; i < num_points; i++)
             {
                 second_factor =
-                    pts[i].X * pts[i + 1].Y -
-                    pts[i + 1].X * pts[i].Y;
+                    pts[i].X * pts[i + 1].Y
+                    - pts[i + 1].X * pts[i].Y;
                 X += (pts[i].X + pts[i + 1].X) * second_factor;
                 Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
             }
@@ -6331,10 +7381,7 @@ namespace MethodSpeedTester
         /// Return true if the polygon is oriented clockwise.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static bool PolygonIsOrientedClockwise(Polygon polygon)
-        {
-            return (SignedPolygonArea(polygon) < 0);
-        }
+        public static bool PolygonIsOrientedClockwise(Polygon polygon) => (SignedPolygonArea(polygon) < 0);
 
         #endregion
 
@@ -6345,15 +7392,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(QuadraticBezierInterpolate1DTests))]
-        public static List<SpeedTester> QuadraticBezierInterpolate1DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> QuadraticBezierInterpolate1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => QuadraticBezierInterpolate1D_0(0, 1, 2, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate1D_0)}(0, 1, 2, 0.5d)"),
                 new SpeedTester(() => QuadraticBezierInterpolate1D_1(0, 1, 2, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate1D_1)}(0, 1, 2, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
@@ -6408,15 +7452,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(QuadraticBezierInterpolate2DTests))]
-        public static List<SpeedTester> QuadraticBezierInterpolate2DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> QuadraticBezierInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => QuadraticBezierInterpolate2D_0(0, 1, 2, 3, 4, 5, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate2D_0)}(0, 1, 2, 3, 4, 5, 0.5d)"),
                 new SpeedTester(() => QuadraticBezierInterpolate2D_1(0, 1, 2, 3, 4, 5, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate2D_1)}(0, 1, 2, 3, 4, 5, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
@@ -6480,15 +7521,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(QuadraticBezierInterpolate3DTests))]
-        public static List<SpeedTester> QuadraticBezierInterpolate3DTests()
-        {
-            return new List<SpeedTester>() {
+        public static List<SpeedTester> QuadraticBezierInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => QuadraticBezierInterpolate3D_0(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate3D_0)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d)"),
                 new SpeedTester(() => QuadraticBezierInterpolate3D_1(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate3D_1)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d)"),
             };
-        }
 
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
@@ -6551,6 +7589,148 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Quadratic Bezier Length approximations
+
+        /// <summary>
+        /// Closed-form solution to elliptic integral for arc length.
+        /// </summary>
+        /// <param name="pointA">The starting node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
+        /// </remarks>
+        public static double QuadraticBezierArcLengthByIntegral(Point2D pointA, Point2D pointB, Point2D pointC)
+        {
+            double ax = pointA.X - 2 * pointB.X + pointC.X;
+            double ay = pointA.Y - 2 * pointB.Y + pointC.Y;
+            double bx = 2 * pointB.X - 2 * pointA.X;
+            double by = 2 * pointB.Y - 2 * pointA.Y;
+
+            double a = 4 * (ax * ax + ay * ay);
+            double b = 4 * (ax * bx + ay * by);
+            double c = bx * bx + by * by;
+
+            double abc = 2 * Sqrt(a + b + c);
+            double a2 = Sqrt(a);
+            double a32 = 2 * a * a2;
+            double c2 = 2 * Sqrt(c);
+            double ba = b / a2;
+
+            return (a32 * abc + a2 * b * (abc - c2) + (4 * c * a - b * b) * Log((2 * a2 + ba + abc) / (ba + c2))) / (4 * a32);
+        }
+
+        /// <summary>
+        /// Naive computation of arc length by summing up small segment lengths.
+        /// </summary>
+        /// <param name="pointA">The starting node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
+        /// </remarks>
+        private static double QuadraticBezierArcLengthBySegments(Point2D pointA, Point2D pointB, Point2D pointC)
+        {
+            double length = 0;
+            var p = new Point2D(Interpolaters.QuadraticBezier(pointA.X, pointA.Y, pointB.X, pointB.Y, pointC.X, pointC.Y, 0));
+            double prevX = p.X;
+            double prevY = p.Y;
+            for (double t = 0.005; t <= 1.0; t += 0.005)
+            {
+                p = new Point2D(Interpolaters.QuadraticBezier(pointA.Y, pointA.X, pointB.Y, pointB.X, pointC.X, pointC.Y, t));
+                double deltaX = p.X - prevX;
+                double deltaY = p.Y - prevY;
+                length += Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                prevX = p.X;
+                prevY = p.Y;
+            }
+
+            // exercise:  due to roundoff, it's possible to miss a small segment at the end.  how to compensate??
+            return length;
+        }
+
+        /// <summary>
+        /// Approximate arc-length by Gauss-Legendre numerical integration.
+        /// </summary>
+        /// <param name="pointA">The starting node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
+        /// https://code.google.com/archive/p/degrafa/source/default/source
+        /// </remarks>
+        private static double QuadraticBezierApproxArcLength(Point2D pointA, Point2D pointB, Point2D pointC)
+        {
+            double sum = 0;
+
+            // Compute the quadratic bezier polynomial coefficients.
+            double coeff0X = pointA.X;
+            double coeff0Y = pointA.Y;
+            double coeff1X = 2.0 * (pointB.X - pointA.X);
+            double coeff1Y = 2.0 * (pointB.Y - pointA.Y);
+            double coeff2X = pointA.X - 2.0 * pointB.X + pointC.X;
+            double coeff2Y = pointA.Y - 2.0 * pointB.Y + pointC.Y;
+
+            // Count should be between 2 and 8 to align with MathExtensions.abscissa and MathExtensions.weight.
+            int count = 5;
+            int startl = (count == 2) ? 0 : count * (count - 1) / 2 - 1;
+
+            // Minimum, maximum, and scalers. 
+            double min = 0;
+            double max = 1;
+            double mult = 0.5 * (max - min);
+            double ab2 = 0.5 * (min + max);
+
+            double theta = 0;
+            double xPrime = 0;
+            double yPrime = 0;
+            double integrand = 0;
+
+            // Evaluate the integral arc length along entire curve from t=0 to t=1.
+            for (int index = 0; index < count; ++index)
+            {
+                theta = ab2 + mult * Maths.abscissa[startl + index];
+
+                // First-derivative of the quadratic bezier.
+                xPrime = coeff1X + 2.0 * coeff2X * theta;
+                yPrime = coeff1Y + 2.0 * coeff2Y * theta;
+
+                // Integrand for Gauss-Legendre numerical integration.
+                integrand = Sqrt(xPrime * xPrime + yPrime * yPrime);
+
+                sum += integrand * Maths.weight[startl + index];
+            }
+
+            return mult == 0 ? sum : mult * sum;
+        }
+
+        #endregion
+
+        #region Rectangle has NaN
+
+        /// <summary>
+        /// rectHasNaN - this returns true if this rectangle has X, Y , Height or Width as NaN.
+        /// </summary>
+        /// <param name='rect'>The rectangle to test</param>
+        /// <returns>returns whether the Rectangle has NaN</returns>        
+        public static bool RectHasNaN(Rectangle2D rect)
+        {
+            if (double.IsNaN(rect.X)
+                 || double.IsNaN(rect.Y)
+                 || double.IsNaN(rect.Height)
+                 || double.IsNaN(rect.Width))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
+
         #region Rectangles are Close
 
         /// <summary>
@@ -6565,17 +7745,107 @@ namespace MethodSpeedTester
         {
             // If they're both empty, don't bother with the double logic.
             if (rect1.IsEmpty)
-            {
                 return rect2.IsEmpty;
-            }
 
             // At this point, rect1 isn't empty, so the first thing we can test is
             // rect2.IsEmpty, followed by property-wise compares.
-            return (!rect2.IsEmpty) &&
-                Maths.AreClose(rect1.X, rect2.X, epsilon) &&
-                Maths.AreClose(rect1.Y, rect2.Y, epsilon) &&
-                Maths.AreClose(rect1.Height, rect2.Height, epsilon) &&
-                Maths.AreClose(rect1.Width, rect2.Width, epsilon);
+            return (!rect2.IsEmpty)
+                && Maths.AreClose(rect1.X, rect2.X, epsilon)
+                && Maths.AreClose(rect1.Y, rect2.Y, epsilon)
+                && Maths.AreClose(rect1.Height, rect2.Height, epsilon)
+                && Maths.AreClose(rect1.Width, rect2.Width, epsilon);
+        }
+
+        #endregion
+
+        #region Remove Point
+
+        /// <summary>
+        /// Remove point target from the array.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="target"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static void RemovePoint(Polygon polygon, int target)
+        {
+            polygon.Points.RemoveAt(target);
+        }
+
+        /// <summary>
+        /// Remove point target from the array.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="target"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static void RemovePoint1(Polygon polygon, int target)
+        {
+            var points = new Point2D[polygon.Points.Count - 1];
+            //List.Copy(polygon.Points, 0, points, 0, target);
+            Array.Copy(polygon.Points.ToArray(), target + 1, points, target, polygon.Points.Count - target - 1);
+            polygon.Points = points.ToList();
+        }
+
+        #endregion
+
+        #region Remove Polygon Ear
+
+        /// <summary>
+        /// Remove an ear from the polygon and add it to the triangles array.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="triangles"></param>
+        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        public static void RemoveEar(Polygon polygon, List<Triangle> triangles)
+        {
+            // Find an ear.
+            int A = 0;
+            int B = 0;
+            int C = 0;
+
+            // Create a new triangle for the ear.
+            triangles.Add(FindEar(polygon, ref A, ref B, ref C));
+
+            // Remove the ear from the polygon.
+            RemovePoint(polygon, B);
+        }
+
+        #endregion
+
+        #region Retrieve Cursor Resource
+
+        /// <summary>
+        /// Retrieve Cursor Resource from Executable
+        /// </summary>
+        /// <param name="ResourceName"></param>
+        /// <returns></returns>
+        /// <remarks>BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!</remarks>
+        public static System.Windows.Forms.Cursor RetriveCursorResource(string ResourceName)
+        {
+            //  Get the namespace 
+            string strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
+            //  Get the resource into a stream 
+            System.IO.Stream ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
+            if (ResourceStream == null)
+            {
+                // TODO: #If Then ... Warning!!! not translated
+                System.Windows.Forms.MessageBox.Show(("Unable to find: "
+                                + (ResourceName + ("\r\n" + ("Be Sure "
+                                + (ResourceName + (" Property Build Action is set to Embedded Resource" + ("\r\n" + "Another reason can be that the Project Root Namespace is not the same as the Assembly Name"))))))));
+                // TODO: # ... Warning!!! not translated
+            }
+            else
+            {
+                //  ToDo: Report the Error message in a nicer fashion since this in game. 
+                //  Perhaps on Exit provide a message errors were encountered and 
+                //  ignored would you like to send an error report?
+                // TODO: #End If ... Warning!!! not translated
+                return System.Windows.Forms.Cursors.Default;
+            }
+            //  Return the Resource as a cursor
+            if (ResourceStream.CanRead)
+                return new System.Windows.Forms.Cursor(ResourceStream);
+            else
+                return System.Windows.Forms.Cursors.Default;
         }
 
         #endregion
@@ -6597,12 +7867,12 @@ namespace MethodSpeedTester
             double cosAngle = Abs(Cos(angle));
             double sinAngle = Abs(Sin(angle));
 
-            Size2D size = new Size2D(
+            var size = new Size2D(
                 (cosAngle * width) + (sinAngle * height),
                 (cosAngle * height) + (sinAngle * width)
                 );
 
-            Point2D loc = new Point2D(
+            var loc = new Point2D(
                 fulcrum.X + ((-width / 2) * cosAngle + (-height / 2) * sinAngle),
                 fulcrum.Y + ((-width / 2) * sinAngle + (-height / 2) * cosAngle)
                 );
@@ -6610,7 +7880,7 @@ namespace MethodSpeedTester
             return new Rectangle2D(loc, size);
         }
 
-        #endregion
+        #endregion 
 
         #region Rotated Rectangle Points
 
@@ -6626,10 +7896,10 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static List<Point2D> RotatedRectangleCorners(double x, double y, double width, double height, Point2D fulcrum, double angle)
         {
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
 
-            Point2D xaxis = new Point2D(Cos(angle), Sin(angle));
-            Point2D yaxis = new Point2D(-Sin(angle), Cos(angle));
+            var xaxis = new Point2D(Cos(angle), Sin(angle));
+            var yaxis = new Point2D(-Sin(angle), Cos(angle));
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(
@@ -6650,6 +7920,27 @@ namespace MethodSpeedTester
                 ));
 
             return points;
+        }
+
+        #endregion
+
+        #region Rotation Matrix
+
+        /// <summary>
+        /// Creates a matrix to rotate an object around a particular point.  
+        /// </summary>
+        /// <param name="center">The point around which to rotate.</param>
+        /// <param name="angle">The angle to rotate in radians.</param>
+        /// <returns>Return a rotation matrix to rotate around a point.</returns>
+        public static Matrix2D RotateAroundPoint(Point2D center, double angle)
+        {
+            // Translate the point to the origin.
+            var result = new Matrix2D();
+
+            // We need to go counter-clockwise.
+            result.RotateAt(-angle.ToDegrees(), center.X, center.Y);
+
+            return result;
         }
 
         #endregion
@@ -6685,10 +7976,7 @@ namespace MethodSpeedTester
         /// <param name="decimals"></param>
         /// <returns></returns>
         [Pure]
-        public static double RoundAFZ(double value, int decimals)
-        {
-            return Math.Round(value, decimals, MidpointRounding.AwayFromZero);
-        }
+        public static double RoundAFZ(double value, int decimals) => Math.Round(value, decimals, MidpointRounding.AwayFromZero);
 
         /// <summary>
         /// Away from zero rounding.
@@ -6697,10 +7985,7 @@ namespace MethodSpeedTester
         /// <param name="decimals"></param>
         /// <returns></returns>
         [Pure]
-        public static double RoundAFZ(double value)
-        {
-            return Math.Round(value, 0, MidpointRounding.AwayFromZero);
-        }
+        public static double RoundAFZ(double value) => Math.Round(value, 0, MidpointRounding.AwayFromZero);
 
         /// <summary>
         /// To Even, or Bankers rounding.
@@ -6709,39 +7994,124 @@ namespace MethodSpeedTester
         /// <param name="decimals"></param>
         /// <returns></returns>
         [Pure]
-        public static double RoundToEven(double value)
-        {
-            return Math.Round(value, 0, MidpointRounding.ToEven);
-        }
+        public static double RoundToEven(double value) => Math.Round(value, 0, MidpointRounding.ToEven);
 
         /// <summary>
         /// To Even, or Bankers rounding.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static double RoundToInt32(double value)
-        {
-            return Convert.ToInt32(value);
-        }
+        public static double RoundToInt32(double value) => Convert.ToInt32(value);
 
         /// <summary>
         /// Away from zero rounding.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static double Round(double value)
-        {
-            return value < 0 ? (int)(value - 0.5) : (int)(value + 0.5);
-        }
+        public static double Round(double value) => value < 0 ? (int)(value - 0.5) : (int)(value + 0.5);
 
         /// <summary>
         /// Truncate rounding.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static double Truncate(double value)
+        public static double Truncate(double value) => (int)value;
+
+        #endregion
+
+        #region Self Intersecting Bezier
+        // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
+        #endregion
+
+        #region Sine Interpolation of 1D
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </remarks>
+        public static double Sine(
+            double v1,
+            double v2,
+            double t)
         {
-            return (int)value;
+            double mu2 = (1 - Sin(t * PI)) / 2;
+            return v1 * (1 - mu2) + v2 * mu2;
+        }
+
+        #endregion
+
+        #region Sine Interpolation of 2D Points
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        public static Tuple<double, double> Sine(
+            double x1, double y1,
+            double x2, double y2,
+            double t)
+        {
+            double mu2 = (1 - Sin(t * PI)) / 2;
+            return new Tuple<double, double>(
+                x1 * (1 - mu2) + x2 * mu2,
+                y1 * (1 - mu2) + y2 * mu2
+                );
+        }
+
+        /// <summary>
+        /// Function For sine interpolated Line
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="index"></param>
+        /// <returns>Returns the interpolated point of the index value.</returns>
+        /// <remarks></remarks>
+        public static Point2D InterpolateSine(Point2D a, Point2D b, double index)
+        {
+            //Single MU2 = (double)((1.0 - Cos(index * 180)) * 0.5);
+            //return Y1 * (1.0 - MU2) + Y2 * MU2;
+            double MU2 = (1.0 - Sin(index * 180)) * 0.5;
+            return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
+        }
+
+        #endregion
+
+        #region Sine Interpolation of 3D Points
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        public static Tuple<double, double, double> Sine(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double t)
+        {
+            double mu2 = (1 - Sin(t * PI)) / 2;
+            return new Tuple<double, double, double>(
+                x1 * (1 - mu2) + x2 * mu2,
+                y1 * (1 - mu2) + y2 * mu2,
+                z1 * (1 - mu2) + z2 * mu2);
         }
 
         #endregion
@@ -6862,8 +8232,8 @@ namespace MethodSpeedTester
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;// 9999999.0;
 
-            List<TestPoint2D> pointList = new List<TestPoint2D>();
-            List<Point2D> solution = new List<Point2D>();
+            var pointList = new List<TestPoint2D>();
+            var solution = new List<Point2D>();
 
             int pointCount, solutionNodes;
 
@@ -6879,9 +8249,7 @@ namespace MethodSpeedTester
 
             //  If there is a straight-line solution, return with it immediately.
             if (LineInPolygonSet(polygons, start, end))
-            {
                 return new Polyline(new List<Point2D>() { start, end });
-            }
 
             //  Build a point list that refers to the corners of the
             //  polygons, as well as to the startpoint and endpoint.
@@ -6982,8 +8350,8 @@ namespace MethodSpeedTester
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;
 
-            List<TestPoint2D> pointList = new List<TestPoint2D>();
-            List<Point2D> solution = new List<Point2D>();
+            var pointList = new List<TestPoint2D>();
+            var solution = new List<Point2D>();
 
             int pointCount;
             int solutionNodes;
@@ -7003,17 +8371,15 @@ namespace MethodSpeedTester
 
             //  If there is a straight-line solution, return with it immediately.
             if (polygons.Contains(start, end))
-            {
                 return new Polyline(new List<Point2D>() { start, end });
-            }
 
             //  Build a point list that refers to the corners of the
             //  polygons, as well as to the startpoint and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            foreach (var poly in polygons.Polygons)
+            foreach (Polygon poly in polygons.Polygons)
             {
-                foreach (var point in poly.Points)
+                foreach (Point2D point in poly.Points)
                 {
                     pointList.Add(point);
                     pointCount++;
@@ -7085,6 +8451,65 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Swap two values
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T swap = a;
+            a = b;
+            b = swap;
+        }
+
+        #endregion
+
+        #region Triangulate a polygon
+
+        /// <summary>
+        /// Triangulate the polygon.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// For a nice, detailed explanation of this method,
+        /// see Ian Garton's Web page:
+        /// http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
+        /// </remarks>
+        public static List<Triangle> Triangulate(Polygon polygon)
+        {
+            // Copy the points into a scratch array.
+            var pts = new List<Point2D>(polygon.Points);
+
+            // Make a scratch polygon.
+            var pgon = new Polygon(pts);
+
+            // Orient the polygon clockwise.
+            OrientPolygonClockwise(pgon);
+
+            // Make room for the triangles.
+            var triangles = new List<Triangle>();
+
+            // While the copy of the polygon has more than
+            // three points, remove an ear.
+            while (pgon.Points.Count > 3)
+            {
+                // Remove an ear from the polygon.
+                RemoveEar(pgon, triangles);
+            }
+
+            // Copy the last three points into their own triangle.
+            triangles.Add(new Triangle(pgon.Points[0], pgon.Points[1], pgon.Points[2]));
+
+            return triangles;
+        }
+
+        #endregion
+
         #region Values are Close
 
         /// <summary>
@@ -7129,22 +8554,22 @@ namespace MethodSpeedTester
         /// <remarks></remarks>
         public static Point2D WrapPointToRectangle(Rectangle2D bounds, Point2D point, ref Point2D reference)
         {
-            if ((point.X <= bounds.X))
+            if (point.X <= bounds.X)
             {
                 reference = (reference - new Size2D(bounds.X, 0));
                 return new Point2D((bounds.Width - 2), point.Y);
             }
-            if ((point.Y <= bounds.Y))
+            if (point.Y <= bounds.Y)
             {
                 reference = (reference - new Size2D(0, bounds.Y));
                 return new Point2D(point.X, (bounds.Height - 2));
             }
-            if ((point.X >= (bounds.Width - 1)))
+            if (point.X >= (bounds.Width - 1))
             {
                 reference = (reference + new Size2D(bounds.Width, 0));
                 return new Point2D((bounds.X + 2), point.Y);
             }
-            if ((point.Y >= (bounds.Height - 1)))
+            if (point.Y >= (bounds.Height - 1))
             {
                 reference = (reference + new Size2D(0, bounds.Height));
                 return new Point2D(point.X, (bounds.Y + 2));

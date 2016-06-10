@@ -69,10 +69,7 @@ namespace Engine.Winforms
         /// </summary>
         public Palette Palette
         {
-            get
-            {
-                return palette;
-            }
+            get { return palette; }
             set
             {
                 palette = value;
@@ -134,7 +131,7 @@ namespace Engine.Winforms
                 mousePaletteIndex = index;
 
                 // Build the tool-tip string.
-                StringBuilder text = new StringBuilder();
+                var text = new StringBuilder();
                 text.Append(index.ToString());
                 text.Append(" ");
                 text.Append(Palette[index].ToString());
@@ -143,7 +140,7 @@ namespace Engine.Winforms
                 paletteToolTip.SetToolTip(this, text.ToString());
             }
 
-            PaletteControl reference = (PaletteControl)sender;
+            var reference = (PaletteControl)sender;
             reference.Image = Palette.DrawPalette(reference.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5, index);
         }
 
@@ -154,7 +151,7 @@ namespace Engine.Winforms
         /// <param name="e">The event arguments.</param>
         private void PalleteControl_ClientSizeChanged(object sender, EventArgs e)
         {
-            PaletteControl reference = (PaletteControl)sender;
+            var reference = (PaletteControl)sender;
             reference.Image = Palette.DrawPalette(reference.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
         }
     }

@@ -4,7 +4,6 @@
 // <author id="shkyrockett">Alma Jenks</author>
 // <summary></summary>
 
-
 namespace Engine.Objects
 {
     /// <summary>

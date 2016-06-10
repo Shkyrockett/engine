@@ -8,7 +8,7 @@ namespace Engine.Winforms
     /// </summary>
     /// <remarks></remarks>
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.All)]
-    public partial class TreeViewToolStripItem 
+    public partial class TreeViewToolStripItem
         : ToolStripControlHost
     {
         private TreeView tree = new TreeView();

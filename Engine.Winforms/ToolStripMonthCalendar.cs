@@ -28,20 +28,14 @@ namespace Engine.Winforms
         /// <summary>
         /// 
         /// </summary>
-        public MonthCalendar MonthCalendarControl
-        {
-            get { return Control as MonthCalendar; }
-        }
+        public MonthCalendar MonthCalendarControl => Control as MonthCalendar;
 
         /// <summary>
         /// 
         /// </summary>
         public Day FirstDayOfWeek
         {
-            get
-            {
-                return MonthCalendarControl.FirstDayOfWeek;
-            }
+            get { return MonthCalendarControl.FirstDayOfWeek; }
             set { MonthCalendarControl.FirstDayOfWeek = value; }
         }
 
@@ -64,7 +58,7 @@ namespace Engine.Winforms
             base.OnSubscribeControlEvents(c);
 
             // Cast the control to a MonthCalendar control.
-            MonthCalendar monthCalendarControl = (MonthCalendar)c;
+            var monthCalendarControl = (MonthCalendar)c;
 
             // Add the event.
             monthCalendarControl.DateChanged +=
@@ -81,7 +75,7 @@ namespace Engine.Winforms
             base.OnUnsubscribeControlEvents(c);
 
             // Cast the control to a MonthCalendar control.
-            MonthCalendar monthCalendarControl = (MonthCalendar)c;
+            var monthCalendarControl = (MonthCalendar)c;
 
             // Remove the event.
             monthCalendarControl.DateChanged -=
@@ -101,9 +95,7 @@ namespace Engine.Winforms
         private void OnDateChanged(object sender, DateRangeEventArgs e)
         {
             if (DateChanged != null)
-            {
                 DateChanged(this, e);
-            }
         }
     }
 }

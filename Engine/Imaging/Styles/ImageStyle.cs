@@ -12,21 +12,6 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        private Pen forePen;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Pen backPen;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Image image;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private bool disposed = false;
 
         /// <summary>
@@ -34,14 +19,16 @@ namespace Engine.Imaging
         /// </summary>
         public ImageStyle()
             : this(Pens.Transparent, Pens.Transparent, null)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
         /// </summary>
         public ImageStyle(Brush foreBrush, Brush backBrush, Image image)
             : this(new Pen(foreBrush), new Pen(backBrush), image)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -51,9 +38,9 @@ namespace Engine.Imaging
         /// <param name="image"></param>
         public ImageStyle(Pen forePen, Pen backPen, Image image)
         {
-            this.backPen = backPen;
-            this.forePen = forePen;
-            this.image = image;
+            BackPen = backPen;
+            ForePen = forePen;
+            Image = image;
         }
 
         /// <summary>
@@ -76,8 +63,8 @@ namespace Engine.Imaging
             if (disposing)
             {
                 // Free any other managed objects here.
-                forePen.Dispose();
-                backPen.Dispose();
+                ForePen.Dispose();
+                BackPen.Dispose();
             }
 
             // Free any unmanaged objects here.
@@ -95,46 +82,34 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        public Pen ForePen
-        {
-            get { return forePen; }
-            set { forePen = value; }
-        }
+        public Pen ForePen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Brush ForeBrush
         {
-            get { return forePen.Brush; }
-            set { forePen.Brush = value; }
+            get { return ForePen.Brush; }
+            set { ForePen.Brush = value; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Pen BackPen
-        {
-            get { return backPen; }
-            set { backPen = value; }
-        }
+        public Pen BackPen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Brush BackBrush
         {
-            get { return backPen.Brush; }
-            set { backPen.Brush = value; }
+            get { return BackPen.Brush; }
+            set { BackPen.Brush = value; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Image Image
-        {
-            get { return image; }
-            set { image = value; }
-        }
+        public Image Image { get; set; }
     }
 }

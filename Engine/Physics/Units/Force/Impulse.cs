@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IForce force;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ITime time;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="force"></param>
         /// <param name="time"></param>
         public Impulse(IForce force, ITime time)
         {
-            this.force = force;
-            this.time = time;
+            Force = force;
+            Time = time;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IForce Force
-        {
-            get { return force; }
-            set { force = value; }
-        }
+        public IForce Force { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITime Time
-        {
-            get { return time; }
-            set { time = value; }
-        }
+        public ITime Time { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return force.Value * time.Value; }
-        }
+        public double Value => Force.Value * Time.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Instantaneous Speed"; } }
+        public string Name => "Instantaneous Speed";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}{1}", Value, force.Abreviation, time.Abreviation); } }
+        public string Abreviation => string.Format("{0}{1}", Value, Force.Abreviation, Time.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1}{2}", Value, force.Abreviation, time.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1}{2}", Value, Force.Abreviation, Time.Abreviation);
     }
 }

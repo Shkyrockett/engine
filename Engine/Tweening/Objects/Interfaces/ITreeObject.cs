@@ -1,6 +1,6 @@
 ﻿namespace Engine.Objects
 {
-    interface ITreeObject
+    internal interface ITreeObject
     {
     }
 }

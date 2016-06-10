@@ -96,10 +96,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public int Count
-        {
-            get { return polygons.Count; }
-        }
+        public int Count => polygons.Count;
 
         /// <summary>
         /// 
@@ -129,9 +126,7 @@ namespace Engine.Geometry
                 Rectangle2D bounds = polygons[0].Bounds;
 
                 foreach (Polygon polygon in polygons)
-                {
                     bounds.Union(polygon.Bounds);
-                }
 
                 return bounds;
             }
@@ -160,10 +155,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point)
-        {
-            return Intersections.Contains(this, point);
-        }
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point);
 
         /// <summary>
         /// 
@@ -172,7 +164,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(PolygonSet);
-            StringBuilder pts = new StringBuilder();
+            var pts = new StringBuilder();
             foreach (Polygon pn in Polygons)
             {
                 pts.Append(pn.ToString());

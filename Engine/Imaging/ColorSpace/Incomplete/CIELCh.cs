@@ -14,21 +14,6 @@ namespace Engine.Imaging.ColorSpace
         /// <summary>
         /// 
         /// </summary>
-        private double lightness;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double chromaticity;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double hue;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public CIELCh()
             : this(0, 0, 0)
         {
@@ -39,36 +24,24 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public CIELCh(double lightness, double chromaticity, double hue)
         {
-            this.lightness = lightness;
-            this.chromaticity = chromaticity;
-            this.hue = hue;
+            Lightness = lightness;
+            Chromaticity = chromaticity;
+            Hue = hue;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Lightness
-        {
-            get { return lightness; }
-            set { lightness = value; }
-        }
+        public double Lightness { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Chromaticity
-        {
-            get { return chromaticity; }
-            set { chromaticity = value; }
-        }
+        public double Chromaticity { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Hue
-        {
-            get { return hue; }
-            set { hue = value; }
-        }
+        public double Hue { get; set; }
     }
 }

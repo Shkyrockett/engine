@@ -104,13 +104,10 @@ namespace Engine.Geometry
         /// <param name="rect2"></param>
         /// <returns></returns>
         [Pure]
-        public static bool Contains(this Rectangle2D rect1, Rectangle2D rect2)
-        {
-            return (rect1.X <= rect2.X)
-                && ((rect2.X + rect2.Width) <= (rect1.X + rect1.Width))
-                && (rect1.Y <= rect2.Y)
-                && ((rect2.Y + rect2.Height) <= (rect1.Y + rect1.Height));
-        }
+        public static bool Contains(this Rectangle2D rect1, Rectangle2D rect2) => (rect1.X <= rect2.X)
+    && ((rect2.X + rect2.Width) <= (rect1.X + rect1.Width))
+    && (rect1.Y <= rect2.Y)
+    && ((rect2.Y + rect2.Height) <= (rect1.Y + rect1.Height));
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.
@@ -154,9 +151,7 @@ namespace Engine.Geometry
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (determinant == 0)
-                            {
                                 return InsideOutside.Boundary;
-                            }
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                         }
                     }
@@ -166,9 +161,7 @@ namespace Engine.Geometry
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (determinant == 0)
-                            {
                                 return InsideOutside.Boundary;
-                            }
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                         }
                     }
@@ -193,10 +186,8 @@ namespace Engine.Geometry
         {
             bool returnValue = false;
 
-            foreach (var poly in polygons.Polygons)
-            {
+            foreach (Polygon poly in polygons.Polygons)
                 returnValue = !poly.Points.Contains(point);
-            }
 
             return returnValue;
         }
@@ -235,7 +226,7 @@ namespace Engine.Geometry
             double dist = Sqrt(end.X * end.X + end.Y * end.Y);
             double theCos = end.X / dist;
             double theSin = end.Y / dist;
-            foreach (var poly in allPolys.Polygons)
+            foreach (Polygon poly in allPolys.Polygons)
             {
                 for (i = 0; i < poly.Points.Count; i++)
                 {
@@ -284,13 +275,10 @@ namespace Engine.Geometry
         /// <param name="rect2"></param>
         /// <returns></returns>
         [Pure]
-        public static bool RectangleRectangle(Rectangle2D rect1, Rectangle2D rect2)
-        {
-            return (rect2.X < rect1.X + rect1.Width)
-                && (rect1.X < (rect2.X + rect2.Width))
-                && (rect2.Y < rect1.Y + rect1.Height)
-                && (rect1.Y < rect2.Y + rect2.Height);
-        }
+        public static bool RectangleRectangle(Rectangle2D rect1, Rectangle2D rect2) => (rect2.X < rect1.X + rect1.Width)
+    && (rect1.X < (rect2.X + rect2.Width))
+    && (rect2.Y < rect1.Y + rect1.Height)
+    && (rect1.Y < rect2.Y + rect2.Height);
 
         /// <summary>
         /// Find the points where the two circles intersect.
@@ -363,9 +351,7 @@ namespace Engine.Geometry
 
                 // See if we have 1 or 2 solutions.
                 if (dist == radius0 + radius1)
-                {
                     return new Tuple<int, Point2D, Point2D>(1, intersection1, intersection2);
-                }
 
                 return new Tuple<int, Point2D, Point2D>(2, intersection1, intersection2);
             }
@@ -488,18 +474,14 @@ namespace Engine.Geometry
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
         {
             if (subjectPoly.Count < 3 || clipPoly.Count < 3)
-            {
                 throw new ArgumentException(string.Format("The polygons passed in must have at least 3 points: subject={0}, clip={1}", subjectPoly.Count.ToString(), clipPoly.Count.ToString()));
-            }
 
             // clone it
             List<Point2D> outputList = subjectPoly.ToList();
 
             // Make sure it's clockwise
             if (!IsClockwise(subjectPoly))
-            {
                 outputList.Reverse();
-            }
 
             // Walk around the clip polygon clockwise
             foreach (LineSegment clipEdge in IterateEdgesClockwise(clipPoly))
@@ -568,9 +550,7 @@ namespace Engine.Geometry
                 #region Already clockwise
 
                 for (int cntr = 0; cntr < polygon.Count - 1; cntr++)
-                {
                     yield return new LineSegment(polygon[cntr], polygon[cntr + 1]);
-                }
 
                 yield return new LineSegment(polygon[polygon.Count - 1], polygon[0]);
 
@@ -581,9 +561,7 @@ namespace Engine.Geometry
                 #region Reverse
 
                 for (int cntr = polygon.Count - 1; cntr > 0; cntr--)
-                {
                     yield return new LineSegment(polygon[cntr], polygon[cntr - 1]);
-                }
 
                 yield return new LineSegment(polygon[0], polygon[polygon.Count - 1]);
 
@@ -620,9 +598,7 @@ namespace Engine.Geometry
             {
                 bool? isLeft = IsLeftOf(new LineSegment(polygon[0], polygon[1]), polygon[cntr]);
                 if (isLeft != null)     //	some of the points may be collinear.  That's ok as long as the overall is a polygon
-                {
                     return !isLeft.Value;
-                }
             }
 
             throw new ArgumentException("All the points in the polygon are collinear");

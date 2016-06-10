@@ -9,11 +9,6 @@ namespace EngineTests
     public class UnitTest
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private TestContext testContextInstance;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="UnitTest"/>.
         /// </summary>
         public UnitTest()
@@ -27,17 +22,13 @@ namespace EngineTests
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
-        }
+        public TestContext TestContext { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        [AssemblyInitialize()]
+        [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
         {
             //MessageBox.Show("AssemblyInit " + context.TestName);
@@ -47,7 +38,7 @@ namespace EngineTests
         /// 
         /// </summary>
         /// <param name="context"></param>
-        [ClassInitialize()]
+        [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
             //MessageBox.Show("ClassInit " + context.TestName);
@@ -56,7 +47,7 @@ namespace EngineTests
         /// <summary>
         /// 
         /// </summary>
-        [TestInitialize()]
+        [TestInitialize]
         public void Initialize()
         {
             //MessageBox.Show("TestMethodInit");
@@ -65,7 +56,7 @@ namespace EngineTests
         /// <summary>
         /// 
         /// </summary>
-        [TestCleanup()]
+        [TestCleanup]
         public void Cleanup()
         {
             //MessageBox.Show("TestMethodCleanup");
@@ -74,7 +65,7 @@ namespace EngineTests
         /// <summary>
         /// 
         /// </summary>
-        [ClassCleanup()]
+        [ClassCleanup]
         public static void ClassCleanup()
         {
             //MessageBox.Show("ClassCleanup");
@@ -83,7 +74,7 @@ namespace EngineTests
         /// <summary>
         /// 
         /// </summary>
-        [AssemblyCleanup()]
+        [AssemblyCleanup]
         public static void AssemblyCleanup()
         {
             //MessageBox.Show("AssemblyCleanup");

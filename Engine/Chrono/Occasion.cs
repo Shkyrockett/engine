@@ -17,36 +17,6 @@ namespace Engine.Chrono
         /// <summary>
         /// 
         /// </summary>
-        private string name;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Culture culture;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private OccasionDateType dateType;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private EventType eventType;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private DateTime date;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private string description;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="name"></param>
         /// <param name="culture"></param>
         /// <param name="dateType"></param>
@@ -54,11 +24,11 @@ namespace Engine.Chrono
         /// <param name="description"></param>
         public Occasion(string name, Culture culture, OccasionDateType dateType, DateTime date, string description)
         {
-            this.name = name;
-            this.culture = culture;
-            this.dateType = dateType;
-            this.date = date;
-            this.description = description;
+            Name = name;
+            Culture = culture;
+            DateType = dateType;
+            Date = date;
+            Description = description;
         }
 
         /// <summary>
@@ -72,66 +42,42 @@ namespace Engine.Chrono
         /// <param name="description"></param>
         public Occasion(string name, Culture culture, OccasionDateType dateType, EventType eventType, DateTime? date, string description)
         {
-            this.name = name;
-            this.culture = culture;
-            this.dateType = dateType;
-            this.eventType = eventType;
-            this.date = date.Value;
-            this.description = description;
+            Name = name;
+            Culture = culture;
+            DateType = dateType;
+            EventType = eventType;
+            Date = date.Value;
+            Description = description;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Culture Culture
-        {
-            get { return culture; }
-            set { culture = value; }
-        }
+        public Culture Culture { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public OccasionDateType DateType
-        {
-            get { return dateType; }
-            set { dateType = value; }
-        }
+        public OccasionDateType DateType { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public EventType EventType
-        {
-            get { return eventType; }
-            set { eventType = value; }
-        }
+        public EventType EventType { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public DateTime Date
-        {
-            get { return date; }
-            set { date = value; }
-        }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+        public string Description { get; set; }
     }
 }

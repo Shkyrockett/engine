@@ -50,7 +50,6 @@ namespace Engine.Winforms
             ProgressBarRenderer.DrawHorizontalBar(e.Graphics, ClientRectangle);
 
             TrackBarRenderer.DrawHorizontalTicks(e.Graphics, ClientRectangle, TickFrequency, EdgeStyle.Etched);
-
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace Engine.Winforms
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            Rectangle ThumbRect = new Rectangle(Point.Empty, TrackBarRenderer.GetBottomPointingThumbSize(e.Graphics, TrackBarThumbState.Normal));
+            var ThumbRect = new Rectangle(Point.Empty, TrackBarRenderer.GetBottomPointingThumbSize(e.Graphics, TrackBarThumbState.Normal));
             TrackBarRenderer.DrawBottomPointingThumb(e.Graphics, ThumbRect, TrackBarThumbState.Normal);
             //var flags = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.SingleLine | TextFormatFlags.WordEllipsis;
             //TextRenderer.DrawText(e.Graphics, "Hello", Font, Bounds, Color.Black, flags);

@@ -18,41 +18,23 @@ namespace Engine.Tools
         : Tool, ITool
     {
         /// <summary>
-        /// Index value in the array.
-        /// </summary>
-        private int index;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        bool mouseDown;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SelectStack"/> class.
         /// </summary>
         public SelectStack()
         {
-            index = 0;
+            Index = 0;
         }
 
         /// <summary>
         /// Provides the current index of the select tool.
         /// </summary>
         /// <returns>Returns the current index of the select tool.</returns>
-        public int Index
-        {
-            get { return index; }
-            set { index = value; }
-        }
+        public int Index { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool MouseDown
-        {
-            get { return mouseDown; }
-            set { mouseDown = value; }
-        }
+        public bool MouseDown { get; set; }
 
         /// <summary>
         /// Update tool on mouse down.
@@ -60,10 +42,10 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseDownUpdate(ToolStack tools)
         {
-            mouseDown = true;
+            MouseDown = true;
             Started = true;
             InUse = true;
-            index = 1;
+            Index = 1;
         }
 
         /// <summary>
@@ -80,15 +62,15 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseUpUpdate(ToolStack tools)
         {
-            mouseDown = false;
+            MouseDown = false;
             if (Started && InUse)
             {
-                mouseDown = false;
+                MouseDown = false;
                 tools.Surface.SelectedItems = tools.Surface.SelectItems(tools.MouseLocation);
                 RaiseFinishEvent(tools);
                 Started = false;
                 InUse = false;
-                index = 0;
+                Index = 0;
             }
         }
 
@@ -97,20 +79,17 @@ namespace Engine.Tools
         /// </summary>
         public override void Reset()
         {
-            mouseDown = false;
+            MouseDown = false;
             Started = false;
             InUse = false;
-            index = 0;
+            Index = 0;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return nameof(SelectTop);
-        }
+        public override string ToString() => nameof(SelectTop);
 
         /// <summary>
         /// 
@@ -118,7 +97,7 @@ namespace Engine.Tools
         /// <returns></returns>
         public string Output()
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
             return output.ToString();
         }
     }

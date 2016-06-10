@@ -112,9 +112,6 @@ namespace Engine
         /// <remarks>Takes advantage of whats already built in to .NET by using the Color.GetHue, Color.GetSaturation and Color.GetBrightness methods</remarks> 
         /// <param name="c">A Color to convert</param> 
         /// <returns>An HSL value</returns> 
-        public static HSL FromRGB(Color c)
-        {
-            return new HSL(c);
-        }
+        public static HSL FromRGB(Color c) => new HSL(c);
     }
 }

@@ -39,7 +39,7 @@ namespace MethodSpeedTester
         /// Gets the signature of the method to run.
         /// </summary>
         [DisplayName("Method Signature")]
-        public string MethodSignature { get; private set; }
+        public string MethodSignature { get; }
 
         /// <summary>
         /// Gets the total milliseconds it took to run the method trials.
@@ -65,7 +65,7 @@ namespace MethodSpeedTester
         /// <param name="trials">The number of times to run the tests. Default is 10,000 trials.</param>
         public void RunTest(int trials = 10000)
         {
-            Stopwatch watch = new Stopwatch();
+            var watch = new Stopwatch();
 
             watch.Start();
             for (int i = 0; i < trials; i++)

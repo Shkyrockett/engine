@@ -1,6 +1,6 @@
 ﻿namespace Engine.Objects
 {
-    class IMetadata
+    internal class IMetadata
     {
     }
 }

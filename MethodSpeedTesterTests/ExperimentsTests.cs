@@ -6,17 +6,17 @@ namespace MethodSpeedTester.Tests
     /// <summary>
     /// 
     /// </summary>
-    [TestClass()]
+    [TestClass]
     public class ExperimentsTests
     {
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void Intersect0Test()
         {
-            Tuple<double, double, double, double> sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
-            Tuple<double, double, double, double> sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
+            var sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
+            var sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
             Tuple<bool, Tuple<double, double>> value = null;
 
             // Check diagonal crossing lines.
@@ -59,11 +59,11 @@ namespace MethodSpeedTester.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void Intersect1Test()
         {
-            Tuple<double, double, double, double> sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
-            Tuple<double, double, double, double> sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
+            var sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
+            var sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
             Tuple<bool, Tuple<double, double>> value = null;
 
             // Check diagonal crossing lines.
@@ -106,11 +106,11 @@ namespace MethodSpeedTester.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void Intersect2Test()
         {
-            Tuple<double, double, double, double> sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
-            Tuple<double, double, double, double> sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
+            var sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
+            var sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
             Tuple<bool, Tuple<double, double>> value = null;
 
             // Check diagonal crossing lines.
@@ -153,11 +153,11 @@ namespace MethodSpeedTester.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void Intersect3Test()
         {
-            Tuple<double, double, double, double> sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
-            Tuple<double, double, double, double> sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
+            var sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
+            var sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
             Tuple<bool, Tuple<double, double>> value = null;
 
             // Check diagonal crossing lines.
@@ -200,11 +200,11 @@ namespace MethodSpeedTester.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void Intersect4Test()
         {
-            Tuple<double, double, double, double> sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
-            Tuple<double, double, double, double> sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
+            var sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
+            var sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
             Tuple<bool, Tuple<double, double>> value = null;
 
             // Check diagonal crossing lines.
@@ -247,11 +247,11 @@ namespace MethodSpeedTester.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void Intersect5Test()
         {
-            Tuple<double, double, double, double> sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
-            Tuple<double, double, double, double> sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
+            var sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
+            var sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
             Tuple<bool, Tuple<double, double>> value = null;
 
             // Check diagonal crossing lines.

@@ -23,12 +23,6 @@ namespace Engine.Geometry
         : ExpandableObjectConverter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RectangleFConverter" /> class. 
-        /// </summary>
-        public RectangleFConverter()
-        { }
-
-        /// <summary>
         /// Determines whether an object can be converted from a given type to an instance of <see cref="RectangleF" />.
         /// </summary>
         /// <returns>true if the type can be converted to a <see cref="RectangleF" />; otherwise, false.</returns>
@@ -40,10 +34,7 @@ namespace Engine.Geometry
         /// </param>
         /// <param name="sourceType">The type of the source that is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
-        }
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// Determines whether a <see cref="RectangleF" /> can be converted to the specified type. 
@@ -55,10 +46,7 @@ namespace Engine.Geometry
         /// </param>
         /// <param name="destinationType">The desired type this <see cref="RectangleF" /> is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            return destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
-        }
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>Attempts to convert the specified object to a <see cref="T:System.Windows.Rect" />. </summary>
         /// <returns>The <see cref="T:System.Windows.Rect" /> created from converting <paramref name="value" />.</returns>
@@ -68,18 +56,16 @@ namespace Engine.Geometry
         /// <exception cref="T:System.NotSupportedException">Thrown if the specified object is NULL or is a type that cannot be converted to a <see cref="T:System.Windows.Rect" />.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            string str = value as string;
+            var str = value as string;
             if (str == null) return base.ConvertFrom(context, culture, value);
             string str2 = str.Trim();
             if (str2.Length == 0) return null;
             if (culture == null) culture = CultureInfo.CurrentCulture;
             string[] strArray = str2.Split(new char[] { culture.TextInfo.ListSeparator[0] });
-            float[] numArray = new float[strArray.Length];
+            var numArray = new float[strArray.Length];
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
             for (int i = 0; i < numArray.Length; i++)
-            {
                 numArray[i] = (float)converter.ConvertFromString(context, culture, strArray[i].Trim());
-            }
 
             if (numArray.Length != 4) throw new ArgumentException("Parse failed.");
 
@@ -97,23 +83,19 @@ namespace Engine.Geometry
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == null)
-            {
-                throw new ArgumentNullException("destinationType");
-            }
+                throw new ArgumentNullException(nameof(destinationType));
 
             if (value is RectangleF)
             {
                 if (destinationType == typeof(string))
                 {
-                    RectangleF rectangleF = (RectangleF)value;
+                    var rectangleF = (RectangleF)value;
                     if (culture == null)
-                    {
                         culture = CultureInfo.CurrentCulture;
-                    }
 
                     string separator = culture.TextInfo.ListSeparator + " ";
                     TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
-                    string[] strArray = new string[4];
+                    var strArray = new string[4];
                     int num = 0;
                     strArray[num++] = converter.ConvertToString(context, culture, rectangleF.X);
                     strArray[num++] = converter.ConvertToString(context, culture, rectangleF.Y);
@@ -123,12 +105,10 @@ namespace Engine.Geometry
                 }
                 if (destinationType == typeof(InstanceDescriptor))
                 {
-                    RectangleF rectangle2 = (RectangleF)value;
+                    var rectangle2 = (RectangleF)value;
                     ConstructorInfo constructor = typeof(RectangleF).GetConstructor(new Type[] { typeof(float), typeof(float), typeof(float), typeof(float) });
                     if (constructor != null)
-                    {
                         return new InstanceDescriptor(constructor, new object[] { rectangle2.X, rectangle2.Y, rectangle2.Width, rectangle2.Height });
-                    }
                 }
             }
 

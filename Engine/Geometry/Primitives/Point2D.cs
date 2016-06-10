@@ -41,7 +41,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point2D()
             : this(0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
@@ -50,7 +51,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point2D(Point2D point)
             : this(point.X, point.Y)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
@@ -59,7 +61,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point2D(Tuple<double, double> tuple)
             : this(tuple.Item1, tuple.Item2)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
@@ -107,10 +110,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Point2D operator +(Point2D value)
-        {
-            return new Point2D(+value.X, +value.Y);
-        }
+        public static Point2D operator +(Point2D value) => new Point2D(+value.X, +value.Y);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D"/> classes.
@@ -119,10 +119,7 @@ namespace Engine.Geometry
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator +(Point2D value, double addend)
-        {
-            return value.Add(addend);
-        }
+        public static Point2D operator +(Point2D value, double addend) => value.Add(addend);
 
         /// <summary>
         /// Add two <see cref="Point2D"/> classes together.
@@ -131,10 +128,7 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator +(Point2D value, Point2D addend)
-        {
-            return value.Add(addend);
-        }
+        public static Vector2D operator +(Point2D value, Point2D addend) => value.Add(addend);
 
         /// <summary>
         /// Add two <see cref="Point2D"/> classes together.
@@ -143,10 +137,7 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator +(Point2D value, Size2D addend)
-        {
-            return value.Add(addend);
-        }
+        public static Point2D operator +(Point2D value, Size2D addend) => value.Add(addend);
 
         /// <summary>
         /// Operator Point + Vector
@@ -156,20 +147,14 @@ namespace Engine.Geometry
         /// <returns>
         /// Point - The result of the addition
         /// </returns>
-        public static Point2D operator +(Point2D point, Vector2D vector)
-        {
-            return new Point2D(point.X + vector.I, point.Y + vector.J);
-        }
+        public static Point2D operator +(Point2D point, Vector2D vector) => new Point2D(point.X + vector.I, point.Y + vector.J);
 
         /// <summary>
         /// Unary subtraction operator.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Point2D operator -(Point2D value)
-        {
-            return new Point2D(-value.X, -value.Y);
-        }
+        public static Point2D operator -(Point2D value) => new Point2D(-value.X, -value.Y);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from a <see cref="double"/> value.
@@ -178,10 +163,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator -(Point2D value, double subend)
-        {
-            return value.Subtract(subend);
-        }
+        public static Point2D operator -(Point2D value, double subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -190,10 +172,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D operator -(Point2D value, Point2D subend)
-        {
-            return value.Subtract(subend);
-        }
+        public static Vector2D operator -(Point2D value, Point2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -202,10 +181,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator -(Point2D value, Size2D subend)
-        {
-            return value.Subtract(subend);
-        }
+        public static Point2D operator -(Point2D value, Size2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -214,10 +190,7 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator -(Point2D value, Vector2D subend)
-        {
-            return value.Subtract(subend);
-        }
+        public static Point2D operator -(Point2D value, Vector2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Scale a point
@@ -225,10 +198,7 @@ namespace Engine.Geometry
         /// <param name="factor"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Point2D operator *(double value, Point2D factor)
-        {
-            return new Point2D(value * factor.X, value * factor.Y);
-        }
+        public static Point2D operator *(double value, Point2D factor) => new Point2D(value * factor.X, value * factor.Y);
 
         /// <summary>
         /// Scale a point.
@@ -236,10 +206,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
-        public static Point2D operator *(Point2D value, double factor)
-        {
-            return new Point2D(value.X * factor, value.Y * factor);
-        }
+        public static Point2D operator *(Point2D value, double factor) => new Point2D(value.X * factor, value.Y * factor);
 
         /// <summary>
         /// Multiply a point by a matrix.
@@ -247,10 +214,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <param name="matrix"></param>
         /// <returns></returns>
-        public static Point2D operator *(Point2D value, Matrix2D matrix)
-        {
-            return matrix.Transform(value);
-        }
+        public static Point2D operator *(Point2D value, Matrix2D matrix) => matrix.Transform(value);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D"/> classes.
@@ -259,10 +223,7 @@ namespace Engine.Geometry
         /// <param name="dividend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D operator /(Point2D divisor, double dividend)
-        {
-            return new Point2D(divisor.X / dividend, divisor.Y / dividend);
-        }
+        public static Point2D operator /(Point2D divisor, double dividend) => new Point2D(divisor.X / dividend, divisor.Y / dividend);
 
         /// <summary>
         /// Compares two <see cref="Point2D"/> objects. 
@@ -272,10 +233,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(Point2D left, Point2D right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Point2D left, Point2D right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="Point2D"/> objects. 
@@ -285,10 +243,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(Point2D left, Point2D right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Point2D left, Point2D right) => !Equals(left, right);
 
         /// <summary>
         /// Compares two Vectors
@@ -298,10 +253,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Point2D a, Point2D b)
-        {
-            return Equals(a, b);
-        }
+        public static bool Compare(Point2D a, Point2D b) => Equals(a, b);
 
         /// <summary>
         /// 
@@ -310,10 +262,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Point2D a, Point2D b)
-        {
-            return (a?.X == b?.X) & (a?.Y == b?.Y);
-        }
+        public static bool Equals(Point2D a, Point2D b) => (a?.X == b?.X) & (a?.Y == b?.Y);
 
         /// <summary>
         /// 
@@ -321,10 +270,7 @@ namespace Engine.Geometry
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-        {
-            return obj is Point2D && Equals(this, obj as Point2D);
-        }
+        public override bool Equals(object obj) => obj is Point2D && Equals(this, obj as Point2D);
 
         /// <summary>
         /// 
@@ -332,10 +278,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Point2D value)
-        {
-            return Equals(this, value);
-        }
+        public bool Equals(Point2D value) => Equals(this, value);
 
         /// <summary>
         /// Explicit conversion to Size.  Note that since Size cannot contain negative values,
@@ -345,10 +288,7 @@ namespace Engine.Geometry
         /// Size - A Size equal to this Point
         /// </returns>
         /// <param name="point"> Point - the Point to convert to a Size </param>
-        public static explicit operator Size2D(Point2D point)
-        {
-            return new Size2D(Abs(point.X), Abs(point.Y));
-        }
+        public static explicit operator Size2D(Point2D point) => new Size2D(Abs(point.X), Abs(point.Y));
 
         /// <summary>
         /// Explicit conversion to Vector
@@ -357,10 +297,7 @@ namespace Engine.Geometry
         /// Vector - A Vector equal to this Point
         /// </returns>
         /// <param name="point"> Point - the Point to convert to a Vector </param>
-        public static explicit operator Vector2D(Point2D point)
-        {
-            return new Vector2D(point.X, point.Y);
-        }
+        public static explicit operator Vector2D(Point2D point) => new Vector2D(point.X, point.Y);
 
         /// <summary>
         /// Explicit conversion to Vector
@@ -369,10 +306,7 @@ namespace Engine.Geometry
         /// Vector - A Vector equal to this Point
         /// </returns>
         /// <param name="point"> Point - the Point to convert to a Vector </param>
-        public static explicit operator Point2D(Vector2D point)
-        {
-            return new Point2D(point.I, point.J);
-        }
+        public static explicit operator Point2D(Vector2D point) => new Point2D(point.I, point.J);
 
         #endregion
 
@@ -397,8 +331,8 @@ namespace Engine.Geometry
         [Pure]
         public static Point2D Parse(string source)
         {
-            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            Point2D value = new Point2D(
+            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            var value = new Point2D(
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
             // There should be no more tokens in this string.
@@ -415,11 +349,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode()
-        {
-            return X.GetHashCode() ^
-                   Y.GetHashCode();
-        }
+        public override int GetHashCode() => X.GetHashCode() ^
+       Y.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point2D"/>.

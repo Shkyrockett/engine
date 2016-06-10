@@ -1,13 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using Engine.Geometry;
 
 namespace Engine.Tests
 {
     /// <summary>
     /// 
     /// </summary>
-    [TestClass()]
+    [TestClass]
     public class ExperimentalTests
     {
         ///// <summary>
@@ -997,7 +995,7 @@ namespace Engine.Tests
         //    Assert.AreEqual(400.ToString(), value.ToString());
         //}
 
-        [TestMethod()]
+        [TestMethod]
         public void DistanceModulusTest()
         {
             for (int i = 0; i < 1000000; i++)

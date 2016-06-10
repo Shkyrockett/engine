@@ -24,16 +24,13 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
-        {
-            return new List<MethodInfo>
+        public static List<MethodInfo> ListStaticFactoryConstructors(Type type) => new List<MethodInfo>
             (
                 from method in type.GetMethods()
-                where method.IsStatic == true
+                where method.IsStatic
                 where method.ReturnType == type
                 select method
             );
-        }
 
         /// <summary>
         /// 
@@ -41,15 +38,12 @@ namespace MethodSpeedTester
         /// <param name="type"></param>
         /// <param name="type2"></param>
         /// <returns></returns>
-        public static List<MethodInfo> ListStaticFactoryConstructorsList(Type type, Type type2)
-        {
-            return new List<MethodInfo>
+        public static List<MethodInfo> ListStaticFactoryConstructorsList(Type type, Type type2) => new List<MethodInfo>
             (
                 from method in type.GetMethods()
-                where method.IsStatic == true
+                where method.IsStatic
                 where method.ReturnType == type2
                 select method
             );
-        }
     }
 }

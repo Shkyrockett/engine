@@ -25,22 +25,22 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        VectorMap vectorMap;
+        private VectorMap vectorMap;
 
         /// <summary>
         /// 
         /// </summary>
-        ToolStack toolStack;
+        private ToolStack toolStack;
 
         /// <summary>
         /// 
         /// </summary>
-        int tick = 1;
+        private int tick = 1;
 
         /// <summary>
         /// 
         /// </summary>
-        Tweener tweener = new Tweener();
+        private Tweener tweener = new Tweener();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
@@ -77,8 +77,7 @@ namespace Editor
 
             //propertyGrid1.SelectedObject = toolStack;
 
-
-            Tuple<double, int, Point2D> val = new Tuple<double, int, Point2D>(0, 3, new Point2D());
+            var val = new Tuple<double, int, Point2D>(0, 3, new Point2D());
 
             propertyGrid1.SelectedObject = val;
         }
@@ -101,7 +100,7 @@ namespace Editor
             toolStack?.RegisterMouseMiddleButton(new Pan());
             toolStack?.RegisterMouseScroll(new Zoom());
 
-            List<ShapeStyle> styles = new List<ShapeStyle>()
+            var styles = new List<ShapeStyle>()
             {
                 new ShapeStyle(new Pen(Brushes.Red), new Pen(Brushes.Plum)),
                 new ShapeStyle(new Pen(Brushes.DarkGreen), new Pen(Brushes.ForestGreen)),
@@ -171,7 +170,7 @@ namespace Editor
             //vectorMap.Add(polylineItem);
 
             Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
-            GraphicItem lineItem = new GraphicItem(line, styles[5]);
+            var lineItem = new GraphicItem(line, styles[5]);
             vectorMap.Add(lineItem);
 
             Shape set = new PolygonSet(
@@ -206,7 +205,7 @@ namespace Editor
                     }
                 )
             );
-            GraphicItem setItem = new GraphicItem(set, styles[8]);
+            var setItem = new GraphicItem(set, styles[8]);
             vectorMap.Add(setItem);
 
             Shape innerPolygon = new Polygon( // First inner triangle
@@ -216,7 +215,7 @@ namespace Editor
                                 new Point2D(40, 30),
                             }
                         ).Offset(10);
-            GraphicItem innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
+            var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
             vectorMap.Add(innerPolygonItem);
 
             Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
@@ -225,8 +224,8 @@ namespace Editor
             pathPolyline2.Reverse();
             //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
             //GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
-            GraphicItem polylineSetItem = new GraphicItem(polylineSet, styles[10]);
-            GraphicItem pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
+            var polylineSetItem = new GraphicItem(polylineSet, styles[10]);
+            var pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
             //vectorMap.Add(polygonLineItem);
             vectorMap.Add(polylineSetItem);
             vectorMap.Add(pathPolylineItem);
@@ -361,7 +360,7 @@ namespace Editor
         {
             var box = sender as ToolStripComboBox;
             var item = box.SelectedItem as Type;
-            var constructor = Activator.CreateInstance(item);
+            object constructor = Activator.CreateInstance(item);
             toolStack?.RegisterMouseLeftButton(constructor as Tool);
         }
 
@@ -372,18 +371,14 @@ namespace Editor
         /// <param name="e"></param>
         private void toolStripComboBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ToolStripComboBox box = sender as ToolStripComboBox;
+            var box = sender as ToolStripComboBox;
             List<MethodInfo> constructors = EngineReflection.ListStaticFactoryConstructors((Type)box.SelectedItem);
             toolStripComboBoxFactories.ComboBox.DataSource = constructors;
             toolStripComboBoxFactories.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxFactories.ComboBox.Items.Count > 0)
-            {
                 toolStripComboBoxFactories.ComboBox.SelectedItem = toolStripComboBoxFactories.ComboBox.Items[0];
-            }
             else
-            {
                 toolStripComboBoxFactories.ComboBox.Text = string.Empty;
-            }
         }
 
         /// <summary>
@@ -397,24 +392,18 @@ namespace Editor
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             // Only need to draw the shapes that are on screen.
-            foreach (var item in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
+            foreach (GraphicItem item in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
-                {
                     Renderer.Render(item.Item, e.Graphics, item, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
-                }
                 else
-                {
                     Renderer.Render(item.Item, e.Graphics, item);
-                }
             }
 
             if (vectorMap?.RubberbandItems != null)
             {
-                foreach (var item in vectorMap?.RubberbandItems)
-                {
+                foreach (GraphicItem item in vectorMap?.RubberbandItems)
                     Renderer.Render(item.Item, e.Graphics, item, new ShapeStyle(Brushes.Red, Brushes.Red));
-                }
             }
         }
 

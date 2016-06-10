@@ -40,10 +40,7 @@ namespace Engine.Physics
         /// <param name="velocity"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        public static double AverageVelocity(List<double> velocity, double time)
-        {
-            return velocity.Sum() / time;
-        }
+        public static double AverageVelocity(List<double> velocity, double time) => velocity.Sum() / time;
 
         /// <summary>
         /// 
@@ -51,10 +48,7 @@ namespace Engine.Physics
         /// <param name="acceleration"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        public static double DistanceTraveled(Acceleration acceleration, double time)
-        {
-            return acceleration.Value * time * time;
-        }
+        public static double DistanceTraveled(Acceleration acceleration, double time) => acceleration.Value * time * time;
 
         /// <summary>
         /// 
@@ -62,40 +56,27 @@ namespace Engine.Physics
         /// <param name="averageSpeed"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        public static double DistanceTraveled(double averageSpeed, double time)
-        {
-            return averageSpeed * time;
-        }
+        public static double DistanceTraveled(double averageSpeed, double time) => averageSpeed * time;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
-        public static double FreeFallVelocity(ITime time)
-        {
-            return Constants.EarthGravity.Value * time.Value;
-            //return new Acceleration(Gravity, time * time).Value * time;
-        }
+        public static double FreeFallVelocity(ITime time) => Constants.EarthGravity.Value * time.Value;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="period"></param>
         /// <returns></returns>
-        public static double Frequency(double period)
-        {
-            return 1d / period;
-        }
+        public static double Frequency(double period) => 1d / period;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="frequency"></param>
         /// <returns></returns>
-        public static double Period(double frequency)
-        {
-            return 1d / frequency;
-        }
+        public static double Period(double frequency) => 1d / frequency;
     }
 }

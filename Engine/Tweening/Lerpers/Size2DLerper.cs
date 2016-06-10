@@ -59,8 +59,8 @@ namespace Engine.Tweening
         /// <returns></returns>
         public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
         {
-            var width = from.Width + (range.Width * t);
-            var height = from.Height + (range.Height * t);
+            double width = from.Width + (range.Width * t);
+            double height = from.Height + (range.Height * t);
 
             if (behavior.HasFlag(LerpBehavior.Round))
             {

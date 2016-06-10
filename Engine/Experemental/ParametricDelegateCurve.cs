@@ -31,27 +31,18 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private Point2D offset;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Size2D multiplyer;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double precision;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ParametricDelegateCurve()
+        public ParametricDelegateCurve(Func<double, Point2D> function)
         {
-            offset = new Point2D();
-            multiplyer = new Size2D();
-            precision = 0.1;
+            Function = function;
+            Location = new Point2D();
+            Multiplyer = new Size2D();
+            Precision = 0.1;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Func<double, Point2D> Function { get; set; }
 
         /// <summary>
         /// 
@@ -59,60 +50,34 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        public Point2D Offset
-        {
-            get { return offset; }
-            set { offset = value; }
-        }
+        public Point2D Location { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Size2D Multiplyer
-        {
-            get { return multiplyer; }
-            set { multiplyer = value; }
-        }
+        public Size2D Multiplyer { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Precision
-        {
-            get { return precision; }
-            set { precision = value; }
-        }
+        public double Precision { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Category("Functional")]
-        [Description("The array of grab handles for this shape.")]
-        public List<Point2D> Handles
-        {
-            get
-            {
-                return new List<Point2D>() { offset, new Point2D(multiplyer.Width + offset.X, multiplyer.Height + Offset.Y) };
-            }
-            set
-            {
-                if (value != null && value.Count >= 1)
-                {
-                    offset = value[0];
-                    multiplyer = new Size2D(value[1].X - offset.X, value[1].Y - offset.Y);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index)
-        {
-            return new Point2D();
-        }
+        public override Point2D Interpolate(double t)
+            => Interpolate(Function, t);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="function"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Point2D Interpolate(Func<double, Point2D> function, double t)
+            => function?.Invoke(t);
 
         /// <summary>
         /// 
@@ -121,11 +86,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public List<Point2D> InterpolatePoints(double precision)
         {
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
             for (double Index = (PI * -1); (Index < PI); Index = (Index + precision))
-            {
                 points.Add(Interpolate(Index));
-            }
 
             return points;
         }
@@ -137,7 +100,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(ParametricDelegateCurve);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6}}}", nameof(ParametricDelegateCurve), nameof(Offset), offset, nameof(Multiplyer), multiplyer, nameof(Precision), precision);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4},{5}={6}}}", nameof(ParametricDelegateCurve), nameof(Location), Location, nameof(Multiplyer), Multiplyer, nameof(Precision), Precision);
         }
     }
 }

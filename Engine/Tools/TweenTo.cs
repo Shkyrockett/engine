@@ -23,20 +23,11 @@ namespace Engine.Tools
     {
         #region Fields
 
-        /// <summary>
-        /// Rubber-band line.
-        /// </summary>
-        private LineSegment line;
-
-        /// <summary>
-        /// Index value in the array.
-        /// </summary>
-        private int index;
-
+        
         /// <summary>
         /// 
         /// </summary>
-        bool mouseDown;
+        private bool mouseDown;
 
         #endregion
 
@@ -48,10 +39,10 @@ namespace Engine.Tools
         public TweenTo()
         {
             // Setup the tool properties.
-            index = 0;
+            Index = 0;
 
             // Setup the storage properties. 
-            line = LineSegment.Empty;
+            Line = LineSegment.Empty;
         }
 
         #endregion
@@ -61,21 +52,13 @@ namespace Engine.Tools
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public LineSegment Line
-        {
-            get { return line; }
-            set { line = value; }
-        }
+        public LineSegment Line { get; set; }
 
         /// <summary>
         /// Provides the current index of the rubber-band line used to find the angle.
         /// </summary>
         /// <returns>Returns the current index of the rubber-band line.</returns>
-        public int Index
-        {
-            get { return index; }
-            set { index = value; }
-        }
+        public int Index { get; set; }
 
         #endregion
 
@@ -111,9 +94,9 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (mouseDown) index = 1;
+                    if (mouseDown) Index = 1;
 
-                    line.B = tools.MouseLocation;
+                    Line.B = tools.MouseLocation;
                 }
             }
         }
@@ -127,14 +110,14 @@ namespace Engine.Tools
             mouseDown = false;
             if (InUse)
             {
-                line[index] = tools.MouseLocation;
-                switch (index)
+                Line[Index] = tools.MouseLocation;
+                switch (Index)
                 {
                     case 0:
-                        index = 1;
+                        Index = 1;
                         break;
                     case 1:
-                        index = 0;
+                        Index = 0;
                         Started = false;
                         tools.Surface.RubberbandItems.Clear();
                         if (tools.Surface?.SelectedItems?.Count > 0)
@@ -156,18 +139,15 @@ namespace Engine.Tools
         {
             InUse = false;
             Started = false;
-            index = 0;
-            line = LineSegment.Empty;
+            Index = 0;
+            Line = LineSegment.Empty;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return nameof(Straightener);
-        }
+        public override string ToString() => nameof(Straightener);
 
         /// <summary>
         /// 
@@ -175,7 +155,7 @@ namespace Engine.Tools
         /// <returns></returns>
         public string Output()
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
             return output.ToString();
         }
     }

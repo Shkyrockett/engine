@@ -20,6 +20,36 @@ namespace Engine.Geometry.Polygons
     public static class PolygonExtensions
     {
         /// <summary>
+        /// Closed-form solution to elliptic integral for arc length.
+        /// </summary>
+        /// <param name="pointA">The starting node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
+        /// </remarks>
+        public static double QuadraticBezierArcLengthByIntegral(Point2D pointA, Point2D pointB, Point2D pointC)
+        {
+            double ax = pointA.X - 2 * pointB.X + pointC.X;
+            double ay = pointA.Y - 2 * pointB.Y + pointC.Y;
+            double bx = 2 * pointB.X - 2 * pointA.X;
+            double by = 2 * pointB.Y - 2 * pointA.Y;
+
+            double a = 4 * (ax * ax + ay * ay);
+            double b = 4 * (ax * bx + ay * by);
+            double c = bx * bx + by * by;
+
+            double abc = 2 * Sqrt(a + b + c);
+            double a2 = Sqrt(a);
+            double a32 = 2 * a * a2;
+            double c2 = 2 * Sqrt(c);
+            double ba = b / a2;
+
+            return (a32 * abc + a2 * b * (abc - c2) + (4 * c * a - b * b) * Log((2 * a2 + ba + abc) / (ba + c2))) / (4 * a32);
+        }
+
+        /// <summary>
         /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
         /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
         ///  to accommodate all the corners of your polygon set (although it is
@@ -42,8 +72,8 @@ namespace Engine.Geometry.Polygons
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;
 
-            List<TestPoint2D> pointList = new List<TestPoint2D>();
-            List<Point2D> solution = new List<Point2D>();
+            var pointList = new List<TestPoint2D>();
+            var solution = new List<Point2D>();
 
             int pointCount;
             int solutionNodes;
@@ -62,18 +92,15 @@ namespace Engine.Geometry.Polygons
             }
 
             //  If there is a straight-line solution, return with it immediately.
-            if (polygons.Contains(start, end))
-            {
-                return new Polyline(new List<Point2D>() { start, end });
-            }
+            if (polygons.Contains(start, end)) return new Polyline(new List<Point2D>() { start, end });
 
             //  Build a point list that refers to the corners of the
             //  polygons, as well as to the startpoint and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            foreach (var poly in polygons.Polygons)
+            foreach (Polygon poly in polygons.Polygons)
             {
-                foreach (var point in poly.Points)
+                foreach (Point2D point in poly.Points)
                 {
                     pointList.Add(point);
                     pointCount++;
@@ -151,9 +178,7 @@ namespace Engine.Geometry.Polygons
         /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
         /// </remarks>
         public static double EllipsePerimeter(double a, double b)
-        {
-            return 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
-        }
+            => 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
 
         /// <summary>
         /// 
@@ -166,9 +191,9 @@ namespace Engine.Geometry.Polygons
         /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
         public static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
         {
-            Point2D k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
+            var k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
             Point2D k2 = 3 * (p1 + p3) - 6 * p2;
-            Point2D k3 = (Point2D)(3 * (p2 - p1));
+            var k3 = (Point2D)(3 * (p2 - p1));
             Point2D k4 = p1;
 
             double q1 = 9.0 * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
@@ -245,10 +270,10 @@ namespace Engine.Geometry.Polygons
         /// <returns></returns>
         public static List<Point2D> RotatedRectangle(double x, double y, double width, double height, Point2D fulcrum, double angle)
         {
-            List<Point2D> points = new List<Point2D>();
+            var points = new List<Point2D>();
 
-            Point2D xaxis = new Point2D(Cos(angle), Sin(angle));
-            Point2D yaxis = new Point2D(-Sin(angle), Cos(angle));
+            var xaxis = new Point2D(Cos(angle), Sin(angle));
+            var yaxis = new Point2D(-Sin(angle), Cos(angle));
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(
@@ -286,12 +311,12 @@ namespace Engine.Geometry.Polygons
             double cosAngle = Abs(Cos(angle));
             double sinAngle = Abs(Sin(angle));
 
-            Size2D size = new Size2D(
+            var size = new Size2D(
                 (cosAngle * width) + (sinAngle * height),
                 (cosAngle * height) + (sinAngle * width)
                 );
 
-            Point2D loc = new Point2D(
+            var loc = new Point2D(
                 fulcrum.X + ((-width / 2) * cosAngle + (-height / 2) * sinAngle),
                 fulcrum.Y + ((-width / 2) * sinAngle + (-height / 2) * cosAngle)
                 );
@@ -309,7 +334,7 @@ namespace Engine.Geometry.Polygons
         {
             // Add the first point at the end of the array.
             int num_points = polygon.Points.Count;
-            Point2D[] pts = new Point2D[num_points + 1];
+            var pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
@@ -350,9 +375,7 @@ namespace Engine.Geometry.Polygons
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         public static bool PointInPolygon(this Polygon polygon, Point2D point)
-        {
-            return PointInPolygon(polygon, point.X, point.Y);
-        }
+            => PointInPolygon(polygon, point.X, point.Y);
 
         /// <summary>
         /// Return true if the point is in the polygon.
@@ -394,9 +417,7 @@ namespace Engine.Geometry.Polygons
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         public static bool PolygonIsOrientedClockwise(this Polygon polygon)
-        {
-            return (SignedPolygonArea(polygon) < 0);
-        }
+            => (SignedPolygonArea(polygon) < 0);
 
         /// <summary>
         /// If the polygon is oriented counterclockwise, reverse the order of its points.
@@ -405,8 +426,7 @@ namespace Engine.Geometry.Polygons
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         private static void OrientPolygonClockwise(this Polygon polygon)
         {
-            if (!PolygonIsOrientedClockwise(polygon))
-                polygon.Points.Reverse();
+            if (!PolygonIsOrientedClockwise(polygon)) polygon.Points.Reverse();
         }
 
         /// <summary>
@@ -419,15 +439,14 @@ namespace Engine.Geometry.Polygons
         /// leaving the polygon's area. This method gives odd
         /// results for non-simple polygons.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Return the absolute value of the signed area.
+        /// The signed area is negative if the polygon is
+        /// oriented clockwise.
+        /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         public static double PolygonArea(this Polygon polygon)
-        {
-            // Return the absolute value of the signed area.
-            // The signed area is negative if the polygon is
-            // oriented clockwise.
-            return Abs(SignedPolygonArea(polygon));
-        }
+            => Abs(SignedPolygonArea(polygon));
 
         /// <summary>
         /// Return the polygon's area in "square units."
@@ -448,7 +467,7 @@ namespace Engine.Geometry.Polygons
         {
             // Add the first point to the end.
             int num_points = polygon.Points.Count;
-            Point2D[] pts = new Point2D[num_points + 1];
+            var pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
 
@@ -492,14 +511,8 @@ namespace Engine.Geometry.Polygons
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
-                if (cross_product < 0)
-                {
-                    got_negative = true;
-                }
-                else if (cross_product > 0)
-                {
-                    got_positive = true;
-                }
+                if (cross_product < 0) got_negative = true;
+                else if (cross_product > 0) got_positive = true;
                 if (got_negative && got_positive) return false;
             }
 
@@ -581,21 +594,18 @@ namespace Engine.Geometry.Polygons
             }
 
             // Make the triangle A, B, C.
-            Triangle triangle = new Triangle(
+            var triangle = new Triangle(
                 points[A], points[B], points[C]);
 
             // Check the other points to see 
             // if they lie in triangle A, B, C.
             for (int i = 0; i < points.Length; i++)
             {
-                if ((i != A) && (i != B) && (i != C))
+                if ((i != A) && (i != B) && (i != C) && triangle.PointInPolygon(points[i].X, points[i].Y))
                 {
-                    if (triangle.PointInPolygon(points[i].X, points[i].Y))
-                    {
-                        // This point is in the triangle 
-                        // do this is not an ear.
-                        return false;
-                    }
+                    // This point is in the triangle 
+                    // do this is not an ear.
+                    return false;
                 }
             }
 
@@ -650,17 +660,17 @@ namespace Engine.Geometry.Polygons
         public static List<Triangle> Triangulate(this Polygon polygon)
         {
             // Copy the points into a scratch array.
-            Point2D[] pts = new Point2D[polygon.Points.Count];
+            var pts = new Point2D[polygon.Points.Count];
             Array.Copy(polygon.Points.ToArray(), pts, polygon.Points.Count);
 
             // Make a scratch polygon.
-            Polygon pgon = new Polygon(new List<Point2D>(pts));
+            var pgon = new Polygon(new List<Point2D>(pts));
 
             // Orient the polygon clockwise.
             pgon.OrientPolygonClockwise();
 
             // Make room for the triangles.
-            List<Triangle> triangles = new List<Triangle>();
+            var triangles = new List<Triangle>();
 
             // While the copy of the polygon has more than
             // three points, remove an ear.
@@ -712,9 +722,7 @@ namespace Engine.Geometry.Polygons
         private static void FindInitialControlPoints(this Polygon polygon, BoundingRect boundingRect)
         {
             for (int i = 0; i < boundingRect.NumPoints; i++)
-            {
                 if (CheckInitialControlPoints(polygon, boundingRect, i)) return;
-            }
             Debug.Assert(false, "Could not find initial control points.");
         }
 
@@ -735,9 +743,7 @@ namespace Engine.Geometry.Polygons
 
             // The candidate control point indexes.
             for (int num = 0; num < 4; num++)
-            {
                 boundingRect.ControlPoints[num] = i;
-            }
 
             // Check backward from i until we find a vector
             // j -> j+1 that points opposite to i -> i+1.
@@ -1039,9 +1045,7 @@ namespace Engine.Geometry.Polygons
 
             // Check all possible bounding rectangles.
             for (int i = 0; i < polygon.Points.Count; i++)
-            {
                 CheckNextRectangle(polygon, boundingRect);
-            }
 
             // Return the best result.
             return boundingRect.BestRectangle;

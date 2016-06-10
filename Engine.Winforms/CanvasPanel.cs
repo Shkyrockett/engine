@@ -111,7 +111,7 @@ namespace Engine.Winforms
         private void WmMouseWheel(ref Message m)
         {
             Point p = PointToClient(new Point(m.LParam.SignedLOWORD(), m.LParam.SignedHIWORD()));
-            HandledMouseEventArgs e = new HandledMouseEventArgs(MouseButtons.None, 0, p.X, p.Y, m.WParam.SignedHIWORD());
+            var e = new HandledMouseEventArgs(MouseButtons.None, 0, p.X, p.Y, m.WParam.SignedHIWORD());
             OnMouseWheel(e);
             m.Result = (IntPtr)(e.Handled ? 0 : 1);
             // Forwarding the message to the parent window
@@ -128,7 +128,7 @@ namespace Engine.Winforms
         private void WmMouseWheelTilt(ref Message m)
         {
             Point p = PointToClient(new Point(m.LParam.SignedLOWORD(), m.LParam.SignedHIWORD()));
-            HandledMouseEventArgs e = new HandledMouseEventArgs(MouseButtons.None, 0, p.X, p.Y, m.WParam.SignedHIWORD());
+            var e = new HandledMouseEventArgs(MouseButtons.None, 0, p.X, p.Y, m.WParam.SignedHIWORD());
             OnMouseWheelTilt(e);
             m.Result = (IntPtr)(e.Handled ? 0 : 1);
             // Forwarding the message to the parent window

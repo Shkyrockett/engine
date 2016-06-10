@@ -14,22 +14,12 @@ namespace Engine.Localization
     public class Culture
     {
         /// <summary>
-        /// The language spoken.
-        /// </summary>
-        private Languages language;
-
-        /// <summary>
-        /// The nationality.
-        /// </summary>
-        private Countries country;
-
-        /// <summary>
         /// Initializes a now instance of the <see cref="Culture"/> class.
         /// </summary>
         public Culture()
         {
-            country = 0;
-            language = 0;
+            Country = 0;
+            Language = 0;
         }
 
         /// <summary>
@@ -39,8 +29,8 @@ namespace Engine.Localization
         /// <param name="country">The country of the culture.</param>
         public Culture(Languages language, Countries country)
         {
-            this.country = country;
-            this.language = language;
+            Country = country;
+            Language = language;
         }
 
         /// <summary>
@@ -50,35 +40,28 @@ namespace Engine.Localization
         public Culture(string code)
         {
             string[] tokens = code.Split('-');
-            Enum.TryParse<Languages>(tokens[0], out language);
-            Enum.TryParse<Countries>(tokens[1], out country);
+            Languages language;
+            Countries country;
+            Enum.TryParse(tokens[0], out language);
+            Enum.TryParse(tokens[1], out country);
+            Language = language;
+            Country = country;
         }
 
         /// <summary>
         /// Gets or sets the language spoken in the culture.
         /// </summary>
-        public Languages Language
-        {
-            get { return language; }
-            set { language = value; }
-        }
+        public Languages Language { get; set; }
 
         /// <summary>
         /// Gets or sets the Country of the culture.
         /// </summary>
-        public Countries Country
-        {
-            get { return country; }
-            set { country = value; }
-        }
+        public Countries Country { get; set; }
 
         /// <summary>
         /// Converts the value of this <see cref="Culture"/> instance to its equivalent string representation.
         /// </summary>
         /// <returns>The string representation of the value of this instance.</returns>
-        public override string ToString()
-        {
-            return string.Format("{0}-{1}", language.ToString(), country.ToString());
-        }
+        public override string ToString() => string.Format("{0}-{1}", Language.ToString(), Country.ToString());
     }
 }

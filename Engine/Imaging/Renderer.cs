@@ -110,7 +110,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this LineSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.DrawLine(itemStyle.ForePen, shape.A.ToPointF(), shape.B.ToPointF());
         }
 
@@ -123,7 +123,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Polygon shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
             g.DrawPolygon((itemStyle).ForePen, shape.Points.ToPointFArray());
         }
@@ -137,7 +137,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this PolylineSet set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             foreach (Polyline shape in set.Polylines)
             {
                 g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
@@ -154,13 +154,11 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this PolygonSet set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
             foreach (Polygon shape in set.Polygons)
-            {
                 path.AddPolygon(shape.Points.ToPointFArray());
-            }
 
             g.FillPath((itemStyle).BackBrush, path);
             g.DrawPath((itemStyle).ForePen, path);
@@ -175,12 +173,12 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Oval shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             // Determine the orientation.
             double radius = (shape.Size.Height > shape.Size.Width) ? shape.Size.Width / 2 : shape.Size.Height / 2;
 
             // Start the Path object.
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
 
             //  prepare the curves.
             path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 270, 90);
@@ -205,7 +203,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Polyline shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
             g.DrawLines((itemStyle).ForePen, shape.Points.ToPointFArray());
         }
@@ -219,7 +217,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Rectangle2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillRectangles((itemStyle).BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
             g.DrawRectangles((itemStyle).ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
         }
@@ -233,7 +231,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Arc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), -(float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
         }
 
@@ -246,7 +244,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Circle shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillEllipse((itemStyle).BackBrush, shape.Bounds.ToRectangleF());
             g.DrawEllipse((itemStyle).ForePen, shape.Bounds.ToRectangleF());
         }
@@ -260,7 +258,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Ellipse shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillPolygon((itemStyle).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
             g.DrawPolygon((itemStyle).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
         }
@@ -274,7 +272,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this CubicBezier shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             // g.FillPolygon(itemStyle.BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
             g.DrawBezier((itemStyle).ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
         }
@@ -288,7 +286,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this QuadraticBezier shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = (style == null) ? (ShapeStyle)item.Style : style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             //g.FillPolygon(((ShapeStyle)item.Style).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
             g.DrawCurve((itemStyle).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
         }
@@ -303,8 +301,8 @@ namespace Engine.Imaging
         /// <param name="rect"></param>
         private static void Draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
         {
-            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
-            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
+            var xaxis = new Point2D(Cos(theta), Sin(theta));
+            var yaxis = new Point2D(-Sin(theta), Cos(theta));
             Point2D ellipse_point;
 
             // Ellipse equation for an ellipse at origin.
@@ -331,7 +329,7 @@ namespace Engine.Imaging
         /// </remarks>
         private static void DrawBowCurve2D(Graphics g, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
         {
-            Point2D NewPoint = new Point2D(
+            var NewPoint = new Point2D(
                 ((1 - (Tan((PI * -1)) * 2)) * Cos((PI * -1))) * Multiplyer.Width,
                 ((1 - (Tan((PI * -1)) * 2)) * (2 * Sin((PI * -1)))) * Multiplyer.Height
                 );
@@ -363,7 +361,7 @@ namespace Engine.Imaging
             const double N = 10000;
             double U = (0 * (24 * (PI / N)));
 
-            Point2D NewPoint = new Point2D(
+            var NewPoint = new Point2D(
                 Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
                 (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
                 );

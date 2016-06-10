@@ -64,7 +64,8 @@ namespace Engine.Geometry
         /// </summary>
         public Ellipse()
             : this(0, 0, 0, 0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Ellipse"/> class.
@@ -110,7 +111,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Ellipse(Point2D center, Size2D size, double angle)
             : this(center, size.Width, size.Height, angle)
-        { }
+        {
+        }
 
         #endregion
 
@@ -233,10 +235,7 @@ namespace Engine.Geometry
         [XmlIgnore]
         [Category("Elements")]
         [Description("The larger radius of the " + nameof(Ellipse) + ".")]
-        public double MajorRadius
-        {
-            get { return r1 >= r2 ? r1 : r2; }
-        }
+        public double MajorRadius => r1 >= r2 ? r1 : r2;
 
         /// <summary>
         /// Gets the Minor radius of <see cref="Ellipse"/>.
@@ -246,10 +245,7 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The smaller radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
-        public double MinorRadius
-        {
-            get { return r1 <= r2 ? r1 : r2; }
-        }
+        public double MinorRadius => r1 <= r2 ? r1 : r2;
 
         /// <summary>
         /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>. 
@@ -293,10 +289,7 @@ namespace Engine.Geometry
         [XmlIgnore]
         [Category("Properties")]
         [Description("The focus radius of the " + nameof(Ellipse) + ".")]
-        public double FocusRadius
-        {
-            get { return Sqrt((r1 * r1) - (r2 * r2)); }
-        }
+        public double FocusRadius => Sqrt((r1 * r1) - (r2 * r2));
 
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the <see cref="Ellipse"/>.
@@ -305,10 +298,7 @@ namespace Engine.Geometry
         [XmlIgnore]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
-        public double Eccentricity
-        {
-            get { return Sqrt(1 - ((r1 / r2) * (r1 / r2))); }
-        }
+        public double Eccentricity => Sqrt(1 - ((r1 / r2) * (r1 / r2)));
 
         /// <summary>
         /// Gets the Bounding box of the <see cref="Ellipse"/>.
@@ -341,11 +331,11 @@ namespace Engine.Geometry
             }
             set
             {
-                var bounds1 = Bounds;
-                var aspect = Aspect;
-                var bounds2 = value;
-                var locDif = bounds2.Location - bounds1.Location;
-                var scaleDif = bounds2.Size - bounds1.Size;
+                Rectangle2D bounds1 = Bounds;
+                double aspect = Aspect;
+                Rectangle2D bounds2 = value;
+                Vector2D locDif = bounds2.Location - bounds1.Location;
+                Size2D scaleDif = bounds2.Size - bounds1.Size;
                 Center += locDif;
                 if (aspect > 1)
                 {
@@ -367,13 +357,7 @@ namespace Engine.Geometry
         [XmlIgnore]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
-        public override double Perimeter
-        {
-            get
-            {
-                return PolygonExtensions.EllipsePerimeter(r1, r2);
-            }
-        }
+        public override double Perimeter => PolygonExtensions.EllipsePerimeter(r1, r2);
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
@@ -381,10 +365,7 @@ namespace Engine.Geometry
         [XmlIgnore]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
-        public override double Area
-        {
-            get { return PI * r2 * r1; }
-        }
+        public override double Area => PI * r2 * r1;
 
         /// <summary>
         /// Gets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
@@ -397,10 +378,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public Rectangle2D UnrotatedBounds
-        {
-            get { return new Rectangle2D(x - r1, y - r1, r1 * 2, r2 * 2); }
-        }
+        public Rectangle2D UnrotatedBounds => new Rectangle2D(x - r1, y - r1, r1 * 2, r2 * 2);
 
         #endregion
 
@@ -418,11 +396,11 @@ namespace Engine.Geometry
             Rectangle2D unroatatedBounds = UnrotatedBounds;
 
             double theta = angle;
-            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
-            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
+            var xaxis = new Point2D(Cos(theta), Sin(theta));
+            var yaxis = new Point2D(-Sin(theta), Cos(theta));
 
             // Ellipse equation for an ellipse at origin.
-            Point2D ellipsePoint = new Point2D(
+            var ellipsePoint = new Point2D(
                 (unroatatedBounds.Width * Cos(phi)),
                 (unroatatedBounds.Height * Sin(phi))
                 );
@@ -443,10 +421,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point)
-        {
-            return Intersections.Contains(this, point) != InsideOutside.Outside;
-        }
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != InsideOutside.Outside;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Ellipse"/> struct based on the format string

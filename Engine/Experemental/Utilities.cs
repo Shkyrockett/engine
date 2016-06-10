@@ -114,8 +114,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static double arcfn(double t, DerivitiveMethod2D derivativeFn)
         {
-            var d = derivativeFn(t);
-            var l = d.X * d.X + d.Y * d.Y;
+            Point2D d = derivativeFn(t);
+            double l = d.X * d.X + d.Y * d.Y;
             return Sqrt(l);
         }
 
@@ -127,8 +127,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static double arcfn(double t, DerivitiveMethod3D derivativeFn)
         {
-            var d = derivativeFn(t);
-            var l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
+            Point3D d = derivativeFn(t);
+            double l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
             return Sqrt(l);
         }
 
@@ -139,10 +139,7 @@ namespace Engine.Geometry
         /// <param name="m"></param>
         /// <param name="M"></param>
         /// <returns></returns>
-        public static bool between(double v, double m, double M)
-        {
-            return (m <= v && v <= M) || approximately(v, m) || approximately(v, M);
-        }
+        public static bool between(double v, double m, double M) => (m <= v && v <= M) || approximately(v, m) || approximately(v, M);
 
         /// <summary>
         /// 
@@ -151,10 +148,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public static bool approximately(double a, double b, double precision = DoubleEpsilon)
-        {
-            return Abs(a - b) <= precision;// (precision || epsilon);
-        }
+        public static bool approximately(double a, double b, double precision = DoubleEpsilon) => Abs(a - b) <= precision;// (precision || epsilon);
 
         /// <summary>
         /// 
@@ -196,50 +190,35 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static string pointToString(Point2D p)
-        {
-            return p.ToString();
-        }
+        public static string pointToString(Point2D p) => p.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static string pointToString(Point3D p)
-        {
-            return p.ToString();
-        }
+        public static string pointToString(Point3D p) => p.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static string pointsToString(List<Point2D> points)
-        {
-            return points.ToString();
-        }
+        public static string pointsToString(List<Point2D> points) => points.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static string pointsToString(List<Point3D> points)
-        {
-            return points.ToString();
-        }
+        public static string pointsToString(List<Point3D> points) => points.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static Point3D copy(Point3D obj)
-        {
-            return new Point3D(obj);
-        }
+        public static Point3D copy(Point3D obj) => new Point3D(obj);
 
         /// <summary>
         /// 
@@ -298,14 +277,10 @@ namespace Engine.Geometry
         {
             // see ratio(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
-            {
                 return double.NaN;
-            }
             if (t == 0.5d) t = 0.5;
             else if (t == 0 || t == 1)
-            {
                 return t;
-            }
             double bottom = Pow(t, n) + Pow(1 - t, n);
             double top = bottom - 1;
             return Abs(top / bottom);
@@ -321,14 +296,10 @@ namespace Engine.Geometry
         {
             // see u(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
-            {
                 return double.NaN;
-            }
             if (t == 0.5d) t = 0.5;
             else if (t == 0 || t == 1)
-            {
                 return t;
-            }
             double top = Pow(1 - t, n);
             double bottom = Pow(t, n) + top;
             return top / bottom;
@@ -351,8 +322,7 @@ namespace Engine.Geometry
             double nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
             double ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
             double d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-            if (d == 0) { return null; }
-            return new Point3D(nx / d, ny / d, 0);
+            if (d == 0) return null; return new Point3D(nx / d, ny / d, 0);
         }
 
         /// <summary>
@@ -378,11 +348,8 @@ namespace Engine.Geometry
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <returns></returns>
-        public static Point3D lli(Point3D v1, Point3D v2)
-        {
-            // return utils.lli4(v1,v1.c,v2,v2.c);
-            return lli4(v1, v1, v2, v2);
-        }
+        // return utils.lli4(v1,v1.c,v2,v2.c);
+        public static Point3D lli(Point3D v1, Point3D v2) => lli4(v1, v1, v2, v2);
 
         /// <summary>
         /// 
@@ -448,7 +415,7 @@ namespace Engine.Geometry
                 {
                     if (l2._virtual) return new List<Pair>();
                     List<Pair> iss = l1.intersects(l2);
-                    foreach (var i in iss)
+                    foreach (Pair i in iss)
                     {
                         if (i.length > 0)
                         {
@@ -472,11 +439,11 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Shape1 makeshape(Bezier forward, Bezier back)
         {
-            var bpl = back.points.Count;
-            var fpl = forward.points.Count;
+            int bpl = back.points.Count;
+            int fpl = forward.points.Count;
             Bezier start = makeline(back.points[bpl - 1], forward.points[0]);
             Bezier end = makeline(forward.points[fpl - 1], back.points[0]);
-            Shape1 shape = new Shape1(
+            var shape = new Shape1(
                 startcap: start,
                 forward: forward,
                 back: back,
@@ -504,26 +471,18 @@ namespace Engine.Geometry
             double max = -min;
             double t;
             Point3D c;
-            if (list.IndexOf(0) == -1) { list.Insert(0, 0); }
-            if (list.IndexOf(1) == -1) { list.Add(1); }
-            for (int i = 0, len = list.Count; i < len; i++)
+            if (list.IndexOf(0) == -1) list.Insert(0, 0); if (list.IndexOf(1) == -1) list.Add(1); for (int i = 0, len = list.Count; i < len; i++)
             {
                 t = list[i];
                 c = curve.get(t);
                 switch (d)
                 {
                     case 0:
-                        if (c.X < min) { min = c.X; }
-                        if (c.X > max) { max = c.X; }
-                        break;
+                        if (c.X < min) min = c.X; if (c.X > max) max = c.X; break;
                     case 1:
-                        if (c.Y < min) { min = c.Y; }
-                        if (c.Y > max) { max = c.Y; }
-                        break;
+                        if (c.Y < min) min = c.Y; if (c.Y > max) max = c.Y; break;
                     case 2:
-                        if (c.Z < min) { min = c.Z; }
-                        if (c.Z > max) { max = c.Z; }
-                        break;
+                        if (c.Z < min) min = c.Z; if (c.Z > max) max = c.Z; break;
                     default:
                         break;
                 }
@@ -545,11 +504,9 @@ namespace Engine.Geometry
             double tx = line.P1.X;
             double ty = line.P1.Y;
             double a = -Atan2(line.P2.Y - ty, line.P2.X - tx);
-            List<Point3D> results = new List<Point3D>();
+            var results = new List<Point3D>();
             foreach (Point3D v in points)
-            {
                 results.Add(new Point3D((v.X - tx) * Cos(a) - (v.Y - ty) * Sin(a), (v.X - tx) * Sin(a) + (v.Y - ty) * Cos(a), 0));
-            }
 
             return results;
         }
@@ -563,7 +520,7 @@ namespace Engine.Geometry
         public static List<double> roots(List<Point3D> points, Line1 line)
         {
             //line = line || new Line(p1: new Point2D(x: 0, y: 0), p2: new Point2D(x: 1, y: 0));
-            var order = points.Count - 1;
+            int order = points.Count - 1;
             List<Point3D> pts = align(points, line);
 
             double a = 0;
@@ -653,7 +610,7 @@ namespace Engine.Geometry
             }
             else
             {
-                var sd = Sqrt(discriminant);
+                double sd = Sqrt(discriminant);
                 u1 = Crt(-q2 + sd);
                 v1 = Crt(q2 + sd);
 
@@ -698,8 +655,7 @@ namespace Engine.Geometry
             if (p.Count == 2)
             {
                 double a = p[0], b = p[1];
-                if (a != b) { return new List<double>() { a / (a - b) }; }
-                return new List<double>();
+                if (a != b) return new List<double>() { a / (a - b) }; return new List<double>();
             }
 
             return new List<double>();
@@ -712,7 +668,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static List<double> inflections(List<Point3D> points)
         {
-            var p = align(points, new Line1(p1: points[0], p2: points[3]));
+            List<Point3D> p = align(points, new Line1(p1: points[0], p2: points[3]));
             double a = p[2].X * p[1].Y;
             double b = p[3].X * p[1].Y;
             double c = p[1].X * p[2].Y;
@@ -767,18 +723,11 @@ namespace Engine.Geometry
         /// <param name="_bbox"></param>
         public static void expandbox(BBox bbox, BBox _bbox)
         {
-            if (_bbox.x.min < bbox.x.min) { bbox.x.min = _bbox.x.min; }
-            if (_bbox.y.min < bbox.y.min) { bbox.y.min = _bbox.y.min; }
-            if (_bbox.z != null && _bbox.z.min < bbox.z.min) { bbox.z.min = _bbox.z.min; }
-            if (_bbox.x.max > bbox.x.max) { bbox.x.max = _bbox.x.max; }
-            if (_bbox.y.max > bbox.y.max) { bbox.y.max = _bbox.y.max; }
-            if (_bbox.z != null && _bbox.z.max > bbox.z.max) { bbox.z.max = _bbox.z.max; }
-            bbox.x.mid = (bbox.x.min + bbox.x.max) / 2;
+            if (_bbox.x.min < bbox.x.min) bbox.x.min = _bbox.x.min; if (_bbox.y.min < bbox.y.min) bbox.y.min = _bbox.y.min; if (_bbox.z != null && _bbox.z.min < bbox.z.min) bbox.z.min = _bbox.z.min; if (_bbox.x.max > bbox.x.max) bbox.x.max = _bbox.x.max; if (_bbox.y.max > bbox.y.max) bbox.y.max = _bbox.y.max; if (_bbox.z != null && _bbox.z.max > bbox.z.max) bbox.z.max = _bbox.z.max; bbox.x.mid = (bbox.x.min + bbox.x.max) / 2;
             bbox.y.mid = (bbox.y.min + bbox.y.max) / 2;
-            if (bbox.z != null) { bbox.z.mid = (bbox.z.min + bbox.z.max) / 2; }
-            bbox.x.size = bbox.x.max - bbox.x.min;
+            if (bbox.z != null) bbox.z.mid = (bbox.z.min + bbox.z.max) / 2; bbox.x.size = bbox.x.max - bbox.x.min;
             bbox.y.size = bbox.y.max - bbox.y.min;
-            if (bbox.z != null) { bbox.z.size = bbox.z.max - bbox.z.min; }
+            if (bbox.z != null) bbox.z.size = bbox.z.max - bbox.z.min;
         }
 
         /// <summary>
@@ -799,7 +748,7 @@ namespace Engine.Geometry
             Pair cc1 = c1.split(0.5),
                 cc2 = c2.split(0.5);
 
-            List<Pair> pairs = new List<Pair>(
+            var pairs = new List<Pair>(
                 from pair in new List<Pair>() {
                 new Pair(left: cc1.left, right: cc2.left),
                 new Pair(left: cc1.left, right: cc2.right),
@@ -808,13 +757,11 @@ namespace Engine.Geometry
                 where bboxoverlap(pair.left.bbox(), pair.right.bbox())
                 select pair);
 
-            List<Pair> results = new List<Pair>();
+            var results = new List<Pair>();
             if (pairs.Count == 0) return results;
 
             foreach (Pair pair in pairs)
-            {
                 results.AddRange(pairiteration(pair.left, pair.right));
-            }
 
             return (List<Pair>)new List<Pair>(
                 from v in results
@@ -862,8 +809,7 @@ namespace Engine.Geometry
                 // if s<m<e, arc(s, e)
                 // if m<s<e, arc(e, s + tau)
                 // if s<e<m, arc(e, s + tau)
-                if (s > m || m > e) { s += Tau; }
-                if (s > e) { _ = e; e = s; s = _; }
+                if (s > m || m > e) s += Tau; if (s > e) { _ = e; e = s; s = _; }
             }
             else
             {
@@ -873,7 +819,7 @@ namespace Engine.Geometry
                 if (e < m && m < s) { _ = e; e = s; s = _; } else { e += Tau; }
             }
             // assign and done.
-            Arc1 arc = new Arc1();
+            var arc = new Arc1();
             arc.center = arcCenter;
             arc.s = s;
             arc.e = e;
@@ -1013,7 +959,8 @@ namespace Engine.Geometry
         /// <param name="max"></param>
         public Range(int min, int max)
             : this(min, min + (max - min) / 2d, max, min - max)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -1100,9 +1047,18 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <param name="span"></param>
-        public Pair(Bezier left, Bezier right, List<Point3D> span) : this(left, right)
+        public Pair(Bezier left, Bezier right, List<Point3D> span)
+            : this(left, right)
         {
             this.span = span;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Pair()
+            : this (null, null )
+        {
         }
 
         /// <summary>
@@ -1151,10 +1107,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(Pair left, Pair right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(Pair left, Pair right) => left.Equals(right);
 
         /// <summary>
         /// 
@@ -1162,10 +1115,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(Pair left, Pair right)
-        {
-            return !left.Equals(right);
-        }
+        public static bool operator !=(Pair left, Pair right) => !left.Equals(right);
 
         /// <summary>
         /// 
@@ -1173,29 +1123,20 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool Equals(Pair left, Pair right)
-        {
-            return left.left == right.left && right.right == left.right;
-        }
+        public static bool Equals(Pair left, Pair right) => left.left == right.left && right.right == left.right;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Pair && Equals(this, (Pair)obj);
-        }
+        public override bool Equals(object obj) => obj is Pair && Equals(this, (Pair)obj);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return left.GetHashCode() ^ right.GetHashCode();
-        }
+        public override int GetHashCode() => left.GetHashCode() ^ right.GetHashCode();
     }
 
     /// <summary>
@@ -1212,7 +1153,6 @@ namespace Engine.Geometry
         /// <returns></returns>
         public bool Equals(Pair x, Pair y)
         {
-
             //Check whether the compared objects reference the same data.
             if (ReferenceEquals(x, y)) return true;
 

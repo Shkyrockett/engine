@@ -11,9 +11,9 @@ namespace MethodSpeedTester
     public partial class RectanglePointTester
         : Form
     {
-        List<Point2D> points;
-        Rectangle2D rectangle;
-        List<Tuple<string, Rectangle2D>> rectangles = new List<Tuple<string, Rectangle2D>>();
+        private List<Point2D> points;
+        private Rectangle2D rectangle;
+        private List<Tuple<string, Rectangle2D>> rectangles = new List<Tuple<string, Rectangle2D>>();
 
         public RectanglePointTester()
         {
@@ -44,10 +44,8 @@ namespace MethodSpeedTester
             g.DrawString(text, font, Brushes.Black, new Point());
             g.FillRectangle(Brushes.White, rectangle.Bounds.ToRectangleF());
             g.DrawRectangle(Pens.Black, rectangle.Bounds.ToRectangle());
-            foreach (var point in points)
-            {
+            foreach (Point2D point in points)
                 DrawHitPoint(g, point, method.Invoke(rectangle, point));
-            }
         }
 
         public static void DrawHitPoint(Graphics g, Point2D point, InsideOutside hit)

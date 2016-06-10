@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private IVelocity velocityChange;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ITime timeInterval;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="velocityChange"></param>
         /// <param name="timeInterval"></param>
         public Acceleration(IVelocity velocityChange, ITime timeInterval)
         {
-            this.velocityChange = velocityChange;
-            this.timeInterval = timeInterval;
+            VelocityChange = velocityChange;
+            TimeInterval = timeInterval;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IVelocity VelocityChange
-        {
-            get { return velocityChange; }
-            set { velocityChange = value; }
-        }
+        public IVelocity VelocityChange { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITime TimeInterval
-        {
-            get { return timeInterval; }
-            set { timeInterval = value; }
-        }
+        public ITime TimeInterval { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return velocityChange.Value / timeInterval.Value; }
-        }
+        public double Value => VelocityChange.Value / TimeInterval.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Acceleration"; } }
+        public string Name => "Acceleration";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("∆{0}/∆{1}", Value, velocityChange.Abreviation, timeInterval.Abreviation); } }
+        public string Abreviation => string.Format("∆{0}/∆{1}", Value, VelocityChange.Abreviation, TimeInterval.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} ∆{1}/∆{2}", Value, velocityChange.Abreviation, timeInterval.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} ∆{1}/∆{2}", Value, VelocityChange.Abreviation, TimeInterval.Abreviation);
     }
 }

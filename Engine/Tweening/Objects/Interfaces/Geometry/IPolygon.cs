@@ -1,6 +1,6 @@
 ﻿namespace Engine.Geometry
 {
-    interface IPolygon
+    internal interface IPolygon
     {
     }
 }

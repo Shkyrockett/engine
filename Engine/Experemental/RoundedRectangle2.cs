@@ -47,7 +47,7 @@ namespace Engine.Geometry
             e.Graphics.DrawPath(Pens.Black, path);
 
             e.Graphics.SetClip(path);
-            using (Font f = new Font("Tahoma", 12, FontStyle.Bold))
+            using (var f = new Font("Tahoma", 12, FontStyle.Bold))
                 e.Graphics.DrawString("Draw Me!!", f, Brushes.Red, 0, 70);
             e.Graphics.ResetClip();
         }
@@ -72,7 +72,7 @@ namespace Engine.Geometry
             double xwr2 = xw - r2;
             double yhr2 = yh - r2;
 
-            GraphicsPath p = new GraphicsPath();
+            var p = new GraphicsPath();
             p.StartFigure();
 
             //Top Left Corner
@@ -142,8 +142,7 @@ namespace Engine.Geometry
         /// <param name="radius"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(Rectangle2D rect, double radius, RectangleCorners c)
-        { return Create(rect.Location, rect.Size, radius, c); }
+        public static GraphicsPath Create(Rectangle2D rect, double radius, RectangleCorners c) => Create(rect.Location, rect.Size, radius, c);
 
         /// <summary>
         /// 
@@ -152,8 +151,7 @@ namespace Engine.Geometry
         /// <param name="size"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(Point2D location, Size2D size, double radius)
-        { return Create(location, size, radius, RectangleCorners.All); }
+        public static GraphicsPath Create(Point2D location, Size2D size, double radius) => Create(location, size, radius, RectangleCorners.All);
 
         /// <summary>
         /// 
@@ -161,8 +159,7 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(Rectangle2D rect, int radius)
-        { return Create(rect.Location, rect.Size, radius); }
+        public static GraphicsPath Create(Rectangle2D rect, int radius) => Create(rect.Location, rect.Size, radius);
 
         /// <summary>
         /// 
@@ -170,16 +167,14 @@ namespace Engine.Geometry
         /// <param name="location"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(Point2D location, Size2D size)
-        { return Create(location, size, 5); }
+        public static GraphicsPath Create(Point2D location, Size2D size) => Create(location, size, 5);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public static GraphicsPath Create(Rectangle2D rect)
-        { return Create(rect.Location, rect.Size); }
+        public static GraphicsPath Create(Rectangle2D rect) => Create(rect.Location, rect.Size);
 
         /// <summary>
         /// 

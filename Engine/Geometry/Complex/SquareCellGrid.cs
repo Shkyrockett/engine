@@ -85,7 +85,7 @@ namespace Engine.Geometry
             get
             {
                 // ToDo: Implement flow orientation options.
-                Point point = new Point((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
+                var point = new Point((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
                 return new Rectangle(point, cellSize);
             }
         }
@@ -101,9 +101,7 @@ namespace Engine.Geometry
             {
                 // Check whether the point is inside the grid.
                 if (!innerBounds.Contains(location))
-                {
                     return -1;
-                }
 
                 // Calculate the index of the item under the point location.
                 int value = (((location.Y / cellSize.Height) % rows) * columns) + ((location.X / cellSize.Width) % columns);
@@ -144,34 +142,22 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets the calculated optimum <see cref="Size"/> height and width of any cell in the grid.
         /// </summary>
-        public Size CellSize
-        {
-            get { return cellSize; }
-        }
+        public Size CellSize => cellSize;
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle"/> of the grid. 
         /// </summary>
-        public Rectangle InnerBounds
-        {
-            get { return innerBounds; }
-        }
+        public Rectangle InnerBounds => innerBounds;
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
-        public int Columns
-        {
-            get { return columns; }
-        }
+        public int Columns => columns;
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
-        public int Rows
-        {
-            get { return rows; }
-        }
+        public int Rows => rows;
 
         #endregion
 
@@ -213,9 +199,6 @@ namespace Engine.Geometry
         /// Converts the attributes of this <see cref="RectangleCellGrid"/> to a human-readable string. 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return "SquareCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
-        }
+        public override string ToString() => "SquareCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
     }
 }

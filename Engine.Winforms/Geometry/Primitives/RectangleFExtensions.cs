@@ -23,71 +23,49 @@ namespace Engine.Geometry
         /// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
         /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
         /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
-        public static PointF Center(this RectangleF rectangle)
-        {
-            //return new PointF(
-            //    (rectangle.Left + rectangle.Right) * 0.5f,
-            //    (rectangle.Top + rectangle.Bottom) * 0.5f
-            //);
-            return new PointF(
-                rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5f,
-                rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5f
-            );
-            //return new PointF(
-            //    (0.5f * rectangle.Width) + rectangle.X, 
-            //    (0.5f * rectangle.Height) + rectangle.Y
-            //);
-        }
+        //return new PointF(
+        //    (rectangle.Left + rectangle.Right) * 0.5f,
+        //    (rectangle.Top + rectangle.Bottom) * 0.5f
+        //);
+        public static PointF Center(this RectangleF rectangle) => new PointF(
+            rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5f,
+            rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5f
+        );
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="rectangle"></param>
         /// <returns></returns>
-        public static PointF TopLeft(this RectangleF rectangle)
-        {
-            return rectangle.Location;
-        }
+        public static PointF TopLeft(this RectangleF rectangle) => rectangle.Location;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="rectangle"></param>
         /// <returns></returns>
-        public static PointF TopRight(this RectangleF rectangle)
-        {
-            return new PointF(rectangle.Right, rectangle.Top);
-        }
+        public static PointF TopRight(this RectangleF rectangle) => new PointF(rectangle.Right, rectangle.Top);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="rectangle"></param>
         /// <returns></returns>
-        public static PointF BottomRight(this RectangleF rectangle)
-        {
-            return new PointF(rectangle.Right, rectangle.Bottom);
-        }
+        public static PointF BottomRight(this RectangleF rectangle) => new PointF(rectangle.Right, rectangle.Bottom);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="rectangle"></param>
         /// <returns></returns>
-        public static PointF BottomLeft(this RectangleF rectangle)
-        {
-            return new PointF(rectangle.Left, rectangle.Bottom);
-        }
+        public static PointF BottomLeft(this RectangleF rectangle) => new PointF(rectangle.Left, rectangle.Bottom);
 
         /// <summary>
         /// Find the outer bounds of a series of points.
         /// </summary>
         /// <param name="points">The points to find the boundaries of.</param>
         /// <returns>A rectangle that bounds all of the points in the array.</returns>
-        public static Rectangle GetBounds(this PointF[] points)
-        {
-            return Rectangle.Round(GetBoundsF(points));
-        }
+        public static Rectangle GetBounds(this PointF[] points) => Rectangle.Round(GetBoundsF(points));
 
         /// <summary>
         /// Find the outer bounds of a series of points.
@@ -104,22 +82,14 @@ namespace Engine.Geometry
             for (int i = 1; i < points.Length; i++)
             {
                 if (points[i].X < left)
-                {
                     left = points[i].X;
-                }
                 else if (points[i].X > right)
-                {
                     right = points[i].X;
-                }
 
                 if (points[i].Y < top)
-                {
                     top = points[i].Y;
-                }
                 else if (points[i].Y > bottom)
-                {
                     bottom = points[i].Y;
-                }
             }
 
             return new RectangleF(left, top,
@@ -132,26 +102,20 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="rectangle">The rectangle to get the corners from.</param>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public static PointF[] ToPoints(this RectangleF rectangle)
-        {
-            return new PointF[]
+        public static PointF[] ToPoints(this RectangleF rectangle) => new PointF[]
             {
                 rectangle.Location,
                 new PointF(rectangle.Right, rectangle.Top),
                 new PointF(rectangle.Right, rectangle.Bottom),
                 new PointF(rectangle.Left, rectangle.Bottom)
             };
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public static Rectangle Round(this RectangleF rect)
-        {
-            return Rectangle.Round(rect);
-        }
+        public static Rectangle Round(this RectangleF rect) => Rectangle.Round(rect);
 
         /// <summary>
         /// Creates a <see cref="RectangleF"/> from a center point and it's size.
@@ -159,10 +123,7 @@ namespace Engine.Geometry
         /// <param name="center">The center point to create the <see cref="RectangleF"/> as a <see cref="PointF"/>.</param>
         /// <param name="size">The height and width of the new <see cref="RectangleF"/> as a <see cref="SizeF"/>.</param>
         /// <returns>Returns a <see cref="RectangleF"/> based around a center point and it's size.</returns>
-        public static RectangleF RectangleFFromCenter(PointF center, SizeF size)
-        {
-            return new RectangleF(PointF.Subtract(center, size.Inflate(0.5f)), size);
-        }
+        public static RectangleF RectangleFFromCenter(PointF center, SizeF size) => new RectangleF(PointF.Subtract(center, size.Inflate(0.5f)), size);
 
         /// <summary>
         /// Find the bounding rectangle of a <see cref="RectangleF"/> rotated about it's center by an angle.
@@ -191,22 +152,22 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Point WrapRectangle(Rectangle Bounds, Point Location, ref PointF Reference)
         {
-            if ((Location.X <= Bounds.X))
+            if (Location.X <= Bounds.X)
             {
                 Reference = (Reference - new Size(Bounds.X, 0));
                 return new Point((Bounds.Width - 2), Location.Y);
             }
-            if ((Location.Y <= Bounds.Y))
+            if (Location.Y <= Bounds.Y)
             {
                 Reference = (Reference - new Size(0, Bounds.Y));
                 return new Point(Location.X, (Bounds.Height - 2));
             }
-            if ((Location.X >= (Bounds.Width - 1)))
+            if (Location.X >= (Bounds.Width - 1))
             {
                 Reference = (Reference + new Size(Bounds.Width, 0));
                 return new Point((Bounds.X + 2), Location.Y);
             }
-            if ((Location.Y >= (Bounds.Height - 1)))
+            if (Location.Y >= (Bounds.Height - 1))
             {
                 Reference = (Reference + new Size(0, Bounds.Height));
                 return new Point(Location.X, (Bounds.Y + 2));

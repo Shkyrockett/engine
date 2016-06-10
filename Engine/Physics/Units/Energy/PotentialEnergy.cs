@@ -11,69 +11,45 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private ILength height;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private IMass weight;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="height"></param>
         /// <param name="weight"></param>
         public PotentialEnergy(ILength height, IMass weight)
         {
-            this.height = height;
-            this.weight = weight;
+            Height = height;
+            Weight = weight;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public ILength Height
-        {
-            get { return height; }
-            set { height = value; }
-        }
+        public ILength Height { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IMass Weight
-        {
-            get { return weight; }
-            set { weight = value; }
-        }
+        public IMass Weight { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return weight.Value * height.Value; }
-        }
+        public double Value => Weight.Value * Height.Value;
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Potential Energy"; } }
+        public string Name => "Potential Energy";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return string.Format("{0}{1}", Value, weight.Abreviation, height.Abreviation); } }
+        public string Abreviation => string.Format("{0}{1}", Value, Weight.Abreviation, Height.Abreviation);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} {1}{2}", Value, weight.Abreviation, height.Abreviation);
-        }
+        public override string ToString() => string.Format("{0} {1}{2}", Value, Weight.Abreviation, Height.Abreviation);
     }
 }

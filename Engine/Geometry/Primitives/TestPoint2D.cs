@@ -30,18 +30,6 @@ namespace Engine.Geometry
 
         #region Fields
 
-        /// <summary>
-        /// X component of a <see cref="TestPoint2D"/> coordinate.
-        /// </summary>
-        /// <remarks></remarks>
-        private double x;
-
-        /// <summary>
-        /// Y component of a <see cref="TestPoint2D"/> coordinate.
-        /// </summary>
-        /// <remarks></remarks>
-        private double y;
-
         #endregion
 
         #region Constructors
@@ -52,7 +40,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public TestPoint2D()
             : this(0, 0)
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestPoint2D"/> class.
@@ -62,8 +51,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public TestPoint2D(double x, double y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
 
         #endregion
@@ -75,22 +64,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute]
-        public double X
-        {
-            get { return x; }
-            set { x = value; }
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="TestPoint2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute]
-        public double Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// 
@@ -111,10 +92,7 @@ namespace Engine.Geometry
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public bool IsEmpty
-        {
-            get { return x == 0 && y == 0; }
-        }
+        public bool IsEmpty => X == 0 && Y == 0;
 
         #endregion
 
@@ -128,10 +106,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(TestPoint2D left, TestPoint2D right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(TestPoint2D left, TestPoint2D right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="TestPoint2D"/> objects. 
@@ -141,10 +116,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(TestPoint2D left, TestPoint2D right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(TestPoint2D left, TestPoint2D right) => !Equals(left, right);
 
         /// <summary>
         /// Compares two Vectors
@@ -154,10 +126,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(TestPoint2D a, TestPoint2D b)
-        {
-            return Equals(a, b);
-        }
+        public static bool Compare(TestPoint2D a, TestPoint2D b) => Equals(a, b);
 
         /// <summary>
         /// 
@@ -166,10 +135,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(TestPoint2D a, TestPoint2D b)
-        {
-            return a?.X == b?.X & a?.Y == b?.Y & a?.Previous == b?.Previous & a?.TotalDistance == b?.TotalDistance;
-        }
+        public static bool Equals(TestPoint2D a, TestPoint2D b) => a?.X == b?.X & a?.Y == b?.Y & a?.Previous == b?.Previous & a?.TotalDistance == b?.TotalDistance;
 
         /// <summary>
         /// 
@@ -177,10 +143,7 @@ namespace Engine.Geometry
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-        {
-            return obj is TestPoint2D && Equals(this, obj as TestPoint2D);
-        }
+        public override bool Equals(object obj) => obj is TestPoint2D && Equals(this, obj as TestPoint2D);
 
         /// <summary>
         /// 
@@ -188,10 +151,7 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(TestPoint2D value)
-        {
-            return Equals(this, value);
-        }
+        public bool Equals(TestPoint2D value) => Equals(this, value);
 
         /// <summary>
         /// Explicit conversion to Point2D.
@@ -199,10 +159,7 @@ namespace Engine.Geometry
         /// <returns>
         /// </returns>
         /// <param name="point"></param>
-        public static explicit operator Point2D(TestPoint2D point)
-        {
-            return new Point2D(point.X, point.Y);
-        }
+        public static explicit operator Point2D(TestPoint2D point) => new Point2D(point.X, point.Y);
 
         /// <summary>
         /// Implicit conversion to ItPoint2D.
@@ -210,10 +167,7 @@ namespace Engine.Geometry
         /// <returns>
         /// </returns>
         /// <param name="point"></param>
-        public static implicit operator TestPoint2D(Point2D point)
-        {
-            return new TestPoint2D(point.X, point.Y);
-        }
+        public static implicit operator TestPoint2D(Point2D point) => new TestPoint2D(point.X, point.Y);
 
         #endregion
 
@@ -230,8 +184,8 @@ namespace Engine.Geometry
         [Pure]
         public static Point2D Parse(string source)
         {
-            Tokenizer tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            Point2D value = new Point2D(
+            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            var value = new Point2D(
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
             // There should be no more tokens in this string.
@@ -248,11 +202,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode()
-        {
-            return X.GetHashCode() ^
-                   Y.GetHashCode();
-        }
+        public override int GetHashCode() => X.GetHashCode() ^
+       Y.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="TestPoint2D"/> struct.

@@ -1160,14 +1160,8 @@ namespace Engine.Winforms
         public static int SignedLOWORD(this int n) => (short)(n & 0xffff);
         public static int SignedLOWORD(this IntPtr n) => SignedLOWORD((int)((long)n));
 
-        public static bool Succeeded(int hr)
-        {
-            return (hr >= 0);
-        }
+        public static bool Succeeded(int hr) => (hr >= 0);
 
-        public static bool Failed(int hr)
-        {
-            return (hr < 0);
-        }
+        public static bool Failed(int hr) => (hr < 0);
     }
 }

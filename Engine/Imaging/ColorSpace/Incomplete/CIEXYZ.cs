@@ -14,21 +14,6 @@ namespace Engine.Imaging.ColorSpace
         /// <summary>
         /// 
         /// </summary>
-        private double x;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double y;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double z;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public CIEXYZ()
             : this(0, 0, 0)
         {
@@ -42,36 +27,24 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="z"></param>
         public CIEXYZ(double x, double y, double z)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            X = x;
+            Y = y;
+            Z = z;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double X
-        {
-            get { return x; }
-            set { x = value; }
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Z
-        {
-            get { return z; }
-            set { z = value; }
-        }
+        public double Z { get; set; }
     }
 }

@@ -8,29 +8,11 @@
         /// <summary>
         /// 
         /// </summary>
-        private string fileName;
+        public string FileName { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        private object data;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string FileName
-        {
-            get { return fileName; }
-            set { fileName = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public object Data
-        {
-            get { return data; }
-            set { data = value; }
-        }
+        public object Data { get; set; }
     }
 }

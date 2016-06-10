@@ -102,7 +102,8 @@ namespace Engine.Geometry
         /// <param name="p3"></param>
         public Bezier(Point3D p1, Point3D p2, Point3D p3)
             : this(new List<Point3D>() { p1, p2, p3 })
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -113,7 +114,8 @@ namespace Engine.Geometry
         /// <param name="p4"></param>
         public Bezier(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
             : this(new List<Point3D>() { p1, p2, p3, p4 })
-        { }
+        {
+        }
 
         #endregion
 
@@ -147,7 +149,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public bool _3d { get; private set; }
+        public bool _3d { get; }
 
         /// <summary>
         /// 
@@ -157,12 +159,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public int order { get; private set; }
+        public int order { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool _linear { get; private set; }
+        public bool _linear { get; }
 
         #endregion
 
@@ -174,10 +176,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(Bezier left, Bezier right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(Bezier left, Bezier right) => left.Equals(right);
 
         /// <summary>
         /// 
@@ -185,10 +184,7 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(Bezier left, Bezier right)
-        {
-            return !left.Equals(right);
-        }
+        public static bool operator !=(Bezier left, Bezier right) => !left.Equals(right);
 
         /// <summary>
         /// 
@@ -200,7 +196,7 @@ namespace Engine.Geometry
         {
             if (left.points.Count != right.points.Count) return false;
             bool equals = false;
-            for (int i = 0; i < left.points.Count(); i++)
+            for (int i = 0; i < left.points.Count; i++)
             {
                 equals &= left.points[i].X == right.points[i].X;
                 equals &= left.points[i].Y == right.points[i].Y;
@@ -216,10 +212,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Bezier && Equals(this, (Bezier)obj);
-        }
+        public override bool Equals(object obj) => obj is Bezier && Equals(this, (Bezier)obj);
 
         #endregion
 
@@ -252,13 +245,13 @@ namespace Engine.Geometry
         {
             double u = projectionratio(t, n);
             double um = 1 - u;
-            Point3D C = new Point3D(
+            var C = new Point3D(
                 x: u * S.X + um * E.X,
                 y: u * S.Y + um * E.Y,
                 z: u * S.Z + um * E.Z
             );
             double s = abcratio(t, n);
-            Point3D A = new Point3D(
+            var A = new Point3D(
                 x: B.X + (B.X - C.X) / s,
                 y: B.Y + (B.Y - C.Y) / s,
                 z: B.Z + (B.Z - C.Z) / s
@@ -277,10 +270,8 @@ namespace Engine.Geometry
         public static Bezier quadraticFromPoints(Point3D p1, Point3D p2, Point3D p3, double t = 0.5)
         {
             // shortcuts, although they're really dumb
-            if (t == 0) { return new Bezier(p2, p2, p3); }
-            if (t == 1) { return new Bezier(p1, p2, p2); }
-            // real fitting.
-            var abc = getABC(2, p1, p2, p3, t);
+            if (t == 0) return new Bezier(p2, p2, p3); if (t == 1) return new Bezier(p1, p2, p2);             // real fitting.
+            Tuple<Point3D, Point3D, Point3D> abc = getABC(2, p1, p2, p3, t);
             return new Bezier(p1, abc.Item1, p3);
         }
 
@@ -295,9 +286,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Bezier cubicFromPoints(Point3D S, Point3D B, Point3D E, double t = 0.5, double d1 = 0)
         {
-            var abc = getABC(3, S, B, E, t);
-            if (d1 == 0) { d1 = Distance(B, abc.Item3); }
-            var d2 = d1 * (1 - t) / t;
+            Tuple<Point3D, Point3D, Point3D> abc = getABC(3, S, B, E, t);
+            if (d1 == 0) d1 = Distance(B, abc.Item3); double d2 = d1 * (1 - t) / t;
 
             double selen = Distance(S, E);
             double lx = (E.X - S.X) / selen;
@@ -310,33 +300,33 @@ namespace Engine.Geometry
             double by2 = d2 * ly;
             double bz2 = d2 * lz;
             // derivation of new hull coordinates
-            Point3D e1 = new Point3D(
+            var e1 = new Point3D(
                 x: B.X - bx1,
                 y: B.Y - by1,
                 z: B.Z - bz1
                 );
-            Point3D e2 = new Point3D(
+            var e2 = new Point3D(
                 x: B.X + bx2,
                 y: B.Y + by2,
                 z: B.Z + bz2
                 );
             Point3D A = abc.Item1;
-            Point3D v1 = new Point3D(
+            var v1 = new Point3D(
                 x: A.X + (e1.X - A.X) / (1 - t),
                 y: A.Y + (e1.Y - A.Y) / (1 - t),
                 z: A.Z + (e1.Z - A.Z) / (1 - t)
                 );
-            Point3D v2 = new Point3D(
+            var v2 = new Point3D(
                 x: A.X + (e2.X - A.X) / (t),
                 y: A.Y + (e2.Y - A.Y) / (t),
                 z: A.Z + (e2.Z - A.Z) / (t)
                 );
-            Point3D nc1 = new Point3D(
+            var nc1 = new Point3D(
                 x: S.X + (v1.X - S.X) / (t),
                 y: S.Y + (v1.Y - S.Y) / (t),
                 z: S.Y + (v1.Y - S.Y) / (t)
                 );
-            Point3D nc2 = new Point3D(
+            var nc2 = new Point3D(
                 x: E.X + (v2.X - E.X) / (1 - t),
                 y: E.Y + (v2.Y - E.Y) / (1 - t),
                 z: E.Y + (v2.Y - E.Y) / (1 - t)
@@ -352,13 +342,13 @@ namespace Engine.Geometry
         {
             // one-time compute derivative coordinates
             dpoints = new List<Point3D>();
-            var p = points;
-            for (int d = p.Count(), c = d - 1; d > 1; d--, c--)
+            List<Point3D> p = points;
+            for (int d = p.Count, c = d - 1; d > 1; d--, c--)
             {
                 var list = new List<Point3D>();
                 for (int j = 0; j < c; j++)
                 {
-                    Point3D dpt = new Point3D(
+                    var dpt = new Point3D(
                          x: c * (p[j + 1].X - p[j].X),
                          y: c * (p[j + 1].Y - p[j].Y),
                          z: c * (p[j + 1].Z - p[j].Z)
@@ -367,7 +357,7 @@ namespace Engine.Geometry
                 }
                 dpoints.AddRange(list);
                 p = list;
-            };
+            }
             computedirection();
         }
 
@@ -376,8 +366,8 @@ namespace Engine.Geometry
         /// </summary>
         public void computedirection()
         {
-            var points = this.points;
-            var angle = Utilities.angle(points[0], points[order], points[1]);
+            List<Point3D> points = this.points;
+            double angle = Utilities.angle(points[0], points[order], points[1]);
             clockwise = angle > 0;
         }
 
@@ -385,10 +375,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public double length()
-        {
-            return Utilities.length(derivative);
-        }
+        public double length() => Utilities.length(derivative);
 
         /// <summary>
         /// 
@@ -398,12 +385,9 @@ namespace Engine.Geometry
         public List<Point3D> getLUT(int steps)
         {
             //steps = steps || 100;
-            if (_lut.Count == steps) { return _lut; }
-            _lut = new List<Point3D>();
-            for (var t = 0; t <= steps; t++)
-            {
+            if (_lut.Count == steps) return _lut; _lut = new List<Point3D>();
+            for (int t = 0; t <= steps; t++)
                 _lut.Add(compute(t / steps));
-            }
             return _lut;
         }
 
@@ -417,20 +401,20 @@ namespace Engine.Geometry
         {
             //error = error || 5;
             List<Point3D> lut = getLUT(1000);
-            List<Point3D> hits = new List<Point3D>();
+            var hits = new List<Point3D>();
             Point3D c;
             double t = 0;
-            for (int i = 0; i < lut.Count(); i++)
+            for (int i = 0; i < lut.Count; i++)
             {
                 c = lut[i];
                 if (Distance(c, point) < error)
                 {
                     hits.Add(c);
-                    t += i / lut.Count();
+                    t += i / lut.Count;
                 }
             }
-            if (hits.Count() == 0) return 0;
-            return t /= hits.Count();
+            if (hits.Count == 0) return 0;
+            return t /= hits.Count;
         }
 
         /// <summary>
@@ -442,14 +426,14 @@ namespace Engine.Geometry
         {
             // step 1: coarse check
             List<Point3D> LUT = getLUT(1000);
-            int l = LUT.Count() - 1;
+            int l = LUT.Count - 1;
 
             Tuple<double, double> closest = Utilities.closest(LUT, point);
             double mdist = closest.Item1;
             double mpos = closest.Item2;
             if (mpos == 0 || mpos == l)
             {
-                var t0 = mpos / l;
+                double t0 = mpos / l;
                 Point3D pt = compute(t0);
                 //pt.t = t0;
                 //pt.d = mdist;
@@ -487,20 +471,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        internal Point3D get(double t)
-        {
-            return compute(t);
-        }
+        internal Point3D get(double t) => compute(t);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="idx"></param>
         /// <returns></returns>
-        Point3D point(int idx)
-        {
-            return points[idx];
-        }
+        private Point3D point(int idx) => points[idx];
 
         /// <summary>
         /// 
@@ -510,11 +488,9 @@ namespace Engine.Geometry
         public Point3D compute(double t)
         {
             // shortcuts
-            if (t == 0) { return points[0]; }
-            if (t == 1) { return points[order]; }
-
-            var p = points;
-            var mt = 1 - t;
+            if (t == 0) return points[0]; if (t == 1) return points[order];
+            List<Point3D> p = points;
+            double mt = 1 - t;
 
             // linear?
             if (order == 1)
@@ -550,7 +526,7 @@ namespace Engine.Geometry
                     c = mt * t2 * 3;
                     d = t * t2;
                 }
-                Point3D ret =
+                var ret =
                     new Point3D(
                     x: a * p[0].X + b * p[1].X + c * p[2].X + d * p[3].X,
                     y: a * p[0].Y + b * p[1].Y + c * p[2].Y + d * p[3].Y,
@@ -560,10 +536,10 @@ namespace Engine.Geometry
             }
 
             // higher order curves: use de Casteljau's computation
-            var dCpts = points;
+            List<Point3D> dCpts = points;
             while (dCpts.Count > 1)
             {
-                for (var i = 0; i < dCpts.Count - 1; i++)
+                for (int i = 0; i < dCpts.Count - 1; i++)
                 {
                     dCpts[i] = new Point3D(
                         x: dCpts[i].X + (dCpts[i + 1].X - dCpts[i].X) * t,
@@ -582,8 +558,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Bezier raise()
         {
-            var p = points;
-            List<Point3D> np = new List<Point3D>(points.Count) { p[0] };
+            List<Point3D> p = points;
+            var np = new List<Point3D>(points.Count) { p[0] };
             int k = p.Count;
             Point3D pi;
             Point3D pim;
@@ -612,7 +588,7 @@ namespace Engine.Geometry
             double a = 0;
             double b = 0;
             double c = 0;
-            List<Point3D> p = new List<Point3D>(3) { dpoints[0] };
+            var p = new List<Point3D>(3) { dpoints[0] };
             if (order == 2)
             {
                 p = new List<Point3D>() { p[0], p[1], Point3D.Empty };
@@ -625,7 +601,7 @@ namespace Engine.Geometry
                 b = mt * t * 2;
                 c = t * t;
             }
-            Point3D ret = new Point3D(
+            var ret = new Point3D(
                 x: a * p[0].X + b * p[1].X + c * p[2].X,
                 y: a * p[0].Y + b * p[1].Y + c * p[2].Y,
                 z: a * p[0].Z + b * p[1].Z + c * p[2].Z
@@ -637,20 +613,14 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        List<double> inflections()
-        {
-            return Utilities.inflections(points);
-        }
+        private List<double> inflections() => Utilities.inflections(points);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public Point3D normal(double t)
-        {
-            return _3d ? __normal3(t) : __normal2(t);
-        }
+        public Point3D normal(double t) => _3d ? __normal3(t) : __normal2(t);
 
         /// <summary>
         /// 
@@ -659,8 +629,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Point3D __normal2(double t)
         {
-            var d = derivative(t);
-            var q = Sqrt(d.X * d.X + d.Y * d.Y);
+            Point3D d = derivative(t);
+            double q = Sqrt(d.X * d.X + d.Y * d.Y);
             return new Point3D(
                 x: -d.Y / q,
                 y: d.X / q,
@@ -683,15 +653,15 @@ namespace Engine.Geometry
             r1.X /= q1; r1.Y /= q1; r1.Z /= q1;
             r2.X /= q2; r2.Y /= q2; r2.Z /= q2;
             // cross product
-            Point3D c = new Point3D(
+            var c = new Point3D(
                 x: r2.Y * r1.Z - r2.Z * r1.Y,
                 y: r2.Z * r1.X - r2.X * r1.Z,
                 z: r2.X * r1.Y - r2.Y * r1.X
             );
-            var m = Sqrt(c.X * c.X + c.Y * c.Y + c.Z * c.Z);
+            double m = Sqrt(c.X * c.X + c.Y * c.Y + c.Z * c.Z);
             c.X /= m; c.Y /= m; c.Z /= m;
             // rotation matrix
-            List<double> R = new List<double>() {
+            var R = new List<double>() {
                 c.X * c.X, c.X * c.Y - c.Z, c.X * c.Z + c.Y,
                 c.X * c.Y + c.Z, c.Y * c.Y, c.Y * c.Z - c.X,
                 c.X * c.Z - c.Y, c.Y * c.Z + c.X, c.Z * c.Z};
@@ -712,17 +682,16 @@ namespace Engine.Geometry
         public List<Point3D> hull(double t)
         {
             List<Point3D> p = points;
-            List<Point3D> _p = new List<Point3D>();
+            var _p = new List<Point3D>();
             Point3D pt;
-            List<Point3D> q = new List<Point3D>();
+            var q = new List<Point3D>();
             int idx = 0,
                i = 0,
                l = 0;
             q[idx++] = p[0];
             q[idx++] = p[1];
             q[idx++] = p[2];
-            if (order == 3) { q[idx++] = p[3]; }
-            // we lerp between all points at each iteration, until we have 1 point left.
+            if (order == 3) q[idx++] = p[3];             // we lerp between all points at each iteration, until we have 1 point left.
             while (p.Count > 1)
             {
                 _p = new List<Point3D>();
@@ -746,11 +715,9 @@ namespace Engine.Geometry
         public Bezier split(double t1, double t2)
         {
             // shortcuts
-            if (t1 == 0 && t2 != 0) { return split(t2).left; }
-            if (t2 == 1) { return split(t1).right; }
-
+            if (t1 == 0 && t2 != 0) return split(t2).left; if (t2 == 1) return split(t1).right;
             // no shortcut: use "de Casteljau" iteration.
-            var q = hull(t1);
+            List<Point3D> q = hull(t1);
             var result = new Pair(
                 left: order == 2 ? new Bezier(new List<Point3D>() { q[0], q[3], q[5] }) : new Bezier(new List<Point3D>() { q[0], q[4], q[7], q[9] }),
                 right: order == 2 ? new Bezier(new List<Point3D>() { q[5], q[4], q[2] }) : new Bezier(new List<Point3D>() { q[9], q[8], q[6], q[3] }),
@@ -758,17 +725,16 @@ namespace Engine.Geometry
             );
 
             // make sure we bind _t1/_t2 information!
-            result.left._t1 = Utilities.map(0, 0, 1, _t1, _t2);
-            result.left._t2 = Utilities.map(t1, 0, 1, _t1, _t2);
-            result.right._t1 = Utilities.map(t1, 0, 1, _t1, _t2);
-            result.right._t2 = Utilities.map(1, 0, 1, _t1, _t2);
+            result.left._t1 = map(0, 0, 1, _t1, _t2);
+            result.left._t2 = map(t1, 0, 1, _t1, _t2);
+            result.right._t1 = map(t1, 0, 1, _t1, _t2);
+            result.right._t2 = map(1, 0, 1, _t1, _t2);
 
             // if we have no t2, we're done
-            if (t2 != 0) { return result.left; }
-
+            if (t2 != 0) return result.left;
             // if we have a t2, split again:
-            t2 = Utilities.map(t2, t1, 1, 0, 1);
-            var subsplit = result.right.split(t2);
+            t2 = map(t2, t1, 1, 0, 1);
+            Pair subsplit = result.right.split(t2);
             return subsplit.left;
         }
 
@@ -777,10 +743,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        internal Pair split(double v)
-        {
-            throw new NotImplementedException();
-        }
+        internal Pair split(double v) => new Pair();
 
         /// <summary>
         /// 
@@ -789,8 +752,8 @@ namespace Engine.Geometry
         public List<double> extrema()
         {
             List<char> dims = this.dims;
-            List<double> result = new List<double>();
-            List<double> roots = new List<double>();
+            var result = new List<double>();
+            var roots = new List<double>();
             //Point3D p;
             //Func<T> mfn;
 
@@ -818,13 +781,12 @@ namespace Engine.Geometry
         /// <returns></returns>
         public BBox bbox()
         {
-            var extrema = this.extrema();
-            BBox result = new BBox(
+            List<double> extrema = this.extrema();
+            return new BBox(
                 getminmax(this, 0, extrema),
                 getminmax(this, 1, extrema),
                 getminmax(this, 2, extrema)
                 );
-            return result;
         }
 
         /// <summary>
@@ -849,7 +811,7 @@ namespace Engine.Geometry
         {
             Point3D c = get(t);
             Point3D n = normal(t);
-            Tuple<Point3D, Point3D, Point3D> ret = new Tuple<Point3D, Point3D, Point3D>(
+            return new Tuple<Point3D, Point3D, Point3D>(
                 c,//c: 
                 n,//n:
                 new Point3D(c.X + n.X * d,//x: 
@@ -857,7 +819,6 @@ namespace Engine.Geometry
                 c.Z + n.Z * d//z:
                 )
             );
-            return ret;
         }
 
         /// <summary>
@@ -869,12 +830,12 @@ namespace Engine.Geometry
         {
             if (_linear)
             {
-                var nv = normal(0);
+                Point3D nv = normal(0);
 
-                List<Point3D> coords = new List<Point3D>();
+                var coords = new List<Point3D>();
                 foreach (Point3D p in points)
                 {
-                    Point3D ret = new Point3D(
+                    var ret = new Point3D(
                         x: p.X + t * nv.X,
                         y: p.Y + t * nv.Y,
                         z: p.Z + t * nv.Z
@@ -884,7 +845,7 @@ namespace Engine.Geometry
 
                 return new List<Bezier>() { new Bezier(coords) };
             }
-            var reduced = reduce();
+            List<Bezier> reduced = reduce();
 
             return new List<Bezier>(
                 from s in reduced
@@ -900,14 +861,14 @@ namespace Engine.Geometry
         {
             if (order == 3)
             {
-                var a1 = Utilities.angle(points[0], points[3], points[1]);
-                var a2 = Utilities.angle(points[0], points[3], points[2]);
+                double a1 = Utilities.angle(points[0], points[3], points[1]);
+                double a2 = Utilities.angle(points[0], points[3], points[2]);
                 if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0) return false;
             }
-            var n1 = normal(0);
-            var n2 = normal(1);
-            var s = n1.X * n2.X + n1.Y * n2.Y + n1.Z * n2.Z;
-            var angle = Abs(Acos(s));
+            Point3D n1 = normal(0);
+            Point3D n2 = normal(1);
+            double s = n1.X * n2.X + n1.Y * n2.Y + n1.Z * n2.Z;
+            double angle = Abs(Acos(s));
             return angle < PI / 3;
         }
 
@@ -921,13 +882,11 @@ namespace Engine.Geometry
             double t1 = 0, t2 = 0;
             double step = 0.01;
             Bezier segment;
-            List<Bezier> pass1 = new List<Bezier>();
-            List<Bezier> pass2 = new List<Bezier>();
+            var pass1 = new List<Bezier>();
+            var pass2 = new List<Bezier>();
             // first pass: split on extrema
             List<double> extrema = this.extrema();
-            if (extrema.IndexOf(0) == -1) { extrema.Insert(0, 0); }
-            if (extrema.IndexOf(1) == -1) { extrema.Add(1); }
-            for (t1 = extrema[0], i = 1; i < extrema.Count; i++)
+            if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0); if (extrema.IndexOf(1) == -1) extrema.Add(1); for (t1 = extrema[0], i = 1; i < extrema.Count; i++)
             {
                 t2 = extrema[i];
                 segment = split(t1, t2);
@@ -937,7 +896,7 @@ namespace Engine.Geometry
                 t1 = t2;
             }
             // second pass: further reduce these segments to simple segments
-            foreach (var p1 in pass1)
+            foreach (Bezier p1 in pass1)
             {
                 t1 = 0;
                 t2 = 0;
@@ -982,44 +941,42 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Bezier scale(DerivitiveMethodDouble distanceFn)
         {
-            var order = this.order;
+            int order = this.order;
             if (order == 2)
-            {
                 return raise().scale(distanceFn);
-            }
 
             // TODO: add special handling for degenerate (=linear) curves.
-            var clockwise = this.clockwise;
-            var r1 = distanceFn(0);
-            var r2 = distanceFn(1);
-            List<Tuple<Point3D, Point3D, Point3D>> v = new List<Tuple<Point3D, Point3D, Point3D>>() { offset(0, 10), offset(1, 10) };
+            bool clockwise = this.clockwise;
+            double r1 = distanceFn(0);
+            double r2 = distanceFn(1);
+            var v = new List<Tuple<Point3D, Point3D, Point3D>>() { offset(0, 10), offset(1, 10) };
             Point3D o = lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
             List<Point3D> points = this.points;
-            List<Point3D> np = new List<Point3D>();
+            var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
-            foreach (var t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int>() { 0, 1 })
             {
-                var p = np[t * order] = copy(points[t * order]);
+                Point3D p = np[t * order] = copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
                 p.Y += (t == 0 ? r2 : r1) * v[t].Item2.Y;
             }
 
             // move control points by "however much necessary to
             // ensure the correct tangent to endpoint".
-            foreach (var t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int>() { 0, 1 })
             {
                 if (this.order == 2) break;
-                var p = points[t + 1];
-                Point3D ov = new Point3D(
+                Point3D p = points[t + 1];
+                var ov = new Point3D(
                         x: p.X - o.X,
                         y: p.Y - o.Y,
                         z: p.Z - o.Z);
-                var rc = distanceFn((t + 1) / order);
+                double rc = distanceFn((t + 1) / order);
                 if (!clockwise) rc = -rc;
-                var m = Sqrt(ov.X * ov.X + ov.Y * ov.Y);
+                double m = Sqrt(ov.X * ov.X + ov.Y * ov.Y);
                 ov.X /= m;
                 ov.Y /= m;
                 np[t + 1] = new Point3D(
@@ -1038,32 +995,31 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Bezier scale(double d)
         {
-            var order = this.order;
-            var clockwise = this.clockwise;
-            var r1 = d;
-            var r2 = d;
-            List<Tuple<Point3D, Point3D, Point3D>> v = new List<Tuple<Point3D, Point3D, Point3D>>() { offset(0, 10), offset(1, 10) };
+            int order = this.order;
+            bool clockwise = this.clockwise;
+            double r1 = d;
+            double r2 = d;
+            var v = new List<Tuple<Point3D, Point3D, Point3D>>() { offset(0, 10), offset(1, 10) };
             Point3D o = lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
-            if (o == null) { throw new NullReferenceException("cannot scale this curve. Try reducing it first."); }
-            // move all points by distance 'd' wrt the origin 'o'
-            var points = this.points;
-            List<Point3D> np = new List<Point3D>();
+            if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");             // move all points by distance 'd' wrt the origin 'o'
+            List<Point3D> points = this.points;
+            var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
-            foreach (var t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int>() { 0, 1 })
             {
-                var p = np[t * order] = copy(points[t * order]);
+                Point3D p = np[t * order] = copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
                 p.Y += (t == 0 ? r2 : r1) * v[t].Item2.Y;
             }
 
             // move control points to lie on the intersection of the offset
             // derivative vector, and the origin-through-control vector
-            foreach (var t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int>() { 0, 1 })
             {
                 if (this.order == 2) break;
-                var p = np[t * order];
-                var d2 = derivative(t);
+                Point3D p = np[t * order];
+                Point3D d2 = derivative(t);
                 var p2 = new Point3D(x: p.X + d2.X, y: p.Y + d2.Y, z: p.Z + d2.Z);
                 np[t + 1] = lli4(p, p2, o, points[t + 1]);
             }
@@ -1093,10 +1049,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
-        public PolyBezier outline(double d1)
-        {
-            return outline(d1, d1, 0, 0, true);
-        }
+        public PolyBezier outline(double d1) => outline(d1, d1, 0, 0, true);
 
         /// <summary>
         /// 
@@ -1104,10 +1057,7 @@ namespace Engine.Geometry
         /// <param name="d1"></param>
         /// <param name="d2"></param>
         /// <returns></returns>
-        public PolyBezier outline(double d1, double d2)
-        {
-            return outline(d1, d2, 0, 0, true);
-        }
+        public PolyBezier outline(double d1, double d2) => outline(d1, d2, 0, 0, true);
 
         /// <summary>
         /// 
@@ -1116,10 +1066,7 @@ namespace Engine.Geometry
         /// <param name="d3"></param>
         /// <param name="d4"></param>
         /// <returns></returns>
-        public PolyBezier outline(double d1, double d3, double d4)
-        {
-            return outline(d1, d1, d3, d4, false);
-        }
+        public PolyBezier outline(double d1, double d3, double d4) => outline(d1, d1, d3, d4, false);
 
         /// <summary>
         /// 
@@ -1134,15 +1081,15 @@ namespace Engine.Geometry
         {
             List<Bezier> reduced = reduce();
             int len = reduced.Count;
-            List<Bezier> fcurves = new List<Bezier>();
-            List<Bezier> bcurves = new List<Bezier>();
+            var fcurves = new List<Bezier>();
+            var bcurves = new List<Bezier>();
             List<Point3D> p;
             double alen = 0;
             double slen = 0;
             double tlen = length();
 
             // form curve oulines
-            foreach (var segment in reduced)
+            foreach (Bezier segment in reduced)
             {
                 slen = segment.length();
                 if (graduated)
@@ -1165,13 +1112,9 @@ namespace Engine.Geometry
             {
                 p = s.points;
                 if (p[3] != null)
-                {
                     s.points = new List<Point3D>() { p[3], p[2], p[1], p[0] };
-                }
                 else
-                {
                     s.points = new List<Point3D>() { p[2], p[1], p[0] };
-                }
                 tcurves.Add(s);
             }
             tcurves.Reverse();
@@ -1184,7 +1127,7 @@ namespace Engine.Geometry
             Point3D be = bcurves[0].points[0];
             Bezier ls = makeline(bs, fs);
             Bezier le = makeline(fe, be);
-            List<Bezier> segments = new List<Bezier>();
+            var segments = new List<Bezier>();
             segments.Add(ls);
             segments.AddRange(fcurves);
             segments.Add(le);
@@ -1204,10 +1147,10 @@ namespace Engine.Geometry
         {
             //d2 = d2 || d1;
             List<Bezier> outline = this.outline(d1, d2).curves;
-            List<Shape1> shapes = new List<Shape1>();
-            for (int i = 1, len = outline.Count(); i < len / 2; i++)
+            var shapes = new List<Shape1>();
+            for (int i = 1, len = outline.Count; i < len / 2; i++)
             {
-                var shape = makeshape(outline[i], outline[len - i]);
+                Shape1 shape = makeshape(outline[i], outline[len - i]);
                 shape.startcap._virtual = (i > 1);
                 shape.endcap._virtual = (i < len / 2 - 1);
                 shapes.Add(shape);
@@ -1219,30 +1162,21 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<Pair> intersects()
-        {
-            return selfintersects();
-        }
+        public List<Pair> intersects() => selfintersects();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
-        public List<bool> intersects(Line1 curve)
-        {
-            return lineIntersects(curve);
-        }
+        public List<bool> intersects(Line1 curve) => lineIntersects(curve);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
-        public List<Pair> intersects(Bezier curve)
-        {
-            return curveintersects(reduce(), curve.reduce());
-        }
+        public List<Pair> intersects(Bezier curve) => curveintersects(reduce(), curve.reduce());
 
         /// <summary>
         /// 
@@ -1255,7 +1189,7 @@ namespace Engine.Geometry
                 my = Min(line.P1.Y, line.P2.Y),
                 MX = Max(line.P1.X, line.P2.X),
                 MY = Max(line.P1.Y, line.P2.Y);
-            Bezier self = this;
+            var self = this;
 
             return new List<bool>(
                 from t in roots(points, line)
@@ -1275,7 +1209,7 @@ namespace Engine.Geometry
             // neighbour, so for each segment X we check whether
             // it intersects [0:x-2][x+2:last].
             int i, len = reduced.Count - 2;
-            List<Pair> results = new List<Pair>();
+            var results = new List<Pair>();
             List<Pair> result;
             List<Bezier> left, right;
             for (i = 0; i < len; i++)
@@ -1294,31 +1228,27 @@ namespace Engine.Geometry
         /// <param name="c1"></param>
         /// <param name="c2"></param>
         /// <returns></returns>
-        List<Pair> curveintersects(List<Bezier> c1, List<Bezier> c2)
+        private List<Pair> curveintersects(List<Bezier> c1, List<Bezier> c2)
         {
-            List<Pair> pairs = new List<Pair>();
+            var pairs = new List<Pair>();
             // step 1: pair off any overlapping segments
-            foreach (var l in c1)
+            foreach (Bezier l in c1)
             {
-                foreach (var r in c2)
+                foreach (Bezier r in c2)
                 {
                     if (l.overlaps(r))
-                    {
                         pairs.Add(new Pair(left: l, right: r));
-                    }
                 }
             }
 
             // step 2: for each pairing, run through the convergence algorithm.
             var intersections = new List<Pair>();
-            foreach (var pair in pairs)
+            foreach (Pair pair in pairs)
             {
-                var result = pairiteration(pair.left, pair.right);
-                if (result.Count() > 0)
-                {
+                List<Pair> result = pairiteration(pair.left, pair.right);
+                if (result.Count > 0)
                     intersections.AddRange(result);
-                }
-            };
+            }
             return intersections;
         }
 
@@ -1330,7 +1260,7 @@ namespace Engine.Geometry
         public List<Arc1> arcs(double errorThreshold = 0.5)
         {
             //errorThreshold = errorThreshold || 0.5;
-            List<Arc1> circles = new List<Arc1>();
+            var circles = new List<Arc1>();
             return _iterate(errorThreshold, circles);
         }
 
@@ -1392,7 +1322,7 @@ namespace Engine.Geometry
                     np3 = get(e);
 
                     arc = getccenter(np1, np2, np3);
-                    var error = _error(arc, np1, s, e);
+                    double error = _error(arc, np1, s, e);
                     curr_good = (error <= errorThreshold);
 
                     done = prev_good && !curr_good;
@@ -1409,7 +1339,7 @@ namespace Engine.Geometry
                             break;
                         }
                         // if not, move it up by half the iteration distance
-                        e = e + (e - s) / 2;
+                        e += (e - s) / 2;
                     }
 
                     // this is a bad arc: we need to move 'e' down to find a good arc
@@ -1428,7 +1358,7 @@ namespace Engine.Geometry
 
                 // console.log("[F] arc found", s, prev_e, prev_arc.x, prev_arc.y, prev_arc.s, prev_arc.e);
 
-                prev_arc = (prev_arc != null ? prev_arc : arc);
+                prev_arc = (prev_arc ?? arc);
                 circles.Add(prev_arc);
                 s = prev_e;
             }
@@ -1441,10 +1371,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
-        public List<double> CubicBezierCardanoIntersection(Line1 line)
-        {
-            return CubicBezierCardanoIntersection(points[0], points[1], points[2], points[3], line);
-        }
+        public List<double> CubicBezierCardanoIntersection(Line1 line) => CubicBezierCardanoIntersection(points[0], points[1], points[2], points[3], line);
 
         /// <summary>
         /// Cardano's algorithm
@@ -1502,8 +1429,8 @@ namespace Engine.Geometry
                     crtr = Maths.Crt(r),
                     t1 = 2 * crtr;
                 x1 = t1 * Cos(phi / 3) - a / 3;
-                x2 = t1 * Cos((phi + Maths.Tau) / 3) - a / 3;
-                x3 = t1 * Cos((phi + 2 * Maths.Tau) / 3) - a / 3;
+                x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
+                x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
                 return new List<double>() { x1, x2, x3 };
             }
             else if (discriminant == 0)

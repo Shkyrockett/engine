@@ -10,10 +10,10 @@ namespace MethodSpeedTester
     public partial class PolygonPointTester
         : Form
     {
-        List<PointF> points;
-        List<PointF> polygon;
-        List<Tuple<string, List<PointF>>> polygons = new List<Tuple<string, List<PointF>>>();
-        Tuple<List<double>, List<double>> PatrickMullenValues;
+        private List<PointF> points;
+        private List<PointF> polygon;
+        private List<Tuple<string, List<PointF>>> polygons = new List<Tuple<string, List<PointF>>>();
+        private Tuple<List<double>, List<double>> PatrickMullenValues;
 
         public PolygonPointTester()
         {
@@ -102,10 +102,8 @@ namespace MethodSpeedTester
             g.DrawString(text, font, Brushes.Black, new Point());
             g.FillPolygon(Brushes.White, poly);
             g.DrawPolygon(Pens.Black, poly);
-            foreach (var point in points)
-            {
+            foreach (PointF point in points)
                 DrawHitPoint(g, point, method.Invoke(polygon, point));
-            }
         }
 
         public static void DrawHitPoint(Graphics g, PointF point, bool hit)

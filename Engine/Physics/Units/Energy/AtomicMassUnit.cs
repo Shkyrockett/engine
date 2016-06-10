@@ -11,53 +11,38 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private double value;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public AtomicMassUnit(double value)
         {
-            this.value = value;
+            Value = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Atomic Mass Unit"; } }
+        public string Name => "Atomic Mass Unit";
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "amu"; } }
+        public string Abreviation => "amu";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator AtomicMassUnit(double value)
-        {
-            return new AtomicMassUnit(value);
-        }
+        public static implicit operator AtomicMassUnit(double value) => new AtomicMassUnit(value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} amu", value);
-        }
+        public override string ToString() => string.Format("{0} amu", Value);
     }
 }

@@ -17,28 +17,13 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
-        private List<Backdrop> backdrops;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<Actor> actors;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<IventoryItem> items;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public Scene()
         {
             Name = "Scene";
             DisplayName = "Scene";
-            backdrops = new List<Backdrop>();
-            actors = new List<Actor>();
-            items = new List<IventoryItem>();
+            Backdrops = new List<Backdrop>();
+            Actors = new List<Actor>();
+            Inventory = new List<IventoryItem>();
         }
 
         /// <summary>
@@ -54,28 +39,16 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
-        public List<Backdrop> Backdrops
-        {
-            get { return backdrops; }
-            set { backdrops = value; }
-        }
+        public List<Backdrop> Backdrops { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Actor> Actors
-        {
-            get { return actors; }
-            set { actors = value; }
-        }
+        public List<Actor> Actors { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<IventoryItem> Inventory
-        {
-            get { return items; }
-            set { items = value; }
-        }
+        public List<IventoryItem> Inventory { get; set; }
     }
 }

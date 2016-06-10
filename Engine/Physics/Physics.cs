@@ -26,14 +26,11 @@ namespace Engine.Physics
         /// <param name="assembly"></param>
         /// <param name="classType"></param>
         /// <returns></returns>
-        private static List<Type> GetAssemblyTypesByInterface(Assembly assembly, Type classType)
-        {
-            return new List<Type>
-            (
-                from type in assembly.GetTypes()
-                where type.GetInterfaces().Contains(classType)
-                select type
-            );
-        }
+        private static List<Type> GetAssemblyTypesByInterface(Assembly assembly, Type classType) => new List<Type>
+(
+    from type in assembly.GetTypes()
+    where type.GetInterfaces().Contains(classType)
+    select type
+);
     }
 }

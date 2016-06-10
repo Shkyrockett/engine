@@ -23,10 +23,6 @@ namespace Engine.Winforms
         /// <summary>
         /// 
         /// </summary>
-        public ToolStrip ToolStrip
-        {
-            get { return Control as ToolStrip; }
-        }
-
+        public ToolStrip ToolStrip => Control as ToolStrip;
     }
 }

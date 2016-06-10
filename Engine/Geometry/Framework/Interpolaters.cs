@@ -9,6 +9,7 @@
 
 using Engine.Geometry;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static System.Math;
@@ -31,11 +32,11 @@ namespace Engine
             double phi = (2 * PI) * t;
 
             double theta = ellipse.Angle;
-            Point2D xaxis = new Point2D(Cos(theta), Sin(theta));
-            Point2D yaxis = new Point2D(-Sin(theta), Cos(theta));
+            var xaxis = new Point2D(Cos(theta), Sin(theta));
+            var yaxis = new Point2D(-Sin(theta), Cos(theta));
 
             // Ellipse equation for an ellipse at origin.
-            Point2D ellipsePoint = new Point2D(
+            var ellipsePoint = new Point2D(
                 (ellipse.R1 * Cos(phi)),
                 (ellipse.R2 * Sin(phi))
                 );
@@ -45,6 +46,32 @@ namespace Engine
                 ellipse.X + (ellipsePoint.X * xaxis.X + ellipsePoint.Y * xaxis.Y),
                 ellipse.Y + (ellipsePoint.X * yaxis.X + ellipsePoint.Y * yaxis.Y)
                 );
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="positionA"></param>
+        /// <param name="tangentA"></param>
+        /// <param name="positionB"></param>
+        /// <param name="tangentB"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
+        /// </remarks>
+        public static Point2D CatmullRom(
+            Point2D tangentA,
+            Point2D positionA,
+            Point2D positionB,
+            Point2D tangentB,
+            double t)
+        {
+            double t2 = t * t;
+            double t3 = t2 * t;
+            return new Point2D(
+                0.5f * ((2.0f * positionA.X) + (-tangentA.X + positionB.X) * t + (2.0f * tangentA.X - 5.0f * positionA.X + 4 * positionB.X - tangentB.X) * t2 + (-tangentA.X + 3.0f * positionA.X - 3.0f * positionB.X + tangentB.X) * t3),
+                0.5f * ((2.0f * positionA.Y) + (-tangentA.Y + positionB.Y) * t + (2.0f * tangentA.Y - 5.0f * positionA.Y + 4 * positionB.Y - tangentB.Y) * t2 + (-tangentA.Y + 3.0f * positionA.Y - 3.0f * positionB.Y + tangentB.Y) * t3)
+            );
         }
 
         /// <summary>
@@ -250,6 +277,59 @@ namespace Engine
         }
 
         /// <summary>
+        /// General Bezier curve Number of control points is n+1 0 less than or equal to mu less than 1
+        /// IMPORTANT, the last point is not computed.
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Point2D CubicBSpline(List<Point2D> points, double t)
+        {
+            int n = points.Count - 1;
+            int kn;
+            int nn;
+            int nkn;
+
+            double blend;
+            double muk = 1;
+            double munk = Pow(1 - t, n);
+
+            var b = new Point2D(0.0f, 0.0f);
+
+            for (int k = 0; k <= n; k++)
+            {
+                nn = n;
+                kn = k;
+                nkn = n - k;
+                blend = muk * munk;
+                muk *= t;
+                munk /= (1 - t);
+                while (nn >= 1)
+                {
+                    blend *= nn;
+                    nn--;
+                    if (kn > 1)
+                    {
+                        blend /= kn;
+                        kn--;
+                    }
+                    if (nkn > 1)
+                    {
+                        blend /= nkn;
+                        nkn--;
+                    }
+                }
+
+                b = new Point2D(
+                b.X + points[k].X * blend,
+                b.Y + points[k].Y * blend
+                    );
+            }
+
+            return (b);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="v0"></param>
@@ -367,7 +447,7 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static double Hermite(
+        public static double Hermite(
             double v0,
             double v1,
             double v2,
@@ -409,7 +489,7 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static Tuple<double, double> Hermite(
+        public static Tuple<double, double> Hermite(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -457,7 +537,7 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        static Tuple<double, double, double> Hermite(
+        public static Tuple<double, double, double> Hermite(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -555,7 +635,7 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        private static double QuadraticBezier(
+        public static double QuadraticBezier(
             double x0,
             double x1,
             double x2,
@@ -609,7 +689,7 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        private static Tuple<double, double, double> QuadraticBezier(
+        public static Tuple<double, double, double> QuadraticBezier(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -623,6 +703,71 @@ namespace Engine
                 (x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2),
                 (y0 * mu12 + 2 * y1 * mu1 * t + y2 * mu2),
                 (z0 * mu12 + 2 * z1 * mu1 * t + z2 * mu2));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </remarks>
+        public static double Sine(
+            double v1,
+            double v2,
+            double t)
+        {
+            double mu2 = (1 - Sin(t * PI)) / 2;
+            return v1 * (1 - mu2) + v2 * mu2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        public static Tuple<double, double> Sine(
+            double x1, double y1,
+            double x2, double y2,
+            double t)
+        {
+            double mu2 = (1 - Sin(t * PI)) / 2;
+            return new Tuple<double, double>(
+                x1 * (1 - mu2) + x2 * mu2,
+                y1 * (1 - mu2) + y2 * mu2
+                );
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        public static Tuple<double, double, double> Sine(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double t)
+        {
+            double mu2 = (1 - Sin(t * PI)) / 2;
+            return new Tuple<double, double, double>(
+                x1 * (1 - mu2) + x2 * mu2,
+                y1 * (1 - mu2) + y2 * mu2,
+                z1 * (1 - mu2) + z2 * mu2);
         }
     }
 }

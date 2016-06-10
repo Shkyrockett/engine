@@ -15,26 +15,6 @@ namespace Engine.Imaging.ColorSpace
     public class AHSV
     {
         /// <summary>
-        /// Alpha color component.
-        /// </summary>
-        private byte alpha;
-
-        /// <summary>
-        /// Hue color component.
-        /// </summary>
-        private double hue;
-
-        /// <summary>
-        /// Saturation color component.
-        /// </summary>
-        private double saturation;
-
-        /// <summary>
-        /// Value color component.
-        /// </summary>
-        private double value;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AHSV"/> class.
         /// </summary>
         public AHSV()
@@ -66,17 +46,19 @@ namespace Engine.Imaging.ColorSpace
             double v = max;               // v
             double delta = max - min;
             if (max != 0)
+            {
                 s = delta / max;       // s
+            }
             else
             {
                 // r = g = b = 0		// s = 0, v is undefined
                 s = 0;
                 h = -1;
 
-                alpha = color.A;
-                hue = h;
-                saturation = s;
-                value = v;
+                Alpha = color.A;
+                Hue = h;
+                Saturation = s;
+                Value = v;
             }
 
             if (red == max)
@@ -89,10 +71,10 @@ namespace Engine.Imaging.ColorSpace
             if (h < 0)
                 h += 360;
 
-            alpha = color.A;
-            hue = h;
-            saturation = s;
-            value = v;
+            Alpha = color.A;
+            Hue = h;
+            Saturation = s;
+            Value = v;
         }
 
         /// <summary>
@@ -115,47 +97,31 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="value">Value color component.</param>
         public AHSV(byte alpha, double hue, double saturation, double value)
         {
-            this.alpha = alpha;
-            this.hue = hue;
-            this.saturation = saturation;
-            this.value = value;
+            Alpha = alpha;
+            Hue = hue;
+            Saturation = saturation;
+            Value = value;
         }
 
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
-        public byte Alpha
-        {
-            get { return alpha; }
-            set { alpha = value; }
-        }
+        public byte Alpha { get; set; }
 
         /// <summary>
         /// Gets or sets the hue color value.
         /// </summary>
-        public double Hue
-        {
-            get { return hue; }
-            set { hue = value; }
-        }
+        public double Hue { get; set; }
 
         /// <summary>
         /// Gets or sets the saturation color value.
         /// </summary>
-        public double Saturation
-        {
-            get { return saturation; }
-            set { saturation = value; }
-        }
+        public double Saturation { get; set; }
 
         /// <summary>
         /// Gets or sets the value color value.
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// </summary>
@@ -172,54 +138,54 @@ namespace Engine.Imaging.ColorSpace
             double b;
             int i;
             double f, p, q, t;
-            if (saturation == 0)
+            if (Saturation == 0)
             {
                 // achromatic (gray)
-                r = g = b = value;
+                r = g = b = Value;
 
                 r = (1.0 - r) * 255.0 + 0.5;
                 g = (1.0 - g) * 255.0 + 0.5;
                 b = (1.0 - b) * 255.0 + 0.5;
 
-                return Color.FromArgb(alpha, (byte)r, (byte)g, (byte)b);
+                return Color.FromArgb(Alpha, (byte)r, (byte)g, (byte)b);
             }
 
-            hue /= 60;            // sector 0 to 5
-            i = (int)Floor(hue);
-            f = hue - i;          // factorial part of h
-            p = value * (1 - saturation);
-            q = value * (1 - saturation * f);
-            t = value * (1 - saturation * (1 - f));
+            Hue /= 60;            // sector 0 to 5
+            i = (int)Floor(Hue);
+            f = Hue - i;          // factorial part of h
+            p = Value * (1 - Saturation);
+            q = Value * (1 - Saturation * f);
+            t = Value * (1 - Saturation * (1 - f));
             switch (i)
             {
                 case 0:
-                    r = value;
+                    r = Value;
                     g = t;
                     b = p;
                     break;
                 case 1:
                     r = q;
-                    g = value;
+                    g = Value;
                     b = p;
                     break;
                 case 2:
                     r = p;
-                    g = value;
+                    g = Value;
                     b = t;
                     break;
                 case 3:
                     r = p;
                     g = q;
-                    b = value;
+                    b = Value;
                     break;
                 case 4:
                     r = t;
                     g = p;
-                    b = value;
+                    b = Value;
                     break;
                 case 5:
                 default:
-                    r = value;
+                    r = Value;
                     g = p;
                     b = q;
                     break;
@@ -229,7 +195,7 @@ namespace Engine.Imaging.ColorSpace
             g = (1.0 - g) * 255.0 + 0.5;
             b = (1.0 - b) * 255.0 + 0.5;
 
-            return Color.FromArgb(alpha, (byte)r, (byte)g, (byte)b);
+            return Color.FromArgb(Alpha, (byte)r, (byte)g, (byte)b);
         }
     }
 }

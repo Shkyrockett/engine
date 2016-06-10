@@ -6,14 +6,9 @@ namespace Engine.Geometry.Tests
     /// <summary>
     /// 
     /// </summary>
-    [TestClass()]
+    [TestClass]
     public class EllipseTests
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private TestContext testContextInstance;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipseTests"/> class.
         /// </summary>
@@ -28,49 +23,49 @@ namespace Engine.Geometry.Tests
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
-        }
+        public TestContext TestContext { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        [ClassInitialize()]
+        [ClassInitialize]
         public static void ClassInit(TestContext context)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        [TestInitialize()]
+        [TestInitialize]
         public void Initialize()
-        { }
+        {
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        [TestCleanup()]
+        [TestCleanup]
         public void Cleanup()
-        { }
+        {
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        [ClassCleanup()]
+        [ClassCleanup]
         public static void ClassCleanup()
-        { }
+        {
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void PerimeterTest()
         {
             // Test a perfect circle.
-            Ellipse ellipse = new Ellipse(new Point2D(), 100, 100, 0);
+            var ellipse = new Ellipse(new Point2D(), 100, 100, 0);
             double value = ellipse.Perimeter;
             Assert.AreEqual((2 * Math.PI * ellipse.MajorRadius).ToString(), value.ToString());
 
@@ -83,21 +78,25 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InterpolateTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
 
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         [Ignore]
         public void InterpolatePointsTest()
         {
+#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
+#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
     }
 }

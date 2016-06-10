@@ -41,7 +41,8 @@ namespace Engine.Geometry
         /// </summary>
         public Polygon()
             : this(new List<Point2D>())
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -49,7 +50,8 @@ namespace Engine.Geometry
         /// <param name="polygon"></param>
         public Polygon(Polygon polygon)
             : this(polygon.points)
-        { }
+        {
+        }
 
         /// <summary>
         /// 
@@ -68,9 +70,7 @@ namespace Engine.Geometry
         {
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
-            {
                 points.Concat(polyline.Points);
-            }
         }
 
         #endregion
@@ -122,7 +122,7 @@ namespace Engine.Geometry
         {
             get
             {
-                var points = (this.points as List<Point2D>);
+                List<Point2D> points = (this.points as List<Point2D>);
                 return points.Count > 0 ? points.Zip(points.Skip(1), Primitives.Distance).Sum() + Primitives.Distance(points[0], points[points.Count - 1]) : 0;
             }
         }
@@ -139,7 +139,7 @@ namespace Engine.Geometry
             get
             {
                 if (this.points?.Count < 1) return null;
-                var points = (this.points as List<Point2D>);
+                List<Point2D> points = (this.points as List<Point2D>);
 
                 double left = points[0].X;
                 double top = points[0].Y;
@@ -191,20 +191,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point)
-        {
-            return Intersections.Contains(this, point) != InsideOutside.Outside;
-        }
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != InsideOutside.Outside;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public Polygon Clone()
-        {
-            return new Polygon(points.ToArray());
-        }
+        public Polygon Clone() => new Polygon(points.ToArray());
 
         /// <summary>
         /// 
@@ -214,9 +208,9 @@ namespace Engine.Geometry
         [Pure]
         public virtual Polygon Offset(double offset)
         {
-            var points = (this.points as List<Point2D>);
+            List<Point2D> points = (this.points as List<Point2D>);
 
-            Polygon polyline = new Polygon();
+            var polyline = new Polygon();
 
             LineSegment offsetLine = Primitives.OffsetSegment(points[Points.Count - 1], points[0], offset);
             LineSegment startLine = offsetLine;

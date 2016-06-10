@@ -10,15 +10,6 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<Point2D> points;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<Point2D> Points
-        {
-            get { return points; }
-            set { points = value; }
-        }
+        public List<Point2D> Points { get; set; }
     }
 }

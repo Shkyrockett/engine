@@ -24,7 +24,8 @@ namespace Engine.Geometry
         /// Creates a new instance of Point2DConverter
         /// </summary>
         public Point2DConverter()
-        { }
+        {
+        }
 
         /// <summary>
         /// Boolean, true if the source type is a string
@@ -32,9 +33,7 @@ namespace Engine.Geometry
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertFrom(context, sourceType);
         }
@@ -48,9 +47,7 @@ namespace Engine.Geometry
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertTo(context, destinationType);
         }
@@ -60,36 +57,26 @@ namespace Engine.Geometry
         /// </summary>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            string str = value as string;
+            var str = value as string;
             if (str == null)
-            {
                 return base.ConvertFrom(context, culture, value);
-            }
 
             string str2 = str.Trim();
             if (str2.Length == 0)
-            {
                 return null;
-            }
 
             if (culture == null)
-            {
                 culture = CultureInfo.CurrentCulture;
-            }
 
             char ch = culture.TextInfo.ListSeparator[0];
             string[] strArray = str2.Split(new char[] { ch });
-            double[] numArray = new double[strArray.Length];
+            var numArray = new double[strArray.Length];
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(double));
             for (int i = 0; i < numArray.Length; i++)
-            {
                 numArray[i] = (double)converter.ConvertFromString(context, culture, strArray[i]);
-            }
 
             if (numArray.Length != 2)
-            {
                 throw new ArgumentException("Parse failed.");
-            }
 
             return new Point2D(numArray[0], numArray[1]);
         }
@@ -100,23 +87,19 @@ namespace Engine.Geometry
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == null)
-            {
-                throw new ArgumentNullException("destinationType");
-            }
+                throw new ArgumentNullException(nameof(destinationType));
 
             if (value is Point2D)
             {
                 if (destinationType == typeof(string))
                 {
-                    Point2D point = (Point2D)value;
+                    var point = (Point2D)value;
                     if (culture == null)
-                    {
                         culture = CultureInfo.CurrentCulture;
-                    }
 
                     string separator = culture.TextInfo.ListSeparator + " ";
                     TypeConverter converter = TypeDescriptor.GetConverter(typeof(double));
-                    string[] strArray = new string[2];
+                    var strArray = new string[2];
                     int num = 0;
                     strArray[num++] = converter.ConvertToString(context, culture, point.X);
                     strArray[num++] = converter.ConvertToString(context, culture, point.Y);
@@ -124,12 +107,10 @@ namespace Engine.Geometry
                 }
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
-                    Point2D point2 = (Point2D)value;
+                    var point2 = (Point2D)value;
                     ConstructorInfo constructor = typeof(Point2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
                     if (constructor != null)
-                    {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point2.X, point2.Y });
-                    }
                 }
             }
 
@@ -141,10 +122,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public override bool GetCreateInstanceSupported(ITypeDescriptorContext context)
-        {
-            return true;
-        }
+        public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
         /// 
@@ -155,13 +133,9 @@ namespace Engine.Geometry
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
         {
             if (propertyValues != null)
-            {
                 return new Point2D((double)propertyValues["X"], (double)propertyValues["Y"]);
-            }
             else
-            {
                 return null;
-            }
         }
     }
 }

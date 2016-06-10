@@ -19,7 +19,7 @@
 
 namespace MethodSpeedTester
 {
-    class ptinpoly
+    internal class ptinpoly
     {
         //# include <stdio.h>
         //# include <stdlib.h>

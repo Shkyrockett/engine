@@ -36,33 +36,24 @@ namespace Engine.Physics
         /// <summary>
         /// 
         /// </summary>
-        private double value;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public Days(double value)
         {
-            this.value = value;
+            Value = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public double Seconds
         {
-            get { return value * Second; }
-            set { this.value = value / Second; }
+            get { return Value * Second; }
+            set { Value = value / Second; }
         }
 
         /// <summary>
@@ -70,8 +61,8 @@ namespace Engine.Physics
         /// </summary>
         public double Minutes
         {
-            get { return value * Minute; }
-            set { this.value = value / Minute; }
+            get { return Value * Minute; }
+            set { Value = value / Minute; }
         }
 
         /// <summary>
@@ -79,8 +70,8 @@ namespace Engine.Physics
         /// </summary>
         public double Hours
         {
-            get { return value * Hour; }
-            set { this.value = value / Hour; }
+            get { return Value * Hour; }
+            set { Value = value / Hour; }
         }
 
         /// <summary>
@@ -88,38 +79,32 @@ namespace Engine.Physics
         /// </summary>
         public double Years
         {
-            get { return value * Year; }
-            set { this.value = value / Year; }
+            get { return Value * Year; }
+            set { Value = value / Year; }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Days(double value)
-        {
-            return new Days(value);
-        }
+        public static implicit operator Days(double value) => new Days(value);
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name { get { return "Days"; } }
+        public string Name => "Days";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation { get { return "days"; } }
+        public string Abreviation => "days";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("{0} days", value);
-        }
+        public override string ToString() => string.Format("{0} days", Value);
     }
 }

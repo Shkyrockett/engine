@@ -40,12 +40,12 @@ namespace Engine.Objects
         /// <summary>
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
-        public virtual double Area { get; private set; }
+        public virtual double Area { get; }
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
         /// </summary>
-        public virtual double Perimeter { get; private set; }
+        public virtual double Perimeter { get; }
 
         /// <summary>
         /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
@@ -61,29 +61,16 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public virtual Point2D Interpolate(double t)
-        {
-            return null;
-        }
+        public virtual Point2D Interpolate(double t) => null;
 
         /// <summary>
         /// Retrieves a list of points interpolated from a<see cref="Shape"/>.
         /// </summary>
         /// <param name="count">The number of points desired.</param>
         /// <returns></returns>
-        public virtual List<Point2D> InterpolatePoints(int count)
-        {
-            return new List<Point2D>(
-                from i in Enumerable.Range(0, count)
-                select Interpolate((1d / count) * i));
-
-            //List<Point2D> points = new List<Point2D>();
-            //for (int i = 0; i <= count; i++)
-            //{
-            //    points.Add(Interpolate((1d / count) * i));
-            //}
-            //return points;
-        }
+        public virtual List<Point2D> InterpolatePoints(int count) => new List<Point2D>(
+    from i in Enumerable.Range(0, count)
+    select Interpolate((1d / count) * i));
 
         #endregion
 
@@ -94,10 +81,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="point"></param>
         /// <returns>A <see cref="bool"/> value indicating whether the point intersects the object.</returns>
-        public virtual bool Contains(Point2D point)
-        {
-            return false;
-        }
+        public virtual bool Contains(Point2D point) => false;
 
         /// <summary>
         /// Register one or more methods to call when properties change to the shape.

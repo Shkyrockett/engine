@@ -9,26 +9,6 @@ namespace Engine.Imaging.ColorSpace
     public class AHSI
     {
         /// <summary>
-        /// Alpha color component.
-        /// </summary>
-        private byte alpha;
-
-        /// <summary>
-        /// Hue color component.
-        /// </summary>
-        private double hue;
-
-        /// <summary>
-        /// Saturation color component.
-        /// </summary>
-        private double saturation;
-
-        /// <summary>
-        /// Intensity color component.
-        /// </summary>
-        private double intensity;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AHSI"/> class.
         /// </summary>
         public AHSI()
@@ -66,25 +46,19 @@ namespace Engine.Imaging.ColorSpace
             else
             {
                 if (M == r)
-                {
                     H = IEEERemainder(((g - b) / c), 6.0);
-                }
                 else if (M == g)
-                {
                     H = (b - r) / c + 2.0;
-                }
                 else if (M == b)
-                {
                     H = (r - g) / c + 4.0;
-                }
                 H *= 60.0;
                 S = 1.0 - (m / I);
             }
 
-            alpha = color.A;
-            hue = H;
-            saturation = S;
-            intensity = I;
+            Alpha = color.A;
+            Hue = H;
+            Saturation = S;
+            Intensity = I;
         }
 
         /// <summary>
@@ -107,47 +81,31 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="intensity">Intensity color component.</param>
         public AHSI(byte alpha, double hue, double saturation, double intensity)
         {
-            this.alpha = alpha;
-            this.hue = hue;
-            this.saturation = saturation;
-            this.intensity = intensity;
+            Alpha = alpha;
+            Hue = hue;
+            Saturation = saturation;
+            Intensity = intensity;
         }
 
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
-        public byte Alpha
-        {
-            get { return alpha; }
-            set { alpha = value; }
-        }
+        public byte Alpha { get; set; }
 
         /// <summary>
         /// Gets or sets the hue color value.
         /// </summary>
-        public double Hue
-        {
-            get { return hue; }
-            set { hue = value; }
-        }
+        public double Hue { get; set; }
 
         /// <summary>
         /// Gets or sets the saturation color value.
         /// </summary>
-        public double Saturation
-        {
-            get { return saturation; }
-            set { saturation = value; }
-        }
+        public double Saturation { get; set; }
 
         /// <summary>
         /// Gets or sets the intensity color value.
         /// </summary>
-        public double Intensity
-        {
-            get { return intensity; }
-            set { intensity = value; }
-        }
+        public double Intensity { get; set; }
 
         /// <summary>
         /// </summary>
@@ -161,9 +119,9 @@ namespace Engine.Imaging.ColorSpace
             double R = 0;
             double G = 0;
             double B = 0;
-            double h = hue;
-            double s = saturation;
-            double i = intensity;
+            double h = Hue;
+            double s = Saturation;
+            double i = Intensity;
             double HUE_UPPER_LIMIT = 360.0;
 
             if (h >= 0.0 && h <= (HUE_UPPER_LIMIT / 3.0))
@@ -178,7 +136,6 @@ namespace Engine.Imaging.ColorSpace
                 R = (1.0 / 3.0) * (1.0 - s);
                 G = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
                 B = 1.0 - (G + R);
-
             }
             else /* h>240 h<360 */
             {
@@ -188,7 +145,7 @@ namespace Engine.Imaging.ColorSpace
                 R = 1.0 - (G + B);
             }
 
-            return Color.FromArgb(alpha, (byte)R, (byte)G, (byte)B);
+            return Color.FromArgb(Alpha, (byte)R, (byte)G, (byte)B);
         }
     }
 }

@@ -15,27 +15,27 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        char quoteChar;
+        private char quoteChar;
 
         /// <summary>
         /// 
         /// </summary>
-        char argSeparator;
+        private char argSeparator;
 
         /// <summary>
         /// 
         /// </summary>
-        string str;
+        private string str;
 
         /// <summary>
         /// 
         /// </summary>
-        int strLen;
+        private int strLen;
 
         /// <summary>
         /// 
         /// </summary>
-        int charIndex;
+        private int charIndex;
 
         /// <summary>
         /// 
@@ -50,7 +50,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        bool foundSeparator;
+        private bool foundSeparator;
 
         /// <summary>
         /// Constructor for TokenizerHelper which accepts an IFormatProvider.
@@ -83,10 +83,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        internal bool FoundSeparator
-        {
-            get { return foundSeparator; }
-        }
+        internal bool FoundSeparator => foundSeparator;
 
         /// <summary>
         /// Initialize the TokenizerHelper with the string to tokenize,
@@ -109,9 +106,7 @@ namespace Engine.Geometry
             while (charIndex < strLen)
             {
                 if (!char.IsWhiteSpace(this.str, charIndex))
-                {
                     break;
-                }
 
                 ++charIndex;
             }
@@ -125,9 +120,7 @@ namespace Engine.Geometry
         {
             // if no current token, return null
             if (currentTokenIndex < 0)
-            {
                 return null;
-            }
 
             return str.Substring(currentTokenIndex, currentTokenLength);
         }
@@ -148,10 +141,7 @@ namespace Engine.Geometry
         /// Advances to the NextToken
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
-        internal bool NextToken()
-        {
-            return NextToken(false);
-        }
+        internal bool NextToken() => NextToken(false);
 
         /// <summary>
         /// Advances to the NextToken, throwing an exception if not present
@@ -187,11 +177,8 @@ namespace Engine.Geometry
         /// Advances to the NextToken
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
-        internal bool NextToken(bool allowQuotedToken)
-        {
-            // use the currently-set separator character.
-            return NextToken(allowQuotedToken, argSeparator);
-        }
+        // use the currently-set separator character.
+        internal bool NextToken(bool allowQuotedToken) => NextToken(allowQuotedToken, argSeparator);
 
         /// <summary>
         /// Advances to the NextToken.  A separator character can be specified
@@ -205,9 +192,7 @@ namespace Engine.Geometry
 
             // If we're at end of the string, just return false.
             if (charIndex >= strLen)
-            {
                 return false;
-            }
 
             char currentChar = str[charIndex];
 
@@ -255,9 +240,7 @@ namespace Engine.Geometry
                 else if ((Char.IsWhiteSpace(currentChar)) || (currentChar == separator))
                 {
                     if (currentChar == separator)
-                    {
                         foundSeparator = true;
-                    }
                     break;
                 }
 
@@ -292,7 +275,7 @@ namespace Engine.Geometry
         /// helper to move the _charIndex to the next token or to the end of the string
         /// </summary>
         /// <param name="separator"></param>
-        void ScanToNextToken(char separator)
+        private void ScanToNextToken(char separator)
         {
             // if already at end of the string don't bother
             if (charIndex < strLen)
@@ -367,9 +350,7 @@ namespace Engine.Geometry
             // Is the decimal separator the same as the list separator?
             // If so, we use the ";".
             if ((numberFormat.NumberDecimalSeparator.Length > 0) && (numericSeparator == numberFormat.NumberDecimalSeparator[0]))
-            {
                 numericSeparator = ';';
-            }
 
             return numericSeparator;
         }

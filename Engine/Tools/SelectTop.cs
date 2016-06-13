@@ -7,8 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-// ToDo: Implement shape drawing tool.
-
 using Engine.Objects;
 using System.Collections.Generic;
 using System.Text;

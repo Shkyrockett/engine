@@ -123,6 +123,12 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public List<Point2D> InterpolatePoints() => ((List<Point2D>)CachingProperty(() => Item?.InterpolatePoints(500)));
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
         public List<Point2D> InterpolateToPolygon(double points) => null;

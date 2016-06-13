@@ -258,9 +258,9 @@ namespace Editor
             ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
             ////MessageBox.Show(cubicBezierLengths.ToString());
 
-            //Shape ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45);
-            //GraphicItem ellipseItem = new GraphicItem(ellipse, styles[6]);
-            //vectorMap.Add(ellipseItem);
+            var ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
+            var ellipseItem = new GraphicItem(ellipse, styles[6]);
+            vectorMap.Add(ellipseItem);
 
             //Polygon triangleI = new Triangle(
             //    new Point2D(75, 125),
@@ -305,6 +305,10 @@ namespace Editor
             //vectorMap.Add(rectangleTweenItem);
             //vectorMap.Add(ellipseTweenItem);
 
+            var parametric = new ParametricDelegateCurve((t) => Interpolaters.Ellipse(new Ellipse(100d,100d,25d,25d,0d), t), Point2D.Empty, Size2D.Empty, 0, 0);
+            var parametricItem = new GraphicItem(parametric, styles[3]);
+            vectorMap.Add(parametricItem);
+
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";
         }
@@ -338,7 +342,7 @@ namespace Editor
         /// <param name="e"></param>
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            //propertyGrid1.SelectedObject = (sender as ListBox)?.SelectedItem as GraphicItem;
+            propertyGrid1.SelectedObject = (sender as ListBox)?.SelectedItem as GraphicItem;
         }
 
         /// <summary>
@@ -440,7 +444,7 @@ namespace Editor
         {
             toolStack.MouseMove(new Point2D(e.X, e.Y));
             //propertyGrid1.Refresh();
-            CanvasPanel.Invalidate(true);
+            //CanvasPanel.Invalidate(true);
         }
 
         /// <summary>

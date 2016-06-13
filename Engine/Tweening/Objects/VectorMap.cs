@@ -176,7 +176,8 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <param name="point"></param>
-        public GraphicItem SelectItem(Point2D point) => Items.LastOrDefault(shape => shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
+        public GraphicItem SelectItem(Point2D point)
+            => Items?.LastOrDefault(shape => shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
 
         /// <summary>
         /// 

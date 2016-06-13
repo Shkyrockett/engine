@@ -41,7 +41,7 @@ namespace MethodSpeedTester
                 new SpeedTester(() => AbsoluteAngle0(0, 0, 1, 1),
                 $"{nameof(Experiments.AbsoluteAngle0)}(0, 0, 1, 1)"),
                  new SpeedTester(() => AbsoluteAngle1(0, 0, 1, 1),
-                $"{nameof(Experiments.AbsoluteAngle1)}(0, 0,, 1, 1)"),
+                $"{nameof(Experiments.AbsoluteAngle1)}(0, 0,, 1, 1)")
            };
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(AngleBetweenTests))]
         public static List<SpeedTester> AngleBetweenTests() => new List<SpeedTester>() {
                 new SpeedTester(() => AngleBetween(0, 0, 1, 1),
-                $"{nameof(Experiments.AngleBetween)}(0, 0, 1, 1)"),
+                $"{nameof(Experiments.AngleBetween)}(0, 0, 1, 1)")
            };
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(AngleBetween3DTests))]
         public static List<SpeedTester> AngleBetween3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => AngleBetween(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.AngleBetween)}(0, 0, 0, 1, 1, 1)"),
+                $"{nameof(Experiments.AngleBetween)}(0, 0, 0, 1, 1, 1)")
            };
 
         /// <summary>
@@ -148,11 +148,44 @@ namespace MethodSpeedTester
         #region Angle of a Vector
 
         /// <summary>
-        /// 
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
-        /// <param name="pt"></param>
         /// <returns></returns>
-        public static double GetAngle(Point2D pt) => Atan2(pt.X, -pt.Y) * 180 / PI;
+        [DisplayName(nameof(AngleofVectorTests))]
+        public static List<SpeedTester> AngleofVectorTests() => new List<SpeedTester>() {
+                new SpeedTester(() => GetAngle0(0, 1),
+                $"{nameof(Experiments.GetAngle0)}(0, 1)"),
+                new SpeedTester(() => GetAngleAtan2v2(0, 1),
+                $"{nameof(Experiments.GetAngleAtan2v2)}(0, 1)")
+           };
+
+        /// <summary>
+        /// Angle with tangent opp/hyp
+        /// </summary>
+        /// <param name="i">opposite component.</param>
+        /// <param name="j">adjacent component.</param>
+        /// <param name="pt"></param>
+        /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetAngle0(double i, double j)
+            => Atan2(i, -j);// * 180 / PI; // Original source method converted radians to degrees.
+
+        /// <summary>
+        /// Returns the Angle of two deltas.
+        /// </summary>
+        /// <param name="opposite">Delta Angle 1</param>
+        /// <param name="adjacent">Delta Angle 2</param>
+        /// <returns>Returns the Angle of a line.</returns>
+        /// <remarks></remarks>
+        public static double GetAngleAtan2v2(double opposite, double adjacent)
+        {
+            if ((opposite == 0) && (adjacent == 0)) return 0;
+            double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
+            if (adjacent < 0) Value = (PI - Value);
+            if (Value < 0) Value = (Value + (2 * PI));
+            return Value;
+        }
 
         #endregion
 
@@ -165,7 +198,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(Angle2DTests))]
         public static List<SpeedTester> Angle2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Angle(0, 0, 1, 1),
-                $"{nameof(Experiments.Angle)}(0, 0, 1, 1)"),
+                $"{nameof(Experiments.Angle)}(0, 0, 1, 1)")
            };
 
         /// <summary>
@@ -195,7 +228,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(Angle3DTests))]
         public static List<SpeedTester> Angle3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => Angle(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.Angle)}(0, 0, 0, 1, 1, 1)"),
+                $"{nameof(Experiments.Angle)}(0, 0, 0, 1, 1, 1)")
            };
 
         /// <summary>
@@ -228,7 +261,7 @@ namespace MethodSpeedTester
                 new SpeedTester(() => AngleVector_0(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.AngleVector_0)}(0, 0, 1, 0, 1, 1)"),
                  new SpeedTester(() => AngleVector_1(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.AngleVector_1)}(0, 0, 1, 0, 1, 1)"),
+                $"{nameof(Experiments.AngleVector_1)}(0, 0, 1, 0, 1, 1)")
            };
 
         /// <summary>
@@ -284,38 +317,19 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region  Angle Tangent of Two deltas Atan2
-
-        ///// <summary>
-        ///// Angle with tangent opp/hyp
-        ///// </summary>
-        ///// <param name="opposite"></param>
-        ///// <param name="adjacent"></param>
-        ///// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
-        ///// <remarks></remarks>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static double Atan2(double opposite, double adjacent)
-        //    => Math.Atan2(opposite, adjacent);
-
-        ///// <summary>
-        ///// Returns the Angle of two deltas.
-        ///// </summary>
-        ///// <param name="opposite">Delta Angle 1</param>
-        ///// <param name="adjacent">Delta Angle 2</param>
-        ///// <returns>Returns the Angle of a line.</returns>
-        ///// <remarks></remarks>
-        //public static double _Atan2(double opposite, double adjacent)
-        //{
-        //    if (((opposite == 0) && (adjacent == 0))) return 0;
-        //    double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
-        //    if ((adjacent < 0)) Value = (PI - Value);
-        //    if ((Value < 0)) Value = (Value + (2 * PI));
-        //    return Value;
-        //}
-
-        #endregion
-
         #region Calculate Rectangular boundaries of a circle defined by three points
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(CircleBoundsFromThreePointsTests))]
+        public static List<SpeedTester> CircleBoundsFromThreePointsTests() => new List<SpeedTester>() {
+                new SpeedTester(() => TripointCircleBounds(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.TripointCircleBounds)}(0, 0, 0, 1, 1, 1)"),
+                new SpeedTester(() => circleBoundsFromPoints(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.circleBoundsFromPoints)}(0, 0, 0, 1, 1, 1)")
+           };
 
         /// <summary>
         /// Find the Bounds of A Circle from Three Points 
@@ -325,12 +339,47 @@ namespace MethodSpeedTester
         /// <param name="PointC">Last Point on the Ellipse</param>
         /// <returns>A Rectangle Representing the bounds of A Circle Defined from three 
         /// Points</returns>
-        public static Rectangle2D TripointCircleBounds(Point2D PointA, Point2D PointB, Point2D PointC)
+        public static Rectangle2D TripointCircleBounds(
+            double PointAX, double PointAY,
+            double PointBX, double PointBY,
+            double PointCX, double PointCY)
         {
-            Point2D Center = TripointCircleCenter(PointA, PointB, PointC);
-            double Radius = (Center.Length(PointA));
-            Rectangle2D Bounds = Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
-            return Bounds;
+            Tuple<double, double> Center = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
+            double Radius = Distance2D_0(Center.Item1, Center.Item2, PointAX, PointAY);
+            return Rectangle2D.FromLTRB((Center.Item1 - Radius), (Center.Item2 - Radius), (Center.Item1 + Radius), (Center.Item2 + Radius));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
+        /// </remarks>
+        public static Rectangle2D circleBoundsFromPoints(
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y)
+        {
+            double offset = (p2X * p2X) + (p2Y * p2Y);
+            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) / 2d;
+            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
+            double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
+
+            if (Abs(determinant) < Maths.DoubleEpsilon) return null;
+
+            double centerx = (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant;
+            double centery = (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant;
+
+            double radius = Sqrt(((p2X - centerx) * (p2X - centerx)) + ((p2Y - centery) * (p2Y - centery)));
+
+            return Rectangle2D.FromLTRB((centerx - radius), (centery - radius), (centerx + radius), (centery + radius));
         }
 
         #endregion
@@ -338,11 +387,18 @@ namespace MethodSpeedTester
         #region Catmull-Rom Spline Interpolation
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(CatmullRomSplineInterpolationTests))]
+        public static List<SpeedTester> CatmullRomSplineInterpolationTests() => new List<SpeedTester>() {
+                new SpeedTester(() => InterpolateCatmullRom(0, 0, 0, 1, 1, 1, 1, 0, 0.5d),
+                $"{nameof(Experiments.InterpolateCatmullRom)}(0, 0, 0, 1, 1, 1, 1, 0, 0.5d)")
+           };
+
+        /// <summary>
         /// Calculates interpolated point between two points using Catmull-Rom Spline
         /// </summary>
-        /// <remarks>
-        /// Points calculated exist on the spline between points two and three.
-        /// </remarks>
         /// <param name="p0">First Point</param>
         /// <param name="p1">Second Point</param>
         /// <param name="p2">Third Point</param>
@@ -354,39 +410,90 @@ namespace MethodSpeedTester
         /// <returns>
         /// Calculated Spline Point
         /// </returns>
-        public static Point2D PointOnCurve(Point2D p0, Point2D p1, Point2D p2, Point2D p3, double t)
+        /// <remarks>
+        /// Points calculated exist on the spline between points two and three.
+        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
+        /// </remarks>
+        public static Tuple<double, double> InterpolateCatmullRom(
+            double t0X, double t0Y,
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double t3X, double t3Y,
+            double t)
         {
-            var ret = new Point2D();
-
             double t2 = t * t;
             double t3 = t2 * t;
 
-            ret.X = 0.5f * ((2.0f * p1.X)
-            + (-p0.X + p2.X) * t
-            + (2.0f * p0.X - 5.0f * p1.X + 4 * p2.X - p3.X) * t2
-            + (-p0.X + 3.0f * p1.X - 3.0f * p2.X + p3.X) * t3);
+            return new Tuple<double, double>(
+                0.5d * ((2d * p1X) + (-t0X + p2X) * t + (2d * t0X - 5d * p1X + 4d * p2X - t3X) * t2 + (-t0X + 3d * p1X - 3d * p2X + t3X) * t3),
+                0.5d * ((2d * p1Y) + (-t0Y + p2Y) * t + (2d * t0Y - 5d * p1Y + 4d * p2Y - t3Y) * t2 + (-t0Y + 3d * p1Y - 3d * p2Y + t3Y) * t3));
+        }
 
-            ret.Y = 0.5f * ((2.0f * p1.Y)
-            + (-p0.Y + p2.Y) * t
-            + (2.0f * p0.Y - 5.0f * p1.Y + 4 * p2.Y - p3.Y) * t2
-            + (-p0.Y + 3.0f * p1.Y - 3.0f * p2.Y + p3.Y) * t3);
+        #endregion
 
-            return ret;
+        #region Circle from Three points
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(CircleFromThreePointsTests))]
+        public static List<SpeedTester> CircleFromThreePointsTests() => new List<SpeedTester>() {
+                new SpeedTester(() => TripointCircle(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.TripointCircle)}(0, 0, 0, 1, 1, 1)"),
+                new SpeedTester(() => circleFromPoints(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.circleFromPoints)}(0, 0, 0, 1, 1, 1)")
+           };
+
+        /// <summary>
+        /// Find the Bounds of A Circle from Three Points 
+        /// </summary>
+        /// <param name="PointA">First Point on the Ellipse</param>
+        /// <param name="PointB">Second Point on the Ellipse</param>
+        /// <param name="PointC">Last Point on the Ellipse</param>
+        /// <returns>A Rectangle Representing the bounds of A Circle Defined from three 
+        /// Points</returns>
+        public static Circle TripointCircle(
+            double PointAX, double PointAY,
+            double PointBX, double PointBY,
+            double PointCX, double PointCY)
+        {
+            Tuple<double, double> center = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
+            double radius = Distance2D_0(center.Item1, center.Item2, PointAX, PointAY);
+            return new Circle(new Point2D(center.Item1, center.Item2), radius);
         }
 
         /// <summary>
-        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
+        /// 
         /// </summary>
-        /// <param name="t"></param>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
         /// <returns></returns>
-        public static Point2D InterpolateCatmullRom(Point2D tangentA, Point2D positionA, Point2D positionB, Point2D tangentB, double t)
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
+        /// </remarks>
+        public static Circle circleFromPoints(
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y)
         {
-            double t2 = t * t;
-            double t3 = t2 * t;
-            return new Point2D(
-                0.5f * ((2.0f * positionA.X) + (-tangentA.X + positionB.X) * t + (2.0f * tangentA.X - 5.0f * positionA.X + 4 * positionB.X - tangentB.X) * t2 + (-tangentA.X + 3.0f * positionA.X - 3.0f * positionB.X + tangentB.X) * t3),
-                0.5f * ((2.0f * positionA.Y) + (-tangentA.Y + positionB.Y) * t + (2.0f * tangentA.Y - 5.0f * positionA.Y + 4 * positionB.Y - tangentB.Y) * t2 + (-tangentA.Y + 3.0f * positionA.Y - 3.0f * positionB.Y + tangentB.Y) * t3)
-            );
+            double offset = (p2X * p2X) + (p2Y * p2Y);
+            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) / 2d;
+            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
+            double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
+
+            if (Abs(determinant) < Maths.DoubleEpsilon) return null;
+
+            double centerx = (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant;
+            double centery = (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant;
+
+            double radius = Sqrt(((p2X - centerx) * (p2X - centerx)) + ((p2Y - centery) * (p2Y - centery)));
+
+            return new Circle(new Point2D(centerx, centery), radius);
         }
 
         #endregion
@@ -394,18 +501,28 @@ namespace MethodSpeedTester
         #region Change the Angle of a Vector
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the change of an angle of a vector.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(ChangeAngleofVectorTests))]
+        public static List<SpeedTester> ChangeAngleofVectorTests() => new List<SpeedTester>() {
+                new SpeedTester(() => SetAngle(0, 1, 1),
+                $"{nameof(Experiments.SetAngle)}(0, 1, 1)")
+           };
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="pt"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public static Point2D SetAngle(Point2D pt, double angle)
+        public static Tuple<double, double> SetAngle(double i, double j, double angle)
         {
-            var rads = angle * (PI / 180);
-            var dist = Sqrt(pt.X * pt.X + pt.Y * pt.Y);
-            pt.X = Sin(rads) * dist;
-            pt.Y = -(Cos(rads) * dist);
-            return pt;
+            //double rads = angle; // * (PI / 180); // Original code used degrees rather than radians.
+            double dist = Sqrt(i * i + j * j);
+            return new Tuple<double, double>(
+                Sin(angle) * dist,
+                -(Cos(angle) * dist));
         }
 
         #endregion
@@ -419,7 +536,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(ComplexProduct2DTests))]
         public static List<SpeedTester> ComplexProduct2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => ComplexProduct(0, 0, 1, 1),
-                $"{nameof(Experiments.ComplexProduct)}(0, 0, 1, 1)"),
+                $"{nameof(Experiments.ComplexProduct)}(0, 0, 1, 1)")
            };
 
         /// <summary>
@@ -452,7 +569,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CosineInterpolateTests1D))]
         public static List<SpeedTester> CosineInterpolateTests1D() => new List<SpeedTester>() {
                 new SpeedTester(() => CosineInterpolate1D(0, 1, 0.5d),
-                $"{nameof(Experiments.CosineInterpolate1D)}(0, 1, 0.5d)"),
+                $"{nameof(Experiments.CosineInterpolate1D)}(0, 1, 0.5d)")
             };
 
         /// <summary>
@@ -480,7 +597,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CosineInterpolate2DTests))]
         public static List<SpeedTester> CosineInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CosineInterpolate2D(0, 0, 1, 1, 0.5d),
-                $"{nameof(Experiments.CosineInterpolate2D)}(0, 0, 1, 1, 0.5d)"),
+                $"{nameof(Experiments.CosineInterpolate2D)}(0, 0, 1, 1, 0.5d)")
             };
 
         /// <summary>
@@ -547,7 +664,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CosineInterpolate3DTests))]
         public static List<SpeedTester> CosineInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CosineInterpolate3D(0, 0, 0, 1, 1, 1, 0.5d),
-                $"{nameof(Experiments.CosineInterpolate3D)}(0, 0, 0, 1, 1, 1, 0.5d)"),
+                $"{nameof(Experiments.CosineInterpolate3D)}(0, 0, 0, 1, 1, 1, 0.5d)")
             };
 
         /// <summary>
@@ -579,6 +696,20 @@ namespace MethodSpeedTester
         #region Closest Point on line
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the cross product of three 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(NearestPointOnLineSegmentTests))]
+        public static List<SpeedTester> NearestPointOnLineSegmentTests() => new List<SpeedTester>() {
+                new SpeedTester(() => ClosestPointOnLineSegmentMvG(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.ClosestPointOnLineSegmentMvG)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => ClosestPointOnLineSegmentDarienPardinas(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.ClosestPointOnLineSegmentDarienPardinas)}(0, 0, 1, 0, 1, 1)"),
+                new SpeedTester(() => ClosestPointOnLineDarienPardinas(0, 0, 1, 0, 1, 1),
+                $"{nameof(Experiments.ClosestPointOnLineDarienPardinas)}(0, 0, 1, 0, 1, 1)")
+            };
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="a"></param>
@@ -586,21 +717,18 @@ namespace MethodSpeedTester
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static Point2D ClosestPointOnLineSegmentMvG(Point2D a, Point2D b, Point2D p)
+        private static Point2D ClosestPointOnLineSegmentMvG(
+            double aX, double aY,
+            double bX, double bY,
+            double pX, double pY)
         {
             // Vector A->B
-            var diffAB = new Point2D(a.X - b.X, a.Y - b.Y);
-
-            double det = a.Y * b.X - a.X * b.Y;
-
-            double dot = diffAB.X * p.X + diffAB.Y * p.Y;
-
+            var diffAB = new Point2D(aX - bX, aY - bY);
+            double det = aY * bX - aX * bY;
+            double dot = diffAB.X * pX + diffAB.Y * pY;
             var val = new Point2D(dot * diffAB.X + det * diffAB.Y, dot * diffAB.Y - det * diffAB.X);
-
             double magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
-
             double inverseDist = 1 / magnitude;
-
             return new Point2D(val.X * inverseDist, val.Y * inverseDist);
         }
 
@@ -612,28 +740,26 @@ namespace MethodSpeedTester
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static Point2D ClosestPointOnLineSegmentDarienPardinas(Point2D a, Point2D b, Point2D p)
+        private static Point2D ClosestPointOnLineSegmentDarienPardinas(
+            double aX, double aY,
+            double bX, double bY,
+            double pX, double pY)
         {
             // Vector A->P 
-            var diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
-
+            var diffAP = new Point2D(pX - aX, pY - aY);
             // Vector A->B
-            var diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
-
+            var diffAB = new Point2D(bX - aX, bY - aY);
             double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
-
             // The dot product of diffAP and diffAB
             double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
-
             //  # The normalized "distance" from a to the closest point
             double dist = dotABAP / dotAB;
-
             if (dist < 0)
-                return a;
+                return new Point2D(aX, aY);
             else if (dist > dotABAP)
-                return b;
+                return new Point2D(bX, bY);
             else
-                return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
+                return new Point2D(aX + diffAB.X * dist, aY + diffAB.Y * dist);
         }
 
         /// <summary>
@@ -644,48 +770,21 @@ namespace MethodSpeedTester
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static Point2D ClosestPointOnLineDarienPardinas(Point2D a, Point2D b, Point2D p)
+        private static Point2D ClosestPointOnLineDarienPardinas(
+            double aX, double aY,
+            double bX, double bY,
+            double pX, double pY)
         {
             // Vector A->P 
-            var diffAP = new Point2D(p.X - a.X, p.Y - a.Y);
-
+            var diffAP = new Point2D(pX - aX, pY - aY);
             // Vector A->B
-            var diffAB = new Point2D(b.X - a.X, b.Y - a.Y);
-
+            var diffAB = new Point2D(bX - aX, bY - aY);
             double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
-
             // The dot product of diffAP and diffAB
             double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
-
             // The normalized "distance" from a to the closest point
             double dist = dotABAP / dotAB;
-
-            return new Point2D(a.X + diffAB.X * dist, a.Y + diffAB.Y * dist);
-        }
-
-        #endregion
-
-        #region Create a Circle From Three points
-
-        /// <summary>
-        /// Find the Center of A Circle from Three Points
-        /// </summary>
-        /// <param name="pointA">First Point on the Ellipse</param>
-        /// <param name="pointB">Second Point on the Ellipse</param>
-        /// <param name="pointC">Last Point on the Ellipse</param>
-        /// <returns>Returns the Center point of a Circle defined by three points</returns>
-        /// <remarks>
-        /// </remarks>
-        public static Point2D TripointCircleCenter(Point2D pointA, Point2D pointB, Point2D pointC)
-        {
-            //  Calculate the slopes of the lines.
-            double slopeA = (pointA.Slope(pointB));
-            double slopeB = (pointC.Slope(pointB));
-            double fY = ((((pointA.X - pointB.X) * (pointA.X + pointB.X)) + ((pointA.Y - pointB.Y) * (pointA.Y + pointB.Y))) / (2 * (pointA.X - pointB.X)));
-            double fX = ((((pointC.X - pointB.X) * (pointC.X + pointB.X)) + ((pointC.Y - pointB.Y) * (pointC.Y + pointB.Y))) / (2 * (pointC.X - pointB.X)));
-            double newY = ((fX - fY) / (slopeB - slopeA));
-            double newX = (fX - (slopeB * newY));
-            return new Point2D(newX, newY);
+            return new Point2D(aX + diffAB.X * dist, aY + diffAB.Y * dist);
         }
 
         #endregion
@@ -699,7 +798,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CrossProduct2Points2DTests))]
         public static List<SpeedTester> CrossProduct2Points2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CrossProduct2Points2D_0(0, 0, 1, 0),
-                $"{nameof(Experiments.CrossProduct2Points2D_0)}(0, 0, 1, 0)"),
+                $"{nameof(Experiments.CrossProduct2Points2D_0)}(0, 0, 1, 0)")
             };
 
         /// <summary>
@@ -729,7 +828,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CrossProduct2Points3DTests))]
         public static List<SpeedTester> CrossProduct2Points3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CrossProduct2Points3D_0(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.CrossProduct2Points3D_0)}(0, 0, 0, 1, 1, 1)"),
+                $"{nameof(Experiments.CrossProduct2Points3D_0)}(0, 0, 0, 1, 1, 1)")
             };
 
         /// <summary>
@@ -767,7 +866,7 @@ namespace MethodSpeedTester
                 new SpeedTester(() => CrossProductVector2D_1(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.CrossProductVector2D_1)}(0, 0, 1, 0, 1, 1)"),
                 new SpeedTester(() => CrossProductVector2D_2(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.CrossProductVector2D_2)}(0, 0, 1, 0, 1, 1)"),
+                $"{nameof(Experiments.CrossProductVector2D_2)}(0, 0, 1, 0, 1, 1)")
             };
 
         /// <summary>
@@ -1029,7 +1128,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CubicInterpolate1DTests))]
         public static List<SpeedTester> CubicInterpolate1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolate1D(0, 1, 2, 3, 0.5d),
-                $"{nameof(Experiments.CubicInterpolate1D)}(0, 1, 2, 3, 0.5d)"),
+                $"{nameof(Experiments.CubicInterpolate1D)}(0, 1, 2, 3, 0.5d)")
             };
 
         /// <summary>
@@ -1066,7 +1165,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CubicInterpolate2DTests))]
         public static List<SpeedTester> CubicInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolate2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
+                $"{nameof(Experiments.CubicInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)")
             };
 
         /// <summary>
@@ -1115,7 +1214,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CubicInterpolate3DTests))]
         public static List<SpeedTester> CubicInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolate3D(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d),
-                $"{nameof(Experiments.CubicInterpolate3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d)"),
+                $"{nameof(Experiments.CubicInterpolate3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d)")
             };
 
         /// <summary>
@@ -1172,7 +1271,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CubicInterpolateCatmullRomSplines1DTests))]
         public static List<SpeedTester> CubicInterpolateCatmullRomSplines1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolateCatmullRomSplines1D(0, 1, 2, 3, 0.5d),
-                $"{nameof(Experiments.CubicInterpolateCatmullRomSplines1D)}(0, 1, 2, 3, 0.5d)"),
+                $"{nameof(Experiments.CubicInterpolateCatmullRomSplines1D)}(0, 1, 2, 3, 0.5d)")
             };
 
         /// <summary>
@@ -1209,7 +1308,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CubicInterpolateCatmullRomSplines2DTests))]
         public static List<SpeedTester> CubicInterpolateCatmullRomSplines2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolateCatmullRomSplines2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicInterpolateCatmullRomSplines2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
+                $"{nameof(Experiments.CubicInterpolateCatmullRomSplines2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)")
             };
 
         /// <summary>
@@ -1258,7 +1357,7 @@ namespace MethodSpeedTester
         [DisplayName(nameof(CubicInterpolateCatmullRomSplines3DTests))]
         public static List<SpeedTester> CubicInterpolateCatmullRomSplines3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => CubicInterpolateCatmullRomSplines3D(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d),
-                $"{nameof(Experiments.CubicInterpolateCatmullRomSplines3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d)"),
+                $"{nameof(Experiments.CubicInterpolateCatmullRomSplines3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d)")
             };
 
         /// <summary>
@@ -1329,7 +1428,7 @@ namespace MethodSpeedTester
                 new SpeedTester(() => CubicBezierInterpolate2D_5(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
                 $"{nameof(Experiments.CubicBezierInterpolate2D_5)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
                 new SpeedTester(() => CubicBezierInterpolate2D_6(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicBezierInterpolate2D_6)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
+                $"{nameof(Experiments.CubicBezierInterpolate2D_6)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)")
             };
 
         /// <summary>
@@ -1697,7 +1796,7 @@ namespace MethodSpeedTester
                 new SpeedTester(() => Distance3D_1(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.Distance3D_1)}(0, 0, 1, 0, 1, 1)"),
                 new SpeedTester(() => Distance3D_2(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.Distance3D_2)}(0, 0, 1, 0, 1, 1)"),
+                $"{nameof(Experiments.Distance3D_2)}(0, 0, 1, 0, 1, 1)")
             };
 
         /// <summary>
@@ -1775,7 +1874,7 @@ double x2, double y2, double z2) => Sqrt((x2 - x1) * (x2 - x1)
                 new SpeedTester(() => Distance2D_2(0, 0, 1, 0),
                 $"{nameof(Experiments.Distance2D_2)}(0, 0, 1, 0)"),
                 new SpeedTester(() => Distance2D_3(0, 0, 1, 0),
-                $"{nameof(Experiments.Distance2D_3)}(0, 0, 1, 0)"),
+                $"{nameof(Experiments.Distance2D_3)}(0, 0, 1, 0)")
             };
 
         /// <summary>
@@ -1996,7 +2095,7 @@ double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
                 new SpeedTester(() => DotProduct2Points2D_0(0, 0, 1, 0),
                 $"{nameof(Experiments.DotProduct2Points2D_0)}(0, 0, 1, 0)"),
                 new SpeedTester(() => DotProduct2Points2D_1(0, 0, 1, 0),
-                $"{nameof(Experiments.DotProduct2Points2D_1)}(0, 0, 1, 0)"),
+                $"{nameof(Experiments.DotProduct2Points2D_1)}(0, 0, 1, 0)")
             };
 
         /// <summary>
@@ -2045,7 +2144,7 @@ double x2, double y2) => ((x1 * x2) + (y1 * y2));
                 new SpeedTester(() => DotProduct(new Tuple<double, double, double>(0, 0, 0), 1, 1, 1),
                 $"{nameof(Experiments.DotProduct)}((0, 0, 0), 1, 1, 1)"),
                 new SpeedTester(() => DotProduct(new Tuple<double, double, double>(0, 0, 0), new Tuple<double, double, double>(1, 1, 1)),
-                $"{nameof(Experiments.DotProduct)}((0, 0, 0), (1, 1, 1))"),
+                $"{nameof(Experiments.DotProduct)}((0, 0, 0), (1, 1, 1))")
             };
 
         /// <summary>
@@ -2109,7 +2208,7 @@ double x2, double y2) => ((x1 * x2) + (y1 * y2));
                 new SpeedTester(() => DotProductVector2D_1(0, 0, 1, 0, 1, 1),
                 $"{nameof(Experiments.DotProductVector2D_1)}(0, 0, 1, 0, 1, 1)"),
                 new SpeedTester(() => DotProductVector2D_2(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.DotProductVector2D_2)}(0, 0, 1, 0, 1, 1)"),
+                $"{nameof(Experiments.DotProductVector2D_2)}(0, 0, 1, 0, 1, 1)")
             };
 
         /// <summary>
@@ -2807,27 +2906,97 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
         #endregion
 
+        #region Find Center of a Circle From Three points
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(CircleCenterFromThreePointsTests))]
+        public static List<SpeedTester> CircleCenterFromThreePointsTests() => new List<SpeedTester>() {
+                new SpeedTester(() => TripointCircleCenter(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.TripointCircleCenter)}(0, 0, 0, 1, 1, 1)"),
+                new SpeedTester(() => circleCenterFromPoints(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.circleCenterFromPoints)}(0, 0, 0, 1, 1, 1)")
+           };
+
+        /// <summary>
+        /// Find the Center of A Circle from Three Points
+        /// </summary>
+        /// <param name="pointA">First Point on the Ellipse</param>
+        /// <param name="pointB">Second Point on the Ellipse</param>
+        /// <param name="pointC">Last Point on the Ellipse</param>
+        /// <returns>Returns the Center point of a Circle defined by three points</returns>
+        /// <remarks>
+        /// </remarks>
+        public static Tuple<double, double> TripointCircleCenter(
+            double pointAX, double pointAY,
+            double pointBX, double pointBY,
+            double pointCX, double pointCY)
+        {
+            //  Calculate the slopes of the lines.
+            double slopeA = Slope(pointAX, pointAY, pointBX, pointBY);
+            double slopeB = Slope(pointCX, pointCY, pointBX, pointBY);
+            double fY = ((((pointAX - pointBX) * (pointAX + pointBX)) + ((pointAY - pointBY) * (pointAY + pointBY))) / (2 * (pointAX - pointBX)));
+            double fX = ((((pointCX - pointBX) * (pointCX + pointBX)) + ((pointCY - pointBY) * (pointCY + pointBY))) / (2 * (pointCX - pointBX)));
+            double newY = ((fX - fY) / (slopeB - slopeA));
+            double newX = (fX - (slopeB * newY));
+            return new Tuple<double, double>(newX, newY);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
+        /// </remarks>
+        public static Tuple<double, double> circleCenterFromPoints(
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y)
+        {
+            double offset = (p2X * p2X) + (p2Y * p2Y);
+            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) / 2d;
+            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
+            double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
+
+            if (Abs(determinant) < Maths.DoubleEpsilon) return null;
+
+            return new Tuple<double, double>(
+                (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant,
+                (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant);
+        }
+
+        #endregion
+
         #region Find Polygon Ear
 
         /// <summary>
         /// Find the indexes of three points that form an "ear."
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static Triangle FindEar(Polygon polygon, ref int A, ref int B, ref int C)
+        public static Triangle FindEar(Polygon polygon, ref int a, ref int b, ref int c)
         {
             int num_points = polygon.Points.Count;
 
-            for (A = 0; A < num_points; A++)
+            for (a = 0; a < num_points; a++)
             {
-                B = (A + 1) % num_points;
-                C = (B + 1) % num_points;
+                b = (a + 1) % num_points;
+                c = (b + 1) % num_points;
 
-                if (FormsEar(polygon, A, B, C)) return new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]);
+                if (FormsEar(polygon, a, b, c)) return new Triangle(polygon.Points[a], polygon.Points[b], polygon.Points[c]);
             }
 
             // We should never get here because there should
@@ -2841,18 +3010,18 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// 
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
         /// <returns>Return true if the three points form an ear.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        private static bool FormsEar(Polygon polygon, int A, int B, int C)
+        private static bool FormsEar(Polygon polygon, int a, int b, int c)
         {
             // See if the angle ABC is concave.
             if (Maths.AngleVector(
-                polygon.Points[A].X, polygon.Points[A].Y,
-                polygon.Points[B].X, polygon.Points[B].Y,
-                polygon.Points[C].X, polygon.Points[C].Y) > 0)
+                polygon.Points[a].X, polygon.Points[a].Y,
+                polygon.Points[b].X, polygon.Points[b].Y,
+                polygon.Points[c].X, polygon.Points[c].Y) > 0)
             {
                 // This is a concave corner so the triangle
                 // cannot be an ear.
@@ -2860,20 +3029,17 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             }
 
             // Make the triangle A, B, C.
-            var triangle = new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]);
+            var triangle = new Triangle(polygon.Points[a], polygon.Points[b], polygon.Points[c]);
 
             // Check the other points to see 
             // if they lie in triangle A, B, C.
             for (int i = 0; i < polygon.Points.Count; i++)
             {
-                if ((i != A) && (i != B) && (i != C))
+                if ((i != a) && (i != b) && (i != c) && triangle.PointInPolygon(polygon.Points[i]))
                 {
-                    if (triangle.PointInPolygon(polygon.Points[i]))
-                    {
-                        // This point is in the triangle 
-                        // do this is not an ear.
-                        return false;
-                    }
+                    // This point is in the triangle 
+                    // do this is not an ear.
+                    return false;
                 }
             }
 
@@ -3133,7 +3299,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             {
                 new Point2D(device_rect.Left, device_rect.Top),      // Upper left.
                 new Point2D(device_rect.Right, device_rect.Top),     // Upper right.
-                new Point2D(device_rect.Left, device_rect.Bottom),   // Lower left.
+                new Point2D(device_rect.Left, device_rect.Bottom)   // Lower left.
             };
 
             if (invert_x)
@@ -3163,7 +3329,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         [DisplayName(nameof(HermiteInterpolate1DTests))]
         public static List<SpeedTester> HermiteInterpolate1DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => HermiteInterpolate1D(0, 1, 2, 3, 0.5d, 1, 0),
-                $"{nameof(Experiments.HermiteInterpolate1D)}(0, 1, 2, 3, 0.5d, 1, 0)"),
+                $"{nameof(Experiments.HermiteInterpolate1D)}(0, 1, 2, 3, 0.5d, 1, 0)")
             };
 
         /// <summary>
@@ -3213,7 +3379,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         [DisplayName(nameof(HermiteInterpolate2DTests))]
         public static List<SpeedTester> HermiteInterpolate2DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => HermiteInterpolate2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d, 1, 0),
-                $"{nameof(Experiments.HermiteInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d, 1, 0)"),
+                $"{nameof(Experiments.HermiteInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d, 1, 0)")
             };
 
         /// <summary>
@@ -3389,7 +3555,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         [DisplayName(nameof(HermiteInterpolate3DTests))]
         public static List<SpeedTester> HermiteInterpolate3DTests() => new List<SpeedTester>() {
                 new SpeedTester(() => HermiteInterpolate3D(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d, 1, 0),
-                $"{nameof(Experiments.HermiteInterpolate3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d, 1, 0)"),
+                $"{nameof(Experiments.HermiteInterpolate3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d, 1, 0)")
             };
 
         /// <summary>
@@ -4528,7 +4694,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => Intersection4(0, 0, 2, 2, 0, 2, 2, 0),
                 $"{nameof(Experiments.Intersection4)}(0, 0, 2, 2, 0, 2, 2, 0)"),
                 new SpeedTester(() => Intersection5(0, 0, 2, 2, 0, 2, 2, 0),
-                $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)")
             };
 
         /// <summary>
@@ -4854,7 +5020,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => LinearInterpolate1D_1(0, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate1D_1)}(0, 1, 0.5d)"),
                 new SpeedTester(() => LinearInterpolate1D_2(0, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate1D_2)}(0, 1, 0.5d)"),
+                $"{nameof(Experiments.LinearInterpolate1D_2)}(0, 1, 0.5d)")
             };
 
         /// <summary>
@@ -4917,7 +5083,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => LinearInterpolate2D_2(0, 0, 1, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate2D_2)}(0, 0, 1, 1, 0.5d)"),
                 new SpeedTester(() => LinearInterpolate2D_3(0, 0, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate2D_3)}(0, 0, 1, 1, 0.5d)"),
+                $"{nameof(Experiments.LinearInterpolate2D_3)}(0, 0, 1, 1, 0.5d)")
             };
 
         /// <summary>
@@ -5016,7 +5182,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => LinearInterpolate3D_2(0, 0, 0, 1, 1, 1, 0.5d),
                 $"{nameof(Experiments.LinearInterpolate3D_2)}(0, 0, 0, 1, 1, 1, 0.5d)"),
                 new SpeedTester(() => LinearInterpolate3D_3(0, 0, 0, 1, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate3D_3)}(0, 0, 0, 1, 1, 1, 0.5d)"),
+                $"{nameof(Experiments.LinearInterpolate3D_3)}(0, 0, 0, 1, 1, 1, 0.5d)")
             };
 
         /// <summary>
@@ -5421,7 +5587,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         [DisplayName(nameof(MixedProduct3D_0Tests))]
         public static List<SpeedTester> MixedProduct3D_0Tests() => new List<SpeedTester>() {
                 new SpeedTester(() => MixedProduct3D_0(0, 0,0, 1, 1, 1,2,2,2),
-                $"{nameof(Experiments.MixedProduct3D_0)}(0, 0, 1, 1, 0.5d)"),
+                $"{nameof(Experiments.MixedProduct3D_0)}(0, 0, 1, 1, 0.5d)")
             };
 
         /// <summary>
@@ -5461,7 +5627,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => NearZero0(0.000000001d),
                 $"{nameof(Experiments.NearZero0)}(0.000000001d)"),
                 new SpeedTester(() => NearZero1(0.000000001d),
-                $"{nameof(Experiments.NearZero1)}(0.000000001d)"),
+                $"{nameof(Experiments.NearZero1)}(0.000000001d)")
             };
 
         /// <summary>
@@ -5792,7 +5958,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => Perimeter0(new List<Tuple<double, double>>() {new Tuple<double, double>(0,0), new Tuple<double, double>(1,0), new Tuple<double, double>(0,1)}),
                 $"{nameof(Experiments.Perimeter0)}((x, y){{(0,0),(1,0),(0,1)}})"),
                 new SpeedTester(() => Perimeter1(new List<Tuple<double, double>>() {new Tuple<double, double>(0,0), new Tuple<double, double>(1,0), new Tuple<double, double>(0,1)}),
-                $"{nameof(Experiments.Perimeter1)}((x, y){{(0,0),(1,0),(0,1)}})"),
+                $"{nameof(Experiments.Perimeter1)}((x, y){{(0,0),(1,0),(0,1)}})")
             };
 
         /// <summary>
@@ -5802,7 +5968,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <returns></returns>
         public static double Perimeter0(List<Tuple<double, double>> points)
         {
-            var last = points[0];
+            Tuple<double, double> last = points[0];
             double dist = 0;
             foreach (Tuple<double, double> cur in points.Skip(1))
             {
@@ -5887,7 +6053,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => PointInCircleX(0, 0, 2, 1, 1),
                 $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 1, 1)"),
                 new SpeedTester(() => PointInCircleX(0, 0, 2, 3, 3),
-                $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 3, 3)"),
+                $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 3, 3)")
             };
 
         /// <summary>
@@ -6153,7 +6319,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => PointInPolygonHormannAgathos(polygon, point),
                 $"{nameof(Experiments.PointInPolygonHormannAgathos)}(polygon, {point})"),
                 new SpeedTester(() => PointInPolygonHormannAgathosX(polygon, point),
-                $"{nameof(Experiments.PointInPolygonHormannAgathosX)}(polygon, {point})"),
+                $"{nameof(Experiments.PointInPolygonHormannAgathosX)}(polygon, {point})")
             };
         }
 
@@ -6677,7 +6843,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         public static bool PointInPolygonSaeedAmiri(
             List<PointF> polygon, PointF point)
         {
-            var coef = polygon.Skip(1).Select((p, i) =>
+            List<float> coef = polygon.Skip(1).Select((p, i) =>
                   (p.X - polygon[i].X) * (point.Y - polygon[i].Y)
                 - (p.Y - polygon[i].Y) * (point.X - polygon[i].X)
                 ).ToList();
@@ -6716,6 +6882,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
             return !(Abs(angle) < PI);
         }
+
         /// <summary>
         /// Return the angle between two vectors on a plane
         /// The angle is from vector 1 to vector 2, positive anticlockwise
@@ -6793,11 +6960,11 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
             if (polygon.Count < 3) return inside;
 
-            var oldPoint = polygon[polygon.Count - 1];
+            PointF oldPoint = polygon[polygon.Count - 1];
 
             for (int i = 0; i < polygon.Count; i++)
             {
-                var newPoint = polygon[i];
+                PointF newPoint = polygon[i];
 
                 if (newPoint.X > oldPoint.X)
                 {
@@ -7068,9 +7235,9 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         [Pure]
         //[DebuggerStepThrough]
         public static InsideOutside Contains(Rectangle2D rectangle, Point2D point) => (rectangle.X <= point.X
-    && point.X < rectangle.X + rectangle.Width
-    && rectangle.Y <= point.Y
-    && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+            && point.X < rectangle.X + rectangle.Width
+            && rectangle.Y <= point.Y
+            && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
@@ -7192,11 +7359,11 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="pointY"></param>
         /// <returns></returns>
         public static bool PointOnLineSegment(double segmentAX, double segmentAY, double segmentBX, double segmentBY, double pointX, double pointY) => ((pointX == segmentAX) && (pointY == segmentAY))
-  || ((pointX == segmentBX) && (pointY == segmentBY))
-  || (((pointX > segmentAX) == (pointX < segmentBX))
-  && ((pointY > segmentAY) == (pointY < segmentBY))
-  && ((pointX - segmentAX) * (segmentBY - segmentAY)
-  == (segmentBX - segmentAX) * (pointY - segmentAY)));
+          || ((pointX == segmentBX) && (pointY == segmentBY))
+          || (((pointX > segmentAX) == (pointX < segmentBX))
+          && ((pointY > segmentAY) == (pointY < segmentBY))
+          && ((pointX - segmentAX) * (segmentBY - segmentAY)
+          == (segmentBX - segmentAX) * (pointY - segmentAY)));
 
         /// <summary>
         /// 
@@ -7239,7 +7406,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name='point2'>The second point to compare</param>
         /// <returns>Whether or not the two points are equal</returns>
         public static bool AreClose(Point2D point1, Point2D point2, double epsilon = Maths.DoubleEpsilon) => Maths.AreClose(point1.X, point2.X, epsilon)
-&& Maths.AreClose(point1.Y, point2.Y, epsilon);
+            && Maths.AreClose(point1.Y, point2.Y, epsilon);
 
         /// <summary>
         /// Compares two Size instances for fuzzy equality.  This function
@@ -7250,7 +7417,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name='size2'>The second size to compare</param>
         /// <returns>Whether or not the two Size instances are equal</returns>
         public static bool AreClose(Size2D size1, Size2D size2, double epsilon = Maths.DoubleEpsilon) => Maths.AreClose(size1.Width, size2.Width, epsilon)
-       && Maths.AreClose(size1.Height, size2.Height, epsilon);
+            && Maths.AreClose(size1.Height, size2.Height, epsilon);
 
         /// <summary>
         /// Compares two Vector instances for fuzzy equality.  This function
@@ -7261,7 +7428,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name='vector2'>The second Vector to compare</param>
         /// <returns>Whether or not the two Vector instances are equal</returns>
         public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = Maths.DoubleEpsilon) => Maths.AreClose(vector1.I, vector2.I, epsilon)
-       && Maths.AreClose(vector1.J, vector2.J, epsilon);
+            && Maths.AreClose(vector1.J, vector2.J, epsilon);
 
         #endregion
 
@@ -7396,7 +7563,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => QuadraticBezierInterpolate1D_0(0, 1, 2, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate1D_0)}(0, 1, 2, 0.5d)"),
                 new SpeedTester(() => QuadraticBezierInterpolate1D_1(0, 1, 2, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate1D_1)}(0, 1, 2, 0.5d)"),
+                $"{nameof(Experiments.QuadraticBezierInterpolate1D_1)}(0, 1, 2, 0.5d)")
             };
 
         /// <summary>
@@ -7456,7 +7623,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => QuadraticBezierInterpolate2D_0(0, 1, 2, 3, 4, 5, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate2D_0)}(0, 1, 2, 3, 4, 5, 0.5d)"),
                 new SpeedTester(() => QuadraticBezierInterpolate2D_1(0, 1, 2, 3, 4, 5, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate2D_1)}(0, 1, 2, 3, 4, 5, 0.5d)"),
+                $"{nameof(Experiments.QuadraticBezierInterpolate2D_1)}(0, 1, 2, 3, 4, 5, 0.5d)")
             };
 
         /// <summary>
@@ -7525,7 +7692,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => QuadraticBezierInterpolate3D_0(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d),
                 $"{nameof(Experiments.QuadraticBezierInterpolate3D_0)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d)"),
                 new SpeedTester(() => QuadraticBezierInterpolate3D_1(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate3D_1)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d)"),
+                $"{nameof(Experiments.QuadraticBezierInterpolate3D_1)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d)")
             };
 
         /// <summary>
@@ -7710,6 +7877,46 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
         #endregion
 
+        #region Rectangle Center
+
+        /// <summary>
+        /// Extension method to find the center point of a rectangle.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
+        /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
+        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        public static PointF Center0(RectangleF rectangle) => new PointF(
+            rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5f,
+            rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5f
+        );
+
+        /// <summary>
+        /// Extension method to find the center point of a rectangle.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
+        /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
+        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        public static PointF Center1(RectangleF rectangle) => new PointF(
+            (rectangle.Left + rectangle.Right) * 0.5f,
+            (rectangle.Top + rectangle.Bottom) * 0.5f
+        );
+
+        #endregion
+
+        #region Rectangle to Square
+
+        private static Rectangle2D ToSquare(Rectangle2D rect)
+        {
+            double smallest = rect.Height <= rect.Width ? rect.Height : rect.Width;
+            return new Rectangle2D(
+                rect.X + ((rect.Width - smallest) / 2d),
+                rect.Y + ((rect.Height - smallest) / 2d),
+                smallest,
+                smallest);
+        }
+
+        #endregion
+
         #region Rectangle has NaN
 
         /// <summary>
@@ -7717,17 +7924,10 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </summary>
         /// <param name='rect'>The rectangle to test</param>
         /// <returns>returns whether the Rectangle has NaN</returns>        
-        public static bool RectHasNaN(Rectangle2D rect)
-        {
-            if (double.IsNaN(rect.X)
-                 || double.IsNaN(rect.Y)
-                 || double.IsNaN(rect.Height)
-                 || double.IsNaN(rect.Width))
-            {
-                return true;
-            }
-            return false;
-        }
+        public static bool RectHasNaN(Rectangle2D rect) => double.IsNaN(rect.X)
+             || double.IsNaN(rect.Y)
+             || double.IsNaN(rect.Height)
+             || double.IsNaN(rect.Width);
 
         #endregion
 
@@ -7819,7 +8019,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="ResourceName"></param>
         /// <returns></returns>
         /// <remarks>BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!</remarks>
-        public static System.Windows.Forms.Cursor RetriveCursorResource(string ResourceName)
+        public static Cursor RetriveCursorResource(string ResourceName)
         {
             //  Get the namespace 
             string strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
@@ -7828,7 +8028,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             if (ResourceStream == null)
             {
                 // TODO: #If Then ... Warning!!! not translated
-                System.Windows.Forms.MessageBox.Show(("Unable to find: "
+                MessageBox.Show(("Unable to find: "
                                 + (ResourceName + ("\r\n" + ("Be Sure "
                                 + (ResourceName + (" Property Build Action is set to Embedded Resource" + ("\r\n" + "Another reason can be that the Project Root Namespace is not the same as the Assembly Name"))))))));
                 // TODO: # ... Warning!!! not translated
@@ -7839,13 +8039,13 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 //  Perhaps on Exit provide a message errors were encountered and 
                 //  ignored would you like to send an error report?
                 // TODO: #End If ... Warning!!! not translated
-                return System.Windows.Forms.Cursors.Default;
+                return Cursors.Default;
             }
             //  Return the Resource as a cursor
             if (ResourceStream.CanRead)
-                return new System.Windows.Forms.Cursor(ResourceStream);
+                return new Cursor(ResourceStream);
             else
-                return System.Windows.Forms.Cursors.Default;
+                return Cursors.Default;
         }
 
         #endregion
@@ -7965,7 +8165,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => Round(value),
                 $"{nameof(Experiments.Round)}({value})"),
                 new SpeedTester(() => Truncate(value),
-                $"{nameof(Experiments.Truncate)}({value})"),
+                $"{nameof(Experiments.Truncate)}({value})")
             };
         }
 

@@ -11,6 +11,7 @@ using Engine.Geometry.Polygons;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
+using System.Drawing.Design;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -271,6 +272,9 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + ".")]
+        [TypeConverter(typeof(AngleConverter))]
+        [Editor(typeof(AngleEditor), typeof(UITypeEditor))]
+        [RefreshProperties(RefreshProperties.All)]
         [XmlAttribute]
         public double Angle
         {
@@ -313,7 +317,7 @@ namespace Engine.Geometry
         {
             get
             {
-                double phi = Maths.ToRadians(angle);
+                double phi = angle;
                 double ux = r1 * Cos(phi);
                 double uy = r1 * Sin(phi);
                 double vx = (r1 * Aspect) * Cos(phi + PI / 2);
@@ -421,7 +425,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != InsideOutside.Outside;
+        public override bool Contains(Point2D point)
+            => Intersections.Contains(this, point) != InsideOutside.Outside;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Ellipse"/> struct based on the format string

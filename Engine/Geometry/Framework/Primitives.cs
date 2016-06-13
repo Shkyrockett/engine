@@ -1,4 +1,4 @@
-﻿// <copyright file="PrimitivesExtensions.cs" >
+﻿// <copyright file="Primitives.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 

@@ -10,6 +10,7 @@
 using Engine.Geometry;
 using Engine.Objects;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using static System.Math;
@@ -46,6 +47,10 @@ namespace Engine.Imaging
             if (shape == null)
             {
                 throw new NullReferenceException("shape is null.");
+            }
+            else if (shape is ParametricDelegateCurve)
+            {
+                (shape as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
             }
             else if (shape is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
@@ -99,6 +104,21 @@ namespace Engine.Imaging
             {
                 //shape.Render(g);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
+        public static void Render(this ParametricDelegateCurve shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            List<Point2D> points = item?.InterpolatePoints();
+            g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
+            g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
         }
 
         /// <summary>

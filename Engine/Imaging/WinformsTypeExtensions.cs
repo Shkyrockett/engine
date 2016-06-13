@@ -120,118 +120,118 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static Point[] ToPointArray(this List<Tuple<double, double>> list) => list.ConvertAll(new Converter<Tuple<double, double>, Point>(ToPoint)).ToArray();
+        public static Point[] ToPointArray(this List<Tuple<double, double>> list) => list?.ConvertAll(new Converter<Tuple<double, double>, Point>(ToPoint)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static PointF[] ToPointFArray(this List<Tuple<double, double>> list) => list.ConvertAll(new Converter<Tuple<double, double>, PointF>(ToPointF)).ToArray();
+        public static PointF[] ToPointFArray(this List<Tuple<double, double>> list) => list?.ConvertAll(new Converter<Tuple<double, double>, PointF>(ToPointF)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Point2D> ToPoint2DArray(this List<Tuple<double, double>> list) => list.ConvertAll(new Converter<Tuple<double, double>, Point2D>(ToPoint2D));
+        public static List<Point2D> ToPoint2DArray(this List<Tuple<double, double>> list) => list?.ConvertAll(new Converter<Tuple<double, double>, Point2D>(ToPoint2D));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static Point[] ToPointArray(this List<Point2D> list) => list.ConvertAll(new Converter<Point2D, Point>(ToPoint)).ToArray();
+        public static Point[] ToPointArray(this List<Point2D> list) => list?.ConvertAll(new Converter<Point2D, Point>(ToPoint)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Point2D> ToPoint2DList(this Point[] list) => new List<Point>(list).ConvertAll(new Converter<Point, Point2D>(ToPoint2D));
+        public static List<Point2D> ToPoint2DList(this Point[] list) => new List<Point>(list)?.ConvertAll(new Converter<Point, Point2D>(ToPoint2D));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static PointF[] ToPointFArray(this List<Point2D> list) => list.ConvertAll(new Converter<Point2D, PointF>(ToPointF)).ToArray();
+        public static PointF[] ToPointFArray(this List<Point2D> list) => list?.ConvertAll(new Converter<Point2D, PointF>(ToPointF)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Point2D> ToPoint2DList(this PointF[] list) => new List<PointF>(list).ConvertAll(new Converter<PointF, Point2D>(ToPoint2D));
+        public static List<Point2D> ToPoint2DList(this PointF[] list) => new List<PointF>(list)?.ConvertAll(new Converter<PointF, Point2D>(ToPoint2D));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static Size[] ToSizeArray(this List<Size2D> list) => list.ConvertAll(new Converter<Size2D, Size>(ToSize)).ToArray();
+        public static Size[] ToSizeArray(this List<Size2D> list) => list?.ConvertAll(new Converter<Size2D, Size>(ToSize)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Size2D> ToSize2DList(this Size[] list) => new List<Size>(list).ConvertAll(new Converter<Size, Size2D>(ToSize2D));
+        public static List<Size2D> ToSize2DList(this Size[] list) => new List<Size>(list)?.ConvertAll(new Converter<Size, Size2D>(ToSize2D));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static SizeF[] ToSizeFArray(this List<Size2D> list) => list.ConvertAll(new Converter<Size2D, SizeF>(ToSizeF)).ToArray();
+        public static SizeF[] ToSizeFArray(this List<Size2D> list) => list?.ConvertAll(new Converter<Size2D, SizeF>(ToSizeF)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Size2D> ToSize2DList(this SizeF[] list) => new List<SizeF>(list).ConvertAll(new Converter<SizeF, Size2D>(ToSize2D));
+        public static List<Size2D> ToSize2DList(this SizeF[] list) => new List<SizeF>(list)?.ConvertAll(new Converter<SizeF, Size2D>(ToSize2D));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static Rectangle[] ToRectangleArray(this List<Rectangle2D> list) => list.ConvertAll(new Converter<Rectangle2D, Rectangle>(ToRectangle)).ToArray();
+        public static Rectangle[] ToRectangleArray(this List<Rectangle2D> list) => list?.ConvertAll(new Converter<Rectangle2D, Rectangle>(ToRectangle)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Rectangle2D> ToRectangle2DList(this Rectangle[] list) => new List<Rectangle>(list).ConvertAll(new Converter<Rectangle, Rectangle2D>(ToRectangle2D));
+        public static List<Rectangle2D> ToRectangle2DList(this Rectangle[] list) => new List<Rectangle>(list)?.ConvertAll(new Converter<Rectangle, Rectangle2D>(ToRectangle2D));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static RectangleF[] ToRectangleFArray(this List<Rectangle2D> list) => list.ConvertAll(new Converter<Rectangle2D, RectangleF>(ToRectangleF)).ToArray();
+        public static RectangleF[] ToRectangleFArray(this List<Rectangle2D> list) => list?.ConvertAll(new Converter<Rectangle2D, RectangleF>(ToRectangleF)).ToArray();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<RectangleF> ToRectangleFList(this List<Rectangle2D> list) => list.ConvertAll(new Converter<Rectangle2D, RectangleF>(ToRectangleF));
+        public static List<RectangleF> ToRectangleFList(this List<Rectangle2D> list) => list?.ConvertAll(new Converter<Rectangle2D, RectangleF>(ToRectangleF));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Rectangle2D> ToRectangle2DList(this RectangleF[] list) => new List<RectangleF>(list).ConvertAll(new Converter<RectangleF, Rectangle2D>(ToRectangle2D));
+        public static List<Rectangle2D> ToRectangle2DList(this RectangleF[] list) => new List<RectangleF>(list)?.ConvertAll(new Converter<RectangleF, Rectangle2D>(ToRectangle2D));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Rectangle2D> ToRectangle2DList(this List<RectangleF> list) => list.ConvertAll(new Converter<RectangleF, Rectangle2D>(ToRectangle2D));
+        public static List<Rectangle2D> ToRectangle2DList(this List<RectangleF> list) => list?.ConvertAll(new Converter<RectangleF, Rectangle2D>(ToRectangle2D));
     }
 }

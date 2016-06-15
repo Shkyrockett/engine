@@ -183,7 +183,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return "BadRoundRectangle";
-            return string.Format("{0}{{L={1},S={2}}}", "BadRoundRectangle", bounds.Location.ToString(), bounds.Size.ToString());
+            return string.Format("{0}{{L={1},S={2}}}", "BadRoundRectangle", bounds.Location, bounds.Size);
         }
     }
 }

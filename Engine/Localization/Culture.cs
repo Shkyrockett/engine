@@ -62,6 +62,6 @@ namespace Engine.Localization
         /// Converts the value of this <see cref="Culture"/> instance to its equivalent string representation.
         /// </summary>
         /// <returns>The string representation of the value of this instance.</returns>
-        public override string ToString() => string.Format("{0}-{1}", Language.ToString(), Country.ToString());
+        public override string ToString() => $"{Language}-{Country}";
     }
 }

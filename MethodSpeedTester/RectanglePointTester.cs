@@ -60,9 +60,6 @@ namespace MethodSpeedTester
                 case InsideOutside.Boundary:
                     pointpen = Pens.Magenta;
                     break;
-                case InsideOutside.Outside:
-                default:
-                    break;
             }
 
             g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
@@ -88,21 +85,21 @@ namespace MethodSpeedTester
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             DrawRectangles(e.Graphics, Font, rectangle, points,
-                (r, p) => Experiments.Contains(r, p),
+                Experiments.Contains,
                 nameof(Experiments.Contains));
         }
 
         private void pictureBox2_Paint(object sender, PaintEventArgs e)
         {
             DrawRectangles(e.Graphics, Font, rectangle, points,
-                (r, p) => Experiments.Contains2(r, p),
+                Experiments.Contains2,
                 nameof(Experiments.Contains2));
         }
 
         private void pictureBox3_Paint(object sender, PaintEventArgs e)
         {
             DrawRectangles(e.Graphics, Font, rectangle, points,
-                (r, p) => Experiments.PointOnRectangleX(r, p),
+                Experiments.PointOnRectangleX,
                 nameof(Experiments.PointOnRectangleX));
         }
 

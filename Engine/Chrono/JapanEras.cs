@@ -275,7 +275,7 @@ namespace Engine.Chrono
             {new DateTime(1868, 01, 01), "明治"}, // 明 Meiji
             {new DateTime(1912, 07, 30), "大正"}, // 大 Taishō
             {new DateTime(1926, 12, 25), "昭和"}, // 昭 Shōwa
-            {new DateTime(1989, 01, 08), "平成"}, // 平 Heisei
+            {new DateTime(1989, 01, 08), "平成"} // 平 Heisei
         };
     }
 }

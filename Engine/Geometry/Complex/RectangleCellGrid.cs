@@ -195,6 +195,6 @@ namespace Engine.Geometry
         /// Converts the attributes of this <see cref="RectangleCellGrid"/> to a human-readable string. 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => "RectangleCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
+        public override string ToString() => "RectangleCellGrid{Bounds{" + bounds + "}, Count " + count + "}";
     }
 }

@@ -18,7 +18,7 @@ namespace Engine.Tweening
     /// <summary>
     /// 
     /// </summary>
-    public partial class Tweener
+    public class Tweener
     {
         #region Fields
 
@@ -46,6 +46,24 @@ namespace Engine.Tweening
         /// 
         /// </summary>
         private List<Tween> allTweens;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary<object, List<Tween>> Tweens
+        {
+            get { return tweens; }
+            set { tweens = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Dictionary<Type, ConstructorInfo> RegisteredLerpers
+        {
+            get { return registeredLerpers; }
+            set { registeredLerpers = value; }
+        }
 
         #endregion
 

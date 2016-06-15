@@ -24,30 +24,30 @@ namespace MethodSpeedTester
         {
             points = GenerateGrid(25, 25, 125, 125, 5, 5);
 
-            polygons.Add(new Tuple<string, List<PointF>>("Square", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("Square", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Top Left Triangle", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("Top Left Triangle", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Bottom Right Triangle", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("Bottom Right Triangle", new List<PointF> {
                 new PointF(100, 100),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Right Reversed Bow-tie", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("Right Reversed Bow-tie", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 100),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Left Reversed Bow-tie", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("Left Reversed Bow-tie", new List<PointF> {
                 new PointF(100, 25),
                 new PointF(100, 100),
                 new PointF(25, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("C Shape", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("C Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 50),
@@ -56,7 +56,7 @@ namespace MethodSpeedTester
                 new PointF(100, 75),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("n Shape", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("n Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
@@ -65,7 +65,7 @@ namespace MethodSpeedTester
                 new PointF(50, 50),
                 new PointF(50, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("C Bow-tie hole Shape", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("C Bow-tie hole Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 50),
@@ -74,7 +74,7 @@ namespace MethodSpeedTester
                 new PointF(100, 75),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("n Bow-tie hole Shape", new List<PointF>() {
+            polygons.Add(new Tuple<string, List<PointF>>("n Bow-tie hole Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
@@ -134,63 +134,63 @@ namespace MethodSpeedTester
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonAlienRyderFlex(s, p),
+                Experiments.PointInPolygonAlienRyderFlex,
                 nameof(Experiments.PointInPolygonAlienRyderFlex));
         }
 
         private void pictureBox2_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonDarelRexFinley(s, p),
+                Experiments.PointInPolygonDarelRexFinley,
                 nameof(Experiments.PointInPolygonDarelRexFinley));
         }
 
         private void pictureBox3_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonGilKr(s, p),
+                Experiments.PointInPolygonGilKr,
                 nameof(Experiments.PointInPolygonGilKr));
         }
 
         private void pictureBox4_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonKeith(s, p),
+                Experiments.PointInPolygonKeith,
                 nameof(Experiments.PointInPolygonKeith));
         }
 
         private void pictureBox5_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonLaschaLagidse(s, p),
+                Experiments.PointInPolygonLaschaLagidse,
                 nameof(Experiments.PointInPolygonLaschaLagidse));
         }
 
         private void pictureBox6_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonLaschaLagidse2(s, p),
+                Experiments.PointInPolygonLaschaLagidse2,
                 nameof(Experiments.PointInPolygonLaschaLagidse2));
         }
 
         private void pictureBox7_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonMeowNET(s, p),
+                Experiments.PointInPolygonMeowNET,
                 nameof(Experiments.PointInPolygonMeowNET));
         }
 
         private void pictureBox8_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonMKatzWRandolphFranklin(s, p),
+                Experiments.PointInPolygonMKatzWRandolphFranklin,
                 nameof(Experiments.PointInPolygonMKatzWRandolphFranklin));
         }
 
         private void pictureBox9_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonNathanMercer(s, p),
+                Experiments.PointInPolygonNathanMercer,
                 nameof(Experiments.PointInPolygonNathanMercer));
         }
 
@@ -204,56 +204,56 @@ namespace MethodSpeedTester
         private void pictureBox12_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonRodStephens(s, p),
+                Experiments.PointInPolygonRodStephens,
                 nameof(Experiments.PointInPolygonRodStephens));
         }
 
         private void pictureBox11_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonSaeedAmiri(s, p),
+                Experiments.PointInPolygonSaeedAmiri,
                 nameof(Experiments.PointInPolygonSaeedAmiri));
         }
 
         private void pictureBox13_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonJerryKnauss(s, p),
+                Experiments.PointInPolygonJerryKnauss,
                 nameof(Experiments.PointInPolygonJerryKnauss));
         }
 
         private void pictureBox14_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonJerryKnauss2(s, p),
+                Experiments.PointInPolygonJerryKnauss2,
                 nameof(Experiments.PointInPolygonJerryKnauss2));
         }
 
         private void pictureBox15_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonPaulBourke(s, p),
+                Experiments.PointInPolygonPaulBourke,
                 nameof(Experiments.PointInPolygonPaulBourke));
         }
 
         private void pictureBox19_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonWRandolphFranklin(s, p),
+                Experiments.PointInPolygonWRandolphFranklin,
                 nameof(Experiments.PointInPolygonWRandolphFranklin));
         }
 
         private void pictureBox20_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonPhilippeReverdy(s, p),
+                Experiments.PointInPolygonPhilippeReverdy,
                 nameof(Experiments.PointInPolygonPhilippeReverdy));
         }
 
         private void pictureBox18_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonBobStein(s, p),
+                Experiments.PointInPolygonBobStein,
                 nameof(Experiments.PointInPolygonBobStein));
         }
 

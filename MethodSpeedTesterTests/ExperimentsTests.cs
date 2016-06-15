@@ -17,6 +17,7 @@ namespace MethodSpeedTester.Tests
         {
             var sement1 = new Tuple<double, double, double, double>(0, 0, 2, 2);
             var sement2 = new Tuple<double, double, double, double>(2, 0, 0, 2);
+            
             Tuple<bool, Tuple<double, double>> value = null;
 
             // Check diagonal crossing lines.

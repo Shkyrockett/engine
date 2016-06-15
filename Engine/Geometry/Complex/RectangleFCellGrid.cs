@@ -199,6 +199,6 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => "RectangleFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
+        public override string ToString() => "RectangleFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count + "}";
     }
 }

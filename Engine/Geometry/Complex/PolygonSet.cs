@@ -155,7 +155,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point) => Intersections.Contains(this, point);
+        public override bool Contains(Point2D point)
+            => Intersections.Contains(this, point);
 
         /// <summary>
         /// 

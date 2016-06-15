@@ -83,7 +83,7 @@ namespace Engine.Tools
                 if (!Started)
                 {
                     Line.A = tools.MouseLocation;
-                    tools.Surface.RubberbandItems = new List<GraphicItem>() { new GraphicItem(Line, null) };
+                    tools.Surface.RubberbandItems = new List<GraphicItem> { new GraphicItem(Line, null) };
                 }
 
                 Started = true;

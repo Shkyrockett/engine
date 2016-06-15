@@ -3,7 +3,7 @@
     /// <summary>
     /// Listing of common cultures.
     /// </summary>
-    public class Cultures
+    public static class Cultures
     {
         /// <summary>
         /// English Australia.

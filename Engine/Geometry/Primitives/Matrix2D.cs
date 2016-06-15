@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Geometry
 {
@@ -165,8 +166,7 @@ namespace Engine.Geometry
             {
                 if (type == MatrixTypes.IDENTITY)
                     return 0;
-                else
-                    return m1x2;
+                return m1x2;
             }
             set
             {
@@ -335,8 +335,15 @@ namespace Engine.Geometry
         /// <summary>
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
-        public bool IsIdentity => (type == MatrixTypes.IDENTITY ||
-        (m1x1 == 1 && m1x2 == 0 && m2x1 == 0 && m2x2 == 1 && offsetX == 0 && offsetY == 0));
+        public bool IsIdentity
+            => (type == MatrixTypes.IDENTITY ||
+        (
+            Abs(m1x1 - 1) < DoubleEpsilon
+            && Abs(m1x2) < DoubleEpsilon
+            && Abs(m2x1) < DoubleEpsilon
+            && Abs(m2x2 - 1) < DoubleEpsilon
+            && Abs(offsetX) < DoubleEpsilon
+            && Abs(offsetY) < DoubleEpsilon));
 
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
@@ -586,12 +593,12 @@ namespace Engine.Geometry
             else
             {
                 value = new Matrix2D(
-                    Maths.ParseFloat(firstToken, formatProvider),
-                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider),
-                    Maths.ParseFloat(tokenizer.NextTokenRequired(), formatProvider));
+                    firstToken.ParseFloat(formatProvider),
+                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
+                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
+                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
+                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
+                    tokenizer.NextTokenRequired().ParseFloat(formatProvider));
             }
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
@@ -1232,16 +1239,16 @@ namespace Engine.Geometry
             type = 0;
 
             // Now classify our matrix.
-            if (!(m2x1 == 0 && m1x2 == 0))
+            if (!(Abs(m2x1) < DoubleEpsilon && Abs(m1x2) < DoubleEpsilon))
             {
                 type = MatrixTypes.UNKNOWN;
                 return;
             }
 
-            if (!(m1x1 == 1 && m2x2 == 1))
+            if (!(Abs(m1x1 - 1) < DoubleEpsilon && Abs(m2x2 - 1) < DoubleEpsilon))
                 type = MatrixTypes.SCALING;
 
-            if (!(offsetX == 0 && offsetY == 0))
+            if (!(Abs(offsetX) < DoubleEpsilon && Abs(offsetY) < DoubleEpsilon))
                 type |= MatrixTypes.TRANSLATION;
 
             if (0 == (type & (MatrixTypes.TRANSLATION | MatrixTypes.SCALING)))
@@ -1371,7 +1378,9 @@ namespace Engine.Geometry
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
+#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
             if (this == null) return nameof(Matrix2D);
+#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
             if (IsIdentity) return "Identity";
             // Helper to get the numeric list separator for a given culture.
             char sep = Tokenizer.GetNumericListSeparator(provider);

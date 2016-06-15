@@ -16,7 +16,6 @@
 	inclusion test - for convex polygons, use binary search for edge.
 */
 
-
 namespace MethodSpeedTester
 {
     internal class ptinpoly
@@ -50,7 +49,6 @@ namespace MethodSpeedTester
 
         //                    exit(1);				   \
         //				}
-
 
         //    /* ======= Crossings algorithm ============================================ */
 
@@ -481,7 +479,6 @@ namespace MethodSpeedTester
         //}
         //#endif
         //#endif
-
 
         ///* check point for inside of three "planes" formed by triangle edges */
         //int PlaneTest(p_plane_set, numverts, point )
@@ -1968,7 +1965,6 @@ namespace MethodSpeedTester
         //		(pgon[0][X] - pgon[1][X]) * (pgon[1][Y] - pgon[2][Y] ) >
         //		(pgon[0][Y] - pgon[1][Y]) * (pgon[1][X] - pgon[2][X] ) ;
 
-
         //    ax = pgon[0][X] - qx ;
         //    ay = pgon[0][Y] - qy ;
         //    len = sqrt(ax* ax + ay* ay);
@@ -2075,7 +2071,6 @@ namespace MethodSpeedTester
         //    free(p_inc_anchor );
         //}
         //#endif
-
 
         ///* ======= Crossings Multiply algorithm =================================== */
 

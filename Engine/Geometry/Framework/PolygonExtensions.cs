@@ -56,7 +56,7 @@ namespace Engine.Geometry.Polygons
         /// unlikely that anywhere near that many elements will ever be needed).
         /// Returns YES if the optimal solution was found, or NO if there is no solution.
         /// If a solution was found, solutionX and solutionY will contain the coordinates
-        /// of the intermediate nodes of the path, in order.  (The startpoint and endpoint
+        /// of the intermediate nodes of the path, in order.  (The start point and endpoint
         /// are assumed, and will not be included in the solution.)
         /// </summary>
         /// <param name="start"></param>
@@ -84,7 +84,7 @@ namespace Engine.Geometry.Polygons
             double bestDist;
             double newDist;
 
-            //  Fail if either the startpoint or endpoint is outside the polygon set.
+            //  Fail if either the start point or endpoint is outside the polygon set.
             if (!polygons.Contains(start)
             || !polygons.Contains(end))
             {
@@ -92,25 +92,22 @@ namespace Engine.Geometry.Polygons
             }
 
             //  If there is a straight-line solution, return with it immediately.
-            if (polygons.Contains(start, end)) return new Polyline(new List<Point2D>() { start, end });
+            if (polygons.Contains(start, end)) return new Polyline(new List<Point2D> { start, end });
 
             //  Build a point list that refers to the corners of the
-            //  polygons, as well as to the startpoint and endpoint.
+            //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
             foreach (Polygon poly in polygons.Polygons)
             {
                 foreach (Point2D point in poly.Points)
-                {
                     pointList.Add(point);
-                    pointCount++;
-                }
             }
 
             pointList.Add(end);
-            pointCount++;
+            pointCount= pointList.Count;
 
-            //  Initialize the shortest-path tree to include just the startpoint.
+            //  Initialize the shortest-path tree to include just the start point.
             treeCount = 1;
             pointList[0].TotalDistance = 0.0;
 
@@ -126,7 +123,7 @@ namespace Engine.Geometry.Polygons
                     {
                         if (polygons.Contains((Point2D)pointList[ti], (Point2D)pointList[tj]))
                         {
-                            newDist = pointList[ti].TotalDistance + Primitives.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
+                            newDist = pointList[ti].TotalDistance + ((Point2D)pointList[ti]).Distance((Point2D)pointList[tj]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist; bestI = ti; bestJ = tj;
@@ -135,7 +132,7 @@ namespace Engine.Geometry.Polygons
                     }
                 }
 
-                if (bestDist == maxLength) return null;   //  (no solution)
+                if (Abs(bestDist - maxLength) < Maths.DoubleEpsilon) return null;   //  (no solution)
                 pointList[bestJ].Previous = bestI;
                 pointList[bestJ].TotalDistance = bestDist;
 
@@ -512,7 +509,7 @@ namespace Engine.Geometry.Polygons
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
                 if (cross_product < 0) got_negative = true;
-                else if (cross_product > 0) got_positive = true;
+                else got_positive |= cross_product > 0;
                 if (got_negative && got_positive) return false;
             }
 

@@ -45,7 +45,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Legendre-Gauss abscissae with n=24 (x_i values, defined at i=n as the roots of the nth order Legendre polynomial Pn(x))
         /// </summary>
-        public static List<double> Tvalues = new List<double>()
+        public static List<double> Tvalues = new List<double>
         {
           -0.0640568928626056260850430826247450385909,
            0.0640568928626056260850430826247450385909,
@@ -76,7 +76,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Legendre-Gauss weights with n=24 (w_i values, defined by a function linked to in the Bezier primer article)
         /// </summary>
-        public static List<double> Cvalues = new List<double>()
+        public static List<double> Cvalues = new List<double>
         {
             0.1279381953467521569740561652246953718517,
             0.1279381953467521569740561652246953718517,
@@ -406,8 +406,8 @@ namespace Engine.Geometry
         {
             if (!bboxoverlap(bbox1, bbox2)) return new List<Pair>();
             var intersections = new List<Pair>();
-            var a1 = new List<Bezier>() { s1.startcap, s1.forward, s1.back, s1.endcap };
-            var a2 = new List<Bezier>() { s2.startcap, s2.forward, s2.back, s2.endcap };
+            var a1 = new List<Bezier> { s1.startcap, s1.forward, s1.back, s1.endcap };
+            var a2 = new List<Bezier> { s2.startcap, s2.forward, s2.back, s2.endcap };
             foreach (Bezier l1 in a1)
             {
                 if (l1._virtual) return new List<Pair>();
@@ -448,7 +448,7 @@ namespace Engine.Geometry
                 forward: forward,
                 back: back,
                 endcap: end,
-                bbox: findbbox(new List<Bezier>() { start, forward, back, end })
+                bbox: findbbox(new List<Bezier> { start, forward, back, end })
               );
             //shape.intersections = new Shape.IntersectionsDelegate(Bezier s2)
             //{
@@ -545,7 +545,7 @@ namespace Engine.Geometry
                     double v2_ = -(-m1 + m2) / d;
 
                     return new List<double>(
-                        from t0 in new List<double>() { v1_, v2_ }
+                        from t0 in new List<double> { v1_, v2_ }
                         where 0 <= t0 && t0 <= 1
                         select t0
                     );
@@ -553,7 +553,7 @@ namespace Engine.Geometry
                 else if (b != c && d == 0)
                 {
                     return new List<double>(
-                        from t1 in new List<double>() { (2 * b - c) / 2 * (b - c) }
+                        from t1 in new List<double> { (2 * b - c) / 2 * (b - c) }
                         where 0 <= t1 && t1 <= 1
                         select t1
                     );
@@ -591,7 +591,7 @@ namespace Engine.Geometry
                 x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
 
                 return new List<double>(
-                    from t2 in new List<double>() { x1, x2, x3 }
+                    from t2 in new List<double> { x1, x2, x3 }
                     where 0 <= t2 && t2 <= 1
                     select t2
                 );
@@ -603,7 +603,7 @@ namespace Engine.Geometry
                 x2 = -u1 - a / 3;
 
                 return new List<double>(
-                    from t3 in new List<double>() { x1, x2 }
+                    from t3 in new List<double> { x1, x2 }
                     where 0 <= t3 && t3 <= 1
                     select t3
                 );
@@ -615,7 +615,7 @@ namespace Engine.Geometry
                 v1 = Crt(q2 + sd);
 
                 return new List<double>(
-                    from t4 in new List<double>() { u1 - v1 - a / 3 }
+                    from t4 in new List<double> { u1 - v1 - a / 3 }
                     where 0 <= t4 && t4 <= 1
                     select t4
                 );
@@ -642,11 +642,11 @@ namespace Engine.Geometry
                         m2 = -a + b,
                         v1 = -(m1 + m2) / d,
                         v2 = -(-m1 + m2) / d;
-                    return new List<double>() { v1, v2 };
+                    return new List<double> { v1, v2 };
                 }
                 else if (b != c && d == 0)
                 {
-                    return new List<double>() { (2 * b - c) / (2 * (b - c)) };
+                    return new List<double> { (2 * b - c) / (2 * (b - c)) };
                 }
                 return new List<double>();
             }
@@ -655,7 +655,7 @@ namespace Engine.Geometry
             if (p.Count == 2)
             {
                 double a = p[0], b = p[1];
-                if (a != b) return new List<double>() { a / (a - b) }; return new List<double>();
+                if (a != b) return new List<double> { a / (a - b) }; return new List<double>();
             }
 
             return new List<double>();
@@ -686,7 +686,7 @@ namespace Engine.Geometry
             if (approximately(d, 0)) return new List<double>();
 
             return new List<double>(
-                from r in new List<double>() { (sq - v2) / d, -(v2 + sq) / d }
+                from r in new List<double> { (sq - v2) / d, -(v2 + sq) / d }
                 where (0 <= r && r <= 1)
                 select r
                 );
@@ -749,7 +749,7 @@ namespace Engine.Geometry
                 cc2 = c2.split(0.5);
 
             var pairs = new List<Pair>(
-                from pair in new List<Pair>() {
+                from pair in new List<Pair> {
                 new Pair(left: cc1.left, right: cc2.left),
                 new Pair(left: cc1.left, right: cc2.right),
                 new Pair(left: cc1.right, right: cc2.right),

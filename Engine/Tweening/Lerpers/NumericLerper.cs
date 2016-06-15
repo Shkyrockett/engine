@@ -69,10 +69,10 @@ namespace Engine.Tweening
         /// 
         /// </summary>
         /// <param name="t"></param>
-        /// <param name="current"></param>
+        /// <param name="currentValue"></param>
         /// <param name="behavior"></param>
         /// <returns></returns>
-        public override object Interpolate(double t, object current, LerpBehavior behavior)
+        public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
         {
             double value = from + range * t;
             if (behavior.HasFlag(LerpBehavior.Rotation))
@@ -89,9 +89,9 @@ namespace Engine.Tweening
                     value *= Radien;
             }
 
-            if (behavior.HasFlag(LerpBehavior.Round)) value = Math.Round(value);
+            if (behavior.HasFlag(LerpBehavior.Round)) value = Round(value);
 
-            Type type = current.GetType();
+            Type type = currentValue.GetType();
             return Convert.ChangeType(value, type);
         }
     }

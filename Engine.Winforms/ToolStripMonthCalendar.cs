@@ -51,35 +51,33 @@ namespace Engine.Winforms
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="c"></param>
-        protected override void OnSubscribeControlEvents(Control c)
+        /// <param name="control"></param>
+        protected override void OnSubscribeControlEvents(Control control)
         {
             // Call the base so the base events are connected.
-            base.OnSubscribeControlEvents(c);
+            base.OnSubscribeControlEvents(control);
 
             // Cast the control to a MonthCalendar control.
-            var monthCalendarControl = (MonthCalendar)c;
+            var monthCalendarControl = control as MonthCalendar;
 
             // Add the event.
-            monthCalendarControl.DateChanged +=
-                new DateRangeEventHandler(OnDateChanged);
+            monthCalendarControl.DateChanged += OnDateChanged;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="c"></param>
-        protected override void OnUnsubscribeControlEvents(Control c)
+        /// <param name="control"></param>
+        protected override void OnUnsubscribeControlEvents(Control control)
         {
             // Call the base method so the basic events are unsubscripted.
-            base.OnUnsubscribeControlEvents(c);
+            base.OnUnsubscribeControlEvents(control);
 
             // Cast the control to a MonthCalendar control.
-            var monthCalendarControl = (MonthCalendar)c;
+            var monthCalendarControl = control as MonthCalendar;
 
             // Remove the event.
-            monthCalendarControl.DateChanged -=
-                new DateRangeEventHandler(OnDateChanged);
+            monthCalendarControl.DateChanged -= OnDateChanged;
         }
 
         /// <summary>
@@ -94,8 +92,7 @@ namespace Engine.Winforms
         /// <param name="e"></param>
         private void OnDateChanged(object sender, DateRangeEventArgs e)
         {
-            if (DateChanged != null)
-                DateChanged(this, e);
+            DateChanged?.Invoke(this, e);
         }
     }
 }

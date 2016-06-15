@@ -337,14 +337,14 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolates the Arc.
         /// </summary>
-        /// <param name="index">Index of the point to interpolate.</param>
+        /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public override Point2D Interpolate(double index)
+        public override Point2D Interpolate(double t)
         {
-            double t = startAngle + SweepAngle * index;
+            double theta = startAngle + SweepAngle * t;
             return new Point2D(
-                x + (Sin(t) * radius),
-                y + (Cos(t) * radius));
+                x + (Sin(theta) * radius),
+                y + (Cos(theta) * radius));
         }
 
         /// <summary>

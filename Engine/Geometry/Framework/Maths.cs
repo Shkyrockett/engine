@@ -232,7 +232,7 @@ namespace Engine.Geometry
         /// Gauss abscissa table
         /// </summary>
         /// <remarks>https://code.google.com/archive/p/degrafa/source/default/source</remarks>
-        public static List<double> abscissa = new List<double>()
+        public static List<double> abscissa = new List<double>
             {
                 // N=2
                 -0.5773502692,
@@ -282,7 +282,7 @@ namespace Engine.Geometry
         /// Gauss weight table
         /// </summary>
         /// <remarks>https://code.google.com/archive/p/degrafa/source/default/source</remarks>
-        public static List<double> weight = new List<double>()
+        public static List<double> weight = new List<double>
             {
                 // N=2
                 1,
@@ -432,7 +432,9 @@ namespace Engine.Geometry
         public static double Angle(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => (x1 == x2 && y1 == y2 && z1 == z2) ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
+            => (Math.Abs(x1 - x2) < DoubleEpsilon
+            && Math.Abs(y1 - y2) < DoubleEpsilon
+            && Math.Abs(z1 - z2) < DoubleEpsilon) ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
 
         /// <summary>
         /// 
@@ -802,7 +804,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
-            => i == 0 ? SlopeMax : (j / i);
+            => Math.Abs(i) < DoubleEpsilon ? SlopeMax : (j / i);
 
         /// <summary>
         /// Returns the slope angle of a line.
@@ -822,7 +824,7 @@ namespace Engine.Geometry
         public static double Slope(
             double x1, double y1,
             double x2, double y2)
-            => (x1 == x2) ? SlopeMax : ((y2 - y1) / (x2 - x1));
+            => (Math.Abs(x1 - x2) < DoubleEpsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
 
         /// <summary>
         /// 
@@ -1641,7 +1643,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1)
-            => Magnitude(i1, j1) == 1;
+            => Math.Abs(Magnitude(i1, j1) - 1) < DoubleEpsilon;
 
         /// <summary>
         /// 
@@ -1654,7 +1656,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1, double k1)
-            => Magnitude(i1, j1, k1) == 1;
+            => Math.Abs(Magnitude(i1, j1, k1) - 1) < DoubleEpsilon;
 
         /// <summary>
         /// 
@@ -1778,7 +1780,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
-            => (x < 0 && y % 2 == 1) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
+            => (x < 0 && Math.Abs(y % 2 - 1) < DoubleEpsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
 
         /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
@@ -1802,7 +1804,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => ((value % PI != HalfPi) && (value % PI != -HalfPi)) ? (1 / Cos(value)) : 0;
+            => ((Math.Abs(value % PI - HalfPi) > DoubleEpsilon) && (Math.Abs(value % PI - -HalfPi) > DoubleEpsilon)) ? (1 / Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -1813,7 +1815,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-            => ((Value % PI != 0) && (Value % PI != PI)) ? (1 / Sin(Value)) : 0;
+            => ((Math.Abs(Value % PI) > DoubleEpsilon) && (Math.Abs(Value % PI - PI) > DoubleEpsilon)) ? (1 / Sin(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -1824,7 +1826,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-            => ((Value % PI != 0) && (Value % PI != PI)) ? (1 / Tan(Value)) : 0;
+            => ((Math.Abs(Value % PI) > DoubleEpsilon) && (Math.Abs(Value % PI - PI) > DoubleEpsilon)) ? (1 / Tan(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -1837,9 +1839,9 @@ namespace Engine.Geometry
         {
             //  Arc-sin(X) 
             // Return Atan(Value / Sqrt(-Value * Value + 1))
-            if (value == 1) return HalfPi;
-            else if (value == -1) return -HalfPi;
-            else if (Math.Abs(value) < 1) return Atan(value / Sqrt(-value * value + 1));
+            if (Math.Abs(value - 1) < DoubleEpsilon) return HalfPi;
+            if (Math.Abs(value - -1) < DoubleEpsilon) return -HalfPi;
+            if (Math.Abs(value) < 1) return Atan(value / Sqrt(-value * value + 1));
 
             return 0;
         }
@@ -1855,9 +1857,9 @@ namespace Engine.Geometry
         {
             //  Arc-cos(X) 
             // Return Atan(-Value / Sqrt(-Value * Value + 1)) + 2 * Atan(1)
-            if (value == 1) return 0;
-            else if (value == -1) return PI;
-            else if (Math.Abs(value) < 1) return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
+            if (Math.Abs(value - 1) < DoubleEpsilon) return 0;
+            if (Math.Abs(value - -1) < DoubleEpsilon) return PI;
+            if (Math.Abs(value) < 1) return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
 
             return 0;
         }
@@ -1873,9 +1875,9 @@ namespace Engine.Geometry
         {
             //  Arc-sec(X) 
             // Return Atan(Value / Sqrt(Value * Value - 1)) + Sign((Value) - 1) * (2 * Atan(1))
-            if (value == 1) return 0;
-            else if (value == -1) return PI;
-            else if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
+            if (Math.Abs(value - 1) < DoubleEpsilon) return 0;
+            if (Math.Abs(value - -1) < DoubleEpsilon) return PI;
+            if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
 
             return 0;
         }
@@ -1891,9 +1893,9 @@ namespace Engine.Geometry
         {
             //  Arc-co-sec(X) 
             // Return Atan(Value / Sqrt(Value * Value - 1)) + (Sign(Value) - 1) * (2 * Atan(1))
-            if (value == 1) return HalfPi;
-            else if (value == -1) return -HalfPi;
-            else if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
+            if (Math.Abs(value - 1) < DoubleEpsilon) return HalfPi;
+            if (Math.Abs(value - -1) < DoubleEpsilon) return -HalfPi;
+            if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
             return 0;
         }
 
@@ -2053,7 +2055,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
-            => (numberBase != 1) ? (Log(value) / Log(numberBase)) : 0;
+            => (Math.Abs(numberBase - 1) > DoubleEpsilon) ? (Log(value) / Log(numberBase)) : 0;
 
         #endregion
 
@@ -2238,7 +2240,7 @@ namespace Engine.Geometry
         public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
-            if (value1 == value2) return true;
+            if (Math.Abs(value1 - value2) < DoubleEpsilon) return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             float eps = (Math.Abs(value1) + Math.Abs(value2) + 10f) * epsilon;
             float delta = value1 - value2;
@@ -2266,7 +2268,7 @@ namespace Engine.Geometry
         public static bool AreClose(this double value1, double value2, double epsilon = DoubleEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
-            if (value1 == value2) return true;
+            if (Math.Abs(value1 - value2) < DoubleEpsilon) return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             double eps = (Math.Abs(value1) + Math.Abs(value2) + 10d) * epsilon;
             double delta = value1 - value2;

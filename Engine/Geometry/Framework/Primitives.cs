@@ -905,7 +905,7 @@ namespace Engine.Geometry
         public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
         {
             Tuple<double, double, double, double> offset = Maths.OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
-            return new List<Point2D>() { new Point2D(offset.Item1, offset.Item2), new Point2D(offset.Item3, offset.Item4) };
+            return new List<Point2D> { new Point2D(offset.Item1, offset.Item2), new Point2D(offset.Item3, offset.Item4) };
         }
 
         /// <summary>

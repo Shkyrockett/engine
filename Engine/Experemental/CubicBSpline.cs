@@ -47,9 +47,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index) => Interpolaters.CubicBSpline(NodePoints, index);
+        public override Point2D Interpolate(double t) => Interpolaters.CubicBSpline(NodePoints, t);
 
         /// <summary>
         /// 

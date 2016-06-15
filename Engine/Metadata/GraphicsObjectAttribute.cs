@@ -25,11 +25,5 @@ namespace Engine
     public class GraphicsObjectAttribute
         : Attribute
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GraphicsObjectAttribute"/> class.
-        /// </summary>
-        public GraphicsObjectAttribute()
-        {
-        }
     }
 }

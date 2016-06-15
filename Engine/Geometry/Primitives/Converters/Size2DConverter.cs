@@ -21,13 +21,6 @@ namespace Engine.Geometry
         : ExpandableObjectConverter
     {
         /// <summary>
-        /// Creates a new instance of Size2DConverter
-        /// </summary>
-        public Size2DConverter()
-        {
-        }
-
-        /// <summary>
         /// Boolean, true if the source type is a string
         /// </summary>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)

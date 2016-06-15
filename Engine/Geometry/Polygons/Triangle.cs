@@ -40,7 +40,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <param name="c"></param>
         public Triangle(Point2D a, Point2D b, Point2D c)
-            : base(new List<Point2D>() { a, b, c })
+            : base(new List<Point2D> { a, b, c })
         {
         }
 

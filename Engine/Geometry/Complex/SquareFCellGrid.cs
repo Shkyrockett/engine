@@ -199,6 +199,6 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => "SquareFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count.ToString() + "}";
+        public override string ToString() => "SquareFCellGrid{Bounds{" + bounds.ToString() + "}, Count " + count + "}";
     }
 }

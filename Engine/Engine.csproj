@@ -91,13 +91,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AngleControl.cs">
+    <Compile Include="WinForms\AngleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AngleControl.Designer.cs">
+    <Compile Include="WinForms\AngleControl.Designer.cs">
       <DependentUpon>AngleControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="AngleEditor.cs" />
+    <Compile Include="WinForms\AngleEditor.cs" />
     <Compile Include="Chrono\DateTimeExtentions.cs" />
     <Compile Include="Chrono\Enums\EventType.cs" />
     <Compile Include="Chrono\Enums\Months.cs" />
@@ -115,10 +115,10 @@
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />
-    <Compile Include="NeedleControl.cs">
+    <Compile Include="WinForms\NeedleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NeedleControl.Designer.cs">
+    <Compile Include="WinForms\NeedleControl.Designer.cs">
       <DependentUpon>NeedleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Physics\UnitStrings.cs" />
@@ -246,13 +246,13 @@
     <Compile Include="Localization\Enums\ISO3166_2.cs" />
     <Compile Include="Localization\Enums\ISO3166_3.cs" />
     <Compile Include="Localization\Enums\ISO639.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\Geometry\IInfinateShape.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\Geometry\IClosedShape.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\Geometry\ICurve.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\Geometry\IIteratablePathElement.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\Geometry\IOpenShape.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\Geometry\IPolygon.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\ITweenable.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IInfinateShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IClosedShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\ICurve.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IIteratablePathElement.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IOpenShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
+    <Compile Include="Objects\Interfaces\ITweenable.cs" />
     <Compile Include="Geometry\Primitives\TestPoint2D.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
@@ -264,7 +264,7 @@
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Physics\Units\Angle\Radians.cs" />
     <Compile Include="Physics\Units\Angle\Degrees.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\Geometry\IShape.cs" />
+    <Compile Include="Objects\Interfaces\Geometry\IShape.cs" />
     <Compile Include="Geometry\Primitives\Converters\Vector2DConverter.cs" />
     <Compile Include="Experemental\Voronoi.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
@@ -342,36 +342,36 @@
     <Compile Include="Imaging\WinformsTypeExtensions.cs" />
     <Compile Include="Metadata\GraphicsObjectAttribute.cs" />
     <Compile Include="Metadata\FileObjectAttribute.cs" />
-    <Compile Include="Tweening\Objects\Actor.cs" />
-    <Compile Include="Tweening\Objects\ActorDialog.cs" />
-    <Compile Include="Tweening\Objects\Backdrop.cs" />
-    <Compile Include="Tweening\Objects\Canvas.cs" />
-    <Compile Include="Tweening\Objects\FileContainer.cs" />
-    <Compile Include="Tweening\Objects\FileObject.cs" />
-    <Compile Include="Tweening\Objects\Game.cs" />
-    <Compile Include="Tweening\Objects\TypeConverters\GameElementListTypeConverter.cs" />
-    <Compile Include="Tweening\Objects\GraphicItem.cs" />
-    <Compile Include="Tweening\Objects\GraphicsObject.cs" />
-    <Compile Include="Tweening\Objects\Group.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\IMetadata.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\IFileObject.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\IAudio.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\IGameElement.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\IImage.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\IRenderable.cs" />
-    <Compile Include="Tweening\Objects\Interfaces\ITreeObject.cs" />
-    <Compile Include="Tweening\Objects\IventoryItem.cs" />
-    <Compile Include="Tweening\Objects\Metadata.cs" />
-    <Compile Include="Tweening\Objects\Midi.cs" />
-    <Compile Include="Tweening\Objects\Project.cs" />
-    <Compile Include="Tweening\Objects\RasterGraphic.cs" />
-    <Compile Include="Tweening\Objects\Resources.cs" />
-    <Compile Include="Tweening\Objects\Scene.cs" />
-    <Compile Include="Tweening\Objects\Sprite.cs" />
-    <Compile Include="Tweening\Objects\Variable.cs" />
-    <Compile Include="Tweening\Objects\VectorGraphic.cs" />
-    <Compile Include="Tweening\Objects\VectorMap.cs" />
-    <Compile Include="Tweening\Objects\Wavform.cs" />
+    <Compile Include="Objects\Actor.cs" />
+    <Compile Include="Objects\ActorDialog.cs" />
+    <Compile Include="Objects\Backdrop.cs" />
+    <Compile Include="Objects\Canvas.cs" />
+    <Compile Include="Objects\FileContainer.cs" />
+    <Compile Include="Objects\FileObject.cs" />
+    <Compile Include="Objects\Game.cs" />
+    <Compile Include="Objects\TypeConverters\GameElementListTypeConverter.cs" />
+    <Compile Include="Objects\GraphicItem.cs" />
+    <Compile Include="Objects\GraphicsObject.cs" />
+    <Compile Include="Objects\Group.cs" />
+    <Compile Include="Objects\Interfaces\IMetadata.cs" />
+    <Compile Include="Objects\Interfaces\IFileObject.cs" />
+    <Compile Include="Objects\Interfaces\IAudio.cs" />
+    <Compile Include="Objects\Interfaces\IGameElement.cs" />
+    <Compile Include="Objects\Interfaces\IImage.cs" />
+    <Compile Include="Objects\Interfaces\IRenderable.cs" />
+    <Compile Include="Objects\Interfaces\ITreeObject.cs" />
+    <Compile Include="Objects\IventoryItem.cs" />
+    <Compile Include="Objects\Metadata.cs" />
+    <Compile Include="Objects\Midi.cs" />
+    <Compile Include="Objects\Project.cs" />
+    <Compile Include="Objects\RasterGraphic.cs" />
+    <Compile Include="Objects\Resources.cs" />
+    <Compile Include="Objects\Scene.cs" />
+    <Compile Include="Objects\Sprite.cs" />
+    <Compile Include="Objects\Variable.cs" />
+    <Compile Include="Objects\VectorGraphic.cs" />
+    <Compile Include="Objects\VectorMap.cs" />
+    <Compile Include="Objects\Wavform.cs" />
     <Compile Include="Tools\Pan.cs" />
     <Compile Include="Tools\Zoom.cs" />
     <Compile Include="Tools\SelectTop.cs" />
@@ -412,10 +412,10 @@
     <None Include="Tweening\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AngleControl.resx">
+    <EmbeddedResource Include="WinForms\AngleControl.resx">
       <DependentUpon>AngleControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NeedleControl.resx">
+    <EmbeddedResource Include="WinForms\NeedleControl.resx">
       <DependentUpon>NeedleControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

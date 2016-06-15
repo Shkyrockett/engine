@@ -11,15 +11,6 @@ namespace Engine.Geometry.Tests
     public class IntersectionExtentionTests
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntersectionExtentionTests"/> class.
-        /// </summary>
-        public IntersectionExtentionTests()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-        /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>

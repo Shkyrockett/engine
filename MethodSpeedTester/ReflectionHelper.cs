@@ -17,7 +17,7 @@ namespace MethodSpeedTester
     /// <summary>
     /// 
     /// </summary>
-    public class ReflectionHelper
+    public static class ReflectionHelper
     {
         /// <summary>
         /// 

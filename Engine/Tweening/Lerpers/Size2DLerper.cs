@@ -10,6 +10,7 @@
 
 using Engine.Geometry;
 using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Tweening
 {
@@ -70,8 +71,8 @@ namespace Engine.Tweening
 
             var current = currentValue as Size2D;
             return new Size2D(
-                (range.Width == 0) ? current.Width : width,
-                (range.Height == 0) ? current.Height : height);
+                (Abs(range.Width) < DoubleEpsilon) ? current.Width : width,
+                (Abs(range.Height) < DoubleEpsilon) ? current.Height : height);
         }
     }
 }

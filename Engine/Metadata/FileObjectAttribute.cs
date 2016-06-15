@@ -25,11 +25,5 @@ namespace Engine
     public class FileObjectAttribute
         : Attribute
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FileObjectAttribute"/> class.
-        /// </summary>
-        public FileObjectAttribute()
-        {
-        }
     }
 }

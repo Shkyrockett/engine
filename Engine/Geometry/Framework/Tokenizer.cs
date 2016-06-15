@@ -196,7 +196,7 @@ namespace Engine.Geometry
 
             char currentChar = str[charIndex];
 
-            Debug.Assert(!Char.IsWhiteSpace(currentChar), "Token started on Whitespace");
+            Debug.Assert(!char.IsWhiteSpace(currentChar), "Token started on Whitespace");
 
             // setup the quoteCount
             int quoteCount = 0;
@@ -237,10 +237,9 @@ namespace Engine.Geometry
                         }
                     }
                 }
-                else if ((Char.IsWhiteSpace(currentChar)) || (currentChar == separator))
+                else if ((char.IsWhiteSpace(currentChar)) || (currentChar == separator))
                 {
-                    if (currentChar == separator)
-                        foundSeparator = true;
+                    foundSeparator |= currentChar == separator;
                     break;
                 }
 
@@ -286,7 +285,7 @@ namespace Engine.Geometry
                 // we have an error. this can happen in the quote case
                 // that the char after the quotes string isn't a char.
                 if (!(currentChar == separator) &&
-                    !Char.IsWhiteSpace(currentChar))
+                    !char.IsWhiteSpace(currentChar))
                 {
                     //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperExtraDataEncountered, _charIndex, _str));
                     throw new System.InvalidOperationException();
@@ -312,7 +311,7 @@ namespace Engine.Geometry
                             throw new System.InvalidOperationException();
                         }
                     }
-                    else if (Char.IsWhiteSpace(currentChar))
+                    else if (char.IsWhiteSpace(currentChar))
                     {
                         ++charIndex;
                     }

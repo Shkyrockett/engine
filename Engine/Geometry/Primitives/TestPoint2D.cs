@@ -4,6 +4,8 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Geometry
 {
@@ -25,10 +27,6 @@ namespace Engine.Geometry
         /// A Unit <see cref="TestPoint2D"/>.
         /// </summary>
         public static readonly TestPoint2D Unit = new TestPoint2D(1, 1);
-
-        #endregion
-
-        #region Fields
 
         #endregion
 
@@ -92,7 +90,9 @@ namespace Engine.Geometry
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public bool IsEmpty => X == 0 && Y == 0;
+        public bool IsEmpty
+            => Abs(X) < DoubleEpsilon
+            && Abs(Y) < DoubleEpsilon;
 
         #endregion
 

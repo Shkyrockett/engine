@@ -10,6 +10,7 @@
 
 using Engine.Geometry;
 using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Tweening
 {
@@ -69,8 +70,8 @@ namespace Engine.Tweening
 
             var current = currentValue as Point2D;
             return new Point2D(
-                (range.X == 0) ? current.X : x,
-                (range.Y == 0) ? current.X : y);
+                (Abs(range.X) < DoubleEpsilon) ? current.X : x,
+                (Abs(range.Y) < DoubleEpsilon) ? current.X : y);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="value">The two-byte signed integer to write.</param>
         /// <exception cref="IOException">An I/O error occurs</exception>
-        /// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+        /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
         public void WriteNetwork(short value)
         {
             Write(IPAddress.HostToNetworkOrder(value));
@@ -72,7 +72,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="value">The four-byte signed integer to write.</param>
         /// <exception cref="IOException">An I/O error occurs.</exception>
-        /// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+        /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
         public void WriteNetwork(int value)
         {
             Write(IPAddress.HostToNetworkOrder(value));
@@ -84,7 +84,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="value">The eight-byte signed integer to write.</param>
         /// <exception cref="IOException">An I/O error occurs.</exception>
-        /// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+        /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
         public void WriteNetwork(long value)
         {
             Write(IPAddress.HostToNetworkOrder(value));
@@ -96,11 +96,11 @@ namespace Engine.File
         /// </summary>
         /// <param name="input">The value to write</param>
         /// <exception cref="IOException">An I/O error occurs.</exception>
-        /// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+        /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
         /// <remarks>This method uses an array</remarks>
         public void WriteVarLen(uint input)
         {
-            if (input < 0) throw new ArgumentOutOfRangeException("value", input.ToString(), "Cannot write a negative Var Int.");
+            if (input < 0) throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
             // Allocate a value buffer with room for bit shifting.  
@@ -174,11 +174,11 @@ namespace Engine.File
         /// </summary>
         /// <param name="input">The Value to write.</param>
         /// <exception cref="IOException">An I/O error occurs.</exception>
-        /// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+        /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
         /// <remarks></remarks>
         public void WriteVarLen1(uint input)
         {
-            if (input < 0) throw new ArgumentOutOfRangeException("value", input.ToString(), "Cannot write a negative Var Int.");
+            if (input < 0) throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
             uint value = input;
@@ -205,7 +205,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="input">The Value to write.</param>
         /// <exception cref="IOException">An I/O error occurs.</exception>
-        /// <exception cref="System.ObjectDisposedException">The stream is closed.</exception>
+        /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
         /// <remarks></remarks>
         public void WriteVarLen2(uint input)
         {

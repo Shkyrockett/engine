@@ -173,7 +173,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public List<Point2D> Points
         {
-            get { return new List<Point2D>() { A, B }; }
+            get { return new List<Point2D> { A, B }; }
             set
             {
                 A = value[0];
@@ -193,9 +193,10 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolates a shape.
         /// </summary>
-        /// <param name="index">Index of the point to interpolate.</param>
+        /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public override Point2D Interpolate(double index) => Maths.LinearInterpolate(A, B, index);
+        public override Point2D Interpolate(double t)
+            => Maths.LinearInterpolate(A, B, t);
 
         #endregion
 

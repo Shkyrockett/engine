@@ -9,15 +9,6 @@ namespace Engine.Geometry.Tests
     [TestClass]
     public class EllipseTests
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EllipseTests"/> class.
-        /// </summary>
-        public EllipseTests()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
 
         /// <summary>
         /// Gets or sets the test context which provides

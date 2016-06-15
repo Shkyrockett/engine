@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Geometry
 {
@@ -107,7 +109,10 @@ namespace Engine.Geometry
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public bool IsEmpty => X == 0 && Y == 0 && Z == 0;
+        public bool IsEmpty
+            => Abs(X) < DoubleEpsilon
+            && Abs(Y) < DoubleEpsilon
+            && Abs(Z) < DoubleEpsilon;
 
         #endregion
 

@@ -397,7 +397,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public override double Perimeter => (Primitives.Distance(TopLeft, TopRight) * 2) + (Primitives.Distance(TopLeft, BottomLeft) * 2);
+        public override double Perimeter => (TopLeft.Distance(TopRight) * 2) + (TopLeft.Distance(BottomLeft) * 2);
 
         /// <summary>
         /// 
@@ -615,7 +615,7 @@ namespace Engine.Geometry
             double top = Min(Top, rect.Top);
 
             // We need this check so that the math does not result in NaN
-            if ((rect.Width == double.PositiveInfinity) || (Width == double.PositiveInfinity))
+            if ((double.IsPositiveInfinity(rect.Width)) || (double.IsPositiveInfinity(Width)))
             {
                 width = double.PositiveInfinity;
             }
@@ -627,7 +627,7 @@ namespace Engine.Geometry
             }
 
             // We need this check so that the math does not result in NaN
-            if ((rect.Height == double.PositiveInfinity) || (Height == double.PositiveInfinity))
+            if ((double.IsPositiveInfinity(rect.Height)) || (double.IsPositiveInfinity(Height)))
             {
                 height = double.PositiveInfinity;
             }
@@ -759,7 +759,7 @@ namespace Engine.Geometry
         /// Convert a rectangle to an array of it's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public List<Point2D> ToPoints() => new List<Point2D>()
+        public List<Point2D> ToPoints() => new List<Point2D>
             {
                 Location,
                 new Point2D(Right, Top),

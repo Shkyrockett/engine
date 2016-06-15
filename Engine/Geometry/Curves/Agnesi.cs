@@ -119,22 +119,22 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index) => new Point2D(
-    (offset.X + (2 * Tan(index)) * multiplyer.Width),
-    offset.Y + (2 * -Pow(Cos(index), 2)) * multiplyer.Height
+        public override Point2D Interpolate(double t) => new Point2D(
+    (offset.X + (2 * Tan(t)) * multiplyer.Width),
+    offset.Y + (2 * -Pow(Cos(t), 2)) * multiplyer.Height
     );
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="precision"></param>
+        /// <param name="count"></param>
         /// <returns></returns>
-        public override List<Point2D> InterpolatePoints(int precision)
+        public override List<Point2D> InterpolatePoints(int count)
         {
             var points = new List<Point2D>();
-            for (double Index = (PI * -1); (Index < PI); Index = (Index + (1d / precision)))
+            for (double Index = (PI * -1); (Index < PI); Index = (Index + (1d / count)))
                 points.Add(Interpolate(Index));
 
             return points;

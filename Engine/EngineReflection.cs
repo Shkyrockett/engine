@@ -21,7 +21,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public class EngineReflection
+    public static class EngineReflection
     {
         /// <summary>
         /// Add attributes to framework components so they can be listed.

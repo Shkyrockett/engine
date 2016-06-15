@@ -235,10 +235,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public override Point2D Interpolate(double index) => new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, index));
+        public override Point2D Interpolate(double t)
+            => new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, t));
 
         /// <summary>
         /// 

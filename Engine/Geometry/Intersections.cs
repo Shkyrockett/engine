@@ -36,7 +36,7 @@ namespace Engine.Geometry
                 dy *= dy;
                 double distanceSquared = dx + dy;
                 double radiusSquared = circle.Radius * circle.Radius;
-                return (radiusSquared >= distanceSquared) ? ((radiusSquared == distanceSquared) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
             }
 
             return InsideOutside.Outside;
@@ -72,7 +72,7 @@ namespace Engine.Geometry
             double normalizedRadius = (a / d1Squared)
                                     + (b / d2Squared);
 
-            return (normalizedRadius <= 1d) ? ((normalizedRadius == 1d) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
         }
 
         /// <summary>
@@ -85,8 +85,13 @@ namespace Engine.Geometry
         //[DebuggerStepThrough]
         public static InsideOutside Contains(this Rectangle2D rectangle, Point2D point)
         {
-            if (((rectangle.X == point.X || rectangle.Bottom == point.X) && ((rectangle.Y <= point.Y) == (rectangle.Bottom >= point.Y)))
-             || ((rectangle.Right == point.Y || rectangle.Left == point.Y) && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
+            if (((
+                Abs(rectangle.X - point.X) < DoubleEpsilon
+                || Abs(rectangle.Bottom - point.X) < DoubleEpsilon)
+                && ((rectangle.Y <= point.Y) == (rectangle.Bottom >= point.Y)))
+             || ((Abs(rectangle.Right - point.Y) < DoubleEpsilon
+             || Abs(rectangle.Left - point.Y) < DoubleEpsilon)
+             && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
             {
                 return InsideOutside.Boundary;
             }
@@ -130,10 +135,11 @@ namespace Engine.Geometry
             for (int i = 1; i <= polygon.Points.Count; ++i)
             {
                 Point2D nextPoint = (i == polygon.Points.Count ? polygon[0] : polygon[i]);
-                if (nextPoint.Y == point.Y)
+                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
                 {
-                    if ((nextPoint.X == point.X) || (curPoint.Y == point.Y
-                    && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
+                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
+                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
+                        && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                     {
                         return InsideOutside.Boundary;
                     }
@@ -150,7 +156,7 @@ namespace Engine.Geometry
                         else
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                            if (determinant == 0)
+                            if (Abs(determinant) < DoubleEpsilon)
                                 return InsideOutside.Boundary;
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                         }
@@ -160,9 +166,9 @@ namespace Engine.Geometry
                         if (nextPoint.X > point.X)
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                            if (determinant == 0)
+                            if (Abs(determinant) < DoubleEpsilon)
                                 return InsideOutside.Boundary;
-                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                            if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                         }
                     }
                 }
@@ -237,8 +243,11 @@ namespace Engine.Geometry
                     sY = poly.Points[i].Y - start.Y;
                     eX = poly.Points[j].X - start.X;
                     eY = poly.Points[j].Y - start.Y;
-                    if (sX == 0.0 && sY == 0.0 && eX == end.X && eY == end.Y
-                    || eX == 0.0 && eY == 0.0 && sX == end.X && sY == end.Y)
+                    if (Abs(sX) < DoubleEpsilon && Abs(sY) < DoubleEpsilon
+                        && Abs(eX - end.X) < DoubleEpsilon && Abs(eY - end.Y) < DoubleEpsilon
+                        || Abs(eX) < DoubleEpsilon
+                        && Abs(eY) < DoubleEpsilon && Abs(sX - end.X) < DoubleEpsilon
+                        && Abs(sY - end.Y) < DoubleEpsilon)
                     {
                         return true;
                     }
@@ -254,11 +263,12 @@ namespace Engine.Geometry
                         if (crossX >= 0.0 && crossX <= dist) return false;
                     }
 
-                    if (rotSY == 0.0 && rotEY == 0.0
-                    && (rotSX >= 0.0 || rotEX >= 0.0)
-                    && (rotSX <= dist || rotEX <= dist)
-                    && (rotSX < 0.0 || rotEX < 0.0
-                    || rotSX > dist || rotEX > dist))
+                    if (Abs(rotSY) < DoubleEpsilon
+                        && Abs(rotEY) < DoubleEpsilon
+                        && (rotSX >= 0.0 || rotEX >= 0.0)
+                        && (rotSX <= dist || rotEX <= dist)
+                        && (rotSX < 0.0 || rotEX < 0.0
+                        || rotSX > dist || rotEX > dist))
                     {
                         return false;
                     }
@@ -323,7 +333,7 @@ namespace Engine.Geometry
                 intersection2 = new Point2D(double.NaN, double.NaN);
                 return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
             }
-            else if ((dist == 0) && (radius0 == radius1))
+            else if ((Abs(dist) < DoubleEpsilon) && (Abs(radius0 - radius1) < DoubleEpsilon))
             {
                 // No solutions, the circles coincide.
                 intersection1 = new Point2D(double.NaN, double.NaN);
@@ -350,7 +360,7 @@ namespace Engine.Geometry
                     (cy2 + h * (cx1 - cx0) / dist));
 
                 // See if we have 1 or 2 solutions.
-                if (dist == radius0 + radius1)
+                if (Abs(dist - radius0 + radius1) < DoubleEpsilon)
                     return new Tuple<int, Point2D, Point2D>(1, intersection1, intersection2);
 
                 return new Tuple<int, Point2D, Point2D>(2, intersection1, intersection2);
@@ -397,7 +407,7 @@ namespace Engine.Geometry
                 intersection2 = new Point2D(double.NaN, double.NaN);
                 return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
             }
-            else if (determinant == 0)
+            else if (Abs(determinant) < DoubleEpsilon)
             {
                 // One solution.
                 t = -B / (2 * A);
@@ -446,7 +456,7 @@ namespace Engine.Geometry
             double determinant = (deltaBJ * deltaAI) - (deltaBI * deltaAJ);
 
             // Check if the line are parallel.
-            if (determinant == 0) return new Tuple<bool, Point2D>(false, null);
+            if (Abs(determinant) < DoubleEpsilon) return new Tuple<bool, Point2D>(false, null);
 
             // Find the index where the intersection point lies on the line.
             double s = ((x0 - x2) * deltaAJ + (y2 - y0) * deltaAI) / -determinant;
@@ -474,7 +484,7 @@ namespace Engine.Geometry
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
         {
             if (subjectPoly.Count < 3 || clipPoly.Count < 3)
-                throw new ArgumentException(string.Format("The polygons passed in must have at least 3 points: subject={0}, clip={1}", subjectPoly.Count.ToString(), clipPoly.Count.ToString()));
+                throw new ArgumentException($"The polygons passed in must have at least 3 points: subject={subjectPoly.Count}, clip={clipPoly.Count}");
 
             // clone it
             List<Point2D> outputList = subjectPoly.ToList();
@@ -496,13 +506,13 @@ namespace Engine.Geometry
 
                 Point2D S = inputList[inputList.Count - 1];
 
-                foreach (Point2D E in inputList)
+                foreach (Point2D e in inputList)
                 {
-                    if (IsInside(clipEdge, E))
+                    if (IsInside(clipEdge, e))
                     {
                         if (!IsInside(clipEdge, S))
                         {
-                            Tuple<bool, Point2D> point = Intersections.LineLine(S.X, S.Y, E.X, E.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                            Tuple<bool, Point2D> point = Intersections.LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
                             if (point == null)
                             {
                                 // may be collinear, or may be a bug
@@ -514,11 +524,11 @@ namespace Engine.Geometry
                             }
                         }
 
-                        outputList.Add(E);
+                        outputList.Add(e);
                     }
                     else if (IsInside(clipEdge, S))
                     {
-                        Tuple<bool, Point2D> point = Intersections.LineLine(S.X, S.Y, E.X, E.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                        Tuple<bool, Point2D> point = Intersections.LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
                         if (point == null)
                         {
                             // may be collinear, or may be a bug
@@ -530,7 +540,7 @@ namespace Engine.Geometry
                         }
                     }
 
-                    S = E;
+                    S = e;
                 }
             }
 

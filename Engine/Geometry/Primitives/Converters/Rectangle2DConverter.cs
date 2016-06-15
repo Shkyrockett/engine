@@ -22,13 +22,6 @@ namespace Engine.Geometry
         : ExpandableObjectConverter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2DConverter" /> class. 
-        /// </summary>
-        public Rectangle2DConverter()
-        {
-        }
-
-        /// <summary>
         /// Determines whether an object can be converted from a given type to an instance of <see cref="Rectangle2D" />.
         /// </summary>
         /// <returns>true if the type can be converted to a <see cref="Rectangle2D" />; otherwise, false.</returns>

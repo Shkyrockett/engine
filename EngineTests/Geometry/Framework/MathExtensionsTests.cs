@@ -10,15 +10,6 @@ namespace Engine.Geometry.Tests
     [TestClass]
     public class MathExtensionsTests
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MathExtensionsTests"/> class.
-        /// </summary>
-        public MathExtensionsTests()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
 
         /// <summary>
         /// Gets or sets the test context which provides

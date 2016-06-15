@@ -31,7 +31,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private List<char> dims = new List<char>() { 'x', 'y', 'z' };
+        private List<char> dims = new List<char> { 'x', 'y', 'z' };
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace Engine.Geometry
         /// <param name="y2"></param>
         public Bezier(double x1, double y1, double v1, double v2, double v3, double v4, double x2, double y2)
         {
-            points = new List<Point3D>()
+            points = new List<Point3D>
             {
                 new Point3D(x1,y1,0),
                 new Point3D(v1,v2,0),
@@ -76,7 +76,7 @@ namespace Engine.Geometry
         /// <param name="z2"></param>
         public Bezier(double x1, double y1, double z1, double v1, double v2, double v3, double v4, double v5, double v6, double x2, double y2, double z2)
         {
-            points = new List<Point3D>()
+            points = new List<Point3D>
             {
                 new Point3D(x1,y1,z1),
                 new Point3D(v1,v2,v3),
@@ -101,7 +101,7 @@ namespace Engine.Geometry
         /// <param name="p2"></param>
         /// <param name="p3"></param>
         public Bezier(Point3D p1, Point3D p2, Point3D p3)
-            : this(new List<Point3D>() { p1, p2, p3 })
+            : this(new List<Point3D> { p1, p2, p3 })
         {
         }
 
@@ -113,7 +113,7 @@ namespace Engine.Geometry
         /// <param name="p3"></param>
         /// <param name="p4"></param>
         public Bezier(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
-            : this(new List<Point3D>() { p1, p2, p3, p4 })
+            : this(new List<Point3D> { p1, p2, p3, p4 })
         {
         }
 
@@ -514,7 +514,7 @@ namespace Engine.Geometry
                 double d = 0;
                 if (order == 2)
                 {
-                    p = new List<Point3D>() { points[0], points[1], points[2], Point3D.Empty };
+                    p = new List<Point3D> { points[0], points[1], points[2], Point3D.Empty };
                     a = mt2;
                     b = mt * t * 2;
                     c = t2;
@@ -591,7 +591,7 @@ namespace Engine.Geometry
             var p = new List<Point3D>(3) { dpoints[0] };
             if (order == 2)
             {
-                p = new List<Point3D>() { p[0], p[1], Point3D.Empty };
+                p = new List<Point3D> { p[0], p[1], Point3D.Empty };
                 a = mt;
                 b = t;
             }
@@ -661,7 +661,7 @@ namespace Engine.Geometry
             double m = Sqrt(c.X * c.X + c.Y * c.Y + c.Z * c.Z);
             c.X /= m; c.Y /= m; c.Z /= m;
             // rotation matrix
-            var R = new List<double>() {
+            var R = new List<double> {
                 c.X * c.X, c.X * c.Y - c.Z, c.X * c.Z + c.Y,
                 c.X * c.Y + c.Z, c.Y * c.Y, c.Y * c.Z - c.X,
                 c.X * c.Z - c.Y, c.Y * c.Z + c.X, c.Z * c.Z};
@@ -719,8 +719,8 @@ namespace Engine.Geometry
             // no shortcut: use "de Casteljau" iteration.
             List<Point3D> q = hull(t1);
             var result = new Pair(
-                left: order == 2 ? new Bezier(new List<Point3D>() { q[0], q[3], q[5] }) : new Bezier(new List<Point3D>() { q[0], q[4], q[7], q[9] }),
-                right: order == 2 ? new Bezier(new List<Point3D>() { q[5], q[4], q[2] }) : new Bezier(new List<Point3D>() { q[9], q[8], q[6], q[3] }),
+                left: order == 2 ? new Bezier(new List<Point3D> { q[0], q[3], q[5] }) : new Bezier(new List<Point3D> { q[0], q[4], q[7], q[9] }),
+                right: order == 2 ? new Bezier(new List<Point3D> { q[5], q[4], q[2] }) : new Bezier(new List<Point3D> { q[9], q[8], q[6], q[3] }),
                 span: q
             );
 
@@ -843,7 +843,7 @@ namespace Engine.Geometry
                     coords.Add(ret);
                 }
 
-                return new List<Bezier>() { new Bezier(coords) };
+                return new List<Bezier> { new Bezier(coords) };
             }
             List<Bezier> reduced = reduce();
 
@@ -949,7 +949,7 @@ namespace Engine.Geometry
             bool clockwise = this.clockwise;
             double r1 = distanceFn(0);
             double r2 = distanceFn(1);
-            var v = new List<Tuple<Point3D, Point3D, Point3D>>() { offset(0, 10), offset(1, 10) };
+            var v = new List<Tuple<Point3D, Point3D, Point3D>> { offset(0, 10), offset(1, 10) };
             Point3D o = lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
@@ -957,7 +957,7 @@ namespace Engine.Geometry
             var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
-            foreach (int t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int> { 0, 1 })
             {
                 Point3D p = np[t * order] = copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
@@ -966,7 +966,7 @@ namespace Engine.Geometry
 
             // move control points by "however much necessary to
             // ensure the correct tangent to endpoint".
-            foreach (int t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int> { 0, 1 })
             {
                 if (this.order == 2) break;
                 Point3D p = points[t + 1];
@@ -999,14 +999,14 @@ namespace Engine.Geometry
             bool clockwise = this.clockwise;
             double r1 = d;
             double r2 = d;
-            var v = new List<Tuple<Point3D, Point3D, Point3D>>() { offset(0, 10), offset(1, 10) };
+            var v = new List<Tuple<Point3D, Point3D, Point3D>> { offset(0, 10), offset(1, 10) };
             Point3D o = lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");             // move all points by distance 'd' wrt the origin 'o'
             List<Point3D> points = this.points;
             var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
-            foreach (int t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int> { 0, 1 })
             {
                 Point3D p = np[t * order] = copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
@@ -1015,7 +1015,7 @@ namespace Engine.Geometry
 
             // move control points to lie on the intersection of the offset
             // derivative vector, and the origin-through-control vector
-            foreach (int t in new List<int>() { 0, 1 })
+            foreach (int t in new List<int> { 0, 1 })
             {
                 if (this.order == 2) break;
                 Point3D p = np[t * order];
@@ -1112,9 +1112,9 @@ namespace Engine.Geometry
             {
                 p = s.points;
                 if (p[3] != null)
-                    s.points = new List<Point3D>() { p[3], p[2], p[1], p[0] };
+                    s.points = new List<Point3D> { p[3], p[2], p[1], p[0] };
                 else
-                    s.points = new List<Point3D>() { p[2], p[1], p[0] };
+                    s.points = new List<Point3D> { p[2], p[1], p[0] };
                 tcurves.Add(s);
             }
             tcurves.Reverse();
@@ -1394,7 +1394,7 @@ namespace Engine.Geometry
             // align curve with the intersecting line, translating/rotating
             // so that the first point becomes (0,0), and the last point
             // ends up lying on the line we're trying to use as root-intersect.
-            List<Point3D> aligned = align(new List<Point3D>() { p1, p2, p3, p4 }, line);
+            List<Point3D> aligned = align(new List<Point3D> { p1, p2, p3, p4 }, line);
             // rewrite from [a(1-t)^3 + 3bt(1-t)^2 + 3c(1-t)t^2 + dt^3] form...
             double pa = aligned[0].Y;
             double pb = aligned[1].Y;
@@ -1431,14 +1431,14 @@ namespace Engine.Geometry
                 x1 = t1 * Cos(phi / 3) - a / 3;
                 x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
                 x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
-                return new List<double>() { x1, x2, x3 };
+                return new List<double> { x1, x2, x3 };
             }
             else if (discriminant == 0)
             {
                 u1 = q2 < 0 ? Maths.Crt(-q2) : -Maths.Crt(q2);
                 x1 = 2 * u1 - a / 3;
                 x2 = -u1 - a / 3;
-                return new List<double>() { x1, x2 };
+                return new List<double> { x1, x2 };
             }
             else
             {
@@ -1448,7 +1448,7 @@ namespace Engine.Geometry
                 u1 = Maths.Crt(-q2 + sd);
                 v1 = Maths.Crt(q2 + sd);
                 x1 = u1 - v1 - a / 3;
-                return new List<double>() { x1 };
+                return new List<double> { x1 };
             }
         }
     }

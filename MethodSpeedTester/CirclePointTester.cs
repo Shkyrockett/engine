@@ -60,9 +60,6 @@ namespace MethodSpeedTester
                 case InsideOutside.Boundary:
                     pointpen = Pens.Magenta;
                     break;
-                case InsideOutside.Outside:
-                default:
-                    break;
             }
 
             g.DrawLine(pointpen, new PointF(point.X, point.Y - pointRadius), new PointF(point.X, point.Y + pointRadius));

@@ -8,15 +8,6 @@ namespace EngineTests
     [TestClass]
     public class UnitTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnitTest"/>.
-        /// </summary>
-        public UnitTest()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
 
         /// <summary>
         /// Gets or sets the test context which provides

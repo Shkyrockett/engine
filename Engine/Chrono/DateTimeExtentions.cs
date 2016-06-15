@@ -201,7 +201,7 @@ namespace Engine.Chrono
             }
             else
             {
-                throw new ArgumentException("Instance range exceeded, max: " + instancesInMonth.ToString(), nameof(instance));
+                throw new ArgumentException("Instance range exceeded, max: " + instancesInMonth, nameof(instance));
             }
 
             return dtRet;

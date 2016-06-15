@@ -9,15 +9,6 @@ namespace Engine.Geometry.Tests
     [TestClass]
     public class QuadraticBezierTests
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezierTests"/> class.
-        /// </summary>
-        public QuadraticBezierTests()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
 
         /// <summary>
         /// Gets or sets the test context which provides

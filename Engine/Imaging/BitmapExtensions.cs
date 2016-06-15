@@ -25,8 +25,8 @@ namespace Engine.Imaging
         public class DisposableImageData
             : IDisposable
         {
-            private readonly Bitmap _bitmap;
-            private readonly BitmapData _data;
+            private readonly Bitmap bitmap;
+            private readonly BitmapData data;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="DisposableImageData"/> class.
@@ -37,8 +37,8 @@ namespace Engine.Imaging
             /// <param name="format"></param>
             internal DisposableImageData(Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format)
             {
-                _bitmap = bitmap;
-                _data = bitmap.LockBits(rect, flags, format);
+                this.bitmap = bitmap;
+                data = bitmap.LockBits(rect, flags, format);
             }
 
             /// <summary>
@@ -67,10 +67,10 @@ namespace Engine.Imaging
                 if (disposing)
                 {
                     // free managed resources
-                    if (_bitmap != null)
+                    if (bitmap != null)
                     {
-                        _bitmap.UnlockBits(_data);
-                        _bitmap.Dispose();
+                        bitmap.UnlockBits(data);
+                        bitmap.Dispose();
                     }
                 }
                 // free native resources if there are any.
@@ -80,36 +80,36 @@ namespace Engine.Imaging
             /// Gets or sets the address of the first pixel data in the bitmap. This can also
             /// be thought of as the first scan line in the bitmap.
             /// </summary>
-            public IntPtr Scan0 => _data.Scan0;
+            public IntPtr Scan0 => data.Scan0;
 
             /// <summary>
             /// Gets or sets the stride width (also called scan width) of the System.Drawing.Bitmap
             /// object.
             /// </summary>
-            public int Stride => _data.Stride;
+            public int Stride => data.Stride;
 
             /// <summary>
             /// Gets or sets the pixel width of the System.Drawing.Bitmap object. This can also
             /// be thought of as the number of pixels in one scan line.
             /// </summary>
-            public int Width => _data.Width;
+            public int Width => data.Width;
 
             /// <summary>
             /// Gets or sets the pixel height of the System.Drawing.Bitmap object. Also sometimes
             /// referred to as the number of scan lines.
             /// </summary>
-            public int Height => _data.Height;
+            public int Height => data.Height;
 
             /// <summary>
             /// Gets or sets the format of the pixel information in the System.Drawing.Bitmap
             /// object that returned this System.Drawing.Imaging.BitmapData object.
             /// </summary>
-            public PixelFormat PixelFormat => _data.PixelFormat;
+            public PixelFormat PixelFormat => data.PixelFormat;
 
             /// <summary>
             /// Reserved. Do not use.
             /// </summary>
-            public int Reserved => _data.Reserved;
+            public int Reserved => data.Reserved;
         }
     }
 }

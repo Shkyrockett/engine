@@ -17,6 +17,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Geometry
 {
@@ -144,14 +145,18 @@ namespace Engine.Geometry
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public bool IsEmpty => I == 0d && J == 0d && K == 0d;
+        public bool IsEmpty
+            => Abs(I) < DoubleEpsilon
+            && Abs(J) < DoubleEpsilon
+            && Abs(K) < DoubleEpsilon;
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
-        public double Magnitude => Sqrt(I * I + J * J + K * K);
+        public double Magnitude
+            => Sqrt(I * I + J * J + K * K);
 
         #endregion
 
@@ -162,7 +167,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Vector3D operator +(Vector3D value) => new Vector3D(+value.I, +value.J, +value.K);
+        public static Vector3D operator +(Vector3D value)
+            => new Vector3D(+value.I, +value.J, +value.K);
 
         /// <summary>
         /// Add Points
@@ -171,7 +177,8 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector3D operator +(Vector3D value, double addend) => value.Add(addend);
+        public static Vector3D operator +(Vector3D value, double addend)
+            => value.Add(addend);
 
         /// <summary>
         /// Add Points

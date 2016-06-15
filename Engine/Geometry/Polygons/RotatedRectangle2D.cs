@@ -354,7 +354,7 @@ namespace Engine.Geometry
     && left?.Y == right?.Y
     && left?.Width == right?.Width
     && left?.Height == right?.Height
-    && left.Angle == right.Angle);
+    && Abs(left.Angle - right.Angle) < Maths.DoubleEpsilon);
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
@@ -659,7 +659,7 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <returns></returns>
         [Pure]
-        public bool Contains(Rectangle2D rect) => Intersections.Contains(Bounds, rect);
+        public bool Contains(Rectangle2D rect) => Bounds.Contains(rect);
 
         ///// <summary>
         ///// Determines if this rectangle interests with another rectangle.

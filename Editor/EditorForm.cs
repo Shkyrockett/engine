@@ -100,7 +100,7 @@ namespace Editor
             toolStack?.RegisterMouseMiddleButton(new Pan());
             toolStack?.RegisterMouseScroll(new Zoom());
 
-            var styles = new List<ShapeStyle>()
+            var styles = new List<ShapeStyle>
             {
                 new ShapeStyle(new Pen(Brushes.Red), new Pen(Brushes.Plum)),
                 new ShapeStyle(new Pen(Brushes.DarkGreen), new Pen(Brushes.ForestGreen)),
@@ -112,7 +112,7 @@ namespace Editor
                 new ShapeStyle(new Pen(Brushes.DarkGoldenrod), new Pen(Brushes.Honeydew)),
                 new ShapeStyle(new Pen(Brushes.AntiqueWhite), new Pen(Brushes.CadetBlue)),
                 new ShapeStyle(new Pen(Brushes.Azure), new Pen(Brushes.Transparent)),
-                new ShapeStyle(new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent)), new Pen(Brushes.Transparent)),
+                new ShapeStyle(new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent)), new Pen(Brushes.Transparent))
             };
 
             //Shape triangle = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100));
@@ -175,9 +175,9 @@ namespace Editor
 
             Shape set = new PolygonSet(
                 new List<Polygon>(
-                    new List<Polygon>() {
+                    new List<Polygon> {
                         new Polygon( // Boundary
-                            new List<Point2D>() {
+                            new List<Point2D> {
                                 new Point2D(10, 10),
                                 new Point2D(300, 10),
                                 new Point2D(300, 300),
@@ -185,23 +185,23 @@ namespace Editor
                                 // Cut out
                                 new Point2D(10, 200),
                                 new Point2D(200, 80),
-                                new Point2D(10, 150),
+                                new Point2D(10, 150)
                             }
                         ),
                         new Polygon( // First inner triangle
-                            new List<Point2D>() {
+                            new List<Point2D> {
                                 new Point2D(20, 100),
                                 new Point2D(175, 60),
-                                new Point2D(40, 30),
+                                new Point2D(40, 30)
                             }
                         ),
                         new Polygon( // Second inner triangle
-                            new List<Point2D>() {
+                            new List<Point2D> {
                                 new Point2D(250, 150),
                                 new Point2D(150, 150),
-                                new Point2D(250, 200),
+                                new Point2D(250, 200)
                             }
-                        ),
+                        )
                     }
                 )
             );
@@ -209,17 +209,17 @@ namespace Editor
             vectorMap.Add(setItem);
 
             Shape innerPolygon = new Polygon( // First inner triangle
-                            new List<Point2D>() {
+                            new List<Point2D> {
                                 new Point2D(20, 100),
                                 new Point2D(175, 60),
-                                new Point2D(40, 30),
+                                new Point2D(40, 30)
                             }
                         ).Offset(10);
             var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
             vectorMap.Add(innerPolygonItem);
 
             Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
-            Shape polylineSet = new PolylineSet(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
+            Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
             Polyline pathPolyline2 = pathPolyline.Offset(-10);
             pathPolyline2.Reverse();
             //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
@@ -399,15 +399,15 @@ namespace Editor
             foreach (GraphicItem item in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
-                    Renderer.Render(item.Item, e.Graphics, item, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
+                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
                 else
-                    Renderer.Render(item.Item, e.Graphics, item);
+                    Renderer.Render(item, e.Graphics);
             }
 
             if (vectorMap?.RubberbandItems != null)
             {
                 foreach (GraphicItem item in vectorMap?.RubberbandItems)
-                    Renderer.Render(item.Item, e.Graphics, item, new ShapeStyle(Brushes.Red, Brushes.Red));
+                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Red, Brushes.Red));
             }
         }
 

@@ -114,24 +114,24 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index) => new Point2D(
-     offset.X + (Cos(index) * ((Exp(Cos(index)) - ((2 * Cos((4 * index))) - Pow(Sin((index / 12)), 5))) * multiplyer.Width)),
-     offset.Y + ((Sin(index) * (Exp(Cos(index)) - ((2 * Cos((4 * index))) - Pow(Sin((index / 12)), 5)))) * multiplyer.Height)
+        public override Point2D Interpolate(double t) => new Point2D(
+     offset.X + (Cos(t) * ((Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5))) * multiplyer.Width)),
+     offset.Y + ((Sin(t) * (Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5)))) * multiplyer.Height)
      );
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="precision"></param>
+        /// <param name="count"></param>
         /// <returns></returns>
-        public override List<Point2D> InterpolatePoints(int precision)
+        public override List<Point2D> InterpolatePoints(int count)
         {
             const double n = 10000;
             double u = (0 * (24 * (PI / n)));
             var points = new List<Point2D>();
-            for (double Index = 1; (Index <= n); Index = (Index + (1d / precision)))
+            for (double Index = 1; (Index <= n); Index = (Index + (1d / count)))
             {
                 u = (Index * (24 * (PI / n)));
                 points.Add(Interpolate(u));

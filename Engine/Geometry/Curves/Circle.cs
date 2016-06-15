@@ -290,12 +290,12 @@ namespace Engine.Geometry
         /// <summary>
         /// Interpolates the circle.
         /// </summary>
-        /// <param name="index">Index of the point to interpolate.</param>
+        /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Interpolate(double index) => new Point2D(
-    x + (Sin(index) * radius),
-    y + (Cos(index) * radius));
+        public override Point2D Interpolate(double t) => new Point2D(
+    x + (Sin(t) * radius),
+    y + (Cos(t) * radius));
 
         /// <summary>
         /// 

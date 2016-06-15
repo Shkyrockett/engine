@@ -10,13 +10,14 @@
 
 using System;
 using System.Collections.Generic;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Tweening
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class Tween
+    public class Tween
     {
         #region Callbacks
 
@@ -228,7 +229,7 @@ namespace Engine.Tweening
                     if (delay > 0) return;
                 }
 
-                if (time == 0 && timesRepeated == 0 && begin != null) begin();
+                if (Math.Abs(time) < DoubleEpsilon && timesRepeated == 0 && begin != null) begin();
 
                 time += elapsed;
                 double setTimeTo = time;
@@ -246,8 +247,7 @@ namespace Engine.Tweening
                         if (repeatCount > 0)
                             --repeatCount;
 
-                        if (repeatCount < 0)
-                            doComplete = true;
+                        doComplete |= repeatCount < 0;
                     }
                     else
                     {
@@ -272,7 +272,7 @@ namespace Engine.Tweening
 
                 //	If the timer is zero here, we just restarted.
                 //	If reflect mode is on, flip start to end
-                if (time == 0 && behavior.HasFlag(LerpBehavior.Reflect))
+                if (Math.Abs(time) < DoubleEpsilon && behavior.HasFlag(LerpBehavior.Reflect))
                     Reverse();
 
                 update?.Invoke();

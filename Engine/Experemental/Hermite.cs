@@ -91,9 +91,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double index) => new Point2D(Interpolaters.Hermite(A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Tension, Bias, index));
+        public override Point2D Interpolate(double t) => new Point2D(Interpolaters.Hermite(A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Tension, Bias, t));
 
         /// <summary>
         /// 

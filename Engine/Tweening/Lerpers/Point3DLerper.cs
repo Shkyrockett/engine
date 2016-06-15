@@ -10,6 +10,7 @@
 
 using Engine.Geometry;
 using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Tweening
 {
@@ -73,9 +74,9 @@ namespace Engine.Tweening
 
             var current = currentValue as Point3D;
             return new Point3D(
-                (range.X == 0) ? current.X : x,
-                (range.Y == 0) ? current.Y : y,
-                (range.Z == 0) ? current.Z : z);
+                (Abs(range.X) < DoubleEpsilon) ? current.X : x,
+                (Abs(range.Y) < DoubleEpsilon) ? current.Y : y,
+                (Abs(range.Z) < DoubleEpsilon) ? current.Z : z);
         }
     }
 }

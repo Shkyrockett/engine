@@ -522,12 +522,12 @@ namespace Engine.File.Palettes
             long startPossition = stream.Position;
             string headder = stream.ReadString(4);
 
-            if (headder.ToUpper().StartsWith("RIFF"))
+            if (headder.StartsWith("RIFF", StringComparison.InvariantCultureIgnoreCase))
             {
                 stream.Position = startPossition;
                 ReadRiffPalette(stream);
             }
-            else if (headder.ToUpper().StartsWith("JASC"))
+            else if (headder.StartsWith("JASC", StringComparison.InvariantCultureIgnoreCase))
             {
                 stream.Position = startPossition;
                 ReadJascPalette(stream);
@@ -642,7 +642,7 @@ namespace Engine.File.Palettes
                 while ((line = streamReader.ReadLine()) != null)
                 {
                     line = line.Trim();
-                    if (line.StartsWith(";"))
+                    if (line.StartsWith(";", StringComparison.InvariantCulture))
                     {
                         PaletteMimeFormat = PaletteMimeFormats.PaintDotNet;
                     }

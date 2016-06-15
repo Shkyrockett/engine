@@ -10,6 +10,7 @@
 
 using Engine.Geometry;
 using static System.Math;
+using static Engine.Geometry.Maths;
 
 namespace Engine.Tweening
 {
@@ -70,8 +71,8 @@ namespace Engine.Tweening
 
             var current = currentValue as Vector2D;
             return new Vector2D(
-                (range.I == 0) ? current.I : i,
-                (range.J == 0) ? current.J : j);
+                (Abs(range.I) < DoubleEpsilon) ? current.I : i,
+                (Abs(range.J) < DoubleEpsilon) ? current.J : j);
         }
     }
 }

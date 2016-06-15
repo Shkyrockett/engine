@@ -29,7 +29,7 @@ namespace Engine.Winforms
         /// <summary>
         /// The current index of the palette entry the mouse is over.
         /// </summary>
-        private int mousePaletteIndex = 0;
+        private int mousePaletteIndex;
 
         /// <summary>
         /// The last palette entry selected using the left mouse button.
@@ -106,11 +106,9 @@ namespace Engine.Winforms
                         break;
                     case MouseButtons.None:
                         break;
-                    default:
-                        break;
                 }
 
-                this.Image = Palette.DrawPalette(this.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
+                Image = Palette.DrawPalette(ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
             }
         }
 

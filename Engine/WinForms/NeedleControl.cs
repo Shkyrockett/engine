@@ -70,12 +70,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private double angle = 0;
+        private double angle;
 
         /// <summary>
         /// 
         /// </summary>
-        private bool selecting = false;
+        private bool selecting;
 
         /// <summary>
         /// 

@@ -17,7 +17,6 @@ namespace Engine.Winforms
         /// 
         /// </summary>
         public ColorTrackBarControl()
-            : base()
         {
             InitializeComponent();
             SetStyle(
@@ -40,16 +39,16 @@ namespace Engine.Winforms
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnPaintBackground(PaintEventArgs e)
+        /// <param name="pevent"></param>
+        protected override void OnPaintBackground(PaintEventArgs pevent)
         {
-            base.OnPaintBackground(e);
+            base.OnPaintBackground(pevent);
             //var flags = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.SingleLine | TextFormatFlags.WordEllipsis;
             //TextRenderer.DrawText(e.Graphics, "Hello", Font, Bounds, Color.Black, flags);
 
-            ProgressBarRenderer.DrawHorizontalBar(e.Graphics, ClientRectangle);
+            ProgressBarRenderer.DrawHorizontalBar(pevent.Graphics, ClientRectangle);
 
-            TrackBarRenderer.DrawHorizontalTicks(e.Graphics, ClientRectangle, TickFrequency, EdgeStyle.Etched);
+            TrackBarRenderer.DrawHorizontalTicks(pevent.Graphics, ClientRectangle, TickFrequency, EdgeStyle.Etched);
         }
 
         /// <summary>

@@ -123,7 +123,7 @@ namespace Engine.Geometry
             get
             {
                 List<Point2D> points = (this.points as List<Point2D>);
-                return points.Count > 0 ? points.Zip(points.Skip(1), Primitives.Distance).Sum() + Primitives.Distance(points[0], points[points.Count - 1]) : 0;
+                return points.Count > 0 ? points.Zip(points.Skip(1), Primitives.Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0;
             }
         }
 
@@ -191,7 +191,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != InsideOutside.Outside;
+        public override bool Contains(Point2D point)
+            => Intersections.Contains(this, point) != InsideOutside.Outside;
 
         /// <summary>
         /// 

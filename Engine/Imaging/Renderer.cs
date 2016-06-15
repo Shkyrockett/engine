@@ -27,78 +27,82 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
-        /// <param name="shape"></param>
         /// <param name="style"></param>
-        public static void Render(GraphicsObject shape, Graphics g, GraphicItem item, IStyle style = null)
+        public static void Render(GraphicItem item, Graphics g, IStyle style = null)
         {
             //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
             //// Waiting on c# 7... https://channel9.msdn.com/Events/Build/2016/B889
-            //switch (shape)
+            //switch (item?.Item)
             //{
-            //    case LineSegment s:
-            //        ((LineSegment)shape).Render(g, style);
+            //    case LineSegment t:
+            //        (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
+            //        break;
+            //    case ParametricDelegateCurve t:
+            //        (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
             //        break;
             //    case null:
+            //        throw new NullReferenceException("shape is null.");
             //    default:
+            //        throw new InvalidCastException("Unknown shape.");
             //        break;
             //}
 
-            if (shape == null)
+            if (item?.Item == null)
             {
                 throw new NullReferenceException("shape is null.");
             }
-            else if (shape is ParametricDelegateCurve)
+            if (item?.Item is ParametricDelegateCurve)
             {
-                (shape as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
+                (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
+            else if (item?.Item is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
-                (shape as LineSegment).Render(g, item, style as ShapeStyle);
+                (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is Polyline)
+            else if (item?.Item is Polyline)
             {
-                (shape as Polyline).Render(g, item, style as ShapeStyle);
+                (item?.Item as Polyline).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is PolylineSet)
+            else if (item?.Item is PolylineSet)
             {
-                (shape as PolylineSet).Render(g, item, style as ShapeStyle);
+                (item?.Item as PolylineSet).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is Polygon)
+            else if (item?.Item is Polygon)
             {
-                (shape as Polygon).Render(g, item, style as ShapeStyle);
+                (item?.Item as Polygon).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is PolygonSet)
+            else if (item?.Item is PolygonSet)
             {
-                (shape as PolygonSet).Render(g, item, style as ShapeStyle);
+                (item?.Item as PolygonSet).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is Oval)
+            else if (item?.Item is Oval)
             {
-                (shape as Oval).Render(g, item, style as ShapeStyle);
+                (item?.Item as Oval).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is Rectangle2D)
+            else if (item?.Item is Rectangle2D)
             {
-                (shape as Rectangle2D).Render(g, item, style as ShapeStyle);
+                (item?.Item as Rectangle2D).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is Arc)
+            else if (item?.Item is Arc)
             {
-                (shape as Arc).Render(g, item, style as ShapeStyle);
+                (item?.Item as Arc).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is Circle)
+            else if (item?.Item is Circle)
             {
-                (shape as Circle).Render(g, item, style as ShapeStyle);
+                (item?.Item as Circle).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is Ellipse)
+            else if (item?.Item is Ellipse)
             {
-                (shape as Ellipse).Render(g, item, style as ShapeStyle);
+                (item?.Item as Ellipse).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is CubicBezier)
+            else if (item?.Item is CubicBezier)
             {
-                (shape as CubicBezier).Render(g, item, style as ShapeStyle);
+                (item?.Item as CubicBezier).Render(g, item, style as ShapeStyle);
             }
-            else if (shape is QuadraticBezier)
+            else if (item?.Item is QuadraticBezier)
             {
-                (shape as QuadraticBezier).Render(g, item, style as ShapeStyle);
+                (item?.Item as QuadraticBezier).Render(g, item, style as ShapeStyle);
             }
             else
             {

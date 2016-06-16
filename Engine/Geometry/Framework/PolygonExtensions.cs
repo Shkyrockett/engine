@@ -109,7 +109,7 @@ namespace Engine.Geometry.Polygons
 
             //  Initialize the shortest-path tree to include just the start point.
             treeCount = 1;
-            pointList[0].TotalDistance = 0.0;
+            pointList[0].TotalDistance = 0d;
 
             //  Iteratively grow the shortest-path tree until it reaches the endpoint
             //  -- or until it becomes unable to grow, in which case exit with failure.

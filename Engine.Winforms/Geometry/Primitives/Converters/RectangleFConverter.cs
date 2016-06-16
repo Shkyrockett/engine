@@ -17,7 +17,7 @@ using System.Reflection;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// Converts instances of other types to and from instances of <see cref="T:System.Windows.Rect" />.
+    /// Converts instances of other types to and from instances of <see cref="RectangleF" />.
     /// </summary>
     public class RectangleFConverter
         : ExpandableObjectConverter
@@ -34,7 +34,8 @@ namespace Engine.Geometry
         /// </param>
         /// <param name="sourceType">The type of the source that is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+            => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// Determines whether a <see cref="RectangleF" /> can be converted to the specified type. 
@@ -46,7 +47,8 @@ namespace Engine.Geometry
         /// </param>
         /// <param name="destinationType">The desired type this <see cref="RectangleF" /> is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+            => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>Attempts to convert the specified object to a <see cref="T:System.Windows.Rect" />. </summary>
         /// <returns>The <see cref="T:System.Windows.Rect" /> created from converting <paramref name="value" />.</returns>

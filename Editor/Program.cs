@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine.Winforms;
+using System;
 using System.Windows.Forms;
 
 namespace Editor
@@ -11,6 +12,7 @@ namespace Editor
         [STAThread]
         private static void Main()
         {
+            WinformsReflection.Tickle();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new EditorForm());

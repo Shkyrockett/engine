@@ -91,13 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WinForms\AngleControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WinForms\AngleControl.Designer.cs">
-      <DependentUpon>AngleControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WinForms\AngleEditor.cs" />
+    <Compile Include="Geometry\Framework\GeometryAngleAttribute.cs" />
     <Compile Include="Chrono\DateTimeExtentions.cs" />
     <Compile Include="Chrono\Enums\EventType.cs" />
     <Compile Include="Chrono\Enums\Months.cs" />
@@ -115,12 +109,6 @@
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />
-    <Compile Include="WinForms\NeedleControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WinForms\NeedleControl.Designer.cs">
-      <DependentUpon>NeedleControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Physics\UnitStrings.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />
     <Compile Include="Tools\Enums\ScrollOrientation.cs" />
@@ -410,14 +398,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Tweening\readme.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="WinForms\AngleControl.resx">
-      <DependentUpon>AngleControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\NeedleControl.resx">
-      <DependentUpon>NeedleControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

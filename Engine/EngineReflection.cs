@@ -42,6 +42,30 @@ namespace Engine
         }
 
         /// <summary>
+        /// Processes the properties containing specified attribute
+        /// to set the UI-editor for property grid.
+        /// </summary>
+        /// <param name="type">The type to process.</param>
+        /// <param name="searchAttribute">The property attribute to look for.</param>
+        /// <param name="uiEditorAttributes">The attributes to add to the property.</param>
+        /// <remarks>
+        /// http://tenera-it.be/blog/2011/06/add-attriutes-to-a-property-at-runtime/
+        /// </remarks>
+        public static void ReplacePropertyAttribute(Type type, Attribute searchAttribute, params Attribute[] uiEditorAttributes)
+        {
+            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(type, new Attribute[] { searchAttribute });
+            foreach (PropertyDescriptor prop in props)
+            {
+                // AttributeArray-property is not accessible 
+                // => use reflection to get and set it.
+                PropertyInfo attributeArrayPropInfo = prop.GetType().GetProperty("AttributeArray", BindingFlags.Instance | BindingFlags.NonPublic);
+                List<Attribute> attributeArray = (attributeArrayPropInfo.GetValue(prop, null) as Attribute[]).ToList();
+                attributeArray.AddRange(uiEditorAttributes);
+                attributeArrayPropInfo.SetValue(prop, attributeArray.ToArray(), null);
+            }
+        }
+
+        /// <summary>
         /// List all objects derived from the <see cref="Shape"/> class.
         /// </summary>
         /// <returns>A list of types that are derived from the <see cref="Shape"/> class.</returns>

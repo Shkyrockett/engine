@@ -74,7 +74,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -85,6 +87,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\AngleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Geometry\AngleControl.Designer.cs">
+      <DependentUpon>AngleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Geometry\AngleEditor.cs" />
     <Compile Include="CanvasPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -106,7 +115,13 @@
     <Compile Include="Geometry\Primitives\PointExtentions.cs" />
     <Compile Include="Geometry\Primitives\RectangleExtensions.cs" />
     <Compile Include="Geometry\Primitives\RectangleFExtensions.cs" />
-    <Compile Include="NativeMethods.cs" />
+    <Compile Include="NativeMethods\NativeMethods.cs" />
+    <Compile Include="Geometry\NeedleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Geometry\NeedleControl.Designer.cs">
+      <DependentUpon>NeedleControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PaletteControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -120,10 +135,10 @@
       <DependentUpon>PathLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PaletteToolStripItem.cs">
+    <Compile Include="ToolStrip\PaletteToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PaletteToolStripItem.Designer.cs">
+    <Compile Include="ToolStrip\PaletteToolStripItem.Designer.cs">
       <DependentUpon>PaletteToolStripItem.cs</DependentUpon>
     </Compile>
     <Compile Include="StatusProgressBar.cs">
@@ -132,16 +147,16 @@
     <Compile Include="StatusProgressBar.Designer.cs">
       <DependentUpon>StatusProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStripMonthCalendar.cs">
+    <Compile Include="ToolStrip\ToolStripMonthCalendar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStripMonthCalendar.Designer.cs">
+    <Compile Include="ToolStrip\ToolStripMonthCalendar.Designer.cs">
       <DependentUpon>ToolStripMonthCalendar.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStripToolStripItem.cs">
+    <Compile Include="ToolStrip\ToolStripToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStripToolStripItem.Designer.cs">
+    <Compile Include="ToolStrip\ToolStripToolStripItem.Designer.cs">
       <DependentUpon>ToolStripToolStripItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Label\TransparentLabel.cs">
@@ -150,14 +165,21 @@
     <Compile Include="Label\TransparentLabel.Designer.cs">
       <DependentUpon>TransparentLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="TreeViewToolStripItem.cs">
+    <Compile Include="ToolStrip\TreeViewToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TreeViewToolStripItem.Designer.cs">
+    <Compile Include="ToolStrip\TreeViewToolStripItem.Designer.cs">
       <DependentUpon>TreeViewToolStripItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinformsReflection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Geometry\AngleControl.resx">
+      <DependentUpon>AngleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Geometry\NeedleControl.resx">
+      <DependentUpon>NeedleControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PaletteControl.resx">
       <DependentUpon>PaletteControl.cs</DependentUpon>
     </EmbeddedResource>

@@ -272,8 +272,9 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + ".")]
+        [GeometryAngle]
         [TypeConverter(typeof(AngleConverter))]
-        [Editor(typeof(AngleEditor), typeof(UITypeEditor))]
+        //[Editor(typeof(AngleEditor), typeof(UITypeEditor))]
         [RefreshProperties(RefreshProperties.All)]
         [XmlAttribute]
         public double Angle

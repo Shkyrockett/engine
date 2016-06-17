@@ -132,18 +132,29 @@ namespace Engine
         }
 
         /// <summary>
+        /// List all types that contain a property tagged with a specified attribute.
+        /// </summary>
+        /// <returns>The attribute to look for.</returns>
+        public static List<Type> ListTypesTaggedWithPropertyAttribute(Attribute attribute)
+        {
+            Type objectType = attribute.GetType();
+            Assembly assembly = Assembly.GetAssembly(objectType);
+            return GetAssemblyTypesTaggedWithPropertyAttribute(assembly, attribute);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
             => new List<MethodInfo>
-        (
-            from method in type.GetMethods()
-            where method.IsStatic
-            where method.ReturnType == type
-            select method
-        ).OrderBy(x => x.Name).ToList();
+            (
+                from method in type.GetMethods()
+                where method.IsStatic
+                where method.ReturnType == type
+                select method
+            ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
         /// List all of the assembly types of a specific type.
@@ -153,11 +164,11 @@ namespace Engine
         /// <returns></returns>
         private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
             => new List<Type>
-        (
-            from type in assembly.GetTypes()
-            where type.BaseType == classType
-            select type
-        ).OrderBy(x => x.Name).ToList();
+            (
+                from type in assembly.GetTypes()
+                where type.BaseType == classType
+                select type
+            ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
         /// List all of the assembly types based on a particular interface. 
@@ -167,11 +178,11 @@ namespace Engine
         /// <returns></returns>
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
             => new List<Type>
-        (
-            from type in assembly.GetTypes()
-            where type.GetInterfaces().Contains(classType)
-            select type
-        ).OrderBy(x => x.Name).ToList();
+            (
+                from type in assembly.GetTypes()
+                where type.GetInterfaces().Contains(classType)
+                select type
+            ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
         /// List all of the assembly types based on a particular attribute. 
@@ -184,10 +195,24 @@ namespace Engine
         /// </remarks>
         private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
             => new List<Type>
-        (
-            from type in assembly.GetTypes()
-            where Attribute.IsDefined(type, attributeType)
-            select type
-        ).OrderBy(x => x.Name).ToList();
+            (
+                from type in assembly.GetTypes()
+                where Attribute.IsDefined(type, attributeType)
+                select type
+            ).OrderBy(x => x.Name).ToList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="attribute"></param>
+        /// <returns></returns>
+        public static List<Type> GetAssemblyTypesTaggedWithPropertyAttribute(Assembly assembly, Attribute attribute)
+            => new List<Type>
+            (
+                from type in assembly.GetTypes()
+                where TypeDescriptor.GetProperties(type, new Attribute[] { attribute }) != null
+                select type
+            );
     }
 }

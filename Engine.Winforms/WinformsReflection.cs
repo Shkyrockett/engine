@@ -24,12 +24,14 @@ namespace Engine.Winforms
         {
             TypeDescriptor.AddAttributes(typeof(StringCollection), new EditorAttribute("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version = 4.0.0.0, Culture = neutral, PublicKeyToken = b03f5f7f11d50a3a", typeof(UITypeEditor)));
 
-            ReplacePropertyAttribute(typeof(Ellipse), new GeometryAngleAttribute(), angleEditorAttribute);
-            ReplacePropertyAttribute(typeof(ParametricDelegateCurve), new GeometryAngleAttribute(), angleEditorAttribute);
+            // Add the AngleEditor EditorAttribute UITypeEditor attribute to all properties tagged with the GeometryAngleAttribute attribute.
+            Attribute lookupAttribute = new GeometryAngleAttribute();
+            foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupAttribute))
+                ReplacePropertyAttribute(item, lookupAttribute, angleEditorAttribute);
         }
 
         /// <summary>
-        /// Touch the <see cref="WinformsReflection"/> class so the static constructor initializes.
+        /// Call this method to touch the <see cref="WinformsReflection"/> class so the static constructor initializes.
         /// </summary>
         public static void Tickle()
         {

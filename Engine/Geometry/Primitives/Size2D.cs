@@ -280,7 +280,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [Pure]
         public static Size2D Random()
-            => new Size2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+            => new Size2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// Parse a string for a <see cref="Size2D"/> value.

@@ -16,7 +16,7 @@ namespace Engine.Winforms
         /// 
         /// </summary>
         private static readonly Attribute angleEditorAttribute = new EditorAttribute(typeof(AngleEditor), typeof(UITypeEditor));
-        
+
         /// <summary>
         /// 
         /// </summary>

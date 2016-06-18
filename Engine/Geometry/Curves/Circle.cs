@@ -320,7 +320,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != InsideOutside.Outside;
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Circle"/> struct based on the format string

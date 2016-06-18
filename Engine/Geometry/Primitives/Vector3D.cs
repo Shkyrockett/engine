@@ -339,9 +339,9 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static Vector3D Random()
             => new Vector3D(
-                (2 * Maths.RandomNumberGenerator.NextDouble()) - 1,
-                (2 * Maths.RandomNumberGenerator.NextDouble()) - 1,
-                (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+                (2 * RandomNumberGenerator.NextDouble()) - 1,
+                (2 * RandomNumberGenerator.NextDouble()) - 1,
+                (2 * RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// 

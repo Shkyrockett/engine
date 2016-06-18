@@ -1,12 +1,22 @@
-﻿using System;
+﻿// <copyright file="Point2D.cs" >
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
-using static System.Math;
 using static Engine.Geometry.Maths;
+using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -113,6 +123,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value)
             => new Point2D(+value.X, +value.Y);
 
@@ -123,6 +136,9 @@ namespace Engine.Geometry
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value, double addend)
             => value.Add(addend);
 
@@ -133,6 +149,9 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Point2D value, Point2D addend)
             => value.Add(addend);
 
@@ -143,6 +162,9 @@ namespace Engine.Geometry
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value, Size2D addend)
             => value.Add(addend);
 
@@ -154,6 +176,9 @@ namespace Engine.Geometry
         /// <returns>
         /// Point - The result of the addition
         /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D point, Vector2D vector)
             => new Point2D(point.X + vector.I, point.Y + vector.J);
 
@@ -162,6 +187,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value)
             => new Point2D(-value.X, -value.Y);
 
@@ -172,6 +200,9 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, double subend)
             => value.Subtract(subend);
 
@@ -182,6 +213,9 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Point2D value, Point2D subend)
             => value.Subtract(subend);
 
@@ -192,6 +226,9 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, Size2D subend)
             => value.Subtract(subend);
 
@@ -202,6 +239,9 @@ namespace Engine.Geometry
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, Vector2D subend)
             => value.Subtract(subend);
 
@@ -211,6 +251,9 @@ namespace Engine.Geometry
         /// <param name="factor"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(double value, Point2D factor)
             => new Point2D(value * factor.X, value * factor.Y);
 
@@ -220,6 +263,9 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(Point2D value, double factor)
             => new Point2D(value.X * factor, value.Y * factor);
 
@@ -229,6 +275,9 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <param name="matrix"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(Point2D value, Matrix2D matrix)
             => matrix.Transform(value);
 
@@ -239,6 +288,9 @@ namespace Engine.Geometry
         /// <param name="dividend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator /(Point2D divisor, double dividend)
             => new Point2D(divisor.X / dividend, divisor.Y / dividend);
 
@@ -250,6 +302,9 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Point2D left, Point2D right)
             => Equals(left, right);
 
@@ -261,6 +316,9 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Point2D left, Point2D right)
             => !Equals(left, right);
 
@@ -271,6 +329,8 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Point2D a, Point2D b)
             => Equals(a, b);
@@ -281,6 +341,8 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Point2D a, Point2D b)
             => (a?.X == b?.X) & (a?.Y == b?.Y);
@@ -290,6 +352,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Point2D && Equals(this, obj as Point2D);
@@ -299,15 +363,21 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point2D value)
             => Equals(this, value);
 
         /// <summary>
-        /// Explicit conversion to Size.  Note that since Size cannot contain negative values,
+        /// Explicit conversion to <see cref="Size2D"/>.
+        /// Note that since Size cannot contain negative values,
         /// the resulting size will contains the absolute values of X and Y
         /// </summary>
         /// <param name="point"> Point - the Point to convert to a Size </param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Size2D(Point2D point)
             => new Size2D(Abs(point.X), Abs(point.Y));
 
@@ -315,6 +385,9 @@ namespace Engine.Geometry
         /// Explicit conversion to Vector
         /// </summary>
         /// <param name="point"> Point - the Point to convert to a Vector </param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Vector2D(Point2D point)
             => new Vector2D(point.X, point.Y);
 
@@ -322,6 +395,9 @@ namespace Engine.Geometry
         /// Explicit conversion from Vector2D to Point2D.
         /// </summary>
         /// <param name="point"> Point - the Point to convert to a Vector </param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Point2D(Vector2D point)
             => new Point2D(point.I, point.J);
 
@@ -329,6 +405,9 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <param name="tuple"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Point2D(Tuple<double, double> tuple)
             => new Point2D(tuple.Item1, tuple.Item2);
 
@@ -342,7 +421,10 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [Pure]
-        public static Point2D Random() => new Point2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Random()
+            => new Point2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// Parse a string for a <see cref="Point2D"/> value.
@@ -373,14 +455,19 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode() => X.GetHashCode() ^
-       Y.GetHashCode();
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode()
+            => X.GetHashCode()
+            ^ Y.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point2D"/>.
         /// </summary>
         /// <returns></returns>
         [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
@@ -392,6 +479,8 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
 
@@ -407,6 +496,8 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
@@ -422,6 +513,8 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point2D);

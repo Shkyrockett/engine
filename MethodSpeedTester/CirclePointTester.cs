@@ -38,7 +38,7 @@ namespace MethodSpeedTester
         public static void DrawCircles(Graphics g, Font font,
             Circle circle,
             List<PointF> points,
-            Func<Circle, PointF, InsideOutside> method,
+            Func<Circle, PointF, Inclusion> method,
             string text)
         {
             g.DrawString(text, font, Brushes.Black, new Point());
@@ -48,16 +48,16 @@ namespace MethodSpeedTester
                 DrawHitPoint(g, point, method.Invoke(circle, point));
         }
 
-        public static void DrawHitPoint(Graphics g, PointF point, InsideOutside hit)
+        public static void DrawHitPoint(Graphics g, PointF point, Inclusion hit)
         {
             float pointRadius = 1;
             Pen pointpen = Pens.Red;
             switch (hit)
             {
-                case InsideOutside.Inside:
+                case Inclusion.Inside:
                     pointpen = Pens.Lime;
                     break;
-                case InsideOutside.Boundary:
+                case Inclusion.Boundary:
                     pointpen = Pens.Magenta;
                     break;
             }

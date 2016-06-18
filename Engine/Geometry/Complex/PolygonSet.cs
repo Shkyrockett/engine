@@ -10,8 +10,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -52,9 +55,9 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonSet"/> class.
         /// </summary>
-        public PolygonSet(List<Polygon> polygons)
+        public PolygonSet(IEnumerable<Polygon> polygons)
         {
-            this.polygons = polygons;
+            this.polygons = polygons as List<Polygon>;
         }
 
         #endregion
@@ -155,24 +158,37 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point);
+            => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PolygonSet Clone()
+            => new PolygonSet(Polygons.ToArray());
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(PolygonSet);
-            var pts = new StringBuilder();
-            foreach (Polygon pn in Polygons)
-            {
-                pts.Append(pn.ToString());
-                pts.Append(",");
-            }
-            if (pts.Length > 0) pts.Remove(pts.Length - 1, 1);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(PolygonSet), pts.ToString());
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(PolygonSet)}{{{string.Join(sep.ToString(), Polygons)}}}";
+            return formatable.ToString(format, provider);
         }
 
         #endregion

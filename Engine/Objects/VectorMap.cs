@@ -50,20 +50,22 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="area"></param>
         /// <returns></returns>
-        public List<GraphicItem> this[Rectangle2D area] => new List<GraphicItem>(
-    from shape in Items
-    where shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area)
-    select shape);
+        public List<GraphicItem> this[Rectangle2D area]
+            => new List<GraphicItem>(
+            from shape in Items
+            where shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area)
+            select shape);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public List<GraphicItem> this[Point2D point] => new List<GraphicItem>(
-    from shape in Items
-    where shape.Bounds.Contains(point) && shape.Contains(point)
-    select shape);
+        public List<GraphicItem> this[Point2D point]
+            => new List<GraphicItem>(
+            from shape in Items
+            where shape.Bounds.Contains(point) && shape.Contains(point)
+            select shape);
 
         #endregion
 
@@ -183,17 +185,19 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <param name="point"></param>
-        public List<GraphicItem> SelectItems(Point2D point) => new List<GraphicItem>(
-    from shape in Items
-    where shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
-    select shape);
+        public List<GraphicItem> SelectItems(Point2D point)
+            => new List<GraphicItem>(
+            from shape in Items
+            where shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
+            select shape);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Contains(GraphicItem item) => Items.Contains(item);
+        public bool Contains(GraphicItem item)
+            => Items.Contains(item);
 
         /// <summary>
         /// 
@@ -209,12 +213,14 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<GraphicItem> GetEnumerator() => Items.GetEnumerator();
+        public IEnumerator<GraphicItem> GetEnumerator()
+            => Items.GetEnumerator();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        IEnumerator IEnumerable.GetEnumerator() => Items.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+            => Items.GetEnumerator();
     }
 }

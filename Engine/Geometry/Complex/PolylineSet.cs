@@ -10,8 +10,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -50,9 +52,9 @@ namespace Engine.Geometry
         /// <summary>
         /// Initializes a new instance of the <see cref="PolylineSet"/> class.
         /// </summary>
-        public PolylineSet(List<Polyline> polylines)
+        public PolylineSet(IEnumerable<Polyline> polylines)
         {
-            this.polylines = polylines;
+            this.polylines = polylines as List<Polyline>;
         }
 
         #endregion
@@ -129,18 +131,17 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
         /// <returns></returns>
-        public override string ToString()
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(PolylineSet);
-            var pointsString = new StringBuilder();
-            foreach (Polyline polyline in Polylines)
-            {
-                pointsString.Append(polyline.ToString());
-                pointsString.Append(",");
-            }
-            if (pointsString.Length > 0) pointsString.Remove(pointsString.Length - 1, 1);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}}}", nameof(PolylineSet), pointsString.ToString());
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(PolylineSet)}{{{string.Join(sep.ToString(), Polylines)}}}";
+            return formatable.ToString(format, provider);
         }
 
         #endregion

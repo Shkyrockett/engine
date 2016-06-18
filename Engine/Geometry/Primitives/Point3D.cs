@@ -259,7 +259,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [Pure]
         public static Point3D Random()
-            => new Point3D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+            => new Point3D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// Parse a string for a <see cref="Point3D"/> value.

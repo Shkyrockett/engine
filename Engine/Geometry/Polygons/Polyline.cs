@@ -10,8 +10,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -48,16 +50,16 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Polyline(ICollection<Point2D> points)
+        public Polyline(IEnumerable<Point2D> points)
         {
-            Points = (List<Point2D>)points;
+            Points = points as List<Point2D>;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="polylines"></param>
-        public Polyline(ICollection<Polyline> polylines)
+        public Polyline(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
@@ -107,14 +109,17 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [Pure]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public override double Perimeter => points.Zip(points.Skip(1), Primitives.Distance).Sum();
+        public override double Perimeter
+            => points.Zip(points.Skip(1), Primitives.Distance).Sum();
 
         /// <summary>
         /// 
         /// </summary>
+        [Pure]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -171,7 +176,10 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public Polyline Clone() => new Polyline(Points.ToArray());
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polyline Clone()
+            => new Polyline(Points.ToArray());
 
         /// <summary>
         /// 
@@ -209,9 +217,12 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Polyline);
+            if (this == null)
+                return nameof(Polyline);
             char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polyline)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);

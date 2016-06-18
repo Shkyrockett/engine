@@ -6118,13 +6118,13 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static InsideOutside PointInCircle(
+        public static Inclusion PointInCircle(
             double centerX, double centerY,
             double radius,
             double x, double y)
         {
             double distance = Distance2D_0(centerX, centerY, x, y);
-            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         /// <summary>
@@ -6132,13 +6132,13 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static InsideOutside PointInCircleInline(
+        public static Inclusion PointInCircleInline(
             double centerX, double centerY,
             double radius,
             double x, double y)
         {
             double distance = Sqrt((x - centerX) * (x - centerX) + (y - centerY) * (y - centerY));
-            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         /// <summary>
@@ -6151,7 +6151,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="y"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
-        public static InsideOutside PointInCirclePhilcolbourn(
+        public static Inclusion PointInCirclePhilcolbourn(
             double centerX,
             double centerY,
             double radius,
@@ -6159,13 +6159,13 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double y)
         {
             double dx = Abs(x - centerX);
-            if (dx > radius) return InsideOutside.Outside;
+            if (dx > radius) return Inclusion.Outside;
             double dy = Abs(y - centerY);
-            if (dy > radius) return InsideOutside.Outside;
+            if (dy > radius) return Inclusion.Outside;
             //if (dx + dy <= radius) return InsideOutside.Inside;
             double distanceSquared = dx * dx + dy * dy;
             double radiusSquared = radius * radius;
-            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         /// <summary>
@@ -6178,7 +6178,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="y"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
-        public static InsideOutside PointInCircleNPhilcolbourn(
+        public static Inclusion PointInCircleNPhilcolbourn(
             double centerX,
             double centerY,
             double radius,
@@ -6189,7 +6189,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double dy = Abs(y - centerY);
             double distanceSquared = dx * dx + dy * dy;
             double radiusSquared = radius * radius;
-            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         /// <summary>
@@ -6202,7 +6202,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="y"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
-        public static InsideOutside PointInCircleWilliamMorrison(
+        public static Inclusion PointInCircleWilliamMorrison(
             double centerX,
             double centerY,
             double radius,
@@ -6218,9 +6218,9 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 dy *= dy;
                 double distanceSquared = dx + dy;
                 double radiusSquared = radius * radius;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
-            return InsideOutside.Outside;
+            return Inclusion.Outside;
         }
 
         /// <summary>
@@ -6233,7 +6233,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="y"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static InsideOutside PointInCircleX(
+        public static Inclusion PointInCircleX(
             double centerX,
             double centerY,
             double radius,
@@ -6245,14 +6245,14 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             {
                 double dx = ((centerX > x) ? (x - centerX) : (centerX - x));
                 double dy = ((centerY > y) ? (y - centerY) : (centerY - y));
-                if (dx > radius || dy > radius) return InsideOutside.Outside;
+                if (dx > radius || dy > radius) return Inclusion.Outside;
                 dx *= dx;
                 dy *= dy;
                 double distanceSquared = dx + dy;
                 double radiusSquared = radius * radius;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
-            return InsideOutside.Outside;
+            return Inclusion.Outside;
         }
 
         #endregion
@@ -6270,9 +6270,9 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </remarks>
         [Pure]
         [DebuggerStepThrough]
-        public static InsideOutside PointInEllipse(Ellipse ellipse, Point2D point)
+        public static Inclusion PointInEllipse(Ellipse ellipse, Point2D point)
         {
-            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return InsideOutside.Outside;
+            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return Inclusion.Outside;
 
             double cosT = Cos(-ellipse.Angle);
             double sinT = Sin(-ellipse.Angle);
@@ -6289,7 +6289,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double normalizedRadius = (a / d1Squared)
                                     + (b / d2Squared);
 
-            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         #endregion
@@ -7101,15 +7101,15 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="point"></param>
         /// <param name="polygon"></param>
         /// <returns></returns>
-        public static InsideOutside PointInPolygonHormannAgathos(List<PointF> polygon, PointF point)
+        public static Inclusion PointInPolygonHormannAgathos(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            InsideOutside result = InsideOutside.Outside;
+            Inclusion result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
-            if (polygon.Count < 3) return InsideOutside.Outside;
+            if (polygon.Count < 3) return Inclusion.Outside;
             PointF curPoint = polygon[0];
             for (int i = 1; i <= polygon.Count; ++i)
             {
@@ -7120,7 +7120,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         || (Math.Abs(curPoint.Y - point.Y) < DoubleEpsilon
                         && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                     {
-                        return InsideOutside.Boundary;
+                        return Inclusion.Boundary;
                     }
                 }
 
@@ -7136,7 +7136,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (Abs(determinant) < DoubleEpsilon)
-                                return InsideOutside.Boundary;
+                                return Inclusion.Boundary;
                             if ((determinant > 0d) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                         }
                     }
@@ -7144,7 +7144,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                     {
                         double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                         if (Math.Abs(determinant) < DoubleEpsilon)
-                            return InsideOutside.Boundary;
+                            return Inclusion.Boundary;
                         if ((determinant > 0d) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                     }
                 }
@@ -7161,15 +7161,15 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="point"></param>
         /// <param name="polygon"></param>
         /// <returns></returns>
-        public static InsideOutside PointInPolygonHormannAgathosX(List<PointF> polygon, PointF point)
+        public static Inclusion PointInPolygonHormannAgathosX(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            InsideOutside result = InsideOutside.Outside;
+            Inclusion result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
-            if (polygon.Count < 3) return InsideOutside.Outside;
+            if (polygon.Count < 3) return Inclusion.Outside;
             PointF curPoint = polygon[0];
             PointF nextPoint = polygon[1];
             for (int i = 1; i <= polygon.Count; ++i)
@@ -7181,7 +7181,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
                         && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                     {
-                        return InsideOutside.Boundary;
+                        return Inclusion.Boundary;
                     }
                 }
 
@@ -7197,7 +7197,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (Abs(determinant) < DoubleEpsilon)
-                                return InsideOutside.Boundary;
+                                return Inclusion.Boundary;
                             if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                                 result = 1 - result;
                         }
@@ -7206,7 +7206,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                     {
                         double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                         if (Abs(determinant) < DoubleEpsilon)
-                            return InsideOutside.Boundary;
+                            return Inclusion.Boundary;
                         if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                             result = 1 - result;
                     }
@@ -7268,12 +7268,20 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="polygons"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool PointInPolygonSetShkyrockett(PolygonSet polygons, Point2D point)
+        public static Inclusion PointInPolygonSetShkyrockett(List<List<PointF>> polygons, PointF point)
         {
-            bool returnValue = false;
+            Inclusion returnValue = Inclusion.Outside;
 
-            foreach (Polygon poly in polygons.Polygons)
-                returnValue = !poly.Points.Contains(point);
+            foreach (List<PointF> poly in polygons)
+            {
+                // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
+                // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
+                returnValue ^= PointInPolygonHormannAgathos(poly, point);
+
+                // Any point on any boundary is on a boundary.
+                if (returnValue == Inclusion.Boundary)
+                    return Inclusion.Boundary;
+            }
 
             return returnValue;
         }
@@ -7290,10 +7298,10 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <returns></returns>
         [Pure]
         //[DebuggerStepThrough]
-        public static InsideOutside Contains(Rectangle2D rectangle, Point2D point) => (rectangle.X <= point.X
+        public static Inclusion Contains(Rectangle2D rectangle, Point2D point) => (rectangle.X <= point.X
             && point.X < rectangle.X + rectangle.Width
             && rectangle.Y <= point.Y
-            && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+            && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
@@ -7303,7 +7311,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <returns></returns>
         [Pure]
         //[DebuggerStepThrough]
-        public static InsideOutside Contains2(Rectangle2D rectangle, Point2D point)
+        public static Inclusion Contains2(Rectangle2D rectangle, Point2D point)
         {
             if (((Abs(rectangle.X - point.X) < DoubleEpsilon
                 || Abs(rectangle.Bottom - point.X) < DoubleEpsilon)
@@ -7312,13 +7320,13 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
              || Abs(rectangle.Left - point.Y) < DoubleEpsilon)
              && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
             {
-                return InsideOutside.Boundary;
+                return Inclusion.Boundary;
             }
 
             return (rectangle.X <= point.X
                 && point.X < rectangle.X + rectangle.Width
                 && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+                && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
         }
 
         /// <summary>
@@ -7329,7 +7337,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <returns></returns>
         [Pure]
         //[DebuggerStepThrough]
-        public static InsideOutside PointOnRectangleX(Rectangle2D rectangle, Point2D point)
+        public static Inclusion PointOnRectangleX(Rectangle2D rectangle, Point2D point)
         {
             double top = Sqrt((rectangle.TopRight.X - rectangle.TopLeft.X) * (rectangle.TopRight.X - rectangle.TopLeft.X) + (rectangle.TopRight.Y - rectangle.TopLeft.Y) * (rectangle.TopRight.Y - rectangle.TopLeft.Y));
             double right = Sqrt((rectangle.BottomRight.X - rectangle.TopRight.X) * (rectangle.BottomRight.X - rectangle.TopRight.X) + (rectangle.BottomRight.Y - rectangle.TopRight.Y) * (rectangle.BottomRight.Y - rectangle.TopRight.Y));
@@ -7342,12 +7350,14 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 || Abs(right - Sqrt(trp - brp)) < DoubleEpsilon
                 || Abs(top - Sqrt(brp - blp)) < DoubleEpsilon
                 || Abs(right - Sqrt(blp - tlp)) < DoubleEpsilon)
-                return InsideOutside.Boundary;
+            {
+                return Inclusion.Boundary;
+            }
 
             return (rectangle.X <= point.X
                 && point.X < rectangle.X + rectangle.Width
                 && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+                && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
         }
 
         #endregion

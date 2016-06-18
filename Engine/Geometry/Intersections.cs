@@ -1,8 +1,18 @@
-﻿using System;
+﻿// <copyright file="Intersections.cs" >
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using static Engine.Geometry.Maths;
 using static System.Math;
 
@@ -23,8 +33,9 @@ namespace Engine.Geometry
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
         /// </remarks>
         [Pure]
-        //[DebuggerStepThrough]
-        public static InsideOutside Contains(this Circle circle, Point2D point)
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this Circle circle, Point2D point)
         {
             // Check if it is within the bounding rectangle.
             if (point.X >= circle.X - circle.Radius && point.X <= circle.X + circle.Radius &&
@@ -36,10 +47,10 @@ namespace Engine.Geometry
                 dy *= dy;
                 double distanceSquared = dx + dy;
                 double radiusSquared = circle.Radius * circle.Radius;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
-            return InsideOutside.Outside;
+            return Inclusion.Outside;
         }
 
         /// <summary>
@@ -52,10 +63,12 @@ namespace Engine.Geometry
         /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </remarks>
         [Pure]
-        //[DebuggerStepThrough]
-        public static InsideOutside Contains(this Ellipse ellipse, Point2D point)
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this Ellipse ellipse, Point2D point)
         {
-            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return InsideOutside.Outside;
+            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d)
+                return Inclusion.Outside;
 
             double cosT = Cos(-ellipse.Angle);
             double sinT = Sin(-ellipse.Angle);
@@ -72,7 +85,7 @@ namespace Engine.Geometry
             double normalizedRadius = (a / d1Squared)
                                     + (b / d2Squared);
 
-            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? InsideOutside.Boundary : InsideOutside.Inside) : InsideOutside.Outside;
+            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         /// <summary>
@@ -82,37 +95,26 @@ namespace Engine.Geometry
         /// <param name="point"></param>
         /// <returns></returns>
         [Pure]
-        //[DebuggerStepThrough]
-        public static InsideOutside Contains(this Rectangle2D rectangle, Point2D point)
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this Rectangle2D rectangle, Point2D point)
         {
             if (((
                 Abs(rectangle.X - point.X) < DoubleEpsilon
                 || Abs(rectangle.Bottom - point.X) < DoubleEpsilon)
                 && ((rectangle.Y <= point.Y) == (rectangle.Bottom >= point.Y)))
-             || ((Abs(rectangle.Right - point.Y) < DoubleEpsilon
-             || Abs(rectangle.Left - point.Y) < DoubleEpsilon)
-             && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
+                || ((Abs(rectangle.Right - point.Y) < DoubleEpsilon
+                || Abs(rectangle.Left - point.Y) < DoubleEpsilon)
+                && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
             {
-                return InsideOutside.Boundary;
+                return Inclusion.Boundary;
             }
 
             return (rectangle.X <= point.X
                 && point.X < rectangle.X + rectangle.Width
                 && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? InsideOutside.Inside : InsideOutside.Outside;
+                && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
         }
-
-        /// <summary>
-        /// Determines if the rectangular region represented by <paramref name="rect2"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
-        /// </summary>
-        /// <param name="rect1"></param>
-        /// <param name="rect2"></param>
-        /// <returns></returns>
-        [Pure]
-        public static bool Contains(this Rectangle2D rect1, Rectangle2D rect2) => (rect1.X <= rect2.X)
-    && ((rect2.X + rect2.Width) <= (rect1.X + rect1.Width))
-    && (rect1.Y <= rect2.Y)
-    && ((rect2.Y + rect2.Height) <= (rect1.Y + rect1.Height));
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.
@@ -122,15 +124,17 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Pure]
         [DebuggerStepThrough]
-        public static InsideOutside Contains(this Polygon polygon, Point2D point)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this Polygon polygon, Point2D point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            InsideOutside result = InsideOutside.Outside;
+            Inclusion result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
-            if (polygon.Points.Count < 3) return InsideOutside.Outside;
+            if (polygon.Points.Count < 3)
+                return Inclusion.Outside;
             Point2D curPoint = polygon[0];
             for (int i = 1; i <= polygon.Points.Count; ++i)
             {
@@ -141,7 +145,7 @@ namespace Engine.Geometry
                         || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
                         && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                     {
-                        return InsideOutside.Boundary;
+                        return Inclusion.Boundary;
                     }
                 }
 
@@ -157,19 +161,18 @@ namespace Engine.Geometry
                         {
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (Abs(determinant) < DoubleEpsilon)
-                                return InsideOutside.Boundary;
-                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                                return Inclusion.Boundary;
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                                result = 1 - result;
                         }
                     }
-                    else
+                    else if (nextPoint.X > point.X)
                     {
-                        if (nextPoint.X > point.X)
-                        {
-                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                            if (Abs(determinant) < DoubleEpsilon)
-                                return InsideOutside.Boundary;
-                            if ((determinant > 0) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
-                        }
+                        double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                        if (Abs(determinant) < DoubleEpsilon)
+                            return Inclusion.Boundary;
+                        if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                            result = 1 - result;
                     }
                 }
 
@@ -187,13 +190,22 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
         [Pure]
-        //[DebuggerStepThrough]
-        public static bool Contains(this PolygonSet polygons, Point2D point)
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this PolygonSet polygons, Point2D point)
         {
-            bool returnValue = false;
+            Inclusion returnValue = Inclusion.Outside;
 
             foreach (Polygon poly in polygons.Polygons)
-                returnValue = !poly.Points.Contains(point);
+            {
+                // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
+                // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
+                returnValue ^= Contains(poly, point);
+
+                // Any point on any boundary is on a boundary.
+                if (returnValue == Inclusion.Boundary)
+                    return Inclusion.Boundary;
+            }
 
             return returnValue;
         }
@@ -207,15 +219,15 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="allPolys"></param>
+        /// <param name="polygons"></param>
         /// <returns></returns>
         /// <remarks>
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </remarks>
-        public static bool Contains(this PolygonSet allPolys, Point2D start, Point2D end)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Contains(this PolygonSet polygons, Point2D start, Point2D end)
         {
-            int i;
             int j;
             double sX;
             double sY;
@@ -232,12 +244,13 @@ namespace Engine.Geometry
             double dist = Sqrt(end.X * end.X + end.Y * end.Y);
             double theCos = end.X / dist;
             double theSin = end.Y / dist;
-            foreach (Polygon poly in allPolys.Polygons)
+            foreach (Polygon poly in polygons.Polygons)
             {
-                for (i = 0; i < poly.Points.Count; i++)
+                for (int i = 0; i < poly.Points.Count; i++)
                 {
                     j = i + 1;
-                    if (j == poly.Points.Count) j = 0;
+                    if (j == poly.Points.Count)
+                        j = 0;
 
                     sX = poly.Points[i].X - start.X;
                     sY = poly.Points[i].Y - start.Y;
@@ -260,7 +273,8 @@ namespace Engine.Geometry
                     || rotEY < 0.0 && rotSY > 0.0)
                     {
                         crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
-                        if (crossX >= 0.0 && crossX <= dist) return false;
+                        if (crossX >= 0.0 && crossX <= dist)
+                            return false;
                     }
 
                     if (Abs(rotSY) < DoubleEpsilon
@@ -275,8 +289,23 @@ namespace Engine.Geometry
                 }
             }
 
-            return allPolys.Contains(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0));
+            return polygons.Contains(new Point2D(start.X + end.X / 2.0, start.Y + end.Y / 2.0));
         }
+
+        /// <summary>
+        /// Determines if the rectangular region represented by <paramref name="rect2"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
+        /// </summary>
+        /// <param name="rect1"></param>
+        /// <param name="rect2"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Contains(this Rectangle2D rect1, Rectangle2D rect2)
+            => (rect1.X <= rect2.X)
+            && ((rect2.X + rect2.Width) <= (rect1.X + rect1.Width))
+            && (rect1.Y <= rect2.Y)
+            && ((rect2.Y + rect2.Height) <= (rect1.Y + rect1.Height));
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.
@@ -285,10 +314,12 @@ namespace Engine.Geometry
         /// <param name="rect2"></param>
         /// <returns></returns>
         [Pure]
-        public static bool RectangleRectangle(Rectangle2D rect1, Rectangle2D rect2) => (rect2.X < rect1.X + rect1.Width)
-    && (rect1.X < (rect2.X + rect2.Width))
-    && (rect2.Y < rect1.Y + rect1.Height)
-    && (rect1.Y < rect2.Y + rect2.Height);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool RectangleRectangle(Rectangle2D rect1, Rectangle2D rect2)
+            => (rect2.X < rect1.X + rect1.Width)
+            && (rect1.X < (rect2.X + rect2.Width))
+            && (rect2.Y < rect1.Y + rect1.Height)
+            && (rect1.Y < rect2.Y + rect2.Height);
 
         /// <summary>
         /// Find the points where the two circles intersect.
@@ -302,6 +333,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Tuple<int, Point2D, Point2D> CircleCircle(
             double cx0,
             double cy0,
@@ -380,6 +412,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/</remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Tuple<int, Point2D, Point2D> CircleLine(
             double centerX, double centerY,
             double radius,
@@ -440,6 +473,7 @@ namespace Engine.Geometry
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<bool, Point2D> LineLine(
             double x0, double y0,
             double x1, double y1,
@@ -456,7 +490,8 @@ namespace Engine.Geometry
             double determinant = (deltaBJ * deltaAI) - (deltaBI * deltaAJ);
 
             // Check if the line are parallel.
-            if (Abs(determinant) < DoubleEpsilon) return new Tuple<bool, Point2D>(false, null);
+            if (Abs(determinant) < DoubleEpsilon)
+                return new Tuple<bool, Point2D>(false, null);
 
             // Find the index where the intersection point lies on the line.
             double s = ((x0 - x2) * deltaAJ + (y2 - y0) * deltaAI) / -determinant;
@@ -481,6 +516,7 @@ namespace Engine.Geometry
         /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman
         /// </remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
         {
             if (subjectPoly.Count < 3 || clipPoly.Count < 3)
@@ -502,7 +538,8 @@ namespace Engine.Geometry
 
                 // Sometimes when the polygons don't intersect, this list goes to zero.
                 // Jump out to avoid an index out of range exception
-                if (inputList.Count == 0) break;
+                if (inputList.Count == 0)
+                    break;
 
                 Point2D S = inputList[inputList.Count - 1];
 
@@ -585,6 +622,7 @@ namespace Engine.Geometry
         /// <param name="edge"></param>
         /// <param name="test"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsInside(LineSegment edge, Point2D test)
         {
             bool? isLeft = IsLeftOf(edge, test);
@@ -602,6 +640,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="polygon"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsClockwise(List<Point2D> polygon)
         {
             for (int cntr = 2; cntr < polygon.Count; cntr++)
@@ -617,6 +656,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Tells if the test point lies on the left side of the edge line
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool? IsLeftOf(LineSegment edge, Point2D test)
         {
             Vector2D tmp1 = edge.B - edge.A;
@@ -625,10 +665,13 @@ namespace Engine.Geometry
             double x = (tmp1.I * tmp2.J) - (tmp1.J * tmp2.I);
             // dot product of perpendicular?
 
-            if (x < 0) return false;
-            else if (x > 0) return true;
+            if (x < 0)
+                return false;
+            else if (x > 0)
+                return true;
             // Collinear points;
-            else return null;
+            else
+                return null;
         }
 
         #endregion

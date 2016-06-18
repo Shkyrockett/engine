@@ -38,7 +38,7 @@ namespace MethodSpeedTester
         public static void DrawRectangles(Graphics g, Font font,
             Rectangle2D rectangle,
             List<Point2D> points,
-            Func<Rectangle2D, Point2D, InsideOutside> method,
+            Func<Rectangle2D, Point2D, Inclusion> method,
             string text)
         {
             g.DrawString(text, font, Brushes.Black, new Point());
@@ -48,16 +48,16 @@ namespace MethodSpeedTester
                 DrawHitPoint(g, point, method.Invoke(rectangle, point));
         }
 
-        public static void DrawHitPoint(Graphics g, Point2D point, InsideOutside hit)
+        public static void DrawHitPoint(Graphics g, Point2D point, Inclusion hit)
         {
             float pointRadius = 1;
             Pen pointpen = Pens.Red;
             switch (hit)
             {
-                case InsideOutside.Inside:
+                case Inclusion.Inside:
                     pointpen = Pens.Lime;
                     break;
-                case InsideOutside.Boundary:
+                case Inclusion.Boundary:
                     pointpen = Pens.Magenta;
                     break;
             }

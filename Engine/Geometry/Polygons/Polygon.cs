@@ -10,8 +10,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Engine.Geometry
@@ -57,7 +59,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Polygon(ICollection<Point2D> points)
+        public Polygon(IEnumerable<Point2D> points)
         {
             this.points = points as List<Point2D>;
         }
@@ -66,7 +68,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <param name="polylines"></param>
-        public Polygon(ICollection<Polyline> polylines)
+        public Polygon(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
@@ -191,15 +193,21 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != InsideOutside.Outside;
+            => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public Polygon Clone() => new Polygon(points.ToArray());
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polygon Clone()
+            => new Polygon(points.ToArray());
 
         /// <summary>
         /// 
@@ -240,6 +248,8 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Polygon);

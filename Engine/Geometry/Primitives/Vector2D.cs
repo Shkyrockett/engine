@@ -359,7 +359,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D Random() => new Vector2D((2 * Maths.RandomNumberGenerator.NextDouble()) - 1, (2 * Maths.RandomNumberGenerator.NextDouble()) - 1);
+        public static Vector2D Random() => new Vector2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
         /// 

@@ -1097,10 +1097,8 @@ namespace Engine.Chrono
         private Season getSeason(DateTime date, bool ofSouthernHemisphere)
         {
             int hemisphereConst = (ofSouthernHemisphere ? 2 : 0);
-            Func<Season, Season> getReturn = (northern) =>
-            {
-                return (Season)(((int)northern + hemisphereConst) % 4);
-            };
+            Func<Season, Season> getReturn = (northern)
+                => (Season)(((int)northern + hemisphereConst) % 4);
 
             float value = date.Month + date.Day / 100f;  // <month>.<day(2 digit)>
             if (value < 3.21 || value >= 12.22) return getReturn(Season.Winter);    // 3: Winter

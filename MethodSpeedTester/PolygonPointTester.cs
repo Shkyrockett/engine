@@ -260,14 +260,14 @@ namespace MethodSpeedTester
         private void pictureBox16_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonHormannAgathos(s, p) != InsideOutside.Outside,
+                (s, p) => Experiments.PointInPolygonHormannAgathos(s, p) != Inclusion.Outside,
                 nameof(Experiments.PointInPolygonHormannAgathos));
         }
 
         private void pictureBox17_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonHormannAgathosX(s, p) != InsideOutside.Outside,
+                (s, p) => Experiments.PointInPolygonHormannAgathosX(s, p) != Inclusion.Outside,
                 nameof(Experiments.PointInPolygonHormannAgathosX));
         }
     }

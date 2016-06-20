@@ -44,12 +44,12 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => string.Format("{0} {1}", Acceleration.Abreviation, Direction.Abreviation);
+        public string Abreviation => $"{Acceleration.Abreviation} {Direction.Abreviation}";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} {1} {2}", Value, Acceleration.Abreviation, Direction.Abreviation);
+        public override string ToString() => $"{Value} {Acceleration.Abreviation} {Direction.Abreviation}";
     }
 }

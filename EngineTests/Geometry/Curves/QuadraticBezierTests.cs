@@ -9,7 +9,6 @@ namespace Engine.Geometry.Tests
     [TestClass]
     public class QuadraticBezierTests
     {
-
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.

@@ -13,6 +13,7 @@ using Engine.Geometry;
 using Engine.Geometry.Polygons;
 using Engine.Imaging;
 using Engine.Objects;
+using Engine.Physics;
 using Engine.Tools;
 using Engine.Tweening;
 using Engine.Winforms;
@@ -289,30 +290,30 @@ namespace Editor
             //GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
             //vectorMap.Add(intersectionItem);
 
-            //Ellipse ellipseTween = new Ellipse(
-            //    new Point2D(100, 100),
-            //    56, 30, 0d);
-            //GraphicItem ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
+            var ellipseTween = new Ellipse(
+                new Point2D(100, 100),
+                56, 30, 0d);
+            var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
 
-            //Rectangle2D rectangleTween = new Rectangle2D(
-            //    new Point2D(100, 100),
-            //    new Size2D(100, 100));
-            //GraphicItem rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
+            var rectangleTween = new Rectangle2D(
+                new Point2D(100, 100),
+                new Size2D(100, 100));
+            var rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
 
-            //double duration = 300;
-            //double delay = 20;
+            double duration = 300;
+            double delay = 20;
 
-            ////tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
-            //Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
+            //tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
+            Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
 
-            ////tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
-            //tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
-            //    .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
-            //    .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
-            //tweener.Timer(duration).OnComplete(CompleteCallback);
+            //tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
+            tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
+                .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
+                .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
+            tweener.Timer(duration).OnComplete(CompleteCallback);
 
-            //vectorMap.Add(rectangleTweenItem);
-            //vectorMap.Add(ellipseTweenItem);
+            vectorMap.Add(rectangleTweenItem);
+            vectorMap.Add(ellipseTweenItem);
 
             var parametric = new ParametricDelegateCurve((t) => Interpolaters.Ellipse(new Ellipse(100d,100d,25d,25d,0d), t), Point2D.Empty, Size2D.Empty, 0, 0);
             var parametricItem = new GraphicItem(parametric, styles[3]);

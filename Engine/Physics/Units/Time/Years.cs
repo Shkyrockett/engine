@@ -105,6 +105,6 @@ namespace Engine.Physics
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} years", Value);
+        public override string ToString() => $"{Value} years";
     }
 }

@@ -26,9 +26,8 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public Intersection()
+            :this(false,new Point2D[] { Point2D.Empty })
         {
-            Itersecting = false;
-            IntersectionPoint = new Point2D[] { Point2D.Empty };
         }
 
         /// <summary>

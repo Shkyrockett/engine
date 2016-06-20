@@ -23,9 +23,8 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public Sine()
+            :this(Point2D.Empty,Point2D.Empty)
         {
-            A = Point2D.Empty;
-            B = Point2D.Empty;
         }
 
         /// <summary>
@@ -53,7 +52,8 @@ namespace Engine.Geometry
         /// <param name="t"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         /// <remarks></remarks>
-        public override Point2D Interpolate(double t) => new Point2D(Interpolaters.Sine(A.X, A.Y, B.X, B.Y, t));
+        public override Point2D Interpolate(double t)
+            => new Point2D(Interpolaters.Sine(A.X, A.Y, B.X, B.Y, t));
 
         /// <summary>
         /// 
@@ -62,7 +62,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(Sine);
-            return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Sine), nameof(A), A, nameof(B), B);
+            return $"{nameof(Sine)}{{{nameof(A)}={A},{nameof(B)}={B}}}";
         }
     }
 }

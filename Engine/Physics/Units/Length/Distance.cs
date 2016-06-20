@@ -50,6 +50,6 @@ namespace Engine.Physics
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} {1}{2}", Value, Speed.Abreviation, Time.Abreviation);
+        public override string ToString() => $"{Value} {Speed.Abreviation}{Time.Abreviation}";
     }
 }

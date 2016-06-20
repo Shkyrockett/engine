@@ -43,12 +43,12 @@
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => string.Format("{0}/{1}³", Mass.Abreviation, Volume.Abreviation);
+        public string Abreviation => $"{Mass.Abreviation}/{Volume.Abreviation}³";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0}{1}/{2}³", Value, Mass.Abreviation, Volume.Abreviation);
+        public override string ToString() => $"{Value}{Mass.Abreviation}/{Volume.Abreviation}³";
     }
 }

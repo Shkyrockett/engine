@@ -50,6 +50,6 @@ namespace Engine.Physics
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} J Ke", Value);
+        public override string ToString() => $"{Value} J Ke";
     }
 }

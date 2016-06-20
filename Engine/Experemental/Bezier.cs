@@ -613,14 +613,16 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        private List<double> inflections() => Utilities.inflections(points);
+        private List<double> inflections()
+            => Utilities.inflections(points);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public Point3D normal(double t) => _3d ? __normal3(t) : __normal2(t);
+        public Point3D normal(double t)
+            => _3d ? __normal3(t) : __normal2(t);
 
         /// <summary>
         /// 
@@ -743,7 +745,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        internal Pair split(double v) => new Pair();
+        internal Pair split(double v)
+            => new Pair();
 
         /// <summary>
         /// 
@@ -1049,7 +1052,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
-        public PolyBezier outline(double d1) => outline(d1, d1, 0, 0, true);
+        public PolyBezier outline(double d1)
+            => outline(d1, d1, 0, 0, true);
 
         /// <summary>
         /// 
@@ -1057,7 +1061,8 @@ namespace Engine.Geometry
         /// <param name="d1"></param>
         /// <param name="d2"></param>
         /// <returns></returns>
-        public PolyBezier outline(double d1, double d2) => outline(d1, d2, 0, 0, true);
+        public PolyBezier outline(double d1, double d2)
+            => outline(d1, d2, 0, 0, true);
 
         /// <summary>
         /// 
@@ -1066,7 +1071,8 @@ namespace Engine.Geometry
         /// <param name="d3"></param>
         /// <param name="d4"></param>
         /// <returns></returns>
-        public PolyBezier outline(double d1, double d3, double d4) => outline(d1, d1, d3, d4, false);
+        public PolyBezier outline(double d1, double d3, double d4)
+            => outline(d1, d1, d3, d4, false);
 
         /// <summary>
         /// 
@@ -1162,21 +1168,24 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<Pair> intersects() => selfintersects();
+        public List<Pair> intersects()
+            => selfintersects();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
-        public List<bool> intersects(Line1 curve) => lineIntersects(curve);
+        public List<bool> intersects(Line1 curve)
+            => lineIntersects(curve);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
-        public List<Pair> intersects(Bezier curve) => curveintersects(reduce(), curve.reduce());
+        public List<Pair> intersects(Bezier curve)
+            => curveintersects(reduce(), curve.reduce());
 
         /// <summary>
         /// 
@@ -1371,7 +1380,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
-        public List<double> CubicBezierCardanoIntersection(Line1 line) => CubicBezierCardanoIntersection(points[0], points[1], points[2], points[3], line);
+        public List<double> CubicBezierCardanoIntersection(Line1 line)
+            => CubicBezierCardanoIntersection(points[0], points[1], points[2], points[3], line);
 
         /// <summary>
         /// Cardano's algorithm

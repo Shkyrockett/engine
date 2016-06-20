@@ -55,12 +55,12 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => string.Format("∆{0}/{1}", Value, Speed[0].Abreviation, Time.Abreviation);
+        public string Abreviation => $"∆{Value}/{Speed[0].Abreviation}";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} ∆{1}/{2}", Value, Speed[0].Abreviation, Time.Abreviation);
+        public override string ToString() => $"{Value} ∆{Speed[0].Abreviation}/{Time.Abreviation}";
     }
 }

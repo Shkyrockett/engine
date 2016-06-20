@@ -3744,7 +3744,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                     (cy2 + h * (cx1 - cx0) / dist));
 
                 // See if we have 1 or 2 solutions.
-                if (Math.Abs(dist - radius0 + radius1) < DoubleEpsilon)
+                if (Abs(dist - radius0 + radius1) < DoubleEpsilon)
                     return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(1, intersection1, intersection2);
 
                 return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(2, intersection1, intersection2);
@@ -3790,7 +3790,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 intersection2 = new Tuple<double, double>(double.NaN, double.NaN);
                 return new Tuple<int, Tuple<double, double>, Tuple<double, double>>(0, intersection1, intersection2);
             }
-            else if (Math.Abs(det) < DoubleEpsilon)
+            else if (Abs(det) < DoubleEpsilon)
             {
                 // One solution.
                 t = -B / (2 * A);
@@ -3846,7 +3846,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double H = ((XB - ellipseB.Center.X) + Pow(YD - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
             if (Abs(F) < Abs(e)) YA = YB;
             if (Abs(H) < Abs(g)) YC = YD;
-            if (Math.Abs(ellipseA.Center.Y - ellipseB.Center.Y) < DoubleEpsilon) YC = 2 * ellipseA.Center.Y - YA;
+            if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < DoubleEpsilon) YC = 2 * ellipseA.Center.Y - YA;
             return new LineSegment(XA, YA, XB, YC);
         }
 
@@ -4987,7 +4987,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double dotPerp = (direction1I * direction2J) - (direction1J * direction2I);
 
             // Check if the lines are parallel.
-            if (Math.Abs(dotPerp) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
+            if (Abs(dotPerp) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
 
             // If it's 0, it means the lines are parallel so have infinite intersection points
             if (NearZero0(dotPerp)) return null;
@@ -6903,7 +6903,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 - (p.Y - polygon[i].Y) * (point.X - polygon[i].X)
                 ).ToList();
 
-            if (coef.Any(p => Math.Abs(p) < DoubleEpsilon)) return true;
+            if (coef.Any(p => Abs(p) < DoubleEpsilon)) return true;
 
             for (int i = 1; i < coef.Count; i++)
                 if (coef[i] * coef[i - 1] < 0) return false;
@@ -7117,7 +7117,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
                 {
                     if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                        || (Math.Abs(curPoint.Y - point.Y) < DoubleEpsilon
+                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
                         && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                     {
                         return Inclusion.Boundary;
@@ -7143,7 +7143,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                     else if (nextPoint.X > point.X)
                     {
                         double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                        if (Math.Abs(determinant) < DoubleEpsilon)
+                        if (Abs(determinant) < DoubleEpsilon)
                             return Inclusion.Boundary;
                         if ((determinant > 0d) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
                     }
@@ -7460,7 +7460,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             // Sqrt((Point.X - Line.B.X) ^ 2 + (Point.Y - Line.B.Y))
             double Length2 = Point.Length(Line.A);
             // Sqrt((Point.X - Line.A.X) ^ 2 + (Point.Y - Line.A.Y))
-            return Math.Abs(Line.Length() - Length1 + Length2) < DoubleEpsilon;
+            return Abs(Line.Length() - Length1 + Length2) < DoubleEpsilon;
         }
 
         #endregion

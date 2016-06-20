@@ -5,14 +5,14 @@ namespace Engine.Physics
     /// <summary>
     /// 
     /// </summary>
-    public struct Caleries
+    public struct Calories
         : IEnergy
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public Caleries(double value)
+        public Calories(double value)
         {
             Value = value;
         }
@@ -26,7 +26,7 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Caleries";
+        public string Name => nameof(Calories);
 
         /// <summary>
         /// 
@@ -38,12 +38,12 @@ namespace Engine.Physics
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Caleries(double value) => new Caleries(value);
+        public static implicit operator Calories(double value) => new Calories(value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} cal", Value);
+        public override string ToString() => $"{Value} cal";
     }
 }

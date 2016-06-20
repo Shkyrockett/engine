@@ -43,12 +43,11 @@ namespace Engine.Tweening
         /// <param name="behavior"></param>
         public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
-            from = (Vector2D)fromValue;
-            to = (Vector2D)toValue;
-
-            range = new Vector2D();
-            range.I = to.I - from.I;
-            range.J = to.J - from.J;
+            from = fromValue as Vector2D;
+            to = toValue as Vector2D;
+            range = new Vector2D(
+                to.I - from.I,
+                to.J - from.J);
         }
 
         /// <summary>

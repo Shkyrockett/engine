@@ -30,13 +30,8 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public Hermite()
+            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty, 0d, 0d)
         {
-            A = Point2D.Empty;
-            ATan = Point2D.Empty;
-            B = Point2D.Empty;
-            BTan = Point2D.Empty;
-            Tension = 0;
-            Bias = 0;
         }
 
         /// <summary>
@@ -93,14 +88,16 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double t) => new Point2D(Interpolaters.Hermite(A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Tension, Bias, t));
+        public override Point2D Interpolate(double t)
+            => new Point2D(Interpolaters.Hermite(A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Tension, Bias, t));
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
-        public CubicBezier ToCubicBezier() => new CubicBezier(ATan, new Point2D(ATan.X - (B.X - A.X) / 6, ATan.Y - (B.Y - A.Y) / 6), new Point2D(B.X + (BTan.X - ATan.X) / 6, B.Y + (BTan.Y - ATan.Y) / 6), BTan);
+        public CubicBezier ToCubicBezier()
+            => new CubicBezier(ATan, new Point2D(ATan.X - (B.X - A.X) / 6, ATan.Y - (B.Y - A.Y) / 6), new Point2D(B.X + (BTan.X - ATan.X) / 6, B.Y + (BTan.Y - ATan.Y) / 6), BTan);
 
         /// <summary>
         /// 
@@ -108,8 +105,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return nameof(Hermite);
-            return string.Format("{0}{{{1}={2},{3}={4},{5}={6},{7}={8},{9}={10},{11}={12}}}", nameof(Hermite), nameof(A), A, nameof(ATan), ATan, nameof(B), B, nameof(BTan), BTan, nameof(Tension), Tension, nameof(Bias), Bias);
+            if (this == null)
+                return nameof(Hermite);
+            return $"{nameof(Hermite)}{{{nameof(A)}={A},{nameof(ATan)}={ATan},{nameof(B)}={B},{nameof(BTan)}={BTan},{nameof(Tension)}={Tension},{nameof(Bias)}={Bias}}}";
         }
     }
 }

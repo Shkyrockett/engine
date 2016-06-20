@@ -8,8 +8,10 @@
 // <summary></summary>
 // <remarks>Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
+using Engine.Physics;
 using System;
 using System.Collections.Generic;
+using static System.Math;
 using static Engine.Geometry.Maths;
 
 namespace Engine.Tweening
@@ -229,7 +231,7 @@ namespace Engine.Tweening
                     if (delay > 0) return;
                 }
 
-                if (Math.Abs(time) < DoubleEpsilon && timesRepeated == 0 && begin != null) begin();
+                if (Abs(time) < DoubleEpsilon && timesRepeated == 0 && begin != null) begin();
 
                 time += elapsed;
                 double setTimeTo = time;
@@ -272,7 +274,7 @@ namespace Engine.Tweening
 
                 //	If the timer is zero here, we just restarted.
                 //	If reflect mode is on, flip start to end
-                if (Math.Abs(time) < DoubleEpsilon && behavior.HasFlag(LerpBehavior.Reflect))
+                if (Abs(time) < DoubleEpsilon && behavior.HasFlag(LerpBehavior.Reflect))
                     Reverse();
 
                 update?.Invoke();

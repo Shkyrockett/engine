@@ -366,7 +366,8 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The area of the ellipse.")]
-        public override double Area => PI * minorRadius * majorRadius;
+        public override double Area
+            => PI * minorRadius * majorRadius;
 
         /// <summary>
         /// 
@@ -450,7 +451,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(EllipseArc);
-            return string.Format("{0}{{{1}={2},{3}={4},{5}={6},{7}={8},{9}={10},{11}={12}}}", nameof(EllipseArc), nameof(Center), center, nameof(MinorRadius), minorRadius, nameof(MajorRadius), majorRadius, nameof(Angle), angle, nameof(StartAngle), startAngle, nameof(EndAngle), endAngle);
+            return $"{nameof(EllipseArc)}{{{nameof(Center)}={center},{nameof(MinorRadius)}={minorRadius},{nameof(MajorRadius)}={majorRadius},{nameof(Angle)}={angle},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
         }
     }
 }

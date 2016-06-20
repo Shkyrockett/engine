@@ -38,18 +38,18 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Instantanious Speed";
+        public string Name => "Instantaneous Speed";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => string.Format("{0}{1}²", Value, Acceleration.Abreviation, Time.Abreviation);
+        public string Abreviation => $"{Value}{Acceleration.Abreviation}²";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} {1}{2}²", Value, Acceleration.Abreviation, Time.Abreviation);
+        public override string ToString() => $"{Value} {Acceleration.Abreviation}{Time.Abreviation}²";
     }
 }

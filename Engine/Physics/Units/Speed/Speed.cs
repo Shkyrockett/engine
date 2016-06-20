@@ -44,12 +44,12 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => string.Format("{1}/{2}", Value, Distance.Abreviation, Time.Abreviation);
+        public string Abreviation => $"{Distance.Abreviation}/{Time.Abreviation}";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} {1}/{2}", Value, Distance.Abreviation, Time.Abreviation);
+        public override string ToString() => $"{Value} {Distance.Abreviation}/{Time.Abreviation}";
     }
 }

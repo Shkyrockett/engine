@@ -43,13 +43,12 @@ namespace Engine.Tweening
         /// <param name="behavior"></param>
         public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
-            from = (Point3D)fromValue;
-            to = (Point3D)toValue;
-
-            range = new Point3D();
-            range.X = to.X - from.X;
-            range.Y = to.Y - from.Y;
-            range.Z = to.Z - from.Z;
+            from = fromValue as Point3D;
+            to = toValue as Point3D;
+            range = new Point3D(
+                to.X - from.X,
+                to.Y - from.Y,
+                to.Z - from.Z);
         }
 
         /// <summary>

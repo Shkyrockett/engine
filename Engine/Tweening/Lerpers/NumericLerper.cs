@@ -43,8 +43,8 @@ namespace Engine.Tweening
         /// <param name="behavior"></param>
         public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
-            from = Convert.ToSingle(fromValue);
-            to = Convert.ToSingle(toValue);
+            from = Convert.ToDouble(fromValue);
+            to = Convert.ToDouble(toValue);
             range = to - from;
 
             if (behavior.HasFlag(LerpBehavior.Rotation))

@@ -145,6 +145,16 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public static List<Type> ListUnits(Type units)
+        {
+            Assembly assembly = Assembly.GetAssembly(units);
+            return GetAssemblyInterfaces(assembly, units);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)

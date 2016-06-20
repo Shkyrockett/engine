@@ -16,6 +16,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => "Heart";
+        public override string ToString()
+            => "Heart";
     }
 }

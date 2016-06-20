@@ -81,7 +81,7 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Degrees";
+        public string Name => nameof(Degrees);
 
         /// <summary>
         /// 

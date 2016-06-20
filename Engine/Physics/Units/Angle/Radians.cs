@@ -80,7 +80,7 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Inches";
+        public string Name => nameof(Radians);
 
         /// <summary>
         /// 

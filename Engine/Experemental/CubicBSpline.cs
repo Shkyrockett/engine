@@ -26,8 +26,8 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public CubicBSpline()
+            :this(new List<Point2D> { Point2D.Empty })
         {
-            NodePoints = new List<Point2D> { Point2D.Empty };
         }
 
         /// <summary>
@@ -49,7 +49,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double t) => Interpolaters.CubicBSpline(NodePoints, t);
+        public override Point2D Interpolate(double t)
+            => Interpolaters.CubicBSpline(NodePoints, t);
 
         /// <summary>
         /// 
@@ -58,7 +59,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(CubicBSpline);
-            return string.Format("{0}{{{1}}}", nameof(CubicBSpline), NodePoints.ToString());
+            return $"{nameof(CubicBSpline)}{{{NodePoints.ToString()}}}";
         }
     }
 }

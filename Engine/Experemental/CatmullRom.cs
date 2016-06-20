@@ -150,7 +150,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double t) => Interpolaters.CatmullRom(tangentA, positionA, positionB, TangentB, t);
+        public override Point2D Interpolate(double t)
+            => Interpolaters.CatmullRom(tangentA, positionA, positionB, TangentB, t);
 
         /// <summary>
         /// 
@@ -159,7 +160,7 @@ namespace Engine.Geometry
         public override string ToString()
         {
             if (this == null) return nameof(CatmullRom);
-            return string.Format("{0}{{{1}={2},{3}={4},{5}={6},{7}={8},{9}={10}}}", nameof(CatmullRom), nameof(TangentA), tangentA, nameof(PositionA), positionA, nameof(TangentB), tangentB, nameof(PositionB), positionB, nameof(Precision), Precision);
+            return $"{nameof(CatmullRom)}{{{nameof(TangentA)}={tangentA},{nameof(PositionA)}={positionA},{nameof(TangentB)}={tangentB},{nameof(PositionB)}={positionB},{nameof(Precision)}={Precision}}}";
         }
     }
 }

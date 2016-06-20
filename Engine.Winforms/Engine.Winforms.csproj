@@ -87,100 +87,100 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Geometry\AngleControl.cs">
+    <Compile Include="Controls\Geometry\AngleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Geometry\AngleControl.Designer.cs">
+    <Compile Include="Controls\Geometry\AngleControl.Designer.cs">
       <DependentUpon>AngleControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Geometry\AngleEditor.cs" />
-    <Compile Include="CanvasPanel.cs">
+    <Compile Include="PropertyGridEditors\AngleEditor.cs" />
+    <Compile Include="Controls\CanvasPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CanvasPanel.Designer.cs">
+    <Compile Include="Controls\CanvasPanel.Designer.cs">
       <DependentUpon>CanvasPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ColorTrackBarControl.cs">
+    <Compile Include="Controls\ColorTrackBarControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ColorTrackBarControl.Designer.cs">
+    <Compile Include="Controls\ColorTrackBarControl.Designer.cs">
       <DependentUpon>ColorTrackBarControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Geometry\Primitives\Converters\PointFConverter.cs" />
     <Compile Include="Geometry\Primitives\Converters\RectangleFConverter.cs" />
     <Compile Include="Geometry\Primitives\Converters\SizeFConverter.cs" />
-    <Compile Include="Geometry\Primitives\SizeFExtentions.cs" />
-    <Compile Include="Geometry\Primitives\SizeExtentions.cs" />
-    <Compile Include="Geometry\Primitives\PointFExtentions.cs" />
-    <Compile Include="Geometry\Primitives\PointExtentions.cs" />
-    <Compile Include="Geometry\Primitives\RectangleExtensions.cs" />
-    <Compile Include="Geometry\Primitives\RectangleFExtensions.cs" />
+    <Compile Include="Geometry\Primitives\Extensions\SizeFExtentions.cs" />
+    <Compile Include="Geometry\Primitives\Extensions\SizeExtentions.cs" />
+    <Compile Include="Geometry\Primitives\Extensions\PointFExtentions.cs" />
+    <Compile Include="Geometry\Primitives\Extensions\PointExtentions.cs" />
+    <Compile Include="Geometry\Primitives\Extensions\RectangleExtensions.cs" />
+    <Compile Include="Geometry\Primitives\Extensions\RectangleFExtensions.cs" />
     <Compile Include="NativeMethods\NativeMethods.cs" />
-    <Compile Include="Geometry\NeedleControl.cs">
+    <Compile Include="Controls\Geometry\NeedleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Geometry\NeedleControl.Designer.cs">
+    <Compile Include="Controls\Geometry\NeedleControl.Designer.cs">
       <DependentUpon>NeedleControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="PaletteControl.cs">
+    <Compile Include="Controls\PaletteControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PaletteControl.Designer.cs">
+    <Compile Include="Controls\PaletteControl.Designer.cs">
       <DependentUpon>PaletteControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Label\PathLabel.cs">
+    <Compile Include="Controls\Label\PathLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Label\PathLabel.Designer.cs">
+    <Compile Include="Controls\Label\PathLabel.Designer.cs">
       <DependentUpon>PathLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolStrip\PaletteToolStripItem.cs">
+    <Compile Include="Controls\ToolStrip\PaletteToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrip\PaletteToolStripItem.Designer.cs">
+    <Compile Include="Controls\ToolStrip\PaletteToolStripItem.Designer.cs">
       <DependentUpon>PaletteToolStripItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatusProgressBar.cs">
+    <Compile Include="Controls\StatusProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatusProgressBar.Designer.cs">
+    <Compile Include="Controls\StatusProgressBar.Designer.cs">
       <DependentUpon>StatusProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrip\ToolStripMonthCalendar.cs">
+    <Compile Include="Controls\ToolStrip\ToolStripMonthCalendar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrip\ToolStripMonthCalendar.Designer.cs">
+    <Compile Include="Controls\ToolStrip\ToolStripMonthCalendar.Designer.cs">
       <DependentUpon>ToolStripMonthCalendar.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrip\ToolStripToolStripItem.cs">
+    <Compile Include="Controls\ToolStrip\ToolStripToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrip\ToolStripToolStripItem.Designer.cs">
+    <Compile Include="Controls\ToolStrip\ToolStripToolStripItem.Designer.cs">
       <DependentUpon>ToolStripToolStripItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Label\TransparentLabel.cs">
+    <Compile Include="Controls\Label\TransparentLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Label\TransparentLabel.Designer.cs">
+    <Compile Include="Controls\Label\TransparentLabel.Designer.cs">
       <DependentUpon>TransparentLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrip\TreeViewToolStripItem.cs">
+    <Compile Include="Controls\ToolStrip\TreeViewToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrip\TreeViewToolStripItem.Designer.cs">
+    <Compile Include="Controls\ToolStrip\TreeViewToolStripItem.Designer.cs">
       <DependentUpon>TreeViewToolStripItem.cs</DependentUpon>
     </Compile>
     <Compile Include="WinformsReflection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Geometry\AngleControl.resx">
+    <EmbeddedResource Include="Controls\Geometry\AngleControl.resx">
       <DependentUpon>AngleControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Geometry\NeedleControl.resx">
+    <EmbeddedResource Include="Controls\Geometry\NeedleControl.resx">
       <DependentUpon>NeedleControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PaletteControl.resx">
+    <EmbeddedResource Include="Controls\PaletteControl.resx">
       <DependentUpon>PaletteControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

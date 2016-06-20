@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks>Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
-namespace Engine.Tweening
+namespace Engine.Physics
 {
     /// <summary>
     /// Rotation units to use.

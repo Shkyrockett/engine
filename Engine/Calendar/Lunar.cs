@@ -8,6 +8,9 @@ using static System.Math;
 
 namespace Engine.Chrono
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal class Lunar
     {
         //Variables for Moon program

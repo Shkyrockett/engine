@@ -31,6 +31,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => "Path";
+        public override string ToString()
+            => "Path";
     }
 }

@@ -37,6 +37,6 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} C", Value);
+        public override string ToString() => $"{Value} C";
     }
 }

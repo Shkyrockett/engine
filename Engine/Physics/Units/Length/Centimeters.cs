@@ -161,6 +161,6 @@ namespace Engine.Physics
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => string.Format("{0} cm", Value);
+        public override string ToString() => $"{Value} cm";
     }
 }

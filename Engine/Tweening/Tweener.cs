@@ -88,14 +88,14 @@ namespace Engine.Tweening
                 };
 
             foreach (Type numericType in numericTypes)
-                SetLerper<NumericLerper>(numericType);
+                RegisterLerper<NumericLerper>(numericType);
 
             // Adding custom Lerpers. Normally these would be added to project initializer, but I want these global.
-            Tweener.SetLerper<Point2DLerper>(typeof(Point2D));
-            Tweener.SetLerper<Point3DLerper>(typeof(Point3D));
-            Tweener.SetLerper<Size2DLerper>(typeof(Size2D));
-            Tweener.SetLerper<Vector2DLerper>(typeof(Vector2D));
-            Tweener.SetLerper<Vector3DLerper>(typeof(Vector3D));
+            Tweener.RegisterLerper<Point2DLerper>(typeof(Point2D));
+            Tweener.RegisterLerper<Point3DLerper>(typeof(Point3D));
+            Tweener.RegisterLerper<Size2DLerper>(typeof(Size2D));
+            Tweener.RegisterLerper<Vector2DLerper>(typeof(Vector2D));
+            Tweener.RegisterLerper<Vector3DLerper>(typeof(Vector3D));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <typeparam name="TLerper">The Lerper class to use for properties of the given type.</typeparam>
         /// <param name="propertyType">The type of the property to associate the given Lerper with.</param>
-        public static void SetLerper<TLerper>(Type propertyType)
+        public static void RegisterLerper<TLerper>(Type propertyType)
             where TLerper
             : Lerper, new()
         {
@@ -232,11 +232,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Updates the tweener and all objects it contains.
         /// </summary>
-        /// <param name="secondsElapsed">Seconds elapsed since last update.</param>
-        public void Update(double secondsElapsed)
+        /// <param name="ticksElapsed">Seconds elapsed since last update.</param>
+        public void Update(double ticksElapsed)
         {
             foreach (Tween tween in allTweens)
-                tween.Update(secondsElapsed);
+                tween.Update(ticksElapsed);
 
             AddAndRemove();
         }

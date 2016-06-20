@@ -31,9 +31,19 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public DoubleLine()
+            :this(new List<Point2D>(),new List<Point2D>())
         {
-            CenterPoints = new List<Point2D>();
-            borderPoints = new List<Point2D>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="borderPoints"></param>
+        /// <param name="centerPoints"></param>
+        public DoubleLine(List<Point2D> borderPoints, List<Point2D> centerPoints)
+        {
+            this.borderPoints = borderPoints;
+            CenterPoints = centerPoints;
         }
 
         /// <summary>
@@ -44,12 +54,14 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public List<Point2D> BorderPoints => borderPoints;
+        public List<Point2D> BorderPoints
+            => borderPoints;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => "DoubleLine";
+        public override string ToString()
+            => "DoubleLine";
     }
 }

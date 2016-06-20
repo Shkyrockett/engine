@@ -30,9 +30,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <remarks></remarks>
         public Line()
+            :this(Point.Empty,Vector2D.Empty)
         {
-            Location = Point.Empty;
-            Vector = Vector2D.Empty;
         }
 
         /// <summary>

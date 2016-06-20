@@ -44,10 +44,8 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public RoundRectangle()
+            : this(new Rectangle2D(), 0)
         {
-            radius = 0;
-            bounds = new Rectangle2D();
-            path = InterpolatePath();
         }
 
         /// <summary>
@@ -92,7 +90,8 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public GraphicsPath InterpolatePath() => GetGraphicsPath(bounds, radius);
+        public GraphicsPath InterpolatePath()
+            => GetGraphicsPath(bounds, radius);
 
         /// <summary>
         /// 
@@ -111,10 +110,10 @@ namespace Engine.Geometry
                 {
                     double diameter = radius * 2;
                     //  prepare the curves.
-                    GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)), (float)bounds.Y, (float)diameter,(float) diameter, 270, 90);
-                    GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)),(float) (bounds.Y + (bounds.Height - diameter)), (float)diameter,(float) diameter, 0, 90);
-                    GfxPath.AddArc((float)bounds.X,(float) (bounds.Y + (bounds.Height - diameter)),(float) diameter, (float)diameter, 90, 90);
-                    GfxPath.AddArc((float)bounds.X,(float) bounds.Y,(float) diameter, (float)diameter, 180, 90);
+                    GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)), (float)bounds.Y, (float)diameter, (float)diameter, 270, 90);
+                    GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)), (float)(bounds.Y + (bounds.Height - diameter)), (float)diameter, (float)diameter, 0, 90);
+                    GfxPath.AddArc((float)bounds.X, (float)(bounds.Y + (bounds.Height - diameter)), (float)diameter, (float)diameter, 90, 90);
+                    GfxPath.AddArc((float)bounds.X, (float)bounds.Y, (float)diameter, (float)diameter, 180, 90);
                     //  Close the path.
                     GfxPath.CloseFigure();
                 }
@@ -132,8 +131,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "RoundRectangle";
-            return string.Format("{0}{{L={1},S={2},R={3}}}", "RoundRectangle", bounds.Location.ToString(), bounds.Size.ToString(), radius.ToString());
+            if (this == null)
+                return nameof(RoundRectangle);
+            return $"{nameof(RoundRectangle)}{{{nameof(bounds.Location)}={bounds.Location},{nameof(bounds.Size)}={bounds.Size},{nameof(Radius)}={radius}}}";
         }
     }
 }

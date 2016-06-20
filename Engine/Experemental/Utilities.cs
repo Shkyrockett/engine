@@ -139,7 +139,8 @@ namespace Engine.Geometry
         /// <param name="m"></param>
         /// <param name="M"></param>
         /// <returns></returns>
-        public static bool between(double v, double m, double M) => (m <= v && v <= M) || approximately(v, m) || approximately(v, M);
+        public static bool between(double v, double m, double M)
+            => (m <= v && v <= M) || approximately(v, m) || approximately(v, M);
 
         /// <summary>
         /// 
@@ -148,7 +149,8 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public static bool approximately(double a, double b, double precision = DoubleEpsilon) => Abs(a - b) <= precision;// (precision || epsilon);
+        public static bool approximately(double a, double b, double precision = DoubleEpsilon)
+            => Abs(a - b) <= precision;// (precision || epsilon);
 
         /// <summary>
         /// 
@@ -190,35 +192,40 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static string pointToString(Point2D p) => p.ToString();
+        public static string pointToString(Point2D p)
+            => p.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static string pointToString(Point3D p) => p.ToString();
+        public static string pointToString(Point3D p)
+            => p.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static string pointsToString(List<Point2D> points) => points.ToString();
+        public static string pointsToString(List<Point2D> points)
+            => points.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static string pointsToString(List<Point3D> points) => points.ToString();
+        public static string pointsToString(List<Point3D> points)
+            => points.ToString();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static Point3D copy(Point3D obj) => new Point3D(obj);
+        public static Point3D copy(Point3D obj)
+            => new Point3D(obj);
 
         /// <summary>
         /// 
@@ -349,7 +356,8 @@ namespace Engine.Geometry
         /// <param name="v2"></param>
         /// <returns></returns>
         // return utils.lli4(v1,v1.c,v2,v2.c);
-        public static Point3D lli(Point3D v1, Point3D v2) => lli4(v1, v1, v2, v2);
+        public static Point3D lli(Point3D v1, Point3D v2)
+            => lli4(v1, v1, v2, v2);
 
         /// <summary>
         /// 
@@ -712,8 +720,7 @@ namespace Engine.Geometry
             l = b1.y.mid;
             t = b2.y.mid;
             d = (b1.y.size + b2.y.size) / 2;
-            if (Abs(l - t) >= d) return false;
-            return true;
+            return Abs(l - t) < d;
         }
 
         /// <summary>

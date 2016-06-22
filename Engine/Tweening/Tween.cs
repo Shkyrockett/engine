@@ -12,7 +12,7 @@ using Engine.Physics;
 using System;
 using System.Collections.Generic;
 using static System.Math;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 
 namespace Engine.Tweening
 {
@@ -167,20 +167,26 @@ namespace Engine.Tweening
         /// <summary>
         /// The time remaining before the tween ends or repeats.
         /// </summary>
-        public double TimeRemaining => duration - time;
+        public double TimeRemaining
+            => duration - time;
 
         /// <summary>
         /// A value between 0 and 1, where 0 means the tween has not been started and 1 means that it has completed.
         /// </summary>
         public double Completion
         {
-            get { double c = time / duration; return c < 0 ? 0 : (c > 1 ? 1 : c); }
+            get
+            {
+                double c = time / duration;
+                return c < 0 ? 0 : (c > 1 ? 1 : c);
+            }
         }
 
         /// <summary>
         /// Whether the tween is currently looping.
         /// </summary>
-        public bool Looping => repeatCount != 0;
+        public bool Looping
+            => repeatCount != 0;
 
         /// <summary>
         /// The object this tween targets. Will be null if the tween represents a timer.
@@ -198,7 +204,7 @@ namespace Engine.Tweening
         /// <param name="to"></param>
         internal void AddLerp(Lerper lerper, GlideInfo info, object from, object to)
         {
-            varHash.Add(info.PropertyName, vars.Count);
+            varHash.Add(info.MemberName, vars.Count);
             vars.Add(info);
 
             start.Add(from);
@@ -223,15 +229,18 @@ namespace Engine.Tweening
             }
             else
             {
-                if (Paused) return;
+                if (Paused)
+                    return;
 
                 if (delay > 0)
                 {
                     delay -= elapsed;
-                    if (delay > 0) return;
+                    if (delay > 0)
+                        return;
                 }
 
-                if (Abs(time) < DoubleEpsilon && timesRepeated == 0 && begin != null) begin();
+                if (Abs(time) < DoubleEpsilon && timesRepeated == 0 && begin != null)
+                    begin();
 
                 time += elapsed;
                 double setTimeTo = time;
@@ -332,8 +341,10 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween OnBegin(Action callback)
         {
-            if (begin == null) begin = callback;
-            else begin += callback;
+            if (begin == null)
+                begin = callback;
+            else
+                begin += callback;
             return this;
         }
 
@@ -345,8 +356,10 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween OnComplete(Action callback)
         {
-            if (complete == null) complete = callback;
-            else complete += callback;
+            if (complete == null)
+                complete = callback;
+            else
+                complete += callback;
             return this;
         }
 
@@ -357,8 +370,10 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween OnUpdate(Action callback)
         {
-            if (update == null) update = callback;
-            else update += callback;
+            if (update == null)
+                update = callback;
+            else
+                update += callback;
             return this;
         }
 

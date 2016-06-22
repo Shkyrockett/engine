@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 using static System.Math;
 
 namespace Engine.Geometry

@@ -27,6 +27,7 @@ namespace Engine
         /// <param name="ellipse"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Ellipse(Ellipse ellipse, double t)
         {
             double phi = (2 * PI) * t;
@@ -48,6 +49,119 @@ namespace Engine
                 );
         }
 
+        #region Catmull-Rom Spline Interpolation
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        /// <param name="v1">The first position in the interpolation.</param>
+        /// <param name="v2">The second position in the interpolation.</param>
+        /// <param name="v3">The third position in the interpolation.</param>
+        /// <param name="v4">The fourth position in the interpolation.</param>
+        /// <param name="t">Weighting factor.</param>
+        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
+        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        public static double CatmullRom(
+            double v1,
+            double v2,
+            double v3,
+            double v4,
+            double t)
+        {
+            double tSquared = t * t;
+            double tCubed = tSquared * t;
+            return (
+                0.5d * (2d * v2
+                + (v3 - v1) * t
+                + (2d * v1 - 5d * v2 + 4d * v3 - v4) * tSquared
+                + (3d * v2 - v1 - 3.0d * v3 + v4) * tCubed));
+        }
+
+        /// <summary>
+        /// Calculates interpolated point between two points using Catmull-Rom Spline
+        /// </summary>
+        /// <param name="t0X">First Point</param>
+        /// <param name="t0Y">First Point</param>
+        /// <param name="p1X">Second Point</param>
+        /// <param name="p1Y">Second Point</param>
+        /// <param name="p2X">Third Point</param>
+        /// <param name="p2Y">Third Point</param>
+        /// <param name="t3X">Fourth Point</param>
+        /// <param name="t3Y">Fourth Point</param>
+        /// <param name="t">
+        /// Normalized distance between second and third point 
+        /// where the spline point will be calculated
+        /// </param>
+        /// <returns>
+        /// Calculated Spline Point
+        /// </returns>
+        /// <remarks>
+        /// Points calculated exist on the spline between points two and three.
+        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> CatmullRom(
+            double t0X, double t0Y,
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double t3X, double t3Y,
+            double t)
+        {
+            double tSquared = t * t;
+            double tCubed = tSquared * t;
+            return new Tuple<double, double>(
+                0.5d * (2d * p1X
+                + (-t0X + p2X) * t
+                + (2d * t0X - 5d * p1X + 4d * p2X - t3X) * tSquared
+                + (-t0X + 3d * p1X - 3d * p2X + t3X) * tCubed),
+                0.5d * (2d * p1Y
+                + (-t0Y + p2Y) * t
+                + (2d * t0Y - 5d * p1Y + 4d * p2Y - t3Y) * tSquared
+                + (-t0Y + 3d * p1Y - 3d * p2Y + t3Y) * tCubed));
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        /// <param name="x1">The first position in the interpolation.</param>
+        /// <param name="y1">The first position in the interpolation.</param>
+        /// <param name="z1">The first position in the interpolation.</param>
+        /// <param name="x2">The second position in the interpolation.</param>
+        /// <param name="y2">The second position in the interpolation.</param>
+        /// <param name="z2">The second position in the interpolation.</param>
+        /// <param name="x3">The third position in the interpolation.</param>
+        /// <param name="y3">The third position in the interpolation.</param>
+        /// <param name="z3">The third position in the interpolation.</param>
+        /// <param name="x4">The fourth position in the interpolation.</param>
+        /// <param name="y4">The fourth position in the interpolation.</param>
+        /// <param name="z4">The fourth position in the interpolation.</param>
+        /// <param name="t">Weighting factor.</param>
+        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
+        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        public static Tuple<double, double, double> CatmullRom(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double x3, double y3, double z3,
+            double x4, double y4, double z4,
+            double t)
+        {
+            double tSquared = t * t;
+            double tCubed = tSquared * t;
+            return new Tuple<double, double, double>(
+                0.5d * (2d * x2
+                + (x3 - x1) * t
+                + (2d * x1 - 5d * x2 + 4d * x3 - x4) * tSquared
+                + (3d * x2 - x1 - 3d * x3 + x4) * tCubed),
+                0.5d * (2d * x2
+                + (y3 - y1) * t
+                + (2d * y1 - 5d * y2 + 4d * y3 - y4) * tSquared
+                + (3d * y2 - y1 - 3d * y3 + y4) * tCubed),
+                0.5d * (2d * z2
+                + (z3 - z1) * t
+                + (2d * z1 - 5d * z2 + 4d * z3 - z4) * tSquared
+                + (3d * z2 - z1 - 3d * z3 + z4) * tCubed));
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="positionA"></param>
@@ -59,6 +173,7 @@ namespace Engine
         /// <remarks>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CatmullRom(
             Point2D tangentA,
             Point2D positionA,
@@ -66,13 +181,23 @@ namespace Engine
             Point2D tangentB,
             double t)
         {
-            double t2 = t * t;
-            double t3 = t2 * t;
+            double tSquared = t * t;
+            double tCubed = tSquared * t;
             return new Point2D(
-                0.5f * ((2.0f * positionA.X) + (-tangentA.X + positionB.X) * t + (2.0f * tangentA.X - 5.0f * positionA.X + 4 * positionB.X - tangentB.X) * t2 + (-tangentA.X + 3.0f * positionA.X - 3.0f * positionB.X + tangentB.X) * t3),
-                0.5f * ((2.0f * positionA.Y) + (-tangentA.Y + positionB.Y) * t + (2.0f * tangentA.Y - 5.0f * positionA.Y + 4 * positionB.Y - tangentB.Y) * t2 + (-tangentA.Y + 3.0f * positionA.Y - 3.0f * positionB.Y + tangentB.Y) * t3)
+                0.5d * (2d * positionA.X
+                + (-tangentA.X + positionB.X) * t + (2d * tangentA.X - 5d * positionA.X
+                + 4d * positionB.X - tangentB.X) * tSquared
+                + (-tangentA.X + 3d * positionA.X - 3d * positionB.X + tangentB.X) * tCubed),
+                0.5d * (2d * positionA.Y
+                + (-tangentA.Y + positionB.Y) * t + (2d * tangentA.Y - 5d * positionA.Y
+                + 4d * positionB.Y - tangentB.Y) * tSquared
+                + (-tangentA.Y + 3d * positionA.Y - 3d * positionB.Y + tangentB.Y) * tCubed)
             );
         }
+
+        #endregion
+
+        #region Cosine Interpolation
 
         /// <summary>
         /// 
@@ -82,6 +207,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosine(
             double v1,
             double v2,
@@ -101,6 +227,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Cosine(
             double x1, double y1,
             double x2, double y2,
@@ -125,6 +252,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Cosine(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -137,6 +265,10 @@ namespace Engine
                 z1 * (1 - mu2) + z2 * mu2);
         }
 
+        #endregion
+
+        #region Cubic Interpolation
+
         /// <summary>
         /// 
         /// </summary>
@@ -147,6 +279,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cubic(
             double v0,
             double v1,
@@ -179,6 +312,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Cubic(
             double x0, double y0,
             double x1, double y1,
@@ -218,6 +352,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Cubic(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
@@ -259,6 +394,7 @@ namespace Engine
         /// <remarks></remarks>
         /// <history>
         /// </history>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> CubicBezier(
             double x0, double y0,
             double x1, double y1,
@@ -283,6 +419,7 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CubicBSpline(List<Point2D> points, double t)
         {
             int n = points.Count - 1;
@@ -329,111 +466,7 @@ namespace Engine
             return (b);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        public static double CubicCatmullRomSpline(
-            double v0,
-            double v1,
-            double v2,
-            double v3,
-            double t)
-        {
-            double a0, a1, a2, a3, mu2;
-
-            mu2 = t * t;
-            a0 = -0.5 * v0 + 1.5 * v1 - 1.5 * v2 + 0.5 * v3;
-            a1 = v0 - 2.5 * v1 + 2 * v2 - 0.5 * v3;
-            a2 = -0.5 * v0 + 0.5 * v2;
-            a3 = v1;
-
-            return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        public static Tuple<double, double> CubicCatmullRomSpline(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double t)
-        {
-            double mu2 = t * t;
-
-            double aX0 = -0.5 * x0 + 1.5 * x1 - 1.5 * x2 + 0.5 * x3;
-            double aY0 = -0.5 * y0 + 1.5 * y1 - 1.5 * y2 + 0.5 * y3;
-            double aX1 = x0 - 2.5 * x1 + 2 * x2 - 0.5 * x3;
-            double aY1 = y0 - 2.5 * y1 + 2 * y2 - 0.5 * y3;
-            double aX2 = -0.5 * x0 + 0.5 * x2;
-            double aY2 = -0.5 * y0 + 0.5 * y2;
-
-            return new Tuple<double, double>(
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        public static Tuple<double, double, double> CubicCatmullRomSpline(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double t)
-        {
-            double mu2 = t * t;
-
-            double aX0 = -0.5 * x0 + 1.5 * x1 - 1.5 * x2 + 0.5 * x3;
-            double aY0 = -0.5 * y0 + 1.5 * y1 - 1.5 * y2 + 0.5 * y3;
-            double aZ0 = -0.5 * z0 + 1.5 * z1 - 1.5 * z2 + 0.5 * z3;
-            double aX1 = x0 - 2.5 * x1 + 2 * x2 - 0.5 * x3;
-            double aY1 = y0 - 2.5 * y1 + 2 * y2 - 0.5 * y3;
-            double aZ1 = z0 - 2.5 * z1 + 2 * z2 - 0.5 * z3;
-            double aX2 = -0.5 * x0 + 0.5 * x2;
-            double aY2 = -0.5 * y0 + 0.5 * y2;
-            double aZ2 = -0.5 * z0 + 0.5 * z2;
-
-            return new Tuple<double, double, double>(
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
-                aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
-        }
+        #endregion
 
         /// <summary>
         /// 
@@ -447,6 +480,7 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Hermite(
             double v0,
             double v1,
@@ -489,6 +523,7 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Hermite(
             double x0, double y0,
             double x1, double y1,
@@ -537,6 +572,7 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Hermite(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
@@ -635,6 +671,7 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezier(
             double x0,
             double x1,
@@ -659,6 +696,7 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> QuadraticBezier(
             double x0, double y0,
             double x1, double y1,
@@ -689,6 +727,7 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> QuadraticBezier(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
@@ -715,6 +754,7 @@ namespace Engine
         /// <remarks>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sine(
             double v1,
             double v2,
@@ -734,6 +774,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Sine(
             double x1, double y1,
             double x2, double y2,
@@ -758,6 +799,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Sine(
             double x1, double y1, double z1,
             double x2, double y2, double z2,

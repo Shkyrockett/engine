@@ -52,8 +52,8 @@ namespace Engine.Tweening
         {
             this.target = target;
             member = info;
-            PropertyName = info.Name;
-            PropertyType = info.PropertyType;
+            MemberName = info.Name;
+            MemberType = info.PropertyType;
         }
 
         /// <summary>
@@ -65,8 +65,21 @@ namespace Engine.Tweening
         {
             this.target = target;
             member = info;
-            PropertyName = info.Name;
-            PropertyType = info.FieldType;
+            MemberName = info.Name;
+            MemberType = info.FieldType;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="info"></param>
+        public GlideInfo(object target, MemberInfo info)
+        {
+            this.target = target;
+            member = info;
+            MemberName = info.Name;
+            MemberType = info.MemberType.GetType();
         }
 
         /// <summary>
@@ -78,17 +91,17 @@ namespace Engine.Tweening
         public GlideInfo(object target, string property, bool writeRequired = true)
         {
             this.target = target;
-            PropertyName = property;
+            MemberName = property;
 
             Type targetType = target as Type ?? target.GetType();
 
             if ((member = targetType.GetField(property, flags)) != null)
             {
-                PropertyType = (member as FieldInfo).FieldType;
+                MemberType = (member as FieldInfo).FieldType;
             }
             else if ((member = targetType.GetProperty(property, flags)) != null)
             {
-                PropertyType = (member as PropertyInfo).PropertyType;
+                MemberType = (member as PropertyInfo).PropertyType;
             }
             else
             {
@@ -104,12 +117,12 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        public string PropertyName { get; }
+        public string MemberName { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Type PropertyType { get; }
+        public Type MemberType { get; }
 
         /// <summary>
         /// 
@@ -119,8 +132,10 @@ namespace Engine.Tweening
             get { return member is FieldInfo ? (member as FieldInfo).GetValue(target) : (member as PropertyInfo).GetValue(target, null); }
             set
             {
-                if (member is FieldInfo) (member as FieldInfo).SetValue(target, value);
-                else if (member is PropertyInfo) (member as PropertyInfo).SetValue(target, value, null);
+                if (member is FieldInfo)
+                    (member as FieldInfo).SetValue(target, value);
+                else if (member is PropertyInfo)
+                    (member as PropertyInfo).SetValue(target, value, null);
             }
         }
 

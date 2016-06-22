@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 
 namespace Engine.Geometry
 {

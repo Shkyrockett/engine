@@ -1,4 +1,6 @@
-﻿namespace Engine.Physics
+﻿using Engine.Physics;
+
+namespace Engine
 {
     /// <summary>
     /// Common Physics constants. 

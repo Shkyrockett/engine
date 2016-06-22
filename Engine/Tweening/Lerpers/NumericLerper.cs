@@ -10,7 +10,7 @@
 
 using System;
 using static System.Math;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 
 namespace Engine.Tweening
 {

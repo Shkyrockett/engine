@@ -25,11 +25,6 @@ namespace Engine.Tweening
         /// <summary>
         /// 
         /// </summary>
-        private static Dictionary<Type, ConstructorInfo> registeredLerpers;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private Dictionary<object, List<Tween>> tweens;
 
         /// <summary>
@@ -47,24 +42,6 @@ namespace Engine.Tweening
         /// </summary>
         private List<Tween> allTweens;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Dictionary<object, List<Tween>> Tweens
-        {
-            get { return tweens; }
-            set { tweens = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static Dictionary<Type, ConstructorInfo> RegisteredLerpers
-        {
-            get { return registeredLerpers; }
-            set { registeredLerpers = value; }
-        }
-
         #endregion
 
         #region Constructors
@@ -75,7 +52,7 @@ namespace Engine.Tweening
         static Tweener()
         {
             // Add Numeric Lerpers.
-            registeredLerpers = new Dictionary<Type, ConstructorInfo>();
+            RegisteredLerpers = new Dictionary<Type, ConstructorInfo>();
             var numericTypes = new Type[] {
                     typeof(short),
                     typeof(int),
@@ -111,6 +88,24 @@ namespace Engine.Tweening
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Dictionary<Type, ConstructorInfo> RegisteredLerpers { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary<object, List<Tween>> Tweens
+        {
+            get { return tweens; }
+            set { tweens = value; }
+        }
+
+        #endregion
+
         /// <summary>
         /// Associate a Lerper class with a property type.
         /// </summary>
@@ -120,7 +115,7 @@ namespace Engine.Tweening
             where TLerper
             : Lerper, new()
         {
-            registeredLerpers[propertyType] = typeof(TLerper).GetConstructor(Type.EmptyTypes);
+            RegisteredLerpers[propertyType] = typeof(TLerper).GetConstructor(Type.EmptyTypes);
         }
 
         /// <summary>
@@ -163,7 +158,7 @@ namespace Engine.Tweening
                 PropertyInfo property = props[i];
                 var info = new GlideInfo(target, property.Name);
                 var to = new GlideInfo(dests, property.Name, false);
-                Lerper lerper = CreateLerper(info.PropertyType);
+                Lerper lerper = CreateLerper(info.MemberType);
 
                 tween.AddLerp(lerper, info, info.Value, to.Value);
             }
@@ -249,7 +244,7 @@ namespace Engine.Tweening
         private Lerper CreateLerper(Type propertyType)
         {
             ConstructorInfo lerper = null;
-            if (!registeredLerpers.TryGetValue(propertyType, out lerper))
+            if (!RegisteredLerpers.TryGetValue(propertyType, out lerper))
                 throw new Exception($"No {nameof(Lerper)} found for type {propertyType.FullName}.");
 
             return lerper.Invoke(null) as Lerper;

@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 using static Engine.Geometry.Utilities;
 using static System.Math;
 
@@ -375,7 +375,8 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public double length() => Utilities.length(derivative);
+        public double length()
+            => Utilities.length(derivative);
 
         /// <summary>
         /// 
@@ -471,14 +472,16 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        internal Point3D get(double t) => compute(t);
+        internal Point3D get(double t)
+            => compute(t);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="idx"></param>
         /// <returns></returns>
-        private Point3D point(int idx) => points[idx];
+        private Point3D point(int idx)
+            => points[idx];
 
         /// <summary>
         /// 

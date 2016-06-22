@@ -15,7 +15,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 using static System.Math;
 
 namespace Engine.Geometry

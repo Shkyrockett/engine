@@ -22,7 +22,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static System.Math;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 
 namespace MethodSpeedTester
 {
@@ -180,10 +180,13 @@ namespace MethodSpeedTester
         /// <remarks></remarks>
         public static double GetAngleAtan2v2(double opposite, double adjacent)
         {
-            if ((Abs(opposite) < DoubleEpsilon) && (Abs(adjacent) < DoubleEpsilon)) return 0;
+            if ((Abs(opposite) < DoubleEpsilon) && (Abs(adjacent) < DoubleEpsilon))
+                return 0;
             double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
-            if (adjacent < 0) Value = (PI - Value);
-            if (Value < 0) Value = (Value + (2 * PI));
+            if (adjacent < 0)
+                Value = (PI - Value);
+            if (Value < 0)
+                Value = (Value + (2 * PI));
             return Value;
         }
 
@@ -323,6 +326,22 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Barycentric
+
+        /// <summary>
+        /// Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.
+        /// </summary>
+        /// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
+        /// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
+        /// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
+        /// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
+        /// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
+        /// <returns>Cartesian coordinate of the specified point with respect to the axis being used.</returns>
+        public static double Barycentric(float value1, double value2, double value3, double amount1, double amount2)
+            => value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
+
+        #endregion
+
         #region Calculate Rectangular boundaries of a circle defined by three points
 
         /// <summary>
@@ -381,7 +400,8 @@ namespace MethodSpeedTester
             double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
             double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
 
-            if (Abs(determinant) < DoubleEpsilon) return null;
+            if (Abs(determinant) < DoubleEpsilon)
+                return null;
 
             double centerx = (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant;
             double centery = (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant;
@@ -393,16 +413,90 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Catmull-Rom Spline Interpolation
+        #region Catmull-Rom 1D Spline Interpolation
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(CatmullRomSplineInterpolationTests))]
-        public static List<SpeedTester> CatmullRomSplineInterpolationTests() => new List<SpeedTester> {
+        [DisplayName(nameof(CatmullRomSplineInterpolation1DTests))]
+        public static List<SpeedTester> CatmullRomSplineInterpolation1DTests()
+            => new List<SpeedTester>
+            {
+                new SpeedTester(() => CatmullRom(0, 0, 1, 1, 0.5d),
+                $"{nameof(Experiments.CatmullRom)}(0, 0, 1, 1, 0.5d)"),
+                new SpeedTester(() => CatmullRomSpline(0, 0, 1, 1, 0.5d),
+                $"{nameof(Experiments.CatmullRomSpline)}(0, 0, 1, 1, 0.5d)")
+            };
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        /// <param name="v1">The first position in the interpolation.</param>
+        /// <param name="v2">The second position in the interpolation.</param>
+        /// <param name="v3">The third position in the interpolation.</param>
+        /// <param name="v4">The fourth position in the interpolation.</param>
+        /// <param name="t">Weighting factor.</param>
+        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
+        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        public static double CatmullRom(
+            double v1,
+            double v2,
+            double v3,
+            double v4,
+            double t)
+        {
+            double tSquared = t * t;
+            double tCubed = tSquared * t;
+            return (
+                0.5d * (2d * v2
+                + (v3 - v1) * t
+                + (2d * v1 - 5d * v2 + 4d * v3 - v4) * tSquared
+                + (3d * v2 - v1 - 3.0d * v3 + v4) * tCubed));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v0"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double CatmullRomSpline(
+            double v0,
+            double v1,
+            double v2,
+            double v3,
+            double t)
+        {
+            double mu2 = t * t;
+            double a0 = -0.5 * v0 + 1.5 * v1 - 1.5 * v2 + 0.5 * v3;
+            double a1 = v0 - 2.5 * v1 + 2 * v2 - 0.5 * v3;
+            double a2 = -0.5 * v0 + 0.5 * v2;
+            double a3 = v1;
+            return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
+        }
+
+        #endregion
+
+        #region Catmull-Rom 2D Spline Interpolation
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(CatmullRomSplineInterpolation2DTests))]
+        public static List<SpeedTester> CatmullRomSplineInterpolation2DTests()
+            => new List<SpeedTester>
+            {
                 new SpeedTester(() => InterpolateCatmullRom(0, 0, 0, 1, 1, 1, 1, 0, 0.5d),
-                $"{nameof(Experiments.InterpolateCatmullRom)}(0, 0, 0, 1, 1, 1, 1, 0, 0.5d)")
+                $"{nameof(Experiments.InterpolateCatmullRom)}(0, 0, 0, 1, 1, 1, 1, 0, 0.5d)"),
+                new SpeedTester(() => CatmullRomSpline(0, 0, 0, 1, 1, 1, 1, 0, 0.5d),
+                $"{nameof(Experiments.CatmullRomSpline)}(0, 0, 0, 1, 1, 1, 1, 0, 0.5d)")
            };
 
         /// <summary>
@@ -434,12 +528,149 @@ namespace MethodSpeedTester
             double t3X, double t3Y,
             double t)
         {
-            double t2 = t * t;
-            double t3 = t2 * t;
+            double tSquared = t * t;
+            double tCubed = tSquared * t;
+            return new Tuple<double, double>(
+                0.5d * (2d * p1X
+                + (-t0X + p2X) * t
+                + (2d * t0X - 5d * p1X + 4d * p2X - t3X) * tSquared
+                + (-t0X + 3d * p1X - 3d * p2X + t3X) * tCubed),
+                0.5d * (2d * p1Y
+                + (-t0Y + p2Y) * t
+                + (2d * t0Y - 5d * p1Y + 4d * p2Y - t3Y) * tSquared
+                + (-t0Y + 3d * p1Y - 3d * p2Y + t3Y) * tCubed));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> CatmullRomSpline(
+            double x0, double y0,
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double t)
+        {
+            double mu2 = t * t;
+
+            double aX0 = -0.5 * x0 + 1.5 * x1 - 1.5 * x2 + 0.5 * x3;
+            double aY0 = -0.5 * y0 + 1.5 * y1 - 1.5 * y2 + 0.5 * y3;
+            double aX1 = x0 - 2.5 * x1 + 2 * x2 - 0.5 * x3;
+            double aY1 = y0 - 2.5 * y1 + 2 * y2 - 0.5 * y3;
+            double aX2 = -0.5 * x0 + 0.5 * x2;
+            double aY2 = -0.5 * y0 + 0.5 * y2;
 
             return new Tuple<double, double>(
-                0.5d * ((2d * p1X) + (-t0X + p2X) * t + (2d * t0X - 5d * p1X + 4d * p2X - t3X) * t2 + (-t0X + 3d * p1X - 3d * p2X + t3X) * t3),
-                0.5d * ((2d * p1Y) + (-t0Y + p2Y) * t + (2d * t0Y - 5d * p1Y + 4d * p2Y - t3Y) * t2 + (-t0Y + 3d * p1Y - 3d * p2Y + t3Y) * t3));
+                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
+                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
+        }
+
+        #endregion
+
+        #region Catmull-Rom 3D Spline Interpolation
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(CatmullRomSplineInterpolation3DTests))]
+        public static List<SpeedTester> CatmullRomSplineInterpolation3DTests()
+            => new List<SpeedTester>
+            {
+                new SpeedTester(() => CatmullRom(0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0.5d),
+                $"{nameof(Experiments.CatmullRom)}(0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0.5d)"),
+                new SpeedTester(() => CatmullRomSpline(0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0.5d),
+                $"{nameof(Experiments.CatmullRomSpline)}(0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0.5d)")
+           };
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        /// <param name="x1">The first position in the interpolation.</param>
+        /// <param name="x2">The second position in the interpolation.</param>
+        /// <param name="x3">The third position in the interpolation.</param>
+        /// <param name="x4">The fourth position in the interpolation.</param>
+        /// <param name="t">Weighting factor.</param>
+        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
+        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        public static Tuple<double, double, double> CatmullRom(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double x3, double y3, double z3,
+            double x4, double y4, double z4,
+            double t)
+        {
+            double tSquared = t * t;
+            double tCubed = tSquared * t;
+            return new Tuple<double, double, double>(
+                0.5d * (2d * x2
+                + (x3 - x1) * t
+                + (2d * x1 - 5d * x2 + 4d * x3 - x4) * tSquared
+                + (3d * x2 - x1 - 3d * x3 + x4) * tCubed),
+                0.5d * (2d * x2
+                + (y3 - y1) * t
+                + (2d * y1 - 5d * y2 + 4d * y3 - y4) * tSquared
+                + (3d * y2 - y1 - 3d * y3 + y4) * tCubed),
+                0.5d * (2d * z2
+                + (z3 - z1) * t
+                + (2d * z1 - 5d * z2 + 4d * z3 - z4) * tSquared
+                + (3d * z2 - z1 - 3d * z3 + z4) * tCubed));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="z0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="z3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double, double> CatmullRomSpline(
+            double x0, double y0, double z0,
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double x3, double y3, double z3,
+            double t)
+        {
+            double mu2 = t * t;
+
+            double aX0 = -0.5 * x0 + 1.5 * x1 - 1.5 * x2 + 0.5 * x3;
+            double aY0 = -0.5 * y0 + 1.5 * y1 - 1.5 * y2 + 0.5 * y3;
+            double aZ0 = -0.5 * z0 + 1.5 * z1 - 1.5 * z2 + 0.5 * z3;
+            double aX1 = x0 - 2.5 * x1 + 2 * x2 - 0.5 * x3;
+            double aY1 = y0 - 2.5 * y1 + 2 * y2 - 0.5 * y3;
+            double aZ1 = z0 - 2.5 * z1 + 2 * z2 - 0.5 * z3;
+            double aX2 = -0.5 * x0 + 0.5 * x2;
+            double aY2 = -0.5 * y0 + 0.5 * y2;
+            double aZ2 = -0.5 * z0 + 0.5 * z2;
+
+            return new Tuple<double, double, double>(
+                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
+                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
+                aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
         }
 
         #endregion
@@ -502,7 +733,8 @@ namespace MethodSpeedTester
             double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
             double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
 
-            if (Abs(determinant) < DoubleEpsilon) return null;
+            if (Abs(determinant) < DoubleEpsilon)
+                return null;
 
             double centerx = (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant;
             double centery = (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant;
@@ -707,6 +939,20 @@ namespace MethodSpeedTester
                 y1 * (1 - mu2) + y2 * mu2,
                 z1 * (1 - mu2) + z2 * mu2);
         }
+
+        #endregion
+
+        #region Clamp a value between a minimum and a maximum
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        public static double Clamp(double value, double min, double max)
+            => value > max ? max : value < min ? min : value;
 
         #endregion
 
@@ -3016,7 +3262,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
             double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
 
-            if (Abs(determinant) < DoubleEpsilon) return null;
+            if (Abs(determinant) < DoubleEpsilon)
+                return null;
 
             return new Tuple<double, double>(
                 (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant,
@@ -3045,7 +3292,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 b = (a + 1) % num_points;
                 c = (b + 1) % num_points;
 
-                if (FormsEar(polygon, a, b, c)) return new Triangle(polygon.Points[a], polygon.Points[b], polygon.Points[c]);
+                if (FormsEar(polygon, a, b, c))
+                    return new Triangle(polygon.Points[a], polygon.Points[b], polygon.Points[c]);
             }
 
             // We should never get here because there should
@@ -3182,8 +3430,10 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
             // Set theta for the beginning of the first tooth.
             double theta;
-            if (start_with_tooth) theta = dtheta / 2;
-            else theta = -dtheta / 2;
+            if (start_with_tooth)
+                theta = dtheta / 2;
+            else
+                theta = -dtheta / 2;
 
             // Make rectangles to represent the gear's inner and outer arcs.
             var inner_rect = new Rectangle2D(
@@ -3255,10 +3505,14 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 double wymax = wymin;
                 foreach (Point2D point in points)
                 {
-                    if (wxmin > point.X) wxmin = point.X;
-                    if (wxmax < point.X) wxmax = point.X;
-                    if (wymin > point.Y) wymin = point.Y;
-                    if (wymax < point.Y) wymax = point.Y;
+                    if (wxmin > point.X)
+                        wxmin = point.X;
+                    if (wxmax < point.X)
+                        wxmax = point.X;
+                    if (wymin > point.Y)
+                        wymin = point.Y;
+                    if (wymax < point.Y)
+                        wymax = point.Y;
                 }
 
                 // Make the world coordinate rectangle.
@@ -3376,9 +3630,12 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(HermiteInterpolate1DTests))]
-        public static List<SpeedTester> HermiteInterpolate1DTests() => new List<SpeedTester> {
+        public static List<SpeedTester> HermiteInterpolate1DTests()
+            => new List<SpeedTester> {
                 new SpeedTester(() => HermiteInterpolate1D(0, 1, 2, 3, 0.5d, 1, 0),
-                $"{nameof(Experiments.HermiteInterpolate1D)}(0, 1, 2, 3, 0.5d, 1, 0)")
+                $"{nameof(Experiments.HermiteInterpolate1D)}(0, 1, 2, 3, 0.5d, 1, 0)"),
+                new SpeedTester(() => Hermite(0, 1, 2, 3, 0.5d),
+                $"{nameof(Experiments.Hermite)}(0, 1, 2, 3, 0.5d)")
             };
 
         /// <summary>
@@ -3388,7 +3645,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="v3"></param>
-        /// <param name="mu"></param>
+        /// <param name="s"></param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
@@ -3398,23 +3655,52 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double v1,
             double v2,
             double v3,
-            double mu, double tension, double bias)
+            double s, double tension, double bias)
         {
-            double m0, m1, mu2, mu3;
-            double a0, a1, a2, a3;
-
-            mu2 = mu * mu;
-            mu3 = mu2 * mu;
-            m0 = (v1 - v0) * (1 + bias) * (1 - tension) / 2;
+            double sSquared = s * s;
+            double sCubed = sSquared * s;
+            double m0 = (v1 - v0) * (1 + bias) * (1 - tension) / 2;
             m0 += (v2 - v1) * (1 - bias) * (1 - tension) / 2;
-            m1 = (v2 - v1) * (1 + bias) * (1 - tension) / 2;
+            double m1 = (v2 - v1) * (1 + bias) * (1 - tension) / 2;
             m1 += (v3 - v2) * (1 - bias) * (1 - tension) / 2;
-            a0 = 2 * mu3 - 3 * mu2 + 1;
-            a1 = mu3 - 2 * mu2 + mu;
-            a2 = mu3 - mu2;
-            a3 = -2 * mu3 + 3 * mu2;
+            double a0 = 2 * sCubed - 3 * sSquared + 1;
+            double a1 = sCubed - 2 * sSquared + s;
+            double a2 = sCubed - sSquared;
+            double a3 = -2 * sCubed + 3 * sSquared;
 
             return (a0 * v1 + a1 * m0 + a2 * m1 + a3 * v2);
+        }
+
+        /// <summary>
+        /// Performs a Hermite spline interpolation.
+        /// </summary>
+        /// <param name="v1">Source position.</param>
+        /// <param name="t1">Source tangent.</param>
+        /// <param name="v2">Source position.</param>
+        /// <param name="t2">Source tangent.</param>
+        /// <param name="s">Weighting factor.</param>
+        /// <returns>The result of the Hermite spline interpolation.</returns>
+        public static double Hermite(
+            double v1,
+            double t1,
+            double v2,
+            double t2,
+            double s)
+        {
+            double result;
+            double sSquared = s * s;
+            double sCubed = sSquared * s;
+
+            if (s == 0f)
+                result = v1;
+            else if (s == 1f)
+                result = v2;
+            else
+                result = (2 * v1 - 2 * v2 + t2 + t1) * sCubed
+                    + (3 * v2 - 3 * v1 - 2 * t1 - t2) * sSquared
+                    + t1 * s
+                    + v1;
+            return result;
         }
 
         #endregion
@@ -3426,7 +3712,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(HermiteInterpolate2DTests))]
-        public static List<SpeedTester> HermiteInterpolate2DTests() => new List<SpeedTester> {
+        public static List<SpeedTester> HermiteInterpolate2DTests()
+            => new List<SpeedTester> {
                 new SpeedTester(() => HermiteInterpolate2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d, 1, 0),
                 $"{nameof(Experiments.HermiteInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d, 1, 0)")
             };
@@ -3844,9 +4131,12 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double F = ((XA - ellipseB.Center.X) + Pow(YB - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
             double g = ((XB - ellipseB.Center.X) + Pow(YC - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
             double H = ((XB - ellipseB.Center.X) + Pow(YD - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius);
-            if (Abs(F) < Abs(e)) YA = YB;
-            if (Abs(H) < Abs(g)) YC = YD;
-            if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < DoubleEpsilon) YC = 2 * ellipseA.Center.Y - YA;
+            if (Abs(F) < Abs(e))
+                YA = YB;
+            if (Abs(H) < Abs(g))
+                YC = YD;
+            if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < DoubleEpsilon)
+                YC = 2 * ellipseA.Center.Y - YA;
             return new LineSegment(XA, YA, XB, YC);
         }
 
@@ -3910,7 +4200,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             eis.RootSign1 = new List<double>();
             eis.RootSign2 = new List<double>();
 
-            if (!eis.GotEllipse1 || !eis.GotEllipse2) return;
+            if (!eis.GotEllipse1 || !eis.GotEllipse2)
+                return;
 
             // Find roots for each of the difference equations.
             double[] signs = { +1f, -1f };
@@ -3960,7 +4251,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             eis.RootSign1 = new List<double>();
             eis.RootSign2 = new List<double>();
 
-            if (!eis.GotEllipse1 || !eis.GotEllipse2) return;
+            if (!eis.GotEllipse1 || !eis.GotEllipse2)
+                return;
 
             // Find roots for each of the difference equations.
             double[] signs = { +1f, -1f };
@@ -4055,7 +4347,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         roots.Add(new Point2D(x, y));
 
                         // If we've found two roots, we won't find any more.
-                        if (roots.Count > 1) return roots;
+                        if (roots.Count > 1)
+                            return roots;
                     }
                 }
 
@@ -4123,7 +4416,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         roots.Add(new Point2D(x, y));
 
                         // If we've found two roots, we won't find any more.
-                        if (roots.Count > 1) return roots;
+                        if (roots.Count > 1)
+                            return roots;
                     }
                 }
 
@@ -4253,10 +4547,14 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
             // Get the sign of the values.
             int sgn_min, sgn_max;
-            if (IsNumber(g_xmin)) sgn_min = Sign(g_xmin);
-            else sgn_min = sgn_nan;
-            if (IsNumber(g_xmax)) sgn_max = Sign(g_xmax);
-            else sgn_max = sgn_nan;
+            if (IsNumber(g_xmin))
+                sgn_min = Sign(g_xmin);
+            else
+                sgn_min = sgn_nan;
+            if (IsNumber(g_xmax))
+                sgn_max = Sign(g_xmax);
+            else
+                sgn_max = sgn_nan;
 
             // If the two values have the same sign,
             // then there is no root here.
@@ -4277,11 +4575,14 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 g_xmid = G(xmid,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
-                if (IsNumber(g_xmid)) sgn_mid = Sign(g_xmid);
-                else sgn_mid = sgn_nan;
+                if (IsNumber(g_xmid))
+                    sgn_mid = Sign(g_xmid);
+                else
+                    sgn_mid = sgn_nan;
 
                 // If sgn_mid is 0, gxmid is 0 so this is the root.
-                if (sgn_mid == 0) break;
+                if (sgn_mid == 0)
+                    break;
 
                 // See which half contains the root.
                 if (sgn_mid == sgn_min)
@@ -4367,12 +4668,14 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             for (double x = xmin; x <= xmax; x++)
             {
                 double y = G1(a, b, c, d, e, f, x, +1f);
-                if (IsNumber(y)) points.Add(new Point2D(x, y));
+                if (IsNumber(y))
+                    points.Add(new Point2D(x, y));
             }
             for (double x = xmax; x >= xmin; x--)
             {
                 double y = G1(a, b, c, d, e, f, x, -1f);
-                if (IsNumber(y)) points.Add(new Point2D(x, y));
+                if (IsNumber(y))
+                    points.Add(new Point2D(x, y));
             }
             return points;
         }
@@ -4421,7 +4724,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         if (IsNumber(y1))
                         {
                             double y2 = G1(A2, B2, C2, D2, E2, F2, x, sign2);
-                            if (IsNumber(y2)) points.Add(new Point2D(x, y1 - y2));
+                            if (IsNumber(y2))
+                                points.Add(new Point2D(x, y1 - y2));
                         }
                     }
                 }
@@ -4441,7 +4745,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             eis.TangentP1 = new List<Point2D>();
             eis.TangentP2 = new List<Point2D>();
 
-            if (!eis.GotEllipse1 || !eis.GotEllipse2) return;
+            if (!eis.GotEllipse1 || !eis.GotEllipse2)
+                return;
 
             const double tangent_length = 50;
 
@@ -4770,7 +5075,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double deltaCAJ = (y3 - y1);
 
             //  If the segments are parallel return false.
-            if (Abs((deltaDCI * deltaBAJ) - (deltaDCJ * deltaBAI)) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
+            if (Abs((deltaDCI * deltaBAJ) - (deltaDCJ * deltaBAI)) < DoubleEpsilon)
+                return new Tuple<bool, Tuple<double, double>>(false, null);
 
             // Find the index where the intersection point lies on the line.
             double s = (((deltaBAI * deltaCAJ) + (deltaBAJ * -deltaCAI)) / ((deltaDCI * deltaBAJ) - (deltaDCJ * deltaBAI)));
@@ -4812,7 +5118,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double determinant = (deltaAJ * deltaBJ) - (deltaBI * deltaAI);
 
             // Check if the lines are parallel.
-            if (Abs(determinant) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
+            if (Abs(determinant) < DoubleEpsilon)
+                return new Tuple<bool, Tuple<double, double>>(false, null);
 
             // Find the index where the intersection point lies on the line.
             double s = (deltaAJ * x1 + deltaAI * y1) / -determinant;
@@ -4855,7 +5162,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double determinant = (deltaBJ * deltaAI) - (deltaBI * deltaAJ);
 
             // Check if the line are parallel.
-            if (Abs(determinant) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
+            if (Abs(determinant) < DoubleEpsilon)
+                return new Tuple<bool, Tuple<double, double>>(false, null);
 
             // Find the index where the intersection point lies on the line.
             double s = ((x1 - x3) * deltaAJ + (y3 - y1) * deltaAI) / -determinant;
@@ -4897,7 +5205,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double determinant = (deltaBI * deltaAJ) - (deltaBJ * deltaAI);
 
             // Check if the lines are parallel.
-            if (Abs(determinant) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
+            if (Abs(determinant) < DoubleEpsilon)
+                return new Tuple<bool, Tuple<double, double>>(false, null);
 
             // Find the index where the intersection point lies on the line.
             double s = ((x3 - x1) * deltaAJ + (y1 - y3) * deltaAI) / -determinant;
@@ -4951,7 +5260,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double slope2 = (Abs(x4 - x3) < DoubleEpsilon) ? SlopeMax : (y4 - y3) / (x4 - x3);
 
             // Check if the lines are parallel.
-            if (Abs(slope1 - slope2) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
+            if (Abs(slope1 - slope2) < DoubleEpsilon)
+                return new Tuple<bool, Tuple<double, double>>(false, null);
 
             // Compute the determinate of the coefficient matrix.
             double determinate = slope2 - slope1;
@@ -4987,10 +5297,12 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double dotPerp = (direction1I * direction2J) - (direction1J * direction2I);
 
             // Check if the lines are parallel.
-            if (Abs(dotPerp) < DoubleEpsilon) return new Tuple<bool, Tuple<double, double>>(false, null);
+            if (Abs(dotPerp) < DoubleEpsilon)
+                return new Tuple<bool, Tuple<double, double>>(false, null);
 
             // If it's 0, it means the lines are parallel so have infinite intersection points
-            if (NearZero0(dotPerp)) return null;
+            if (NearZero0(dotPerp))
+                return null;
 
             double cI = x2 - x0;
             double cJ = y2 - y0;
@@ -5041,8 +5353,10 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         polygon.Points[C].X, polygon.Points[C].Y);
                 if (cross_product < 0)
                     got_negative = true;
-                else got_positive |= cross_product > 0;
-                if (got_negative && got_positive) return false;
+                else
+                    got_positive |= cross_product > 0;
+                if (got_negative && got_positive)
+                    return false;
             }
 
             // If we got this far, the polygon is convex.
@@ -5372,7 +5686,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             for (i = 0; i < polygon.Points.Count; i++)
             {
                 j = i + 1;
-                if (j == polygon.Points.Count) j = 0;
+                if (j == polygon.Points.Count)
+                    j = 0;
 
                 sX = polygon.Points[i].X - start.X;
                 sY = polygon.Points[i].Y - start.Y;
@@ -5398,7 +5713,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 || rotEY < 0d && rotSY > 0d)
                 {
                     crossX = rotSX + (rotEX - rotSX) * (0d - rotSY) / (rotEY - rotSY);
-                    if (crossX >= 0.0 && crossX <= dist) return false;
+                    if (crossX >= 0.0 && crossX <= dist)
+                        return false;
                 }
 
                 if (Abs(rotSY) < DoubleEpsilon
@@ -5440,7 +5756,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             int i, j, polyI;
 
             end.X -= start.X;
-            end.Y -= start.Y; dist = Sqrt(end.X * end.X + end.Y * end.Y);
+            end.Y -= start.Y;
+            dist = Sqrt(end.X * end.X + end.Y * end.Y);
             theCos = end.X / dist;
             theSin = end.Y / dist;
 
@@ -5449,7 +5766,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 for (i = 0; i < allPolys.Polygons[polyI].Points.Count; i++)
                 {
                     j = i + 1;
-                    if (j == allPolys.Polygons[polyI].Points.Count) j = 0;
+                    if (j == allPolys.Polygons[polyI].Points.Count)
+                        j = 0;
 
                     sX = allPolys.Polygons[polyI].Points[i].X - start.X;
                     sY = allPolys.Polygons[polyI].Points[i].Y - start.Y;
@@ -5476,7 +5794,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                     || rotEY < 0d && rotSY > 0d)
                     {
                         crossX = rotSX + (rotEX - rotSX) * (0d - rotSY) / (rotEY - rotSY);
-                        if (crossX >= 0d && crossX <= dist) return false;
+                        if (crossX >= 0d && crossX <= dist)
+                            return false;
                     }
 
                     if (Abs(rotSY) < DoubleEpsilon
@@ -5807,7 +6126,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         // Draw the stars. 
         private void picCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
         {
-            if (NumPoints < 3) return;
+            if (NumPoints < 3)
+                return;
 
             // Get the radii.
             int r1, r2, r3;
@@ -5836,7 +6156,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
             // Draw stars.
             int max = NumPoints - 1;
-            if (chkHalfOnly) max = NumPoints / 2;
+            if (chkHalfOnly)
+                max = NumPoints / 2;
             for (int skip = 1; skip <= max; skip++)
             {
                 // See if they are relatively prime.
@@ -5865,7 +6186,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             for (;;)
             {
                 remainder = a % b;
-                if (remainder == 0) break;
+                if (remainder == 0)
+                    break;
                 a = b;
                 b = remainder;
             }
@@ -6159,9 +6481,11 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double y)
         {
             double dx = Abs(x - centerX);
-            if (dx > radius) return Inclusion.Outside;
+            if (dx > radius)
+                return Inclusion.Outside;
             double dy = Abs(y - centerY);
-            if (dy > radius) return Inclusion.Outside;
+            if (dy > radius)
+                return Inclusion.Outside;
             //if (dx + dy <= radius) return InsideOutside.Inside;
             double distanceSquared = dx * dx + dy * dy;
             double radiusSquared = radius * radius;
@@ -6245,7 +6569,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             {
                 double dx = ((centerX > x) ? (x - centerX) : (centerX - x));
                 double dy = ((centerY > y) ? (y - centerY) : (centerY - y));
-                if (dx > radius || dy > radius) return Inclusion.Outside;
+                if (dx > radius || dy > radius)
+                    return Inclusion.Outside;
                 dx *= dx;
                 dy *= dy;
                 double distanceSquared = dx + dy;
@@ -6272,7 +6597,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         [DebuggerStepThrough]
         public static Inclusion PointInEllipse(Ellipse ellipse, Point2D point)
         {
-            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return Inclusion.Outside;
+            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d)
+                return Inclusion.Outside;
 
             double cosT = Cos(-ellipse.Angle);
             double sinT = Sin(-ellipse.Angle);
@@ -6304,7 +6630,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <returns></returns>
         public static bool UnrotatedEllipseContainsPoint(Ellipse ellipse, Point2D point)
         {
-            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d) return false;
+            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d)
+                return false;
 
             double u = point.X - ellipse.Center.X;
             double v = point.Y - ellipse.Center.Y;
@@ -6598,7 +6925,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         public static Tuple<List<double>, List<double>> PrecalcPointInPolygonPatrickMullenValues(
             List<PointF> polygon)
         {
-            if (polygon == null) return null;
+            if (polygon == null)
+                return null;
 
             var constant = new double[polygon.Count];
             var multiple = new double[polygon.Count];
@@ -6853,7 +7181,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                             if (Abs(p1.Y - p2.Y) > DoubleEpsilon)
                             {
                                 xinters = (point.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y) + p1.X;
-                                if (Abs(p1.X - p2.X) < DoubleEpsilon || point.X <= xinters) counter++;
+                                if (Abs(p1.X - p2.X) < DoubleEpsilon || point.X <= xinters)
+                                    counter++;
                             }
                         }
                     }
@@ -6903,10 +7232,12 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 - (p.Y - polygon[i].Y) * (point.X - polygon[i].X)
                 ).ToList();
 
-            if (coef.Any(p => Abs(p) < DoubleEpsilon)) return true;
+            if (coef.Any(p => Abs(p) < DoubleEpsilon))
+                return true;
 
             for (int i = 1; i < coef.Count; i++)
-                if (coef[i] * coef[i - 1] < 0) return false;
+                if (coef[i] * coef[i - 1] < 0)
+                    return false;
 
             return true;
         }
@@ -7013,7 +7344,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
             bool inside = false;
 
-            if (polygon.Count < 3) return inside;
+            if (polygon.Count < 3)
+                return inside;
 
             PointF oldPoint = polygon[polygon.Count - 1];
 
@@ -7109,7 +7441,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             Inclusion result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
-            if (polygon.Count < 3) return Inclusion.Outside;
+            if (polygon.Count < 3)
+                return Inclusion.Outside;
             PointF curPoint = polygon[0];
             for (int i = 1; i <= polygon.Count; ++i)
             {
@@ -7137,7 +7470,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                             double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                             if (Abs(determinant) < DoubleEpsilon)
                                 return Inclusion.Boundary;
-                            if ((determinant > 0d) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                            if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
+                                result = 1 - result;
                         }
                     }
                     else if (nextPoint.X > point.X)
@@ -7145,7 +7479,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                         double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
                         if (Abs(determinant) < DoubleEpsilon)
                             return Inclusion.Boundary;
-                        if ((determinant > 0d) == (nextPoint.Y > curPoint.Y)) result = 1 - result;
+                        if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
+                            result = 1 - result;
                     }
                 }
 
@@ -7169,7 +7504,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             Inclusion result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
-            if (polygon.Count < 3) return Inclusion.Outside;
+            if (polygon.Count < 3)
+                return Inclusion.Outside;
             PointF curPoint = polygon[0];
             PointF nextPoint = polygon[1];
             for (int i = 1; i <= polygon.Count; ++i)
@@ -7242,7 +7578,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 for (int i = 0; i < polygons.Polygons[polyI].Points.Count; i++)
                 {
                     j = i + 1;
-                    if (j == polygons.Polygons[polyI].Points.Count) j = 0;
+                    if (j == polygons.Polygons[polyI].Points.Count)
+                        j = 0;
                     if (polygons.Polygons[polyI].Points[i].Y < point.Y
                     && polygons.Polygons[polyI].Points[j].Y >= point.Y
                     || polygons.Polygons[polyI].Points[j].Y < point.Y
@@ -7632,6 +7969,18 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
         public static bool PolygonIsOrientedClockwise(Polygon polygon) => (SignedPolygonArea(polygon) < 0);
+
+        #endregion
+
+        #region Power of Two
+
+        /// <summary>
+        /// Determines if value is powered by two.
+        /// </summary>
+        /// <param name="value">A value.</param>
+        /// <returns><c>true</c> if <c>value</c> is powered by two; otherwise <c>false</c>.</returns>
+        public static bool IsPowerOfTwo(int value)
+            => (value > 0) && ((value & (value - 1)) == 0);
 
         #endregion
 
@@ -8448,6 +8797,28 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
         #endregion
 
+        #region Smooth Step
+
+        /// <summary>
+        /// Interpolates between two values using a cubic equation.
+        /// </summary>
+        /// <param name="value1">Source value.</param>
+        /// <param name="value2">Source value.</param>
+        /// <param name="amount">Weighting value.</param>
+        /// <returns>Interpolated value.</returns>
+        public static double SmoothStep(double value1, double value2, double amount)
+        {
+            // It is expected that 0 < amount < 1
+            // If amount < 0, return value1
+            // If amount > 1, return value2
+            double result = Clamp(amount, 0f, 1f);
+            result = Hermite(value1, 0f, value2, 0f, result);
+
+            return result;
+        }
+
+        #endregion
+
         #region Squared Distance Between Two 2D Points
 
         /// <summary>
@@ -8573,13 +8944,16 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                             newDist = pointList[i].TotalDistance + Primitives.Distance((Point2D)pointList[i], (Point2D)pointList[j]);
                             if (newDist < bestDist)
                             {
-                                bestDist = newDist; bestI = i; bestJ = j;
+                                bestDist = newDist;
+                                bestI = i;
+                                bestJ = j;
                             }
                         }
                     }
                 }
 
-                if (Abs(bestDist - maxLength) < DoubleEpsilon) return null;   //  (no solution)
+                if (Abs(bestDist - maxLength) < DoubleEpsilon)
+                    return null;   //  (no solution)
                 pointList[bestJ].Previous = bestI;
                 pointList[bestJ].TotalDistance = bestDist;
 
@@ -8695,13 +9069,16 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                             newDist = pointList[ti].TotalDistance + Primitives.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
                             {
-                                bestDist = newDist; bestI = ti; bestJ = tj;
+                                bestDist = newDist;
+                                bestI = ti;
+                                bestJ = tj;
                             }
                         }
                     }
                 }
 
-                if (Abs(bestDist - maxLength) < DoubleEpsilon) return null;   //  (no solution)
+                if (Abs(bestDist - maxLength) < DoubleEpsilon)
+                    return null;   //  (no solution)
                 pointList[bestJ].Previous = bestI;
                 pointList[bestJ].TotalDistance = bestDist;
 
@@ -8820,11 +9197,68 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         public static bool AreClose(double value1, double value2, double epsilon = DoubleEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
-            if (Abs(value1 - value2) < DoubleEpsilon) return true;
+            if (Abs(value1 - value2) < DoubleEpsilon)
+                return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             double eps = (Abs(value1) + Abs(value2) + 10d) * epsilon;
             double delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
+        }
+
+        #endregion
+
+        #region Wrap Angle
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(WrapAngleTests))]
+        public static List<SpeedTester> WrapAngleTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => WrapAngle0(45d.ToRadians()),
+                $"{nameof(Experiments.WrapAngle0)}(45d.ToRadians())"),
+                 new SpeedTester(() => WrapAngle1(45d.ToRadians()),
+                $"{nameof(Experiments.WrapAngle1)}(45d.ToRadians())"),
+                 new SpeedTester(() => WrapAngle2(45d.ToRadians()),
+                $"{nameof(Experiments.WrapAngle2)}(45d.ToRadians())")
+           };
+
+        /// <summary>
+        /// Reduces a given angle to a value between π and -π.
+        /// </summary>
+        /// <param name="angle">The angle to reduce, in radians.</param>
+        /// <returns>The new angle, in radians.</returns>
+        public static double WrapAngle0(double angle)
+        {
+            double test = IEEERemainder(angle, Tau);
+            return (test <= -PI) ? test + Tau : test - Tau;
+        }
+
+        /// <summary>
+        /// Reduces a given angle to a value between π and -π.
+        /// </summary>
+        /// <param name="angle">The angle to reduce, in radians.</param>
+        /// <returns>The new angle, in radians.</returns>
+        public static double WrapAngle1(double angle)
+        {
+            double test = IEEERemainder(angle, Tau);
+            if (test <= -PI)
+                test += Tau;
+            else if (test > PI)
+                test -= Tau;
+            return test;
+        }
+
+        /// <summary>
+        /// Reduces a given angle to a value between π and -π.
+        /// </summary>
+        /// <param name="angle">The angle to reduce, in radians.</param>
+        /// <returns>The new angle, in radians.</returns>
+        public static double WrapAngle2(double angle)
+        {
+            double test = angle % Tau;
+            return (test <= -PI) ? test + Tau : test - Tau;
         }
 
         #endregion

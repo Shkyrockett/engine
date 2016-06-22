@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,319 +17,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Extended Math processing library.
     /// </summary>
-    public static class Maths
+    public static partial class Maths
     {
-        #region Constants
-
-        /// <summary>
-        /// Smallest such that 1.0+DBL_EPSILON != 1.0
-        /// </summary>
-        public const double DoubleEpsilon = 2.2204460492503131e-016d;
-
-        /// <summary>
-        /// Smallest such that 1.0+FLT_EPSILON != 1.0
-        /// </summary>
-        public const float FloatEpsilon = 1.192092896e-07f;
-
-        ///// <summary>
-        ///// float precision significant decimal
-        ///// </summary>
-        //const double FloatEpsilon = 0.000001d;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const double NearZeroEpsilon = 1E-20;
-
-        /// <summary>
-        /// Number close to zero, where float.MinValue is -float.MaxValue
-        /// </summary>
-        public const float FloatMin = 1.175494351e-38f;
-
-        /// <summary>
-        /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data 
-        /// type). Used in the Slope of a LineSeg
-        /// </summary>
-        /// <remarks></remarks>
-        public const double SlopeMax = 9223372036854775807d;
-        //public const double SlopeMax = double.PositiveInfinity;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static double DoubleRoundLimit = 1E+16;
-
-        /// <summary>
-        /// Represents the ratio of the circumference of a circle to its radius, specified
-        /// by the proposed constant, τ.
-        /// One Tau or double Pi.
-        /// </summary>
-        /// <value>≈6.28318...</value>
-        public const double Tau = 2d * PI;
-
-        /// <summary>
-        /// Represents the ratio of the circumference of a circle to its radius, specified
-        /// by the proposed constant, τ.
-        /// One Tau or double Pi.
-        /// </summary>
-        /// <value>≈6.28318...</value>
-        public static readonly double Τ = Tau;
-
-        /// <summary>
-        /// PI * 2
-        /// </summary>
-        /// <remarks></remarks>
-        public const double DoublePi = Tau;
-
-        ///// <summary>
-        ///// Represents the ratio of the circumference of a circle to its diameter, specified
-        ///// by the constant, π.
-        ///// One half Tau or One Pi.
-        ///// </summary>
-        ///// <value>≈3.1415926535897931...</value>
-        //public const double PI = Math.PI;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const double Π = PI;
-
-        /// <summary>
-        /// One half Tau or One Pi.
-        /// </summary>
-        public const double HalfTau = PI;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const double ThreeQuarterTau = PI * 6d / 4d;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const double OneAndAHalfPi = ThreeQuarterTau;
-
-        /// <summary>
-        /// One quarter Tau or half Pi.
-        /// </summary>
-        public const double QuarterTau = 0.5d * PI;
-
-        /// <summary>
-        /// PI / 2
-        /// </summary>
-        /// <remarks></remarks>
-        public const double HalfPi = QuarterTau;
-
-        /// <summary>
-        /// One eighth Tau or a quarter Pi.
-        /// </summary>
-        public const double EighthTau = 0.25d * PI;
-
-        /// <summary>
-        /// PI / 4
-        /// </summary>
-        /// <remarks></remarks>
-        public const double Quart = EighthTau;
-
-        /// <summary>
-        /// One sixteenth Tau or a eighth Pi.
-        /// </summary>
-        public const double SixteenthTau = 0.125d * PI;
-
-        /// <summary>
-        /// PI / 8
-        /// </summary>
-        /// <remarks></remarks>
-        public const double EighthPi = SixteenthTau;
-
-        /// <summary>
-        /// Represents the golden ratio as specified by the constant, φ.
-        /// </summary>
-        /// <value>≈1.61803...</value>
-        public static readonly double Phi = (1d + Sqrt(5)) / 2d; //1.61803398874989484820458683436;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static readonly double Φ = Phi;
-
-        /// <summary>
-        /// Represents the golden ratio.
-        /// </summary>
-        public static readonly double Golden = Phi;
-
-        /// <summary>
-        /// Represents the golden ratio by formula.
-        /// </summary>
-        public static readonly double GoldenRatio = Phi;
-
-        /// <summary>
-        ///  Represents the plastic constant as specified by the constant, ρ.
-        /// </summary>
-        /// <value>≈1.32471...</value>
-        public static readonly double Rho = Root(0.5 + (1.00 / 6.00 * Sqrt(23.00 / 3.00)), 3.00) + Root(0.50 - (1.00 / 6.00 * Sqrt(23.00 / 3.00)), 3.00);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static readonly double Ρ = Rho;
-
-        /// <summary>
-        /// One Radian.
-        /// </summary>
-        public const double Radien = PI / 180d;
-
-        /// <summary>
-        /// PI / 180
-        /// </summary>
-        /// <remarks></remarks>
-        /// <optimisation>This code has been optimized for Accuracy</optimisation>
-        public const double PiOneEightyth = Radien;
-
-        /// <summary>
-        /// One degree.
-        /// </summary>
-        public const double Degree = 180d / PI;
-
-        /// <summary>
-        /// 180 / PI
-        /// </summary>
-        /// <remarks></remarks>
-        public const double OneEightythPi = Degree;
-
-        /// <summary>
-        /// Represents the constant value of the square root of 2.
-        /// </summary>
-        /// <value>≈1.41421...</value>
-        public static readonly double Sqrt2 = Sqrt(2);
-
-        /// <summary>
-        /// Represents the constant value of the square root of 3.
-        /// </summary>
-        /// <value>≈1.73205...</value>
-        public static readonly double Sqrt3 = Sqrt(3);
-
-        /// <summary>
-        /// Represents the constant value of the square root of 5.
-        /// </summary>
-        /// <value>≈2.23606...</value>
-        public static readonly double Sqrt5 = Sqrt(5);
-
-        /// <summary>
-        /// The natural log of e.
-        /// </summary>
-        public const double Log10E = 0.434294481903251827651d;
-
-        #endregion
-
-        #region Gauss Tables
-
-        /// <summary>
-        /// Gauss abscissa table
-        /// </summary>
-        /// <remarks>https://code.google.com/archive/p/degrafa/source/default/source</remarks>
-        public static List<double> abscissa = new List<double>
-            {
-                // N=2
-                -0.5773502692,
-                0.5773502692,
-                // N=3
-                -0.7745966692,
-                0.7745966692,
-                0,
-                // N=4
-                -0.8611363116,
-                0.8611363116,
-                -0.3399810436,
-                0.3399810436,
-                // N=5
-                -0.9061798459,
-                0.9061798459,
-                -0.5384693101,
-                0.5384693101,
-                0.0000000000,
-                // N=6
-                -0.9324695142,
-                0.9324695142,
-                -0.6612093865,
-                0.6612093865,
-                -0.2386191861,
-                0.2386191861,
-                // N=7
-                -0.9491079123,
-                0.9491079123,
-                -0.7415311856,
-                0.7415311856,
-                -0.4058451514,
-                0.4058451514,
-                0.0000000000,
-                // N=8
-                -0.9602898565,
-                0.9602898565,
-                -0.7966664774,
-                0.7966664774,
-                -0.5255324099,
-                0.5255324099,
-                -0.1834346425,
-                0.1834346425
-            };
-
-        /// <summary>
-        /// Gauss weight table
-        /// </summary>
-        /// <remarks>https://code.google.com/archive/p/degrafa/source/default/source</remarks>
-        public static List<double> weight = new List<double>
-            {
-                // N=2
-                1,
-                1,
-                // N=3
-                0.5555555556,
-                0.5555555556,
-                0.8888888888,
-                // N=4
-                0.3478548451,
-                0.3478548451,
-                0.6521451549,
-                0.6521451549,
-                // N=5
-                0.2369268851,
-                0.2369268851,
-                0.4786286705,
-                0.4786286705,
-                0.5688888888,
-                // N=6
-                0.1713244924,
-                0.1713244924,
-                0.3607615730,
-                0.3607615730,
-                0.4679139346,
-                0.4679139346,
-                // N=7
-                0.1294849662,
-                0.1294849662,
-                0.2797053915,
-                0.2797053915,
-                0.3818300505,
-                0.3818300505,
-                0.4179591837,
-                // N=8
-                0.1012285363,
-                0.1012285363,
-                0.2223810345,
-                0.2223810345,
-                0.3137066459,
-                0.3137066459,
-                0.3626837834,
-                0.3626837834
-            };
-        #endregion
-
         #region Random
 
         /// <summary>
@@ -1047,8 +742,7 @@ namespace Engine.Geometry
             double m1x1, double m1x2,
             double m2x1, double m2x2)
             => ((m1x1 * m2x2)
-              - (m1x2 * m2x1)
-            );
+              - (m1x2 * m2x1));
 
         /// <summary>
         /// Find the determinant of a 3 by 3 matrix.
@@ -1839,9 +1533,12 @@ namespace Engine.Geometry
         {
             //  Arc-sin(X) 
             // Return Atan(Value / Sqrt(-Value * Value + 1))
-            if (Math.Abs(value - 1) < DoubleEpsilon) return HalfPi;
-            if (Math.Abs(value - -1) < DoubleEpsilon) return -HalfPi;
-            if (Math.Abs(value) < 1) return Atan(value / Sqrt(-value * value + 1));
+            if (Math.Abs(value - 1) < DoubleEpsilon)
+                return HalfPi;
+            if (Math.Abs(value - -1) < DoubleEpsilon)
+                return -HalfPi;
+            if (Math.Abs(value) < 1)
+                return Atan(value / Sqrt(-value * value + 1));
 
             return 0;
         }
@@ -1857,9 +1554,12 @@ namespace Engine.Geometry
         {
             //  Arc-cos(X) 
             // Return Atan(-Value / Sqrt(-Value * Value + 1)) + 2 * Atan(1)
-            if (Math.Abs(value - 1) < DoubleEpsilon) return 0;
-            if (Math.Abs(value - -1) < DoubleEpsilon) return PI;
-            if (Math.Abs(value) < 1) return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
+            if (Math.Abs(value - 1) < DoubleEpsilon)
+                return 0;
+            if (Math.Abs(value - -1) < DoubleEpsilon)
+                return PI;
+            if (Math.Abs(value) < 1)
+                return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
 
             return 0;
         }
@@ -1875,9 +1575,12 @@ namespace Engine.Geometry
         {
             //  Arc-sec(X) 
             // Return Atan(Value / Sqrt(Value * Value - 1)) + Sign((Value) - 1) * (2 * Atan(1))
-            if (Math.Abs(value - 1) < DoubleEpsilon) return 0;
-            if (Math.Abs(value - -1) < DoubleEpsilon) return PI;
-            if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
+            if (Math.Abs(value - 1) < DoubleEpsilon)
+                return 0;
+            if (Math.Abs(value - -1) < DoubleEpsilon)
+                return PI;
+            if (Math.Abs(value) < 1)
+                return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
 
             return 0;
         }
@@ -1893,9 +1596,12 @@ namespace Engine.Geometry
         {
             //  Arc-co-sec(X) 
             // Return Atan(Value / Sqrt(Value * Value - 1)) + (Sign(Value) - 1) * (2 * Atan(1))
-            if (Math.Abs(value - 1) < DoubleEpsilon) return HalfPi;
-            if (Math.Abs(value - -1) < DoubleEpsilon) return -HalfPi;
-            if (Math.Abs(value) < 1) return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
+            if (Math.Abs(value - 1) < DoubleEpsilon)
+                return HalfPi;
+            if (Math.Abs(value - -1) < DoubleEpsilon)
+                return -HalfPi;
+            if (Math.Abs(value) < 1)
+                return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
             return 0;
         }
 
@@ -2062,6 +1768,16 @@ namespace Engine.Geometry
         #region Conversion Extensions
 
         /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        public static double Clamp(this double value, double min, double max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
         /// Find the absolute positive value of a radian angle.
         /// </summary>
         /// <param name="angle"></param>
@@ -2072,6 +1788,17 @@ namespace Engine.Geometry
         {
             double test = angle % Tau;
             return test < 0 ? test + Tau : test;
+        }
+
+        /// <summary>
+        /// Reduces a given angle to a value between π and -π.
+        /// </summary>
+        /// <param name="angle">The angle to reduce, in radians.</param>
+        /// <returns>The new angle, in radians.</returns>
+        public static double WrapAngle(this double angle)
+        {
+            double test = IEEERemainder(angle, Tau);
+            return (test <= -PI) ? test + Tau : test - Tau;
         }
 
         /// <summary>
@@ -2240,7 +1967,8 @@ namespace Engine.Geometry
         public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
-            if (Math.Abs(value1 - value2) < DoubleEpsilon) return true;
+            if (Math.Abs(value1 - value2) < DoubleEpsilon)
+                return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             float eps = (Math.Abs(value1) + Math.Abs(value2) + 10f) * epsilon;
             float delta = value1 - value2;
@@ -2268,7 +1996,8 @@ namespace Engine.Geometry
         public static bool AreClose(this double value1, double value2, double epsilon = DoubleEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
-            if (Math.Abs(value1 - value2) < DoubleEpsilon) return true;
+            if (Math.Abs(value1 - value2) < DoubleEpsilon)
+                return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             double eps = (Math.Abs(value1) + Math.Abs(value2) + 10d) * epsilon;
             double delta = value1 - value2;

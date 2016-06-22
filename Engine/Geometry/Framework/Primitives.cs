@@ -15,7 +15,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Geometry.Maths;
+using static Engine.Maths;
 
 namespace Engine.Geometry
 {

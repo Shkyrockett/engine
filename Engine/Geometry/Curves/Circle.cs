@@ -293,9 +293,8 @@ namespace Engine.Geometry
         /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Interpolate(double t) => new Point2D(
-    x + (Sin(t) * radius),
-    y + (Cos(t) * radius));
+        public override Point2D Interpolate(double t)
+            => Interpolaters.Circle(x, y, radius, t);
 
         /// <summary>
         /// 
@@ -336,7 +335,8 @@ namespace Engine.Geometry
         [Pure]
         internal override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Circle);
+            if (this == null)
+                return nameof(Circle);
             char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Circle)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}}}";
             return formatable.ToString(format, provider);

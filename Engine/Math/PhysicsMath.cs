@@ -1,4 +1,13 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="Physics.cs" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.Physics
@@ -6,7 +15,7 @@ namespace Engine.Physics
     /// <summary>
     /// 
     /// </summary>
-    public static class PhysicsMath
+    public static partial class PhysicsMath
     {
         /// <summary>
         /// 
@@ -41,7 +50,7 @@ namespace Engine.Physics
         /// <param name="time"></param>
         /// <returns></returns>
         public static double FreeFallVelocity(ITime time)
-            => Constants.EarthGravity.Value * time.Value;
+            => EarthGravity.Value * time.Value;
 
         /// <summary>
         /// 

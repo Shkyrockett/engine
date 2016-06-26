@@ -397,8 +397,8 @@ namespace Engine.Geometry
             }
 
             return new BBox(
-                x: new Range(min: mx, mid: (mx + MX) / 2, max: MX, size: MX - mx),
-                y: new Range(min: my, mid: (my + MY) / 2, max: MY, size: MY - my)
+                x: new RangeX(min: mx, mid: (mx + MX) / 2, max: MX, size: MX - mx),
+                y: new RangeX(min: my, mid: (my + MY) / 2, max: MY, size: MY - my)
             );
         }
 
@@ -472,9 +472,9 @@ namespace Engine.Geometry
         /// <param name="d"></param>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static Range getminmax(Bezier curve, int d, List<double> list)
+        public static RangeX getminmax(Bezier curve, int d, List<double> list)
         {
-            if (list == null) return new Range(min: 0, max: 0);
+            if (list == null) return new RangeX(min: 0, max: 0);
             double min = 0xFFFFFFFFFFFFFFFF;
             double max = -min;
             double t;
@@ -495,7 +495,7 @@ namespace Engine.Geometry
                         break;
                 }
             }
-            return new Range(min: min, mid: (min + max) / 2, max: max, size: max - min);
+            return new RangeX(min: min, mid: (min + max) / 2, max: max, size: max - min);
         }
 
         /// <summary>
@@ -931,7 +931,7 @@ namespace Engine.Geometry
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public BBox(Range x, Range y, Range z = null)
+        public BBox(RangeX x, RangeX y, RangeX z = null)
         {
             this.x = x;
             this.y = y;
@@ -941,30 +941,30 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public Range x { get; set; }
+        public RangeX x { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Range y { get; set; }
+        public RangeX y { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Range z { get; set; }
+        public RangeX z { get; set; }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    public class Range
+    public class RangeX
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        public Range(int min, int max)
+        public RangeX(int min, int max)
             : this(min, min + (max - min) / 2d, max, min - max)
         {
         }
@@ -976,7 +976,7 @@ namespace Engine.Geometry
         /// <param name="mid"></param>
         /// <param name="max"></param>
         /// <param name="size"></param>
-        public Range(double min, double mid, double max, double size)
+        public RangeX(double min, double mid, double max, double size)
         {
             this.min = min;
             this.mid = mid;

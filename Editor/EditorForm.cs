@@ -315,9 +315,33 @@ namespace Editor
             vectorMap.Add(rectangleTweenItem);
             vectorMap.Add(ellipseTweenItem);
 
-            var parametric = new ParametricDelegateCurve((t) => Interpolaters.Ellipse(new Ellipse(100d,100d,25d,25d,0d), t), Point2D.Empty, Size2D.Empty, 0, 0);
-            var parametricItem = new GraphicItem(parametric, styles[3]);
-            vectorMap.Add(parametricItem);
+            var parametricEllipse = new ParametricDelegateCurve(
+                (x, y, w, h, a, t) => Interpolaters.Ellipse(x, y, w, h, a, t),
+                (x, y, w, h, a, px, py) => Intersections.EllipsePoint(x, y, w, h, a, px, py),
+                new Point2D(200d, 100d), new Size2D(25d, 50d), 0, 0);
+            var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
+            vectorMap.Add(parametricEllipseItem);
+
+            var parametricEllipticArc = new ParametricDelegateCurve(
+                (x, y, w, h, a, t) => Interpolaters.EllipticArc(x, y, w, h, a, 0d, 90d.ToRadians(), t),
+                (x, y, w, h, a, px, py) => Intersections.EllipticSectorPoint(x, y, w, h, a, 0d, 90d.ToRadians(), px, py),
+                new Point2D(100d, 100d), new Size2D(25d, 50d), 0, 0);
+            var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, styles[3]);
+            vectorMap.Add(parametricEllipticArcItem);
+
+            var parametricCircle = new ParametricDelegateCurve(
+                (x, y, w, h, a, t) => Interpolaters.Circle(x, y, h, t),
+                (x, y, w, h, a, px, py) => Intersections.CirclePoint(x, y, h, px, py),
+                new Point2D(100d, 200d), new Size2D(0d, 50d), 0, 0);
+            var parametricCircleItem = new GraphicItem(parametricCircle, styles[3]);
+            vectorMap.Add(parametricCircleItem);
+
+            var parametricCircleArc = new ParametricDelegateCurve(
+                (x, y, w, h, a, t) => Interpolaters.Arc(x, y, h, 0d, 90d.ToRadians(), t),
+                (x, y, w, h, a, px, py) => Intersections.ArcSectorPoint(x, y, h, 0d, 90d.ToRadians(), px, py),
+                new Point2D(150d, 150d), new Size2D(0d, 50d), 0, 0);
+            var parametricCircleArcItem = new GraphicItem(parametricCircleArc, styles[3]);
+            vectorMap.Add(parametricCircleArcItem);
 
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";

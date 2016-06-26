@@ -144,7 +144,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double QuartInOut(double t)
-            => (t <= .5 ? t * t * t * t * 8 : (1 - (t = t * 2 - 2) * t * t * t) / 2 + .5);
+            => t <= .5 ? t * t * t * t * 8 : (1 - (t = t * 2 - 2) * t * t * t) / 2 + .5;
 
         /// <summary>
         /// Quint in.
@@ -168,7 +168,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double QuintInOut(double t)
-            => ((t *= 2) < 1) ? (t * t * t * t * t) / 2 : ((t -= 2) * t * t * t * t + 2) / 2;
+            => t *= 2 < 1 ? (t * t * t * t * t) / 2 : ((t -= 2) * t * t * t * t + 2) / 2;
 
         /// <summary>
         /// Sine in.

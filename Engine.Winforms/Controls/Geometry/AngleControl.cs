@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using Engine.Physics;
-using Engine.Geometry;
 using System.Windows.Forms.Design;
 
 namespace Engine

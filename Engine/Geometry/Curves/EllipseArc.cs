@@ -1,4 +1,4 @@
-﻿// <copyright file="Ellipse.cs" >
+﻿// <copyright file="EllipseArc.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license> 
@@ -7,8 +7,8 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry.Polygons;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
@@ -17,23 +17,26 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// http://math.stackexchange.com/questions/426150/what-is-the-general-equation-of-the-ellipse-that-is-not-in-the-origin-and-rotate
+    /// 
     /// </summary>
+    /// <remarks>
+    /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
+    /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(Ellipse))]
-    public class Ellipse
-        : Shape, IClosedShape
+    [DisplayName("Ellipse Arc")]
+    public class EllipseArc
+        : Shape
     {
         #region Fields
 
         /// <summary>
-        /// The center x coordinate point of the <see cref="Ellipse"/>.
+        /// The center x coordinate point of the <see cref="EllipseArc"/>.
         /// </summary>
         private double x;
 
         /// <summary>
-        /// The center y coordinate point of the <see cref="Ellipse"/>.
+        /// The center y coordinate point of the <see cref="EllipseArc"/>.
         /// </summary>
         private double y;
 
@@ -55,6 +58,21 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         private double angle;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private double startAngle;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double sweepAngle;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<Point2D> points;
+
         #endregion
 
         #region Constructors
@@ -62,55 +80,90 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public Ellipse()
-            : this(0, 0, 0, 0, 0)
+        public EllipseArc()
+            : this(0, 0, 0, 0, 0, 0, 0)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ellipse"/> class.
+        /// Initializes a new instance of the <see cref="EllipseArc"/> class.
         /// </summary>
-        /// <param name="x">Center Point x coordinate of <see cref="Ellipse"/>.</param>
-        /// <param name="y">Center Point x coordinate of <see cref="Ellipse"/>.</param>
-        /// <param name="r1">Major radius of <see cref="Ellipse"/>.</param>
-        /// <param name="r2">Minor radius of <see cref="Ellipse"/>.</param>
-        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
+        /// <param name="x">Center Point x coordinate of <see cref="EllipseArc"/>.</param>
+        /// <param name="y">Center Point x coordinate of <see cref="EllipseArc"/>.</param>
+        /// <param name="r1">Major radius of <see cref="EllipseArc"/>.</param>
+        /// <param name="r2">Minor radius of <see cref="EllipseArc"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipseArc"/>.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
         /// <remarks></remarks>
-        public Ellipse(double x, double y, double r1, double r2, double angle)
+        public EllipseArc(double x, double y, double r1, double r2, double angle, double startAngle, double sweepAngle)
         {
             this.x = x;
             this.y = y;
             this.r1 = r1;
             this.r2 = r2;
             this.angle = angle;
+            this.startAngle = startAngle;
+            this.sweepAngle = sweepAngle;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ellipse"/> class.
+        /// Initializes a new instance of the <see cref="EllipseArc"/> class.
         /// </summary>
-        /// <param name="center">Center Point of <see cref="Ellipse"/>.</param>
-        /// <param name="a">Major radius of <see cref="Ellipse"/>.</param>
-        /// <param name="b">Minor radius of <see cref="Ellipse"/>.</param>
-        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
+        /// <param name="center">Center Point of <see cref="EllipseArc"/>.</param>
+        /// <param name="a">Major radius of <see cref="EllipseArc"/>.</param>
+        /// <param name="b">Minor radius of <see cref="EllipseArc"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipseArc"/>.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
         /// <remarks></remarks>
-        public Ellipse(Point2D center, double a, double b, double angle)
+        public EllipseArc(Point2D center, double a, double b, double angle, double startAngle, double sweepAngle)
         {
             x = center.X;
             y = center.Y;
             r1 = a;
             r2 = b;
             this.angle = angle;
+            this.startAngle = startAngle;
+            this.sweepAngle = sweepAngle;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ellipse"/> class.
+        /// Initializes a new instance of the <see cref="EllipseArc"/> class.
         /// </summary>
-        /// <param name="center">Center Point of <see cref="Ellipse"/>.</param>
-        /// <param name="size">Major and Minor radii of <see cref="Ellipse"/>.</param>
-        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
+        /// <param name="center">Center Point of <see cref="EllipseArc"/>.</param>
+        /// <param name="size">Major and Minor radii of <see cref="EllipseArc"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipseArc"/>.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
         /// <remarks></remarks>
-        public Ellipse(Point2D center, Size2D size, double angle)
-            : this(center, size.Width, size.Height, angle)
+        public EllipseArc(Point2D center, Size2D size, double angle, double startAngle, double sweepAngle)
+            : this(center.X, center.Y, size.Width, size.Height, angle, startAngle, sweepAngle)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new Instance of Ellipse
+        /// </summary>
+        /// <param name="rectangle">The boundaries of the ellipse</param>
+        /// <param name="angle"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="endAngle"></param>
+        /// <remarks></remarks>
+        public EllipseArc(Rectangle2D rectangle, double angle, double startAngle, double endAngle)
+            : this(rectangle.Center(), rectangle.Width, rectangle.Height, angle, startAngle, endAngle)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new Instance of Ellipse
+        /// </summary>
+        /// <param name="ellipse">The Ellipse</param>
+        /// <param name="startAngle"></param>
+        /// <param name="endAngle"></param>
+        /// <remarks></remarks>
+        public EllipseArc(Ellipse ellipse, double startAngle, double endAngle)
+            : this(ellipse.Center, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
         {
         }
 
@@ -138,7 +191,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         [XmlAttribute]
         [Category("Elements")]
-        [Description("The " + nameof(Center) + " location of the " + nameof(Ellipse) + ".")]
+        [Description("The " + nameof(Center) + " location of the " + nameof(EllipseArc) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -289,6 +342,42 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Gets or sets the start angle of the ellipse.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The start angle of the ellipse.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double StartAngle
+        {
+            get { return startAngle; }
+            set
+            {
+                startAngle = value;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the end angle of the ellipse.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The start angle of the ellipse.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double SweepAngle
+        {
+            get { return sweepAngle; }
+            set
+            {
+                sweepAngle = value;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets the Focus Radius of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
@@ -366,7 +455,35 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
-            => PolygonExtensions.EllipsePerimeter(r1, r2);
+        {
+            get
+            {
+                double minor = (MajorRadius * Aspect);
+                return ((Sqrt(0.5 * ((minor * minor) + (MajorRadius * MajorRadius)))) * (PI * 2));
+
+                // http://ellipse-circumference.blogspot.com/
+                // X1=eval(form.A.value)
+                // X2=eval(form.B.value)
+                //MIN=min(X1,X2);
+                //MAX=max(X1,X2);
+                //RA=MAX/MIN;
+                //RA=RA.toPrecision(6);
+                //RB=MIN/MAX;
+                //RB=RB.toPrecision(6);
+                //HT1 = X2-X1;
+                //HB1 = X2+X1;
+                //H1 = (pow(HT1,2))/(pow(HB1,2));
+                //H2 = 4-3*H1;
+                //D1 = ((11*PI/(44-14*PI))+24100)-24100*H1;
+                //C1 = PI*HB1*(1+(3*H1)/(10+pow(H2,0.5))+(1.5*pow(H1,6)-.5*pow(H1,12))/D1);
+                //P = 6;
+                //C1 = C1.toPrecision(P);
+                //form.C.value = C1;
+                //form.RX.value = RA;
+                //form.RN.value = RB
+
+            }
+        }
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
@@ -396,12 +513,12 @@ namespace Engine.Geometry
         #region Interpolaters
 
         /// <summary>
-        /// 
+        /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.Ellipse(x, y, r1, r2, angle, t);
+            => Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, t);
 
         #endregion
 
@@ -432,7 +549,7 @@ namespace Engine.Geometry
             if (this == null)
                 return nameof(Ellipse);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={Center},{nameof(R1)}={r1},{nameof(R2)}={r2},{nameof(Angle)}={angle}}}";
+            IFormattable formatable = $"{nameof(EllipseArc)}{{{nameof(Center)}={Center},{nameof(R1)}={r1},{nameof(R2)}={r2},{nameof(Angle)}={angle},{nameof(StartAngle)}={startAngle},{SweepAngle}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }
 

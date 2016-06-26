@@ -68,9 +68,23 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="count">The number of points desired.</param>
         /// <returns></returns>
-        public virtual List<Point2D> InterpolatePoints(int count) => new List<Point2D>(
-    from i in Enumerable.Range(0, count)
-    select Interpolate((1d / count) * i));
+        public virtual List<Point2D> InterpolatePoints(int count)
+            => new List<Point2D>(
+            from i in Enumerable.Range(0, count)
+            select Interpolate((1d / count) * i));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        public virtual List<Point2D> InterpolatePoints(Range range)
+        {
+            var points = new List<Point2D>();
+            foreach (double item in range)
+                points.Add(Interpolate(item));
+            return points;
+        }
 
         #endregion
 
@@ -160,7 +174,7 @@ namespace Engine.Objects
         internal virtual string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(GraphicsObject);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            //char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(GraphicsObject)}";
             return formatable.ToString(format, provider);
         }

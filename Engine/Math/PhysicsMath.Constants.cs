@@ -1,11 +1,18 @@
-﻿using Engine.Physics;
+﻿// <copyright file="Physics.Constants.cs" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
 
-namespace Engine
+namespace Engine.Physics
 {
     /// <summary>
     /// Common Physics constants. 
     /// </summary>
-    public class Constants
+    public partial class PhysicsMath
     {
         /// <summary>
         /// The speed of light in a vacuum.

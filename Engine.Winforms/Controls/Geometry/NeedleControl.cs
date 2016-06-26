@@ -1,13 +1,10 @@
-﻿using Engine.Geometry;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
 using static System.Math;
 
 namespace Engine

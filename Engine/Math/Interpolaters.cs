@@ -11,8 +11,10 @@ using Engine.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using static System.Math;
+using static Engine.Maths;
 
 namespace Engine
 {
@@ -22,31 +24,129 @@ namespace Engine
     public static class Interpolaters
     {
         /// <summary>
-        /// 
+        /// Interpolates the Arc.
         /// </summary>
-        /// <param name="ellipse"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r">Radius of circle.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta.</returns>
+        [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Ellipse(Ellipse ellipse, double t)
+        public static Tuple<double, double> Arc(
+            double x, double y,
+            double r,
+            double startAngle, double sweepAngle,
+            double t)
         {
-            double phi = (2 * PI) * t;
+            // Convert from unit iteration, to Arc Pi radians.
+            double phi = startAngle - (sweepAngle * t);
+            return new Tuple<double, double>(
+                x + (Sin(phi) * r),
+                y + (Cos(phi) * r));
+        }
 
-            double theta = ellipse.Angle;
-            var xaxis = new Point2D(Cos(theta), Sin(theta));
-            var yaxis = new Point2D(-Sin(theta), Cos(theta));
+        /// <summary>
+        /// Interpolate a point on a circle.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r">Radius of circle.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Circle(
+            double x, double y,
+            double r,
+            double t)
+        {
+            // Convert from unit iteration, to Pi radians.
+            double phi = Tau * t;
+
+            // Apply translation to equation of circle at origin.
+            return new Tuple<double, double>(
+                x + (Sin(phi) * r),
+                y + (Cos(phi) * r));
+        }
+
+        /// <summary>
+        /// Interpolate a point on an Ellipse.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> Ellipse(
+            double x, double y,
+            double r1, double r2,
+            double angle,
+            double t)
+        {
+            // Convert from unit iteration, to Pi radians.
+            double phi = Tau * t;
+
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
 
             // Ellipse equation for an ellipse at origin.
-            var ellipsePoint = new Point2D(
-                (ellipse.R1 * Cos(phi)),
-                (ellipse.R2 * Sin(phi))
-                );
+            double u = r1 * Cos(phi);
+            double v = r2 * Sin(phi);
 
             // Apply the rotation transformation and translate to new center.
             return new Tuple<double, double>(
-                ellipse.X + (ellipsePoint.X * xaxis.X + ellipsePoint.Y * xaxis.Y),
-                ellipse.Y + (ellipsePoint.X * yaxis.X + ellipsePoint.Y * yaxis.Y)
-                );
+                x + (u * cosT + v * sinT),
+                y + (u * -sinT + v * cosT));
+        }
+
+        /// <summary>
+        /// Interpolates the Elliptic Arc.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> EllipticArc(
+            double x, double y,
+            double r1, double r2,
+            double angle,
+            double startAngle, double sweepAngle,
+            double t)
+        {
+            // Convert from 0 to 1 iteration, to Arc Pi radians.
+            double phi = startAngle - (sweepAngle * t);
+
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Ellipse equation for an ellipse at origin.
+            double u = r1 * Cos(phi);
+            double v = r2 * Sin(phi);
+
+            // Apply the rotation transformation and translate to new center.
+            return new Tuple<double, double>(
+                x + (u * cosT + v * sinT),
+                y + (u * -sinT + v * cosT));
         }
 
         #region Catmull-Rom Spline Interpolation
@@ -475,7 +575,7 @@ namespace Engine
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="v3"></param>
-        /// <param name="mu"></param>
+        /// <param name="time"></param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
@@ -486,21 +586,19 @@ namespace Engine
             double v1,
             double v2,
             double v3,
-            double mu,
-            double tension,
-            double bias)
+            double time, double tension = 0, double bias = 0)
         {
             double m0, m1, mu2, mu3;
             double a0, a1, a2, a3;
 
-            mu2 = mu * mu;
-            mu3 = mu2 * mu;
+            mu2 = time * time;
+            mu3 = mu2 * time;
             m0 = (v1 - v0) * (1 + bias) * (1 - tension) / 2;
             m0 += (v2 - v1) * (1 - bias) * (1 - tension) / 2;
             m1 = (v2 - v1) * (1 + bias) * (1 - tension) / 2;
             m1 += (v3 - v2) * (1 - bias) * (1 - tension) / 2;
             a0 = 2 * mu3 - 3 * mu2 + 1;
-            a1 = mu3 - 2 * mu2 + mu;
+            a1 = mu3 - 2 * mu2 + time;
             a2 = mu3 - mu2;
             a3 = -2 * mu3 + 3 * mu2;
 
@@ -518,32 +616,38 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="x3"></param>
         /// <param name="y3"></param>
-        /// <param name="mu"></param>
+        /// <param name="time"></param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Hermite(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
-            double mu, double tension, double bias)
+            double time, double tension = 0, double bias = 0)
         {
-            double mu2 = mu * mu;
-            double mu3 = mu2 * mu;
+            double mu2 = time * time;
+            double mu3 = mu2 * time;
 
             double mX0 = (x1 - x0) * (1 + bias) * (1 - tension) / 2;
             mX0 += (x2 - x1) * (1 - bias) * (1 - tension) / 2;
+
             double mY0 = (y1 - y0) * (1 + bias) * (1 - tension) / 2;
             mY0 += (y2 - y1) * (1 - bias) * (1 - tension) / 2;
+
             double mX1 = (x2 - x1) * (1 + bias) * (1 - tension) / 2;
             mX1 += (x3 - x2) * (1 - bias) * (1 - tension) / 2;
+
             double mY1 = (y2 - y1) * (1 + bias) * (1 - tension) / 2;
             mY1 += (y3 - y2) * (1 - bias) * (1 - tension) / 2;
+
             double a0 = 2 * mu3 - 3 * mu2 + 1;
-            double a1 = mu3 - 2 * mu2 + mu;
+            double a1 = mu3 - 2 * mu2 + time;
             double a2 = mu3 - mu2;
             double a3 = -2 * mu3 + 3 * mu2;
 
@@ -567,7 +671,7 @@ namespace Engine
         /// <param name="x3"></param>
         /// <param name="y3"></param>
         /// <param name="z3"></param>
-        /// <param name="mu"></param>
+        /// <param name="time"></param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
@@ -578,10 +682,10 @@ namespace Engine
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double x3, double y3, double z3,
-            double mu, double tension, double bias)
+            double time, double tension = 0, double bias = 0)
         {
-            double mu2 = mu * mu;
-            double mu3 = mu2 * mu;
+            double mu2 = time * time;
+            double mu3 = mu2 * time;
 
             double mX0 = (x1 - x0) * (1 + bias) * (1 - tension) / 2;
             mX0 += (x2 - x1) * (1 - bias) * (1 - tension) / 2;
@@ -596,7 +700,7 @@ namespace Engine
             double mZ1 = (z2 - z1) * (1 + bias) * (1 - tension) / 2;
             mZ1 += (z3 - z2) * (1 - bias) * (1 - tension) / 2;
             double a0 = 2 * mu3 - 3 * mu2 + 1;
-            double a1 = mu3 - 2 * mu2 + mu;
+            double a1 = mu3 - 2 * mu2 + time;
             double a2 = mu3 - mu2;
             double a3 = -2 * mu3 + 3 * mu2;
 
@@ -637,8 +741,7 @@ namespace Engine
             double t)
             => new Tuple<double, double>(
                 (1 - t) * x1 + t * x2,
-                (1 - t) * y1 + t * y2
-                );
+                (1 - t) * y1 + t * y2);
 
         /// <summary>
         /// 
@@ -660,8 +763,7 @@ namespace Engine
             => new Tuple<double, double, double>(
                 (1 - t) * x1 + t * x2,
                 (1 - t) * y1 + t * y2,
-                (1 - t) * z1 + t * z2
-                );
+                (1 - t) * z1 + t * z2);
 
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.

@@ -6,7 +6,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 
 namespace Engine.Geometry
 {

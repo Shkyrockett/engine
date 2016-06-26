@@ -13,9 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Xml.Serialization;
-using static System.Math;
 
 namespace Engine.Geometry
 {
@@ -24,7 +22,7 @@ namespace Engine.Geometry
     /// </summary>
     /// <remarks></remarks>
     [Serializable]
-    //[GraphicsObject]
+    [GraphicsObject]
     [DisplayName(nameof(ParametricDelegateCurve))]
     public class ParametricDelegateCurve
         : Shape
@@ -32,14 +30,26 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        private Point2D location;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double rotation;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ParametricDelegateCurve(
-            Func<double, Point2D> function,
+            Func<double, double, double, double, double, double, Point2D> interpolater,
+            Func<double, double, double, double, double, double, double, Inclusion> pointIntersector,
             Point2D location,
             Size2D scale,
-            double rotation = 0,
+            double rotation = 0d,
             double precision = 0.1d)
         {
-            Function = function;
+            Interpolater = interpolater;
+            PointIntersector = pointIntersector;
             Location = location;
             Scale = scale;
             Rotation = rotation;
@@ -50,7 +60,13 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [Browsable(true)]
-        public Func<double, Point2D> Function { get; set; }
+        public Func<double, double, double, double, double, double, Point2D> Interpolater { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Browsable(true)]
+        public Func<double, double, double, double, double, double, double, Inclusion> PointIntersector { get; set; }
 
         /// <summary>
         /// 
@@ -63,7 +79,15 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(true)]
         [XmlAttribute]
-        public Point2D Location { get; set; }
+        public Point2D Location
+        {
+            get { return location; }
+            set
+            {
+                location = value;
+                update?.Invoke();
+            }
+        }
 
         /// <summary>
         /// 
@@ -86,12 +110,19 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [GeometryAngle]
-        //[Editor(typeof(AngleEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(true)]
         [XmlAttribute]
-        public double Rotation { get; set; }
+        public double Rotation
+        {
+            get { return rotation; }
+            set
+            {
+                rotation = value;
+                update?.Invoke();
+            }
+        }
 
         /// <summary>
         /// 
@@ -117,7 +148,8 @@ namespace Engine.Geometry
             get
             {
                 List<Point2D> points = (InterpolatePoints(100));
-                if (points?.Count < 1) return null;
+                if (points?.Count < 1)
+                    return null;
 
                 double left = points[0].X;
                 double top = points[0].Y;
@@ -140,33 +172,46 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="precision"></param>
-        /// <returns></returns>
-        public List<Point2D> InterpolatePoints(double precision)
-        {
-            var points = new List<Point2D>();
-            for (double Index = (PI * -1); (Index < PI); Index = (Index + precision))
-                points.Add(Interpolate(Index));
-
-            return points;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolate(Function, t);
+            => Interpolate(Interpolater, location.X, location.Y, Scale.Width, Scale.Height, rotation, t);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="function"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <param name="a"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static Point2D Interpolate(Func<double, Point2D> function, double t)
-            => function?.Invoke(t);
+        public static Point2D Interpolate(Func<double, double, double, double, double, double, Point2D> function, double x, double y, double w, double h, double a, double t)
+            => function?.Invoke(x, y, w, h, a, t);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public override bool Contains(Point2D point)
+            => Contains(PointIntersector, location.X, location.Y, Scale.Width, Scale.Height, rotation, point.X, point.Y) != Inclusion.Outside;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="function"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <param name="a"></param>
+        /// <param name="pX"></param>
+        /// <returns></returns>
+        public static Inclusion Contains(Func<double, double, double, double, double, double, double, Inclusion> function, double x, double y, double w, double h, double a, double pX, double pY)
+            => function.Invoke(x, y, w, h, a, pX, pY);
 
         /// <summary>
         /// 
@@ -176,7 +221,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         internal override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(ParametricDelegateCurve);
+            if (this == null)
+                return nameof(ParametricDelegateCurve);
             char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location},{nameof(Scale)}={Scale},{nameof(Precision)}={Precision}}}";
             return formatable.ToString(format, provider);

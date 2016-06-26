@@ -7,7 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using System;
 
 namespace Engine.Tools
 {

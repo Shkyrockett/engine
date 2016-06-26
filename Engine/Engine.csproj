@@ -111,7 +111,9 @@
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />
+    <Compile Include="Math\Enums\Overflows.cs" />
     <Compile Include="Physics\UnitStrings.cs" />
+    <Compile Include="Math\Range.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />
     <Compile Include="Tools\Enums\ScrollOrientation.cs" />
     <Compile Include="Tools\Enums\Keys.cs" />
@@ -127,7 +129,7 @@
     <Compile Include="Geometry\Primitives\Vector3D.cs" />
     <Compile Include="Physics\Units\Acceleration\Acceleration.cs" />
     <Compile Include="Physics\Units\Speed\AverageSpeed.cs" />
-    <Compile Include="Math\Constants.cs" />
+    <Compile Include="Math\PhysicsMath.Constants.cs" />
     <Compile Include="Physics\Units\Density.cs" />
     <Compile Include="Physics\Units\Length\Distance.cs" />
     <Compile Include="Physics\Units\Length\DistanceFreeFall.cs" />
@@ -289,7 +291,7 @@
     <Compile Include="Geometry\Curves\Arc.cs" />
     <Compile Include="Geometry\Curves\Circle.cs" />
     <Compile Include="Geometry\Curves\Ellipse.cs" />
-    <Compile Include="Experemental\EllipseArc.cs" />
+    <Compile Include="Geometry\Curves\EllipseArc.cs" />
     <Compile Include="Experemental\Hermite.cs" />
     <Compile Include="Geometry\Complex\Oval.cs" />
     <Compile Include="Experemental\PolyPath.cs" />

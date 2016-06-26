@@ -26,8 +26,23 @@ namespace Engine.Geometry
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
         /// </summary>
-        /// <param name="circle"></param>
-        /// <param name="point"></param>
+        /// <param name="circle"><see cref="Circle"/> class.</param>
+        /// <param name="point">Point to test.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this Circle circle, Point2D point)
+            => CirclePoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r">Radius of circle.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
@@ -35,18 +50,84 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Circle circle, Point2D point)
+        public static Inclusion CirclePoint(double x, double y, double r, double pX, double pY)
         {
             // Check if it is within the bounding rectangle.
-            if (point.X >= circle.X - circle.Radius && point.X <= circle.X + circle.Radius &&
-                point.Y >= circle.Y - circle.Radius && point.Y <= circle.Y + circle.Radius)
+            if (pX >= x - r && pX <= x + r
+                && pY >= y - r && pY <= y + r)
             {
-                double dx = circle.X - point.X;
-                double dy = circle.Y - point.Y;
+                double dx = x - pX;
+                double dy = y - pY;
                 dx *= dx;
                 dy *= dy;
                 double distanceSquared = dx + dy;
-                double radiusSquared = circle.Radius * circle.Radius;
+                double radiusSquared = r * r;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+            }
+
+            return Inclusion.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
+        /// </summary>
+        /// <param name="arc"><see cref="Circle"/> class.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="point">Point to test.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this Arc arc, Point2D point)
+            => ArcSectorPoint(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r">Radius of circle.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion ArcSectorPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY)
+        {
+            if (r <= 0d)
+                return Inclusion.Outside;
+
+            // Check if it is within the bounding rectangle.
+            if (pX >= x - r && pX <= x + r
+                && pY >= y - r && pY <= y + r)
+            {
+                // Find the points of the chord.
+                Point2D startPoint = Interpolaters.Arc(x, y, r, startAngle, sweepAngle, 0);
+                Point2D endPoint = Interpolaters.Arc(x, y, r, startAngle, sweepAngle, 1);
+
+                // Find the determinant of the chord.
+                double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+
+                // Check if the point is on the chord.
+                if (Abs(determinant) < DoubleEpsilon)
+                    return Inclusion.Boundary;
+                // Check whether the point is on the same side of the chord as the center.
+                else if (Sign(determinant) == Sign(sweepAngle))
+                    return Inclusion.Outside;
+
+                double dx = x - pX;
+                double dy = y - pY;
+                dx *= dx;
+                dy *= dy;
+                double distanceSquared = dx + dy;
+                double radiusSquared = r * r;
                 return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
@@ -56,76 +137,194 @@ namespace Engine.Geometry
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
         /// </summary>
-        /// <param name="ellipse"></param>
-        /// <param name="point"></param>
+        /// <param name="ellipse"><see cref="Ellipse"/> class.</param>
+        /// <param name="point">Point to test.</param>
         /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Ellipse ellipse, Point2D point)
+            => EllipsePoint(ellipse.Center.X, ellipse.Center.Y, ellipse.R1, ellipse.R2, ellipse.Angle, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipsePoint(double x, double y, double r1, double r2, double angle, double pX, double pY)
         {
-            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d)
+            if (r1 <= 0d || r2 <= 0d)
                 return Inclusion.Outside;
 
-            double cosT = Cos(-ellipse.Angle);
-            double sinT = Sin(-ellipse.Angle);
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
 
-            double u = point.X - ellipse.Center.X;
-            double v = point.Y - ellipse.Center.Y;
+            // Translate points to origin.
+            double u = pX - x;
+            double v = -(pY - y); // Negative vector to account for screen coordinates. 
 
-            double a = (cosT * u + sinT * v) * (cosT * u + sinT * v);
-            double b = (sinT * u - cosT * v) * (sinT * u - cosT * v);
+            // Apply the rotation transformation.
+            double a = (u * cosT + v * sinT);
+            double b = (u * -sinT + v * cosT);
 
-            double d1Squared = 4 * ellipse.R1 * ellipse.R1;
-            double d2Squared = 4 * ellipse.R2 * ellipse.R2;
+            double normalizedRadius = ((a * a) / (r1 * r1))
+                                    + ((b * b) / (r2 * r2));
 
-            double normalizedRadius = (a / d1Squared)
-                                    + (b / d2Squared);
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+        }
 
-            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
+        /// </summary>
+        /// <param name="ellipseArc"><see cref="Ellipse"/> class.</param>
+        /// <param name="point">Point to test.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this EllipseArc ellipseArc, Point2D point)
+            => EllipticSectorPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.R1, ellipseArc.R2, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticSectorPoint(double x, double y, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+        {
+            if (r1 <= 0d || r2 <= 0d)
+                return Inclusion.Outside;
+
+            // Find the points of the chord.
+            Point2D startPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 0);
+            Point2D endPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 1);
+
+            // Find the determinant of the chord.
+            double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+
+            // Check if the point is on the chord.
+            if (Abs(determinant) < DoubleEpsilon)
+                return Inclusion.Boundary;
+            // Check whether the point is on the same side of the chord as the center.
+            else if (Sign(determinant) != Sign(sweepAngle))
+                return Inclusion.Outside;
+
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Translate points to origin.
+            double u = pX - x;
+            double v = -(pY - y); // Negative vector to account for screen coordinates. 
+
+            // Apply the rotation transformation.
+            double a = (u * cosT + v * sinT);
+            double b = (u * -sinT + v * cosT);
+
+            double normalizedRadius = ((a * a) / (r1 * r1))
+                                    + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
-        /// <param name="rectangle"></param>
-        /// <param name="point"></param>
+        /// <param name="rectangle"><see cref="Rectangle2D"/> class.</param>
+        /// <param name="point">Point to test.</param>
         /// <returns></returns>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Rectangle2D rectangle, Point2D point)
+            => RectanglePoint(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Bottom, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
+        /// </summary>
+        /// <param name="left">The left location of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="top">The top location of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="right">The right location of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="bottom">The bottom location of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion RectanglePoint(double left, double top, double right, double bottom, double pX, double pY)
         {
             if (((
-                Abs(rectangle.X - point.X) < DoubleEpsilon
-                || Abs(rectangle.Bottom - point.X) < DoubleEpsilon)
-                && ((rectangle.Y <= point.Y) == (rectangle.Bottom >= point.Y)))
-                || ((Abs(rectangle.Right - point.Y) < DoubleEpsilon
-                || Abs(rectangle.Left - point.Y) < DoubleEpsilon)
-                && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
+                Abs(left - pX) < DoubleEpsilon
+                || Abs(bottom - pX) < DoubleEpsilon)
+                && ((top <= pY) == (bottom >= pY)))
+                || ((Abs(right - pY) < DoubleEpsilon
+                || Abs(left - pY) < DoubleEpsilon)
+                && ((left <= pX) == (right >= pX))))
             {
                 return Inclusion.Boundary;
             }
 
-            return (rectangle.X <= point.X
-                && point.X < rectangle.X + rectangle.Width
-                && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
+            return (left <= pX
+                && pX < right
+                && top <= pY
+                && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
         }
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon"></param>
+        /// <param name="polygon"><see cref="Polygon"/> class.</param>
+        /// <param name="point">Point to test.</param>
         /// <returns></returns>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Polygon polygon, Point2D point)
+            => PolygonPoint(polygon.Points, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.
+        /// </summary>
+        /// <param name="points">The points that form the corners of the polygon.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion PolygonPoint(List<Point2D> points, double pX, double pY)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
@@ -133,42 +332,42 @@ namespace Engine.Geometry
             Inclusion result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
-            if (polygon.Points.Count < 3)
+            if (points.Count < 3)
                 return Inclusion.Outside;
-            Point2D curPoint = polygon[0];
-            for (int i = 1; i <= polygon.Points.Count; ++i)
+            Point2D curPoint = points[0];
+            for (int i = 1; i <= points.Count; ++i)
             {
-                Point2D nextPoint = (i == polygon.Points.Count ? polygon[0] : polygon[i]);
-                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
+                Point2D nextPoint = (i == points.Count ? points[0] : points[i]);
+                if (Abs(nextPoint.Y - pY) < DoubleEpsilon)
                 {
-                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
-                        && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
+                    if ((Abs(nextPoint.X - pX) < DoubleEpsilon)
+                        || (Abs(curPoint.Y - pY) < DoubleEpsilon
+                        && ((nextPoint.X > pX) == (curPoint.X < pX))))
                     {
                         return Inclusion.Boundary;
                     }
                 }
 
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                if ((curPoint.Y < pY) != (nextPoint.Y < pY))
                 {
-                    if (curPoint.X >= point.X)
+                    if (curPoint.X >= pX)
                     {
-                        if (nextPoint.X > point.X)
+                        if (nextPoint.X > pX)
                         {
                             result = 1 - result;
                         }
                         else
                         {
-                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                            double determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
                             if (Abs(determinant) < DoubleEpsilon)
                                 return Inclusion.Boundary;
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                                 result = 1 - result;
                         }
                     }
-                    else if (nextPoint.X > point.X)
+                    else if (nextPoint.X > pX)
                     {
-                        double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
+                        double determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
                         if (Abs(determinant) < DoubleEpsilon)
                             return Inclusion.Boundary;
                         if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
@@ -185,22 +384,35 @@ namespace Engine.Geometry
         /// <summary>
         /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="PolygonSet"/>.
         /// </summary>
-        /// <param name="polygons"></param>
-        /// <param name="point"></param>
+        /// <param name="polygons">List of <see cref="Polygon"/> classes.</param>
+        /// <param name="point">Point to test.</param>
         /// <returns></returns>
         /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this PolygonSet polygons, Point2D point)
+            => PolygonSetPoint(polygons.Polygons, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="PolygonSet"/>.
+        /// </summary>
+        /// <param name="polygons">List of polygons.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion PolygonSetPoint(List<Polygon> polygons, double pX, double pY)
         {
             Inclusion returnValue = Inclusion.Outside;
 
-            foreach (Polygon poly in polygons.Polygons)
+            foreach (Polygon poly in polygons)
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= Contains(poly, point);
+                returnValue ^= PolygonPoint(poly.Points, pX, pY);
 
                 // Any point on any boundary is on a boundary.
                 if (returnValue == Inclusion.Boundary)
@@ -225,6 +437,8 @@ namespace Engine.Geometry
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(this PolygonSet polygons, Point2D start, Point2D end)
         {

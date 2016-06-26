@@ -467,20 +467,20 @@ namespace Engine
         /// </summary>
         /// <param name="x1">The x component of the Point.</param>
         /// <param name="y1">The y component of the Point.</param>
-        /// <param name="x2_">The x component of the first point on the line.</param>
-        /// <param name="y2_">The y component of the first point on the line.</param>
-        /// <param name="x3_">The x component of the second point on the line.</param>
-        /// <param name="y3_">The y component of the second point on the line.</param>
+        /// <param name="lx2">The x component of the first point on the line.</param>
+        /// <param name="ly2">The y component of the first point on the line.</param>
+        /// <param name="lx3">The x component of the second point on the line.</param>
+        /// <param name="ly3">The y component of the second point on the line.</param>
         /// <returns></returns>
         [Pure]
         public static double SquareDistanceToLine(
             double x1, double y1,
-            double x2_, double y2_,
-            double x3_, double y3_)
+            double lx2, double ly2,
+            double lx3, double ly3)
         {
-            double A = y2_ - y3_;
-            double B = x3_ - x2_;
-            double C = (A * x1 + B * y1) - (A * x2_ + B * y2_);
+            double A = ly2 - ly3;
+            double B = lx3 - lx2;
+            double C = (A * x1 + B * y1) - (A * lx2 + B * ly2);
             return (C * C) / (A * A + B * B);
         }
 
@@ -1774,8 +1774,32 @@ namespace Engine
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Clamp(this double value, double min, double max)
             => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T Clamp<T>(this T value, T min, T max)
+            where T : IComparable
+            => (value?.CompareTo(min) < 0) ? min : (value?.CompareTo(max) > 0) ? max : value;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Wrap(this double value, double min, double max)
+            => (value < min) ? max - (min - value) % (max - min) : min + (value - min) % (max - min);
 
         /// <summary>
         /// Find the absolute positive value of a radian angle.
@@ -1784,6 +1808,7 @@ namespace Engine
         /// <returns>The absolute positive angle in radians.</returns>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this double angle)
         {
             double test = angle % Tau;
@@ -1795,6 +1820,7 @@ namespace Engine
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>
         /// <returns>The new angle, in radians.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngle(this double angle)
         {
             double test = IEEERemainder(angle, Tau);

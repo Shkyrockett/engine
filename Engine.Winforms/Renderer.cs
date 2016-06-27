@@ -49,9 +49,8 @@ namespace Engine.Imaging
             //}
 
             if (item?.Item == null)
-            {
                 throw new NullReferenceException("shape is null.");
-            }
+
             if (item?.Item is ParametricDelegateCurve)
             {
                 (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
@@ -84,9 +83,13 @@ namespace Engine.Imaging
             {
                 (item?.Item as Rectangle2D).Render(g, item, style as ShapeStyle);
             }
-            else if (item?.Item is Arc)
+            else if (item?.Item is CircularArc)
             {
-                (item?.Item as Arc).Render(g, item, style as ShapeStyle);
+                (item?.Item as CircularArc).Render(g, item, style as ShapeStyle);
+            }
+            else if (item?.Item is EllipticArc)
+            {
+                (item?.Item as EllipticArc).Render(g, item, style as ShapeStyle);
             }
             else if (item?.Item is Circle)
             {
@@ -253,10 +256,35 @@ namespace Engine.Imaging
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
-        public static void Render(this Arc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this CircularArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), -(float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            List<Point2D> points = item?.InterpolatePoints();
+            g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
+            g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
+
+            g.DrawArc(Pens.Red, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this EllipticArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            List<Point2D> points = item?.InterpolatePoints();
+            g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
+            g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
+
+            var mat = new Matrix();
+            mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
+            g.Transform = mat;
+            g.DrawArc(Pens.Red, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            g.ResetTransform();
         }
 
         /// <summary>

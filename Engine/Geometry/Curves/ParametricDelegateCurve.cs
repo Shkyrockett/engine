@@ -105,11 +105,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [GeometryAngle]
         [Category("Adjustments")]
         [Description("The " + nameof(Rotation) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [GeometryAngle]
         [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(true)]
@@ -209,6 +209,7 @@ namespace Engine.Geometry
         /// <param name="h"></param>
         /// <param name="a"></param>
         /// <param name="pX"></param>
+        /// <param name="pY"></param>
         /// <returns></returns>
         public static Inclusion Contains(Func<double, double, double, double, double, double, double, Inclusion> function, double x, double y, double w, double h, double a, double pX, double pY)
             => function.Invoke(x, y, w, h, a, pX, pY);

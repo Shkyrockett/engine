@@ -116,8 +116,8 @@ namespace Engine.Geometry
             // Calculate the distance between the
             // point of intersection and the center.
             return Sqrt(
-                intersection.X * intersection.X +
-                intersection.Y * intersection.Y);
+                intersection.X * intersection.X
+                + intersection.Y * intersection.Y);
         }
 
         // Find the point of intersection between

@@ -97,6 +97,15 @@ namespace Engine
                 );
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        public static double Angle(double i, double j)
+            => Atan2(i, -j);
+
+        /// <summary>
         /// Returns the Angle of a line.
         /// </summary>
         /// <param name="x1">Horizontal Component of Point Starting Point</param>
@@ -207,6 +216,29 @@ namespace Engine
             double uX, double uY, double uZ,
             double vX, double vY, double vZ)
             => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
+
+        /// <summary>
+        /// Find the elliptical t that matches the coordinates of a circular angle.
+        /// </summary>
+        /// <param name="angle">The angle to transform into elliptic angle.</param>
+        /// <param name="r1">The first radius of the ellipse.</param>
+        /// <param name="r2">The second radius of the ellipse.</param>
+        /// <returns></returns>
+        public static double ElipticAngle(double angle, double r1, double r2)
+        {
+            // Wrap the angle between -PI and PI.
+            double theta = WrapAngle(angle);
+
+            // Find the elliptical t that matches the circular angle.
+            if (Math.Abs(angle) == HalfPi || Math.Abs(angle) == ThreeQuarterTau)
+                return angle;
+            else if (angle > HalfPi && angle < ThreeQuarterTau)
+                return Atan(r1 * Tan(theta) / r2) + PI;
+            else if (angle < -HalfPi && angle > -ThreeQuarterTau)
+                return Atan(r1 * Tan(theta) / r2) - PI;
+            else
+                return Atan(r1 * Tan(theta) / r2);
+        }
 
         /// <summary>
         /// 

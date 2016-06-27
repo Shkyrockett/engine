@@ -203,8 +203,8 @@ namespace Engine.Geometry
 
             // If we are allowing a quoted token and this token begins with a quote,
             // set up the quote count and skip the initial quote
-            if (allowQuotedToken &&
-                currentChar == quoteChar)
+            if (allowQuotedToken
+                && currentChar == quoteChar)
             {
                 quoteCount++; // increment quote count
                 ++charIndex; // move to next character
@@ -284,8 +284,8 @@ namespace Engine.Geometry
                 // check that the currentChar is a space or the separator.  If not
                 // we have an error. this can happen in the quote case
                 // that the char after the quotes string isn't a char.
-                if (!(currentChar == separator) &&
-                    !char.IsWhiteSpace(currentChar))
+                if (!(currentChar == separator)
+                    && !char.IsWhiteSpace(currentChar))
                 {
                     //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperExtraDataEncountered, _charIndex, _str));
                     throw new System.InvalidOperationException();

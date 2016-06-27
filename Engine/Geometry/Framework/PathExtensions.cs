@@ -25,7 +25,7 @@ namespace Engine.Geometry
         /// <param name="pointC"></param>
         public static void AddArc(this List<Shape> path, Point2D pointA, Point2D pointB, Point2D pointC)
         {
-            path.Add(new Arc(pointA, pointB, pointC));
+            path.Add(new CircularArc(pointA, pointB, pointC));
         }
     }
 }

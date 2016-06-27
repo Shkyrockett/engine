@@ -1,4 +1,12 @@
-﻿using Engine.Geometry.Polygons;
+﻿// <copyright file="RotatedRectangle2D.cs" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license> 
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -286,13 +294,15 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlIgnore]
-        public bool IsEmpty => (Width <= 0) || (Height <= 0);
+        public bool IsEmpty
+            => (Width <= 0) || (Height <= 0);
 
         /// <summary>
         /// Returns true if this Rectangle2D has area.
         /// </summary>
         [XmlIgnore]
-        public bool HasArea => width > 0 && height > 0;
+        public bool HasArea
+            => width > 0 && height > 0;
 
         /// <summary>
         /// 
@@ -300,7 +310,8 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public override double Perimeter => (Maths.Distance(0, 0, width, 0) * 2) + (Maths.Distance(0, 0, 0, height) * 2);
+        public override double Perimeter
+            => (Maths.Distance(0, 0, width, 0) * 2) + (Maths.Distance(0, 0, 0, height) * 2);
 
         /// <summary>
         /// 
@@ -311,7 +322,8 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public override Rectangle2D Bounds => PolygonExtensions.RotatedRectangleBounds(X - (width / 2d), Y - (height / 2d), width, height, Center, angle);
+        public override Rectangle2D Bounds
+            => Boundings.RotatedRectangleBounds(X - (width / 2d), Y - (height / 2d), width, height, Center, angle);
 
         #endregion
 
@@ -659,7 +671,8 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <returns></returns>
         [Pure]
-        public bool Contains(Rectangle2D rect) => Bounds.Contains(rect);
+        public bool Contains(Rectangle2D rect)
+            => Bounds.Contains(rect);
 
         ///// <summary>
         ///// Determines if this rectangle interests with another rectangle.
@@ -676,22 +689,25 @@ namespace Engine.Geometry
         /// Convert a rectangle to an array of it's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public List<Point2D> ToPoints() => PolygonExtensions.RotatedRectangle(x - (width / 2d), y - (height / 2d), width, height, Center, angle);
+        public List<Point2D> ToPoints()
+            => Interpolaters.RotatedRectangle(x - (width / 2d), y - (height / 2d), width, height, Center, angle);
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode() => unchecked((int)((uint)X ^
-(((uint)Y << 13) | ((uint)Y >> 19)) ^
-(((uint)Width << 26) | ((uint)Width >> 6)) ^
-(((uint)Height << 7) | ((uint)Height >> 25))));
+        public override int GetHashCode()
+            => unchecked((int)((uint)X
+            ^ (((uint)Y << 13) | ((uint)Y >> 19))
+            ^ (((uint)Width << 26) | ((uint)Width >> 6))
+            ^ (((uint)Height << 7) | ((uint)Height >> 25))));
 
         /// <summary>
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public Polygon ToPolygon() => new Polygon(ToPoints());
+        public Polygon ToPolygon()
+            => new Polygon(ToPoints());
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

@@ -9,7 +9,6 @@
 
 using Engine;
 using Engine.Geometry;
-using Engine.Geometry.Polygons;
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
@@ -153,11 +152,14 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(AngleofVectorTests))]
-        public static List<SpeedTester> AngleofVectorTests() => new List<SpeedTester> {
+        public static List<SpeedTester> AngleofVectorTests()
+            => new List<SpeedTester> {
                 new SpeedTester(() => GetAngle0(0, 1),
                 $"{nameof(Experiments.GetAngle0)}(0, 1)"),
                 new SpeedTester(() => GetAngleAtan2v2(0, 1),
-                $"{nameof(Experiments.GetAngleAtan2v2)}(0, 1)")
+                $"{nameof(Experiments.GetAngleAtan2v2)}(0, 1)"),
+                new SpeedTester(() => getAngle(0, 1),
+                $"{nameof(Experiments.getAngle)}(0, 1)")
            };
 
         /// <summary>
@@ -174,21 +176,30 @@ namespace MethodSpeedTester
         /// <summary>
         /// Returns the Angle of two deltas.
         /// </summary>
-        /// <param name="opposite">Delta Angle 1</param>
-        /// <param name="adjacent">Delta Angle 2</param>
+        /// <param name="i">Delta Angle 1</param>
+        /// <param name="j">Delta Angle 2</param>
         /// <returns>Returns the Angle of a line.</returns>
         /// <remarks></remarks>
-        public static double GetAngleAtan2v2(double opposite, double adjacent)
+        public static double GetAngleAtan2v2(double i, double j)
         {
-            if ((Abs(opposite) < DoubleEpsilon) && (Abs(adjacent) < DoubleEpsilon))
+            if ((Abs(i) < DoubleEpsilon) && (Abs(j) < DoubleEpsilon))
                 return 0;
-            double Value = Asin(opposite / Sqrt(opposite * opposite + adjacent * adjacent));
-            if (adjacent < 0)
+            double Value = Asin(i / Sqrt(i * i + j * j));
+            if (j < 0)
                 Value = (PI - Value);
             if (Value < 0)
                 Value = (Value + (2 * PI));
             return Value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        public static double getAngle(double i, double j)
+            => (Tau + (j > 0.0 ? 1.0 : -1.0) * Acos(i / Sqrt(i * i + j * j)) % Tau);
 
         #endregion
 
@@ -339,6 +350,241 @@ namespace MethodSpeedTester
         /// <returns>Cartesian coordinate of the specified point with respect to the axis being used.</returns>
         public static double Barycentric(float value1, double value2, double value3, double amount1, double amount2)
             => value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
+
+        #endregion
+
+        #region Boundary of Rotated Ellipse
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the angle of three 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(BoundsOfRotatedEllipseTests))]
+        public static List<SpeedTester> BoundsOfRotatedEllipseTests() => new List<SpeedTester> {
+                new SpeedTester(() => EllipseBoundingBox(5, 5, 5, 4, 45d.ToRadians()),
+                $"{nameof(Experiments.EllipseBoundingBox)}(5, 5, 5, 4, {45d.ToRadians()})"),
+                 new SpeedTester(() => EllipseBounds(5, 5, 5, 4, 45d.ToRadians()),
+                $"{nameof(Experiments.EllipseBounds)}(5, 5, 5, 4, {45d.ToRadians()})")
+           };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Rectangle2D EllipseBoundingBox(double x, double y, int r1, int r2, double angle)
+        {
+            double a = r1 * Cos(angle);
+            double b = r2 * Sin(angle);
+            double c = r1 * Sin(angle);
+            double d = r2 * Cos(angle);
+            double width = Sqrt((a * a) + (b * b)) * 2;
+            double height = Sqrt((c * c) + (d * d)) * 2;
+            double x2 = x - width * 0.5;
+            double y2 = y - height * 0.5;
+            return new Rectangle2D(x2, y2, width, height);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)
+        {
+            double phi = angle;
+            double aspect = r2 / r1;
+            double ux = r1 * Cos(phi);
+            double uy = r1 * Sin(phi);
+            double vx = (r1 * aspect) * Cos(phi + PI / 2);
+            double vy = (r1 * aspect) * Sin(phi + PI / 2);
+
+            double bbox_halfwidth = Sqrt(ux * ux + vx * vx);
+            double bbox_halfheight = Sqrt(uy * uy + vy * vy);
+
+            return Rectangle2D.FromLTRB(
+                (x - bbox_halfwidth),
+                (y - bbox_halfheight),
+                (x + bbox_halfwidth),
+                (y + bbox_halfheight)
+                );
+        }
+
+        #endregion
+
+        #region Boundary of Rotated Elliptic Arc
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="phi"></param>
+        /// <param name="largeArc"></param>
+        /// <param name="sweep"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html
+        /// </remarks>
+        public static Rectangle2D EllpticArc(
+            double x1, double y1,
+            double r1, double r2,
+            double angle,
+            bool largeArc, bool sweep,
+            double x2, double y2)
+        {
+            double xmin;
+            double ymin;
+            double xmax;
+            double ymax;
+
+            if (r1 < 0d)
+                r1 *= -1d;
+            if (r2 < 0d)
+                r2 *= -1d;
+
+            if (r1 == 0d || r2 == 0d)
+            {
+                xmin = (x1 < x2 ? x1 : x2);
+                xmax = (x1 > x2 ? x1 : x2);
+                ymin = (y1 < y2 ? y1 : y2);
+                ymax = (y1 > y2 ? y1 : y2);
+                return Rectangle2D.FromLTRB(xmin, ymin, xmax, ymax);
+            }
+
+            double x1prime = Cos(angle) * (x1 - x2) / 2 + Sin(angle) * (y1 - y2) / 2;
+            double y1prime = -Sin(angle) * (x1 - x2) / 2 + Cos(angle) * (y1 - y2) / 2;
+
+            double radicant = (r1 * r1 * r2 * r2 - r1 * r1 * y1prime * y1prime - r2 * r2 * x1prime * x1prime);
+            radicant /= (r1 * r1 * y1prime * y1prime + r2 * r2 * x1prime * x1prime);
+            double cxprime = 0d;
+            double cyprime = 0d;
+            if (radicant < 0d)
+            {
+                double ratio = r1 / r2;
+                radicant = y1prime * y1prime + x1prime * x1prime / (ratio * ratio);
+                if (radicant < 0d)
+                {
+                    xmin = (x1 < x2 ? x1 : x2);
+                    xmax = (x1 > x2 ? x1 : x2);
+                    ymin = (y1 < y2 ? y1 : y2);
+                    ymax = (y1 > y2 ? y1 : y2);
+                    return Rectangle2D.FromLTRB(xmin, ymin, xmax, ymax);
+                }
+                r2 = Sqrt(radicant);
+                r1 = ratio * r2;
+            }
+            else
+            {
+                double factor = (largeArc == sweep ? -1.0 : 1.0) * Sqrt(radicant);
+
+                cxprime = factor * r1 * y1prime / r2;
+                cyprime = -factor * r2 * x1prime / r1;
+            }
+
+            double cx = cxprime * Cos(angle) - cyprime * Sin(angle) + (x1 + x2) / 2;
+            double cy = cxprime * Sin(angle) + cyprime * Cos(angle) + (y1 + y2) / 2;
+
+            double txmin, txmax, tymin, tymax;
+
+            if (angle == 0 || angle == PI)
+            {
+                xmin = cx - r1;
+                txmin = getAngle(-r1, 0);
+                xmax = cx + r1;
+                txmax = getAngle(r1, 0);
+                ymin = cy - r2;
+                tymin = getAngle(0, -r2);
+                ymax = cy + r2;
+                tymax = getAngle(0, r2);
+            }
+            else if (angle == PI / 2.0 || angle == 3.0 * PI / 2.0)
+            {
+                xmin = cx - r2;
+                txmin = getAngle(-r2, 0);
+                xmax = cx + r2;
+                txmax = getAngle(r2, 0);
+                ymin = cy - r1;
+                tymin = getAngle(0, -r1);
+                ymax = cy + r1;
+                tymax = getAngle(0, r1);
+            }
+            else
+            {
+                txmin = -Atan(r2 * Tan(angle) / r1);
+                txmax = PI - Atan(r2 * Tan(angle) / r1);
+                xmin = cx + r1 * Cos(txmin) * Cos(angle) - r2 * Sin(txmin) * Sin(angle);
+                xmax = cx + r1 * Cos(txmax) * Cos(angle) - r2 * Sin(txmax) * Sin(angle);
+                if (xmin > xmax)
+                {
+                    Swap(ref xmin, ref xmax);
+                    Swap(ref txmin, ref txmax);
+                }
+                double tmpY = cy + r1 * Cos(txmin) * Sin(angle) + r2 * Sin(txmin) * Cos(angle);
+                txmin = getAngle(xmin - cx, tmpY - cy);
+                tmpY = cy + r1 * Cos(txmax) * Sin(angle) + r2 * Sin(txmax) * Cos(angle);
+                txmax = getAngle(xmax - cx, tmpY - cy);
+
+                tymin = Atan(r2 / (Tan(angle) * r1));
+                tymax = Atan(r2 / (Tan(angle) * r1)) + PI;
+                ymin = cy + r1 * Cos(tymin) * Sin(angle) + r2 * Sin(tymin) * Cos(angle);
+                ymax = cy + r1 * Cos(tymax) * Sin(angle) + r2 * Sin(tymax) * Cos(angle);
+                if (ymin > ymax)
+                {
+                    Swap(ref ymin, ref ymax);
+                    Swap(ref tymin, ref tymax);
+                }
+                double tmpX = cx + r1 * Cos(tymin) * Cos(angle) - r2 * Sin(tymin) * Sin(angle);
+                tymin = getAngle(tmpX - cx, ymin - cy);
+                tmpX = cx + r1 * Cos(tymax) * Cos(angle) - r2 * Sin(tymax) * Sin(angle);
+                tymax = getAngle(tmpX - cx, ymax - cy);
+            }
+
+            double angle1 = getAngle(x1 - cx, y1 - cy);
+            double angle2 = getAngle(x2 - cx, y2 - cy);
+
+            if (!sweep)
+                Swap(ref angle1, ref angle2);
+
+            bool otherArc = false;
+            if (angle1 > angle2)
+            {
+                Swap(ref angle1, ref angle2);
+                otherArc = true;
+            }
+
+            if ((!otherArc && (angle1 > txmin || angle2 < txmin)) || (otherArc && !(angle1 > txmin || angle2 < txmin)))
+                xmin = x1 < x2 ? x1 : x2;
+            if ((!otherArc && (angle1 > txmax || angle2 < txmax)) || (otherArc && !(angle1 > txmax || angle2 < txmax)))
+                xmax = x1 > x2 ? x1 : x2;
+            if ((!otherArc && (angle1 > tymin || angle2 < tymin)) || (otherArc && !(angle1 > tymin || angle2 < tymin)))
+                ymin = y1 < y2 ? y1 : y2;
+            if ((!otherArc && (angle1 > tymax || angle2 < tymax)) || (otherArc && !(angle1 > tymax || angle2 < tymax)))
+                ymax = y1 > y2 ? y1 : y2;
+
+            return Rectangle2D.FromLTRB(xmin, ymin, xmax, ymax);
+        }
 
         #endregion
 
@@ -3164,6 +3410,10 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
 
         #endregion
 
+        #region Elliptic Arc From Points and Radii
+
+        #endregion
+
         #region Elliptic Star Points
 
         /// <summary>
@@ -3332,7 +3582,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             // if they lie in triangle A, B, C.
             for (int i = 0; i < polygon.Points.Count; i++)
             {
-                if ((i != a) && (i != b) && (i != c) && triangle.PointInPolygon(polygon.Points[i]))
+                if ((i != a) && (i != b) && (i != c) && triangle.Contains(polygon.Points[i]))
                 {
                     // This point is in the triangle 
                     // do this is not an ear.
@@ -3692,14 +3942,21 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double sCubed = sSquared * s;
 
             if (s == 0f)
+            {
                 result = v1;
+            }
             else if (s == 1f)
+            {
                 result = v2;
+            }
             else
+            {
                 result = (2 * v1 - 2 * v2 + t2 + t1) * sCubed
-                    + (3 * v2 - 3 * v1 - 2 * t1 - t2) * sSquared
-                    + t1 * s
-                    + v1;
+                   + (3 * v2 - 3 * v1 - 2 * t1 - t2) * sSquared
+                   + t1 * s
+                   + v1;
+            }
+
             return result;
         }
 
@@ -4145,34 +4402,34 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// </summary>
         public class EllipseIntersectStuff
         {
-            internal bool GotEllipse1;
-            internal bool GotEllipse2;
+            internal bool GotEllipse1 = false;
+            internal bool GotEllipse2 = false;
             private Rectangle2D Ellipse1 = new Rectangle2D();
             private Rectangle2D Ellipse2 = new Rectangle2D();
 
             // Equations that define the ellipses.
-            internal double Dx1;
-            internal double Dy1;
-            internal double Dx2;
-            internal double Dy2;
+            internal double Dx1 = 0;
+            internal double Dy1 = 0;
+            internal double Dx2 = 0;
+            internal double Dy2 = 0;
 
-            internal double Rx1;
-            internal double Ry1;
-            internal double Rx2;
-            internal double Ry2;
+            internal double Rx1 = 0;
+            internal double Ry1 = 0;
+            internal double Rx2 = 0;
+            internal double Ry2 = 0;
 
-            internal double A1;
-            internal double B1;
-            internal double C1;
-            internal double D1;
-            internal double E1;
-            internal double F1;
-            internal double A2;
-            internal double B2;
-            internal double C2;
-            internal double D2;
-            internal double E2;
-            internal double F2;
+            internal double A1 = 0;
+            internal double B1 = 0;
+            internal double C1 = 0;
+            internal double D1 = 0;
+            internal double E1 = 0;
+            internal double F1 = 0;
+            internal double A2 = 0;
+            internal double B2 = 0;
+            internal double C2 = 0;
+            internal double D2 = 0;
+            internal double E2 = 0;
+            internal double F2 = 0;
 
             // The points of intersection.
             internal List<Point2D> Roots = new List<Point2D>();
@@ -4181,7 +4438,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             internal List<Point2D> PointsOfIntersection = new List<Point2D>();
 
             // Difference function tangent lines.
-            internal double TangentX;
+            internal double TangentX = 0;
             internal List<Point2D> TangentCenters;
             internal List<Point2D> TangentP1;
             internal List<Point2D> TangentP2;
@@ -4993,7 +5250,8 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="number"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static bool IsNumber(double number) => !(double.IsNaN(number) || double.IsInfinity(number));
+        private static bool IsNumber(double number)
+            => !(double.IsNaN(number) || double.IsInfinity(number));
 
         #endregion
 
@@ -5045,7 +5303,9 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new SpeedTester(() => Intersection4(0, 0, 2, 2, 0, 2, 2, 0),
                 $"{nameof(Experiments.Intersection4)}(0, 0, 2, 2, 0, 2, 2, 0)"),
                 new SpeedTester(() => Intersection5(0, 0, 2, 2, 0, 2, 2, 0),
-                $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)")
+                $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => FindIntersection(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.FindIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)")
             };
 
         /// <summary>
@@ -5318,6 +5578,43 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 new Tuple<double, double>(
                 x0 + (t * direction1I),
                 y0 + (t * direction1J)));
+        }
+
+        /// <summary>
+        /// Find the point of intersection between two lines.
+        /// </summary>
+        /// <param name="X1"></param>
+        /// <param name="Y1"></param>
+        /// <param name="X2"></param>
+        /// <param name="Y2"></param>
+        /// <param name="A1"></param>
+        /// <param name="B1"></param>
+        /// <param name="A2"></param>
+        /// <param name="B2"></param>
+        /// <param name="intersect"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
+        private static Tuple<bool, Tuple<double, double>> FindIntersection(
+            double X1, double Y1,
+            double X2, double Y2,
+            double A1, double B1,
+            double A2, double B2)
+        {
+            double dx = X2 - X1;
+            double dy = Y2 - Y1;
+            double da = A2 - A1;
+            double db = B2 - B1;
+            double s, t;
+
+            // If the segments are parallel, return False.
+            if (Abs(da * dy - db * dx) < 0.001)
+                return new Tuple<bool, Tuple<double, double>>(false, null);
+
+            // Find the point of intersection.
+            s = (dx * (B1 - Y1) + dy * (X1 - A1)) / (da * dy - db * dx);
+            t = (da * (Y1 - B1) + db * (A1 - X1)) / (db * dx - da * dy);
+
+            return new Tuple<bool, Tuple<double, double>>(true, new Tuple<double, double>(X1 + t * dx, Y1 + t * dy));
         }
 
         #endregion
@@ -7236,8 +7533,10 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                 return true;
 
             for (int i = 1; i < coef.Count; i++)
+            {
                 if (coef[i] * coef[i - 1] < 0)
                     return false;
+            }
 
             return true;
         }

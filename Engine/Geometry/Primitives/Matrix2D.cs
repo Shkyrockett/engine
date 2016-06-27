@@ -336,8 +336,8 @@ namespace Engine.Geometry
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
         public bool IsIdentity
-            => (type == MatrixTypes.IDENTITY ||
-        (
+            => (type == MatrixTypes.IDENTITY
+        || (
             Abs(m1x1 - 1) < DoubleEpsilon
             && Abs(m1x2) < DoubleEpsilon
             && Abs(m2x1) < DoubleEpsilon
@@ -434,12 +434,12 @@ namespace Engine.Geometry
             }
             else
             {
-                return matrix1.M11.Equals(matrix2.M11) &&
-                       matrix1.M12.Equals(matrix2.M12) &&
-                       matrix1.M21.Equals(matrix2.M21) &&
-                       matrix1.M22.Equals(matrix2.M22) &&
-                       matrix1.OffsetX.Equals(matrix2.OffsetX) &&
-                       matrix1.OffsetY.Equals(matrix2.OffsetY);
+                return matrix1.M11.Equals(matrix2.M11)
+                       && matrix1.M12.Equals(matrix2.M12)
+                       && matrix1.M21.Equals(matrix2.M21)
+                       && matrix1.M22.Equals(matrix2.M22)
+                       && matrix1.OffsetX.Equals(matrix2.OffsetX)
+                       && matrix1.OffsetY.Equals(matrix2.OffsetY);
             }
         }
 
@@ -1327,12 +1327,12 @@ namespace Engine.Geometry
             else
             {
                 // Perform field-by-field XOR of HashCodes
-                return M11.GetHashCode() ^
-                       M12.GetHashCode() ^
-                       M21.GetHashCode() ^
-                       M22.GetHashCode() ^
-                       OffsetX.GetHashCode() ^
-                       OffsetY.GetHashCode();
+                return M11.GetHashCode()
+                       ^ M12.GetHashCode()
+                       ^ M21.GetHashCode()
+                       ^ M22.GetHashCode()
+                       ^ OffsetX.GetHashCode()
+                       ^ OffsetY.GetHashCode();
             }
         }
 

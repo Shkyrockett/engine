@@ -10,7 +10,6 @@
 using Engine;
 using Engine.File.Palettes;
 using Engine.Geometry;
-using Engine.Geometry.Polygons;
 using Engine.Imaging;
 using Engine.Objects;
 using Engine.Physics;
@@ -179,66 +178,66 @@ namespace Editor
             //GraphicItem polylineItem = new GraphicItem(polyline, styles[4]);
             //vectorMap.Add(polylineItem);
 
-            Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
-            var lineItem = new GraphicItem(line, styles[5]);
-            vectorMap.Add(lineItem);
+            //Shape line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
+            //var lineItem = new GraphicItem(line, styles[5]);
+            //vectorMap.Add(lineItem);
 
-            Shape set = new PolygonSet(
-                new List<Polygon>(
-                    new List<Polygon> {
-                        new Polygon( // Boundary
-                            new List<Point2D> {
-                                new Point2D(10, 10),
-                                new Point2D(300, 10),
-                                new Point2D(300, 300),
-                                new Point2D(10, 300),
-                                // Cut out
-                                new Point2D(10, 200),
-                                new Point2D(200, 80),
-                                new Point2D(10, 150)
-                            }
-                        ),
-                        new Polygon( // First inner triangle
-                            new List<Point2D> {
-                                new Point2D(20, 100),
-                                new Point2D(175, 60),
-                                new Point2D(40, 30)
-                            }
-                        ),
-                        new Polygon( // Second inner triangle
-                            new List<Point2D> {
-                                new Point2D(250, 150),
-                                new Point2D(150, 150),
-                                new Point2D(250, 200)
-                            }
-                        )
-                    }
-                )
-            );
-            var setItem = new GraphicItem(set, styles[8]);
-            vectorMap.Add(setItem);
+            //Shape set = new PolygonSet(
+            //    new List<Polygon>(
+            //        new List<Polygon> {
+            //            new Polygon( // Boundary
+            //                new List<Point2D> {
+            //                    new Point2D(10, 10),
+            //                    new Point2D(300, 10),
+            //                    new Point2D(300, 300),
+            //                    new Point2D(10, 300),
+            //                    // Cut out
+            //                    new Point2D(10, 200),
+            //                    new Point2D(200, 80),
+            //                    new Point2D(10, 150)
+            //                }
+            //            ),
+            //            new Polygon( // First inner triangle
+            //                new List<Point2D> {
+            //                    new Point2D(20, 100),
+            //                    new Point2D(175, 60),
+            //                    new Point2D(40, 30)
+            //                }
+            //            ),
+            //            new Polygon( // Second inner triangle
+            //                new List<Point2D> {
+            //                    new Point2D(250, 150),
+            //                    new Point2D(150, 150),
+            //                    new Point2D(250, 200)
+            //                }
+            //            )
+            //        }
+            //    )
+            //);
+            //var setItem = new GraphicItem(set, styles[8]);
+            //vectorMap.Add(setItem);
 
-            Shape innerPolygon = new Polygon( // First inner triangle
-                            new List<Point2D> {
-                                new Point2D(20, 100),
-                                new Point2D(175, 60),
-                                new Point2D(40, 30)
-                            }
-                        ).Offset(10);
-            var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
-            vectorMap.Add(innerPolygonItem);
+            //Shape innerPolygon = new Polygon( // First inner triangle
+            //                new List<Point2D> {
+            //                    new Point2D(20, 100),
+            //                    new Point2D(175, 60),
+            //                    new Point2D(40, 30)
+            //                }
+            //            ).Offset(10);
+            //var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
+            //vectorMap.Add(innerPolygonItem);
 
-            Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
-            Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
-            Polyline pathPolyline2 = pathPolyline.Offset(-10);
-            pathPolyline2.Reverse();
-            //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
-            //GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
-            var polylineSetItem = new GraphicItem(polylineSet, styles[10]);
-            var pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
-            //vectorMap.Add(polygonLineItem);
-            vectorMap.Add(polylineSetItem);
-            vectorMap.Add(pathPolylineItem);
+            //Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
+            //Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
+            //Polyline pathPolyline2 = pathPolyline.Offset(-10);
+            //pathPolyline2.Reverse();
+            ////Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
+            ////GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
+            //var polylineSetItem = new GraphicItem(polylineSet, styles[10]);
+            //var pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
+            ////vectorMap.Add(polygonLineItem);
+            //vectorMap.Add(polylineSetItem);
+            //vectorMap.Add(pathPolylineItem);
 
             //Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
             //GraphicItem arcItem = new GraphicItem(arc, styles[8]);
@@ -268,9 +267,13 @@ namespace Editor
             ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
             ////MessageBox.Show(cubicBezierLengths.ToString());
 
-            var ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
-            var ellipseItem = new GraphicItem(ellipse, styles[6]);
-            vectorMap.Add(ellipseItem);
+            //var ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
+            //var ellipseItem = new GraphicItem(ellipse, styles[6]);
+            //vectorMap.Add(ellipseItem);
+
+            //var ellipseBounds = Boundings.Ellipse(200, 200, 50, 25, 45d.ToRadians());
+            //var ellipseBoundsItem = new GraphicItem(ellipseBounds, styles[10]);
+            //vectorMap.Add(ellipseBoundsItem);
 
             //Polygon triangleI = new Triangle(
             //    new Point2D(75, 125),
@@ -290,58 +293,141 @@ namespace Editor
             //GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
             //vectorMap.Add(intersectionItem);
 
-            var ellipseTween = new Ellipse(
-                new Point2D(100, 100),
-                56, 30, 0d);
-            var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
+            //var ellipseTween = new Ellipse(
+            //    new Point2D(100, 100),
+            //    56, 30, 0d);
+            //var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
 
-            var rectangleTween = new Rectangle2D(
-                new Point2D(100, 100),
-                new Size2D(100, 100));
-            var rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
+            //var rectangleTween = new Rectangle2D(
+            //    new Point2D(100, 100),
+            //    new Size2D(100, 100));
+            //var rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
 
-            double duration = 300;
-            double delay = 20;
+            //double duration = 300;
+            //double delay = 20;
 
-            //tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
-            Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
+            ////tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
+            //Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
 
-            //tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
-            tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
-                .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
-                .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
-            tweener.Timer(duration).OnComplete(CompleteCallback);
+            ////tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
+            //tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
+            //    .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
+            //    .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
+            //tweener.Timer(duration).OnComplete(CompleteCallback);
 
-            vectorMap.Add(rectangleTweenItem);
-            vectorMap.Add(ellipseTweenItem);
+            //vectorMap.Add(rectangleTweenItem);
+            //vectorMap.Add(ellipseTweenItem);
+
+            //var parametricEllipse = new ParametricDelegateCurve(
+            //    (x, y, w, h, a, t) => Interpolaters.Ellipse(x, y, w, h, a, t),
+            //    (x, y, w, h, a, px, py) => Intersections.EllipsePoint(x, y, w, h, a, px, py),
+            //    new Point2D(200d, 100d), new Size2D(25d, 50d), 0, 0);
+            //var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
+            //vectorMap.Add(parametricEllipseItem);
+
+            //var EllipseBounds = Boundings.Ellipse(200, 100, 25, 50);
+            //var EllipseBoundsItem = new GraphicItem(EllipseBounds, styles[10]);
+            //vectorMap.Add(EllipseBoundsItem);
+
+            //double centerX = 200d;
+            //double centerY = 200d;
+            //double radius1 = 100d;
+            //double radius2 = 200d;
+            //double angle = 45d.ToRadians();
+            //double startAngle = -45d.ToRadians();
+            //double sweepAngle = 90d.ToRadians();
+            //var parametricEllipticArc = new ParametricDelegateCurve(
+            //    (x, y, w, h, a, t) => Interpolaters.EllipticArc(x, y, w, h, a, startAngle, sweepAngle, t),
+            //    (x, y, w, h, a, px, py) => Intersections.EllipticSectorPoint(x, y, w, h, a, startAngle, sweepAngle, px, py),
+            //    new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
+            //var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, styles[3]);
+            //vectorMap.Add(parametricEllipticArcItem);
+
+            //var EllpticArcBounds = Boundings.EllpticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            //var EllpticArcBoundsItem = new GraphicItem(EllpticArcBounds, styles[10]);
+            //vectorMap.Add(EllpticArcBoundsItem);
+
+            double centerX = 200d;
+            double centerY = 200d;
+            double radius1 = 100d;
+            double radius2 = 200d;
+            double angle = 45d.ToRadians();
+            double startAngle = 0d.ToRadians();
+            double sweepAngle = -90d.ToRadians();
 
             var parametricEllipse = new ParametricDelegateCurve(
                 (x, y, w, h, a, t) => Interpolaters.Ellipse(x, y, w, h, a, t),
                 (x, y, w, h, a, px, py) => Intersections.EllipsePoint(x, y, w, h, a, px, py),
-                new Point2D(200d, 100d), new Size2D(25d, 50d), 0, 0);
+                new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
             vectorMap.Add(parametricEllipseItem);
 
-            var parametricEllipticArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolaters.EllipticArc(x, y, w, h, a, 0d, 90d.ToRadians(), t),
-                (x, y, w, h, a, px, py) => Intersections.EllipticSectorPoint(x, y, w, h, a, 0d, 90d.ToRadians(), px, py),
-                new Point2D(100d, 100d), new Size2D(25d, 50d), 0, 0);
-            var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, styles[3]);
-            vectorMap.Add(parametricEllipticArcItem);
+            var ellipticArc = new EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
 
-            var parametricCircle = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolaters.Circle(x, y, h, t),
-                (x, y, w, h, a, px, py) => Intersections.CirclePoint(x, y, h, px, py),
-                new Point2D(100d, 200d), new Size2D(0d, 50d), 0, 0);
-            var parametricCircleItem = new GraphicItem(parametricCircle, styles[3]);
-            vectorMap.Add(parametricCircleItem);
+            var ellpticArcBounds = Boundings.EllpticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, styles[10]);
 
-            var parametricCircleArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolaters.Arc(x, y, h, 0d, 90d.ToRadians(), t),
-                (x, y, w, h, a, px, py) => Intersections.ArcSectorPoint(x, y, h, 0d, 90d.ToRadians(), px, py),
-                new Point2D(150d, 150d), new Size2D(0d, 50d), 0, 0);
-            var parametricCircleArcItem = new GraphicItem(parametricCircleArc, styles[3]);
-            vectorMap.Add(parametricCircleArcItem);
+            var test = Interpolaters.EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, 1);
+
+            var angleLines = new Polyline(ellipticArc.StartPoint, ellipticArc.Center, ellipticArc.EndPoint);
+            var angleLinesItem = new GraphicItem(angleLines, styles[10]);
+
+            var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
+            var circularArcItem = new GraphicItem(circularArc, styles[3]);
+
+            vectorMap.Add(ellpticArcBoundsItem);
+            vectorMap.Add(ellipticArcItem);
+            vectorMap.Add(circularArcItem);
+            vectorMap.Add(angleLinesItem);
+
+            //double centerX = 100d;
+            //double centerY = 200d;
+            //double radius1 = 100d;
+            //double radius2 = 200d;
+            //double angle = -45d.ToRadians();
+            //double startAngle = -45d.ToRadians();
+            //double sweepAngle = 90d.ToRadians();
+            //var ellipticArc = new EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            //var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
+            //vectorMap.Add(ellipticArcItem);
+
+            //var EllpticArcBounds = Boundings.EllpticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            //var EllpticArcBoundsItem = new GraphicItem(EllpticArcBounds, styles[10]);
+            //vectorMap.Add(EllpticArcBoundsItem);
+
+            //var parametricEllipticArc = new ParametricDelegateCurve(
+            //    (x, y, w, h, a, t) => Interpolaters.EllipticArc(x, y, w, h, a, startAngle, sweepAngle, t),
+            //    (x, y, w, h, a, px, py) => Intersections.EllipticSectorPoint(x, y, w, h, a, startAngle, sweepAngle, px, py),
+            //    new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
+            //var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, styles[3]);
+            //vectorMap.Add(parametricEllipticArcItem);
+
+            //var parametricEllpticArcBounds = Boundings.EllpticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            //var parametricEllpticArcBoundsItem = new GraphicItem(parametricEllpticArcBounds, styles[10]);
+            //vectorMap.Add(parametricEllipticArcItem);
+
+            //var parametricCircle = new ParametricDelegateCurve(
+            //    (x, y, w, h, a, t) => Interpolaters.Circle(x, y, h, t),
+            //    (x, y, w, h, a, px, py) => Intersections.CirclePoint(x, y, h, px, py),
+            //    new Point2D(100d, 200d), new Size2D(0d, 50d), 0, 0);
+            //var parametricCircleItem = new GraphicItem(parametricCircle, styles[3]);
+            //vectorMap.Add(parametricCircleItem);
+
+            //var CircleBounds = Boundings.Circle(100, 200, 50);
+            //var CircleBoundsItem = new GraphicItem(CircleBounds, styles[10]);
+            //vectorMap.Add(CircleBoundsItem);
+
+            //var parametricCircleArc = new ParametricDelegateCurve(
+            //    (x, y, w, h, a, t) => Interpolaters.Arc(x, y, h, 0d, 90d.ToRadians(), t),
+            //    (x, y, w, h, a, px, py) => Intersections.ArcSectorPoint(x, y, h, 0d, 90d.ToRadians(), px, py),
+            //    new Point2D(150d, 150d), new Size2D(0d, 50d), 0, 0);
+            //var parametricCircleArcItem = new GraphicItem(parametricCircleArc, styles[3]);
+            //vectorMap.Add(parametricCircleArcItem);
+
+            //var CircleArcBounds = Boundings.Arc(100, 200, 50, 0d, 90d.ToRadians());
+            //var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, styles[10]);
+            //vectorMap.Add(CircleArcBoundsItem);
 
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";

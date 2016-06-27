@@ -20,9 +20,9 @@ namespace Engine.Winforms
         {
             InitializeComponent();
             SetStyle(
-                ControlStyles.DoubleBuffer |
-                ControlStyles.UserPaint |
-                ControlStyles.AllPaintingInWmPaint
+                ControlStyles.DoubleBuffer
+                | ControlStyles.UserPaint
+                | ControlStyles.AllPaintingInWmPaint
                 , true);
             UpdateStyles();
         }

@@ -10,45 +10,17 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using static Engine.Maths;
 using static System.Math;
 
-namespace Engine.Geometry.Polygons
+namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
     public static class PolygonExtensions
     {
-        /// <summary>
-        /// Closed-form solution to elliptic integral for arc length.
-        /// </summary>
-        /// <param name="pointA">The starting node for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
-        /// </remarks>
-        public static double QuadraticBezierArcLengthByIntegral(Point2D pointA, Point2D pointB, Point2D pointC)
-        {
-            double ax = pointA.X - 2 * pointB.X + pointC.X;
-            double ay = pointA.Y - 2 * pointB.Y + pointC.Y;
-            double bx = 2 * pointB.X - 2 * pointA.X;
-            double by = 2 * pointB.Y - 2 * pointA.Y;
-
-            double a = 4 * (ax * ax + ay * ay);
-            double b = 4 * (ax * bx + ay * by);
-            double c = bx * bx + by * by;
-
-            double abc = 2 * Sqrt(a + b + c);
-            double a2 = Sqrt(a);
-            double a32 = 2 * a * a2;
-            double c2 = 2 * Sqrt(c);
-            double ba = b / a2;
-
-            return (a32 * abc + a2 * b * (abc - c2) + (4 * c * a - b * b) * Log((2 * a2 + ba + abc) / (ba + c2))) / (4 * a32);
-        }
-
         /// <summary>
         /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
         /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
@@ -92,7 +64,8 @@ namespace Engine.Geometry.Polygons
             }
 
             //  If there is a straight-line solution, return with it immediately.
-            if (polygons.Contains(start, end)) return new Polyline(new List<Point2D> { start, end });
+            if (polygons.Contains(start, end))
+                return new Polyline(new List<Point2D> { start, end });
 
             //  Build a point list that refers to the corners of the
             //  polygons, as well as to the start point and endpoint.
@@ -105,7 +78,7 @@ namespace Engine.Geometry.Polygons
             }
 
             pointList.Add(end);
-            pointCount= pointList.Count;
+            pointCount = pointList.Count;
 
             //  Initialize the shortest-path tree to include just the start point.
             treeCount = 1;
@@ -126,13 +99,16 @@ namespace Engine.Geometry.Polygons
                             newDist = pointList[ti].TotalDistance + ((Point2D)pointList[ti]).Distance((Point2D)pointList[tj]);
                             if (newDist < bestDist)
                             {
-                                bestDist = newDist; bestI = ti; bestJ = tj;
+                                bestDist = newDist;
+                                bestI = ti;
+                                bestJ = tj;
                             }
                         }
                     }
                 }
 
-                if (Abs(bestDist - maxLength) < Maths.DoubleEpsilon) return null;   //  (no solution)
+                if (Abs(bestDist - maxLength) < Maths.DoubleEpsilon)
+                    return null;   //  (no solution)
                 pointList[bestJ].Previous = bestI;
                 pointList[bestJ].TotalDistance = bestDist;
 
@@ -168,160 +144,6 @@ namespace Engine.Geometry.Polygons
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
-        /// </remarks>
-        public static double EllipsePerimeter(double a, double b)
-            => 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <param name="p4"></param>
-        /// <returns></returns>
-        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
-        public static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
-        {
-            var k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
-            Point2D k2 = 3 * (p1 + p3) - 6 * p2;
-            var k3 = (Point2D)(3 * (p2 - p1));
-            Point2D k4 = p1;
-
-            double q1 = 9.0 * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
-            double q2 = 12.0 * (k1.X * k2.X + k1.Y * k2.Y);
-            double q3 = 3.0 * (k1.X * k3.X + k1.Y * k3.Y) + 4.0 * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y)));
-            double q4 = 4.0 * (k2.X * k3.X + k2.Y * k3.Y);
-            double q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
-
-            // Approximation algorithm based on Simpson. 
-            double a = 0;
-            double b = 1;
-            int n_limit = 1024;
-            double TOLERANCE = 0.001;
-
-            int n = 1;
-
-            double multiplier = (b - a) / 6.0;
-            double endsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a) + CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, b);
-            double interval = (b - a) / 2.0;
-            double asum = 0;
-            double bsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a + interval);
-            double est1 = multiplier * (endsum + 2 * asum + 4 * bsum);
-            double est0 = 2 * est1;
-
-            while (n < n_limit && (Abs(est1) > 0 && Abs((est1 - est0) / est1) > TOLERANCE))
-            {
-                n *= 2;
-                multiplier /= 2;
-                interval /= 2;
-                asum += bsum;
-                bsum = 0;
-                est0 = est1;
-                double interval_div_2n = interval / (2.0 * n);
-
-                for (int i = 1; i < 2 * n; i += 2)
-                {
-                    double t = a + i * interval_div_2n;
-                    bsum += CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, t);
-                }
-
-                est1 = multiplier * (endsum + 2 * asum + 4 * bsum);
-            }
-
-            return est1 * 10;
-        }
-
-        /// <summary>
-        /// Bezier Arc Length Function
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="q1"></param>
-        /// <param name="q2"></param>
-        /// <param name="q3"></param>
-        /// <param name="q4"></param>
-        /// <param name="q5"></param>
-        /// <returns></returns>
-        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
-        private static double CubicBezierArcLengthHelper(ref double q1, ref double q2, ref double q3, ref double q4, ref double q5, double t)
-        {
-            double result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
-            result = Sqrt(Abs(result));
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
-        public static List<Point2D> RotatedRectangle(double x, double y, double width, double height, Point2D fulcrum, double angle)
-        {
-            var points = new List<Point2D>();
-
-            var xaxis = new Point2D(Cos(angle), Sin(angle));
-            var yaxis = new Point2D(-Sin(angle), Cos(angle));
-
-            // Apply the rotation transformation and translate to new center.
-            points.Add(new Point2D(
-                fulcrum.X + ((-width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
-                fulcrum.Y + ((-width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
-                ));
-            points.Add(new Point2D(
-                fulcrum.X + ((width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
-                fulcrum.Y + ((width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
-                ));
-            points.Add(new Point2D(
-                fulcrum.X + ((width / 2) * xaxis.X + (height / 2) * xaxis.Y),
-                fulcrum.Y + ((width / 2) * yaxis.X + (height / 2) * yaxis.Y)
-                ));
-            points.Add(new Point2D(
-                fulcrum.X + ((-width / 2) * xaxis.X + (height / 2) * xaxis.Y),
-                fulcrum.Y + ((-width / 2) * yaxis.X + (height / 2) * yaxis.Y)
-                ));
-
-            return points;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
-        public static Rectangle2D RotatedRectangleBounds(double x, double y, double width, double height, Point2D fulcrum, double angle)
-        {
-            double cosAngle = Abs(Cos(angle));
-            double sinAngle = Abs(Sin(angle));
-
-            var size = new Size2D(
-                (cosAngle * width) + (sinAngle * height),
-                (cosAngle * height) + (sinAngle * width)
-                );
-
-            var loc = new Point2D(
-                fulcrum.X + ((-width / 2) * cosAngle + (-height / 2) * sinAngle),
-                fulcrum.Y + ((-width / 2) * sinAngle + (-height / 2) * cosAngle)
-                );
-
-            return new Rectangle2D(loc, size);
-        }
-
-        /// <summary>
         /// Find the polygon's centroid.
         /// </summary>
         /// <param name="polygon"></param>
@@ -342,8 +164,8 @@ namespace Engine.Geometry.Polygons
             for (int i = 0; i < num_points; i++)
             {
                 second_factor =
-                    pts[i].X * pts[i + 1].Y -
-                    pts[i + 1].X * pts[i].Y;
+                    pts[i].X * pts[i + 1].Y
+                    - pts[i + 1].X * pts[i].Y;
                 X += (pts[i].X + pts[i + 1].X) * second_factor;
                 Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
             }
@@ -365,50 +187,6 @@ namespace Engine.Geometry.Polygons
         }
 
         /// <summary>
-        /// Return true if the point is in the polygon.
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static bool PointInPolygon(this Polygon polygon, Point2D point)
-            => PointInPolygon(polygon, point.X, point.Y);
-
-        /// <summary>
-        /// Return true if the point is in the polygon.
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="X"></param>
-        /// <param name="Y"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static bool PointInPolygon(this Polygon polygon, double X, double Y)
-        {
-            // Get the angle between the point and the
-            // first and last vertices.
-            int max_point = polygon.Points.Count - 1;
-            double total_angle = GetAngle(
-                polygon.Points[max_point].X, polygon.Points[max_point].Y,
-                X, Y,
-                polygon.Points[0].X, polygon.Points[0].Y);
-
-            // Add the angles from the point
-            // to each other pair of vertices.
-            for (int i = 0; i < max_point; i++)
-            {
-                total_angle += GetAngle(
-                    polygon.Points[i].X, polygon.Points[i].Y,
-                    X, Y,
-                   polygon.Points[i + 1].X, polygon.Points[i + 1].Y);
-            }
-
-            // The total angle should be 2 * PI or -2 * PI if
-            // the point is in the polygon and close to zero
-            // if the point is outside the polygon.
-            return (Abs(total_angle) > 0.000001);
-        }
-
-        /// <summary>
         /// Return true if the polygon is oriented clockwise.
         /// </summary>
         /// <returns></returns>
@@ -423,7 +201,8 @@ namespace Engine.Geometry.Polygons
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         private static void OrientPolygonClockwise(this Polygon polygon)
         {
-            if (!PolygonIsOrientedClockwise(polygon)) polygon.Points.Reverse();
+            if (!PolygonIsOrientedClockwise(polygon))
+                polygon.Points.Reverse();
         }
 
         /// <summary>
@@ -473,8 +252,8 @@ namespace Engine.Geometry.Polygons
             for (int i = 0; i < num_points; i++)
             {
                 area +=
-                    (pts[i + 1].X - pts[i].X) *
-                    (pts[i + 1].Y + pts[i].Y) / 2;
+                    (pts[i + 1].X - pts[i].X)
+                    * (pts[i + 1].Y + pts[i].Y) / 2;
             }
 
             // Return the result.
@@ -508,39 +287,16 @@ namespace Engine.Geometry.Polygons
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
-                if (cross_product < 0) got_negative = true;
-                else got_positive |= cross_product > 0;
-                if (got_negative && got_positive) return false;
+                if (cross_product < 0)
+                    got_negative = true;
+                else
+                    got_positive |= cross_product > 0;
+                if (got_negative && got_positive)
+                    return false;
             }
 
             // If we got this far, the polygon is convex.
             return true;
-        }
-
-        /// <summary>
-        /// Return the angle ABC.
-        /// Return a value between PI and -PI.
-        /// Note that the value is the opposite of what you might
-        /// expect because Y coordinates increase downward.
-        /// </summary>
-        /// <param name="Ax"></param>
-        /// <param name="Ay"></param>
-        /// <param name="Bx"></param>
-        /// <param name="By"></param>
-        /// <param name="Cx"></param>
-        /// <param name="Cy"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static double GetAngle(double Ax, double Ay, double Bx, double By, double Cx, double Cy)
-        {
-            // Get the dot product.
-            double dot_product = Maths.DotProductVector(Ax, Ay, Bx, By, Cx, Cy);
-
-            // Get the cross product.
-            double cross_product = Maths.CrossProductVector(Ax, Ay, Bx, By, Cx, Cy);
-
-            // Calculate the angle.
-            return Atan2(cross_product, dot_product);
         }
 
         /// <summary>
@@ -560,7 +316,8 @@ namespace Engine.Geometry.Polygons
                 B = (A + 1) % num_points;
                 C = (B + 1) % num_points;
 
-                if (FormsEar(polygon.Points.ToArray(), A, B, C)) return;
+                if (FormsEar(polygon.Points.ToArray(), A, B, C))
+                    return;
             }
 
             // We should never get here because there should
@@ -580,7 +337,7 @@ namespace Engine.Geometry.Polygons
         private static bool FormsEar(Point2D[] points, int A, int B, int C)
         {
             // See if the angle ABC is concave.
-            if (GetAngle(
+            if (AngleVector(
                 points[A].X, points[A].Y,
                 points[B].X, points[B].Y,
                 points[C].X, points[C].Y) > 0)
@@ -598,7 +355,7 @@ namespace Engine.Geometry.Polygons
             // if they lie in triangle A, B, C.
             for (int i = 0; i < points.Length; i++)
             {
-                if ((i != A) && (i != B) && (i != C) && triangle.PointInPolygon(points[i].X, points[i].Y))
+                if ((i != A) && (i != B) && (i != C) && triangle.Contains(points[i]))
                 {
                     // This point is in the triangle 
                     // do this is not an ear.
@@ -627,7 +384,7 @@ namespace Engine.Geometry.Polygons
             triangles.Add(new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]));
 
             // Remove the ear from the polygon.
-            RemovePoint2DromArray(polygon, B);
+            RemovePoint2DFromArray(polygon, B);
         }
 
         /// <summary>
@@ -636,7 +393,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="polygon"></param>
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void RemovePoint2DromArray(this Polygon polygon, int target)
+        private static void RemovePoint2DFromArray(this Polygon polygon, int target)
         {
             polygon.Points.RemoveAt(target);
             //List<Point2D> pts = new List<Point2D>(polygon.Points.Count);
@@ -689,7 +446,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void ResetBoundingRect(this Polygon polygon, BoundingRect boundingRect)
+        private static void ResetBoundingRect(this Polygon polygon, BoundingRectPolygon boundingRect)
         {
             boundingRect.NumPoints = polygon.Points.Count;
 
@@ -716,10 +473,11 @@ namespace Engine.Geometry.Polygons
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void FindInitialControlPoints(this Polygon polygon, BoundingRect boundingRect)
+        private static void FindInitialControlPoints(this Polygon polygon, BoundingRectPolygon boundingRect)
         {
             for (int i = 0; i < boundingRect.NumPoints; i++)
-                if (CheckInitialControlPoints(polygon, boundingRect, i)) return;
+                if (CheckInitialControlPoints(polygon, boundingRect, i))
+                    return;
             Debug.Assert(false, "Could not find initial control points.");
         }
 
@@ -731,7 +489,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="i"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static bool CheckInitialControlPoints(this Polygon polygon, BoundingRect boundingRect, int i)
+        private static bool CheckInitialControlPoints(this Polygon polygon, BoundingRectPolygon boundingRect, int i)
         {
             // Get the i -> i + 1 unit vector.
             int i1 = (i + 1) % boundingRect.NumPoints;
@@ -765,7 +523,8 @@ namespace Engine.Geometry.Polygons
             }
 
             // If j == i, then i is not a suitable control point.
-            if (boundingRect.ControlPoints[0] == i) return false;
+            if (boundingRect.ControlPoints[0] == i)
+                return false;
 
             // Check forward from i until we find a vector
             // j -> j+1 that points opposite to i -> i+1.
@@ -790,7 +549,8 @@ namespace Engine.Geometry.Polygons
             }
 
             // If j == i, then i is not a suitable control point.
-            if (boundingRect.ControlPoints[2] == i) return false;
+            if (boundingRect.ControlPoints[2] == i)
+                return false;
 
             // Check forward from m_ControlPoints[2] until
             // we find a vector j -> j+1 that points opposite to
@@ -822,7 +582,8 @@ namespace Engine.Geometry.Polygons
             }
 
             // If j == i, then i is not a suitable control point.
-            if (boundingRect.ControlPoints[0] == i) return false;
+            if (boundingRect.ControlPoints[0] == i)
+                return false;
 
             // These control points work.
             return true;
@@ -834,7 +595,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void CheckNextRectangle(this Polygon polygon, BoundingRect boundingRect)
+        private static void CheckNextRectangle(this Polygon polygon, BoundingRectPolygon boundingRect)
         {
             // Increment the current control point.
             // This means we are done with using this edge.
@@ -845,21 +606,20 @@ namespace Engine.Geometry.Polygons
             }
 
             // Find the next point on an edge to use.
-            double dx0, dy0, dx1, dy1, dx2, dy2, dx3, dy3;
-            FindDxDy(polygon, boundingRect, out dx0, out dy0, boundingRect.ControlPoints[0]);
-            FindDxDy(polygon, boundingRect, out dx1, out dy1, boundingRect.ControlPoints[1]);
-            FindDxDy(polygon, boundingRect, out dx2, out dy2, boundingRect.ControlPoints[2]);
-            FindDxDy(polygon, boundingRect, out dx3, out dy3, boundingRect.ControlPoints[3]);
+            Point2D d0 = FindDxDy(polygon, boundingRect, boundingRect.ControlPoints[0]);
+            Point2D d1 = FindDxDy(polygon, boundingRect, boundingRect.ControlPoints[1]);
+            Point2D d2 = FindDxDy(polygon, boundingRect, boundingRect.ControlPoints[2]);
+            Point2D d3 = FindDxDy(polygon, boundingRect, boundingRect.ControlPoints[3]);
 
             // Switch so we can look for the smallest opposite/adjacent ratio.
-            double opp0 = dx0;
-            double adj0 = dy0;
-            double opp1 = -dy1;
-            double adj1 = dx1;
-            double opp2 = -dx2;
-            double adj2 = -dy2;
-            double opp3 = dy3;
-            double adj3 = -dx3;
+            double opp0 = d0.X;
+            double adj0 = d0.Y;
+            double opp1 = -d1.Y;
+            double adj1 = d1.X;
+            double opp2 = -d2.X;
+            double adj2 = -d2.Y;
+            double opp3 = d3.Y;
+            double adj3 = -d3.X;
 
             // Assume the first control point is the best point to use next.
             double bestopp = opp0;
@@ -904,7 +664,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void FindBoundingRectangle(this Polygon polygon, BoundingRect boundingRect)
+        private static void FindBoundingRectangle(this Polygon polygon, BoundingRectPolygon boundingRect)
         {
             // See which point has the current edge.
             int i1 = boundingRect.ControlPoints[boundingRect.CurrentControlPoint];
@@ -952,10 +712,10 @@ namespace Engine.Geometry.Polygons
 
             // Find the points of intersection.
             boundingRect.CurrentRectangle = new Point2D[4];
-            FindIntersection(px0, py0, px0 + dx0, py0 + dy0, px1, py1, px1 + dx1, py1 + dy1, ref boundingRect.CurrentRectangle[0]);
-            FindIntersection(px1, py1, px1 + dx1, py1 + dy1, px2, py2, px2 + dx2, py2 + dy2, ref boundingRect.CurrentRectangle[1]);
-            FindIntersection(px2, py2, px2 + dx2, py2 + dy2, px3, py3, px3 + dx3, py3 + dy3, ref boundingRect.CurrentRectangle[2]);
-            FindIntersection(px3, py3, px3 + dx3, py3 + dy3, px0, py0, px0 + dx0, py0 + dy0, ref boundingRect.CurrentRectangle[3]);
+            boundingRect.CurrentRectangle[0] = Intersections.LineLine(px0, py0, px0 + dx0, py0 + dy0, px1, py1, px1 + dx1, py1 + dy1).Item2;
+            boundingRect.CurrentRectangle[1] = Intersections.LineLine(px1, py1, px1 + dx1, py1 + dy1, px2, py2, px2 + dx2, py2 + dy2).Item2;
+            boundingRect.CurrentRectangle[2] = Intersections.LineLine(px2, py2, px2 + dx2, py2 + dy2, px3, py3, px3 + dx3, py3 + dy3).Item2;
+            boundingRect.CurrentRectangle[3] = Intersections.LineLine(px3, py3, px3 + dx3, py3 + dy3, px0, py0, px0 + dx0, py0 + dy0).Item2;
 
             // See if this is the best bounding rectangle so far.
             // Get the area of the bounding rectangle.
@@ -981,47 +741,14 @@ namespace Engine.Geometry.Polygons
         /// </summary>
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
-        /// <param name="dx"></param>
-        /// <param name="dy"></param>
         /// <param name="i"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void FindDxDy(this Polygon polygon, BoundingRect boundingRect, out double dx, out double dy, int i)
+        private static Point2D FindDxDy(this Polygon polygon, BoundingRectPolygon boundingRect, int i)
         {
             int i2 = (i + 1) % boundingRect.NumPoints;
-            dx = polygon.Points[i2].X - polygon.Points[i].X;
-            dy = polygon.Points[i2].Y - polygon.Points[i].Y;
-        }
-
-        /// <summary>
-        /// Find the point of intersection between two lines.
-        /// </summary>
-        /// <param name="X1"></param>
-        /// <param name="Y1"></param>
-        /// <param name="X2"></param>
-        /// <param name="Y2"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="intersect"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static bool FindIntersection(double X1, double Y1, double X2, double Y2, double A1, double B1, double A2, double B2, ref Point2D intersect)
-        {
-            double dx = X2 - X1;
-            double dy = Y2 - Y1;
-            double da = A2 - A1;
-            double db = B2 - B1;
-            double s, t;
-
-            // If the segments are parallel, return False.
-            if (Abs(da * dy - db * dx) < 0.001) return false;
-
-            // Find the point of intersection.
-            s = (dx * (B1 - Y1) + dy * (X1 - A1)) / (da * dy - db * dx);
-            t = (da * (Y1 - B1) + db * (A1 - X1)) / (db * dx - da * dy);
-            intersect = new Point2D(X1 + t * dx, Y1 + t * dy);
-            return true;
+            return new Point2D(
+                polygon.Points[i2].X - polygon.Points[i].X,
+                polygon.Points[i2].Y - polygon.Points[i].Y);
         }
 
         /// <summary>
@@ -1031,7 +758,7 @@ namespace Engine.Geometry.Polygons
         /// <param name="boundingRect"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static Point2D[] FindSmallestBoundingRectangle(this Polygon polygon, BoundingRect boundingRect)
+        public static Point2D[] FindSmallestBoundingRectangle(this Polygon polygon, BoundingRectPolygon boundingRect)
         {
             // This algorithm assumes the polygon
             // is oriented counter-clockwise.
@@ -1047,5 +774,96 @@ namespace Engine.Geometry.Polygons
             // Return the best result.
             return boundingRect.BestRectangle;
         }
+
+        #region SutherlandHodgman algorithm's Methods
+
+        /// <summary>
+        /// This iterates through the edges of the polygon, always clockwise
+        /// </summary>
+        public static IEnumerable<LineSegment> IterateEdgesClockwise(List<Point2D> polygon)
+        {
+            if (IsClockwise(polygon))
+            {
+                #region Already clockwise
+
+                for (int cntr = 0; cntr < polygon.Count - 1; cntr++)
+                    yield return new LineSegment(polygon[cntr], polygon[cntr + 1]);
+
+                yield return new LineSegment(polygon[polygon.Count - 1], polygon[0]);
+
+                #endregion
+            }
+            else
+            {
+                #region Reverse
+
+                for (int cntr = polygon.Count - 1; cntr > 0; cntr--)
+                    yield return new LineSegment(polygon[cntr], polygon[cntr - 1]);
+
+                yield return new LineSegment(polygon[0], polygon[polygon.Count - 1]);
+
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="test"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsInside(LineSegment edge, Point2D test)
+        {
+            bool? isLeft = IsLeftOf(edge, test);
+            if (isLeft == null)
+            {
+                //	Collinear points should be considered inside
+                return true;
+            }
+
+            return !isLeft.Value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsClockwise(List<Point2D> polygon)
+        {
+            for (int cntr = 2; cntr < polygon.Count; cntr++)
+            {
+                bool? isLeft = IsLeftOf(new LineSegment(polygon[0], polygon[1]), polygon[cntr]);
+                if (isLeft != null)     //	some of the points may be collinear.  That's ok as long as the overall is a polygon
+                    return !isLeft.Value;
+            }
+
+            throw new ArgumentException("All the points in the polygon are collinear");
+        }
+
+        /// <summary>
+        /// Tells if the test point lies on the left side of the edge line
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool? IsLeftOf(LineSegment edge, Point2D test)
+        {
+            Vector2D tmp1 = edge.B - edge.A;
+            Vector2D tmp2 = test - edge.B;
+
+            double x = (tmp1.I * tmp2.J) - (tmp1.J * tmp2.I);
+            // dot product of perpendicular?
+
+            if (x < 0)
+                return false;
+            else if (x > 0)
+                return true;
+            // Collinear points;
+            else
+                return null;
+        }
+
+        #endregion
     }
 }

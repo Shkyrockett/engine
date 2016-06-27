@@ -1,9 +1,9 @@
-﻿namespace Engine.Geometry.Polygons
+﻿namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
-    public class BoundingRect
+    public class BoundingRectPolygon
         : IClosedShape
     {
         /// <summary>

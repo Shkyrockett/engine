@@ -202,8 +202,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode() => X.GetHashCode() ^
-       Y.GetHashCode();
+        public override int GetHashCode() => X.GetHashCode()
+       ^ Y.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="TestPoint2D"/> struct.

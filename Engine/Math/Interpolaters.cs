@@ -36,18 +36,12 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Arc(
+        public static Tuple<double, double> CircularArc(
             double x, double y,
             double r,
             double startAngle, double sweepAngle,
             double t)
-        {
-            // Convert from unit iteration, to Arc Pi radians.
-            double phi = startAngle - (sweepAngle * t);
-            return new Tuple<double, double>(
-                x + (Sin(phi) * r),
-                y + (Cos(phi) * r));
-        }
+            => Circle(x, y, r, (startAngle + (sweepAngle * t)) / Tau);
 
         /// <summary>
         /// Interpolate a point on a circle.
@@ -70,9 +64,66 @@ namespace Engine
 
             // Apply translation to equation of circle at origin.
             return new Tuple<double, double>(
-                x + (Sin(phi) * r),
-                y + (Cos(phi) * r));
+                x + (Cos(phi) * r),
+                y + (Sin(phi) * r));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Tuple<double, double> EllipticArc(
+            double cX, double cY,
+            double r1, double r2,
+            double startAngle, double sweepAngle,
+            double t)
+        {
+            double phi = startAngle + (sweepAngle * t);
+            double theta = phi % PI;
+
+            double tanAngle = Abs(Tan(theta));
+            double x = Sqrt(((r1 * r1) * (r2 * r2)) / ((r2 * r2) + (r1 * r1) * (tanAngle * tanAngle)));
+            double y = x * tanAngle;
+
+            if ((theta >= 0d) && (theta < 90d.ToRadians()))
+                return new Tuple<double, double>(cX + x, cY + y);
+            else if ((theta >= 90d.ToRadians()) && (theta < 180d.ToRadians()))
+                return new Tuple<double, double>(cX - x, cY + y);
+            else if ((theta >= 180d.ToRadians()) && (theta < 270d.ToRadians()))
+                return new Tuple<double, double>(cX - x, cY - y);
+            else
+                return new Tuple<double, double>(cX + x, cY - y);
+        }
+
+        /// <summary>
+        /// Interpolates the Elliptic Arc.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta.</returns>
+        [Pure]
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> EllipticArc(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle, double sweepAngle,
+            double t)
+            => Ellipse(cX, cY, r1, r2, angle, (startAngle + (sweepAngle * t) / Tau));
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
@@ -85,7 +136,7 @@ namespace Engine
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [Pure]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Ellipse(
             double x, double y,
@@ -94,50 +145,11 @@ namespace Engine
             double t)
         {
             // Convert from unit iteration, to Pi radians.
-            double phi = Tau * t;
+            double phi = ElipticAngle(Tau * t, r1, r2);
 
             // Get the ellipse rotation transform.
             double cosT = Cos(angle);
-            double sinT = Sin(angle);
-
-            // Ellipse equation for an ellipse at origin.
-            double u = r1 * Cos(phi);
-            double v = r2 * Sin(phi);
-
-            // Apply the rotation transformation and translate to new center.
-            return new Tuple<double, double>(
-                x + (u * cosT + v * sinT),
-                y + (u * -sinT + v * cosT));
-        }
-
-        /// <summary>
-        /// Interpolates the Elliptic Arc.
-        /// </summary>
-        /// <param name="x">Center x-coordinate.</param>
-        /// <param name="y">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle">The angle to start the arc.</param>
-        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta.</returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> EllipticArc(
-            double x, double y,
-            double r1, double r2,
-            double angle,
-            double startAngle, double sweepAngle,
-            double t)
-        {
-            // Convert from 0 to 1 iteration, to Arc Pi radians.
-            double phi = startAngle - (sweepAngle * t);
-
-            // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            double sinT = Sin(-angle);
 
             // Ellipse equation for an ellipse at origin.
             double u = r1 * Cos(phi);
@@ -912,6 +924,44 @@ namespace Engine
                 x1 * (1 - mu2) + x2 * mu2,
                 y1 * (1 - mu2) + y2 * mu2,
                 z1 * (1 - mu2) + z2 * mu2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <param name="fulcrum"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static List<Point2D> RotatedRectangle(double x, double y, double width, double height, Point2D fulcrum, double angle)
+        {
+            var points = new List<Point2D>();
+
+            var xaxis = new Point2D(Cos(angle), Sin(angle));
+            var yaxis = new Point2D(-Sin(angle), Cos(angle));
+
+            // Apply the rotation transformation and translate to new center.
+            points.Add(new Point2D(
+                fulcrum.X + ((-width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
+                fulcrum.Y + ((-width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
+                fulcrum.Y + ((width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((width / 2) * xaxis.X + (height / 2) * xaxis.Y),
+                fulcrum.Y + ((width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                ));
+            points.Add(new Point2D(
+                fulcrum.X + ((-width / 2) * xaxis.X + (height / 2) * xaxis.Y),
+                fulcrum.Y + ((-width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                ));
+
+            return points;
         }
     }
 }

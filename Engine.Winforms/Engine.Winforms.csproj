@@ -171,6 +171,7 @@
     <Compile Include="Controls\ToolStrip\TreeViewToolStripItem.Designer.cs">
       <DependentUpon>TreeViewToolStripItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Renderer.cs" />
     <Compile Include="WinformsReflection.cs" />
   </ItemGroup>
   <ItemGroup>

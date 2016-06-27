@@ -49,6 +49,33 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="polygon"></param>
+        public Polyline(Polygon polygon)
+            : this(polygon.Points)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polyline"></param>
+        public Polyline(Polyline polyline)
+            : this(polyline.points)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        public Polyline(params Point2D[] points)
+            : this(new List<Point2D>(points))
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="points"></param>
         public Polyline(IEnumerable<Point2D> points)
         {

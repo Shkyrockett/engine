@@ -26,6 +26,45 @@ namespace Engine.Geometry
     public class Circle
         : Shape, IClosedShape
     {
+        #region Static creation methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static Circle FromCenterAndRadius(Point2D point, double radius)
+            => new Circle(point, radius);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pointA"></param>
+        /// <param name="pointB"></param>
+        /// <param name="pointC"></param>
+        /// <returns></returns>
+        public static Circle FromThreePoints(Point2D pointA, Point2D pointB, Point2D pointC)
+            => new Circle(pointA, pointB, pointC);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="triangle"></param>
+        /// <returns></returns>
+        public static Circle FromTriangle(Triangle triangle)
+            => new Circle(triangle.A, triangle.B, triangle.C);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <returns></returns>
+        public static Circle FromRectangle(Rectangle2D rectangle)
+            => new Circle(rectangle);
+
+        #endregion
+
         #region Private Fields
 
         /// <summary>
@@ -216,12 +255,7 @@ namespace Engine.Geometry
         {
             get
             {
-                Rectangle2D bounds = Rectangle2D.FromLTRB(
-                    (x - radius),
-                    (y - radius),
-                    (x + radius),
-                    (y + radius));
-                return bounds;
+                return Boundings.Circle(x, y, radius);
             }
             set
             {
@@ -238,7 +272,8 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The distance around the circle.")]
         [XmlIgnore]
-        public double Circumference => 2 * radius * PI;
+        public double Circumference
+            => Perimeters.CircleCircumference(radius);
 
         /// <summary>
         /// 
@@ -246,42 +281,8 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The area of the circle.")]
         [XmlIgnore]
-        public override double Area => PI * radius * radius;
-
-        #endregion
-
-        #region Static creation methods
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="radius"></param>
-        /// <returns></returns>
-        public static Circle FromCenterAndRadius(Point2D point, double radius) => new Circle(point, radius);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pointA"></param>
-        /// <param name="pointB"></param>
-        /// <param name="pointC"></param>
-        /// <returns></returns>
-        public static Circle FromThreePoints(Point2D pointA, Point2D pointB, Point2D pointC) => new Circle(pointA, pointB, pointC);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="triangle"></param>
-        /// <returns></returns>
-        public static Circle FromTriangle(Triangle triangle) => new Circle(triangle.A, triangle.B, triangle.C);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="rectangle"></param>
-        /// <returns></returns>
-        public static Circle FromRectangle(Rectangle2D rectangle) => new Circle(rectangle);
+        public override double Area
+            => Areas.Circle(radius);
 
         #endregion
 
@@ -296,20 +297,6 @@ namespace Engine.Geometry
         public override Point2D Interpolate(double t)
             => Interpolaters.Circle(x, y, radius, t);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<Point2D> InterpolatePoints()
-        {
-            double delta_phi = (2 * PI / Circumference);
-            var points = new List<Point2D>();
-            for (double i = 0.0f; i <= (2.0 * PI); i += delta_phi)
-                points.Add(Interpolate(i));
-
-            return points;
-        }
-
         #endregion
 
         #region Methods
@@ -319,7 +306,8 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusion.Outside;
+        public override bool Contains(Point2D point)
+            => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Circle"/> struct based on the format string

@@ -92,6 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Experemental\KeyFrameAnimation.cs" />
+    <Compile Include="Math\Areas.cs" />
+    <Compile Include="Math\Boundings.cs" />
+    <Compile Include="Math\Perimeters.cs" />
     <Compile Include="Math\Maths.Constants.cs" />
     <Compile Include="Metadata\GeometryAngleAttribute.cs" />
     <Compile Include="Calendar\DateTimeExtentions.cs" />
@@ -107,7 +110,7 @@
     <Compile Include="Geometry\Enums\Directions.cs" />
     <Compile Include="Geometry\Enums\LeftRight.cs" />
     <Compile Include="Geometry\Enums\Inclusion.cs" />
-    <Compile Include="Geometry\Intersections.cs" />
+    <Compile Include="Math\Intersections.cs" />
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />
@@ -216,8 +219,7 @@
     <Compile Include="Experemental\Bezier.cs" />
     <Compile Include="Geometry\Complex\PolylineSet.cs" />
     <Compile Include="Geometry\Curves\CircularSegment.cs" />
-    <Compile Include="Experemental\ParametricDelegateCurve.cs" />
-    <Compile Include="Experemental\ParametricInterpolateors.cs" />
+    <Compile Include="Geometry\Curves\ParametricDelegateCurve.cs" />
     <Compile Include="Experemental\TimeLine.cs" />
     <Compile Include="Experemental\ConicSections.cs" />
     <Compile Include="Experemental\CardinalSpline.cs" />
@@ -231,13 +233,13 @@
     <Compile Include="Experemental\PolyBezier.cs" />
     <Compile Include="Geometry\Primitives\Point3D.cs" />
     <Compile Include="Math\Interpolaters.cs" />
-    <Compile Include="Localization\Enums\Countries.cs" />
-    <Compile Include="Localization\Culture.cs" />
-    <Compile Include="Localization\Cultures.cs" />
-    <Compile Include="Localization\Enums\Languages.cs" />
-    <Compile Include="Localization\Enums\ISO3166_2.cs" />
-    <Compile Include="Localization\Enums\ISO3166_3.cs" />
-    <Compile Include="Localization\Enums\ISO639.cs" />
+    <Compile Include="Math\Localization\Enums\Countries.cs" />
+    <Compile Include="Math\Localization\Culture.cs" />
+    <Compile Include="Math\Localization\Cultures.cs" />
+    <Compile Include="Math\Localization\Enums\Languages.cs" />
+    <Compile Include="Math\Localization\Enums\ISO3166_2.cs" />
+    <Compile Include="Math\Localization\Enums\ISO3166_3.cs" />
+    <Compile Include="Math\Localization\Enums\ISO639.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IInfinateShape.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IClosedShape.cs" />
     <Compile Include="Objects\Interfaces\Geometry\ICurve.cs" />
@@ -245,10 +247,10 @@
     <Compile Include="Objects\Interfaces\Geometry\IOpenShape.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
     <Compile Include="Objects\Interfaces\ITweenable.cs" />
-    <Compile Include="Geometry\Primitives\TestPoint2D.cs" />
+    <Compile Include="Geometry\Framework\TestPoint2D.cs" />
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
-    <Compile Include="Experemental\BoundingRect.cs" />
+    <Compile Include="Geometry\Framework\BoundingRectPolygon.cs" />
     <Compile Include="Experemental\NGonStar.cs" />
     <Compile Include="Experemental\EllipticStar.cs" />
     <Compile Include="Experemental\NonIntStar.cs" />
@@ -288,10 +290,10 @@
     <Compile Include="Geometry\Curves\Bow.cs" />
     <Compile Include="Geometry\Curves\Bicorn.cs" />
     <Compile Include="Geometry\Curves\Agnesi.cs" />
-    <Compile Include="Geometry\Curves\Arc.cs" />
+    <Compile Include="Geometry\Curves\CircularArc.cs" />
     <Compile Include="Geometry\Curves\Circle.cs" />
     <Compile Include="Geometry\Curves\Ellipse.cs" />
-    <Compile Include="Geometry\Curves\EllipseArc.cs" />
+    <Compile Include="Geometry\Curves\EllipticArc.cs" />
     <Compile Include="Experemental\Hermite.cs" />
     <Compile Include="Geometry\Complex\Oval.cs" />
     <Compile Include="Experemental\PolyPath.cs" />
@@ -324,7 +326,6 @@
     <Compile Include="Imaging\ColorSpace\YIQ.cs" />
     <Compile Include="Imaging\ImageCompare.cs" />
     <Compile Include="Imaging\ImageExtensions.cs" />
-    <Compile Include="Imaging\Renderer.cs" />
     <Compile Include="Imaging\Styles\IconStyle.cs" />
     <Compile Include="Imaging\Styles\ImageStyle.cs" />
     <Compile Include="Imaging\Styles\TextStyle.cs" />

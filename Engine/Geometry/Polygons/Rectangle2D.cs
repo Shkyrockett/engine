@@ -771,10 +771,10 @@ namespace Engine.Geometry
         /// Gets the hash code for this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode() => unchecked((int)((uint)X ^
-(((uint)Y << 13) | ((uint)Y >> 19)) ^
-(((uint)Width << 26) | ((uint)Width >> 6)) ^
-(((uint)Height << 7) | ((uint)Height >> 25))));
+        public override int GetHashCode() => unchecked((int)((uint)X
+^ (((uint)Y << 13) | ((uint)Y >> 19))
+^ (((uint)Width << 26) | ((uint)Width >> 6))
+^ (((uint)Height << 7) | ((uint)Height >> 25))));
 
         /// <summary>
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.

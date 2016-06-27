@@ -21,8 +21,8 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(Arc))]
-    public class Arc
+    [DisplayName(nameof(CircularArc))]
+    public class CircularArc
         : Shape, IOpenShape
     {
         #region Fields
@@ -50,77 +50,77 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        private double endAngle;
+        private double sweepAngle;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new default instance of the <see cref="Arc"/> class.
+        /// Initializes a new default instance of the <see cref="CircularArc"/> class.
         /// </summary>
-        public Arc()
+        public CircularArc()
             : this(0, 0, 0, 0, 0)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="CircularArc"/> class.
         /// </summary>
         /// <param name="triangle"></param>
-        public Arc(Triangle triangle)
+        public CircularArc(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="CircularArc"/> class.
         /// </summary>
-        public Arc(Circle circle, double startAngle, double endAngle)
-            : this(circle.Center, circle.Radius, startAngle, endAngle)
+        public CircularArc(Circle circle, double startAngle, double sweepAngle)
+            : this(circle.Center, circle.Radius, startAngle, sweepAngle)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="CircularArc"/> class.
         /// </summary>
         /// <param name="x">The center x coordinate point of the circle.</param>
         /// <param name="y">The center y coordinate point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="startAngle"></param>
-        /// <param name="endAngle"></param>
-        public Arc(double x, double y, double radius, double startAngle, double endAngle)
+        /// <param name="sweepAngle"></param>
+        public CircularArc(double x, double y, double radius, double startAngle, double sweepAngle)
         {
             this.x = x;
             this.y = y;
             this.radius = radius;
             this.startAngle = startAngle;
-            this.endAngle = endAngle;
+            this.sweepAngle = sweepAngle;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="CircularArc"/> class.
         /// </summary>
         /// <param name="center">The center point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="startAngle"></param>
-        /// <param name="endAngle"></param>
-        public Arc(Point2D center, double radius, double startAngle, double endAngle)
+        /// <param name="sweepAngle"></param>
+        public CircularArc(Point2D center, double radius, double startAngle, double sweepAngle)
         {
             x = center.X;
             y = center.Y;
             this.radius = radius;
             this.startAngle = startAngle;
-            this.endAngle = endAngle;
+            this.sweepAngle = sweepAngle;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arc"/> class.
+        /// Initializes a new instance of the <see cref="CircularArc"/> class.
         /// </summary>
         /// <param name="PointA"></param>
         /// <param name="PointB"></param>
         /// <param name="PointC"></param>
-        public Arc(Point2D PointA, Point2D PointB, Point2D PointC)
+        public CircularArc(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             // ToDo: calculate the angles of the start and end points from the center to fill them in.
             // Calculate the slopes of the lines.
@@ -168,7 +168,7 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(x,y); }
+            get { return new Point2D(x, y); }
             set
             {
                 x = value.X;
@@ -178,7 +178,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="Arc"/>.
+        /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="CircularArc"/>.
         /// </summary>
         [Category("Elements")]
         [Description("The center x coordinate location of the arc.")]
@@ -197,7 +197,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Y"/> coordinate location of the center of the <see cref="Arc"/>.
+        /// Gets or sets the <see cref="Y"/> coordinate location of the center of the <see cref="CircularArc"/>.
         /// </summary>
         [Category("Elements")]
         [Description("The center y coordinate location of the arc.")]
@@ -216,21 +216,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore]
-        public Point2D StartPoint => new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore]
-        public Point2D EndPoint => new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle));
-
-        /// <summary>
         /// Gets or sets the start angle of the Arc.
         /// </summary>
-        [Category("Elements")]
+        [GeometryAngle]
+        [Category("Clipping")]
         [Description("The start angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
@@ -245,36 +234,38 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the end angle of the Arc.
-        /// </summary>
-        [Category("Elements")]
-        [Description("The end angle of the Arc.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [RefreshProperties(RefreshProperties.All)]
-        public double EndAngle
-        {
-            get { return endAngle; }
-            set
-            {
-                endAngle = value;
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the sweep angle of the Arc.
         /// </summary>
-        [Category("Elements")]
+        [GeometryAngle]
+        [Category("Clipping")]
         [Description("The sweep angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
         [XmlIgnore]
         public double SweepAngle
         {
-            get { return startAngle - endAngle; }
+            get { return sweepAngle; }
             set
             {
-                endAngle = value + startAngle;
+                sweepAngle = value;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the end angle of the Arc.
+        /// </summary>
+        [GeometryAngle]
+        [Category("Clipping")]
+        [Description("The end angle of the Arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double EndAngle
+        {
+            get { return startAngle + sweepAngle; }
+            set
+            {
+                sweepAngle = value - startAngle;
                 update?.Invoke();
             }
         }
@@ -283,7 +274,24 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlIgnore]
-        public override double Perimeter => ArcLength;
+        public Point2D StartPoint
+            => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 0);
+        // new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
+        public Point2D EndPoint
+            => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 1);
+        //new Point2D(x + radius * Cos(-sweepAngle), y + radius * Sin(-sweepAngle));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
+        public override double Perimeter
+            => ArcLength;
 
         /// <summary>
         /// 
@@ -292,28 +300,15 @@ namespace Engine.Geometry
         [Description("The tight rectangular boundaries of the Arc.")]
         [XmlIgnore]
         public override Rectangle2D Bounds
-        {
-            get
-            {
-                var bounds = new Rectangle2D(StartPoint, EndPoint);
-                double angleEnd = endAngle;
-                // check that angle2 > angle1
-                if (angleEnd < startAngle) angleEnd += 2 * PI;
-                if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = x + radius;
-                if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi)) bounds.Top = y - radius;
-                if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = x - radius;
-                if ((angleEnd >= Maths.ThreeQuarterTau) && (startAngle <= Maths.ThreeQuarterTau)) bounds.Bottom = y + radius;
-                if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = x + radius;
-                return bounds;
-            }
-        }
+            => Boundings.Arc(x, y, radius, startAngle, SweepAngle);
 
         /// <summary>
         /// 
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Arc.")]
-        public Rectangle2D DrawingBounds => Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius));
+        public Rectangle2D DrawingBounds
+            => Boundings.Circle(x, y, radius);
 
         /// <summary>
         /// 
@@ -321,14 +316,16 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Category("Properties")]
         [Description("The distance around the Arc.")]
-        public double ArcLength => 2 * PI * radius * -SweepAngle;
+        public double ArcLength
+            => Perimeters.ArcLength(radius, SweepAngle);
 
         /// <summary>
         /// 
         /// </summary>
         [Category("Properties")]
         [Description("The area of the arc.")]
-        public override double Area => (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle));
+        public override double Area
+            => Areas.Arc(radius, SweepAngle);
 
         #endregion
 
@@ -340,33 +337,22 @@ namespace Engine.Geometry
         /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double t)
-        {
-            double theta = startAngle + SweepAngle * t;
-            return new Point2D(
-                x + (Sin(theta) * radius),
-                y + (Cos(theta) * radius));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<Point2D> InterpolatePoints()
-        {
-            double delta_phi = 2 * PI / ArcLength;
-            var points = new List<Point2D>();
-            for (double i = 0.0f; i <= 2.0 * PI; i += delta_phi)
-                points.Add(Interpolate(i));
-
-            return points;
-        }
+            => Interpolaters.CircularArc(x, y, radius, startAngle, SweepAngle, t);
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Arc"/> struct based on the format string
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public override bool Contains(Point2D point)
+            => Intersections.Contains(this, point) != Inclusion.Outside;
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="CircularArc"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -379,9 +365,10 @@ namespace Engine.Geometry
         [Pure]
         internal override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Arc);
+            if (this == null)
+                return nameof(CircularArc);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Arc)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}{sep}{nameof(StartAngle)}={startAngle}{sep}{nameof(EndAngle)}={endAngle}}}";
+            IFormattable formatable = $"{nameof(CircularArc)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}{sep}{nameof(StartAngle)}={startAngle}{sep}{nameof(EndAngle)}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }
 

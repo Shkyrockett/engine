@@ -72,15 +72,13 @@ namespace Engine.Geometry
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
         /// </summary>
         /// <param name="arc"><see cref="Circle"/> class.</param>
-        /// <param name="startAngle">The angle to start the arc.</param>
-        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
         /// <param name="point">Point to test.</param>
         /// <returns></returns>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Arc arc, Point2D point)
-            => ArcSectorPoint(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle, point.X, point.Y);
+        public static Inclusion Contains(this CircularArc arc, Point2D point)
+            => CircularArcSectorPoint(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -99,7 +97,7 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion ArcSectorPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY)
+        public static Inclusion CircularArcSectorPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY)
         {
             if (r <= 0d)
                 return Inclusion.Outside;
@@ -109,10 +107,10 @@ namespace Engine.Geometry
                 && pY >= y - r && pY <= y + r)
             {
                 // Find the points of the chord.
-                Point2D startPoint = Interpolaters.Arc(x, y, r, startAngle, sweepAngle, 0);
-                Point2D endPoint = Interpolaters.Arc(x, y, r, startAngle, sweepAngle, 1);
+                Point2D startPoint = Interpolaters.CircularArc(x, y, r, startAngle, sweepAngle, 0);
+                Point2D endPoint = Interpolaters.CircularArc(x, y, r, startAngle, sweepAngle, 1);
 
-                // Find the determinant of the chord.
+                // Find the determinant of the chord and point.
                 double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check if the point is on the chord.
@@ -132,6 +130,76 @@ namespace Engine.Geometry
             }
 
             return Inclusion.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticArc"/>.
+        /// </summary>
+        /// <param name="ellipseArc"><see cref="Ellipse"/> class.</param>
+        /// <param name="point">Point to test.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion Contains(this EllipticArc ellipseArc, Point2D point)
+            => EllipticSectorPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.R1, ellipseArc.R2, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticArc"/>.
+        /// </summary>
+        /// <param name="x">Center x-coordinate.</param>
+        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticSectorPoint(double x, double y, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+        {
+            if (r1 <= 0d || r2 <= 0d)
+                return Inclusion.Outside;
+
+            // Find the points of the chord.
+            Point2D startPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 0);
+            Point2D endPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 1);
+
+            // Find the determinant of the chord.
+            double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+
+            // Check if the point is on the chord.
+            if (Abs(determinant) < DoubleEpsilon)
+                return Inclusion.Boundary;
+            // Check whether the point is on the same side of the chord as the center.
+            else if (Sign(determinant) == Sign(sweepAngle))
+                return Inclusion.Outside;
+
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Translate points to origin.
+            double u = pX - x;
+            double v = pY - y;
+
+            // Apply the rotation transformation.
+            double a = (u * cosT + v * sinT);
+            double b = (u * sinT + v * cosT);
+
+            double normalizedRadius = ((a * a) / (r1 * r1))
+                                    + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         /// <summary>
@@ -166,76 +234,6 @@ namespace Engine.Geometry
         public static Inclusion EllipsePoint(double x, double y, double r1, double r2, double angle, double pX, double pY)
         {
             if (r1 <= 0d || r2 <= 0d)
-                return Inclusion.Outside;
-
-            // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
-
-            // Translate points to origin.
-            double u = pX - x;
-            double v = -(pY - y); // Negative vector to account for screen coordinates. 
-
-            // Apply the rotation transformation.
-            double a = (u * cosT + v * sinT);
-            double b = (u * -sinT + v * cosT);
-
-            double normalizedRadius = ((a * a) / (r1 * r1))
-                                    + ((b * b) / (r2 * r2));
-
-            return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-        }
-
-        /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
-        /// </summary>
-        /// <param name="ellipseArc"><see cref="Ellipse"/> class.</param>
-        /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this EllipseArc ellipseArc, Point2D point)
-            => EllipticSectorPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.R1, ellipseArc.R2, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
-
-        /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
-        /// </summary>
-        /// <param name="x">Center x-coordinate.</param>
-        /// <param name="y">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="pX">The x-coordinate of the test point.</param>
-        /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticSectorPoint(double x, double y, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
-        {
-            if (r1 <= 0d || r2 <= 0d)
-                return Inclusion.Outside;
-
-            // Find the points of the chord.
-            Point2D startPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 0);
-            Point2D endPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 1);
-
-            // Find the determinant of the chord.
-            double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
-
-            // Check if the point is on the chord.
-            if (Abs(determinant) < DoubleEpsilon)
-                return Inclusion.Boundary;
-            // Check whether the point is on the same side of the chord as the center.
-            else if (Sign(determinant) != Sign(sweepAngle))
                 return Inclusion.Outside;
 
             // Get the ellipse rotation transform.
@@ -589,8 +587,8 @@ namespace Engine.Geometry
             else
             {
                 // Find a and h.
-                double a = (radius0 * radius0 -
-                    radius1 * radius1 + dist * dist) / (2 * dist);
+                double a = (radius0 * radius0
+                    - radius1 * radius1 + dist * dist) / (2 * dist);
                 double h = Sqrt(radius0 * radius0 - a * a);
 
                 // Find P2.
@@ -740,11 +738,11 @@ namespace Engine.Geometry
             List<Point2D> outputList = subjectPoly.ToList();
 
             // Make sure it's clockwise
-            if (!IsClockwise(subjectPoly))
+            if (!PolygonExtensions.IsClockwise(subjectPoly))
                 outputList.Reverse();
 
             // Walk around the clip polygon clockwise
-            foreach (LineSegment clipEdge in IterateEdgesClockwise(clipPoly))
+            foreach (LineSegment clipEdge in PolygonExtensions.IterateEdgesClockwise(clipPoly))
             {
                 // clone it
                 List<Point2D> inputList = outputList.ToList();
@@ -759,11 +757,11 @@ namespace Engine.Geometry
 
                 foreach (Point2D e in inputList)
                 {
-                    if (IsInside(clipEdge, e))
+                    if (PolygonExtensions.IsInside(clipEdge, e))
                     {
-                        if (!IsInside(clipEdge, S))
+                        if (!PolygonExtensions.IsInside(clipEdge, S))
                         {
-                            Tuple<bool, Point2D> point = Intersections.LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                            Tuple<bool, Point2D> point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
                             if (point == null)
                             {
                                 // may be collinear, or may be a bug
@@ -777,9 +775,9 @@ namespace Engine.Geometry
 
                         outputList.Add(e);
                     }
-                    else if (IsInside(clipEdge, S))
+                    else if (PolygonExtensions.IsInside(clipEdge, S))
                     {
-                        Tuple<bool, Point2D> point = Intersections.LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                        Tuple<bool, Point2D> point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
                         if (point == null)
                         {
                             // may be collinear, or may be a bug
@@ -798,96 +796,5 @@ namespace Engine.Geometry
             // Exit Function
             return outputList;
         }
-
-        #region SutherlandHodgman Private Methods
-
-        /// <summary>
-        /// This iterates through the edges of the polygon, always clockwise
-        /// </summary>
-        private static IEnumerable<LineSegment> IterateEdgesClockwise(List<Point2D> polygon)
-        {
-            if (IsClockwise(polygon))
-            {
-                #region Already clockwise
-
-                for (int cntr = 0; cntr < polygon.Count - 1; cntr++)
-                    yield return new LineSegment(polygon[cntr], polygon[cntr + 1]);
-
-                yield return new LineSegment(polygon[polygon.Count - 1], polygon[0]);
-
-                #endregion
-            }
-            else
-            {
-                #region Reverse
-
-                for (int cntr = polygon.Count - 1; cntr > 0; cntr--)
-                    yield return new LineSegment(polygon[cntr], polygon[cntr - 1]);
-
-                yield return new LineSegment(polygon[0], polygon[polygon.Count - 1]);
-
-                #endregion
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="edge"></param>
-        /// <param name="test"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsInside(LineSegment edge, Point2D test)
-        {
-            bool? isLeft = IsLeftOf(edge, test);
-            if (isLeft == null)
-            {
-                //	Collinear points should be considered inside
-                return true;
-            }
-
-            return !isLeft.Value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsClockwise(List<Point2D> polygon)
-        {
-            for (int cntr = 2; cntr < polygon.Count; cntr++)
-            {
-                bool? isLeft = IsLeftOf(new LineSegment(polygon[0], polygon[1]), polygon[cntr]);
-                if (isLeft != null)     //	some of the points may be collinear.  That's ok as long as the overall is a polygon
-                    return !isLeft.Value;
-            }
-
-            throw new ArgumentException("All the points in the polygon are collinear");
-        }
-
-        /// <summary>
-        /// Tells if the test point lies on the left side of the edge line
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool? IsLeftOf(LineSegment edge, Point2D test)
-        {
-            Vector2D tmp1 = edge.B - edge.A;
-            Vector2D tmp2 = test - edge.B;
-
-            double x = (tmp1.I * tmp2.J) - (tmp1.J * tmp2.I);
-            // dot product of perpendicular?
-
-            if (x < 0)
-                return false;
-            else if (x > 0)
-                return true;
-            // Collinear points;
-            else
-                return null;
-        }
-
-        #endregion
     }
 }

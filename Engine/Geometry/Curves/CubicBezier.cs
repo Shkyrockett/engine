@@ -7,7 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry.Polygons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -174,27 +173,20 @@ namespace Engine.Geometry
             }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public List<Point2D> Points
-        //{
-        //    get { return points; }
-        //    set { points = value; }
-        //}
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [XmlIgnore]
-        public double Length => PolygonExtensions.CubicBezierArcLength(a, b, c, d);
+        public double Length
+            => Perimeters.CubicBezierArcLength(a, b, c, d);
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
-        public override double Perimeter => Length;
+        public override double Perimeter
+            => Length;
 
         /// <summary>
         /// 

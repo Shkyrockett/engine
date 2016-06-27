@@ -25,6 +25,7 @@ namespace Engine.Geometry
          : Polygon, IClosedShape
     {
         #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
@@ -47,14 +48,47 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="polygon"></param>
+        public Triangle(Polygon polygon)
+            : base(polygon.Points)
+        {
+            if (polygon.Points.Count > 3) throw new IndexOutOfRangeException();
+            if (polygon.Points.Count < 3) throw new IndexOutOfRangeException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polyline"></param>
+        public Triangle(Polyline polyline)
+            : base(polyline.Points)
+        {
+            if (polyline.Points.Count > 3) throw new IndexOutOfRangeException();
+            if (polyline.Points.Count < 3) throw new IndexOutOfRangeException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="points"></param>
-        public Triangle(List<Point2D> points)
+        public Triangle(params Point2D[] points)
+            : this(new List<Point2D>(points))
+        {
+            if (points.Length > 3) throw new IndexOutOfRangeException();
+            if (points.Length < 3) throw new IndexOutOfRangeException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        public Triangle(IEnumerable<Point2D> points)
             : base(points)
         {
-            if (points.Count > 3) throw new IndexOutOfRangeException();
-            if (points.Count < 3) throw new IndexOutOfRangeException();
-            Points = points;
+            if ((points as List<Point2D>).Count > 3) throw new IndexOutOfRangeException();
+            if ((points as List<Point2D>).Count < 3) throw new IndexOutOfRangeException();
         }
+
         #endregion
 
         #region Properties

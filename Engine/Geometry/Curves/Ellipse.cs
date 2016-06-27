@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry.Polygons;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
@@ -319,24 +318,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
-            get
-            {
-                double phi = angle;
-                double ux = r1 * Cos(phi);
-                double uy = r1 * Sin(phi);
-                double vx = (r1 * Aspect) * Cos(phi + PI / 2);
-                double vy = (r1 * Aspect) * Sin(phi + PI / 2);
-
-                double bbox_halfwidth = Sqrt(ux * ux + vx * vx);
-                double bbox_halfheight = Sqrt(uy * uy + vy * vy);
-
-                return Rectangle2D.FromLTRB(
-                    (x - bbox_halfwidth),
-                    (y - bbox_halfheight),
-                    (x + bbox_halfwidth),
-                    (y + bbox_halfheight)
-                    );
-            }
+            get { return Boundings.Ellipse(x, y, r1, r2, angle); }
             set
             {
                 Rectangle2D bounds1 = Bounds;
@@ -366,7 +348,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
-            => PolygonExtensions.EllipsePerimeter(r1, r2);
+            => Perimeters.EllipsePerimeter(r1, r2);
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
@@ -375,7 +357,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
         public override double Area
-            => PI * r2 * r1;
+            => Areas.Ellipse(r1, r2);
 
         /// <summary>
         /// Gets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
@@ -389,7 +371,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
-            => new Rectangle2D(x - r1, y - r1, r1 * 2, r2 * 2);
+            => Boundings.Ellipse(x, y, r1, r2);
 
         #endregion
 

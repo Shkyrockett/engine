@@ -292,9 +292,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode() => X.GetHashCode() ^
-       Y.GetHashCode() ^
-       Z.GetHashCode();
+        public override int GetHashCode() => X.GetHashCode()
+       ^ Y.GetHashCode()
+       ^ Z.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point3D"/> class.

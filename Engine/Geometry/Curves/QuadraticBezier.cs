@@ -7,7 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry.Polygons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -134,26 +133,19 @@ namespace Engine.Geometry
             }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public List<Point2D> Points
-        //{
-        //    get { return points; }
-        //    set { points = value; }
-        //}
-
         /// <summary>
         /// An approximation of the length of a <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [XmlIgnore]
-        public double Length => PolygonExtensions.QuadraticBezierArcLengthByIntegral(a, b, c);
+        public double Length
+            => Perimeters.QuadraticBezierArcLengthByIntegral(a, b, c);
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
-        public override double Perimeter => Length;
+        public override double Perimeter
+            => Length;
 
         /// <summary>
         /// 

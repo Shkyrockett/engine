@@ -357,7 +357,17 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
         public override double Area
-            => Areas.Ellipse(r1, r2);
+        {
+            get { return Areas.Ellipse(r1, r2); }
+            set
+            {
+                // ToDo: Figure out the correct formula.
+                double a = Aspect;
+                r1 = value * a / PI;
+                r2 = value * a / PI;
+                update?.Invoke();
+            }
+        }
 
         /// <summary>
         /// Gets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.

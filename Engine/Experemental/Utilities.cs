@@ -6,6 +6,8 @@
   This code is MIT licensed.
 */
 
+#pragma warning disable RCS1060 // Declare each type in separate file.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -285,7 +287,8 @@ namespace Engine.Geometry
             // see ratio(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
                 return double.NaN;
-            if (t == 0.5d) t = 0.5;
+            if (t == 0.5d)
+                t = 0.5;
             else if (t == 0 || t == 1)
                 return t;
             double bottom = Pow(t, n) + Pow(1 - t, n);
@@ -304,7 +307,8 @@ namespace Engine.Geometry
             // see u(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
                 return double.NaN;
-            if (t == 0.5d) t = 0.5;
+            if (t == 0.5d)
+                t = 0.5;
             else if (t == 0 || t == 1)
                 return t;
             double top = Pow(1 - t, n);
@@ -329,7 +333,9 @@ namespace Engine.Geometry
             double nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
             double ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
             double d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-            if (d == 0) return null; return new Point3D(nx / d, ny / d, 0);
+            if (d == 0)
+                return null;
+            return new Point3D(nx / d, ny / d, 0);
         }
 
         /// <summary>
@@ -390,10 +396,14 @@ namespace Engine.Geometry
             foreach (Bezier s in sections)
             {
                 BBox bbox = s.bbox();
-                if (mx > bbox.x.min) mx = bbox.x.min;
-                if (my > bbox.y.min) my = bbox.y.min;
-                if (MX < bbox.x.max) MX = bbox.x.max;
-                if (MY < bbox.y.max) MY = bbox.y.max;
+                if (mx > bbox.x.min)
+                    mx = bbox.x.min;
+                if (my > bbox.y.min)
+                    my = bbox.y.min;
+                if (MX < bbox.x.max)
+                    MX = bbox.x.max;
+                if (MY < bbox.y.max)
+                    MY = bbox.y.max;
             }
 
             return new BBox(
@@ -412,16 +422,19 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static List<Pair> shapeintersections(Shape1 s1, BBox bbox1, Shape1 s2, BBox bbox2)
         {
-            if (!bboxoverlap(bbox1, bbox2)) return new List<Pair>();
+            if (!bboxoverlap(bbox1, bbox2))
+                return new List<Pair>();
             var intersections = new List<Pair>();
             var a1 = new List<Bezier> { s1.startcap, s1.forward, s1.back, s1.endcap };
             var a2 = new List<Bezier> { s2.startcap, s2.forward, s2.back, s2.endcap };
             foreach (Bezier l1 in a1)
             {
-                if (l1._virtual) return new List<Pair>();
+                if (l1._virtual)
+                    return new List<Pair>();
                 foreach (Bezier l2 in a2)
                 {
-                    if (l2._virtual) return new List<Pair>();
+                    if (l2._virtual)
+                        return new List<Pair>();
                     List<Pair> iss = l1.intersects(l2);
                     foreach (Pair i in iss)
                     {
@@ -474,23 +487,40 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static RangeX getminmax(Bezier curve, int d, List<double> list)
         {
-            if (list == null) return new RangeX(min: 0, max: 0);
+            if (list == null)
+                return new RangeX(min: 0, max: 0);
             double min = 0xFFFFFFFFFFFFFFFF;
             double max = -min;
             double t;
             Point3D c;
-            if (list.IndexOf(0) == -1) list.Insert(0, 0); if (list.IndexOf(1) == -1) list.Add(1); for (int i = 0, len = list.Count; i < len; i++)
+            if (list.IndexOf(0) == -1)
+                list.Insert(0, 0);
+            if (list.IndexOf(1) == -1)
+                list.Add(1);
+            for (int i = 0, len = list.Count; i < len; i++)
             {
                 t = list[i];
                 c = curve.get(t);
                 switch (d)
                 {
                     case 0:
-                        if (c.X < min) min = c.X; if (c.X > max) max = c.X; break;
+                        if (c.X < min)
+                            min = c.X;
+                        if (c.X > max)
+                            max = c.X;
+                        break;
                     case 1:
-                        if (c.Y < min) min = c.Y; if (c.Y > max) max = c.Y; break;
+                        if (c.Y < min)
+                            min = c.Y;
+                        if (c.Y > max)
+                            max = c.Y;
+                        break;
                     case 2:
-                        if (c.Z < min) min = c.Z; if (c.Z > max) max = c.Z; break;
+                        if (c.Z < min)
+                            min = c.Z;
+                        if (c.Z > max)
+                            max = c.Z;
+                        break;
                     default:
                         break;
                 }
@@ -663,7 +693,9 @@ namespace Engine.Geometry
             if (p.Count == 2)
             {
                 double a = p[0], b = p[1];
-                if (a != b) return new List<double> { a / (a - b) }; return new List<double>();
+                if (a != b)
+                    return new List<double> { a / (a - b) };
+                return new List<double>();
             }
 
             return new List<double>();
@@ -685,13 +717,15 @@ namespace Engine.Geometry
             double v2 = 18 * (3 * a - b - 3 * c);
             double v3 = 18 * (c - a);
 
-            if (approximately(v1, 0)) return new List<double>();
+            if (approximately(v1, 0))
+                return new List<double>();
 
             double trm = v2 * v2 - 4 * v1 * v3;
             double sq = Sqrt(trm);
             d = 2 * v1;
 
-            if (approximately(d, 0)) return new List<double>();
+            if (approximately(d, 0))
+                return new List<double>();
 
             return new List<double>(
                 from r in new List<double> { (sq - v2) / d, -(v2 + sq) / d }
@@ -716,7 +750,8 @@ namespace Engine.Geometry
             l = b1.x.mid;
             t = b2.x.mid;
             d = (b1.x.size + b2.x.size) / 2;
-            if (Abs(l - t) >= d) return false;
+            if (Abs(l - t) >= d)
+                return false;
             l = b1.y.mid;
             t = b2.y.mid;
             d = (b1.y.size + b2.y.size) / 2;
@@ -730,11 +765,26 @@ namespace Engine.Geometry
         /// <param name="_bbox"></param>
         public static void expandbox(BBox bbox, BBox _bbox)
         {
-            if (_bbox.x.min < bbox.x.min) bbox.x.min = _bbox.x.min; if (_bbox.y.min < bbox.y.min) bbox.y.min = _bbox.y.min; if (_bbox.z != null && _bbox.z.min < bbox.z.min) bbox.z.min = _bbox.z.min; if (_bbox.x.max > bbox.x.max) bbox.x.max = _bbox.x.max; if (_bbox.y.max > bbox.y.max) bbox.y.max = _bbox.y.max; if (_bbox.z != null && _bbox.z.max > bbox.z.max) bbox.z.max = _bbox.z.max; bbox.x.mid = (bbox.x.min + bbox.x.max) / 2;
+            if (_bbox.x.min < bbox.x.min)
+                bbox.x.min = _bbox.x.min;
+            if (_bbox.y.min < bbox.y.min)
+                bbox.y.min = _bbox.y.min;
+            if (_bbox.z != null && _bbox.z.min < bbox.z.min)
+                bbox.z.min = _bbox.z.min;
+            if (_bbox.x.max > bbox.x.max)
+                bbox.x.max = _bbox.x.max;
+            if (_bbox.y.max > bbox.y.max)
+                bbox.y.max = _bbox.y.max;
+            if (_bbox.z != null && _bbox.z.max > bbox.z.max)
+                bbox.z.max = _bbox.z.max;
+            bbox.x.mid = (bbox.x.min + bbox.x.max) / 2;
             bbox.y.mid = (bbox.y.min + bbox.y.max) / 2;
-            if (bbox.z != null) bbox.z.mid = (bbox.z.min + bbox.z.max) / 2; bbox.x.size = bbox.x.max - bbox.x.min;
+            if (bbox.z != null)
+                bbox.z.mid = (bbox.z.min + bbox.z.max) / 2;
+            bbox.x.size = bbox.x.max - bbox.x.min;
             bbox.y.size = bbox.y.max - bbox.y.min;
-            if (bbox.z != null) bbox.z.size = bbox.z.max - bbox.z.min;
+            if (bbox.z != null)
+                bbox.z.size = bbox.z.max - bbox.z.min;
         }
 
         /// <summary>
@@ -765,7 +815,8 @@ namespace Engine.Geometry
                 select pair);
 
             var results = new List<Pair>();
-            if (pairs.Count == 0) return results;
+            if (pairs.Count == 0)
+                return results;
 
             foreach (Pair pair in pairs)
                 results.AddRange(pairiteration(pair.left, pair.right));
@@ -816,14 +867,20 @@ namespace Engine.Geometry
                 // if s<m<e, arc(s, e)
                 // if m<s<e, arc(e, s + tau)
                 // if s<e<m, arc(e, s + tau)
-                if (s > m || m > e) s += Tau; if (s > e) { _ = e; e = s; s = _; }
+                if (s > m || m > e)
+                    s += Tau;
+                if (s > e)
+                { _ = e; e = s; s = _; }
             }
             else
             {
                 // if e<m<s, arc(e, s)
                 // if m<e<s, arc(s, e + tau)
                 // if e<s<m, arc(s, e + tau)
-                if (e < m && m < s) { _ = e; e = s; s = _; } else { e += Tau; }
+                if (e < m && m < s)
+                { _ = e; e = s; s = _; }
+                else
+                { e += Tau; }
             }
             // assign and done.
             var arc = new Arc1();
@@ -1064,7 +1121,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public Pair()
-            : this (null, null )
+            : this(null, null)
         {
         }
 
@@ -1161,7 +1218,8 @@ namespace Engine.Geometry
         public bool Equals(Pair x, Pair y)
         {
             //Check whether the compared objects reference the same data.
-            if (ReferenceEquals(x, y)) return true;
+            if (ReferenceEquals(x, y))
+                return true;
 
             //Check whether any of the compared objects is null.
             if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
@@ -1180,10 +1238,13 @@ namespace Engine.Geometry
         public int GetHashCode(Pair pair)
         {
             //Check whether the object is null
-            if (ReferenceEquals(pair, null)) return 0;
+            if (ReferenceEquals(pair, null))
+                return 0;
 
             //Calculate the hash code for the product.
             return pair.GetHashCode();
         }
     }
 }
+
+#pragma warning restore RCS1060 // Declare each type in separate file.

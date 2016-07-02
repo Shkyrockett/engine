@@ -221,23 +221,27 @@ namespace Engine
         /// Find the elliptical t that matches the coordinates of a circular angle.
         /// </summary>
         /// <param name="angle">The angle to transform into elliptic angle.</param>
-        /// <param name="r1">The first radius of the ellipse.</param>
-        /// <param name="r2">The second radius of the ellipse.</param>
+        /// <param name="rx">The first radius of the ellipse.</param>
+        /// <param name="ry">The second radius of the ellipse.</param>
         /// <returns></returns>
-        public static double ElipticAngle(double angle, double r1, double r2)
+        /// <remarks>
+        /// Based on the answer by flup at: 
+        /// http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
+        /// </remarks>
+        public static double EllipsePolarAngle(double angle, double rx, double ry)
         {
             // Wrap the angle between -PI and PI.
-            double theta = WrapAngle(angle);
+            var theta = WrapAngle(angle);
 
             // Find the elliptical t that matches the circular angle.
-            if (Math.Abs(angle) == HalfPi || Math.Abs(angle) == ThreeQuarterTau)
+            if (Math.Abs(angle) == HalfPi || Math.Abs(angle) == Pau)
                 return angle;
-            else if (angle > HalfPi && angle < ThreeQuarterTau)
-                return Atan(r1 * Tan(theta) / r2) + PI;
-            else if (angle < -HalfPi && angle > -ThreeQuarterTau)
-                return Atan(r1 * Tan(theta) / r2) - PI;
+            else if (angle > HalfPi && angle < Pau)
+                return Atan(rx * Tan(theta) / ry) + PI;
+            else if (angle < -HalfPi && angle > -Pau)
+                return Atan(rx * Tan(theta) / ry) - PI;
             else
-                return Atan(r1 * Tan(theta) / r2);
+                return Atan(rx * Tan(theta) / ry);
         }
 
         /// <summary>
@@ -1843,8 +1847,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this double angle)
         {
-            double test = angle % Tau;
-            return test < 0 ? test + Tau : test;
+            double value = angle % Tau;
+            return value < 0 ? value + Tau : value;
         }
 
         /// <summary>
@@ -1855,8 +1859,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngle(this double angle)
         {
-            double test = IEEERemainder(angle, Tau);
-            return (test <= -PI) ? test + Tau : test - Tau;
+            double value = IEEERemainder(angle, Tau);
+            return (value <= -PI) ? value + Tau : value - Tau;
         }
 
         /// <summary>
@@ -1926,6 +1930,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
             => Convert.ToInt32(value / multiple) * multiple;
+
+        /// <summary>
+        /// Swap left and right values so the left object has the value of the right object and visa-versa. 
+        /// </summary>
+        /// <param name="a">The left value.</param>
+        /// <param name="b">The right value.</param>
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T swap = a;
+            a = b;
+            b = swap;
+        }
 
         #endregion
 

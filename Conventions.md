@@ -1,2 +1,2 @@
-#Codeing Style and Syntax Conventions
+# Coding Style and Syntax Conventions
 

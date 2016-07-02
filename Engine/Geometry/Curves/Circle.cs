@@ -253,10 +253,7 @@ namespace Engine.Geometry
         [XmlIgnore]
         public override Rectangle2D Bounds
         {
-            get
-            {
-                return Boundings.Circle(x, y, radius);
-            }
+            get { return Boundings.Circle(x, y, radius); }
             set
             {
                 Center = value.Center();
@@ -282,7 +279,14 @@ namespace Engine.Geometry
         [Description("The area of the circle.")]
         [XmlIgnore]
         public override double Area
-            => Areas.Circle(radius);
+        {
+            get { return Areas.Circle(radius); }
+            set
+            {
+                radius = Sqrt(value / PI);
+                update?.Invoke();
+            }
+        }
 
         #endregion
 

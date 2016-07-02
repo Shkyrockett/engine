@@ -147,7 +147,8 @@ namespace Engine.Geometry
         /// <param name="height">The Height of the rectangle.</param>
         public RotatedRectangle2D(double x, double y, double width, double height, double angle)
         {
-            if (width < 0 || height < 0) throw new ArgumentException("Width and Height cannot be Negative.");
+            if (width < 0 || height < 0)
+                throw new ArgumentException("Width and Height cannot be Negative.");
 
             this.x = x;
             this.y = y;
@@ -323,7 +324,8 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public override Rectangle2D Bounds
-            => Boundings.RotatedRectangleBounds(X - (width / 2d), Y - (height / 2d), width, height, Center, angle);
+            => Boundings.RotatedRectangleBounds(width, height, Center, angle);
+        //=> Boundings.RotatedRectangleBounds(X - (width / 2d), Y - (height / 2d), width, height, Center, angle);
 
         #endregion
 
@@ -690,7 +692,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
         public List<Point2D> ToPoints()
-            => Interpolaters.RotatedRectangle(x - (width / 2d), y - (height / 2d), width, height, Center, angle);
+            => Interpolaters.RotatedRectangle(x - (width / 2d), y - (height / 2d), width, height, Center.X, Center.Y, angle);
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.
@@ -722,7 +724,8 @@ namespace Engine.Geometry
         /// </returns>
         internal override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(RotatedRectangle2D);
+            if (this == null)
+                return nameof(RotatedRectangle2D);
             //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
             char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x},{nameof(Y)}={y},{nameof(Width)}={width},{nameof(Height)}={height},{nameof(Angle)}={angle}}}";

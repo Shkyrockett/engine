@@ -283,7 +283,7 @@ namespace Engine.Imaging
             var mat = new Matrix();
             mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
             g.Transform = mat;
-            g.DrawArc(Pens.Red, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            g.DrawArc(Pens.Red, shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
             g.ResetTransform();
         }
 

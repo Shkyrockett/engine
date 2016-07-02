@@ -24,6 +24,30 @@ namespace Engine.Geometry
     public static class Intersections
     {
         /// <summary>
+        /// Check whether an angle lies between two other angles.
+        /// </summary>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="reverseSweep">A Boolean value to indicate whether to reverse the sweep to compare angles on the other side.</param>
+        /// <returns>A Boolean value indicating whether an angle is between two others.</returns>
+        public static bool Contains(double angle, double startAngle, double sweepAngle, bool reverseSweep)
+        {
+            double e = Maths.WrapAngle(startAngle + sweepAngle);
+            double s = Maths.WrapAngle(startAngle);
+            double x = Maths.WrapAngle(angle);
+            if (reverseSweep)
+            {
+                if (s < e)
+                    return x >= s && x <= e;
+                return x >= s || x <= e;
+            }
+            if (s > e)
+                return x <= s && x >= e;
+            return x <= s || x >= e;
+        }
+
+        /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
         /// </summary>
         /// <param name="circle"><see cref="Circle"/> class.</param>
@@ -242,7 +266,7 @@ namespace Engine.Geometry
 
             // Translate points to origin.
             double u = pX - x;
-            double v = -(pY - y); // Negative vector to account for screen coordinates. 
+            double v = pY - y;
 
             // Apply the rotation transformation.
             double a = (u * cosT + v * sinT);

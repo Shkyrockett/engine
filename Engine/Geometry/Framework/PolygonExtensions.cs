@@ -476,8 +476,11 @@ namespace Engine.Geometry
         private static void FindInitialControlPoints(this Polygon polygon, BoundingRectPolygon boundingRect)
         {
             for (int i = 0; i < boundingRect.NumPoints; i++)
+            {
                 if (CheckInitialControlPoints(polygon, boundingRect, i))
                     return;
+            }
+
             Debug.Assert(false, "Could not find initial control points.");
         }
 

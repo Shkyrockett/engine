@@ -40,12 +40,12 @@ namespace Engine.Objects
         /// <summary>
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
-        public virtual double Area { get; }
+        public virtual double Area { get; set; }
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
         /// </summary>
-        public virtual double Perimeter { get; }
+        public virtual double Perimeter { get; set; }
 
         /// <summary>
         /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
@@ -104,8 +104,10 @@ namespace Engine.Objects
         /// <returns>A reference to object.</returns>
         internal GraphicsObject OnUpdate(Action callback)
         {
-            if (update == null) update = callback;
-            else update += callback;
+            if (update == null)
+                update = callback;
+            else
+                update += callback;
             return this;
         }
 
@@ -173,7 +175,8 @@ namespace Engine.Objects
         [Pure]
         internal virtual string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(GraphicsObject);
+            if (this == null)
+                return nameof(GraphicsObject);
             //char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(GraphicsObject)}";
             return formatable.ToString(format, provider);

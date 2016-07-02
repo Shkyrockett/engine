@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System;
 using System.Collections.Generic;
 using static System.Math;
 
@@ -17,15 +18,15 @@ namespace Engine
     /// </summary>
     public partial class Maths
     {
-        #region Epsilons, Mins, Maxes
+        #region Epsilons, Minimums, Maximums
 
         /// <summary>
-        /// Smallest such that 1.0+DBL_EPSILON != 1.0
+        /// Smallest such that 1.0 + <see cref="DoubleEpsilon"/> != 1.0
         /// </summary>
         public const double DoubleEpsilon = 2.2204460492503131e-016d;
 
         /// <summary>
-        /// Smallest such that 1.0+FLT_EPSILON != 1.0
+        /// Smallest such that 1.0 + <see cref="FloatEpsilon"/> != 1.0
         /// </summary>
         public const float FloatEpsilon = 1.192092896e-07f;
 
@@ -62,53 +63,61 @@ namespace Engine
         #region Pi Derivations
 
         /// <summary>
-        /// 
+        /// Represents the inverse of Pi, or the quotient of one over pi.
         /// </summary>
-        public const double InvPi = 1 / PI; // 0.318309886183790671538d;
+        public const double InversePi = 1d / PI; // 0.318309886183790671538d;
 
         /// <summary>
-        /// 
+        /// Represents the value of the double inverse of Pi, or the quotient of two over pi.
         /// </summary>
-        public const double Inv2OverPi = 2 / PI; // 0.636619772367581343076;
+        public const double Inverse2OverPi = 2d / PI; // 0.636619772367581343076;
 
         /// <summary>
-        /// Represents the ratio of the circumference of a circle to its radius, specified
-        /// by the proposed constant, τ.
-        /// One Tau or double Pi.
+        /// Represents the ratio of the radius of a circle to the first eighth of that circle.
+        /// One sixteenth Tau or a eighth Pi.
         /// </summary>
-        /// <value>≈6.28318...</value>
-        public const double Tau = 2d * PI;
-
-        ///// <summary>
-        ///// Represents the ratio of the circumference of a circle to its diameter, specified
-        ///// by the constant, π.
-        ///// One half Tau or One Pi.
-        ///// </summary>
-        ///// <value>≈3.1415926535897931...</value>
-        //public const double PI = Math.PI; // 3.14159265358979323846d;
+        /// <remarks>PI / 8</remarks>
+        public const double EighthPi = 0.125d * PI;
 
         /// <summary>
-        /// 
-        /// </summary>
-        public const double ThreeQuarterTau = PI * 6d / 4d;
-
-        /// <summary>
-        /// One quarter Tau or half Pi.
-        /// </summary>
-        /// <remarks>PI / 2</remarks>
-        public const double HalfPi = 0.5d * PI; // 1.57079632679489661923d;
-
-        /// <summary>
+        /// Represents the ratio of the radius of a circle to the first eighth of that circle.
         /// One eighth Tau or a quarter Pi.
         /// </summary>
         /// <remarks>PI / 4</remarks>
         public const double Quart = 0.25d * PI; // 0.785398163397448309616d;
 
         /// <summary>
-        /// One sixteenth Tau or a eighth Pi.
+        /// Represents the ratio of the radius of a circle to the first quarter of that circle.
+        /// One quarter Tau or half Pi.
         /// </summary>
-        /// <remarks>PI / 8</remarks>
-        public const double EighthPi = 0.125d * PI;
+        /// <remarks>PI / 2</remarks>
+        public const double HalfPi = 0.5d * PI; // 1.57079632679489661923d;
+
+        ///// <summary>
+        ///// Represents the ratio of the circumference of a circle to its diameter, specified
+        ///// by the constant, π (Pi).
+        ///// One half Tau or One Pi.
+        ///// </summary>
+        ///// <value>≈3.1415926535897931...</value>
+        //public const double PI = Math.PI; // 3.14159265358979323846d;
+
+        /// <summary>
+        /// Represents the ratio of the radius of a circle to the third quarter of that circle.
+        /// Three quarter tau, or one and a half pi.
+        /// </summary>
+        /// <remarks>
+        /// Three quarter tau, or one and a half pi are just too long and awkward.
+        /// Randal Munro's "compromise" works well enough for a name: http://xkcd.com/1292/
+        /// </remarks>
+        public const double Pau = 1.5d * PI;
+
+        /// <summary>
+        /// Represents the ratio of the circumference of a circle to its radius, specified
+        /// by the proposed constant, τ (Tau).
+        /// One Tau or two Pi.
+        /// </summary>
+        /// <value>≈6.28318...</value>
+        public const double Tau = 2d * PI; // 6.28318530717958647693;
 
         /// <summary>
         /// One Radian.
@@ -125,7 +134,7 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// Represents the golden ratio as specified by the constant, φ.
+        /// Represents the golden ratio as specified by the constant, φ (phi).
         /// </summary>
         /// <value>≈1.61803...</value>
         public static readonly double Phi = (1d + Sqrt(5)) / 2d; //1.61803398874989484820458683436;

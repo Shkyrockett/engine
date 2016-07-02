@@ -95,15 +95,6 @@ namespace Engine.Tweening
         /// </summary>
         public static Dictionary<Type, ConstructorInfo> RegisteredLerpers { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Dictionary<object, List<Tween>> Tweens
-        {
-            get { return tweens; }
-            set { tweens = value; }
-        }
-
         #endregion
 
         /// <summary>

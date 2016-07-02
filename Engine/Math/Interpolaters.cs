@@ -26,8 +26,8 @@ namespace Engine
         /// <summary>
         /// Interpolates the Arc.
         /// </summary>
-        /// <param name="x">Center x-coordinate.</param>
-        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
@@ -37,17 +37,17 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> CircularArc(
-            double x, double y,
+            double cX, double cY,
             double r,
             double startAngle, double sweepAngle,
             double t)
-            => Circle(x, y, r, (startAngle + (sweepAngle * t)) / Tau);
+            => Circle(cX, cY, r, (startAngle + (sweepAngle * t)) / Tau);
 
         /// <summary>
         /// Interpolate a point on a circle.
         /// </summary>
-        /// <param name="x">Center x-coordinate.</param>
-        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
@@ -55,7 +55,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Circle(
-            double x, double y,
+            double cX, double cY,
             double r,
             double t)
         {
@@ -64,21 +64,24 @@ namespace Engine
 
             // Apply translation to equation of circle at origin.
             return new Tuple<double, double>(
-                x + (Cos(phi) * r),
-                y + (Sin(phi) * r));
+                cX + (Cos(phi) * r),
+                cY + (Sin(phi) * r));
         }
 
         /// <summary>
-        /// 
+        /// Interpolates the unrotated elliptic Arc.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> EllipticArc(
             double cX, double cY,
             double r1, double r2,
@@ -103,7 +106,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Interpolates the Elliptic Arc.
+        /// Interpolates the Elliptic Arc, corrected for Polar coordinates.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -115,7 +118,7 @@ namespace Engine
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> EllipticArc(
             double cX, double cY,
@@ -123,33 +126,73 @@ namespace Engine
             double angle,
             double startAngle, double sweepAngle,
             double t)
-            => Ellipse(cX, cY, r1, r2, angle, (startAngle + (sweepAngle * t) / Tau));
+            => PolarEllipse(cX, cY, r1, r2, angle, startAngle + (sweepAngle * t));
+
+        /// <summary>
+        /// Interpolate a point on an Ellipse with Polar correction using a range from 0 to 1 for unit interpolation.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> UnitPolarEllipse(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double t)
+           => PolarEllipse(cX, cY, r1, r2, angle, Tau * t);
+
+        /// <summary>
+        /// Interpolate a point on an Ellipse with Polar correction.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> PolarEllipse(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double t)
+           => Ellipse(cX, cY, r1, r2, angle, EllipsePolarAngle(t, r1, r2));
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
         /// </summary>
-        /// <param name="x">Center x-coordinate.</param>
-        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Ellipse(
-            double x, double y,
+            double cX, double cY,
             double r1, double r2,
             double angle,
             double t)
         {
-            // Convert from unit iteration, to Pi radians.
-            double phi = ElipticAngle(Tau * t, r1, r2);
-
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(-angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(-angle);
+
+            // Clamp angle between -Tau and +Tau by wrapping. 
+            var phi = Maths.WrapAngle(t);
 
             // Ellipse equation for an ellipse at origin.
             double u = r1 * Cos(phi);
@@ -157,8 +200,8 @@ namespace Engine
 
             // Apply the rotation transformation and translate to new center.
             return new Tuple<double, double>(
-                x + (u * cosT + v * sinT),
-                y + (u * -sinT + v * cosT));
+                cX + (u * cosT + v * sinT),
+                cY + (u * -sinT + v * cosT));
         }
 
         #region Catmull-Rom Spline Interpolation
@@ -592,6 +635,8 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Hermite(
             double v0,
@@ -635,6 +680,8 @@ namespace Engine
         /// <remarks>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </remarks>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Hermite(
             double x0, double y0,
@@ -688,6 +735,8 @@ namespace Engine
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Hermite(
             double x0, double y0, double z0,
@@ -729,6 +778,7 @@ namespace Engine
         /// <param name="v2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(
@@ -745,6 +795,7 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Linear(
@@ -766,6 +817,7 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Linear(
@@ -785,6 +837,8 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezier(
             double x0,
@@ -810,6 +864,8 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> QuadraticBezier(
             double x0, double y0,
@@ -841,6 +897,8 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> QuadraticBezier(
             double x0, double y0, double z0,
@@ -868,6 +926,8 @@ namespace Engine
         /// <remarks>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </remarks>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sine(
             double v1,
@@ -888,6 +948,8 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Sine(
             double x1, double y1,
@@ -913,6 +975,8 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double, double> Sine(
             double x1, double y1, double z1,
@@ -933,11 +997,20 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="height"></param>
         /// <param name="width"></param>
-        /// <param name="fulcrum"></param>
+        /// <param name="fulcrumX"></param>
+        /// <param name="fulcrumY"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public static List<Point2D> RotatedRectangle(double x, double y, double width, double height, Point2D fulcrum, double angle)
+        [Pure]
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> RotatedRectangle(
+            double x, double y,
+            double width, double height,
+            double fulcrumX, double fulcrumY,
+            double angle)
         {
+            // ToDo: Figure out how to properly include the location point.
             var points = new List<Point2D>();
 
             var xaxis = new Point2D(Cos(angle), Sin(angle));
@@ -945,20 +1018,20 @@ namespace Engine
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(
-                fulcrum.X + ((-width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
-                fulcrum.Y + ((-width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                fulcrumX + ((-width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
+                fulcrumY + ((-width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrum.X + ((width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
-                fulcrum.Y + ((width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                fulcrumX + ((width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
+                fulcrumY + ((width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrum.X + ((width / 2) * xaxis.X + (height / 2) * xaxis.Y),
-                fulcrum.Y + ((width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                fulcrumX + ((width / 2) * xaxis.X + (height / 2) * xaxis.Y),
+                fulcrumY + ((width / 2) * yaxis.X + (height / 2) * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrum.X + ((-width / 2) * xaxis.X + (height / 2) * xaxis.Y),
-                fulcrum.Y + ((-width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                fulcrumX + ((-width / 2) * xaxis.X + (height / 2) * xaxis.Y),
+                fulcrumY + ((-width / 2) * yaxis.X + (height / 2) * yaxis.Y)
                 ));
 
             return points;

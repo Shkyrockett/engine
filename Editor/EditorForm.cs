@@ -351,21 +351,24 @@ namespace Editor
             double centerY = 200d;
             double radius1 = 100d;
             double radius2 = 200d;
-            double angle = 45d.ToRadians();
-            double startAngle = 0d.ToRadians();
-            double sweepAngle = -90d.ToRadians();
+            double angle = -45d.ToRadians();
+            double startAngle = 45d.ToRadians();
+            double sweepAngle = -180d.ToRadians();
 
             var parametricEllipse = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolaters.Ellipse(x, y, w, h, a, t),
+                (x, y, w, h, a, t) => Interpolaters.UnitPolarEllipse(x, y, w, h, a, t),
                 (x, y, w, h, a, px, py) => Intersections.EllipsePoint(x, y, w, h, a, px, py),
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
             vectorMap.Add(parametricEllipseItem);
 
+            var ellipseNodes = new Polygon(Boundings.EllipseExtremes(centerX, centerY, radius1, radius2, angle));
+            var ellipseNidesItem = new GraphicItem(ellipseNodes, styles[10]);
+
             var ellipticArc = new EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
 
-            var ellpticArcBounds = Boundings.EllpticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            var ellpticArcBounds = Boundings.EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, styles[10]);
 
             var test = Interpolaters.EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, 1);
@@ -380,6 +383,7 @@ namespace Editor
             vectorMap.Add(ellipticArcItem);
             vectorMap.Add(circularArcItem);
             vectorMap.Add(angleLinesItem);
+            vectorMap.Add(ellipseNidesItem);
 
             //double centerX = 100d;
             //double centerY = 200d;

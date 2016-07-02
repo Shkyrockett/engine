@@ -436,9 +436,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="phi"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
         /// <param name="largeArc"></param>
         /// <param name="sweep"></param>
         /// <param name="x2"></param>

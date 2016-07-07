@@ -70,8 +70,8 @@ namespace Engine.Tweening
 
             var current = currentValue as Vector2D;
             return new Vector2D(
-                (Abs(range.I) < DoubleEpsilon) ? current.I : i,
-                (Abs(range.J) < DoubleEpsilon) ? current.J : j);
+                (Abs(range.I) < Epsilon) ? current.I : i,
+                (Abs(range.J) < Epsilon) ? current.J : j);
         }
     }
 }

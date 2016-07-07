@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace MathGame
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal static class Program
     {
         /// <summary>

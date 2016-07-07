@@ -188,20 +188,17 @@ namespace Engine
             double t)
         {
             // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(-angle);
-
-            // Clamp angle between -Tau and +Tau by wrapping. 
-            var phi = Maths.WrapAngle(t);
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
 
             // Ellipse equation for an ellipse at origin.
-            double u = r1 * Cos(phi);
-            double v = r2 * Sin(phi);
+            double u = r1 * Cos(t);
+            double v = -(r2 * Sin(t));
 
             // Apply the rotation transformation and translate to new center.
             return new Tuple<double, double>(
                 cX + (u * cosT + v * sinT),
-                cY + (u * -sinT + v * cosT));
+                cY + (u * sinT - v * cosT));
         }
 
         #region Catmull-Rom Spline Interpolation

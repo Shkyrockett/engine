@@ -55,6 +55,10 @@ namespace Engine.Imaging
             {
                 (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
             }
+            else if (item?.Item is ParametricPointTester)
+            {
+                (item?.Item as ParametricPointTester).Render(g, item, style as ShapeStyle);
+            }
             else if (item?.Item is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
                 (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
@@ -126,6 +130,41 @@ namespace Engine.Imaging
             List<Point2D> points = item?.InterpolatePoints();
             g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
             g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
+        public static void Render(this ParametricPointTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            float pointRadius = 1;
+
+            Tuple<List<Point2D>, List<Point2D>, List<Point2D>> results = shape.Interactions();
+
+            Pen pointpen = Pens.Magenta;
+            foreach (var point in results.Item1)
+            {
+                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
+                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+            }
+
+            pointpen = Pens.Lime;
+            foreach (var point in results.Item2)
+            {
+                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
+                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+            }
+
+            pointpen = Pens.Red;
+            foreach (var point in results.Item3)
+            {
+                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
+                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+            }
         }
 
         /// <summary>

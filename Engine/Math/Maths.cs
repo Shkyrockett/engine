@@ -136,9 +136,9 @@ namespace Engine
         public static double Angle(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => (Math.Abs(x1 - x2) < DoubleEpsilon
-            && Math.Abs(y1 - y2) < DoubleEpsilon
-            && Math.Abs(z1 - z2) < DoubleEpsilon) ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
+            => (Math.Abs(x1 - x2) < Epsilon
+            && Math.Abs(y1 - y2) < Epsilon
+            && Math.Abs(z1 - z2) < Epsilon) ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
 
         /// <summary>
         /// 
@@ -230,7 +230,7 @@ namespace Engine
         /// </remarks>
         public static double EllipsePolarAngle(double angle, double rx, double ry)
         {
-            // Wrap the angle between -PI and PI.
+            // Wrap the angle between -2PI and PI.
             var theta = WrapAngle(angle);
 
             // Find the elliptical t that matches the circular angle.
@@ -535,7 +535,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
-            => Math.Abs(i) < DoubleEpsilon ? SlopeMax : (j / i);
+            => Math.Abs(i) < Epsilon ? SlopeMax : (j / i);
 
         /// <summary>
         /// Returns the slope angle of a line.
@@ -555,7 +555,7 @@ namespace Engine
         public static double Slope(
             double x1, double y1,
             double x2, double y2)
-            => (Math.Abs(x1 - x2) < DoubleEpsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
+            => (Math.Abs(x1 - x2) < Epsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
 
         /// <summary>
         /// 
@@ -1373,7 +1373,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1)
-            => Math.Abs(Magnitude(i1, j1) - 1) < DoubleEpsilon;
+            => Math.Abs(Magnitude(i1, j1) - 1) < Epsilon;
 
         /// <summary>
         /// 
@@ -1386,7 +1386,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1, double k1)
-            => Math.Abs(Magnitude(i1, j1, k1) - 1) < DoubleEpsilon;
+            => Math.Abs(Magnitude(i1, j1, k1) - 1) < Epsilon;
 
         /// <summary>
         /// 
@@ -1510,7 +1510,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
-            => (x < 0 && Math.Abs(y % 2 - 1) < DoubleEpsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
+            => (x < 0 && Math.Abs(y % 2 - 1) < Epsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
 
         /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
@@ -1534,7 +1534,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => ((Math.Abs(value % PI - HalfPi) > DoubleEpsilon) && (Math.Abs(value % PI - -HalfPi) > DoubleEpsilon)) ? (1 / Cos(value)) : 0;
+            => ((Math.Abs(value % PI - HalfPi) > Epsilon) && (Math.Abs(value % PI - -HalfPi) > Epsilon)) ? (1 / Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -1545,7 +1545,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-            => ((Math.Abs(Value % PI) > DoubleEpsilon) && (Math.Abs(Value % PI - PI) > DoubleEpsilon)) ? (1 / Sin(Value)) : 0;
+            => ((Math.Abs(Value % PI) > Epsilon) && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Sin(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -1556,7 +1556,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-            => ((Math.Abs(Value % PI) > DoubleEpsilon) && (Math.Abs(Value % PI - PI) > DoubleEpsilon)) ? (1 / Tan(Value)) : 0;
+            => ((Math.Abs(Value % PI) > Epsilon) && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Tan(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -1569,9 +1569,9 @@ namespace Engine
         {
             //  Arc-sin(X) 
             // Return Atan(Value / Sqrt(-Value * Value + 1))
-            if (Math.Abs(value - 1) < DoubleEpsilon)
+            if (Math.Abs(value - 1) < Epsilon)
                 return HalfPi;
-            if (Math.Abs(value - -1) < DoubleEpsilon)
+            if (Math.Abs(value - -1) < Epsilon)
                 return -HalfPi;
             if (Math.Abs(value) < 1)
                 return Atan(value / Sqrt(-value * value + 1));
@@ -1590,9 +1590,9 @@ namespace Engine
         {
             //  Arc-cos(X) 
             // Return Atan(-Value / Sqrt(-Value * Value + 1)) + 2 * Atan(1)
-            if (Math.Abs(value - 1) < DoubleEpsilon)
+            if (Math.Abs(value - 1) < Epsilon)
                 return 0;
-            if (Math.Abs(value - -1) < DoubleEpsilon)
+            if (Math.Abs(value - -1) < Epsilon)
                 return PI;
             if (Math.Abs(value) < 1)
                 return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
@@ -1611,9 +1611,9 @@ namespace Engine
         {
             //  Arc-sec(X) 
             // Return Atan(Value / Sqrt(Value * Value - 1)) + Sign((Value) - 1) * (2 * Atan(1))
-            if (Math.Abs(value - 1) < DoubleEpsilon)
+            if (Math.Abs(value - 1) < Epsilon)
                 return 0;
-            if (Math.Abs(value - -1) < DoubleEpsilon)
+            if (Math.Abs(value - -1) < Epsilon)
                 return PI;
             if (Math.Abs(value) < 1)
                 return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
@@ -1632,9 +1632,9 @@ namespace Engine
         {
             //  Arc-co-sec(X) 
             // Return Atan(Value / Sqrt(Value * Value - 1)) + (Sign(Value) - 1) * (2 * Atan(1))
-            if (Math.Abs(value - 1) < DoubleEpsilon)
+            if (Math.Abs(value - 1) < Epsilon)
                 return HalfPi;
-            if (Math.Abs(value - -1) < DoubleEpsilon)
+            if (Math.Abs(value - -1) < Epsilon)
                 return -HalfPi;
             if (Math.Abs(value) < 1)
                 return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
@@ -1797,7 +1797,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
-            => (Math.Abs(numberBase - 1) > DoubleEpsilon) ? (Log(value) / Log(numberBase)) : 0;
+            => (Math.Abs(numberBase - 1) > Epsilon) ? (Log(value) / Log(numberBase)) : 0;
 
         #endregion
 
@@ -1810,6 +1810,8 @@ namespace Engine
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Clamp(this double value, double min, double max)
             => value > max ? max : value < min ? min : value;
@@ -1821,6 +1823,8 @@ namespace Engine
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Clamp<T>(this T value, T min, T max)
             where T : IComparable
@@ -1833,6 +1837,8 @@ namespace Engine
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
+        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Wrap(this double value, double min, double max)
             => (value < min) ? max - (min - value) % (max - min) : min + (value - min) % (max - min);
@@ -1844,6 +1850,7 @@ namespace Engine
         /// <returns>The absolute positive angle in radians.</returns>
         /// <remarks></remarks>
         [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this double angle)
         {
@@ -1852,10 +1859,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Reduces a given angle to a value between π and -π.
+        /// Reduces a given angle to a value between 2π and -2π.
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>
         /// <returns>The new angle, in radians.</returns>
+        [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngle(this double angle)
         {
@@ -1871,6 +1880,7 @@ namespace Engine
         /// <returns>Returns the same Modulus Result that Excel returns.</returns>
         /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than .Net</remarks>
         [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulo(this double valueA, double valueB)
             => ((valueA %= valueB) < 0) ? valueA + valueB : valueA;
@@ -1906,6 +1916,7 @@ namespace Engine
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerStepThrough]
         public static double Round(this float val)
             => (0f < val) ? (int)(val + 0.5f) : (int)(val - 0.5f);
 
@@ -1915,6 +1926,7 @@ namespace Engine
         /// <param name="val"></param>
         /// <returns></returns>
         [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Round(this double val)
             => (0d < val) ? (int)(val + 0.5d) : (int)(val - 0.5d);
@@ -1927,6 +1939,7 @@ namespace Engine
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
         /// <remarks>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</remarks>
         [Pure]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
             => Convert.ToInt32(value / multiple) * multiple;
@@ -1936,6 +1949,8 @@ namespace Engine
         /// </summary>
         /// <param name="a">The left value.</param>
         /// <param name="b">The right value.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Swap<T>(ref T a, ref T b)
         {
             T swap = a;
@@ -2003,7 +2018,7 @@ namespace Engine
         /// <remarks>http://pomax.github.io/bezierinfo</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool approximately(double a, double b, double precision = DoubleEpsilon)
+        public static bool approximately(double a, double b, double precision = Epsilon)
             => Math.Abs(a - b) <= precision;
 
         /// <summary>
@@ -2017,7 +2032,7 @@ namespace Engine
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd = DoubleEpsilon)
+        public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd = Epsilon)
             => (SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
 
         /// <summary>
@@ -2041,7 +2056,7 @@ namespace Engine
         public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
-            if (Math.Abs(value1 - value2) < DoubleEpsilon)
+            if (Math.Abs(value1 - value2) < Epsilon)
                 return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             float eps = (Math.Abs(value1) + Math.Abs(value2) + 10f) * epsilon;
@@ -2067,10 +2082,10 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
         [Pure]
-        public static bool AreClose(this double value1, double value2, double epsilon = DoubleEpsilon)
+        public static bool AreClose(this double value1, double value2, double epsilon = Epsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
-            if (Math.Abs(value1 - value2) < DoubleEpsilon)
+            if (Math.Abs(value1 - value2) < Epsilon)
                 return true;
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             double eps = (Math.Abs(value1) + Math.Abs(value2) + 10d) * epsilon;
@@ -2282,7 +2297,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsZero(this double value, double epsilon = DoubleEpsilon)
+        public static bool IsZero(this double value, double epsilon = Epsilon)
             => Math.Abs(value) < 10d * epsilon;
 
         /// <summary>
@@ -2310,7 +2325,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsOne(this double value, double epsilon = DoubleEpsilon)
+        public static bool IsOne(this double value, double epsilon = Epsilon)
             => Math.Abs(value - 1d) < 10d * epsilon;
 
         /// <summary>

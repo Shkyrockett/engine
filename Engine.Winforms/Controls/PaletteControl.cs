@@ -73,7 +73,7 @@ namespace Engine.Winforms
             set
             {
                 palette = value;
-                this.Image = Palette.DrawPalette(this.ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
+                Image = Palette.DrawPalette(ClientRectangle, selectedPaletteIndex1, selectedPaletteIndex2, selectedPaletteIndex3, selectedPaletteIndex4, selectedPaletteIndex5);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Engine.Winforms
         /// <param name="e">Mouse event arguments.</param>
         private void PaleteControl_MouseClick(object sender, MouseEventArgs e)
         {
-            int index = Palette.PointToPaletteEntry(e.Location, this.Bounds);
+            int index = Palette.PointToPaletteEntry(e.Location, Bounds);
             if (index >= 0)
             {
                 switch (e.Button)
@@ -120,7 +120,7 @@ namespace Engine.Winforms
         private void PalleteControl_MouseMove(object sender, MouseEventArgs e)
         {
             // Capture the index of the palette entry under the cursor.
-            int index = Palette.PointToPaletteEntry(e.Location, new Rectangle(this.Bounds.Location, new Size(this.Bounds.Width - 1, this.Bounds.Height - 1)));
+            int index = Palette.PointToPaletteEntry(e.Location, new Rectangle(Bounds.Location, new Size(Bounds.Width - 1, Bounds.Height - 1)));
 
             // If the cursor moved over a new palette entry, update the tool-tip.
             if (mousePaletteIndex != index && index != -1)

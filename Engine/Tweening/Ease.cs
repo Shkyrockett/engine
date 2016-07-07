@@ -57,7 +57,7 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double ElasticOut(double t)
         {
-            if (Abs(t - 1) < DoubleEpsilon) return 1;
+            if (Abs(t - 1) < Epsilon) return 1;
             return (Sin(-13 * HalfPi * (t + 1)) * Pow(2, -10 * t) + 1);
         }
 
@@ -177,7 +177,7 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double SineIn(double t)
         {
-            if (Abs(t - 1) < DoubleEpsilon) return 1;
+            if (Abs(t - 1) < Epsilon) return 1;
             return (-Cos(HalfPi * t) + 1);
         }
 
@@ -285,7 +285,7 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double ExpoOut(double t)
         {
-            if (Abs(t - 1) < DoubleEpsilon) return 1;
+            if (Abs(t - 1) < Epsilon) return 1;
             return (-Pow(2, -10 * t) + 1);
         }
 
@@ -296,7 +296,7 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double ExpoInOut(double t)
         {
-            if (Abs(t - 1) < DoubleEpsilon) return 1;
+            if (Abs(t - 1) < Epsilon) return 1;
             return (t < .5 ? Pow(2, 10 * (t * 2 - 1)) / 2 : (-Pow(2, -10 * (t * 2 - 1)) + 2) / 2);
         }
 

@@ -189,14 +189,15 @@ namespace Engine.Geometry
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </remarks>
         [Pure]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipticArc(
+        public static Rectangle2D EllipticalArc(
             double cX, double cY,
             double r1, double r2,
             double angle,
             double startAngle, double sweepAngle)
         {
+            // Calculate the radii of the angle of rotation.
             double a = r1 * Cos(angle);
             double b = r2 * Sin(angle);
             double c = r1 * Sin(angle);
@@ -208,13 +209,13 @@ namespace Engine.Geometry
             double angleRight = Atan2(-b, a);
             double angleBottom = Atan2(d, c) + PI;
 
-            // Keep smaller angles on the left to simplify angle checks.
+            // Keep smaller angles on the left and top to simplify angle checks.
             if (angleRight < angleLeft)
                 Swap(ref angleRight, ref angleLeft);
             if (angleBottom < angleTop)
                 Swap(ref angleBottom, ref angleTop);
 
-            // Find the parent ellipse's bounding rectangle horizontal and vertical radii. 
+            // Find the parent ellipse's horizontal and vertical radii extremes. 
             double halfWidth = Sqrt((a * a) + (b * b));
             double halfHeight = Sqrt((c * c) + (d * d));
 
@@ -223,20 +224,17 @@ namespace Engine.Geometry
                 Interpolaters.EllipticArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
                 Interpolaters.EllipticArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
 
-            // Check whether the arc sweep is positive or negative.
-            bool upperSweep = sweepAngle <= 0;
-
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Contains(angleLeft, startAngle, sweepAngle, upperSweep))
+            if (Intersections.Contains(angleLeft, startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Intersections.Contains(angleRight, startAngle, sweepAngle, upperSweep))
+            if (Intersections.Contains(angleRight, startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Intersections.Contains(angleTop, startAngle, sweepAngle, upperSweep))
+            if (Intersections.Contains(angleTop, startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
-            if (Intersections.Contains(angleBottom, startAngle, sweepAngle, upperSweep))
+            if (Intersections.Contains(angleBottom, startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
 
-            // Return the points of Cartesian extreme of the rotated elliptical arc.
+            // Return the points of the Cartesian extremes of the rotated elliptical arc.
             return bounds;
         }
 

@@ -351,9 +351,10 @@ namespace Editor
             double centerY = 200d;
             double radius1 = 100d;
             double radius2 = 200d;
-            double angle = -45d.ToRadians();
-            double startAngle = 45d.ToRadians();
-            double sweepAngle = -180d.ToRadians();
+
+            double angle = 30d.ToRadians();
+            double startAngle = 30d.ToRadians();
+            double sweepAngle = 60d.ToRadians();
 
             var parametricEllipse = new ParametricDelegateCurve(
                 (x, y, w, h, a, t) => Interpolaters.UnitPolarEllipse(x, y, w, h, a, t),
@@ -362,16 +363,25 @@ namespace Editor
             var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
             vectorMap.Add(parametricEllipseItem);
 
+            //var parametricPointTester = new ParametricPointTester(
+            //    (px, py) => Intersections.EllipticSectorPoint(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, px, py),
+            //    centerX - (radius1 < radius2 ? radius2 : radius2),
+            //    centerY - (radius1 < radius2 ? radius2 : radius2),
+            //    centerX + (radius1 < radius2 ? radius2 : radius2),
+            //    centerY + (radius1 < radius2 ? radius2 : radius2),
+            //    5, 5);
+            //var parametricPointTesterItem = new GraphicItem(parametricPointTester, styles[3]);
+
             var ellipseNodes = new Polygon(Boundings.EllipseExtremes(centerX, centerY, radius1, radius2, angle));
             var ellipseNidesItem = new GraphicItem(ellipseNodes, styles[10]);
 
             var ellipticArc = new EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
 
-            var ellpticArcBounds = Boundings.EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            Rectangle2D ellpticArcBounds = Boundings.EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, styles[10]);
 
-            var test = Interpolaters.EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, 1);
+            Tuple<double, double> test = Interpolaters.EllipticArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, 1);
 
             var angleLines = new Polyline(ellipticArc.StartPoint, ellipticArc.Center, ellipticArc.EndPoint);
             var angleLinesItem = new GraphicItem(angleLines, styles[10]);
@@ -384,6 +394,7 @@ namespace Editor
             vectorMap.Add(circularArcItem);
             vectorMap.Add(angleLinesItem);
             vectorMap.Add(ellipseNidesItem);
+            //vectorMap.Add(parametricPointTesterItem);
 
             //double centerX = 100d;
             //double centerY = 200d;
@@ -437,16 +448,27 @@ namespace Editor
             //listBox1.ValueMember = "Name";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void UpdateCallback()
         {
             CanvasPanel.Invalidate(true);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void CompleteCallback()
         {
             CanvasPanel.Invalidate(true);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
@@ -454,6 +476,11 @@ namespace Editor
             timer1.Start();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
             tweener.Update(tick);

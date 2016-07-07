@@ -338,12 +338,12 @@ namespace Engine.Geometry
         public bool IsIdentity
             => (type == MatrixTypes.IDENTITY
         || (
-            Abs(m1x1 - 1) < DoubleEpsilon
-            && Abs(m1x2) < DoubleEpsilon
-            && Abs(m2x1) < DoubleEpsilon
-            && Abs(m2x2 - 1) < DoubleEpsilon
-            && Abs(offsetX) < DoubleEpsilon
-            && Abs(offsetY) < DoubleEpsilon));
+            Abs(m1x1 - 1) < Epsilon
+            && Abs(m1x2) < Epsilon
+            && Abs(m2x1) < Epsilon
+            && Abs(m2x2 - 1) < Epsilon
+            && Abs(offsetX) < Epsilon
+            && Abs(offsetY) < Epsilon));
 
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
@@ -1239,16 +1239,16 @@ namespace Engine.Geometry
             type = 0;
 
             // Now classify our matrix.
-            if (!(Abs(m2x1) < DoubleEpsilon && Abs(m1x2) < DoubleEpsilon))
+            if (!(Abs(m2x1) < Epsilon && Abs(m1x2) < Epsilon))
             {
                 type = MatrixTypes.UNKNOWN;
                 return;
             }
 
-            if (!(Abs(m1x1 - 1) < DoubleEpsilon && Abs(m2x2 - 1) < DoubleEpsilon))
+            if (!(Abs(m1x1 - 1) < Epsilon && Abs(m2x2 - 1) < Epsilon))
                 type = MatrixTypes.SCALING;
 
-            if (!(Abs(offsetX) < DoubleEpsilon && Abs(offsetY) < DoubleEpsilon))
+            if (!(Abs(offsetX) < Epsilon && Abs(offsetY) < Epsilon))
                 type |= MatrixTypes.TRANSLATION;
 
             if (0 == (type & (MatrixTypes.TRANSLATION | MatrixTypes.SCALING)))

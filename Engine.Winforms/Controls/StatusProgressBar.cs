@@ -53,19 +53,19 @@ namespace Engine.Winforms
         /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            Rectangle rect = this.ClientRectangle;
+            Rectangle rect = ClientRectangle;
             Graphics g = e.Graphics;
 
             ProgressBarRenderer.DrawHorizontalBar(g, rect);
             rect.Inflate(-3, -3);
-            if (this.Value > 0)
+            if (Value > 0)
             {
-                var clip = new Rectangle(rect.X, rect.Y, (int)Math.Round(((float)this.Value / this.Maximum) * rect.Width), rect.Height);
+                var clip = new Rectangle(rect.X, rect.Y, (int)Math.Round(((float)Value / Maximum) * rect.Width), rect.Height);
                 ProgressBarRenderer.DrawHorizontalChunks(g, clip);
             }
 
             // assumes this.Maximum == 100
-            string text = this.Value.ToString() + '%';
+            string text = Value.ToString() + '%';
 
             using (var f = new Font(FontFamily.GenericMonospace, 10))
             {

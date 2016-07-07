@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Experemental\KeyFrameAnimation.cs" />
+    <Compile Include="Geometry\ParametricPointTester.cs" />
     <Compile Include="Math\Areas.cs" />
     <Compile Include="Math\Boundings.cs" />
     <Compile Include="Math\Perimeters.cs" />

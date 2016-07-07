@@ -151,7 +151,7 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <param name="precision"></param>
         /// <returns></returns>
-        public static bool approximately(double a, double b, double precision = DoubleEpsilon)
+        public static bool approximately(double a, double b, double precision = Epsilon)
             => Abs(a - b) <= precision;// (precision || epsilon);
 
         /// <summary>

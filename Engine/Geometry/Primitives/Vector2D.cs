@@ -136,8 +136,8 @@ namespace Engine.Geometry
         [XmlIgnore]
         [Browsable(false)]
         public bool IsEmpty
-            => Abs(I) < DoubleEpsilon
-            && Abs(J) < DoubleEpsilon;
+            => Abs(I) < Epsilon
+            && Abs(J) < Epsilon;
 
         /// <summary>
         /// 

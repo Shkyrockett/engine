@@ -73,9 +73,9 @@ namespace Engine.Tweening
 
             var current = currentValue as Vector3D;
             return new Vector3D(
-                (Abs(range.I) < DoubleEpsilon) ? current.I : i,
-                (Abs(range.J) < DoubleEpsilon) ? current.J : j,
-                (Abs(range.K) < DoubleEpsilon) ? current.K : k);
+                (Abs(range.I) < Epsilon) ? current.I : i,
+                (Abs(range.J) < Epsilon) ? current.J : j,
+                (Abs(range.K) < Epsilon) ? current.K : k);
         }
     }
 }

@@ -24,19 +24,23 @@ namespace Engine.Geometry
     public static class Intersections
     {
         /// <summary>
-        /// Check whether an angle lies between two other angles.
+        /// Check whether an angle lies within the sweep angle.
         /// </summary>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle">The angle to start the arc.</param>
-        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <param name="angle">Angle of rotation to check.</param>
+        /// <param name="startAngle">The starting angle.</param>
+        /// <param name="sweepAngle">The amount of angle to offset from the start angle.</param>
         /// <param name="reverseSweep">A Boolean value to indicate whether to reverse the sweep to compare angles on the other side.</param>
         /// <returns>A Boolean value indicating whether an angle is between two others.</returns>
-        public static bool Contains(double angle, double startAngle, double sweepAngle, bool reverseSweep)
+        [Pure]
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Contains(double angle, double startAngle, double sweepAngle)
         {
+            // Reduce the angle to a value between 2PI and -2PI.
             double e = Maths.WrapAngle(startAngle + sweepAngle);
             double s = Maths.WrapAngle(startAngle);
             double x = Maths.WrapAngle(angle);
-            if (reverseSweep)
+            if (sweepAngle <= 0)
             {
                 if (s < e)
                     return x >= s && x <= e;
@@ -86,7 +90,7 @@ namespace Engine.Geometry
                 dy *= dy;
                 double distanceSquared = dx + dy;
                 double radiusSquared = r * r;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < Epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
             return Inclusion.Outside;
@@ -138,7 +142,7 @@ namespace Engine.Geometry
                 double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check if the point is on the chord.
-                if (Abs(determinant) < DoubleEpsilon)
+                if (Abs(determinant) < Epsilon)
                     return Inclusion.Boundary;
                 // Check whether the point is on the same side of the chord as the center.
                 else if (Sign(determinant) == Sign(sweepAngle))
@@ -150,7 +154,7 @@ namespace Engine.Geometry
                 dy *= dy;
                 double distanceSquared = dx + dy;
                 double radiusSquared = r * r;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < Epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
             return Inclusion.Outside;
@@ -171,8 +175,8 @@ namespace Engine.Geometry
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticArc"/>.
         /// </summary>
-        /// <param name="x">Center x-coordinate.</param>
-        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
@@ -185,44 +189,62 @@ namespace Engine.Geometry
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </remarks>
         [Pure]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticSectorPoint(double x, double y, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+        public static Inclusion EllipticSectorPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
         {
             if (r1 <= 0d || r2 <= 0d)
                 return Inclusion.Outside;
 
-            // Find the points of the chord.
-            Point2D startPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 0);
-            Point2D endPoint = Interpolaters.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle, 1);
-
-            // Find the determinant of the chord.
-            double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
-
-            // Check if the point is on the chord.
-            if (Abs(determinant) < DoubleEpsilon)
-                return Inclusion.Boundary;
-            // Check whether the point is on the same side of the chord as the center.
-            else if (Sign(determinant) == Sign(sweepAngle))
-                return Inclusion.Outside;
+            // Find the start and end angles.
+            double sa = EllipsePolarAngle(startAngle, r1, r2);
+            double ea = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
 
             // Get the ellipse rotation transform.
             double cosT = Cos(angle);
             double sinT = Sin(angle);
 
+            // Ellipse equation for an ellipse at origin for the chord end points.
+            double u1 = r1 * Cos(sa);
+            double v1 = -(r2 * Sin(sa));
+            double u2 = r1 * Cos(ea);
+            double v2 = -(r2 * Sin(ea));
+
+            // Find the points of the chord.
+            double sX = cX + (u1 * cosT + v1 * sinT);
+            double sY = cY + (u1 * sinT - v1 * cosT);
+            double eX = cX + (u2 * cosT + v2 * sinT);
+            double eY = cY + (u2 * sinT - v2 * cosT);
+
+            // Find the determinant of the chord.
+            double determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+
+            // Check if the point is on the chord.
+            if (Abs(determinant) <= Epsilon)
+            {
+                return (sX < eX) ?
+                (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
+                (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
+            }
+
+            // Check whether the point is on the side of the chord as the center.
+            if (Sign(determinant) == Sign(sweepAngle))
+                return Inclusion.Outside;
+
             // Translate points to origin.
-            double u = pX - x;
-            double v = pY - y;
+            double u0 = pX - cX;
+            double v0 = pY - cY;
 
             // Apply the rotation transformation.
-            double a = (u * cosT + v * sinT);
-            double b = (u * sinT + v * cosT);
+            double a = u0 * cosT + v0 * sinT;
+            double b = u0 * sinT - v0 * cosT;
 
-            double normalizedRadius = ((a * a) / (r1 * r1))
-                                    + ((b * b) / (r2 * r2));
+            double normalizedRadius
+                = ((a * a) / (r1 * r1))
+                + ((b * b) / (r2 * r2));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon)
+                ? ((Abs(normalizedRadius - 1d) < Epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
@@ -266,17 +288,17 @@ namespace Engine.Geometry
 
             // Translate points to origin.
             double u = pX - x;
-            double v = pY - y;
+            double v = -(pY - y);
 
             // Apply the rotation transformation.
             double a = (u * cosT + v * sinT);
-            double b = (u * -sinT + v * cosT);
+            double b = (u * sinT - v * cosT);
 
             double normalizedRadius = ((a * a) / (r1 * r1))
                                     + ((b * b) / (r2 * r2));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon)
+                ? ((Abs(normalizedRadius - 1d) < Epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
@@ -308,11 +330,11 @@ namespace Engine.Geometry
         public static Inclusion RectanglePoint(double left, double top, double right, double bottom, double pX, double pY)
         {
             if (((
-                Abs(left - pX) < DoubleEpsilon
-                || Abs(bottom - pX) < DoubleEpsilon)
+                Abs(left - pX) < Epsilon
+                || Abs(bottom - pX) < Epsilon)
                 && ((top <= pY) == (bottom >= pY)))
-                || ((Abs(right - pY) < DoubleEpsilon
-                || Abs(left - pY) < DoubleEpsilon)
+                || ((Abs(right - pY) < Epsilon
+                || Abs(left - pY) < Epsilon)
                 && ((left <= pX) == (right >= pX))))
             {
                 return Inclusion.Boundary;
@@ -360,10 +382,10 @@ namespace Engine.Geometry
             for (int i = 1; i <= points.Count; ++i)
             {
                 Point2D nextPoint = (i == points.Count ? points[0] : points[i]);
-                if (Abs(nextPoint.Y - pY) < DoubleEpsilon)
+                if (Abs(nextPoint.Y - pY) < Epsilon)
                 {
-                    if ((Abs(nextPoint.X - pX) < DoubleEpsilon)
-                        || (Abs(curPoint.Y - pY) < DoubleEpsilon
+                    if ((Abs(nextPoint.X - pX) < Epsilon)
+                        || (Abs(curPoint.Y - pY) < Epsilon
                         && ((nextPoint.X > pX) == (curPoint.X < pX))))
                     {
                         return Inclusion.Boundary;
@@ -381,7 +403,7 @@ namespace Engine.Geometry
                         else
                         {
                             double determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
-                            if (Abs(determinant) < DoubleEpsilon)
+                            if (Abs(determinant) < Epsilon)
                                 return Inclusion.Boundary;
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                                 result = 1 - result;
@@ -390,7 +412,7 @@ namespace Engine.Geometry
                     else if (nextPoint.X > pX)
                     {
                         double determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
-                        if (Abs(determinant) < DoubleEpsilon)
+                        if (Abs(determinant) < Epsilon)
                             return Inclusion.Boundary;
                         if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                             result = 1 - result;
@@ -492,11 +514,11 @@ namespace Engine.Geometry
                     sY = poly.Points[i].Y - start.Y;
                     eX = poly.Points[j].X - start.X;
                     eY = poly.Points[j].Y - start.Y;
-                    if (Abs(sX) < DoubleEpsilon && Abs(sY) < DoubleEpsilon
-                        && Abs(eX - end.X) < DoubleEpsilon && Abs(eY - end.Y) < DoubleEpsilon
-                        || Abs(eX) < DoubleEpsilon
-                        && Abs(eY) < DoubleEpsilon && Abs(sX - end.X) < DoubleEpsilon
-                        && Abs(sY - end.Y) < DoubleEpsilon)
+                    if (Abs(sX) < Epsilon && Abs(sY) < Epsilon
+                        && Abs(eX - end.X) < Epsilon && Abs(eY - end.Y) < Epsilon
+                        || Abs(eX) < Epsilon
+                        && Abs(eY) < Epsilon && Abs(sX - end.X) < Epsilon
+                        && Abs(sY - end.Y) < Epsilon)
                     {
                         return true;
                     }
@@ -513,8 +535,8 @@ namespace Engine.Geometry
                             return false;
                     }
 
-                    if (Abs(rotSY) < DoubleEpsilon
-                        && Abs(rotEY) < DoubleEpsilon
+                    if (Abs(rotSY) < Epsilon
+                        && Abs(rotEY) < Epsilon
                         && (rotSX >= 0.0 || rotEX >= 0.0)
                         && (rotSX <= dist || rotEX <= dist)
                         && (rotSX < 0.0 || rotEX < 0.0
@@ -601,7 +623,7 @@ namespace Engine.Geometry
                 intersection2 = new Point2D(double.NaN, double.NaN);
                 return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
             }
-            else if ((Abs(dist) < DoubleEpsilon) && (Abs(radius0 - radius1) < DoubleEpsilon))
+            else if ((Abs(dist) < Epsilon) && (Abs(radius0 - radius1) < Epsilon))
             {
                 // No solutions, the circles coincide.
                 intersection1 = new Point2D(double.NaN, double.NaN);
@@ -628,7 +650,7 @@ namespace Engine.Geometry
                     (cy2 + h * (cx1 - cx0) / dist));
 
                 // See if we have 1 or 2 solutions.
-                if (Abs(dist - radius0 + radius1) < DoubleEpsilon)
+                if (Abs(dist - radius0 + radius1) < Epsilon)
                     return new Tuple<int, Point2D, Point2D>(1, intersection1, intersection2);
 
                 return new Tuple<int, Point2D, Point2D>(2, intersection1, intersection2);
@@ -676,7 +698,7 @@ namespace Engine.Geometry
                 intersection2 = new Point2D(double.NaN, double.NaN);
                 return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
             }
-            else if (Abs(determinant) < DoubleEpsilon)
+            else if (Abs(determinant) < Epsilon)
             {
                 // One solution.
                 t = -B / (2 * A);
@@ -726,7 +748,7 @@ namespace Engine.Geometry
             double determinant = (deltaBJ * deltaAI) - (deltaBI * deltaAJ);
 
             // Check if the line are parallel.
-            if (Abs(determinant) < DoubleEpsilon)
+            if (Abs(determinant) < Epsilon)
                 return new Tuple<bool, Point2D>(false, null);
 
             // Find the index where the intersection point lies on the line.

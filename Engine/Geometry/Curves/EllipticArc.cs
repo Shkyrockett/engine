@@ -434,7 +434,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.EllipticArc(x, y, r1, r2, angle, startAngle, sweepAngle);
+            => Boundings.EllipticalArc(x, y, r1, r2, angle, startAngle, sweepAngle);
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of the <see cref="Ellipse"/>.

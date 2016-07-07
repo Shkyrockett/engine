@@ -113,8 +113,8 @@ namespace Engine.Geometry
         [XmlIgnore]
         [Browsable(false)]
         public bool IsEmpty
-            => Abs(Width) < DoubleEpsilon
-            && Abs(Height) < DoubleEpsilon;
+            => Abs(Width) < Epsilon
+            && Abs(Height) < Epsilon;
 
         #endregion
 

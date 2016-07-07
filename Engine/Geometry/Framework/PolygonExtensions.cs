@@ -107,7 +107,7 @@ namespace Engine.Geometry
                     }
                 }
 
-                if (Abs(bestDist - maxLength) < Maths.DoubleEpsilon)
+                if (Abs(bestDist - maxLength) < Maths.Epsilon)
                     return null;   //  (no solution)
                 pointList[bestJ].Previous = bestI;
                 pointList[bestJ].TotalDistance = bestDist;

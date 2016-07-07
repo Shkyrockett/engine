@@ -73,9 +73,9 @@ namespace Engine.Tweening
 
             var current = currentValue as Point3D;
             return new Point3D(
-                (Abs(range.X) < DoubleEpsilon) ? current.X : x,
-                (Abs(range.Y) < DoubleEpsilon) ? current.Y : y,
-                (Abs(range.Z) < DoubleEpsilon) ? current.Z : z);
+                (Abs(range.X) < Epsilon) ? current.X : x,
+                (Abs(range.Y) < Epsilon) ? current.Y : y,
+                (Abs(range.Z) < Epsilon) ? current.Z : z);
         }
     }
 }

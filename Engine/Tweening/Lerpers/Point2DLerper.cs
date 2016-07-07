@@ -70,8 +70,8 @@ namespace Engine.Tweening
 
             var current = currentValue as Point2D;
             return new Point2D(
-                (Abs(range.X) < DoubleEpsilon) ? current.X : x,
-                (Abs(range.Y) < DoubleEpsilon) ? current.X : y);
+                (Abs(range.X) < Epsilon) ? current.X : x,
+                (Abs(range.Y) < Epsilon) ? current.X : y);
         }
     }
 }

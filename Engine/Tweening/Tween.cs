@@ -239,7 +239,7 @@ namespace Engine.Tweening
                         return;
                 }
 
-                if (Abs(time) < DoubleEpsilon && timesRepeated == 0 && begin != null)
+                if (Abs(time) < Epsilon && timesRepeated == 0 && begin != null)
                     begin();
 
                 time += elapsed;
@@ -283,7 +283,7 @@ namespace Engine.Tweening
 
                 //	If the timer is zero here, we just restarted.
                 //	If reflect mode is on, flip start to end
-                if (Abs(time) < DoubleEpsilon && behavior.HasFlag(LerpBehavior.Reflect))
+                if (Abs(time) < Epsilon && behavior.HasFlag(LerpBehavior.Reflect))
                     Reverse();
 
                 update?.Invoke();

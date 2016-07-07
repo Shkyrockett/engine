@@ -70,8 +70,8 @@ namespace Engine.Tweening
 
             var current = currentValue as Size2D;
             return new Size2D(
-                (Abs(range.Width) < DoubleEpsilon) ? current.Width : width,
-                (Abs(range.Height) < DoubleEpsilon) ? current.Height : height);
+                (Abs(range.Width) < Epsilon) ? current.Width : width,
+                (Abs(range.Height) < Epsilon) ? current.Height : height);
         }
     }
 }

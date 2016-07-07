@@ -21,7 +21,12 @@ namespace Engine
         #region Epsilons, Minimums, Maximums
 
         /// <summary>
-        /// Smallest such that 1.0 + <see cref="DoubleEpsilon"/> != 1.0
+        /// Error difference for line intersection tests.
+        /// </summary>
+        public const double Epsilon = 5.684341886080801536e-12d;
+
+        /// <summary>
+        /// Smallest such that 1.0 + <see cref="Epsilon"/> != 1.0
         /// </summary>
         public const double DoubleEpsilon = 2.2204460492503131e-016d;
 

@@ -8,7 +8,6 @@
 // <summary></summary>
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
@@ -91,8 +90,7 @@ namespace Engine.Geometry
         /// </summary>
         public Circle()
             : this(0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
@@ -136,8 +134,7 @@ namespace Engine.Geometry
         /// <param name="triangle"></param>
         public Circle(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -299,7 +296,7 @@ namespace Engine.Geometry
         /// <returns>Returns the interpolated point of the index value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
-            => Interpolaters.Circle(x, y, radius, t);
+            => Interpolaters.UnitCircle(x, y, radius, t);
 
         #endregion
 

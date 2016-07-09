@@ -59,6 +59,10 @@ namespace Engine.Imaging
             {
                 (item?.Item as ParametricPointTester).Render(g, item, style as ShapeStyle);
             }
+            else if (item?.Item is AngleVisualizerTester)
+            {
+                (item?.Item as AngleVisualizerTester).Render(g, item, style as ShapeStyle);
+            }
             else if (item?.Item is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
             {
                 (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
@@ -91,9 +95,9 @@ namespace Engine.Imaging
             {
                 (item?.Item as CircularArc).Render(g, item, style as ShapeStyle);
             }
-            else if (item?.Item is EllipticArc)
+            else if (item?.Item is EllipticalArc)
             {
-                (item?.Item as EllipticArc).Render(g, item, style as ShapeStyle);
+                (item?.Item as EllipticalArc).Render(g, item, style as ShapeStyle);
             }
             else if (item?.Item is Circle)
             {
@@ -164,6 +168,37 @@ namespace Engine.Imaging
             {
                 g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
                 g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
+        public static void Render(this AngleVisualizerTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+
+            Brush backBrush = new SolidBrush(Color.FromArgb(128, Color.MediumPurple));
+
+            g.FillPie(backBrush, shape.Bounds.ToRectangle(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
+            g.DrawPie(itemStyle.ForePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+
+            int num = 1;
+
+            Pen tickBrush = Pens.Red;
+            foreach (var angle in shape.TestAngles)
+            {
+                if (shape.InSweep(angle))
+                    tickBrush = Pens.Lime;
+                else
+                    tickBrush = Pens.Red;
+                g.DrawLine(tickBrush, shape.Location.ToPointF(), shape.TestPoint(angle).ToPointF());
+                g.DrawString("a" + num, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), Brushes.Black, shape.TestPoint(angle).ToPointF());
+                num++;
             }
         }
 
@@ -312,7 +347,7 @@ namespace Engine.Imaging
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
-        public static void Render(this EllipticArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this EllipticalArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             List<Point2D> points = item?.InterpolatePoints();

@@ -92,7 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Experemental\KeyFrameAnimation.cs" />
-    <Compile Include="Geometry\ParametricPointTester.cs" />
+    <Compile Include="Geometry\Complex\AngleVisualizerTester.cs" />
+    <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
     <Compile Include="Math\Areas.cs" />
     <Compile Include="Math\Boundings.cs" />
     <Compile Include="Math\Perimeters.cs" />
@@ -294,7 +295,7 @@
     <Compile Include="Geometry\Curves\CircularArc.cs" />
     <Compile Include="Geometry\Curves\Circle.cs" />
     <Compile Include="Geometry\Curves\Ellipse.cs" />
-    <Compile Include="Geometry\Curves\EllipticArc.cs" />
+    <Compile Include="Geometry\Curves\EllipticalArc.cs" />
     <Compile Include="Experemental\Hermite.cs" />
     <Compile Include="Geometry\Complex\Oval.cs" />
     <Compile Include="Experemental\PolyPath.cs" />

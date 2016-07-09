@@ -41,7 +41,7 @@ namespace Engine
             double r,
             double startAngle, double sweepAngle,
             double t)
-            => Circle(cX, cY, r, (startAngle + (sweepAngle * t)) / Tau);
+            => Circle(cX, cY, r, (startAngle + (sweepAngle * t)));
 
         /// <summary>
         /// Interpolate a point on a circle.
@@ -51,25 +51,37 @@ namespace Engine
         /// <param name="r">Radius of circle.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
+        // Convert from unit iteration, to Pi radians.
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Tuple<double, double> UnitCircle(
+        double cX, double cY,
+        double r,
+        double t)
+            => Circle(cX, cY, r, Tau * t);
+
+        /// <summary>
+        /// Interpolate a point on a circle.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r">Radius of circle.</param>
+        /// <param name="t">Theta of interpolation.</param>
+        /// <returns>Interpolated point at theta.</returns>
+        // Apply translation to equation of circle at origin.
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Tuple<double, double> Circle(
-            double cX, double cY,
-            double r,
-            double t)
-        {
-            // Convert from unit iteration, to Pi radians.
-            double phi = Tau * t;
-
-            // Apply translation to equation of circle at origin.
-            return new Tuple<double, double>(
-                cX + (Cos(phi) * r),
-                cY + (Sin(phi) * r));
-        }
+        double cX, double cY,
+        double r,
+        double t) => new Tuple<double, double>(
+            cX + (Cos(t) * r),
+            cY + (Sin(t) * r));
 
         /// <summary>
-        /// Interpolates the unrotated elliptic Arc.
+        /// Interpolates the unrotated elliptical Arc.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -82,7 +94,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> EllipticArc(
+        public static Tuple<double, double> EllipticalArc(
             double cX, double cY,
             double r1, double r2,
             double startAngle, double sweepAngle,
@@ -106,7 +118,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Interpolates the Elliptic Arc, corrected for Polar coordinates.
+        /// Interpolates the Elliptical Arc, corrected for Polar coordinates.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -120,7 +132,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> EllipticArc(
+        public static Tuple<double, double> EllipticalArc(
             double cX, double cY,
             double r1, double r2,
             double angle,

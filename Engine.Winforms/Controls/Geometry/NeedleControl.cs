@@ -136,7 +136,7 @@ namespace Engine
 
             if (selecting)
             {
-                Angle = -Maths.Angle(e.X, e.Y, center.X, center.Y);
+                Angle = Maths.Angle(e.X, e.Y, center.X, center.Y);
                 Invalidate(true);
             }
         }
@@ -152,7 +152,7 @@ namespace Engine
 
             if (selecting)
             {
-                Angle = -Maths.Angle(e.X, e.Y, center.X, center.Y);
+                Angle = Maths.Angle(e.X, e.Y, center.X, center.Y);
                 selecting = false;
                 Invalidate(true);
                 ValueCommitted?.Invoke(this, new ValueChangedEventArgs(Angle));
@@ -280,7 +280,7 @@ namespace Engine
             float radius = rect.Width / 2;
             var point = new PointF(
                 (float)(center.X + (radius * Cos(angle))),
-                (float)(center.Y + (radius * Sin(-angle))));
+                (float)(center.Y + (radius * Sin(angle))));
             g.DrawLine(pen, center, point);
         }
 

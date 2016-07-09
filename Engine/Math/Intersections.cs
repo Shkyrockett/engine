@@ -29,7 +29,6 @@ namespace Engine.Geometry
         /// <param name="angle">Angle of rotation to check.</param>
         /// <param name="startAngle">The starting angle.</param>
         /// <param name="sweepAngle">The amount of angle to offset from the start angle.</param>
-        /// <param name="reverseSweep">A Boolean value to indicate whether to reverse the sweep to compare angles on the other side.</param>
         /// <returns>A Boolean value indicating whether an angle is between two others.</returns>
         [Pure]
         //[DebuggerStepThrough]
@@ -39,8 +38,12 @@ namespace Engine.Geometry
             // Reduce the angle to a value between 2PI and -2PI.
             double e = Maths.WrapAngle(startAngle + sweepAngle);
             double s = Maths.WrapAngle(startAngle);
+            //double w = Maths.WrapAngle(sweepAngle);
             double x = Maths.WrapAngle(angle);
-            if (sweepAngle <= 0)
+
+            //return x - s < w && x - s > 0;
+
+            if (sweepAngle >= 0)
             {
                 if (s < e)
                     return x >= s && x <= e;
@@ -161,7 +164,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
         /// </summary>
         /// <param name="ellipseArc"><see cref="Ellipse"/> class.</param>
         /// <param name="point">Point to test.</param>
@@ -169,11 +172,11 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this EllipticArc ellipseArc, Point2D point)
+        public static Inclusion Contains(this EllipticalArc ellipseArc, Point2D point)
             => EllipticSectorPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.R1, ellipseArc.R2, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>

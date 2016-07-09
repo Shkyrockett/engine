@@ -197,23 +197,31 @@ namespace Engine.Geometry
             double angle,
             double startAngle, double sweepAngle)
         {
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
             // Calculate the radii of the angle of rotation.
-            double a = r1 * Cos(angle);
-            double b = r2 * Sin(angle);
-            double c = r1 * Sin(angle);
-            double d = r2 * Cos(angle);
+            double a = r1 * cosT;
+            double b = r2 * sinT;
+            double c = r1 * sinT;
+            double d = r2 * cosT;
+
+            // Calculate the vectors of the Cartesian extremes. 
+            double u1 = r1 * Cos(Atan2(d, c));
+            double v1 = -(r2 * Sin(Atan2(d, c)));
+            double u2 = r1 * Cos(Atan2(-b, a));
+            double v2 = -(r2 * Sin(Atan2(-b, a)));
 
             // Find the angles of the Cartesian extremes. 
-            double angleLeft = Atan2(-b, a) + PI;
-            double angleTop = Atan2(d, c);
-            double angleRight = Atan2(-b, a);
-            double angleBottom = Atan2(d, c) + PI;
+            var angles = new List<double>(4) {
+            Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
+            Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
+            Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI,
+            Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI };
 
-            // Keep smaller angles on the left and top to simplify angle checks.
-            if (angleRight < angleLeft)
-                Swap(ref angleRight, ref angleLeft);
-            if (angleBottom < angleTop)
-                Swap(ref angleBottom, ref angleTop);
+            // Sort the angles so that like sides are consistently at the same index.
+            angles.Sort();
 
             // Find the parent ellipse's horizontal and vertical radii extremes. 
             double halfWidth = Sqrt((a * a) + (b * b));
@@ -221,18 +229,18 @@ namespace Engine.Geometry
 
             // Get the end points of the chord.
             var bounds = new Rectangle2D(
-                Interpolaters.EllipticArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
-                Interpolaters.EllipticArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
+                Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
+                Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Contains(angleLeft, startAngle, sweepAngle))
-                bounds.Left = cX - halfWidth;
-            if (Intersections.Contains(angleRight, startAngle, sweepAngle))
+            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Intersections.Contains(angleTop, startAngle, sweepAngle))
-                bounds.Top = cY - halfHeight;
-            if (Intersections.Contains(angleBottom, startAngle, sweepAngle))
+            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
+            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+                bounds.Left = cX - halfWidth;
+            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+                bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
             return bounds;

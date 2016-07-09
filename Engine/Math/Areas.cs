@@ -10,7 +10,6 @@
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
 using static System.Math;
 
 namespace Engine.Geometry

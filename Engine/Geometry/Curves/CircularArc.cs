@@ -8,11 +8,9 @@
 // <summary></summary>
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
-using static System.Math;
 
 namespace Engine.Geometry
 {

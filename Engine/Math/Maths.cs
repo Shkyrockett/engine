@@ -230,15 +230,15 @@ namespace Engine
         /// </remarks>
         public static double EllipsePolarAngle(double angle, double rx, double ry)
         {
-            // Wrap the angle between -2PI and PI.
-            var theta = WrapAngle(angle);
+            // Wrap the angle between -2PI and 2PI.
+            double theta = angle % Tau;
 
             // Find the elliptical t that matches the circular angle.
-            if (Math.Abs(angle) == HalfPi || Math.Abs(angle) == Pau)
+            if (Math.Abs(theta) == HalfPi || Math.Abs(theta) == Pau)
                 return angle;
-            else if (angle > HalfPi && angle < Pau)
+            else if (theta > HalfPi && theta < Pau)
                 return Atan(rx * Tan(theta) / ry) + PI;
-            else if (angle < -HalfPi && angle > -Pau)
+            else if (theta < -HalfPi && theta > -Pau)
                 return Atan(rx * Tan(theta) / ry) - PI;
             else
                 return Atan(rx * Tan(theta) / ry);
@@ -1850,12 +1850,28 @@ namespace Engine
         /// <returns>The absolute positive angle in radians.</returns>
         /// <remarks></remarks>
         [Pure]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this double angle)
         {
-            double value = angle % Tau;
+            // ToDo: Need to do some testing to figure out which method is more appropriate. 
+            //double value = angle % Tau;
+            double value = IEEERemainder(angle, Tau);
             return value < 0 ? value + Tau : value;
+        }
+
+        /// <summary>
+        /// Reduces a given angle to a value between 2π and -2π.
+        /// </summary>
+        /// <param name="angle">The angle to reduce, in radians.</param>
+        /// <returns>The new angle, in radians.</returns>
+        [Pure]
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double WrapAngleModulus(this double angle)
+        {
+            double value = angle % Tau;
+            return (value <= -PI) ? value + Tau : value - Tau;
         }
 
         /// <summary>
@@ -1868,6 +1884,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngle(this double angle)
         {
+            // The IEEERemainder method works better than the % modulus operator in this case, even if it is slower.
             double value = IEEERemainder(angle, Tau);
             return (value <= -PI) ? value + Tau : value - Tau;
         }

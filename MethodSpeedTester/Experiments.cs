@@ -432,6 +432,328 @@ namespace MethodSpeedTester
         #region Boundary of Rotated Elliptic Arc
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the angle of three 2D points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(BoundsOfRotatedEllipticalArcTests))]
+        public static List<SpeedTester> BoundsOfRotatedEllipticalArcTests() => new List<SpeedTester> {
+                new SpeedTester(() => Boundings.EllipticalArc(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
+                $"{nameof(Boundings.EllipticalArc)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
+                new SpeedTester(() => EllipticalArc0(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
+                $"{nameof(Experiments.EllipticalArc0)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
+                 new SpeedTester(() => EllipticalArc1(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
+                $"{nameof(Experiments.EllipticalArc1)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
+                 new SpeedTester(() => EllipticalArc2(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
+                $"{nameof(Experiments.EllipticalArc2)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
+                 new SpeedTester(() => EllipticalArc3(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
+                $"{nameof(Experiments.EllipticalArc3)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})")
+           };
+
+        /// <summary>
+        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
+        /// <remarks>
+        /// Helpful hints on how this might be implemented came from:
+        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html, 
+        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
+        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipticalArc0(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle, double sweepAngle)
+        {
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            double i = (r1 - r2) * (r1 + r2) * sinT * cosT;
+
+            // Find the angles of the Cartesian extremes. 
+            var angles = new double[4] {
+                Atan2(i, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
+                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, i),
+                Atan2(i, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT) + PI,
+                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, i) + PI };
+
+            // Sort the angles so that like sides are consistently at the same index.
+            Array.Sort(angles);
+
+            // Get the start and end angles adjusted to polar coordinates. 
+            double t0 = EllipsePolarAngle(startAngle, r1, r2);
+            double t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+
+            // Interpolate the ratios of height and width of the chord.
+            double sinT0 = Sin(t0);
+            double cosT0 = Cos(t0);
+            double sinT1 = Sin(t1);
+            double cosT1 = Cos(t1);
+
+            // Get the end points of the chord.
+            var bounds = new Rectangle2D(
+                // Apply the rotation transformation and translate to new center.
+                new Point2D(
+                    cX + (r1 * cosT0 * cosT - r2 * sinT0 * sinT),
+                    cY + (r1 * cosT0 * sinT + r2 * sinT0 * cosT)),
+                // Apply the rotation transformation and translate to new center.
+                new Point2D(
+                    cX + (r1 * cosT1 * cosT - r2 * sinT1 * sinT),
+                    cY + (r1 * cosT1 * sinT + r2 * sinT1 * cosT)));
+
+            // Find the parent ellipse's horizontal and vertical radii extremes. 
+            double halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
+            double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
+
+            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
+            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+                bounds.Right = cX + halfWidth;
+            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+                bounds.Bottom = cY + halfHeight;
+            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+                bounds.Left = cX - halfWidth;
+            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+                bounds.Top = cY - halfHeight;
+
+            // Return the points of the Cartesian extremes of the rotated elliptical arc.
+            return bounds;
+        }
+
+        /// <summary>
+        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
+        /// <remarks>
+        /// Helpful hints on how this might be implemented came from:
+        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html, 
+        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
+        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipticalArc1(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle, double sweepAngle)
+        {
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Find the angles of the Cartesian extremes. 
+            var angles = new double[4] {
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
+                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT) + PI,
+                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
+
+            // Sort the angles so that like sides are consistently at the same index.
+            Array.Sort(angles);
+
+            // Get the start and end angles adjusted to polar coordinates. 
+            double t0 = EllipsePolarAngle(startAngle, r1, r2);
+            double t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+
+            // Interpolate the ratios of height and width of the chord.
+            double sinT0 = Sin(t0);
+            double cosT0 = Cos(t0);
+            double sinT1 = Sin(t1);
+            double cosT1 = Cos(t1);
+
+            // Get the end points of the chord.
+            var bounds = new Rectangle2D(
+                // Apply the rotation transformation and translate to new center.
+                new Point2D(
+                    cX + (r1 * cosT0 * cosT - r2 * sinT0 * sinT),
+                    cY + (r1 * cosT0 * sinT + r2 * sinT0 * cosT)),
+                // Apply the rotation transformation and translate to new center.
+                new Point2D(
+                    cX + (r1 * cosT1 * cosT - r2 * sinT1 * sinT),
+                    cY + (r1 * cosT1 * sinT + r2 * sinT1 * cosT)));
+
+            // Find the parent ellipse's horizontal and vertical radii extremes. 
+            double halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
+            double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
+
+            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
+            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+                bounds.Right = cX + halfWidth;
+            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+                bounds.Bottom = cY + halfHeight;
+            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+                bounds.Left = cX - halfWidth;
+            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+                bounds.Top = cY - halfHeight;
+
+            // Return the points of the Cartesian extremes of the rotated elliptical arc.
+            return bounds;
+        }
+
+        /// <summary>
+        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
+        /// <remarks>
+        /// Helpful hints on how this might be implemented came from:
+        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html, 
+        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
+        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipticalArc2(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle, double sweepAngle)
+        {
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Find the angles of the Cartesian extremes. 
+            var angles = new List<double>(4) {
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
+                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT) + PI,
+                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
+
+            // Sort the angles so that like sides are consistently at the same index.
+            angles.Sort();
+
+            // Calculate the radii of the angle of rotation.
+            double a = r1 * cosT;
+            double b = r2 * sinT;
+            double c = r1 * sinT;
+            double d = r2 * cosT;
+
+            // Find the parent ellipse's horizontal and vertical radii extremes. 
+            double halfWidth = Sqrt((a * a) + (b * b));
+            double halfHeight = Sqrt((c * c) + (d * d));
+
+            // Get the end points of the chord.
+            var bounds = new Rectangle2D(
+                Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
+                Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
+
+            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
+            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+                bounds.Right = cX + halfWidth;
+            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+                bounds.Bottom = cY + halfHeight;
+            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+                bounds.Left = cX - halfWidth;
+            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+                bounds.Top = cY - halfHeight;
+
+            // Return the points of the Cartesian extremes of the rotated elliptical arc.
+            return bounds;
+        }
+
+        /// <summary>
+        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
+        /// <remarks>
+        /// Helpful hints on how this might be implemented came from:
+        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html, 
+        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
+        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipticalArc3(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle, double sweepAngle)
+        {
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Calculate the radii of the angle of rotation.
+            double a = r1 * cosT;
+            double b = r2 * sinT;
+            double c = r1 * sinT;
+            double d = r2 * cosT;
+
+            // Calculate the vectors of the Cartesian extremes. 
+            double u1 = r1 * Cos(Atan2(d, c));
+            double v1 = -(r2 * Sin(Atan2(d, c)));
+            double u2 = r1 * Cos(Atan2(-b, a));
+            double v2 = -(r2 * Sin(Atan2(-b, a)));
+
+            // Find the angles of the Cartesian extremes. 
+            var angles = new List<double>(4) {
+                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
+                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
+                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI,
+                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI };
+
+            // Sort the angles so that like sides are consistently at the same index.
+            angles.Sort();
+
+            // Find the parent ellipse's horizontal and vertical radii extremes. 
+            double halfWidth = Sqrt((a * a) + (b * b));
+            double halfHeight = Sqrt((c * c) + (d * d));
+
+            // Get the end points of the chord.
+            var bounds = new Rectangle2D(
+                Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
+                Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
+
+            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
+            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+                bounds.Right = cX + halfWidth;
+            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+                bounds.Bottom = cY + halfHeight;
+            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+                bounds.Left = cX - halfWidth;
+            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+                bounds.Top = cY - halfHeight;
+
+            // Return the points of the Cartesian extremes of the rotated elliptical arc.
+            return bounds;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="x1"></param>

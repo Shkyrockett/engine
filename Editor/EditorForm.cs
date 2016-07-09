@@ -22,6 +22,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Windows.Forms;
+using static System.Math;
+using static Engine.Maths;
 
 namespace Editor
 {
@@ -352,9 +354,9 @@ namespace Editor
             double radius1 = 100d;
             double radius2 = 200d;
 
-            double angle = -100d.ToRadians();
-            double startAngle = 60d.ToRadians();
-            double sweepAngle = 20d.ToRadians();
+            double angle = -30d.ToRadians();
+            double startAngle = -60d.ToRadians();
+            double sweepAngle = -90d.ToRadians();
 
             var parametricEllipse = new ParametricDelegateCurve(
                 (x, y, w, h, a, t) => Interpolaters.UnitPolarEllipse(x, y, w, h, a, t),
@@ -363,14 +365,14 @@ namespace Editor
             var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
             vectorMap.Add(parametricEllipseItem);
 
-            var parametricPointTester = new ParametricPointTester(
-                (px, py) => Intersections.EllipsePoint(centerX, centerY, radius1, radius2, angle, px, py),
-                centerX - (radius1 < radius2 ? radius2 : radius2),
-                centerY - (radius1 < radius2 ? radius2 : radius2),
-                centerX + (radius1 < radius2 ? radius2 : radius2),
-                centerY + (radius1 < radius2 ? radius2 : radius2),
-                5, 5);
-            var parametricPointTesterItem = new GraphicItem(parametricPointTester, styles[3]);
+            //var parametricPointTester = new ParametricPointTester(
+            //    (px, py) => Intersections.EllipsePoint(centerX, centerY, radius1, radius2, angle, px, py),
+            //    centerX - (radius1 < radius2 ? radius2 : radius2),
+            //    centerY - (radius1 < radius2 ? radius2 : radius2),
+            //    centerX + (radius1 < radius2 ? radius2 : radius2),
+            //    centerY + (radius1 < radius2 ? radius2 : radius2),
+            //    5, 5);
+            //var parametricPointTesterItem = new GraphicItem(parametricPointTester, styles[3]);
 
             var ellipseNodes = new Polygon(Boundings.EllipseExtremes(centerX, centerY, radius1, radius2, angle));
             var ellipseNodesItem = new GraphicItem(ellipseNodes, styles[10]);
@@ -402,7 +404,7 @@ namespace Editor
             vectorMap.Add(angleLinesItem);
             vectorMap.Add(ellipseNodesItem);
             vectorMap.Add(angleVisualizerItem);
-            vectorMap.Add(parametricPointTesterItem);
+            //vectorMap.Add(parametricPointTesterItem);
 
             //double centerX = 100d;
             //double centerY = 200d;

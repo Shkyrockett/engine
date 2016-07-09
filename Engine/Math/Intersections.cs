@@ -35,15 +35,19 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(double angle, double startAngle, double sweepAngle)
         {
-            // Reduce the angles to values between 2PI and -2PI.
+            // If the sweep angle is greater than 360 degrees it is overlapping, so any angle would intersect the sweep angle.
+            if (sweepAngle > Tau)
+                return true;
+
+            // Wrap the angles to values between 2PI and -2PI.
             double s = Maths.WrapAngle(startAngle);
             double e = Maths.WrapAngle(s + sweepAngle);
             double a = Maths.WrapAngle(angle);
 
             // return whether the angle is contained within the sweep angle.
             // The calculations are opposite when the sweep angle is negative.
-            return (sweepAngle >= 0) ? 
-                (s < e) ? a >= s && a <= e : a >= s || a <= e : 
+            return (sweepAngle >= 0) ?
+                (s < e) ? a >= s && a <= e : a >= s || a <= e :
                 (s > e) ? a <= s && a >= e : a <= s || a >= e;
         }
 

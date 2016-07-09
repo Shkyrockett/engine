@@ -31,27 +31,20 @@ namespace Engine.Geometry
         /// <param name="sweepAngle">The amount of angle to offset from the start angle.</param>
         /// <returns>A Boolean value indicating whether an angle is between two others.</returns>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(double angle, double startAngle, double sweepAngle)
         {
-            // Reduce the angle to a value between 2PI and -2PI.
-            double e = Maths.WrapAngle(startAngle + sweepAngle);
+            // Reduce the angles to values between 2PI and -2PI.
             double s = Maths.WrapAngle(startAngle);
-            //double w = Maths.WrapAngle(sweepAngle);
-            double x = Maths.WrapAngle(angle);
+            double e = Maths.WrapAngle(s + sweepAngle);
+            double a = Maths.WrapAngle(angle);
 
-            //return x - s < w && x - s > 0;
-
-            if (sweepAngle >= 0)
-            {
-                if (s < e)
-                    return x >= s && x <= e;
-                return x >= s || x <= e;
-            }
-            if (s > e)
-                return x <= s && x >= e;
-            return x <= s || x >= e;
+            // return whether the angle is contained within the sweep angle.
+            // The calculations are opposite when the sweep angle is negative.
+            return (sweepAngle >= 0) ? 
+                (s < e) ? a >= s && a <= e : a >= s || a <= e : 
+                (s > e) ? a <= s && a >= e : a <= s || a >= e;
         }
 
         /// <summary>
@@ -192,7 +185,7 @@ namespace Engine.Geometry
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticSectorPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
         {
@@ -291,7 +284,7 @@ namespace Engine.Geometry
 
             // Translate points to origin.
             double u = pX - x;
-            double v = -(pY - y);
+            double v = (pY - y);
 
             // Apply the rotation transformation.
             double a = (u * cosT + v * sinT);

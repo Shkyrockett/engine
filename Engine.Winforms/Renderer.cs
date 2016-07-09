@@ -183,9 +183,10 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
 
             Brush backBrush = new SolidBrush(Color.FromArgb(128, Color.MediumPurple));
+            Pen forePen = new Pen(Color.FromArgb(128, Color.Purple));
 
             g.FillPie(backBrush, shape.Bounds.ToRectangle(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
-            g.DrawPie(itemStyle.ForePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            g.DrawPie(forePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
 
             int num = 1;
 

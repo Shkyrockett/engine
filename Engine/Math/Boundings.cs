@@ -189,7 +189,7 @@ namespace Engine.Geometry
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipticalArc(
             double cX, double cY,

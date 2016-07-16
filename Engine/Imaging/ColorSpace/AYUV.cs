@@ -1,7 +1,7 @@
-﻿// <copyright file="AYUV.cs" company="Shkyrockett"> 
-//      Copyright © Shkyrockett 2015 all rights reserved. 
-// </copyright> 
-// <author id="shkyrockett">Alma Jenks</author>
+﻿// <copyright file="AYUV.cs" company="Shkyrockett">
+//      Copyright © Shkyrockett 2015 all rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System.Drawing;
@@ -9,17 +9,21 @@ using System.Drawing;
 namespace Engine.Imaging.ColorSpace
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class AYUV
     {
+        /// <summary>
+        ///
+        /// </summary>
+        public static readonly AYUV Empty = new AYUV();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AYUV"/> class.
         /// </summary>
         public AYUV()
             : this(0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AYUV"/> class.
@@ -59,27 +63,27 @@ namespace Engine.Imaging.ColorSpace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public byte Y { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public byte V { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public byte U { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public byte Alpha { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Color ToColor() => Color.FromArgb(Alpha,
@@ -88,7 +92,7 @@ namespace Engine.Imaging.ColorSpace
     (byte)(Y + -0.03211 * U + 0 * V));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Color ToColorRounded()

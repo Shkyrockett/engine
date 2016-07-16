@@ -52,8 +52,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point2D()
             : this(0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
@@ -62,18 +61,16 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point2D(Point2D point)
             : this(point.X, point.Y)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
         /// <remarks></remarks>
-        public Point2D(Tuple<double, double> tuple)
+        public Point2D((double X, double Y) tuple)
             : this(tuple.Item1, tuple.Item2)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
@@ -408,7 +405,7 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Point2D(Tuple<double, double> tuple)
+        public static implicit operator Point2D((double X, double Y) tuple)
             => new Point2D(tuple.Item1, tuple.Item2);
 
         #endregion

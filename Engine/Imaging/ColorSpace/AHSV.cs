@@ -1,7 +1,7 @@
-﻿// <copyright file="AHSV.cs" company="Shkyrockett"> 
-//      Copyright © Shkyrockett 2013 all rights reserved. 
-// </copyright> 
-// <author id="shkyrockett">Alma Jenks</author>
+﻿// <copyright file="AHSV.cs" company="Shkyrockett">
+//      Copyright © Shkyrockett 2013 all rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System.Drawing;
@@ -14,6 +14,11 @@ namespace Engine.Imaging.ColorSpace
     /// </summary>
     public class AHSV
     {
+        /// <summary>
+        ///
+        /// </summary>
+        public static readonly AHSV Empty = new AHSV();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSV"/> class.
         /// </summary>

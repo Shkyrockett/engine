@@ -12,8 +12,8 @@ namespace MethodSpeedTester
     {
         private List<PointF> points;
         private List<PointF> polygon;
-        private List<Tuple<string, List<PointF>>> polygons = new List<Tuple<string, List<PointF>>>();
-        private Tuple<List<double>, List<double>> PatrickMullenValues;
+        private List<(string, List<PointF>)> polygons = new List<(string, List<PointF>)>();
+        private (List<double>, List<double>)? PatrickMullenValues;
 
         public PolygonPointTester()
         {
@@ -24,30 +24,30 @@ namespace MethodSpeedTester
         {
             points = GenerateGrid(25, 25, 125, 125, 5, 5);
 
-            polygons.Add(new Tuple<string, List<PointF>>("Square", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("Square", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Top Left Triangle", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("Top Left Triangle", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Bottom Right Triangle", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("Bottom Right Triangle", new List<PointF> {
                 new PointF(100, 100),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Right Reversed Bow-tie", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("Right Reversed Bow-tie", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 100),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("Left Reversed Bow-tie", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("Left Reversed Bow-tie", new List<PointF> {
                 new PointF(100, 25),
                 new PointF(100, 100),
                 new PointF(25, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("C Shape", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("C Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 50),
@@ -56,7 +56,7 @@ namespace MethodSpeedTester
                 new PointF(100, 75),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("n Shape", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("n Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
@@ -65,7 +65,7 @@ namespace MethodSpeedTester
                 new PointF(50, 50),
                 new PointF(50, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("C Bow-tie hole Shape", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("C Bow-tie hole Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 50),
@@ -74,7 +74,7 @@ namespace MethodSpeedTester
                 new PointF(100, 75),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new Tuple<string, List<PointF>>("n Bow-tie hole Shape", new List<PointF> {
+            polygons.Add(new (string, List<PointF>)("n Bow-tie hole Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
@@ -126,7 +126,7 @@ namespace MethodSpeedTester
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            polygon = (comboBox1.SelectedItem as Tuple<string, List<PointF>>).Item2;
+            polygon = (((string, List<PointF>))comboBox1.SelectedItem).Item2;
             PatrickMullenValues = Experiments.PrecalcPointInPolygonPatrickMullenValues(polygon);
             Invalidate(true);
         }
@@ -197,7 +197,7 @@ namespace MethodSpeedTester
         private void pictureBox10_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonPatrickMullen(s, p, PatrickMullenValues.Item1, PatrickMullenValues.Item2),
+                (s, p) => Experiments.PointInPolygonPatrickMullen(s, p, PatrickMullenValues?.Item1, PatrickMullenValues?.Item2),
                 nameof(Experiments.PointInPolygonPatrickMullen));
         }
 

@@ -1,8 +1,8 @@
 ﻿// <copyright file="Interpolaters.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -36,7 +36,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> CircularArc(
+        public static (double X, double Y) CircularArc(
             double cX, double cY,
             double r,
             double startAngle, double sweepAngle,
@@ -55,7 +55,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> UnitCircle(
+        public static (double X, double Y) UnitCircle(
         double cX, double cY,
         double r,
         double t)
@@ -73,10 +73,10 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Circle(
+        public static (double X, double Y) Circle(
         double cX, double cY,
         double r,
-        double t) => new Tuple<double, double>(
+        double t) => (
             cX + (Cos(t) * r),
             cY + (Sin(t) * r));
 
@@ -94,7 +94,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> EllipticalArc(
+        public static (double X, double Y) EllipticalArc(
             double cX, double cY,
             double r1, double r2,
             double startAngle, double sweepAngle,
@@ -108,13 +108,13 @@ namespace Engine
             double y = x * tanAngle;
 
             if ((theta >= 0d) && (theta < 90d.ToRadians()))
-                return new Tuple<double, double>(cX + x, cY + y);
+                return (cX + x, cY + y);
             else if ((theta >= 90d.ToRadians()) && (theta < 180d.ToRadians()))
-                return new Tuple<double, double>(cX - x, cY + y);
+                return (cX - x, cY + y);
             else if ((theta >= 180d.ToRadians()) && (theta < 270d.ToRadians()))
-                return new Tuple<double, double>(cX - x, cY - y);
+                return (cX - x, cY - y);
             else
-                return new Tuple<double, double>(cX + x, cY - y);
+                return (cX + x, cY - y);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> EllipticalArc(
+        public static (double X, double Y) EllipticalArc(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -153,7 +153,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> UnitPolarEllipse(
+        public static (double X, double Y) UnitPolarEllipse(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -173,7 +173,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> PolarEllipse(
+        public static (double X, double Y) PolarEllipse(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -193,7 +193,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Ellipse(
+        public static (double X, double Y) Ellipse(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -208,7 +208,7 @@ namespace Engine
             double v = -(r2 * Sin(t));
 
             // Apply the rotation transformation and translate to new center.
-            return new Tuple<double, double>(
+            return (
                 cX + (u * cosT + v * sinT),
                 cY + (u * sinT - v * cosT));
         }
@@ -253,7 +253,7 @@ namespace Engine
         /// <param name="t3X">Fourth Point</param>
         /// <param name="t3Y">Fourth Point</param>
         /// <param name="t">
-        /// Normalized distance between second and third point 
+        /// Normalized distance between second and third point
         /// where the spline point will be calculated
         /// </param>
         /// <returns>
@@ -264,7 +264,7 @@ namespace Engine
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> CatmullRom(
+        public static (double X, double Y) CatmullRom(
             double t0X, double t0Y,
             double p1X, double p1Y,
             double p2X, double p2Y,
@@ -273,7 +273,7 @@ namespace Engine
         {
             double tSquared = t * t;
             double tCubed = tSquared * t;
-            return new Tuple<double, double>(
+            return (
                 0.5d * (2d * p1X
                 + (-t0X + p2X) * t
                 + (2d * t0X - 5d * p1X + 4d * p2X - t3X) * tSquared
@@ -302,7 +302,7 @@ namespace Engine
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
-        public static Tuple<double, double, double> CatmullRom(
+        public static (double X, double Y, double Z) CatmullRom(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double x3, double y3, double z3,
@@ -311,7 +311,7 @@ namespace Engine
         {
             double tSquared = t * t;
             double tCubed = tSquared * t;
-            return new Tuple<double, double, double>(
+            return (
                 0.5d * (2d * x2
                 + (x3 - x1) * t
                 + (2d * x1 - 5d * x2 + 4d * x3 - x4) * tSquared
@@ -364,7 +364,7 @@ namespace Engine
         #region Cosine Interpolation
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
@@ -382,7 +382,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -392,20 +392,20 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Cosine(
+        public static (double X, double Y) Cosine(
             double x1, double y1,
             double x2, double y2,
             double t)
         {
             double mu2 = (1 - Cos(t * PI)) / 2;
-            return new Tuple<double, double>(
+            return (
                 x1 * (1 - mu2) + x2 * mu2,
                 y1 * (1 - mu2) + y2 * mu2
                 );
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -417,13 +417,13 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Cosine(
+        public static (double X, double Y, double Z) Cosine(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double t)
         {
             double mu2 = (1 - Cos(t * PI)) / 2;
-            return new Tuple<double, double, double>(
+            return (
                 x1 * (1 - mu2) + x2 * mu2,
                 y1 * (1 - mu2) + y2 * mu2,
                 z1 * (1 - mu2) + z2 * mu2);
@@ -434,7 +434,7 @@ namespace Engine
         #region Cubic Interpolation
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
@@ -463,7 +463,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -477,7 +477,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Cubic(
+        public static (double X, double Y) Cubic(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -493,13 +493,13 @@ namespace Engine
             double aX2 = x2 - x0;
             double aY2 = y2 - y0;
 
-            return new Tuple<double, double>(
+            return (
                 aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -517,7 +517,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Cubic(
+        public static (double X, double Y, double Z) Cubic(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -536,7 +536,7 @@ namespace Engine
             double aY2 = y2 - y0;
             double aZ2 = z2 - z0;
 
-            return new Tuple<double, double, double>(
+            return (
                 aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
                 aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
@@ -559,7 +559,7 @@ namespace Engine
         /// <history>
         /// </history>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> CubicBezier(
+        public static (double X, double Y) CubicBezier(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -570,7 +570,7 @@ namespace Engine
             double mum13 = mum1 * mum1 * mum1;
             double mu3 = t * t * t;
 
-            return new Tuple<double, double>(
+            return (
                 (mum13 * x0 + 3 * t * mum1 * mum1 * x1 + 3 * t * t * mum1 * x2 + mu3 * x3),
                 (mum13 * y0 + 3 * t * mum1 * mum1 * y1 + 3 * t * t * mum1 * y2 + mu3 * y3)
                 );
@@ -633,7 +633,7 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
@@ -672,7 +672,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -692,7 +692,7 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Hermite(
+        public static (double X, double Y) Hermite(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -719,13 +719,13 @@ namespace Engine
             double a2 = mu3 - mu2;
             double a3 = -2 * mu3 + 3 * mu2;
 
-            return new Tuple<double, double>(
+            return (
                 a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
                 a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -747,7 +747,7 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Hermite(
+        public static (double X, double Y, double Z) Hermite(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -774,14 +774,40 @@ namespace Engine
             double a2 = mu3 - mu2;
             double a3 = -2 * mu3 + 3 * mu2;
 
-            return new Tuple<double, double, double>(
+            return (
                 a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
                 a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2,
                 a0 * z1 + a1 * mZ0 + a2 * mZ1 + a3 * z2);
         }
 
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Linear(Point2D v1, Point2D v2, double t)
+            => new Point2D(Linear(v1.X, v1.Y, v2.X, v2.Y, t));
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Linear(Point3D v1, Point3D v2, double t)
+            => new Point3D(Linear(v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, t));
+
+        /// <summary>
+        ///
         /// </summary>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
@@ -796,7 +822,7 @@ namespace Engine
             => (1 - t) * v1 + t * v2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -807,16 +833,16 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Linear(
+        public static (double X, double Y) Linear(
             double x1, double y1,
             double x2, double y2,
             double t)
-            => new Tuple<double, double>(
+            => (
                 (1 - t) * x1 + t * x2,
                 (1 - t) * y1 + t * y2);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -829,11 +855,11 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Linear(
+        public static (double X, double Y, double Z) Linear(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double t)
-            => new Tuple<double, double, double>(
+            => (
                 (1 - t) * x1 + t * x2,
                 (1 - t) * y1 + t * y2,
                 (1 - t) * z1 + t * z2);
@@ -876,7 +902,7 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> QuadraticBezier(
+        public static (double X, double Y) QuadraticBezier(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -886,7 +912,7 @@ namespace Engine
             double mu12 = mu1 * mu1;
             double mu2 = t * t;
 
-            return new Tuple<double, double>(
+            return (
                 (x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2),
                 (y0 * mu12 + 2 * y1 * mu1 * t + y2 * mu2)
                 );
@@ -909,7 +935,7 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> QuadraticBezier(
+        public static (double X, double Y, double Z) QuadraticBezier(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -919,14 +945,14 @@ namespace Engine
             double mu12 = mu1 * mu1;
             double mu2 = t * t;
 
-            return new Tuple<double, double, double>(
+            return (
                 (x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2),
                 (y0 * mu12 + 2 * y1 * mu1 * t + y2 * mu2),
                 (z0 * mu12 + 2 * z1 * mu1 * t + z2 * mu2));
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
@@ -948,7 +974,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -960,20 +986,20 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Sine(
+        public static (double X, double Y) Sine(
             double x1, double y1,
             double x2, double y2,
             double t)
         {
             double mu2 = (1 - Sin(t * PI)) / 2;
-            return new Tuple<double, double>(
+            return (
                 x1 * (1 - mu2) + x2 * mu2,
                 y1 * (1 - mu2) + y2 * mu2
                 );
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -987,20 +1013,20 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Sine(
+        public static (double X, double Y, double Z) Sine(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double t)
         {
             double mu2 = (1 - Sin(t * PI)) / 2;
-            return new Tuple<double, double, double>(
+            return (
                 x1 * (1 - mu2) + x2 * mu2,
                 y1 * (1 - mu2) + y2 * mu2,
                 z1 * (1 - mu2) + z2 * mu2);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>

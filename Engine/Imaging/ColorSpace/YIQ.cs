@@ -3,25 +3,29 @@
 namespace Engine.Imaging.ColorSpace
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class YIQ
     {
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        public static readonly YIQ Empty = new YIQ();
+
+        /// <summary>
+        ///
         /// </summary>
         private byte alpha;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public YIQ()
-            :this(0,0,0,0)
-        {
-        }
+            : this(0, 0, 0, 0)
+        { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="color"></param>
         /// <remarks>
@@ -40,24 +44,23 @@ namespace Engine.Imaging.ColorSpace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="y"></param>
         /// <param name="i"></param>
         /// <param name="q"></param>
         public YIQ(double y, double i, double q)
-            :this(0,0,0,0)
-        {
-        }
+            : this(0, 0, 0, 0)
+        { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="alpha"></param>
         /// <param name="y"></param>
         /// <param name="i"></param>
         /// <param name="q"></param>
-        public YIQ(byte alpha,double y, double i, double q)
+        public YIQ(byte alpha, double y, double i, double q)
         {
             this.alpha = alpha;
             Y = y;
@@ -66,22 +69,22 @@ namespace Engine.Imaging.ColorSpace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double Y { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double I { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double Q { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="y"></param>

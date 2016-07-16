@@ -165,12 +165,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the radius of the circle.
         /// </summary>
+        [XmlAttribute]
+        [DisplayName(nameof(Radius))]
         [Category("Elements")]
         [Description("The radius of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double Radius
         {
             get { return radius; }
@@ -184,6 +185,8 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the center point of the circle.
         /// </summary>
+        [XmlIgnore]
+        [DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The center location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -204,12 +207,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
+        [XmlAttribute]
+        [DisplayName(nameof(X))]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double X
         {
             get { return x; }
@@ -223,12 +227,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
+        [XmlAttribute]
+        [DisplayName(nameof(Y))]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double Y
         {
             get { return y; }
@@ -242,12 +247,13 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the rectangular boundaries of the circle.
         /// </summary>
+        [XmlIgnore]
+        [DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get { return Boundings.Circle(x, y, radius); }
@@ -263,18 +269,20 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
+        [XmlIgnore]
+        [DisplayName(nameof(Circumference))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
-        [XmlIgnore]
         public double Circumference
             => Perimeters.CircleCircumference(radius);
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the circle.")]
-        [XmlIgnore]
         public override double Area
         {
             get { return Areas.Circle(radius); }

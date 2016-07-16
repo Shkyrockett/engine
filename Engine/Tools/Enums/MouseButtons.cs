@@ -9,35 +9,36 @@ namespace Engine.Tools
     [Flags]
     [ComVisible(true)]
     public enum MouseButtons
+        : int
     {
         /// <summary>
         /// No mouse button was pressed.
         /// </summary>
-        None = 0x00000000,
+        None = 0b0000_0000_0000_0000_0000_0000_0000,
 
         /// <summary>
         /// The left mouse button was pressed.
         /// </summary>
-        Left = 0x00100000,
+        Left = 0b0000_0001_0000_0000_0000_0000_0000,
 
         /// <summary>
         /// The right mouse button was pressed.
         /// </summary>
-        Right = 0x00200000,
+        Right = 0b0000_0010_0000_0000_0000_0000_0000,
 
         /// <summary>
         /// The middle mouse button was pressed.
         /// </summary>
-        Middle = 0x00400000,
+        Middle = 0b0000_0100_0000_0000_0000_0000_0000,
 
         /// <summary>
         /// The back mouse button was pressed.
         /// </summary>
-        Back = 0x00800000,
+        Back = 0b0000_1000_0000_0000_0000_0000_0000,
 
         /// <summary>
         /// The forward mouse button was pressed.
         /// </summary>
-        Forward = 0x01000000,
+        Forward = 0b0001_0000_0000_0000_0000_0000_0000,
     }
 }

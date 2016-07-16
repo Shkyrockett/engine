@@ -43,8 +43,7 @@ namespace Engine.Geometry
         /// </summary>
         public Polygon()
             : this(new List<Point2D>())
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -52,8 +51,7 @@ namespace Engine.Geometry
         /// <param name="polygon"></param>
         public Polygon(Polygon polygon)
             : this(polygon.points)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -61,8 +59,7 @@ namespace Engine.Geometry
         /// <param name="polyline"></param>
         public Polygon(Polyline polyline)
             : this(polyline.Points)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -70,8 +67,7 @@ namespace Engine.Geometry
         /// <param name="points"></param>
         public Polygon(params Point2D[] points)
             : this(new List<Point2D>(points))
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -135,49 +131,31 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [XmlIgnore]
         public override double Perimeter
-        {
-            get
-            {
-                List<Point2D> points = (this.points as List<Point2D>);
-                return points.Count > 0 ? points.Zip(points.Skip(1), Primitives.Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0;
-            }
-        }
+            => Perimeters.PolygonPerimeter(points);
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        [XmlIgnore]
         public override Rectangle2D Bounds
-        {
-            get
-            {
-                if (this.points?.Count < 1) return null;
-                List<Point2D> points = (this.points as List<Point2D>);
+            => Boundings.Polygon(points);
 
-                double left = points[0].X;
-                double top = points[0].Y;
-                double right = points[0].X;
-                double bottom = points[0].Y;
-
-                foreach (Point2D point in points)
-                {
-                    // ToDo: Measure performance impact of overwriting each time.
-                    left = point.X <= left ? point.X : left;
-                    top = point.Y <= top ? point.Y : top;
-                    right = point.X >= right ? point.X : right;
-                    bottom = point.Y >= bottom ? point.Y : bottom;
-                }
-
-                return Rectangle2D.FromLTRB(left, top, right, bottom);
-            }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override double Area
+            => Areas.Polygon(points);
 
         #endregion
 

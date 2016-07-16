@@ -8,20 +8,42 @@ namespace Engine.Imaging.ColorSpace
     public class ARGB
     {
         /// <summary>
+        ///
+        /// </summary>
+        public static readonly ARGB Empty = new ARGB();
+
+        private const int AlphaShift = 24;
+        private const int RedShift = 16;
+        private const int GreenShift = 8;
+        private const int BlueShift = 0;
+
+        private string name;
+        private int value;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ARGB"/> class.
         /// </summary>
         public ARGB()
-            : this(0, 0, 0, 0)
-        {
-        }
+            : this(0, 0, 0, 0, "")
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ARGB"/> class.
         /// </summary>
         /// <param name="value">A standard color.</param>
         public ARGB(Color value)
-            : this(value.A, value.R, value.G, value.B)
+            : this(value.A, value.R, value.G, value.B, value.Name)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ARGB"/> class.
+        /// </summary>
+        /// <param name="value">A standard color.</param>
+        /// <param name="name">The name of the color.</param>
+        public ARGB(int value, string name = "")
         {
+            this.name = name;
+            this.value = value;
         }
 
         /// <summary>
@@ -30,10 +52,10 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="red">Red color component.</param>
         /// <param name="green">Green color component.</param>
         /// <param name="blue">Blue color component.</param>
-        public ARGB(byte red, byte green, byte blue)
-            : this(0, red, green, blue)
-        {
-        }
+        /// <param name="name">The name of the color.</param>
+        public ARGB(byte red, byte green, byte blue, string name = "")
+            : this(0, red, green, blue, name)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ARGB"/> class.
@@ -42,33 +64,70 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="red">Red color component.</param>
         /// <param name="green">Green color component.</param>
         /// <param name="blue">Blue color component.</param>
-        public ARGB(byte alpha, byte red, byte green, byte blue)
+        /// <param name="name">The name of the color.</param>
+        public ARGB(byte alpha, byte red, byte green, byte blue, string name = "")
         {
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = alpha;
+            this.name = name;
+            value =
+                (red << RedShift
+                | green << GreenShift
+                | blue << BlueShift
+                | alpha << AlphaShift);// & 0xffffffff;
         }
 
         /// <summary>
         /// Gets or sets the red color value.
         /// </summary>
-        public byte Red { get; set; }
+        public byte Red
+        {
+            get { return (byte)((Value >> RedShift) & 0xFF); }
+            set { this.value |= value << RedShift; }
+        }
 
         /// <summary>
         /// Gets or sets the green color value.
         /// </summary>
-        public byte Green { get; set; }
+        public byte Green
+        {
+            get { return (byte)((Value >> GreenShift) & 0xFF); }
+            set { this.value |= value << GreenShift; }
+        }
 
         /// <summary>
         /// Gets or sets the blue color value.
         /// </summary>
-        public byte Blue { get; set; }
+        public byte Blue
+        {
+            get { return (byte)((Value >> BlueShift) & 0xFF); }
+            set { this.value |= value << BlueShift; }
+        }
 
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
-        public byte Alpha { get; set; }
+        public byte Alpha
+        {
+            get { return (byte)((Value >> AlphaShift) & 0xFF); }
+            set { this.value |= value << AlphaShift; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public int Value
+        {
+            get { return value; }
+            set { this.value = value; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
         /// <summary>
         /// Convert between a <see cref="Color"/> and a <see cref="ARGB"/> structures.

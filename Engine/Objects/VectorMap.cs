@@ -51,10 +51,15 @@ namespace Engine.Objects
         /// <param name="area"></param>
         /// <returns></returns>
         public List<GraphicItem> this[Rectangle2D area]
-            => new List<GraphicItem>(
-            from shape in Items
-            where shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area)
-            select shape);
+        {
+            get
+            {
+                return new List<GraphicItem>(
+                from shape in Items
+                where (shape?.Bounds != null) && (shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area))
+                select shape);
+            }
+        }
 
         /// <summary>
         /// 
@@ -179,7 +184,7 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="point"></param>
         public GraphicItem SelectItem(Point2D point)
-            => Items?.LastOrDefault(shape => shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
+            => Items?.LastOrDefault(shape => shape.Bounds != null && (shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)));
 
         /// <summary>
         /// 

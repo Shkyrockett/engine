@@ -17,19 +17,19 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Bezier
     {
         #region Private Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public List<Point3D> _lut = new List<Point3D>();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<char> dims = new List<char> { 'x', 'y', 'z' };
 
@@ -38,7 +38,7 @@ namespace Engine.Geometry
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -60,7 +60,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -86,7 +86,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="points"></param>
         public Bezier(List<Point3D> points)
@@ -95,7 +95,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -106,7 +106,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -122,47 +122,47 @@ namespace Engine.Geometry
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public List<Point3D> points { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public List<Point3D> dpoints { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool _virtual { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double _t1 { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double _t2 { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool _3d { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool clockwise { get; private set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int order { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool _linear { get; }
 
@@ -171,7 +171,7 @@ namespace Engine.Geometry
         #region Operators
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -179,7 +179,7 @@ namespace Engine.Geometry
         public static bool operator ==(Bezier left, Bezier right) => left.Equals(right);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -187,7 +187,7 @@ namespace Engine.Geometry
         public static bool operator !=(Bezier left, Bezier right) => !left.Equals(right);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -208,7 +208,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -217,7 +217,7 @@ namespace Engine.Geometry
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -233,7 +233,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="n"></param>
         /// <param name="S"></param>
@@ -241,7 +241,7 @@ namespace Engine.Geometry
         /// <param name="E"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static Tuple<Point3D, Point3D, Point3D> getABC(double n, Point3D S, Point3D B, Point3D E, double t = 0.5)
+        public static (Point3D, Point3D, Point3D) getABC(double n, Point3D S, Point3D B, Point3D E, double t = 0.5)
         {
             double u = projectionratio(t, n);
             double um = 1 - u;
@@ -256,11 +256,11 @@ namespace Engine.Geometry
                 y: B.Y + (B.Y - C.Y) / s,
                 z: B.Z + (B.Z - C.Z) / s
             );
-            return new Tuple<Point3D, Point3D, Point3D>(A, B, C);
+            return new (Point3D, Point3D, Point3D)(A, B, C);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -271,12 +271,12 @@ namespace Engine.Geometry
         {
             // shortcuts, although they're really dumb
             if (t == 0) return new Bezier(p2, p2, p3); if (t == 1) return new Bezier(p1, p2, p2);             // real fitting.
-            Tuple<Point3D, Point3D, Point3D> abc = getABC(2, p1, p2, p3, t);
+            (Point3D, Point3D, Point3D) abc = getABC(2, p1, p2, p3, t);
             return new Bezier(p1, abc.Item1, p3);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="S"></param>
         /// <param name="B"></param>
@@ -286,7 +286,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Bezier cubicFromPoints(Point3D S, Point3D B, Point3D E, double t = 0.5, double d1 = 0)
         {
-            Tuple<Point3D, Point3D, Point3D> abc = getABC(3, S, B, E, t);
+            (Point3D, Point3D, Point3D) abc = getABC(3, S, B, E, t);
             if (d1 == 0) d1 = Distance(B, abc.Item3); double d2 = d1 * (1 - t) / t;
 
             double selen = Distance(S, E);
@@ -336,7 +336,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void update()
         {
@@ -362,7 +362,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void computedirection()
         {
@@ -372,14 +372,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public double length()
             => Utilities.length(derivative);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="steps"></param>
         /// <returns></returns>
@@ -393,7 +393,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <param name="error"></param>
@@ -419,7 +419,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
@@ -429,7 +429,7 @@ namespace Engine.Geometry
             List<Point3D> LUT = getLUT(1000);
             int l = LUT.Count - 1;
 
-            Tuple<double, double> closest = Utilities.closest(LUT, point);
+            (double X, double Y) closest = Utilities.closest(LUT, point);
             double mdist = closest.Item1;
             double mpos = closest.Item2;
             if (mpos == 0 || mpos == l)
@@ -468,7 +468,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -476,7 +476,7 @@ namespace Engine.Geometry
             => compute(t);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="idx"></param>
         /// <returns></returns>
@@ -484,7 +484,7 @@ namespace Engine.Geometry
             => points[idx];
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -556,7 +556,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Bezier raise()
@@ -581,7 +581,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -613,14 +613,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         private List<double> inflections()
             => Utilities.inflections(points);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -628,7 +628,7 @@ namespace Engine.Geometry
             => _3d ? __normal3(t) : __normal2(t);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -644,7 +644,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -680,7 +680,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -702,7 +702,7 @@ namespace Engine.Geometry
                 _p = new List<Point3D>();
                 for (i = 0, l = p.Count - 1; i < l; i++)
                 {
-                    pt = LinearInterpolate(p[i], p[i + 1],t);
+                    pt = Interpolaters.Linear(p[i], p[i + 1],t);
                     q[idx++] = pt;
                     _p.Add(pt);
                 }
@@ -712,7 +712,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
@@ -744,7 +744,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
@@ -752,7 +752,7 @@ namespace Engine.Geometry
             => new Pair();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public List<double> extrema()
@@ -782,7 +782,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public BBox bbox()
@@ -796,7 +796,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
@@ -808,27 +808,27 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public Tuple<Point3D, Point3D, Point3D> offset(double t, double d)
+        public (Point3D, Point3D, Point3D) offset(double t, double d)
         {
             Point3D c = get(t);
             Point3D n = normal(t);
-            return new Tuple<Point3D, Point3D, Point3D>(
-                c,//c: 
+            return new (Point3D, Point3D, Point3D)(
+                c,//c:
                 n,//n:
-                new Point3D(c.X + n.X * d,//x: 
-                c.Y + n.Y * d,//y: 
+                new Point3D(c.X + n.X * d,//x:
+                c.Y + n.Y * d,//y:
                 c.Z + n.Z * d//z:
                 )
             );
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -860,7 +860,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public bool simple()
@@ -879,7 +879,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public List<Bezier> reduce()
@@ -941,7 +941,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="distanceFn"></param>
         /// <returns></returns>
@@ -955,7 +955,7 @@ namespace Engine.Geometry
             bool clockwise = this.clockwise;
             double r1 = distanceFn(0);
             double r2 = distanceFn(1);
-            var v = new List<Tuple<Point3D, Point3D, Point3D>> { offset(0, 10), offset(1, 10) };
+            var v = new List<(Point3D, Point3D, Point3D)> { offset(0, 10), offset(1, 10) };
             Point3D o = lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
@@ -995,7 +995,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
@@ -1005,7 +1005,7 @@ namespace Engine.Geometry
             bool clockwise = this.clockwise;
             double r1 = d;
             double r2 = d;
-            var v = new List<Tuple<Point3D, Point3D, Point3D>> { offset(0, 10), offset(1, 10) };
+            var v = new List<(Point3D, Point3D, Point3D)> { offset(0, 10), offset(1, 10) };
             Point3D o = lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");             // move all points by distance 'd' wrt the origin 'o'
             List<Point3D> points = this.points;
@@ -1033,7 +1033,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
@@ -1051,7 +1051,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
@@ -1059,7 +1059,7 @@ namespace Engine.Geometry
             => outline(d1, d1, 0, 0, true);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d1"></param>
         /// <param name="d2"></param>
@@ -1068,7 +1068,7 @@ namespace Engine.Geometry
             => outline(d1, d2, 0, 0, true);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d1"></param>
         /// <param name="d3"></param>
@@ -1078,7 +1078,7 @@ namespace Engine.Geometry
             => outline(d1, d1, d3, d4, false);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d1"></param>
         /// <param name="d2"></param>
@@ -1147,7 +1147,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d1"></param>
         /// <param name="d2"></param>
@@ -1168,14 +1168,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public List<Pair> intersects()
             => selfintersects();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
@@ -1183,7 +1183,7 @@ namespace Engine.Geometry
             => lineIntersects(curve);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
@@ -1191,7 +1191,7 @@ namespace Engine.Geometry
             => curveintersects(reduce(), curve.reduce());
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
@@ -1211,7 +1211,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public List<Pair> selfintersects()
@@ -1235,7 +1235,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="c1"></param>
         /// <param name="c2"></param>
@@ -1265,7 +1265,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="errorThreshold"></param>
         /// <returns></returns>
@@ -1277,7 +1277,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pc"></param>
         /// <param name="np1"></param>
@@ -1296,7 +1296,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="errorThreshold"></param>
         /// <param name="circles"></param>
@@ -1379,7 +1379,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>

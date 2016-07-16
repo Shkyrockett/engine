@@ -42,8 +42,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Size2D()
             : this(0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
@@ -52,8 +51,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Size2D(Size2D size)
             : this(size.Width, size.Height)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
@@ -62,18 +60,16 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Size2D(Point2D point)
             : this(point.X, point.Y)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
         /// <remarks></remarks>
-        public Size2D(Tuple<double, double> tuple)
+        public Size2D((double X, double Y) tuple)
             : this(tuple.Item1, tuple.Item2)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.

@@ -5,16 +5,16 @@ using static System.Math;
 namespace Engine.Imaging.ColorSpace
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class ColorSpaces
     {
-        /// <summary> 
-        /// Sets the absolute brightness of a color 
-        /// </summary> 
-        /// <param name="color">Original color</param> 
-        /// <param name="brightness">The luminance level to impose</param> 
-        /// <returns>an adjusted color</returns> 
+        /// <summary>
+        /// Sets the absolute brightness of a color
+        /// </summary>
+        /// <param name="color">Original color</param>
+        /// <param name="brightness">The luminance level to impose</param>
+        /// <returns>an adjusted color</returns>
         public static Color SetBrightness(this Color color, double brightness)
         {
             var hsl = new AHSL(color);
@@ -22,15 +22,15 @@ namespace Engine.Imaging.ColorSpace
             return ToRGB(hsl);
         }
 
-        /// <summary> 
-        /// Modifies an existing brightness level 
-        /// </summary> 
-        /// <remarks> 
-        /// To reduce brightness use a number smaller than 1. To increase brightness use a number larger tan 1 
-        /// </remarks> 
-        /// <param name="color">The original color</param> 
-        /// <param name="brightness">The luminance delta</param> 
-        /// <returns>An adjusted color</returns> 
+        /// <summary>
+        /// Modifies an existing brightness level
+        /// </summary>
+        /// <remarks>
+        /// To reduce brightness use a number smaller than 1. To increase brightness use a number larger tan 1.
+        /// </remarks>
+        /// <param name="color">The original color</param>
+        /// <param name="brightness">The luminance delta</param>
+        /// <returns>An adjusted color</returns>
         public static Color ModifyBrightness(this Color color, double brightness)
         {
             var hsl = new AHSL(color);
@@ -38,13 +38,13 @@ namespace Engine.Imaging.ColorSpace
             return ToRGB(hsl);
         }
 
-        /// <summary> 
-        /// Sets the absolute saturation level 
-        /// </summary> 
-        /// <remarks>Accepted values 0-1</remarks> 
-        /// <param name="color">An original color</param> 
-        /// <param name="Saturation">The saturation value to impose</param> 
-        /// <returns>An adjusted color</returns> 
+        /// <summary>
+        /// Sets the absolute saturation level
+        /// </summary>
+        /// <remarks>Accepted values 0-1</remarks>
+        /// <param name="color">An original color</param>
+        /// <param name="Saturation">The saturation value to impose</param>
+        /// <returns>An adjusted color</returns>
         public static Color SetSaturation(this Color color, double Saturation)
         {
             var hsl = new AHSL(color);
@@ -52,15 +52,15 @@ namespace Engine.Imaging.ColorSpace
             return ToRGB(hsl);
         }
 
-        /// <summary> 
-        /// Modifies an existing Saturation level 
-        /// </summary> 
-        /// <remarks> 
-        /// To reduce Saturation use a number smaller than 1. To increase Saturation use a number larger tan 1 
-        /// </remarks> 
-        /// <param name="color">The original color</param> 
-        /// <param name="Saturation">The saturation delta</param> 
-        /// <returns>An adjusted color</returns> 
+        /// <summary>
+        /// Modifies an existing Saturation level.
+        /// </summary>
+        /// <remarks>
+        /// To reduce Saturation use a number smaller than 1. To increase Saturation use a number larger tan 1.
+        /// </remarks>
+        /// <param name="color">The original color</param>
+        /// <param name="Saturation">The saturation delta</param>
+        /// <returns>An adjusted color</returns>
         public static Color ModifySaturation(this Color color, double Saturation)
         {
             var hsl = new AHSL(color);
@@ -68,13 +68,13 @@ namespace Engine.Imaging.ColorSpace
             return ToRGB(hsl);
         }
 
-        /// <summary> 
-        /// Sets the absolute Hue level 
-        /// </summary> 
-        /// <remarks>Accepted values 0-1</remarks> 
-        /// <param name="color">An original color</param> 
-        /// <param name="Hue">The Hue value to impose</param> 
-        /// <returns>An adjusted color</returns> 
+        /// <summary>
+        /// Sets the absolute Hue level.
+        /// </summary>
+        /// <remarks>Accepted values 0-1</remarks>
+        /// <param name="color">An original color</param>
+        /// <param name="Hue">The Hue value to impose</param>
+        /// <returns>An adjusted color</returns>
         public static Color SetHue(this Color color, double Hue)
         {
             var hsl = new AHSL(color);
@@ -82,15 +82,15 @@ namespace Engine.Imaging.ColorSpace
             return ToRGB(hsl);
         }
 
-        /// <summary> 
-        /// Modifies an existing Hue level 
-        /// </summary> 
-        /// <remarks> 
-        /// To reduce Hue use a number smaller than 1. To increase Hue use a number larger tan 1 
-        /// </remarks> 
-        /// <param name="color">The original color</param> 
-        /// <param name="Hue">The Hue delta</param> 
-        /// <returns>An adjusted color</returns> 
+        /// <summary>
+        /// Modifies an existing Hue level
+        /// </summary>
+        /// <remarks>
+        /// To reduce Hue use a number smaller than 1. To increase Hue use a number larger tan 1
+        /// </remarks>
+        /// <param name="color">The original color</param>
+        /// <param name="Hue">The Hue delta</param>
+        /// <returns>An adjusted color</returns>
         public static Color ModifyHue(this Color color, double Hue)
         {
             var hsl = new AHSL(color);
@@ -98,12 +98,12 @@ namespace Engine.Imaging.ColorSpace
             return ToRGB(hsl);
         }
 
-        /// <summary> 
-        /// Converts a color from HSL to RGB 
-        /// </summary> 
-        /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks> 
-        /// <param name="hsl">The HSL value</param> 
-        /// <returns>A Color structure containing the equivalent RGB values</returns> 
+        /// <summary>
+        /// Converts a color from HSL to RGB.
+        /// </summary>
+        /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
+        /// <param name="hsl">The HSL value</param>
+        /// <returns>A Color structure containing the equivalent RGB values</returns>
         public static Color ToRGB(this HSL hsl)
         {
             double red = 0;
@@ -153,12 +153,12 @@ namespace Engine.Imaging.ColorSpace
             return Color.FromArgb((int)(255 * red), (int)(255 * green), (int)(255 * blue));
         }
 
-        /// <summary> 
-        /// Converts a color from HSL to RGB 
-        /// </summary> 
-        /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks> 
-        /// <param name="hsl">The HSL value</param> 
-        /// <returns>A Color structure containing the equivalent RGB values</returns> 
+        /// <summary>
+        /// Converts a color from HSL to RGB
+        /// </summary>
+        /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
+        /// <param name="hsl">The HSL value</param>
+        /// <returns>A Color structure containing the equivalent RGB values</returns>
         public static Color ToRGB(this AHSL hsl)
         {
             double red = 0;
@@ -625,13 +625,13 @@ namespace Engine.Imaging.ColorSpace
         }
 
         /// <summary>
-        /// Function example takes H, S, I, and a pointer to the 
+        /// Function example takes H, S, I, and a pointer to the
         /// in the calling function. After calling hsi2rgb
-        /// the vector rgb will contain red, green, and blue
+        /// the vector RGB will contain red, green, and blue
         /// calculated values.
         /// </summary>
         /// <param name="color"></param>
-        /// <returns>RGB colorspace converted vector.</returns>
+        /// <returns>RGB color-space converted vector.</returns>
         /// <remarks>
         /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
         /// </remarks>

@@ -23,7 +23,7 @@ namespace Engine.Geometry
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("RotatedRectangle2D")]
+    [DisplayName(nameof(RotatedRectangle2D))]
     public class RotatedRectangle2D
         : Shape, IClosedShape
     {
@@ -77,8 +77,7 @@ namespace Engine.Geometry
         /// </summary>
         public RotatedRectangle2D()
             : this(0, 0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an empty location, with the provided size.
@@ -86,8 +85,7 @@ namespace Engine.Geometry
         /// <param name="size">The height and width of the <see cref="RotatedRectangle2D"/>.</param>
         public RotatedRectangle2D(Size2D size)
             : this(0, 0, size.Width, size.Height, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an initial location and size.
@@ -95,8 +93,7 @@ namespace Engine.Geometry
         /// <param name="rectangle">The rectangle to clone.</param>
         public RotatedRectangle2D(RotatedRectangle2D rectangle)
             : this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.height, rectangle.angle)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an initial location and size.
@@ -105,8 +102,7 @@ namespace Engine.Geometry
         /// <param name="size"></param>
         public RotatedRectangle2D(Point2D location, Size2D size)
             : this(location.X, location.Y, size.Width, size.Height, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with an initial location and size.
@@ -116,26 +112,23 @@ namespace Engine.Geometry
         /// <param name="angle"></param>
         public RotatedRectangle2D(Point2D location, Size2D size, double angle)
             : this(location.X, location.Y, size.Width, size.Height, angle)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with the location and size from a tuple.
         /// </summary>
         /// <param name="tuple"></param>
-        public RotatedRectangle2D(Tuple<double, double, double, double> tuple)
+        public RotatedRectangle2D((double, double, double, double) tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with the location and size from a tuple.
         /// </summary>
         /// <param name="tuple"></param>
-        public RotatedRectangle2D(Tuple<double, double, double, double, double> tuple)
+        public RotatedRectangle2D((double, double, double, double, double) tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectangle2D"/> class with a location and size.
@@ -177,10 +170,14 @@ namespace Engine.Geometry
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute]
-        [Browsable(false)]
+        [Browsable(true)]
+        [DisplayName(nameof(X))]
+        [Category("Elements")]
+        [Description("The x coordinate location of the rectangle.")]
+        [RefreshProperties(RefreshProperties.All)]
         public double X
         {
             get { return x; }
@@ -192,10 +189,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the Y coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute]
-        [Browsable(false)]
+        [Browsable(true)]
+        [DisplayName(nameof(Y))]
+        [Category("Elements")]
+        [Description("The y coordinate location of the rectangle.")]
+        [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
             get { return y; }
@@ -207,10 +208,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the height of the rectangle.
         /// </summary>
         [XmlAttribute]
-        [Browsable(false)]
+        [Browsable(true)]
+        [DisplayName(nameof(Height))]
+        [Category("Elements")]
+        [Description("The height of the rectangle.")]
+        [RefreshProperties(RefreshProperties.All)]
         public double Height
         {
             get { return height; }
@@ -222,10 +227,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the width of the rectangle.
         /// </summary>
         [XmlAttribute]
-        [Browsable(false)]
+        [Browsable(true)]
+        [DisplayName(nameof(Width))]
+        [Category("Elements")]
+        [Description("The width of the rectangle.")]
+        [RefreshProperties(RefreshProperties.All)]
         public double Width
         {
             get { return width; }
@@ -237,9 +246,35 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the Aspect ratio of the rectangle. 
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlIgnore]
+        [Browsable(true)]
+        [DisplayName(nameof(Aspect))]
+        [Category("Properties")]
+        [Description("The " + nameof(Aspect) + " ratio of the height and width of the " + nameof(RotatedRectangle2D) + ".")]
+        [RefreshProperties(RefreshProperties.All)]
+        public double Aspect
+        {
+            get { return height / width; }
+            set
+            {
+                height = width * value;
+                width = height / value;
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the angle the rectangle should be rotated.
         /// </summary>
         [XmlAttribute]
+        [Browsable(true)]
+        [DisplayName(nameof(Aspect))]
+        [Category("Properties")]
+        [Description("The " + nameof(Angle) + " of rotation of the " + nameof(RotatedRectangle2D) + ".")]
+        [GeometryAngle]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
@@ -254,9 +289,13 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the center point X and Y coordinates of the rectangle.
         /// </summary>
         [XmlIgnore]
+        [Browsable(false)]
+        [DisplayName(nameof(Center))]
+        [Category("Elements")]
+        [Description("The center location of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -273,9 +312,13 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the height and width of the rectangle.
         /// </summary>
         [XmlIgnore]
+        [Browsable(false)]
+        [DisplayName(nameof(Size))]
+        [Category("Elements")]
+        [Description("The height and width of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Size2DConverter))]
@@ -292,40 +335,70 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether the rectangle is empty. Meaning it has no height or width.
         /// </summary>
         [XmlIgnore]
         public bool IsEmpty
             => (Width <= 0) || (Height <= 0);
 
         /// <summary>
-        /// Returns true if this Rectangle2D has area.
+        /// Gets a value indicating whether the Rectangle2D has area.
         /// </summary>
         [XmlIgnore]
+        [Browsable(false)]
+        [ReadOnly(true)]
+        [DisplayName(nameof(HasArea))]
+        [Category("Elements")]
+        [Description("A value indicating whether or not the rectangle has height or width.")]
         public bool HasArea
             => width > 0 && height > 0;
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [DisplayName(nameof(Area))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [Category("Elements")]
+        [Description("The area of the rectangle.")]
+        public override double Area
+        {
+            get { return height * width; }
+            //set { base.Area = value; }
+        }
+
+        /// <summary>
+        /// Gets the length of the perimeter of the rectangle.
+        /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [DisplayName(nameof(Perimeter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [Category("Elements")]
+        [Description("The distance around the rectangle.")]
         public override double Perimeter
             => (Maths.Distance(0, 0, width, 0) * 2) + (Maths.Distance(0, 0, 0, height) * 2);
 
         /// <summary>
-        /// 
+        /// Gets the bounding box of the rectangle.
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
+        [ReadOnly(true)]
+        [DisplayName(nameof(Bounds))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
+        [Category("Elements")]
+        [Description("bounding box of the rectangle.")]
         public override Rectangle2D Bounds
-            => Boundings.RotatedRectangleBounds(width, height, Center, angle);
-        //=> Boundings.RotatedRectangleBounds(X - (width / 2d), Y - (height / 2d), width, height, Center, angle);
+            => Boundings.RotatedRectangle(width, height, Center, angle);
 
         #endregion
 
@@ -337,7 +410,9 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(RotatedRectangle2D left, RotatedRectangle2D right) => Equals(left, right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(RotatedRectangle2D left, RotatedRectangle2D right)
+            => Equals(left, right);
 
         /// <summary>
         /// Tests whether two <see cref="RotatedRectangle2D"/> objects differ in location, size or angle.
@@ -345,7 +420,9 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(RotatedRectangle2D left, RotatedRectangle2D right) => !Equals(left, right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(RotatedRectangle2D left, RotatedRectangle2D right)
+            => !Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="RotatedRectangle2D"/>.
@@ -355,27 +432,30 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(RotatedRectangle2D left, RotatedRectangle2D right) => Equals(left, right);
+        public static bool Compare(RotatedRectangle2D left, RotatedRectangle2D right)
+            => Equals(left, right);
 
         /// <summary>
-        /// 
+        /// Tests whether <paramref name="left"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of <paramref name="right"/>.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(RotatedRectangle2D left, RotatedRectangle2D right) => (left?.X == right?.X
-    && left?.Y == right?.Y
-    && left?.Width == right?.Width
-    && left?.Height == right?.Height
-    && Abs(left.Angle - right.Angle) < Maths.Epsilon);
+        public static bool Equals(RotatedRectangle2D left, RotatedRectangle2D right)
+            => (left?.X == right?.X
+            && left?.Y == right?.Y
+            && left?.Width == right?.Width
+            && left?.Height == right?.Height
+            && Abs(left.Angle - right.Angle) < Maths.Epsilon);
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj) => obj is RotatedRectangle2D && Equals(this, obj as RotatedRectangle2D);
+        public override bool Equals(object obj)
+            => obj is RotatedRectangle2D && Equals(this, obj as RotatedRectangle2D);
 
         #endregion
 
@@ -391,7 +471,8 @@ namespace Engine.Geometry
         /// <param name="angle"></param>
         /// <returns></returns>
         [Pure]
-        public static RotatedRectangle2D FromLTRBA(double left, double top, double right, double bottom, double angle) => new RotatedRectangle2D(left, top, right - left, bottom - top, angle);
+        public static RotatedRectangle2D FromLTRBA(double left, double top, double right, double bottom, double angle)
+            => new RotatedRectangle2D(left, top, right - left, bottom - top, angle);
 
         /// <summary>
         /// Creates a <see cref="Rectangle"/> from a center point and it's size.
@@ -401,7 +482,8 @@ namespace Engine.Geometry
         /// <param name="angle"></param>
         /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
         [Pure]
-        public static RotatedRectangle2D RectangleFromCenter(Point2D center, Size2D size, double angle) => new RotatedRectangle2D(center - size.Inflate(0.5d), size, angle);
+        public static RotatedRectangle2D RectangleFromCenter(Point2D center, Size2D size, double angle)
+            => new RotatedRectangle2D(center - size.Inflate(0.5d), size, angle);
 
         ///// <summary>
         ///// Creates a rectangle that represents the union between a and b.

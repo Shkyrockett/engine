@@ -107,7 +107,7 @@ namespace Engine.Geometry
                     }
                 }
 
-                if (Abs(bestDist - maxLength) < Maths.Epsilon)
+                if (Abs(bestDist - maxLength) < Epsilon)
                     return null;   //  (no solution)
                 pointList[bestJ].Previous = bestI;
                 pointList[bestJ].TotalDistance = bestDist;
@@ -149,7 +149,7 @@ namespace Engine.Geometry
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static Point2D FindCentroid(this Polygon polygon)
+        public static (double X, double Y) FindCentroid(this Polygon polygon)
         {
             // Add the first point at the end of the array.
             int num_points = polygon.Points.Count;
@@ -171,7 +171,7 @@ namespace Engine.Geometry
             }
 
             // Divide by 6 times the polygon's area.
-            double polygon_area = PolygonArea(polygon);
+            double polygon_area = Areas.Polygon(polygon.Points);
             X /= (6 * polygon_area);
             Y /= (6 * polygon_area);
 
@@ -183,7 +183,7 @@ namespace Engine.Geometry
                 Y = -Y;
             }
 
-            return new Point2D(X, Y);
+            return (X, Y);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         public static bool PolygonIsOrientedClockwise(this Polygon polygon)
-            => (SignedPolygonArea(polygon) < 0);
+            => (Areas.SignedPolygon(polygon.Points) < 0);
 
         /// <summary>
         /// If the polygon is oriented counterclockwise, reverse the order of its points.
@@ -203,61 +203,6 @@ namespace Engine.Geometry
         {
             if (!PolygonIsOrientedClockwise(polygon))
                 polygon.Points.Reverse();
-        }
-
-        /// <summary>
-        /// Return the polygon's area in "square units."
-        /// Add the areas of the trapezoids defined by the
-        /// polygon's edges dropped to the X-axis. When the
-        /// program considers a bottom edge of a polygon, the
-        /// calculation gives a negative area so the space
-        /// between the polygon and the axis is subtracted,
-        /// leaving the polygon's area. This method gives odd
-        /// results for non-simple polygons.
-        /// </summary>
-        /// <returns>
-        /// Return the absolute value of the signed area.
-        /// The signed area is negative if the polygon is
-        /// oriented clockwise.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static double PolygonArea(this Polygon polygon)
-            => Abs(SignedPolygonArea(polygon));
-
-        /// <summary>
-        /// Return the polygon's area in "square units."
-        /// Add the areas of the trapezoids defined by the
-        /// polygon's edges dropped to the X-axis. When the
-        /// program considers a bottom edge of a polygon, the
-        /// calculation gives a negative area so the space
-        /// between the polygon and the axis is subtracted,
-        /// leaving the polygon's area. This method gives odd
-        /// results for non-simple polygons.
-        ///
-        /// The value will be negative if the polygon is
-        /// oriented clockwise.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static double SignedPolygonArea(this Polygon polygon)
-        {
-            // Add the first point to the end.
-            int num_points = polygon.Points.Count;
-            var pts = new Point2D[num_points + 1];
-            polygon.Points.CopyTo(pts, 0);
-            pts[num_points] = polygon.Points[0];
-
-            // Get the areas.
-            double area = 0;
-            for (int i = 0; i < num_points; i++)
-            {
-                area +=
-                    (pts[i + 1].X - pts[i].X)
-                    * (pts[i + 1].Y + pts[i].Y) / 2;
-            }
-
-            // Return the result.
-            return area;
         }
 
         /// <summary>
@@ -303,26 +248,27 @@ namespace Engine.Geometry
         /// Find the indexes of three points that form an "ear."
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void FindEar(this Polygon polygon, ref int A, ref int B, ref int C)
+        private static (int A, int B, int C) FindEar(this Polygon polygon)
         {
             int num_points = polygon.Points.Count;
-
+            int A = 0;
+            int B = 0;
+            int C = 0;
             for (A = 0; A < num_points; A++)
             {
                 B = (A + 1) % num_points;
                 C = (B + 1) % num_points;
 
                 if (FormsEar(polygon.Points.ToArray(), A, B, C))
-                    return;
+                    return (A, B, C);
             }
 
             // We should never get here because there should
             // always be at least two ears.
             Debug.Assert(false);
+
+            return (A, B, C);
         }
 
         /// <summary>
@@ -377,14 +323,13 @@ namespace Engine.Geometry
         private static void RemoveEar(this Polygon polygon, List<Triangle> triangles)
         {
             // Find an ear.
-            int A = 0, B = 0, C = 0;
-            FindEar(polygon, ref A, ref B, ref C);
+            (int A, int B, int C) ear = FindEar(polygon);
 
             // Create a new triangle for the ear.
-            triangles.Add(new Triangle(polygon.Points[A], polygon.Points[B], polygon.Points[C]));
+            triangles.Add(new Triangle(polygon.Points[ear.A], polygon.Points[ear.B], polygon.Points[ear.C]));
 
             // Remove the ear from the polygon.
-            RemovePoint2DFromArray(polygon, B);
+            RemovePoint2DFromArray(polygon, ear.B);
         }
 
         /// <summary>
@@ -746,11 +691,10 @@ namespace Engine.Geometry
         /// <param name="boundingRect"></param>
         /// <param name="i"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static Point2D FindDxDy(this Polygon polygon, BoundingRectPolygon boundingRect, int i)
+        private static (double X, double Y) FindDxDy(this Polygon polygon, BoundingRectPolygon boundingRect, int i)
         {
             int i2 = (i + 1) % boundingRect.NumPoints;
-            return new Point2D(
-                polygon.Points[i2].X - polygon.Points[i].X,
+            return (polygon.Points[i2].X - polygon.Points[i].X,
                 polygon.Points[i2].Y - polygon.Points[i].Y);
         }
 

@@ -123,7 +123,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <returns></returns>
-        public Tuple<List<Point2D>, List<Point2D>, List<Point2D>> Interactions()
+        public (List<Point2D>, List<Point2D>, List<Point2D>) Interactions()
         {
             var boundary = new List<Point2D>();
             var inside = new List<Point2D>();
@@ -145,7 +145,7 @@ namespace Engine.Geometry
                 }
             }
 
-            return new Tuple<List<Point2D>, List<Point2D>, List<Point2D>>(boundary, inside, outside);
+            return (boundary, inside, outside);
         }
     }
 }

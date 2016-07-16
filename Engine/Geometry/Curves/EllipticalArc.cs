@@ -1,13 +1,14 @@
 ﻿// <copyright file="EllipticArc.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
@@ -16,14 +17,14 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <remarks>
     /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
     /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName("Ellipse Arc")]
+    [DisplayName("Elliptical Arc")]
     public class EllipticalArc
         : Shape
     {
@@ -52,18 +53,18 @@ namespace Engine.Geometry
         private double r2;
 
         /// <summary>
-        /// Angle of <see cref="Ellipse"/>. 
+        /// Angle of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         private double angle;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double startAngle;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double sweepAngle;
 
@@ -72,7 +73,7 @@ namespace Engine.Geometry
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EllipticalArc()
             : this(0, 0, 0, 0, 0, 0, 0)
@@ -166,7 +167,7 @@ namespace Engine.Geometry
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Point2D Location
         {
@@ -298,7 +299,7 @@ namespace Engine.Geometry
             => r1 <= r2 ? r1 : r2;
 
         /// <summary>
-        /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>. 
+        /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         [Category("Properties")]
@@ -413,13 +414,13 @@ namespace Engine.Geometry
             => Sqrt(1 - ((r1 / r2) * (r1 / r2)));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Point2D StartPoint
             => Interpolaters.EllipticalArc(x, y, r1, r2, angle, startAngle, sweepAngle, 0);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Point2D EndPoint
             => Interpolaters.EllipticalArc(x, y, r1, r2, angle, startAngle, sweepAngle, 1);
@@ -497,102 +498,6 @@ namespace Engine.Geometry
         public Rectangle2D DrawingBounds
             => Boundings.Ellipse(x, y, r1, r2);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Obsolete]
-        public double A1
-        {
-            get
-            {
-                // Get the ellipse rotation transform.
-                double cosT = Cos(angle);
-                double sinT = Sin(angle);
-
-                // Calculate the radii of the angle of rotation.
-                double c = r1 * sinT;
-                double d = r2 * cosT;
-
-                // Ellipse equation for an ellipse at origin.
-                double u = r1 * Cos(Atan2(d, c));
-                double v = -(r2 * Sin(Atan2(d, c)));
-
-                return Atan2(u * sinT - v * cosT, u * cosT + v * sinT);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Obsolete]
-        public double A2
-        {
-            get
-            {
-                // Get the ellipse rotation transform.
-                double cosT = Cos(angle);
-                double sinT = Sin(angle);
-
-                // Calculate the radii of the angle of rotation.
-                double a = r1 * cosT;
-                double b = r2 * sinT;
-
-                // Ellipse equation for an ellipse at origin.
-                double u = r1 * Cos(Atan2(-b, a));
-                double v = -(r2 * Sin(Atan2(-b, a)));
-
-                return Atan2(u * sinT - v * cosT, u * cosT + v * sinT);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Obsolete]
-        public double A3
-        {
-            get
-            {
-                // Get the ellipse rotation transform.
-                double cosT = Cos(angle);
-                double sinT = Sin(angle);
-
-                // Calculate the radii of the angle of rotation.
-                double a = r1 * cosT;
-                double b = r2 * sinT;
-
-                // Ellipse equation for an ellipse at origin.
-                double u = r1 * Cos(Atan2(-b, a));
-                double v = -(r2 * Sin(Atan2(-b, a)));
-
-                return Atan2(u * sinT - v * cosT, u * cosT + v * sinT) + PI;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Obsolete]
-        public double A4
-        {
-            get
-            {
-                // Get the ellipse rotation transform.
-                double cosT = Cos(angle);
-                double sinT = Sin(angle);
-
-                // Calculate the radii of the angle of rotation.
-                double c = r1 * sinT;
-                double d = r2 * cosT;
-
-                // Ellipse equation for an ellipse at origin.
-                double u = r1 * Cos(Atan2(d, c));
-                double v = -(r2 * Sin(Atan2(d, c)));
-
-                return Atan2(u * sinT - v * cosT, u * cosT + v * sinT) + PI;
-            }
-        }
-
         #endregion
 
         #region Interpolaters
@@ -610,7 +515,7 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>

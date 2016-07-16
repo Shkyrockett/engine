@@ -259,7 +259,7 @@ namespace Engine.Geometry
         /// <param name="LUT"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static Tuple<double, double> closest(List<Point3D> LUT, Point3D point)
+        public static (double X, double Y) closest(List<Point3D> LUT, Point3D point)
         {
             double mdist = Pow(2, 63);
             double mpos = 0;
@@ -273,7 +273,7 @@ namespace Engine.Geometry
                 }
             }
 
-            return new Tuple<double, double>(mdist, mpos);
+            return (mdist, mpos);
         }
 
         /// <summary>

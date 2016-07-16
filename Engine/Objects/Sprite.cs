@@ -1,7 +1,7 @@
 ﻿// <copyright file="Sprite.cs" company="Shkyrockett">
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using Engine.Geometry;

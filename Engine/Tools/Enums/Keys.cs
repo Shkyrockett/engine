@@ -9,6 +9,7 @@ namespace Engine.Tools
     [Flags]
     [ComVisible(true)]
     public enum Keys
+        : uint
     {
         /// <summary>
         /// The bit mask to extract a key code from a key value.
@@ -18,7 +19,7 @@ namespace Engine.Tools
         /// <summary>
         /// The bit mask to extract modifiers from a key value.
         /// </summary>
-        Modifiers = unchecked((int)0xFFFF0000),
+        Modifiers = unchecked((uint)0xFFFF0000),
 
         /// <summary>
         /// No key pressed.

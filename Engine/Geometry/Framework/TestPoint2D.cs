@@ -38,8 +38,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public TestPoint2D()
             : this(0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestPoint2D"/> class.
@@ -106,7 +105,8 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(TestPoint2D left, TestPoint2D right) => Equals(left, right);
+        public static bool operator ==(TestPoint2D left, TestPoint2D right)
+            => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="TestPoint2D"/> objects. 
@@ -116,7 +116,8 @@ namespace Engine.Geometry
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(TestPoint2D left, TestPoint2D right) => !Equals(left, right);
+        public static bool operator !=(TestPoint2D left, TestPoint2D right)
+            => !Equals(left, right);
 
         /// <summary>
         /// Compares two Vectors
@@ -126,7 +127,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(TestPoint2D a, TestPoint2D b) => Equals(a, b);
+        public static bool Compare(TestPoint2D a, TestPoint2D b)
+            => Equals(a, b);
 
         /// <summary>
         /// 
@@ -135,7 +137,8 @@ namespace Engine.Geometry
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(TestPoint2D a, TestPoint2D b) => a?.X == b?.X & a?.Y == b?.Y & a?.Previous == b?.Previous & a?.TotalDistance == b?.TotalDistance;
+        public static bool Equals(TestPoint2D a, TestPoint2D b)
+            => a?.X == b?.X & a?.Y == b?.Y & a?.Previous == b?.Previous & a?.TotalDistance == b?.TotalDistance;
 
         /// <summary>
         /// 
@@ -143,7 +146,8 @@ namespace Engine.Geometry
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is TestPoint2D && Equals(this, obj as TestPoint2D);
+        public override bool Equals(object obj)
+            => obj is TestPoint2D && Equals(this, obj as TestPoint2D);
 
         /// <summary>
         /// 
@@ -151,7 +155,8 @@ namespace Engine.Geometry
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(TestPoint2D value) => Equals(this, value);
+        public bool Equals(TestPoint2D value)
+            => Equals(this, value);
 
         /// <summary>
         /// Explicit conversion to Point2D.
@@ -159,7 +164,8 @@ namespace Engine.Geometry
         /// <returns>
         /// </returns>
         /// <param name="point"></param>
-        public static explicit operator Point2D(TestPoint2D point) => new Point2D(point.X, point.Y);
+        public static explicit operator Point2D(TestPoint2D point)
+            => new Point2D(point.X, point.Y);
 
         /// <summary>
         /// Implicit conversion to ItPoint2D.
@@ -167,7 +173,8 @@ namespace Engine.Geometry
         /// <returns>
         /// </returns>
         /// <param name="point"></param>
-        public static implicit operator TestPoint2D(Point2D point) => new TestPoint2D(point.X, point.Y);
+        public static implicit operator TestPoint2D(Point2D point)
+            => new TestPoint2D(point.X, point.Y);
 
         #endregion
 
@@ -202,8 +209,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public override int GetHashCode() => X.GetHashCode()
-       ^ Y.GetHashCode();
+        public override int GetHashCode()
+            => X.GetHashCode()
+            ^ Y.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="TestPoint2D"/> struct.

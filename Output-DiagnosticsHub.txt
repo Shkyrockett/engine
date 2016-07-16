@@ -1,0 +1,3 @@
+﻿Profiling of 'MethodSpeedTester' started.
+MethodSpeedTester has exited.
+Profiling of 'MethodSpeedTester' stopped.

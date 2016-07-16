@@ -13,7 +13,7 @@ namespace MethodSpeedTester
     {
         private List<PointF> points;
         private Circle circle;
-        private List<Tuple<string, Circle>> circles = new List<Tuple<string, Circle>>();
+        private List<(string, Circle)> circles = new List<(string, Circle)>();
 
         public CirclePointTester()
         {
@@ -24,9 +24,9 @@ namespace MethodSpeedTester
         {
             points = GenerateGrid(25, 25, 130, 130, 5, 5);
 
-            circles.Add(new Tuple<string, Circle>("Circle 1", new Circle(25, 25, 10)));
-            circles.Add(new Tuple<string, Circle>("Circle 2", new Circle(75, 75, 50)));
-            circles.Add(new Tuple<string, Circle>("Circle 3", new Circle(125, 125, 100)));
+            circles.Add(new (string, Circle)("Circle 1", new Circle(25, 25, 10)));
+            circles.Add(new (string, Circle)("Circle 2", new Circle(75, 75, 50)));
+            circles.Add(new (string, Circle)("Circle 3", new Circle(125, 125, 100)));
 
             circle = circles[0].Item2;
 
@@ -78,7 +78,7 @@ namespace MethodSpeedTester
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            circle = (comboBox1.SelectedItem as Tuple<string, Circle>).Item2;
+            circle = (((string, Circle))comboBox1.SelectedItem).Item2;
             Invalidate(true);
         }
 

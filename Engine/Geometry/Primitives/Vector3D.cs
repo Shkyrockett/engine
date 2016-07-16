@@ -70,7 +70,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="tuple"></param>
         /// <remarks></remarks>
-        public Vector3D(Tuple<double, double, double> tuple)
+        public Vector3D((double X, double Y, double Z) tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3)
         {
         }

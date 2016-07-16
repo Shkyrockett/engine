@@ -1,8 +1,8 @@
 ﻿// <copyright file="GraphicItem.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Engine.Objects
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class GraphicItem
     {
@@ -35,7 +35,7 @@ namespace Engine.Objects
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="item"></param>
         /// <param name="style"></param>
@@ -43,7 +43,7 @@ namespace Engine.Objects
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             Item = item;
-            item.OnUpdate(ClearCache);
+            item?.OnUpdate(ClearCache);
             Style = style;
         }
 
@@ -52,111 +52,142 @@ namespace Engine.Objects
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
+        [DisplayName(nameof(Name))]
+        [Category("Properties")]
+        [Description("The name of the item.")]
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
+        [XmlElement]
         [Browsable(true)]
+        [DisplayName(nameof(Item))]
+        [Category("Properties")]
+        [Description("The item.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         [NotifyParentProperty(true)]
-        [XmlElement]
         public GraphicsObject Item { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
+        [DisplayName(nameof(Style))]
+        [Category("Properties")]
+        [Description("The style of the item.")]
         public IStyle Style { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
+        [DisplayName(nameof(Metadata))]
+        [Category("Properties")]
+        [Description("The meta-data of the item.")]
         public Metadata Metadata { get; set; } = null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         [XmlIgnore]
-        public double Perimeter => (double)CachingProperty(() => Item.Perimeter);
+        [DisplayName(nameof(Perimeter))]
+        [Category("Properties")]
+        [Description("The perimeter length of the item.")]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public double Perimeter
+            => (double)CachingProperty(() => Item?.Perimeter);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         [XmlIgnore]
-        public Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Item.Bounds);
+        [DisplayName(nameof(Bounds))]
+        [Category("Properties")]
+        [Description("The bounding box of the item.")]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public Rectangle2D Bounds
+            => (Rectangle2D)CachingProperty(() => Item?.Bounds);
 
         // ToDo: Need to update point list when the nodes are moved.
         /// <summary>
-        /// 
+        ///
         /// </summary>
+        [XmlIgnore]
+        [Browsable(false)]
+        [DisplayName(nameof(LengthInterpolatedPoints))]
+        [Category("Properties")]
+        [Description("The length of the interpolated points of the item.")]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Browsable(false)]
-        [XmlIgnore]
         public List<Point2D> LengthInterpolatedPoints
-            => (List<Point2D>)CachingProperty(() => Item.InterpolatePoints((int)Perimeter.Round()));
+            => (List<Point2D>)CachingProperty(() => Item?.InterpolatePoints((int)Perimeter.Round()));
 
         #endregion
 
         #region Public methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public Point2D Interpolate(double t) => Item.Interpolate(t);
+        public Point2D Interpolate(double t)
+            => Item.Interpolate(t);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public List<Point2D> SmoothInterpolate(double t) => ((List<Point2D>)CachingProperty(() => Item.Interpolate(t)));
+        public List<Point2D> SmoothInterpolate(double t)
+            => ((List<Point2D>)CachingProperty(() => Item.Interpolate(t)));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints() => ((List<Point2D>)CachingProperty(() => Item?.InterpolatePoints(500)));
+        public List<Point2D> InterpolatePoints()
+            => ((List<Point2D>)CachingProperty(() => Item?.InterpolatePoints(500)));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public List<Point2D> InterpolateToPolygon(double points) => null;
+        public List<Point2D> InterpolateToPolygon(double points)
+            => null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public bool Contains(Point2D point) => Item.Contains(point);
+        public bool Contains(Point2D point)
+            => Item.Contains(point);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="bounds"></param>
         /// <returns></returns>
-        public bool VisibleTest(Rectangle2D bounds) => (Item.Bounds.IntersectsWith(bounds) || Item.Bounds.Contains(bounds));
+        public bool VisibleTest(Rectangle2D bounds)
+            => (Item.Bounds.IntersectsWith(bounds) || Item.Bounds.Contains(bounds));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public void Refresh() => ClearCache();
+        public void Refresh()
+            => ClearCache();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{nameof(GraphicItem)}{{{Item}}}";
+        public override string ToString()
+            => $"{nameof(GraphicItem)}{{{Item}}}";
 
         #endregion
 

@@ -1,8 +1,8 @@
 ﻿// <copyright file="EditorForm.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -28,30 +28,30 @@ using static Engine.Maths;
 namespace Editor
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class EditorForm
         : Form
     {
         /// <summary>
-        /// 
+        /// Map containing all of the vector objects.
         /// </summary>
         private VectorMap vectorMap;
 
         /// <summary>
-        /// 
+        /// Container for actions to take on input.
         /// </summary>
         private ToolStack toolStack;
 
         /// <summary>
-        /// 
-        /// </summary>
-        private int tick = 1;
-
-        /// <summary>
-        /// 
+        /// Tweening interpolator for animation.
         /// </summary>
         private Tweener tweener = new Tweener();
+
+        /// <summary>
+        /// Amount to advance the timer every tick
+        /// </summary>
+        private int tick = 1;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
@@ -88,13 +88,13 @@ namespace Editor
 
             //propertyGrid1.SelectedObject = toolStack;
 
-            var val = new Tuple<double, int, Point2D>(0, 3, new Point2D());
+            var val = new(double, int, Point2D)(0, 3, new Point2D());
 
             propertyGrid1.SelectedObject = val;
         }
 
         /// <summary>
-        /// 
+        /// Events to execute when the form loads.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -184,62 +184,62 @@ namespace Editor
             //var lineItem = new GraphicItem(line, styles[5]);
             //vectorMap.Add(lineItem);
 
-            //Shape set = new PolygonSet(
-            //    new List<Polygon>(
-            //        new List<Polygon> {
-            //            new Polygon( // Boundary
-            //                new List<Point2D> {
-            //                    new Point2D(10, 10),
-            //                    new Point2D(300, 10),
-            //                    new Point2D(300, 300),
-            //                    new Point2D(10, 300),
-            //                    // Cut out
-            //                    new Point2D(10, 200),
-            //                    new Point2D(200, 80),
-            //                    new Point2D(10, 150)
-            //                }
-            //            ),
-            //            new Polygon( // First inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30)
-            //                }
-            //            ),
-            //            new Polygon( // Second inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(250, 150),
-            //                    new Point2D(150, 150),
-            //                    new Point2D(250, 200)
-            //                }
-            //            )
-            //        }
-            //    )
-            //);
-            //var setItem = new GraphicItem(set, styles[8]);
-            //vectorMap.Add(setItem);
+            Shape set = new PolygonSet(
+                new List<Polygon>(
+                    new List<Polygon> {
+                        new Polygon( // Boundary
+                            new List<Point2D> {
+                                new Point2D(10, 10),
+                                new Point2D(300, 10),
+                                new Point2D(300, 300),
+                                new Point2D(10, 300),
+                                // Cut out
+                                new Point2D(10, 200),
+                                new Point2D(200, 80),
+                                new Point2D(10, 150)
+                            }
+                        ),
+                        new Polygon( // First inner triangle
+                            new List<Point2D> {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30)
+                            }
+                        ),
+                        new Polygon( // Second inner triangle
+                            new List<Point2D> {
+                                new Point2D(250, 150),
+                                new Point2D(150, 150),
+                                new Point2D(250, 200)
+                            }
+                        )
+                    }
+                )
+            );
+            var setItem = new GraphicItem(set, styles[8]);
+            vectorMap.Add(setItem);
 
-            //Shape innerPolygon = new Polygon( // First inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30)
-            //                }
-            //            ).Offset(10);
-            //var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
-            //vectorMap.Add(innerPolygonItem);
+            Shape innerPolygon = new Polygon( // First inner triangle
+                            new List<Point2D> {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30)
+                            }
+                        ).Offset(10);
+            var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
+            vectorMap.Add(innerPolygonItem);
 
-            //Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
+            Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
             //Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
             //Polyline pathPolyline2 = pathPolyline.Offset(-10);
             //pathPolyline2.Reverse();
-            ////Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
-            ////GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
+            //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
+            //GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
             //var polylineSetItem = new GraphicItem(polylineSet, styles[10]);
-            //var pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
-            ////vectorMap.Add(polygonLineItem);
+            var pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
+            //vectorMap.Add(polygonLineItem);
             //vectorMap.Add(polylineSetItem);
-            //vectorMap.Add(pathPolylineItem);
+            vectorMap.Add(pathPolylineItem);
 
             //Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
             //GraphicItem arcItem = new GraphicItem(arc, styles[8]);
@@ -374,8 +374,8 @@ namespace Editor
             //    5, 5);
             //var parametricPointTesterItem = new GraphicItem(parametricPointTester, styles[3]);
 
-            var ellipseNodes = new Polygon(Boundings.EllipseExtremes(centerX, centerY, radius1, radius2, angle));
-            var ellipseNodesItem = new GraphicItem(ellipseNodes, styles[10]);
+            //var ellipseNodes = new Polygon(Boundings.EllipseExtremes(centerX, centerY, radius1, radius2, angle));
+            //var ellipseNodesItem = new GraphicItem(ellipseNodes, styles[10]);
 
             var ellipticArc = new EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
@@ -383,27 +383,28 @@ namespace Editor
             Rectangle2D ellpticArcBounds = Boundings.EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, styles[10]);
 
-            Tuple<double, double> test = Interpolaters.EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, 1);
-
             var angleLines = new Polyline(ellipticArc.StartPoint, ellipticArc.Center, ellipticArc.EndPoint);
             var angleLinesItem = new GraphicItem(angleLines, styles[10]);
 
             var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
             var circularArcItem = new GraphicItem(circularArc, styles[3]);
 
-            var testAngle = new List<double>
-            { ellipticArc.A1, ellipticArc.A2, ellipticArc.A3, ellipticArc.A4};
-            testAngle.Sort();
+            Rectangle2D circularArcBounds = Boundings.CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
+            var circularArcBoundsItem = new GraphicItem(circularArcBounds, styles[10]);
 
-            var angleVisualizer = new AngleVisualizerTester(centerX, centerY, (radius1 < radius2 ? radius2 : radius1), testAngle, startAngle + angle, sweepAngle);
-            var angleVisualizerItem = new GraphicItem(angleVisualizer, styles[3]);
+            //var testAngle = ellipticArc.AnglesOfExtremes;
+            //testAngle.Sort();
+
+            //var angleVisualizer = new AngleVisualizerTester(centerX, centerY, (radius1 < radius2 ? radius2 : radius1), testAngle, startAngle + angle, sweepAngle);
+            //var angleVisualizerItem = new GraphicItem(angleVisualizer, styles[3]);
 
             vectorMap.Add(ellpticArcBoundsItem);
+            vectorMap.Add(circularArcBoundsItem);
             vectorMap.Add(ellipticArcItem);
             vectorMap.Add(circularArcItem);
+            //vectorMap.Add(ellipseNodesItem);
             vectorMap.Add(angleLinesItem);
-            vectorMap.Add(ellipseNodesItem);
-            vectorMap.Add(angleVisualizerItem);
+            //vectorMap.Add(angleVisualizerItem);
             //vectorMap.Add(parametricPointTesterItem);
 
             //double centerX = 100d;
@@ -459,7 +460,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Tweening update callback.
         /// </summary>
         private void UpdateCallback()
         {
@@ -467,7 +468,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Callback for when tweening completes.
         /// </summary>
         private void CompleteCallback()
         {
@@ -475,7 +476,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -487,7 +488,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -497,7 +498,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -507,7 +508,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
@@ -517,7 +518,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -530,7 +531,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -547,7 +548,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -573,7 +574,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -585,7 +586,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -597,7 +598,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -609,7 +610,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -620,7 +621,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -631,16 +632,15 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CanvasPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -651,7 +651,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -662,16 +662,15 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CanvasPanel_KeyPress(object sender, KeyPressEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

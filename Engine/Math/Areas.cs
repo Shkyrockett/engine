@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
@@ -53,5 +54,89 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Ellipse(double r1, double r2)
             => PI * r2 * r1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Rectangle(double width, double height)
+            => width * height;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="depth"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Square(double depth)
+            => depth * depth;
+
+        /// <summary>
+        /// Return the polygon's area in "square units."
+        /// Add the areas of the trapezoids defined by the
+        /// polygon's edges dropped to the X-axis. When the
+        /// program considers a bottom edge of a polygon, the
+        /// calculation gives a negative area so the space
+        /// between the polygon and the axis is subtracted,
+        /// leaving the polygon's area. This method gives odd
+        /// results for non-simple polygons.
+        /// </summary>
+        /// <returns>
+        /// Return the absolute value of the signed area.
+        /// The signed area is negative if the polygon is
+        /// oriented clockwise.
+        /// </returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Polygon(IEnumerable<Point2D> polygon)
+            => Abs(SignedPolygon(polygon as List<Point2D>));
+
+        /// <summary>
+        /// Return the polygon's area in "square units."
+        /// Add the areas of the trapezoids defined by the
+        /// polygon's edges dropped to the X-axis. When the
+        /// program considers a bottom edge of a polygon, the
+        /// calculation gives a negative area so the space
+        /// between the polygon and the axis is subtracted,
+        /// leaving the polygon's area. This method gives odd
+        /// results for non-simple polygons.
+        ///
+        /// The value will be negative if the polygon is
+        /// oriented clockwise.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SignedPolygon(List<Point2D> polygon)
+        {
+            // Add the first point to the end.
+            int num_points = polygon.Count;
+            var pts = new Point2D[num_points + 1];
+            polygon.CopyTo(pts, 0);
+            pts[num_points] = polygon[0];
+
+            // Get the areas.
+            double area = 0d;
+            for (int i = 0; i < num_points; i++)
+            {
+                area +=
+                    (pts[i + 1].X - pts[i].X)
+                    * (pts[i + 1].Y + pts[i].Y) * 0.5d;
+            }
+
+            // Return the result.
+            return area;
+        }
     }
 }

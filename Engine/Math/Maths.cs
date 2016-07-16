@@ -1,8 +1,8 @@
 ﻿// <copyright file="Maths.cs" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//    Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//    Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -32,7 +32,7 @@ namespace Engine
         internal static Random RandomNumberGenerator = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="Lower"></param>
         /// <param name="Upper"></param>
@@ -46,7 +46,7 @@ namespace Engine
         #region Geometric Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -57,19 +57,17 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double, double> OffsetSegment(
+        public static (double x1, double y1, double x2, double y2) OffsetSegment(
             double aX, double aY,
             double bX, double bY,
             double distance)
-            => new Tuple<double, double, double, double>(
-                (aX + 0.5 * -((bY - aY) / Distance(aX, aY, bX, bY)) * distance),
+            => ((aX + 0.5 * -((bY - aY) / Distance(aX, aY, bX, bY)) * distance),
                 (aY + 0.5 * ((bX - aX) / Distance(aX, aY, bX, bY)) * distance),
                 (bX + 0.5 * -((bY - aY) / Distance(aX, aY, bX, bY)) * distance),
-                (bY + 0.5 * ((bX - aX) / Distance(aX, aY, bX, bY)) * distance)
-                );
+                (bY + 0.5 * ((bX - aX) / Distance(aX, aY, bX, bY)) * distance));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -83,21 +81,19 @@ namespace Engine
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double, double, double, double> OffsetSegment(
+        public static (double x1, double y1, double z1, double x2, double y2, double z2) OffsetSegment(
             double aX, double aY, double aZ,
             double bX, double bY, double bZ,
             double distanceX, double distanceY, double distanceZ)
-            => new Tuple<double, double, double, double, double, double>(
-                (aX + 0.5 * -((bY - aY) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceX),
+            => ((aX + 0.5 * -((bY - aY) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceX),
                 (aY + 0.5 * ((bX - aX) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceY),
                 (aZ + 0.5 * ((bZ - aZ) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceZ),
                 (bX + 0.5 * -((bY - aY) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceX),
                 (bY + 0.5 * ((bX - aX) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceY),
-                (bZ + 0.5 * ((bZ - aZ) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceZ)
-                );
+                (bZ + 0.5 * ((bZ - aZ) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceZ));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -122,7 +118,7 @@ namespace Engine
             => Atan2((y1 - y2), (x1 - x2));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -141,7 +137,7 @@ namespace Engine
             && Math.Abs(z1 - z2) < Epsilon) ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -178,7 +174,7 @@ namespace Engine
             double x1, double y1,
             double x2, double y2)
         {
-            // Find the angle of point a and point b. 
+            // Find the angle of point a and point b.
             double test = -Angle(x1, y1, x2, y2) % PI;
             return test < 0 ? test += PI : test;
         }
@@ -225,7 +221,7 @@ namespace Engine
         /// <param name="ry">The second radius of the ellipse.</param>
         /// <returns></returns>
         /// <remarks>
-        /// Based on the answer by flup at: 
+        /// Based on the answer by flup at:
         /// http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
         /// </remarks>
         public static double EllipsePolarAngle(double angle, double rx, double ry)
@@ -245,7 +241,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -258,8 +254,8 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> ComplexProduct(double x0, double y0, double x1, double y1)
-            => new Tuple<double, double>(x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
+        public static (double X, double Y) ComplexProduct(double x0, double y0, double x1, double y1)
+            => (x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
 
         /// <summary>
         /// Cross Product of two points.
@@ -279,7 +275,7 @@ namespace Engine
             => (x1 * y2) - (y1 * x2);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -290,10 +286,10 @@ namespace Engine
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> CrossProduct(
+        public static (double, double, double) CrossProduct(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => new Tuple<double, double, double>(
+            => (
                     (y1 * z2) - (z1 * y2), // X
                     (z1 * x2) - (x1 * z2), // Y
                     (x1 * y2) - (y1 * x2)  // Z
@@ -326,7 +322,7 @@ namespace Engine
             => ((x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2));
 
         /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
         /// <param name="x1">First Point X component.</param>
         /// <param name="y1">First Point Y component.</param>
@@ -343,7 +339,7 @@ namespace Engine
             => ((x1 * x2) + (y1 * y2));
 
         /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
         /// <param name="x1">First Point X component.</param>
         /// <param name="y1">First Point Y component.</param>
@@ -361,7 +357,7 @@ namespace Engine
             => ((x1 * x2) + (y1 * y2) + (z1 * z2));
 
         /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
         /// <param name="tuple">X, Y, Z components in tuple form.</param>
         /// <param name="x2">Second Point X component.</param>
@@ -371,12 +367,12 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
-            Tuple<double, double, double> tuple,
+            (double X, double Y, double Z) tuple,
             double x2, double y2, double z2)
-            => DotProduct(tuple.Item1, tuple.Item2, tuple.Item3, x2, y2, z2);
+            => DotProduct(tuple.X, tuple.Y, tuple.Z, x2, y2, z2);
 
         /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
         /// <param name="tuple1">First set of X, Y, Z components in tuple form.</param>
         /// <param name="tuple2">Second set of X, Y, Z components in tuple form.</param>
@@ -384,8 +380,8 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
-            Tuple<double, double, double> tuple1,
-            Tuple<double, double, double> tuple2)
+            (double X, double Y, double Z) tuple1,
+            (double X, double Y, double Z) tuple2)
             => DotProduct(
                 tuple1.Item1, tuple1.Item2, tuple1.Item3,
                 tuple2.Item1, tuple2.Item2, tuple2.Item3
@@ -416,7 +412,7 @@ namespace Engine
             => (((x1 - x2) * (x3 - x2)) + ((y1 - y2) * (y3 - y2)));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -471,7 +467,7 @@ namespace Engine
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -546,7 +542,7 @@ namespace Engine
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>
-        /// If the Line is Vertical return something close to infinity (Close to 
+        /// If the Line is Vertical return something close to infinity (Close to
         /// the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
@@ -558,7 +554,7 @@ namespace Engine
             => (Math.Abs(x1 - x2) < Epsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -570,7 +566,7 @@ namespace Engine
             => Magnitude(i, j);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -646,7 +642,7 @@ namespace Engine
         /// <remarks></remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Unitize(double i, double j)
+        public static (double X, double Y) Unitize(double i, double j)
             => Normalize(i, j);
 
         /// <summary>
@@ -659,7 +655,7 @@ namespace Engine
         /// <remarks></remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Unitize(double i, double j, double k)
+        public static (double X, double Y, double Z) Unitize(double i, double j, double k)
             => Normalize(i, j, k);
 
         /// <summary>
@@ -671,12 +667,10 @@ namespace Engine
         /// <remarks></remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Normalize(
+        public static (double X, double Y) Normalize(
             double i, double j)
-            => new Tuple<double, double>(
-                i / Sqrt((i * i) + (j * j)),
-                j / Sqrt((i * i) + (j * j))
-                );
+            => (i / Sqrt((i * i) + (j * j)),
+                j / Sqrt((i * i) + (j * j)));
 
         /// <summary>
         /// Normalize a Vector.
@@ -688,13 +682,11 @@ namespace Engine
         /// <remarks></remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Normalize(
+        public static (double X, double Y, double Z) Normalize(
             double i, double j, double k)
-            => new Tuple<double, double, double>(
-                i / Sqrt((i * i) + (j * j) + (k * k)),
+            => (i / Sqrt((i * i) + (j * j) + (k * k)),
                 j / Sqrt((i * i) + (j * j) + (k * k)),
-                k / Sqrt((i * i) + (j * j) + (k * k))
-                );
+                k / Sqrt((i * i) + (j * j) + (k * k)));
 
         /// <summary>
         /// Find the Normal of Two points.
@@ -707,10 +699,10 @@ namespace Engine
         /// <remarks></remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> Normalize(
+        public static (double X, double Y) Normalize(
             double x1, double y1,
             double x2, double y2)
-            => new Tuple<double, double>(
+            => (
                 x1 / Sqrt(((x1 * x2) + (y1 * y2))),
                 y1 / Sqrt(((x1 * x2) + (y1 * y2)))
                 );
@@ -728,10 +720,10 @@ namespace Engine
         /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Normalize(
+        public static (double X, double Y, double Z) Normalize(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => new Tuple<double, double, double>(
+            => (
                 x1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
                 y1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
                 z1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2))
@@ -747,8 +739,8 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> PerpendicularClockwise(double i, double j)
-            => new Tuple<double, double>(-j, i);
+        public static (double X, double Y) PerpendicularClockwise(double i, double j)
+            => (-j, i);
 
         /// <summary>
         /// Find the Counter Clockwise Perpendicular of a Vector.
@@ -760,8 +752,8 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double> PerpendicularCounterClockwise(double i, double j)
-            => new Tuple<double, double>(j, -i);
+        public static (double X, double Y) PerpendicularCounterClockwise(double i, double j)
+            => (j, -i);
 
         /// <summary>
         /// Find the determinant of a 2 by 2 matrix.
@@ -1118,7 +1110,7 @@ namespace Engine
             );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1130,17 +1122,17 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Projection(
+        public static (double X, double Y, double Z) Projection(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => new Tuple<double, double, double>(
+            => (
                 x2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
                 y2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
                 z2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2)
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1152,17 +1144,17 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Rejection(
+        public static (double X, double Y, double Z) Rejection(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => new Tuple<double, double, double>(
+            => (
                 x1 - x2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
                 z1 - y2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
                 z1 - z2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2)
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i1"></param>
         /// <param name="j1"></param>
@@ -1173,16 +1165,16 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
-        public static Tuple<double, double, double> Reflection(
+        public static (double X, double Y, double Z) Reflection(
             double i1, double j1, double k1,
             double i2, double j2, double k2)
         {
             // if v2 has a right angle to vector, return -vector and stop
             if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - PI / 2) < double.Epsilon)
-                return new Tuple<double, double, double>(-i1, -j1, -k1);
+                return (-i1, -j1, -k1);
 
-            Tuple<double, double, double> projection = Projection(i1, j1, k1, i2, j2, k2);
-            return new Tuple<double, double, double>(
+            (double X, double Y, double Z) projection = Projection(i1, j1, k1, i2, j2, k2);
+            return (
                 (2 * projection.Item1 - i1) * Magnitude(i1, j1, k1),
                 (2 * projection.Item2 - j1) * Magnitude(i1, j1, k1),
                 (2 * projection.Item3 - k1) * Magnitude(i1, j1, k1)
@@ -1190,7 +1182,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1200,15 +1192,15 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double rad)
-            => new Tuple<double, double, double>(
+        public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double rad)
+            => (
                 x1,
                 (y1 * Cos(rad)) - (z1 * Sin(rad)),
                 (y1 * Sin(rad)) + (z1 * Cos(rad))
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1218,11 +1210,11 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Pitch(double x1, double y1, double z1, double rad)
+        public static (double X, double Y, double Z) Pitch(double x1, double y1, double z1, double rad)
             => RotateX(x1, y1, z1, rad);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1232,15 +1224,15 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double rad)
-            => new Tuple<double, double, double>(
+        public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double rad)
+            => (
                 (z1 * Sin(rad)) + (x1 * Cos(rad)),
                 y1,
                 (z1 * Cos(rad)) - (x1 * Sin(rad))
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1250,11 +1242,11 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Yaw(double x1, double y1, double z1, double rad)
+        public static (double X, double Y, double Z) Yaw(double x1, double y1, double z1, double rad)
             => RotateY(x1, y1, z1, rad);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1264,15 +1256,15 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double rad)
-            => new Tuple<double, double, double>(
+        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double rad)
+            => (
                 (x1 * Cos(rad)) - (y1 * Sin(rad)),
                 (x1 * Sin(rad)) + (y1 * Cos(rad)),
                 z1
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1282,11 +1274,11 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> Roll(double x1, double y1, double z1, double rad)
+        public static (double X, double Y, double Z) Roll(double x1, double y1, double z1, double rad)
             => RotateZ(x1, y1, z1, rad);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1298,15 +1290,15 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
-            => new Tuple<double, double, double>(
+        public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
+            => (
                 x1,
                 (y1 * Cos(rad)) - (z1 * Sin(rad)) + (yOff * (1 - Cos(rad)) + zOff * Sin(rad)),
                 (y1 * Sin(rad)) + (z1 * Cos(rad)) + (zOff * (1 - Cos(rad)) - yOff * Sin(rad))
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1318,15 +1310,15 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
-            => new Tuple<double, double, double>(
+        public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
+            => (
                 (z1 * Sin(rad)) + (x1 * Cos(rad)) + (xOff * (1 - Cos(rad)) - zOff * Sin(rad)),
                 y1,
                 (z1 * Cos(rad)) - (x1 * Sin(rad)) + (zOff * (1 - Cos(rad)) + xOff * Sin(rad))
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -1338,15 +1330,15 @@ namespace Engine
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<double, double, double> RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
-            => new Tuple<double, double, double>(
+        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
+            => (
                 (x1 * Cos(rad)) - (y1 * Sin(rad)) + (xOff * (1 - Cos(rad)) + yOff * Sin(rad)),
                 (x1 * Sin(rad)) + (y1 * Cos(rad)) + (yOff * (1 - Cos(rad)) - xOff * Sin(rad)),
                 z1
                 );
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="normalI1"></param>
         /// <param name="normalJ1"></param>
@@ -1364,7 +1356,7 @@ namespace Engine
             => DotProduct(normalI1, normalJ1, normalK1, lineOfSightI2, lineOfSightJ2, lineOfSightK2) < 0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i1"></param>
         /// <param name="j1"></param>
@@ -1376,7 +1368,7 @@ namespace Engine
             => Math.Abs(Magnitude(i1, j1) - 1) < Epsilon;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i1"></param>
         /// <param name="j1"></param>
@@ -1387,31 +1379,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1, double k1)
             => Math.Abs(Magnitude(i1, j1, k1) - 1) < Epsilon;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D LinearInterpolate(Point2D v1, Point2D v2, double t)
-            => new Point2D(Interpolaters.Linear(v1.X, v1.Y, v2.X, v2.Y, t));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D LinearInterpolate(Point3D v1, Point3D v2, double t)
-            => new Point3D(Interpolaters.Linear(v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, t));
 
         #endregion
 
@@ -1490,14 +1457,14 @@ namespace Engine
         // Derived equivalent Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static Tuple<double, double> QuadraticEquation(double a, double b, double c)
-            => new Tuple<double, double>(
+        public static (double X, double Y) QuadraticEquation(double a, double b, double c)
+            => (
             (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
             (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
 
@@ -1534,7 +1501,8 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => ((Math.Abs(value % PI - HalfPi) > Epsilon) && (Math.Abs(value % PI - -HalfPi) > Epsilon)) ? (1 / Cos(value)) : 0;
+            => ((Math.Abs(value % PI - HalfPi) > Epsilon)
+            && (Math.Abs(value % PI - -HalfPi) > Epsilon)) ? (1 / Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -1545,7 +1513,8 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-            => ((Math.Abs(Value % PI) > Epsilon) && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Sin(Value)) : 0;
+            => ((Math.Abs(Value % PI) > Epsilon)
+            && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Sin(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -1556,7 +1525,8 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-            => ((Math.Abs(Value % PI) > Epsilon) && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Tan(Value)) : 0;
+            => ((Math.Abs(Value % PI) > Epsilon)
+            && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Tan(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -1567,15 +1537,13 @@ namespace Engine
         [Pure]
         public static double InverseSine(double value)
         {
-            //  Arc-sin(X) 
-            // Return Atan(Value / Sqrt(-Value * Value + 1))
-            if (Math.Abs(value - 1) < Epsilon)
+            if (value == 1)
                 return HalfPi;
-            if (Math.Abs(value - -1) < Epsilon)
+            if (value == -1)
                 return -HalfPi;
             if (Math.Abs(value) < 1)
+                // Arc-sin(X)
                 return Atan(value / Sqrt(-value * value + 1));
-
             return 0;
         }
 
@@ -1588,15 +1556,13 @@ namespace Engine
         [Pure]
         public static double InverseCosine(double value)
         {
-            //  Arc-cos(X) 
-            // Return Atan(-Value / Sqrt(-Value * Value + 1)) + 2 * Atan(1)
-            if (Math.Abs(value - 1) < Epsilon)
+            if (value == 1)
                 return 0;
-            if (Math.Abs(value - -1) < Epsilon)
+            if (value == -1)
                 return PI;
             if (Math.Abs(value) < 1)
+                // Arc-cos(X)
                 return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
-
             return 0;
         }
 
@@ -1609,15 +1575,13 @@ namespace Engine
         [Pure]
         public static double InverseSecant(double value)
         {
-            //  Arc-sec(X) 
-            // Return Atan(Value / Sqrt(Value * Value - 1)) + Sign((Value) - 1) * (2 * Atan(1))
-            if (Math.Abs(value - 1) < Epsilon)
+            if (value == 1)
                 return 0;
-            if (Math.Abs(value - -1) < Epsilon)
+            if (value == -1)
                 return PI;
             if (Math.Abs(value) < 1)
+                // Arc-sec(X)
                 return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
-
             return 0;
         }
 
@@ -1628,15 +1592,15 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosecant(double value)
         {
-            //  Arc-co-sec(X) 
-            // Return Atan(Value / Sqrt(Value * Value - 1)) + (Sign(Value) - 1) * (2 * Atan(1))
-            if (Math.Abs(value - 1) < Epsilon)
+            if (value == 1)
                 return HalfPi;
-            if (Math.Abs(value - -1) < Epsilon)
+            if (value == -1)
                 return -HalfPi;
             if (Math.Abs(value) < 1)
+                // Arc-co-sec(X)
                 return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
             return 0;
         }
@@ -1831,7 +1795,7 @@ namespace Engine
             => (value?.CompareTo(min) < 0) ? min : (value?.CompareTo(max) > 0) ? max : value;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <param name="min"></param>
@@ -1854,9 +1818,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this double angle)
         {
-            // ToDo: Need to do some testing to figure out which method is more appropriate. 
+            if (double.IsNaN(angle))
+                return angle;
+            // ToDo: Need to do some testing to figure out which method is more appropriate.
             //double value = angle % Tau;
-            double value = IEEERemainder(angle, Tau);
+            //double value = IEEERemainder(angle, Tau);
+            // The active ingredient of the IEEERemainder method is extracted here.
+            double value = angle - (Tau * Math.Round(angle * InverseTau));
             return value < 0 ? value + Tau : value;
         }
 
@@ -1870,6 +1838,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngleModulus(this double angle)
         {
+            if (double.IsNaN(angle))
+                return angle;
             double value = angle % Tau;
             return (value <= -PI) ? value + Tau : value - Tau;
         }
@@ -1884,8 +1854,12 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngle(this double angle)
         {
+            if (double.IsNaN(angle))
+                return angle;
             // The IEEERemainder method works better than the % modulus operator in this case, even if it is slower.
-            double value = IEEERemainder(angle, Tau);
+            //double value = IEEERemainder(angle, Tau);
+            // The active ingredient of the IEEERemainder method is extracted here.
+            double value = angle - (Tau * Math.Round(angle * InverseTau));
             return (value <= -PI) ? value + Tau : value - Tau;
         }
 
@@ -1927,7 +1901,7 @@ namespace Engine
             => radiens * Degree;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -1938,7 +1912,7 @@ namespace Engine
             => (0f < val) ? (int)(val + 0.5f) : (int)(val - 0.5f);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -1962,7 +1936,7 @@ namespace Engine
             => Convert.ToInt32(value / multiple) * multiple;
 
         /// <summary>
-        /// Swap left and right values so the left object has the value of the right object and visa-versa. 
+        /// Swap left and right values so the left object has the value of the right object and visa-versa.
         /// </summary>
         /// <param name="a">The left value.</param>
         /// <param name="b">The right value.</param>
@@ -1980,7 +1954,7 @@ namespace Engine
         #region Parsing.
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -1990,7 +1964,7 @@ namespace Engine
             => float.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <param name="provider"></param>
@@ -2001,7 +1975,7 @@ namespace Engine
             => float.Parse(text, provider);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -2011,7 +1985,7 @@ namespace Engine
             => double.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <param name="provider"></param>
@@ -2026,7 +2000,7 @@ namespace Engine
         #region Comparisons
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -2039,7 +2013,7 @@ namespace Engine
             => Math.Abs(a - b) <= precision;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -2053,11 +2027,11 @@ namespace Engine
             => (SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
 
         /// <summary>
-        /// AreClose - Returns whether or not two doubles are "close".  That is, whether or 
+        /// AreClose - Returns whether or not two doubles are "close".  That is, whether or
         /// not they are within epsilon of each other.  Note that this epsilon is proportional
         /// to the numbers themselves to that AreClose survives scalar multiplication.
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2082,11 +2056,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// AreClose - Returns whether or not two doubles are "close".  That is, whether or 
+        /// AreClose - Returns whether or not two doubles are "close".  That is, whether or
         /// not they are within epsilon of each other.  Note that this epsilon is proportional
         /// to the numbers themselves to that AreClose survives scalar multiplication.
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2116,7 +2090,7 @@ namespace Engine
         /// the other number.  Note that this epsilon is proportional to the numbers themselves
         /// to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2137,7 +2111,7 @@ namespace Engine
         /// the other number.  Note that this epsilon is proportional to the numbers themselves
         /// to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2158,7 +2132,7 @@ namespace Engine
         /// the other number.  Note that this epsilon is proportional to the numbers themselves
         /// to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2179,7 +2153,7 @@ namespace Engine
         /// the other number.  Note that this epsilon is proportional to the numbers themselves
         /// to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2197,10 +2171,10 @@ namespace Engine
         /// <summary>
         /// LessThanOrClose - Returns whether or not the first double is less than or close to
         /// the second double.  That is, whether or not the first is strictly less than or within
-        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers
         /// themselves to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2218,10 +2192,10 @@ namespace Engine
         /// <summary>
         /// LessThanOrClose - Returns whether or not the first double is less than or close to
         /// the second double.  That is, whether or not the first is strictly less than or within
-        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers
         /// themselves to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2239,10 +2213,10 @@ namespace Engine
         /// <summary>
         /// GreaterThanOrClose - Returns whether or not the first float is greater than or close to
         /// the second float.  That is, whether or not the first is strictly greater than or within
-        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers
         /// themselves to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2260,10 +2234,10 @@ namespace Engine
         /// <summary>
         /// GreaterThanOrClose - Returns whether or not the first double is greater than or close to
         /// the second double.  That is, whether or not the first is strictly greater than or within
-        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+        /// epsilon of the other number.  Note that this epsilon is proportional to the numbers
         /// themselves to that AreClose survives scalar multiplication.  Note,
         /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
+        /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
@@ -2279,7 +2253,7 @@ namespace Engine
             => (value1 > value2) || AreClose(value1, value2);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <param name="epsilon"></param>
@@ -2346,7 +2320,7 @@ namespace Engine
             => Math.Abs(value - 1d) < 10d * epsilon;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -2356,7 +2330,7 @@ namespace Engine
             => (GreaterThanOrClose(val, 0f) && LessThanOrClose(val, 1));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>

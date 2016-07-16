@@ -592,7 +592,7 @@ namespace Engine.Geometry
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Tuple<int, Point2D, Point2D> CircleCircle(
+        private static (int Count, Point2D Intersection1, Point2D Intersection2) CircleCircle(
             double cx0,
             double cy0,
             double radius0,
@@ -614,21 +614,21 @@ namespace Engine.Geometry
                 // No solutions, the circles are too far apart.
                 intersection1 = new Point2D(double.NaN, double.NaN);
                 intersection2 = new Point2D(double.NaN, double.NaN);
-                return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
+                return (0, intersection1, intersection2);
             }
             else if (dist < Abs(radius0 - radius1))
             {
                 // No solutions, one circle contains the other.
                 intersection1 = new Point2D(double.NaN, double.NaN);
                 intersection2 = new Point2D(double.NaN, double.NaN);
-                return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
+                return (0, intersection1, intersection2);
             }
             else if ((Abs(dist) < Epsilon) && (Abs(radius0 - radius1) < Epsilon))
             {
                 // No solutions, the circles coincide.
                 intersection1 = new Point2D(double.NaN, double.NaN);
                 intersection2 = new Point2D(double.NaN, double.NaN);
-                return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
+                return (0, intersection1, intersection2);
             }
             else
             {
@@ -651,9 +651,9 @@ namespace Engine.Geometry
 
                 // See if we have 1 or 2 solutions.
                 if (Abs(dist - radius0 + radius1) < Epsilon)
-                    return new Tuple<int, Point2D, Point2D>(1, intersection1, intersection2);
+                    return (1, intersection1, intersection2);
 
-                return new Tuple<int, Point2D, Point2D>(2, intersection1, intersection2);
+                return (2, intersection1, intersection2);
             }
         }
 
@@ -671,7 +671,7 @@ namespace Engine.Geometry
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Tuple<int, Point2D, Point2D> CircleLine(
+        private static (int, Point2D, Point2D) CircleLine(
             double centerX, double centerY,
             double radius,
             double x1, double y1,
@@ -696,7 +696,7 @@ namespace Engine.Geometry
                 // No real solutions.
                 intersection1 = new Point2D(double.NaN, double.NaN);
                 intersection2 = new Point2D(double.NaN, double.NaN);
-                return new Tuple<int, Point2D, Point2D>(0, intersection1, intersection2);
+                return (0, intersection1, intersection2);
             }
             else if (Abs(determinant) < Epsilon)
             {
@@ -704,7 +704,7 @@ namespace Engine.Geometry
                 t = -B / (2 * A);
                 intersection1 = new Point2D(x1 + t * dx, y1 + t * dy);
                 intersection2 = new Point2D(double.NaN, double.NaN);
-                return new Tuple<int, Point2D, Point2D>(1, intersection1, intersection2);
+                return (1, intersection1, intersection2);
             }
             else
             {
@@ -713,7 +713,7 @@ namespace Engine.Geometry
                 intersection1 = new Point2D(x1 + t * dx, y1 + t * dy);
                 t = ((-B - Sqrt(determinant)) / (2 * A));
                 intersection2 = new Point2D(x1 + t * dx, y1 + t * dy);
-                return new Tuple<int, Point2D, Point2D>(2, intersection1, intersection2);
+                return (2, intersection1, intersection2);
             }
         }
 
@@ -732,7 +732,7 @@ namespace Engine.Geometry
         /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Tuple<bool, Point2D> LineLine(
+        public static (bool, Point2D) LineLine(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -749,13 +749,13 @@ namespace Engine.Geometry
 
             // Check if the line are parallel.
             if (Abs(determinant) < Epsilon)
-                return new Tuple<bool, Point2D>(false, null);
+                return (false, null);
 
             // Find the index where the intersection point lies on the line.
             double s = ((x0 - x2) * deltaAJ + (y2 - y0) * deltaAI) / -determinant;
             double t = ((x2 - x0) * deltaBJ + (y0 - y2) * deltaBI) / determinant;
 
-            return new Tuple<bool, Point2D>(
+            return (
                  // Check whether the point is on the segment.
                  (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d),
                 // If it exists, the point of intersection is:
@@ -807,8 +807,8 @@ namespace Engine.Geometry
                     {
                         if (!PolygonExtensions.IsInside(clipEdge, S))
                         {
-                            Tuple<bool, Point2D> point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
-                            if (point == null)
+                            (bool Intersects, Point2D Point) point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                            if (point.Intersects == false)
                             {
                                 // may be collinear, or may be a bug
                                 throw new ApplicationException("Line segments don't intersect");
@@ -823,8 +823,8 @@ namespace Engine.Geometry
                     }
                     else if (PolygonExtensions.IsInside(clipEdge, S))
                     {
-                        Tuple<bool, Point2D> point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
-                        if (point == null)
+                        (bool Intersects, Point2D Point) point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                        if (point.Intersects == false)
                         {
                             // may be collinear, or may be a bug
                             throw new ApplicationException("Line segments don't intersect");

@@ -13,7 +13,7 @@ namespace MethodSpeedTester
     {
         private List<Point2D> points;
         private Rectangle2D rectangle;
-        private List<Tuple<string, Rectangle2D>> rectangles = new List<Tuple<string, Rectangle2D>>();
+        private List<(string, Rectangle2D)> rectangles = new List<(string, Rectangle2D)>();
 
         public RectanglePointTester()
         {
@@ -24,9 +24,9 @@ namespace MethodSpeedTester
         {
             points = GenerateGrid(25, 25, 130, 130, 5, 5);
 
-            rectangles.Add(new Tuple<string, Rectangle2D>("Rectangle 1", new Rectangle2D(25, 25, 50, 50)));
-            rectangles.Add(new Tuple<string, Rectangle2D>("Rectangle 2", new Rectangle2D(75, 75, 50, 50)));
-            rectangles.Add(new Tuple<string, Rectangle2D>("Rectangle 3", new Rectangle2D(125, 125, 100, 100)));
+            rectangles.Add(("Rectangle 1", new Rectangle2D(25, 25, 50, 50)));
+            rectangles.Add(("Rectangle 2", new Rectangle2D(75, 75, 50, 50)));
+            rectangles.Add(("Rectangle 3", new Rectangle2D(125, 125, 100, 100)));
 
             rectangle = rectangles[0].Item2;
 
@@ -78,7 +78,7 @@ namespace MethodSpeedTester
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            rectangle = (comboBox1.SelectedItem as Tuple<string, Rectangle2D>).Item2;
+            rectangle = (((string, Rectangle2D))comboBox1.SelectedItem).Item2;
             Invalidate(true);
         }
 

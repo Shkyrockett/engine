@@ -9,12 +9,16 @@ namespace Engine.Imaging.ColorSpace
     public class AHSI
     {
         /// <summary>
+        ///
+        /// </summary>
+        public static readonly AHSI Empty = new AHSI();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AHSI"/> class.
         /// </summary>
         public AHSI()
             : this(0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSI"/> class.

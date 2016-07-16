@@ -31,8 +31,7 @@ namespace Engine.Geometry
         /// </summary>
         public Triangle()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -42,8 +41,7 @@ namespace Engine.Geometry
         /// <param name="c"></param>
         public Triangle(Point2D a, Point2D b, Point2D c)
             : base(new List<Point2D> { a, b, c })
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -96,11 +94,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public Point2D A
         {
             get { return Points[0]; }
@@ -114,11 +112,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public Point2D B
         {
             get { return Points[1]; }
@@ -132,11 +130,11 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public Point2D C
         {
             get { return Points[2]; }

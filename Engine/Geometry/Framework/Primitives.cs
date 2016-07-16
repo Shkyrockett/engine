@@ -9,7 +9,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -461,7 +460,7 @@ namespace Engine.Geometry
         /// <returns>The distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Tuple<double, double> p1, Tuple<double, double> p2)
+        public static double Distance((double X, double Y) p1, (double X, double Y) p2)
             => Maths.Distance(p1.Item1, p1.Item2, p2.Item1, p2.Item2);
 
         /// <summary>
@@ -904,8 +903,8 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
         {
-            Tuple<double, double, double, double> offset = Maths.OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
-            return new List<Point2D> { new Point2D(offset.Item1, offset.Item2), new Point2D(offset.Item3, offset.Item4) };
+            var offset = Maths.OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
+            return new List<Point2D> { new Point2D(offset.x1, offset.y1), new Point2D(offset.x2, offset.y2) };
         }
 
         /// <summary>

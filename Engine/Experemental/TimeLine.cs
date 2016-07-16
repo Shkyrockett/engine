@@ -12,7 +12,7 @@ namespace Engine
         /// 
         /// </summary>
         public TimeLine()
-            :this(new Dictionary<double, List<Tuple<Delegate, List<object>>>>())
+            :this(new Dictionary<double, List<(Delegate, List<object>)>>())
         {
         }
 
@@ -20,7 +20,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="actions"></param>
-        public TimeLine(Dictionary<double, List<Tuple<Delegate, List<object>>>> actions)
+        public TimeLine(Dictionary<double, List<(Delegate, List<object>)>> actions)
         {
             Actions = actions;
         }
@@ -30,7 +30,7 @@ namespace Engine
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public List<Tuple<Delegate, List<object>>> this[double index]
+        public List<(Delegate, List<object>)> this[double index]
         {
             get { return Actions[index]; }
             set
@@ -55,12 +55,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Tuple<double, double> Range { get; set; }
+        public (double X, double Y) Range { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<double, List<Tuple<Delegate, List<object>>>> Actions { get; set; }
+        public Dictionary<double, List<(Delegate, List<object>)>> Actions { get; set; }
 
         /// <summary>
         /// 

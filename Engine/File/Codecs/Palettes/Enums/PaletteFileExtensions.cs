@@ -1,7 +1,7 @@
 ﻿// <copyright file="PaletteFileExtentions.cs" >
 //     Copyright © Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett">Alma Jenks</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System.Diagnostics.CodeAnalysis;

@@ -1,21 +1,26 @@
 ﻿// <copyright file="HSL.cs">
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author>Shkyrockett</author>
 // <summary></summary>
 
 using System.Drawing;
 
-namespace Engine
+namespace Engine.Imaging.ColorSpace
 {
     /// <summary>
-    /// HSL Color 
+    /// HSL Color
     /// </summary>
     public class HSL
     {
+        /// <summary>
+        ///
+        /// </summary>
+        public static readonly HSL Empty = new HSL();
+
         /// <summary>
         /// Hue color component.
         /// </summary>
@@ -36,23 +41,21 @@ namespace Engine
         /// </summary>
         public HSL()
             : this(0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HSL"/> class Converted from RGB to HSL.
         /// </summary>
-        /// <param name="color">A Color to convert</param> 
+        /// <param name="color">A Color to convert</param>
         /// <remarks>
-        /// Takes advantage of whats already built in to .NET by using the Color.GetHue, 
+        /// Takes advantage of whats already built in to .NET by using the Color.GetHue,
         /// Color.GetSaturation and Color.GetBrightness methods.
         /// Note: Storing hue as 0-1 as opposed to 0-360.
-        /// </remarks> 
-        /// <returns>An HSL value</returns> 
+        /// </remarks>
+        /// <returns>An HSL value</returns>
         public HSL(Color color)
-            : this(color.GetHue() / 360.0, color.GetSaturation(), color.GetBrightness())
-        {
-        }
+            : this(color.GetHue() / 360d, color.GetSaturation(), color.GetBrightness())
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HSL"/> class.
@@ -106,12 +109,12 @@ namespace Engine
             }
         }
 
-        /// <summary> 
-        /// Converts RGB to HSL 
-        /// </summary> 
-        /// <remarks>Takes advantage of whats already built in to .NET by using the Color.GetHue, Color.GetSaturation and Color.GetBrightness methods</remarks> 
-        /// <param name="c">A Color to convert</param> 
-        /// <returns>An HSL value</returns> 
+        /// <summary>
+        /// Converts RGB to HSL
+        /// </summary>
+        /// <remarks>Takes advantage of whats already built in to .NET by using the Color.GetHue, Color.GetSaturation and Color.GetBrightness methods</remarks>
+        /// <param name="c">A Color to convert</param>
+        /// <returns>An HSL value</returns>
         public static HSL FromRGB(Color c) => new HSL(c);
     }
 }

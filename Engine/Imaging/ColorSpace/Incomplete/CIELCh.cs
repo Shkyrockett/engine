@@ -1,7 +1,7 @@
 ﻿// <copyright file="CIELCh.cs" company="Shkyrockett"> 
 //      Copyright © Shkyrockett 2015 all rights reserved. 
 // </copyright> 
-// <author id="shkyrockett">Alma Jenks</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 namespace Engine.Imaging.ColorSpace

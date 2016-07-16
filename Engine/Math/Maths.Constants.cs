@@ -1,8 +1,8 @@
 ﻿// <copyright file="Maths.Constants.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -13,7 +13,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class Maths
     {
@@ -40,7 +40,7 @@ namespace Engine
         //const double FloatEpsilon = 0.000001d;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const double NearZeroEpsilon = 1E-20;
 
@@ -50,7 +50,7 @@ namespace Engine
         public const float FloatMin = 1.175494351e-38f;
 
         /// <summary>
-        /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data 
+        /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data
         /// type). Used in the Slope of a LineSeg
         /// </summary>
         /// <remarks></remarks>
@@ -58,7 +58,7 @@ namespace Engine
         //public const double SlopeMax = double.PositiveInfinity;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static double DoubleRoundLimit = 1E+16;
 
@@ -69,33 +69,38 @@ namespace Engine
         /// <summary>
         /// Represents the inverse of Pi, or the quotient of one over pi.
         /// </summary>
-        public const double InversePi = 1d / PI; // 0.318309886183790671538d;
+        public const double InversePi = 1d / PI; // 0.31830988618379067153776752674503d;
+
+        /// <summary>
+        /// Represents the inverse of Tau, or the quotient of one over 2 pi.
+        /// </summary>
+        public const double InverseTau = 1d / Tau; // 0.15915494309189533576888376337251d;
 
         /// <summary>
         /// Represents the value of the double inverse of Pi, or the quotient of two over pi.
         /// </summary>
-        public const double Inverse2OverPi = 2d / PI; // 0.636619772367581343076;
+        public const double Inverse2OverPi = 2d / PI; // 3.1415926535897932384626433832795d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the first eighth of that circle.
         /// One sixteenth Tau or a eighth Pi.
         /// </summary>
         /// <remarks>PI / 8</remarks>
-        public const double EighthPi = 0.125d * PI;
+        public const double EighthPi = 0.125d * PI; // 0.39269908169872415480783042290994d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the first eighth of that circle.
         /// One eighth Tau or a quarter Pi.
         /// </summary>
         /// <remarks>PI / 4</remarks>
-        public const double Quart = 0.25d * PI; // 0.785398163397448309616d;
+        public const double Quart = 0.25d * PI; // 0.78539816339744830961566084581988d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the first quarter of that circle.
         /// One quarter Tau or half Pi.
         /// </summary>
         /// <remarks>PI / 2</remarks>
-        public const double HalfPi = 0.5d * PI; // 1.57079632679489661923d;
+        public const double HalfPi = 0.5d * PI; // 1.5707963267948966192313216916398d;
 
         ///// <summary>
         ///// Represents the ratio of the circumference of a circle to its diameter, specified
@@ -103,7 +108,7 @@ namespace Engine
         ///// One half Tau or One Pi.
         ///// </summary>
         ///// <value>≈3.1415926535897931...</value>
-        //public const double PI = Math.PI; // 3.14159265358979323846d;
+        //public const double Pi = Math.PI; // 3.1415926535897932384626433832795d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the third quarter of that circle.
@@ -111,9 +116,9 @@ namespace Engine
         /// </summary>
         /// <remarks>
         /// Three quarter tau, or one and a half pi are just too long and awkward.
-        /// Randal Munro's "compromise" works well enough for a name: http://xkcd.com/1292/
+        /// Randal Munro's joke "compromise" works well enough for a name: http://xkcd.com/1292/
         /// </remarks>
-        public const double Pau = 1.5d * PI;
+        public const double Pau = 1.5d * PI; // 4.7123889803846898576939650749193d;
 
         /// <summary>
         /// Represents the ratio of the circumference of a circle to its radius, specified
@@ -121,19 +126,19 @@ namespace Engine
         /// One Tau or two Pi.
         /// </summary>
         /// <value>≈6.28318...</value>
-        public const double Tau = 2d * PI; // 6.28318530717958647693;
+        public const double Tau = 2d * PI; // 6.283185307179586476925286766559d;
 
         /// <summary>
         /// One Radian.
         /// </summary>
         /// <remarks>PI / 180</remarks>
-        public const double Radien = PI / 180d;
+        public const double Radien = PI / 180d; // 0.01745329251994329576923690768489d;
 
         /// <summary>
         /// One degree.
         /// </summary>
         /// <remarks>180 / PI</remarks>
-        public const double Degree = 180d / PI;
+        public const double Degree = 180d / PI; // 57.295779513082320876798154814105d;
 
         #endregion
 
@@ -141,52 +146,52 @@ namespace Engine
         /// Represents the golden ratio as specified by the constant, φ (phi).
         /// </summary>
         /// <value>≈1.61803...</value>
-        public static readonly double Phi = (1d + Sqrt(5)) / 2d; //1.61803398874989484820458683436;
+        public static readonly double Phi = (1d + Sqrt(5)) / 2d; // 1.6180339887498948482045868343656d;
 
         /// <summary>
         ///  Represents the plastic constant as specified by the constant, ρ.
         /// </summary>
         /// <value>≈1.32471...</value>
-        public static readonly double Rho = Root(0.5 + (1.00 / 6.00 * Sqrt(23.00 / 3.00)), 3.00) + Root(0.50 - (1.00 / 6.00 * Sqrt(23.00 / 3.00)), 3.00);
+        public static readonly double Rho = Root(0.5d + (1d / 6d * Sqrt(23d / 3d)), 3d) + Root(0.5d - (1d / 6d * Sqrt(23d / 3d)), 3d);
 
         #region Roots
 
         /// <summary>
-        /// 
+        /// Represents the inverse square root of 2.
         /// </summary>
-        public static readonly double InvSqrt2 = 1 / Sqrt(2); // 0.707106781186547524401;
+        public static readonly double InvSqrt2 = 1 / Sqrt(2); // 0.70710678118654752440084436210485d;
 
         /// <summary>
-        /// 
+        /// Represents the double inverse square root of Pi.
         /// </summary>
-        public static readonly double Inv2SqrtPi = 2 / Sqrt(PI); // 1.12837916709551257390;
+        public static readonly double Inv2SqrtPi = 2 / Sqrt(PI); // 1.1283791670955125738961589031215d;
 
         /// <summary>
         /// Represents the constant value of the square root of 2.
         /// </summary>
         /// <value>≈1.41421...</value>
-        public static readonly double Sqrt2 = Sqrt(2); // 1.41421356237309504880;
+        public static readonly double Sqrt2 = Sqrt(2); // 1.4142135623730950488016887242097d;
 
         /// <summary>
         /// Represents the constant value of the square root of 3.
         /// </summary>
         /// <value>≈1.73205...</value>
-        public static readonly double Sqrt3 = Sqrt(3);
+        public static readonly double Sqrt3 = Sqrt(3); // 1.7320508075688772935274463415059d;
 
         /// <summary>
         /// Represents the constant value of the square root of 5.
         /// </summary>
         /// <value>≈2.23606...</value>
-        public static readonly double Sqrt5 = Sqrt(5);
+        public static readonly double Sqrt5 = Sqrt(5); // 2.2360679774997896964091736687313d;
 
         #endregion
 
-        #region Logarithms 
+        #region Logarithms
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
-        //public const double E = Math.E;// 2.71828182845904523536d;
+        //public const double E = Math.E; // 2.7182818284590452353602874713527d;
 
         /// <summary>
         /// The base 2 natural log of e.
@@ -196,7 +201,7 @@ namespace Engine
         /// <summary>
         /// The base 10 natural log of e.
         /// </summary>
-        public const double Log10E = 0.434294481903251827651d;
+        public const double Log10E = 0.434294481903251827651d; // 0.43429448190325182765112891891661d;
 
         /// <summary>
         /// The base 2 natural log.

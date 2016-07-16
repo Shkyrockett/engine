@@ -1,8 +1,8 @@
 ﻿// <copyright file="Renderer.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -18,12 +18,12 @@ using static System.Math;
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class Renderer
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -32,97 +32,65 @@ namespace Engine.Imaging
         {
             //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
-            //// Waiting on c# 7... https://channel9.msdn.com/Events/Build/2016/B889
-            //switch (item?.Item)
-            //{
-            //    case LineSegment t:
-            //        (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
-            //        break;
-            //    case ParametricDelegateCurve t:
-            //        (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
-            //        break;
-            //    case null:
-            //        throw new NullReferenceException("shape is null.");
-            //    default:
-            //        throw new InvalidCastException("Unknown shape.");
-            //        break;
-            //}
-
-            if (item?.Item == null)
-                throw new NullReferenceException("shape is null.");
-
-            if (item?.Item is ParametricDelegateCurve)
+            switch (item?.Item)
             {
-                (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is ParametricPointTester)
-            {
-                (item?.Item as ParametricPointTester).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is AngleVisualizerTester)
-            {
-                (item?.Item as AngleVisualizerTester).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is LineSegment) // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
-            {
-                (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is Polyline)
-            {
-                (item?.Item as Polyline).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is PolylineSet)
-            {
-                (item?.Item as PolylineSet).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is Polygon)
-            {
-                (item?.Item as Polygon).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is PolygonSet)
-            {
-                (item?.Item as PolygonSet).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is Oval)
-            {
-                (item?.Item as Oval).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is Rectangle2D)
-            {
-                (item?.Item as Rectangle2D).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is CircularArc)
-            {
-                (item?.Item as CircularArc).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is EllipticalArc)
-            {
-                (item?.Item as EllipticalArc).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is Circle)
-            {
-                (item?.Item as Circle).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is Ellipse)
-            {
-                (item?.Item as Ellipse).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is CubicBezier)
-            {
-                (item?.Item as CubicBezier).Render(g, item, style as ShapeStyle);
-            }
-            else if (item?.Item is QuadraticBezier)
-            {
-                (item?.Item as QuadraticBezier).Render(g, item, style as ShapeStyle);
-            }
-            else
-            {
-                //shape.Render(g);
+                case ParametricDelegateCurve t:
+                    (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
+                    break;
+                case ParametricPointTester t:
+                    (item?.Item as ParametricPointTester).Render(g, item, style as ShapeStyle);
+                    break;
+                case AngleVisualizerTester t:
+                    (item?.Item as AngleVisualizerTester).Render(g, item, style as ShapeStyle);
+                    break;
+                case LineSegment t: // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
+                    (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
+                    break;
+                case Polyline t:
+                    (item?.Item as Polyline).Render(g, item, style as ShapeStyle);
+                    break;
+                case PolylineSet t:
+                    (item?.Item as PolylineSet).Render(g, item, style as ShapeStyle);
+                    break;
+                case Polygon t:
+                    (item?.Item as Polygon).Render(g, item, style as ShapeStyle);
+                    break;
+                case PolygonSet t:
+                    (item?.Item as PolygonSet).Render(g, item, style as ShapeStyle);
+                    break;
+                case Oval t:
+                    (item?.Item as Oval).Render(g, item, style as ShapeStyle);
+                    break;
+                case Rectangle2D t:
+                    (item?.Item as Rectangle2D).Render(g, item, style as ShapeStyle);
+                    break;
+                case CircularArc t:
+                    (item?.Item as CircularArc).Render(g, item, style as ShapeStyle);
+                    break;
+                case EllipticalArc t:
+                    (item?.Item as EllipticalArc).Render(g, item, style as ShapeStyle);
+                    break;
+                case Circle t:
+                    (item?.Item as Circle).Render(g, item, style as ShapeStyle);
+                    break;
+                case Ellipse t:
+                    (item?.Item as Ellipse).Render(g, item, style as ShapeStyle);
+                    break;
+                case CubicBezier t:
+                    (item?.Item as CubicBezier).Render(g, item, style as ShapeStyle);
+                    break;
+                case QuadraticBezier t:
+                    (item?.Item as QuadraticBezier).Render(g, item, style as ShapeStyle);
+                    break;
+                case null:
+                    throw new NullReferenceException($"{nameof(item)} is null.");
+                default:
+                    throw new InvalidCastException($"Unknown {nameof(item)}.");
             }
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="shape"></param>
         /// <param name="g"></param>
@@ -137,7 +105,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="shape"></param>
         /// <param name="g"></param>
@@ -147,7 +115,7 @@ namespace Engine.Imaging
         {
             float pointRadius = 1;
 
-            Tuple<List<Point2D>, List<Point2D>, List<Point2D>> results = shape.Interactions();
+            (List<Point2D>, List<Point2D>, List<Point2D>) results = shape.Interactions();
 
             Pen pointpen = Pens.Magenta;
             foreach (var point in results.Item1)
@@ -172,7 +140,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="shape"></param>
         /// <param name="g"></param>
@@ -204,7 +172,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -217,7 +185,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="shape"></param>
         /// <param name="g"></param>
@@ -231,7 +199,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="set"></param>
         /// <param name="g"></param>
@@ -248,7 +216,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="set"></param>
         /// <param name="g"></param>
@@ -267,7 +235,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="shape"></param>
         /// <param name="g"></param>
@@ -297,7 +265,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -311,7 +279,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -325,7 +293,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -336,13 +304,13 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             List<Point2D> points = item?.InterpolatePoints();
             g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
-            g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
+            //g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
 
-            g.DrawArc(Pens.Red, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -353,17 +321,17 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             List<Point2D> points = item?.InterpolatePoints();
             g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
-            g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
+            //g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
 
             var mat = new Matrix();
             mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
             g.Transform = mat;
-            g.DrawArc(Pens.Red, shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
+            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
             g.ResetTransform();
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -377,7 +345,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -391,7 +359,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -405,7 +373,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -419,7 +387,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="theta"></param>
@@ -451,8 +419,8 @@ namespace Engine.Imaging
         /// <param name="Offset"></param>
         /// <param name="Multiplyer"></param>
         /// <remarks>
-        ///  Also known as the "cocked hat", it was first documented by Sylvester around 
-        ///  1864 and Cayley in 1867. 
+        ///  Also known as the "cocked hat", it was first documented by Sylvester around
+        ///  1864 and Cayley in 1867.
         /// </remarks>
         private static void DrawBowCurve2D(Graphics g, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
         {

@@ -40,16 +40,25 @@ namespace Engine.Objects
         /// <summary>
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
+        [DisplayName(nameof(Area))]
+        [Category("Properties")]
+        [Description("The area of the shape.")]
         public virtual double Area { get; set; }
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
         /// </summary>
+        [DisplayName(nameof(Perimeter))]
+        [Category("Properties")]
+        [Description("The perimeter length of the shape.")]
         public virtual double Perimeter { get; set; }
 
         /// <summary>
         /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
         /// </summary>
+        [DisplayName(nameof(Bounds))]
+        [Category("Properties")]
+        [Description("The bounding box of the shape.")]
         public virtual Rectangle2D Bounds { get; set; }
 
         #endregion

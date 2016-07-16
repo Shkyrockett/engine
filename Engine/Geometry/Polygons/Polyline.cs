@@ -223,7 +223,7 @@ namespace Engine.Geometry
             for (int i = 2; i < Points.Count; i++)
             {
                 LineSegment newOffsetLine = Primitives.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)?.Item2);
+                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
                 offsetLine = newOffsetLine;
             }
 

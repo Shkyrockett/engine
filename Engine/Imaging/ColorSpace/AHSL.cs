@@ -1,8 +1,8 @@
 ﻿// <copyright file="AHSL.cs">
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author>Shkyrockett</author>
 // <summary></summary>
@@ -12,13 +12,18 @@ using System.Drawing;
 namespace Engine.Imaging.ColorSpace
 {
     /// <summary>
-    /// AHSL Color 
+    /// AHSL Color
     /// </summary>
     public class AHSL
     {
         /// <summary>
-        /// Alpha color component.
+        ///
         /// </summary>
+        public static readonly AHSL Empty = new AHSL();
+
+        /// <summary>
+                                                          /// Alpha color component.
+                                                          /// </summary>
         private double alpha;
 
         /// <summary>
@@ -47,13 +52,13 @@ namespace Engine.Imaging.ColorSpace
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSL"/> class Converted from RGB to HSL.
         /// </summary>
-        /// <param name="color">A Color to convert</param> 
+        /// <param name="color">A Color to convert</param>
         /// <remarks>
-        /// Takes advantage of whats already built in to .NET by using the Color.GetHue, 
+        /// Takes advantage of whats already built in to .NET by using the Color.GetHue,
         /// Color.GetSaturation and Color.GetBrightness methods
-        /// we store hue as 0-1 as opposed to 0-360 
-        /// </remarks> 
-        /// <returns>An HSL value</returns> 
+        /// we store hue as 0-1 as opposed to 0-360
+        /// </remarks>
+        /// <returns>An HSL value</returns>
         public AHSL(Color color)
             : this(color.A, color.GetHue() / 360.0, color.GetSaturation(), color.GetBrightness())
         {

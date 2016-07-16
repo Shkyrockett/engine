@@ -54,8 +54,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Vector2D()
             : this(0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -63,18 +62,16 @@ namespace Engine.Geometry
         /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
         public Vector2D(Vector2D vector2D)
             : this(vector2D.I, vector2D.J)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
         /// <remarks></remarks>
-        public Vector2D(Tuple<double, double> tuple)
+        public Vector2D((double X, double Y) tuple)
             : this(tuple.Item1, tuple.Item2)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.

@@ -1,15 +1,18 @@
 ﻿// <copyright file="Ellipse.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -49,7 +52,7 @@ namespace Engine.Geometry
         private double r2;
 
         /// <summary>
-        /// Angle of <see cref="Ellipse"/>. 
+        /// Angle of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         private double angle;
@@ -59,7 +62,7 @@ namespace Engine.Geometry
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Ellipse()
             : this(0, 0, 0, 0, 0)
@@ -118,7 +121,7 @@ namespace Engine.Geometry
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Point2D Location
         {
@@ -250,7 +253,7 @@ namespace Engine.Geometry
             => r1 <= r2 ? r1 : r2;
 
         /// <summary>
-        /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>. 
+        /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
         [Category("Properties")]
@@ -306,6 +309,83 @@ namespace Engine.Geometry
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
         public double Eccentricity
             => Sqrt(1 - ((r1 / r2) * (r1 / r2)));
+
+        /// <summary>
+        /// Gets the angles of the extreme points of the rotated ellipse.
+        /// </summary>
+        [Pure]
+        [XmlIgnore]
+        [Category("Properties")]
+        [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<double> ExtremeAngles
+        {
+            get
+            {
+                // Get the ellipse rotation transform.
+                double cosT = Cos(angle);
+                double sinT = Sin(angle);
+
+                // Calculate the radii of the angle of rotation.
+                double a = r1 * cosT;
+                double b = r2 * sinT;
+                double c = r1 * sinT;
+                double d = r2 * cosT;
+
+                // Ellipse equation for an ellipse at origin.
+                double u1 = r1 * Cos(Atan2(d, c));
+                double v1 = -(r2 * Sin(Atan2(d, c)));
+                double u2 = r1 * Cos(Atan2(-b, a));
+                double v2 = -(r2 * Sin(Atan2(-b, a)));
+
+                return new List<double>
+                {
+                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
+                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
+                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
+                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
+                };
+            }
+        }
+
+        /// <summary>
+        /// Get the points of the Cartesian extremes of a rotated ellipse.
+        /// </summary>
+        /// <remarks>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [Pure]
+        [XmlIgnore]
+        [Category("Properties")]
+        [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<Point2D> ExtremePoints
+        {
+            get
+            {
+                double a = r1 * Cos(angle);
+                double c = r1 * Sin(angle);
+                double d = r2 * Cos(angle);
+                double b = r2 * Sin(angle);
+
+                // Find the angles of the Cartesian extremes.
+                double a1 = Atan2(-b, a);
+                double a2 = Atan2(-b, a) + PI;
+                double a3 = Atan2(d, c);
+                double a4 = Atan2(d, c) + PI;
+
+                // Return the points of Cartesian extreme of the rotated ellipse.
+                return new List<Point2D> {
+                    Interpolaters.Ellipse(x, y, r1, r2, angle, a1),
+                    Interpolaters.Ellipse(x, y, r1, r2, angle, a2),
+                    Interpolaters.Ellipse(x, y, r1, r2, angle, a3),
+                    Interpolaters.Ellipse(x, y, r1, r2, angle, a4)
+                };
+            }
+        }
 
         /// <summary>
         /// Gets the Bounding box of the <see cref="Ellipse"/>.
@@ -388,7 +468,7 @@ namespace Engine.Geometry
         #region Interpolaters
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -400,7 +480,7 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>

@@ -1,8 +1,8 @@
 ﻿// <copyright file="Boundings.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -18,7 +18,7 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    /// A collection of methods used to calculate the bounding rectangles of various shapes.
     /// </summary>
     public static class Boundings
     {
@@ -35,28 +35,31 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Arc(
+        public static Rectangle2D CircularArc(
             double cX, double cY,
             double r,
             double startAngle, double sweepAngle)
         {
-            double angleEnd = startAngle + sweepAngle;
-            var startPoint = new Point2D(cX + r * Cos(-startAngle), cY + r * Sin(-startAngle));
-            var endPoint = new Point2D(cX + r * Cos(-angleEnd), cY + r * Sin(-angleEnd));
+            double s = Maths.WrapAngle(startAngle);
+            double e = Maths.WrapAngle(s + sweepAngle);
+            var startPoint = new Point2D(cX + r * Cos(startAngle), cY + r * Sin(startAngle));
+            var endPoint = new Point2D(cX + r * Cos(e), cY + r * Sin(e));
+            //if (sweepAngle < 0)
+            //    Swap(ref e, ref s);
             var bounds = new Rectangle2D(startPoint, endPoint);
 
-            // check that angle2 > angle1
-            if (angleEnd < startAngle)
-                angleEnd += 2 * PI;
-            if ((angleEnd >= 0) && (startAngle <= 0))
+            // check that s > e
+            if (e < s)
+                e += 2d * PI;
+            if ((e >= 0d) && (s <= 0d))
                 bounds.Right = cX + r;
-            if ((angleEnd >= HalfPi) && (startAngle <= HalfPi))
+            if ((e >= HalfPi) && (s <= HalfPi))
                 bounds.Top = cY - r;
-            if ((angleEnd >= PI) && (startAngle <= PI))
+            if ((e >= PI) && (s <= PI))
                 bounds.Left = cX - r;
-            if ((angleEnd >= Pau) && (startAngle <= Pau))
+            if ((e >= Pau) && (s <= Pau))
                 bounds.Bottom = cY + r;
-            if ((angleEnd >= Tau) && (startAngle <= Tau))
+            if ((e >= Tau) && (s <= Tau))
                 bounds.Right = cX + r;
             return bounds;
         }
@@ -123,52 +126,11 @@ namespace Engine.Geometry
             double height = Sqrt((c * c) + (d * d)) * 2;
 
             // Get the location point.
-            double x2 = cX - width * 0.5;
-            double y2 = cY - height * 0.5;
+            double x2 = cX - width * 0.5d;
+            double y2 = cY - height * 0.5d;
 
             // Return the bounding rectangle.
             return new Rectangle2D(x2, y2, width, height);
-        }
-
-        /// <summary>
-        /// Locate the points of the Cartesian extremes of a rotated ellipse.
-        /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <returns>A list of points that represent the points where a rotated ellipse intersects it's bounding box.</returns>
-        /// <remarks>
-        /// Based roughly on the principles found at:
-        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> EllipseExtremes(
-            double cX, double cY,
-            double r1, double r2,
-            double angle)
-        {
-            double a = r1 * Cos(angle);
-            double c = r1 * Sin(angle);
-            double d = r2 * Cos(angle);
-            double b = r2 * Sin(angle);
-
-            // Find the angles of the Cartesian extremes. 
-            double a1 = Atan2(-b, a);
-            double a2 = Atan2(-b, a) + PI;
-            double a3 = Atan2(d, c);
-            double a4 = Atan2(d, c) + PI;
-
-            // Return the points of Cartesian extreme of the rotated ellipse.
-            return new List<Point2D> {
-                Interpolaters.Ellipse(cX, cY, r1, r2, angle, a1),
-                Interpolaters.Ellipse(cX, cY, r1, r2, angle, a2),
-                Interpolaters.Ellipse(cX, cY, r1, r2, angle, a3),
-                Interpolaters.Ellipse(cX, cY, r1, r2, angle, a4)
-            };
         }
 
         /// <summary>
@@ -184,7 +146,7 @@ namespace Engine.Geometry
         /// <returns>The close bounding box of a rotated elliptical arc.</returns>
         /// <remarks>
         /// Helpful hints on how this might be implemented came from:
-        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html, 
+        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
         /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </remarks>
@@ -201,7 +163,7 @@ namespace Engine.Geometry
             double cosT = Cos(angle);
             double sinT = Sin(angle);
 
-            // Find the angles of the Cartesian extremes. 
+            // Find the angles of the Cartesian extremes.
             var angles = new double[4] {
                 Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
                 Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
@@ -211,7 +173,7 @@ namespace Engine.Geometry
             // Sort the angles so that like sides are consistently at the same index.
             Array.Sort(angles);
 
-            // Get the start and end angles adjusted to polar coordinates. 
+            // Get the start and end angles adjusted to polar coordinates.
             double t0 = EllipsePolarAngle(startAngle, r1, r2);
             double t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
 
@@ -232,7 +194,7 @@ namespace Engine.Geometry
                     cX + (r1 * cosT1 * cosT - r2 * sinT1 * sinT),
                     cY + (r1 * cosT1 * sinT + r2 * sinT1 * cosT)));
 
-            // Find the parent ellipse's horizontal and vertical radii extremes. 
+            // Find the parent ellipse's horizontal and vertical radii extremes.
             double halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
             double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
@@ -251,6 +213,67 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Calculate the external bounding rectangle of a rotated rectangle.
+        /// </summary>
+        /// <param name="height">The height of the rectangle to rotate.</param>
+        /// <param name="width">The width of the rectangle to rotate.</param>
+        /// <param name="fulcrum">The point at which to rotate the rectangle.</param>
+        /// <param name="angle">The angle in radians to rotate the rectangle/</param>
+        /// <returns>A Rectangle with the location and height, width bounding the rotated rectangle.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D RotatedRectangle(double width, double height, Point2D fulcrum, double angle)
+        {
+            Contract.Ensures(Contract.Result<Rectangle2D>() != null);
+            var cosAngle = Abs(Cos(angle));
+            var sinAngle = Abs(Sin(angle));
+
+            var size = new Size2D(
+                (cosAngle * width) + (sinAngle * height),
+                (cosAngle * height) + (sinAngle * width)
+                );
+
+            var loc = new Point2D(
+                fulcrum.X + ((-width * 0.5d) * cosAngle + (-height * 0.5d) * sinAngle),
+                fulcrum.Y + ((-width * 0.5d) * sinAngle + (-height * 0.5d) * cosAngle)
+                );
+
+            return new Rectangle2D(loc, size);
+        }
+
+        /// <summary>
+        /// Calculate the external bounding rectangle of a rotated rectangle.
+        /// </summary>
+        /// <param name="polygon">The points of the polygon.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Polygon(IEnumerable<Point2D> polygon)
+        {
+            List<Point2D> points = (polygon as List<Point2D>);
+            if (points?.Count < 1) return null;
+
+            double left = points[0].X;
+            double top = points[0].Y;
+            double right = points[0].X;
+            double bottom = points[0].Y;
+
+            foreach (Point2D point in points)
+            {
+                // ToDo: Measure performance impact of overwriting each time.
+                left = point.X <= left ? point.X : left;
+                top = point.Y <= top ? point.Y : top;
+                right = point.X >= right ? point.X : right;
+                bottom = point.Y >= bottom ? point.Y : bottom;
+            }
+
+            return Rectangle2D.FromLTRB(left, top, right, bottom);
+
+        }
+
+        /// <summary>
         /// Rectangular boundaries of the Cartesian extremes of the chain of points generated by a parametric method.
         /// This loops through every point on every call, so it should be cached when possible.
         /// </summary>
@@ -262,7 +285,7 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(
             Func<double, List<Point2D>> func,
-            double count = 100)
+            double count = 100d)
         {
             // Get the list of points from the parametric method.
             List<Point2D> points = func(count);
@@ -286,36 +309,6 @@ namespace Engine.Geometry
 
             // Return the rectangle that encompasses the points at the found extremes.
             return Rectangle2D.FromLTRB(left, top, right, bottom);
-        }
-
-        /// <summary>
-        /// Calculate the external bounding rectangle of a rotated rectangle.
-        /// </summary>
-        /// <param name="height">The height of the rectangle to rotate.</param>
-        /// <param name="width">The width of the rectangle to rotate.</param>
-        /// <param name="fulcrum">The point at which to rotate the rectangle.</param>
-        /// <param name="angle">The angle in radians to rotate the rectangle/</param>
-        /// <returns>A Rectangle with the location and height, width bounding the rotated rectangle.</returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D RotatedRectangleBounds(double width, double height, Point2D fulcrum, double angle)
-        {
-            Contract.Ensures(Contract.Result<Rectangle2D>() != null);
-            var cosAngle = Abs(Cos(angle));
-            var sinAngle = Abs(Sin(angle));
-
-            var size = new Size2D(
-                (cosAngle * width) + (sinAngle * height),
-                (cosAngle * height) + (sinAngle * width)
-                );
-
-            var loc = new Point2D(
-                fulcrum.X + ((-width / 2) * cosAngle + (-height / 2) * sinAngle),
-                fulcrum.Y + ((-width / 2) * sinAngle + (-height / 2) * cosAngle)
-                );
-
-            return new Rectangle2D(loc, size);
         }
     }
 }

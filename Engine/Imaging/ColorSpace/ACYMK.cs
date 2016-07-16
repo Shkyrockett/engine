@@ -8,6 +8,11 @@ namespace Engine.Imaging.ColorSpace
     public class ACYMK
     {
         /// <summary>
+        ///
+        /// </summary>
+        public static readonly ACYMK Empty = new ACYMK();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ACYMK"/> class.
         /// </summary>
         public ACYMK()

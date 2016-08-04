@@ -1,8 +1,8 @@
 ﻿// <copyright file="Star.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary>http://csharphelper.com/blog/2014/08/draw-a-star-with-a-given-number-of-points-in-c/</summary>

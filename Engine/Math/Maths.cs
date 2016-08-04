@@ -1858,7 +1858,7 @@ namespace Engine
                 return angle;
             // The IEEERemainder method works better than the % modulus operator in this case, even if it is slower.
             //double value = IEEERemainder(angle, Tau);
-            // The active ingredient of the IEEERemainder method is extracted here.
+            // The active ingredient of the IEEERemainder method is extracted here for performance reasons.
             double value = angle - (Tau * Math.Round(angle * InverseTau));
             return (value <= -PI) ? value + Tau : value - Tau;
         }

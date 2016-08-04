@@ -1,8 +1,8 @@
 ﻿// <copyright file="Intersections.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -19,7 +19,7 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    /// A collection of methods for checking the interactions of objects.
     /// </summary>
     public static class Intersections
     {
@@ -30,6 +30,9 @@ namespace Engine.Geometry
         /// <param name="startAngle">The starting angle.</param>
         /// <param name="sweepAngle">The amount of angle to offset from the start angle.</param>
         /// <returns>A Boolean value indicating whether an angle is between two others.</returns>
+        /// <remarks>
+        /// http://www.xarg.org/2010/06/is-an-angle-between-two-other-angles/
+        /// </remarks>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -50,6 +53,29 @@ namespace Engine.Geometry
                 (s < e) ? a >= s && a <= e : a >= s || a <= e :
                 (s > e) ? a <= s && a >= e : a <= s || a >= e;
         }
+
+        /// <summary>
+        /// Check whether a vector lies between two other vectors.
+        /// </summary>
+        /// <param name="i0">The horizontal component of the vector to compare.</param>
+        /// <param name="j0">The vertical component of the vector to compare.</param>
+        /// <param name="i1">The start vector horizontal component.</param>
+        /// <param name="j1">The start vector vertical component.</param>
+        /// <param name="i2">The end vector horizontal component.</param>
+        /// <param name="j2">The end vector vertical component.</param>
+        /// <returns>A boolean value representing whether the reference vector is contained within the start and end vectors.</returns>
+        /// <remarks>
+        /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
+        /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
+        /// http://gamedev.stackexchange.com/questions/22392/what-is-a-good-way-to-determine-if-a-vector-is-between-two-other-vectors-in-2d
+        /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Contains(double i0, double j0, double i1, double j1, double i2, double j2)
+            => ((i1 * j0) - (j1 * i0)) * ((i1 * j2) - (j1 * i2)) >= 0
+            && ((i2 * j0) - (j2 * i0)) * ((i2 * j1) - (j2 * i1)) >= 0;
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -375,7 +401,7 @@ namespace Engine.Geometry
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
             Inclusion result = Inclusion.Outside;
 
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior. 
+            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
             if (points.Count < 3)
                 return Inclusion.Outside;
             Point2D curPoint = points[0];
@@ -502,6 +528,7 @@ namespace Engine.Geometry
             double dist = Sqrt(end.X * end.X + end.Y * end.Y);
             double theCos = end.X / dist;
             double theSin = end.Y / dist;
+
             foreach (Polygon poly in polygons.Polygons)
             {
                 for (int i = 0; i < poly.Points.Count; i++)
@@ -514,6 +541,7 @@ namespace Engine.Geometry
                     sY = poly.Points[i].Y - start.Y;
                     eX = poly.Points[j].X - start.X;
                     eY = poly.Points[j].Y - start.Y;
+
                     if (Abs(sX) < Epsilon && Abs(sY) < Epsilon
                         && Abs(eX - end.X) < Epsilon && Abs(eY - end.Y) < Epsilon
                         || Abs(eX) < Epsilon
@@ -527,6 +555,7 @@ namespace Engine.Geometry
                     rotSY = sY * theCos - sX * theSin;
                     rotEX = eX * theCos + eY * theSin;
                     rotEY = eY * theCos - eX * theSin;
+
                     if (rotSY < 0.0 && rotEY > 0.0
                     || rotEY < 0.0 && rotSY > 0.0)
                     {

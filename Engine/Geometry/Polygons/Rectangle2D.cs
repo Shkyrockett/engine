@@ -1,8 +1,8 @@
 ﻿// <copyright file="Rectangle2D.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -19,7 +19,7 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Serializable]
     [GraphicsObject]
@@ -30,12 +30,12 @@ namespace Engine.Geometry
         #region Static Implementations
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly Rectangle2D Empty = new Rectangle2D();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly Rectangle2D Unit = new Rectangle2D(0, 0, 1, 1);
 
@@ -44,22 +44,22 @@ namespace Engine.Geometry
         #region Private Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double x;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double y;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double width;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double height;
 
@@ -123,9 +123,8 @@ namespace Engine.Geometry
         /// <param name="height">The Height of the rectangle.</param>
         public Rectangle2D(double x, double y, double width, double height)
         {
-            if (width < 0 || height < 0)
-                throw new ArgumentException("Width and Height cannot be Negative.");
-
+            //if (width < 0 || height < 0)
+            //    throw new ArgumentException("Width and Height cannot be Negative.");
             this.x = x;
             this.y = y;
             this.width = width;
@@ -227,7 +226,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the Aspect ratio of the rectangle. 
+        /// Gets or sets the Aspect ratio of the rectangle.
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
@@ -317,7 +316,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -337,7 +336,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -357,7 +356,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -377,7 +376,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -397,7 +396,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -417,7 +416,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -437,7 +436,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -456,7 +455,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -475,7 +474,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(false)]
@@ -499,7 +498,7 @@ namespace Engine.Geometry
             => width > 0 && height > 0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlIgnore]
         [Browsable(true)]
@@ -607,7 +606,8 @@ namespace Engine.Geometry
         /// <param name="bottom"></param>
         /// <returns></returns>
         [Pure]
-        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom) => new Rectangle2D(left, top, right - left, bottom - top);
+        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom)
+            => new Rectangle2D(left, top, right - left, bottom - top);
 
         /// <summary>
         /// Creates a <see cref="Rectangle"/> from a center point and it's size.
@@ -616,7 +616,8 @@ namespace Engine.Geometry
         /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
         /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
         [Pure]
-        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size) => new Rectangle2D(center - size.Inflate(0.5d), size);
+        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
+            => new Rectangle2D(center - size.Inflate(0.5d), size);
 
         /// <summary>
         /// Creates a rectangle that represents the union between a and b.
@@ -759,7 +760,7 @@ namespace Engine.Geometry
             }
             else
             {
-                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)                    
+                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
                 double maxRight = Max(Right, rect.Right);
                 width = Max(maxRight - left, 0);
             }
@@ -859,7 +860,7 @@ namespace Engine.Geometry
         ///// <summary>
         ///// Updates rectangle to be the bounds of the original value transformed
         ///// by the matrix.
-        ///// The Empty Rectangle2D is not affected by this call.        
+        ///// The Empty Rectangle2D is not affected by this call.
         ///// </summary>
         ///// <param name="matrix"> Matrix </param>
         //public void Transform(Matrix2D matrix)
@@ -872,11 +873,12 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusion.Outside;
+        public override bool Contains(Point2D point)
+            => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
@@ -884,7 +886,8 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <returns></returns>
         [Pure]
-        public bool Contains(Rectangle2D rect) => Intersections.Contains(this, rect);
+        public bool Contains(Rectangle2D rect)
+            => Intersections.Contains(this, rect);
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.
@@ -892,13 +895,15 @@ namespace Engine.Geometry
         /// <param name="rect"></param>
         /// <returns></returns>
         [Pure]
-        public bool IntersectsWith(Rectangle2D rect) => Intersections.RectangleRectangle(this, rect);
+        public bool IntersectsWith(Rectangle2D rect)
+            => Intersections.RectangleRectangle(this, rect);
 
         /// <summary>
         /// Convert a rectangle to an array of it's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public List<Point2D> ToPoints() => new List<Point2D>
+        public List<Point2D> ToPoints()
+            => new List<Point2D>
             {
                 Location,
                 new Point2D(Right, Top),

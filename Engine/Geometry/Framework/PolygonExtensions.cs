@@ -1,8 +1,8 @@
 ﻿// <copyright file="PolygonExtensions.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -17,7 +17,7 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    /// Class housing extensions for the Polygon primitive.
     /// </summary>
     public static class PolygonExtensions
     {
@@ -41,24 +41,8 @@ namespace Engine.Geometry
         /// </remarks>
         public static Polyline ShortestPath(this PolygonSet polygons, Point2D start, Point2D end)
         {
-            // (larger than total solution dist could ever be)
-            double maxLength = double.MaxValue;
-
-            var pointList = new List<TestPoint2D>();
-            var solution = new List<Point2D>();
-
-            int pointCount;
-            int solutionNodes;
-
-            int treeCount;
-            int bestI = 0;
-            int bestJ;
-            double bestDist;
-            double newDist;
-
             //  Fail if either the start point or endpoint is outside the polygon set.
-            if (!polygons.Contains(start)
-            || !polygons.Contains(end))
+            if (!polygons.Contains(start) || !polygons.Contains(end))
             {
                 return null;
             }
@@ -67,36 +51,42 @@ namespace Engine.Geometry
             if (polygons.Contains(start, end))
                 return new Polyline(new List<Point2D> { start, end });
 
-            //  Build a point list that refers to the corners of the
-            //  polygons, as well as to the start point and endpoint.
-            pointList.Add(start);
-            pointCount = 1;
+            // (larger than total solution dist could ever be)
+            double maxLength = double.MaxValue;
+
+            var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>();
+
+            // Build a point list that refers to the corners of the
+            // polygons, as well as to the start point and endpoint.
+            pointList.Add((start.X, start.Y, 0d, 0));
+
             foreach (Polygon poly in polygons.Polygons)
             {
                 foreach (Point2D point in poly.Points)
-                    pointList.Add(point);
+                    pointList.Add((point.X, point.Y, 0d, 0));
             }
 
-            pointList.Add(end);
-            pointCount = pointList.Count;
+            pointList.Add((end.X, end.Y, 0d, 0));
 
-            //  Initialize the shortest-path tree to include just the start point.
-            treeCount = 1;
-            pointList[0].TotalDistance = 0d;
+            // Initialize the shortest-path tree to include just the start point.
+            int treeCount = 1;
+            int bestI = 0;
+            int bestJ = 0;
+            double bestDist;
+            double newDist;
 
-            //  Iteratively grow the shortest-path tree until it reaches the endpoint
-            //  -- or until it becomes unable to grow, in which case exit with failure.
-            bestJ = 0;
-            while (bestJ < pointCount - 1)
+            // Iteratively grow the shortest-path tree until it reaches the endpoint
+            // or until it becomes unable to grow, in which case exit with failure.
+            while (bestJ < pointList.Count - 1)
             {
                 bestDist = maxLength;
                 for (int ti = 0; ti < treeCount; ti++)
                 {
-                    for (int tj = treeCount; tj < pointCount; tj++)
+                    for (int tj = treeCount; tj < pointList.Count; tj++)
                     {
-                        if (polygons.Contains((Point2D)pointList[ti], (Point2D)pointList[tj]))
+                        if (polygons.Contains(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)))
                         {
-                            newDist = pointList[ti].TotalDistance + ((Point2D)pointList[ti]).Distance((Point2D)pointList[tj]);
+                            newDist = pointList[ti].TotalDistance + (new Point2D(pointList[ti].X, pointList[ti].Y)).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -108,38 +98,38 @@ namespace Engine.Geometry
                 }
 
                 if (Abs(bestDist - maxLength) < Epsilon)
-                    return null;   //  (no solution)
-                pointList[bestJ].Previous = bestI;
-                pointList[bestJ].TotalDistance = bestDist;
+                    return null; // (no solution)
 
                 // Swap
-                TestPoint2D temp = pointList[bestJ];
+                var temp = (pointList[bestJ].X, pointList[bestJ].Y, bestDist, bestI);
                 pointList[bestJ] = pointList[treeCount];
                 pointList[treeCount] = temp;
 
                 treeCount++;
             }
 
-            //  Load the solution arrays.
-            solution.Add(start);
-            solutionNodes = -1;
+            // Load the solution arrays.
+            var solution = new List<Point2D> { start };
+            int solutionNodes = -1;
             int i = treeCount - 1;
             while (i > 0)
             {
                 i = pointList[i].Previous;
                 solutionNodes++;
             }
+
             int j = solutionNodes - 1;
             i = treeCount - 1;
             while (j >= 0)
             {
                 i = pointList[i].Previous;
-                solution.Insert(1, (Point2D)pointList[i]);
+                solution.Insert(1, new Point2D(pointList[i].X, pointList[i].Y));
                 j--;
             }
+
             solution.Add(end);
 
-            //  Success.
+            // Success.
             return new Polyline(solution);
         }
 
@@ -297,13 +287,13 @@ namespace Engine.Geometry
             var triangle = new Triangle(
                 points[A], points[B], points[C]);
 
-            // Check the other points to see 
+            // Check the other points to see
             // if they lie in triangle A, B, C.
             for (int i = 0; i < points.Length; i++)
             {
                 if ((i != A) && (i != B) && (i != C) && triangle.Contains(points[i]))
                 {
-                    // This point is in the triangle 
+                    // This point is in the triangle
                     // do this is not an ear.
                     return false;
                 }
@@ -754,7 +744,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="edge"></param>
         /// <param name="test"></param>
@@ -773,7 +763,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="polygon"></param>
         /// <returns></returns>

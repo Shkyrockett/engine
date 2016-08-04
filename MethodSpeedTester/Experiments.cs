@@ -505,6 +505,40 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Area of the intersection of two circles
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.xarg.org/2016/07/calculate-the-intersection-area-of-two-circles/
+        /// </remarks>
+        public double Area(Circle A, Circle B)
+        {
+            var d = Sqrt(Pow(B.X - A.X, 2) + Pow(B.Y - A.Y, 2));
+            if (d < A.Radius + B.Radius)
+            {
+                var a = A.Radius * A.Radius;
+                var b = B.Radius * B.Radius;
+                var x = (a - b + d * d) / (2 * d);
+                var z = x * x;
+                var y = Sqrt(a - z);
+                if (d < Abs(B.Radius - A.Radius))
+                {
+                    return PI * Min(a, b);
+                }
+
+                return a * Asin(y / A.Radius) + b * Asin(y / B.Radius) - y * (x + Sqrt(z + b - a));
+            }
+
+            return 0;
+        }
+
+        #endregion
+
         #region Barycentric
 
         /// <summary>
@@ -517,7 +551,7 @@ namespace MethodSpeedTester
         /// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
         /// <returns>Cartesian coordinate of the specified point with respect to the axis being used.</returns>
         public static double Barycentric(float value1, double value2, double value3, double amount1, double amount2)
-            => value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
+                => value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
 
         #endregion
 
@@ -2860,8 +2894,8 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance3D_1(
-double x1, double y1, double z1,
-double x2, double y2, double z2) => Sqrt((x2 - x1) * (x2 - x1)
+    double x1, double y1, double z1,
+    double x2, double y2, double z2) => Sqrt((x2 - x1) * (x2 - x1)
     + (y2 - y1) * (y2 - y1)
     + (z2 - z1) * (z2 - z1));
 
@@ -2947,8 +2981,8 @@ double x2, double y2, double z2) => Sqrt((x2 - x1) * (x2 - x1)
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance2D_2(
-double x1, double y1,
-double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
+    double x1, double y1,
+    double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
     + (y2 - y1) * (y2 - y1));
 
         /// <summary>
@@ -3153,8 +3187,8 @@ double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct2Points2D_1(
-double x1, double y1,
-double x2, double y2) => ((x1 * x2) + (y1 * y2));
+    double x1, double y1,
+    double x2, double y2) => ((x1 * x2) + (y1 * y2));
 
         #endregion
 
@@ -3274,9 +3308,9 @@ double x2, double y2) => ((x1 * x2) + (y1 * y2));
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector2D_1(
-double x1, double y1,
-double x2, double y2,
-double x3, double y3) => ((x1 - x2) * (x3 - x2)
+    double x1, double y1,
+    double x2, double y2,
+    double x3, double y3) => ((x1 - x2) * (x3 - x2)
     + (y1 - y2) * (y3 - y2));
 
         /// <summary>
@@ -4720,7 +4754,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// <param name="radius1"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
-        private static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections(
+        public static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections(
             double cx0,
             double cy0,
             double radius0,
@@ -4782,6 +4816,45 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
                     return (1, intersection1, intersection2);
 
                 return (2, intersection1, intersection2);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.xarg.org/2016/07/calculate-the-intersection-points-of-two-circles/
+        /// </remarks>
+        public static (int, (double X, double Y), (double X, double Y)) ? CircleCircleIntersection(Circle A, Circle B)
+        {
+            var d = Sqrt(Pow(B.X - A.X, 2) + Pow(B.Y - A.Y, 2));
+
+            if (d <= A.Radius + B.Radius)
+            {
+                var x = (A.Radius * A.Radius - B.Radius * B.Radius + d * d) / (2 * d);
+                var y = Sqrt(A.Radius * A.Radius - x * x);
+
+                if (A.Radius < Abs(x))
+                {
+                    // No intersection, one circle is in the other
+                    return null;
+                }
+                else
+                {
+                    (double X, double Y) e1 = ((B.X - A.X) / d, (B.Y - A.Y) / d);
+                    (double X, double Y) e2 = (-e1.X, e1.Y);
+                    (double X, double Y) P1 = (A.X + x * e1.X + y * e2.Y, A.Y + x * e1.Y + y * e2.X);
+                    (double X, double Y) P2 = (A.X + x * e1.X - y * e2.Y, A.Y + x * e1.Y - y * e2.X);
+                    return (2, P1, P2);
+                }
+            }
+            else
+            {
+                // No Intersection, far outside
+                return null;
             }
         }
 
@@ -9429,10 +9502,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double t)
         {
             double mu2 = (1 - Sin(t * PI)) / 2;
-            return (
-                x1 * (1 - mu2) + x2 * mu2,
-                y1 * (1 - mu2) + y2 * mu2
-                );
+            return (x1 * (1 - mu2) + x2 * mu2, y1 * (1 - mu2) + y2 * mu2);
         }
 
         /// <summary>
@@ -9597,6 +9667,55 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         #region Shortest Path
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(ShortestPathTests))]
+        public static List<SpeedTester> ShortestPathTests()
+        {
+            var set = new PolygonSet(
+                new List<Polygon>(
+                    new List<Polygon> {
+                        new Polygon( // Boundary
+                            new List<Point2D> {
+                                new Point2D(10, 10),
+                                new Point2D(300, 10),
+                                new Point2D(300, 300),
+                                new Point2D(10, 300),
+                                // Cut out
+                                new Point2D(10, 200),
+                                new Point2D(200, 80),
+                                new Point2D(10, 150)
+                            }
+                        ),
+                        new Polygon( // First inner triangle
+                            new List<Point2D> {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30)
+                            }
+                        ),
+                        new Polygon( // Second inner triangle
+                            new List<Point2D> {
+                                new Point2D(250, 150),
+                                new Point2D(150, 150),
+                                new Point2D(250, 200)
+                            }
+                        )
+                    }
+                )
+            );
+            return new List<SpeedTester> {
+                new SpeedTester(() => ShortestPath0(set,new Point2D(20, 20), new Point2D(200, 200)),
+                $"{nameof(Experiments.ShortestPath0)}(set,new Point2D(20, 20), new Point2D(200, 200))"),
+                new SpeedTester(() => ShortestPath1(set,new Point2D(20, 20), new Point2D(200, 200)),
+                $"{nameof(Experiments.ShortestPath1)}(set,new Point2D(20, 20), new Point2D(200, 200))"),
+                new SpeedTester(() => ShortestPath2(set,new Point2D(20, 20), new Point2D(200, 200)),
+                $"{nameof(Experiments.ShortestPath2)}(set,new Point2D(20, 20), new Point2D(200, 200))"),
+           };
+        }
+
+        /// <summary>
         /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
         /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
         ///  to accommodate all the corners of your polygon set (although it is
@@ -9614,7 +9733,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </remarks>
-        public static Polyline ShortestPath(PolygonSet polygons, Point2D start, Point2D end)
+        public static Polyline ShortestPath0(PolygonSet polygons, Point2D start, Point2D end)
         {
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;// 9999999.0;
@@ -9735,7 +9854,7 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </remarks>
-        public static Polyline ShortestPathX(PolygonSet polygons, Point2D start, Point2D end)
+        public static Polyline ShortestPath1(PolygonSet polygons, Point2D start, Point2D end)
         {
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;
@@ -9842,25 +9961,172 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             return new Polyline(solution);
         }
 
+        /// <summary>
+        /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
+        /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
+        ///  to accommodate all the corners of your polygon set (although it is
+        /// unlikely that anywhere near that many elements will ever be needed).
+        /// Returns YES if the optimal solution was found, or NO if there is no solution.
+        /// If a solution was found, solutionX and solutionY will contain the coordinates
+        /// of the intermediate nodes of the path, in order.  (The start point and endpoint
+        /// are assumed, and will not be included in the solution.)
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="polygons"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Public-domain code by Darel Rex Finley, 2006.
+        /// http://alienryderflex.com/shortest_path/
+        /// </remarks>
+        public static Polyline ShortestPath2(PolygonSet polygons, Point2D start, Point2D end)
+        {
+            // Fail if either the start point or endpoint is outside the polygon set.
+            if (!polygons.Contains(start)
+            || !polygons.Contains(end))
+            {
+                return null;
+            }
+
+            // If there is a straight-line solution, return with it immediately.
+            if (polygons.Contains(start, end))
+                return new Polyline(new List<Point2D> { start, end });
+
+            // (larger than total solution dist could ever be)
+            double maxLength = double.MaxValue;
+
+            var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>();
+            var solution = new List<Point2D>();
+
+            int solutionNodes;
+
+            int treeCount;
+            int bestI = 0;
+            int bestJ;
+            double bestDist;
+            double newDist;
+
+            // Build a point list that refers to the corners of the
+            // polygons, as well as to the start point and endpoint.
+            pointList.Add((start.X, start.Y, 0, 0));
+            foreach (Polygon poly in polygons.Polygons)
+            {
+                foreach (Point2D point in poly.Points)
+                    pointList.Add((point.X, point.Y, 0, 0));
+            }
+
+            pointList.Add((end.X, end.Y, 0, 0));
+
+            // Initialize the shortest-path tree to include just the start point.
+            treeCount = 1;
+            //pointList[0].TotalDistance = 0d;
+
+            // Iteratively grow the shortest-path tree until it reaches the endpoint
+            // or until it becomes unable to grow, in which case exit with failure.
+            bestJ = 0;
+            while (bestJ < pointList.Count - 1)
+            {
+                bestDist = maxLength;
+                for (int ti = 0; ti < treeCount; ti++)
+                {
+                    for (int tj = treeCount; tj < pointList.Count; tj++)
+                    {
+                        if (polygons.Contains(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)))
+                        {
+                            newDist = pointList[ti].TotalDistance + (new Point2D(pointList[ti].X, pointList[ti].Y)).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
+                            if (newDist < bestDist)
+                            {
+                                bestDist = newDist;
+                                bestI = ti;
+                                bestJ = tj;
+                            }
+                        }
+                    }
+                }
+
+                if (bestDist == maxLength)
+                    return null; // (no solution)
+                pointList[bestJ] = (pointList[bestJ].X, pointList[bestJ].Y, bestDist, bestI);
+
+                // Swap
+                var temp = pointList[bestJ];
+                pointList[bestJ] = pointList[treeCount];
+                pointList[treeCount] = temp;
+
+                treeCount++;
+            }
+
+            // Load the solution arrays.
+            solution.Add(start);
+            solutionNodes = -1;
+            int i = treeCount - 1;
+            while (i > 0)
+            {
+                i = pointList[i].Previous;
+                solutionNodes++;
+            }
+
+            int j = solutionNodes - 1;
+            i = treeCount - 1;
+            while (j >= 0)
+            {
+                i = pointList[i].Previous;
+                solution.Insert(1, new Point2D(pointList[i].X, pointList[i].Y));
+                j--;
+            }
+
+            solution.Add(end);
+
+            // Success.
+            return new Polyline(solution);
+        }
+
         #endregion
 
         #region Swap two values
+
+        /// <summary>
+        /// Set of tests to run testing methods that swap values.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(SwapTests))]
+        public static List<SpeedTester> SwapTests()
+        {
+            double a = 0;
+            double b = 100;
+            return new List<SpeedTester> {
+                new SpeedTester(() => Swap(ref a,ref b),
+                $"{nameof(Experiments.Swap)}(ref a,ref b)"),
+           };
+        }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        public static void Swap<T>(ref T a, ref T b)
+        public static bool Swap<T>(ref T a, ref T b)
         {
             T swap = a;
             a = b;
             b = swap;
+            return true;
         }
 
         #endregion
 
         #region Triangulate a polygon
+
+        /// <summary>
+        /// Set of tests to run testing methods that get the triangles of a polygon.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(TriangulateTests))]
+        public static List<SpeedTester> TriangulateTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => Triangulate(new Polygon(new Point2D[] { new Point2D(0, 0), new Point2D(0, 1), new Point2D(1, 1), new Point2D(1, 0)})),
+                $"{nameof(Experiments.Triangulate)}(new Polygon(new Point2D[] {{ new Point2D(0, 0), new Point2D(0, 1), new Point2D(1, 1), new Point2D(1, 0)}}))"),
+           };
 
         /// <summary>
         /// Triangulate the polygon.
@@ -9906,6 +10172,17 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         #region Values are Close
 
         /// <summary>
+        /// Set of tests to run testing methods that determine whether values are close.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(ValuesAreCloseTests))]
+        public static List<SpeedTester> ValuesAreCloseTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => AreClose(0d, double.Epsilon),
+                $"{nameof(Experiments.AreClose)}({0d}, {double.Epsilon})"),
+           };
+
+        /// <summary>
         /// AreClose - Returns whether or not two doubles are "close".  That is, whether or
         /// not they are within epsilon of each other.  Note that this epsilon is proportional
         /// to the numbers themselves to that AreClose survives scalar multiplication.
@@ -9932,6 +10209,79 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
             double eps = (Abs(value1) + Abs(value2) + 10d) * epsilon;
             double delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
+        }
+
+        #endregion
+
+        #region Vector between Vectors
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate whether a vector is between two others.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(VectorBetweenTests))]
+        public static List<SpeedTester> VectorBetweenTests()
+        {
+            double a = 45d.ToRadians();
+            double b = 90d.ToRadians();
+            double c = 0d.ToRadians();
+            double i = Sin(a);
+            double j = Cos(a);
+            double i2 = Sin(b);
+            double j2 = Cos(b);
+            double i3 = Sin(c);
+            double j3 = Cos(c);
+
+            return new List<SpeedTester> {
+                new SpeedTester(() => VectorBetween0(i, j, i2, j2, i3, j3),
+                $"{nameof(Experiments.VectorBetween0)}({i}, {j}, {i2}, {j2}, {i3}, {j3})"),
+                new SpeedTester(() => VectorBetween1(i, j, i2, j2, i3, j3),
+                $"{nameof(Experiments.VectorBetween1)}({i}, {j}, {i2}, {j2}, {i3}, {j3})"),
+           };
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <param name="i3"></param>
+        /// <param name="j3"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
+        /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
+        /// http://gamedev.stackexchange.com/questions/22392/what-is-a-good-way-to-determine-if-a-vector-is-between-two-other-vectors-in-2d
+        /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
+        /// </remarks>
+        public static bool VectorBetween0(double i, double j, double i2, double j2, double i3, double j3)
+        {
+            return CrossProduct(i2, j2, i, j) * CrossProduct(i2, j2, i3, j3) >= 0
+                && CrossProduct(i3, j3, i, j) * CrossProduct(i3, j3, i2, j2) >= 0;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <param name="i3"></param>
+        /// <param name="j3"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
+        /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
+        /// http://gamedev.stackexchange.com/questions/22392/what-is-a-good-way-to-determine-if-a-vector-is-between-two-other-vectors-in-2d
+        /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
+        /// </remarks>
+        public static bool VectorBetween1(double i, double j, double i2, double j2, double i3, double j3)
+        {
+            return ((i2 * j) - (j2 * i)) * ((i2 * j3) - (j2 * i3)) >= 0
+                && ((i3 * j) - (j3 * i)) * ((i3 * j2) - (j3 * i2)) >= 0;
         }
 
         #endregion
@@ -10011,6 +10361,20 @@ double x3, double y3) => ((x1 - x2) * (x3 - x2)
         #endregion
 
         #region Wrap Point on Rectangle Bounds
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the wrapped position of a point in a rectangle.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(WrapPointToRectangleTests))]
+        public static List<SpeedTester> WrapPointToRectangleTests()
+        {
+            Point2D reff = new Point2D();
+            return new List<SpeedTester> {
+                new SpeedTester(() => WrapPointToRectangle(new Rectangle2D(0, 0, 20, 20),new Point2D(31, 21), ref reff),
+                $"{nameof(Experiments.WrapPointToRectangle)}(new Rectangle2D(0, 0, 20, 20),new Point2D(31, 21), ref reff)"),
+           };
+        }
 
         /// <summary>
         ///

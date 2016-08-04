@@ -1,7 +1,7 @@
 ﻿// <copyright file="FileObjectAttribute.cs">
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
+// <license>
 //      Licensed under the MIT License. See LICENSE file in the project root for full license information. 
 // </license>
 // <author>Shkyrockett</author>

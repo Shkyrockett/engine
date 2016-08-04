@@ -349,21 +349,21 @@ namespace Editor
             //var EllpticArcBoundsItem = new GraphicItem(EllpticArcBounds, styles[10]);
             //vectorMap.Add(EllpticArcBoundsItem);
 
-            double centerX = 200d;
-            double centerY = 200d;
-            double radius1 = 100d;
-            double radius2 = 200d;
+            //double centerX = 200d;
+            //double centerY = 200d;
+            //double radius1 = 100d;
+            //double radius2 = 200d;
 
-            double angle = -30d.ToRadians();
-            double startAngle = -60d.ToRadians();
-            double sweepAngle = -90d.ToRadians();
+            //double angle = -30d.ToRadians();
+            //double startAngle = -60d.ToRadians();
+            //double sweepAngle = -90d.ToRadians();
 
-            var parametricEllipse = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolaters.UnitPolarEllipse(x, y, w, h, a, t),
-                (x, y, w, h, a, px, py) => Intersections.EllipsePoint(x, y, w, h, a, px, py),
-                new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
-            var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
-            vectorMap.Add(parametricEllipseItem);
+            //var parametricEllipse = new ParametricDelegateCurve(
+            //    (x, y, w, h, a, t) => Interpolaters.UnitPolarEllipse(x, y, w, h, a, t),
+            //    (x, y, w, h, a, px, py) => Intersections.EllipsePoint(x, y, w, h, a, px, py),
+            //    new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
+            //var parametricEllipseItem = new GraphicItem(parametricEllipse, styles[3]);
+            //vectorMap.Add(parametricEllipseItem);
 
             //var parametricPointTester = new ParametricPointTester(
             //    (px, py) => Intersections.EllipsePoint(centerX, centerY, radius1, radius2, angle, px, py),
@@ -377,20 +377,20 @@ namespace Editor
             //var ellipseNodes = new Polygon(Boundings.EllipseExtremes(centerX, centerY, radius1, radius2, angle));
             //var ellipseNodesItem = new GraphicItem(ellipseNodes, styles[10]);
 
-            var ellipticArc = new EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
-            var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
+            //var ellipticArc = new EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            //var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
 
-            Rectangle2D ellpticArcBounds = Boundings.EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
-            var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, styles[10]);
+            //Rectangle2D ellpticArcBounds = Boundings.EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            //var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, styles[10]);
 
-            var angleLines = new Polyline(ellipticArc.StartPoint, ellipticArc.Center, ellipticArc.EndPoint);
-            var angleLinesItem = new GraphicItem(angleLines, styles[10]);
+            //var angleLines = new Polyline(ellipticArc.StartPoint, ellipticArc.Center, ellipticArc.EndPoint);
+            //var angleLinesItem = new GraphicItem(angleLines, styles[10]);
 
-            var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
-            var circularArcItem = new GraphicItem(circularArc, styles[3]);
+            //var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
+            //var circularArcItem = new GraphicItem(circularArc, styles[3]);
 
-            Rectangle2D circularArcBounds = Boundings.CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
-            var circularArcBoundsItem = new GraphicItem(circularArcBounds, styles[10]);
+            //Rectangle2D circularArcBounds = Boundings.CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
+            //var circularArcBoundsItem = new GraphicItem(circularArcBounds, styles[10]);
 
             //var testAngle = ellipticArc.AnglesOfExtremes;
             //testAngle.Sort();
@@ -398,12 +398,12 @@ namespace Editor
             //var angleVisualizer = new AngleVisualizerTester(centerX, centerY, (radius1 < radius2 ? radius2 : radius1), testAngle, startAngle + angle, sweepAngle);
             //var angleVisualizerItem = new GraphicItem(angleVisualizer, styles[3]);
 
-            vectorMap.Add(ellpticArcBoundsItem);
-            vectorMap.Add(circularArcBoundsItem);
-            vectorMap.Add(ellipticArcItem);
-            vectorMap.Add(circularArcItem);
+            //vectorMap.Add(ellpticArcBoundsItem);
+            //vectorMap.Add(circularArcBoundsItem);
+            //vectorMap.Add(ellipticArcItem);
+            //vectorMap.Add(circularArcItem);
             //vectorMap.Add(ellipseNodesItem);
-            vectorMap.Add(angleLinesItem);
+            //vectorMap.Add(angleLinesItem);
             //vectorMap.Add(angleVisualizerItem);
             //vectorMap.Add(parametricPointTesterItem);
 

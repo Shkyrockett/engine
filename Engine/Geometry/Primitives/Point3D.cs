@@ -11,7 +11,7 @@ using static Engine.Maths;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Serializable]
     [ComVisible(true)]
@@ -42,8 +42,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point3D()
             : this(0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
@@ -52,8 +51,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point3D(Point3D point)
             : this(point.X, point.Y, point.Z)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
@@ -62,8 +60,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public Point3D((double X, double Y, double Z) tuple)
             : this(tuple.Item1, tuple.Item2, tuple.Item3)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
@@ -194,8 +191,8 @@ namespace Engine.Geometry
         public static Point3D operator /(Point3D divisor, double dividend) => new Point3D(divisor.X / dividend, divisor.Y / dividend, divisor.Z / dividend);
 
         /// <summary>
-        /// Compares two <see cref="Point3D"/> objects. 
-        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/> 
+        /// Compares two <see cref="Point3D"/> objects.
+        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/>
         /// values of the two <see cref="Point3D"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
@@ -204,8 +201,8 @@ namespace Engine.Geometry
         public static bool operator ==(Point3D left, Point3D right) => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Point3D"/> objects. 
-        /// The result specifies whether the values of the <see cref="X"/> or <see cref="Y"/> 
+        /// Compares two <see cref="Point3D"/> objects.
+        /// The result specifies whether the values of the <see cref="X"/> or <see cref="Y"/>
         /// values of the two <see cref="Point3D"/> objects are unequal.
         /// </summary>
         /// <param name="left"></param>
@@ -224,7 +221,7 @@ namespace Engine.Geometry
         public static bool Compare(Point3D a, Point3D b) => Equals(a, b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -233,7 +230,7 @@ namespace Engine.Geometry
         public static bool Equals(Point3D a, Point3D b) => (a?.X == b?.X) & (a?.Y == b?.Y) & (a?.Z == b?.Z);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -241,7 +238,7 @@ namespace Engine.Geometry
         public override bool Equals(object obj) => obj is Point3D && Equals(this, obj as Point3D);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -288,7 +285,7 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [Pure]

@@ -1,8 +1,8 @@
 ﻿// <copyright file="Polyline.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license> 
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information. 
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Serializable]
     [GraphicsObject]
@@ -30,7 +30,7 @@ namespace Engine.Geometry
         #region Private Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<Point2D> points;
 
@@ -39,7 +39,7 @@ namespace Engine.Geometry
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Polyline()
             : this(new List<Point2D>())
@@ -47,7 +47,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="polygon"></param>
         public Polyline(Polygon polygon)
@@ -56,7 +56,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="polyline"></param>
         public Polyline(Polyline polyline)
@@ -65,7 +65,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="points"></param>
         public Polyline(params Point2D[] points)
@@ -74,7 +74,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="points"></param>
         public Polyline(IEnumerable<Point2D> points)
@@ -83,7 +83,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="polylines"></param>
         public Polyline(IEnumerable<Polyline> polylines)
@@ -98,7 +98,7 @@ namespace Engine.Geometry
         #region Indexers
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -120,7 +120,7 @@ namespace Engine.Geometry
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [XmlAttribute]
         public List<Point2D> Points
@@ -134,7 +134,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Pure]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -144,7 +144,7 @@ namespace Engine.Geometry
             => points.Zip(points.Skip(1), Primitives.Distance).Sum();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Pure]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -177,7 +177,7 @@ namespace Engine.Geometry
         #region Mutators
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         public void Add(Point2D point)
@@ -187,7 +187,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Reverse()
         {
@@ -200,7 +200,7 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
@@ -209,7 +209,7 @@ namespace Engine.Geometry
             => new Polyline(Points.ToArray());
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>

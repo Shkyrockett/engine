@@ -141,8 +141,8 @@ Combine Like Terms
 
 [operators.equal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Black}&space;=}
 [operators.notequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\neq
-[operators.lessthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;&lt;
-[operators.greaterthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;&gt;
+[operators.lessthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\<\
+[operators.greaterthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\>\
 [operators.lessthanequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\leq
 [operators.greaterthanequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\geq
 [operators.approximate.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\approx

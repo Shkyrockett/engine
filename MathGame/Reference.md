@@ -115,34 +115,34 @@ Combine Like Terms
 [justin kao mathurl.com]: http://mathurl.com/
 [troy henderson latex previewer]: http://www.tlhiv.org/ltxpreview/
 
-[2x^2+y+1=z]: http://latex.codecogs.com/svg.latex?2x^2&plus;y&plus;1=z
-[2x^2+y+1=z.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x^2&plus;y&plus;1=z
+[2x^2+y+1=z]: http://latex.codecogs.com/svg.latex?2x\^2&plus;y&plus;1=z
+[2x^2+y+1=z.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x\^2&plus;y&plus;1=z
 
-[2x^2+y+1=z.expressions]: http://latex.codecogs.com/svg.latex?{\\color{Red}&space;2x^2&plus;y&plus;1}={\\color{Red}&space;z}
-[2x^2+y+1=z.expressions.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Red}&space;2x^2&plus;y&plus;1}={\\color{Red}&space;z}
+[2x^2+y+1=z.expressions]: http://latex.codecogs.com/svg.latex?{\\color{Red}&space;2x\^2&plus;y&plus;1}={\\color{Red}&space;z}
+[2x^2+y+1=z.expressions.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Red}&space;2x\^2&plus;y&plus;1}={\\color{Red}&space;z}
 
-[2x^2+y+1=z.terms]: http://latex.codecogs.com/svg.latex?{\\color{Red}&space;2x^2}&plus;{\\color{Red}&space;y}&plus;{\\color{Red}&space;1}={\\color{Red}&space;z}
-[2x^2+y+1=z.terms.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Red}&space;2x^2}&plus;{\\color{Red}&space;y}&plus;{\\color{Red}&space;1}={\\color{Red}&space;z}
+[2x^2+y+1=z.terms]: http://latex.codecogs.com/svg.latex?{\\color{Red}&space;2x\^2}&plus;{\\color{Red}&space;y}&plus;{\\color{Red}&space;1}={\\color{Red}&space;z}
+[2x^2+y+1=z.terms.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Red}&space;2x\^2}&plus;{\\color{Red}&space;y}&plus;{\\color{Red}&space;1}={\\color{Red}&space;z}
 
-[2x^2+y+1=z.constants]: http://latex.codecogs.com/svg.latex?2x^2&plus;y&plus;{\\color{Red}&space;1}=z
-[2x^2+y+1=z.constants.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x^2&plus;y&plus;{\\color{Red}&space;1}=z
+[2x^2+y+1=z.constants]: http://latex.codecogs.com/svg.latex?2x\^2&plus;y&plus;{\\color{Red}&space;1}=z
+[2x^2+y+1=z.constants.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x\^2&plus;y&plus;{\\color{Red}&space;1}=z
 
-[2x^2+y+1=z.variables]: http://latex.codecogs.com/svg.latex?2{\\color{Red}&space;x}^2&plus;{\\color{Red}&space;y}&plus;1={\\color{Red}&space;z}
-[2x^2+y+1=z.variables.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2{\\color{Red}&space;x}^2&plus;{\\color{Red}&space;y}&plus;1={\\color{Red}&space;z}
+[2x^2+y+1=z.variables]: http://latex.codecogs.com/svg.latex?2{\\color{Red}&space;x}\^2&plus;{\\color{Red}&space;y}&plus;1={\\color{Red}&space;z}
+[2x^2+y+1=z.variables.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2{\\color{Red}&space;x}\^2&plus;{\\color{Red}&space;y}&plus;1={\\color{Red}&space;z}
 
-[2x^2+y+1=z.operators]: http://latex.codecogs.com/svg.latex?2{\\color{Red}&space;\\times&space;}x^2{\\color{Red}&space;&plus;}y{\\color{Red}&space;&plus;}1{\\color{Red}&space;=}z
-[2x^2+y+1=z.operators.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2{\\color{Red}&space;\\times&space;}x^2{\\color{Red}&space;&plus;}y{\\color{Red}&space;&plus;}1{\\color{Red}&space;=}z
+[2x^2+y+1=z.operators]: http://latex.codecogs.com/svg.latex?2{\\color{Red}&space;\\times&space;}x\^2{\\color{Red}&space;&plus;}y{\\color{Red}&space;&plus;}1{\\color{Red}&space;=}z
+[2x^2+y+1=z.operators.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2{\\color{Red}&space;\\times&space;}x\^2{\\color{Red}&space;&plus;}y{\\color{Red}&space;&plus;}1{\\color{Red}&space;=}z
 
-[2x^2+y+1=z.coefficient]: http://latex.codecogs.com/svg.latex?{\\color{Red}&space;2}x^2&plus;y&plus;1=z
-[2x^2+y+1=z.coefficient.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Red}&space;2}x^2&plus;y&plus;1=z
+[2x^2+y+1=z.coefficient]: http://latex.codecogs.com/svg.latex?{\\color{Red}&space;2}x\^2&plus;y&plus;1=z
+[2x^2+y+1=z.coefficient.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Red}&space;2}x\^2&plus;y&plus;1=z
 
-[2x^2+y+1=z.exponent]: http://latex.codecogs.com/svg.latex?2x^{\\color{Red}&space;2}&plus;y&plus;1=z
-[2x^2+y+1=z.exponent.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x^{\\color{Red}&space;2}&plus;y&plus;1=z
+[2x^2+y+1=z.exponent]: http://latex.codecogs.com/svg.latex?2x\^{\\color{Red}&space;2}&plus;y&plus;1=z
+[2x^2+y+1=z.exponent.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x\^{\\color{Red}&space;2}&plus;y&plus;1=z
 
 [operators.equal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Black}&space;=}
 [operators.notequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\neq
-[operators.lessthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;<
-[operators.greaterthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;>
+[operators.lessthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\<
+[operators.greaterthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\>
 [operators.lessthanequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\leq
 [operators.greaterthanequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\geq
 [operators.approximate.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\approx
@@ -152,10 +152,10 @@ Combine Like Terms
 [operators.multiply.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\times
 [operators.divide.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\div
 
-[operators.exponent.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;x^2
+[operators.exponent.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;x\^2
 [operators.root.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sqrt[y]{x}
 
-[operators.log.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\log_{10}&space;x
+[operators.log.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\log\_{10}&space;x
 
 [operators.sin.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\sin&space;x
 [operators.cos.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\cos&space;x
@@ -164,9 +164,9 @@ Combine Like Terms
 [operators.sec.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\sec&space;x
 [operators.cot.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\cot&space;x
 
-[operators.invsin.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sin^{-1}&space;x
-[operators.invcos.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\cos^{-1}&space;x
-[operators.invtan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\tan^{-1}&space;x
+[operators.invsin.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sin\^{-1}&space;x
+[operators.invcos.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\cos\^{-1}&space;x
+[operators.invtan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\tan\^{-1}&space;x
 [operators.invcsc.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\textrm{arccsc}&space;x
 [operators.invsec.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\textrm{arcsec}&space;x
 [operators.invcot.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\textrm{arccot}&space;x

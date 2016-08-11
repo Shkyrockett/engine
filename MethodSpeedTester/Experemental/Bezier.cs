@@ -102,8 +102,7 @@ namespace Engine.Geometry
         /// <param name="p3"></param>
         public Bezier(Point3D p1, Point3D p2, Point3D p3)
             : this(new List<Point3D> { p1, p2, p3 })
-        {
-        }
+        { }
 
         /// <summary>
         ///
@@ -114,8 +113,7 @@ namespace Engine.Geometry
         /// <param name="p4"></param>
         public Bezier(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
             : this(new List<Point3D> { p1, p2, p3, p4 })
-        {
-        }
+        { }
 
         #endregion
 
@@ -256,7 +254,7 @@ namespace Engine.Geometry
                 y: B.Y + (B.Y - C.Y) / s,
                 z: B.Z + (B.Z - C.Z) / s
             );
-            return new (Point3D, Point3D, Point3D)(A, B, C);
+            return new(Point3D, Point3D, Point3D)(A, B, C);
         }
 
         /// <summary>
@@ -702,7 +700,7 @@ namespace Engine.Geometry
                 _p = new List<Point3D>();
                 for (i = 0, l = p.Count - 1; i < l; i++)
                 {
-                    pt = Interpolaters.Linear(p[i], p[i + 1],t);
+                    pt = Interpolaters.Linear(p[i], p[i + 1], t);
                     q[idx++] = pt;
                     _p.Add(pt);
                 }
@@ -817,7 +815,7 @@ namespace Engine.Geometry
         {
             Point3D c = get(t);
             Point3D n = normal(t);
-            return new (Point3D, Point3D, Point3D)(
+            return new(Point3D, Point3D, Point3D)(
                 c,//c:
                 n,//n:
                 new Point3D(c.X + n.X * d,//x:
@@ -1218,7 +1216,7 @@ namespace Engine.Geometry
         {
             List<Bezier> reduced = reduce();
             // "simple" curves cannot intersect with their direct
-            // neighbour, so for each segment X we check whether
+            // neighbor, so for each segment X we check whether
             // it intersects [0:x-2][x+2:last].
             int i, len = reduced.Count - 2;
             var results = new List<Pair>();

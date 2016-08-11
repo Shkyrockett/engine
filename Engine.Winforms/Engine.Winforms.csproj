@@ -97,6 +97,7 @@
     <Compile Include="Controls\Geometry\AngleControl.Designer.cs">
       <DependentUpon>AngleControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Geometry\Primitives\Extensions\WinformsTypeExtensions.cs" />
     <Compile Include="PropertyGridEditors\AngleEditor.cs" />
     <Compile Include="Controls\CanvasPanel.cs">
       <SubType>Component</SubType>
@@ -176,6 +177,7 @@
       <DependentUpon>TreeViewToolStripItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Renderer.cs" />
+    <Compile Include="Text.cs" />
     <Compile Include="WinformsReflection.cs" />
   </ItemGroup>
   <ItemGroup>

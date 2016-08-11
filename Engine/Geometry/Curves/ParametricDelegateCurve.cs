@@ -220,7 +220,7 @@ namespace Engine.Geometry
         /// <param name="format"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        internal override string ConvertToString(string format, IFormatProvider provider)
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
                 return nameof(ParametricDelegateCurve);

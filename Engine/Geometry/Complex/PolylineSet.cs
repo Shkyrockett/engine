@@ -134,7 +134,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal override string ConvertToString(string format, IFormatProvider provider)
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(PolylineSet);
             char sep = Tokenizer.GetNumericListSeparator(provider);

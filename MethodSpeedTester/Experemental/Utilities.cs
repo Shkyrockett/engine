@@ -1023,8 +1023,7 @@ namespace Engine.Geometry
         /// <param name="max"></param>
         public RangeX(int min, int max)
             : this(min, min + (max - min) / 2d, max, min - max)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -1122,8 +1121,7 @@ namespace Engine.Geometry
         /// </summary>
         public Pair()
             : this(null, null)
-        {
-        }
+        { }
 
         /// <summary>
         /// 

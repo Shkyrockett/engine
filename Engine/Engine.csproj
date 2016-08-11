@@ -95,7 +95,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Experemental\KeyFrameAnimation.cs" />
     <Compile Include="Geometry\Complex\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
@@ -223,21 +222,13 @@
     <Compile Include="Physics\Units\WeightDensity.cs" />
     <Compile Include="Physics\Units\Energy\Work.cs" />
     <Compile Include="Tweening\Ease.cs" />
-    <Compile Include="Experemental\Bezier.cs" />
     <Compile Include="Geometry\Complex\PolylineSet.cs" />
     <Compile Include="Geometry\Curves\CircularSegment.cs" />
     <Compile Include="Geometry\Curves\ParametricDelegateCurve.cs" />
-    <Compile Include="Experemental\TimeLine.cs" />
-    <Compile Include="Experemental\ConicSections.cs" />
-    <Compile Include="Experemental\CardinalSpline.cs" />
-    <Compile Include="Experemental\Hyperbola.cs" />
-    <Compile Include="Experemental\Parabola.cs" />
-    <Compile Include="Experemental\Heart.cs" />
     <Compile Include="Geometry\Primitives\Curve.cs" />
     <Compile Include="Geometry\Primitives\Converters\Size2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Converters\Point2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Converters\Rectangle2DConverter.cs" />
-    <Compile Include="Experemental\PolyBezier.cs" />
     <Compile Include="Geometry\Primitives\Point3D.cs" />
     <Compile Include="Math\Interpolaters.cs" />
     <Compile Include="Math\Localization\Enums\Countries.cs" />
@@ -258,16 +249,12 @@
     <Compile Include="Geometry\Primitives\Size2D.cs" />
     <Compile Include="Geometry\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Framework\BoundingRectPolygon.cs" />
-    <Compile Include="Experemental\NGonStar.cs" />
-    <Compile Include="Experemental\EllipticStar.cs" />
-    <Compile Include="Experemental\NonIntStar.cs" />
     <Compile Include="Geometry\Framework\PolygonExtensions.cs" />
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Physics\Units\Angle\Radians.cs" />
     <Compile Include="Physics\Units\Angle\Degrees.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IShape.cs" />
     <Compile Include="Geometry\Primitives\Converters\Vector2DConverter.cs" />
-    <Compile Include="Experemental\Voronoi.cs" />
     <Compile Include="Imaging\BitmapExtensions.cs" />
     <Compile Include="Imaging\ColorSpace\ACYMK.cs" />
     <Compile Include="Imaging\ColorSpace\AHSI.cs" />
@@ -289,10 +276,7 @@
     <Compile Include="File\Codecs\Palettes\Enums\CorelColorModel.cs" />
     <Compile Include="File\FileEx.cs" />
     <Compile Include="File\FileItem.cs" />
-    <Compile Include="Experemental\CubicBSpline.cs" />
-    <Compile Include="Experemental\Cosine.cs" />
     <Compile Include="Geometry\Curves\CubicBezier.cs" />
-    <Compile Include="Experemental\CatmullRom.cs" />
     <Compile Include="Geometry\Curves\Butterfly.cs" />
     <Compile Include="Geometry\Curves\Bow.cs" />
     <Compile Include="Geometry\Curves\Bicorn.cs" />
@@ -301,15 +285,9 @@
     <Compile Include="Geometry\Curves\Circle.cs" />
     <Compile Include="Geometry\Curves\Ellipse.cs" />
     <Compile Include="Geometry\Curves\EllipticalArc.cs" />
-    <Compile Include="Experemental\Hermite.cs" />
     <Compile Include="Geometry\Complex\Oval.cs" />
-    <Compile Include="Experemental\PolyPath.cs" />
     <Compile Include="Geometry\Framework\PathExtensions.cs" />
-    <Compile Include="Experemental\Star.cs" />
-    <Compile Include="Experemental\Gear.cs" />
     <Compile Include="Geometry\Complex\PolygonSet.cs" />
-    <Compile Include="Experemental\Line.cs" />
-    <Compile Include="Experemental\DoubleLine.cs" />
     <Compile Include="Geometry\Complex\SquareFCellGrid.cs" />
     <Compile Include="Geometry\Complex\SquareCellGrid.cs" />
     <Compile Include="Geometry\Complex\RectangleFCellGrid.cs" />
@@ -317,15 +295,10 @@
     <Compile Include="Math\Maths.cs" />
     <Compile Include="Geometry\Primitives\Matrix2D.cs" />
     <Compile Include="Geometry\Enums\MatrixTypes.cs" />
-    <Compile Include="Experemental\Intersection.cs" />
     <Compile Include="Geometry\Enums\IntersectionType.cs" />
     <Compile Include="Geometry\Primitives\Converters\Matrix2DConverter.cs" />
-    <Compile Include="Experemental\Ray.cs" />
     <Compile Include="Geometry\Curves\QuadraticBezier.cs" />
-    <Compile Include="Experemental\RoundRectangle.cs" />
     <Compile Include="Geometry\Enums\RectangleCorners.cs" />
-    <Compile Include="Experemental\RoundedRectangle2.cs" />
-    <Compile Include="Experemental\Sine.cs" />
     <Compile Include="File\Codecs\Palettes\Palette.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteFileExtensions.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteMimeFormats.cs" />
@@ -339,7 +312,6 @@
     <Compile Include="Imaging\Styles\ShapeStyle.cs" />
     <Compile Include="Imaging\Styles\MasterStyle.cs" />
     <Compile Include="Imaging\Styles\IStyle.cs" />
-    <Compile Include="Imaging\WinformsTypeExtensions.cs" />
     <Compile Include="Metadata\GraphicsObjectAttribute.cs" />
     <Compile Include="Metadata\FileObjectAttribute.cs" />
     <Compile Include="Objects\Actor.cs" />
@@ -389,7 +361,6 @@
     <Compile Include="Tools\DrawShape.cs" />
     <Compile Include="Tools\Straightener.cs" />
     <Compile Include="Tools\Tool.cs" />
-    <Compile Include="Experemental\Utilities.cs" />
     <Compile Include="Tools\ToolStack.cs" />
     <Compile Include="Tweening\GlideInfo.cs" />
     <Compile Include="Tweening\Enums\LerpBehavior.cs" />

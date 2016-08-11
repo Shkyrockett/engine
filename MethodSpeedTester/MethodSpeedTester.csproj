@@ -51,6 +51,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experemental\Bezier.cs" />
+    <Compile Include="Experemental\CardinalSpline.cs" />
+    <Compile Include="Experemental\CatmullRom.cs" />
+    <Compile Include="Experemental\ConicSections.cs" />
+    <Compile Include="Experemental\Cosine.cs" />
+    <Compile Include="Experemental\CubicBSpline.cs" />
+    <Compile Include="Experemental\DoubleLine.cs" />
+    <Compile Include="Experemental\EllipticStar.cs" />
+    <Compile Include="Experemental\Gear.cs" />
+    <Compile Include="Experemental\Heart.cs" />
+    <Compile Include="Experemental\Hermite.cs" />
+    <Compile Include="Experemental\Hyperbola.cs" />
+    <Compile Include="Experemental\Intersection.cs" />
+    <Compile Include="Experemental\KeyFrameAnimation.cs" />
+    <Compile Include="Experemental\Line.cs" />
+    <Compile Include="Experemental\NGonStar.cs" />
+    <Compile Include="Experemental\NonIntStar.cs" />
+    <Compile Include="Experemental\Parabola.cs" />
+    <Compile Include="Experemental\PolyBezier.cs" />
+    <Compile Include="Experemental\PolyPath.cs" />
+    <Compile Include="Experemental\Ray.cs" />
+    <Compile Include="Experemental\RoundedRectangle2.cs" />
+    <Compile Include="Experemental\RoundRectangle.cs" />
+    <Compile Include="Experemental\Sine.cs" />
+    <Compile Include="Experemental\Star.cs" />
+    <Compile Include="Experemental\TimeLine.cs" />
+    <Compile Include="Experemental\Utilities.cs" />
+    <Compile Include="Experemental\Voronoi.cs" />
     <Compile Include="RectanglePointTester.cs">
       <SubType>Form</SubType>
     </Compile>

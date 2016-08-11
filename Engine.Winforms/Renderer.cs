@@ -9,6 +9,7 @@
 
 using Engine.Geometry;
 using Engine.Objects;
+using Engine.Winforms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,6 +43,9 @@ namespace Engine.Imaging
                     break;
                 case AngleVisualizerTester t:
                     (item?.Item as AngleVisualizerTester).Render(g, item, style as ShapeStyle);
+                    break;
+                case Text2D t:
+                    (item?.Item as Text2D).Render(g, item, style as ShapeStyle);
                     break;
                 case LineSegment t: // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
                     (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
@@ -169,6 +173,19 @@ namespace Engine.Imaging
                 g.DrawString("a" + num, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), Brushes.Black, shape.TestPoint(angle).ToPointF());
                 num++;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
+        public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            g.DrawString(shape.Text, shape.Font, itemStyle.ForeBrush, shape.Bounds.ToRectangleF());
         }
 
         /// <summary>

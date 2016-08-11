@@ -181,7 +181,7 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal override string ConvertToString(string format, IFormatProvider provider)
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(PolygonSet);
             char sep = Tokenizer.GetNumericListSeparator(provider);

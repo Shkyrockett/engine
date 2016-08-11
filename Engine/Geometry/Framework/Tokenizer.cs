@@ -10,7 +10,7 @@ namespace Engine.Geometry
     /// <remarks>
     /// Based on TokenizerHelper from: http://referencesource.microsoft.com
     /// </remarks>
-    internal class Tokenizer
+    public class Tokenizer
     {
         /// <summary>
         /// 

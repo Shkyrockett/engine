@@ -241,6 +241,10 @@ namespace Editor
             //vectorMap.Add(polylineSetItem);
             vectorMap.Add(pathPolylineItem);
 
+            var text = new Text2D("Test Text.", this.Font, new Point2D(100, 100));
+            var textItem = new GraphicItem(text, styles[1]);
+            vectorMap.Add(textItem);
+
             //Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
             //GraphicItem arcItem = new GraphicItem(arc, styles[8]);
             //vectorMap.Add(arcItem);

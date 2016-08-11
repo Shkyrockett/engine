@@ -939,7 +939,7 @@ namespace Engine.Geometry
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        internal override string ConvertToString(string format, IFormatProvider provider)
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
                 return nameof(Rectangle2D);

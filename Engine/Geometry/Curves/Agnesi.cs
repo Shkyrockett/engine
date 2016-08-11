@@ -156,7 +156,7 @@ namespace Engine.Geometry
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        internal override string ConvertToString(string format, IFormatProvider provider)
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Agnesi);
             char sep = Tokenizer.GetNumericListSeparator(provider);

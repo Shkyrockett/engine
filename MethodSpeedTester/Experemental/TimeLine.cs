@@ -12,9 +12,8 @@ namespace Engine
         /// 
         /// </summary>
         public TimeLine()
-            :this(new Dictionary<double, List<(Delegate, List<object>)>>())
-        {
-        }
+            : this(new Dictionary<double, List<(Delegate, List<object>)>>())
+        { }
 
         /// <summary>
         /// 

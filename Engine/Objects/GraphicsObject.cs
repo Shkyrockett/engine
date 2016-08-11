@@ -182,7 +182,7 @@ namespace Engine.Objects
         /// A string representation of this object.
         /// </returns>
         [Pure]
-        internal virtual string ConvertToString(string format, IFormatProvider provider)
+        public virtual string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
                 return nameof(GraphicsObject);

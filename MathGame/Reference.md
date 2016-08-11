@@ -140,7 +140,7 @@ Combine Like Terms
 [2x^2+y+1=z.exponent.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x\^{\\color{Red}&space;2}&plus;y&plus;1=z
 
 [operators.equal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Black}&space;=}
-[operators.notequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\neq
+[operators.notequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\neq
 [operators.lessthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\<\
 [operators.greaterthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\>\
 [operators.lessthanequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\leq

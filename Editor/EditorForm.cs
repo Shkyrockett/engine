@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using static System.Math;
 using static Engine.Maths;
+using Engine.MathNotation;
 
 namespace Editor
 {
@@ -244,6 +245,8 @@ namespace Editor
             var text = new Text2D("Test Text.", this.Font, new Point2D(100, 100));
             var textItem = new GraphicItem(text, styles[1]);
             vectorMap.Add(textItem);
+
+            var term = new Term(new Point2D(200,200),)
 
             //Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
             //GraphicItem arcItem = new GraphicItem(arc, styles[8]);

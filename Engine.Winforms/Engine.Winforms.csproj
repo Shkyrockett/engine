@@ -176,8 +176,11 @@
     <Compile Include="Controls\ToolStrip\TreeViewToolStripItem.Designer.cs">
       <DependentUpon>TreeViewToolStripItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Renderer.cs" />
-    <Compile Include="Text.cs" />
+    <Compile Include="Render\Renderer.Geometry.cs" />
+    <Compile Include="Render\Renderer.Tools.cs" />
+    <Compile Include="Render\Renderer.cs" />
+    <Compile Include="Render\Renderer.MathNotation.cs" />
+    <Compile Include="Geometry\Text.cs" />
     <Compile Include="WinformsReflection.cs" />
   </ItemGroup>
   <ItemGroup>

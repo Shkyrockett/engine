@@ -12,11 +12,6 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        private Font font;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private bool disposed = false;
 
         /// <summary>
@@ -24,16 +19,14 @@ namespace Engine.Imaging
         /// </summary>
         public TextStyle()
             : this(Pens.Transparent, Pens.Transparent, null)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         public TextStyle(Brush foreBrush, Brush backBrush, Font font)
             : this(new Pen(foreBrush), new Pen(backBrush), null)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -45,7 +38,7 @@ namespace Engine.Imaging
         {
             BackPen = backPen;
             ForePen = forePen;
-            this.font = font;
+            Font = font;
         }
 
         /// <summary>
@@ -70,6 +63,7 @@ namespace Engine.Imaging
                 // Free any other managed objects here.
                 ForePen.Dispose();
                 BackPen.Dispose();
+                Font.Dispose();
             }
 
             // Free any unmanaged objects here.
@@ -83,6 +77,11 @@ namespace Engine.Imaging
         {
             Dispose(false);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Font Font { get; set; }
 
         /// <summary>
         /// 

@@ -13,7 +13,7 @@ Expressions are the sets of terms on both sides of the equals operator in an equ
 
 ### Term
 
-Terms are the parts of an expression separated by addition or subtraction operators. The terms below are higlighted in red:
+Terms are the parts of an expression separated by addition or subtraction operators. The terms below are highlighted in red:
 
 ![][2x^2+y+1=z.terms]
 
@@ -23,11 +23,23 @@ Number terms, where the numbers are on their own, are called constants. The cons
 
 ![][2x^2+y+1=z.constants]
 
+### Coefficient
+
+A coefficient is the number used to multiply a variable. The coefficient is highlighted below in red:
+
+![][2x^2+y+1=z.coefficient]
+
 ### Variable
 
 Variables are placeholder characters or text that stand in for a value or statement. The variables below are highlighted in red: 
 
 ![][2x^2+y+1=z.variables]
+
+### Exponent
+
+Exponents tell how many times a number or variable should be multiplied.
+
+![][2x^2+y+1=z.exponent]
 
 ### Operator
 
@@ -66,24 +78,12 @@ Below are tables of common operators.
 |---|---|---|
 |  |  |  |
 
-### Coefficient
-
-A coefficient is the number used to multiply a variable. The coefficient is highlighted below in red:
-
-![][2x^2+y+1=z.coefficient]
-
-### Exponent
-
-Exponents tell how many times a number or variable should be multiplied.
-
-![][2x^2+y+1=z.exponent]
-
 ### Functions
 
 | Symbol | Name | Operation |
 |---|---|---|
 | ![][operators.exponent.inline] | Exponent | Indicates how many times the multiplication should be used. |
-| ![][operators.root.inline] | Root or Radical | An inverse of the exponent, in finding the zeros of a number. |
+| ![][operators.root.inline] | Root, Radix, or Radical | An inverse of the exponent, in finding the zeros of a number. |
 | ![][operators.log.inline] | Logarithm | An inverse of an exponential. Indicates how many of a number needs to be multiplied to get another. |
 
 ##### Trigonometric Functions
@@ -102,12 +102,20 @@ Exponents tell how many times a number or variable should be multiplied.
 
 Distribute
 
+Sort Variables
+
 Factor
 
 Combine Like Terms
 
+Reciprocal
+
 ## References:
 [CodeCogs latex equation editor][codecogs latex equation editor] used to render the equations.  
+
+[Unicode Entity Codes for Math](http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html)
+
+
 
 [codecogs latex equation editor]: http://www.codecogs.com/latex/eqneditor.php
 [sciweavers free online latex equation editor]: http://www.sciweavers.org/free-online-latex-equation-editor

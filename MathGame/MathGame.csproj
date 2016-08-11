@@ -51,29 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Framework\Fraction.cs" />
-    <Compile Include="Framework\Brackets.cs" />
-    <Compile Include="Framework\Expression.cs" />
-    <Compile Include="Framework\Equation.cs" />
-    <Compile Include="Framework\Exponent.cs" />
-    <Compile Include="Framework\Coefficient.cs" />
-    <Compile Include="Framework\Constant.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Framework\Operator.cs" />
-    <Compile Include="Framework\Function.cs" />
-    <Compile Include="Framework\Logarithm.cs" />
-    <Compile Include="Framework\Matrix.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Framework\Radical.cs" />
-    <Compile Include="Framework\Variable.cs" />
-    <Compile Include="Framework\Term.cs" />
-    <Compile Include="Framework\Subscript.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -106,6 +91,7 @@
       <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,98 +1,18 @@
-﻿// <copyright file="Renderer.cs" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
-// </copyright>
-// <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
-// </license>
-// <author id="shkyrockett">Shkyrockett</author>
-// <summary></summary>
-
-using Engine.Geometry;
+﻿using Engine.Geometry;
+using Engine.Imaging;
 using Engine.Objects;
-using Engine.Winforms;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using static System.Math;
 
-namespace Engine.Imaging
+namespace Engine.Winforms
 {
     /// <summary>
-    ///
+    /// 
     /// </summary>
-    public static class Renderer
+    public static partial class Renderer
     {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        public static void Render(GraphicItem item, Graphics g, IStyle style = null)
-        {
-            //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
-
-            switch (item?.Item)
-            {
-                case ParametricDelegateCurve t:
-                    (item?.Item as ParametricDelegateCurve).Render(g, item, style as ShapeStyle);
-                    break;
-                case ParametricPointTester t:
-                    (item?.Item as ParametricPointTester).Render(g, item, style as ShapeStyle);
-                    break;
-                case AngleVisualizerTester t:
-                    (item?.Item as AngleVisualizerTester).Render(g, item, style as ShapeStyle);
-                    break;
-                case Text2D t:
-                    (item?.Item as Text2D).Render(g, item, style as ShapeStyle);
-                    break;
-                case LineSegment t: // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
-                    (item?.Item as LineSegment).Render(g, item, style as ShapeStyle);
-                    break;
-                case Polyline t:
-                    (item?.Item as Polyline).Render(g, item, style as ShapeStyle);
-                    break;
-                case PolylineSet t:
-                    (item?.Item as PolylineSet).Render(g, item, style as ShapeStyle);
-                    break;
-                case Polygon t:
-                    (item?.Item as Polygon).Render(g, item, style as ShapeStyle);
-                    break;
-                case PolygonSet t:
-                    (item?.Item as PolygonSet).Render(g, item, style as ShapeStyle);
-                    break;
-                case Oval t:
-                    (item?.Item as Oval).Render(g, item, style as ShapeStyle);
-                    break;
-                case Rectangle2D t:
-                    (item?.Item as Rectangle2D).Render(g, item, style as ShapeStyle);
-                    break;
-                case CircularArc t:
-                    (item?.Item as CircularArc).Render(g, item, style as ShapeStyle);
-                    break;
-                case EllipticalArc t:
-                    (item?.Item as EllipticalArc).Render(g, item, style as ShapeStyle);
-                    break;
-                case Circle t:
-                    (item?.Item as Circle).Render(g, item, style as ShapeStyle);
-                    break;
-                case Ellipse t:
-                    (item?.Item as Ellipse).Render(g, item, style as ShapeStyle);
-                    break;
-                case CubicBezier t:
-                    (item?.Item as CubicBezier).Render(g, item, style as ShapeStyle);
-                    break;
-                case QuadraticBezier t:
-                    (item?.Item as QuadraticBezier).Render(g, item, style as ShapeStyle);
-                    break;
-                case null:
-                    throw new NullReferenceException($"{nameof(item)} is null.");
-                default:
-                    throw new InvalidCastException($"Unknown {nameof(item)}.");
-            }
-        }
-
         /// <summary>
         ///
         /// </summary>
@@ -106,86 +26,6 @@ namespace Engine.Imaging
             List<Point2D> points = item?.InterpolatePoints();
             g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
             g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        public static void Render(this ParametricPointTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            float pointRadius = 1;
-
-            (List<Point2D>, List<Point2D>, List<Point2D>) results = shape.Interactions();
-
-            Pen pointpen = Pens.Magenta;
-            foreach (var point in results.Item1)
-            {
-                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
-                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
-            }
-
-            pointpen = Pens.Lime;
-            foreach (var point in results.Item2)
-            {
-                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
-                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
-            }
-
-            pointpen = Pens.Red;
-            foreach (var point in results.Item3)
-            {
-                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
-                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        public static void Render(this AngleVisualizerTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-
-            Brush backBrush = new SolidBrush(Color.FromArgb(128, Color.MediumPurple));
-            Pen forePen = new Pen(Color.FromArgb(128, Color.Purple));
-
-            g.FillPie(backBrush, shape.Bounds.ToRectangle(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
-            g.DrawPie(forePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
-
-            int num = 1;
-
-            Pen tickBrush = Pens.Red;
-            foreach (var angle in shape.TestAngles)
-            {
-                if (shape.InSweep(angle))
-                    tickBrush = Pens.Lime;
-                else
-                    tickBrush = Pens.Red;
-                g.DrawLine(tickBrush, shape.Location.ToPointF(), shape.TestPoint(angle).ToPointF());
-                g.DrawString("a" + num, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), Brushes.Black, shape.TestPoint(angle).ToPointF());
-                num++;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            g.DrawString(shape.Text, shape.Font, itemStyle.ForeBrush, shape.Bounds.ToRectangleF());
         }
 
         /// <summary>

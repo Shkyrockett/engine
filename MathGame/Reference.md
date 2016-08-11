@@ -139,7 +139,7 @@ Combine Like Terms
 [2x^2+y+1=z.exponent]: http://latex.codecogs.com/svg.latex?2x\^{\\color{Red}&space;2}&plus;y&plus;1=z
 [2x^2+y+1=z.exponent.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;2x\^{\\color{Red}&space;2}&plus;y&plus;1=z
 
-[operators.equal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Black}&space;=}
+[operators.equal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;{\\color{Black}&space;\=&space;}
 [operators.notequal.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\neq
 [operators.lessthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\<\
 [operators.greaterthan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\>\
@@ -150,19 +150,19 @@ Combine Like Terms
 [operators.add.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;&plus;
 [operators.subtract.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;-
 [operators.multiply.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\times
-[operators.divide.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\div
+[operators.divide.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\div
 
 [operators.exponent.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;x\^2
 [operators.root.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sqrt[y]{x}
 
 [operators.log.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\log\_{10}&space;x
 
-[operators.sin.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\sin&space;x
-[operators.cos.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\cos&space;x
-[operators.tan.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\tan&space;x
-[operators.csc.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\csc&space;x
-[operators.sec.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\sec&space;x
-[operators.cot.inline]: http://latex.codecogs.com/svg.latex?\inline&space;\\cot&space;x
+[operators.sin.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sin&space;x
+[operators.cos.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\cos&space;x
+[operators.tan.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\tan&space;x
+[operators.csc.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\csc&space;x
+[operators.sec.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sec&space;x
+[operators.cot.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\cot&space;x
 
 [operators.invsin.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sin\^{-1}&space;x
 [operators.invcos.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\cos\^{-1}&space;x

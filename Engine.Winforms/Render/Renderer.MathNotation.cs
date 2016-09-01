@@ -1,10 +1,9 @@
-﻿using Engine.Imaging;
-using Engine.MathNotation;
+﻿using Engine.MathNotation;
 using Engine.Objects;
 using System.Drawing;
 using static System.Math;
 
-namespace Engine.Winforms
+namespace Engine.Imaging
 {
     /// <summary>
     /// 

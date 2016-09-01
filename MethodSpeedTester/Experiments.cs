@@ -631,7 +631,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Boundary of Rotated Elliptic Arc
+        #region Boundary of Rotated Elliptical Arc
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of three 2D points.
@@ -7208,7 +7208,7 @@ namespace MethodSpeedTester
         {
             (double X, double Y) last = points[0];
             double dist = 0;
-            foreach ((double X, double Y) cur in points.Skip(1))
+            foreach (var cur in points.Skip(1))
             {
                 dist += Distance2D_0(last.Item1, last.Item2, cur.Item1, cur.Item2);
                 last = cur;
@@ -9618,6 +9618,39 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Split RGB
+
+        /// <summary>
+        /// http://xbeat.net/vbspeed/c_SplitRGB.htm
+        /// by www.Abstractvb.com, Date: 3/9/2001 9:26:43 PM, 20010922
+        /// </summary>
+        /// <param name="lColor"></param>
+        /// <param name="lRed"></param>
+        /// <param name="lGreen"></param>
+        /// <param name="lBlue"></param>
+        public (int lRed, int lGreen, int lBlue) SplitRGB01(int lColor)
+        {
+            lColor = lColor & 0xFFFFFF;
+            int lRed = lColor % 0x100;
+            lColor = lColor / 0x100;
+            int lGreen = lColor % 0x100;
+            lColor = lColor / 0x100;
+            int lBlue = lColor % 0x100;
+            return (lRed, lGreen, lBlue);
+        }
+
+        /// <summary>
+        /// http://xbeat.net/vbspeed/c_SplitRGB.htm
+        /// by Donald, donald@xbeat.net, 20010922
+        /// </summary>
+        /// <param name="lColor"></param>
+        public (int lRed, int lGreen, int lBlue) SplitRGB02(int lColor)
+            => (lColor & 0xFF,
+            (lColor & 0xFF00) / 0x100,
+            (lColor & 0xFF0000) / 0x10000);
+
+        #endregion
+
         #region Squared Distance Between Two 2D Points
 
         /// <summary>
@@ -10257,10 +10290,8 @@ namespace MethodSpeedTester
         /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
         /// </remarks>
         public static bool VectorBetween0(double i, double j, double i2, double j2, double i3, double j3)
-        {
-            return CrossProduct(i2, j2, i, j) * CrossProduct(i2, j2, i3, j3) >= 0
-                && CrossProduct(i3, j3, i, j) * CrossProduct(i3, j3, i2, j2) >= 0;
-        }
+            => CrossProduct(i2, j2, i, j) * CrossProduct(i2, j2, i3, j3) >= 0
+            && CrossProduct(i3, j3, i, j) * CrossProduct(i3, j3, i2, j2) >= 0;
 
         /// <summary>
         ///
@@ -10279,10 +10310,8 @@ namespace MethodSpeedTester
         /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
         /// </remarks>
         public static bool VectorBetween1(double i, double j, double i2, double j2, double i3, double j3)
-        {
-            return ((i2 * j) - (j2 * i)) * ((i2 * j3) - (j2 * i3)) >= 0
-                && ((i3 * j) - (j3 * i)) * ((i3 * j2) - (j3 * i2)) >= 0;
-        }
+            => ((i2 * j) - (j2 * i)) * ((i2 * j3) - (j2 * i3)) >= 0
+            && ((i3 * j) - (j3 * i)) * ((i3 * j2) - (j3 * i2)) >= 0;
 
         #endregion
 

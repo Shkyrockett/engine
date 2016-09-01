@@ -18,7 +18,6 @@ namespace Engine.Winforms
         /// 
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="font"></param>
         /// <param name="location"></param>
         public Text2D(string text, Point2D location)
             : this(text, Control.DefaultFont, location, new Size2D(int.MaxValue, int.MaxValue))

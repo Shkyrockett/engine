@@ -107,6 +107,7 @@
     <Compile Include="Math\Notation\Enums\EquationOperators.cs" />
     <Compile Include="Math\Notation\Enums\GroupTypes.cs" />
     <Compile Include="Math\Notation\Equation.cs" />
+    <Compile Include="Math\Notation\MathBox.cs" />
     <Compile Include="Math\Notation\Expression.cs" />
     <Compile Include="Math\Notation\Fraction.cs" />
     <Compile Include="Math\Notation\Function.cs" />

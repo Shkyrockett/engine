@@ -12,7 +12,6 @@ using Engine.File.Palettes;
 using Engine.Geometry;
 using Engine.Imaging;
 using Engine.Objects;
-using Engine.Physics;
 using Engine.Tools;
 using Engine.Tweening;
 using Engine.Winforms;
@@ -22,9 +21,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Windows.Forms;
-using static System.Math;
-using static Engine.Maths;
-using Engine.MathNotation;
 
 namespace Editor
 {
@@ -245,8 +241,6 @@ namespace Editor
             var text = new Text2D("Test Text.", this.Font, new Point2D(100, 100));
             var textItem = new GraphicItem(text, styles[1]);
             vectorMap.Add(textItem);
-
-            var term = new Term(new Point2D(200,200),)
 
             //Arc arc = new Arc(new Point2D(100, 100), 100, 60d.ToRadians(), 380d.ToRadians());
             //GraphicItem arcItem = new GraphicItem(arc, styles[8]);

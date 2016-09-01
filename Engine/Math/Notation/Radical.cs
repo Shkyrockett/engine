@@ -1,6 +1,4 @@
-﻿using Engine.Geometry;
-
-namespace Engine.MathNotation
+﻿namespace Engine.MathNotation
 {
     /// <summary>
     /// 

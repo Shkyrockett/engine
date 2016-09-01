@@ -43,7 +43,7 @@ namespace Engine.Imaging
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case Text2D t:
-                    t.Render(g, item, style as TextStyle);
+                    t.Render(g, item, style as ShapeStyle);
                     break;
                 case Coefficient t:
                     t.Render(g, item, style as TextStyle);
@@ -113,9 +113,9 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="item"></param>
         /// <param name="style"></param>
-        public static void Render(this Text2D shape, Graphics g, GraphicItem item, TextStyle style = null)
+        public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            var itemStyle = style ?? (TextStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             g.DrawString(shape.Text, shape.Font, itemStyle.ForeBrush, shape.Bounds.ToRectangleF());
         }
     }

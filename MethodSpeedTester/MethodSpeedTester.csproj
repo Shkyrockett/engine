@@ -143,15 +143,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Reports\Distance.md" />
+    <None Include="Reports\Distance2D.md" />
     <None Include="Reports\LineIntersectionBool.md" />
     <None Include="Reports\LineIntersectionPoint.md" />
+    <None Include="Reports\Template.md" />
+    <None Include="Reports\WrapAngle.md" />
     <None Include="Reports\Modulus.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Engine.Winforms\Engine.Winforms.csproj">
+      <Project>{c6593aae-28d2-494b-9765-b548aa24c8ca}</Project>
+      <Name>Engine.Winforms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
       <Project>{5ea0c702-64d5-4da1-a716-a345d936f4d8}</Project>
       <Name>Engine</Name>

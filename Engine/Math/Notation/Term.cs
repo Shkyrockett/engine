@@ -13,6 +13,13 @@ namespace Engine.MathNotation
         /// <summary>
         /// 
         /// </summary>
+        public Term()
+            : this(new Coefficient(), new List<Variable>())
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="coefficient"></param>
         /// <param name="variables"></param>
         public Term(Coefficient coefficient, List<Variable> variables)

@@ -333,8 +333,12 @@ namespace Engine.Geometry
             }
         }
 
-        // Helper to get the numeric list separator for a given IFormatProvider.
-        // Separator is a comma [,] if the decimal separator is not a comma, or a semicolon [;] otherwise.
+        /// <summary>
+        /// Helper to get the numeric list separator for a given IFormatProvider.
+        /// Separator is a comma [,] if the decimal separator is not a comma, or a semicolon [;] otherwise.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <returns></returns>
         public static char GetNumericListSeparator(IFormatProvider provider)
         {
             char numericSeparator = ',';

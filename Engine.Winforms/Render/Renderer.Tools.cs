@@ -1,10 +1,9 @@
 ﻿using Engine.Geometry;
-using Engine.Imaging;
 using Engine.Objects;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace Engine.Winforms
+namespace Engine.Imaging
 {
     /// <summary>
     /// 

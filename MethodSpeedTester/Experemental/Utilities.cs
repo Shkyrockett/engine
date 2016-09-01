@@ -8,7 +8,6 @@
 
 #pragma warning disable RCS1060 // Declare each type in separate file.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Engine.Maths;

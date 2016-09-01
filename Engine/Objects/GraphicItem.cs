@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Engine.Objects
 {
     /// <summary>
-    ///
+    /// Represents an object that can be displayed on screen.
     /// </summary>
     public class GraphicItem
     {
@@ -60,7 +60,7 @@ namespace Engine.Objects
         public string Name { get; set; }
 
         /// <summary>
-        ///
+        /// The item that gets displayed on screen.
         /// </summary>
         [XmlElement]
         [Browsable(true)]
@@ -101,7 +101,7 @@ namespace Engine.Objects
             => (double)CachingProperty(() => Item?.Perimeter);
 
         /// <summary>
-        ///
+        /// Gets the bounding rectangle of the graphical object.
         /// </summary>
         [XmlIgnore]
         [DisplayName(nameof(Bounds))]
@@ -109,7 +109,7 @@ namespace Engine.Objects
         [Description("The bounding box of the item.")]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Item?.Bounds);
+            => CachingProperty(() => Item?.Bounds) as Rectangle2D;
 
         // ToDo: Need to update point list when the nodes are moved.
         /// <summary>

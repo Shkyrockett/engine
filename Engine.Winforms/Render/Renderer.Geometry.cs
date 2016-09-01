@@ -1,12 +1,11 @@
 ﻿using Engine.Geometry;
-using Engine.Imaging;
 using Engine.Objects;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using static System.Math;
 
-namespace Engine.Winforms
+namespace Engine.Imaging
 {
     /// <summary>
     /// 

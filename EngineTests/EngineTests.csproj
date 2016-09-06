@@ -66,6 +66,10 @@
     <Compile Include="Geometry\Framework\IntersectionExtentionTests.cs" />
     <Compile Include="Engine\MathExtensionsTests.cs" />
     <Compile Include="Engine\MathsTests.cs" />
+    <Compile Include="Math\AreasTests.cs" />
+    <Compile Include="Math\BoundingsTests.cs" />
+    <Compile Include="Math\IntersectionsTests.cs" />
+    <Compile Include="Math\PerimetersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest.cs" />
   </ItemGroup>

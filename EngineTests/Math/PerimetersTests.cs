@@ -12,36 +12,42 @@ namespace Engine.Geometry.Tests
     public class PerimetersTests
     {
         [TestMethod()]
+        [Ignore]
         public void ArcLengthTest()
         {
             throw new NotImplementedException();
         }
 
         [TestMethod()]
+        [Ignore]
         public void CircleCircumferenceTest()
         {
             throw new NotImplementedException();
         }
 
         [TestMethod()]
+        [Ignore]
         public void CubicBezierArcLengthTest()
         {
             throw new NotImplementedException();
         }
 
         [TestMethod()]
+        [Ignore]
         public void EllipsePerimeterTest()
         {
             throw new NotImplementedException();
         }
 
         [TestMethod()]
+        [Ignore]
         public void QuadraticBezierArcLengthByIntegralTest()
         {
             throw new NotImplementedException();
         }
 
         [TestMethod()]
+        [Ignore]
         public void PolygonPerimeterTest()
         {
             throw new NotImplementedException();

@@ -30,7 +30,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Arc(double r, double sweepAngle)
-            => (r * r * 0.5d) * (sweepAngle - Sin(sweepAngle));
+            => Abs((r * r * 0.5d) * (sweepAngle - Sin(sweepAngle)));
 
         /// <summary>
         /// 

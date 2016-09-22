@@ -128,9 +128,7 @@ namespace Engine.Geometry.Tests
         [Ignore]
         public void QuadraticBezierInterpolatePointsTest()
         {
-#pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();
-#pragma warning restore RCS1079 // Throwing of new NotImplementedException.
         }
     }
 }

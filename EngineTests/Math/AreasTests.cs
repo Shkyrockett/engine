@@ -18,7 +18,116 @@ namespace Engine.Geometry.Tests
         /// <summary>
         /// 
         /// </summary>
+        private static List<(string description, List<Point2D> polygon)> polygons = new List<(string, List<Point2D>)>();
+
+        /// <summary>
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [ClassInitialize]
+        public static void ClassInit(TestContext context)
+        {
+            polygons.Add(new(string, List<Point2D>)("Square", new List<Point2D> {
+                new Point2D(25, 25),
+                new Point2D(100, 25),
+                new Point2D(100, 100),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("Top Left Triangle", new List<Point2D> {
+                new Point2D(25, 25),
+                new Point2D(100, 25),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("Bottom Right Triangle", new List<Point2D> {
+                new Point2D(100, 100),
+                new Point2D(100, 25),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("Right Reversed Bow-tie", new List<Point2D> {
+                new Point2D(25, 25),
+                new Point2D(100, 100),
+                new Point2D(100, 25),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("Left Reversed Bow-tie", new List<Point2D> {
+                new Point2D(100, 25),
+                new Point2D(100, 100),
+                new Point2D(25, 25),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("C Shape", new List<Point2D> {
+                new Point2D(25, 25),
+                new Point2D(100, 25),
+                new Point2D(100, 50),
+                new Point2D(50, 50),
+                new Point2D(50, 75),
+                new Point2D(100, 75),
+                new Point2D(100, 100),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("n Shape", new List<Point2D> {
+                new Point2D(25, 25),
+                new Point2D(100, 25),
+                new Point2D(100, 100),
+                new Point2D(75, 100),
+                new Point2D(75, 50),
+                new Point2D(50, 50),
+                new Point2D(50, 100),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("C Bow-tie hole Shape", new List<Point2D> {
+                new Point2D(25, 25),
+                new Point2D(100, 25),
+                new Point2D(100, 50),
+                new Point2D(50, 75),
+                new Point2D(50, 50),
+                new Point2D(100, 75),
+                new Point2D(100, 100),
+                new Point2D(25, 100) }));
+            polygons.Add(new(string, List<Point2D>)("n Bow-tie hole Shape", new List<Point2D> {
+                new Point2D(25, 25),
+                new Point2D(100, 25),
+                new Point2D(100, 100),
+                new Point2D(75, 100),
+                new Point2D(50, 50),
+                new Point2D(75, 50),
+                new Point2D(50, 100),
+                new Point2D(25, 100) }));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+            //MessageBox.Show("TestMethodInit");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestCleanup]
+        public void Cleanup()
+        {
+            //MessageBox.Show("TestMethodCleanup");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            //MessageBox.Show("ClassCleanup");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "AreasTests")]
         public void ArcTest()
         {
             double radiusLimit = 1;
@@ -74,6 +183,9 @@ namespace Engine.Geometry.Tests
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "AreasTests")]
         public void CircleTest()
         {
             // The maximum radius to test.
@@ -103,6 +215,9 @@ namespace Engine.Geometry.Tests
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "AreasTests")]
         public void EllipseTest()
         {
             // The maximum height to test.
@@ -138,6 +253,9 @@ namespace Engine.Geometry.Tests
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "AreasTests")]
         public void RectangleTest()
         {
             // The maximum width to test.
@@ -173,6 +291,9 @@ namespace Engine.Geometry.Tests
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "AreasTests")]
         public void SquareTest()
         {
             // The maximum width to test.
@@ -202,16 +323,45 @@ namespace Engine.Geometry.Tests
         /// 
         /// </summary>
         [TestMethod()]
-        [Ignore]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "AreasTests")]
+        //[Ignore]
         public void PolygonTest()
         {
-            throw new NotImplementedException();
+            // A listing of expected results for specific polygons.
+            var results = new List<double>
+            {
+                5625,
+                2812.5,
+                2812.5,
+                // ToDo: Find fix!
+                0, // What!?
+                0, // What!?
+                4375,
+                4375,
+                5625,
+                5625,
+            };
+
+            // Run tests for each polygon.
+            for (int i = 0; i < results.Count; i++)
+            {
+                // Retrieve the area of the polygon, provided a chain of points. 
+                var area = Areas.Polygon(polygons[i].polygon);
+
+                // Check for a correct result.
+                Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "AreasTests")]
         [Ignore]
         public void SignedPolygonTest()
         {

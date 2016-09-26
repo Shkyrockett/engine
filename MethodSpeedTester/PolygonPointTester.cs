@@ -12,8 +12,8 @@ namespace MethodSpeedTester
     {
         private List<PointF> points;
         private List<PointF> polygon;
-        private List<(string, List<PointF>)> polygons = new List<(string, List<PointF>)>();
-        private (List<double>, List<double>)? PatrickMullenValues;
+        private List<(string description, List<PointF> points)> polygons = new List<(string, List<PointF>)>();
+        private (List<double>, List<double>) ? PatrickMullenValues;
 
         public PolygonPointTester()
         {
@@ -24,30 +24,30 @@ namespace MethodSpeedTester
         {
             points = GenerateGrid(25, 25, 125, 125, 5, 5);
 
-            polygons.Add(new (string, List<PointF>)("Square", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("Square", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("Top Left Triangle", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("Top Left Triangle", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("Bottom Right Triangle", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("Bottom Right Triangle", new List<PointF> {
                 new PointF(100, 100),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("Right Reversed Bow-tie", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("Right Reversed Bow-tie", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 100),
                 new PointF(100, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("Left Reversed Bow-tie", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("Left Reversed Bow-tie", new List<PointF> {
                 new PointF(100, 25),
                 new PointF(100, 100),
                 new PointF(25, 25),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("C Shape", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("C Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 50),
@@ -56,7 +56,7 @@ namespace MethodSpeedTester
                 new PointF(100, 75),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("n Shape", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("n Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
@@ -65,7 +65,7 @@ namespace MethodSpeedTester
                 new PointF(50, 50),
                 new PointF(50, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("C Bow-tie hole Shape", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("C Bow-tie hole Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 50),
@@ -74,7 +74,7 @@ namespace MethodSpeedTester
                 new PointF(100, 75),
                 new PointF(100, 100),
                 new PointF(25, 100) }));
-            polygons.Add(new (string, List<PointF>)("n Bow-tie hole Shape", new List<PointF> {
+            polygons.Add(new(string, List<PointF>)("n Bow-tie hole Shape", new List<PointF> {
                 new PointF(25, 25),
                 new PointF(100, 25),
                 new PointF(100, 100),
@@ -84,18 +84,18 @@ namespace MethodSpeedTester
                 new PointF(50, 100),
                 new PointF(25, 100) }));
 
-            polygon = polygons[0].Item2;
+            polygon = polygons[0].points;
             PatrickMullenValues = Experiments.PrecalcPointInPolygonPatrickMullenValues(polygon);
 
             comboBox1.DataSource = polygons;
-            comboBox1.ValueMember = "Item1";
+            //comboBox1.ValueMember = "Item1";
             comboBox1.SelectedIndex = 0;
         }
 
         public static void DrawPolys(Graphics g, Font font,
             List<PointF> polygon,
             List<PointF> points,
-            Func<List<PointF>, PointF, bool> method,
+            Func<List<PointF>, PointF, Inclusion> method,
             string text)
         {
             PointF[] poly = polygon.ToArray();
@@ -106,7 +106,7 @@ namespace MethodSpeedTester
                 DrawHitPoint(g, point, method.Invoke(polygon, point));
         }
 
-        public static void DrawHitPoint(Graphics g, PointF point, bool hit)
+        public static void DrawHitPoint(Graphics g, PointF point, Inclusion hit)
         {
             float pointRadius = 1;
             Pen pointpen = hit ? Pens.Lime : Pens.Red;
@@ -190,84 +190,84 @@ namespace MethodSpeedTester
         private void pictureBox9_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonNathanMercer,
+                (s, p) => Experiments.PointInPolygonNathanMercer(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonNathanMercer));
         }
 
         private void pictureBox10_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonPatrickMullen(s, p, PatrickMullenValues?.Item1, PatrickMullenValues?.Item2),
+                (s, p) => Experiments.PointInPolygonPatrickMullen(s, p, PatrickMullenValues?.Item1, PatrickMullenValues?.Item2) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonPatrickMullen));
         }
 
         private void pictureBox12_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonRodStephens,
+                (s, p) => Experiments.PointInPolygonRodStephens(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonRodStephens));
         }
 
         private void pictureBox11_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonSaeedAmiri,
+                (s, p) => Experiments.PointInPolygonSaeedAmiri(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonSaeedAmiri));
         }
 
         private void pictureBox13_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonJerryKnauss,
+                (s, p) => Experiments.PointInPolygonJerryKnauss(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonJerryKnauss));
         }
 
         private void pictureBox14_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonJerryKnauss2,
+                (s, p) => Experiments.PointInPolygonJerryKnauss2(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonJerryKnauss2));
         }
 
         private void pictureBox15_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonPaulBourke,
+                (s, p) => Experiments.PointInPolygonPaulBourke(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonPaulBourke));
         }
 
         private void pictureBox19_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonWRandolphFranklin,
+                (s, p) => Experiments.PointInPolygonWRandolphFranklin(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonWRandolphFranklin));
         }
 
         private void pictureBox20_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonPhilippeReverdy,
+                (s, p) => Experiments.PointInPolygonPhilippeReverdy(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonPhilippeReverdy));
         }
 
         private void pictureBox18_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonBobStein,
+                (s, p) => Experiments.PointInPolygonBobStein(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonBobStein));
         }
 
         private void pictureBox16_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonHormannAgathos(s, p) != Inclusion.Outside,
+                Experiments.PointInPolygonHormannAgathos,
                 nameof(Experiments.PointInPolygonHormannAgathos));
         }
 
         private void pictureBox17_Paint(object sender, PaintEventArgs e)
         {
             DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonHormannAgathosX(s, p) != Inclusion.Outside,
+                (s, p) => Experiments.PointInPolygonHormannAgathosX(s, p),
                 nameof(Experiments.PointInPolygonHormannAgathosX));
         }
     }

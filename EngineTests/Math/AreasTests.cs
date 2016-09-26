@@ -362,10 +362,32 @@ namespace Engine.Geometry.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "AreasTests")]
-        [Ignore]
         public void SignedPolygonTest()
         {
-            throw new NotImplementedException();
+            // A listing of expected results for specific polygons.
+            var results = new List<double>
+            {
+                -5625,
+                -2812.5,
+                2812.5,
+                // ToDo: Find fix!
+                0, // What!?
+                0, // What!?
+                -4375,
+                -4375,
+                -5625,
+                -5625,
+            };
+
+            // Run tests for each polygon.
+            for (int i = 0; i < results.Count; i++)
+            {
+                // Retrieve the area of the polygon, provided a chain of points. 
+                var area = Areas.SignedPolygon(polygons[i].polygon);
+
+                // Check for a correct result.
+                Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);
+            }
         }
     }
 }

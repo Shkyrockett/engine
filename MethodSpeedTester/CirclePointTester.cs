@@ -1,4 +1,13 @@
-﻿using Engine.Geometry;
+﻿// <copyright file="CirclePointTester.cs" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using Engine.Geometry;
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
@@ -8,18 +17,40 @@ using System.Windows.Forms;
 
 namespace MethodSpeedTester
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class CirclePointTester
         : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private List<PointF> points;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private Circle circle;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private List<(string, Circle)> circles = new List<(string, Circle)>();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public CirclePointTester()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PolygonPointTester_Load(object sender, EventArgs e)
         {
             points = GenerateGrid(25, 25, 130, 130, 5, 5);
@@ -35,6 +66,15 @@ namespace MethodSpeedTester
             comboBox1.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="font"></param>
+        /// <param name="circle"></param>
+        /// <param name="points"></param>
+        /// <param name="method"></param>
+        /// <param name="text"></param>
         public static void DrawCircles(Graphics g, Font font,
             Circle circle,
             List<PointF> points,
@@ -48,6 +88,12 @@ namespace MethodSpeedTester
                 DrawHitPoint(g, point, method.Invoke(circle, point));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="point"></param>
+        /// <param name="hit"></param>
         public static void DrawHitPoint(Graphics g, PointF point, Inclusion hit)
         {
             float pointRadius = 1;
@@ -66,6 +112,16 @@ namespace MethodSpeedTester
             g.DrawLine(pointpen, new PointF(point.X - pointRadius, point.Y), new PointF(point.X + pointRadius, point.Y));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minX"></param>
+        /// <param name="minY"></param>
+        /// <param name="maxX"></param>
+        /// <param name="maxY"></param>
+        /// <param name="stepX"></param>
+        /// <param name="stepY"></param>
+        /// <returns></returns>
         public static List<PointF> GenerateGrid(int minX, int minY, int maxX, int maxY, int stepX, int stepY)
         {
             int width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
@@ -76,12 +132,22 @@ namespace MethodSpeedTester
                 select new PointF(minX + (x * stepX), minY + (y * stepY)));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             circle = (((string, Circle))comboBox1.SelectedItem).Item2;
             Invalidate(true);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
@@ -89,6 +155,11 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircle));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox2_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
@@ -96,6 +167,11 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleInline));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox3_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
@@ -103,6 +179,11 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCirclePhilcolbourn));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox4_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
@@ -110,6 +191,11 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleNPhilcolbourn));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox5_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
@@ -117,6 +203,11 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleWilliamMorrison));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox6_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
@@ -124,58 +215,128 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleX));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox7_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox8_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox9_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox10_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox12_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox11_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox13_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox14_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox15_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox19_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox20_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox18_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox16_Paint(object sender, PaintEventArgs e)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox17_Paint(object sender, PaintEventArgs e)
         {
         }

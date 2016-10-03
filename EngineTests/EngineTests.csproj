@@ -69,6 +69,7 @@
     <Compile Include="Math\AreasTests.cs" />
     <Compile Include="Math\BoundingsTests.cs" />
     <Compile Include="Math\IntersectionsTests.cs" />
+    <Compile Include="Math\MathsTests.cs" />
     <Compile Include="Math\PerimetersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest.cs" />

@@ -22,6 +22,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static System.Math;
 using static Engine.Maths;
+using System.Numerics;
 
 namespace MethodSpeedTester
 {
@@ -4741,6 +4742,26 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Horizontal Line Segments Overlap
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segAX"></param>
+        /// <param name="segAY"></param>
+        /// <param name="segBX"></param>
+        /// <param name="segBY"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        public static bool HorzSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)
+        {
+            if (segAX > segAY) Maths.Swap(ref segAX, ref segAY);
+            if (segBX > segBY) Maths.Swap(ref segBX, ref segBY);
+            return (segAX < segBY) && (segBX < segAY);
+        }
+
+        #endregion
+
         #region Intersection of Circle and Circle
 
         /// <summary>
@@ -5854,7 +5875,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(LineIntersection2DTests))]
-        public static List<SpeedTester> LineIntersection2DTests() => new List<SpeedTester> {
+        public static List<SpeedTester> LineIntersection2DTests()
+            => new List<SpeedTester> {
                 new SpeedTester(() => Intersection0(0, 0, 2, 2, 0, 2, 2, 0),
                 $"{nameof(Experiments.Intersection0)}(0, 0, 2, 2, 0, 2, 2, 0)"),
                 new SpeedTester(() => Intersection1(0, 0, 2, 2, 0, 2, 2, 0),
@@ -5868,7 +5890,11 @@ namespace MethodSpeedTester
                 new SpeedTester(() => Intersection5(0, 0, 2, 2, 0, 2, 2, 0),
                 $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)"),
                 new SpeedTester(() => FindIntersection(0, 0, 2, 2, 0, 2, 2, 0),
-                $"{nameof(Experiments.FindIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)")
+                $"{nameof(Experiments.FindIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => lineIntersection(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.lineIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => lineSegmentIntersection(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.lineSegmentIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)")
             };
 
         /// <summary>
@@ -6167,17 +6193,145 @@ namespace MethodSpeedTester
             double dy = Y2 - Y1;
             double da = A2 - A1;
             double db = B2 - B1;
-            double s, t;
 
             // If the segments are parallel, return False.
-            if (Abs(da * dy - db * dx) < 0.001)
+            if (Abs(da * dy - db * dx) < Epsilon)
                 return (false, null);
 
             // Find the point of intersection.
-            s = (dx * (B1 - Y1) + dy * (X1 - A1)) / (da * dy - db * dx);
-            t = (da * (Y1 - B1) + db * (A1 - X1)) / (db * dx - da * dy);
+            double s = (dx * (B1 - Y1) + dy * (X1 - A1)) / (da * dy - db * dx);
+            double t = (da * (Y1 - B1) + db * (A1 - X1)) / (db * dx - da * dy);
 
             return (true, (X1 + t * dx, Y1 + t * dy));
+        }
+
+        /// <summary>
+        ///  Determines the intersection point of the line defined by points A and B with the
+        ///  line defined by points C and D.
+        ///
+        ///  Returns YES if the intersection point was found, and stores that point in X,Y.
+        ///  Returns NO if there is no determinable intersection point, in which case X,Y will
+        ///  be unmodified.
+        ///  /// </summary>
+        /// <param name="Ax"></param>
+        /// <param name="Ay"></param>
+        /// <param name="Bx"></param>
+        /// <param name="By"></param>
+        /// <param name="Cx"></param>
+        /// <param name="Cy"></param>
+        /// <param name="Dx"></param>
+        /// <param name="Dy"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://alienryderflex.com/intersect/
+        /// </remarks>
+        public static (bool, (double X, double Y) ?) lineIntersection(
+            double Ax, double Ay,
+            double Bx, double By,
+            double Cx, double Cy,
+            double Dx, double Dy)
+        {
+            double distAB, theCos, theSin, newX, ABpos;
+
+            //  Fail if either line is undefined.
+            if (Ax == Bx && Ay == By || Cx == Dx && Cy == Dy) return (false, null);
+
+            //  (1) Translate the system so that point A is on the origin.
+            Bx -= Ax; By -= Ay;
+            Cx -= Ax; Cy -= Ay;
+            Dx -= Ax; Dy -= Ay;
+
+            //  Discover the length of segment A-B.
+            distAB = Sqrt(Bx * Bx + By * By);
+
+            //  (2) Rotate the system so that point B is on the positive X axis.
+            theCos = Bx / distAB;
+            theSin = By / distAB;
+            newX = Cx * theCos + Cy * theSin;
+            Cy = Cy * theCos - Cx * theSin; Cx = newX;
+            newX = Dx * theCos + Dy * theSin;
+            Dy = Dy * theCos - Dx * theSin; Dx = newX;
+
+            //  Fail if the lines are parallel.
+            if (Cy == Dy) return (false, null);
+
+            //  (3) Discover the position of the intersection point along line A-B.
+            ABpos = Dx + (Cx - Dx) * Dy / (Dy - Cy);
+
+            //  Success.
+            //  (4) Apply the discovered position to line A-B in the original coordinate system.
+            return (true, (Ax + ABpos * theCos, Ay + ABpos * theSin));
+        }
+
+        /// <summary>
+        ///  Determines the intersection point of the line segment defined by points A and B
+        ///  with the line segment defined by points C and D.
+        ///
+        ///  Returns YES if the intersection point was found, and stores that point in X,Y.
+        ///  Returns NO if there is no determinable intersection point, in which case X,Y will
+        ///  be unmodified.
+        /// </summary>
+        /// <param name="Ax"></param>
+        /// <param name="Ay"></param>
+        /// <param name="Bx"></param>
+        /// <param name="By"></param>
+        /// <param name="Cx"></param>
+        /// <param name="Cy"></param>
+        /// <param name="Dx"></param>
+        /// <param name="Dy"></param>
+        /// <returns></returns>
+        /// <remarks>
+        ///  public domain function by Darel Rex Finley, 2006
+        ///  http://alienryderflex.com/intersect/
+        /// </remarks>
+        public static (bool, (double X, double Y) ?) lineSegmentIntersection(
+            double Ax, double Ay,
+            double Bx, double By,
+            double Cx, double Cy,
+            double Dx, double Dy)
+        {
+            double distAB, theCos, theSin, newX, ABpos;
+
+            //  Fail if either line segment is zero-length.
+            if (Ax == Bx && Ay == By || Cx == Dx && Cy == Dy) return (false, null);
+
+            //  Fail if the segments share an end-point.
+            if (Ax == Cx && Ay == Cy || Bx == Cx && By == Cy
+           || Ax == Dx && Ay == Dy || Bx == Dx && By == Dy)
+            {
+                return (false, null);
+            }
+
+            //  (1) Translate the system so that point A is on the origin.
+            Bx -= Ax; By -= Ay;
+            Cx -= Ax; Cy -= Ay;
+            Dx -= Ax; Dy -= Ay;
+
+            //  Discover the length of segment A-B.
+            distAB = Sqrt(Bx * Bx + By * By);
+
+            //  (2) Rotate the system so that point B is on the positive X axis.
+            theCos = Bx / distAB;
+            theSin = By / distAB;
+            newX = Cx * theCos + Cy * theSin;
+            Cy = Cy * theCos - Cx * theSin; Cx = newX;
+            newX = Dx * theCos + Dy * theSin;
+            Dy = Dy * theCos - Dx * theSin; Dx = newX;
+
+            //  Fail if segment C-D doesn't cross line A-B.
+            if (Cy < 0d && Dy < 0d || Cy >= 0d && Dy >= 0d) return (false, null);
+
+            //  (3) Discover the position of the intersection point along line A-B.
+            ABpos = Dx + (Cx - Dx) * Dy / (Dy - Cy);
+
+            //  Fail if segment C-D crosses line A-B outside of segment A-B.
+            if (ABpos < 0d || ABpos > distAB) return (false, (Ax + ABpos * theCos, Ay + ABpos * theSin));
+
+            //  Success.
+            //  (4) Apply the discovered position to line A-B in the original coordinate system.
+            return (true, (Ax + ABpos * theCos, Ay + ABpos * theSin));
         }
 
         #endregion
@@ -6674,6 +6828,36 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Line Overlap
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <param name="Left"></param>
+        /// <param name="Right"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        public static bool GetOverlap(double a1, double a2, double b1, double b2, out double Left, out double Right)
+        {
+            if (a1 < a2)
+            {
+                if (b1 < b2) { Left = Max(a1, b1); Right = Min(a2, b2); }
+                else { Left = Max(a1, b2); Right = Min(a2, b1); }
+            }
+            else
+            {
+                if (b1 < b2) { Left = Max(a2, b1); Right = Min(a1, b2); }
+                else { Left = Max(a2, b2); Right = Min(a1, b1); }
+            }
+            return Left < Right;
+        }
+
+        #endregion
+
         #region List Interpolation Points of Cubic Bezier
 
         /// <summary>
@@ -6809,6 +6993,97 @@ namespace MethodSpeedTester
             }
 
             return new List<Point2D>(ipoints);
+        }
+
+        #endregion
+
+        #region Log2
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the 1D Hermite interpolation of points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(Log2Tests))]
+        public static List<SpeedTester> Log2Tests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => Log(12, 2),
+                $"{nameof(Math.Log)}(12, 2)"),
+                new SpeedTester(() => Log2(12),
+                $"{nameof(Experiments.Log2)}(12)"),
+                new SpeedTester(() => Log2_1(12),
+                $"{nameof(Experiments.Log2_1)}(12)")
+            };
+
+        /// <summary>
+        /// Determine the position of the highest one-bit in a number.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Log2(uint a)
+        {
+            byte bits = 0;
+            while (a != 0)
+            {
+                ++bits;
+                a >>= 1;
+            };
+
+            return bits;
+        }
+
+        // Source: http://graphics.stanford.edu/~seander/bithacks.html
+        private static readonly byte[] multiplyDeBruijnBitPosition = new byte[32]
+        {
+            0, 9, 1, 10, 13, 21, 2, 29, 11, 14, 16, 18, 22, 25, 3, 30,
+            8, 12, 20, 28, 15, 17, 24, 7, 19, 27, 23, 6, 26, 5, 4, 31
+        };
+
+        /// <summary>
+        /// Returns log2(x) for positive values of x.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Log2_1(int x)
+        {
+            if (x <= 0) throw new ArgumentOutOfRangeException(nameof(x), "must be positive");
+            if (x == 1) return 0;
+
+            // Locate the highest set bit.
+            uint v = unchecked((uint)x);
+            v |= v >> 1;
+            v |= v >> 2;
+            v |= v >> 4;
+            v |= v >> 8;
+            v |= v >> 16;
+
+            uint i = unchecked(v * 0x7c4acdd) >> 27;
+            int r = multiplyDeBruijnBitPosition[i];
+
+            return r;
+        }
+
+        /// <summary>
+        /// Returns log2(x) for positive values of x.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Log2_1(uint x)
+        {
+            if (x <= 0) throw new ArgumentOutOfRangeException(nameof(x), "must be positive");
+            if (x == 1) return 0;
+
+            // Locate the highest set bit.
+            uint v = unchecked(x);
+            v |= v >> 1;
+            v |= v >> 2;
+            v |= v >> 4;
+            v |= v >> 8;
+            v |= v >> 16;
+
+            uint i = unchecked(v * 0x7c4acdd) >> 27;
+            int r = multiplyDeBruijnBitPosition[i];
+
+            return r;
         }
 
         #endregion
@@ -7166,6 +7441,164 @@ namespace MethodSpeedTester
             };
             return Out;
         }
+
+        #endregion
+
+        #region Operation Addition Safe
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the safty of operations.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(IsAdditionSafeTests))]
+        public static List<SpeedTester> IsAdditionSafeTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => IsAdditionSafe(2147483650, 2147483650),
+                $"{nameof(Experiments.IsAdditionSafe)}(2147483650, 2147483650)"),
+                new SpeedTester(() => IsAdditionSafe2(2147483650, 2147483650),
+                $"{nameof(Experiments.IsAdditionSafe2)}(2147483650, 2147483650)"),
+                new SpeedTester(() => IsAdditionSafe3(2147483650, 2147483650),
+                $"{nameof(Experiments.IsAdditionSafe3)}(2147483650, 2147483650)"),
+                new SpeedTester(() => IsAdditionSafe4(2147483650, 2147483650),
+                $"{nameof(Experiments.IsAdditionSafe4)}(2147483650, 2147483650)")
+            };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsAdditionSafe(uint a, uint b)
+            => (Log2(a) < sizeof(uint) && Log2(b) < sizeof(uint));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name=""></param>
+        /// <param name="a"></param>
+        /// <param name=""></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsAdditionSafe2(uint a, uint b)
+        {
+            uint L_Mask = uint.MaxValue;
+            L_Mask >>= 1;
+            L_Mask = ~L_Mask;
+
+            a &= L_Mask;
+            b &= L_Mask;
+
+            return (a == 0 || b == 0);
+        }
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe3(uint a, uint b)
+        {
+            if (a > 0) return b > (int.MaxValue - a);
+            if (a < 0) return b > (int.MinValue + a);
+            return false;
+        }
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe4(uint a, uint b)
+            => a < 0 != b < 0 || (a < 0 
+            ? b > uint.MinValue - a 
+            : b < uint.MaxValue - a);
+
+        #endregion
+
+        #region Operation Multiplication Safe
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the safty of operations.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(IsMultiplicationSafeTests))]
+        public static List<SpeedTester> IsMultiplicationSafeTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => IsMultiplicationSafe(2, 2147483650),
+                $"{nameof(Experiments.IsMultiplicationSafe)}(2, 2147483650)"),
+                new SpeedTester(() => IsMultiplicationSafe1(2, 2147483650),
+                $"{nameof(Experiments.IsMultiplicationSafe1)}(2, 2147483650)"),
+                new SpeedTester(() => IsMultiplicationSafe2(2, 2147483650),
+                $"{nameof(Experiments.IsMultiplicationSafe2)}(2, 2147483650)")
+            };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsMultiplicationSafe(uint a, uint b)
+            => (Log2(a) + Log2(b) <= sizeof(uint));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsMultiplicationSafe1(uint a, uint b)
+            => (Log2_1(a) + Log2_1(b) <= sizeof(uint));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsMultiplicationSafe2(uint a, uint b)
+        {
+            if (a == 0) return true;
+            // a * b would overflow
+            return (b > uint.MaxValue / a);
+        }
+
+        #endregion
+
+        #region Operation Exponentiation Safe
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the safty of operations.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(IsExponentiationSafeTests))]
+        public static List<SpeedTester> IsExponentiationSafeTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => IsExponentiationSafe(2, 39),
+                $"{nameof(Experiments.IsExponentiationSafe)}(2, 39)")
+            };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsExponentiationSafe(uint a, uint b)
+            => (Log2(a) * b <= sizeof(uint));
 
         #endregion
 
@@ -8778,6 +9211,23 @@ namespace MethodSpeedTester
         #region Point on Line Segment
 
         /// <summary>
+        /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(RoundTests))]
+        public static List<SpeedTester> PointOnLineSegmentTests()
+        {
+            return new List<SpeedTester> {
+                new SpeedTester(() => PointOnLineSegment(1, 1, 2, 2, 1.5, 1.5),
+                $"{nameof(Experiments.PointOnLineSegment)}(1, 1, 2, 2, 1.5, 1.5)"),
+                new SpeedTester(() => PointLineSegment(1, 1, 2, 2, 1.5, 1.5),
+                $"{nameof(Experiments.PointLineSegment)}(1, 1, 2, 2, 1.5, 1.5)"),
+                new SpeedTester(() => PointOnLine( new LineSegment(1, 1, 2, 2), new Point2D( 1.5, 1.5)),
+                $"{nameof(Experiments.PointOnLine)}(1, 1, 2, 2, 1.5, 1.5)")
+            };
+        }
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="segmentAX"></param>
@@ -8803,19 +9253,41 @@ namespace MethodSpeedTester
             && (Abs((pointX - segmentAX) * (segmentBY - segmentAY) - (segmentBX - segmentAX) * (pointY - segmentAY)) < DoubleEpsilon));
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="segmentA"></param>
+        /// <param name="segmentB"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        public static bool PointLineSegment(
+            double segmentAX,
+            double segmentAY,
+            double segmentBX,
+            double segmentBY,
+            double pointX,
+            double pointY)
+            => ((pointX == segmentAX) && (pointY == segmentAY)) ||
+                ((pointX == segmentBX) && (pointY == segmentBY)) ||
+                (((pointX > segmentAX) == (pointX < segmentBX)) &&
+                ((pointY > segmentAY) == (pointY < segmentBY)) &&
+                ((pointX - segmentAX) * (segmentBY - segmentAY) ==
+                (segmentBX - segmentAX) * (pointY - segmentAY)));
+
+        /// <summary>
         ///
         /// </summary>
-        /// <param name="Point"></param>
-        /// <param name="Line"></param>
+        /// <param name="point"></param>
+        /// <param name="segment"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool PointOnLine(Point2D Point, LineSegment Line)
+        public static bool PointOnLine(LineSegment segment, Point2D point)
         {
-            double Length1 = Point.Length(Line.B);
+            double Length1 = point.Length(segment.B);
             // Sqrt((Point.X - Line.B.X) ^ 2 + (Point.Y - Line.B.Y))
-            double Length2 = Point.Length(Line.A);
+            double Length2 = point.Length(segment.A);
             // Sqrt((Point.X - Line.A.X) ^ 2 + (Point.Y - Line.A.Y))
-            return Abs(Line.Length() - Length1 + Length2) < DoubleEpsilon;
+            return Abs(segment.Length() - Length1 + Length2) < DoubleEpsilon;
         }
 
         #endregion
@@ -9750,6 +10222,73 @@ namespace MethodSpeedTester
             double x1, double y1,
             double x2, double y2)
             => (Abs(x1 - x2) < DoubleEpsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
+
+        #endregion
+
+        #region Slopes Near Coliniar
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="distSqrd"></param>
+        /// <returns></returns>
+        public static bool SlopesNearCollinear(Point2D a, Point2D b, Point2D c, double distSqrd)
+        {
+            // this function is more accurate when the point that's GEOMETRICALLY 
+            // between the other 2 points is the one that's tested for distance.  
+            // nb: with 'spikes', either pt1 or pt3 is geometrically between the other pts                    
+            if (Abs(a.X - b.X) > Abs(a.Y - b.Y))
+            {
+                if ((a.X > b.X) == (a.X < c.X))
+                    return SquareDistanceToLine(a.X, a.Y, b.X, b.Y, c.X, c.Y) < distSqrd;
+                else if ((b.X > a.X) == (b.X < c.X))
+                    return SquareDistanceToLine(b.X, b.Y, a.X, a.Y, c.X, c.Y) < distSqrd;
+                else
+                    return SquareDistanceToLine(c.X, c.Y, a.X, a.Y, b.X, b.Y) < distSqrd;
+            }
+            else
+            {
+                if ((a.Y > b.Y) == (a.Y < c.Y))
+                    return SquareDistanceToLine(a.X, a.Y, b.X, b.Y, c.X, c.Y) < distSqrd;
+                else if ((b.Y > a.Y) == (b.Y < c.Y))
+                    return SquareDistanceToLine(b.X, b.Y, a.X, a.Y, c.X, c.Y) < distSqrd;
+                else
+                    return SquareDistanceToLine(c.X, c.Y, a.X, a.Y, b.X, b.Y) < distSqrd;
+            }
+        }
+
+        #endregion
+
+        #region Slopes of lines Equal
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="UseFullRange"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)
+            => UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
+            : (a.Y - b.Y) * (b.X - c.X) - (a.X - b.X) * (b.Y - c.Y) == 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="UseFullRange"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, Point2D d, bool UseFullRange = false)
+            => UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
+            : (int)(a.Y - b.Y) * (c.X - d.X) - (int)(a.X - b.X) * (c.Y - d.Y) == 0;
 
         #endregion
 

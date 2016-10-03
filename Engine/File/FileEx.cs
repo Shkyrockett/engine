@@ -39,7 +39,8 @@ namespace Engine.File
         /// <returns>An integer value indicating the number of bytes the value would take up when saved in variable length.</returns>
         // If the value is 0, return 1 byte. Otherwise calculate the number of bytes. 
         // The number of bytes to use is found by rounding up the 128th log of the value provided plus one. 
-        public static int VarLenByteLength(uint value) => value != 0 ? (int)Ceiling(Log(value + 1, VarLenClearBits)) : 1;
+        public static int VarLenByteLength(uint value)
+            => value != 0 ? (int)Ceiling(Log(value + 1, VarLenClearBits)) : 1;
 
         /// <summary>
         /// Extension method to read a string of specified <see cref="char"/>s length from a file stream

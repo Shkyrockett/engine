@@ -62,6 +62,31 @@ namespace Engine
         /// </summary>
         public static double DoubleRoundLimit = 1E+16;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double DefaultArcTolerance = 0.25;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int LoRange32 = 0x7FFF;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int HiRange32 = 0x7FFF;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const long LoRange64 = 0x3FFFFFFF;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const long HiRange64 = 0x3FFFFFFFFFFFFFFFL;
+
         #endregion
 
         #region Pi Derivations

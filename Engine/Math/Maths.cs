@@ -57,7 +57,8 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x1, double y1, double x2, double y2) OffsetSegment(
+        public static (double x1, double y1, double x2, double y2)
+            OffsetSegment(
             double aX, double aY,
             double bX, double bY,
             double distance)
@@ -81,7 +82,8 @@ namespace Engine
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x1, double y1, double z1, double x2, double y2, double z2) OffsetSegment(
+        public static (double x1, double y1, double z1, double x2, double y2, double z2)
+            OffsetSegment(
             double aX, double aY, double aZ,
             double bX, double bY, double bZ,
             double distanceX, double distanceY, double distanceZ)
@@ -2340,5 +2342,213 @@ namespace Engine
             => (GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1));
 
         #endregion
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(sbyte a, sbyte b)
+            => (a == 0 || b == 0) ||
+                (a < 0)
+                ? b >= (sbyte.MinValue + a)
+                : b <= (sbyte.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(byte a, byte b)
+            => (a == 0 || b == 0) ||
+                b <= (byte.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(short a, short b)
+            => (a == 0 || b == 0) ||
+                (a < 0)
+                ? b >= (short.MinValue + a)
+                : b <= (short.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(ushort a, ushort b)
+            => (a == 0 || b == 0) ||
+                b <= (ushort.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(int a, int b)
+            => (a == 0 || b == 0) ||
+                (a < 0)
+                ? b >= (int.MinValue + a)
+                : b <= (int.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(uint a, uint b)
+            => (a == 0 || b == 0) ||
+                b <= (uint.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(long a, long b)
+            => (a == 0 || b == 0) ||
+                (a < 0)
+                ? b >= (long.MinValue + a)
+                : b <= (long.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(ulong a, ulong b)
+            => (a == 0 || b == 0) ||
+                b <= (ulong.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(float a, float b)
+        {
+            if (a == 0 || b == 0) return true;
+            if (a < 0) return b >= (float.MinValue + a);
+            if (a > 0) return b <= (float.MaxValue - a);
+            return false;
+        }
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(double a, double b)
+            => (a == 0 || b == 0) ||
+                (a < 0)
+                ? b >= (double.MinValue + a)
+                : b <= (double.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe(decimal a, decimal b)
+            => (a == 0 || b == 0) ||
+                (a < 0)
+                ? b >= (decimal.MinValue + a)
+                : b <= (decimal.MaxValue - a);
+
+        /// <summary>
+        /// Test whether a multication operation is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMultiplicationSafe(int a, int b)
+        {
+            if (a == 0) return true;
+            // a * b would overflow
+            return (b > int.MaxValue / a);
+        }
+
+        /// <summary>
+        /// Test whether a multication operation is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMultiplicationSafe(uint a, uint b)
+        {
+            if (a == 0) return true;
+            // a * b would overflow
+            return (b > uint.MaxValue / a);
+        }
+
+        /// <summary>
+        /// Test whether a multication operation is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMultiplicationSafe(long a, long b)
+        {
+            if (a == 0) return true;
+            // a * b would overflow
+            return (b > long.MaxValue / a);
+        }
+
+        /// <summary>
+        /// Test whether a multication operation is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMultiplicationSafe(ulong a, ulong b)
+        {
+            if (a == 0) return true;
+            // a * b would overflow
+            return (b > ulong.MaxValue / a);
+        }
     }
 }

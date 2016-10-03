@@ -130,11 +130,7 @@ namespace Engine.Geometry.Tests
         [TestProperty("Engine", "AreasTests")]
         public void ArcTest()
         {
-            double radiusLimit = 1;
-            double angleLowerLimit = -15;// -360;
-            double angleUpperLimit = 15;// 360;
-
-            var results = new Dictionary<(double, double), double>
+            var results = new Dictionary<(double radius, double sweepAngle), double>
             {
                 { (0, -15), 0 }, { (1, -15), 0.00149017134831433d },
                 { (0, -14), 0 }, { (1, -14), 0.00121209983976921d },
@@ -169,13 +165,10 @@ namespace Engine.Geometry.Tests
                 { (0, 15), 0 }, { (1, 15), 0.00149017134831433d },
             };
 
-            for (double radius = 0; radius <= radiusLimit; radius += 1d)
+            foreach (var arc in results.Keys)
             {
-                for (double sweepAngle = angleLowerLimit; sweepAngle < angleUpperLimit; sweepAngle++)
-                {
-                    var area = Areas.Arc(radius, sweepAngle.ToRadians());
-                    Assert.AreEqual(results[(radius, sweepAngle)], area, TestEpsilon);
-                }
+                var area = Areas.Arc(arc.radius, arc.sweepAngle.ToRadians());
+                Assert.AreEqual(results[(arc)], area, TestEpsilon);
             }
         }
 
@@ -188,9 +181,6 @@ namespace Engine.Geometry.Tests
         [TestProperty("Engine", "AreasTests")]
         public void CircleTest()
         {
-            // The maximum radius to test.
-            double radiusLimit = 3;
-
             // A listing of expected results for specific integer values.
             var results = new Dictionary<double, double>
             {
@@ -201,7 +191,8 @@ namespace Engine.Geometry.Tests
             };
 
             // Run tests for each radius.
-            for (double r = 0; r <= radiusLimit; r++)
+
+            foreach (var r in results.Keys)
             {
                 // Retrieve the area of the circle, provided it's radius. 
                 var area = Areas.Circle(r);
@@ -220,14 +211,8 @@ namespace Engine.Geometry.Tests
         [TestProperty("Engine", "AreasTests")]
         public void EllipseTest()
         {
-            // The maximum height to test.
-            double r1Limit = 3;
-
-            // The maximum width to test.
-            double r2Limit = 1;
-
             // A listing of expected results for specific integer values.
-            var results = new Dictionary<(double, double), double>
+            var results = new Dictionary<(double r1, double r2), double>
             {
                 { (0d, 0d), 0d }, { (0d, 1d), 0d },
                 { (1d, 0d), 0d }, { (1d, 1d), 3.14159265358979d },
@@ -236,16 +221,13 @@ namespace Engine.Geometry.Tests
             };
 
             // Run tests for each radius.
-            for (double r1 = 0; r1 <= r1Limit; r1++)
+            foreach (var radii in results.Keys)
             {
-                for (double r2 = 0; r2 <= r2Limit; r2++)
-                {
-                    // Retrieve the area of the circle, provided it's radius. 
-                    var area = Areas.Ellipse(r1, r2);
+                // Retrieve the area of the circle, provided it's radius. 
+                var area = Areas.Ellipse(radii.r1, radii.r2);
 
-                    // Check for a correct result.
-                    Assert.AreEqual(results[(r1, r2)], area, TestEpsilon);
-                }
+                // Check for a correct result.
+                Assert.AreEqual(results[(radii)], area, TestEpsilon);
             }
         }
 
@@ -258,14 +240,8 @@ namespace Engine.Geometry.Tests
         [TestProperty("Engine", "AreasTests")]
         public void RectangleTest()
         {
-            // The maximum width to test.
-            double widthLimit = 1;
-
-            // The maximum height to test.
-            double heightLimit = 1;
-
             // A listing of expected results for specific integer values.
-            var results = new Dictionary<(double, double), double>
+            var results = new Dictionary<(double w, double h), double>
             {
                 { (0d, 0d), 0d }, { (0d, 1d), 0d },
                 { (1d, 0d), 0d }, { (1d, 1d), 1d },
@@ -273,17 +249,14 @@ namespace Engine.Geometry.Tests
                 { (3d, 0d), 0d }, { (3d, 1d), 3d },
             };
 
-            // Run tests for each radius.
-            for (double w = 0; w <= widthLimit; w++)
+            // Run tests for each height and width.
+            foreach (var size in results.Keys)
             {
-                for (double h = 0; h <= heightLimit; h++)
-                {
-                    // Retrieve the area of the circle, provided it's radius. 
-                    var area = Areas.Rectangle(w, h);
+                // Retrieve the area of the circle, provided it's radius. 
+                var area = Areas.Rectangle(size.w, size.h);
 
-                    // Check for a correct result.
-                    Assert.AreEqual(results[(w, h)], area, TestEpsilon);
-                }
+                // Check for a correct result.
+                Assert.AreEqual(results[size], area, TestEpsilon);
             }
         }
 
@@ -296,20 +269,18 @@ namespace Engine.Geometry.Tests
         [TestProperty("Engine", "AreasTests")]
         public void SquareTest()
         {
-            // The maximum width to test.
-            double widthLimit = 3;
-
-            // A listing of expected results for specific integer values.
+            // A listing of expected results for specific values.
             var results = new Dictionary<double, double>
             {
                 { 0d, 0d },
                 { 1d, 1d },
                 { 2d, 4d },
                 { 3d, 9d },
+                { 4d, 16d },
             };
 
             // Run tests for each radius.
-            for (double w = 0; w <= widthLimit; w++)
+            foreach (var w in results.Keys)
             {
                 // Retrieve the area of the circle, provided it's radius. 
                 var area = Areas.Square(w);

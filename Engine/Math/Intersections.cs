@@ -396,6 +396,8 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PolygonPoint(List<Point2D> points, double pX, double pY)
         {
+            // From Clipper library: http://www.angusj.com/delphi/clipper.php
+
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
@@ -621,7 +623,8 @@ namespace Engine.Geometry
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (int Count, Point2D Intersection1, Point2D Intersection2) CircleCircle(
+        private static (int Count, Point2D Intersection1, Point2D Intersection2)
+            CircleCircle(
             double cx0,
             double cy0,
             double radius0,
@@ -745,6 +748,31 @@ namespace Engine.Geometry
                 return (2, intersection1, intersection2);
             }
         }
+
+        /// <summary>
+        /// Check whether a point is coincident to a line segment.
+        /// </summary>
+        /// <param name="segmentAX"></param>
+        /// <param name="segmentAY"></param>
+        /// <param name="segmentBX"></param>
+        /// <param name="segmentBY"></param>
+        /// <param name="pointX"></param>
+        /// <param name="pointY"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        public static bool PointLineSegment(
+            double segmentAX,
+            double segmentAY,
+            double segmentBX,
+            double segmentBY,
+            double pointX,
+            double pointY)
+            => ((pointX == segmentAX) && (pointY == segmentAY)) ||
+                ((pointX == segmentBX) && (pointY == segmentBY)) ||
+                (((pointX > segmentAX) == (pointX < segmentBX)) &&
+                ((pointY > segmentAY) == (pointY < segmentBY)) &&
+                ((pointX - segmentAX) * (segmentBY - segmentAY) ==
+                (segmentBX - segmentAX) * (pointY - segmentAY)));
 
         /// <summary>
         /// Find the intersection point between two lines.

@@ -7491,7 +7491,7 @@ namespace MethodSpeedTester
             a &= L_Mask;
             b &= L_Mask;
 
-            return (a == 0 || b == 0);
+            return (a == 0 || b == 0||a == -0 || b == -0);
         }
 
         /// <summary>

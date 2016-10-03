@@ -2352,10 +2352,12 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(sbyte a, sbyte b)
-            => (a == 0 || b == 0) ||
-                (a < 0)
-                ? b >= (sbyte.MinValue + a)
-                : b <= (sbyte.MaxValue - a);
+        {
+            if (a == 0 || b == 0||a == -0 || b == -0) return true;
+            if (a < 0) return b >= (sbyte.MinValue - a);
+            if (a > 0) return b <= (sbyte.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2366,8 +2368,11 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(byte a, byte b)
-            => (a == 0 || b == 0) ||
-                b <= (byte.MaxValue - a);
+        {
+            if (a == 0 || b == 0) return true;
+            if (a > 0) return b <= (byte.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2378,10 +2383,12 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(short a, short b)
-            => (a == 0 || b == 0) ||
-                (a < 0)
-                ? b >= (short.MinValue + a)
-                : b <= (short.MaxValue - a);
+        {
+            if (a == 0 || b == 0||a == -0 || b == -0) return true;
+            if (a < 0) return b >= (short.MinValue - a);
+            if (a > 0) return b <= (short.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2392,8 +2399,11 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ushort a, ushort b)
-            => (a == 0 || b == 0) ||
-                b <= (ushort.MaxValue - a);
+        {
+            if (a == 0 || b == 0) return true;
+            if (a > 0) return b <= (ushort.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2404,10 +2414,12 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(int a, int b)
-            => (a == 0 || b == 0) ||
-                (a < 0)
-                ? b >= (int.MinValue + a)
-                : b <= (int.MaxValue - a);
+        {
+            if (a == 0 || b == 0||a == -0 || b == -0) return true;
+            if (a < 0) return b >= (int.MinValue - a);
+            if (a > 0) return b <= (int.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2418,8 +2430,11 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(uint a, uint b)
-            => (a == 0 || b == 0) ||
-                b <= (uint.MaxValue - a);
+        {
+            if (a == 0u || b == 0u) return true;
+            if (a > 0u) return b <= (uint.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2430,10 +2445,12 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(long a, long b)
-            => (a == 0 || b == 0) ||
-                (a < 0)
-                ? b >= (long.MinValue + a)
-                : b <= (long.MaxValue - a);
+        {
+            if (a == 0L || b == 0L) return true;
+            if (a < 0L) return b >= (long.MinValue - a);
+            if (a > 0L) return b <= (long.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2444,8 +2461,11 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ulong a, ulong b)
-            => (a == 0 || b == 0) ||
-                b <= (ulong.MaxValue - a);
+        {
+            if (a == 0ul || b == 0ul) return true;
+            if (a > 0ul) return b <= (ulong.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2457,9 +2477,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(float a, float b)
         {
-            if (a == 0 || b == 0) return true;
-            if (a < 0) return b >= (float.MinValue + a);
-            if (a > 0) return b <= (float.MaxValue - a);
+            if (a == 0f || b == 0f) return true;
+            if (a < 0f) return b >= (float.MinValue - a);
+            if (a > 0f) return b <= (float.MaxValue - a);
             return false;
         }
 
@@ -2472,10 +2492,12 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(double a, double b)
-            => (a == 0 || b == 0) ||
-                (a < 0)
-                ? b >= (double.MinValue + a)
-                : b <= (double.MaxValue - a);
+        {
+            if (a == 0d || b == 0d) return true;
+            if (a < 0d) return b >= (double.MinValue - a);
+            if (a > 0d) return b <= (double.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2486,10 +2508,12 @@ namespace Engine
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(decimal a, decimal b)
-            => (a == 0 || b == 0) ||
-                (a < 0)
-                ? b >= (decimal.MinValue + a)
-                : b <= (decimal.MaxValue - a);
+        {
+            if (a == decimal.Zero || b == decimal.Zero|| a == -decimal.Zero || b == -decimal.Zero) return true;
+            if (a < decimal.Zero) return b >= (decimal.MinValue - a);
+            if (a > decimal.Zero) return b <= (decimal.MaxValue - a);
+            return false;
+        }
 
         /// <summary>
         /// Test whether a multication operation is likely to overflow.

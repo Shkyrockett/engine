@@ -7021,7 +7021,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte Log2(uint a)
+        public static byte Log2(int a)
         {
             byte bits = 0;
             while (a != 0)
@@ -7453,14 +7453,18 @@ namespace MethodSpeedTester
         [DisplayName(nameof(IsAdditionSafeTests))]
         public static List<SpeedTester> IsAdditionSafeTests()
             => new List<SpeedTester> {
-                new SpeedTester(() => IsAdditionSafe(2147483650, 2147483650),
-                $"{nameof(Experiments.IsAdditionSafe)}(2147483650, 2147483650)"),
-                new SpeedTester(() => IsAdditionSafe2(2147483650, 2147483650),
-                $"{nameof(Experiments.IsAdditionSafe2)}(2147483650, 2147483650)"),
-                new SpeedTester(() => IsAdditionSafe3(2147483650, 2147483650),
-                $"{nameof(Experiments.IsAdditionSafe3)}(2147483650, 2147483650)"),
-                new SpeedTester(() => IsAdditionSafe4(2147483650, 2147483650),
-                $"{nameof(Experiments.IsAdditionSafe4)}(2147483650, 2147483650)")
+                new SpeedTester(() => IsAdditionSafe(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsAdditionSafe)}(int.MaxValue / 2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsAdditionSafe2(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsAdditionSafe2)}(int.MaxValue / 2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsAdditionSafe3(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsAdditionSafe3)}(int.MaxValue / 2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsAdditionSafe4(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsAdditionSafe4)}(int.MaxValue / 2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsAdditionSafe5(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsAdditionSafe5)}(int.MaxValue / 2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsAdditionSafe6(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsAdditionSafe6)}(int.MaxValue / 2, int.MaxValue / 2)")
             };
 
         /// <summary>
@@ -7470,8 +7474,8 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        public static bool IsAdditionSafe(uint a, uint b)
-            => (Log2(a) < sizeof(uint) && Log2(b) < sizeof(uint));
+        public static bool IsAdditionSafe(int a, int b)
+            => (Log2(a) < sizeof(int) && Log2(b) < sizeof(int));
 
         /// <summary>
         /// 
@@ -7482,16 +7486,16 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        public static bool IsAdditionSafe2(uint a, uint b)
+        public static bool IsAdditionSafe2(int a, int b)
         {
-            uint L_Mask = uint.MaxValue;
+            int L_Mask = int.MaxValue;
             L_Mask >>= 1;
             L_Mask = ~L_Mask;
 
             a &= L_Mask;
             b &= L_Mask;
 
-            return (a == 0 || b == 0||a == -0 || b == -0);
+            return (a == 0 || b == 0 || a == -0 || b == -0);
         }
 
         /// <summary>
@@ -7502,11 +7506,11 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsAdditionSafe3(uint a, uint b)
+        public static bool IsAdditionSafe3(int a, int b)
         {
             if (a > 0) return b > (int.MaxValue - a);
             if (a < 0) return b > (int.MinValue + a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -7517,28 +7521,56 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsAdditionSafe4(uint a, uint b)
-            => a < 0 != b < 0 || (a < 0 
-            ? b > uint.MinValue - a 
-            : b < uint.MaxValue - a);
+        public static bool IsAdditionSafe4(int a, int b)
+            => a < 0 != b < 0 || (a < 0
+            ? b > int.MinValue - a
+            : b < int.MaxValue - a);
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe5(int a, int b)
+        {
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
+            if (a < 0) return b >= (int.MinValue - a);
+            if (a > 0) return b <= (int.MaxValue - a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether an addition of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAdditionSafe6(int a, int b)
+        {
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
+            if (b > 0) return (a > int.MaxValue - b);
+            if (b < 0) return (a < int.MinValue - b);
+            return true;
+        }
 
         #endregion
 
-        #region Operation Multiplication Safe
+        #region Operation Division Safe
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the safty of operations.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(IsMultiplicationSafeTests))]
-        public static List<SpeedTester> IsMultiplicationSafeTests()
+        [DisplayName(nameof(IsDivisionSafeTests))]
+        public static List<SpeedTester> IsDivisionSafeTests()
             => new List<SpeedTester> {
-                new SpeedTester(() => IsMultiplicationSafe(2, 2147483650),
-                $"{nameof(Experiments.IsMultiplicationSafe)}(2, 2147483650)"),
-                new SpeedTester(() => IsMultiplicationSafe1(2, 2147483650),
-                $"{nameof(Experiments.IsMultiplicationSafe1)}(2, 2147483650)"),
-                new SpeedTester(() => IsMultiplicationSafe2(2, 2147483650),
-                $"{nameof(Experiments.IsMultiplicationSafe2)}(2, 2147483650)")
+                new SpeedTester(() => IsDivisionSafe(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsDivisionSafe)}(int.MaxValue / 2, int.MaxValue / 2)"),
             };
 
         /// <summary>
@@ -7547,32 +7579,13 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        public static bool IsMultiplicationSafe(uint a, uint b)
-            => (Log2(a) + Log2(b) <= sizeof(uint));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        public static bool IsMultiplicationSafe1(uint a, uint b)
-            => (Log2_1(a) + Log2_1(b) <= sizeof(uint));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        public static bool IsMultiplicationSafe2(uint a, uint b)
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        public static bool IsDivisionSafe(int a, int b)
         {
-            if (a == 0) return true;
-            // a * b would overflow
-            return (b > uint.MaxValue / a);
+            if (b == 0) return false;
+            //for division(except for the INT_MIN and - 1 special case) there is no possibility of going over INT_MIN or INT_MAX.
+            if (a == int.MinValue && b == -1) return false;
+            return true;
         }
 
         #endregion
@@ -7597,8 +7610,122 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        public static bool IsExponentiationSafe(uint a, uint b)
-            => (Log2(a) * b <= sizeof(uint));
+        public static bool IsExponentiationSafe(int a, int b)
+            => (Log2(a) * b <= sizeof(int));
+
+        #endregion
+
+        #region Operation Multiplication Safe
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the safety of operations.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(IsMultiplicationSafeTests))]
+        public static List<SpeedTester> IsMultiplicationSafeTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => IsMultiplicationSafe(2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsMultiplicationSafe)}(2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsMultiplicationSafe0(2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsMultiplicationSafe0)}(2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsMultiplicationSafe1(2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsMultiplicationSafe1)}(2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsMultiplicationSafe2(2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsMultiplicationSafe2)}(2, int.MaxValue / 2)"),
+                new SpeedTester(() => IsMultiplicationSafe3(2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsMultiplicationSafe3)}(2, int.MaxValue / 2)")
+            };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsMultiplicationSafe(int a, int b)
+            => (Log2(a) + Log2(b) <= sizeof(int));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsMultiplicationSafe0(uint a, uint b)
+            => (Log2_1(a) + Log2_1(b) <= sizeof(uint));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool IsMultiplicationSafe1(uint a, uint b)
+            => (Math.Round(Log(a, 2) + Log(b, 2), MidpointRounding.AwayFromZero) <= sizeof(uint));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        public static bool IsMultiplicationSafe2(int a, int b)
+        {
+            if (a == 0) return true;
+            // a * b would overflow
+            return (b > int.MaxValue / a);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        public static bool IsMultiplicationSafe3(int a, int b)
+        {
+            if (a == 0) return true;
+            if (a > int.MaxValue / b) return false /* `a * x` would overflow */;
+            if ((a < int.MinValue / b)) return false /* `a * x` would underflow */;
+            // there may be need to check for -1 for two's complement machines
+            if ((a == -1) && (b == int.MinValue)) return false /* `a * x` can overflow */;
+            if ((b == -1) && (a == int.MinValue)) return false /* `a * x` (or `a / x`) can overflow */;
+            return true;
+        }
+
+        #endregion
+
+        #region Operation Subtraction Safe
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the safety of operations.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(IsSubtractionSafeTests))]
+        public static List<SpeedTester> IsSubtractionSafeTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => IsSubtractionSafe(int.MaxValue / 2, int.MaxValue / 2),
+                $"{nameof(Experiments.IsSubtractionSafe)}(int.MaxValue / 2, int.MaxValue / 2)"),
+            };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        public static bool IsSubtractionSafe(int a, int b)
+        {
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
+            if (b < 0) return (a > int.MaxValue + b);
+            if (b > 0) return (a < int.MinValue + b);
+            return true;
+        }
 
         #endregion
 

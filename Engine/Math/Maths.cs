@@ -2353,10 +2353,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(sbyte a, sbyte b)
         {
-            if (a == 0 || b == 0||a == -0 || b == -0) return true;
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
             if (a < 0) return b >= (sbyte.MinValue - a);
             if (a > 0) return b <= (sbyte.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2371,7 +2371,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             if (a > 0) return b <= (byte.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2384,10 +2384,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(short a, short b)
         {
-            if (a == 0 || b == 0||a == -0 || b == -0) return true;
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
             if (a < 0) return b >= (short.MinValue - a);
             if (a > 0) return b <= (short.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2402,7 +2402,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             if (a > 0) return b <= (ushort.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2415,10 +2415,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(int a, int b)
         {
-            if (a == 0 || b == 0||a == -0 || b == -0) return true;
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
             if (a < 0) return b >= (int.MinValue - a);
             if (a > 0) return b <= (int.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2433,7 +2433,7 @@ namespace Engine
         {
             if (a == 0u || b == 0u) return true;
             if (a > 0u) return b <= (uint.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2449,7 +2449,7 @@ namespace Engine
             if (a == 0L || b == 0L) return true;
             if (a < 0L) return b >= (long.MinValue - a);
             if (a > 0L) return b <= (long.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2464,7 +2464,7 @@ namespace Engine
         {
             if (a == 0ul || b == 0ul) return true;
             if (a > 0ul) return b <= (ulong.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2477,10 +2477,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(float a, float b)
         {
-            if (a == 0f || b == 0f) return true;
+            if (a == 0f || b == 0f || a == -0f || b == -0f) return true;
             if (a < 0f) return b >= (float.MinValue - a);
             if (a > 0f) return b <= (float.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2493,10 +2493,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(double a, double b)
         {
-            if (a == 0d || b == 0d) return true;
+            if (a == 0d || b == 0d || a == -0d || b == -0d) return true;
             if (a < 0d) return b >= (double.MinValue - a);
             if (a > 0d) return b <= (double.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2509,10 +2509,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(decimal a, decimal b)
         {
-            if (a == decimal.Zero || b == decimal.Zero|| a == -decimal.Zero || b == -decimal.Zero) return true;
+            if (a == decimal.Zero || b == decimal.Zero || a == -decimal.Zero || b == -decimal.Zero) return true;
             if (a < decimal.Zero) return b >= (decimal.MinValue - a);
             if (a > decimal.Zero) return b <= (decimal.MaxValue - a);
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -2574,5 +2574,175 @@ namespace Engine
             // a * b would overflow
             return (b > ulong.MaxValue / a);
         }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(sbyte a, sbyte b)
+        {
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
+            if (a < 0) return b >= (sbyte.MinValue + a);
+            if (a > 0) return b <= (sbyte.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(byte a, byte b)
+        {
+            if (a == 0 && b == 0) return true;
+            if (a > 0) return b <= (byte.MaxValue + a);
+            if (a == 0) return false;
+            if (b == 0) return true;
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(short a, short b)
+        {
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
+            if (a < 0) return b >= (short.MinValue + a);
+            if (a > 0) return b <= (short.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(ushort a, ushort b)
+        {
+            if (a == 0 && b == 0) return true;
+            if (a == 0) return false;
+            if (b == 0) return true;
+            if (a > 0) return b <= (ushort.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(int a, int b)
+        {
+            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
+            if (a < 0) return b >= (int.MinValue + a);
+            if (a > 0) return b <= (int.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(uint a, uint b)
+        {
+            if (a == 0 && b == 0) return true;
+            if (a == 0u) return false;
+            if (b == 0u) return true;
+            if (a > 0u) return b <= (uint.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(long a, long b)
+        {
+            if (a == 0L || b == 0L) return true;
+            if (a < 0L) return b >= (long.MinValue + a);
+            if (a > 0L) return b <= (long.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(ulong a, ulong b)
+        {
+            if (a == 0 && b == 0) return true;
+            if (a == 0ul) return false;
+            if (b == 0ul) return true;
+            if (a > 0ul) return b <= (ulong.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(float a, float b)
+        {
+            if (a == 0f || b == 0f || a == -0f || b == -0f) return true;
+            if (a < 0f) return b >= (float.MinValue + a);
+            if (a > 0f) return b <= (float.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(double a, double b)
+        {
+            if (a == 0d || b == 0d || a == -0d || b == -0d) return true;
+            if (a < 0d) return b >= (double.MinValue + a);
+            if (a > 0d) return b <= (double.MaxValue + a);
+            return true;
+        }
+
+        /// <summary>
+        /// Test whether a subtraction of two values is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSubtractionSafe(decimal a, decimal b)
+        {
+            if (a == decimal.Zero || b == decimal.Zero || a == -decimal.Zero || b == -decimal.Zero) return true;
+            if (a < decimal.Zero) return b >= (decimal.MinValue + a);
+            if (a > decimal.Zero) return b <= (decimal.MaxValue + a);
+            return true;
+        }
+
     }
 }

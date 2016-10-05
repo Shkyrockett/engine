@@ -1,7 +1,10 @@
-﻿// <copyright file="ImagingEx.cs">
-//     Copyright © 2013 Shkyrockett. All rights reserved.
+﻿// <copyright file="ImageExtensions.cs" >
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author id="shkyrockett"/>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System.Drawing;

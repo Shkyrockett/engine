@@ -7,7 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-
 namespace Engine.Tools
 {
     /// <summary>

@@ -1,4 +1,13 @@
-﻿using System.Drawing;
+﻿// <copyright file="AHSI.cs" >
+//     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System.Drawing;
 using static System.Math;
 
 namespace Engine.Imaging.ColorSpace

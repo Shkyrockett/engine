@@ -1,16 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Engine.Geometry;
+﻿// <copyright file="BoundingsTests.cs" >
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Geometry.Tests
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [TestClass()]
     public class BoundingsTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void CircularArcTest()
@@ -18,6 +28,9 @@ namespace Engine.Geometry.Tests
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void CircleTest()
@@ -25,6 +38,9 @@ namespace Engine.Geometry.Tests
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void EllipseTest()
@@ -32,6 +48,9 @@ namespace Engine.Geometry.Tests
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void EllipseTest1()
@@ -39,6 +58,9 @@ namespace Engine.Geometry.Tests
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void EllipticalArcTest()
@@ -46,6 +68,9 @@ namespace Engine.Geometry.Tests
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void RotatedRectangleTest()
@@ -53,6 +78,9 @@ namespace Engine.Geometry.Tests
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void PolygonTest()
@@ -60,6 +88,9 @@ namespace Engine.Geometry.Tests
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod()]
         [Ignore]
         public void BoundsTest()

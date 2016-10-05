@@ -1,7 +1,11 @@
-﻿// <copyright file="IGameElement.cs" company="Shkyrockett">
-//     Copyright © Shkyrockett. All rights reserved.
+﻿// <copyright file="IGameElement.cs" >
+//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <author>Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
 
 namespace Engine.Objects
 {

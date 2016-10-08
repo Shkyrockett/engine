@@ -2344,6 +2344,14 @@ namespace Engine
         #endregion
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int Digits(int value)
+            => value == 0 ? 1 : (int)Floor(Log10(Math.Abs(value)) + 1);
+
+        /// <summary>
         /// Test whether an addition of two values is likely to overflow.
         /// </summary>
         /// <param name="a"></param>

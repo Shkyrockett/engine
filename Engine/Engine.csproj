@@ -98,7 +98,13 @@
   <ItemGroup>
     <Compile Include="Geometry\Complex\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
+    <Compile Include="Geometry\EmptyLocus.cs" />
+    <Compile Include="Geometry\LineSegmentLocus.cs" />
+    <Compile Include="Geometry\UnionLocus.cs" />
+    <Compile Include="Geometry\PointLocus.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
+    <Compile Include="Intersector.cs" />
+    <Compile Include="Geometry\Locus.cs" />
     <Compile Include="Math\Areas.cs" />
     <Compile Include="Math\Boundings.cs" />
     <Compile Include="Math\Notation\Codomain.cs" />
@@ -140,6 +146,7 @@
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />
     <Compile Include="Math\Enums\Overflows.cs" />
+    <Compile Include="Math\Offsets.cs" />
     <Compile Include="Physics\UnitStrings.cs" />
     <Compile Include="Math\Range.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />

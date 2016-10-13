@@ -789,7 +789,7 @@ namespace Engine.Geometry
         /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (bool, Point2D) LineLine(
+        public static (bool Intersects, Point2D Points) LineLine(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,

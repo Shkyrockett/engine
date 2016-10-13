@@ -213,24 +213,11 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline Offset(double offset)
-        {
-            var polyline = new Polyline();
-
-            LineSegment offsetLine = Primitives.OffsetSegment(Points[0], Points[1], offset);
-            polyline.Add(offsetLine.A);
-
-            for (int i = 2; i < Points.Count; i++)
-            {
-                LineSegment newOffsetLine = Primitives.OffsetSegment(Points[i - 1], Points[i], offset);
-                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
-                offsetLine = newOffsetLine;
-            }
-
-            polyline.Add(offsetLine.B);
-
-            return polyline;
-        }
+            => Offsets.Offset(this, offset);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polyline"/> struct based on the format string

@@ -211,26 +211,10 @@ namespace Engine.Geometry
         /// <param name="offset"></param>
         /// <returns></returns>
         [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual Polygon Offset(double offset)
-        {
-            List<Point2D> points = (this.points as List<Point2D>);
-
-            var polyline = new Polygon();
-
-            LineSegment offsetLine = Primitives.OffsetSegment(points[Points.Count - 1], points[0], offset);
-            LineSegment startLine = offsetLine;
-
-            for (int i = 1; i < Points.Count; i++)
-            {
-                LineSegment newOffsetLine = Primitives.OffsetSegment(points[i - 1], points[i], offset);
-                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
-                offsetLine = newOffsetLine;
-            }
-
-            polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y).Item2);
-
-            return polyline;
-        }
+            => Offsets.Offset(this, offset);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string

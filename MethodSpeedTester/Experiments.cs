@@ -3144,6 +3144,37 @@ namespace MethodSpeedTester
             return Sqrt(((dx * dx) + (dy * dy)));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q0"></param>
+        /// <param name="q1"></param>
+        /// <param name="radius"></param>
+        /// <param name="u"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
+        /// </remarks>
+        private static double DistFromSeg(Point2D p, Point2D q0, Point2D q1, double radius, ref double u)
+        {
+            // formula here:
+            // http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
+            // where x0,y0 = p
+            //       x1,y1 = q0
+            //       x2,y2 = q1
+            double dx21 = q1.X - q0.X;
+            double dy21 = q1.Y - q0.Y;
+            double dx10 = q0.X - p.X;
+            double dy10 = q0.Y - p.Y;
+            double segLength = Math.Sqrt(dx21 * dx21 + dy21 * dy21);
+            if (segLength < Maths.Epsilon)
+                throw new Exception("Expected line segment, not point.");
+            double num = Math.Abs(dx21 * dy10 - dx10 * dy21);
+            double d = num / segLength;
+            return d;
+        }
+
         #endregion
 
         #region Dot Product of Two 2D Points
@@ -9400,6 +9431,23 @@ namespace MethodSpeedTester
                 ((pointY > segmentAY) == (pointY < segmentBY)) &&
                 ((pointX - segmentAX) * (segmentBY - segmentAY) ==
                 (segmentBX - segmentAX) * (pointY - segmentAY)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
+        /// </remarks>
+        private static bool PointLineSegment(Point2D p, Point2D a1, Point2D a2)
+        {
+            double dummyU = 0.0d;
+            double d = DistFromSeg(p, a1, a2, Maths.Epsilon, ref dummyU);
+            return d < Maths.Epsilon;
+        }
 
         /// <summary>
         ///

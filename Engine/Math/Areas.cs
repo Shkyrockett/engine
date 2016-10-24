@@ -56,6 +56,17 @@ namespace Engine.Geometry
             => PI * r2 * r1;
 
         /// <summary>
+        /// Returns a positive number if c is to the left of the line going from a to b.
+        /// </summary>
+        /// <returns>
+        /// Positive number if point is left, negative if point is right, 
+        /// and 0 if points are collinear.
+        /// </returns>
+        /// <remarks>From Farseer Physics Engine.</remarks>
+        public static double SignedTriangle(double aX, double aY, double bX, double bY, double cX, double cY)
+            => aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="width"></param>

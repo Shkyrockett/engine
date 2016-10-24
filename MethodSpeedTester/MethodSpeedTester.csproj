@@ -60,6 +60,7 @@
     <Compile Include="Experemental\CubicBSpline.cs" />
     <Compile Include="Experemental\DoubleLine.cs" />
     <Compile Include="Experemental\EllipticStar.cs" />
+    <Compile Include="Experemental\EmptyLocus.cs" />
     <Compile Include="Experemental\Gear.cs" />
     <Compile Include="Experemental\Heart.cs" />
     <Compile Include="Experemental\Hermite.cs" />
@@ -67,9 +68,12 @@
     <Compile Include="Experemental\Intersection.cs" />
     <Compile Include="Experemental\KeyFrameAnimation.cs" />
     <Compile Include="Experemental\Line.cs" />
+    <Compile Include="Experemental\LineSegmentLocus.cs" />
+    <Compile Include="Experemental\Locus.cs" />
     <Compile Include="Experemental\NGonStar.cs" />
     <Compile Include="Experemental\NonIntStar.cs" />
     <Compile Include="Experemental\Parabola.cs" />
+    <Compile Include="Experemental\PointLocus.cs" />
     <Compile Include="Experemental\PolyBezier.cs" />
     <Compile Include="Experemental\PolyPath.cs" />
     <Compile Include="Experemental\Ray.cs" />
@@ -78,8 +82,10 @@
     <Compile Include="Experemental\Sine.cs" />
     <Compile Include="Experemental\Star.cs" />
     <Compile Include="Experemental\TimeLine.cs" />
+    <Compile Include="Experemental\UnionLocus.cs" />
     <Compile Include="Experemental\Utilities.cs" />
     <Compile Include="Experemental\Voronoi.cs" />
+    <Compile Include="Experemental\Intersector.cs" />
     <Compile Include="RectanglePointTester.cs">
       <SubType>Form</SubType>
     </Compile>

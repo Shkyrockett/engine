@@ -13,6 +13,8 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace MethodSpeedTester
@@ -40,6 +42,41 @@ namespace MethodSpeedTester
             comboBoxTests.SelectedItem = null;
 
             dataGridView1.DataSource = tests;
+        }
+
+        /// <summary>
+        /// Event handler for painting the data grid view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView1_Paint(Object sender, PaintEventArgs e)
+        {
+            var dgv = (sender as DataGridView);
+
+            if (dgv.Rows.Count == 0)
+            {
+                using (Graphics grfx = e.Graphics)
+                {
+                    StringFormat format = new StringFormat()
+                    {
+                        Alignment = StringAlignment.Center,
+                        LineAlignment = StringAlignment.Center,
+                    };
+
+                    grfx.DrawString("No Results", new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold), Brushes.Blue, dgv.ClientRectangle, format);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Event handler for resizing the data grid view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView1_Resize(Object sender, EventArgs e)
+        {
+            var dgv = (sender as DataGridView);
+            if (dgv.Rows.Count == 0) dgv.Invalidate();
         }
 
         /// <summary>
@@ -91,16 +128,42 @@ namespace MethodSpeedTester
         /// <summary>
         /// Run the tests.
         /// </summary>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/6005865/prevent-net-garbage-collection-for-short-period-of-time/6005949#6005949
+        /// </remarks>
         private void RunTests()
         {
+            dataGridView1.DataSource = null;
+
             foreach (SpeedTester test in tests)
+            {
+                // Run garbage collection to try to keep each test in about the same conditions. 
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+                GC.WaitForPendingFinalizers();
+                //GC.TryStartNoGCRegion(15728640);
+                //GC.TryStartNoGCRegion(268435456);
+
+                // Putting into low latency mode to try to prevent garbage collection in the middle of tests.
+                GCLatencyMode oldMode = GCSettings.LatencyMode;
+                RuntimeHelpers.PrepareConstrainedRegions();
+                GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+
+                // Run test cases.
                 test.RunTest((int)numericUpDownTrials.Value);
 
-            dataGridView1.DataSource = null;
+                // Restoring the latency mode.
+                GCSettings.LatencyMode = oldMode;
+                //GC.EndNoGCRegion();
+            }
+
             dataGridView1.DataSource = tests;
 
+            // Find the best performer. 
             DataGridViewCell minCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) < Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
+
+            // Find the worst performer.
             DataGridViewCell maxCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) > Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
+
             maxCell.Style.BackColor = Color.PeachPuff;
             maxCell.Style.ForeColor = Color.DarkRed;
             maxCell.Style.Font = new Font(dataGridView1.DefaultCellStyle.Font, FontStyle.Bold);

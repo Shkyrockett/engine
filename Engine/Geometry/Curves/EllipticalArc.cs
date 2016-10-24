@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 using static System.Math;
+using static Engine.Maths;
 
 namespace Engine.Geometry
 {
@@ -76,8 +77,7 @@ namespace Engine.Geometry
         /// </summary>
         public EllipticalArc()
             : this(0, 0, 0, 0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
@@ -133,11 +133,10 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public EllipticalArc(Point2D center, Size2D size, double angle, double startAngle, double sweepAngle)
             : this(center.X, center.Y, size.Width, size.Height, angle, startAngle, sweepAngle)
-        {
-        }
+        { }
 
         /// <summary>
-        /// Creates a new Instance of Ellipse
+        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
         /// </summary>
         /// <param name="rectangle">The boundaries of the ellipse</param>
         /// <param name="angle"></param>
@@ -146,8 +145,7 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public EllipticalArc(Rectangle2D rectangle, double angle, double startAngle, double endAngle)
             : this(rectangle.Center(), rectangle.Width, rectangle.Height, angle, startAngle, endAngle)
-        {
-        }
+        { }
 
         /// <summary>
         /// Creates a new Instance of Ellipse
@@ -158,7 +156,133 @@ namespace Engine.Geometry
         /// <remarks></remarks>
         public EllipticalArc(Ellipse ellipse, double startAngle, double endAngle)
             : this(ellipse.Center, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// </summary>
+        /// <param name="x0">The starting X-coordinate.</param>
+        /// <param name="y0">The starting Y-coordinate.</param>
+        /// <param name="rx">The first radius.</param>
+        /// <param name="ry">The second Radius.</param>
+        /// <param name="angle">The angle of rotation in radians.</param>
+        /// <param name="largeArcFlag">Flag used to toggle whether to choose the largest matching ellipse.</param>
+        /// <param name="sweepFlag">Flag used to toggle whether to choose the upper or lower elliptical solution. </param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Elliptical arc implementation based on the SVG specification notes
+        /// http://java.net/projects/svgsalamander/sources/svn/content/trunk/svg-core/src/main/java/com/kitfox/svg/pathcmd/Arc.java
+        /// http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+        /// </remarks>
+        public EllipticalArc(
+            double x0, double y0,
+            double rx, double ry,
+            double angle,
+            bool largeArcFlag,
+            bool sweepFlag,
+            double x, double y)
         {
+            // Compute the half distance between the current and the final point
+            double dx2 = (x0 - x) * 0.5d;
+            double dy2 = (y0 - y) * 0.5d;
+
+            // Convert angle from degrees to radians
+            // angle = Math.toRadians(angle % 360.0);
+            double cosAngle = Cos(angle);
+            double sinAngle = Sin(angle);
+
+            //
+            // Step 1 : Compute (x1, y1)
+            //
+            double x1 = (cosAngle * dx2 + sinAngle * dy2);
+            double y1 = (-sinAngle * dx2 + cosAngle * dy2);
+
+            // Ensure radii are large enough
+            rx = Abs(rx);
+            ry = Abs(ry);
+            double Prx = rx * rx;
+            double Pry = ry * ry;
+            double Px1 = x1 * x1;
+            double Py1 = y1 * y1;
+
+            // check that radii are large enough
+            double radiiCheck = Px1 / Prx + Py1 / Pry;
+            if (radiiCheck > 1)
+            {
+                rx = Sqrt(radiiCheck) * rx;
+                ry = Sqrt(radiiCheck) * ry;
+                Prx = rx * rx;
+                Pry = ry * ry;
+            }
+
+            //
+            // Step 2 : Compute (cx1, cy1)
+            //
+            double sign = (largeArcFlag == sweepFlag) ? -1 : 1;
+            double sq = ((Prx * Pry) - (Prx * Py1) - (Pry * Px1)) / ((Prx * Py1) + (Pry * Px1));
+            sq = (sq < 0) ? 0 : sq;
+            double coef = (sign * Sqrt(sq));
+            double cx1 = coef * ((rx * y1) / ry);
+            double cy1 = coef * -((ry * x1) / rx);
+
+            //
+            // Step 3 : Compute (cx, cy) from (cx1, cy1)
+            //
+            double sx2 = (x0 + x) / 2.0;
+            double sy2 = (y0 + y) / 2.0;
+            double cx = sx2 + (cosAngle * cx1 - sinAngle * cy1);
+            double cy = sy2 + (sinAngle * cx1 + cosAngle * cy1);
+
+            //
+            // Step 4 : Compute the angleStart (angle1) and the angleExtent (dangle)
+            //
+            double ux = (x1 - cx1) / rx;
+            double uy = (y1 - cy1) / ry;
+            double vx = (-x1 - cx1) / rx;
+            double vy = (-y1 - cy1) / ry;
+            double p, n;
+
+            // Compute the angle start
+            n = Sqrt((ux * ux) + (uy * uy));
+            p = ux; // (1 * ux) + (0 * uy)
+            sign = (uy < 0) ? -1d : 1d;
+            double angleStart = (sign * Acos(p / n));
+
+            // Compute the angle extent
+            n = Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
+            p = ux * vx + uy * vy;
+            sign = (ux * vy - uy * vx < 0) ? -1d : 1d;
+            double angleExtent = (sign * Acos(p / n));
+            if (!sweepFlag && angleExtent > 0)
+            {
+                angleExtent -= Tau;
+            }
+            else if (sweepFlag && angleExtent < 0)
+            {
+                angleExtent += Tau;
+            }
+            angleExtent %= Tau;
+            angleStart %= Tau;
+
+            //
+            // We can now build the resulting Arc2D in double precision
+            //
+            //return new EllipticalArc(new Point2D(cx, cy), rx, ry, angle, angleStart, angleExtent);
+            this.x = cx;
+            this.y = cy;
+            this.r1 = rx;
+            this.r2 = ry;
+            this.angle = angle;
+            this.startAngle = angleStart;
+            this.sweepAngle = angleExtent;
+            //arc.x = cx - rx;
+            //arc.y = cy - ry;
+            //arc.width = rx * 2.0;
+            //arc.height = ry * 2.0;
+            //arc.start = -angleStart;
+            //arc.extent = -angleExtent;
         }
 
         #endregion

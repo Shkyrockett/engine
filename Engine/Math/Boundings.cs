@@ -248,7 +248,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Calculate the external bounding rectangle of a rotated rectangle.
+        /// Calculate the external bounding rectangle of a Polygon.
         /// </summary>
         /// <param name="polygon">The points of the polygon.</param>
         /// <returns></returns>
@@ -275,7 +275,32 @@ namespace Engine.Geometry
             }
 
             return Rectangle2D.FromLTRB(left, top, right, bottom);
+        }
 
+        /// <summary>
+        /// Calculate the external bounding rectangle of a Chain.
+        /// </summary>
+        /// <param name="chain">The Chain.</param>
+        /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Chain (Chain chain)
+        {
+            double left = chain.Members[0].Start.X;
+            double top = chain.Members[0].Start.Y;
+            double right = chain.Members[0].End.X;
+            double bottom = chain.Members[0].End.Y;
+
+            foreach (ChainMember member in chain.Members)
+            {
+                // ToDo: Measure performance impact of overwriting each time.
+                left = member.End.X <= left ? member.End.X : left;
+                top = member.End.Y <= top ? member.End.Y : top;
+                right = member.End.X >= right ? member.End.X : right;
+                bottom = member.End.Y >= bottom ? member.End.Y : bottom;
+            }
+
+            return Rectangle2D.FromLTRB(left, top, right, bottom);
         }
 
         /// <summary>

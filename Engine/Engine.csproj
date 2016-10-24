@@ -96,15 +96,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Chain\ChainMember.cs" />
+    <Compile Include="Geometry\Chain\ChainArc.cs" />
+    <Compile Include="Geometry\Chain\ChainSegment.cs" />
+    <Compile Include="Geometry\Chain\ChainQuadratic.cs" />
+    <Compile Include="Geometry\Chain\ChainCubicBezier.cs" />
+    <Compile Include="Geometry\Chain\ChainPoint.cs" />
+    <Compile Include="Geometry\Chain\Chain.cs" />
     <Compile Include="Geometry\Complex\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
-    <Compile Include="Geometry\EmptyLocus.cs" />
-    <Compile Include="Geometry\LineSegmentLocus.cs" />
-    <Compile Include="Geometry\UnionLocus.cs" />
-    <Compile Include="Geometry\PointLocus.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
-    <Compile Include="Intersector.cs" />
-    <Compile Include="Geometry\Locus.cs" />
     <Compile Include="Math\Areas.cs" />
     <Compile Include="Math\Boundings.cs" />
     <Compile Include="Math\Notation\Codomain.cs" />

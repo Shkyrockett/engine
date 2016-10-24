@@ -891,47 +891,6 @@ namespace Engine.Geometry
 
         #endregion
 
-        #region Offset
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="value"></param>
-        /// <param name="distance"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
-        {
-            var offset = Maths.OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
-            return new List<Point2D> { new Point2D(offset.x1, offset.y1), new Point2D(offset.x2, offset.y2) };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="value"></param>
-        /// <param name="distance"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment OffsetSegment(Point2D point, Point2D value, double distance)
-            => new LineSegment(Maths.OffsetSegment(point.X, point.Y, value.X, value.Y, distance));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="segment"></param>
-        /// <param name="distance"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment Offset(this LineSegment segment, double distance)
-            => new LineSegment(Maths.OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
-
-        #endregion
-
         #region Perpendicular Vector
 
         /// <summary>

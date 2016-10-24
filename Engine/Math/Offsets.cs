@@ -11,6 +11,7 @@ using Engine.Geometry;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
+using static Engine.Maths;
 
 namespace Engine
 {
@@ -20,13 +21,109 @@ namespace Engine
     public static class Offsets
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="value"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
+        {
+            var offset = OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
+            return new List<Point2D> { new Point2D(offset.x1, offset.y1), new Point2D(offset.x2, offset.y2) };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="value"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineSegment OffsetSegment(Point2D point, Point2D value, double distance)
+            => new LineSegment(OffsetSegment(point.X, point.Y, value.X, value.Y, distance));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segment"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineSegment Offset(this LineSegment segment, double distance)
+            => new LineSegment(OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x1, double y1, double x2, double y2)
+            OffsetSegment(
+            double aX, double aY,
+            double bX, double bY,
+            double distance)
+        {
+            double d = Distance(aX, aY, bX, bY);
+            double dY = (bY - aY) / d;
+            double dX = (bX - aX) / d;
+            return ((aX + 0.5 * -dY * distance),
+                (aY + 0.5 * dX * distance),
+                (bX + 0.5 * -dY * distance),
+                (bY + 0.5 * dX * distance));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="aZ"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="bZ"></param>
+        /// <param name="distanceX"></param>
+        /// <param name="distanceY"></param>
+        /// <param name="distanceZ"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x1, double y1, double z1, double x2, double y2, double z2)
+            OffsetSegment(
+            double aX, double aY, double aZ,
+            double bX, double bY, double bZ,
+            double distanceX, double distanceY, double distanceZ)
+        {
+            double d = Distance(aX, aY, aZ, bX, bY, bZ);
+            double dX = (bX - aX) / d;
+            double dY = (bY - aY) / d;
+            double dZ = (bZ - aZ) / d;
+            return ((aX + 0.5 * -dY * distanceX),
+                (aY + 0.5 * dX * distanceY),
+                (aZ + 0.5 * dZ * distanceZ),
+                (bX + 0.5 * -dY * distanceX),
+                (bY + 0.5 * dX * distanceY),
+                (bZ + 0.5 * dZ * distanceZ));
+        }
+
+        /// <summary>
         /// Inflate Offsets a <see cref="Circle"/> by the specified amount.
         /// </summary>
         /// <param name="circle"></param>
         /// <param name="offset"></param>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Circle Offset( this Circle circle, double offset)
+        public static Circle Offset(this Circle circle, double offset)
         {
             return new Circle(circle.X, circle.Y, circle.Radius + offset);
         }
@@ -64,7 +161,7 @@ namespace Engine
         /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Triangle Offset(this Triangle triangle, double  offset)
+        public static Triangle Offset(this Triangle triangle, double offset)
         {
             return (Triangle)Offset((Polygon)triangle, offset);
         }
@@ -106,12 +203,12 @@ namespace Engine
         {
             var polygon = new Polyline();
 
-            LineSegment offsetLine = Primitives.OffsetSegment(polyline.Points[0], polyline.Points[1], offset);
+            LineSegment offsetLine = OffsetSegment(polyline.Points[0], polyline.Points[1], offset);
             polygon.Add(offsetLine.A);
 
             for (int i = 2; i < polyline.Points.Count; i++)
             {
-                LineSegment newOffsetLine = Primitives.OffsetSegment(polyline.Points[i - 1], polyline.Points[i], offset);
+                LineSegment newOffsetLine = OffsetSegment(polyline.Points[i - 1], polyline.Points[i], offset);
                 polygon.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
                 offsetLine = newOffsetLine;
             }
@@ -135,12 +232,12 @@ namespace Engine
 
             var polyline = new Polygon();
 
-            LineSegment offsetLine = Primitives.OffsetSegment(points[polygon.Points.Count - 1], points[0], offset);
+            LineSegment offsetLine = OffsetSegment(points[polygon.Points.Count - 1], points[0], offset);
             LineSegment startLine = offsetLine;
 
             for (int i = 1; i < polygon.Points.Count; i++)
             {
-                LineSegment newOffsetLine = Primitives.OffsetSegment(points[i - 1], points[i], offset);
+                LineSegment newOffsetLine = OffsetSegment(points[i - 1], points[i], offset);
                 polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
                 offsetLine = newOffsetLine;
             }

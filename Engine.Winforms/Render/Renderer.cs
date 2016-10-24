@@ -99,6 +99,9 @@ namespace Engine.Imaging
                 case QuadraticBezier t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
+                case Chain t:
+                    t.Render(g, item, style as ShapeStyle);
+                    break;
                 case null:
                     throw new NullReferenceException($"{nameof(item)} is null.");
                 default:

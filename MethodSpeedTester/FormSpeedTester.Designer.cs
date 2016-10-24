@@ -16,6 +16,14 @@ namespace MethodSpeedTester
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        private System.Windows.Forms.Button buttonRun;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.NumericUpDown numericUpDownTrials;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label labelTrials;
+        private System.Windows.Forms.Button buttonCopy;
+        private System.Windows.Forms.ComboBox comboBoxTests;
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -26,6 +34,7 @@ namespace MethodSpeedTester
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -85,6 +94,8 @@ namespace MethodSpeedTester
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(560, 308);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView1_Paint);
+            this.dataGridView1.Resize += new System.EventHandler(this.dataGridView1_Resize);
             // 
             // numericUpDownTrials
             // 
@@ -183,13 +194,19 @@ namespace MethodSpeedTester
 
         #endregion
 
-        private System.Windows.Forms.Button buttonRun;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.NumericUpDown numericUpDownTrials;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label labelTrials;
-        private System.Windows.Forms.Button buttonCopy;
-        private System.Windows.Forms.ComboBox comboBoxTests;
+        /// <summary>
+        /// Set an arbitrary control to double-buffer.
+        /// </summary>
+        /// <param name="control">The control to set as double buffered.</param>
+        /// <remarks>
+        /// Taxes: Remote Desktop Connection and painting: http://blogs.msdn.com/oldnewthing/archive/2006/01/03/508694.aspx
+        /// </remarks>
+        private static void SetDoubleBuffered(System.Windows.Forms.Control control)
+        {
+            if (System.Windows.Forms.SystemInformation.TerminalServerSession) return;
+            System.Reflection.PropertyInfo aProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            aProp.SetValue(control, true, null);
+        }
     }
 }
 

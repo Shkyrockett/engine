@@ -73,11 +73,11 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Circle(
-        double cX, double cY,
-        double r,
-        double t) => (
-            cX + (Cos(t) * r),
-            cY + (Sin(t) * r));
+            double cX, double cY,
+            double r,
+            double t) => (
+                cX + (Cos(t) * r),
+                cY + (Sin(t) * r));
 
         /// <summary>
         /// Interpolates the unrotated elliptical Arc.

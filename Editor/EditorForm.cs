@@ -456,6 +456,13 @@ namespace Editor
             //var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, styles[10]);
             //vectorMap.Add(CircleArcBoundsItem);
 
+            var chain = new Chain(new Point2D(100d, 200d));
+            chain.AddSegment(new Point2D(200, 200))
+                .AddArc(50d, 50d, 0d, false, true, new Point2D(250d, 250d))
+                .AddSegment(new Point2D(250, 300));
+            var chainItem = new GraphicItem(chain, styles[1]);
+            vectorMap.Add(chainItem);
+
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";
         }

@@ -1716,14 +1716,38 @@ namespace MethodSpeedTester
         #region Clamp a value between a minimum and a maximum
 
         /// <summary>
+        /// Set of tests to run testing methods that clamp a number between a minimum, and a maximum.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(ClampTests))]
+        public static List<SpeedTester> ClampTests() => new List<SpeedTester> {
+                new SpeedTester(() => Clamp0(2, 0, 1),
+                $"{nameof(Experiments.Clamp0)}(2, 0, 1)"),
+                new SpeedTester(() => Clamp1(2, 0, 1),
+                $"{nameof(Experiments.Clamp1)}(2, 0, 1)")
+            };
+
+        /// <summary>
         /// Keep the value between the maximum and minimum.
         /// </summary>
         /// <param name="value">The value to clamp.</param>
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
-        public static double Clamp(double value, double min, double max)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Clamp0(double value, double min, double max)
             => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Clamp1(double value, double min, double max)
+            => Max(min, Min(value, max));
 
         #endregion
 
@@ -4058,7 +4082,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </remarks>
-        public static (double X, double Y) ? circleCenterFromPoints(
+        public static (double X, double Y)? circleCenterFromPoints(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y)
@@ -4880,7 +4904,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://www.xarg.org/2016/07/calculate-the-intersection-points-of-two-circles/
         /// </remarks>
-        public static (int, (double X, double Y), (double X, double Y)) ? CircleCircleIntersection(Circle A, Circle B)
+        public static (int, (double X, double Y), (double X, double Y))? CircleCircleIntersection(Circle A, Circle B)
         {
             var d = Sqrt(Pow(B.X - A.X, 2) + Pow(B.Y - A.Y, 2));
 
@@ -5940,7 +5964,7 @@ namespace MethodSpeedTester
         /// <param name="x4"></param>
         /// <param name="y4"></param>
         /// <returns>Returns the point of intersection.</returns>
-        public static (bool intersects, (double X, double Y) ? point) Intersection0(
+        public static (bool intersects, (double X, double Y)? point) Intersection0(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
@@ -5982,7 +6006,7 @@ namespace MethodSpeedTester
         /// <param name="y4">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks>https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/</remarks>
-        public static (bool, (double X, double Y) ?) Intersection1(
+        public static (bool, (double X, double Y)?) Intersection1(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
@@ -6026,7 +6050,7 @@ namespace MethodSpeedTester
         /// <param name="y4">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
-        public static (bool, (double X, double Y) ?) Intersection2(
+        public static (bool, (double X, double Y)?) Intersection2(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
@@ -6069,7 +6093,7 @@ namespace MethodSpeedTester
         /// <param name="y4">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/</remarks>
-        public static (bool, (double X, double Y) ?) Intersection3(
+        public static (bool, (double X, double Y)?) Intersection3(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
@@ -6129,7 +6153,7 @@ namespace MethodSpeedTester
         /// <param name="y4">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks>http://www.gamedev.net/page/resources/_/technical/math-and-physics/fast-2d-line-intersection-algorithm-r423</remarks>
-        public static (bool, (double X, double Y) ?) Intersection4(
+        public static (bool, (double X, double Y)?) Intersection4(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
@@ -6163,7 +6187,7 @@ namespace MethodSpeedTester
         /// Got this here:
         /// http://stackoverflow.com/questions/14480124/how-do-i-detect-triangle-and-rectangle-intersection
         /// </remarks>
-        public static (bool, (double X, double Y) ?) Intersection5(
+        public static (bool, (double X, double Y)?) Intersection5(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -6214,7 +6238,7 @@ namespace MethodSpeedTester
         /// <param name="intersect"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static (bool, (double X, double Y) ?) FindIntersection(
+        private static (bool, (double X, double Y)?) FindIntersection(
             double X1, double Y1,
             double X2, double Y2,
             double A1, double B1,
@@ -6258,7 +6282,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://alienryderflex.com/intersect/
         /// </remarks>
-        public static (bool, (double X, double Y) ?) lineIntersection(
+        public static (bool, (double X, double Y)?) lineIntersection(
             double Ax, double Ay,
             double Bx, double By,
             double Cx, double Cy,
@@ -6317,7 +6341,7 @@ namespace MethodSpeedTester
         ///  public domain function by Darel Rex Finley, 2006
         ///  http://alienryderflex.com/intersect/
         /// </remarks>
-        public static (bool, (double X, double Y) ?) lineSegmentIntersection(
+        public static (bool, (double X, double Y)?) lineSegmentIntersection(
             double Ax, double Ay,
             double Bx, double By,
             double Cx, double Cy,
@@ -6406,6 +6430,56 @@ namespace MethodSpeedTester
 
             // If we got this far, the polygon is convex.
             return true;
+        }
+
+        #endregion
+
+        #region Is Valid
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(IsValidTests))]
+        public static List<SpeedTester> IsValidTests()
+            => new List<SpeedTester> {
+                new SpeedTester(() => IsValid(double.NaN),
+                $"{nameof(Experiments.IsValid)}({double.NaN})"),
+                new SpeedTester(() => IsValid1(double.NaN),
+                $"{nameof(Experiments.IsValid1)}({double.NaN})"),
+            };
+
+        /// <summary>
+        /// Make sure that a double number is not a NaN or infinity.
+        /// </summary>
+        /// <param name="value">The value to check.</param>
+        /// <returns>
+        /// true if the specified value is valid; otherwise, returns false.
+        /// </returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsValid(double value)
+        {
+            return !double.IsNaN(value) && !double.IsInfinity(value);
+        }
+
+        /// <summary>
+        /// This function is used to ensure that a floating point number is
+        /// not a NaN or infinity.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <returns>
+        /// 	<c>true</c> if the specified x is valid; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsValid1(double x)
+        {
+            if (double.IsNaN(x))
+            {
+                // NaN.
+                return false;
+            }
+
+            return !double.IsInfinity(x);
         }
 
         #endregion
@@ -7851,7 +7925,7 @@ namespace MethodSpeedTester
             var segE = new List<(double X, double Y)>();
             var segAngle = new List<double>();
             var segRet = new List<(double X, double Y)>();
-            (double X, double Y) ? intersect;
+            (double X, double Y)? intersect;
             var start = points[0];
             double lastAngle = PI;
             int j = (corners) - 1;
@@ -8268,7 +8342,7 @@ namespace MethodSpeedTester
                 new PointF(0, 0),
                 new PointF(2, 0),
                 new PointF(0, 2) };
-            (List<double>, List<double>) ? PatrickMullenValues = PrecalcPointInPolygonPatrickMullenValues(polygon);
+            (List<double>, List<double>)? PatrickMullenValues = PrecalcPointInPolygonPatrickMullenValues(polygon);
             var point = new PointF(1, 1);
             return new List<SpeedTester> {
                 //new SpeedTester(() => PointInPolygonDarelRexFinley(polygon, point),
@@ -8529,7 +8603,7 @@ namespace MethodSpeedTester
         ///// <param name="constant">storage for precalculated constants (same size as polyX)</param>
         ///// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static (List<double>, List<double>) ? PrecalcPointInPolygonPatrickMullenValues(
+        public static (List<double>, List<double>)? PrecalcPointInPolygonPatrickMullenValues(
             List<PointF> polygon)
         {
             if (polygon == null)
@@ -10265,6 +10339,86 @@ namespace MethodSpeedTester
         // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
         #endregion
 
+        #region Sine
+
+        #endregion
+
+        #region Sine Cosine Lookup
+
+        /// <summary>
+        /// Set of tests to lookup the Sin and Cos of a radian angle.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(SinCosLookupTableTests))]
+        public static List<SpeedTester> SinCosLookupTableTests()
+        {
+            Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            double value = default(double);
+            return new List<SpeedTester> {
+                new SpeedTester(() => SinCos0(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos0)}({Maths.WrapAngle(value += Radien)})"),
+                new SpeedTester(() => SinCos1(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos1)}({Maths.WrapAngle(value += Radien)})"),
+                new SpeedTester(() => SinCos2(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos2)}({Maths.WrapAngle(value += Radien)})"),
+                new SpeedTester(() => SinCos3(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos3)}({Maths.WrapAngle(value += Radien)})"),
+                new SpeedTester(() => SinCos4(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos4)}({Maths.WrapAngle(value += Radien)})"),
+            };
+        }
+
+        private static Dictionary<double, (double, double)?> sinCosTable = new Dictionary<double, (double, double)?>();
+
+        public static double ClearSinCosTable()
+        {
+            sinCosTable.Clear();
+            return 0;
+        }
+
+        public static (double, double) SinCos0(double radian)
+        {
+            // lookup, if not exists add to table and return the result.
+            return sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
+        }
+
+        public static (double, double) SinCos1(double radian)
+        {
+            // lookup and replace with same value, or add if not exists.
+            return (sinCosTable[radian] = sinCosTable.GetValueOrDefault(radian) ?? (Sin(radian), Cos(radian))).Value;
+        }
+
+        private static (double, double) SinCos2(double radian)
+        {
+            if (!sinCosTable.ContainsKey(radian))
+                sinCosTable.Add(radian, (Sin(radian), Cos(radian)));
+            return sinCosTable[radian].Value;
+        }
+
+        private static (double, double) SinCos3(double radian)
+        {
+            if (!sinCosTable.ContainsKey(radian))
+            {
+                var value = (Sin(radian), Cos(radian));
+                sinCosTable.Add(radian, value);
+                return value;
+            }
+
+            return sinCosTable[radian].Value;
+        }
+
+        private static (double, double) SinCos4(double radian)
+        {
+            if (!sinCosTable.ContainsKey(radian))
+            {
+                return (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
+            }
+
+            return sinCosTable[radian].Value;
+        }
+
+        #endregion
+
         #region Sine Interpolation of 1D
 
         /// <summary>
@@ -10481,7 +10635,7 @@ namespace MethodSpeedTester
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1
             // If amount > 1, return value2
-            double result = Clamp(amount, 0f, 1f);
+            double result = Clamp0(amount, 0f, 1f);
             result = Hermite(value1, 0f, value2, 0f, result);
 
             return result;

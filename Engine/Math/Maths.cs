@@ -48,58 +48,11 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="distance"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x1, double y1, double x2, double y2)
-            OffsetSegment(
-            double aX, double aY,
-            double bX, double bY,
-            double distance)
-            => ((aX + 0.5 * -((bY - aY) / Distance(aX, aY, bX, bY)) * distance),
-                (aY + 0.5 * ((bX - aX) / Distance(aX, aY, bX, bY)) * distance),
-                (bX + 0.5 * -((bY - aY) / Distance(aX, aY, bX, bY)) * distance),
-                (bY + 0.5 * ((bX - aX) / Distance(aX, aY, bX, bY)) * distance));
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="aZ"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="bZ"></param>
-        /// <param name="distanceX"></param>
-        /// <param name="distanceY"></param>
-        /// <param name="distanceZ"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x1, double y1, double z1, double x2, double y2, double z2)
-            OffsetSegment(
-            double aX, double aY, double aZ,
-            double bX, double bY, double bZ,
-            double distanceX, double distanceY, double distanceZ)
-            => ((aX + 0.5 * -((bY - aY) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceX),
-                (aY + 0.5 * ((bX - aX) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceY),
-                (aZ + 0.5 * ((bZ - aZ) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceZ),
-                (bX + 0.5 * -((bY - aY) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceX),
-                (bY + 0.5 * ((bX - aX) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceY),
-                (bZ + 0.5 * ((bZ - aZ) / Distance(aX, aY, aZ, bX, bY, bZ)) * distanceZ));
-
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(double i, double j)
             => Atan2(i, -j);
 
@@ -131,6 +84,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
@@ -172,6 +126,7 @@ namespace Engine
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(
             double x1, double y1,
             double x2, double y2)
@@ -226,6 +181,8 @@ namespace Engine
         /// Based on the answer by flup at:
         /// http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
         /// </remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipsePolarAngle(double angle, double rx, double ry)
         {
             // Wrap the angle between -2PI and 2PI.
@@ -507,6 +464,7 @@ namespace Engine
         /// <param name="ly3">The y component of the second point on the line.</param>
         /// <returns></returns>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistanceToLine(
             double x1, double y1,
             double lx2, double ly2,
@@ -548,8 +506,8 @@ namespace Engine
         /// the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(
             double x1, double y1,
             double x2, double y2)
@@ -1167,6 +1125,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Reflection(
             double i1, double j1, double k1,
             double i2, double j2, double k2)
@@ -1537,6 +1496,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSine(double value)
         {
             if (value == 1)
@@ -1556,6 +1516,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosine(double value)
         {
             if (value == 1)
@@ -1575,6 +1536,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSecant(double value)
         {
             if (value == 1)
@@ -1951,6 +1913,16 @@ namespace Engine
             b = swap;
         }
 
+        /// <summary>
+        /// Counts the number of base 10 digits an integer is represented by.
+        /// </summary>
+        /// <param name="value">The integer value to count the digits.</param>
+        /// <returns>An integer value representing the number of digits that would be printed out.</returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Digits(this int value)
+            => value == 0 ? 1 : (int)Floor(Log10(Math.Abs(value)) + 1);
+
         #endregion
 
         #region Parsing.
@@ -2046,6 +2018,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
         {
             // In case they are Infinities (then epsilon check does not work)
@@ -2075,6 +2048,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
         [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(this double value1, double value2, double epsilon = Epsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
@@ -2344,12 +2318,32 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// 
+        /// Make sure that a double number is not a NaN or infinity.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static int Digits(int value)
-            => value == 0 ? 1 : (int)Floor(Log10(Math.Abs(value)) + 1);
+        /// <param name="value">The value to check.</param>
+        /// <returns>
+        /// true if the specified value is valid; otherwise, returns false.
+        /// </returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsValid(this float value)
+        {
+            return !float.IsNaN(value) && !float.IsInfinity(value);
+        }
+
+        /// <summary>
+        /// Make sure that a double number is not a NaN or infinity.
+        /// </summary>
+        /// <param name="value">The value to check.</param>
+        /// <returns>
+        /// true if the specified value is valid; otherwise, returns false.
+        /// </returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsValid(this double value)
+        {
+            return !double.IsNaN(value) && !double.IsInfinity(value);
+        }
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2360,6 +2354,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(sbyte a, sbyte b)
         {
@@ -2378,6 +2373,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(byte a, byte b)
         {
@@ -2395,6 +2391,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(short a, short b)
         {
@@ -2413,6 +2410,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ushort a, ushort b)
         {
@@ -2430,6 +2428,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(int a, int b)
         {
@@ -2448,6 +2447,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(uint a, uint b)
         {
@@ -2465,6 +2465,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(long a, long b)
         {
@@ -2483,6 +2484,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ulong a, ulong b)
         {
@@ -2500,6 +2502,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(float a, float b)
         {
@@ -2518,6 +2521,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(double a, double b)
         {
@@ -2536,6 +2540,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(decimal a, decimal b)
         {
@@ -2552,6 +2557,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(int a, int b)
         {
@@ -2567,6 +2573,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(uint a, uint b)
         {
@@ -2582,6 +2589,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(long a, long b)
         {
@@ -2597,6 +2605,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(ulong a, ulong b)
         {
@@ -2611,6 +2620,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(sbyte a, sbyte b)
         {
@@ -2626,6 +2636,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(byte a, byte b)
         {
@@ -2642,6 +2653,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(short a, short b)
         {
@@ -2657,6 +2669,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(ushort a, ushort b)
         {
@@ -2673,6 +2686,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(int a, int b)
         {
@@ -2688,6 +2702,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(uint a, uint b)
         {
@@ -2704,6 +2719,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(long a, long b)
         {
@@ -2719,6 +2735,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(ulong a, ulong b)
         {
@@ -2735,6 +2752,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(float a, float b)
         {
@@ -2750,6 +2768,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(double a, double b)
         {
@@ -2765,6 +2784,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(decimal a, decimal b)
         {

@@ -1,5 +1,6 @@
 ﻿using Engine.Geometry;
 using Engine.Objects;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -240,6 +241,62 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             //g.FillPolygon(((ShapeStyle)item.Style).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
             g.DrawCurve((itemStyle).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this Chain shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+
+            // Start the Path object.
+            var path = new GraphicsPath();
+            
+            foreach (var member in shape.Members)
+            {
+                switch (member)
+                {
+                    case ChainPoint t:
+                        path.StartFigure();
+                        path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
+                        break;
+                    case ChainSegment t:
+                        path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
+                        break;
+                    case ChainArc t:
+                        var arc = t.ToEllipticalArc;
+                        var mat = new Matrix();
+                        mat.RotateAt((float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
+                        path.Transform(mat);
+                        path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)(arc.StartAngle.ToDegrees()), (float)arc.SweepAngle.ToDegrees());
+                        mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
+                        path.Transform(mat);
+                        break;
+                    case ChainCubicBezier t:
+                        path.AddBezier(t.Start.ToPointF(), t.Handle1.ToPointF(), t.Handle2.ToPointF(), t.End.ToPointF());
+                        break;
+                    case ChainQuadratic t:
+                        var quat = t.ToQuadtraticBezier;
+                        path.AddCurve(quat.InterpolatePoints((int)quat.Length).ToPointFArray());
+                        break;
+                    case null:
+                        throw new NullReferenceException($"{nameof(member)} is null.");
+                    default:
+                        throw new InvalidCastException($"Unknown {nameof(member)}.");
+                }
+            }
+
+            // Close the path.
+            if (shape.Closed) path.CloseFigure();
+
+            //  Draw the path.
+            g.FillPath(itemStyle.BackBrush, path);
+            g.DrawPath(itemStyle.ForePen, path);
         }
 
         /// <summary>

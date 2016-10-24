@@ -212,7 +212,12 @@ namespace Engine.Objects
         private object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {
             if (!propertyCache.ContainsKey(name))
-                propertyCache.Add(name, property.Invoke());
+            {
+                var value = property.Invoke();
+                propertyCache.Add(name, value);
+                return value;
+            }
+
             return propertyCache[name];
         }
 

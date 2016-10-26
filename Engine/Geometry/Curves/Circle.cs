@@ -274,7 +274,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public double Circumference
-            => Perimeters.CircleCircumference(radius);
+            => Distances.CircleCircumference(radius);
 
         /// <summary>
         /// 

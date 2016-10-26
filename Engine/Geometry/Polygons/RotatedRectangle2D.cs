@@ -382,7 +382,7 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The distance around the rectangle.")]
         public override double Perimeter
-            => (Maths.Distance(0, 0, width, 0) * 2) + (Maths.Distance(0, 0, 0, height) * 2);
+            => (Distances.Distance(0, 0, width, 0) * 2) + (Distances.Distance(0, 0, 0, height) * 2);
 
         /// <summary>
         /// Gets the bounding box of the rectangle.

@@ -183,7 +183,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this PointF a, PointF b)
-            => Maths.Distance(a.X, a.Y, b.X, b.Y);
+            => Distances.Distance(a.X, a.Y, b.X, b.Y);
 
         /// <summary>
         /// Calculates the Length between two points.
@@ -195,7 +195,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this PointF point, PointF value)
-            => Maths.Distance(point.X, point.Y, value.X, value.Y);
+            => Distances.Distance(point.X, point.Y, value.X, value.Y);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 

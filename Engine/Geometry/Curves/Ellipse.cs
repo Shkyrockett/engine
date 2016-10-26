@@ -426,7 +426,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
-            => Perimeters.EllipsePerimeter(r1, r2);
+            => Distances.EllipsePerimeter(r1, r2);
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.

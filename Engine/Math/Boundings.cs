@@ -23,6 +23,49 @@ namespace Engine.Geometry
     public static class Boundings
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D LineSegment(
+            double x0, double y0,
+            double x1, double y1)
+            => new Rectangle2D(new Point2D(x0, y0), new Point2D(x1, y1));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static Rectangle2D LineSegment(Point2D a, Point2D b)
+            => new Rectangle2D(a, b);
+
+        /// <summary>
+        /// Calculate the external square boundaries of a circle.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r">Radius of the Circle.</param>
+        /// <returns>A Rectangle that is the size and location to envelop the circle.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Circle(
+            double cX, double cY,
+            double r)
+            => Rectangle2D.FromLTRB((cX - r), (cY - r), (cX + r), (cY + r));
+
+        /// <summary>
         /// Calculate the external close fitting rectangular bounds of a circular arc.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
@@ -63,21 +106,6 @@ namespace Engine.Geometry
                 bounds.Right = cX + r;
             return bounds;
         }
-
-        /// <summary>
-        /// Calculate the external square boundaries of a circle.
-        /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="r">Radius of the Circle.</param>
-        /// <returns>A Rectangle that is the size and location to envelop the circle.</returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Circle(
-            double cX, double cY,
-            double r)
-            => Rectangle2D.FromLTRB((cX - r), (cY - r), (cX + r), (cY + r));
 
         /// <summary>
         /// Calculate the rectangular external boundaries of a non-rotated ellipse.
@@ -278,29 +306,132 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
+        /// http://jsfiddle.net/SalixAlba/QQnvm/4/
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D CubicBezier(Point2D p0, Point2D p1, Point2D p2, Point2D p3)
+        {
+            var a = 3 * p3.X - 9 * p2.X + 9 * p1.X - 3 * p0.X;
+            var b = 6 * p0.X - 12 * p1.X + 6 * p2.X;
+            var c = 3 * p1.X - 3 * p0.X;
+
+            var disc = b * b - 4 * a * c;
+            var xl = p0.X;
+            var xh = p0.X;
+            if (p3.X < xl) xl = p3.X;
+            if (p3.X > xh) xh = p3.X;
+            if (disc >= 0)
+            {
+                var t1 = (-b + Sqrt(disc)) / (2 * a);
+
+                if (t1 > 0 && t1 < 1)
+                {
+                    var x1 = Interpolaters.Cubic(p0.X, p1.X, p2.X, p3.X, t1);
+                    if (x1 < xl) xl = x1;
+                    if (x1 > xh) xh = x1;
+                }
+
+                var t2 = (-b - Sqrt(disc)) / (2 * a);
+
+                if (t2 > 0 && t2 < 1)
+                {
+                    var x2 = Interpolaters.Cubic(p0.X, p1.X, p2.X, p3.X, t2);
+                    if (x2 < xl) xl = x2;
+                    if (x2 > xh) xh = x2;
+                }
+            }
+
+            a = 3 * p3.Y - 9 * p2.Y + 9 * p1.Y - 3 * p0.Y;
+            b = 6 * p0.Y - 12 * p1.Y + 6 * p2.Y;
+            c = 3 * p1.Y - 3 * p0.Y;
+            disc = b * b - 4 * a * c;
+            var yl = p0.Y;
+            var yh = p0.Y;
+            if (p3.Y < yl) yl = p3.Y;
+            if (p3.Y > yh) yh = p3.Y;
+            if (disc >= 0)
+            {
+                var t1 = (-b + Sqrt(disc)) / (2 * a);
+
+                if (t1 > 0 && t1 < 1)
+                {
+                    var y1 = Interpolaters.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t1);
+                    if (y1 < yl) yl = y1;
+                    if (y1 > yh) yh = y1;
+                }
+
+                var t2 = (-b - Sqrt(disc)) / (2 * a);
+
+                if (t2 > 0 && t2 < 1)
+                {
+                    var y2 = Interpolaters.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t2);
+                    if (y2 < yl) yl = y2;
+                    if (y2 > yh) yh = y2;
+                }
+            }
+
+            return new Rectangle2D(xl, xh, yl, yh);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static Rectangle2D QuadraticBezier(Point2D a, Point2D b, Point2D c)
+        {
+            var sortOfCloseLength = Distances.QuadraticBezierArcLengthByIntegral(a, b, c);
+            // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
+            var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.QuadraticBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, i), (int)(sortOfCloseLength / 3)));
+
+            double left = points[0].X;
+            double top = points[0].Y;
+            double right = points[0].X;
+            double bottom = points[0].Y;
+
+            foreach (Point2D point in points)
+            {
+                // ToDo: Measure performance impact of overwriting each time.
+                left = point.X <= left ? point.X : left;
+                top = point.Y <= top ? point.Y : top;
+                right = point.X >= right ? point.X : right;
+                bottom = point.Y >= bottom ? point.Y : bottom;
+            }
+
+            return Rectangle2D.FromLTRB(left, top, right, bottom);
+        }
+
+        /// <summary>
         /// Calculate the external bounding rectangle of a Chain.
         /// </summary>
         /// <param name="chain">The Chain.</param>
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Chain (Chain chain)
+        public static Rectangle2D Chain(Figure chain)
         {
-            double left = chain.Members[0].Start.X;
-            double top = chain.Members[0].Start.Y;
-            double right = chain.Members[0].End.X;
-            double bottom = chain.Members[0].End.Y;
+            var start = chain.Items[0] as FigurePoint;
+            Rectangle2D result = new Rectangle2D(start.Start, start.End);
 
-            foreach (ChainMember member in chain.Members)
+            foreach (FigureItem member in chain.Items)
             {
-                // ToDo: Measure performance impact of overwriting each time.
-                left = member.End.X <= left ? member.End.X : left;
-                top = member.End.Y <= top ? member.End.Y : top;
-                right = member.End.X >= right ? member.End.X : right;
-                bottom = member.End.Y >= bottom ? member.End.Y : bottom;
+                result.Union(member.Bounds);
             }
 
-            return Rectangle2D.FromLTRB(left, top, right, bottom);
+            return result;
         }
 
         /// <summary>
@@ -313,7 +444,7 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Bounds(
+        public static Rectangle2D Parametric(
             Func<double, List<Point2D>> func,
             double count = 100d)
         {

@@ -1,4 +1,4 @@
-﻿// <copyright file="ChainPoint.cs" >
+﻿// <copyright file="FigurePoint.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -8,19 +8,22 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.ComponentModel;
+using System.Xml.Serialization;
+
 namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ChainPoint
-        : ChainMember
+    public class FigurePoint
+        : FigureItem
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="start"></param>
-        public ChainPoint(Point2D start)
+        public FigurePoint(Point2D start)
         {
             Start = start;
             Previous = this;
@@ -34,11 +37,23 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public override Point2D End { get { return Start; } set { Start = value; } }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override Rectangle2D Bounds
+            => Boundings.LineSegment(Start, End);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
         public Point2D ToPoint2D
             => Start;
     }

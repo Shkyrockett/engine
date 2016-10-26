@@ -74,7 +74,7 @@ namespace Engine
             double bX, double bY,
             double distance)
         {
-            double d = Distance(aX, aY, bX, bY);
+            double d = Distances.Distance(aX, aY, bX, bY);
             double dY = (bY - aY) / d;
             double dX = (bX - aX) / d;
             return ((aX + 0.5 * -dY * distance),
@@ -104,7 +104,7 @@ namespace Engine
             double bX, double bY, double bZ,
             double distanceX, double distanceY, double distanceZ)
         {
-            double d = Distance(aX, aY, aZ, bX, bY, bZ);
+            double d = Distances.Distance(aX, aY, aZ, bX, bY, bZ);
             double dX = (bX - aX) / d;
             double dY = (bY - aY) / d;
             double dZ = (bZ - aZ) / d;

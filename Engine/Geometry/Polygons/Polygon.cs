@@ -135,7 +135,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
-            => Perimeters.PolygonPerimeter(points);
+            => Distances.PolygonPerimeter(points);
 
         /// <summary>
         /// 

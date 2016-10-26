@@ -76,7 +76,7 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (Primitives.Length(Points[0], tools.MouseLocation) > 8)
+                    if (Distances.Length(Points[0], tools.MouseLocation) > 8)
                     {
                         if (MouseDown) Index = 1;
                         Points[Index] = tools.MouseLocation;

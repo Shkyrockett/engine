@@ -55,11 +55,6 @@ namespace Engine.Geometry
         [XmlAttribute]
         private Point2D d;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<Point2D> points;
-
         #endregion
 
         #region Constructors
@@ -69,8 +64,7 @@ namespace Engine.Geometry
         /// </summary>
         public CubicBezier()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CubicBezier"/> class.
@@ -179,7 +173,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [XmlIgnore]
         public double Length
-            => Perimeters.CubicBezierArcLength(a, b, c, d);
+            => Distances.CubicBezierArcLength(a, b, c, d);
 
         /// <summary>
         /// 
@@ -196,29 +190,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Rectangle2DConverter))]
         [XmlIgnore]
         public override Rectangle2D Bounds
-        {
-            get
-            {
-                var sortOfCloseLength = (int)Length;
-                points = new List<Point2D>(InterpolatePoints(sortOfCloseLength));
-
-                double left = points[0].X;
-                double top = points[0].Y;
-                double right = points[0].X;
-                double bottom = points[0].Y;
-
-                foreach (Point2D point in points)
-                {
-                    // ToDo: Measure performance impact of overwriting each time.
-                    left = point.X <= left ? point.X : left;
-                    top = point.Y <= top ? point.Y : top;
-                    right = point.X >= right ? point.X : right;
-                    bottom = point.Y >= bottom ? point.Y : bottom;
-                }
-
-                return Rectangle2D.FromLTRB(left, top, right, bottom);
-            }
-        }
+            => Boundings.CubicBezier(a, b, c, d);
 
         #endregion
 

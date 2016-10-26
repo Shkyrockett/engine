@@ -1,4 +1,4 @@
-﻿// <copyright file="ChainArc.cs" >
+﻿// <copyright file="FigureArc.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -8,13 +8,16 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.ComponentModel;
+using System.Xml.Serialization;
+
 namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ChainArc
-        : ChainMember
+    public class FigureArc
+        : FigureItem
     {
         /// <summary>
         /// 
@@ -26,7 +29,7 @@ namespace Engine.Geometry
         /// <param name="largeArc"></param>
         /// <param name="sweep"></param>
         /// <param name="end"></param>
-        public ChainArc(ChainMember previous, double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
+        public FigureArc(FigureItem previous, double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
@@ -41,6 +44,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
@@ -76,7 +80,18 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override Rectangle2D Bounds
+            => ToEllipticalArc.Bounds;
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
+        [XmlIgnore]
         public EllipticalArc ToEllipticalArc
             => new EllipticalArc(Start.X, Start.Y, R1, R2, Angle, LargeArc, Sweep, End.X, End.Y);
     }

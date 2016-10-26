@@ -1,4 +1,4 @@
-﻿// <copyright file="ChainQuadratic.cs" >
+﻿// <copyright file="FigureQuadraticBezier.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -8,13 +8,16 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.ComponentModel;
+using System.Xml.Serialization;
+
 namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ChainQuadratic
-         : ChainMember
+    public class FigureQuadraticBezier
+         : FigureItem
     {
         /// <summary>
         /// 
@@ -22,7 +25,7 @@ namespace Engine.Geometry
         /// <param name="previous"></param>
         /// <param name="handle"></param>
         /// <param name="end"></param>
-        public ChainQuadratic(ChainMember previous, Point2D handle, Point2D end)
+        public FigureQuadraticBezier(FigureItem previous, Point2D handle, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
@@ -33,6 +36,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
@@ -48,7 +52,18 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public QuadraticBezier ToQuadtraticBezier
             => new QuadraticBezier(Start, Handle, End);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override Rectangle2D Bounds
+            => Boundings.QuadraticBezier(Start, Handle, End);
     }
 }

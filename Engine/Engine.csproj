@@ -96,13 +96,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Geometry\Chain\ChainMember.cs" />
-    <Compile Include="Geometry\Chain\ChainArc.cs" />
-    <Compile Include="Geometry\Chain\ChainSegment.cs" />
-    <Compile Include="Geometry\Chain\ChainQuadratic.cs" />
-    <Compile Include="Geometry\Chain\ChainCubicBezier.cs" />
-    <Compile Include="Geometry\Chain\ChainPoint.cs" />
-    <Compile Include="Geometry\Chain\Chain.cs" />
+    <Compile Include="Geometry\Complex\Figure\FigureItem.cs" />
+    <Compile Include="Geometry\Complex\Figure\FigureArc.cs" />
+    <Compile Include="Geometry\Complex\Figure\FigureCardinal.cs" />
+    <Compile Include="Geometry\Complex\Figure\FigureLineSegment.cs" />
+    <Compile Include="Geometry\Complex\Figure\FigureQuadraticBezier.cs" />
+    <Compile Include="Geometry\Complex\Figure\FigureCubicBezier.cs" />
+    <Compile Include="Geometry\Complex\Figure\FigurePoint.cs" />
+    <Compile Include="Geometry\Complex\Figure\Figure.cs" />
     <Compile Include="Geometry\Complex\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
@@ -126,7 +127,7 @@
     <Compile Include="Math\Notation\Range.cs" />
     <Compile Include="Math\Notation\Term.cs" />
     <Compile Include="Math\Notation\Variable.cs" />
-    <Compile Include="Math\Perimeters.cs" />
+    <Compile Include="Math\Distances.cs" />
     <Compile Include="Math\Maths.Constants.cs" />
     <Compile Include="Metadata\GeometryAngleAttribute.cs" />
     <Compile Include="Calendar\DateTimeExtentions.cs" />
@@ -376,7 +377,7 @@
     <Compile Include="Tools\SelectTop.cs" />
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />
-    <Compile Include="Geometry\Framework\Primitives.cs" />
+    <Compile Include="Math\Primitives.cs" />
     <Compile Include="Geometry\Polygons\Polygon.cs" />
     <Compile Include="Geometry\Polygons\Polyline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

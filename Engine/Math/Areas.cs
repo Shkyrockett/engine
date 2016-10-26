@@ -29,8 +29,27 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Arc(double r, double sweepAngle)
+        public static double ArcSector(double r, double sweepAngle)
             => Abs((r * r * 0.5d) * (sweepAngle - Sin(sweepAngle)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://math.stackexchange.com/questions/114371/deriving-the-area-of-a-sector-of-an-ellipse?rq=1
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double EllipticalArcSector(double rX, double rY, double startAngle, double sweepAngle)
+        {
+            return 0.5d * rX * rY * (Atan(rX * Tan(startAngle) / rY) - Atan(rX * Tan(startAngle + sweepAngle) / rY));
+        }
 
         /// <summary>
         /// 

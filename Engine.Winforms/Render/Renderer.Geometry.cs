@@ -1,10 +1,18 @@
-﻿using Engine.Geometry;
+﻿// <copyright file="Renderer.Geometry.cs" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using Engine.Geometry;
 using Engine.Objects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using static System.Math;
 
 namespace Engine.Imaging
 {
@@ -58,6 +66,20 @@ namespace Engine.Imaging
         /// <summary>
         ///
         /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this Polyline shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
+            g.DrawLines((itemStyle).ForePen, shape.Points.ToPointFArray());
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
         /// <param name="set"></param>
         /// <param name="g"></param>
         /// <param name="item"></param>
@@ -89,6 +111,88 @@ namespace Engine.Imaging
 
             g.FillPath((itemStyle).BackBrush, path);
             g.DrawPath((itemStyle).ForePen, path);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this Rectangle2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            g.FillRectangles((itemStyle).BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
+            g.DrawRectangles((itemStyle).ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this Circle shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            g.FillEllipse((itemStyle).BackBrush, shape.Bounds.ToRectangleF());
+            g.DrawEllipse((itemStyle).ForePen, shape.Bounds.ToRectangleF());
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this CircularArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
+            g.FillPath((itemStyle).BackBrush, path);
+            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this Ellipse shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var mat = new Matrix();
+            mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
+            g.Transform = mat;
+            g.FillEllipse((itemStyle).BackBrush, shape.UnrotatedBounds.ToRectangleF());
+            g.DrawEllipse((itemStyle).ForePen, shape.UnrotatedBounds.ToRectangleF());
+            g.ResetTransform();
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this EllipticalArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
+            var mat = new Matrix();
+            mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
+            g.Transform = mat;
+            g.FillPath((itemStyle).BackBrush, path);
+            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
+            g.ResetTransform();
         }
 
         /// <summary>
@@ -128,104 +232,12 @@ namespace Engine.Imaging
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
-        public static void Render(this Polyline shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
-            g.DrawLines((itemStyle).ForePen, shape.Points.ToPointFArray());
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
-        public static void Render(this Rectangle2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            g.FillRectangles((itemStyle).BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
-            g.DrawRectangles((itemStyle).ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
-        public static void Render(this CircularArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            List<Point2D> points = item?.InterpolatePoints();
-            g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
-            //g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
-
-            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
-        public static void Render(this EllipticalArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            List<Point2D> points = item?.InterpolatePoints();
-            g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
-            //g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
-
-            var mat = new Matrix();
-            mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
-            g.Transform = mat;
-            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
-            g.ResetTransform();
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
-        public static void Render(this Circle shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            g.FillEllipse((itemStyle).BackBrush, shape.Bounds.ToRectangleF());
-            g.DrawEllipse((itemStyle).ForePen, shape.Bounds.ToRectangleF());
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
-        public static void Render(this Ellipse shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            g.FillPolygon((itemStyle).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
-            g.DrawPolygon((itemStyle).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
         public static void Render(this CubicBezier shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            // g.FillPolygon(itemStyle.BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
+            GraphicsPath path = new GraphicsPath();
+            path.AddBezier(shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
+            g.FillPath((itemStyle).BackBrush, path);
             g.DrawBezier((itemStyle).ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
         }
 
@@ -239,8 +251,10 @@ namespace Engine.Imaging
         public static void Render(this QuadraticBezier shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            //g.FillPolygon(((ShapeStyle)item.Style).BackBrush, item.LengthInterpolatedPoints.ToPointFArray());
-            g.DrawCurve((itemStyle).ForePen, item.LengthInterpolatedPoints.ToPointFArray());
+            GraphicsPath path = new GraphicsPath();
+            path.AddBeziers(new PointF[] { shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF() });
+            g.FillPath((itemStyle).BackBrush, path);
+            g.DrawBeziers((itemStyle).ForePen, new PointF[] { shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF() });
         }
 
         /// <summary>
@@ -250,44 +264,44 @@ namespace Engine.Imaging
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
-        public static void Render(this Chain shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Figure shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-
             // Start the Path object.
             var path = new GraphicsPath();
-            
-            foreach (var member in shape.Members)
+            foreach (var figureItem in shape.Items)
             {
-                switch (member)
+                switch (figureItem)
                 {
-                    case ChainPoint t:
+                    case FigurePoint t:
                         path.StartFigure();
                         path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
                         break;
-                    case ChainSegment t:
+                    case FigureLineSegment t:
                         path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
                         break;
-                    case ChainArc t:
+                    case FigureArc t:
                         var arc = t.ToEllipticalArc;
                         var mat = new Matrix();
-                        mat.RotateAt((float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
-                        path.Transform(mat);
-                        path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)(arc.StartAngle.ToDegrees()), (float)arc.SweepAngle.ToDegrees());
                         mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                         path.Transform(mat);
+                        path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)(arc.StartAngle.ToDegrees()), (float)arc.SweepAngle.ToDegrees());
+                        mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
+                        path.Transform(mat);
                         break;
-                    case ChainCubicBezier t:
+                    case FigureCubicBezier t:
                         path.AddBezier(t.Start.ToPointF(), t.Handle1.ToPointF(), t.Handle2.ToPointF(), t.End.ToPointF());
                         break;
-                    case ChainQuadratic t:
-                        var quat = t.ToQuadtraticBezier;
-                        path.AddCurve(quat.InterpolatePoints((int)quat.Length).ToPointFArray());
+                    case FigureQuadraticBezier t:
+                        path.AddBeziers(new PointF[] { t.Start.ToPointF(), t.Handle.ToPointF(), t.End.ToPointF() });
+                        break;
+                    case FigureCardinal t:
+                        path.AddCurve(t.Nodes.ToPointFArray());
                         break;
                     case null:
-                        throw new NullReferenceException($"{nameof(member)} is null.");
+                        throw new NullReferenceException($"{nameof(figureItem)} is null. Geometry to render is missing.");
                     default:
-                        throw new InvalidCastException($"Unknown {nameof(member)}.");
+                        throw new InvalidCastException($"Unknown {nameof(figureItem)}.");
                 }
             }
 
@@ -297,97 +311,6 @@ namespace Engine.Imaging
             //  Draw the path.
             g.FillPath(itemStyle.BackBrush, path);
             g.DrawPath(itemStyle.ForePen, path);
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="theta"></param>
-        /// <param name="ellipse"></param>
-        /// <param name="phi"></param>
-        /// <param name="rect"></param>
-        private static void Draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
-        {
-            var xaxis = new Point2D(Cos(theta), Sin(theta));
-            var yaxis = new Point2D(-Sin(theta), Cos(theta));
-            Point2D ellipse_point;
-
-            // Ellipse equation for an ellipse at origin.
-            ellipse_point = new Point2D(ellipse.Width * Cos(phi), ellipse.Height * Sin(phi));
-
-            // Apply the rotation transformation and translate to new center.
-            rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
-                                       ellipse.Top + (ellipse_point.X * yaxis.X + ellipse_point.Y * yaxis.Y));
-
-            g.DrawRectangle(Pens.AntiqueWhite, (float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
-        }
-
-        /// <summary>
-        /// Bow Curve (2D)
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="DPen"></param>
-        /// <param name="Precision"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Multiplyer"></param>
-        /// <remarks>
-        ///  Also known as the "cocked hat", it was first documented by Sylvester around
-        ///  1864 and Cayley in 1867.
-        /// </remarks>
-        private static void DrawBowCurve2D(Graphics g, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
-        {
-            var NewPoint = new Point2D(
-                ((1 - (Tan((PI * -1)) * 2)) * Cos((PI * -1))) * Multiplyer.Width,
-                ((1 - (Tan((PI * -1)) * 2)) * (2 * Sin((PI * -1)))) * Multiplyer.Height
-                );
-
-            Point2D LastPoint = NewPoint;
-
-            for (double Index = (PI * -1); (Index <= PI); Index += Precision)
-            {
-                LastPoint = NewPoint;
-                NewPoint = new Point2D(
-                    ((1 - (Tan(Index) * 2)) * Cos(Index)) * Multiplyer.Width,
-                    ((1 - (Tan(Index) * 2)) * (2 * Sin(Index))) * Multiplyer.Height
-                    );
-
-                g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
-            }
-        }
-
-        /// <summary>
-        /// Butterfly Curve
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="DPen"></param>
-        /// <param name="Precision"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Multiplyer"></param>
-        private static void DrawButterflyCurve2D(Graphics g, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
-        {
-            const double N = 10000;
-            double U = (0 * (24 * (PI / N)));
-
-            var NewPoint = new Point2D(
-                Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
-                (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
-                );
-
-            Point2D LastPoint = NewPoint;
-
-            for (double Index = 1; (Index <= N); Index = (Index + Precision))
-            {
-                LastPoint = NewPoint;
-                U = (Index * (24 * (PI / N)));
-
-                NewPoint = new Point2D(
-                    Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
-                    (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
-                    );
-
-                g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
-            }
         }
     }
 }

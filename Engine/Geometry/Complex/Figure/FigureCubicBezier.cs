@@ -1,4 +1,4 @@
-﻿// <copyright file="ChainCubicBezier.cs" >
+﻿// <copyright file="FigureCubicBezier.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -8,13 +8,16 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.ComponentModel;
+using System.Xml.Serialization;
+
 namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ChainCubicBezier
-         : ChainMember
+    public class FigureCubicBezier
+         : FigureItem
     {
         /// <summary>
         /// 
@@ -23,7 +26,7 @@ namespace Engine.Geometry
         /// <param name="handle1"></param>
         /// <param name="handle2"></param>
         /// <param name="end"></param>
-        public ChainCubicBezier(ChainMember previous, Point2D handle1, Point2D handle2, Point2D end)
+        public FigureCubicBezier(FigureItem previous, Point2D handle1, Point2D handle2, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
@@ -35,6 +38,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
@@ -55,7 +59,18 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override Rectangle2D Bounds
+            => Boundings.CubicBezier(Start, Handle1, Handle2, End);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
+        [XmlIgnore]
         public CubicBezier ToCubicBezier
             => new CubicBezier(Start, Handle1, Handle2, End);
     }

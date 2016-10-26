@@ -315,7 +315,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The distance around the Arc.")]
         public double ArcLength
-            => Perimeters.ArcLength(radius, SweepAngle);
+            => Distances.ArcLength(radius, SweepAngle);
 
         /// <summary>
         /// 
@@ -323,7 +323,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The area of the arc.")]
         public override double Area
-            => Areas.Arc(radius, SweepAngle);
+            => Areas.ArcSector(radius, SweepAngle);
 
         #endregion
 

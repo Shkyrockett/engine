@@ -392,91 +392,6 @@ namespace Engine
             => DotProduct(CrossProduct(x1, y1, z1, x2, y2, z2), x3, y3, z3);
 
         /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="x1">First X component.</param>
-        /// <param name="y1">First Y component.</param>
-        /// <param name="x2">Second X component.</param>
-        /// <param name="y2">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(
-            double x1, double y1,
-            double x2, double y2)
-            => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="x1">First X component.</param>
-        /// <param name="y1">First Y component.</param>
-        /// <param name="z1">First Z component.</param>
-        /// <param name="x2">Second X component.</param>
-        /// <param name="y2">Second Y component.</param>
-        /// <param name="z2">Second Z component.</param>
-        /// <returns>The distance between two points.</returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2)
-            => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Point3D p1, Point3D p2)
-            => Distance(p1.X, p1.Y, p1.Z, p2.X, p2.Y, p2.Z);
-
-        /// <summary>
-        /// The square of the distance between two points.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(
-            double x1, double y1,
-            double x2, double y2)
-            => ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-
-        /// <summary>
-        /// Find the square of the distance of a point from a line.
-        /// </summary>
-        /// <param name="x1">The x component of the Point.</param>
-        /// <param name="y1">The y component of the Point.</param>
-        /// <param name="lx2">The x component of the first point on the line.</param>
-        /// <param name="ly2">The y component of the first point on the line.</param>
-        /// <param name="lx3">The x component of the second point on the line.</param>
-        /// <param name="ly3">The y component of the second point on the line.</param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistanceToLine(
-            double x1, double y1,
-            double lx2, double ly2,
-            double lx3, double ly3)
-        {
-            double A = ly2 - ly3;
-            double B = lx3 - lx2;
-            double C = (A * x1 + B * y1) - (A * lx2 + B * ly2);
-            return (C * C) / (A * A + B * B);
-        }
-
-        /// <summary>
         /// Calculates the Slope of a vector.
         /// </summary>
         /// <param name="i"></param>
@@ -1998,7 +1913,7 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd = Epsilon)
-            => (SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
+            => (Distances.SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
 
         /// <summary>
         /// AreClose - Returns whether or not two doubles are "close".  That is, whether or
@@ -2316,6 +2231,8 @@ namespace Engine
             => (GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1));
 
         #endregion
+
+        #region Queries
 
         /// <summary>
         /// Make sure that a double number is not a NaN or infinity.
@@ -2794,5 +2711,6 @@ namespace Engine
             return true;
         }
 
+        #endregion
     }
 }

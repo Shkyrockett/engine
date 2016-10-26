@@ -99,7 +99,7 @@ namespace Engine.Imaging
                 case QuadraticBezier t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
-                case Chain t:
+                case Figure t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case null:

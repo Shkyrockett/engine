@@ -141,7 +141,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
         public override double Perimeter
-            => points.Zip(points.Skip(1), Primitives.Distance).Sum();
+            => points.Zip(points.Skip(1), Distances.Distance).Sum();
 
         /// <summary>
         ///

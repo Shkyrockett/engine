@@ -1113,6 +1113,155 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Boundary of Cubic Bezier
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public static Rectangle2D CubicBezierBounds(Point2D a, Point2D b, Point2D c, Point2D d)
+        {
+            var sortOfCloseLength = (int)Distances.CubicBezierArcLength(a, b, c, d);
+            var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, i), sortOfCloseLength));
+
+            double left = points[0].X;
+            double top = points[0].Y;
+            double right = points[0].X;
+            double bottom = points[0].Y;
+
+            foreach (Point2D point in points)
+            {
+                // ToDo: Measure performance impact of overwriting each time.
+                left = point.X <= left ? point.X : left;
+                top = point.Y <= top ? point.Y : top;
+                right = point.X >= right ? point.X : right;
+                bottom = point.Y >= bottom ? point.Y : bottom;
+            }
+
+            return Rectangle2D.FromLTRB(left, top, right, bottom);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
+        /// http://floris.briolas.nl/floris/2009/10/bounding-box-of-cubic-bezier/
+        /// http://jsfiddle.net/SalixAlba/QQnvm/4/
+        /// </remarks>
+        public static Rectangle2D CubicBezierBounds2(Point2D p0, Point2D p1, Point2D p2, Point2D p3)
+        {
+            var a = 3 * p3.X - 9 * p2.X + 9 * p1.X - 3 * p0.X;
+            var b = 6 * p0.X - 12 * p1.X + 6 * p2.X;
+            var c = 3 * p1.X - 3 * p0.X;
+
+            var disc = b * b - 4 * a * c;
+            var xl = p0.X;
+            var xh = p0.X;
+            if (p3.X < xl) xl = p3.X;
+            if (p3.X > xh) xh = p3.X;
+            if (disc >= 0)
+            {
+                var t1 = (-b + Sqrt(disc)) / (2 * a);
+
+                if (t1 > 0 && t1 < 1)
+                {
+                    var x1 = Interpolaters.Cubic(p0.X, p1.X, p2.X, p3.X, t1);
+                    if (x1 < xl) xl = x1;
+                    if (x1 > xh) xh = x1;
+                }
+
+                var t2 = (-b - Sqrt(disc)) / (2 * a);
+
+                if (t2 > 0 && t2 < 1)
+                {
+                    var x2 = Interpolaters.Cubic(p0.X, p1.X, p2.X, p3.X, t2);
+                    if (x2 < xl) xl = x2;
+                    if (x2 > xh) xh = x2;
+                }
+            }
+
+            a = 3 * p3.Y - 9 * p2.Y + 9 * p1.Y - 3 * p0.Y;
+            b = 6 * p0.Y - 12 * p1.Y + 6 * p2.Y;
+            c = 3 * p1.Y - 3 * p0.Y;
+            disc = b * b - 4 * a * c;
+            var yl = p0.Y;
+            var yh = p0.Y;
+            if (p3.Y < yl) yl = p3.Y;
+            if (p3.Y > yh) yh = p3.Y;
+            if (disc >= 0)
+            {
+                var t1 = (-b + Sqrt(disc)) / (2 * a);
+
+                if (t1 > 0 && t1 < 1)
+                {
+                    var y1 = Interpolaters.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t1);
+                    if (y1 < yl) yl = y1;
+                    if (y1 > yh) yh = y1;
+                }
+
+                var t2 = (-b - Sqrt(disc)) / (2 * a);
+
+                if (t2 > 0 && t2 < 1)
+                {
+                    var y2 = Interpolaters.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t2);
+                    if (y2 < yl) yl = y2;
+                    if (y2 > yh) yh = y2;
+                }
+            }
+
+            return new Rectangle2D(xl, xh, yl, yh);
+        }
+        //private static double evalBez(double p0, double p1, double p2, double p3, double t)
+        //{
+        //    return p0 * (1 - t) * (1 - t) * (1 - t) + 3 * p1 * t * (1 - t) * (1 - t) + 3 * p2 * t * t * (1 - t) + p3 * t * t * t;
+        //}
+
+        #endregion
+
+        #region Boundary of Quadratic Bezier
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static Rectangle2D QuadraticBezierBounds(Point2D a, Point2D b, Point2D c)
+        {
+            var sortOfCloseLength = Distances.QuadraticBezierArcLengthByIntegral(a, b, c);
+            // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
+            var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.QuadraticBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, i), (int)(sortOfCloseLength / 3)));
+
+            double left = points[0].X;
+            double top = points[0].Y;
+            double right = points[0].X;
+            double bottom = points[0].Y;
+
+            foreach (Point2D point in points)
+            {
+                // ToDo: Measure performance impact of overwriting each time.
+                left = point.X <= left ? point.X : left;
+                top = point.Y <= top ? point.Y : top;
+                right = point.X >= right ? point.X : right;
+                bottom = point.Y >= bottom ? point.Y : bottom;
+            }
+
+            return Rectangle2D.FromLTRB(left, top, right, bottom);
+        }
+
+        #endregion
+
         #region Calculate Rectangular boundaries of a circle defined by three points
 
         /// <summary>
@@ -11465,5 +11614,96 @@ namespace MethodSpeedTester
         }
 
         #endregion
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="theta"></param>
+        /// <param name="ellipse"></param>
+        /// <param name="phi"></param>
+        /// <param name="rect"></param>
+        private static void Draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
+        {
+            var xaxis = new Point2D(Cos(theta), Sin(theta));
+            var yaxis = new Point2D(-Sin(theta), Cos(theta));
+            Point2D ellipse_point;
+
+            // Ellipse equation for an ellipse at origin.
+            ellipse_point = new Point2D(ellipse.Width * Cos(phi), ellipse.Height * Sin(phi));
+
+            // Apply the rotation transformation and translate to new center.
+            rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
+                                       ellipse.Top + (ellipse_point.X * yaxis.X + ellipse_point.Y * yaxis.Y));
+
+            g.DrawRectangle(Pens.AntiqueWhite, (float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+        }
+
+        /// <summary>
+        /// Bow Curve (2D)
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="DPen"></param>
+        /// <param name="Precision"></param>
+        /// <param name="Offset"></param>
+        /// <param name="Multiplyer"></param>
+        /// <remarks>
+        ///  Also known as the "cocked hat", it was first documented by Sylvester around
+        ///  1864 and Cayley in 1867.
+        /// </remarks>
+        private static void DrawBowCurve2D(Graphics g, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
+        {
+            var NewPoint = new Point2D(
+                ((1 - (Tan((PI * -1)) * 2)) * Cos((PI * -1))) * Multiplyer.Width,
+                ((1 - (Tan((PI * -1)) * 2)) * (2 * Sin((PI * -1)))) * Multiplyer.Height
+                );
+
+            Point2D LastPoint = NewPoint;
+
+            for (double Index = (PI * -1); (Index <= PI); Index += Precision)
+            {
+                LastPoint = NewPoint;
+                NewPoint = new Point2D(
+                    ((1 - (Tan(Index) * 2)) * Cos(Index)) * Multiplyer.Width,
+                    ((1 - (Tan(Index) * 2)) * (2 * Sin(Index))) * Multiplyer.Height
+                    );
+
+                g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
+            }
+        }
+
+        /// <summary>
+        /// Butterfly Curve
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="DPen"></param>
+        /// <param name="Precision"></param>
+        /// <param name="Offset"></param>
+        /// <param name="Multiplyer"></param>
+        private static void DrawButterflyCurve2D(Graphics g, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
+        {
+            const double N = 10000;
+            double U = (0 * (24 * (PI / N)));
+
+            var NewPoint = new Point2D(
+                Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
+                (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
+                );
+
+            Point2D LastPoint = NewPoint;
+
+            for (double Index = 1; (Index <= N); Index = (Index + Precision))
+            {
+                LastPoint = NewPoint;
+                U = (Index * (24 * (PI / N)));
+
+                NewPoint = new Point2D(
+                    Cos(U) * ((Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5))) * Multiplyer.Width),
+                    (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
+                    );
+
+                g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
+            }
+        }
     }
 }

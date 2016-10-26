@@ -8,12 +8,14 @@
 // <summary></summary>
 
 using Engine.Geometry;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Maths;
+using static System.Math;
 
 namespace Engine
 {
@@ -22,6 +24,17 @@ namespace Engine
     /// </summary>
     public static class Interpolaters
     {
+        /// <summary>
+        /// Retrieves a list of points interpolated from a function.
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="count">The number of points desired.</param>
+        /// <returns></returns>
+        public static List<Point2D> Interpolate0to1(Func<double, Point2D> func, int count)
+            => new List<Point2D>(
+            from i in Enumerable.Range(0, count)
+            select func((1d / count) * i));
+
         /// <summary>
         /// Interpolates the Arc.
         /// </summary>
@@ -541,6 +554,37 @@ namespace Engine
                 aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
         }
 
+        #endregion
+
+        #region Cubic Bezier Interpolation
+
+        /// <summary>
+        /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// </summary>
+        /// <param name="v0"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <history>
+        /// </history>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double CubicBezier(
+            double v0,
+            double v1,
+            double v2,
+            double v3,
+            double t)
+        {
+            double mum1 = 1 - t;
+            double mum13 = mum1 * mum1 * mum1;
+            double mu3 = t * t * t;
+
+            return (mum13 * v0 + 3 * t * mum1 * mum1 * v1 + 3 * t * t * mum1 * v2 + mu3 * v3);
+        }
+
         /// <summary>
         /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
         /// </summary>
@@ -572,6 +616,45 @@ namespace Engine
             return (
                 (mum13 * x0 + 3 * t * mum1 * mum1 * x1 + 3 * t * t * mum1 * x2 + mu3 * x3),
                 (mum13 * y0 + 3 * t * mum1 * mum1 * y1 + 3 * t * t * mum1 * y2 + mu3 * y3)
+                );
+        }
+
+        /// <summary>
+        /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="z0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="z3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <history>
+        /// </history>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z) CubicBezier(
+            double x0, double y0, double z0,
+            double x1, double y1, double z1,
+            double x2, double y2, double z2,
+            double x3, double y3, double z3,
+            double t)
+        {
+            double mum1 = 1 - t;
+            double mum13 = mum1 * mum1 * mum1;
+            double mu3 = t * t * t;
+
+            return (
+                (mum13 * x0 + 3 * t * mum1 * mum1 * x1 + 3 * t * t * mum1 * x2 + mu3 * x3),
+                (mum13 * y0 + 3 * t * mum1 * mum1 * y1 + 3 * t * t * mum1 * y2 + mu3 * y3),
+                (mum13 * z0 + 3 * t * mum1 * mum1 * z1 + 3 * t * t * mum1 * z2 + mu3 * z3)
                 );
         }
 
@@ -631,6 +714,8 @@ namespace Engine
 
         #endregion
 
+        #region Hermite Interpolation
+
         /// <summary>
         ///
         /// </summary>
@@ -644,7 +729,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Hermite(
             double v0,
@@ -689,7 +774,7 @@ namespace Engine
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Hermite(
             double x0, double y0,
@@ -744,7 +829,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Hermite(
             double x0, double y0, double z0,
@@ -779,6 +864,25 @@ namespace Engine
                 a0 * z1 + a1 * mZ0 + a2 * mZ1 + a3 * z2);
         }
 
+        #endregion
+
+        #region Linear Interpolation
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Linear(
+            double v1, double v2,
+            double t)
+            => (1 - t) * v1 + t * v2;
+
         /// <summary>
         ///
         /// </summary>
@@ -804,21 +908,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Linear(Point3D v1, Point3D v2, double t)
             => new Point3D(Linear(v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, t));
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Linear(
-            double v1, double v2,
-            double t)
-            => (1 - t) * v1 + t * v2;
 
         /// <summary>
         ///
@@ -863,28 +952,32 @@ namespace Engine
                 (1 - t) * y1 + t * y2,
                 (1 - t) * z1 + t * z2);
 
+        #endregion
+
+        #region Quadratic Bezier Interpolation
+
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="x1"></param>
-        /// <param name="x2"></param>
+        /// <param name="v0"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezier(
-            double x0,
-            double x1,
-            double x2,
+            double v0,
+            double v1,
+            double v2,
             double t)
         {
             double mu1 = 1 - t;
             double mu12 = mu1 * mu1;
             double mu2 = t * t;
 
-            return x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2;
+            return v0 * mu12 + 2 * v1 * mu1 * t + v2 * mu2;
         }
 
         /// <summary>
@@ -899,7 +992,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) QuadraticBezier(
             double x0, double y0,
@@ -932,7 +1025,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) QuadraticBezier(
             double x0, double y0, double z0,
@@ -950,6 +1043,10 @@ namespace Engine
                 (z0 * mu12 + 2 * z1 * mu1 * t + z2 * mu2));
         }
 
+        #endregion
+
+        #region Sine Interpolation
+
         /// <summary>
         ///
         /// </summary>
@@ -961,7 +1058,7 @@ namespace Engine
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sine(
             double v1,
@@ -983,7 +1080,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Sine(
             double x1, double y1,
@@ -1010,7 +1107,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Sine(
             double x1, double y1, double z1,
@@ -1024,6 +1121,8 @@ namespace Engine
                 z1 * (1 - mu2) + z2 * mu2);
         }
 
+        #endregion
+
         /// <summary>
         ///
         /// </summary>
@@ -1036,7 +1135,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <returns></returns>
         [Pure]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RotatedRectangle(
             double x, double y,

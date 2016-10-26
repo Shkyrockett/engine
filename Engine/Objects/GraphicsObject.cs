@@ -70,7 +70,8 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public virtual Point2D Interpolate(double t) => null;
+        public virtual Point2D Interpolate(double t)
+            => null;
 
         /// <summary>
         /// Retrieves a list of points interpolated from a<see cref="Shape"/>.

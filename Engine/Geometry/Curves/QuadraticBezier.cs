@@ -62,8 +62,7 @@ namespace Engine.Geometry
         /// </summary>
         public QuadraticBezier()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
@@ -138,7 +137,7 @@ namespace Engine.Geometry
         /// </summary>
         [XmlIgnore]
         public double Length
-            => Perimeters.QuadraticBezierArcLengthByIntegral(a, b, c);
+            => Distances.QuadraticBezierArcLengthByIntegral(a, b, c);
 
         /// <summary>
         /// 
@@ -155,29 +154,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Rectangle2DConverter))]
         [XmlIgnore]
         public override Rectangle2D Bounds
-        {
-            get
-            {
-                // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
-                points = new List<Point2D>(InterpolatePoints((int)(Length / 3)));
-
-                double left = points[0].X;
-                double top = points[0].Y;
-                double right = points[0].X;
-                double bottom = points[0].Y;
-
-                foreach (Point2D point in points)
-                {
-                    // ToDo: Measure performance impact of overwriting each time.
-                    left = point.X <= left ? point.X : left;
-                    top = point.Y <= top ? point.Y : top;
-                    right = point.X >= right ? point.X : right;
-                    bottom = point.Y >= bottom ? point.Y : bottom;
-                }
-
-                return Rectangle2D.FromLTRB(left, top, right, bottom);
-            }
-        }
+            => Boundings.QuadraticBezier(a, b, c);
 
         #endregion
 

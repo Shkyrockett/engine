@@ -102,7 +102,7 @@ namespace Engine.Tests
                     sbyte test = (sbyte)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test sbyteTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test sbyteTestCases({value.a},{value.b})");
                 }
@@ -132,7 +132,7 @@ namespace Engine.Tests
                     byte test = (byte)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test byteTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test byteTestCases({value.a},{value.b})");
                 }
@@ -166,7 +166,7 @@ namespace Engine.Tests
                     short test = (short)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test shortTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test shortTestCases({value.a},{value.b})");
                 }
@@ -196,7 +196,7 @@ namespace Engine.Tests
                     ushort test = (ushort)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test ushortTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test ushortTestCases({value.a},{value.b})");
                 }
@@ -230,7 +230,7 @@ namespace Engine.Tests
                     int test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test intTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test intTestCases({value.a},{value.b})");
                 }
@@ -260,7 +260,7 @@ namespace Engine.Tests
                     uint test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test uintTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test uintTestCases({value.a},{value.b})");
                 }
@@ -294,7 +294,7 @@ namespace Engine.Tests
                     long test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test longTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test longTestCases({value.a},{value.b})");
                 }
@@ -324,7 +324,7 @@ namespace Engine.Tests
                     ulong test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test ulongTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test ulongTestCases({value.a},{value.b})");
                 }
@@ -358,7 +358,7 @@ namespace Engine.Tests
                     float test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test floatTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test floatTestCases({value.a},{value.b})");
                 }
@@ -392,7 +392,7 @@ namespace Engine.Tests
                     double test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test doubleTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test doubleTestCases({value.a},{value.b})");
                 }
@@ -427,7 +427,7 @@ namespace Engine.Tests
                     decimal test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test decimalTestCases({value.a}, {value.b})={value.a + value.b}");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test decimalTestCases({value.a}, {value.b})");
                 }
@@ -485,7 +485,7 @@ namespace Engine.Tests
                     sbyte test = (sbyte)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test sbyteTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test sbyteTestCases({value.a},{value.b})");
                 }
@@ -515,7 +515,7 @@ namespace Engine.Tests
                     byte test = (byte)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test byteTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test byteTestCases({value.a},{value.b})");
                 }
@@ -550,7 +550,7 @@ namespace Engine.Tests
                     short test = (short)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test shortTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test shortTestCases({value.a},{value.b})");
                 }
@@ -580,7 +580,7 @@ namespace Engine.Tests
                     ushort test = (ushort)(value.a + value.b);
                     Assert.AreEqual(true, result, $"Crash Test ushortTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test ushortTestCases({value.a},{value.b})");
                 }
@@ -615,7 +615,7 @@ namespace Engine.Tests
                     int test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test intTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test intTestCases({value.a},{value.b})");
                 }
@@ -645,7 +645,7 @@ namespace Engine.Tests
                     uint test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test uintTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test uintTestCases({value.a},{value.b})");
                 }
@@ -679,7 +679,7 @@ namespace Engine.Tests
                     long test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test longTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test longTestCases({value.a},{value.b})");
                 }
@@ -709,7 +709,7 @@ namespace Engine.Tests
                     ulong test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test ulongTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test ulongTestCases({value.a},{value.b})");
                 }
@@ -743,7 +743,7 @@ namespace Engine.Tests
                     float test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test floatTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test floatTestCases({value.a},{value.b})");
                 }
@@ -777,7 +777,7 @@ namespace Engine.Tests
                     double test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test doubleTestCases({value.a},{value.b})");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test doubleTestCases({value.a},{value.b})");
                 }
@@ -811,7 +811,7 @@ namespace Engine.Tests
                     decimal test = value.a + value.b;
                     Assert.AreEqual(true, result, $"Crash Test decimalTestCases({value.a}, {value.b})={value.a + value.b}");
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     Assert.AreEqual(false, result, $"Crash Test decimalTestCases({value.a}, {value.b})");
                 }

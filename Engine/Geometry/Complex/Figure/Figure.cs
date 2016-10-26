@@ -1,4 +1,4 @@
-﻿// <copyright file="Chain.cs" >
+﻿// <copyright file="Figure.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -15,21 +15,21 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    public class Chain
+    public class Figure
         : Shape
     {
         /// <summary>
         /// 
         /// </summary>
-        public Chain(Point2D start)
+        public Figure(Point2D start)
         {
-            Members.Add(new ChainPoint(start));
+            Items.Add(new FigurePoint(start));
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<ChainMember> Members { get; } = new List<ChainMember>();
+        public List<FigureItem> Items { get; } = new List<FigureItem>();
 
         /// <summary>
         /// 
@@ -47,12 +47,10 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="end"></param>
         /// <returns></returns>
-        public Chain AddSegment(Point2D end)
+        public Figure AddLineSegment(Point2D end)
         {
-            var segment = new ChainSegment(Members[Members.Count - 1], end);
-            if (Closed)
-                Members[0].Previous = segment;
-            Members.Add(segment);
+            var segment = new FigureLineSegment(Items[Items.Count - 1], end);
+            Items.Add(segment);
             return this;
         }
 
@@ -66,12 +64,23 @@ namespace Engine.Geometry
         /// <param name="sweep"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public Chain AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
+        public Figure AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         {
-            var arc = new ChainArc(Members[Members.Count - 1], r1, r2, angle, largeArc, sweep, end);
-            if (Closed)
-                Members[0].Previous = arc;
-            Members.Add(arc);
+            var arc = new FigureArc(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
+            Items.Add(arc);
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public Figure AddQuadraticBezier(Point2D handle, Point2D end)
+        {
+            var quad = new FigureQuadraticBezier(Items[Items.Count - 1], handle, end);
+            Items.Add(quad);
             return this;
         }
 
@@ -82,27 +91,22 @@ namespace Engine.Geometry
         /// <param name="handle2"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public Chain AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
+        public Figure AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
-            var cubic = new ChainCubicBezier(Members[Members.Count - 1], handle1, handle2, end);
-            if (Closed)
-                Members[0].Previous = cubic;
-            Members.Add(cubic);
+            var cubic = new FigureCubicBezier(Items[Items.Count - 1], handle1, handle2, end);
+            Items.Add(cubic);
             return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="handle"></param>
-        /// <param name="end"></param>
+        /// <param name="nodes"></param>
         /// <returns></returns>
-        public Chain AddCubicBezier(Point2D handle, Point2D end)
+        public Figure AddCardinalCurve(List<Point2D> nodes)
         {
-            var quad = new ChainQuadratic(Members[Members.Count - 1], handle, end);
-            if (Closed)
-                Members[0].Previous = quad;
-            Members.Add(quad);
+            var cubic = new FigureCardinal(Items[Items.Count - 1], nodes);
+            Items.Add(cubic);
             return this;
         }
     }

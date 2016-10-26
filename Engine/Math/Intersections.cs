@@ -196,7 +196,75 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this EllipticalArc ellipseArc, Point2D point)
-            => EllipticSectorPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.R1, ellipseArc.R2, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
+            => EllipticSectorPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticArcPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+        {
+            if (r1 <= 0d || r2 <= 0d)
+                return Inclusion.Outside;
+
+            // Find the start and end angles.
+            double sa = EllipsePolarAngle(startAngle, r1, r2);
+            double ea = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Ellipse equation for an ellipse at origin for the chord end points.
+            double u1 = r1 * Cos(sa);
+            double v1 = -(r2 * Sin(sa));
+            double u2 = r1 * Cos(ea);
+            double v2 = -(r2 * Sin(ea));
+
+            // Find the points of the chord.
+            double sX = cX + (u1 * cosT + v1 * sinT);
+            double sY = cY + (u1 * sinT - v1 * cosT);
+            double eX = cX + (u2 * cosT + v2 * sinT);
+            double eY = cY + (u2 * sinT - v2 * cosT);
+
+            // Find the determinant of the chord.
+            double determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+
+            // Check whether the point is on the side of the chord as the center.
+            if (Sign(determinant) == Sign(sweepAngle))
+                return Inclusion.Outside;
+
+            // Translate points to origin.
+            double u0 = pX - cX;
+            double v0 = pY - cY;
+
+            // Apply the rotation transformation.
+            double a = u0 * cosT + v0 * sinT;
+            double b = u0 * sinT - v0 * cosT;
+
+            double normalizedRadius
+                = ((a * a) / (r1 * r1))
+                + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+        }
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
@@ -898,6 +966,53 @@ namespace Engine.Geometry
 
             // Exit Function
             return outputList;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x_in"></param>
+        /// <param name="y_in"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="a0"></param>
+        /// <param name="a1"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/36260793/algorithm-for-shortest-distance-from-a-point-to-an-elliptic-arc?rq=1
+        /// </remarks>
+        public static (double X, double Y) EllipseClosestPoint(double x_in, double y_in, double x0, double y0, double rx, double ry, double a0, double a1)
+        {
+            int e, i;
+            double ll, l, aa, a, da, x, y, b0, b1;
+            while (a0 >= a1) a0 -= Tau;                 // just make sure a0<a1
+            b0 = a0; b1 = a1; da = (b1 - b0) / 25.0;          // 25 sample points in first iteration
+            ll = -1; aa = a0;                           // no best solution yet
+            for (i = 0; i < 3; i++)                       // recursions more means more accurate result
+            {
+                // sample arc a=<b0,b1> with step da
+                for (e = 1, a = b0; e != 0; a += da)
+                {
+                    if (a >= b1) { a = b1; e = 0; }
+                    // elliptic arc sampled point
+                    x = x0 + rx * Cos(a);
+                    y = y0 - ry * Sin(a);                 // mine y axis is in reverse order therefore -
+                                                          // distance^2 to x_in,y_in
+                    x -= x_in; x *= x;
+                    y -= y_in; y *= y; l = x + y;
+                    // remember best solution
+                    if ((ll < 0d) || (ll > l)) { aa = a; ll = l; }
+                }
+                // use just area near found solution aa
+                b0 = aa - da; if (b0 < a0) b0 = a0;
+                b1 = aa + da; if (b1 > a1) b1 = a1;
+                // 10 points per area stop if too small area already
+                da = 0.1 * (b1 - b0); if (da < 1e-6) break;
+            }
+            // mine y axis is in reverse order therefore -
+            return (x0 + rx * Cos(aa), y0 - ry * Sin(aa));
         }
     }
 }

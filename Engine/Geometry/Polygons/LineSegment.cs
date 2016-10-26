@@ -180,7 +180,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public double Length => Maths.Distance(A.X, A.Y, B.X, B.Y);
+        public double Length => Distances.Distance(A.X, A.Y, B.X, B.Y);
 
         #endregion
 

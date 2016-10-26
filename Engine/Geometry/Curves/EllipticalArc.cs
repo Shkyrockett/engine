@@ -173,6 +173,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         /// <remarks>
         /// Elliptical arc implementation based on the SVG specification notes
+        /// http://stackoverflow.com/questions/14399406/implementing-svg-arc-curves-in-python
+        /// https://github.com/blackears/svgSalamander
         /// http://java.net/projects/svgsalamander/sources/svn/content/trunk/svg-core/src/main/java/com/kitfox/svg/pathcmd/Arc.java
         /// http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
         /// </remarks>

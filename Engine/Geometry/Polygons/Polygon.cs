@@ -165,19 +165,21 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         /// <param name="point"></param>
-        public void Add(Point2D point)
+        public Polygon Add(Point2D point)
         {
             Points.Add(point);
             update?.Invoke();
+            return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public void Reverse()
+        public Polygon Reverse()
         {
             Points.Reverse();
             update?.Invoke();
+            return this;
         }
 
         #endregion

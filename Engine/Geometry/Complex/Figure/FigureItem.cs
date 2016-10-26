@@ -16,6 +16,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class FigureItem
     {
         /// <summary>

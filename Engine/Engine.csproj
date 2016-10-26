@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Framework\ExpandableCollectionPropertyDescriptor.cs" />
     <Compile Include="Geometry\Complex\Figure\FigureItem.cs" />
     <Compile Include="Geometry\Complex\Figure\FigureArc.cs" />
     <Compile Include="Geometry\Complex\Figure\FigureCardinal.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Geometry\Complex\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
+    <Compile Include="Geometry\Framework\ListConverter.cs" />
     <Compile Include="Math\Areas.cs" />
     <Compile Include="Math\Boundings.cs" />
     <Compile Include="Math\Notation\Codomain.cs" />

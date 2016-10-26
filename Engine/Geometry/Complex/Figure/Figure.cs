@@ -9,12 +9,14 @@
 // <remarks></remarks>
 
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Engine.Geometry
 {
     /// <summary>
     /// 
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Figure
         : Shape
     {
@@ -29,6 +31,17 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public FigureItem this[int index]
+                => Items[index];
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TypeConverter(typeof(ListConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public List<FigureItem> Items { get; } = new List<FigureItem>();
 
         /// <summary>

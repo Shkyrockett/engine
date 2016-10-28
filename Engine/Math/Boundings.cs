@@ -421,7 +421,7 @@ namespace Engine.Geometry
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Chain(Figure chain)
+        public static Rectangle2D Figure(Figure chain)
         {
             var start = chain.Items[0] as FigurePoint;
             Rectangle2D result = new Rectangle2D(start.Start, start.End);

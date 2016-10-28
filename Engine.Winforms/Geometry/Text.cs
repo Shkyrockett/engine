@@ -148,7 +148,7 @@ namespace Engine.Winforms
         /// <returns></returns>
         [Pure]
         public bool IntersectsWith(Rectangle2D rect)
-            => Intersections.RectangleRectangle(Bounds, rect);
+            => Intersections.Intersects(Bounds, rect);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

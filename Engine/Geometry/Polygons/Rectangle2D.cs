@@ -896,7 +896,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Pure]
         public bool IntersectsWith(Rectangle2D rect)
-            => Intersections.RectangleRectangle(this, rect);
+            => Intersections.Intersects(this, rect);
 
         /// <summary>
         /// Convert a rectangle to an array of it's corner points.

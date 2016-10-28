@@ -57,6 +57,19 @@ namespace Engine.Geometry
         /// <summary>
         /// Check whether a vector lies between two other vectors.
         /// </summary>
+        /// <param name="a">The vector to compare.</param>
+        /// <param name="b">The start vector.</param>
+        /// <param name="c">The end vector.</param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Contains(Vector2D a, Vector2D b, Vector2D c)
+            => VectorVectorVector(a.I, a.J, b.I, b.J, c.I, c.J);
+
+        /// <summary>
+        /// Check whether a vector lies between two other vectors.
+        /// </summary>
         /// <param name="i0">The horizontal component of the vector to compare.</param>
         /// <param name="j0">The vertical component of the vector to compare.</param>
         /// <param name="i1">The start vector horizontal component.</param>
@@ -73,9 +86,99 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Contains(double i0, double j0, double i1, double j1, double i2, double j2)
+        public static bool VectorVectorVector(double i0, double j0, double i1, double j1, double i2, double j2)
             => ((i1 * j0) - (j1 * i0)) * ((i1 * j2) - (j1 * i2)) >= 0
             && ((i2 * j0) - (j2 * i0)) * ((i2 * j1) - (j2 * i1)) >= 0;
+
+        /// <summary>
+        /// Check whether a point is coincident to a line segment.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public static Inclusion Intersects(LineSegment s, Point2D p)
+            => LineSegmentPoint(s.A.X, s.A.Y, s.B.X, s.B.Y, p.X, p.Y);
+
+        /// <summary>
+        /// Check whether a point is coincident to a line segment.
+        /// </summary>
+        /// <param name="segmentAX"></param>
+        /// <param name="segmentAY"></param>
+        /// <param name="segmentBX"></param>
+        /// <param name="segmentBY"></param>
+        /// <param name="pointX"></param>
+        /// <param name="pointY"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion LineSegmentPoint(
+            double segmentAX,
+            double segmentAY,
+            double segmentBX,
+            double segmentBY,
+            double pointX,
+            double pointY)
+            => ((pointX == segmentAX) && (pointY == segmentAY)) ||
+                ((pointX == segmentBX) && (pointY == segmentBY)) ||
+                (((pointX > segmentAX) == (pointX < segmentBX)) &&
+                ((pointY > segmentAY) == (pointY < segmentBY)) &&
+                ((pointX - segmentAX) * (segmentBY - segmentAY) ==
+                (segmentBX - segmentAX) * (pointY - segmentAY))) ? Inclusion.Boundary : Inclusion.Outside;
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
+        public static (bool Intersecting, Point2D Points) Intersects(LineSegment s1, LineSegment s2)
+            => LineLine(s1.A.X, s1.A.Y, s1.B.X, s1.B.Y, s2.A.X, s2.A.Y, s2.B.X, s2.B.Y);
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="x0">The x component of the first point of the first line.</param>
+        /// <param name="y0">The y component of the first point of the first line.</param>
+        /// <param name="x1">The x component of the second point of the first line.</param>
+        /// <param name="y1">The y component of the second point of the first line.</param>
+        /// <param name="x2">The x component of the first point of the second line.</param>
+        /// <param name="y2">The y component of the first point of the second line.</param>
+        /// <param name="x3">The x component of the second point of the second line.</param>
+        /// <param name="y3">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (bool Intersecting, Point2D Points) LineLine(
+            double x0, double y0,
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+        {
+            // Translate lines to origin.
+            double deltaAI = (x1 - x0);
+            double deltaAJ = (y1 - y0);
+            double deltaBI = (x3 - x2);
+            double deltaBJ = (y3 - y2);
+
+            // Calculate the determinant of the coefficient matrix.
+            double determinant = (deltaBJ * deltaAI) - (deltaBI * deltaAJ);
+
+            // Check if the line are parallel.
+            if (Abs(determinant) < Epsilon)
+                return (false, null);
+
+            // Find the index where the intersection point lies on the line.
+            double s = ((x0 - x2) * deltaAJ + (y2 - y0) * deltaAI) / -determinant;
+            double t = ((x2 - x0) * deltaBJ + (y0 - y2) * deltaBI) / determinant;
+
+            return (
+                 // Check whether the point is on the segment.
+                 (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d),
+                // If it exists, the point of intersection is:
+                new Point2D(x0 + t * deltaAI, y0 + t * deltaAJ));
+        }
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -196,7 +299,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this EllipticalArc ellipseArc, Point2D point)
-            => EllipticSectorPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
+            => EllipticalArcPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
@@ -217,7 +320,7 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticArcPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+        public static Inclusion EllipticalArcPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
         {
             if (r1 <= 0d || r2 <= 0d)
                 return Inclusion.Outside;
@@ -244,6 +347,14 @@ namespace Engine.Geometry
 
             // Find the determinant of the chord.
             double determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+
+            //// Check if the point is on the chord.
+            //if (Abs(determinant) <= Epsilon)
+            //{
+            //    return (sX < eX) ?
+            //    (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
+            //    (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
+            //}
 
             // Check whether the point is on the side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
@@ -285,7 +396,7 @@ namespace Engine.Geometry
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticSectorPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+        public static Inclusion EllipticalArcSectorPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
         {
             if (r1 <= 0d || r2 <= 0d)
                 return Inclusion.Outside;
@@ -650,6 +761,33 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="figure"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static Inclusion FigurePoint(this Figure figure, Point2D point)
+        {
+            Inclusion included = PolygonPoint(figure.Nodes, point.X, point.Y);
+            foreach (var item in figure?.Items)
+            {
+                switch (item)
+                {
+                    case FigureArc t:
+                        var arc = t.Contains(point);
+                        if (included == Inclusion.Boundary & arc == Inclusion.Inside) included = Inclusion.Outside;
+                        included = included ^ arc;
+                        if (arc == Inclusion.Boundary) included = Inclusion.Boundary;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return included;
+        }
+
+        /// <summary>
         /// Determines if the rectangular region represented by <paramref name="rect2"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
         /// </summary>
         /// <param name="rect1"></param>
@@ -670,13 +808,32 @@ namespace Engine.Geometry
         /// <param name="rect1"></param>
         /// <param name="rect2"></param>
         /// <returns></returns>
+        public static bool Intersects(this Rectangle2D rect1, Rectangle2D rect2)
+            => RectangleRectangle(rect1.X, rect1.Y, rect1.Width, rect1.Height, rect2.X, rect2.Y, rect2.Width, rect2.Height);
+
+        /// <summary>
+        /// Determines if this rectangle interests with another rectangle.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="height1"></param>
+        /// <param name="width1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="height2"></param>
+        /// <param name="width2"></param>
+        /// <returns></returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RectangleRectangle(Rectangle2D rect1, Rectangle2D rect2)
-            => (rect2.X < rect1.X + rect1.Width)
-            && (rect1.X < (rect2.X + rect2.Width))
-            && (rect2.Y < rect1.Y + rect1.Height)
-            && (rect1.Y < rect2.Y + rect2.Height);
+        public static bool RectangleRectangle(
+            double x1, double y1,
+            double height1, double width1,
+            double x2, double y2,
+            double height2, double width2)
+            => (x2 < x1 + width1)
+            && (x1 < (x2 + width2))
+            && (y2 < y1 + height1)
+            && (y1 < y2 + width2);
 
         /// <summary>
         /// Find the points where the two circles intersect.
@@ -691,8 +848,7 @@ namespace Engine.Geometry
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (int Count, Point2D Intersection1, Point2D Intersection2)
-            CircleCircle(
+        public static (int Count, Point2D Intersecting1, Point2D Intersecting2) CircleCircle(
             double cx0,
             double cy0,
             double radius0,
@@ -758,133 +914,140 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Find the points of intersection.
+        /// Find the points of the intersection of a circle and a line segment.
         /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
+        /// <param name="c"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static (bool, (double, double)?, bool, (double, double)?) Intersects(this Circle c, LineSegment s)
+            => CircleLineSegment(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
+
+        /// <summary>
+        /// Find the points of the intersection of a circle and a line segment.
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
         /// <param name="radius"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/</remarks>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
+        /// </remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (int, Point2D, Point2D) CircleLine(
-            double centerX, double centerY,
+        public static (bool, (double, double)?, bool, (double, double)?) CircleLineSegment(
+            double cX, double cY,
             double radius,
             double x1, double y1,
             double x2, double y2)
         {
-            double t;
-
             double dx = x2 - x1;
             double dy = y2 - y1;
 
-            double A = dx * dx + dy * dy;
-            double B = 2 * (dx * (x1 - centerX) + dy * (y1 - centerY));
-            double C = (x1 - centerX) * (x1 - centerX) + (y1 - centerY) * (y1 - centerY) - radius * radius;
+            double a = dx * dx + dy * dy;
+            double b = 2 * (dx * (x1 - cX) + dy * (y1 - cY));
+            double c = (x1 - cX) * (x1 - cX) + (y1 - cY) * (y1 - cY) - radius * radius;
 
-            Point2D intersection1;
-            Point2D intersection2;
+            double determinant = b * b - 4 * a * c;
 
-            double determinant = B * B - 4 * A * C;
-
-            if ((A <= 0.0000001) || (determinant < 0))
+            if ((a <= 0.0000001) || (determinant < 0))
             {
                 // No real solutions.
-                intersection1 = new Point2D(double.NaN, double.NaN);
-                intersection2 = new Point2D(double.NaN, double.NaN);
-                return (0, intersection1, intersection2);
+                return (false, null, false, null);
             }
-            else if (Abs(determinant) < Epsilon)
+            else if (determinant == 0)
             {
                 // One solution.
-                t = -B / (2 * A);
-                intersection1 = new Point2D(x1 + t * dx, y1 + t * dy);
-                intersection2 = new Point2D(double.NaN, double.NaN);
-                return (1, intersection1, intersection2);
+                double t = -b / (2 * a);
+                return ((t >= 0d) && (t <= 1d), (x1 + t * dx, y1 + t * dy), false, null);
             }
             else
             {
                 // Two solutions.
-                t = ((-B + Sqrt(determinant)) / (2 * A));
-                intersection1 = new Point2D(x1 + t * dx, y1 + t * dy);
-                t = ((-B - Sqrt(determinant)) / (2 * A));
-                intersection2 = new Point2D(x1 + t * dx, y1 + t * dy);
-                return (2, intersection1, intersection2);
+                double t1 = ((-b + Sqrt(determinant)) / (2 * a));
+                double t2 = ((-b - Sqrt(determinant)) / (2 * a));
+                return ((t1 >= 0d) && (t1 <= 1d), (x1 + t1 * dx, y1 + t1 * dy),
+                        (t2 >= 0d) && (t2 <= 1d), (x1 + t2 * dx, y1 + t2 * dy));
             }
         }
 
         /// <summary>
-        /// Check whether a point is coincident to a line segment.
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="segmentAX"></param>
-        /// <param name="segmentAY"></param>
-        /// <param name="segmentBX"></param>
-        /// <param name="segmentBY"></param>
-        /// <param name="pointX"></param>
-        /// <param name="pointY"></param>
+        /// <param name="e"></param>
+        /// <param name="s"></param>
         /// <returns></returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
-        public static bool PointLineSegment(
-            double segmentAX,
-            double segmentAY,
-            double segmentBX,
-            double segmentBY,
-            double pointX,
-            double pointY)
-            => ((pointX == segmentAX) && (pointY == segmentAY)) ||
-                ((pointX == segmentBX) && (pointY == segmentBY)) ||
-                (((pointX > segmentAX) == (pointX < segmentBX)) &&
-                ((pointY > segmentAY) == (pointY < segmentBY)) &&
-                ((pointX - segmentAX) * (segmentBY - segmentAY) ==
-                (segmentBX - segmentAX) * (pointY - segmentAY)));
-
-        /// <summary>
-        /// Find the intersection point between two lines.
-        /// </summary>
-        /// <param name="x0">The x component of the first point of the first line.</param>
-        /// <param name="y0">The y component of the first point of the first line.</param>
-        /// <param name="x1">The x component of the second point of the first line.</param>
-        /// <param name="y1">The y component of the second point of the first line.</param>
-        /// <param name="x2">The x component of the first point of the second line.</param>
-        /// <param name="y2">The y component of the first point of the second line.</param>
-        /// <param name="x3">The x component of the second point of the second line.</param>
-        /// <param name="y3">The y component of the second point of the second line.</param>
-        /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (bool Intersects, Point2D Points) LineLine(
+        public static (bool, (double, double)?, bool, (double, double)?) Intersects(this Ellipse e, LineSegment s)
+            => EllipseLineSegment(e.X, e.Y, e.R1, e.R2, s.A.X, s.A.Y, s.B.X, s.B.Y);
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
+        /// </remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (bool, (double, double)?, bool, (double, double)?) EllipseLineSegment(
+            double cx, double cy,
+            double rx, double ry,
             double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3)
+            double x1, double y1)
         {
-            // Calculate the delta length vectors for the line segments.
-            double deltaAI = (x1 - x0);
-            double deltaAJ = (y1 - y0);
-            double deltaBI = (x3 - x2);
-            double deltaBJ = (y3 - y2);
+            // If the ellipse or line segment are empty, return no intersections.
+            if ((rx == 0d) || (ry == 0d) ||
+                ((x0 == x1) && (y0 == y1)))
+                return (false, null, false, null);
 
-            // Calculate the determinant of the coefficient matrix.
-            double determinant = (deltaBJ * deltaAI) - (deltaBI * deltaAJ);
+            // Translate so the ellipse is centered at the origin.
+            double p1X = x0 - cx;
+            double p1Y = y0 - cy;
+            double p2X = x1 - cx;
+            double p2Y = y1 - cy;
 
-            // Check if the line are parallel.
-            if (Abs(determinant) < Epsilon)
-                return (false, null);
+            // Calculate the quadratic parameters.
+            double a = (p2X - p1X) * (p2X - p1X) / rx / rx + (p2Y - p1Y) * (p2Y - p1Y) / ry / ry;
+            double b = 2d * p1X * (p2X - p1X) / rx / rx + 2 * p1Y * (p2Y - p1Y) / ry / ry;
+            double c = p1X * p1X / rx / rx + p1Y * p1Y / ry / ry - 1d;
 
-            // Find the index where the intersection point lies on the line.
-            double s = ((x0 - x2) * deltaAJ + (y2 - y0) * deltaAI) / -determinant;
-            double t = ((x2 - x0) * deltaBJ + (y0 - y2) * deltaBI) / determinant;
+            // Calculate the discriminant.
+            double discriminant = b * b - 4d * a * c;
 
-            return (
-                 // Check whether the point is on the segment.
-                 (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d),
-                // If it exists, the point of intersection is:
-                new Point2D(x0 + t * deltaAI, y0 + t * deltaAJ));
+            if (discriminant == 0)
+            {
+                // One real solution.
+                double t = 0.5d * -b / a;
+
+                // Return the point. If the point is on the segment set the bool to true.
+                return ((t >= 0d) && (t <= 1d), (p1X + (p2X - p1X) * t + cx, p1Y + (p2Y - p1Y) * t + cy), false, null);
+            }
+            else if (discriminant > 0)
+            {
+                // Two real solutions.
+                double t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
+                double t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+
+                // Return the points. If the points are on the segment set the bool to true.
+                return ((t1 >= 0d) && (t1 <= 1d), (p1X + (p2X - p1X) * t1 + cx, p1Y + (p2Y - p1Y) * t1 + cy),
+                        (t2 >= 0d) && (t2 <= 1d), (p1X + (p2X - p1X) * t2 + cx, p1Y + (p2Y - p1Y) * t2 + cy));
+            }
+
+            // No real solutions.
+            return (false, null, false, null);
         }
 
         /// <summary>
@@ -966,53 +1129,6 @@ namespace Engine.Geometry
 
             // Exit Function
             return outputList;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x_in"></param>
-        /// <param name="y_in"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="a0"></param>
-        /// <param name="a1"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/36260793/algorithm-for-shortest-distance-from-a-point-to-an-elliptic-arc?rq=1
-        /// </remarks>
-        public static (double X, double Y) EllipseClosestPoint(double x_in, double y_in, double x0, double y0, double rx, double ry, double a0, double a1)
-        {
-            int e, i;
-            double ll, l, aa, a, da, x, y, b0, b1;
-            while (a0 >= a1) a0 -= Tau;                 // just make sure a0<a1
-            b0 = a0; b1 = a1; da = (b1 - b0) / 25.0;          // 25 sample points in first iteration
-            ll = -1; aa = a0;                           // no best solution yet
-            for (i = 0; i < 3; i++)                       // recursions more means more accurate result
-            {
-                // sample arc a=<b0,b1> with step da
-                for (e = 1, a = b0; e != 0; a += da)
-                {
-                    if (a >= b1) { a = b1; e = 0; }
-                    // elliptic arc sampled point
-                    x = x0 + rx * Cos(a);
-                    y = y0 - ry * Sin(a);                 // mine y axis is in reverse order therefore -
-                                                          // distance^2 to x_in,y_in
-                    x -= x_in; x *= x;
-                    y -= y_in; y *= y; l = x + y;
-                    // remember best solution
-                    if ((ll < 0d) || (ll > l)) { aa = a; ll = l; }
-                }
-                // use just area near found solution aa
-                b0 = aa - da; if (b0 < a0) b0 = a0;
-                b1 = aa + da; if (b1 > a1) b1 = a1;
-                // 10 points per area stop if too small area already
-                da = 0.1 * (b1 - b0); if (da < 1e-6) break;
-            }
-            // mine y axis is in reverse order therefore -
-            return (x0 + rx * Cos(aa), y0 - ry * Sin(aa));
         }
     }
 }

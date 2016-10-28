@@ -109,6 +109,14 @@
     <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
     <Compile Include="Geometry\Framework\ListConverter.cs" />
+    <Compile Include="Math\Intersection\EmptyLocus.cs" />
+    <Compile Include="Math\Intersection\Intersection.cs" />
+    <Compile Include="Math\Intersection\Intersector.cs" />
+    <Compile Include="Math\Intersection\LineSegmentLocus.cs" />
+    <Compile Include="Math\Intersection\Locus.cs" />
+    <Compile Include="Math\Intersection\PointLocus.cs" />
+    <Compile Include="Math\Intersection\UnionLocus.cs" />
+    <Compile Include="Math\Nearests.cs" />
     <Compile Include="Math\Areas.cs" />
     <Compile Include="Math\Boundings.cs" />
     <Compile Include="Math\Notation\Codomain.cs" />
@@ -145,7 +153,7 @@
     <Compile Include="Geometry\Enums\Directions.cs" />
     <Compile Include="Geometry\Enums\LeftRight.cs" />
     <Compile Include="Geometry\Enums\Inclusion.cs" />
-    <Compile Include="Math\Intersections.cs" />
+    <Compile Include="Math\Intersection\Intersections.cs" />
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />

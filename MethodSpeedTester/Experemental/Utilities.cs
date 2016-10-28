@@ -264,7 +264,7 @@ namespace Engine.Geometry
             double mpos = 0;
             for (int i = 0; i < LUT.Count; i++)
             {
-                double d = Distance(point, LUT[i]);
+                double d = Distances.Distance(point, LUT[i]);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -854,7 +854,7 @@ namespace Engine.Geometry
             double my2n = my2 + dy2p;
             // intersection of these lines:
             Point3D arcCenter = lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
-            double r = Distance(arcCenter, p1);
+            double r = Distances.Distance(arcCenter, p1);
             // arc start/end values, over mid point:
             double s = Atan2(p1.Y - arcCenter.Y, p1.X - arcCenter.X);
             double m = Atan2(p2.Y - arcCenter.Y, p2.X - arcCenter.X);

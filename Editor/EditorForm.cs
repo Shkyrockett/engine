@@ -482,10 +482,16 @@ namespace Editor
             var figureItem = new GraphicItem(figure, styles[1]);
 
             var figureBounds = figure.Bounds;
-            var figureBoundsItem  = new GraphicItem(figureBounds, styles[10]);
+            var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
+
+            var parametricPointTesterFigure = new ParametricPointTester(
+                (px, py) => Intersections.FigurePoint(figure, new Point2D(px, py)),
+                figureBounds.X, figureBounds.Y, figureBounds.Right+5, figureBounds.Bottom+5, 5, 5);
+            var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, styles[3]);
 
             vectorMap.Add(figureBoundsItem);
             vectorMap.Add(figureItem);
+            vectorMap.Add(parametricPointTesterFigureItem);
 
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";

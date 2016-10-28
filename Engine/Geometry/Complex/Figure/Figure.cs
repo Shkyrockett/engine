@@ -10,6 +10,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Engine.Geometry
 {
@@ -45,6 +46,12 @@ namespace Engine.Geometry
         public List<FigureItem> Items { get; } = new List<FigureItem>();
 
         /// <summary>
+        /// Gets a listing of all end nodes from the Figure.
+        /// </summary>
+        public List<Point2D> Nodes
+            => Items.Select(item => item.End).ToList();
+
+        /// <summary>
         /// 
         /// </summary>
         public bool Closed { get; set; }
@@ -53,7 +60,7 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public override Rectangle2D Bounds
-            => Boundings.Chain(this);
+            => Boundings.Figure(this);
 
         /// <summary>
         /// 

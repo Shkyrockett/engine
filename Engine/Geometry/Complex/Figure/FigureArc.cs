@@ -90,6 +90,14 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public Inclusion Contains(Point2D point)
+            => Intersections.Contains(ToEllipticalArc, point);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         [XmlIgnore]
         public EllipticalArc ToEllipticalArc

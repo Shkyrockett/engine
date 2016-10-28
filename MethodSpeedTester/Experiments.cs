@@ -6046,24 +6046,177 @@ namespace MethodSpeedTester
         #region Intersection of Ellipse and line
 
         /// <summary>
+        /// Find the points of the intersection between an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
+        /// </remarks>
+        public static (bool, (double, double)?, bool, (double, double)?) FindEllipseSegmentIntersections(
+            double cx, double cy,
+            double rx, double ry,
+            double x0, double y0,
+            double x1, double y1)
+        {
+            // If the ellipse or line segment are empty, return no intersections.
+            if ((cx == 0d) || (cy == 0d) ||
+                ((x0 == x1) && (y0 == y1)))
+                return (false, null, false, null);
+
+            // Translate lines to meet the ellipse translated centered at the origin.
+            double p1X = x0 - cx;
+            double p1Y = y0 - cy;
+            double p2X = x1 - cx;
+            double p2Y = y1 - cy;
+
+            // Calculate the quadratic parameters.
+            double a = (p2X - p1X) * (p2X - p1X) / rx / rx + (p2Y - p1Y) * (p2Y - p1Y) / ry / ry;
+            double b = 2d * p1X * (p2X - p1X) / rx / rx + 2 * p1Y * (p2Y - p1Y) / ry / ry;
+            double c = p1X * p1X / rx / rx + p1Y * p1Y / ry / ry - 1d;
+
+            // Calculate the discriminant.
+            double discriminant = b * b - 4d * a * c;
+
+            if (discriminant == 0)
+            {
+                // One real solution.
+                double t = 0.5d * -b / a;
+
+                // Return the point. If the point is on the segment set the bool to true.
+                return ((t >= 0d) && (t <= 1d),
+                        (p1X + (p2X - p1X) * t + cx,
+                        p1Y + (p2Y - p1Y) * t + cy),
+                        false, null);
+            }
+            else if (discriminant > 0)
+            {
+                // Two real solutions.
+                double t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
+                double t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+
+                // Return the points. If the points are on the segment set the bool to true.
+                return ((t1 >= 0d) && (t1 <= 1d), (p1X + (p2X - p1X) * t1 + cx, p1Y + (p2Y - p1Y) * t1 + cy),
+                        (t2 >= 0d) && (t2 <= 1d), (p1X + (p2X - p1X) * t2 + cx, p1Y + (p2Y - p1Y) * t2 + cy));
+            }
+
+            // Return the points.
+            return (false, null, false, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://forums.codeguru.com/showthread.php?157823-How-to-get-ellipse-and-line-Intersection-points
+        /// </remarks>
+        public static (bool, (double, double)?, bool, (double, double)?) EllipseLineSegment(
+            double rX, double rY,
+            double cX, double cY,
+            double x1, double y1,
+            double x2, double y2)
+        {
+            double a;
+            double b;
+            double c;
+            double m = 0d;
+
+            // Check whether line is vertical.
+            if (x1 != x2)
+            {
+                m = (y2 - y1) / (x2 - x1);
+                double cc = y1 - m * x1;
+
+                // Non-vertical line case.
+                a = rY * rY + rX * rX * m * m;
+                b = 2d * rX * rX * cc * m - 2d * rX * rX * cY * m - 2d * cX * rY * rY;
+                c = rY * rY * cX * cX + rX * rX * cc * cc - 2 * rX * rX * cY * cc + rX * rX * cY * cY - rX * rX * rY * rY;
+            }
+            else
+            {
+                // vertical line case.
+                a = rX * rX;
+                b = -2d * cY * rX * rX;
+                c = -rX * rX * rY * rY + rY * rY * (x1 - cX) * (x1 - cX);
+            }
+
+            double discriminant = b * b - 4d * a * c;
+
+            if (discriminant == 0)
+            {
+                if (x1 != x2)
+                {
+                    double t = 0.5d * -b / a;
+                    return ((t >= 0d) && (t <= 1d), (t, y1 + m * (t - x1)), false, null);
+                }
+                else
+                {
+                    double t = 0.5d * -b / a;
+                    return ((t >= 0d) && (t <= 1d), (x1, t), false, null);
+                }
+            }
+            else if (discriminant > 0d)
+            {
+                if (x1 != x2)
+                {
+                    double t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                    double t2 = (-b - Sqrt(discriminant)) / (2d * a);
+                    return ((t1 >= 0d) && (t1 <= 1d), (t1, y1 + m * (t1 - x1)),
+                            (t2 >= 0d) && (t2 <= 1d), (t2, y1 + m * (t2 - x1)));
+                }
+                else
+                {
+                    double t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                    double t2 = (-b - Sqrt(discriminant)) / (2d * a);
+                    return ((t1 >= 0d) && (t1 <= 1d), (x1, t1),
+                            (t2 >= 0d) && (t2 <= 1d), (x2, t2));
+                }
+            }
+            else
+            {
+                // no intersections
+                return (false, null, false, null);
+            }
+        }
+
+        /// <summary>
         /// Finds the Intersection of a Ellipse and a Line
         /// </summary>
         /// <param name="ellipse"></param>
         /// <param name="line"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static LineSegment Intersect(Ellipse ellipse, LineSegment line)
+        public static (bool, (double, double)?, bool, (double, double)?) Intersect(Ellipse ellipse, LineSegment line)
         {
-            double SlopeA = line.Slope();
-            double SlopeB = (line.A.Y - (SlopeA * line.A.X));
-            double A = (1 + (SlopeA * SlopeA));
-            double B = ((2 * (SlopeA * (SlopeB - ellipse.Center.Y))) - (2 * ellipse.Center.X));
-            double C = ((ellipse.Center.X * ellipse.Center.X) + (((SlopeB - ellipse.Center.Y) * (SlopeB - ellipse.Center.X)) - (ellipse.MajorRadius * ellipse.MajorRadius)));
-            double XA = (((B * -1) + Sqrt(((B * B) - (A * C)))) / (2 * A));
-            double XB = (((B - Sqrt(((B * B) - (A * C)))) * -1) / (2 * A));
-            double YA = ((SlopeA * XA) + SlopeB);
-            double YB = ((SlopeA * XB) + SlopeB);
-            return new LineSegment(XA, YA, XB, YB);
+            double slopeA = line.Slope();
+            double slopeB = (line.A.Y - (slopeA * line.A.X));
+
+            double a = (1 + (slopeA * slopeA));
+            double b = ((2 * (slopeA * (slopeB - ellipse.Center.Y))) - (2d * ellipse.Center.X));
+            double c = ((ellipse.Center.X * ellipse.Center.X) + (((slopeB - ellipse.Center.Y) * (slopeB - ellipse.Center.X)) - (ellipse.MajorRadius * ellipse.MajorRadius)));
+
+            double xA = (((b * -1) + Sqrt(((b * b) - (a * c)))) / (2d * a));
+            double xB = (((b - Sqrt(((b * b) - (a * c)))) * -1d) / (2d * a));
+            double yA = ((slopeA * xA) + slopeB);
+            double yB = ((slopeA * xB) + slopeB);
+
+            return (true, (xA, yA), true, (xB, yB));
         }
 
         #endregion
@@ -10996,7 +11149,7 @@ namespace MethodSpeedTester
                     {
                         if (LineInPolygonSet(polygons, (Point2D)pointList[i], (Point2D)pointList[j]))
                         {
-                            newDist = pointList[i].TotalDistance + Primitives.Distance((Point2D)pointList[i], (Point2D)pointList[j]);
+                            newDist = pointList[i].TotalDistance + Distances.Distance((Point2D)pointList[i], (Point2D)pointList[j]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -11121,7 +11274,7 @@ namespace MethodSpeedTester
                     {
                         if (polygons.Contains((Point2D)pointList[ti], (Point2D)pointList[tj]))
                         {
-                            newDist = pointList[ti].TotalDistance + Primitives.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
+                            newDist = pointList[ti].TotalDistance + Distances.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;

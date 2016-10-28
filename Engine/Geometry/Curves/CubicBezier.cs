@@ -27,7 +27,7 @@ namespace Engine.Geometry
     [GraphicsObject]
     [DisplayName(nameof(CubicBezier))]
     public class CubicBezier
-        : Shape, IOpenShape
+        : Shape, IOpenShape, INotifyPropertyChanged
     {
         #region Private Fields
 
@@ -54,6 +54,11 @@ namespace Engine.Geometry
         /// </summary>
         [XmlAttribute]
         private Point2D d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
@@ -112,6 +117,7 @@ namespace Engine.Geometry
             set
             {
                 a = value;
+                OnPropertyChanged(nameof(A));
                 update?.Invoke();
             }
         }
@@ -129,6 +135,7 @@ namespace Engine.Geometry
             set
             {
                 b = value;
+                OnPropertyChanged(nameof(B));
                 update?.Invoke();
             }
         }
@@ -146,6 +153,7 @@ namespace Engine.Geometry
             set
             {
                 c = value;
+                OnPropertyChanged(nameof(C));
                 update?.Invoke();
             }
         }
@@ -163,6 +171,7 @@ namespace Engine.Geometry
             set
             {
                 d = value;
+                OnPropertyChanged(nameof(D));
                 update?.Invoke();
             }
         }

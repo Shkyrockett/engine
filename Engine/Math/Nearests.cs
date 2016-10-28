@@ -66,5 +66,46 @@ namespace Engine.Geometry
             // mine y axis is in reverse order therefore -
             return (x0 + rx * Cos(aa), y0 - ry * Sin(aa));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <param name="p2x"></param>
+        /// <param name="p2y"></param>
+        /// <param name="p3x"></param>
+        /// <param name="p3y"></param>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <returns></returns>
+        public static (double X, double Y)? PointToPointOnCubicBezier(
+            double p0x, double p0y,
+            double p1x, double p1y,
+            double p2x, double p2y,
+            double p3x, double p3y,
+            double px, double py)
+        { return null; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <returns></returns>
+        public static (double X, double Y)? PointToPointOnQuadraticBezier(
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y,
+            double pX, double pY)
+        { return null; }
     }
 }

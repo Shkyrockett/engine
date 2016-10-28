@@ -184,6 +184,7 @@ namespace Engine.Geometry
             set
             {
                 x = value;
+                OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
         }
@@ -203,6 +204,7 @@ namespace Engine.Geometry
             set
             {
                 y = value;
+                OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
@@ -222,6 +224,7 @@ namespace Engine.Geometry
             set
             {
                 height = value;
+                OnPropertyChanged(nameof(Height));
                 update?.Invoke();
             }
         }
@@ -241,6 +244,7 @@ namespace Engine.Geometry
             set
             {
                 width = value;
+                OnPropertyChanged(nameof(Width));
                 update?.Invoke();
             }
         }
@@ -262,6 +266,7 @@ namespace Engine.Geometry
             {
                 height = width * value;
                 width = height / value;
+                OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
         }
@@ -284,6 +289,7 @@ namespace Engine.Geometry
             set
             {
                 angle = value;
+                OnPropertyChanged(nameof(Angle));
                 update?.Invoke();
             }
         }
@@ -307,6 +313,7 @@ namespace Engine.Geometry
             {
                 x = value.X;
                 y = value.Y;
+                OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
@@ -330,6 +337,7 @@ namespace Engine.Geometry
             {
                 width = value.Width;
                 height = value.Height;
+                OnPropertyChanged(nameof(Size));
                 update?.Invoke();
             }
         }

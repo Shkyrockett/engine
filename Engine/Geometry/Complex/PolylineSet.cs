@@ -69,6 +69,7 @@ namespace Engine.Geometry
             set
             {
                 polylines = value;
+                OnPropertyChanged(nameof(Polylines));
                 update?.Invoke();
             }
         }
@@ -79,7 +80,8 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public int Count => polylines.Count;
+        public int Count
+            => polylines.Count;
 
         /// <summary>
         /// 
@@ -87,7 +89,8 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore]
-        public double Perimeters => polylines.Sum(p => p.Perimeter);
+        public double Perimeters
+            => polylines.Sum(p => p.Perimeter);
 
         /// <summary>
         /// 

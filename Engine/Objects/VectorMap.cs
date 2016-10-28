@@ -136,11 +136,10 @@ namespace Engine.Objects
         /// 
         /// </summary>
         /// <param name="item"></param>
-        /// <param name="style"></param>
-        /// <param name="metadata"></param>
-        public void Add(GraphicsObject item, IStyle style, Metadata metadata = null)
+        public VectorMap AddItem(GraphicItem item)
         {
-            Items.Add(new GraphicItem(item, style, metadata));
+            Items.Add(item);
+            return this;
         }
 
         /// <summary>
@@ -149,10 +148,23 @@ namespace Engine.Objects
         /// <param name="item"></param>
         /// <param name="style"></param>
         /// <param name="metadata"></param>
-        public void Add(Shape item, ShapeStyle style = null, Metadata metadata = null)
+        public VectorMap Add(GraphicsObject item, IStyle style, Metadata metadata = null)
+        {
+            Items.Add(new GraphicItem(item, style, metadata));
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
+        /// <param name="metadata"></param>
+        public VectorMap Add(Shape item, ShapeStyle style = null, Metadata metadata = null)
         {
             if (style == null) style = ShapeStyle.DefaultStyle;
             Items.Add(new GraphicItem(item, style, metadata));
+            return this;
         }
 
         /// <summary>

@@ -64,7 +64,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this AngleVisualizerTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item?.Style;
 
             Brush backBrush = new SolidBrush(Color.FromArgb(128, Color.MediumPurple));
             Pen forePen = new Pen(Color.FromArgb(128, Color.Purple));
@@ -84,6 +84,25 @@ namespace Engine.Imaging
                 g.DrawLine(tickBrush, shape.Location.ToPointF(), shape.TestPoint(angle).ToPointF());
                 g.DrawString("a" + num, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), Brushes.Black, shape.TestPoint(angle).ToPointF());
                 num++;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
+        public static void Render(this NodeRevealer shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item?.Style;
+
+            foreach (var point in shape?.Points)
+            {
+                Rectangle2D rect = new Rectangle2D(new Point2D(point.X - shape.Radius, point.Y - shape.Radius), new Size2D(2 * shape.Radius, 2 * shape.Radius));
+                g.FillEllipse(itemStyle.BackBrush, rect.ToRectangleF());
+                g.DrawEllipse(itemStyle.ForePen, rect.ToRectangleF());
             }
         }
     }

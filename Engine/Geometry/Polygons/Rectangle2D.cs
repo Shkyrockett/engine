@@ -165,6 +165,7 @@ namespace Engine.Geometry
             set
             {
                 x = value;
+                OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
         }
@@ -184,6 +185,7 @@ namespace Engine.Geometry
             set
             {
                 y = value;
+                OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
@@ -202,6 +204,7 @@ namespace Engine.Geometry
             set
             {
                 height = value;
+                OnPropertyChanged(nameof(Height));
                 update?.Invoke();
             }
         }
@@ -221,6 +224,7 @@ namespace Engine.Geometry
             set
             {
                 width = value;
+                OnPropertyChanged(nameof(Width));
                 update?.Invoke();
             }
         }
@@ -242,6 +246,7 @@ namespace Engine.Geometry
             {
                 height = width * value;
                 width = height / value;
+                OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
         }
@@ -265,6 +270,7 @@ namespace Engine.Geometry
             {
                 x = value.X;
                 y = value.Y;
+                OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
         }
@@ -288,6 +294,7 @@ namespace Engine.Geometry
             {
                 x = value.X + width * 0.5d;
                 y = value.Y + height * 0.5d;
+                OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
@@ -311,6 +318,7 @@ namespace Engine.Geometry
             {
                 width = value.Width;
                 height = value.Height;
+                OnPropertyChanged(nameof(Size));
                 update?.Invoke();
             }
         }
@@ -331,6 +339,7 @@ namespace Engine.Geometry
             {
                 Left = value.X;
                 Top = value.Y;
+                OnPropertyChanged(nameof(TopLeft));
                 update?.Invoke();
             }
         }
@@ -351,6 +360,7 @@ namespace Engine.Geometry
             {
                 Right = value.X;
                 Top = value.Y;
+                OnPropertyChanged(nameof(TopRight));
                 update?.Invoke();
             }
         }
@@ -371,6 +381,7 @@ namespace Engine.Geometry
             {
                 Left = value.X;
                 Bottom = value.Y;
+                OnPropertyChanged(nameof(BottomLeft));
                 update?.Invoke();
             }
         }
@@ -391,6 +402,7 @@ namespace Engine.Geometry
             {
                 Right = value.X;
                 Bottom = value.Y;
+                OnPropertyChanged(nameof(BottomRight));
                 update?.Invoke();
             }
         }
@@ -411,6 +423,7 @@ namespace Engine.Geometry
             {
                 width += x - value;
                 x = value;
+                OnPropertyChanged(nameof(Left));
                 update?.Invoke();
             }
         }
@@ -431,6 +444,7 @@ namespace Engine.Geometry
             {
                 height += y - value;
                 y = value;
+                OnPropertyChanged(nameof(Top));
                 update?.Invoke();
             }
         }
@@ -450,6 +464,7 @@ namespace Engine.Geometry
             set
             {
                 width = value - x;
+                OnPropertyChanged(nameof(Right));
                 update?.Invoke();
             }
         }
@@ -469,6 +484,7 @@ namespace Engine.Geometry
             set
             {
                 height = value - y;
+                OnPropertyChanged(nameof(Bottom));
                 update?.Invoke();
             }
         }
@@ -779,6 +795,7 @@ namespace Engine.Geometry
 
             x = left;
             y = top;
+            OnPropertyChanged(nameof(Union));
         }
 
         /// <summary>
@@ -801,6 +818,7 @@ namespace Engine.Geometry
             y = result.Y;
             width = result.Width;
             height = result.Height;
+            OnPropertyChanged(nameof(Intersect));
         }
 
         /// <summary>
@@ -833,6 +851,7 @@ namespace Engine.Geometry
                 throw new InvalidOperationException("Cannot call method.");
             this.x += x;
             this.y += y;
+            OnPropertyChanged(nameof(Offset));
         }
 
         /// <summary>
@@ -846,6 +865,7 @@ namespace Engine.Geometry
             this.y -= y;
             width += 2 * x;
             height += 2 * y;
+            OnPropertyChanged(nameof(Inflate));
         }
 
         /// <summary>

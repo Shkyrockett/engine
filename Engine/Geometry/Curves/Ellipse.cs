@@ -41,13 +41,13 @@ namespace Engine.Geometry
         /// Major Radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        private double r1;
+        private double rX;
 
         /// <summary>
         /// Minor Radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        private double r2;
+        private double rY;
 
         /// <summary>
         /// Angle of <see cref="Ellipse"/>.
@@ -80,8 +80,8 @@ namespace Engine.Geometry
         {
             this.x = x;
             this.y = y;
-            this.r1 = r1;
-            this.r2 = r2;
+            this.rX = r1;
+            this.rY = r2;
             this.angle = angle;
         }
 
@@ -97,8 +97,8 @@ namespace Engine.Geometry
         {
             x = center.X;
             y = center.Y;
-            r1 = a;
-            r2 = b;
+            rX = a;
+            rY = b;
             this.angle = angle;
         }
 
@@ -123,11 +123,12 @@ namespace Engine.Geometry
         /// </summary>
         public Point2D Location
         {
-            get { return new Point2D(x - r1, y - r2); }
+            get { return new Point2D(x - rX, y - rY); }
             set
             {
-                x = value.X + r1;
-                y = value.Y + r2;
+                x = value.X + rX;
+                y = value.Y + rY;
+                OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
         }
@@ -150,6 +151,7 @@ namespace Engine.Geometry
             {
                 x = value.X;
                 y = value.Y;
+                OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
@@ -170,6 +172,7 @@ namespace Engine.Geometry
             set
             {
                 x = value;
+                OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
         }
@@ -189,6 +192,7 @@ namespace Engine.Geometry
             set
             {
                 y = value;
+                OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
@@ -201,12 +205,13 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The first radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
-        public double R1
+        public double RX
         {
-            get { return r1; }
+            get { return rX; }
             set
             {
-                r1 = value;
+                rX = value;
+                OnPropertyChanged(nameof(RX));
                 update?.Invoke();
             }
         }
@@ -219,12 +224,13 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The second radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
-        public double R2
+        public double RY
         {
-            get { return r2; }
+            get { return rY; }
             set
             {
-                r2 = value;
+                rY = value;
+                OnPropertyChanged(nameof(RY));
                 update?.Invoke();
             }
         }
@@ -237,7 +243,7 @@ namespace Engine.Geometry
         [Category("Elements")]
         [Description("The larger radius of the " + nameof(Ellipse) + ".")]
         public double MajorRadius
-            => r1 >= r2 ? r1 : r2;
+            => rX >= rY ? rX : rY;
 
         /// <summary>
         /// Gets the Minor radius of <see cref="Ellipse"/>.
@@ -248,7 +254,7 @@ namespace Engine.Geometry
         [Description("The smaller radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         public double MinorRadius
-            => r1 <= r2 ? r1 : r2;
+            => rX <= rY ? rX : rY;
 
         /// <summary>
         /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>.
@@ -259,11 +265,12 @@ namespace Engine.Geometry
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get { return r2 / r1; }
+            get { return rY / rX; }
             set
             {
-                r2 = r1 * value;
-                r1 = r2 / value;
+                rY = rX * value;
+                rX = rY / value;
+                OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
         }
@@ -284,6 +291,7 @@ namespace Engine.Geometry
             set
             {
                 angle = value;
+                OnPropertyChanged(nameof(Angle));
                 update?.Invoke();
             }
         }
@@ -296,7 +304,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The focus radius of the " + nameof(Ellipse) + ".")]
         public double FocusRadius
-            => Sqrt((r1 * r1) - (r2 * r2));
+            => Sqrt((rX * rX) - (rY * rY));
 
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the <see cref="Ellipse"/>.
@@ -306,7 +314,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
         public double Eccentricity
-            => Sqrt(1 - ((r1 / r2) * (r1 / r2)));
+            => Sqrt(1 - ((rX / rY) * (rX / rY)));
 
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
@@ -326,16 +334,16 @@ namespace Engine.Geometry
                 double sinT = Sin(angle);
 
                 // Calculate the radii of the angle of rotation.
-                double a = r1 * cosT;
-                double b = r2 * sinT;
-                double c = r1 * sinT;
-                double d = r2 * cosT;
+                double a = rX * cosT;
+                double b = rY * sinT;
+                double c = rX * sinT;
+                double d = rY * cosT;
 
                 // Ellipse equation for an ellipse at origin.
-                double u1 = r1 * Cos(Atan2(d, c));
-                double v1 = -(r2 * Sin(Atan2(d, c)));
-                double u2 = r1 * Cos(Atan2(-b, a));
-                double v2 = -(r2 * Sin(Atan2(-b, a)));
+                double u1 = rX * Cos(Atan2(d, c));
+                double v1 = -(rY * Sin(Atan2(d, c)));
+                double u2 = rX * Cos(Atan2(-b, a));
+                double v2 = -(rY * Sin(Atan2(-b, a)));
 
                 return new List<double>
                 {
@@ -364,10 +372,10 @@ namespace Engine.Geometry
         {
             get
             {
-                double a = r1 * Cos(angle);
-                double c = r1 * Sin(angle);
-                double d = r2 * Cos(angle);
-                double b = r2 * Sin(angle);
+                double a = rX * Cos(angle);
+                double c = rX * Sin(angle);
+                double d = rY * Cos(angle);
+                double b = rY * Sin(angle);
 
                 // Find the angles of the Cartesian extremes.
                 double a1 = Atan2(-b, a);
@@ -377,10 +385,10 @@ namespace Engine.Geometry
 
                 // Return the points of Cartesian extreme of the rotated ellipse.
                 return new List<Point2D> {
-                    Interpolaters.Ellipse(x, y, r1, r2, angle, a1),
-                    Interpolaters.Ellipse(x, y, r1, r2, angle, a2),
-                    Interpolaters.Ellipse(x, y, r1, r2, angle, a3),
-                    Interpolaters.Ellipse(x, y, r1, r2, angle, a4)
+                    Interpolaters.Ellipse(x, y, rX, rY, angle, a1),
+                    Interpolaters.Ellipse(x, y, rX, rY, angle, a2),
+                    Interpolaters.Ellipse(x, y, rX, rY, angle, a3),
+                    Interpolaters.Ellipse(x, y, rX, rY, angle, a4)
                 };
             }
         }
@@ -396,7 +404,7 @@ namespace Engine.Geometry
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
-            get { return Boundings.Ellipse(x, y, r1, r2, angle); }
+            get { return Boundings.Ellipse(x, y, rX, rY, angle); }
             set
             {
                 Rectangle2D bounds1 = Bounds;
@@ -407,14 +415,15 @@ namespace Engine.Geometry
                 Center += locDif;
                 if (aspect > 1)
                 {
-                    r1 = r1 / bounds1.Width * bounds2.Width;
-                    r2 = r2 / bounds1.Height * bounds2.Height;
+                    rX = rX / bounds1.Width * bounds2.Width;
+                    rY = rY / bounds1.Height * bounds2.Height;
                 }
                 else
                 {
-                    r2 = r2 / bounds1.Width * bounds2.Width;
-                    r1 = r1 / bounds1.Height * bounds2.Height;
+                    rY = rY / bounds1.Width * bounds2.Width;
+                    rX = rX / bounds1.Height * bounds2.Height;
                 }
+                OnPropertyChanged(nameof(Bounds));
             }
         }
 
@@ -426,7 +435,7 @@ namespace Engine.Geometry
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
-            => Distances.EllipsePerimeter(r1, r2);
+            => Distances.EllipsePerimeter(rX, rY);
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
@@ -436,13 +445,14 @@ namespace Engine.Geometry
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
         public override double Area
         {
-            get { return Areas.Ellipse(r1, r2); }
+            get { return Areas.Ellipse(rX, rY); }
             set
             {
                 // ToDo: Figure out the correct formula.
                 double a = Aspect;
-                r1 = value * a / PI;
-                r2 = value * a / PI;
+                rX = value * a / PI;
+                rY = value * a / PI;
+                OnPropertyChanged(nameof(Area));
                 update?.Invoke();
             }
         }
@@ -459,7 +469,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
-            => Boundings.Ellipse(x, y, r1, r2);
+            => Boundings.Ellipse(x, y, rX, rY);
 
         #endregion
 
@@ -471,7 +481,7 @@ namespace Engine.Geometry
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.Ellipse(x, y, r1, r2, angle, t);
+            => Interpolaters.Ellipse(x, y, rX, rY, angle, t);
 
         #endregion
 
@@ -502,7 +512,7 @@ namespace Engine.Geometry
             if (this == null)
                 return nameof(Ellipse);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={Center},{nameof(R1)}={r1},{nameof(R2)}={r2},{nameof(Angle)}={angle}}}";
+            IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle}}}";
             return formatable.ToString(format, provider);
         }
 

@@ -129,6 +129,7 @@ namespace Engine.Geometry
             set
             {
                 points = value;
+                OnPropertyChanged(nameof(Points));
                 update?.Invoke();
             }
         }
@@ -183,6 +184,7 @@ namespace Engine.Geometry
         public Polyline Add(Point2D point)
         {
             Points.Add(point);
+            OnPropertyChanged(nameof(Add));
             update?.Invoke();
             return this;
         }
@@ -193,6 +195,7 @@ namespace Engine.Geometry
         public Polyline Reverse()
         {
             Points.Reverse();
+            OnPropertyChanged(nameof(Reverse));
             update?.Invoke();
             return this;
         }

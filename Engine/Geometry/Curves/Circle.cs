@@ -178,6 +178,7 @@ namespace Engine.Geometry
             set
             {
                 radius = value;
+                OnPropertyChanged(nameof(Radius));
                 update?.Invoke();
             }
         }
@@ -200,6 +201,7 @@ namespace Engine.Geometry
             {
                 x = value.X;
                 y = value.Y;
+                OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
@@ -220,6 +222,7 @@ namespace Engine.Geometry
             set
             {
                 x = value;
+                OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
         }
@@ -240,6 +243,7 @@ namespace Engine.Geometry
             set
             {
                 y = value;
+                OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
@@ -261,6 +265,7 @@ namespace Engine.Geometry
             {
                 Center = value.Center();
                 radius = value.Width <= value.Height ? value.Width : value.Height;
+                OnPropertyChanged(nameof(Bounds));
                 update?.Invoke();
             }
         }
@@ -289,6 +294,7 @@ namespace Engine.Geometry
             set
             {
                 radius = Sqrt(value / PI);
+                OnPropertyChanged(nameof(Area));
                 update?.Invoke();
             }
         }

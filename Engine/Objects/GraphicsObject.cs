@@ -24,7 +24,7 @@ namespace Engine.Objects
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GraphicsObject
-        : IFormattable
+        : IFormattable, INotifyPropertyChanging, INotifyPropertyChanged
     {
         #region Callbacks
 
@@ -32,6 +32,16 @@ namespace Engine.Objects
         /// Action delegate for notifying callbacks on object updates.
         /// </summary>
         internal Action update;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event PropertyChangingEventHandler PropertyChanging;
 
         #endregion
 
@@ -105,7 +115,8 @@ namespace Engine.Objects
         /// </summary>
         /// <param name="point"></param>
         /// <returns>A <see cref="bool"/> value indicating whether the point intersects the object.</returns>
-        public virtual bool Contains(Point2D point) => false;
+        public virtual bool Contains(Point2D point)
+            => false;
 
         /// <summary>
         /// Register one or more methods to call when properties change to the shape.
@@ -119,6 +130,24 @@ namespace Engine.Objects
             else
                 update += callback;
             return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        protected void OnPropertyChanging(string name)
+        {
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         ///// <summary>

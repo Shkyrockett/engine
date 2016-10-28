@@ -556,6 +556,50 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Bezier Coefficients
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
+        /// </remarks>
+        private static (double A, double B, double C, double D) BezierCoefficients0(double a, double b, double c, double d)
+        {
+            return (
+                d - (3d * c) + (3d * b) - a,
+                (3d * c) - (6d * b) + (3d * a),
+                3d * (b - a),
+                a);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://www.particleincell.com/2013/cubic-line-intersection/
+        /// </remarks>
+        private static (double A, double B, double C, double D) BezierCoefficients1(double a, double b, double c, double d)
+        {
+            return (
+                -a + 3d * b + -3d * c + d,
+                3d * a - 6d * b + 3d * c,
+                -3d * a + 3d * b,
+                a);
+        }
+
+        #endregion
+
         #region Boundary of Rotated Ellipse
 
         /// <summary>
@@ -8580,7 +8624,7 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         public static Inclusion PointInEllipse(Ellipse ellipse, Point2D point)
         {
-            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d)
+            if (ellipse.RX <= 0d || ellipse.RY <= 0d)
                 return Inclusion.Outside;
 
             double cosT = Cos(-ellipse.Angle);
@@ -8592,8 +8636,8 @@ namespace MethodSpeedTester
             double a = (cosT * u + sinT * v) * (cosT * u + sinT * v);
             double b = (sinT * u - cosT * v) * (sinT * u - cosT * v);
 
-            double d1Squared = 4 * ellipse.R1 * ellipse.R1;
-            double d2Squared = 4 * ellipse.R2 * ellipse.R2;
+            double d1Squared = 4 * ellipse.RX * ellipse.RX;
+            double d2Squared = 4 * ellipse.RY * ellipse.RY;
 
             double normalizedRadius = (a / d1Squared)
                                     + (b / d2Squared);
@@ -8613,7 +8657,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static bool UnrotatedEllipseContainsPoint(Ellipse ellipse, Point2D point)
         {
-            if (ellipse.R1 <= 0d || ellipse.R2 <= 0d)
+            if (ellipse.RX <= 0d || ellipse.RY <= 0d)
                 return false;
 
             double u = point.X - ellipse.Center.X;
@@ -8622,8 +8666,8 @@ namespace MethodSpeedTester
             double a = u * u;
             double b = u * u;
 
-            double d1Squared = ellipse.R1 * ellipse.R1;
-            double d2Squared = ellipse.R2 * ellipse.R2;
+            double d1Squared = ellipse.RX * ellipse.RX;
+            double d2Squared = ellipse.RY * ellipse.RY;
 
             return (a / d1Squared)
                  + (b / d2Squared) <= 1d;
@@ -10639,6 +10683,16 @@ namespace MethodSpeedTester
 
         #region Self Intersecting Bezier
         // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
+        #endregion
+
+        #region Sign
+
+        // sign of number
+        private static double Sign0(double x)
+        {
+            return (x < 0d) ? -1 : 1;
+        }
+
         #endregion
 
         #region Sine

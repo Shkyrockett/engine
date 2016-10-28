@@ -35,6 +35,20 @@ namespace Engine.Geometry
         public static readonly LineSegment Empty = new LineSegment();
         #endregion
 
+        #region Private Fields
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Point2D a;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Point2D b;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -133,7 +147,15 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute]
-        public Point2D A { get; set; }
+        public Point2D A
+        {
+            get { return a; }
+            set
+            {
+                a = value;
+                OnPropertyChanged(nameof(A));
+            }
+        }
 
         /// <summary>
         /// Ending Point of a Line Segment
@@ -145,7 +167,15 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [XmlAttribute]
-        public Point2D B { get; set; }
+        public Point2D B
+        {
+            get { return b; }
+            set
+            {
+                b = value;
+                OnPropertyChanged(nameof(B));
+            }
+        }
 
         /// <summary>
         /// Gets or the size and location of the segment, in floating-point pixels, relative to the parent canvas.
@@ -155,13 +185,14 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds => Rectangle2D.FromLTRB
-    (
-    A.X <= B.X ? A.X : B.X,
-    A.Y <= B.Y ? A.Y : B.Y,
-    A.X >= B.X ? A.X : B.X,
-    A.Y >= B.Y ? A.Y : B.Y
-    );
+        public override Rectangle2D Bounds
+            => Rectangle2D.FromLTRB
+            (
+            A.X <= B.X ? A.X : B.X,
+            A.Y <= B.Y ? A.Y : B.Y,
+            A.X >= B.X ? A.X : B.X,
+            A.Y >= B.Y ? A.Y : B.Y
+            );
 
         /// <summary>
         /// Get or sets an array of points representing a line segment.
@@ -174,13 +205,15 @@ namespace Engine.Geometry
             {
                 A = value[0];
                 B = value[1];
+                OnPropertyChanged(nameof(Points));
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Length => Distances.Distance(A.X, A.Y, B.X, B.Y);
+        public double Length
+            => Distances.Distance(A.X, A.Y, B.X, B.Y);
 
         #endregion
 

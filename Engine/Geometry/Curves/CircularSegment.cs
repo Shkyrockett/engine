@@ -154,6 +154,7 @@ namespace Engine.Geometry
             set
             {
                 radius = value;
+                OnPropertyChanged(nameof(Radius));
                 update?.Invoke();
             }
         }
@@ -175,6 +176,7 @@ namespace Engine.Geometry
             {
                 x = value.X;
                 y = value.Y;
+                OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
@@ -194,6 +196,7 @@ namespace Engine.Geometry
             set
             {
                 x = value;
+                OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
         }
@@ -213,6 +216,7 @@ namespace Engine.Geometry
             set
             {
                 y = value;
+                OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
@@ -221,13 +225,15 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [XmlIgnore]
-        public Point2D StartPoint => new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
+        public Point2D StartPoint
+            => new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
-        public Point2D EndPoint => new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle));
+        public Point2D EndPoint
+            => new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle));
 
         /// <summary>
         /// Gets or sets the start angle of the Chord.
@@ -242,6 +248,7 @@ namespace Engine.Geometry
             set
             {
                 startAngle = value;
+                OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
             }
         }
@@ -259,6 +266,7 @@ namespace Engine.Geometry
             set
             {
                 endAngle = value;
+                OnPropertyChanged(nameof(EndAngle));
                 update?.Invoke();
             }
         }
@@ -276,6 +284,7 @@ namespace Engine.Geometry
             set
             {
                 endAngle = value + startAngle;
+                OnPropertyChanged(nameof(SweepAngle));
                 update?.Invoke();
             }
         }
@@ -307,7 +316,8 @@ namespace Engine.Geometry
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Chord.")]
-        public Rectangle2D DrawingBounds => Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius));
+        public Rectangle2D DrawingBounds
+            => Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius));
 
         /// <summary>
         /// 
@@ -315,7 +325,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Category("Properties")]
         [Description("The distance around the Chord.")]
-        public double ChordLength => Abs(SweepAngle) * radius;
+        public double ChordLength
+            => Abs(SweepAngle) * radius;
 
         /// <summary>
         /// 
@@ -323,7 +334,8 @@ namespace Engine.Geometry
         /// <returns></returns>
         [Category("Properties")]
         [Description("The distance around the Chord.")]
-        public double Perimiter => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius);
+        public double Perimiter
+            => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius);
 
         /// <summary>
         /// 
@@ -331,7 +343,8 @@ namespace Engine.Geometry
         /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
         [Category("Properties")]
         [Description("The area of the Chord.")]
-        public override double Area => (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle));
+        public override double Area
+            => (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle));
 
         /// <summary>
         /// 
@@ -340,7 +353,8 @@ namespace Engine.Geometry
         //return radius * (1 - Cos(SweepAngle * 0.5d));
         [Category("Properties")]
         [Description("The sagitta of the Chord.")]
-        public double Sagitta => radius - Sqrt(radius * radius - ((SweepAngle * SweepAngle) / 4));
+        public double Sagitta
+            => radius - Sqrt(radius * radius - ((SweepAngle * SweepAngle) / 4));
 
         #endregion
 

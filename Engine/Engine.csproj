@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
     <Compile Include="Geometry\Framework\ExpandableCollectionPropertyDescriptor.cs" />
     <Compile Include="Geometry\Complex\Figure\FigureItem.cs" />
     <Compile Include="Geometry\Complex\Figure\FigureArc.cs" />
@@ -105,8 +106,8 @@
     <Compile Include="Geometry\Complex\Figure\FigureCubicBezier.cs" />
     <Compile Include="Geometry\Complex\Figure\FigurePoint.cs" />
     <Compile Include="Geometry\Complex\Figure\Figure.cs" />
-    <Compile Include="Geometry\Complex\AngleVisualizerTester.cs" />
-    <Compile Include="Geometry\Complex\ParametricPointTester.cs" />
+    <Compile Include="Geometry\Complex\Tools\AngleVisualizerTester.cs" />
+    <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
     <Compile Include="Geometry\Framework\ListConverter.cs" />
     <Compile Include="Math\Intersection\EmptyLocus.cs" />
@@ -315,10 +316,6 @@
     <Compile Include="File\FileEx.cs" />
     <Compile Include="File\FileItem.cs" />
     <Compile Include="Geometry\Curves\CubicBezier.cs" />
-    <Compile Include="Geometry\Curves\Butterfly.cs" />
-    <Compile Include="Geometry\Curves\Bow.cs" />
-    <Compile Include="Geometry\Curves\Bicorn.cs" />
-    <Compile Include="Geometry\Curves\Agnesi.cs" />
     <Compile Include="Geometry\Curves\CircularArc.cs" />
     <Compile Include="Geometry\Curves\Circle.cs" />
     <Compile Include="Geometry\Curves\Ellipse.cs" />
@@ -326,9 +323,9 @@
     <Compile Include="Geometry\Complex\Oval.cs" />
     <Compile Include="Geometry\Framework\PathExtensions.cs" />
     <Compile Include="Geometry\Complex\PolygonSet.cs" />
-    <Compile Include="Geometry\Complex\SquareFCellGrid.cs" />
-    <Compile Include="Geometry\Complex\SquareCellGrid.cs" />
-    <Compile Include="Geometry\Complex\RectangleFCellGrid.cs" />
+    <Compile Include="Geometry\Complex\Tools\SquareFCellGrid.cs" />
+    <Compile Include="Geometry\Complex\Tools\SquareCellGrid.cs" />
+    <Compile Include="Geometry\Complex\Tools\RectangleFCellGrid.cs" />
     <Compile Include="Geometry\Polygons\LineSegment.cs" />
     <Compile Include="Math\Maths.cs" />
     <Compile Include="Geometry\Primitives\Matrix2D.cs" />
@@ -392,7 +389,7 @@
     <Compile Include="Geometry\Polygons\Polyline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Geometry\Primitives\Shape.cs" />
-    <Compile Include="Geometry\Complex\RectangleCellGrid.cs" />
+    <Compile Include="Geometry\Complex\Tools\RectangleCellGrid.cs" />
     <Compile Include="Geometry\Primitives\Vector2D.cs" />
     <Compile Include="Geometry\Framework\Tokenizer.cs" />
     <Compile Include="Geometry\Polygons\Triangle.cs" />

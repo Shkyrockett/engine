@@ -35,6 +35,8 @@ namespace Engine
             from i in Enumerable.Range(0, count)
             select func((1d / count) * i));
 
+        #region Circle Interpolation
+
         /// <summary>
         /// Interpolates the Arc.
         /// </summary>
@@ -91,6 +93,10 @@ namespace Engine
             double t) => (
                 cX + (Cos(t) * r),
                 cY + (Sin(t) * r));
+
+        #endregion
+
+        #region Ellipse Interpolation
 
         /// <summary>
         /// Interpolates the unrotated elliptical Arc.
@@ -224,6 +230,8 @@ namespace Engine
                 cX + (u * cosT + v * sinT),
                 cY + (u * sinT - v * cosT));
         }
+
+        #endregion
 
         #region Catmull-Rom Spline Interpolation
 
@@ -879,9 +887,9 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(
-            double v1, double v2,
-            double t)
-            => (1 - t) * v1 + t * v2;
+                double v1, double v2,
+                double t)
+                => (1 - t) * v1 + t * v2;
 
         /// <summary>
         ///
@@ -1123,6 +1131,8 @@ namespace Engine
 
         #endregion
 
+        #region Rectangle
+
         /// <summary>
         ///
         /// </summary>
@@ -1169,5 +1179,7 @@ namespace Engine
 
             return points;
         }
+
+        #endregion
     }
 }

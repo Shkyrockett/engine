@@ -171,6 +171,25 @@ namespace Engine
             => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
+        /// </remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
+            => (d - (3d * c) + (3d * b) - a,
+                (3d * c) - (6d * b) + (3d * a),
+                3d * (b - a),
+                a);
+
+        /// <summary>
         /// Find the elliptical t that matches the coordinates of a circular angle.
         /// </summary>
         /// <param name="angle">The angle to transform into elliptic angle.</param>

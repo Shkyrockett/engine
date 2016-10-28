@@ -151,6 +151,7 @@ namespace Engine.Geometry
             set
             {
                 radius = value;
+                OnPropertyChanged(nameof(Radius));
                 update?.Invoke();
             }
         }
@@ -171,6 +172,7 @@ namespace Engine.Geometry
             {
                 x = value.X;
                 y = value.Y;
+                OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
@@ -190,6 +192,7 @@ namespace Engine.Geometry
             set
             {
                 x = value;
+                OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
         }
@@ -209,6 +212,7 @@ namespace Engine.Geometry
             set
             {
                 y = value;
+                OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
@@ -227,6 +231,7 @@ namespace Engine.Geometry
             set
             {
                 startAngle = value;
+                OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
             }
         }
@@ -246,6 +251,7 @@ namespace Engine.Geometry
             set
             {
                 sweepAngle = value;
+                OnPropertyChanged(nameof(SweepAngle));
                 update?.Invoke();
             }
         }
@@ -264,6 +270,7 @@ namespace Engine.Geometry
             set
             {
                 sweepAngle = value - startAngle;
+                OnPropertyChanged(nameof(EndAngle));
                 update?.Invoke();
             }
         }

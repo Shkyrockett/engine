@@ -15,12 +15,12 @@ using static System.Math;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// <see cref="RectangleCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
+    /// <see cref="SquareCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(RectangleCellGrid))]
-    public class RectangleCellGrid
+    [DisplayName(nameof(SquareCellGrid))]
+    public class SquareCellGrid
         : Shape
     {
         #region Fields
@@ -60,11 +60,11 @@ namespace Engine.Geometry
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RectangleCellGrid"/> class.
+        /// Initializes a new instance of the <see cref="SquareCellGrid"/> class.
         /// </summary>
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
-        public RectangleCellGrid(Rectangle bounds, int count)
+        public SquareCellGrid(Rectangle bounds, int count)
         {
             this.bounds = bounds;
             this.count = count;
@@ -72,6 +72,23 @@ namespace Engine.Geometry
         }
 
         #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the <see cref="Rectangle"/> representing the bounding box of the cell at a given index of the grid. 
+        /// </summary>
+        /// <param name="index">The index of a cell in the grid.</param>
+        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
+        public Rectangle this[int index]
+        {
+            get
+            {
+                // ToDo: Implement flow orientation options.
+                var point = new Point((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
+                return new Rectangle(point, cellSize);
+            }
+        }
 
         /// <summary>
         /// Gets the index of a cell at a given point in the grid.
@@ -104,6 +121,7 @@ namespace Engine.Geometry
             {
                 bounds = value;
                 Recalculate();
+                OnPropertyChanged(nameof(Bounds));
                 update?.Invoke();
             }
         }
@@ -118,6 +136,7 @@ namespace Engine.Geometry
             {
                 count = value;
                 Recalculate();
+                OnPropertyChanged(nameof(Count));
                 update?.Invoke();
             }
         }
@@ -125,37 +144,28 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets the calculated optimum <see cref="Size"/> height and width of any cell in the grid.
         /// </summary>
-        public Size CellSize => cellSize;
+        public Size CellSize
+            => cellSize;
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle"/> of the grid. 
         /// </summary>
-        public Rectangle InnerBounds => innerBounds;
+        public Rectangle InnerBounds
+            => innerBounds;
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
-        public int Columns => columns;
+        public int Columns
+            => columns;
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
-        public int Rows => rows;
+        public int Rows
+            => rows;
 
-        /// <summary>
-        /// Gets the <see cref="Rectangle"/> representing the bounding box of the cell at a given index of the grid. 
-        /// </summary>
-        /// <param name="index">The index of a cell in the grid.</param>
-        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
-        public Rectangle this[int index]
-        {
-            get
-            {
-                // ToDo: Implement flow orientation options.
-                var point = new Point((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
-                return new Rectangle(point, cellSize);
-            }
-        }
+        #endregion
 
         /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 
@@ -164,9 +174,9 @@ namespace Engine.Geometry
         {
             if (count > 0)
             {
-                // Find the best fitting rectangular grid for the number of colors.
-                columns = (int)Ceiling(Sqrt((bounds.Width * count) / bounds.Height));
-                rows = (int)Ceiling((double)count / columns);
+                // Find the best fitting square grid for the number of colors.
+                columns = (int)Ceiling(Sqrt(count));
+                rows = columns;
 
                 // Calculate the optimum cell size for the grid.
                 int cellScale = Min(bounds.Width / columns, bounds.Height / rows);
@@ -195,6 +205,7 @@ namespace Engine.Geometry
         /// Converts the attributes of this <see cref="RectangleCellGrid"/> to a human-readable string. 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => "RectangleCellGrid{Bounds{" + bounds + "}, Count " + count + "}";
+        public override string ToString()
+            => $"SquareCellGrid{{Bounds {{{bounds}}}, Count {count}}}";
     }
 }

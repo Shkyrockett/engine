@@ -94,6 +94,7 @@ namespace Engine.Geometry
             set
             {
                 a = value;
+                OnPropertyChanged(nameof(A));
                 update?.Invoke();
             }
         }
@@ -111,6 +112,7 @@ namespace Engine.Geometry
             set
             {
                 b = value;
+                OnPropertyChanged(nameof(B));
                 update?.Invoke();
             }
         }
@@ -128,6 +130,7 @@ namespace Engine.Geometry
             set
             {
                 c = value;
+                OnPropertyChanged(nameof(C));
                 update?.Invoke();
             }
         }

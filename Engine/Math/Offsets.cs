@@ -137,7 +137,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double offset)
         {
-            return new Ellipse(ellipse.X, ellipse.Y, ellipse.R1 + offset, ellipse.R2 + offset, ellipse.Angle);
+            return new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double r1, double r2)
         {
-            return new Ellipse(ellipse.X, ellipse.Y, ellipse.R1 + r1, ellipse.R2 + r2, ellipse.Angle);
+            return new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
         }
 
         /// <summary>

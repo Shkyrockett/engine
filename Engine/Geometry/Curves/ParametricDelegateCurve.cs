@@ -85,6 +85,7 @@ namespace Engine.Geometry
             set
             {
                 location = value;
+                OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
         }
@@ -120,6 +121,7 @@ namespace Engine.Geometry
             set
             {
                 rotation = value;
+                OnPropertyChanged(nameof(Rotation));
                 update?.Invoke();
             }
         }

@@ -274,7 +274,7 @@ namespace Engine.Geometry
                 if (Abs(determinant) < Epsilon)
                     return Inclusion.Boundary;
                 // Check whether the point is on the same side of the chord as the center.
-                else if (Sign(determinant) == Sign(sweepAngle))
+                else if (Math.Sign(determinant) == Math.Sign(sweepAngle))
                     return Inclusion.Outside;
 
                 double dx = x - pX;
@@ -357,7 +357,7 @@ namespace Engine.Geometry
             //}
 
             // Check whether the point is on the side of the chord as the center.
-            if (Sign(determinant) == Sign(sweepAngle))
+            if (Math.Sign(determinant) == Math.Sign(sweepAngle))
                 return Inclusion.Outside;
 
             // Translate points to origin.
@@ -433,7 +433,7 @@ namespace Engine.Geometry
             }
 
             // Check whether the point is on the side of the chord as the center.
-            if (Sign(determinant) == Sign(sweepAngle))
+            if (Math.Sign(determinant) == Math.Sign(sweepAngle))
                 return Inclusion.Outside;
 
             // Translate points to origin.
@@ -463,7 +463,7 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Ellipse ellipse, Point2D point)
-            => EllipsePoint(ellipse.Center.X, ellipse.Center.Y, ellipse.R1, ellipse.R2, ellipse.Angle, point.X, point.Y);
+            => EllipsePoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.Angle, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
@@ -983,7 +983,7 @@ namespace Engine.Geometry
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (bool, (double, double)?, bool, (double, double)?) Intersects(this Ellipse e, LineSegment s)
-            => EllipseLineSegment(e.X, e.Y, e.R1, e.R2, s.A.X, s.A.Y, s.B.X, s.B.Y);
+            => EllipseLineSegment(e.X, e.Y, e.RX, e.RY, s.A.X, s.A.Y, s.B.X, s.B.Y);
 
         /// <summary>
         /// Find the points of the intersection of an unrotated ellipse and a line segment.
@@ -1130,5 +1130,264 @@ namespace Engine.Geometry
             // Exit Function
             return outputList;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <param name="p2x"></param>
+        /// <param name="p2y"></param>
+        /// <param name="p3x"></param>
+        /// <param name="p3y"></param>
+        /// <param name="l0x"></param>
+        /// <param name="l0y"></param>
+        /// <param name="l1x"></param>
+        /// <param name="l1y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://www.particleincell.com/2013/cubic-line-intersection/
+        /// </remarks>
+        public static List<Point2D> CubicBezierLineSegment(
+            double p0x, double p0y,
+            double p1x, double p1y,
+            double p2x, double p2y,
+            double p3x, double p3y,
+            double l0x, double l0y,
+            double l1x, double l1y)
+        {
+            // ToDo: Figure out why this can't handle intersection with horizontal lines.
+            var I = new List<Point2D>();
+
+            var A = l1y - l0y;      //A=y2-y1
+            var B = l0x - l1x;      //B=x1-x2
+            var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
+
+            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+
+            var r = cubicRoots(
+                A * bx.A + B * by.A,    /*t^3*/
+                A * bx.B + B * by.B,    /*t^2*/
+                A * bx.C + B * by.C,    /*t*/
+                A * bx.D + B * by.D + C /*1*/
+                );
+
+            /*verify the roots are in bounds of the linear segment*/
+            for (var i = 0; i < 3; i++)
+            {
+                double t = r[i];
+
+                double x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
+                double y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
+
+                /*above is intersection point assuming infinitely long line segment,
+                  make sure we are also in bounds of the line*/
+                double m;
+                if ((l1x - l0x) != 0)           /*if not vertical line*/
+                    m = (x - l0x) / (l1x - l0x);
+                else
+                    m = (y - l0y) / (l1y - l0y);
+
+                /*in bounds?*/
+                if (t < 0 || t > 1d || m < 0 || m > 1d)
+                {
+                    x = 0;// -100;  /*move off screen*/
+                    y = 0;// -100;
+                }
+                else
+                    /*intersection point*/
+                    I.Add(new Point2D(x, y));
+            }
+            return I;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// based on http://abecedarical.com/javascript/script_exact_cubic.html
+        /// </remarks>
+        private static double[] cubicRoots(double a, double b, double c, double d)
+        {
+            // The horizontal line issue seems to be somewhere in here.
+            var A = b / a;
+            var B = c / a;
+            var C = d / a;
+
+            double S, T, Im;
+
+            double Q = (3 * B - Pow(A, 2)) / 9;
+            double R = (9 * A * B - 27 * C - 2 * Pow(A, 3)) / 54;
+            double D = Pow(Q, 3) + Pow(R, 2);    // polynomial discriminant
+
+            var t = new double[3];
+
+            if (D >= 0)                                 // complex or duplicate roots
+            {
+                S = Sign(R + Sqrt(D)) * Pow(Abs(R + Sqrt(D)), (1 / 3));
+                T = Sign(R - Sqrt(D)) * Pow(Abs(R - Sqrt(D)), (1 / 3));
+
+                t[0] = -A / 3 + (S + T);                    // real root
+                t[1] = -A / 3 - (S + T) / 2;                  // real part of complex root
+                t[2] = -A / 3 - (S + T) / 2;                  // real part of complex root
+                Im = Abs(Sqrt(3) * (S - T) / 2);    // complex part of root pair   
+
+                /*discard complex roots*/
+                if (Im != 0)
+                {
+                    t[1] = -1;
+                    t[2] = -1;
+                }
+
+            }
+            else                                          // distinct real roots
+            {
+                var th = Acos(R / Sqrt(-Pow(Q, 3)));
+
+                t[0] = 2 * Sqrt(-Q) * Cos(th / 3) - A / 3;
+                t[1] = 2 * Sqrt(-Q) * Cos((th + Tau) / 3) - A / 3;
+                t[2] = 2 * Sqrt(-Q) * Cos((th + 4 * PI) / 3) - A / 3;
+                Im = 0.0;
+            }
+
+            /*discard out of spec roots*/
+            for (var i = 0; i < 3; i++)
+                if (t[i] < 0 || t[i] > 1.0) t[i] = -1;
+
+            /*sort but place -1 at the end*/
+            t = sortSpecial(t);
+
+            //Console.log(t[0] + " " + t[1] + " " + t[2]);
+            return t;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        private static double[] sortSpecial(double[] a)
+        {
+            bool flip;
+            double temp;
+
+            do
+            {
+                flip = false;
+                for (var i = 0; i < a.Length - 1; i++)
+                {
+                    if ((a[i + 1] >= 0 && a[i] > a[i + 1]) ||
+                        (a[i] < 0 && a[i + 1] >= 0))
+                    {
+                        flip = true;
+                        temp = a[i];
+                        a[i] = a[i + 1];
+                        a[i + 1] = temp;
+
+                    }
+                }
+            } while (flip);
+            return a;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/27664298/calculating-intersection-point-of-quadratic-bezier-curve
+        /// </remarks>
+        private static List<Point2D> QuadraticBezierLineSegment(
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y,
+            double a1X, double a1Y,
+            double a2X, double a2Y)
+        {
+            List<Point2D> intersections = new List<Point2D>();
+
+            // inverse line normal
+            var normal = new Point2D(a1Y - a2Y, a2X - a1X);
+
+            // Q-coefficients
+            var c2 = new Point2D(p1X + p2X * -2 + p3X, p1Y + p2Y * -2 + p3Y);
+            var c1 = new Point2D(p1X * -2 + p2X * 2, p1Y * -2 + p2Y * 2);
+            var c0 = new Point2D(p1X, p1Y);
+
+            // Transform to line 
+            var coefficient = a1X * a2Y - a2X * a1Y;
+            var a = normal.X * c2.X + normal.Y * c2.Y;
+            var b = (normal.X * c1.X + normal.Y * c1.Y) / a;
+            var c = (normal.X * c0.X + normal.Y * c0.Y + coefficient) / a;
+
+            // solve the roots
+            List<double> roots = new List<double>();
+            var d = b * b - 4 * c;
+            if (d > 0)
+            {
+                var e = Sqrt(d);
+                roots.Add((-b + Sqrt(d)) / 2);
+                roots.Add((-b - Sqrt(d)) / 2);
+            }
+            else if (d == 0)
+            {
+                roots.Add(-b / 2);
+            }
+
+            // calc the solution points
+            for (var i = 0; i < roots.Count; i++)
+            {
+                var minX = Min(a1X, a2X);
+                var minY = Min(a1Y, a2Y);
+                var maxX = Max(a1X, a2X);
+                var maxY = Max(a1Y, a2Y);
+                var t = roots[i];
+                if (t >= 0 && t <= 1)
+                {
+                    // possible point -- pending bounds check
+                    var point = new Point2D(
+                        Interpolaters.Linear(Interpolaters.Linear(p1X, p2X, t), Interpolaters.Linear(p2X, p3X, t), t),
+                        Interpolaters.Linear(Interpolaters.Linear(p1Y, p2Y, t), Interpolaters.Linear(p2Y, p3Y, t), t));
+                    var x = point.X;
+                    var y = point.Y;
+                    // bounds checks
+                    if (a1X == a2X && y >= minY && y <= maxY)
+                    {
+                        // vertical line
+                        intersections.Add(point);
+                    }
+                    else if (a1Y == a2Y && x >= minX && x <= maxX)
+                    {
+                        // horizontal line
+                        intersections.Add(point);
+                    }
+                    else if (x >= minX && y >= minY && x <= maxX && y <= maxY)
+                    {
+                        // line passed bounds check
+                        intersections.Add(point);
+                    }
+                }
+            }
+            return intersections;
+        }
     }
 }
+

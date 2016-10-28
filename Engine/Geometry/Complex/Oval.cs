@@ -62,6 +62,7 @@ namespace Engine.Geometry
             set
             {
                 location = value;
+                OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
         }
@@ -75,6 +76,7 @@ namespace Engine.Geometry
             set
             {
                 size = value;
+                OnPropertyChanged(nameof(Size));
                 update?.Invoke();
             }
         }
@@ -82,7 +84,8 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public override Rectangle2D Bounds => new Rectangle2D(location, size);
+        public override Rectangle2D Bounds
+            => new Rectangle2D(location, size);
 
         #endregion
 

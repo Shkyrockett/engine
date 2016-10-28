@@ -12,6 +12,7 @@ using Engine.File.Palettes;
 using Engine.Geometry;
 using Engine.Imaging;
 using Engine.Objects;
+using Engine.Physics;
 using Engine.Tools;
 using Engine.Tweening;
 using Engine.Winforms;
@@ -296,30 +297,30 @@ namespace Editor
             //GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
             //vectorMap.Add(intersectionItem);
 
-            //var ellipseTween = new Ellipse(
-            //    new Point2D(100, 100),
-            //    56, 30, 0d);
-            //var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
+            var ellipseTween = new Ellipse(
+                new Point2D(100, 100),
+                56, 30, 0d);
+            var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
 
-            //var rectangleTween = new Rectangle2D(
-            //    new Point2D(100, 100),
-            //    new Size2D(100, 100));
-            //var rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
+            var rectangleTween = new Rectangle2D(
+                new Point2D(100, 100),
+                new Size2D(100, 100));
+            var rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
 
-            //double duration = 300;
-            //double delay = 20;
+            double duration = 300;
+            double delay = 20;
 
-            ////tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
+            tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
             //Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
 
-            ////tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
-            //tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
-            //    .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
-            //    .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
-            //tweener.Timer(duration).OnComplete(CompleteCallback);
+            //tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
+            tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
+                .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
+                .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
+            tweener.Timer(duration).OnComplete(CompleteCallback);
 
-            //vectorMap.Add(rectangleTweenItem);
-            //vectorMap.Add(ellipseTweenItem);
+            vectorMap.Add(rectangleTweenItem);
+            vectorMap.Add(ellipseTweenItem);
 
             //var parametricEllipse = new ParametricDelegateCurve(
             //    (x, y, w, h, a, t) => Interpolaters.Ellipse(x, y, w, h, a, t),
@@ -470,6 +471,28 @@ namespace Editor
             //var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, styles[10]);
             //vectorMap.Add(CircleArcBoundsItem);
 
+            var bezier = new CubicBezier(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
+            var bezierItem = new GraphicItem(bezier, styles[1]);
+
+            var segment = new LineSegment(new Point2D(50, 75), new Point2D(150, 75));
+            var segmentItem = new GraphicItem(segment, styles[1]);
+
+            var bezierNodes = new NodeRevealer(new List<Point2D> { bezier.A, bezier.B, bezier.C, bezier.D }, 5d);
+            var bezierNodeItem = new GraphicItem(bezierNodes, styles[6]);
+
+            var segmentNodes = new NodeRevealer(new List<Point2D> { segment.A, segment.B }, 5d);
+            var segmentNodeItem = new GraphicItem(segmentNodes, styles[6]);
+
+            var intersections = Intersections.CubicBezierLineSegment(bezier.A.X, bezier.A.Y, bezier.B.X, bezier.B.Y, bezier.C.X, bezier.C.Y, bezier.D.X, bezier.D.Y, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+            var intersectionNodes = new NodeRevealer(intersections, 5d);
+            var intersectionNodesItem = new GraphicItem(intersectionNodes, styles[6]);
+
+            vectorMap.Add(bezierItem);
+            vectorMap.Add(segmentItem);
+            vectorMap.Add(bezierNodeItem);
+            vectorMap.Add(segmentNodeItem);
+            vectorMap.Add(intersectionNodesItem);
+
             var figure = new Figure(new Point2D(150d, 200d));
             figure.AddLineSegment(new Point2D(200, 200))
                 .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
@@ -486,7 +509,7 @@ namespace Editor
 
             var parametricPointTesterFigure = new ParametricPointTester(
                 (px, py) => Intersections.FigurePoint(figure, new Point2D(px, py)),
-                figureBounds.X, figureBounds.Y, figureBounds.Right+5, figureBounds.Bottom+5, 5, 5);
+                figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
             var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, styles[3]);
 
             vectorMap.Add(figureBoundsItem);

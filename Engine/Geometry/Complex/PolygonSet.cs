@@ -90,6 +90,7 @@ namespace Engine.Geometry
             set
             {
                 polygons = value;
+                OnPropertyChanged(nameof(Polygons));
                 update?.Invoke();
             }
         }
@@ -97,7 +98,8 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        public int Count => polygons.Count;
+        public int Count
+            => polygons.Count;
 
         /// <summary>
         /// 
@@ -109,8 +111,7 @@ namespace Engine.Geometry
         {
             get
             {
-                double lengths = polygons.Sum(p => p.Perimeter);
-                return lengths;
+                return polygons.Sum(p => p.Perimeter);
             }
         }
 

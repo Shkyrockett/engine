@@ -300,6 +300,7 @@ namespace Engine.Geometry
             {
                 cX = value.X;
                 cY = value.Y;
+                OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
         }
@@ -322,6 +323,7 @@ namespace Engine.Geometry
             {
                 cX = value.X;
                 cY = value.Y;
+                OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
@@ -342,6 +344,7 @@ namespace Engine.Geometry
             set
             {
                 cX = value;
+                OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
         }
@@ -361,6 +364,7 @@ namespace Engine.Geometry
             set
             {
                 cY = value;
+                OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
@@ -381,6 +385,7 @@ namespace Engine.Geometry
             set
             {
                 rX = value;
+                OnPropertyChanged(nameof(RX));
                 update?.Invoke();
             }
         }
@@ -401,6 +406,7 @@ namespace Engine.Geometry
             set
             {
                 rY = value;
+                OnPropertyChanged(nameof(RY));
                 update?.Invoke();
             }
         }
@@ -441,6 +447,7 @@ namespace Engine.Geometry
             {
                 rY = rX * value;
                 rX = rY / value;
+                OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
         }
@@ -461,6 +468,7 @@ namespace Engine.Geometry
             set
             {
                 angle = value;
+                OnPropertyChanged(nameof(Angle));
                 update?.Invoke();
             }
         }
@@ -480,6 +488,7 @@ namespace Engine.Geometry
             set
             {
                 startAngle = value;
+                OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
             }
         }
@@ -499,6 +508,7 @@ namespace Engine.Geometry
             set
             {
                 sweepAngle = value;
+                OnPropertyChanged(nameof(SweepAngle));
                 update?.Invoke();
             }
         }
@@ -512,12 +522,13 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double endAngle
+        public double EndAngle
         {
             get { return startAngle + sweepAngle; }
             set
             {
                 sweepAngle = value - startAngle;
+                OnPropertyChanged(nameof(EndAngle));
                 update?.Invoke();
             }
         }

@@ -42,6 +42,9 @@ namespace Engine.Imaging
                 case AngleVisualizerTester t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
+                case NodeRevealer t:
+                    t.Render(g, item, style as ShapeStyle);
+                    break;
                 case Text2D t:
                     t.Render(g, item, style as ShapeStyle);
                     break;

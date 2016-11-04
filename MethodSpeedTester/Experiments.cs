@@ -764,13 +764,13 @@ namespace MethodSpeedTester
             double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -843,13 +843,13 @@ namespace MethodSpeedTester
             double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -912,13 +912,13 @@ namespace MethodSpeedTester
                 Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -987,13 +987,13 @@ namespace MethodSpeedTester
                 Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -9768,7 +9768,8 @@ namespace MethodSpeedTester
         /// <param name="y2"></param>
         /// <param name="close_distance"></param>
         /// <returns>Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).</returns>
-        public static bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double close_distance) => (DistToSegment2(px, py, x1, y1, x2, y2) <= close_distance);
+        public static bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
+            => (DistToSegment2(px, py, x1, y1, x2, y2) <= close_distance);
 
         /// <summary>
         /// Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).
@@ -9782,7 +9783,8 @@ namespace MethodSpeedTester
         /// <param name="close_distance"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool PointNearSegment2(double px, double py, double x1, double y1, double x2, double y2, double close_distance) => (DistToSegment(px, py, x1, y1, x2, y2) <= close_distance);
+        public static bool PointNearSegment2(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
+            => (DistToSegment(px, py, x1, y1, x2, y2) <= close_distance);
 
         #endregion
 
@@ -10508,6 +10510,128 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Roots
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// based on http://abecedarical.com/javascript/script_exact_cubic.html
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[] CubicRoots(double a, double b, double c, double d)
+        {
+            // The horizontal line issue seems to be somewhere in here.
+            var A = b / a;
+            var B = c / a;
+            var C = d / a;
+
+            double S, T, Im;
+
+            double Q = (3 * B - Pow(A, 2)) / 9;
+            double R = (9 * A * B - 27 * C - 2 * Pow(A, 3)) / 54;
+            double D = Pow(Q, 3) + Pow(R, 2);    // polynomial discriminant
+
+            var t = new double[3];
+
+            if (D >= 0)                                 // complex or duplicate roots
+            {
+                S = Sign(R + Sqrt(D)) * Pow(Abs(R + Sqrt(D)), (1 / 3));
+                T = Sign(R - Sqrt(D)) * Pow(Abs(R - Sqrt(D)), (1 / 3));
+
+                t[0] = -A / 3 + (S + T);                    // real root
+                t[1] = -A / 3 - (S + T) / 2;                  // real part of complex root
+                t[2] = -A / 3 - (S + T) / 2;                  // real part of complex root
+                Im = Abs(Sqrt(3) * (S - T) / 2);    // complex part of root pair   
+
+                /*discard complex roots*/
+                if (Im != 0)
+                {
+                    t[1] = -1;
+                    t[2] = -1;
+                }
+
+            }
+            else                                          // distinct real roots
+            {
+                var th = Acos(R / Sqrt(-Pow(Q, 3)));
+
+                t[0] = 2 * Sqrt(-Q) * Cos(th / 3) - A / 3;
+                t[1] = 2 * Sqrt(-Q) * Cos((th + Tau) / 3) - A / 3;
+                t[2] = 2 * Sqrt(-Q) * Cos((th + 4 * PI) / 3) - A / 3;
+                Im = 0.0;
+            }
+
+            /*discard out of spec roots*/
+            for (var i = 0; i < 3; i++)
+                if (t[i] < 0 || t[i] > 1.0) t[i] = -1;
+
+            /*sort but place -1 at the end*/
+            t = SortSpecial(t);
+
+            //Console.log(t[0] + " " + t[1] + " " + t[2]);
+            return t;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://pomax.github.io/bezierinfo
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> QuadraticRoots(double a, double b, double c)
+        {
+            double d = a - 2 * b + c;
+            if (d != 0)
+            {
+                double m1 = -Sqrt(b * b - a * c);
+                double m2 = -a + b;
+                double v1 = -(m1 + m2) / d;
+                double v2 = -(-m1 + m2) / d;
+                return new List<double> { v1, v2 };
+            }
+            else if (b != c && d == 0)
+            {
+                return new List<double> { (2 * b - c) / (2 * (b - c)) };
+            }
+            return new List<double>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://pomax.github.io/bezierinfo
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> LinearRoots(double a, double b)
+        {
+            if (a != b)
+                return new List<double> { a / (a - b) };
+            return new List<double>();
+        }
+
+        #endregion
+
         #region Rotated Rectangle Bounds
 
         /// <summary>
@@ -10995,6 +11119,44 @@ namespace MethodSpeedTester
             result = Hermite(value1, 0f, value2, 0f, result);
 
             return result;
+        }
+
+        #endregion
+
+        #region Sorting Special
+
+        /// <summary>
+        /// Special sorting routine designed to place negitive values at the back.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// based on http://abecedarical.com/javascript/script_exact_cubic.html
+        /// </remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[] SortSpecial(double[] a)
+        {
+            bool flip;
+            double temp;
+
+            do
+            {
+                flip = false;
+                for (var i = 0; i < a.Length - 1; i++)
+                {
+                    if ((a[i + 1] >= 0 && a[i] > a[i + 1]) ||
+                        (a[i] < 0 && a[i + 1] >= 0))
+                    {
+                        flip = true;
+                        temp = a[i];
+                        a[i] = a[i + 1];
+                        a[i + 1] = temp;
+                    }
+                }
+            } while (flip);
+            return a;
         }
 
         #endregion

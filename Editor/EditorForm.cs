@@ -508,7 +508,7 @@ namespace Editor
             var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
 
             var parametricPointTesterFigure = new ParametricPointTester(
-                (px, py) => Intersections.FigurePoint(figure, new Point2D(px, py)),
+                (px, py) => Containings.FigurePoint(figure, new Point2D(px, py)),
                 figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
             var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, styles[3]);
 

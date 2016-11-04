@@ -82,7 +82,7 @@ namespace Engine.Geometry
             set
             {
                 offset = value;
-                update?.Invoke();
+                OnPropertyChanged(nameof(Offset));
             }
         }
 
@@ -95,7 +95,7 @@ namespace Engine.Geometry
             set
             {
                 multiplyer = value;
-                update?.Invoke();
+                OnPropertyChanged(nameof(multiplyer));
             }
         }
 
@@ -108,7 +108,7 @@ namespace Engine.Geometry
             set
             {
                 precision = value;
-                update?.Invoke();
+                OnPropertyChanged(nameof(Precision));
             }
         }
 

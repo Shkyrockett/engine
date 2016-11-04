@@ -130,7 +130,7 @@ namespace Engine.Winforms
         /// <param name="point"></param>
         /// <returns></returns>
         public override bool Contains(Point2D point)
-            => Intersections.Contains(Bounds, point) != Inclusion.Outside;
+            => Containings.Contains(Bounds, point) != Inclusion.Outside;
 
         /// <summary>
         /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
@@ -139,7 +139,7 @@ namespace Engine.Winforms
         /// <returns></returns>
         [Pure]
         public bool Contains(Rectangle2D rect)
-            => Intersections.Contains(Bounds, rect);
+            => Containings.Contains(Bounds, rect);
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.

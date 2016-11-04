@@ -10,7 +10,10 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Engine.Geometry
 {
@@ -61,6 +64,17 @@ namespace Engine.Geometry
         /// </summary>
         public override Rectangle2D Bounds
             => Boundings.Figure(this);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Contains(Point2D point)
+            => Containings.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// 

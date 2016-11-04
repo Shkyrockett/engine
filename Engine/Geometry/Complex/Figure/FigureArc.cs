@@ -93,7 +93,7 @@ namespace Engine.Geometry
         /// <param name="point"></param>
         /// <returns></returns>
         public Inclusion Contains(Point2D point)
-            => Intersections.Contains(ToEllipticalArc, point);
+            => Containings.Contains(ToEllipticalArc, point);
 
         /// <summary>
         /// 

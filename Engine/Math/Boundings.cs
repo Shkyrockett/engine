@@ -232,13 +232,13 @@ namespace Engine.Geometry
             double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Intersections.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Intersections.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Intersections.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.

@@ -1804,8 +1804,8 @@ namespace Engine
         /// <param name="val"></param>
         /// <returns></returns>
         [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Round(this float val)
             => (0f < val) ? (int)(val + 0.5f) : (int)(val - 0.5f);
 
@@ -1908,16 +1908,30 @@ namespace Engine
         #region Comparisons
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double MinMax(double x, double min, double max)
+            => (x < min) ? min : (x > max) ? max : x;
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="precision"></param>
         /// <returns></returns>
-        /// <remarks>http://pomax.github.io/bezierinfo</remarks>
+        /// <remarks>
+        /// http://pomax.github.io/bezierinfo
+        /// </remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool approximately(double a, double b, double precision = Epsilon)
+        public static bool Approximately(double a, double b, double precision = Epsilon)
             => Math.Abs(a - b) <= precision;
 
         /// <summary>

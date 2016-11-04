@@ -136,29 +136,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="v"></param>
-        /// <param name="m"></param>
-        /// <param name="M"></param>
-        /// <returns></returns>
-        public static bool between(double v, double m, double M)
-            => (m <= v && v <= M) || approximately(v, m) || approximately(v, M);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="precision"></param>
-        /// <returns></returns>
-        public static bool approximately(double a, double b, double precision = Epsilon)
-            => Abs(a - b) <= precision;// (precision || epsilon);
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="derivativeFn"></param>
         /// <returns></returns>
-        public static double length(DerivitiveMethod3D derivativeFn)
+        public static double Length(DerivitiveMethod3D derivativeFn)
         {
             double z = 0.5, sum = 0, len = Tvalues.Count, t;
             for (int i = 0; i < len; i++)
@@ -191,41 +171,9 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public static string pointToString(Point2D p)
-            => p.ToString();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public static string pointToString(Point3D p)
-            => p.ToString();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        public static string pointsToString(List<Point2D> points)
-            => points.ToString();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        public static string pointsToString(List<Point3D> points)
-            => points.ToString();
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static Point3D copy(Point3D obj)
+        public static Point3D Copy(Point3D obj)
             => new Point3D(obj);
 
         /// <summary>
@@ -235,7 +183,7 @@ namespace Engine.Geometry
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <returns></returns>
-        public static double angle(Point3D o, Point3D v1, Point3D v2)
+        public static double Angle(Point3D o, Point3D v1, Point3D v2)
         {
             double dx1 = v1.X - o.X;
             double dy1 = v1.Y - o.Y;
@@ -255,16 +203,16 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="LUT"></param>
+        /// <param name="lookUpTable"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static (double X, double Y) closest(List<Point3D> LUT, Point3D point)
+        public static (double X, double Y) Closest(List<Point3D> lookUpTable, Point3D point)
         {
             double mdist = Pow(2, 63);
             double mpos = 0;
-            for (int i = 0; i < LUT.Count; i++)
+            for (int i = 0; i < lookUpTable.Count; i++)
             {
-                double d = Distances.Distance(point, LUT[i]);
+                double d = Distances.Distance(point, lookUpTable[i]);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -301,7 +249,7 @@ namespace Engine.Geometry
         /// <param name="t"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static double projectionratio(double t = 0.5, double n = 0.5)
+        public static double ProjectionRatio(double t = 0.5, double n = 0.5)
         {
             // see u(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
@@ -370,7 +318,7 @@ namespace Engine.Geometry
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static Bezier makeline(Point3D p1, Point3D p2)
+        public static Bezier MakeLine(Point3D p1, Point3D p2)
         {
             double x1 = p1.X;
             double y1 = p1.Y;
@@ -386,7 +334,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="sections"></param>
         /// <returns></returns>
-        public static BBox findbbox(List<Bezier> sections)
+        public static BBox FindBoundingBox(List<Bezier> sections)
         {
             double mx = 99999999;
             double my = mx;
@@ -419,7 +367,7 @@ namespace Engine.Geometry
         /// <param name="s2"></param>
         /// <param name="bbox2"></param>
         /// <returns></returns>
-        public static List<Pair> shapeintersections(Shape1 s1, BBox bbox1, Shape1 s2, BBox bbox2)
+        public static List<Pair> ShapeIntersections(Shape1 s1, BBox bbox1, Shape1 s2, BBox bbox2)
         {
             if (!bboxoverlap(bbox1, bbox2))
                 return new List<Pair>();
@@ -457,18 +405,18 @@ namespace Engine.Geometry
         /// <param name="forward"></param>
         /// <param name="back"></param>
         /// <returns></returns>
-        public static Shape1 makeshape(Bezier forward, Bezier back)
+        public static Shape1 MakeShape(Bezier forward, Bezier back)
         {
             int bpl = back.points.Count;
             int fpl = forward.points.Count;
-            Bezier start = makeline(back.points[bpl - 1], forward.points[0]);
-            Bezier end = makeline(forward.points[fpl - 1], back.points[0]);
+            Bezier start = MakeLine(back.points[bpl - 1], forward.points[0]);
+            Bezier end = MakeLine(forward.points[fpl - 1], back.points[0]);
             var shape = new Shape1(
                 startcap: start,
                 forward: forward,
                 back: back,
                 endcap: end,
-                bbox: findbbox(new List<Bezier> { start, forward, back, end })
+                bbox: FindBoundingBox(new List<Bezier> { start, forward, back, end })
               );
             //shape.intersections = new Shape.IntersectionsDelegate(Bezier s2)
             //{
@@ -484,7 +432,7 @@ namespace Engine.Geometry
         /// <param name="d"></param>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static RangeX getminmax(Bezier curve, int d, List<double> list)
+        public static RangeX GetMinMax(Bezier curve, int d, List<double> list)
         {
             if (list == null)
                 return new RangeX(min: 0, max: 0);
@@ -536,7 +484,7 @@ namespace Engine.Geometry
         /// <remarks>
         /// http://pomax.github.io/bezierinfo/
         /// </remarks>
-        public static List<Point3D> align(List<Point3D> points, Line1 line)
+        public static List<Point3D> Align(List<Point3D> points, Line1 line)
         {
             double tx = line.P1.X;
             double ty = line.P1.Y;
@@ -554,11 +502,11 @@ namespace Engine.Geometry
         /// <param name="points"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static List<double> roots(List<Point3D> points, Line1 line)
+        public static List<double> Roots(List<Point3D> points, Line1 line)
         {
             //line = line || new Line(p1: new Point2D(x: 0, y: 0), p2: new Point2D(x: 1, y: 0));
             int order = points.Count - 1;
-            List<Point3D> pts = align(points, line);
+            List<Point3D> pts = Align(points, line);
 
             double a = 0;
             double b = 0;
@@ -664,7 +612,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static List<double> droots(List<double> p)
+        public static List<double> Roots(List<double> p)
         {
             // quadratic roots are easy
             if (p.Count == 3)
@@ -707,7 +655,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static List<double> inflections(List<Point3D> points)
         {
-            List<Point3D> p = align(points, new Line1(p1: points[0], p2: points[3]));
+            List<Point3D> p = Align(points, new Line1(p1: points[0], p2: points[3]));
             double a = p[2].X * p[1].Y;
             double b = p[3].X * p[1].Y;
             double c = p[1].X * p[2].Y;
@@ -716,14 +664,14 @@ namespace Engine.Geometry
             double v2 = 18 * (3 * a - b - 3 * c);
             double v3 = 18 * (c - a);
 
-            if (approximately(v1, 0))
+            if (Approximately(v1, 0))
                 return new List<double>();
 
             double trm = v2 * v2 - 4 * v1 * v3;
             double sq = Sqrt(trm);
             d = 2 * v1;
 
-            if (approximately(d, 0))
+            if (Approximately(d, 0))
                 return new List<double>();
 
             return new List<double>(
@@ -888,358 +836,6 @@ namespace Engine.Geometry
             arc.e = e;
             arc.radius = r;
             return arc;
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Arc1
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public Point3D center { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double radius { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double e { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double s { get; internal set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Shape1
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="s2"></param>
-        public delegate void IntersectionsDelegate(Bezier s2);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="startcap"></param>
-        /// <param name="forward"></param>
-        /// <param name="back"></param>
-        /// <param name="endcap"></param>
-        /// <param name="bbox"></param>
-        public Shape1(Bezier startcap, Bezier forward, Bezier back, Bezier endcap, BBox bbox)
-        {
-            this.startcap = startcap;
-            this.forward = forward;
-            this.back = back;
-            this.endcap = endcap;
-            this.bbox = bbox;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Bezier startcap { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Bezier forward { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Bezier back { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Bezier endcap { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public BBox bbox { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public IntersectionsDelegate intersections { get; internal set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class BBox
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        public BBox(RangeX x, RangeX y, RangeX z = null)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public RangeX x { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public RangeX y { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public RangeX z { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class RangeX
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        public RangeX(int min, int max)
-            : this(min, min + (max - min) / 2d, max, min - max)
-        { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="mid"></param>
-        /// <param name="max"></param>
-        /// <param name="size"></param>
-        public RangeX(double min, double mid, double max, double size)
-        {
-            this.min = min;
-            this.mid = mid;
-            this.max = max;
-            this.size = size;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double min { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double mid { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double max { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double size { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Line1
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        public Line1(Point3D p1, Point3D p2)
-        {
-            P1 = p1;
-            P2 = p2;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Point3D P1 { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Point3D P2 { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Pair
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        public Pair(Bezier left, Bezier right)
-        {
-            this.left = left;
-            this.right = right;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <param name="span"></param>
-        public Pair(Bezier left, Bezier right, List<Point3D> span)
-            : this(left, right)
-        {
-            this.span = span;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Pair()
-            : this(null, null)
-        { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Bezier left { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Bezier right { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int length { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Shape1 s1 { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Shape1 s2 { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<Point3D> span { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double _t1 { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double _t2 { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static bool operator ==(Pair left, Pair right) => left.Equals(right);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static bool operator !=(Pair left, Pair right) => !left.Equals(right);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static bool Equals(Pair left, Pair right) => left.left == right.left && right.right == left.right;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj) => obj is Pair && Equals(this, (Pair)obj);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode() => left.GetHashCode() ^ right.GetHashCode();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    internal class PairComparer
-        : IEqualityComparer<Pair>
-    {
-        /// <summary>
-        /// Products are equal if their names and product numbers are equal.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public bool Equals(Pair x, Pair y)
-        {
-            //Check whether the compared objects reference the same data.
-            if (ReferenceEquals(x, y))
-                return true;
-
-            //Check whether any of the compared objects is null.
-            if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
-                return false;
-
-            //Check whether the products' properties are equal.
-            return x == y && x == y;
-        }
-
-        /// <summary>
-        /// If Equals() returns true for a pair of objects 
-        /// then GetHashCode() must return the same value for these objects.
-        /// </summary>
-        /// <param name="pair"></param>
-        /// <returns></returns>
-        public int GetHashCode(Pair pair)
-        {
-            //Check whether the object is null
-            if (ReferenceEquals(pair, null))
-                return 0;
-
-            //Calculate the hash code for the product.
-            return pair.GetHashCode();
         }
     }
 }

@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experemental\Bezier\BBox.cs" />
+    <Compile Include="Experemental\Bezier\Arc1.cs" />
     <Compile Include="Experemental\Agnesi.cs" />
-    <Compile Include="Experemental\Bezier.cs" />
+    <Compile Include="Experemental\Bezier\Bezier.cs" />
     <Compile Include="Experemental\Bicorn.cs" />
     <Compile Include="Experemental\Bow.cs" />
     <Compile Include="Experemental\Butterfly.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Experemental\ConicSections.cs" />
     <Compile Include="Experemental\Cosine.cs" />
     <Compile Include="Experemental\CubicBSpline.cs" />
+    <Compile Include="Experemental\Curve.cs" />
     <Compile Include="Experemental\DoubleLine.cs" />
     <Compile Include="Experemental\EllipticStar.cs" />
     <Compile Include="Experemental\Gear.cs" />
@@ -73,7 +76,7 @@
     <Compile Include="Experemental\NGonStar.cs" />
     <Compile Include="Experemental\NonIntStar.cs" />
     <Compile Include="Experemental\Parabola.cs" />
-    <Compile Include="Experemental\PolyBezier.cs" />
+    <Compile Include="Experemental\Bezier\PolyBezier.cs" />
     <Compile Include="Experemental\PolyPath.cs" />
     <Compile Include="Experemental\Ray.cs" />
     <Compile Include="Experemental\RoundedRectangle2.cs" />
@@ -81,8 +84,12 @@
     <Compile Include="Experemental\Sine.cs" />
     <Compile Include="Experemental\Star.cs" />
     <Compile Include="Experemental\TimeLine.cs" />
-    <Compile Include="Experemental\Utilities.cs" />
+    <Compile Include="Experemental\Bezier\Utilities.cs" />
     <Compile Include="Experemental\Voronoi.cs" />
+    <Compile Include="Experemental\Bezier\RangeX.cs" />
+    <Compile Include="Experemental\Bezier\Line1.cs" />
+    <Compile Include="Experemental\Bezier\Pair.cs" />
+    <Compile Include="Experemental\Bezier\PairComparer.cs" />
     <Compile Include="RectanglePointTester.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +120,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ptinpoly.cs" />
     <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="Experemental\Bezier\Shape1.cs" />
     <Compile Include="SpeedTester.cs" />
     <EmbeddedResource Include="RectanglePointTester.resx">
       <DependentUpon>RectanglePointTester.cs</DependentUpon>
@@ -166,6 +174,9 @@
       <Project>{5ea0c702-64d5-4da1-a716-a345d936f4d8}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Experemental\Intersection\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

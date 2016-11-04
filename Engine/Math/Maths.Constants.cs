@@ -211,6 +211,340 @@ namespace Engine
 
         #endregion
 
+        #region Fractions
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneSixtyfourth = 1d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneThirtysecond = 1d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThreeSixtyfourth = 3d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneSixteenth = 1d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiveSixtyfourth = 5d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThreeThirtysecond = 3d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SevenSixtyfourth = 7d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneEighth = 1d / 8d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double NineSixtyfourth = 9d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiveThirtysecond = 5d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ElevenSixtyfourth = 11d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThreeSixteenth = 3d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirteenSixtyfourth = 13d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SevenThirtysecond = 7d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FifteenSixtyfourth = 15d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneQuarter = 1d / 4d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SeventeenSixtyfourth = 17d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double NineThirtysecond = 9d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double NineteenSixtyfourth = 19d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiveSixteenth = 5d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentyoneSixtyfourth = 21d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneThird = 1d / 3d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ElevenThirtysecond = 11d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentythreeSixtyfourth = 23d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThreeEighths = 3d / 8d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentyfiveSixtyfourth = 25d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirteenThirtysecond = 13d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentysevenSixtyfourth = 27d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SevenSixteenth = 7d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentynineSixtyfourth = 29d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FifteenThirtysecond = 15d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirtyoneSixtyfourth = 31d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneHalf = 1d / 2d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirtythreeSixtyfourth = 33d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SeventeenThirtysecond = 17d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirtyfiveSixtyfourth = 35d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double NineSixteenth = 9d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirtysevenSixtyfourth = 37d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double NineteenThirtysecond = 19d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirtynineSixtyfourth = 39d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiveEighths = 5d / 8d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FourtyoneSixtyfourth = 41d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentyoneThirtysecond = 21d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwoThirds = 2d / 3d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FourtythreeSixtyfourth = 43d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ElevenSixteenth = 11d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FourtyfiveSixtyfourth = 45d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentythreeThirtysecond = 23d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FourtysevenSixtyfourth = 47d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThreeQuarters = 3d / 4d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FourtynineSixtyfourth = 49d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentyfiveThirtysecond = 25d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiftyoneSixtyfourth = 51d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirteenSixteenth = 13d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiftythreeSixtyfourth = 53d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentysevenThirtysecond = 27d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiftyfiveSixtyfourth = 55d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SevenEighths = 7d / 8d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiftysevenSixtyfourth = 57d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double TwentynineThirtysecond = 29d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FiftynineSixtyfourth = 59d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double FifteenSixteenth = 15d / 16d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SixtyoneSixtyfourth = 61d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double ThirtyoneThirtysecond = 31d / 32d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double SixtythreeSixtyfourth = 63d / 64d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double One = 1d;
+
+        #endregion
+
         #region Logarithms
 
         ///// <summary>

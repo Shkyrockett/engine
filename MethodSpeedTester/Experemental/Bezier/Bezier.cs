@@ -241,7 +241,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static (Point3D, Point3D, Point3D) getABC(double n, Point3D S, Point3D B, Point3D E, double t = 0.5)
         {
-            double u = projectionratio(t, n);
+            double u = ProjectionRatio(t, n);
             double um = 1 - u;
             var C = new Point3D(
                 x: u * S.X + um * E.X,
@@ -285,9 +285,9 @@ namespace Engine.Geometry
         public static Bezier cubicFromPoints(Point3D S, Point3D B, Point3D E, double t = 0.5, double d1 = 0)
         {
             (Point3D, Point3D, Point3D) abc = getABC(3, S, B, E, t);
-            if (d1 == 0) d1 = Distance(B, abc.Item3); double d2 = d1 * (1 - t) / t;
+            if (d1 == 0) d1 = Distances.Distance(B, abc.Item3); double d2 = d1 * (1 - t) / t;
 
-            double selen = Distance(S, E);
+            double selen = Distances.Distance(S, E);
             double lx = (E.X - S.X) / selen;
             double ly = (E.Y - S.Y) / selen;
             double lz = (E.Z - S.Z) / selen;
@@ -365,7 +365,7 @@ namespace Engine.Geometry
         public void computedirection()
         {
             List<Point3D> points = this.points;
-            double angle = Utilities.angle(points[0], points[order], points[1]);
+            double angle = Utilities.Angle(points[0], points[order], points[1]);
             clockwise = angle > 0;
         }
 
@@ -374,7 +374,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns></returns>
         public double length()
-            => Utilities.length(derivative);
+            => Utilities.Length(derivative);
 
         /// <summary>
         ///
@@ -406,7 +406,7 @@ namespace Engine.Geometry
             for (int i = 0; i < lut.Count; i++)
             {
                 c = lut[i];
-                if (Distance(c, point) < error)
+                if (Distances.Distance(c, point) < error)
                 {
                     hits.Add(c);
                     t += i / lut.Count;
@@ -427,7 +427,7 @@ namespace Engine.Geometry
             List<Point3D> LUT = getLUT(1000);
             int l = LUT.Count - 1;
 
-            (double X, double Y) closest = Utilities.closest(LUT, point);
+            (double X, double Y) closest = Utilities.Closest(LUT, point);
             double mdist = closest.Item1;
             double mpos = closest.Item2;
             if (mpos == 0 || mpos == l)
@@ -452,7 +452,7 @@ namespace Engine.Geometry
             for (t = t1, ft = t; t < t2 + step; t += step)
             {
                 p = compute(t);
-                d = Distance(point, p);
+                d = Distances.Distance(point, p);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -787,9 +787,9 @@ namespace Engine.Geometry
         {
             List<double> extrema = this.extrema();
             return new BBox(
-                getminmax(this, 0, extrema),
-                getminmax(this, 1, extrema),
-                getminmax(this, 2, extrema)
+                GetMinMax(this, 0, extrema),
+                GetMinMax(this, 1, extrema),
+                GetMinMax(this, 2, extrema)
                 );
         }
 
@@ -865,8 +865,8 @@ namespace Engine.Geometry
         {
             if (order == 3)
             {
-                double a1 = Utilities.angle(points[0], points[3], points[1]);
-                double a2 = Utilities.angle(points[0], points[3], points[2]);
+                double a1 = Utilities.Angle(points[0], points[3], points[1]);
+                double a2 = Utilities.Angle(points[0], points[3], points[2]);
                 if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0) return false;
             }
             Point3D n1 = normal(0);
@@ -963,7 +963,7 @@ namespace Engine.Geometry
             // move end points by fixed distance along normal.
             foreach (int t in new List<int> { 0, 1 })
             {
-                Point3D p = np[t * order] = copy(points[t * order]);
+                Point3D p = np[t * order] = Copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
                 p.Y += (t == 0 ? r2 : r1) * v[t].Item2.Y;
             }
@@ -1012,7 +1012,7 @@ namespace Engine.Geometry
             // move end points by fixed distance along normal.
             foreach (int t in new List<int> { 0, 1 })
             {
-                Point3D p = np[t * order] = copy(points[t * order]);
+                Point3D p = np[t * order] = Copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
                 p.Y += (t == 0 ? r2 : r1) * v[t].Item2.Y;
             }
@@ -1132,8 +1132,8 @@ namespace Engine.Geometry
             Point3D fe = fcurves[len - 1].points[fcurves[len - 1].points.Count - 1];
             Point3D bs = bcurves[len - 1].points[bcurves[len - 1].points.Count - 1];
             Point3D be = bcurves[0].points[0];
-            Bezier ls = makeline(bs, fs);
-            Bezier le = makeline(fe, be);
+            Bezier ls = MakeLine(bs, fs);
+            Bezier le = MakeLine(fe, be);
             var segments = new List<Bezier>();
             segments.Add(ls);
             segments.AddRange(fcurves);
@@ -1157,7 +1157,7 @@ namespace Engine.Geometry
             var shapes = new List<Shape1>();
             for (int i = 1, len = outline.Count; i < len / 2; i++)
             {
-                Shape1 shape = makeshape(outline[i], outline[len - i]);
+                Shape1 shape = MakeShape(outline[i], outline[len - i]);
                 shape.startcap._virtual = (i > 1);
                 shape.endcap._virtual = (i < len / 2 - 1);
                 shapes.Add(shape);
@@ -1177,14 +1177,6 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
-        public List<bool> intersects(Line1 curve)
-            => lineIntersects(curve);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="curve"></param>
-        /// <returns></returns>
         public List<Pair> intersects(Bezier curve)
             => curveintersects(reduce(), curve.reduce());
 
@@ -1193,19 +1185,27 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
+        public List<bool> intersects(Line1 line)
+            => lineIntersects(line);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public List<bool> lineIntersects(Line1 line)
         {
-            double mx = Min(line.P1.X, line.P2.X),
-                my = Min(line.P1.Y, line.P2.Y),
-                MX = Max(line.P1.X, line.P2.X),
-                MY = Max(line.P1.Y, line.P2.Y);
+            double mx = Min(line.P1.X, line.P2.X);
+            double my = Min(line.P1.Y, line.P2.Y);
+            double MX = Max(line.P1.X, line.P2.X);
+            double MY = Max(line.P1.Y, line.P2.Y);
             var self = this;
 
             return new List<bool>(
-                from t in roots(points, line)
+                from t in Roots(points, line)
                 let p = self.get(t)
 
-                select between(p.X, mx, MX) && between(p.Y, my, MY));
+                select Containings.Between(p.X, mx, MX) && Containings.Between(p.Y, my, MY));
         }
 
         /// <summary>
@@ -1287,9 +1287,9 @@ namespace Engine.Geometry
             double q = (e - s) / 4;
             Point3D c1 = get(s + q);
             Point3D c2 = get(e - q);
-            double reff = Distance(pc.center, np1);
-            double d1 = Distance(pc.center, c1);
-            double d2 = Distance(pc.center, c2);
+            double reff = Distances.Distance(pc.center, np1);
+            double d1 = Distances.Distance(pc.center, c1);
+            double d2 = Distances.Distance(pc.center, c2);
             return Abs(d1 - reff) + Abs(d2 - reff);
         }
 
@@ -1405,7 +1405,7 @@ namespace Engine.Geometry
             // align curve with the intersecting line, translating/rotating
             // so that the first point becomes (0,0), and the last point
             // ends up lying on the line we're trying to use as root-intersect.
-            List<Point3D> aligned = align(new List<Point3D> { p1, p2, p3, p4 }, line);
+            List<Point3D> aligned = Align(new List<Point3D> { p1, p2, p3, p4 }, line);
             // rewrite from [a(1-t)^3 + 3bt(1-t)^2 + 3c(1-t)t^2 + dt^3] form...
             double pa = aligned[0].Y;
             double pb = aligned[1].Y;

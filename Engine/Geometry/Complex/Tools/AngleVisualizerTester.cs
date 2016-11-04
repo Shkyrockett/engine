@@ -199,6 +199,6 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         public bool InSweep(double angle)
-            => Intersections.Contains(angle, StartAngle, SweepAngle);
+            => Containings.Contains(angle, StartAngle, SweepAngle);
     }
 }

@@ -11,7 +11,6 @@ using Engine.Geometry;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
 
 namespace Engine
 {

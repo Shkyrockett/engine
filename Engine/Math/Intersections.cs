@@ -699,145 +699,145 @@ namespace Engine.Geometry
             return intersections;
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="a1x"></param>
-        ///// <param name="a1y"></param>
-        ///// <param name="a2x"></param>
-        ///// <param name="a2y"></param>
-        ///// <param name="a3x"></param>
-        ///// <param name="a3y"></param>
-        ///// <param name="b1x"></param>
-        ///// <param name="b1y"></param>
-        ///// <param name="b2x"></param>
-        ///// <param name="b2y"></param>
-        ///// <param name="b3x"></param>
-        ///// <param name="b3y"></param>
-        ///// <returns></returns>
-        //public static Intersection QuadraticBezierQuadraticBezier(
-        //    double a1x, double a1y,
-        //    double a2x, double a2y,
-        //    double a3x, double a3y,
-        //    double b1x, double b1y,
-        //    double b2x, double b2y,
-        //    double b3x, double b3y) => intersectBezier2Bezier2(
-        //        new Point2D(a1x, a1y), new Point2D(a2x, a2y), new Point2D(a3x, a3y),
-        //        new Point2D(b1x, b1y), new Point2D(b2x, b2y), new Point2D(b3x, b3y));
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1x"></param>
+        /// <param name="a1y"></param>
+        /// <param name="a2x"></param>
+        /// <param name="a2y"></param>
+        /// <param name="a3x"></param>
+        /// <param name="a3y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="b3x"></param>
+        /// <param name="b3y"></param>
+        /// <returns></returns>
+        public static List<Point2D> QuadraticBezierQuadraticBezier(
+            double a1x, double a1y,
+            double a2x, double a2y,
+            double a3x, double a3y,
+            double b1x, double b1y,
+            double b2x, double b2y,
+            double b3x, double b3y) => intersectBezier2Bezier2(
+                new Point2D(a1x, a1y), new Point2D(a2x, a2y), new Point2D(a3x, a3y),
+                new Point2D(b1x, b1y), new Point2D(b2x, b2y), new Point2D(b3x, b3y));
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="a1"></param>
-        ///// <param name="a2"></param>
-        ///// <param name="a3"></param>
-        ///// <param name="b1"></param>
-        ///// <param name="b2"></param>
-        ///// <param name="b3"></param>
-        ///// <returns></returns>
-        //public static Intersection intersectBezier2Bezier2(
-        //    Point2D a1, Point2D a2, Point2D a3,
-        //    Point2D b1, Point2D b2, Point2D b3)
-        //{
-        //    var result = new Intersection();
-        //    Polynomial poly;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <param name="a3"></param>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <param name="b3"></param>
+        /// <returns></returns>
+        public static List<Point2D> intersectBezier2Bezier2(
+            Point2D a1, Point2D a2, Point2D a3,
+            Point2D b1, Point2D b2, Point2D b3)
+        {
+            var result = new List<Point2D>(); //= new Intersection();
+            Polynomial poly;
 
-        //    var a = a2 * -2;
-        //    var c12 = a1 + a + a3;
+            var a = a2 * -2;
+            var c12 = a1 + a + a3;
 
-        //    a = a1 * -2;
-        //    var b = a2 * 2;
-        //    var c11 = a + b;
+            a = a1 * -2;
+            var b = a2 * 2;
+            var c11 = a + b;
 
-        //    var c10 = new Point2D(a1.X, a1.Y);
+            var c10 = new Point2D(a1.X, a1.Y);
 
-        //    a = b2 * -2;
-        //    var c22 = b1 + a + b3;
+            a = b2 * -2;
+            var c22 = b1 + a + b3;
 
-        //    a = b1 * -2;
-        //    b = b2 * 2;
-        //    var c21 = a + b;
+            a = b1 * -2;
+            b = b2 * 2;
+            var c21 = a + b;
 
-        //    var c20 = new Point2D(b1.X, b1.Y);
+            var c20 = new Point2D(b1.X, b1.Y);
 
-        //    if (c12.Y == 0)
-        //    {
-        //        var v0 = c12.X * (c10.Y - c20.Y);
-        //        var v1 = v0 - c11.I * c11.J;
-        //        var v2 = v0 + v1;
-        //        var v3 = c11.J * c11.J;
+            if (c12.Y == 0)
+            {
+                var v0 = c12.X * (c10.Y - c20.Y);
+                var v1 = v0 - c11.I * c11.J;
+                var v2 = v0 + v1;
+                var v3 = c11.J * c11.J;
 
-        //        poly = new Polynomial(
-        //            c12.X * c22.Y * c22.Y,
-        //            2 * c12.X * c21.J * c22.Y,
-        //            c12.X * c21.J * c21.J - c22.X * v3 - c22.Y * v0 - c22.Y * v1,
-        //            -c21.I * v3 - c21.J * v0 - c21.J * v1,
-        //            (c10.X - c20.X) * v3 + (c10.Y - c20.Y) * v1
-        //        );
-        //    }
-        //    else
-        //    {
-        //        var v0 = c12.X * c22.Y - c12.Y * c22.X;
-        //        var v1 = c12.X * c21.J - c21.I * c12.Y;
-        //        var v2 = c11.I * c12.Y - c11.J * c12.X;
-        //        var v3 = c10.Y - c20.Y;
-        //        var v4 = c12.Y * (c10.X - c20.X) - c12.X * v3;
-        //        var v5 = -c11.J * v2 + c12.Y * v4;
-        //        var v6 = v2 * v2;
+                poly = new Polynomial(
+                    c12.X * c22.Y * c22.Y,
+                    2 * c12.X * c21.J * c22.Y,
+                    c12.X * c21.J * c21.J - c22.X * v3 - c22.Y * v0 - c22.Y * v1,
+                    -c21.I * v3 - c21.J * v0 - c21.J * v1,
+                    (c10.X - c20.X) * v3 + (c10.Y - c20.Y) * v1
+                );
+            }
+            else
+            {
+                var v0 = c12.X * c22.Y - c12.Y * c22.X;
+                var v1 = c12.X * c21.J - c21.I * c12.Y;
+                var v2 = c11.I * c12.Y - c11.J * c12.X;
+                var v3 = c10.Y - c20.Y;
+                var v4 = c12.Y * (c10.X - c20.X) - c12.X * v3;
+                var v5 = -c11.J * v2 + c12.Y * v4;
+                var v6 = v2 * v2;
 
-        //        poly = new Polynomial(
-        //            v0 * v0,
-        //            2 * v0 * v1,
-        //            (-c22.Y * v6 + c12.Y * v1 * v1 + c12.Y * v0 * v4 + v0 * v5) / c12.Y,
-        //            (-c21.J * v6 + c12.Y * v1 * v4 + v1 * v5) / c12.Y,
-        //            (v3 * v6 + v4 * v5) / c12.Y
-        //        );
-        //    }
+                poly = new Polynomial(
+                    v0 * v0,
+                    2 * v0 * v1,
+                    (-c22.Y * v6 + c12.Y * v1 * v1 + c12.Y * v0 * v4 + v0 * v5) / c12.Y,
+                    (-c21.J * v6 + c12.Y * v1 * v4 + v1 * v5) / c12.Y,
+                    (v3 * v6 + v4 * v5) / c12.Y
+                );
+            }
 
-        //    var roots = poly.GetRoots();
-        //    for (var i = 0; i < roots.Length; i++)
-        //    {
-        //        var s = roots[i];
+            var roots = poly.SolveRealRoots().ToArray();
+            for (var i = 0; i < roots.Count(); i++)
+            {
+                var s = roots[i];
 
-        //        if (0 <= s.Real && s.Real <= 1)
-        //        {
-        //            var xRoots = new Polynomial(
-        //                c12.X,
-        //                c11.I,
-        //                c10.X - c20.X - s * c21.I - s * s * c22.X
-        //            ).GetRoots();
-        //            var yRoots = new Polynomial(
-        //                c12.Y,
-        //                c11.J,
-        //                c10.Y - c20.Y - s * c21.J - s * s * c22.Y
-        //            ).GetRoots();
+                if (0 <= s && s <= 1)
+                {
+                    var xRoots = new Polynomial(
+                        c12.X,
+                        c11.I,
+                        c10.X - c20.X - s * c21.I - s * s * c22.X
+                    ).SolveRealRoots().ToArray();
+                    var yRoots = new Polynomial(
+                        c12.Y,
+                        c11.J,
+                        c10.Y - c20.Y - s * c21.J - s * s * c22.Y
+                    ).SolveRealRoots().ToArray();
 
-        //            if (xRoots.Length > 0 && yRoots.Length > 0)
-        //            {
-        //                var TOLERANCE = 1e-4;
+                    if (xRoots.Length > 0 && yRoots.Length > 0)
+                    {
+                        var TOLERANCE = 1e-4;
 
-        //                for (var j = 0; j < xRoots.Length; j++)
-        //                {
-        //                    var xRoot = xRoots[j];
+                        for (var j = 0; j < xRoots.Length; j++)
+                        {
+                            var xRoot = xRoots[j];
 
-        //                    if (0 <= xRoot.Real && xRoot.Real <= 1)
-        //                    {
-        //                        for (var k = 0; k < yRoots.Length; k++)
-        //                        {
-        //                            if (Abs(xRoot.Real - yRoots[k].Real) < TOLERANCE)
-        //                            {
-        //                                result.points.Add(c22 * (s.Real * s.Real) + (c21 * s.Real + (c20)));
-        //                                break;
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
+                            if (0 <= xRoot && xRoot <= 1)
+                            {
+                                for (var k = 0; k < yRoots.Length; k++)
+                                {
+                                    if (Abs(xRoot - yRoots[k]) < TOLERANCE)
+                                    {
+                                        result.Add((Point2D)(c22 * (s * s) + (c21 * s + (c20))));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-        //    return result;
-        //}
+            return result;
+        }
     }
 }
 

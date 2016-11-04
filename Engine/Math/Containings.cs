@@ -7,11 +7,9 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;

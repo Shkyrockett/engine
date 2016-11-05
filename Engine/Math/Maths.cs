@@ -1911,6 +1911,76 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
+        /// </remarks>
+        public static double Max(double x, double y, double z)
+            => Math.Max(x, Math.Max(y, z));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="w"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
+        /// </remarks>
+        public static double Max(double w, double x, double y, double z)
+            => Math.Max(w, Math.Max(x, Math.Max(y, z)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static double Max(params double[] values)
+            => Enumerable.Max(values);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
+        /// </remarks>
+        public static double Min(double x, double y, double z)
+            => Math.Min(x, Math.Min(y, z));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="w"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
+        /// </remarks>
+        public static double Min(double w, double x, double y, double z)
+            => Math.Min(w, Math.Min(x, Math.Max(y, z)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static double Min(params double[] values)
+            => Enumerable.Min(values);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>

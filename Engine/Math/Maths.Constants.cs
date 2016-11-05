@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System;
 using System.Collections.Generic;
 using static System.Math;
 
@@ -18,6 +19,16 @@ namespace Engine
     public partial class Maths
     {
         #region Epsilons, Minimums, Maximums
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double Tolerance = 1e-6d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double Accuracy = 15d;
 
         /// <summary>
         /// Error difference for line intersection tests.

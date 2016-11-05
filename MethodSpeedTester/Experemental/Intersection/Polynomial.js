@@ -13,7 +13,6 @@
 Polynomial.TOLERANCE = 1e-6;
 Polynomial.ACCURACY = 15;
 
-
 /**
  *  interpolate
  *
@@ -74,7 +73,6 @@ Polynomial.interpolate = function (xs, ys, n, offset, x) {
     return { y: y, dy: dy };
 };
 
-
 /**
  *  Polynomial
  *
@@ -83,7 +81,6 @@ Polynomial.interpolate = function (xs, ys, n, offset, x) {
 function Polynomial() {
     this.init(arguments);
 }
-
 
 /**
  *  init
@@ -97,7 +94,6 @@ Polynomial.prototype.init = function (coefs) {
     this._variable = "t";
     this._s = 0;
 };
-
 
 /**
  *  eval
@@ -113,7 +109,6 @@ Polynomial.prototype.eval = function (x) {
 
     return result;
 };
-
 
 /**
  *  add
@@ -134,7 +129,6 @@ Polynomial.prototype.add = function (that) {
     return result;
 };
 
-
 /**
  *  multiply
  */
@@ -151,7 +145,6 @@ Polynomial.prototype.multiply = function (that) {
     return result;
 };
 
-
 /**
  *  divide_scalar
  */
@@ -159,7 +152,6 @@ Polynomial.prototype.divide_scalar = function (scalar) {
     for (var i = 0; i < this.coefs.length; i++)
         this.coefs[i] /= scalar;
 };
-
 
 /**
  *  simplify
@@ -173,7 +165,6 @@ Polynomial.prototype.simplify = function () {
             break;
     }
 };
-
 
 /**
  *  bisection
@@ -213,7 +204,6 @@ Polynomial.prototype.bisection = function (min, max) {
     return result;
 };
 
-
 /**
  *  toString
  */
@@ -250,7 +240,6 @@ Polynomial.prototype.toString = function () {
     return result;
 };
 
-
 /**
  *  trapezoid
  *  Based on trapzd in "Numerical Recipes in C", page 137
@@ -284,7 +273,6 @@ Polynomial.prototype.trapezoid = function (min, max, n) {
 
     return this._s;
 };
-
 
 /**
  *  simpson
@@ -328,7 +316,6 @@ Polynomial.prototype.simpson = function (min, max) {
     return s;
 };
 
-
 /**
  *  romberg
  */
@@ -365,7 +352,6 @@ Polynomial.prototype.romberg = function (min, max) {
 Polynomial.prototype.getDegree = function () {
     return this.coefs.length - 1;
 };
-
 
 /**
  *  getDerivative

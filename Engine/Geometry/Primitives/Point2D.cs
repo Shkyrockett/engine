@@ -408,6 +408,28 @@ namespace Engine.Geometry
         public static implicit operator Point2D((double X, double Y) tuple)
             => new Point2D(tuple.Item1, tuple.Item2);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="that"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D Min(Point2D that)
+            => new Point2D(Math.Min(X, that.X), Math.Min(Y, that.Y));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="that"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D Max(Point2D that)
+            => new Point2D(Math.Max(X, that.X), Math.Max(Y, that.Y));
+
         #endregion
 
         #region Factories

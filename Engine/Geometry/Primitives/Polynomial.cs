@@ -155,6 +155,12 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        public int Degree
+            => Coefficients.Count - 1;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public List<double> Coefficients { get; set; }
 
         /// <summary>
@@ -184,7 +190,8 @@ namespace Engine.Geometry
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
-        public static Polynomial operator *(Polynomial p, double m) { return m * p; }
+        public static Polynomial operator *(Polynomial p, double m)
+            => m * p;
 
         /// <summary>
         /// 
@@ -252,7 +259,7 @@ namespace Engine.Geometry
         /// </remarks>
         public static Polynomial operator +(Polynomial a, Polynomial b)
         {
-            var res = new double[Math.Max(a.Coefficients.Count, b.Coefficients.Count)];
+            var res = new double[Max(a.Coefficients.Count, b.Coefficients.Count)];
             for (int i = 0; i < res.Length; i++)
             {
                 double p = 0;
@@ -274,7 +281,7 @@ namespace Engine.Geometry
         /// </remarks>
         public static Polynomial operator -(Polynomial a, Polynomial b)
         {
-            var res = new double[Math.Max(a.Coefficients.Count, b.Coefficients.Count)];
+            var res = new double[Max(a.Coefficients.Count, b.Coefficients.Count)];
             for (int i = 0; i < res.Length; i++)
             {
                 double p = 0;
@@ -309,7 +316,8 @@ namespace Engine.Geometry
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
-        public static Polynomial operator +(Polynomial a) { return a; }
+        public static Polynomial operator +(Polynomial a)
+            => a;
 
         /// <summary>
         /// 
@@ -320,7 +328,8 @@ namespace Engine.Geometry
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
-        public static Polynomial operator +(Polynomial b, double a) { return a + b; }
+        public static Polynomial operator +(Polynomial b, double a)
+            => a + b;
 
         /// <summary>
         /// 
@@ -348,7 +357,8 @@ namespace Engine.Geometry
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
-        public static Polynomial operator -(Polynomial a, double b) { return a + (-b); }
+        public static Polynomial operator -(Polynomial a, double b)
+            => a + (-b);
 
         /// <summary>
         /// 
@@ -983,6 +993,174 @@ namespace Engine.Geometry
             if (sb.Length == 0)
                 sb.Append('0');
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public List<double> RootsInInterval(double min, double max)
+        {
+            var roots = new List<double>();
+            double? root;
+
+            if (Degree == 1)
+            {
+                root = Bisection(min, max);
+                if (root != null) roots.Add(root.Value);
+            }
+            else
+            {
+                // get roots of derivative
+                var deriv = Derivate();
+                var droots = deriv.RootsInInterval(min, max);
+
+                if (droots.Count > 0)
+                {
+                    // find root on [min, droots[0]]
+                    root = Bisection(min, droots[0]);
+                    if (root != null) roots.Add(root.Value);
+
+                    // find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
+                    for (int i = 0; i <= droots.Count - 2; i++)
+                    {
+                        root = Bisection(droots[i], droots[i + 1]);
+                        if (root != null) roots.Add(root.Value);
+                    }
+
+                    // find root on [droots[count-1],xmax]
+                    root = Bisection(droots[droots.Count - 1], max);
+                    if (root != null) roots.Add(root.Value);
+                }
+                else
+                {
+                    // polynomial is monotone on [min,max], has at most one root
+                    root = Bisection(min, max);
+                    if (root != null) roots.Add(root.Value);
+                }
+            }
+
+            return roots;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public double? Bisection(double min, double max)
+        {
+            var minValue = Eval(min);
+            var maxValue = Eval(max);
+            double? result = null;
+
+            if (Abs(minValue) <= Tolerance)
+                result = min;
+            else if (Abs(maxValue) <= Tolerance)
+                result = max;
+            else if (minValue * maxValue <= 0)
+            {
+                var tmp1 = Log(max - min);
+                var tmp2 = LN10 * Accuracy;
+                var iters = Ceiling((tmp1 + tmp2) / LN2);
+
+                for (var i = 0; i < iters; i++)
+                {
+                    result = 0.5 * (min + max);
+                    var value = Eval(result.Value);
+
+                    if (Abs(value) <= Tolerance)
+                    {
+                        break;
+                    }
+
+                    if (value * minValue < 0)
+                    {
+                        max = result.Value;
+                        maxValue = value;
+                    }
+                    else
+                    {
+                        min = result.Value;
+                        minValue = value;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public double Eval(double x)
+        {
+            if (Double.IsNaN(x))
+                throw new Exception("Polynomial.Eval: parameter must be a number");
+
+            var result = 0d;
+
+            for (var i = Coefficients.Count - 1; i >= 0; i--)
+                result = result * x + Coefficients[i];
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roots"></param>
+        public void RemoveMultipleRootsIn01(List<double> roots)
+        {
+            var ZEROepsilon = 1e-15;
+            roots.Sort();// (a, b)=> { return a - b; });
+            for (var i = 1; i < roots.Count;)
+            {
+                if (Abs(roots[i] - roots[i - 1]) < ZEROepsilon)
+                {
+                    roots.Insert(i, 1);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e1"></param>
+        /// <param name="e2"></param>
+        /// <returns></returns>
+        public static Polynomial Bezout(double[] e1, double[] e2)
+        {
+            var AB = e1[0] * e2[1] - e2[0] * e1[1];
+            var AC = e1[0] * e2[2] - e2[0] * e1[2];
+            var AD = e1[0] * e2[3] - e2[0] * e1[3];
+            var AE = e1[0] * e2[4] - e2[0] * e1[4];
+            var AF = e1[0] * e2[5] - e2[0] * e1[5];
+            var BC = e1[1] * e2[2] - e2[1] * e1[2];
+            var BE = e1[1] * e2[4] - e2[1] * e1[4];
+            var BF = e1[1] * e2[5] - e2[1] * e1[5];
+            var CD = e1[2] * e2[3] - e2[2] * e1[3];
+            var DE = e1[3] * e2[4] - e2[3] * e1[4];
+            var DF = e1[3] * e2[5] - e2[3] * e1[5];
+            var BFpDE = BF + DE;
+            var BEmCD = BE - CD;
+
+            return new Polynomial(
+                AB * BC - AC * AC,
+                AB * BEmCD + AD * BC - 2 * AC * AE,
+                AB * BFpDE + AD * BEmCD - AE * AE - 2 * AC * AF,
+                AB * DF + AD * BFpDE - 2 * AE * AF,
+                AD * DF - AF * AF
+            );
         }
     }
 }

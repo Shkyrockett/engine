@@ -1123,7 +1123,7 @@ namespace Engine.Geometry
             {
                 if (Abs(roots[i] - roots[i - 1]) < ZEROepsilon)
                 {
-                    roots.Insert(i, 1);
+                    roots.Remove(i);
                 }
                 else
                 {

@@ -98,6 +98,9 @@ namespace Engine.Imaging
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item?.Style;
 
+            var dashPen = new Pen(Color.DarkGray, 1f) { DashPattern = new float[] { 3f,3f } };
+            g.DrawLines(dashPen, shape?.Points.ToPointFArray());
+
             foreach (var point in shape?.Points)
             {
                 Rectangle2D rect = new Rectangle2D(new Point2D(point.X - shape.Radius, point.Y - shape.Radius), new Size2D(2 * shape.Radius, 2 * shape.Radius));

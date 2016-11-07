@@ -252,9 +252,12 @@ namespace Engine.Imaging
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             GraphicsPath path = new GraphicsPath();
-            path.AddBeziers(new PointF[] { shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF() });
+
+            Point2D[] cubic = Interpolaters.QuadraticBezierToCubicBezier(shape.A, shape.B, shape.C);
+            path.AddBezier(cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
+
             g.FillPath((itemStyle).BackBrush, path);
-            g.DrawBeziers((itemStyle).ForePen, new PointF[] { shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF() });
+            g.DrawBezier((itemStyle).ForePen, cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
         }
 
         /// <summary>

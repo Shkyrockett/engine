@@ -81,6 +81,21 @@ namespace Engine.Geometry
             this.d = d;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CubicBezier"/> class from a <see cref="QuadraticBezier"/>.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        public CubicBezier(Point2D a, Point2D b, Point2D c)
+        {
+            var nodes = Interpolaters.QuadraticBezierToCubicBezier(a, b, c);
+            this.a = nodes[0];
+            this.b = nodes[1];
+            this.c = nodes[2];
+            this.d = nodes[3];
+        }
+
         #endregion
 
         #region Indexers

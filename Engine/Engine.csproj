@@ -117,6 +117,9 @@
     <Compile Include="Math\Intersection\EmptyLocus.cs" />
     <Compile Include="Math\Intersection\Intersection.cs" />
     <Compile Include="Math\Intersection\Intersector.cs" />
+    <Compile Include="Math\Intersection\CoincidentLocus.cs" />
+    <Compile Include="Math\Intersection\ParalellLocus.cs" />
+    <Compile Include="Math\Intersection\OverlapLocus.cs" />
     <Compile Include="Math\Intersection\LineSegmentLocus.cs" />
     <Compile Include="Math\Intersection\Locus.cs" />
     <Compile Include="Math\Intersection\PointLocus.cs" />

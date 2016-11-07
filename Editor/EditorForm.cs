@@ -471,27 +471,53 @@ namespace Editor
             //var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, styles[10]);
             //vectorMap.Add(CircleArcBoundsItem);
 
-            var bezier = new CubicBezier(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
-            var bezierItem = new GraphicItem(bezier, styles[1]);
+            var cubicBezier = new CubicBezier(new Point2D(50, 51), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
+            var cubicBezierItem = new GraphicItem(cubicBezier, styles[1]);
+
+            var cubicBezierNodes = new NodeRevealer(new List<Point2D> { cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D }, 5d);
+            var cubicBezierNodeItem = new GraphicItem(cubicBezierNodes, styles[6]);
+
+            var quadraticBezier = new QuadraticBezier(new Point2D(50, 101), new Point2D(75, 50), new Point2D(150, 100));
+            var quadraticBezierItem = new GraphicItem(quadraticBezier, styles[1]);
+
+            var quadraticBezierNodes = new NodeRevealer(new List<Point2D> { quadraticBezier.A, quadraticBezier.B, quadraticBezier.C }, 5d);
+            var quadraticBezierNodeItem = new GraphicItem(quadraticBezierNodes, styles[6]);
+
+            //var cubicBezier2 = new CubicBezier(new Point2D(50, 101), new Point2D(75, 50), new Point2D(125, 100), new Point2D(150, 25));
+            //var cubicBezier2Item = new GraphicItem(cubicBezier2, styles[1]);
 
             var segment = new LineSegment(new Point2D(50, 75), new Point2D(150, 75));
             var segmentItem = new GraphicItem(segment, styles[1]);
 
-            var bezierNodes = new NodeRevealer(new List<Point2D> { bezier.A, bezier.B, bezier.C, bezier.D }, 5d);
-            var bezierNodeItem = new GraphicItem(bezierNodes, styles[6]);
-
             var segmentNodes = new NodeRevealer(new List<Point2D> { segment.A, segment.B }, 5d);
             var segmentNodeItem = new GraphicItem(segmentNodes, styles[6]);
 
-            var intersections = Intersections.CubicBezierLineSegment(bezier.A.X, bezier.A.Y, bezier.B.X, bezier.B.Y, bezier.C.X, bezier.C.Y, bezier.D.X, bezier.D.Y, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+            var intersections = Intersections.CubicBezierLineSegment(cubicBezier.A.X, cubicBezier.A.Y, cubicBezier.B.X, cubicBezier.B.Y, cubicBezier.C.X, cubicBezier.C.Y, cubicBezier.D.X, cubicBezier.D.Y, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
             var intersectionNodes = new NodeRevealer(intersections, 5d);
             var intersectionNodesItem = new GraphicItem(intersectionNodes, styles[6]);
 
-            vectorMap.Add(bezierItem);
+            var intersection3s = Intersections.intersectBezier2Bezier3(
+                cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D,
+                quadraticBezier.A, quadraticBezier.B, quadraticBezier.C);
+            var intersectio3nNodes = new NodeRevealer(intersection3s, 5d);
+            var intersection3NodesItem = new GraphicItem(intersectio3nNodes, styles[6]);
+
+            //var intersections2 = Intersections.intersectBezier3Bezier3(
+            //    cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D,
+            //    cubicBezier2.A, cubicBezier2.B, cubicBezier2.C, cubicBezier2.D);
+            //var intersection2Nodes = new NodeRevealer(intersections2, 5d);
+            //var intersection2NodesItem = new GraphicItem(intersection2Nodes, styles[6]);
+
+            vectorMap.Add(cubicBezierItem);
+            vectorMap.Add(quadraticBezierItem);
+            //vectorMap.Add(cubicBezier2Item);
             vectorMap.Add(segmentItem);
-            vectorMap.Add(bezierNodeItem);
+            vectorMap.Add(cubicBezierNodeItem);
+            vectorMap.Add(quadraticBezierNodeItem);
             vectorMap.Add(segmentNodeItem);
             vectorMap.Add(intersectionNodesItem);
+            //vectorMap.Add(intersection3NodesItem);
+            //vectorMap.Add(intersection2NodesItem);
 
             var figure = new Figure(new Point2D(150d, 200d));
             figure.AddLineSegment(new Point2D(200, 200))
@@ -507,14 +533,20 @@ namespace Editor
             var figureBounds = figure.Bounds;
             var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
 
-            var parametricPointTesterFigure = new ParametricPointTester(
-                (px, py) => Containings.FigurePoint(figure, new Point2D(px, py)),
-                figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
-            var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, styles[3]);
+            //var parametricPointTesterFigure = new ParametricPointTester(
+            //    (px, py) => Containings.FigurePoint(figure, new Point2D(px, py)),
+            //    figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
+            //var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, styles[3]);
+
+            //var parametricPointTesterRectangle = new ParametricPointTester(
+            //    (px, py) => Containings.RectanglePoint(figureBounds.Left, figureBounds.Top, figureBounds.Right, figureBounds.Bottom, px, py),
+            //    figureBounds.X - 200, figureBounds.Y - 200, figureBounds.Right + 205, figureBounds.Bottom + 205, 5, 5);
+            //var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, styles[3]);
 
             vectorMap.Add(figureBoundsItem);
             vectorMap.Add(figureItem);
-            vectorMap.Add(parametricPointTesterFigureItem);
+            //vectorMap.Add(parametricPointTesterFigureItem);
+            //vectorMap.Add(parametricPointTesterRectangleItem);
 
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";

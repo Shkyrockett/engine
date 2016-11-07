@@ -454,23 +454,9 @@ namespace Engine.Geometry
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion RectanglePoint(double left, double top, double right, double bottom, double pX, double pY)
-        {
-            if (((
-                Abs(left - pX) < Epsilon
-                || Abs(bottom - pX) < Epsilon)
-                && ((top <= pY) == (bottom >= pY)))
-                || ((Abs(right - pY) < Epsilon
-                || Abs(left - pY) < Epsilon)
-                && ((left <= pX) == (right >= pX))))
-            {
-                return Inclusion.Boundary;
-            }
-
-            return (left <= pX
-                && pX < right
-                && top <= pY
-                && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
-        }
+            => (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
+                || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusion.Boundary
+                : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.

@@ -625,7 +625,7 @@ namespace Engine.Geometry
         /// <remarks>
         /// http://stackoverflow.com/questions/27664298/calculating-intersection-point-of-quadratic-bezier-curve
         /// </remarks>
-        private static List<Point2D> QuadraticBezierLineSegment(
+        public static List<Point2D> QuadraticBezierLineSegment(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
@@ -735,7 +735,7 @@ namespace Engine.Geometry
         /// <param name="b2"></param>
         /// <param name="b3"></param>
         /// <returns></returns>
-        private static List<Point2D> intersectBezier2Bezier2(
+        public static List<Point2D> intersectBezier2Bezier2(
             Point2D a1, Point2D a2, Point2D a3,
             Point2D b1, Point2D b2, Point2D b3)
         {
@@ -850,7 +850,7 @@ namespace Engine.Geometry
         /// <param name="b3"></param>
         /// <param name="b4"></param>
         /// <returns></returns>
-        private static List<Point2D> intersectBezier2Bezier3(
+        public static List<Point2D> intersectBezier2Bezier3(
             Point2D a1, Point2D a2, Point2D a3,
             Point2D b1, Point2D b2, Point2D b3, Point2D b4)
         {
@@ -981,7 +981,7 @@ namespace Engine.Geometry
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <returns></returns>
-        private static List<Point2D> intersectBezier2Ellipse(
+        public static List<Point2D> intersectBezier2Ellipse(
             Point2D p1, Point2D p2, Point2D p3,
             Point2D ec, double rx, double ry)
         {
@@ -1028,7 +1028,7 @@ namespace Engine.Geometry
         /// <param name="a1"></param>
         /// <param name="a2"></param>
         /// <returns></returns>
-        private static List<Point2D> intersectBezier2Line(
+        public static List<Point2D> intersectBezier2Line(
             Point2D p1, Point2D p2, Point2D p3,
             Point2D a1, Point2D a2)
         {
@@ -1114,7 +1114,7 @@ namespace Engine.Geometry
         /// <param name="b3"></param>
         /// <param name="b4"></param>
         /// <returns></returns>
-        private static List<Point2D> intersectBezier3Bezier3(
+        public static List<Point2D> intersectBezier3Bezier3(
             Point2D a1, Point2D a2, Point2D a3, Point2D a4,
             Point2D b1, Point2D b2, Point2D b3, Point2D b4)
         {
@@ -1432,7 +1432,7 @@ namespace Engine.Geometry
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <returns></returns>
-        private static List<Point2D> intersectBezier3Ellipse(
+        public static List<Point2D> intersectBezier3Ellipse(
             Point2D p1, Point2D p2, Point2D p3, Point2D p4,
             Point2D ec, double rx, double ry)
         {
@@ -1495,7 +1495,7 @@ namespace Engine.Geometry
         /// <param name="a1"></param>
         /// <param name="a2"></param>
         /// <returns></returns>
-        private static List<Point2D> intersectBezier3Line(
+        public static List<Point2D> intersectBezier3Line(
             Point2D p1, Point2D p2, Point2D p3, Point2D p4,
             Point2D a1, Point2D a2)
         {

@@ -176,6 +176,13 @@ namespace Engine.Geometry
         #region Methods
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public CubicBezier ToCubicBezier()
+            => new CubicBezier(a, b, c);
+
+        /// <summary>
         /// Creates a string representation of this <see cref="QuadraticBezier"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.

@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

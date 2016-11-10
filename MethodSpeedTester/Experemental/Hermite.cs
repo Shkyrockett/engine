@@ -10,7 +10,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Hermite2D

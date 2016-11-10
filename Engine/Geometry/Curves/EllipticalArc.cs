@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     ///
@@ -309,7 +309,7 @@ namespace Engine.Geometry
         /// Gets or sets the Center Point of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlIgnore]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(EllipticalArc) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -476,6 +476,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the start angle of the elliptical arc.
         /// </summary>
+        [XmlAttribute]
         [GeometryAngle]
         [Category("Clipping")]
         [Description("The start angle of the elliptical arc.")]
@@ -496,6 +497,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
         /// </summary>
+        [XmlAttribute]
         [GeometryAngle]
         [Category("Clipping")]
         [Description("The sweep angle of the elliptical arc.")]
@@ -516,6 +518,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc.
         /// </summary>
+        [XmlIgnore]
         [GeometryAngle]
         [Category("Clipping")]
         [Description("The end angle of the elliptical arc.")]

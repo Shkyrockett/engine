@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
-namespace Engine.Objects
+namespace Engine
 {
     /// <summary>
     /// Represents an object that can be displayed on screen.
@@ -33,6 +32,15 @@ namespace Engine.Objects
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public GraphicItem()
+        {
+            propertyCache = new Dictionary<object, object>();
+            Item = null;
+        }
 
         /// <summary>
         ///
@@ -54,6 +62,7 @@ namespace Engine.Objects
         /// <summary>
         ///
         /// </summary>
+        [XmlElement]
         [DisplayName(nameof(Name))]
         [Category("Properties")]
         [Description("The name of the item.")]
@@ -76,6 +85,7 @@ namespace Engine.Objects
         /// <summary>
         ///
         /// </summary>
+        [XmlIgnore]
         [DisplayName(nameof(Style))]
         [Category("Properties")]
         [Description("The style of the item.")]
@@ -84,6 +94,7 @@ namespace Engine.Objects
         /// <summary>
         ///
         /// </summary>
+        [XmlIgnore]
         [DisplayName(nameof(Metadata))]
         [Category("Properties")]
         [Description("The meta-data of the item.")]

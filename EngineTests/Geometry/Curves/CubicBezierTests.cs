@@ -9,7 +9,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Engine.Geometry.Tests
+namespace Engine.Tests
 {
     /// <summary>
     /// 

@@ -69,6 +69,7 @@ Linear means straight line. So a linear equation is any formula which results in
 
 | Function | Name | Description |
 |:---:|---|---|
+| ![][Parameterized Line Segment x] ![][Parameterized Line Segment y] | Parameterized Line Segment Equation | The parameterized equation for a line segment through two points. |
 | ![][pythagorean theorem] | Pythagorean Theorem |  |
 | ![][distance] | Distance | The distance between two Cartesian Points. |
 |  |  |  |
@@ -122,7 +123,9 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 | Function | Name | Description |
 |:---:|---|---|
-| ![][ellipse equation] |  | The equation of an ellipse whose major and minor axes coincide with the Cartesian axes. |
+| ![][ellipse equation] | Ellipse Equation | The equation of an ellipse whose major and minor axes coincide with the Cartesian axes. |
+| ![][ellipse equation not centered] | Translated Ellipse Equation | The equation of an ellipse that has been Translated away from the Origin. Where h, and k are the new center point. |
+| ![][rotated ellipse equation not centered] | Rotated and Translated Ellipse Equation | The equation of an ellipse that has been Translated away from the Origin, and rotated. Where h, and k are the new center point, and α is the angle of rotation. |
 | ![][ellipse parametric x 1] |  | Parametric form of ellipse for x. |
 | ![][ellipse parametric y 1] |  | Parametric form of ellipse for y. |
 | ![][ellipse focus distance] |  | The focus distance of the ellipse from the axi. |
@@ -226,6 +229,12 @@ Quadratic equation is where the equation involves an exponent of 2.
 [vector cross product sin]: http://latex.codecogs.com/svg.latex?\\sin{\\theta&space;}&space;=\\frac{\\left&space;|&space;\\overrightarrow{u}&space;\\times&space;\\overrightarrow{w}&space;\\right&space;|}{\\left&space;|&space;\\overrightarrow{u}&space;\\right&space;|\\left&space;|&space;\\overrightarrow{w}&space;\\right&space;|}
 [vector cross product sin.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\sin{\\theta&space;}&space;=\\frac{\\left&space;|&space;\\overrightarrow{u}&space;\\times&space;\\overrightarrow{w}&space;\\right&space;|}{\\left&space;|&space;\\overrightarrow{u}&space;\\right&space;|\\left&space;|&space;\\overrightarrow{w}&space;\\right&space;|}
 
+[Parameterized Line Segment x]: http://latex.codecogs.com/svg.latex?x%28t%29%3Dx_1&plus;%5Cleft%20%28x_2-x_1%20%5Cright%20%29t
+[Parameterized Line Segment x.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20x%28t%29%3Dx_1&plus;%5Cleft%20%28x_2-x_1%20%5Cright%20%29t
+
+[Parameterized Line Segment y]: http://latex.codecogs.com/svg.latex?y%28t%29%3Dy_1&plus;%5Cleft%20%28y_2-y_1%20%5Cright%20%29t
+[Parameterized Line Segment y.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20y%28t%29%3Dy_1&plus;%5Cleft%20%28y_2-y_1%20%5Cright%20%29t
+
 [quadratic equation]: http://latex.codecogs.com/svg.latex?a^{2}&plus;bx&plus;c=0
 [quadratic equation.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;a^{2}&plus;bx&plus;c=0
 
@@ -277,8 +286,14 @@ Quadratic equation is where the equation involves an exponent of 2.
 [circle slope tangent line]: http://latex.codecogs.com/svg.latex?\\frac{dy}{dx}=-\\frac{x_1-a}{y_1-b},&space;y_1\\neq&space;b
 [circle slope tangent line.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\frac{dy}{dx}=-\\frac{x_1-a}{y_1-b},&space;y_1\\neq&space;b
 
-[ellipse equation]: http://latex.codecogs.com/svg.latex?\\left&space;(&space;\\frac{x}{a}&space;\\right&space;)^{2}&plus;\\left&space;(&space;\\frac{y}{b}&space;\\right&space;)^{2}=1
-[ellipse equation.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\left&space;(&space;\\frac{x}{a}&space;\\right&space;)^{2}&plus;\\left&space;(&space;\\frac{y}{b}&space;\\right&space;)^{2}=1
+[ellipse equation]: http://latex.codecogs.com/svg.latex?%5Cfrac%7Bx%5E2%7D%7Ba%5E2%7D&plus;%5Cfrac%7By%5E2%7D%7Bb%5E2%7D%3D1
+[ellipse equation.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Cfrac%7Bx%5E2%7D%7Ba%5E2%7D&plus;%5Cfrac%7By%5E2%7D%7Bb%5E2%7D%3D1
+
+[ellipse equation not centered]: http://latex.codecogs.com/svg.latex?%5Cfrac%7B%5Cleft%20%28x%20-%20h%20%5Cright%20%29%5E2%7D%7Ba%5E2%7D&plus;%5Cfrac%7B%5Cleft%20%28y%20-%20k%20%5Cright%20%29%5E2%7D%7Bb%5E2%7D%3D1
+[ellipse equation not centered.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Cfrac%7B%5Cleft%20%28x%20-%20h%20%5Cright%20%29%5E2%7D%7Ba%5E2%7D&plus;%5Cfrac%7B%5Cleft%20%28y%20-%20k%20%5Cright%20%29%5E2%7D%7Bb%5E2%7D%3D1
+
+[rotated ellipse equation not centered]: http://latex.codecogs.com/svg.latex?%5Cfrac%7B%5Cleft%20%28%5Cleft%20%28x-h%20%5Cright%20%29%5Ccos%28%5Calpha%29%20&plus;%20%5Cleft%20%28y-k%20%5Cright%20%29%20%5Csin%28%5Calpha%29%20%5Cright%20%29%5E2%7D%7Ba%5E2%7D&plus;%5Cfrac%7B%5Cleft%20%28%5Cleft%20%28x-h%20%5Cright%20%29%5Csin%28%5Calpha%29%20-%5Cleft%20%28y-k%20%5Cright%20%29%5Ccos%28%5Calpha%20%29%20%5Cright%20%29%5E2%7D%7Bb%5E2%7D%3D1
+[rotated ellipse equation not centered.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Cfrac%7B%5Cleft%20%28%5Cleft%20%28x-h%20%5Cright%20%29%5Ccos%28%5Calpha%29%20&plus;%20%5Cleft%20%28y-k%20%5Cright%20%29%20%5Csin%28%5Calpha%29%20%5Cright%20%29%5E2%7D%7Ba%5E2%7D&plus;%5Cfrac%7B%5Cleft%20%28%5Cleft%20%28x-h%20%5Cright%20%29%5Csin%28%5Calpha%29%20-%5Cleft%20%28y-k%20%5Cright%20%29%5Ccos%28%5Calpha%20%29%20%5Cright%20%29%5E2%7D%7Bb%5E2%7D%3D1
 
 [ellipse parametric x 1]: http://latex.codecogs.com/svg.latex?x=a\\cos&space;{\\theta&space;}
 [ellipse parametric x 1.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;x=a\\cos&space;{\\theta&space;}

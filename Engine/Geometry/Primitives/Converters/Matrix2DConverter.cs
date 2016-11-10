@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// http://referencesource.microsoft.com

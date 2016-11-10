@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using System;
 using System.Collections.Generic;
 using static System.Math;
 

@@ -8,33 +8,54 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class FigureArc
         : FigureItem
     {
         /// <summary>
         /// 
         /// </summary>
+        public FigureArc()
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="relitive"></param>
+        /// <param name="args"></param>
+        public FigureArc(FigureItem item, bool relitive, Double[] args)
+            : this(item, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? new Point2D(args[5], args[6]) : null)
+        {
+            if (relitive)
+                End = (Point2D)(End + item.End);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="previous"></param>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
         /// <param name="angle"></param>
         /// <param name="largeArc"></param>
         /// <param name="sweep"></param>
         /// <param name="end"></param>
-        public FigureArc(FigureItem previous, double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
+        public FigureArc(FigureItem previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
-            R1 = r1;
-            R2 = r2;
+            RX = rx;
+            RY = ry;
             Angle = angle;
             LargeArc = largeArc;
             Sweep = sweep;
@@ -44,37 +65,49 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlElement]
         public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public double R1 { get; set; }
+        [XmlAttribute]
+        public double RX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double R2 { get; set; }
+        [XmlAttribute]
+        public double RY { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double Angle { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public bool LargeArc { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public bool Sweep { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        public override Point2D NextToEnd { get { return Start; } set { Start = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement]
         public override Point2D End { get; set; }
 
         /// <summary>
@@ -85,7 +118,7 @@ namespace Engine.Geometry
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => ToEllipticalArc.Bounds;
+            => ToEllipticalArc().Bounds;
 
         /// <summary>
         /// 
@@ -93,14 +126,13 @@ namespace Engine.Geometry
         /// <param name="point"></param>
         /// <returns></returns>
         public Inclusion Contains(Point2D point)
-            => Containings.Contains(ToEllipticalArc, point);
+            => Containings.Contains(ToEllipticalArc(), point);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore]
-        public EllipticalArc ToEllipticalArc
-            => new EllipticalArc(Start.X, Start.Y, R1, R2, Angle, LargeArc, Sweep, End.X, End.Y);
+        public EllipticalArc ToEllipticalArc()
+            => new EllipticalArc(Start.X, Start.Y, RX, RY, Angle, LargeArc, Sweep, End.X, End.Y);
     }
 }

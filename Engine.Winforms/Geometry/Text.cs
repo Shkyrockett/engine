@@ -1,6 +1,4 @@
-﻿using Engine.Geometry;
-using Engine.Imaging;
-using Engine.Objects;
+﻿using Engine.Imaging;
 using System;
 using System.Diagnostics.Contracts;
 using System.Drawing;

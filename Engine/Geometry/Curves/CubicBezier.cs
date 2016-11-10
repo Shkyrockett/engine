@@ -13,7 +13,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// CubicBezier
@@ -120,7 +120,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
+        [XmlElement]
         public Point2D A
         {
             get { return a; }
@@ -138,7 +138,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
+        [XmlElement]
         public Point2D B
         {
             get { return b; }
@@ -156,7 +156,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
+        [XmlElement]
         public Point2D C
         {
             get { return c; }
@@ -174,7 +174,7 @@ namespace Engine.Geometry
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
+        [XmlElement]
         public Point2D D
         {
             get { return d; }

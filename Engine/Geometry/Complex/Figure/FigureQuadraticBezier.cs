@@ -8,17 +8,52 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class FigureQuadraticBezier
          : FigureItem
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public FigureQuadraticBezier()
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="previous"></param>
+        /// <param name="relitive"></param>
+        /// <param name="args"></param>
+        public FigureQuadraticBezier(FigureItem previous, bool relitive, Double[] args)
+            : this(previous, relitive, args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) }
+                       : args.Length == 2 ? new Point2D[] { new Point2D(args[0], args[1]) } : null)
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="previous"></param>
+        /// <param name="relitive"></param>
+        /// <param name="args"></param>
+        public FigureQuadraticBezier(FigureItem previous, bool relitive, Point2D[] args)
+            : this(previous, args.Length == 2 ? args[0] : null, args.Length == 2 ? args[0] : args[1])
+        {
+            if (relitive)
+            {
+                Handle = (Point2D)(Handle + previous.End);
+                End = (Point2D)(End + previous.End);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -29,7 +64,7 @@ namespace Engine.Geometry
         {
             Previous = previous;
             previous.Next = this;
-            Handle = handle;
+            Handle = handle == null ? (Point2D)(2 * previous.End - previous.NextToEnd) : handle;
             End = end;
         }
 
@@ -42,18 +77,25 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlElement]
         public Point2D Handle { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        public override Point2D NextToEnd { get { return Handle; } set { Handle = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement]
         public override Point2D End { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public QuadraticBezier ToQuadtraticBezier
+        public QuadraticBezier ToQuadtraticBezier()
             => new QuadraticBezier(Start, Handle, End);
 
         /// <summary>

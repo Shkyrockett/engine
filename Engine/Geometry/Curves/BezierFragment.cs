@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Utility class about 2D Bezier curves

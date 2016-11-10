@@ -11,7 +11,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

@@ -13,7 +13,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 
-namespace Engine.Objects
+namespace Engine
 {
     /// <summary>
     /// 

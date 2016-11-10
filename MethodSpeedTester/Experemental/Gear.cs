@@ -10,7 +10,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// http://csharphelper.com/blog/2015/08/animate-gears-with-unequal-sizes-in-c/

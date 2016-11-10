@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 2D Line Structure

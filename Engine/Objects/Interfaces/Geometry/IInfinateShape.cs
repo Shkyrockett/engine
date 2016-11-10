@@ -7,7 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

@@ -14,7 +14,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Converts instances of other types to and from instances of <see cref="RectangleF" />.

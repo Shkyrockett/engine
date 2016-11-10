@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
 using System.Collections.Generic;
 
 namespace Engine

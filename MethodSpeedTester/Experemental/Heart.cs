@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// http://csharphelper.com/blog/2016/02/draw-parametric-heart-shaped-curve-c/

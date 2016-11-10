@@ -8,16 +8,28 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class NodeRevealer
         : Shape
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public NodeRevealer()
+        {
+            Points = new List<Point2D>();
+            Radius = 0;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -32,20 +44,24 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlElement]
         public List<Point2D> Points { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double Radius { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
             {
+                if (Points == null) return null;
                 var boundings = Boundings.Polygon(Points);
                 boundings?.Inflate(Radius, Radius);
                 return boundings;

@@ -7,8 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
-using Engine.Objects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

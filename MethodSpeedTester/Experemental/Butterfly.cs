@@ -16,7 +16,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

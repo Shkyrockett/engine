@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Drawing;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// <see cref="SquareFCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.

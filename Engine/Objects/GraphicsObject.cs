@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +15,23 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
-namespace Engine.Objects
+namespace Engine
 {
     /// <summary>
     /// Graphic objects base class.
     /// </summary>
+    [XmlInclude(typeof(Circle))]
+    [XmlInclude(typeof(CircularArc))]
+    [XmlInclude(typeof(CubicBezier))]
+    [XmlInclude(typeof(Ellipse))]
+    [XmlInclude(typeof(EllipticalArc))]
+    [XmlInclude(typeof(Figure))]
+    [XmlInclude(typeof(LineSegment))]
+    [XmlInclude(typeof(NodeRevealer))]
+    [XmlInclude(typeof(QuadraticBezier))]
+    [XmlInclude(typeof(Rectangle2D))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GraphicsObject
         : IFormattable, INotifyPropertyChanging, INotifyPropertyChanged
@@ -45,11 +55,18 @@ namespace Engine.Objects
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public GraphicsObject()
+        { }
+
         #region Properties
 
         /// <summary>
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
+        [XmlIgnore]
         [DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the shape.")]
@@ -58,6 +75,7 @@ namespace Engine.Objects
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
         /// </summary>
+        [XmlIgnore]
         [DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The perimeter length of the shape.")]
@@ -66,6 +84,7 @@ namespace Engine.Objects
         /// <summary>
         /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
         /// </summary>
+        [XmlIgnore]
         [DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The bounding box of the shape.")]

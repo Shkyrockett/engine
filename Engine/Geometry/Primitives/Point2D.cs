@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 using static Engine.Maths;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
@@ -50,6 +50,7 @@ namespace Engine.Geometry
         /// Initializes a new default instance of the <see cref="Point2D"/> class.
         /// </summary>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         public Point2D()
             : this(0, 0)
         { }
@@ -59,6 +60,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="point"></param>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         public Point2D(Point2D point)
             : this(point.X, point.Y)
         { }
@@ -68,6 +70,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="tuple"></param>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         public Point2D((double X, double Y) tuple)
             : this(tuple.Item1, tuple.Item2)
         { }
@@ -78,6 +81,7 @@ namespace Engine.Geometry
         /// <param name="x">The x component of the Point.</param>
         /// <param name="y">The y component of the Point.</param>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         public Point2D(double x, double y)
         {
             X = x;

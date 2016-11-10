@@ -12,7 +12,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

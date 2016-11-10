@@ -13,7 +13,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 using System.Reflection;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Converts instances of other types to and from instances of <see cref="T:System.Windows.Rect" />.

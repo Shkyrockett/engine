@@ -11,10 +11,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using static Engine.Maths;
-using static Engine.Geometry.Utilities;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     ///

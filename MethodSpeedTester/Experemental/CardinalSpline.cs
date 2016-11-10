@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// http://cubic.org/docs/hermite.htm

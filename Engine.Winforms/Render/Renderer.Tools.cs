@@ -8,8 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Engine.Geometry;
-using Engine.Objects;
 using System.Collections.Generic;
 using System.Drawing;
 

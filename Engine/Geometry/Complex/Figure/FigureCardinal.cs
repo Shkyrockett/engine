@@ -8,18 +8,26 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class FigureCardinal
          : FigureItem
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public FigureCardinal()
+        { }
+
         /// <summary>
         /// 
         /// </summary>
@@ -29,7 +37,7 @@ namespace Engine.Geometry
         {
             Previous = previous;
             previous.Next = this;
-            this.CenteralPoints = points;
+            CenteralPoints = points;
         }
 
         /// <summary>
@@ -41,6 +49,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlArray]
         public List<Point2D> CenteralPoints { get; set; }
 
         /// <summary>
@@ -60,6 +69,13 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        public override Point2D NextToEnd { get { return Nodes[Nodes.Count-1]; } set { Nodes[Nodes.Count-1] = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement]
         public override Point2D End { get { return CenteralPoints[CenteralPoints.Count - 1]; } set { CenteralPoints[CenteralPoints.Count - 1] = value; } }
 
         /// <summary>

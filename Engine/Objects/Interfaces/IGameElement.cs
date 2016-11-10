@@ -7,7 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-namespace Engine.Objects
+namespace Engine
 {
     /// <summary>
     /// Interface for game elements that should show up in the game editor designer tree.

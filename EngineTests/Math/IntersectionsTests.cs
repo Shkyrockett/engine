@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace Engine.Geometry.Tests
+namespace Engine.Tests
 {
     /// <summary>
     /// 

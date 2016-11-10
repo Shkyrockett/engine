@@ -9,7 +9,7 @@
 
 using System;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// MatrixTypes

@@ -1,5 +1,4 @@
 ﻿using Engine.MathNotation;
-using Engine.Objects;
 using System.Drawing;
 using static System.Math;
 

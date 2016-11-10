@@ -20,7 +20,7 @@ using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Represents a vector in 2D coordinate space (double precision floating-point coordinates).

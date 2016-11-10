@@ -14,7 +14,7 @@ using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 2D Line Segment Structure
@@ -141,12 +141,12 @@ namespace Engine.Geometry
         /// First Point of a line segment
         /// </summary>
         /// <remarks></remarks>
+        [XmlElement]
         [Category("Properties")]
         [Description("The first Point of a line segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
         public Point2D A
         {
             get { return a; }
@@ -161,12 +161,12 @@ namespace Engine.Geometry
         /// Ending Point of a Line Segment
         /// </summary>
         /// <remarks></remarks>
+        [XmlElement]
         [Category("Properties")]
         [Description("The ending Point of a Line Segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
         public Point2D B
         {
             get { return b; }
@@ -182,6 +182,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -198,6 +199,7 @@ namespace Engine.Geometry
         /// Get or sets an array of points representing a line segment.
         /// </summary>
         /// <remarks></remarks>
+        [XmlIgnore]
         public List<Point2D> Points
         {
             get { return new List<Point2D> { A, B }; }
@@ -212,6 +214,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public double Length
             => Distances.Distance(A.X, A.Y, B.X, B.Y);
 

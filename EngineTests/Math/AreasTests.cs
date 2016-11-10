@@ -10,7 +10,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Engine.Geometry.Tests
+namespace Engine.Tests
 {
     /// <summary>
     /// A set of unit test cases designed to test the areas of various shapes.

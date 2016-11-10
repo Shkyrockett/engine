@@ -7,14 +7,17 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class AngleVisualizerTester
         : Shape
     {
@@ -59,6 +62,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [Category("Properties")]
         [Description("The center x coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -68,6 +72,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [Category("Properties")]
         [Description("The center y coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -77,6 +82,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [Category("Properties")]
         [Description("The radius of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -86,6 +92,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [GeometryAngle]
         [Category("Properties")]
         [Description("The test angle of the Arc.")]
@@ -96,6 +103,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [GeometryAngle]
         [Category("Properties")]
         [Description("The start angle of the Arc.")]
@@ -106,6 +114,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         [GeometryAngle]
         [Category("Properties")]
         [Description("The sweep angle of the Arc.")]
@@ -116,6 +125,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [GeometryAngle]
         [Category("Properties")]
         [Description("The end angle of the Arc.")]
@@ -130,6 +140,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The center location of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -148,6 +159,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -166,6 +178,7 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The point on the arc at the test angle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

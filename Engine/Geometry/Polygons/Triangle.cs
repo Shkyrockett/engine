@@ -13,7 +13,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

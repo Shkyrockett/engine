@@ -13,7 +13,7 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// QuadraticBezier2D
@@ -84,10 +84,10 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
+        [XmlElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
         public Point2D A
         {
             get { return a; }
@@ -102,10 +102,10 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
+        [XmlElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
         public Point2D B
         {
             get { return b; }
@@ -120,10 +120,10 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the closing node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
+        [XmlElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute]
         public Point2D C
         {
             get { return c; }
@@ -152,10 +152,10 @@ namespace Engine.Geometry
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        [XmlIgnore]
         public override Rectangle2D Bounds
             => Boundings.QuadraticBezier(a, b, c);
 

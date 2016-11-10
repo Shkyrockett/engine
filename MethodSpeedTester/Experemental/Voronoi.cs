@@ -1,4 +1,4 @@
-﻿namespace Engine.Geometry
+﻿namespace Engine
 {
     internal class Voronoi
     {

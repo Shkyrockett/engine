@@ -11,12 +11,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Xml.Serialization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class ParametricPointTester
         : Shape
     {
@@ -45,41 +47,49 @@ namespace Engine.Geometry
         /// 
         /// </summary>
         [Browsable(true)]
+        [XmlElement]
         public Func<double, double, Inclusion> Intersecter { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double MinX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double MinY { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double MaxX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double MaxY { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double StepX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double StepY { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get { return Rectangle2D.FromLTRB(MinX, MinY, MaxX, MaxY); }

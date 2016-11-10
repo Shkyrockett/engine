@@ -7,15 +7,13 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Objects;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Base <see cref="Shape"/> class for using as a template for various shapes.
     /// </summary>
     public abstract class Shape
         : GraphicsObject, IShape
-    {
-    }
+    { }
 }

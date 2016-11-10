@@ -9,10 +9,7 @@
 
 using Engine;
 using Engine.File.Palettes;
-using Engine.Geometry;
 using Engine.Imaging;
-using Engine.Objects;
-using Engine.Physics;
 using Engine.Tools;
 using Engine.Tweening;
 using Engine.Winforms;
@@ -20,8 +17,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Editor
 {
@@ -45,6 +44,16 @@ namespace Editor
         /// Tweening interpolator for animation.
         /// </summary>
         private Tweener tweener = new Tweener();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string vectorFilename = String.Empty;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        XmlSerializer vectorMapSserializer = new XmlSerializer(typeof(VectorMap));
 
         /// <summary>
         /// Amount to advance the timer every tick
@@ -297,30 +306,30 @@ namespace Editor
             //GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
             //vectorMap.Add(intersectionItem);
 
-            var ellipseTween = new Ellipse(
-                new Point2D(100, 100),
-                56, 30, 0d);
-            var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
+            //var ellipseTween = new Ellipse(
+            //    new Point2D(100d, 75d),
+            //    56d, 30d, 0d);
+            //var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
 
-            var rectangleTween = new Rectangle2D(
-                new Point2D(100, 100),
-                new Size2D(100, 100));
-            var rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
+            //var rectangleTween = new Rectangle2D(
+            //    new Point2D(100, 100),
+            //    new Size2D(100, 100));
+            //var rectangleTweenItem = new GraphicItem(rectangleTween, styles[2]);
 
-            double duration = 300;
-            double delay = 20;
+            //double duration = 300;
+            //double delay = 20;
 
-            tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
+            //tweener.Tween(rectangleTween, new { X = 0, Y = 0 }, duration, delay).OnUpdate(UpdateCallback).OnUpdate(() => rectangleTweenItem.Refresh());
             //Tween tt = tweener.Tween(rectangleTween, new { Location = new Point2D(0, 0) }, duration, delay);
 
             //tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
-            tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
-                .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
-                .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
-            tweener.Timer(duration).OnComplete(CompleteCallback);
+            //tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
+            //    .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
+            //    .Rotation(RotationUnit.Radians).OnUpdate(UpdateCallback);
+            //tweener.Timer(duration).OnComplete(CompleteCallback);
 
-            vectorMap.Add(rectangleTweenItem);
-            vectorMap.Add(ellipseTweenItem);
+            //vectorMap.Add(rectangleTweenItem);
+            //vectorMap.Add(ellipseTweenItem);
 
             //var parametricEllipse = new ParametricDelegateCurve(
             //    (x, y, w, h, a, t) => Interpolaters.Ellipse(x, y, w, h, a, t),
@@ -471,36 +480,40 @@ namespace Editor
             //var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, styles[10]);
             //vectorMap.Add(CircleArcBoundsItem);
 
-            var cubicBezier = new CubicBezier(new Point2D(50, 51), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
-            var cubicBezierItem = new GraphicItem(cubicBezier, styles[1]);
+            //var cubicBezier = new CubicBezier(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
+            //var cubicBezierItem = new GraphicItem(cubicBezier, styles[1]);
 
-            var cubicBezierNodes = new NodeRevealer(new List<Point2D> { cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D }, 5d);
-            var cubicBezierNodeItem = new GraphicItem(cubicBezierNodes, styles[6]);
+            //var cubicBezierNodes = new NodeRevealer(new List<Point2D> { cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D }, 5d);
+            //var cubicBezierNodeItem = new GraphicItem(cubicBezierNodes, styles[6]);
 
-            var quadraticBezier = new QuadraticBezier(new Point2D(50, 101), new Point2D(75, 50), new Point2D(150, 100));
-            var quadraticBezierItem = new GraphicItem(quadraticBezier, styles[1]);
+            //var quadraticBezier = new QuadraticBezier(new Point2D(50, 100), new Point2D(75, 50), new Point2D(150, 100));
+            //var quadraticBezierItem = new GraphicItem(quadraticBezier, styles[1]);
 
-            var quadraticBezierNodes = new NodeRevealer(new List<Point2D> { quadraticBezier.A, quadraticBezier.B, quadraticBezier.C }, 5d);
-            var quadraticBezierNodeItem = new GraphicItem(quadraticBezierNodes, styles[6]);
+            //var quadraticBezierNodes = new NodeRevealer(new List<Point2D> { quadraticBezier.A, quadraticBezier.B, quadraticBezier.C }, 5d);
+            //var quadraticBezierNodeItem = new GraphicItem(quadraticBezierNodes, styles[6]);
 
             //var cubicBezier2 = new CubicBezier(new Point2D(50, 101), new Point2D(75, 50), new Point2D(125, 100), new Point2D(150, 25));
             //var cubicBezier2Item = new GraphicItem(cubicBezier2, styles[1]);
 
-            var segment = new LineSegment(new Point2D(50, 75), new Point2D(150, 75));
-            var segmentItem = new GraphicItem(segment, styles[1]);
+            //var segment = new LineSegment(new Point2D(20, 70), new Point2D(180, 80));
+            //var segmentItem = new GraphicItem(segment, styles[1]);
 
-            var segmentNodes = new NodeRevealer(new List<Point2D> { segment.A, segment.B }, 5d);
-            var segmentNodeItem = new GraphicItem(segmentNodes, styles[6]);
+            //var segmentNodes = new NodeRevealer(new List<Point2D> { segment.A, segment.B }, 5d);
+            //var segmentNodeItem = new GraphicItem(segmentNodes, styles[6]);
 
-            var intersections = Intersections.CubicBezierLineSegment(cubicBezier.A.X, cubicBezier.A.Y, cubicBezier.B.X, cubicBezier.B.Y, cubicBezier.C.X, cubicBezier.C.Y, cubicBezier.D.X, cubicBezier.D.Y, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-            var intersectionNodes = new NodeRevealer(intersections, 5d);
-            var intersectionNodesItem = new GraphicItem(intersectionNodes, styles[6]);
+            //var intersections = Intersections.CubicBezierLineSegment(cubicBezier.A.X, cubicBezier.A.Y, cubicBezier.B.X, cubicBezier.B.Y, cubicBezier.C.X, cubicBezier.C.Y, cubicBezier.D.X, cubicBezier.D.Y, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+            //var intersectionNodes = new NodeRevealer(intersections, 5d);
+            //var intersectionNodesItem = new GraphicItem(intersectionNodes, styles[6]);
 
-            var intersection3s = Intersections.intersectBezier2Bezier3(
-                cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D,
-                quadraticBezier.A, quadraticBezier.B, quadraticBezier.C);
-            var intersectio3nNodes = new NodeRevealer(intersection3s, 5d);
-            var intersection3NodesItem = new GraphicItem(intersectio3nNodes, styles[6]);
+            //var ellipseLineIntersections = Intersections.EllipseLineSegment(ellipseTween.Center.X, ellipseTween.Center.Y, ellipseTween.RX, ellipseTween.RY, ellipseTween.Angle, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+            //var ellipseLineIntersectionNodes = new NodeRevealer(ellipseLineIntersections, 5d);
+            //var ellipseLineIntersectionNodesItem = new GraphicItem(ellipseLineIntersectionNodes, styles[6]);
+
+            //var intersection3s = Intersections.intersectBezier2Bezier3(
+            //    cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D,
+            //    quadraticBezier.A, quadraticBezier.B, quadraticBezier.C);
+            //var intersectio3nNodes = new NodeRevealer(intersection3s, 5d);
+            //var intersection3NodesItem = new GraphicItem(intersectio3nNodes, styles[6]);
 
             //var intersections2 = Intersections.intersectBezier3Bezier3(
             //    cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D,
@@ -508,14 +521,15 @@ namespace Editor
             //var intersection2Nodes = new NodeRevealer(intersections2, 5d);
             //var intersection2NodesItem = new GraphicItem(intersection2Nodes, styles[6]);
 
-            vectorMap.Add(cubicBezierItem);
-            vectorMap.Add(quadraticBezierItem);
+            //vectorMap.Add(cubicBezierItem);
+            //vectorMap.Add(quadraticBezierItem);
             //vectorMap.Add(cubicBezier2Item);
-            vectorMap.Add(segmentItem);
-            vectorMap.Add(cubicBezierNodeItem);
-            vectorMap.Add(quadraticBezierNodeItem);
-            vectorMap.Add(segmentNodeItem);
-            vectorMap.Add(intersectionNodesItem);
+            //vectorMap.Add(segmentItem);
+            //vectorMap.Add(cubicBezierNodeItem);
+            //vectorMap.Add(quadraticBezierNodeItem);
+            //vectorMap.Add(segmentNodeItem);
+            //vectorMap.Add(ellipseLineIntersectionNodesItem);
+            //vectorMap.Add(intersectionNodesItem);
             //vectorMap.Add(intersection3NodesItem);
             //vectorMap.Add(intersection2NodesItem);
 
@@ -538,6 +552,11 @@ namespace Editor
             //    figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
             //var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, styles[3]);
 
+            //var parametricPointTesterSegment = new ParametricPointTester(
+            //    (px, py) => Intersections.LineSegmentPoint(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, px, py),
+            //    segment.Bounds.X - 5, segment.Bounds.Y - 5, segment.Bounds.Right + 10, segment.Bounds.Bottom + 10, 5, 5);
+            //var parametricPointTesterSegmentItem = new GraphicItem(parametricPointTesterSegment, styles[3]);
+
             //var parametricPointTesterRectangle = new ParametricPointTester(
             //    (px, py) => Containings.RectanglePoint(figureBounds.Left, figureBounds.Top, figureBounds.Right, figureBounds.Bottom, px, py),
             //    figureBounds.X - 200, figureBounds.Y - 200, figureBounds.Right + 205, figureBounds.Bottom + 205, 5, 5);
@@ -545,6 +564,7 @@ namespace Editor
 
             vectorMap.Add(figureBoundsItem);
             vectorMap.Add(figureItem);
+            //vectorMap.Add(parametricPointTesterSegmentItem);
             //vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
 
@@ -771,6 +791,85 @@ namespace Editor
         {
             var panel = sender as CanvasPanel;
             vectorMap.VisibleBounds = new Rectangle2D(panel.Bounds.X, panel.Bounds.Y, panel.Bounds.Width, panel.Bounds.Height);
+        }
+
+        private void openToolStripMenuItem_Click(Object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = vectorFilename;
+            switch (openFileDialog1.ShowDialog())
+            {
+                case DialogResult.Yes:
+                case DialogResult.OK:
+                    vectorMap = load(openFileDialog1.FileName) as VectorMap;
+                    break;
+                case DialogResult.None:
+                case DialogResult.Cancel:
+                case DialogResult.Abort:
+                case DialogResult.Retry:
+                case DialogResult.Ignore:
+                case DialogResult.No:
+                default:
+                    break;
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(Object sender, EventArgs e)
+        {
+            if (vectorFilename == String.Empty)
+            {
+                saveAs(vectorFilename);
+            }
+            else
+            {
+                serialize(saveFileDialog1.FileName, vectorMap);
+            }
+        }
+
+        private void saveAsToolStripMenuItem_Click(Object sender, EventArgs e)
+        {
+            saveAs(vectorFilename);
+        }
+
+        private void saveAs(string filename = "")
+        {
+            saveFileDialog1.FileName = filename;
+            //saveFileDialog1.Filter = ".xml";
+            switch (saveFileDialog1.ShowDialog())
+            {
+                case DialogResult.Yes:
+                case DialogResult.OK:
+                    serialize(saveFileDialog1.FileName, vectorMap);
+                    break;
+                case DialogResult.None:
+                case DialogResult.No:
+                case DialogResult.Cancel:
+                case DialogResult.Abort:
+                case DialogResult.Retry:
+                case DialogResult.Ignore:
+                default:
+                    break;
+            }
+        }
+
+        private object load(string filename)
+        {
+            using (TextReader reader = new StreamReader(filename))
+            {
+                return vectorMapSserializer.Deserialize(reader);
+            }
+        }
+
+        private void serialize(string filename, VectorMap item)
+        {
+            using (TextWriter tw = new StreamWriter(filename))
+            {
+                serialize(tw, item);
+            }
+        }
+
+        private void serialize(TextWriter writer, VectorMap item)
+        {
+            vectorMapSserializer.Serialize(writer, item);
         }
     }
 }

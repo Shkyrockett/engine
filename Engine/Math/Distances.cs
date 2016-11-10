@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

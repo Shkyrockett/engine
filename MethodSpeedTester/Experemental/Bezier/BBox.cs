@@ -9,7 +9,7 @@
 #pragma warning disable RCS1060 // Declare each type in separate file.
 
 
-namespace Engine.Geometry
+namespace Engine
 {
 
     /// <summary>

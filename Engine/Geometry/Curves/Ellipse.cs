@@ -14,7 +14,7 @@ using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// http://math.stackexchange.com/questions/426150/what-is-the-general-equation-of-the-ellipse-that-is-not-in-the-origin-and-rotate
@@ -121,6 +121,7 @@ namespace Engine.Geometry
         /// <summary>
         ///
         /// </summary>
+        [XmlIgnore]
         public Point2D Location
         {
             get { return new Point2D(x - rX, y - rY); }
@@ -137,7 +138,7 @@ namespace Engine.Geometry
         /// Gets or sets the Center Point of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlIgnore]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -160,12 +161,12 @@ namespace Engine.Geometry
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
         /// <remarks></remarks>
+        [XmlAttribute]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double X
         {
             get { return x; }
@@ -180,12 +181,12 @@ namespace Engine.Geometry
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
+        [XmlAttribute]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double Y
         {
             get { return y; }
@@ -260,6 +261,7 @@ namespace Engine.Geometry
         /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -279,12 +281,12 @@ namespace Engine.Geometry
         /// Gets or sets the Angle of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
+        [XmlAttribute]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + ".")]
         [GeometryAngle]
         [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double Angle
         {
             get { return angle; }

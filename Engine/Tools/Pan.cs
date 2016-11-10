@@ -9,7 +9,6 @@
 
 // ToDo: Implement shape drawing tool.
 
-using Engine.Geometry;
 using System.Collections.Generic;
 using System.Text;
 

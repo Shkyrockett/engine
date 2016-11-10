@@ -14,7 +14,7 @@ using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

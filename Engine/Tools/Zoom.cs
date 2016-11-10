@@ -7,7 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
 using System.Collections.Generic;
 using System.Text;
 

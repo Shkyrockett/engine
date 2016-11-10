@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
@@ -500,6 +500,20 @@ namespace Engine.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point2D point, Point2D value)
             => Maths.DotProduct(point.X, point.Y, value.X, value.Y);
+
+        /// <summary>
+        /// Finds the Dot Product (scalar or inner product) of two Points.
+        /// </summary>
+        /// <param name="point">Starting Point</param>
+        /// <param name="value">Ending Point</param>
+        /// <returns>Dot Product</returns>
+        /// <remarks>
+        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(this Point2D point, Vector2D value)
+            => Maths.DotProduct(point.X, point.Y, value.I, value.J);
 
         /// <summary>
         /// Determines the dot product of two 2D vectors

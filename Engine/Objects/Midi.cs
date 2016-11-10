@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Engine.Audio
+namespace Engine
 {
     /// <summary>
     /// 

@@ -102,7 +102,7 @@ Below are tables of common operators.
 
 Distribute
 
-Sort Variables
+Reorder/Sort Terms
 
 Factor
 

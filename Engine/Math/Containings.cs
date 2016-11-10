@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 
@@ -427,6 +427,40 @@ namespace Engine.Geometry
                 ? ((Abs(normalizedRadius - 1d) < Epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="h"></param>
+        /// <param name="k"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static Inclusion EllipsePointX(double h, double k, double r1, double r2, double angle, double x, double y)
+        {
+            if (r1 <= 0d || r2 <= 0d)
+                return Inclusion.Outside;
+
+            // Get the ellipse rotation transform.
+            double cosA = Cos(angle);
+            double sinA = Sin(angle);
+
+            // Translate points to origin.
+            // Apply the rotation transformation.
+            double a = ((x - h) * cosA + (y - k) * sinA);
+            double b = ((x - h) * sinA - (y - k) * cosA);
+
+            double normalizedRadius = ((a * a) / (r1 * r1))
+                                    + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+        }
+
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.

@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Point2DTypeConverter

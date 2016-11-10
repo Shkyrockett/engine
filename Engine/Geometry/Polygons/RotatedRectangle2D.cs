@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

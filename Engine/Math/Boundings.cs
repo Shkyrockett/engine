@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// A collection of methods used to calculate the bounding rectangles of various shapes.

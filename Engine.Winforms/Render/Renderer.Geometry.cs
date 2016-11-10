@@ -7,8 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
-using Engine.Objects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -284,7 +282,7 @@ namespace Engine.Imaging
                         path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
                         break;
                     case FigureArc t:
-                        var arc = t.ToEllipticalArc;
+                        var arc = t.ToEllipticalArc();
                         var mat = new Matrix();
                         mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                         path.Transform(mat);

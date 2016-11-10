@@ -13,7 +13,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// PointFTypeConverter

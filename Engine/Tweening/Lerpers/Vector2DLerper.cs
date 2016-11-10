@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks>Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
-using Engine.Geometry;
 using static System.Math;
 using static Engine.Maths;
 

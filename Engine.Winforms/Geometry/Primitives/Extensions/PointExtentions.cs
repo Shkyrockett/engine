@@ -4,7 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// 

@@ -13,7 +13,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// VectorConverter - Converter class for converting instances of other types to and from Vector instances

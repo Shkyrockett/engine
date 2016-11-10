@@ -7,9 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
 using Engine.MathNotation;
-using Engine.Objects;
 using Engine.Winforms;
 using System;
 using System.Drawing;

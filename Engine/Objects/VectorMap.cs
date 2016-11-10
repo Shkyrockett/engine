@@ -7,18 +7,20 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
 using Engine.Imaging;
 using Engine.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 
-namespace Engine.Objects
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class VectorMap
         : ICollection<GraphicItem>
     {
@@ -79,47 +81,57 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public double Zoom { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
         public Point2D Pan { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public Rectangle2D VisibleBounds { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlElement]
         public Tweener Tweener { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlArray]
         public List<GraphicItem> Items { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public List<GraphicItem> SelectedItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         public List<GraphicItem> RubberbandItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int Count => Items.Count;
+        [XmlIgnore]
+        public int Count
+            => Items.Count;
 
         #endregion
 

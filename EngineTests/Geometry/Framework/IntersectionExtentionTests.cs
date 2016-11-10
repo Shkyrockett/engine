@@ -10,7 +10,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Engine.Geometry.Tests
+namespace Engine.Tests
 {
     /// <summary>
     /// This test class for the <see cref="IntersectionExtention"/> class, is intended to 

@@ -9,7 +9,7 @@
 
 using System.Drawing;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Class to extend the <see cref="Rectangle"/> class with additional features.

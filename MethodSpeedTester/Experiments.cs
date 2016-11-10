@@ -8,7 +8,6 @@
 // <summary></summary>
 
 using Engine;
-using Engine.Geometry;
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
@@ -6489,40 +6488,40 @@ namespace MethodSpeedTester
         /// <summary>
         /// Find the intersection point between two lines.
         /// </summary>
-        /// <param name="x1">The x component of the first point of the first line.</param>
-        /// <param name="y1">The y component of the first point of the first line.</param>
-        /// <param name="x2">The x component of the second point of the first line.</param>
-        /// <param name="y2">The y component of the second point of the first line.</param>
-        /// <param name="x3">The x component of the first point of the second line.</param>
-        /// <param name="y3">The y component of the first point of the second line.</param>
-        /// <param name="x4">The x component of the second point of the second line.</param>
-        /// <param name="y4">The y component of the second point of the second line.</param>
+        /// <param name="x0">The x component of the first point of the first line.</param>
+        /// <param name="y0">The y component of the first point of the first line.</param>
+        /// <param name="x1">The x component of the second point of the first line.</param>
+        /// <param name="y1">The y component of the second point of the first line.</param>
+        /// <param name="x2">The x component of the first point of the second line.</param>
+        /// <param name="y2">The y component of the first point of the second line.</param>
+        /// <param name="x3">The x component of the second point of the second line.</param>
+        /// <param name="y3">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks>http://www.gamedev.net/page/resources/_/technical/math-and-physics/fast-2d-line-intersection-algorithm-r423</remarks>
         public static (bool, (double X, double Y)?) Intersection4(
+            double x0, double y0,
             double x1, double y1,
             double x2, double y2,
-            double x3, double y3,
-            double x4, double y4)
+            double x3, double y3)
         {
             // Compute the slopes of each line. Note the kludge for infinity, however, this will be close enough.
-            double slope1 = (Abs(x2 - x1) < DoubleEpsilon) ? SlopeMax : (y2 - y1) / (x2 - x1);
-            double slope2 = (Abs(x4 - x3) < DoubleEpsilon) ? SlopeMax : (y4 - y3) / (x4 - x3);
+            double m1 = (Abs(x1 - x0) < DoubleEpsilon) ? SlopeMax : (y1 - y0) / (x1 - x0);
+            double m2 = (Abs(x3 - x2) < DoubleEpsilon) ? SlopeMax : (y3 - y2) / (x3 - x2);
 
             // Check if the lines are parallel.
-            if (Abs(slope1 - slope2) < DoubleEpsilon)
+            if (Abs(m1 - m2) < DoubleEpsilon)
                 return (false, null);
 
             // Compute the determinate of the coefficient matrix.
-            double determinate = slope2 - slope1;
+            double determinate = m2 - m1;
 
-            double s = (y3 - (slope2 * x3)) / -determinate;
-            double t = (y1 - (slope1 * x1)) / determinate;
+            double s = (y0 - (m1 * x0)) / determinate;
+            double t = (y2 - (m2 * x2)) / -determinate;
 
             // Use Cramer's rule to compute the return values.
             return (
-                (s >= 0) && (s <= 1) && (t >= 0) && (t <= 1),
-                (t + s, slope2 * t + slope1 * s));
+                (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d),
+                (s + t, m2 * s + m1 * t));
         }
 
         /// <summary>
@@ -6733,6 +6732,64 @@ namespace MethodSpeedTester
             //  Success.
             //  (4) Apply the discovered position to line A-B in the original coordinate system.
             return (true, (Ax + ABpos * theCos, Ay + ABpos * theSin));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-intersections
+        /// </remarks>
+        public static List<Point2D> intersectLineLine(
+            double Ax, double Ay,
+            double Bx, double By,
+            double Cx, double Cy,
+            double Dx, double Dy)
+        {
+            List<Point2D> result;
+
+            var ua_t = (Dx - Cx) * (Ay - Cy) - (Dy - Cy) * (Ax - Cx);
+            var ub_t = (Bx - Ax) * (Ay - Cy) - (By - Ay) * (Ax - Cx);
+            var u_b = (Dy - Cy) * (Bx - Ax) - (Dx - Cx) * (By - Ay);
+
+            if (u_b != 0)
+            {
+                var ua = ua_t / u_b;
+                var ub = ub_t / u_b;
+
+                if (0 <= ua && ua <= 1 && 0 <= ub && ub <= 1)
+                {
+                    result = new List<Point2D>();
+                    result.Add(
+                        new Point2D(
+                            Ax + ua * (Bx - Ax),
+                            Ay + ua * (By - Ay)
+                        )
+                    );
+                }
+                else
+                {
+                    result = new List<Point2D>();
+                }
+            }
+            else
+            {
+                if (ua_t == 0 || ub_t == 0)
+                {
+                    result = null;// new Intersection("Coincident");
+                }
+                else
+                {
+                    result = null;// new Intersection("Parallel");
+                }
+            }
+
+            return result;
         }
 
         #endregion

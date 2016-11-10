@@ -7,8 +7,6 @@
 // <author>Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Geometry;
-using Engine.Objects;
 using Engine.Tweening;
 using System.Collections.Generic;
 using System.Text;

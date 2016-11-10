@@ -9,7 +9,7 @@
 
 using System.Drawing;
 
-namespace Engine.Objects
+namespace Engine
 {
     /// <summary>
     /// 

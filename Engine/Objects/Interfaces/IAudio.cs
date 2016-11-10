@@ -7,11 +7,10 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using Engine.Objects;
 using System;
 using System.Collections.Generic;
 
-namespace Engine.Audio
+namespace Engine
 {
     /// <summary>
     /// 

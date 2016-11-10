@@ -9,7 +9,7 @@
 
 using System;
 
-namespace Engine.Geometry
+namespace Engine
 {
     /// <summary>
     /// Attribute used to mark properties as angles to later add the AngleEditor for WinForms PropertyGrid.

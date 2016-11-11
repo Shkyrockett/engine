@@ -323,7 +323,7 @@ namespace Engine
                 }
             }
 
-            return output.ToString();
+            return output.ToString().TrimEnd();
         }
     }
 }

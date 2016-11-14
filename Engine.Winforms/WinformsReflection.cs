@@ -24,7 +24,7 @@ namespace Engine.Winforms
             TypeDescriptor.AddAttributes(typeof(StringCollection), new EditorAttribute("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version = 4.0.0.0, Culture = neutral, PublicKeyToken = b03f5f7f11d50a3a", typeof(UITypeEditor)));
 
             // Add the AngleEditor EditorAttribute UITypeEditor attribute to all properties tagged with the GeometryAngleAttribute attribute.
-            Attribute lookupAttribute = new GeometryAngleAttribute();
+            Attribute lookupAttribute = new GeometryAngleRadians();
             foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupAttribute))
                 ReplacePropertyAttribute(item, lookupAttribute, angleEditorAttribute);
         }

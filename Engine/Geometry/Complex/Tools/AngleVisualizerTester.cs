@@ -21,6 +21,8 @@ namespace Engine
     public class AngleVisualizerTester
         : Shape
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
@@ -59,6 +61,10 @@ namespace Engine
             SweepAngle = sweepAngle;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// 
         /// </summary>
@@ -93,7 +99,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute]
-        [GeometryAngle]
+        [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The test angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -104,7 +110,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute]
-        [GeometryAngle]
+        [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The start angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -115,7 +121,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute]
-        [GeometryAngle]
+        [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The sweep angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -126,7 +132,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore]
-        [GeometryAngle]
+        [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -202,6 +208,10 @@ namespace Engine
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -213,5 +223,7 @@ namespace Engine
         /// </summary>
         public bool InSweep(double angle)
             => Containings.Contains(angle, StartAngle, SweepAngle);
+
+        #endregion
     }
 }

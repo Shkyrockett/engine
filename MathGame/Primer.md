@@ -28,6 +28,7 @@ A **Polynomial** is a general term for the sets of expresions set up with terms 
 ![][polynomial]
 
 #### Common Sub-Sets of Polynomials
+
 | Name | Examle | Description |
 |---|---|---|
 | Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
@@ -43,19 +44,19 @@ A **Polynomial** is a general term for the sets of expresions set up with terms 
 
 ### Constant
 
-Number terms, where the numbers are on their own, are called constants. The constant term below is highlighted in red: 
+**Constants** are the Number terms, where the numbers are on their own, are called constants. The constant term below is highlighted in red: 
 
 ![][2x^2+y+1=z.constants]
 
 ### Coefficient
 
-A coefficient is the number used to multiply a variable. The coefficient is highlighted below in red:
+A **coefficient** is the number used to multiply a variable. The coefficient is highlighted below in red:
 
 ![][2x^2+y+1=z.coefficient]
 
 ### Variable
 
-Variables are placeholder characters or text that stand in for a value or statement. The variables below are highlighted in red: 
+**Variables** are placeholder characters or text that stand in for a value or statement. The variables below are highlighted in red: 
 
 ![][2x^2+y+1=z.variables]
 
@@ -63,9 +64,12 @@ Variables are placeholder characters or text that stand in for a value or statem
 
 | Var | Name | Description  |
 |:---:|---|---|
-| ![][x] | x | Often used as the horizontal component of a coordinate. |
-| ![][y] | y | Often used as the vertical component of a coordinate. |
-| ![][z] | z | Often used as the depth component of a coordinate. |
+| ![][i] | i component | Often denotes the first part of a vector. |
+| ![][j] | j component | Often denotes the second part of a vector. |
+| ![][k] | k component | Often denotes the third part of a vector. |
+| ![][x] | x-coordinate | Often used as the horizontal component of a coordinate. |
+| ![][y] | y-coordinate | Often used as the vertical component of a coordinate. |
+| ![][z] | z-coordinate | Often used as the depth component of a coordinate. |
 | ![][A] | area | The area of a shape.  |
 | ![][r] | radius |  The radius of a circle. |
 | ![][theta] | theta |  The angle between two vectors |
@@ -87,11 +91,12 @@ In some instances a numarical value is replaced with a symbolic representation t
 | Const | Value | Notes|
 |:---:|---|---|
 | ![][pi.inline] | ≈3.1415926… | Pi is the ratio of the circumference of a circle to it's radius. |
+| ![][i] | Imaginary  |  Denotes an imaginary number. |
 |   |   |   |
 
 ### Exponent
 
-Exponents tell how many times a number or variable should be multiplied.
+**Exponents** tell how many times a number or variable should be multiplied.
 
 ![][2x^2+y+1=z.exponent]
 
@@ -107,7 +112,7 @@ Roots can be represented as Exponents or Powers
 
 ### Operator
 
-Operators are symbols used to denote an operation that needs to occur between values. The operators are highlighted in red below: 
+**Operators** are symbols used to denote an operation that needs to occur between values. The operators are highlighted in red below: 
 
 ![][2x^2+y+1=z.operators]
 
@@ -290,6 +295,7 @@ This one is for finding the squares of numbers ending with 5.   e.g. ( 〖25〗^
 
 [Unicode Entity Codes for Math](http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html)
 
+---
 
 [codecogs latex equation editor]: http://www.codecogs.com/latex/eqneditor.php
 [sciweavers free online latex equation editor]: http://www.sciweavers.org/free-online-latex-equation-editor
@@ -441,6 +447,15 @@ This one is for finding the squares of numbers ending with 5.   e.g. ( 〖25〗^
 
 [w vector right]: http://latex.codecogs.com/svg.latex?\\overrightarrow{w}
 [w vector right.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\overrightarrow{w}
+
+[i]: http://latex.codecogs.com/svg.latex?i
+[i.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;i
+
+[j]: http://latex.codecogs.com/svg.latex?j
+[j.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;j
+
+[k]: http://latex.codecogs.com/svg.latex?k
+[k.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;k
 
 [x]: http://latex.codecogs.com/svg.latex?x
 [x.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;x

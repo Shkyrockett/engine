@@ -94,7 +94,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -113,7 +113,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -132,7 +132,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]

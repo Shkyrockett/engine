@@ -1,4 +1,4 @@
-﻿// <copyright file="GeometryAngleAttribute.cs" >
+﻿// <copyright file="GeometryAngleDegreesAttribute.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -14,9 +14,8 @@ namespace Engine
     /// <summary>
     /// Attribute used to mark properties as angles to later add the AngleEditor for WinForms PropertyGrid.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Class|AttributeTargets.Struct, Inherited = true)]
-    public class GeometryAngleAttribute
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
+    public class GeometryAngleDegrees
         : Attribute
-    {
-    }
+    { }
 }

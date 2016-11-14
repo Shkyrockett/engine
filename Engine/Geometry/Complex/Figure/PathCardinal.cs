@@ -1,4 +1,4 @@
-﻿// <copyright file="FigureQuadratic.cs" >
+﻿// <copyright file="PathCardinal.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -19,13 +19,15 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class FigureCardinal
-         : FigureItem
+    public class PathCardinal
+         : PathItem
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public FigureCardinal()
+        public PathCardinal()
         { }
 
         /// <summary>
@@ -33,12 +35,16 @@ namespace Engine
         /// </summary>
         /// <param name="previous"></param>
         /// <param name="points"></param>
-        public FigureCardinal(FigureItem previous, List<Point2D> points)
+        public PathCardinal(PathItem previous, List<Point2D> points)
         {
             Previous = previous;
             previous.Next = this;
             CenteralPoints = points;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -70,7 +76,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore]
-        public override Point2D NextToEnd { get { return Nodes[Nodes.Count-1]; } set { Nodes[Nodes.Count-1] = value; } }
+        public override Point2D NextToEnd { get { return Nodes[Nodes.Count - 1]; } set { Nodes[Nodes.Count - 1] = value; } }
 
         /// <summary>
         /// 
@@ -87,5 +93,7 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => Boundings.Polygon(Nodes);
+
+        #endregion
     }
 }

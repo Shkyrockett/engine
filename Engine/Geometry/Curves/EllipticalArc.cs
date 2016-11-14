@@ -25,6 +25,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName("Elliptical Arc")]
+    [XmlType(TypeName = "arc-Elliptical")]
     public class EllipticalArc
         : Shape
     {
@@ -287,6 +288,7 @@ namespace Engine
         /// Gets or sets the location of the center point of the elliptical arc.
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The location of the center point of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -310,6 +312,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(EllipticalArc) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -332,7 +335,8 @@ namespace Engine
         /// Gets or sets the X coordinate location of the center of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute("x")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -352,7 +356,8 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the elliptical arc.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute("y")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -373,7 +378,8 @@ namespace Engine
         /// Gets or sets the first radius of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute("rx")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The first radius of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -394,7 +400,8 @@ namespace Engine
         /// Gets or sets the second radius of elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute("ry")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The second radius of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -416,6 +423,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the elliptical arc.")]
         public double MajorRadius
@@ -426,6 +434,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The smaller radius of the elliptical arc.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -437,6 +446,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the elliptical arc.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -456,10 +466,13 @@ namespace Engine
         /// Gets or sets the Angle of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
-        [GeometryAngle]
+        [XmlIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
@@ -474,14 +487,38 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the Angle of the elliptical arc in Degrees.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("angle")]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Elements")]
+        [Description("The " + nameof(Angle) + " to rotate the elliptical arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double AngleDegrees
+        {
+            get { return angle.ToDegrees(); }
+            set
+            {
+                angle = value.ToRadians();
+                OnPropertyChanged(nameof(Angle));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the start angle of the elliptical arc.
         /// </summary>
-        [XmlAttribute]
-        [GeometryAngle]
+        [XmlIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The start angle of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
@@ -495,14 +532,37 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the start angle of the elliptical arc in Degrees.
+        /// </summary>
+        [XmlAttribute("angle-Start")]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The start angle of the elliptical arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double StartAngleDegrees
+        {
+            get { return startAngle.ToDegrees(); }
+            set
+            {
+                startAngle = value.ToRadians();
+                OnPropertyChanged(nameof(StartAngle));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
         /// </summary>
-        [XmlAttribute]
-        [GeometryAngle]
+        [XmlIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The sweep angle of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
         {
@@ -516,10 +576,33 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the sweep angle of the elliptical arc in Degrees.
+        /// </summary>
+        [XmlAttribute("angle-Sweep")]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The sweep angle of the elliptical arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double SweepAngleDegrees
+        {
+            get { return sweepAngle.ToDegrees(); }
+            set
+            {
+                sweepAngle = value.ToRadians();
+                OnPropertyChanged(nameof(SweepAngleDegrees));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the end angle of the elliptical arc.
         /// </summary>
         [XmlIgnore]
-        [GeometryAngle]
+        [Browsable(true)]
+        [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The end angle of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -537,10 +620,33 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the end angle of the elliptical arc in Degrees.
+        /// </summary>
+        [XmlIgnore]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The end angle of the elliptical arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double EndAngleDegrees
+        {
+            get { return (startAngle + sweepAngle).ToDegrees(); }
+            set
+            {
+                sweepAngle = value.ToRadians() - startAngle;
+                OnPropertyChanged(nameof(EndAngleDegrees));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets the Focus Radius of the elliptical arc.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the elliptical arc.")]
         public double FocusRadius
@@ -551,6 +657,7 @@ namespace Engine
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the elliptical arc.")]
         public double Eccentricity
@@ -560,6 +667,7 @@ namespace Engine
         /// Gets the point on the Elliptical arc circumference coincident to the starting angle.
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
@@ -569,6 +677,7 @@ namespace Engine
         /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
@@ -578,6 +687,7 @@ namespace Engine
         /// Gets the Bounding box of the elliptical arc.
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The rectangular bounds of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -592,6 +702,7 @@ namespace Engine
         /// <returns></returns>
         /// 
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
         public override double Perimeter
@@ -601,6 +712,7 @@ namespace Engine
         /// Gets the <see cref="Area"/> of the elliptical arc.
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the elliptical arc.")]
         public override double Area
@@ -612,6 +724,7 @@ namespace Engine
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The unrotated rectangular bounds of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

@@ -25,28 +25,41 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(QuadraticBezier))]
+    [XmlType(TypeName = "bezier-Quadratic")]
     public class QuadraticBezier
         : Shape, IOpenShape
     {
         #region Private Fields
 
         /// <summary>
-        /// The starting node for the <see cref="QuadraticBezier"/> curve.
+        /// Position 1 x-coordinate.
         /// </summary>
-        [XmlAttribute]
-        private Point2D a;
+        private double ax;
 
         /// <summary>
-        /// The middle tangent control node for the <see cref="QuadraticBezier"/> curve.
+        /// Position 1 y-coordinate.
         /// </summary>
-        [XmlAttribute]
-        private Point2D b;
+        private double ay;
 
         /// <summary>
-        /// The closing node for the <see cref="QuadraticBezier"/> curve.
+        /// Tangent x-coordinate.
         /// </summary>
-        [XmlAttribute]
-        private Point2D c;
+        private double bx;
+
+        /// <summary>
+        /// Tangent y-coordinate.
+        /// </summary>
+        private double by;
+
+        /// <summary>
+        /// Position 2 x-coordinate.
+        /// </summary>
+        private double cx;
+
+        /// <summary>
+        /// Position 2 y-coordinate.
+        /// </summary>
+        private double cy;
 
         /// <summary>
         /// 
@@ -61,7 +74,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
         /// </summary>
         public QuadraticBezier()
-            : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
+            : this(0, 0, 0, 0, 0, 0)
         { }
 
         /// <summary>
@@ -71,10 +84,26 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="c"></param>
         public QuadraticBezier(Point2D a, Point2D b, Point2D c)
+            : this(a.X, a.Y, b.X, b.Y, c.X, c.Y)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        public QuadraticBezier(double ax, double ay, double bx, double by, double cx, double cy)
         {
-            this.a = a;
-            this.b = b;
-            this.c = c;
+            this.ax = ax;
+            this.ay = ay;
+            this.bx = bx;
+            this.by = by;
+            this.cx = cx;
+            this.cy = cy;
         }
 
         #endregion
@@ -84,17 +113,61 @@ namespace Engine
         /// <summary>
         /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlElement]
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
-            get { return a; }
+            get { return new Point2D(ax, ay); }
             set
             {
-                a = value;
+                ax = value.X;
+                ay = value.Y;
                 OnPropertyChanged(nameof(A));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate of the first Point of a Cubic Bezier.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("ax")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The X coordinate of the first Point of a Cubic Bezier.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double AX
+        {
+            get { return ax; }
+            set
+            {
+                ax = value;
+                OnPropertyChanged(nameof(AX));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate of the first Point of a Cubic Bezier.
+        /// </summary>
+        [XmlAttribute("ay")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The y coordinate of the first Point of a Cubic Bezier.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double AY
+        {
+            get { return ay; }
+            set
+            {
+                ay = value;
+                OnPropertyChanged(nameof(AY));
                 update?.Invoke();
             }
         }
@@ -102,17 +175,61 @@ namespace Engine
         /// <summary>
         /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlElement]
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
-            get { return b; }
+            get { return new Point2D(bx, by); }
             set
             {
-                b = value;
+                bx = value.X;
+                by = value.Y;
                 OnPropertyChanged(nameof(B));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate of the second Point of a Cubic Bezier.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("bx")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The X coordinate of the second Point of a Cubic Bezier.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double BX
+        {
+            get { return bx; }
+            set
+            {
+                bx = value;
+                OnPropertyChanged(nameof(BX));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
+        /// </summary>
+        [XmlAttribute("by")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The y coordinate of the second Point of a Cubic Bezier.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double BY
+        {
+            get { return by; }
+            set
+            {
+                by = value;
+                OnPropertyChanged(nameof(BY));
                 update?.Invoke();
             }
         }
@@ -120,17 +237,61 @@ namespace Engine
         /// <summary>
         /// Gets or sets the closing node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlElement]
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D C
         {
-            get { return c; }
+            get { return new Point2D(cx, cy); }
             set
             {
-                c = value;
+                cx = value.X;
+                cy = value.Y;
                 OnPropertyChanged(nameof(C));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate of the third Point of a Cubic Bezier.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("cx")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The X coordinate of the third Point of a Cubic Bezier.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double CX
+        {
+            get { return cx; }
+            set
+            {
+                bx = value;
+                OnPropertyChanged(nameof(CX));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate of the third Point of a Cubic Bezier.
+        /// </summary>
+        [XmlAttribute("cy")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The y coordinate of the third Point of a Cubic Bezier.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double CY
+        {
+            get { return cy; }
+            set
+            {
+                by = value;
+                OnPropertyChanged(nameof(CY));
                 update?.Invoke();
             }
         }
@@ -140,7 +301,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore]
         public double Length
-            => Distances.QuadraticBezierArcLengthByIntegral(a, b, c);
+            => Distances.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy);
 
         /// <summary>
         /// 
@@ -157,7 +318,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.QuadraticBezier(a, b, c);
+            => Boundings.QuadraticBezier(ax, ay, bx, by, cx, cy);
 
         #endregion
 
@@ -169,7 +330,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => new Point2D(Interpolaters.QuadraticBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, t));
+            => new Point2D(Interpolaters.QuadraticBezier(ax, ay, ax, by, cx, cy, t));
 
         #endregion
 
@@ -180,7 +341,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public CubicBezier ToCubicBezier()
-            => new CubicBezier(a, b, c);
+            => new CubicBezier(ax, ay, bx,by, cx,cy);
 
         /// <summary>
         /// Creates a string representation of this <see cref="QuadraticBezier"/> struct based on the format string
@@ -198,7 +359,7 @@ namespace Engine
         {
             if (this == null) return nameof(QuadraticBezier);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(QuadraticBezier)}={{{nameof(A)}={a}{sep}{nameof(B)}={b}{sep}{nameof(C)}={c}}}";
+            IFormattable formatable = $"{nameof(QuadraticBezier)}={{{nameof(A)}={A}{sep}{nameof(B)}={B}{sep}{nameof(C)}={C}}}";
             return formatable.ToString(format, provider);
         }
 

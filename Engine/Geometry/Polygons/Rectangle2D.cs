@@ -24,6 +24,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Rectangle2D))]
+    [XmlType(TypeName = "rect")]
     public class Rectangle2D
         : Shape, IClosedShape
     {
@@ -153,7 +154,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute("x")]
         [Browsable(true)]
         [DisplayName(nameof(X))]
         [Category("Elements")]
@@ -173,7 +174,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute("y")]
         [Browsable(true)]
         [DisplayName(nameof(Y))]
         [Category("Elements")]
@@ -193,7 +194,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the height of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute("v")]
         [Browsable(true)]
         [DisplayName(nameof(Height))]
         [Category("Elements")]
@@ -212,7 +213,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the width of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute("h")]
         [Browsable(true)]
         [DisplayName(nameof(Width))]
         [Category("Elements")]

@@ -279,7 +279,7 @@ namespace Engine
         [DisplayName(nameof(Aspect))]
         [Category("Properties")]
         [Description("The " + nameof(Angle) + " of rotation of the " + nameof(RotatedRectangle2D) + ".")]
-        [GeometryAngle]
+        [GeometryAngleRadians]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]

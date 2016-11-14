@@ -21,6 +21,8 @@ namespace Engine
     public class NodeRevealer
         : Shape
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,6 +42,10 @@ namespace Engine
             Points = points;
             Radius = radius;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -68,6 +74,10 @@ namespace Engine
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -82,5 +92,7 @@ namespace Engine
 
             return false;
         }
+
+        #endregion
     }
 }

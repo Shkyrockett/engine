@@ -27,15 +27,42 @@ namespace Engine
     public class ParametricDelegateCurve
         : Shape
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private Point2D location;
+        #region Fields
 
         /// <summary>
         /// 
         /// </summary>
-        private double rotation;
+        private double x;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double y;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double h;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double v;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double r;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ParametricDelegateCurve()
+        { }
 
         /// <summary>
         /// 
@@ -56,21 +83,66 @@ namespace Engine
             Precision = precision;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(true)]
         public Func<double, double, double, double, double, double, Point2D> Interpolater { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Browsable(true)]
         public Func<double, double, double, double, double, double, double, Inclusion> PointIntersector { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [Browsable(false)]
+        public Double X
+        {
+            get { return x; }
+            set
+            {
+                x = value;
+                OnPropertyChanged(nameof(X));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [Browsable(false)]
+        public Double Y
+        {
+            get { return y; }
+            set
+            {
+                y = value;
+                OnPropertyChanged(nameof(Y));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
         [Category("Adjustments")]
         [Description("The " + nameof(Location) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -78,13 +150,13 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(true)]
-        [XmlAttribute]
         public Point2D Location
         {
-            get { return location; }
+            get { return new Point2D(x, y); }
             set
             {
-                location = value;
+                x = value.X;
+                y = value.Y;
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
@@ -93,6 +165,45 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlAttribute]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [Browsable(false)]
+        public Double Width
+        {
+            get { return h; }
+            set
+            {
+                h = value;
+                OnPropertyChanged(nameof(h));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        [Browsable(false)]
+        public Double Height
+        {
+            get { return v; }
+            set
+            {
+                v = value;
+                OnPropertyChanged(nameof(v));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
         [Category("Adjustments")]
         [Description("The " + nameof(Scale) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -100,13 +211,22 @@ namespace Engine
         [TypeConverter(typeof(Size2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(true)]
-        [XmlAttribute]
-        public Size2D Scale { get; set; }
+        public Size2D Scale
+        {
+            get { return new Size2D(h, v); }
+            set
+            {
+                h = value.Width; v = value.Height;
+                OnPropertyChanged(nameof(Scale));
+                update?.Invoke();
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        [GeometryAngle]
+        [XmlAttribute]
+        [GeometryAngleRadians]
         [Category("Adjustments")]
         [Description("The " + nameof(Rotation) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -114,13 +234,12 @@ namespace Engine
         [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(true)]
-        [XmlAttribute]
         public double Rotation
         {
-            get { return rotation; }
+            get { return r; }
             set
             {
-                rotation = value;
+                r = value;
                 OnPropertyChanged(nameof(Rotation));
                 update?.Invoke();
             }
@@ -129,22 +248,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [XmlAttribute]
         [Category("Adjustments")]
         [Description("The " + nameof(Precision) + " of the " + nameof(ParametricDelegateCurve) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(true)]
-        [XmlAttribute]
         public double Precision { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get
@@ -171,13 +290,17 @@ namespace Engine
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolate(Interpolater, location.X, location.Y, Scale.Width, Scale.Height, rotation, t);
+            => Interpolate(Interpolater, x, y, h, v, r, t);
 
         /// <summary>
         /// 
@@ -199,7 +322,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override bool Contains(Point2D point)
-            => Contains(PointIntersector, location.X, location.Y, Scale.Width, Scale.Height, rotation, point.X, point.Y) != Inclusion.Outside;
+            => Contains(PointIntersector, x, y, h, v, r, point.X, point.Y) != Inclusion.Outside;
 
         /// <summary>
         /// 
@@ -230,5 +353,7 @@ namespace Engine
             IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location},{nameof(Scale)}={Scale},{nameof(Precision)}={Precision}}}";
             return formatable.ToString(format, provider);
         }
+
+        #endregion
     }
 }

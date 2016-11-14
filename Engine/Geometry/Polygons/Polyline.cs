@@ -122,7 +122,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlAttribute]
+        [XmlArray]
         public List<Point2D> Points
         {
             get { return points; }
@@ -138,9 +138,9 @@ namespace Engine
         ///
         /// </summary>
         [Pure]
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [XmlIgnore]
         public override double Perimeter
             => points.Zip(points.Skip(1), Distances.Distance).Sum();
 
@@ -148,6 +148,7 @@ namespace Engine
         ///
         /// </summary>
         [Pure]
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]

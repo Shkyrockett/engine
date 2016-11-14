@@ -1,4 +1,4 @@
-﻿// <copyright file="FigureLineSegment.cs" >
+﻿// <copyright file="PathLineSegment.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -18,13 +18,15 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class FigureLineSegment
-         : FigureItem
+    public class PathLineSegment
+         : PathItem
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public FigureLineSegment()
+        public PathLineSegment()
         { }
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public FigureLineSegment(FigureItem previous, bool relitive, params Double[] args)
+        public PathLineSegment(PathItem previous, bool relitive, params Double[] args)
             : this(previous, args.Length == 2 ? new Point2D(args[0], args[1]) : null)
         {
             if (relitive)
@@ -45,12 +47,16 @@ namespace Engine
         /// </summary>
         /// <param name="previous"></param>
         /// <param name="end"></param>
-        public FigureLineSegment(FigureItem previous, Point2D end)
+        public PathLineSegment(PathItem previous, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
             End = end;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -80,10 +86,16 @@ namespace Engine
         public override Rectangle2D Bounds
             => Boundings.LineSegment(Start.X, Start.Y, End.X, End.Y);
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
         public LineSegment ToLineSegment()
             => new LineSegment(Start, End);
+
+        #endregion
     }
 }

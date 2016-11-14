@@ -1,4 +1,4 @@
-﻿// <copyright file="Figure.cs" >
+﻿// <copyright file="GeometryPath.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -22,28 +22,37 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// A path shape item constructed with various sub shapes.
+    /// Based roughly on then SVG Path.
     /// </summary>
     [Serializable]
+    [DisplayName("Geometry Path")]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class Figure
+    [XmlType(TypeName = "path", Namespace = "http://www.w3.org/2000/svg")]
+    public class GeometryPath
         : Shape
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public Figure()
+        public GeometryPath()
         {
-            Items = new List<FigureItem>();
+            Items = new List<PathItem>();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Figure(Point2D start)
+        public GeometryPath(Point2D start)
         {
-            Items.Add(new FigurePoint(start));
+            Items.Add(new PathPoint(start));
         }
+
+        #endregion
+
+        #region Indexers
 
         /// <summary>
         /// 
@@ -51,24 +60,27 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public FigureItem this[int index]
+        public PathItem this[int index]
                 => Items[index];
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
-        //[XmlArray]
         [TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public List<FigureItem> Items { get; set; } = new List<FigureItem>();
+        public List<PathItem> Items { get; set; } = new List<PathItem>();
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute("d")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string PathCommandString { get { return ToPathCommandString(); } set { Items = ParsePathCommandString(value).Item1; } }
+        public string Deffinition { get { return ToPathDefString(); } set { Items = ParsePathDefString(value).Item1; } }
 
         /// <summary>
         /// Gets a listing of all end nodes from the Figure.
@@ -90,6 +102,10 @@ namespace Engine
         public override Rectangle2D Bounds
             => Boundings.Figure(this);
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -106,9 +122,9 @@ namespace Engine
         /// </summary>
         /// <param name="end"></param>
         /// <returns></returns>
-        public Figure AddLineSegment(Point2D end)
+        public GeometryPath AddLineSegment(Point2D end)
         {
-            var segment = new FigureLineSegment(Items[Items.Count - 1], end);
+            var segment = new PathLineSegment(Items[Items.Count - 1], end);
             Items.Add(segment);
             return this;
         }
@@ -123,9 +139,9 @@ namespace Engine
         /// <param name="sweep"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public Figure AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
+        public GeometryPath AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         {
-            var arc = new FigureArc(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
+            var arc = new PathArc(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
             Items.Add(arc);
             return this;
         }
@@ -136,9 +152,9 @@ namespace Engine
         /// <param name="handle"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public Figure AddQuadraticBezier(Point2D handle, Point2D end)
+        public GeometryPath AddQuadraticBezier(Point2D handle, Point2D end)
         {
-            var quad = new FigureQuadraticBezier(Items[Items.Count - 1], handle, end);
+            var quad = new PathQuadraticBezier(Items[Items.Count - 1], handle, end);
             Items.Add(quad);
             return this;
         }
@@ -150,9 +166,9 @@ namespace Engine
         /// <param name="handle2"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public Figure AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
+        public GeometryPath AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
-            var cubic = new FigureCubicBezier(Items[Items.Count - 1], handle1, handle2, end);
+            var cubic = new PathCubicBezier(Items[Items.Count - 1], handle1, handle2, end);
             Items.Add(cubic);
             return this;
         }
@@ -162,9 +178,9 @@ namespace Engine
         /// </summary>
         /// <param name="nodes"></param>
         /// <returns></returns>
-        public Figure AddCardinalCurve(List<Point2D> nodes)
+        private GeometryPath AddCardinalCurve(List<Point2D> nodes)
         {
-            var cubic = new FigureCardinal(Items[Items.Count - 1], nodes);
+            var cubic = new PathCardinal(Items[Items.Count - 1], nodes);
             Items.Add(cubic);
             return this;
         }
@@ -177,109 +193,120 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
-        public (List<FigureItem>, bool) ParsePathCommandString(string pathString)
+        public (List<PathItem>, bool) ParsePathDefString(string pathString)
         {
-            List<FigureItem> figure = new List<FigureItem>();
+            List<PathItem> figure = new List<PathItem>();
             bool closed = false;
+
             bool relitive = false;
             Point2D startPoint = null;
-            FigureItem item = null;
+            PathItem item = null;
 
-            // these letters are valid SVG commands. Whenever we find one, a new command is starting. Let's split the string there.
+            // These letters are valid SVG commands. Split the tokens at these.
             string separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
 
-            // discard whitespace and comma but keep the -
+            // Discard whitespace and comma but keep the - minus sign.
             string argSeparators = @"[\s,]|(?=-)";
 
-            var tokens = Regex.Split(pathString, separators).Where(t => !string.IsNullOrWhiteSpace(t));
-            foreach (var token in tokens)
+            // Split the deffinition string into shape tokens.
+            foreach (var token in Regex.Split(pathString, separators).Where(t => !string.IsNullOrWhiteSpace(t)))
             {
+                // Get the token type.
                 var cmd = token.Take(1).Single();
-                string remainingargs = token.Substring(1);
 
-                var splitArgs = Regex.Split(remainingargs, argSeparators).Where(t => !string.IsNullOrEmpty(t));
-                double[] args = splitArgs.Select(arg => double.Parse(arg)).ToArray();
+                // Retrieve the values.
+                var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
 
                 switch (cmd)
                 {
-                    case 'm':
+                    case 'm': // Reletive Svg moveto
                         relitive = true;
                         goto case 'M';
                     case 'M': // Svg moveto
-                        item = new FigurePoint(item, relitive, args);
+                        item = new PathPoint(item, relitive, args);
                         startPoint = item.Start;
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'z':
+                    case 'z': // Reletive closepath
                         relitive = true;
                         goto case 'Z';
                     case 'Z': // Svg closepath
-                        item = new FigurePoint(item, relitive, startPoint);
+                        item = new PathPoint(item, relitive, startPoint);
                         closed = true;
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'l':
+                    case 'l': // Reletive Svg lineto
                         relitive = true;
                         goto case 'L';
                     case 'L': // Svg lineto
-                        item = new FigureLineSegment(item, relitive, args);
+                        item = new PathLineSegment(item, relitive, args);
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'h':
+                    case 'h': // Reletive Svg horizontal-lineto
                         relitive = true;
                         goto case 'H';
                     case 'H': // Svg horizontal-lineto
-                        item = new FigureLineSegment(item, relitive, item.End.X, args[0]);
+                        item = new PathLineSegment(item, relitive, item.End.X, args[0]);
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'v':
+                    case 'v': // Reletive Svg vertical-lineto
                         relitive = true;
                         goto case 'V';
                     case 'V': // Svg vertical-lineto
-                        item = new FigureLineSegment(item, relitive, args[0], item.End.Y);
+                        item = new PathLineSegment(item, relitive, args[0], item.End.Y);
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'c':
+                    case 'c': // Reletive Svg Cubic Bezier curveto
                         relitive = true;
                         goto case 'C';
-                    case 'C': // Svg curveto
-                        item = new FigureCubicBezier(item, relitive, args);
+                    case 'C': // Svg Cubic Bezier curveto
+                        item = new PathCubicBezier(item, relitive, args);
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 's':
+                    case 's': // Reletive smooth-curveto
                         relitive = true;
                         goto case 'S';
                     case 'S': // Svg smooth-curveto
-                        item = new FigureCubicBezier(item, relitive, args);
+                        item = new PathCubicBezier(item, relitive, args);
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'q':
+                    case 'q': // Reletive quadratic-bezier-curveto
                         relitive = true;
                         goto case 'Q';
                     case 'Q': // Svg quadratic-bezier-curveto
-                        item = new FigureQuadraticBezier(item, relitive, args);
+                        item = new PathQuadraticBezier(item, relitive, args);
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 't':
+                    case 't': // Reletive smooth-quadratic-bezier-curveto
                         relitive = true;
                         goto case 'T';
                     case 'T': // Svg smooth-quadratic-bezier-curveto
-                        item = new FigureQuadraticBezier(item, relitive, args);
+                        item = new PathQuadraticBezier(item, relitive, args);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'a':
+                    case 'a': // Reletive Svg elliptical-arc
                         relitive = true;
                         goto case 'A';
                     case 'A': // Svg elliptical-arc
-                        item = new FigureArc(item, relitive, args);
+                        item = new PathArc(item, relitive, args);
                         figure.Add(item);
+                        item.Relitive = relitive;
                         relitive = false;
                         break;
                     default: // Unknown element.
@@ -294,36 +321,61 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        private String ToPathCommandString()
+        private String ToPathDefString()
         {
             StringBuilder output = new StringBuilder();
+
             foreach (var item in Items)
             {
                 switch (item)
                 {
-                    case FigurePoint t:
-                        output.Append($"M{t.Start.X},{t.Start.Y} ");
+                    case PathPoint t:
+                        // ToDo: Figure out how to seporate M from Z.
+                        output.Append(t.Relitive ? $"m{t.Start.X},{t.Start.Y} " : $"M{t.Start.X},{t.Start.Y} ");
                         break;
-                    case FigureLineSegment t:
-                        output.Append($"L{t.End.X},{t.End.Y} ");
+                    case PathLineSegment t:
+                        // L is ageneral line.
+                        char l = t.Relitive ? 'l' : 'L';
+                        string coords = $"{t.End.X},{t.End.Y}";
+                        if (t.Start.X == t.End.X)
+                        {
+                            // H is a horizontal line, so the x-coordinate can be ommited.
+                            coords = $"{t.End.Y}";
+                            l = t.Relitive ? 'h' : 'H';
+                        }
+                        else if (t.Start.Y == t.End.Y)
+                        {
+                            // V is a horizontal line, so the y-coordinate can be ommited.
+                            coords = $"{t.End.X}";
+                            l = t.Relitive ? 'v' : 'V';
+                        }
+                        output.Append($"{l}{coords} ");
                         break;
-                    case FigureCubicBezier t:
-                        output.Append($"C{t.Handle1.X},{t.Handle1.Y},{t.Handle2.X},{t.Handle2.Y},{t.End.X},{t.End.Y} ");
+                    case PathCubicBezier t:
+                        // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
+                        output.Append(t.Relitive ? $"c{t.Handle1.X},{t.Handle1.Y},{t.Handle2.X},{t.Handle2.Y},{t.End.X},{t.End.Y} " : $"C{t.Handle1.X},{t.Handle1.Y},{t.Handle2.X},{t.Handle2.Y},{t.End.X},{t.End.Y} ");
                         break;
-                    case FigureQuadraticBezier t:
-                        output.Append($"Q{t.Handle.X},{t.Handle.X},{t.End.X},{t.End.Y} ");
+                    case PathQuadraticBezier t:
+                        // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
+                        output.Append(t.Relitive ? $"q{t.Handle.X},{t.Handle.X},{t.End.X},{t.End.Y} " : $"Q{t.Handle.X},{t.Handle.X},{t.End.X},{t.End.Y} ");
                         break;
-                    case FigureArc t:
+                    case PathArc t:
+                        // Arc deffinition. 
                         int largearc = t.LargeArc ? 1 : 0;
                         int sweep = t.Sweep ? 1 : 0;
-                        output.Append($"A{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.X},{t.End.Y} ");
+                        output.Append(t.Relitive ? $"a{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.X},{t.End.Y} " : $"A{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.X},{t.End.Y} ");
                         break;
                     default:
                         break;
                 }
             }
 
+            // Minus signs are valid seperators in SVG path deffinitions which can be
+            // used in place of commas to shrink the length of the string. 
+            output.Replace(",-", "-");
             return output.ToString().TrimEnd();
         }
+
+        #endregion
     }
 }

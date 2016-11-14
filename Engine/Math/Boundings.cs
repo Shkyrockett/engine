@@ -308,110 +308,120 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
+        /// http://nishiohirokazu.blogspot.com/2009/06/how-to-calculate-bezier-curves-bounding.html
         /// http://jsfiddle.net/SalixAlba/QQnvm/4/
         /// </remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D CubicBezier(Point2D p0, Point2D p1, Point2D p2, Point2D p3)
+        public static Rectangle2D CubicBezier(
+            double ax, double ay,
+            double bx, double by,
+            double cx, double cy,
+            double dx, double dy)
         {
-            var a = 3 * p3.X - 9 * p2.X + 9 * p1.X - 3 * p0.X;
-            var b = 6 * p0.X - 12 * p1.X + 6 * p2.X;
-            var c = 3 * p1.X - 3 * p0.X;
+            // Calculate the polynomial of the cubic.
+            var a = -3 * ax + 9 * bx - 9 * cx + 3 * dx;
+            var b = 6 * ax - 12 * bx + 6 * cx;
+            var c = -3 * ax + 3 * bx;
 
-            var disc = b * b - 4 * a * c;
-            var xl = p0.X;
-            var xh = p0.X;
-            if (p3.X < xl) xl = p3.X;
-            if (p3.X > xh) xh = p3.X;
-            if (disc >= 0)
+            // Calculate the descriminant of the polynomial.
+            var discriminant = b * b - 4 * a * c;
+
+            // Find the high and low x ends.
+            var xlow = (dx < ax) ? dx : ax;
+            var xhigh = (dx > ax) ? dx : ax;
+
+            if (discriminant >= 0)
             {
-                var t1 = (-b + Sqrt(disc)) / (2 * a);
+                // Find the positive solution using the quadratic formula.
+                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
 
                 if (t1 > 0 && t1 < 1)
                 {
-                    var x1 = Interpolaters.Cubic(p0.X, p1.X, p2.X, p3.X, t1);
-                    if (x1 < xl) xl = x1;
-                    if (x1 > xh) xh = x1;
+                    var x1 = Interpolaters.Cubic(ax, bx, cx, dx, t1);
+                    if (x1 < xlow) xlow = x1;
+                    if (x1 > xhigh) xhigh = x1;
                 }
 
-                var t2 = (-b - Sqrt(disc)) / (2 * a);
+                // Find the negitive solution using the quadratic formula.
+                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 if (t2 > 0 && t2 < 1)
                 {
-                    var x2 = Interpolaters.Cubic(p0.X, p1.X, p2.X, p3.X, t2);
-                    if (x2 < xl) xl = x2;
-                    if (x2 > xh) xh = x2;
+                    var x2 = Interpolaters.Cubic(ax, bx, cx, dx, t2);
+                    if (x2 < xlow) xlow = x2;
+                    if (x2 > xhigh) xhigh = x2;
                 }
             }
 
-            a = 3 * p3.Y - 9 * p2.Y + 9 * p1.Y - 3 * p0.Y;
-            b = 6 * p0.Y - 12 * p1.Y + 6 * p2.Y;
-            c = 3 * p1.Y - 3 * p0.Y;
-            disc = b * b - 4 * a * c;
-            var yl = p0.Y;
-            var yh = p0.Y;
-            if (p3.Y < yl) yl = p3.Y;
-            if (p3.Y > yh) yh = p3.Y;
-            if (disc >= 0)
+            a = -3 * ay + 9 * by - 9 * cy + 3 * dy;
+            b = 6 * ay - 12 * by + 6 * cy;
+            c = -3 * ay + 3 * by;
+
+            discriminant = b * b - 4 * a * c;
+
+            var yl = ay;
+            var yh = ay;
+            if (dy < yl) yl = dy;
+            if (dy > yh) yh = dy;
+            if (discriminant >= 0)
             {
-                var t1 = (-b + Sqrt(disc)) / (2 * a);
+                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
 
                 if (t1 > 0 && t1 < 1)
                 {
-                    var y1 = Interpolaters.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t1);
+                    var y1 = Interpolaters.Cubic(ay, by, cy, dy, t1);
                     if (y1 < yl) yl = y1;
                     if (y1 > yh) yh = y1;
                 }
 
-                var t2 = (-b - Sqrt(disc)) / (2 * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 if (t2 > 0 && t2 < 1)
                 {
-                    var y2 = Interpolaters.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t2);
+                    var y2 = Interpolaters.Cubic(ay, by, cy, dy, t2);
                     if (y2 < yl) yl = y2;
                     if (y2 > yh) yh = y2;
                 }
             }
 
-            return new Rectangle2D(xl, xh, yl, yh);
+            return new Rectangle2D(xlow, xhigh, yl, yh);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
         /// <returns></returns>
-        public static Rectangle2D QuadraticBezier(Point2D a, Point2D b, Point2D c)
+        /// <remarks>
+        /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
+        /// http://jsfiddle.net/SalixAlba/QQnvm/4/
+        /// </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D QuadraticBezier(
+            double ax, double ay,
+            double bx, double by,
+            double cx, double cy)
         {
-            var sortOfCloseLength = Distances.QuadraticBezierArcLengthByIntegral(a, b, c);
-            // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
-            var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.QuadraticBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, i), (int)(sortOfCloseLength / 3)));
-
-            double left = points[0].X;
-            double top = points[0].Y;
-            double right = points[0].X;
-            double bottom = points[0].Y;
-
-            foreach (Point2D point in points)
-            {
-                // ToDo: Measure performance impact of overwriting each time.
-                left = point.X <= left ? point.X : left;
-                top = point.Y <= top ? point.Y : top;
-                right = point.X >= right ? point.X : right;
-                bottom = point.Y >= bottom ? point.Y : bottom;
-            }
-
-            return Rectangle2D.FromLTRB(left, top, right, bottom);
+            var cubic = Interpolaters.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
+            return CubicBezier(cubic[0].X, cubic[0].Y, cubic[1].X, cubic[1].Y, cubic[2].X, cubic[2].Y, cubic[3].X, cubic[3].Y);
         }
 
         /// <summary>
@@ -421,12 +431,12 @@ namespace Engine
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Figure(Figure chain)
+        public static Rectangle2D Figure(GeometryPath chain)
         {
-            var start = chain.Items[0] as FigurePoint;
+            var start = chain.Items[0] as PathPoint;
             Rectangle2D result = new Rectangle2D(start.Start, start.End);
 
-            foreach (FigureItem member in chain.Items)
+            foreach (PathItem member in chain.Items)
             {
                 result.Union(member.Bounds);
             }

@@ -22,6 +22,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Ellipse))]
+    [XmlType(TypeName = "ellipse")]
     public class Ellipse
         : Shape, IClosedShape
     {
@@ -122,6 +123,7 @@ namespace Engine
         ///
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         public Point2D Location
         {
             get { return new Point2D(x - rX, y - rY); }
@@ -139,6 +141,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -161,7 +164,8 @@ namespace Engine
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute("x")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -181,7 +185,8 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute("y")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -202,7 +207,8 @@ namespace Engine
         /// Gets or sets the first radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute("rx")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The first radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -221,7 +227,8 @@ namespace Engine
         /// Gets or sets the second radius of Ellipse
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute("ry")]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The second radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -241,6 +248,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the " + nameof(Ellipse) + ".")]
         public double MajorRadius
@@ -251,6 +259,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The smaller radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -262,6 +271,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -281,10 +291,13 @@ namespace Engine
         /// Gets or sets the Angle of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + ".")]
-        [GeometryAngle]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
@@ -299,10 +312,34 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the Angle of the <see cref="Ellipse"/> in Degrees.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("angle")]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Elements")]
+        [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + " in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double AngleDegrees
+        {
+            get { return angle.ToDegrees(); }
+            set
+            {
+                angle = value.ToRadians();
+                OnPropertyChanged(nameof(AngleDegrees));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets the Focus Radius of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the " + nameof(Ellipse) + ".")]
         public double FocusRadius
@@ -313,6 +350,7 @@ namespace Engine
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
         public double Eccentricity
@@ -321,8 +359,8 @@ namespace Engine
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
         /// </summary>
-        [Pure]
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -364,8 +402,8 @@ namespace Engine
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </remarks>
-        [Pure]
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -399,6 +437,7 @@ namespace Engine
         /// Gets the Bounding box of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The rectangular bounds of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -434,6 +473,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
@@ -443,6 +483,7 @@ namespace Engine
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
         public override double Area
@@ -465,6 +506,7 @@ namespace Engine
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
         [XmlIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The unrotated rectangular bounds of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

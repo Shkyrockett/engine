@@ -1,4 +1,4 @@
-﻿// <copyright file="RectangleCellGrid.cs">
+﻿// <copyright file="SquareDCellGrid.cs">
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,25 +10,41 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Xml.Serialization;
 using static System.Math;
 
 namespace Engine
 {
     /// <summary>
-    /// <see cref="SquareFCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
+    /// <see cref="SquareDCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(SquareFCellGrid))]
-    public class SquareFCellGrid
+    [DisplayName(nameof(SquareDCellGrid))]
+    public class SquareDCellGrid
         : Shape
     {
         #region Fields
 
         /// <summary>
-        /// The exterior <see cref="RectangleF"/> bounds of the grid.
+        /// 
         /// </summary>
-        private Rectangle2D bounds;
+        private double x;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double y;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double h;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double v;
 
         /// <summary>
         /// The number of cells the grid should contain.
@@ -60,13 +76,22 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SquareFCellGrid"/> class.
+        /// 
+        /// </summary>
+        public SquareDCellGrid()
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SquareDCellGrid"/> class.
         /// </summary>
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
-        public SquareFCellGrid(Rectangle2D bounds, int count)
+        public SquareDCellGrid(Rectangle2D bounds, int count)
         {
-            this.bounds = bounds;
+            x = bounds.X;
+            y = bounds.Y;
+            h = bounds.Width;
+            v = bounds.Height;
             this.count = count;
             Recalculate();
         }
@@ -76,25 +101,11 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets the <see cref="RectangleF"/> representing the bounding box of the cell at a given index of the grid. 
-        /// </summary>
-        /// <param name="index">The index of a cell in the grid.</param>
-        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
-        public Rectangle2D this[int index]
-        {
-            get
-            {
-                // ToDo: Implement flow orientation options.
-                var point = new Point2D((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
-                return new Rectangle2D(point, cellSize);
-            }
-        }
-
-        /// <summary>
         /// Gets the index of a cell at a given point in the grid.
         /// </summary>
         /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
         /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
+        [XmlIgnore]
         public int this[Point2D location]
         {
             get
@@ -112,14 +123,34 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets the <see cref="RectangleF"/> representing the bounding box of the cell at a given index of the grid. 
+        /// </summary>
+        /// <param name="index">The index of a cell in the grid.</param>
+        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
+        [XmlIgnore]
+        public Rectangle2D this[int index]
+        {
+            get
+            {
+                // ToDo: Implement flow orientation options.
+                var point = new Point2D((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
+                return new Rectangle2D(point, cellSize);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the exterior bounding <see cref="RectangleF"/> to contain the grid. 
         /// </summary>
+        [XmlIgnore]
         public new Rectangle2D Bounds
         {
-            get { return bounds; }
+            get { return new Rectangle2D(x, y, h, v); }
             set
             {
-                bounds = value;
+                x = value.X;
+                y = value.Y;
+                h = value.Width;
+                v = value.Height;
                 Recalculate();
                 OnPropertyChanged(nameof(Bounds));
                 update?.Invoke();
@@ -127,8 +158,73 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public double X
+        {
+            get { return x; }
+            set
+            {
+                x = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public double Y
+        {
+            get { return y; }
+            set
+            {
+                y = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public double Width
+        {
+            get { return h; }
+            set
+            {
+                h = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public double Height
+        {
+            get { return v; }
+            set
+            {
+                v = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the number of cells the grid is to contain.
         /// </summary>
+        [XmlAttribute]
         public int Count
         {
             get { return count; }
@@ -144,28 +240,34 @@ namespace Engine
         /// <summary>
         /// Gets the calculated optimum <see cref="SizeF"/> height and width of any cell in the grid.
         /// </summary>
+        [XmlIgnore]
         public Size2D CellSize
             => cellSize;
 
         /// <summary>
         /// Gets the inner-bounding <see cref="RectangleF"/> of the grid. 
         /// </summary>
+        [XmlIgnore]
         public Rectangle2D InnerBounds
             => innerBounds;
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
+        [XmlIgnore]
         public int Columns
             => columns;
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
+        [XmlIgnore]
         public int Rows
             => rows;
 
         #endregion
+
+        #region Methods
 
         /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 
@@ -179,7 +281,7 @@ namespace Engine
                 rows = columns;
 
                 // Calculate the optimum cell size for the grid.
-                double cellScale = Min(bounds.Width / columns, bounds.Height / rows);
+                double cellScale = Min(h / columns, v / rows);
 
                 // Set the size of the cell.
                 cellSize = new Size2D(cellScale, cellScale);
@@ -196,7 +298,10 @@ namespace Engine
         /// <param name="count">The number of cells the grid is to contain.</param>
         private void Recalculate(Rectangle2D bounds, int count)
         {
-            this.bounds = bounds;
+            x = bounds.X;
+            y = bounds.Y;
+            h = bounds.Width;
+            v = bounds.Height;
             this.count = count;
             Recalculate();
         }
@@ -206,6 +311,8 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => $"SquareFCellGrid{{Bounds {{{bounds}}}, Count {count}}}";
+            => $"SquareFCellGrid{{Bounds {{{Bounds}}}, Count {count}}}";
+
+        #endregion
     }
 }

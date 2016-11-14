@@ -1,4 +1,4 @@
-﻿// <copyright file="FigurePoint.cs" >
+﻿// <copyright file="PathPoint.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -18,13 +18,15 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class FigurePoint
-        : FigureItem
+    public class PathPoint
+        : PathItem
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public FigurePoint()
+        public PathPoint()
         { }
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public FigurePoint(FigureItem previous, bool relitive, Double[] args)
+        public PathPoint(PathItem previous, bool relitive, Double[] args)
             : this(args.Length == 2 ? new Point2D(args[0], args[1]) : null)
         {
             if (relitive)
@@ -46,7 +48,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="startPoint"></param>
-        public FigurePoint(FigureItem previous, Boolean relitive, Point2D startPoint)
+        public PathPoint(PathItem previous, Boolean relitive, Point2D startPoint)
             : this(startPoint)
         {
             if (relitive)
@@ -57,11 +59,15 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="start"></param>
-        public FigurePoint(Point2D start)
+        public PathPoint(Point2D start)
         {
             Start = start;
             Previous = this;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -91,11 +97,17 @@ namespace Engine
         public override Rectangle2D Bounds
             => Boundings.LineSegment(Start, End);
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
         public Point2D ToPoint2D
             => Start;
+
+        #endregion
     }
 }

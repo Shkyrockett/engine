@@ -1,4 +1,4 @@
-﻿// <copyright file="Arc.cs" >
+﻿// <copyright file="CircularArc.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -20,6 +20,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(CircularArc))]
+    [XmlType(TypeName = "arc-Circular")]
     public class CircularArc
         : Shape, IOpenShape
     {
@@ -140,25 +141,9 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets or sets the radius of the Arc.
-        /// </summary>
-        [RefreshProperties(RefreshProperties.All)]
-        [Category("Elements")]
-        [Description("The radius of the Arc.")]
-        public double Radius
-        {
-            get { return radius; }
-            set
-            {
-                radius = value;
-                OnPropertyChanged(nameof(Radius));
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the center of the Arc.
         /// </summary>
+        [XmlIgnore]
         [Category("Elements")]
         [Description("The center location of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -180,12 +165,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="CircularArc"/>.
         /// </summary>
+        [XmlAttribute("x")]
         [Category("Elements")]
         [Description("The center x coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double X
         {
             get { return x; }
@@ -200,12 +185,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="Y"/> coordinate location of the center of the <see cref="CircularArc"/>.
         /// </summary>
+        [XmlAttribute("y")]
         [Category("Elements")]
         [Description("The center y coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute]
         public double Y
         {
             get { return y; }
@@ -218,12 +203,32 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the radius of the Arc.
+        /// </summary>
+        [XmlAttribute("r")]
+        [RefreshProperties(RefreshProperties.All)]
+        [Category("Elements")]
+        [Description("The radius of the Arc.")]
+        public double Radius
+        {
+            get { return radius; }
+            set
+            {
+                radius = value;
+                OnPropertyChanged(nameof(Radius));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the start angle of the Arc.
         /// </summary>
-        [GeometryAngle]
+        [XmlIgnore]
+        [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The start angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
@@ -237,14 +242,36 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the start angle of the Arc in Degrees.
+        /// </summary>
+        [XmlAttribute("angle-Start")]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The start angle of the Arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double StartAngleDegrees
+        {
+            get { return startAngle.ToDegrees(); }
+            set
+            {
+                startAngle = value.ToRadians();
+                OnPropertyChanged(nameof(StartAngleDegrees));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the sweep angle of the Arc.
         /// </summary>
-        [GeometryAngle]
+        [XmlIgnore]
+        [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The sweep angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlIgnore]
         public double SweepAngle
         {
             get { return sweepAngle; }
@@ -257,12 +284,35 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the sweep angle of the Arc in Degrees.
+        /// </summary>
+        [XmlAttribute("angle-Sweep")]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The sweep angle of the Arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double SweepAngleDegrees
+        {
+            get { return sweepAngle.ToDegrees(); }
+            set
+            {
+                sweepAngle = value.ToRadians();
+                OnPropertyChanged(nameof(SweepAngleDegrees));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the end angle of the Arc.
         /// </summary>
-        [GeometryAngle]
+        [XmlIgnore]
+        [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
@@ -276,12 +326,32 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the end angle of the Arc.
+        /// </summary>
+        [XmlIgnore]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The end angle of the Arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double EndAngleDegrees
+        {
+            get { return (startAngle + sweepAngle).ToDegrees(); }
+            set
+            {
+                sweepAngle = value.ToRadians() - startAngle;
+                OnPropertyChanged(nameof(EndAngleDegrees));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
         public Point2D StartPoint
             => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 0);
-        // new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
 
         /// <summary>
         /// 
@@ -289,7 +359,6 @@ namespace Engine
         [XmlIgnore]
         public Point2D EndPoint
             => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 1);
-        //new Point2D(x + radius * Cos(-sweepAngle), y + radius * Sin(-sweepAngle));
 
         /// <summary>
         /// 
@@ -301,15 +370,16 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The tight rectangular boundaries of the Arc.")]
-        [XmlIgnore]
         public override Rectangle2D Bounds
             => Boundings.CircularArc(x, y, radius, startAngle, SweepAngle);
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Arc.")]
         public Rectangle2D DrawingBounds
@@ -319,6 +389,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The distance around the Arc.")]
         public double ArcLength
@@ -327,6 +398,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The area of the arc.")]
         public override double Area

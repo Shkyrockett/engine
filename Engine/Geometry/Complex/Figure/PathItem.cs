@@ -1,4 +1,4 @@
-﻿// <copyright file="ChainMember.cs" >
+﻿// <copyright file="PathItem.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -15,61 +15,76 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// An abstract class representing a piece of a geometric figure.
     /// </summary>
     [Serializable]
-    [XmlInclude(typeof(FigureArc))]
-    [XmlInclude(typeof(FigureCardinal))]
-    [XmlInclude(typeof(FigureCubicBezier))]
-    [XmlInclude(typeof(FigureLineSegment))]
-    [XmlInclude(typeof(FigurePoint))]
-    [XmlInclude(typeof(FigureQuadraticBezier))]
+    [XmlInclude(typeof(PathArc))]
+    [XmlInclude(typeof(PathCardinal))]
+    [XmlInclude(typeof(PathCubicBezier))]
+    [XmlInclude(typeof(PathLineSegment))]
+    [XmlInclude(typeof(PathPoint))]
+    [XmlInclude(typeof(PathQuadraticBezier))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class FigureItem
+    public abstract class PathItem
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public FigureItem()
+        public PathItem()
         { }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore]
-        public FigureItem Previous { get; set; }
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the flag indicating whether the item'spossition should be 
+        /// calculated relitive to the last item, or from Origin. 
         /// </summary>
         [XmlIgnore]
-        public FigureItem Next { get; set; }
+        public bool Relitive { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a reference to the previous gometric item.
+        /// </summary>
+        [XmlIgnore]
+        public PathItem Previous { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the next geometric item.
+        /// </summary>
+        [XmlIgnore]
+        public PathItem Next { get; set; }
+
+        /// <summary>
+        /// Gets or sets the starting coordinates for the item.
         /// </summary>
         [XmlIgnore]
         public abstract Point2D Start { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the next to last point of the item.
         /// </summary>
         [XmlIgnore]
         public abstract Point2D NextToEnd { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the ending coordinates for the item.
         /// </summary>
         [XmlIgnore]
         public abstract Point2D End { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the bounding rectangle of this segment of the shape.
         /// </summary>
         [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public abstract Rectangle2D Bounds { get; }
+
+        #endregion
     }
 }

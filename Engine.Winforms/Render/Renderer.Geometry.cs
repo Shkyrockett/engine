@@ -265,7 +265,7 @@ namespace Engine.Imaging
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
-        public static void Render(this Figure shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this GeometryPath shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
@@ -274,14 +274,14 @@ namespace Engine.Imaging
             {
                 switch (figureItem)
                 {
-                    case FigurePoint t:
+                    case PathPoint t:
                         path.StartFigure();
                         path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
                         break;
-                    case FigureLineSegment t:
+                    case PathLineSegment t:
                         path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
                         break;
-                    case FigureArc t:
+                    case PathArc t:
                         var arc = t.ToEllipticalArc();
                         var mat = new Matrix();
                         mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
@@ -290,13 +290,13 @@ namespace Engine.Imaging
                         mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                         path.Transform(mat);
                         break;
-                    case FigureCubicBezier t:
+                    case PathCubicBezier t:
                         path.AddBezier(t.Start.ToPointF(), t.Handle1.ToPointF(), t.Handle2.ToPointF(), t.End.ToPointF());
                         break;
-                    case FigureQuadraticBezier t:
+                    case PathQuadraticBezier t:
                         path.AddBeziers(new PointF[] { t.Start.ToPointF(), t.Handle.ToPointF(), t.End.ToPointF() });
                         break;
-                    case FigureCardinal t:
+                    case PathCardinal t:
                         path.AddCurve(t.Nodes.ToPointFArray());
                         break;
                     case null:

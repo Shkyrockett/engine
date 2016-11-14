@@ -175,9 +175,9 @@ namespace Editor
             //GraphicItem rectangle8Item = new GraphicItem(rectangle8, styles[9]);
             //vectorMap.Add(rectangle8Item);
 
-            //Shape oval = new Oval(new Point2D(200, 200), new Size2D(100, 200));
-            //GraphicItem ovalItem = new GraphicItem(oval, styles[6]);
-            //vectorMap.Add(ovalItem);
+            Shape oval = new Oval(new Point2D(200, 200), new Size2D(100, 200));
+            GraphicItem ovalItem = new GraphicItem(oval, styles[6]);
+            vectorMap.Add(ovalItem);
 
             //Shape polygon = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) });
             //GraphicItem polygonItem = new GraphicItem(polygon, styles[3]);
@@ -191,40 +191,40 @@ namespace Editor
             //var lineItem = new GraphicItem(line, styles[5]);
             //vectorMap.Add(lineItem);
 
-            //Shape set = new PolygonSet(
-            //    new List<Polygon>(
-            //        new List<Polygon> {
-            //            new Polygon( // Boundary
-            //                new List<Point2D> {
-            //                    new Point2D(10, 10),
-            //                    new Point2D(300, 10),
-            //                    new Point2D(300, 300),
-            //                    new Point2D(10, 300),
-            //                    // Cut out
-            //                    new Point2D(10, 200),
-            //                    new Point2D(200, 80),
-            //                    new Point2D(10, 150)
-            //                }
-            //            ),
-            //            new Polygon( // First inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30)
-            //                }
-            //            ),
-            //            new Polygon( // Second inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(250, 150),
-            //                    new Point2D(150, 150),
-            //                    new Point2D(250, 200)
-            //                }
-            //            )
-            //        }
-            //    )
-            //);
-            //var setItem = new GraphicItem(set, styles[8]);
-            //vectorMap.Add(setItem);
+            Shape set = new PolygonSet(
+                new List<Polygon>(
+                    new List<Polygon> {
+                        new Polygon( // Boundary
+                            new List<Point2D> {
+                                new Point2D(10, 10),
+                                new Point2D(300, 10),
+                                new Point2D(300, 300),
+                                new Point2D(10, 300),
+                                // Cut out
+                                new Point2D(10, 200),
+                                new Point2D(200, 80),
+                                new Point2D(10, 150)
+                            }
+                        ),
+                        new Polygon( // First inner triangle
+                            new List<Point2D> {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30)
+                            }
+                        ),
+                        new Polygon( // Second inner triangle
+                            new List<Point2D> {
+                                new Point2D(250, 150),
+                                new Point2D(150, 150),
+                                new Point2D(250, 200)
+                            }
+                        )
+                    }
+                )
+            );
+            var setItem = new GraphicItem(set, styles[8]);
+            vectorMap.Add(setItem);
 
             //Shape innerPolygon = new Polygon( // First inner triangle
             //                new List<Point2D> {
@@ -360,14 +360,14 @@ namespace Editor
             //var EllpticArcBoundsItem = new GraphicItem(EllpticArcBounds, styles[10]);
             //vectorMap.Add(EllpticArcBoundsItem);
 
-            //double centerX = 200d;
-            //double centerY = 200d;
-            //double radius1 = 100d;
-            //double radius2 = 200d;
+            double centerX = 200d;
+            double centerY = 200d;
+            double radius1 = 100d;
+            double radius2 = 200d;
 
-            //double angle = -30d.ToRadians();
-            //double startAngle = -60d.ToRadians();
-            //double sweepAngle = -90d.ToRadians();
+            double angle = -30d.ToRadians();
+            double startAngle = -60d.ToRadians();
+            double sweepAngle = -90d.ToRadians();
 
             //var parametricEllipse = new ParametricDelegateCurve(
             //    (x, y, w, h, a, t) => Interpolaters.UnitPolarEllipse(x, y, w, h, a, t),
@@ -397,11 +397,11 @@ namespace Editor
             //var ellipseNodes = new Polygon(Boundings.EllipseExtremes(centerX, centerY, radius1, radius2, angle));
             //var ellipseNodesItem = new GraphicItem(ellipseNodes, styles[10]);
 
-            //var ellipse = new Ellipse(centerX, centerY, radius1, radius2, angle);
-            //var ellipseItem = new GraphicItem(ellipse, styles[3]);
+            var ellipse = new Ellipse(centerX, centerY, radius1, radius2, angle);
+            var ellipseItem = new GraphicItem(ellipse, styles[3]);
 
-            //var ellipticArc = new EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
-            //var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
+            var ellipticArc = new EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            var ellipticArcItem = new GraphicItem(ellipticArc, styles[3]);
 
             //Rectangle2D ellpticArcBounds = Boundings.EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             //var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, styles[10]);
@@ -409,8 +409,8 @@ namespace Editor
             //var angleLines = new Polyline(ellipticArc.StartPoint, ellipticArc.Center, ellipticArc.EndPoint);
             //var angleLinesItem = new GraphicItem(angleLines, styles[10]);
 
-            //var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
-            //var circularArcItem = new GraphicItem(circularArc, styles[3]);
+            var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
+            var circularArcItem = new GraphicItem(circularArc, styles[3]);
 
             //Rectangle2D circularArcBounds = Boundings.CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
             //var circularArcBoundsItem = new GraphicItem(circularArcBounds, styles[10]);
@@ -423,9 +423,9 @@ namespace Editor
 
             //vectorMap.Add(ellpticArcBoundsItem);
             //vectorMap.Add(circularArcBoundsItem);
-            //vectorMap.Add(ellipseItem);
-            //vectorMap.Add(ellipticArcItem);
-            //vectorMap.Add(circularArcItem);
+            vectorMap.Add(ellipseItem);
+            vectorMap.Add(ellipticArcItem);
+            vectorMap.Add(circularArcItem);
             //vectorMap.Add(ellipseNodesItem);
             //vectorMap.Add(angleLinesItem);
             //vectorMap.Add(angleVisualizerItem);
@@ -480,14 +480,14 @@ namespace Editor
             //var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, styles[10]);
             //vectorMap.Add(CircleArcBoundsItem);
 
-            //var cubicBezier = new CubicBezier(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
-            //var cubicBezierItem = new GraphicItem(cubicBezier, styles[1]);
+            var cubicBezier = new CubicBezier(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
+            var cubicBezierItem = new GraphicItem(cubicBezier, styles[1]);
 
             //var cubicBezierNodes = new NodeRevealer(new List<Point2D> { cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D }, 5d);
             //var cubicBezierNodeItem = new GraphicItem(cubicBezierNodes, styles[6]);
 
-            //var quadraticBezier = new QuadraticBezier(new Point2D(50, 100), new Point2D(75, 50), new Point2D(150, 100));
-            //var quadraticBezierItem = new GraphicItem(quadraticBezier, styles[1]);
+            var quadraticBezier = new QuadraticBezier(new Point2D(50, 100), new Point2D(75, 50), new Point2D(150, 100));
+            var quadraticBezierItem = new GraphicItem(quadraticBezier, styles[1]);
 
             //var quadraticBezierNodes = new NodeRevealer(new List<Point2D> { quadraticBezier.A, quadraticBezier.B, quadraticBezier.C }, 5d);
             //var quadraticBezierNodeItem = new GraphicItem(quadraticBezierNodes, styles[6]);
@@ -495,8 +495,8 @@ namespace Editor
             //var cubicBezier2 = new CubicBezier(new Point2D(50, 101), new Point2D(75, 50), new Point2D(125, 100), new Point2D(150, 25));
             //var cubicBezier2Item = new GraphicItem(cubicBezier2, styles[1]);
 
-            //var segment = new LineSegment(new Point2D(20, 70), new Point2D(180, 80));
-            //var segmentItem = new GraphicItem(segment, styles[1]);
+            var segment = new LineSegment(new Point2D(20, 70), new Point2D(180, 80));
+            var segmentItem = new GraphicItem(segment, styles[1]);
 
             //var segmentNodes = new NodeRevealer(new List<Point2D> { segment.A, segment.B }, 5d);
             //var segmentNodeItem = new GraphicItem(segmentNodes, styles[6]);
@@ -521,10 +521,10 @@ namespace Editor
             //var intersection2Nodes = new NodeRevealer(intersections2, 5d);
             //var intersection2NodesItem = new GraphicItem(intersection2Nodes, styles[6]);
 
-            //vectorMap.Add(cubicBezierItem);
-            //vectorMap.Add(quadraticBezierItem);
+            vectorMap.Add(cubicBezierItem);
+            vectorMap.Add(quadraticBezierItem);
             //vectorMap.Add(cubicBezier2Item);
-            //vectorMap.Add(segmentItem);
+            vectorMap.Add(segmentItem);
             //vectorMap.Add(cubicBezierNodeItem);
             //vectorMap.Add(quadraticBezierNodeItem);
             //vectorMap.Add(segmentNodeItem);
@@ -533,7 +533,7 @@ namespace Editor
             //vectorMap.Add(intersection3NodesItem);
             //vectorMap.Add(intersection2NodesItem);
 
-            var figure = new Figure(new Point2D(150d, 200d));
+            var figure = new GeometryPath(new Point2D(150d, 200d));
             figure.AddLineSegment(new Point2D(200, 200))
                 .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
                 .AddLineSegment(new Point2D(250, 300))
@@ -793,6 +793,11 @@ namespace Editor
             vectorMap.VisibleBounds = new Rectangle2D(panel.Bounds.X, panel.Bounds.Y, panel.Bounds.Width, panel.Bounds.Height);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void openToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             openFileDialog1.FileName = vectorFilename;
@@ -813,6 +818,11 @@ namespace Editor
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             if (vectorFilename == String.Empty)
@@ -825,11 +835,20 @@ namespace Editor
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveAsToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             saveAs(vectorFilename);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
         private void saveAs(string filename = "")
         {
             saveFileDialog1.FileName = filename;
@@ -851,6 +870,11 @@ namespace Editor
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
         private object load(string filename)
         {
             using (TextReader reader = new StreamReader(filename))
@@ -859,6 +883,11 @@ namespace Editor
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="item"></param>
         private void serialize(string filename, VectorMap item)
         {
             using (TextWriter tw = new StreamWriter(filename))
@@ -867,6 +896,11 @@ namespace Editor
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="item"></param>
         private void serialize(TextWriter writer, VectorMap item)
         {
             vectorMapSserializer.Serialize(writer, item);

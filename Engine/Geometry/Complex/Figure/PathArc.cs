@@ -1,4 +1,4 @@
-﻿// <copyright file="FigureArc.cs" >
+﻿// <copyright file="PathArc.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -18,13 +18,15 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class FigureArc
-        : FigureItem
+    public class PathArc
+        : PathItem
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public FigureArc()
+        public PathArc()
         { }
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace Engine
         /// <param name="item"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public FigureArc(FigureItem item, bool relitive, Double[] args)
+        public PathArc(PathItem item, bool relitive, Double[] args)
             : this(item, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? new Point2D(args[5], args[6]) : null)
         {
             if (relitive)
@@ -50,7 +52,7 @@ namespace Engine
         /// <param name="largeArc"></param>
         /// <param name="sweep"></param>
         /// <param name="end"></param>
-        public FigureArc(FigureItem previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D end)
+        public PathArc(PathItem previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
@@ -61,6 +63,10 @@ namespace Engine
             Sweep = sweep;
             End = end;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -120,6 +126,10 @@ namespace Engine
         public override Rectangle2D Bounds
             => ToEllipticalArc().Bounds;
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -134,5 +144,7 @@ namespace Engine
         /// <returns></returns>
         public EllipticalArc ToEllipticalArc()
             => new EllipticalArc(Start.X, Start.Y, RX, RY, Angle, LargeArc, Sweep, End.X, End.Y);
+
+        #endregion
     }
 }

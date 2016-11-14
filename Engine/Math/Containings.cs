@@ -711,14 +711,14 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion FigurePoint(Figure figure, Point2D point)
+        public static Inclusion FigurePoint(GeometryPath figure, Point2D point)
         {
             Inclusion included = PolygonPoint(figure.Nodes, point.X, point.Y);
             foreach (var item in figure?.Items)
             {
                 switch (item)
                 {
-                    case FigureArc t:
+                    case PathArc t:
                         // This produces false negitives at the Polygon boundaries. But that is better than false positives.
                         var arc = t.Contains(point);
                         if (included == Inclusion.Boundary & arc == Inclusion.Inside) included = Inclusion.Inside;
@@ -743,7 +743,7 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Figure figure, Point2D point)
+        public static Inclusion Contains(this GeometryPath figure, Point2D point)
             => FigurePoint(figure, point);
 
         /// <summary>

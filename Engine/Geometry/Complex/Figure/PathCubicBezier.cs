@@ -1,4 +1,4 @@
-﻿// <copyright file="FigureCubicBezier.cs" >
+﻿// <copyright file="PathCubicBezier.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -18,13 +18,15 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class FigureCubicBezier
-         : FigureItem
+    public class PathCubicBezier
+         : PathItem
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public FigureCubicBezier()
+        public PathCubicBezier()
         { }
 
         /// <summary>
@@ -33,8 +35,8 @@ namespace Engine
         /// <param name="item"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public FigureCubicBezier(FigureItem item, bool relitive, Double[] args)
-            : this(item,relitive, args.Length == 6 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]), new Point2D(args[4], args[5]) }
+        public PathCubicBezier(PathItem item, bool relitive, Double[] args)
+            : this(item, relitive, args.Length == 6 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]), new Point2D(args[4], args[5]) }
                        : args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) } : null)
         { }
 
@@ -44,7 +46,7 @@ namespace Engine
         /// <param name="item"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public FigureCubicBezier(FigureItem item, bool relitive, Point2D[] args)
+        public PathCubicBezier(PathItem item, bool relitive, Point2D[] args)
             : this(item, args.Length == 3 ? args[0] : null, args.Length == 3 ? args[1] : args[0], args.Length == 3 ? args[1] : args[2])
         {
             if (relitive)
@@ -62,7 +64,7 @@ namespace Engine
         /// <param name="handle1"></param>
         /// <param name="handle2"></param>
         /// <param name="end"></param>
-        public FigureCubicBezier(FigureItem previous, Point2D handle1, Point2D handle2, Point2D end)
+        public PathCubicBezier(PathItem previous, Point2D handle1, Point2D handle2, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
@@ -70,6 +72,10 @@ namespace Engine
             Handle2 = handle2;
             End = end;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -109,7 +115,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.CubicBezier(Start, Handle1, Handle2, End);
+            => Boundings.CubicBezier(Start.X,Start.Y, Handle1.X,Handle1.Y, Handle2.X,Handle2.Y, End.X, End.Y);
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// 
@@ -117,5 +127,7 @@ namespace Engine
         /// <returns></returns>
         public CubicBezier ToCubicBezier()
             => new CubicBezier(Start, Handle1, Handle2, End);
+
+        #endregion
     }
 }

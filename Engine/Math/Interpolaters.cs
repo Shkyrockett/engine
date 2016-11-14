@@ -1085,8 +1085,8 @@ namespace Engine
             => new Point2D[]
             {
                 a,
-                new Point2D((int)(a.X + (2d/3d) * (b.X - a.X)), (int)(a.Y + (2d/3d) * (b.Y - a.Y))),
-                new Point2D((int)(c.X + (2d/3d) * (b.X - c.X)), (int)(c.Y + (2d/3d) * (b.Y - c.Y))),
+                new Point2D((int)(a.X + TwoThirds * (b.X - a.X)), (int)(a.Y + TwoThirds * (b.Y - a.Y))),
+                new Point2D((int)(c.X + TwoThirds * (b.X - c.X)), (int)(c.Y + TwoThirds * (b.Y - c.Y))),
                 c
             };
 

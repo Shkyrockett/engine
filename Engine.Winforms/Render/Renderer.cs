@@ -100,7 +100,7 @@ namespace Engine.Imaging
                 case QuadraticBezier t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
-                case Figure t:
+                case GeometryPath t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case null:

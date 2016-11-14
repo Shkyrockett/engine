@@ -1,4 +1,4 @@
-﻿// <copyright file="RectangleCellGrid.cs">
+﻿// <copyright file="SquareCellGrid.cs">
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright> 
 // <license>
@@ -10,6 +10,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Xml.Serialization;
 using static System.Math;
 
 namespace Engine
@@ -26,9 +27,24 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// The exterior <see cref="Rectangle"/> bounds of the grid.
+        /// 
         /// </summary>
-        private Rectangle bounds;
+        private int x;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int y;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int h;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int v;
 
         /// <summary>
         /// The number of cells the grid should contain.
@@ -60,13 +76,22 @@ namespace Engine
         #region Constructors
 
         /// <summary>
+        /// 
+        /// </summary>
+        public SquareCellGrid()
+        { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SquareCellGrid"/> class.
         /// </summary>
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
         public SquareCellGrid(Rectangle bounds, int count)
         {
-            this.bounds = bounds;
+            x = bounds.X;
+            y = bounds.Y;
+            h = bounds.Width;
+            v = bounds.Height;
             this.count = count;
             Recalculate();
         }
@@ -76,25 +101,11 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets the <see cref="Rectangle"/> representing the bounding box of the cell at a given index of the grid. 
-        /// </summary>
-        /// <param name="index">The index of a cell in the grid.</param>
-        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
-        public Rectangle this[int index]
-        {
-            get
-            {
-                // ToDo: Implement flow orientation options.
-                var point = new Point((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
-                return new Rectangle(point, cellSize);
-            }
-        }
-
-        /// <summary>
         /// Gets the index of a cell at a given point in the grid.
         /// </summary>
         /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
         /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
+        [XmlIgnore]
         public int this[Point location]
         {
             get
@@ -112,14 +123,34 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets the <see cref="Rectangle"/> representing the bounding box of the cell at a given index of the grid. 
+        /// </summary>
+        /// <param name="index">The index of a cell in the grid.</param>
+        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
+        [XmlIgnore]
+        public Rectangle this[int index]
+        {
+            get
+            {
+                // ToDo: Implement flow orientation options.
+                var point = new Point((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
+                return new Rectangle(point, cellSize);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
         /// </summary>
+        [XmlIgnore]
         public new Rectangle Bounds
         {
-            get { return bounds; }
+            get { return new Rectangle(x, y, h, v); }
             set
             {
-                bounds = value;
+                x = value.X;
+                y = value.Y;
+                h = value.Width;
+                v = value.Height;
                 Recalculate();
                 OnPropertyChanged(nameof(Bounds));
                 update?.Invoke();
@@ -127,8 +158,73 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public int X
+        {
+            get { return x; }
+            set
+            {
+                x = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public int Y
+        {
+            get { return y; }
+            set
+            {
+                y = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public int Width
+        {
+            get { return h; }
+            set
+            {
+                h = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public int Height
+        {
+            get { return v; }
+            set
+            {
+                v = value;
+                Recalculate();
+                OnPropertyChanged(nameof(Count));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the number of cells the grid is to contain.
         /// </summary>
+        [XmlAttribute]
         public int Count
         {
             get { return count; }
@@ -144,28 +240,34 @@ namespace Engine
         /// <summary>
         /// Gets the calculated optimum <see cref="Size"/> height and width of any cell in the grid.
         /// </summary>
+        [XmlIgnore]
         public Size CellSize
             => cellSize;
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle"/> of the grid. 
         /// </summary>
+        [XmlIgnore]
         public Rectangle InnerBounds
             => innerBounds;
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
+        [XmlIgnore]
         public int Columns
             => columns;
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
+        [XmlIgnore]
         public int Rows
             => rows;
 
         #endregion
+
+        #region Methods
 
         /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 
@@ -179,7 +281,7 @@ namespace Engine
                 rows = columns;
 
                 // Calculate the optimum cell size for the grid.
-                int cellScale = Min(bounds.Width / columns, bounds.Height / rows);
+                int cellScale = Min(h / columns, v / rows);
 
                 // Set the size of the cell.
                 cellSize = new Size(cellScale, cellScale);
@@ -196,7 +298,10 @@ namespace Engine
         /// <param name="count">The number of cells the grid is to contain.</param>
         private void Recalculate(Rectangle bounds, int count)
         {
-            this.bounds = bounds;
+            x = bounds.X;
+            y = bounds.Y;
+            h = bounds.Width;
+            v = bounds.Height;
             this.count = count;
             Recalculate();
         }
@@ -206,6 +311,8 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => $"SquareCellGrid{{Bounds {{{bounds}}}, Count {count}}}";
+            => $"SquareCellGrid{{Bounds {{{Bounds}}}, Count {count}}}";
+
+        #endregion
     }
 }

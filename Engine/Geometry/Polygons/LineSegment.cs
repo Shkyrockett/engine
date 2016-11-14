@@ -24,6 +24,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(LineSegment))]
+    [XmlType(TypeName = "line")]
     public class LineSegment
         : Shape, IOpenShape
     {
@@ -40,12 +41,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private Point2D a;
+        private double ax;
 
         /// <summary>
         /// 
         /// </summary>
-        private Point2D b;
+        private double ay;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double bx;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double by;
 
         #endregion
 
@@ -141,7 +152,7 @@ namespace Engine
         /// First Point of a line segment
         /// </summary>
         /// <remarks></remarks>
-        [XmlElement]
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The first Point of a line segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -149,11 +160,55 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
-            get { return a; }
+            get { return new Point2D(ax, ay); }
             set
             {
-                a = value;
+                ax = value.X;
+                ay = value.Y;
                 OnPropertyChanged(nameof(A));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate of the first Point of a line segment.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("ax")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The X coordinate of the first Point of a line segment.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double AX
+        {
+            get { return ax; }
+            set
+            {
+                ax = value;
+                OnPropertyChanged(nameof(AX));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate of the first Point of a line segment.
+        /// </summary>
+        [XmlAttribute("ay")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The y coordinate of the first Point of a line segment.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double AY
+        {
+            get { return ay; }
+            set
+            {
+                ay = value;
+                OnPropertyChanged(nameof(AY));
+                update?.Invoke();
             }
         }
 
@@ -161,7 +216,7 @@ namespace Engine
         /// Ending Point of a Line Segment
         /// </summary>
         /// <remarks></remarks>
-        [XmlElement]
+        [XmlIgnore]
         [Category("Properties")]
         [Description("The ending Point of a Line Segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -169,11 +224,55 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
-            get { return b; }
+            get { return new Point2D(bx, by); }
             set
             {
-                b = value;
+                bx = value.X;
+                by = value.Y;
                 OnPropertyChanged(nameof(B));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate of the second Point of a line segment.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("bx")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The X coordinate of the second Point of a line segment.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double BX
+        {
+            get { return bx; }
+            set
+            {
+                bx = value;
+                OnPropertyChanged(nameof(BX));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate of the second Point of a line segment.
+        /// </summary>
+        [XmlAttribute("by")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The y coordinate of the second Point of a line segment.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double BY
+        {
+            get { return by; }
+            set
+            {
+                by = value;
+                OnPropertyChanged(nameof(BY));
+                update?.Invoke();
             }
         }
 

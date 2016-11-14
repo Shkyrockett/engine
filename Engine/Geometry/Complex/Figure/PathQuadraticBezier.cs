@@ -1,4 +1,4 @@
-﻿// <copyright file="FigureQuadraticBezier.cs" >
+﻿// <copyright file="PathQuadraticBezier.cs" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -18,13 +18,15 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class FigureQuadraticBezier
-         : FigureItem
+    public class PathQuadraticBezier
+         : PathItem
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
-        public FigureQuadraticBezier()
+        public PathQuadraticBezier()
         { }
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public FigureQuadraticBezier(FigureItem previous, bool relitive, Double[] args)
+        public PathQuadraticBezier(PathItem previous, bool relitive, Double[] args)
             : this(previous, relitive, args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) }
                        : args.Length == 2 ? new Point2D[] { new Point2D(args[0], args[1]) } : null)
         { }
@@ -44,7 +46,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public FigureQuadraticBezier(FigureItem previous, bool relitive, Point2D[] args)
+        public PathQuadraticBezier(PathItem previous, bool relitive, Point2D[] args)
             : this(previous, args.Length == 2 ? args[0] : null, args.Length == 2 ? args[0] : args[1])
         {
             if (relitive)
@@ -60,13 +62,17 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="handle"></param>
         /// <param name="end"></param>
-        public FigureQuadraticBezier(FigureItem previous, Point2D handle, Point2D end)
+        public PathQuadraticBezier(PathItem previous, Point2D handle, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
             Handle = handle == null ? (Point2D)(2 * previous.End - previous.NextToEnd) : handle;
             End = end;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -106,6 +112,8 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.QuadraticBezier(Start, Handle, End);
+            => Boundings.QuadraticBezier(Start.X, Start.Y, Handle.X, Handle.Y, End.X, End.Y);
+
+        #endregion
     }
 }

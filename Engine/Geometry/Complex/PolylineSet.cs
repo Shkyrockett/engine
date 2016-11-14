@@ -62,7 +62,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlArray]
         public List<Polyline> Polylines
         {
             get { return polylines; }
@@ -77,28 +77,28 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [XmlIgnore]
         public int Count
             => polylines.Count;
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [XmlIgnore]
         public double Perimeters
             => polylines.Sum(p => p.Perimeter);
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        [XmlIgnore]
         public override Rectangle2D Bounds
         {
             get

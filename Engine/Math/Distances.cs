@@ -257,21 +257,29 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <param name="p4"></param>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
         /// <returns></returns>
         /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
+        public static double CubicBezierArcLength(
+            double ax, double ay,
+            double bx, double by,
+            double cx, double cy,
+            double dx, double dy)
         {
-            var k1 = (Point2D)(-p1 + 3d * (p2 - p3) + p4);
-            Point2D k2 = 3d * (p1 + p3) - 6d * p2;
-            var k3 = (Point2D)(3d * (p2 - p1));
-            Point2D k4 = p1;
+            var k1 = new Point2D(-ax + 3d * (bx - cx) + dx, -ay + 3d * (by - cy) + dy);
+            var k2 = new Point2D(3d * (ax + cx) - 6d * bx, 3d * (ay + cy) - 6d * by);
+            var k3 = new Point2D(3d * (bx - ax), 3d * (by - ax));
+            var k4 = new Point2D(ax, ay);
 
             double q1 = 9d * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
             double q2 = 12d * (k1.X * k2.X + k1.Y * k2.Y);
@@ -366,9 +374,12 @@ namespace Engine
         /// <summary>
         /// Closed-form solution to elliptic integral for arc length.
         /// </summary>
-        /// <param name="pointA">The starting node for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="ax">The starting x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="ay">The starting y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="bx">The middle x-coordinate for the tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="by">The middle y-coordinate for the tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="cx">The closing x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="cy">The closing y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
         /// <returns></returns>
         /// <remarks>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
@@ -376,16 +387,19 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezierArcLengthByIntegral(Point2D pointA, Point2D pointB, Point2D pointC)
+        public static double QuadraticBezierArcLengthByIntegral(
+            double ax, double ay,
+            double bx, double by,
+            double cx, double cy)
         {
-            double ax = pointA.X - 2d * pointB.X + pointC.X;
-            double ay = pointA.Y - 2d * pointB.Y + pointC.Y;
-            double bx = 2d * pointB.X - 2d * pointA.X;
-            double by = 2d * pointB.Y - 2d * pointA.Y;
+            double _ax = ax - 2d * bx + cx;
+            double _ay = ay - 2d * by + cy;
+            double _bx = 2d * bx - 2d * ax;
+            double _by = 2d * by - 2d * ay;
 
-            double a = 4d * (ax * ax + ay * ay);
-            double b = 4d * (ax * bx + ay * by);
-            double c = bx * bx + by * by;
+            double a = 4d * (_ax * _ax + _ay * _ay);
+            double b = 4d * (_ax * _bx + _ay * _by);
+            double c = _bx * _bx + _by * _by;
 
             double abc = 2d * Sqrt(a + b + c);
             double a2 = Sqrt(a);

@@ -27,7 +27,7 @@ namespace Engine
     [XmlInclude(typeof(CubicBezier))]
     [XmlInclude(typeof(Ellipse))]
     [XmlInclude(typeof(EllipticalArc))]
-    [XmlInclude(typeof(Figure))]
+    [XmlInclude(typeof(GeometryPath))]
     [XmlInclude(typeof(LineSegment))]
     [XmlInclude(typeof(NodeRevealer))]
     [XmlInclude(typeof(QuadraticBezier))]

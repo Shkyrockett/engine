@@ -22,6 +22,14 @@ namespace Engine
     public class ParametricPointTester
         : Shape
     {
+        #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ParametricPointTester()
+        { }
+
         /// <summary>
         /// 
         /// </summary>
@@ -43,11 +51,15 @@ namespace Engine
             StepY = stepY;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// 
         /// </summary>
         [Browsable(true)]
-        [XmlElement]
+        [XmlIgnore]
         public Func<double, double, Inclusion> Intersecter { get; set; }
 
         /// <summary>
@@ -102,6 +114,9 @@ namespace Engine
             }
         }
 
+        #endregion
+
+        #region Methods
         /// <summary>
         /// 
         /// </summary>
@@ -157,5 +172,7 @@ namespace Engine
 
             return (boundary, inside, outside);
         }
+
+        #endregion
     }
 }

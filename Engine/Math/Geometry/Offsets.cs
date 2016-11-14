@@ -207,7 +207,7 @@ namespace Engine
             for (int i = 2; i < polyline.Points.Count; i++)
             {
                 LineSegment newOffsetLine = OffsetSegment(polyline.Points[i - 1], polyline.Points[i], offset);
-                polygon.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
+                polygon.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)[0]);
                 offsetLine = newOffsetLine;
             }
 
@@ -236,11 +236,11 @@ namespace Engine
             for (int i = 1; i < polygon.Points.Count; i++)
             {
                 LineSegment newOffsetLine = OffsetSegment(points[i - 1], points[i], offset);
-                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y).Item2);
+                polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)[0]);
                 offsetLine = newOffsetLine;
             }
 
-            polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y).Item2);
+            polyline.Add(Intersections.LineLine(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y)[0]);
 
             return polyline;
         }

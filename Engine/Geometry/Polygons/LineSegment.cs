@@ -353,9 +353,7 @@ namespace Engine
         /// </summary>
         /// <returns>an array of points</returns>
         /// <remarks></remarks>
-        public Point2D[] ToArray() => new Point2D[] {
-                 A,
-                 B};
+        public Point2D[] ToArray() => new Point2D[] { A, B };
 
         /// <summary>
         /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string

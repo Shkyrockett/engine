@@ -461,7 +461,6 @@ namespace Engine
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
-
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
@@ -722,7 +721,7 @@ namespace Engine
                         // This produces false negitives at the Polygon boundaries. But that is better than false positives.
                         var arc = t.Contains(point);
                         if (included == Inclusion.Boundary & arc == Inclusion.Inside) included = Inclusion.Inside;
-                        var line = Intersections.LineSegmentPoint(t.Start.X, t.Start.Y, t.End.X, t.End.Y, point.X, point.Y);
+                        //var line = Intersectings.LineSegmentPoint(t.Start.X, t.Start.Y, t.End.X, t.End.Y, point.X, point.Y);
                         included = included ^ arc;
                         if (arc == Inclusion.Boundary) included = Inclusion.Boundary;
                         break;

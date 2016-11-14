@@ -650,10 +650,10 @@ namespace Engine
 
             // Find the points of intersection.
             boundingRect.CurrentRectangle = new Point2D[4];
-            boundingRect.CurrentRectangle[0] = Intersections.LineLine(px0, py0, px0 + dx0, py0 + dy0, px1, py1, px1 + dx1, py1 + dy1).Points;
-            boundingRect.CurrentRectangle[1] = Intersections.LineLine(px1, py1, px1 + dx1, py1 + dy1, px2, py2, px2 + dx2, py2 + dy2).Points;
-            boundingRect.CurrentRectangle[2] = Intersections.LineLine(px2, py2, px2 + dx2, py2 + dy2, px3, py3, px3 + dx3, py3 + dy3).Points;
-            boundingRect.CurrentRectangle[3] = Intersections.LineLine(px3, py3, px3 + dx3, py3 + dy3, px0, py0, px0 + dx0, py0 + dy0).Points;
+            boundingRect.CurrentRectangle[0] = Intersections.LineLine(px0, py0, px0 + dx0, py0 + dy0, px1, py1, px1 + dx1, py1 + dy1)[0];
+            boundingRect.CurrentRectangle[1] = Intersections.LineLine(px1, py1, px1 + dx1, py1 + dy1, px2, py2, px2 + dx2, py2 + dy2)[0];
+            boundingRect.CurrentRectangle[2] = Intersections.LineLine(px2, py2, px2 + dx2, py2 + dy2, px3, py3, px3 + dx3, py3 + dy3)[0];
+            boundingRect.CurrentRectangle[3] = Intersections.LineLine(px3, py3, px3 + dx3, py3 + dy3, px0, py0, px0 + dx0, py0 + dy0)[0];
 
             // See if this is the best bounding rectangle so far.
             // Get the area of the bounding rectangle.

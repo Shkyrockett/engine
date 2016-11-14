@@ -7,10 +7,8 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
@@ -18,54 +16,73 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// A collection of methods for checking the interactions of objects.
+    /// A collection of methods for collecting the interactions of geometry.
     /// </summary>
     public static class Intersections
     {
-        /// <summary>
-        /// Check whether a point is coincident to a line segment.
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public static bool Intersects(LineSegment s, Point2D p)
-            => LineSegmentPoint(s.A.X, s.A.Y, s.B.X, s.B.Y, p.X, p.Y);
-
-        /// <summary>
-        /// Check whether a point is coincident to a line segment.
-        /// </summary>
-        /// <param name="segmentAX"></param>
-        /// <param name="segmentAY"></param>
-        /// <param name="segmentBX"></param>
-        /// <param name="segmentBY"></param>
-        /// <param name="pointX"></param>
-        /// <param name="pointY"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineSegmentPoint(
-            double segmentAX,
-            double segmentAY,
-            double segmentBX,
-            double segmentBY,
-            double pointX,
-            double pointY)
-            => ((pointX == segmentAX) && (pointY == segmentAY)) ||
-                ((pointX == segmentBX) && (pointY == segmentBY)) ||
-                (((pointX > segmentAX) == (pointX < segmentBX)) &&
-                ((pointY > segmentAY) == (pointY < segmentBY)) &&
-                ((pointX - segmentAX) * (segmentBY - segmentAY) ==
-                (segmentBX - segmentAX) * (pointY - segmentAY)));
-
         /// <summary>
         /// Find the intersection point between two lines.
         /// </summary>
         /// <param name="s1"></param>
         /// <param name="s2"></param>
         /// <returns></returns>
-        public static (bool Intersecting, Point2D Points) Intersects(LineSegment s1, LineSegment s2)
-            => LineLine(s1.A.X, s1.A.Y, s1.B.X, s1.B.Y, s2.A.X, s2.A.Y, s2.B.X, s2.B.Y);
+        public static List<Point2D> Intersection(this LineSegment s1, LineSegment s2)
+            => LineSegmentLineSegment(s1.A.X, s1.A.Y, s1.B.X, s1.B.Y, s2.A.X, s2.A.Y, s2.B.X, s2.B.Y);
+
+        /// <summary>
+        /// Find the points of the intersection of a circle and a line segment.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> Intersection(this LineSegment s, Circle c)
+            => CircleLineSegment(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
+
+        /// <summary>
+        /// Find the points of the intersection of a circle and a line segment.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> Intersection(this Circle c, LineSegment s)
+            => CircleLineSegment(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
+
+        /// <summary>
+        /// Find the points of the intersection between two circles.
+        /// </summary>
+        /// <param name="c0"></param>
+        /// <param name="c1"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> Intersection(this Circle c0, Circle c1)
+            => CircleCircle(c0.X, c0.Y, c0.Radius, c1.X, c1.Y, c1.Radius);
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> Intersection(this Ellipse e, LineSegment s)
+            => EllipseLineSegment(e.X, e.Y, e.RX, e.RY, s.A.X, s.A.Y, e.Angle, s.B.X, s.B.Y);
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> Intersection(this LineSegment s, Ellipse e)
+            => EllipseLineSegment(e.X, e.Y, e.RX, e.RY, s.A.X, s.A.Y, e.Angle, s.B.X, s.B.Y);
 
         /// <summary>
         /// Find the intersection point between two lines.
@@ -82,12 +99,14 @@ namespace Engine
         /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (bool Intersecting, Point2D Points) LineLine(
+        public static List<Point2D> LineSegmentLineSegment(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
         {
+            List<Point2D> result = new List<Point2D>();
+
             // Translate lines to origin.
             double u1 = (x1 - x0);
             double v1 = (y1 - y0);
@@ -97,53 +116,65 @@ namespace Engine
             // Calculate the determinant of the coefficient matrix.
             double determinant = (v2 * u1) - (u2 * v1);
 
-            // Check if the line are parallel.
+            // Check if the lines are parallel.
             if (Abs(determinant) < Epsilon)
-                return (false, null);
+                return result;
 
             // Find the index where the intersection point lies on the line.
             double s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
             double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
 
-            return (
-                 // Check whether the point is on the segment.
-                 (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d),
-                // If it exists, the point of intersection is:
-                new Point2D(x0 + t * u1, y0 + t * v1));
+            // Check whether the point is on the segment.
+            if ((t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d)) result.Add(new Point2D(x0 + t * u1, y0 + t * v1));
+
+            return result;
         }
 
         /// <summary>
-        /// Determines if this rectangle interests with another rectangle.
+        /// Find the intersection point between two lines.
         /// </summary>
-        /// <param name="rect1"></param>
-        /// <param name="rect2"></param>
-        /// <returns></returns>
-        public static bool Intersects(this Rectangle2D rect1, Rectangle2D rect2)
-            => RectangleRectangle(rect1.X, rect1.Y, rect1.Width, rect1.Height, rect2.X, rect2.Y, rect2.Width, rect2.Height);
-
-        /// <summary>
-        /// Determines if this rectangle interests with another rectangle.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="height1"></param>
-        /// <param name="width1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="height2"></param>
-        /// <param name="width2"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x component of the first point of the first line.</param>
+        /// <param name="y0">The y component of the first point of the first line.</param>
+        /// <param name="x1">The x component of the second point of the first line.</param>
+        /// <param name="y1">The y component of the second point of the first line.</param>
+        /// <param name="x2">The x component of the first point of the second line.</param>
+        /// <param name="y2">The y component of the first point of the second line.</param>
+        /// <param name="x3">The x component of the second point of the second line.</param>
+        /// <param name="y3">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RectangleRectangle(
+        public static List<Point2D> LineLine(
+            double x0, double y0,
             double x1, double y1,
-            double height1, double width1,
             double x2, double y2,
-            double height2, double width2)
-            => (x2 < x1 + width1)
-            && (x1 < (x2 + width2))
-            && (y2 < y1 + height1)
-            && (y1 < y2 + width2);
+            double x3, double y3)
+        {
+            List<Point2D> result = new List<Point2D>();
+
+            // Translate lines to origin.
+            double u1 = (x1 - x0);
+            double v1 = (y1 - y0);
+            double u2 = (x3 - x2);
+            double v2 = (y3 - y2);
+
+            // Calculate the determinant of the coefficient matrix.
+            double determinant = (v2 * u1) - (u2 * v1);
+
+            // Check if the lines are parallel.
+            if (Abs(determinant) < Epsilon)
+                return result;
+
+            // Find the index where the intersection point lies on the line.
+            double s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+
+            // Check whether the point is on the segment.
+            result.Add(new Point2D(x0 + t * u1, y0 + t * v1));
+
+            return result;
+        }
 
         /// <summary>
         /// Find the points where the two circles intersect.
@@ -158,7 +189,7 @@ namespace Engine
         /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (int Count, Point2D Intersecting1, Point2D Intersecting2) CircleCircle(
+        public static List<Point2D> CircleCircle(
             double cx0,
             double cy0,
             double radius0,
@@ -166,71 +197,63 @@ namespace Engine
             double cy1,
             double radius1)
         {
+            List<Point2D> result = new List<Point2D>();
+
+            // If either of the circles are empty, return no intersections.
+            if ((radius0 == 0d) || (radius1 == 0d))
+                return result;
+
             // Find the distance between the centers.
             double dx = cx0 - cx1;
             double dy = cy0 - cy1;
             double dist = Sqrt(dx * dx + dy * dy);
 
-            Point2D intersection1;
-            Point2D intersection2;
-
             // See how many solutions there are.
             if (dist > radius0 + radius1)
             {
                 // No solutions, the circles are too far apart.
-                intersection1 = new Point2D(double.NaN, double.NaN);
-                intersection2 = new Point2D(double.NaN, double.NaN);
-                return (0, intersection1, intersection2);
+                // This would be a good point to return a null Lotus.
             }
             else if (dist < Abs(radius0 - radius1))
             {
                 // No solutions, one circle contains the other.
-                intersection1 = new Point2D(double.NaN, double.NaN);
-                intersection2 = new Point2D(double.NaN, double.NaN);
-                return (0, intersection1, intersection2);
+                // This would be a good point to return a Lotus struct of th smaller of the circles.
             }
             else if ((Abs(dist) < Epsilon) && (Abs(radius0 - radius1) < Epsilon))
             {
                 // No solutions, the circles coincide.
-                intersection1 = new Point2D(double.NaN, double.NaN);
-                intersection2 = new Point2D(double.NaN, double.NaN);
-                return (0, intersection1, intersection2);
+                // This would be a good point to return a Lotus struct of one of the circles.
             }
             else
             {
                 // Find a and h.
-                double a = (radius0 * radius0
-                    - radius1 * radius1 + dist * dist) / (2 * dist);
+                double a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
                 double h = Sqrt(radius0 * radius0 - a * a);
 
                 // Find P2.
                 double cx2 = cx0 + a * (cx1 - cx0) / dist;
                 double cy2 = cy0 + a * (cy1 - cy0) / dist;
 
-                // Get the points P3.
-                intersection1 = new Point2D(
-                    (cx2 + h * (cy1 - cy0) / dist),
-                    (cy2 - h * (cx1 - cx0) / dist));
-                intersection2 = new Point2D(
-                    (cx2 - h * (cy1 - cy0) / dist),
-                    (cy2 + h * (cx1 - cx0) / dist));
-
                 // See if we have 1 or 2 solutions.
                 if (Abs(dist - radius0 + radius1) < Epsilon)
-                    return (1, intersection1, intersection2);
-
-                return (2, intersection1, intersection2);
+                    // Get the points P3.
+                    result.Add(new Point2D(
+                    (cx2 + h * (cy1 - cy0) / dist),
+                    (cy2 - h * (cx1 - cx0) / dist)));
+                else
+                {
+                    // Get the points P3.
+                    result.Add(new Point2D(
+                    (cx2 + h * (cy1 - cy0) / dist),
+                    (cy2 - h * (cx1 - cx0) / dist)));
+                    result.Add(new Point2D(
+                    (cx2 - h * (cy1 - cy0) / dist),
+                    (cy2 + h * (cx1 - cx0) / dist)));
+                }
             }
-        }
 
-        /// <summary>
-        /// Find the points of the intersection of a circle and a line segment.
-        /// </summary>
-        /// <param name="c"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static (bool, (double, double)?, bool, (double, double)?) Intersects(this Circle c, LineSegment s)
-            => CircleLineSegment(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
+            return result;
+        }
 
         /// <summary>
         /// Find the points of the intersection of a circle and a line segment.
@@ -248,52 +271,54 @@ namespace Engine
         /// </remarks>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (bool, (double, double)?, bool, (double, double)?) CircleLineSegment(
+        public static List<Point2D> CircleLineSegment(
             double cX, double cY,
             double radius,
             double x1, double y1,
             double x2, double y2)
         {
+            List<Point2D> result = new List<Point2D>();
+
+            // If the circle or line segment are empty, return no intersections.
+            if ((radius == 0d) || ((x1 == x2) && (y1 == y2)))
+                return result;
+
             double dx = x2 - x1;
             double dy = y2 - y1;
 
+            // Calculate the quadratic parameters.
             double a = dx * dx + dy * dy;
             double b = 2 * (dx * (x1 - cX) + dy * (y1 - cY));
             double c = (x1 - cX) * (x1 - cX) + (y1 - cY) * (y1 - cY) - radius * radius;
 
-            double determinant = b * b - 4 * a * c;
+            // Calculate the discriminant.
+            double discriminant = b * b - 4 * a * c;
 
-            if ((a <= 0.0000001) || (determinant < 0))
+            if ((a <= Epsilon) || (discriminant < 0))
             {
                 // No real solutions.
-                return (false, null, false, null);
             }
-            else if (determinant == 0)
+            else if (discriminant == 0)
             {
                 // One solution.
                 double t = -b / (2 * a);
-                return ((t >= 0d) && (t <= 1d), (x1 + t * dx, y1 + t * dy), false, null);
+
+                // Add the points if they are between the end points of the line segment.
+                if ((t >= 0d) && (t <= 1d)) result.Add(new Point2D(x1 + t * dx, y1 + t * dy));
             }
-            else
+            else if (discriminant > 0)
             {
                 // Two solutions.
-                double t1 = ((-b + Sqrt(determinant)) / (2 * a));
-                double t2 = ((-b - Sqrt(determinant)) / (2 * a));
-                return ((t1 >= 0d) && (t1 <= 1d), (x1 + t1 * dx, y1 + t1 * dy),
-                        (t2 >= 0d) && (t2 <= 1d), (x1 + t2 * dx, y1 + t2 * dy));
-            }
-        }
+                double t1 = ((-b + Sqrt(discriminant)) / (2 * a));
+                double t2 = ((-b - Sqrt(discriminant)) / (2 * a));
 
-        /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> Intersects(this Ellipse e, LineSegment s)
-            => UnrotatedEllipseLineSegment(e.X, e.Y, e.RX, e.RY, s.A.X, s.A.Y, s.B.X, s.B.Y);
+                // Add the points if they are between the end points of the line segment.
+                if ((t1 >= 0d) && (t1 <= 1d)) result.Add(new Point2D(x1 + t1 * dx, y1 + t1 * dy));
+                if ((t2 >= 0d) && (t2 <= 1d)) result.Add(new Point2D(x1 + t2 * dx, y1 + t2 * dy));
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Find the points of the intersection of an unrotated ellipse and a line segment.
@@ -318,57 +343,58 @@ namespace Engine
             double x0, double y0,
             double x1, double y1)
         {
+            List<Point2D> result = new List<Point2D>();
+
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
-                return null;
+                return result;
 
-            // Translate so the ellipse is centered at the origin.
+            // Translate the line to put the ellipse centered at the origin.
             double u1 = x0 - cx;
             double v1 = y0 - cy;
             double u2 = x1 - cx;
             double v2 = y1 - cy;
 
             // Calculate the quadratic parameters.
-            double a = ((u1 - u2) * (u1 - u2)) / (rx * rx) + ((v1 - v2) * (v1 - v2)) / (ry * ry);
-            //double a = (u2 - u1) * (u2 - u1) / rx / rx + (v2 - v1) * (v2 - v1) / ry / ry;
-            double b = 2d * u1 * (u2 - u1) / rx / rx + 2d * v1 * (v2 - v1) / ry / ry;
-            double c = (u1 * u1) / rx / rx + (v1 * v1) / ry / ry - 1d;
+            double a = (u2 - u1) * (u2 - u1) / (rx * rx) + (v2 - v1) * (v2 - v1) / (ry * ry);
+            double b = 2d * u1 * (u2 - u1) / (rx * rx) + 2d * v1 * (v2 - v1) / (ry * ry);
+            double c = (u1 * u1) / (rx * rx) + (v1 * v1) / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             double discriminant = b * b - 4d * a * c;
 
-            if (discriminant == 0)
+            if ((a <= Epsilon) || (discriminant < 0))
             {
-                // One real solution.
+                // No real solutions.
+            }
+            else if (discriminant == 0)
+            {
+                // One real possible solution.
                 double t = 0.5d * -b / a;
 
-                // Return the point. If the point is on the segment set the bool to true.
-                return new List<Point2D>() { new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy) };
-                //return ((t >= 0d) && (t <= 1d), (p1X + (p2X - p1X) * t + cx, p1Y + (p2Y - p1Y) * t + cy), false, null);
+                // Add the points if it is between the end points of the line segment.
+                if ((t >= 0d) && (t <= 1d)) result.Add(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
             }
             else if (discriminant > 0)
             {
-                // Two real solutions.
+                // Two real possible solutions.
                 double t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
                 double t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
 
-                // Return the points. If the points are on the segment set the bool to true.
-                return new List<Point2D>() { new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy),
-                        new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy) };
-                //return ((t1 >= 0d) && (t1 <= 1d), (p1X + (p2X - p1X) * t1 + cx, p1Y + (p2Y - p1Y) * t1 + cy),
-                //        (t2 >= 0d) && (t2 <= 1d), (p1X + (p2X - p1X) * t2 + cx, p1Y + (p2Y - p1Y) * t2 + cy));
+                // Add the points if they are between the end points of the line segment.
+                if ((t1 >= 0d) && (t1 <= 1d)) result.Add(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                if ((t2 >= 0d) && (t2 <= 1d)) result.Add(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
             }
 
-            // No real solutions.
-            return null;
+            return result;
         }
 
         /// <summary>
         /// Find the points of the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="h"></param>
-        /// <param name="k"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="A"></param>
@@ -383,142 +409,69 @@ namespace Engine
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> EllipseLineSegment(
-            double h, double k,
+            double cx, double cy,
             double rx, double ry,
             double A,
             double x0, double y0,
             double x1, double y1)
         {
+            List<Point2D> result = new List<Point2D>();
+
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
-                return null;
+                return result;
 
-            // Translate so the ellipse is centered at the origin.
-            double u1 = x0 - h;
-            double v1 = y0 - k;
-            double u2 = x1 - h;
-            double v2 = y1 - k;
-
-            // Get the ellipse rotation transform.
-            double cosA = Cos(A);
+            // Get the Sine and Cosine of the angle.
             double sinA = Sin(A);
+            double cosA = Cos(A);
+
+            // Translate the line to put the ellipse centered at the origin.
+            double u1 = x0 - cx;
+            double v1 = y0 - cy;
+            double u2 = x1 - cx;
+            double v2 = y1 - cy;
+
+            // Apply Rotation Transform to line at the origin.
+            double u1A = (0 + (u1 * cosA - v1 * sinA));
+            double v1A = (0 + (u1 * sinA + v1 * cosA));
+            double u2A = (0 + (u2 * cosA - v2 * sinA));
+            double v2A = (0 + (u2 * sinA + v2 * cosA));
 
             // Calculate the quadratic parameters.
-            //double a = (((u1 - u2) * (u1 - u2)) / (rx * rx) + ((v1 - v2) * (v1 - v2)) / (ry * ry));
-            double a = ((u1 - u2) * cosA + (v1 - v2) * sinA) * ((u1 - u2) * cosA + (v1 - v2) * sinA) + ((u1 - u2) * sinA - (v1 - v2) * cosA) * ((u1 - u2) * sinA - (v1 - v2) * cosA);
-
-            double b = 2d * (u1 * (u2 - u1) / (rx * rx) + v1 * (v2 - v1) / (ry * ry));
-            double c = ((u1 * u1) / (rx * rx) + (v1 * v1) / (ry * ry) - 1d);
+            double a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
+            double b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
+            double c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             double discriminant = b * b - 4d * a * c;
 
-            if (discriminant == 0)
+            if ((a <= Epsilon) || (discriminant < 0))
             {
-                // One real solution.
+                // No real solutions.
+            }
+            else if (discriminant == 0)
+            {
+                // One real possible solution.
                 double t = 0.5d * -b / a;
 
-                // Return the point. If the point is on the segment set the bool to true.
-                return new List<Point2D>() { new Point2D(u1 + (u2 - u1) * t + h, v1 + (v2 - v1) * t + k) };
-                //return ((t >= 0d) && (t <= 1d), (p1X + (p2X - p1X) * t + cx, p1Y + (p2Y - p1Y) * t + cy), false, null);
+                // Add the point if it is between the end points of the line segment.
+                if ((t >= 0d) && (t <= 1d)) result.Add(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
             }
             else if (discriminant > 0)
             {
-                // Two real solutions.
+                // Two real possible solutions.
                 double t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
                 double t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
 
-                // Return the points. If the points are on the segment set the bool to true.
-                return new List<Point2D>() { new Point2D(u1 + (u2 - u1) * t1 + h, v1 + (v2 - v1) * t1 + k),
-                        new Point2D(u1 + (u2 - u1) * t2 + h, v1 + (v2 - v1) * t2 + k) };
-                //return ((t1 >= 0d) && (t1 <= 1d), (p1X + (p2X - p1X) * t1 + cx, p1Y + (p2Y - p1Y) * t1 + cy),
-                //        (t2 >= 0d) && (t2 <= 1d), (p1X + (p2X - p1X) * t2 + cx, p1Y + (p2Y - p1Y) * t2 + cy));
+                // Add the points if they are between the end points of the line segment.
+                if ((t1 >= 0d) && (t1 <= 1d)) result.Add(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                if ((t2 >= 0d) && (t2 <= 1d)) result.Add(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+
+                // ToDo: Figure out why the results are weird between 30 degrees and 5 degrees.
             }
 
-            // No real solutions.
-            return null;
-        }
-
-        /// <summary>
-        /// Sutherland Hodgman Intersection. This clips the subject polygon against the clip polygon (gets the intersection of the two polygons)
-        /// </summary>
-        /// <param name="subjectPoly">Can be concave or convex</param>
-        /// <param name="clipPoly">Must be convex</param>
-        /// <returns>The intersection of the two polygons (or null)</returns>
-        /// <remarks>
-        /// http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
-        /// Based on the psuedocode from:
-        /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman
-        /// </remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
-        {
-            if (subjectPoly.Count < 3 || clipPoly.Count < 3)
-                throw new ArgumentException($"The polygons passed in must have at least 3 points: subject={subjectPoly.Count}, clip={clipPoly.Count}");
-
-            // clone it
-            List<Point2D> outputList = subjectPoly.ToList();
-
-            // Make sure it's clockwise
-            if (!PolygonExtensions.IsClockwise(subjectPoly))
-                outputList.Reverse();
-
-            // Walk around the clip polygon clockwise
-            foreach (LineSegment clipEdge in PolygonExtensions.IterateEdgesClockwise(clipPoly))
-            {
-                // clone it
-                List<Point2D> inputList = outputList.ToList();
-                outputList.Clear();
-
-                // Sometimes when the polygons don't intersect, this list goes to zero.
-                // Jump out to avoid an index out of range exception
-                if (inputList.Count == 0)
-                    break;
-
-                Point2D S = inputList[inputList.Count - 1];
-
-                foreach (Point2D e in inputList)
-                {
-                    if (PolygonExtensions.IsInside(clipEdge, e))
-                    {
-                        if (!PolygonExtensions.IsInside(clipEdge, S))
-                        {
-                            (bool Intersects, Point2D Point) point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
-                            if (point.Intersects == false)
-                            {
-                                // may be collinear, or may be a bug
-                                throw new ApplicationException("Line segments don't intersect");
-                            }
-                            else
-                            {
-                                outputList.Add(point.Item2);
-                            }
-                        }
-
-                        outputList.Add(e);
-                    }
-                    else if (PolygonExtensions.IsInside(clipEdge, S))
-                    {
-                        (bool Intersects, Point2D Point) point = LineLine(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
-                        if (point.Intersects == false)
-                        {
-                            // may be collinear, or may be a bug
-                            throw new ApplicationException("Line segments don't intersect");
-                        }
-                        else
-                        {
-                            outputList.Add(point.Item2);
-                        }
-                    }
-
-                    S = e;
-                }
-            }
-
-            // Exit Function
-            return outputList;
+            return result;
         }
 
         /// <summary>

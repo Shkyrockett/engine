@@ -113,7 +113,9 @@
     <Compile Include="Geometry\Primitives\Polynomial.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
     <Compile Include="Geometry\Framework\ListConverter.cs" />
-    <Compile Include="Math\Containings.cs" />
+    <Compile Include="Math\Geometry\Containings.cs" />
+    <Compile Include="Math\Geometry\Intersectings.cs" />
+    <Compile Include="Math\Geometry\GeometryClipping.cs" />
     <Compile Include="Math\Intersection\EmptyLocus.cs" />
     <Compile Include="Math\Intersection\Intersection.cs" />
     <Compile Include="Math\Intersection\Intersector.cs" />
@@ -124,9 +126,9 @@
     <Compile Include="Math\Intersection\Locus.cs" />
     <Compile Include="Math\Intersection\PointLocus.cs" />
     <Compile Include="Math\Intersection\UnionLocus.cs" />
-    <Compile Include="Math\Nearests.cs" />
-    <Compile Include="Math\Areas.cs" />
-    <Compile Include="Math\Boundings.cs" />
+    <Compile Include="Math\Geometry\Nearests.cs" />
+    <Compile Include="Math\Geometry\Areas.cs" />
+    <Compile Include="Math\Geometry\Boundings.cs" />
     <Compile Include="Math\Notation\Codomain.cs" />
     <Compile Include="Math\Notation\Coefficient.cs" />
     <Compile Include="Math\Notation\Constant.cs" />
@@ -145,7 +147,7 @@
     <Compile Include="Math\Notation\Range.cs" />
     <Compile Include="Math\Notation\Term.cs" />
     <Compile Include="Math\Notation\Variable.cs" />
-    <Compile Include="Math\Distances.cs" />
+    <Compile Include="Math\Geometry\Distances.cs" />
     <Compile Include="Math\Maths.Constants.cs" />
     <Compile Include="Metadata\GeometryAngleDegreesAttribute.cs" />
     <Compile Include="Metadata\GeometryAngleRadiansAttribute.cs" />
@@ -162,12 +164,12 @@
     <Compile Include="Geometry\Enums\Directions.cs" />
     <Compile Include="Geometry\Enums\LeftRight.cs" />
     <Compile Include="Geometry\Enums\Inclusion.cs" />
-    <Compile Include="Math\Intersections.cs" />
+    <Compile Include="Math\Geometry\Intersections.cs" />
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />
     <Compile Include="Math\Enums\Overflows.cs" />
-    <Compile Include="Math\Offsets.cs" />
+    <Compile Include="Math\Geometry\Offsets.cs" />
     <Compile Include="Physics\UnitStrings.cs" />
     <Compile Include="Math\Range.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />
@@ -276,7 +278,7 @@
     <Compile Include="Geometry\Primitives\Converters\Point2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Converters\Rectangle2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Point3D.cs" />
-    <Compile Include="Math\Interpolaters.cs" />
+    <Compile Include="Math\Geometry\Interpolaters.cs" />
     <Compile Include="Math\Localization\Enums\Countries.cs" />
     <Compile Include="Math\Localization\Culture.cs" />
     <Compile Include="Math\Localization\Cultures.cs" />
@@ -391,7 +393,7 @@
     <Compile Include="Tools\SelectTop.cs" />
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />
-    <Compile Include="Math\Primitives.cs" />
+    <Compile Include="Math\Geometry\Primitives.cs" />
     <Compile Include="Geometry\Polygons\Polygon.cs" />
     <Compile Include="Geometry\Polygons\Polyline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

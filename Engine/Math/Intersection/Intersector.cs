@@ -90,14 +90,14 @@ namespace Engine
             }
             else if (b1.Equals(b2)) // b is a point, a is a segment
             {
-                if (Intersections.LineSegmentPoint(a1.X, a1.Y, a2.X, a2.Y, b1.X, b1.Y))
+                if (Intersectings.LineSegmentPoint(a1.X, a1.Y, a2.X, a2.Y, b1.X, b1.Y))
                     return new Point2D[] { b1 };
                 else
                     return new Point2D[] { };
             }
             else if (a1.Equals(a2)) // a is a point, b is a segment
             {
-                if (Intersections.LineSegmentPoint(b1.X, b1.Y, b2.X, b2.Y, a1.X, a1.Y))
+                if (Intersectings.LineSegmentPoint(b1.X, b1.Y, b2.X, b2.Y, a1.X, a1.Y))
                     return new Point2D[] { a1 };
                 else
                     return new Point2D[] { };

@@ -155,7 +155,7 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)? ToPointOnCubicBezier(
+        private static (double X, double Y)? ToPointOnCubicBezier(
             double p0X, double p0Y,
             double p1X, double p1Y,
             double p2X, double p2Y,
@@ -178,7 +178,7 @@ namespace Engine
         [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)? ToPointOnQuadraticBezier(
+        private static (double X, double Y)? ToPointOnQuadraticBezier(
             double p0Y, double p0X,
             double p1X, double p1Y,
             double p2X, double p2Y,

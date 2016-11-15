@@ -402,7 +402,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The area of the arc.")]
         public override double Area
-            => Areas.ArcSector(radius, SweepAngle);
+            => Areas.CircularArcSector(radius, SweepAngle);
 
         #endregion
 

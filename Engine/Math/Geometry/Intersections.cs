@@ -21,6 +21,33 @@ namespace Engine
     public static class Intersections
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point0"></param>
+        /// <param name="point1"></param>
+        /// <returns></returns>
+        public static List<Point2D> Intersection(this Point2D point0, Point2D point1)
+            => (point0 == point1) ? new List<Point2D> { point0 } : new List<Point2D>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segment"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static List<Point2D> Intersection(this LineSegment segment, Point2D point)
+            => (Intersectings.Intersects(segment, point)) ? new List<Point2D> { point } : new List<Point2D>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segment"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static List<Point2D> Intersection(this Point2D point, LineSegment segment)
+            => (Intersectings.Intersects(segment, point)) ? new List<Point2D> { point } : new List<Point2D>();
+
+        /// <summary>
         /// Find the intersection point between two lines.
         /// </summary>
         /// <param name="s1"></param>
@@ -300,7 +327,7 @@ namespace Engine
             }
             else if (discriminant == 0)
             {
-                // One solution.
+                // One possible solution.
                 double t = -b / (2 * a);
 
                 // Add the points if they are between the end points of the line segment.
@@ -308,7 +335,7 @@ namespace Engine
             }
             else if (discriminant > 0)
             {
-                // Two solutions.
+                // Two possible solutions.
                 double t1 = ((-b + Sqrt(discriminant)) / (2 * a));
                 double t2 = ((-b - Sqrt(discriminant)) / (2 * a));
 
@@ -397,7 +424,7 @@ namespace Engine
         /// <param name="cy"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
-        /// <param name="A"></param>
+        /// <param name="angle"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -411,7 +438,7 @@ namespace Engine
         public static List<Point2D> EllipseLineSegment(
             double cx, double cy,
             double rx, double ry,
-            double A,
+            double angle,
             double x0, double y0,
             double x1, double y1)
         {
@@ -423,8 +450,8 @@ namespace Engine
                 return result;
 
             // Get the Sine and Cosine of the angle.
-            double sinA = Sin(A);
-            double cosA = Cos(A);
+            double sinA = Sin(angle);
+            double cosA = Cos(angle);
 
             // Translate the line to put the ellipse centered at the origin.
             double u1 = x0 - cx;
@@ -493,6 +520,8 @@ namespace Engine
         /// <remarks>
         /// https://www.particleincell.com/2013/cubic-line-intersection/
         /// </remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> CubicBezierLineSegment(
             double p0x, double p0y,
             double p1x, double p1y,
@@ -558,6 +587,8 @@ namespace Engine
         /// <remarks>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
         /// </remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double[] cubicRoots(double a, double b, double c, double d)
         {
             // The horizontal line issue seems to be somewhere in here.
@@ -617,6 +648,8 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double[] sortSpecial(double[] a)
         {
             bool flip;
@@ -658,6 +691,8 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/27664298/calculating-intersection-point-of-quadratic-bezier-curve
         /// </remarks>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> QuadraticBezierLineSegment(
             double p1X, double p1Y,
             double p2X, double p2Y,

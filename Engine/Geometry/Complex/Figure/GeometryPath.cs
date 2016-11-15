@@ -100,7 +100,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore]
         public override Rectangle2D Bounds
-            => Boundings.Figure(this);
+            => Boundings.GeometryPath(this);
 
         #endregion
 

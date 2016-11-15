@@ -25,6 +25,128 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="segment"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this LineSegment segment)
+            => LineSegment(segment.A, segment.B);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="circle"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this Circle circle)
+            => Circle(circle.X, circle.Y, circle.Radius);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arc"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this CircularArc arc)
+            => CircularArc(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ellipse"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this Ellipse ellipse)
+            => Ellipse(ellipse.X, ellipse.Y, ellipse.RX, ellipse.RY, ellipse.Angle);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arc"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this EllipticalArc arc)
+            => EllipticalArc(arc.X, arc.Y, arc.RX, arc.RY, arc.Angle, arc.StartAngle, arc.SweepAngle);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="poly"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this Polygon poly)
+            => Polygon(poly.Points);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="poly"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this Polyline poly)
+            => Polygon(poly.Points);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this QuadraticBezier bezier)
+            => QuadraticBezier(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this CubicBezier bezier)
+            => CubicBezier(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY, bezier.DX, bezier.DY);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this GeometryPath path)
+            => GeometryPath(path);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D LineSegment(Point2D a, Point2D b)
+            => new Rectangle2D(a, b);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -37,18 +159,6 @@ namespace Engine
             double x0, double y0,
             double x1, double y1)
             => new Rectangle2D(new Point2D(x0, y0), new Point2D(x1, y1));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static Rectangle2D LineSegment(Point2D a, Point2D b)
-            => new Rectangle2D(a, b);
 
         /// <summary>
         /// Calculate the external square boundaries of a circle.
@@ -256,7 +366,9 @@ namespace Engine
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D RotatedRectangle(double width, double height, Point2D fulcrum, double angle)
+        public static Rectangle2D RotatedRectangle(
+            double width, double height,
+            Point2D fulcrum, double angle)
         {
             Contract.Ensures(Contract.Result<Rectangle2D>() != null);
             var cosAngle = Abs(Cos(angle));
@@ -431,7 +543,7 @@ namespace Engine
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
         [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Figure(GeometryPath chain)
+        public static Rectangle2D GeometryPath(GeometryPath chain)
         {
             var start = chain.Items[0] as PathPoint;
             Rectangle2D result = new Rectangle2D(start.Start, start.End);

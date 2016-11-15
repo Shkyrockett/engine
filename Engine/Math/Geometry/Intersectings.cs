@@ -20,6 +20,17 @@ namespace Engine
     public static class Intersectings
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point0"></param>
+        /// <param name="point1"></param>
+        /// <returns></returns>
+        [Pure]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Intersects(this Point2D point0, Point2D point1)
+            => point0 == point1;
+
+        /// <summary>
         /// Check whether a point is coincident to a line segment.
         /// </summary>
         /// <param name="s"></param>

@@ -175,7 +175,7 @@ namespace Engine.Tests
 
             foreach (var arc in results.Keys)
             {
-                var area = Areas.ArcSector(arc.radius, arc.sweepAngle.ToRadians());
+                var area = Areas.CircularArcSector(arc.radius, arc.sweepAngle.ToRadians());
                 Assert.AreEqual(results[(arc)], area, TestEpsilon);
             }
         }

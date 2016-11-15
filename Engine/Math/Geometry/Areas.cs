@@ -24,13 +24,36 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="r"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Circle(double r)
+            => PI * r * r;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r"></param>
         /// <param name="sweepAngle"></param>
         /// <returns></returns>
         [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ArcSector(double r, double sweepAngle)
+        public static double CircularArcSector(double r, double sweepAngle)
             => Abs((r * r * 0.5d) * (sweepAngle - Sin(sweepAngle)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Ellipse(double r1, double r2)
+            => PI * r2 * r1;
 
         /// <summary>
         /// 
@@ -47,32 +70,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipticalArcSector(double rX, double rY, double startAngle, double sweepAngle)
-        {
-            return 0.5d * rX * rY * (Atan(rX * Tan(startAngle) / rY) - Atan(rX * Tan(startAngle + sweepAngle) / rY));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="r"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Circle(double r)
-            => PI * r * r;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Ellipse(double r1, double r2)
-            => PI * r2 * r1;
+            => 0.5d * rX * rY * (Atan(rX * Tan(startAngle) / rY) - Atan(rX * Tan(startAngle + sweepAngle) / rY));
 
         /// <summary>
         /// Returns a positive number if c is to the left of the line going from a to b.
@@ -82,6 +80,9 @@ namespace Engine
         /// and 0 if points are collinear.
         /// </returns>
         /// <remarks>From Farseer Physics Engine.</remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangle(double aX, double aY, double bX, double bY, double cX, double cY)
             => aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
 

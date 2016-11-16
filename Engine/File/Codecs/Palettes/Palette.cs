@@ -69,14 +69,16 @@ namespace Engine.File.Palettes
         /// <summary>
         /// Gets the number of colors in the palette.
         /// </summary>
-        public int Count => Colors.Count;
+        public int Count
+            => Colors.Count;
 
         /// <summary>
         /// Gets the palette color entry at a specific index.
         /// </summary>
         /// <param name="index"><see cref="int"/> index of a <see cref="Palette"/> entry <see cref="Color"/>.</param>
         /// <returns>A value representing the <see cref="Color"/> at the specified index in the <see cref="Palette"/>.</returns>
-        public Color this[int index] => Colors[index];
+        public Color this[int index]
+            => Colors[index];
 
         /// <summary>
         /// Load a palette file from a file path.

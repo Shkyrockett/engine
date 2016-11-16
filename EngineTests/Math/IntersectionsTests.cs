@@ -335,7 +335,7 @@ namespace Engine.Tests
 
             foreach (var testCase in testCases.Keys)
             {
-                bool result = Intersections.LineSegmentPointBool(testCase.AX, testCase.AY, testCase.BX, testCase.BY, testCase.X, testCase.Y);
+                bool result = Intersectings.LineSegmentPoint(testCase.AX, testCase.AY, testCase.BX, testCase.BY, testCase.X, testCase.Y);
                 Assert.AreEqual(testCases[testCase], result);
             }
         }

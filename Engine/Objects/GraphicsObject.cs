@@ -155,7 +155,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="name"></param>
-        protected void OnPropertyChanging(string name)
+        protected void OnPropertyChanging([CallerMemberName] string name = "")
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
         }
@@ -164,7 +164,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="name"></param>
-        protected void OnPropertyChanged(string name)
+        protected void OnPropertyChanged([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

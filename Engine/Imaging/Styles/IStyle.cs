@@ -7,12 +7,14 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System.ComponentModel;
+
 namespace Engine.Imaging
 {
     /// <summary>
     /// 
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IStyle
-    {
-    }
+    { }
 }

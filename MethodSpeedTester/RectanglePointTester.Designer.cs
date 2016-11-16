@@ -118,7 +118,7 @@ namespace MethodSpeedTester
             this.pictureBox1.Size = new System.Drawing.Size(143, 117);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox1_Paint);
             // 
             // pictureBox2
             // 
@@ -129,7 +129,7 @@ namespace MethodSpeedTester
             this.pictureBox2.Size = new System.Drawing.Size(143, 117);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox2_Paint);
+            this.pictureBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox2_Paint);
             // 
             // pictureBox3
             // 
@@ -140,7 +140,7 @@ namespace MethodSpeedTester
             this.pictureBox3.Size = new System.Drawing.Size(143, 117);
             this.pictureBox3.TabIndex = 2;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox3_Paint);
+            this.pictureBox3.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox3_Paint);
             // 
             // pictureBox4
             // 
@@ -151,7 +151,7 @@ namespace MethodSpeedTester
             this.pictureBox4.Size = new System.Drawing.Size(143, 117);
             this.pictureBox4.TabIndex = 3;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox4_Paint);
+            this.pictureBox4.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox4_Paint);
             // 
             // pictureBox5
             // 
@@ -162,7 +162,7 @@ namespace MethodSpeedTester
             this.pictureBox5.Size = new System.Drawing.Size(143, 117);
             this.pictureBox5.TabIndex = 4;
             this.pictureBox5.TabStop = false;
-            this.pictureBox5.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox5_Paint);
+            this.pictureBox5.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox5_Paint);
             // 
             // pictureBox6
             // 
@@ -173,7 +173,7 @@ namespace MethodSpeedTester
             this.pictureBox6.Size = new System.Drawing.Size(143, 117);
             this.pictureBox6.TabIndex = 5;
             this.pictureBox6.TabStop = false;
-            this.pictureBox6.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox6_Paint);
+            this.pictureBox6.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox6_Paint);
             // 
             // pictureBox7
             // 
@@ -184,7 +184,7 @@ namespace MethodSpeedTester
             this.pictureBox7.Size = new System.Drawing.Size(143, 117);
             this.pictureBox7.TabIndex = 6;
             this.pictureBox7.TabStop = false;
-            this.pictureBox7.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox7_Paint);
+            this.pictureBox7.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox7_Paint);
             // 
             // pictureBox8
             // 
@@ -195,7 +195,7 @@ namespace MethodSpeedTester
             this.pictureBox8.Size = new System.Drawing.Size(143, 117);
             this.pictureBox8.TabIndex = 7;
             this.pictureBox8.TabStop = false;
-            this.pictureBox8.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox8_Paint);
+            this.pictureBox8.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox8_Paint);
             // 
             // pictureBox9
             // 
@@ -206,7 +206,7 @@ namespace MethodSpeedTester
             this.pictureBox9.Size = new System.Drawing.Size(143, 117);
             this.pictureBox9.TabIndex = 8;
             this.pictureBox9.TabStop = false;
-            this.pictureBox9.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox9_Paint);
+            this.pictureBox9.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox9_Paint);
             // 
             // pictureBox10
             // 
@@ -217,7 +217,7 @@ namespace MethodSpeedTester
             this.pictureBox10.Size = new System.Drawing.Size(143, 117);
             this.pictureBox10.TabIndex = 9;
             this.pictureBox10.TabStop = false;
-            this.pictureBox10.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox10_Paint);
+            this.pictureBox10.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox10_Paint);
             // 
             // pictureBox11
             // 
@@ -228,7 +228,7 @@ namespace MethodSpeedTester
             this.pictureBox11.Size = new System.Drawing.Size(143, 117);
             this.pictureBox11.TabIndex = 10;
             this.pictureBox11.TabStop = false;
-            this.pictureBox11.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox11_Paint);
+            this.pictureBox11.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox11_Paint);
             // 
             // pictureBox12
             // 
@@ -239,7 +239,7 @@ namespace MethodSpeedTester
             this.pictureBox12.Size = new System.Drawing.Size(143, 117);
             this.pictureBox12.TabIndex = 11;
             this.pictureBox12.TabStop = false;
-            this.pictureBox12.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox12_Paint);
+            this.pictureBox12.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox12_Paint);
             // 
             // pictureBox13
             // 
@@ -250,7 +250,7 @@ namespace MethodSpeedTester
             this.pictureBox13.Size = new System.Drawing.Size(143, 117);
             this.pictureBox13.TabIndex = 12;
             this.pictureBox13.TabStop = false;
-            this.pictureBox13.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox13_Paint);
+            this.pictureBox13.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox13_Paint);
             // 
             // pictureBox14
             // 
@@ -261,7 +261,7 @@ namespace MethodSpeedTester
             this.pictureBox14.Size = new System.Drawing.Size(143, 117);
             this.pictureBox14.TabIndex = 13;
             this.pictureBox14.TabStop = false;
-            this.pictureBox14.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox14_Paint);
+            this.pictureBox14.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox14_Paint);
             // 
             // pictureBox15
             // 
@@ -272,7 +272,7 @@ namespace MethodSpeedTester
             this.pictureBox15.Size = new System.Drawing.Size(143, 117);
             this.pictureBox15.TabIndex = 14;
             this.pictureBox15.TabStop = false;
-            this.pictureBox15.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox15_Paint);
+            this.pictureBox15.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox15_Paint);
             // 
             // tableLayoutPanel1
             // 
@@ -322,7 +322,7 @@ namespace MethodSpeedTester
             this.pictureBox20.Size = new System.Drawing.Size(143, 118);
             this.pictureBox20.TabIndex = 19;
             this.pictureBox20.TabStop = false;
-            this.pictureBox20.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox20_Paint);
+            this.pictureBox20.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox20_Paint);
             // 
             // pictureBox19
             // 
@@ -333,7 +333,7 @@ namespace MethodSpeedTester
             this.pictureBox19.Size = new System.Drawing.Size(143, 118);
             this.pictureBox19.TabIndex = 18;
             this.pictureBox19.TabStop = false;
-            this.pictureBox19.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox19_Paint);
+            this.pictureBox19.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox19_Paint);
             // 
             // pictureBox18
             // 
@@ -344,7 +344,7 @@ namespace MethodSpeedTester
             this.pictureBox18.Size = new System.Drawing.Size(143, 118);
             this.pictureBox18.TabIndex = 17;
             this.pictureBox18.TabStop = false;
-            this.pictureBox18.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox18_Paint);
+            this.pictureBox18.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox18_Paint);
             // 
             // pictureBox17
             // 
@@ -355,7 +355,7 @@ namespace MethodSpeedTester
             this.pictureBox17.Size = new System.Drawing.Size(143, 118);
             this.pictureBox17.TabIndex = 16;
             this.pictureBox17.TabStop = false;
-            this.pictureBox17.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox17_Paint);
+            this.pictureBox17.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox17_Paint);
             // 
             // pictureBox16
             // 
@@ -366,7 +366,7 @@ namespace MethodSpeedTester
             this.pictureBox16.Size = new System.Drawing.Size(143, 118);
             this.pictureBox16.TabIndex = 15;
             this.pictureBox16.TabStop = false;
-            this.pictureBox16.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox16_Paint);
+            this.pictureBox16.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBox16_Paint);
             // 
             // comboBox1
             // 
@@ -377,7 +377,7 @@ namespace MethodSpeedTester
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(745, 21);
             this.comboBox1.TabIndex = 16;
-            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
+            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.ComboBox1_SelectionChangeCommitted);
             // 
             // PolygonPointTester
             // 

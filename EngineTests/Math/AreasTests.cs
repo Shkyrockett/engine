@@ -41,30 +41,30 @@ namespace Engine.Tests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            polygons.Add(new(string, List<Point2D>)("Square", new List<Point2D> {
+            polygons.Add(("Square", new List<Point2D> {
                 new Point2D(25, 25),
                 new Point2D(100, 25),
                 new Point2D(100, 100),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("Top Left Triangle", new List<Point2D> {
+            polygons.Add(("Top Left Triangle", new List<Point2D> {
                 new Point2D(25, 25),
                 new Point2D(100, 25),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("Bottom Right Triangle", new List<Point2D> {
+            polygons.Add(("Bottom Right Triangle", new List<Point2D> {
                 new Point2D(100, 100),
                 new Point2D(100, 25),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("Right Reversed Bow-tie", new List<Point2D> {
+            polygons.Add(("Right Reversed Bow-tie", new List<Point2D> {
                 new Point2D(25, 25),
                 new Point2D(100, 100),
                 new Point2D(100, 25),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("Left Reversed Bow-tie", new List<Point2D> {
+            polygons.Add(("Left Reversed Bow-tie", new List<Point2D> {
                 new Point2D(100, 25),
                 new Point2D(100, 100),
                 new Point2D(25, 25),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("C Shape", new List<Point2D> {
+            polygons.Add(("C Shape", new List<Point2D> {
                 new Point2D(25, 25),
                 new Point2D(100, 25),
                 new Point2D(100, 50),
@@ -73,7 +73,7 @@ namespace Engine.Tests
                 new Point2D(100, 75),
                 new Point2D(100, 100),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("n Shape", new List<Point2D> {
+            polygons.Add(("n Shape", new List<Point2D> {
                 new Point2D(25, 25),
                 new Point2D(100, 25),
                 new Point2D(100, 100),
@@ -82,7 +82,7 @@ namespace Engine.Tests
                 new Point2D(50, 50),
                 new Point2D(50, 100),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("C Bow-tie hole Shape", new List<Point2D> {
+            polygons.Add(("C Bow-tie hole Shape", new List<Point2D> {
                 new Point2D(25, 25),
                 new Point2D(100, 25),
                 new Point2D(100, 50),
@@ -91,7 +91,7 @@ namespace Engine.Tests
                 new Point2D(100, 75),
                 new Point2D(100, 100),
                 new Point2D(25, 100) }));
-            polygons.Add(new(string, List<Point2D>)("n Bow-tie hole Shape", new List<Point2D> {
+            polygons.Add(("n Bow-tie hole Shape", new List<Point2D> {
                 new Point2D(25, 25),
                 new Point2D(100, 25),
                 new Point2D(100, 100),

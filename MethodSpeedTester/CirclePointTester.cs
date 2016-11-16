@@ -7,6 +7,7 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using Engine;
 using Engine.Imaging;
 using System;
 using System.Collections.Generic;
@@ -54,9 +55,9 @@ namespace MethodSpeedTester
         {
             points = GenerateGrid(25, 25, 130, 130, 5, 5);
 
-            circles.Add(new (string, Circle)("Circle 1", new Circle(25, 25, 10)));
-            circles.Add(new (string, Circle)("Circle 2", new Circle(75, 75, 50)));
-            circles.Add(new (string, Circle)("Circle 3", new Circle(125, 125, 100)));
+            circles.Add(("Circle 1", new Circle(25, 25, 10)));
+            circles.Add(("Circle 2", new Circle(75, 75, 50)));
+            circles.Add(("Circle 3", new Circle(125, 125, 100)));
 
             circle = circles[0].Item2;
 
@@ -136,7 +137,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        private void ComboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             circle = (((string, Circle))comboBox1.SelectedItem).Item2;
             Invalidate(true);
@@ -147,7 +148,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        private void PictureBox1_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
                 (s, p) => Experiments.PointInCircle(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
@@ -159,7 +160,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox2_Paint(object sender, PaintEventArgs e)
+        private void PictureBox2_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
                 (s, p) => Experiments.PointInCircleInline(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
@@ -171,7 +172,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox3_Paint(object sender, PaintEventArgs e)
+        private void PictureBox3_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
                 (s, p) => Experiments.PointInCirclePhilcolbourn(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
@@ -183,7 +184,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox4_Paint(object sender, PaintEventArgs e)
+        private void PictureBox4_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
                 (s, p) => Experiments.PointInCircleNPhilcolbourn(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
@@ -195,7 +196,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox5_Paint(object sender, PaintEventArgs e)
+        private void PictureBox5_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
                 (s, p) => Experiments.PointInCircleWilliamMorrison(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
@@ -207,7 +208,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox6_Paint(object sender, PaintEventArgs e)
+        private void PictureBox6_Paint(object sender, PaintEventArgs e)
         {
             DrawCircles(e.Graphics, Font, circle, points,
                 (s, p) => Experiments.PointInCircleX(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
@@ -219,7 +220,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox7_Paint(object sender, PaintEventArgs e)
+        private void PictureBox7_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -228,7 +229,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox8_Paint(object sender, PaintEventArgs e)
+        private void PictureBox8_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -237,7 +238,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox9_Paint(object sender, PaintEventArgs e)
+        private void PictureBox9_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -246,7 +247,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox10_Paint(object sender, PaintEventArgs e)
+        private void PictureBox10_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -255,7 +256,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox12_Paint(object sender, PaintEventArgs e)
+        private void PictureBox12_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -264,7 +265,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox11_Paint(object sender, PaintEventArgs e)
+        private void PictureBox11_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -273,7 +274,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox13_Paint(object sender, PaintEventArgs e)
+        private void PictureBox13_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -282,7 +283,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox14_Paint(object sender, PaintEventArgs e)
+        private void PictureBox14_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -291,7 +292,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox15_Paint(object sender, PaintEventArgs e)
+        private void PictureBox15_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -300,7 +301,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox19_Paint(object sender, PaintEventArgs e)
+        private void PictureBox19_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -309,7 +310,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox20_Paint(object sender, PaintEventArgs e)
+        private void PictureBox20_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -318,7 +319,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox18_Paint(object sender, PaintEventArgs e)
+        private void PictureBox18_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -327,7 +328,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox16_Paint(object sender, PaintEventArgs e)
+        private void PictureBox16_Paint(object sender, PaintEventArgs e)
         {
         }
 
@@ -336,7 +337,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBox17_Paint(object sender, PaintEventArgs e)
+        private void PictureBox17_Paint(object sender, PaintEventArgs e)
         {
         }
     }

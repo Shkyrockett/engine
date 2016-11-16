@@ -95,7 +95,7 @@ namespace Editor
 
             //propertyGrid1.SelectedObject = toolStack;
 
-            var val = new(double, int, Point2D)(0, 3, new Point2D());
+            var val = (0, 3, new Point2D());
 
             propertyGrid1.SelectedObject = val;
         }
@@ -111,8 +111,10 @@ namespace Editor
 
             paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
 
-            vectorMap = new VectorMap();
-            vectorMap.Tweener = tweener;
+            vectorMap = new VectorMap()
+            {
+                Tweener = tweener
+            };
             toolStack = new ToolStack(vectorMap);
             toolStack?.RegisterMouseLeftButton(new SelectTop());
             toolStack?.RegisterMouseMiddleButton(new Pan());
@@ -120,17 +122,17 @@ namespace Editor
 
             var styles = new List<ShapeStyle>
             {
-                new ShapeStyle(new Pen(Brushes.Red), new Pen(Brushes.Plum)),
-                new ShapeStyle(new Pen(Brushes.DarkGreen), new Pen(Brushes.ForestGreen)),
-                new ShapeStyle(new Pen(Brushes.BlueViolet), new Pen(Brushes.AliceBlue)),
-                new ShapeStyle(new Pen(Brushes.Bisque), new Pen(Brushes.Beige)),
-                new ShapeStyle(new Pen(Brushes.Azure), new Pen(Brushes.BlanchedAlmond)),
-                new ShapeStyle(new Pen(Brushes.DarkCyan), new Pen(Brushes.Cyan)),
-                new ShapeStyle(new Pen(Brushes.Maroon), new Pen(Brushes.MediumPurple)),
-                new ShapeStyle(new Pen(Brushes.DarkGoldenrod), new Pen(Brushes.Honeydew)),
-                new ShapeStyle(new Pen(Brushes.AntiqueWhite), new Pen(Brushes.CadetBlue)),
-                new ShapeStyle(new Pen(Brushes.Azure), new Pen(Brushes.Transparent)),
-                new ShapeStyle(new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent)), new Pen(Brushes.Transparent))
+                new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)),
+                new ShapeStyle(Brushes.DarkGreen, new Pen(Brushes.ForestGreen)),
+                new ShapeStyle(Brushes.BlueViolet, new Pen(Brushes.AliceBlue)),
+                new ShapeStyle(Brushes.Bisque, new Pen(Brushes.Beige)),
+                new ShapeStyle(Brushes.Azure, new Pen(Brushes.BlanchedAlmond)),
+                new ShapeStyle(Brushes.DarkCyan, new Pen(Brushes.Cyan)),
+                new ShapeStyle(Brushes.Maroon, new Pen(Brushes.MediumPurple)),
+                new ShapeStyle(Brushes.DarkGoldenrod, new Pen(Brushes.Honeydew)),
+                new ShapeStyle(Brushes.AntiqueWhite, new Pen(Brushes.CadetBlue)),
+                new ShapeStyle(Brushes.Azure, new Pen(Brushes.Transparent)),
+                new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent), new Pen(Brushes.Transparent))
             };
 
             //Shape triangle = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100));
@@ -306,10 +308,10 @@ namespace Editor
             //GraphicItem intersectionItem = new GraphicItem(intersection, styles[3]);
             //vectorMap.Add(intersectionItem);
 
-            var ellipseTween = new Ellipse(
-                new Point2D(100d, 75d),
-                56d, 30d, 10d.ToRadians());
-            var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
+            //var ellipseTween = new Ellipse(
+            //    new Point2D(100d, 75d),
+            //    56d, 30d, 10d.ToRadians());
+            //var ellipseTweenItem = new GraphicItem(ellipseTween, styles[2]);
 
             //var rectangleTween = new Rectangle2D(
             //    new Point2D(100, 100),
@@ -329,7 +331,7 @@ namespace Editor
             //tweener.Timer(duration).OnComplete(CompleteCallback);
 
             //vectorMap.Add(rectangleTweenItem);
-            vectorMap.Add(ellipseTweenItem);
+            //vectorMap.Add(ellipseTweenItem);
 
             //var parametricEllipse = new ParametricDelegateCurve(
             //    (x, y, w, h, a, t) => Interpolaters.Ellipse(x, y, w, h, a, t),
@@ -495,19 +497,19 @@ namespace Editor
             //var cubicBezier2 = new CubicBezier(new Point2D(50, 101), new Point2D(75, 50), new Point2D(125, 100), new Point2D(150, 25));
             //var cubicBezier2Item = new GraphicItem(cubicBezier2, styles[1]);
 
-            var segment = new LineSegment(new Point2D(20, 70), new Point2D(180, 80));
-            var segmentItem = new GraphicItem(segment, styles[1]);
+            //var segment = new LineSegment(new Point2D(20, 70), new Point2D(180, 80));
+            //var segmentItem = new GraphicItem(segment, styles[1]);
 
-            var segmentNodes = new NodeRevealer(new List<Point2D> { segment.A, segment.B }, 5d);
-            var segmentNodeItem = new GraphicItem(segmentNodes, styles[6]);
+            //var segmentNodes = new NodeRevealer(new List<Point2D> { segment.A, segment.B }, 5d);
+            //var segmentNodeItem = new GraphicItem(segmentNodes, styles[6]);
 
             //var intersections = Intersections.CubicBezierLineSegment(cubicBezier.A.X, cubicBezier.A.Y, cubicBezier.B.X, cubicBezier.B.Y, cubicBezier.C.X, cubicBezier.C.Y, cubicBezier.D.X, cubicBezier.D.Y, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
             //var intersectionNodes = new NodeRevealer(intersections, 5d);
             //var intersectionNodesItem = new GraphicItem(intersectionNodes, styles[6]);
 
-            var ellipseLineIntersections = Intersections.EllipseLineSegment(ellipseTween.Center.X, ellipseTween.Center.Y, ellipseTween.RX, ellipseTween.RY, ellipseTween.Angle, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-            var ellipseLineIntersectionNodes = new NodeRevealer(ellipseLineIntersections, 5d);
-            var ellipseLineIntersectionNodesItem = new GraphicItem(ellipseLineIntersectionNodes, styles[6]);
+            //var ellipseLineIntersections = Intersections.EllipseLineSegment(ellipseTween.Center.X, ellipseTween.Center.Y, ellipseTween.RX, ellipseTween.RY, ellipseTween.Angle, segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+            //var ellipseLineIntersectionNodes = new NodeRevealer(ellipseLineIntersections, 5d);
+            //var ellipseLineIntersectionNodesItem = new GraphicItem(ellipseLineIntersectionNodes, styles[6]);
 
             //var intersection3s = Intersections.intersectBezier2Bezier3(
             //    cubicBezier.A, cubicBezier.B, cubicBezier.C, cubicBezier.D,
@@ -524,11 +526,11 @@ namespace Editor
             //vectorMap.Add(cubicBezierItem);
             //vectorMap.Add(quadraticBezierItem);
             //vectorMap.Add(cubicBezier2Item);
-            vectorMap.Add(segmentItem);
+            //vectorMap.Add(segmentItem);
             //vectorMap.Add(cubicBezierNodeItem);
             //vectorMap.Add(quadraticBezierNodeItem);
-            vectorMap.Add(segmentNodeItem);
-            vectorMap.Add(ellipseLineIntersectionNodesItem);
+            //vectorMap.Add(segmentNodeItem);
+            //vectorMap.Add(ellipseLineIntersectionNodesItem);
             //vectorMap.Add(intersectionNodesItem);
             //vectorMap.Add(intersection3NodesItem);
             //vectorMap.Add(intersection2NodesItem);
@@ -568,6 +570,99 @@ namespace Editor
             //vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
 
+            var foreColor = Color.Black;
+            var backColor = Color.White;
+
+            var mapStyles = new List<ShapeStyle>
+            {
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(SystemBrushes.ButtonFace)),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.BackwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Cross, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DarkDownwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DarkHorizontal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DarkUpwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DarkVertical, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DashedDownwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DashedHorizontal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DashedUpwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DashedVertical, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DiagonalBrick, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DiagonalCross, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Divot, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DottedDiamond, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.DottedGrid, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.ForwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Horizontal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.HorizontalBrick, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.LargeCheckerBoard, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.LargeConfetti, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.LargeGrid, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.LightDownwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.LightHorizontal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.LightUpwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.LightVertical, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Max, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Min, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.NarrowHorizontal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.NarrowVertical, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.OutlinedDiamond, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent05, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent10, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent20, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent25, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent30, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent40, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent50, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent60, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent70, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent75, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent80, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Percent90, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Plaid, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Shingle, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.SmallConfetti, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.SmallGrid, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.SolidDiamond, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Sphere, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Trellis, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Vertical, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Wave, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.Weave, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.WideDownwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.WideUpwardDiagonal, foreColor, backColor))),
+                //new ShapeStyle(new Pen( Brushes.Transparent), new Pen(new HatchBrush(HatchStyle.ZigZag, foreColor, backColor))),
+
+                //new ShapeStyle(new Pen(new HatchBrush(HatchStyle.ZigZag, foreColor, backColor)){DashStyle = DashStyle.Dash, Width = 3f}, new Pen(Brushes.Violet)),
+
+                new ShapeStyle(Brushes.Black, new Pen(Brushes.Violet)) { LineStyle = new LineStyle() { Dashstyle = LineDashStyle.Dot }  },
+                new ShapeStyle(Brushes.White, new Pen(Brushes.Violet)),
+
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Solid, Width = 3f}, new Pen(Brushes.Violet)),
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 1 }, Width = 3f}, new Pen(Brushes.Violet)),
+
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Dash,  Width = 3f}, new Pen(Brushes.Violet)),
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3, 1 }, Width = 3f}, new Pen(Brushes.Violet)),
+
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Dot, Width = 3f}, new Pen(Brushes.Violet)),
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 1, 1 }, Width = 3f}, new Pen(Brushes.Violet)),
+
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.DashDot, Width = 3f}, new Pen(Brushes.Violet)),
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3, 1, 1, 1 }, Width = 3f}, new Pen(Brushes.Violet)),
+
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.DashDotDot, Width = 3f}, new Pen(Brushes.Violet)),
+                //new ShapeStyle(new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3, 1, 1, 1, 1, 1 }, Width = 3f}, new Pen(Brushes.Violet)),
+                
+                //new ShapeStyle(new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent)), new Pen(Brushes.Transparent))
+            };
+
+            var rectangleGrid = new RectangleDCellGrid(50, 50, 350, 350, mapStyles.Count);
+
+            foreach (var style in mapStyles)
+            {
+                vectorMap.Add(rectangleGrid[mapStyles.IndexOf(style)], style);
+            }
+
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";
         }
@@ -593,7 +688,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
             timer1.Interval = 1;
@@ -605,7 +700,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             tweener.Update(tick);
         }
@@ -615,7 +710,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void listBox1_SelectedValueChanged(object sender, EventArgs e)
+        private void ListBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             propertyGrid1.SelectedObject = (sender as ListBox)?.SelectedItem as GraphicItem;
         }
@@ -625,7 +720,7 @@ namespace Editor
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
-        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        private void PropertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             CanvasPanel.Invalidate();
         }
@@ -635,7 +730,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toolStripComboBoxTools_SelectedIndexChanged(object sender, EventArgs e)
+        private void ToolStripComboBoxTools_SelectedIndexChanged(object sender, EventArgs e)
         {
             var box = sender as ToolStripComboBox;
             var item = box.SelectedItem as Type;
@@ -648,7 +743,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toolStripComboBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
+        private void ToolStripComboBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             var box = sender as ToolStripComboBox;
             List<MethodInfo> constructors = EngineReflection.ListStaticFactoryConstructors((Type)box.SelectedItem);
@@ -798,14 +893,14 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void openToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             openFileDialog1.FileName = vectorFilename;
             switch (openFileDialog1.ShowDialog())
             {
                 case DialogResult.Yes:
                 case DialogResult.OK:
-                    vectorMap = load(openFileDialog1.FileName) as VectorMap;
+                    vectorMap = LoadFile(openFileDialog1.FileName) as VectorMap;
                     break;
                 case DialogResult.None:
                 case DialogResult.Cancel:
@@ -823,15 +918,15 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void saveToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             if (vectorFilename == String.Empty)
             {
-                saveAs(vectorFilename);
+                SaveAs(vectorFilename);
             }
             else
             {
-                serialize(saveFileDialog1.FileName, vectorMap);
+                Serialize(saveFileDialog1.FileName, vectorMap);
             }
         }
 
@@ -840,16 +935,16 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void saveAsToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e)
         {
-            saveAs(vectorFilename);
+            SaveAs(vectorFilename);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="filename"></param>
-        private void saveAs(string filename = "")
+        private void SaveAs(string filename = "")
         {
             saveFileDialog1.FileName = filename;
             //saveFileDialog1.Filter = ".xml";
@@ -857,7 +952,7 @@ namespace Editor
             {
                 case DialogResult.Yes:
                 case DialogResult.OK:
-                    serialize(saveFileDialog1.FileName, vectorMap);
+                    Serialize(saveFileDialog1.FileName, vectorMap);
                     break;
                 case DialogResult.None:
                 case DialogResult.No:
@@ -875,7 +970,7 @@ namespace Editor
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        private object load(string filename)
+        private object LoadFile(string filename)
         {
             using (TextReader reader = new StreamReader(filename))
             {
@@ -888,11 +983,11 @@ namespace Editor
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="item"></param>
-        private void serialize(string filename, VectorMap item)
+        private void Serialize(string filename, VectorMap item)
         {
             using (TextWriter tw = new StreamWriter(filename))
             {
-                serialize(tw, item);
+                Serialize(tw, item);
             }
         }
 
@@ -901,7 +996,7 @@ namespace Editor
         /// </summary>
         /// <param name="writer"></param>
         /// <param name="item"></param>
-        private void serialize(TextWriter writer, VectorMap item)
+        private void Serialize(TextWriter writer, VectorMap item)
         {
             vectorMapSserializer.Serialize(writer, item);
         }

@@ -16,6 +16,8 @@ namespace Engine.Winforms
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        private System.Windows.Forms.ToolTip paletteToolTip;
+
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
@@ -26,6 +28,7 @@ namespace Engine.Winforms
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -56,7 +59,5 @@ namespace Engine.Winforms
         }
 
         #endregion
-
-        private System.Windows.Forms.ToolTip paletteToolTip;
     }
 }

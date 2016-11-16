@@ -8,13 +8,17 @@
 // <summary></summary>
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Xml.Serialization;
 
 namespace Engine.Imaging
 {
     /// <summary>
     /// 
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class ShapeStyle
         : IStyle, IDisposable
     {
@@ -23,7 +27,7 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        public static readonly ShapeStyle DefaultStyle = new ShapeStyle(new Pen(Brushes.Black), new Pen(Brushes.White));
+        public static readonly ShapeStyle DefaultStyle = new ShapeStyle(Brushes.Black, new Pen(Brushes.White));
 
         #endregion
 
@@ -42,8 +46,9 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         public ShapeStyle()
-            : this(Pens.Transparent, Pens.Transparent)
+            : this(Brushes.Transparent, Pens.Transparent)
         {
+            LineStyle.PropertyChanged += new  PropertyChangedEventHandler(PropertyChanged_Event);
         }
 
         /// <summary>
@@ -52,22 +57,26 @@ namespace Engine.Imaging
         /// <param name="forePen"></param>
         /// <param name="backPen"></param>
         public ShapeStyle(Brush forePen, Brush backPen)
-            : this(new Pen(backPen), new Pen(forePen))
-        {
-        }
+            : this(backPen, new Pen(forePen))
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="forePen"></param>
         /// <param name="backPen"></param>
-        public ShapeStyle(Pen forePen, Pen backPen)
+        public ShapeStyle(Brush forePen, Pen backPen)
         {
             BackPen = backPen;
-            ForePen = forePen;
+            ForePen = new Pen(forePen);
         }
 
         #endregion
+
+        private void PropertyChanged_Event(Object sender, PropertyChangedEventArgs e)
+        {
+            BuildPen();
+        }
 
         #region Destructors
 
@@ -114,25 +123,35 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        public Pen ForePen { get; set; }
+        [NotifyParentProperty(true)]
+        public LineStyle LineStyle { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Brush ForeBrush
-        {
-            get { return ForePen.Brush; }
-            set { ForePen.Brush = value; }
-        }
+        [XmlIgnore]
+        [NotifyParentProperty(true)]
+        public Pen ForePen { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [NotifyParentProperty(true)]
+        public Brush ForeBrush { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
+        [NotifyParentProperty(true)]
         public Pen BackPen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [NotifyParentProperty(true)]
         public Brush BackBrush
         {
             get { return BackPen.Brush; }
@@ -146,8 +165,25 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
+        public void BuildPen()
+        {
+            ForePen.Brush = null;
+            ForePen.Dispose();
+            ForePen = new Pen(ForeBrush)
+            {
+                Alignment = LineStyle.Alignment,
+                DashStyle = LineStyle.Dashstyle.DashStyle,
+                DashPattern = LineStyle.Dashstyle.DashPattern,
+                DashOffset = LineStyle.Dashstyle.DashOffset,
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{nameof(ShapeStyle)}{{{nameof(ForePen)}={ForePen},{nameof(BackPen)}={BackPen}}}";
+        public override string ToString()
+            => $"{nameof(ShapeStyle)}{{{nameof(ForePen)}={ForePen},{nameof(BackPen)}={BackPen}}}";
 
         #endregion
     }

@@ -78,7 +78,10 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [Browsable(false)]
         [XmlAttribute("d")]
+        [RefreshProperties(RefreshProperties.All)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Deffinition { get { return ToPathDefString(); } set { Items = ParsePathDefString(value).Item1; } }
 

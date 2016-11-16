@@ -158,8 +158,8 @@ namespace MethodSpeedTester
                 $"{nameof(Experiments.GetAngle0)}(0, 1)"),
                 new SpeedTester(() => GetAngleAtan2v2(0, 1),
                 $"{nameof(Experiments.GetAngleAtan2v2)}(0, 1)"),
-                new SpeedTester(() => getAngle(0, 1),
-                $"{nameof(Experiments.getAngle)}(0, 1)")
+                new SpeedTester(() => GetAngle(0, 1),
+                $"{nameof(Experiments.GetAngle)}(0, 1)")
            };
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace MethodSpeedTester
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        public static double getAngle(double i, double j)
+        public static double GetAngle(double i, double j)
             => (Tau + (j > 0.0 ? 1.0 : -1.0) * Acos(i / Sqrt(i * i + j * j)) % Tau);
 
         #endregion
@@ -1079,24 +1079,24 @@ namespace MethodSpeedTester
             if (angle == 0 || angle == PI)
             {
                 xmin = cx - r1;
-                txmin = getAngle(-r1, 0);
+                txmin = GetAngle(-r1, 0);
                 xmax = cx + r1;
-                txmax = getAngle(r1, 0);
+                txmax = GetAngle(r1, 0);
                 ymin = cy - r2;
-                tymin = getAngle(0, -r2);
+                tymin = GetAngle(0, -r2);
                 ymax = cy + r2;
-                tymax = getAngle(0, r2);
+                tymax = GetAngle(0, r2);
             }
             else if (angle == PI / 2.0 || angle == 3.0 * PI / 2.0)
             {
                 xmin = cx - r2;
-                txmin = getAngle(-r2, 0);
+                txmin = GetAngle(-r2, 0);
                 xmax = cx + r2;
-                txmax = getAngle(r2, 0);
+                txmax = GetAngle(r2, 0);
                 ymin = cy - r1;
-                tymin = getAngle(0, -r1);
+                tymin = GetAngle(0, -r1);
                 ymax = cy + r1;
-                tymax = getAngle(0, r1);
+                tymax = GetAngle(0, r1);
             }
             else
             {
@@ -1110,9 +1110,9 @@ namespace MethodSpeedTester
                     Swap(ref txmin, ref txmax);
                 }
                 double tmpY = cy + r1 * Cos(txmin) * Sin(angle) + r2 * Sin(txmin) * Cos(angle);
-                txmin = getAngle(xmin - cx, tmpY - cy);
+                txmin = GetAngle(xmin - cx, tmpY - cy);
                 tmpY = cy + r1 * Cos(txmax) * Sin(angle) + r2 * Sin(txmax) * Cos(angle);
-                txmax = getAngle(xmax - cx, tmpY - cy);
+                txmax = GetAngle(xmax - cx, tmpY - cy);
 
                 tymin = Atan(r2 / (Tan(angle) * r1));
                 tymax = Atan(r2 / (Tan(angle) * r1)) + PI;
@@ -1124,13 +1124,13 @@ namespace MethodSpeedTester
                     Swap(ref tymin, ref tymax);
                 }
                 double tmpX = cx + r1 * Cos(tymin) * Cos(angle) - r2 * Sin(tymin) * Sin(angle);
-                tymin = getAngle(tmpX - cx, ymin - cy);
+                tymin = GetAngle(tmpX - cx, ymin - cy);
                 tmpX = cx + r1 * Cos(tymax) * Cos(angle) - r2 * Sin(tymax) * Sin(angle);
-                tymax = getAngle(tmpX - cx, ymax - cy);
+                tymax = GetAngle(tmpX - cx, ymax - cy);
             }
 
-            double angle1 = getAngle(x1 - cx, y1 - cy);
-            double angle2 = getAngle(x2 - cx, y2 - cy);
+            double angle1 = GetAngle(x1 - cx, y1 - cy);
+            double angle2 = GetAngle(x2 - cx, y2 - cy);
 
             if (!sweep)
                 Swap(ref angle1, ref angle2);
@@ -1168,7 +1168,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static Rectangle2D CubicBezierBounds(Point2D a, Point2D b, Point2D c, Point2D d)
         {
-            var sortOfCloseLength = (int)Distances.CubicBezierArcLength(a, b, c, d);
+            var sortOfCloseLength = (int)Distances.CubicBezierArcLength(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y);
             var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, i), sortOfCloseLength));
 
             double left = points[0].X;
@@ -1282,7 +1282,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static Rectangle2D QuadraticBezierBounds(Point2D a, Point2D b, Point2D c)
         {
-            var sortOfCloseLength = Distances.QuadraticBezierArcLengthByIntegral(a, b, c);
+            var sortOfCloseLength = Distances.QuadraticBezierArcLengthByIntegral(a.X, a.Y, b.X, b.Y, c.X, c.Y);
             // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
             var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.QuadraticBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, i), (int)(sortOfCloseLength / 3)));
 
@@ -1315,8 +1315,8 @@ namespace MethodSpeedTester
         public static List<SpeedTester> CircleBoundsFromThreePointsTests() => new List<SpeedTester> {
                 new SpeedTester(() => TripointCircleBounds(0, 0, 0, 1, 1, 1),
                 $"{nameof(Experiments.TripointCircleBounds)}(0, 0, 0, 1, 1, 1)"),
-                new SpeedTester(() => circleBoundsFromPoints(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.circleBoundsFromPoints)}(0, 0, 0, 1, 1, 1)")
+                new SpeedTester(() => CircleBoundsFromPoints(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.CircleBoundsFromPoints)}(0, 0, 0, 1, 1, 1)")
            };
 
         /// <summary>
@@ -1353,7 +1353,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </remarks>
-        public static Rectangle2D circleBoundsFromPoints(
+        public static Rectangle2D CircleBoundsFromPoints(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y)
@@ -1648,8 +1648,8 @@ namespace MethodSpeedTester
         public static List<SpeedTester> CircleFromThreePointsTests() => new List<SpeedTester> {
                 new SpeedTester(() => TripointCircle(0, 0, 0, 1, 1, 1),
                 $"{nameof(Experiments.TripointCircle)}(0, 0, 0, 1, 1, 1)"),
-                new SpeedTester(() => circleFromPoints(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.circleFromPoints)}(0, 0, 0, 1, 1, 1)")
+                new SpeedTester(() => CircleFromPoints(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.CircleFromPoints)}(0, 0, 0, 1, 1, 1)")
            };
 
         /// <summary>
@@ -1686,7 +1686,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </remarks>
-        public static Circle circleFromPoints(
+        public static Circle CircleFromPoints(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y)
@@ -2230,7 +2230,7 @@ namespace MethodSpeedTester
         /// <param name="Lut"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
-        public static List<double> findTforCoordinate(Point2D value, List<Point2D> Lut)
+        public static List<double> FindTforCoordinate(Point2D value, List<Point2D> Lut)
         {
             var point = new Point2D();
             var found = new List<double>();
@@ -2254,7 +2254,7 @@ namespace MethodSpeedTester
         /// <param name="d"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
-        public static List<Point2D> buildLUT(Point2D a, Point2D b, Point2D c, Point2D d)
+        public static List<Point2D> BuildLUT(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             var Lut = new List<Point2D>(100);
             for (double t = 0; t <= 1; t += 0.01)
@@ -4230,8 +4230,8 @@ namespace MethodSpeedTester
         public static List<SpeedTester> CircleCenterFromThreePointsTests() => new List<SpeedTester> {
                 new SpeedTester(() => TripointCircleCenter(0, 0, 0, 1, 1, 1),
                 $"{nameof(Experiments.TripointCircleCenter)}(0, 0, 0, 1, 1, 1)"),
-                new SpeedTester(() => circleCenterFromPoints(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.circleCenterFromPoints)}(0, 0, 0, 1, 1, 1)")
+                new SpeedTester(() => CircleCenterFromPoints(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.CircleCenterFromPoints)}(0, 0, 0, 1, 1, 1)")
            };
 
         /// <summary>
@@ -4274,7 +4274,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </remarks>
-        public static (double X, double Y)? circleCenterFromPoints(
+        public static (double X, double Y)? CircleCenterFromPoints(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y)
@@ -4376,7 +4376,7 @@ namespace MethodSpeedTester
         /// <param name="size"></param>
         /// <param name="radians"></param>
         /// <returns></returns>
-        public static Size2D fitRect(Size2D size, double radians)
+        public static Size2D FitRect(Size2D size, double radians)
         {
             double angleCos = Cos(radians);
             double angleSin = Sin(radians);
@@ -4417,7 +4417,7 @@ namespace MethodSpeedTester
         #region Gear Points
 
         // Draw the gear.
-        private void picGears_Paint(PaintEventArgs e, Rectangle bounds)
+        private void PicGears_Paint(PaintEventArgs e, Rectangle bounds)
         {
             // Draw smoothly.
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -5408,11 +5408,10 @@ namespace MethodSpeedTester
 
             // Loop over the possible x values looking for roots.
             double x0 = xmin;
-            double x, y;
             for (int i = 0; i < num_tests; i++)
             {
                 // Try to find a root at this position.
-                UseNewtonsMethod(x0, out x, out y,
+                UseNewtonsMethod(x0, out double x, out double y,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
 
@@ -5477,11 +5476,10 @@ namespace MethodSpeedTester
 
             // Loop over the possible x values looking for roots.
             double x0 = xmin;
-            double x, y;
             for (int i = 0; i < num_tests; i++)
             {
                 // Try to find a root in this range.
-                UseBinaryDivision(x0, delta_x, out x, out y,
+                UseBinaryDivision(x0, delta_x, out double x, out double y,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
 
@@ -6291,10 +6289,10 @@ namespace MethodSpeedTester
                 $"{nameof(Experiments.Intersection5)}(0, 0, 2, 2, 0, 2, 2, 0)"),
                 new SpeedTester(() => FindIntersection(0, 0, 2, 2, 0, 2, 2, 0),
                 $"{nameof(Experiments.FindIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)"),
-                new SpeedTester(() => lineIntersection(0, 0, 2, 2, 0, 2, 2, 0),
-                $"{nameof(Experiments.lineIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)"),
-                new SpeedTester(() => lineSegmentIntersection(0, 0, 2, 2, 0, 2, 2, 0),
-                $"{nameof(Experiments.lineSegmentIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)")
+                new SpeedTester(() => LineIntersection(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.LineIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)"),
+                new SpeedTester(() => LineSegmentIntersection(0, 0, 2, 2, 0, 2, 2, 0),
+                $"{nameof(Experiments.LineSegmentIntersection)}(0, 0, 2, 2, 0, 2, 2, 0)")
             };
 
         /// <summary>
@@ -6627,7 +6625,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://alienryderflex.com/intersect/
         /// </remarks>
-        public static (bool, (double X, double Y)?) lineIntersection(
+        public static (bool, (double X, double Y)?) LineIntersection(
             double Ax, double Ay,
             double Bx, double By,
             double Cx, double Cy,
@@ -6686,7 +6684,7 @@ namespace MethodSpeedTester
         ///  public domain function by Darel Rex Finley, 2006
         ///  http://alienryderflex.com/intersect/
         /// </remarks>
-        public static (bool, (double X, double Y)?) lineSegmentIntersection(
+        public static (bool, (double X, double Y)?) LineSegmentIntersection(
             double Ax, double Ay,
             double Bx, double By,
             double Cx, double Cy,
@@ -6745,7 +6743,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// https://github.com/thelonious/kld-intersections
         /// </remarks>
-        public static List<Point2D> intersectLineLine(
+        public static List<Point2D> IntersectLineLine(
             double Ax, double Ay,
             double Bx, double By,
             double Cx, double Cy,
@@ -7766,7 +7764,7 @@ namespace MethodSpeedTester
         #region N Polygon Star
 
         // Draw the stars.
-        private void picCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
+        private void PicCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
         {
             if (NumPoints < 3)
                 return;
@@ -8302,7 +8300,7 @@ namespace MethodSpeedTester
         //
         //  Warning:  Do not pass zero in both parameters, as this will cause a division-
         //            by-zero.
-        public static double angleOf(double x, double y)
+        public static double AngleOf(double x, double y)
         {
             double dist = Sqrt(x * x + y * y);
             if (y >= 0d) return Acos(x / dist);
@@ -8318,7 +8316,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://alienryderflex.com/polygon_perimeter/
         /// </remarks>
-        public static List<(double X, double Y)> polygonPerimeter(List<(double X, double Y)> points)
+        public static List<(double X, double Y)> PolygonPerimeter(List<(double X, double Y)> points)
         {
             int corners = points.Count;
 
@@ -8387,7 +8385,7 @@ namespace MethodSpeedTester
 
             //  Calculate the angle of each segment.
             for (int i = 0; i < segs; i++)
-                segAngle[i] = angleOf(segE[i].X - segS[i].X, segE[i].Y - segS[i].Y);
+                segAngle[i] = AngleOf(segE[i].X - segS[i].X, segE[i].Y - segS[i].Y);
 
             //  4.  Build the perimeter polygon.
             double c = start.X;
@@ -9034,7 +9032,7 @@ namespace MethodSpeedTester
                 j = i;
             }
 
-            return new(List<double>, List<double>)(new List<double>(constant), new List<double>(multiple));
+            return (new List<double>(constant), new List<double>(multiple));
         }
 
         /// <summary>

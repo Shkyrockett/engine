@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine
@@ -14,62 +15,67 @@ namespace Engine
         /// <param name="curves"></param>
         public PolyBezier(List<Bezier> curves)
         {
-            _3d = false;
+            Is3d = false;
             if (curves == null)
             {
-                this.curves = curves;
-                _3d = this.curves[0]._3d;
+                this.Curves = curves;
+                Is3d = this.Curves[0].Is3d;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Bezier> curves { get; }
+        public List<Bezier> Curves { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool _3d { get; private set; }
+        public bool Is3d { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="curve"></param>
-        public void addCurve(Bezier curve)
+        public void AddCurve(Bezier curve)
         {
-            curves.Add(curve);
-            _3d = _3d || curve._3d;
+            Curves.Add(curve);
+            Is3d = Is3d || curve.Is3d;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public double length()
+        public double Length()
             => new List<double>(
-            from v in curves
-            select v.length()).Sum();
+            from v in Curves
+            select v.Length()).Sum();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="idx"></param>
         /// <returns></returns>
-        public Bezier curve(int idx)
-            => curves[idx];
+        public Bezier Curve(int idx)
+            => Curves[idx];
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public BBox bbox()
+        public BBox Bbox()
         {
-            List<Bezier> c = curves;
-            BBox bbox = c[0].bbox();
+            List<Bezier> c = Curves;
+            BBox bbox = c[0].Bbox();
             for (int i = 1; i < c.Count; i++)
-                expandbox(bbox, c[i].bbox());
+                Expandbox(bbox, c[i].Bbox());
             return bbox;
+        }
+
+        private void Expandbox(BBox bbox, BBox bBox)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -77,12 +83,12 @@ namespace Engine
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        public List<Bezier> offset(double d)
+        public List<Bezier> Offset(double d)
         {
             var offset = new List<Bezier>();
 
-            foreach(Bezier v in curves)
-                offset.AddRange(v.offset(d));
+            foreach(Bezier v in Curves)
+                offset.AddRange(v.Offset(d));
 
             return offset;
         }

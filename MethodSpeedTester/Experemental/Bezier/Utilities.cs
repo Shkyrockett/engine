@@ -342,7 +342,7 @@ namespace Engine
             double MY = MX;
             foreach (Bezier s in sections)
             {
-                BBox bbox = s.bbox();
+                BBox bbox = s.Bbox();
                 if (mx > bbox.x.min)
                     mx = bbox.x.min;
                 if (my > bbox.y.min)
@@ -376,13 +376,13 @@ namespace Engine
             var a2 = new List<Bezier> { s2.startcap, s2.forward, s2.back, s2.endcap };
             foreach (Bezier l1 in a1)
             {
-                if (l1._virtual)
+                if (l1.Virtual)
                     return new List<Pair>();
                 foreach (Bezier l2 in a2)
                 {
-                    if (l2._virtual)
+                    if (l2.Virtual)
                         return new List<Pair>();
-                    List<Pair> iss = l1.intersects(l2);
+                    List<Pair> iss = l1.Intersects(l2);
                     foreach (Pair i in iss)
                     {
                         if (i.length > 0)
@@ -407,10 +407,10 @@ namespace Engine
         /// <returns></returns>
         public static Shape1 MakeShape(Bezier forward, Bezier back)
         {
-            int bpl = back.points.Count;
-            int fpl = forward.points.Count;
-            Bezier start = MakeLine(back.points[bpl - 1], forward.points[0]);
-            Bezier end = MakeLine(forward.points[fpl - 1], back.points[0]);
+            int bpl = back.Points.Count;
+            int fpl = forward.Points.Count;
+            Bezier start = MakeLine(back.Points[bpl - 1], forward.Points[0]);
+            Bezier end = MakeLine(forward.Points[fpl - 1], back.Points[0]);
             var shape = new Shape1(
                 startcap: start,
                 forward: forward,
@@ -447,7 +447,7 @@ namespace Engine
             for (int i = 0, len = list.Count; i < len; i++)
             {
                 t = list[i];
-                c = curve.get(t);
+                c = curve.Get(t);
                 switch (d)
                 {
                     case 0:
@@ -741,16 +741,16 @@ namespace Engine
         /// <param name="c2"></param>
         public static List<Pair> pairiteration(Bezier c1, Bezier c2)
         {
-            BBox c1b = c1.bbox();
-            BBox c2b = c2.bbox();
+            BBox c1b = c1.Bbox();
+            BBox c2b = c2.Bbox();
             //double r = 100000;
             double threshold = 0.5;
             if (c1b.x.size + c1b.y.size < threshold && c2b.x.size + c2b.y.size < threshold)
             {
                 //return new List<Pair>() { ((r * (c1._t1 + c1._t2) / 2) | 0d) / r + "/" + ((r * (c2._t1 + c2._t2) / 2) | 0) / r };
             }
-            Pair cc1 = c1.split(0.5),
-                cc2 = c2.split(0.5);
+            Pair cc1 = c1.Split(0.5),
+                cc2 = c2.Split(0.5);
 
             var pairs = new List<Pair>(
                 from pair in new List<Pair> {
@@ -758,7 +758,7 @@ namespace Engine
                 new Pair(left: cc1.left, right: cc2.right),
                 new Pair(left: cc1.right, right: cc2.right),
                 new Pair(left: cc1.right, right: cc2.left)}
-                where bboxoverlap(pair.left.bbox(), pair.right.bbox())
+                where bboxoverlap(pair.left.Bbox(), pair.right.Bbox())
                 select pair);
 
             var results = new List<Pair>();

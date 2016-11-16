@@ -1,6 +1,6 @@
 ﻿// <copyright file="SquareCellGrid.cs">
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
-// </copyright> 
+// </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
@@ -10,6 +10,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -54,21 +55,25 @@ namespace Engine
         /// <summary>
         /// The calculated optimal <see cref="Size"/> height and width of the cells in the grid.
         /// </summary>
+        [NonSerialized()]
         private Size cellSize;
 
         /// <summary>
         /// The calculated inner <see cref="Rectangle"/> bounds of the grid.
         /// </summary>
+        [NonSerialized()]
         private Rectangle innerBounds;
 
         /// <summary>
         /// The calculated optimal number of columns the grid can contain for it's height and width.
         /// </summary>
+        [NonSerialized()]
         private int columns;
 
         /// <summary>
         /// The calculated optimal number of rows the grid can contain for it's height and width.
         /// </summary>
+        [NonSerialized()]
         private int rows;
 
         #endregion
@@ -87,11 +92,23 @@ namespace Engine
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
         public SquareCellGrid(Rectangle bounds, int count)
+            : this(bounds.X, bounds.Y, bounds.Width, bounds.Height, count)
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="count"></param>
+        public SquareCellGrid(int x, int y, int width, int height, int count)
         {
-            x = bounds.X;
-            y = bounds.Y;
-            h = bounds.Width;
-            v = bounds.Height;
+            this.x = x;
+            this.y = y;
+            this.h = width;
+            this.v = height;
             this.count = count;
             Recalculate();
         }
@@ -115,7 +132,7 @@ namespace Engine
                     return -1;
 
                 // Calculate the index of the item under the point location.
-                int value = (((location.Y / cellSize.Height) % rows) * columns) + ((location.X / cellSize.Width) % columns);
+                var value = ((((location.Y - y) / cellSize.Height) % rows) * columns) + (((location.X - x) / cellSize.Width) % columns);
 
                 // Return only valid cells.
                 return (value < count) ? value : -1;
@@ -133,7 +150,7 @@ namespace Engine
             get
             {
                 // ToDo: Implement flow orientation options.
-                var point = new Point((index % columns) * cellSize.Width, (index / columns) * cellSize.Height);
+                var point = new Point(x + (index % columns) * cellSize.Width, y + (index / columns) * cellSize.Height);
                 return new Rectangle(point, cellSize);
             }
         }
@@ -270,6 +287,47 @@ namespace Engine
         #region Methods
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerializing()]
+        internal void OnSerializing(StreamingContext context)
+        {
+            // member2 = "This value went into the data file during serialization.";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerialized()]
+        internal void OnSerialized(StreamingContext context)
+        {
+            // member2 = "This value was reset after serialization.";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserializing()]
+        internal void OnDeserializing(StreamingContext context)
+        {
+            // member3 = "This value was set during deserialization";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized()]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // member4 = "This value was set after deserialization.";
+            Recalculate();
+        }
+
+        /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 
         /// </summary>
         private void Recalculate()
@@ -281,13 +339,13 @@ namespace Engine
                 rows = columns;
 
                 // Calculate the optimum cell size for the grid.
-                int cellScale = Min(h / columns, v / rows);
+                var cellScale = Min(h / columns, v / rows);
 
                 // Set the size of the cell.
                 cellSize = new Size(cellScale, cellScale);
 
                 // Set up the inner boundaries of the grid to the canvas size.
-                innerBounds = new Rectangle(Point.Empty, new Size(columns * cellSize.Width, rows * cellSize.Height));
+                innerBounds = new Rectangle(new Point(x, y), new Size(columns * cellSize.Width, rows * cellSize.Height));
             }
         }
 
@@ -307,11 +365,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// Converts the attributes of this <see cref="RectangleCellGrid"/> to a human-readable string. 
+        /// Converts the attributes of this <see cref="SquareCellGrid"/> to a human-readable string. 
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => $"SquareCellGrid{{Bounds {{{Bounds}}}, Count {count}}}";
+            => $"{nameof(SquareCellGrid)}{{Bounds {{{Bounds}}}, Count {count}}}";
 
         #endregion
     }

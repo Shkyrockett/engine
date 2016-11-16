@@ -120,9 +120,9 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public override Rectangle2D Bounds
             => ToEllipticalArc().Bounds;
 

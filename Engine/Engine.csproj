@@ -116,6 +116,10 @@
     <Compile Include="Imaging\Styles\LineStyles\LineStyle.cs" />
     <Compile Include="Imaging\Styles\LineStyles\LineCapStyle.cs" />
     <Compile Include="Imaging\Styles\LineStyles\LineDashStyle.cs" />
+    <Compile Include="KeyFrame\Bone.cs" />
+    <Compile Include="KeyFrame\Pose.cs" />
+    <Compile Include="KeyFrame\Skeleton.cs" />
+    <Compile Include="KeyFrame\SkeletonBone.cs" />
     <Compile Include="Math\Geometry\Containings.cs" />
     <Compile Include="Math\Geometry\Intersectings.cs" />
     <Compile Include="Math\Geometry\GeometryClipping.cs" />
@@ -173,6 +177,7 @@
     <Compile Include="Geometry\Primitives\Converters\AngleConverter.cs" />
     <Compile Include="Math\Enums\Overflows.cs" />
     <Compile Include="Math\Geometry\Offsets.cs" />
+    <Compile Include="Objects\Geometry.cs" />
     <Compile Include="Physics\UnitStrings.cs" />
     <Compile Include="Math\Range.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />

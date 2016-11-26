@@ -30,7 +30,7 @@ A **Polynomial** is a general term for the sets of expresions set up with terms 
 #### Common Sub-Sets of Polynomials
 
 | Name | Examle | Description |
-|---|---|---|
+|:---:|---|---|
 | Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
 | Binomial | ![][binomial] | A Binomial is a polinomial that consists of two terms. |
 | Trinomial | ![][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
@@ -136,7 +136,7 @@ Below are tables of common operators.
 ##### Binary/Unary Operators
 
 | Symbol | Name | Operation |
-|---|---|---|
+|:---:|---|---|
 | ![][operators.add.inline] | Add or Plus | Adds the value of the left argument to the right. |
 | ![][operators.subtract.inline] | Minus or Subtract | removes the value of the right argument from the left. |
 | ![][operators.multiply.inline] | Multiply or Times | Repeatedly adds the right value to the left. |
@@ -146,7 +146,7 @@ Below are tables of common operators.
 ### Functions
 
 | Symbol | Name | Operation |
-|---|---|---|
+|:---:|---|---|
 | ![][operators.exponent.inline] | Exponent | Indicates how many times the multiplication should be used. |
 | ![][operators.root.inline] | Root, Radix, or Radical | An inverse of the exponent, in finding the zeros of a number. |
 | ![][operators.log.inline] | Logarithm | An inverse of an exponential. Indicates how many of a number needs to be multiplied to get another. |
@@ -155,7 +155,7 @@ Below are tables of common operators.
 ##### Trigonometric Functions
 
 | Symbol | Name | Operation |
-|---|---|---|
+|:---:|---|---|
 | ![][operators.sin.inline] | Sine |  |
 | ![][operators.cos.inline] | Cosine |  |
 | ![][operators.tan.inline] | Tangent |  |
@@ -180,7 +180,7 @@ Below are tables of common operators.
 ### Order of Operations
 
 | Order | Operators | Name | Description |
-|---|---|---|---|
+|:---:|:---:|---|---|
 | 0 | ![][parenthesis], ![][square brackets], ![][braces], ![][angle brackets] | Parenthesis, Brackets, Braces | Perform calculations withing brackets first. |
 | 1 | ![][operators.exponent.inline], ![][operators.root.inline] | Exponents, Powers, Roots | Exponents, Powers and Roots then follow. |
 | 2 | ![][operators.multiply.inline], ![][operators.divide.inline] | Multiply, Divide | Then Multiply and Divide. |
@@ -205,7 +205,7 @@ A positive times a negative is a negative.
 ### Other Functions
 
 | Function | Description |
-|---|---|
+|:---|---|
 | Distribute |  |
 | Reorder/Sort Terms |  |
 | Factor |  |

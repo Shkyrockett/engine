@@ -9,7 +9,7 @@
 
 using System.ComponentModel;
 
-namespace Engine.Imaging
+namespace Engine
 {
     /// <summary>
     /// 

@@ -2665,6 +2665,49 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Cubic Bezier Derivative
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
+        private PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t)
+        {
+            return new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
+                              (float)(3 * Pow(1 - t, 2) * (p1.Y - p0.Y) + 6 * (1 - t) * t * (p2.Y - p1.Y) + 3 * Pow(t, 2) * (p3.Y - p2.Y)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
+        private PointF CubicBezierDerivative1(PointF p0, PointF p1, PointF p2, PointF p3, double t)
+        {
+            double mu1 = 1 - t;
+            double mu12 = mu1 * mu1;
+            double mu2 = t * t;
+
+            return new PointF(
+                (float)(3 * mu12 * (p1.X - p0.X) + 6 * mu1 * t * (p2.X - p1.X) + 3 * mu2 * (p3.X - p2.X)),
+                (float)(3 * mu12 * (p1.Y - p0.Y) + 6 * mu1 * t * (p2.Y - p1.Y) + 3 * mu2 * (p3.Y - p2.Y))
+                );
+        }
+
+        #endregion
+
         #region Cubic Bezier Interpolation of 1D Points
 
         #endregion
@@ -2746,9 +2789,10 @@ namespace MethodSpeedTester
         double bX, double bY,
         double cX, double cY,
         double dX, double dY,
-        double t) => (
-        aX * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bX * (1.0 - t) * (1.0 - t) * t + 3.0 * cX * (1.0 - t) * t * t + dX * t * t * t,
-        aY * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bY * (1.0 - t) * (1.0 - t) * t + 3.0 * cY * (1.0 - t) * t * t + dY * t * t * t);
+        double t)
+            => (
+            aX * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bX * (1.0 - t) * (1.0 - t) * t + 3.0 * cX * (1.0 - t) * t * t + dX * t * t * t,
+            aY * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bY * (1.0 - t) * (1.0 - t) * t + 3.0 * cY * (1.0 - t) * t * t + dY * t * t * t);
 
         /// <summary>
         /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
@@ -2915,6 +2959,22 @@ namespace MethodSpeedTester
                 (c1.Item1 * t * t * t + c2.Item1 * t * t * t + c3.Item1 * t + c4.Item1),
                 (c1.Item2 * t * t * t + c2.Item2 * t * t * t + c3.Item2 * t + c4.Item2));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        /// <remarks>http://en.wikipedia.org/wiki/B%C3%A9zier_curve</remarks>
+        private PointF CubicBezierCurve(PointF p0, PointF p1, PointF p2, PointF p3, double t)
+            => new PointF((float)(Pow(1 - t, 3) * p0.X + 3 * Pow(1 - t, 2) * t * p1.X
+                        + 3 * (1 - t) * Pow(t, 2) * p2.X + Pow(t, 3) * p3.X),
+                (float)(Pow(1 - t, 3) * p0.Y + 3 * Pow(1 - t, 2) * t * p1.Y
+                        + 3 * (1 - t) * Pow(t, 2) * p2.Y + Pow(t, 3) * p3.Y));
 
         #endregion
 

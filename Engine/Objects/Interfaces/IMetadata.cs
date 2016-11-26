@@ -9,7 +9,10 @@
 
 namespace Engine
 {
-    internal class IMetadata
+    /// <summary>
+    /// 
+    /// </summary>
+    public class IMetadata
     {
     }
 }

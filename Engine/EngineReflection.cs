@@ -18,7 +18,7 @@ using System.Reflection;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class EngineReflection
     {
@@ -55,7 +55,7 @@ namespace Engine
             PropertyDescriptorCollection props = TypeDescriptor.GetProperties(type, new Attribute[] { searchAttribute });
             foreach (PropertyDescriptor prop in props)
             {
-                // AttributeArray-property is not accessible 
+                // AttributeArray-property is not accessible
                 // => use reflection to get and set it.
                 PropertyInfo attributeArrayPropInfo = prop.GetType().GetProperty("AttributeArray", BindingFlags.Instance | BindingFlags.NonPublic);
                 List<Attribute> attributeArray = (attributeArrayPropInfo.GetValue(prop, null) as Attribute[]).ToList();
@@ -142,8 +142,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
+        /// <param name="units"></param>
         /// <returns></returns>
         public static List<Type> ListUnits(Type units)
         {
@@ -152,7 +153,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -180,7 +181,7 @@ namespace Engine
             ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
-        /// List all of the assembly types based on a particular interface. 
+        /// List all of the assembly types based on a particular interface.
         /// </summary>
         /// <param name="assembly">The assembly to look in.</param>
         /// <param name="classType">The interface type to look for.</param>
@@ -194,7 +195,7 @@ namespace Engine
             ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
-        /// List all of the assembly types based on a particular attribute. 
+        /// List all of the assembly types based on a particular attribute.
         /// </summary>
         /// <param name="assembly">The assembly to look in.</param>
         /// <param name="attributeType">The attribute type to look for.</param>
@@ -211,7 +212,7 @@ namespace Engine
             ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="attribute"></param>

@@ -92,7 +92,7 @@ In some instances a numarical value is replaced with a symbolic representation t
 |:---:|---|---|
 | ![][pi.inline] | ≈3.1415926… | Pi is the ratio of the circumference of a circle to it's radius. |
 | ![][i] | Imaginary  |  Denotes an imaginary number. |
-|   |   |   |
+| | | |
 
 ### Exponent
 
@@ -278,17 +278,272 @@ Quadratic equation is where the equation involves an exponent of 2.
 | ![][ellipse curvature] | curvature | The curvature of an ellipse. |
 |  |  |  |
 
+## Physical Units
+
+### Lengths
+
+| Unit | Deffinition |
+|---|---|
+| Mils | One thousandth of an Inch. |
+| Centimeters |  |
+| Inches |  |
+| Feet | 12 Inches |
+| Yards | 3 Feet |
+| Meters |  |
+| Smoots | 67 Inches |
+| Miles |  |
+| Nautical Miles (International) |  |
+| kilometres |  |
+| petametres |  |
+| Astronomical Units |  |
+| Light-Year | 9460730472580800 metres |
+| Parsecs |  |
+|  |  |
+| Angstroms |  |
+| Arpents |  |
+| Cable Lengths (Imperial) |  |
+| Cable Lengths (International) |  |
+| Cable Lengths (U.S.) |  |
+| Chains |  |
+| Cubits |  |
+| Decameters |  |
+| Decimeters |  |
+| Ells |  |
+| Fathoms |  |
+| Feet (French measure) |  |
+| Feet (U.S. Survey) |  |
+| Fingers |  |
+| Fingers (cloth) |  |
+| French |  |
+| Furlongs |  |
+| Gigameters |  |
+| Hands |  |
+| Kilofeet |  |
+| Kilometers |  |
+| Leagues |  |
+| Leagues (land) |  |
+| Light Days |  |
+| Light Hours |  |
+| Light Minutes |  |
+| Light Seconds |  |
+| Light Years |  |
+| Line |  |
+| Links (Gunter's Surveyor's) |  |
+| Marathons |  |
+| Megameters |  |
+| Metric Feet |  |
+| Metric Inches |  |
+| Metric Miles |  |
+| Mickeys |  |
+| Microinches |  |
+| Micrometers |  |
+| Microns |  |
+| Millimeters |  |
+| Myriameters |  |
+| Nails (cloth) |  |
+| Nanometers |  |
+| Nautical Leagues |  |
+| Paces |  |
+| Palms |  |
+| Perch |  |
+| Picas |  |
+| Picometers |  |
+| Points (PostScript) |  |
+| Quarters |  |
+| Rods |  |
+| Ropes |  |
+| Shaku |  |
+| Spans |  |
+| Steps |  |
+| Terameters |  |
+| Twips |  |
+|  |  |
+
+### Angular Units
+
+| Unit | Deffinition |
+|---|---|
+| Radians |  |
+| Degrees |  |
+|  |  |
+| Angular Mils |  |
+| Arcminutes |  |
+| Arcseconds |  |
+| Binary Degrees |  |
+| Centesimal minutes of arc |  |
+| Centesimal seconds of arc |  |
+| Centiturns |  |
+| Diameter Parts |  |
+| Gradians |  |
+| Hexacontades |  |
+| Hour Angles |  |
+| Milliturns |  |
+| Minutes of time |  |
+| Octants |  |
+| Pechus |  |
+| Points (navigation) |  |
+| Quadrants |  |
+| Quarter Points (navigation) |  |
+| Seconds of time |  |
+| Sextants |  |
+| Signs |  |
+| Turns |  |
+|  |  |
+
+### Mass
+
+| Unit | Deffinition |
+|---|---|
+| Attograms |  |
+| Bags of Coffee |  |
+| Bags of Portland Cement |  |
+| Barges |  |
+| Carats |  |
+| Carats (metric) |  |
+| Centigrams |  |
+| Cloves |  |
+| Criths |  |
+| Decagrams |  |
+| Decigrams |  |
+| Drams (avoirdupois)  |  |
+| Drams troy |  |
+| Exagrams |  |
+| Femtograms |  |
+| Gigagrams |  |
+| Gigatonnes |  |
+| Grains |  |
+| Grams  |  |
+| Graves |  |
+| Hectograms |  |
+| Hundredweights (long)  |  |
+| Hundredweights (short) |  |
+| Keels |  |
+| Kilograms |  |
+| Kilotonne |  |
+| Kips |  |
+| Long Tons |  |
+| Marks |  |
+| Megagrams |  |
+| Megatonnes |  |
+| Micrograms |  |
+| Milligrams |  |
+| Mites  |  |
+| Mites (metric) |  |
+| Nanograms  |  |
+| Newtons  |  |
+| Ounces |  |
+| Ounces (apothecary; troy)  |  |
+| Ounces (U.S. food nutrition labeling)  |  |
+| Pennyweight  |  |
+| Petagrams  |  |
+| Petatonnes |  |
+| Picograms  |  |
+| Points |  |
+| Pounds |  |
+| Pounds (metric)  |  |
+| Pounds (troy)  |  |
+| Quarters |  |
+| Quarters (long)  |  |
+| Quarters (short) |  |
+| Quintals |  |
+| Scruples |  |
+| Sheets |  |
+| Short Tons |  |
+| Slugs  |  |
+| Stones |  |
+| Teragrams  |  |
+| Teratonnes |  |
+| Ton, Assay (long)  |  |
+| Ton, Assay (short) |  |
+| Tonnes |  |
+| Weys |  |
+| Yoctograms |  |
+| Yottagrams |  |
+| Zeptograms |  |
+| Zettagrams |  |
+|  |  |
+
+### Temperature
+
+| Unit | Deffinition |
+|---|---|
+| Degrees Celsius |  |
+| Degrees Delisle |  |
+| Degrees Fahrenheit |  |
+| Degrees Newton |  |
+| Degrees Rankine |  |
+| Degrees Reaumur |  |
+| Degrees Romer |  |
+| Gas Marks |  |
+| Kelvins |  |
+|  |  |
+
+### Time
+
+| Unit | Deffinition |
+|---|---|
+| Callippic Cycles |  |
+| Centiseconds |  |
+| Centuries | 100 Years |
+| Days | 24 Hours |
+| Days (sidereal) |  |
+| Decades | 10 Years |
+| Decaseconds |  |
+| Deciseconds |  |
+| Femtoseconds |  |
+| Fortnights |  |
+| Gigaseconds |  |
+| Hectoseconds |  |
+| Heleks |  |
+| Hipparchic Cycles |  |
+| Hours | 60 Minutes |
+| Jiffies |  |
+| Jiffies (alternative) |  |
+| Ke |  |
+| Ke (traditional) |  |
+| Kiloseconds |  |
+| Lustres |  |
+| Megaseconds |  |
+| Metonic Cycles |  |
+| Microfortnights |  |
+| Microseconds |  |
+| Millennia | Thousand Years |
+| Millidays |  |
+| Millifortnights |  |
+| Milliseconds | Thousandth of seccond |
+| Minutes | 60 Seconds |
+| Moments |  |
+| Months | 28 - 31 days |
+| Months (hollow) |  |
+| Nanofortnights |  |
+| Nanoseconds | Millionth of a second |
+| Octaeterides |  |
+| Picoseconds | Billionth of a Second |
+| Seconds | a 60th of a Minute |
+| Shakes |  |
+| Sigmas |  |
+| Sols |  |
+| Sothic Cycles |  |
+| Svedbergs |  |
+| Teraseconds |  |
+| Weeks | 7 Days |
+| Years | 360 - 361 days |
+| Years (Julian) |  |
+| Years (sidereal) |  |
+| Years (tropical) |  |
+|  |  |
+
 ## Mathmatical Tricks
 
 ### Multiplecation Tricks
 
 Multiplying single digit numbers by 11 can be fun, since all you have to do is put the same number next to it. But the two digit numbers look intimidating, such as ![][12x11.inline]. However, there is this little trick: 
-   >Split the two digits up ![][Split 12.inline]. Add them together ![][1+2.inline] place the sum in the middle and push them together ![][Join 1 and 2.inline]. And there you have it.
+ >Split the two digits up ![][Split 12.inline]. Add them together ![][1+2.inline] place the sum in the middle and push them together ![][Join 1 and 2.inline]. And there you have it.
 
 ### Exponents Tricks
 
-This one is for finding the squares of numbers ending with 5.   e.g. ( 〖25〗^2=625 ). 
-   >Take your number remove the 5 ( 2⇐25:5=2). Then, multiply the first digit by its “plus one” (2×(2+1)=6). To finish off append 25 (6⟸25:625) and you are done.
+This one is for finding the squares of numbers ending with 5. e.g. ( 〖25〗^2=625 ). 
+ >Take your number remove the 5 ( 2⇐25:5=2). Then, multiply the first digit by its “plus one” (2×(2+1)=6). To finish off append 25 (6⟸25:625) and you are done.
 
 ## References:
 [CodeCogs latex equation editor][codecogs latex equation editor] used to render the equations.  

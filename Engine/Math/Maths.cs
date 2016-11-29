@@ -1783,7 +1783,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToRadians(this double degrees)
-            => degrees * Radien;
+            => degrees * Radian;
 
         /// <summary>
         /// Convert Radians to Degrees.

@@ -1,4 +1,4 @@
-﻿// <copyright file="ILength.cs" >
+﻿// <copyright file="Kilograms.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -14,29 +14,45 @@ namespace Engine.Physics
     /// <summary>
     ///
     /// </summary>
-    public interface ILength
+    public struct Kilograms
+        : IMass
     {
         /// <summary>
         ///
         /// </summary>
-        double Value { get; /*set;*/ }
+        /// <param name="value"></param>
+        public Kilograms(double value)
+        {
+            Value = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public double Value { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string Name { get; }
+        public string Name => "Kilograms";
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string Abreviation { get; }
+        public string Abreviation => "Kg";
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        public static implicit operator Kilograms(double value) => new Kilograms(value);
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        string ToString();
+        public override string ToString() => $"{Value} kg";
     }
 }

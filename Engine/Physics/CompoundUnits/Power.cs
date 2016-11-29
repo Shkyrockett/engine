@@ -1,4 +1,4 @@
-﻿// <copyright file="ILength.cs" >
+﻿// <copyright file="Power.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -14,29 +14,51 @@ namespace Engine.Physics
     /// <summary>
     ///
     /// </summary>
-    public interface ILength
+    public struct Power
+        : IPower
     {
         /// <summary>
         ///
         /// </summary>
-        double Value { get; /*set;*/ }
+        /// <param name="work"></param>
+        /// <param name="time"></param>
+        public Power(IEnergy work, ITime time)
+        {
+            Work = work;
+            Time = time;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public IEnergy Work { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public ITime Time { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public double Value => Work.Value / Time.Value;
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string Name { get; }
+        public string Name => "Power";
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string Abreviation { get; }
+        public string Abreviation => "J";
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        string ToString();
+        public override string ToString() => $"{Value}";
     }
 }

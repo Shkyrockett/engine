@@ -1,4 +1,4 @@
-﻿// <copyright file="ILength.cs" >
+﻿// <copyright file="Horsepower.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -14,29 +14,45 @@ namespace Engine.Physics
     /// <summary>
     ///
     /// </summary>
-    public interface ILength
+    public struct Horsepower
+        : IPower
     {
         /// <summary>
         ///
         /// </summary>
-        double Value { get; /*set;*/ }
+        /// <param name="value"></param>
+        public Horsepower(double value)
+        {
+            Value = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public double Value { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string Name { get; }
+        public string Name => "Horsepower";
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string Abreviation { get; }
+        public string Abreviation => "hp";
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        public static implicit operator Horsepower(double value) => new Horsepower(value);
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        string ToString();
+        public override string ToString() => $"{Value} hp";
     }
 }

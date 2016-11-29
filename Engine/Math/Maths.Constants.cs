@@ -167,7 +167,7 @@ namespace Engine
         /// One Radian.
         /// </summary>
         /// <remarks>PI / 180</remarks>
-        public const double Radien = PI / 180d; // 0.01745329251994329576923690768489d;
+        public const double Radian = PI / 180d; // 0.01745329251994329576923690768489d;
 
         /// <summary>
         /// One degree.

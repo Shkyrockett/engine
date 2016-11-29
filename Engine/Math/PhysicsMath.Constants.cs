@@ -17,12 +17,12 @@ namespace Engine.Physics
         /// <summary>
         /// The speed of light in a vacuum.
         /// </summary>
-        public static readonly Speed SpeedOfLightInVacuum = new Speed(new Meters(299790000d), new Seconds(1d));
+        public static readonly Speed SpeedOfLightInVacuum = new Speed((Meters)299790000d, (Seconds)1d);
 
         /// <summary>
         /// Speed of sound at 20 Degrees C.
         /// </summary>
-        public static readonly Speed SpeedOfSoundAt20DegreesC = new Speed(new Meters(343d), new Seconds(1d));
+        public static readonly Speed SpeedOfSoundAt20DegreesC = new Speed((Meters)343d, (Seconds)1d);
 
         /// <summary>
         /// The Earth gravitational constant.

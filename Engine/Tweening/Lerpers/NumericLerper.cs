@@ -86,7 +86,7 @@ namespace Engine.Tweening
                     value += 360.0f;
 
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))
-                    value *= Radien;
+                    value *= Radian;
             }
 
             if (behavior.HasFlag(LerpBehavior.Round)) value = Round(value);

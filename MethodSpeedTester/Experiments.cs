@@ -10950,16 +10950,16 @@ namespace MethodSpeedTester
             Random rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             double value = default(double);
             return new List<SpeedTester> {
-                new SpeedTester(() => SinCos0(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
-                $"{nameof(Experiments.SinCos0)}({Maths.WrapAngle(value += Radien)})"),
-                new SpeedTester(() => SinCos1(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
-                $"{nameof(Experiments.SinCos1)}({Maths.WrapAngle(value += Radien)})"),
-                new SpeedTester(() => SinCos2(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
-                $"{nameof(Experiments.SinCos2)}({Maths.WrapAngle(value += Radien)})"),
-                new SpeedTester(() => SinCos3(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
-                $"{nameof(Experiments.SinCos3)}({Maths.WrapAngle(value += Radien)})"),
-                new SpeedTester(() => SinCos4(Maths.WrapAngle(value += Radien + ClearSinCosTable())),
-                $"{nameof(Experiments.SinCos4)}({Maths.WrapAngle(value += Radien)})"),
+                new SpeedTester(() => SinCos0(Maths.WrapAngle(value += Radian + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos0)}({Maths.WrapAngle(value += Radian)})"),
+                new SpeedTester(() => SinCos1(Maths.WrapAngle(value += Radian + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos1)}({Maths.WrapAngle(value += Radian)})"),
+                new SpeedTester(() => SinCos2(Maths.WrapAngle(value += Radian + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos2)}({Maths.WrapAngle(value += Radian)})"),
+                new SpeedTester(() => SinCos3(Maths.WrapAngle(value += Radian + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos3)}({Maths.WrapAngle(value += Radian)})"),
+                new SpeedTester(() => SinCos4(Maths.WrapAngle(value += Radian + ClearSinCosTable())),
+                $"{nameof(Experiments.SinCos4)}({Maths.WrapAngle(value += Radian)})"),
             };
         }
 

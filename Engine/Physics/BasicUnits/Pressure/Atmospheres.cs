@@ -1,4 +1,4 @@
-﻿// <copyright file="UnitStrings.cs" >
+﻿// <copyright file="Atmospheres.cs" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,34 +9,44 @@
 
 namespace Engine.Physics
 {
+    using System.ComponentModel;
+
     /// <summary>
     ///
     /// </summary>
-    public class UnitStrings
+    public struct Atmospheres
+        : IPressure
     {
         /// <summary>
         ///
         /// </summary>
-        public const string UnitString = "{0} {1}*{2}";
+        /// <param name="value"></param>
+        public Atmospheres(double value)
+        {
+            Value = value;
+        }
 
         /// <summary>
         ///
         /// </summary>
-        public const string Momentum = "{0} kg*m/s";
+        public double Value { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public const string ImpulseNs = "{0} kg*m/s"; // also N*s
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string Name => "Atmospheres";
 
         /// <summary>
         ///
         /// </summary>
-        public const string ImpulseFt = "{0} N*s";
+        /// <param name="value"></param>
+        public static implicit operator Atmospheres(double value) => new Atmospheres(value);
 
         /// <summary>
         ///
         /// </summary>
-        public const string FrictionForce = "{0} N";
+        /// <returns></returns>
+        public override string ToString() => $"{Value} atm";
     }
 }

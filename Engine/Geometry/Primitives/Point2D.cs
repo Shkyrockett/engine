@@ -21,7 +21,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Serializable]
     [ComVisible(true)]
@@ -296,8 +296,8 @@ namespace Engine
             => new Point2D(divisor.X / dividend, divisor.Y / dividend);
 
         /// <summary>
-        /// Compares two <see cref="Point2D"/> objects. 
-        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/> 
+        /// Compares two <see cref="Point2D"/> objects.
+        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/>
         /// values of the two <see cref="Point2D"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
@@ -310,8 +310,8 @@ namespace Engine
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Point2D"/> objects. 
-        /// The result specifies whether the values of the <see cref="X"/> or <see cref="Y"/> 
+        /// Compares two <see cref="Point2D"/> objects.
+        /// The result specifies whether the values of the <see cref="X"/> or <see cref="Y"/>
         /// values of the two <see cref="Point2D"/> objects are unequal.
         /// </summary>
         /// <param name="left"></param>
@@ -337,7 +337,7 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -349,7 +349,7 @@ namespace Engine
             => (a?.X == b?.X) & (a?.Y == b?.Y);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -360,7 +360,7 @@ namespace Engine
             => obj is Point2D && Equals(this, obj as Point2D);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -403,7 +403,7 @@ namespace Engine
             => new Point2D(point.I, point.J);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tuple"></param>
         [Pure]
@@ -413,7 +413,7 @@ namespace Engine
             => new Point2D(tuple.Item1, tuple.Item2);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
@@ -424,7 +424,7 @@ namespace Engine
             => new Point2D(Math.Min(X, that.X), Math.Min(Y, that.Y));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
@@ -474,7 +474,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [Pure]

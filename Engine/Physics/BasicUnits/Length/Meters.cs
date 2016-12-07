@@ -7,7 +7,13 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+using static Engine.Physics.LengthUnits;
 
 namespace Engine.Physics
 {
@@ -15,34 +21,34 @@ namespace Engine.Physics
     ///
     /// </summary>
     public struct Meters
-        : ILength
+        : ILength, IFormattable
     {
         #region Constants
 
         /// <summary>
         /// The number of Mill in a Meter.
         /// </summary>
-        public const double Mil = 39370.0787d;
+        public const double Mil = MilsInMeter; // 39370.0787d;
 
         /// <summary>
         /// The number of Centimeters in a Meter.
         /// </summary>
-        public const double Centimeter = 100d;
+        public const double Centimeter = CentimetersInMeter; // 100d;
 
         /// <summary>
         /// The number of Inches in a Meter.
         /// </summary>
-        public const double Inch = 39.3700787d;
+        public const double Inch = InchesInMeter; // 39.3700787d;
 
         /// <summary>
         /// The number of Feet in a Meter.
         /// </summary>
-        public const double Foot = 3.2808399d;
+        public const double Foot = FeetInMeter; // 3.2808399d;
 
         /// <summary>
         /// The number of Yards in a Meter.
         /// </summary>
-        public const double Yard = 1.0936133d;
+        public const double Yard = YardsInMeter; // 1.0936133d;
 
         /// <summary>
         /// The number of Meters in a Meter.
@@ -50,24 +56,24 @@ namespace Engine.Physics
         public const double Meter = 1d;
 
         /// <summary>
-        ///
+        /// The number of Smoots in a Meter.
         /// </summary>
-        public const double Smoot = Inch * 67d;
+        public const double Smoot = 1d / MetersInSmoot; // Inch * 67d;
 
         /// <summary>
         /// The fraction of Kilometers in a Meter.
         /// </summary>
-        public const double Kilometer = 1d / 1000d;
+        public const double Kilometer = 1d / MetersInKilometer; // 1d / 1000d;
 
         /// <summary>
         /// The fraction of Miles in a Meter.
         /// </summary>
-        public const double Mile = 1d / 1609.344d;
+        public const double Mile = 1d / MetersInMile; // 1d / 1609.344d;
 
         /// <summary>
         /// The fraction of NauticalcMiles in a Meter.
         /// </summary>
-        public const double NauticalMile = 1d / 1852d;
+        public const double NauticalMile = 1d / MetersInNauticalMile; // 1d / 1852d;
 
         #endregion
 
@@ -194,6 +200,207 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator +(Meters value)
+            => +value.Value;
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator -(Meters value)
+            => -value.Value;
+
+        /// <summary>
+        /// Add an amount to both values to the <see cref="Meters"/> struct.
+        /// </summary>
+        /// <param name="value">The original value</param>
+        /// <param name="addend">The amount to add.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator +(Meters value, double addend)
+            => value.Value + addend;
+
+        /// <summary>
+        /// Add an amount to both values to the <see cref="Meters"/> struct.
+        /// </summary>
+        /// <param name="value">The original value</param>
+        /// <param name="addend">The amount to add.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator +(Meters value, ILength addend)
+            => value.Value + ((Meters)addend).Value;
+
+        /// <summary>
+        /// Subtract a <see cref="Meters"/> from a <see cref="double"/> value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="subend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator -(Meters value, double subend)
+            => value.Value - subend;
+
+        /// <summary>
+        /// Subtract a <see cref="Meters"/> from an <see cref="ILength"/> value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="subend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator -(Meters value, ILength subend)
+            => value.Value - ((Meters)subend).Value;
+
+        /// <summary>
+        /// Multiply the <see cref="Meters"/> value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator *(Meters value, double factor)
+            => value.Value - factor;
+
+        /// <summary>
+        /// Multiply the <see cref="Meters"/> value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator *(Meters value, ILength factor)
+            => value.Value - ((Meters)factor).Value;
+
+        /// <summary>
+        /// Divide a <see cref="Meters"/> vlue by a <see cref="double"/> value.
+        /// </summary>
+        /// <param name="divisor">The divisor value.</param>
+        /// <param name="dividend">The dividend value.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator /(Meters divisor, double dividend)
+            => divisor.Value / dividend;
+
+        /// <summary>
+        /// Divide a <see cref="Meters"/> vlue by a <see cref="double"/> value.
+        /// </summary>
+        /// <param name="divisor">The divisor value.</param>
+        /// <param name="dividend">The dividend value.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Meters operator /(Meters divisor, ILength dividend)
+            => divisor.Value / ((Meters)dividend).Value;
+
+        /// <summary>
+        /// Compares two <see cref="Meters"/> objects.
+        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/>
+        /// values of the two <see cref="Meters"/> objects are equal.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Meters left, ILength right)
+            => Equals(left, right);
+
+        /// <summary>
+        /// Compares two <see cref="Meters"/> objects.
+        /// The result specifies whether the values of the two <see cref="Meters"/> structs are unequal.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Meters left, ILength right)
+            => !Equals(left, right);
+
+        /// <summary>
+        /// Compares two <see cref="Meters"/> objects.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Meters a, ILength b)
+            => Equals(a, b);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Meters a, ILength b)
+            => a.Value == ((Meters)b).Value;
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => (obj is ILength && Equals(this, (Meters)obj));
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(ILength value)
+            => Equals(this, value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Meters(double value)
             => new Meters(value);
 
@@ -201,6 +408,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Mils value)
             => value.Meters;
 
@@ -208,6 +418,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Centimeters value)
             => value.Meters;
 
@@ -215,6 +428,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Inches value)
             => value.Meters;
 
@@ -222,6 +438,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Feet value)
             => value.Meters;
 
@@ -229,6 +448,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Yards value)
             => value.Meters;
 
@@ -236,6 +458,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Smoots value)
             => value.Meters;
 
@@ -243,6 +468,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Kilometers value)
             => value.Meters;
 
@@ -250,6 +478,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(Miles value)
             => value.Meters;
 
@@ -257,6 +488,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(NauticalMiles value)
             => value.Meters;
 
@@ -265,11 +499,88 @@ namespace Engine.Physics
         #region Methods
 
         /// <summary>
-        ///
+        /// Returns the hash code for this instance of the <see cref="Meters"/> value.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode()
+            => Value.GetHashCode();
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Meters"/> struct.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this <see cref="Meters"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => $"{Value} {Abreviation}";
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Meters"/> struct based on the IFormatProvider
+        /// passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">
+        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.
+        /// </param>
+        /// <returns>
+        /// A string representation of this <see cref="Meters"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Meters"/> struct based on the format string
+        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">
+        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.
+        /// </param>
+        /// <param name="provider">
+        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.
+        /// </param>
+        /// <returns>
+        /// A string representation of this <see cref="Meters"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Meters"/> struct based on the format string
+        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">
+        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.
+        /// </param>
+        /// <param name="provider">
+        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.
+        /// </param>
+        /// <returns>
+        /// A string representation of this <see cref="Meters"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ConvertToString(string format, IFormatProvider provider)
+            => $"{Value.ToString(format, provider)} {Abreviation}";
 
         #endregion
     }

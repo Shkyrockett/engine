@@ -7,7 +7,13 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+using static Engine.Physics.LengthUnits;
 
 namespace Engine.Physics
 {
@@ -15,14 +21,14 @@ namespace Engine.Physics
     ///
     /// </summary>
     public struct Inches
-        : ILength
+        : ILength, IFormattable
     {
         #region Constants
 
         /// <summary>
         ///
         /// </summary>
-        public const double Mil = 1000d;
+        public const double Mil = MilsInInch; // 1000d;
 
         /// <summary>
         ///
@@ -265,11 +271,78 @@ namespace Engine.Physics
         #region Methods
 
         /// <summary>
-        ///
+        /// Creates a human-readable string that represents this <see cref="Inches"/> struct.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A string representation of this <see cref="Inches"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => $"{Value} {Abreviation}";
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Inches"/> struct based on the IFormatProvider
+        /// passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">
+        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.
+        /// </param>
+        /// <returns>
+        /// A string representation of this <see cref="Inches"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Inches"/> struct based on the format string
+        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">
+        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.
+        /// </param>
+        /// <param name="provider">
+        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.
+        /// </param>
+        /// <returns>
+        /// A string representation of this <see cref="Inches"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Inches"/> struct based on the format string
+        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">
+        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.
+        /// </param>
+        /// <param name="provider">
+        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.
+        /// </param>
+        /// <returns>
+        /// A string representation of this <see cref="Inches"/> struct.
+        /// </returns>
+        [Pure]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ConvertToString(string format, IFormatProvider provider)
+            => $"{Value.ToString(format, provider)} {Abreviation}";
 
         #endregion
     }

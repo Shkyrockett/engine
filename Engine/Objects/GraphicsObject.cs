@@ -44,19 +44,19 @@ namespace Engine
         internal Action update;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public event PropertyChangingEventHandler PropertyChanging;
 
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GraphicsObject()
         { }
@@ -113,7 +113,7 @@ namespace Engine
             select Interpolate((1d / count) * i));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="range"></param>
         /// <returns></returns>
@@ -152,7 +152,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name"></param>
         protected void OnPropertyChanging([CallerMemberName] string name = "")
@@ -161,7 +161,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name"></param>
         protected void OnPropertyChanged([CallerMemberName] string name = "")
@@ -170,7 +170,7 @@ namespace Engine
         }
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <returns></returns>
         //[Pure]

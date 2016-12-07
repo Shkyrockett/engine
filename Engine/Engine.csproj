@@ -178,6 +178,7 @@
     <Compile Include="Math\Enums\Overflows.cs" />
     <Compile Include="Math\Geometry\Offsets.cs" />
     <Compile Include="Objects\Geometry.cs" />
+    <Compile Include="Physics\BasicUnits\Length\LengthUnits.cs" />
     <Compile Include="Physics\UnitStrings.cs" />
     <Compile Include="Math\Range.cs" />
     <Compile Include="Physics\BasicUnits\Length\Smoots.cs" />

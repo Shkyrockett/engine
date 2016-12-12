@@ -322,7 +322,7 @@ namespace Engine.Physics
 
         /// <summary>
         /// Compares two <see cref="Meters"/> objects.
-        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/>
+        /// The result specifies whether the values of the X and Y
         /// values of the two <see cref="Meters"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>

@@ -14,13 +14,27 @@ namespace Engine
     /// <summary>
     /// MatrixTypes
     /// </summary>
-    /// <remarks>http://referencesource.microsoft.com</remarks>
     [Flags]
-    internal enum MatrixTypes
+    public enum MatrixTypes
     {
-        IDENTITY = 0,
-        TRANSLATION = 1,
-        SCALING = 2,
-        UNKNOWN = 4
+        /// <summary>
+        /// 
+        /// </summary>
+        Identity = 0,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Translation = 1,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Scaling = 2,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Unknown = 4
     }
 }

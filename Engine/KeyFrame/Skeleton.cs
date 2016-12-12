@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Skeleton
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public SkeletonBone[] Bones { get; set; }
     }
 }

@@ -26,7 +26,6 @@ namespace Engine
     /// <remarks>http://referencesource.microsoft.com</remarks>
     [Serializable]
     [ComVisible(true)]
-    //[DisplayName(nameof(Matrix2D))]
     [TypeConverter(typeof(Matrix2DConverter))]
     public partial struct Matrix2D
         : IFormattable
@@ -126,7 +125,7 @@ namespace Engine
             this.m2x2 = m2x2;
             this.offsetX = offsetX;
             this.offsetY = offsetY;
-            type = MatrixTypes.UNKNOWN;
+            type = MatrixTypes.Unknown;
             padding = 0;
 
             // We will detect EXACT identity, scale, translation or
@@ -145,25 +144,25 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                     return 1.0f;
                 else
                     return m1x1;
             }
             set
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                 {
                     SetMatrix(value, 0,
                               0, 1,
                               0, 0,
-                              MatrixTypes.SCALING);
+                              MatrixTypes.Scaling);
                 }
                 else
                 {
                     m1x1 = value;
-                    if (type != MatrixTypes.UNKNOWN)
-                        type |= MatrixTypes.SCALING;
+                    if (type != MatrixTypes.Unknown)
+                        type |= MatrixTypes.Scaling;
                 }
             }
         }
@@ -175,23 +174,23 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                     return 0;
                 return m1x2;
             }
             set
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                 {
                     SetMatrix(1, value,
                               0, 1,
                               0, 0,
-                              MatrixTypes.UNKNOWN);
+                              MatrixTypes.Unknown);
                 }
                 else
                 {
                     m1x2 = value;
-                    type = MatrixTypes.UNKNOWN;
+                    type = MatrixTypes.Unknown;
                 }
             }
         }
@@ -203,24 +202,24 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                     return 0;
                 else
                     return m2x1;
             }
             set
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                 {
                     SetMatrix(1, 0,
                               value, 1,
                               0, 0,
-                              MatrixTypes.UNKNOWN);
+                              MatrixTypes.Unknown);
                 }
                 else
                 {
                     m2x1 = value;
-                    type = MatrixTypes.UNKNOWN;
+                    type = MatrixTypes.Unknown;
                 }
             }
         }
@@ -232,25 +231,25 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                     return 1.0f;
                 else
                     return m2x2;
             }
             set
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                 {
                     SetMatrix(1, 0,
                               0, value,
                               0, 0,
-                              MatrixTypes.SCALING);
+                              MatrixTypes.Scaling);
                 }
                 else
                 {
                     m2x2 = value;
-                    if (type != MatrixTypes.UNKNOWN)
-                        type |= MatrixTypes.SCALING;
+                    if (type != MatrixTypes.Unknown)
+                        type |= MatrixTypes.Scaling;
                 }
             }
         }
@@ -262,25 +261,25 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                     return 0;
                 else
                     return offsetX;
             }
             set
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                 {
                     SetMatrix(1, 0,
                               0, 1,
                               value, 0,
-                              MatrixTypes.TRANSLATION);
+                              MatrixTypes.Translation);
                 }
                 else
                 {
                     offsetX = value;
-                    if (type != MatrixTypes.UNKNOWN)
-                        type |= MatrixTypes.TRANSLATION;
+                    if (type != MatrixTypes.Unknown)
+                        type |= MatrixTypes.Translation;
                 }
             }
         }
@@ -292,25 +291,25 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                     return 0;
                 else
                     return offsetY;
             }
             set
             {
-                if (type == MatrixTypes.IDENTITY)
+                if (type == MatrixTypes.Identity)
                 {
                     SetMatrix(1, 0,
                               0, 1,
                               0, value,
-                              MatrixTypes.TRANSLATION);
+                              MatrixTypes.Translation);
                 }
                 else
                 {
                     offsetY = value;
-                    if (type != MatrixTypes.UNKNOWN)
-                        type |= MatrixTypes.TRANSLATION;
+                    if (type != MatrixTypes.Unknown)
+                        type |= MatrixTypes.Translation;
                 }
             }
         }
@@ -320,7 +319,7 @@ namespace Engine
         /// true if the matrix is identity.  If it returns false
         /// the matrix may still be identity.
         /// </summary>
-        private bool IsDistinguishedIdentity => type == MatrixTypes.IDENTITY;
+        private bool IsDistinguishedIdentity => type == MatrixTypes.Identity;
 
         /// <summary>
         /// Sets the transformation to the identity.
@@ -331,7 +330,7 @@ namespace Engine
             matrix.SetMatrix(1, 0,
                              0, 1,
                              0, 0,
-                             MatrixTypes.IDENTITY);
+                             MatrixTypes.Identity);
             return matrix;
         }
 
@@ -340,14 +339,14 @@ namespace Engine
         /// </summary>
         public void SetIdentity()
         {
-            type = MatrixTypes.IDENTITY;
+            type = MatrixTypes.Identity;
         }
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
         public bool IsIdentity
-            => (type == MatrixTypes.IDENTITY
+            => (type == MatrixTypes.Identity
         || (
             Abs(m1x1 - 1) < Epsilon
             && Abs(m1x2) < Epsilon
@@ -509,7 +508,7 @@ namespace Engine
             matrix.SetMatrix(cos, sin,
                               -sin, cos,
                               dx, dy,
-                              MatrixTypes.UNKNOWN);
+                              MatrixTypes.Unknown);
             return matrix;
         }
 
@@ -527,7 +526,7 @@ namespace Engine
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
                              centerX - scaleX * centerX, centerY - scaleY * centerY,
-                             MatrixTypes.SCALING | MatrixTypes.TRANSLATION);
+                             MatrixTypes.Scaling | MatrixTypes.Translation);
 
             return matrix;
         }
@@ -543,7 +542,7 @@ namespace Engine
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
                              0, 0,
-                             MatrixTypes.SCALING);
+                             MatrixTypes.Scaling);
             return matrix;
         }
 
@@ -559,7 +558,7 @@ namespace Engine
             matrix.SetMatrix(1.0f, Tan(skewY),
                              Tan(skewX), 1.0f,
                              0.0f, 0.0f,
-                             MatrixTypes.UNKNOWN);
+                             MatrixTypes.Unknown);
 
             return matrix;
         }
@@ -576,7 +575,7 @@ namespace Engine
             matrix.SetMatrix(1, 0,
                              0, 1,
                              offsetX, offsetY,
-                             MatrixTypes.TRANSLATION);
+                             MatrixTypes.Translation);
 
             return matrix;
         }
@@ -633,11 +632,11 @@ namespace Engine
             MatrixTypes matrixType = matrix.type;
 
             // If the matrix is identity, don't worry.
-            if (matrixType == MatrixTypes.IDENTITY)
+            if (matrixType == MatrixTypes.Identity)
                 return;
 
             // Scaling
-            if (0 != (matrixType & MatrixTypes.SCALING))
+            if (0 != (matrixType & MatrixTypes.Scaling))
             {
                 rect.X *= matrix.m1x1;
                 rect.Y *= matrix.m2x2;
@@ -662,7 +661,7 @@ namespace Engine
             }
 
             // Translation
-            if (0 != (matrixType & MatrixTypes.TRANSLATION))
+            if (0 != (matrixType & MatrixTypes.Translation))
             {
                 // X
                 rect.X += matrix.offsetX;
@@ -671,7 +670,7 @@ namespace Engine
                 rect.Y += matrix.offsetY;
             }
 
-            if (matrixType == MatrixTypes.UNKNOWN)
+            if (matrixType == MatrixTypes.Unknown)
             {
                 // Al Bunny implementation.
                 Point2D point0 = matrix.Transform(rect.TopLeft);
@@ -703,32 +702,32 @@ namespace Engine
             // Check for identities
 
             // If the second is identities, we can just return
-            if (type2 == MatrixTypes.IDENTITY)
+            if (type2 == MatrixTypes.Identity)
                 return;
 
             // If the first is identities, we can just copy the memory across.
-            if (type1 == MatrixTypes.IDENTITY)
+            if (type1 == MatrixTypes.Identity)
             {
                 matrix1 = matrix2;
                 return;
             }
 
             // Optimize for translate case, where the second is a translate
-            if (type2 == MatrixTypes.TRANSLATION)
+            if (type2 == MatrixTypes.Translation)
             {
                 // 2 additions
                 matrix1.offsetX += matrix2.offsetX;
                 matrix1.offsetY += matrix2.offsetY;
 
                 // If matrix 1 wasn't unknown we added a translation
-                if (type1 != MatrixTypes.UNKNOWN)
-                    matrix1.type |= MatrixTypes.TRANSLATION;
+                if (type1 != MatrixTypes.Unknown)
+                    matrix1.type |= MatrixTypes.Translation;
 
                 return;
             }
 
             // Check for the first value being a translate
-            if (type1 == MatrixTypes.TRANSLATION)
+            if (type1 == MatrixTypes.Translation)
             {
                 // Save off the old offsets
                 double offsetX = matrix1.offsetX;
@@ -740,10 +739,10 @@ namespace Engine
                 matrix1.offsetX = (float)(offsetX * matrix2.m1x1 + offsetY * matrix2.m2x1 + matrix2.offsetX);
                 matrix1.offsetY = (float)(offsetX * matrix2.m1x2 + offsetY * matrix2.m2x2 + matrix2.offsetY);
 
-                if (type2 == MatrixTypes.UNKNOWN)
-                    matrix1.type = MatrixTypes.UNKNOWN;
+                if (type2 == MatrixTypes.Unknown)
+                    matrix1.type = MatrixTypes.Unknown;
                 else
-                    matrix1.type = MatrixTypes.SCALING | MatrixTypes.TRANSLATION;
+                    matrix1.type = MatrixTypes.Scaling | MatrixTypes.Translation;
                 return;
             }
 
@@ -770,7 +769,7 @@ namespace Engine
                     matrix1.offsetY = matrix2.offsetY;
 
                     // Transform set to Translate and Scale
-                    matrix1.type = MatrixTypes.TRANSLATION | MatrixTypes.SCALING;
+                    matrix1.type = MatrixTypes.Translation | MatrixTypes.Scaling;
                     return;
 
                 case 50: // S|T * S
@@ -814,10 +813,10 @@ namespace Engine
         /// </summary>
         internal static void PrependOffset(ref Matrix2D matrix, double offsetX, double offsetY)
         {
-            if (matrix.type == MatrixTypes.IDENTITY)
+            if (matrix.type == MatrixTypes.Identity)
             {
                 matrix = new Matrix2D(1, 0, 0, 1, offsetX, offsetY);
-                matrix.type = MatrixTypes.TRANSLATION;
+                matrix.type = MatrixTypes.Translation;
             }
             else
             {
@@ -835,9 +834,9 @@ namespace Engine
                 matrix.offsetY += matrix.m1x2 * offsetX + matrix.m2x2 * offsetY;
 
                 // It just gained a translate if was a scale transform. Identity transform is handled above.
-                Debug.Assert(matrix.type != MatrixTypes.IDENTITY);
-                if (matrix.type != MatrixTypes.UNKNOWN)
-                    matrix.type |= MatrixTypes.TRANSLATION;
+                Debug.Assert(matrix.type != MatrixTypes.Identity);
+                if (matrix.type != MatrixTypes.Unknown)
+                    matrix.type |= MatrixTypes.Translation;
             }
         }
 
@@ -988,7 +987,7 @@ namespace Engine
             // (where e = _offsetX and f == _offsetY)
             //
 
-            if (type == MatrixTypes.IDENTITY)
+            if (type == MatrixTypes.Identity)
             {
                 // Values would be incorrect if matrix was created using default constructor.
                 // or if SetIdentity was called on a matrix which had values.
@@ -996,9 +995,9 @@ namespace Engine
                 SetMatrix(1, 0,
                           0, 1,
                           offsetX, offsetY,
-                          MatrixTypes.TRANSLATION);
+                          MatrixTypes.Translation);
             }
-            else if (type == MatrixTypes.UNKNOWN)
+            else if (type == MatrixTypes.Unknown)
             {
                 this.offsetX += offsetX;
                 this.offsetY += offsetY;
@@ -1009,7 +1008,7 @@ namespace Engine
                 this.offsetY += offsetY;
 
                 // If matrix wasn't unknown we added a translation
-                type |= MatrixTypes.TRANSLATION;
+                type |= MatrixTypes.Translation;
             }
         }
 
@@ -1069,19 +1068,19 @@ namespace Engine
             // Inversion does not change the type of a matrix.
             switch (type)
             {
-                case MatrixTypes.IDENTITY:
+                case MatrixTypes.Identity:
                     break;
-                case MatrixTypes.SCALING:
+                case MatrixTypes.Scaling:
                     {
                         m1x1 = 1.0f / m1x1;
                         m2x2 = 1.0f / m2x2;
                     }
                     break;
-                case MatrixTypes.TRANSLATION:
+                case MatrixTypes.Translation:
                     offsetX = -offsetX;
                     offsetY = -offsetY;
                     break;
-                case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
+                case MatrixTypes.Scaling | MatrixTypes.Translation:
                     {
                         m1x1 = 1.0f / m1x1;
                         m2x2 = 1.0f / m2x2;
@@ -1098,7 +1097,7 @@ namespace Engine
                                   m1x1 * invdet,
                                   (m2x1 * offsetY - offsetX * m2x2) * invdet,
                                   (offsetX * m1x2 - m1x1 * offsetY) * invdet,
-                                  MatrixTypes.UNKNOWN);
+                                  MatrixTypes.Unknown);
                     }
                     break;
             }
@@ -1111,11 +1110,11 @@ namespace Engine
         {
             switch (type)
             {
-                case MatrixTypes.IDENTITY:
-                case MatrixTypes.TRANSLATION:
+                case MatrixTypes.Identity:
+                case MatrixTypes.Translation:
                     return;
-                case MatrixTypes.SCALING:
-                case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
+                case MatrixTypes.Scaling:
+                case MatrixTypes.Scaling | MatrixTypes.Translation:
                     x *= m1x1;
                     y *= m2x2;
                     break;
@@ -1137,11 +1136,11 @@ namespace Engine
         {
             switch (type)
             {
-                case MatrixTypes.IDENTITY:
-                case MatrixTypes.TRANSLATION:
+                case MatrixTypes.Identity:
+                case MatrixTypes.Translation:
                     return;
-                case MatrixTypes.SCALING:
-                case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
+                case MatrixTypes.Scaling:
+                case MatrixTypes.Scaling | MatrixTypes.Translation:
                     vector.I *= m1x1;
                     vector.J *= m2x2;
                     break;
@@ -1163,17 +1162,17 @@ namespace Engine
         {
             switch (type)
             {
-                case MatrixTypes.IDENTITY:
+                case MatrixTypes.Identity:
                     return;
-                case MatrixTypes.TRANSLATION:
+                case MatrixTypes.Translation:
                     x += offsetX;
                     y += offsetY;
                     return;
-                case MatrixTypes.SCALING:
+                case MatrixTypes.Scaling:
                     x *= m1x1;
                     y *= m2x2;
                     return;
-                case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
+                case MatrixTypes.Scaling | MatrixTypes.Translation:
                     x *= m1x1;
                     x += offsetX;
                     y *= m2x2;
@@ -1197,17 +1196,17 @@ namespace Engine
         {
             switch (type)
             {
-                case MatrixTypes.IDENTITY:
+                case MatrixTypes.Identity:
                     return;
-                case MatrixTypes.TRANSLATION:
+                case MatrixTypes.Translation:
                     point.X += offsetX;
                     point.Y += offsetY;
                     return;
-                case MatrixTypes.SCALING:
+                case MatrixTypes.Scaling:
                     point.X *= m1x1;
                     point.Y *= m2x2;
                     return;
-                case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
+                case MatrixTypes.Scaling | MatrixTypes.Translation:
                     point.X *= m1x1;
                     point.X += offsetX;
                     point.Y *= m2x2;
@@ -1252,20 +1251,20 @@ namespace Engine
             // Now classify our matrix.
             if (!(Abs(m2x1) < Epsilon && Abs(m1x2) < Epsilon))
             {
-                type = MatrixTypes.UNKNOWN;
+                type = MatrixTypes.Unknown;
                 return;
             }
 
             if (!(Abs(m1x1 - 1) < Epsilon && Abs(m2x2 - 1) < Epsilon))
-                type = MatrixTypes.SCALING;
+                type = MatrixTypes.Scaling;
 
             if (!(Abs(offsetX) < Epsilon && Abs(offsetY) < Epsilon))
-                type |= MatrixTypes.TRANSLATION;
+                type |= MatrixTypes.Translation;
 
-            if (0 == (type & (MatrixTypes.TRANSLATION | MatrixTypes.SCALING)))
+            if (0 == (type & (MatrixTypes.Translation | MatrixTypes.Scaling)))
             {
                 // We have an identity matrix.
-                type = MatrixTypes.IDENTITY;
+                type = MatrixTypes.Identity;
             }
             return;
         }
@@ -1311,11 +1310,11 @@ namespace Engine
             {
                 switch (type)
                 {
-                    case MatrixTypes.IDENTITY:
-                    case MatrixTypes.TRANSLATION:
+                    case MatrixTypes.Identity:
+                    case MatrixTypes.Translation:
                         return 1.0d;
-                    case MatrixTypes.SCALING:
-                    case MatrixTypes.SCALING | MatrixTypes.TRANSLATION:
+                    case MatrixTypes.Scaling:
+                    case MatrixTypes.Scaling | MatrixTypes.Translation:
                         return (m1x1 * m2x2);
                     default:
                         return ((m1x1 * m2x2) - (m1x2 * m2x1));

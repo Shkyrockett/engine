@@ -193,50 +193,50 @@ namespace Editor
             //var lineItem = new GraphicItem(line, styles[5]);
             //vectorMap.Add(lineItem);
 
-            //Shape set = new PolygonSet(
-            //    new List<Polygon>(
-            //        new List<Polygon> {
-            //            new Polygon( // Boundary
-            //                new List<Point2D> {
-            //                    new Point2D(10, 10),
-            //                    new Point2D(300, 10),
-            //                    new Point2D(300, 300),
-            //                    new Point2D(10, 300),
-            //                    // Cut out
-            //                    new Point2D(10, 200),
-            //                    new Point2D(200, 80),
-            //                    new Point2D(10, 150)
-            //                }
-            //            ),
-            //            new Polygon( // First inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30)
-            //                }
-            //            ),
-            //            new Polygon( // Second inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(250, 150),
-            //                    new Point2D(150, 150),
-            //                    new Point2D(250, 200)
-            //                }
-            //            )
-            //        }
-            //    )
-            //);
-            //var setItem = new GraphicItem(set, styles[8]);
-            //vectorMap.Add(setItem);
+            Shape set = new PolygonSet(
+                new List<Polygon>(
+                    new List<Polygon> {
+                        new Polygon( // Boundary
+                            new List<Point2D> {
+                                new Point2D(10, 10),
+                                new Point2D(300, 10),
+                                new Point2D(300, 300),
+                                new Point2D(10, 300),
+                                // Cut out
+                                new Point2D(10, 200),
+                                new Point2D(200, 80),
+                                new Point2D(10, 150)
+                            }
+                        ),
+                        new Polygon( // First inner triangle
+                            new List<Point2D> {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30)
+                            }
+                        ),
+                        new Polygon( // Second inner triangle
+                            new List<Point2D> {
+                                new Point2D(250, 150),
+                                new Point2D(150, 150),
+                                new Point2D(250, 200)
+                            }
+                        )
+                    }
+                )
+            );
+            var setItem = new GraphicItem(set, styles[8]);
+            vectorMap.Add(setItem);
 
-            //Shape innerPolygon = new Polygon( // First inner triangle
-            //                new List<Point2D> {
-            //                    new Point2D(20, 100),
-            //                    new Point2D(175, 60),
-            //                    new Point2D(40, 30)
-            //                }
-            //            ).Offset(10);
-            //var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
-            //vectorMap.Add(innerPolygonItem);
+            Shape innerPolygon = new Polygon( // First inner triangle
+                            new List<Point2D> {
+                                new Point2D(20, 100),
+                                new Point2D(175, 60),
+                                new Point2D(40, 30)
+                            }
+                        ).Offset(10);
+            var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
+            vectorMap.Add(innerPolygonItem);
 
             //Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
             //Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
@@ -282,13 +282,14 @@ namespace Editor
             ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
             ////MessageBox.Show(cubicBezierLengths.ToString());
 
-            //var ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
-            //var ellipseItem = new GraphicItem(ellipse, styles[6]);
-            //vectorMap.Add(ellipseItem);
+            var ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
+            var ellipseItem = new GraphicItem(ellipse, styles[6]);
 
-            //var ellipseBounds = Boundings.Ellipse(200, 200, 50, 25, 45d.ToRadians());
-            //var ellipseBoundsItem = new GraphicItem(ellipseBounds, styles[10]);
-            //vectorMap.Add(ellipseBoundsItem);
+            var ellipseBounds = Boundings.Ellipse(200, 200, 50, 25, 45d.ToRadians());
+            var ellipseBoundsItem = new GraphicItem(ellipseBounds, styles[10]);
+
+            vectorMap.Add(ellipseBoundsItem);
+            vectorMap.Add(ellipseItem);
 
             //Polygon triangleI = new Triangle(
             //    new Point2D(75, 125),
@@ -656,12 +657,12 @@ namespace Editor
                 //new ShapeStyle(new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent)), new Pen(Brushes.Transparent))
             };
 
-            var rectangleGrid = new RectangleDCellGrid(50, 50, 350, 350, mapStyles.Count);
+            //var rectangleGrid = new RectangleDCellGrid(50, 50, 350, 350, mapStyles.Count);
 
-            foreach (var style in mapStyles)
-            {
-                vectorMap.Add(rectangleGrid[mapStyles.IndexOf(style)], style);
-            }
+            //foreach (var style in mapStyles)
+            //{
+            //    vectorMap.Add(rectangleGrid[mapStyles.IndexOf(style)], style);
+            //}
 
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";

@@ -541,10 +541,8 @@ namespace Engine
         internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point2D);
-            //return string.Format(provider, "{0}{{{1}={2:" + format + "},{3}={4:" + format + "}}}", nameof(Point2D), nameof(X), X, nameof(Y), Y);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Point2D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}}}";
-            return formatable.ToString(format, provider);
+            return $"{nameof(Point2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}}}";
         }
 
         #endregion

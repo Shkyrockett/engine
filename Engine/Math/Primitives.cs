@@ -52,237 +52,269 @@ namespace Engine
         /// <summary>
         /// Adds a <see cref="Point2D"/> by a value.
         /// </summary>
-        /// <param name="point">The <see cref="Point2D"/> to inflate.</param>
+        /// <param name="augend">The <see cref="Point2D"/> to inflate.</param>
         /// <param name="addend">The factor to inflate the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Point2D point, double addend)
-            => new Point2D(point.X + addend, point.Y + addend);
+        public static Point2D Add(this Point2D augend, double addend)
+            => Add2D(augend.X, augend.Y, addend);
 
         /// <summary>
         /// Adds a <see cref="Point2D"/> to a <see cref="Point2D"/> by value.
         /// </summary>
-        /// <param name="point">The <see cref="Point2D"/> to add to.</param>
+        /// <param name="augend">The <see cref="Point2D"/> to add to.</param>
         /// <param name="addend">The <see cref="Point2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Point2D"/> structure enlarged by the amount of the other <see cref="Point2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Point2D point, Point2D addend)
-            => new Vector2D(point.X + addend.X, point.Y + addend.Y);
+        public static Vector2D Add(this Point2D augend, Point2D addend)
+            => Add2D(augend.X, augend.Y, addend.X, addend.Y);
 
         /// <summary>
         /// Adds a <see cref="Size2D"/> to a <see cref="Point2D"/> by value.
         /// </summary>
-        /// <param name="point">The <see cref="Point2D"/> to add to.</param>
+        /// <param name="augend">The <see cref="Point2D"/> to add to.</param>
         /// <param name="addend">The <see cref="Size2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Point2D"/> structure enlarged by the amount of the <see cref="Size2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Point2D point, Size2D addend)
-            => new Point2D(point.X + addend.Width, point.Y + addend.Height);
+        public static Point2D Add(this Point2D augend, Size2D addend)
+            => Add2D(augend.X, augend.Y, addend.Width, addend.Height);
 
         /// <summary>
         /// Adds a <see cref="Vector2D"/> to a <see cref="Point2D"/> by value.
         /// </summary>
-        /// <param name="point">The <see cref="Point2D"/> to add to.</param>
+        /// <param name="augend">The <see cref="Point2D"/> to add to.</param>
         /// <param name="addend">The <see cref="Vector2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Point2D"/> structure enlarged by the amount of the <see cref="Size2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Point2D point, Vector2D addend)
-            => new Point2D(point.X + addend.I, point.Y + addend.J);
+        public static Point2D Add(this Point2D augend, Vector2D addend)
+            => Add2D(augend.X, augend.Y, addend.I, addend.J);
 
         /// <summary>
         /// Adds a <see cref="Size2D"/> by a value.
         /// </summary>
-        /// <param name="point">The <see cref="Size2D"/> to inflate.</param>
+        /// <param name="augend">The <see cref="Size2D"/> to inflate.</param>
         /// <param name="addend">The factor to inflate the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, double addend)
-            => new Size2D(point.Width + addend, point.Height + addend);
+        public static Size2D Add(this Size2D augend, double addend)
+            => Add2D(augend.Width, augend.Height, addend);
 
         /// <summary>
         /// Adds a <see cref="Point2D"/> to a <see cref="Size2D"/> by value.
         /// </summary>
-        /// <param name="point">The <see cref="Size2D"/> to add to.</param>
+        /// <param name="augend">The <see cref="Size2D"/> to add to.</param>
         /// <param name="addend">The <see cref="Point2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Size2D"/> structure enlarged by the amount of the <see cref="Point2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, Point2D addend)
-            => new Size2D(point.Width + addend.X, point.Height + addend.Y);
+        public static Size2D Add(this Size2D augend, Point2D addend)
+            => Add2D(augend.Width, augend.Height, addend.X, addend.Y);
 
         /// <summary>
         /// Adds a <see cref="Size2D"/> to a <see cref="Size2D"/> by value.
         /// </summary>
-        /// <param name="point">The <see cref="Size2D"/> to add to.</param>
+        /// <param name="augend">The <see cref="Size2D"/> to add to.</param>
         /// <param name="addend">The <see cref="Size2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Size2D"/> structure enlarged by the amount of the other <see cref="Size2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, Size2D addend)
-            => new Size2D(point.Width + addend.Width, point.Height + addend.Height);
+        public static Size2D Add(this Size2D augend, Size2D addend)
+            => Add2D(augend.Width, augend.Height, addend.Width, addend.Height);
 
         /// <summary>
         /// Adds a <see cref="Vector2D"/> to a <see cref="Size2D"/> by value.
         /// </summary>
-        /// <param name="point">The <see cref="Size2D"/> to add to.</param>
+        /// <param name="augend">The <see cref="Size2D"/> to add to.</param>
         /// <param name="addend">The <see cref="Vector2D"/> to add with.</param>
         /// <returns>
         /// Returns a <see cref="Size2D"/> structure enlarged by the amount of the <see cref="Point2D"/> structure.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(this Size2D point, Vector2D addend)
-            => new Size2D(point.Width + addend.I, point.Height + addend.J);
+        public static Size2D Add(this Size2D augend, Vector2D addend)
+            => Add2D(augend.Width, augend.Height, addend.I, addend.J);
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
         /// </summary>
-        /// <param name="point">The <see cref="PointF"/> to inflate.</param>
+        /// <param name="augend">The <see cref="PointF"/> to inflate.</param>
         /// <param name="addend">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this PointF point, PointF addend)
-            => new Vector2D(point.X + addend.X, point.Y + addend.Y);
+        public static Vector2D Add(this PointF augend, PointF addend)
+            => Add2D(augend.X, augend.Y, addend.X, addend.Y);
 
         /// <summary>
         /// Add VectorF
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, int addend)
-            => new Vector2D(vector.I + addend, vector.J + addend);
+        public static Vector2D Add(this Vector2D augend, int addend)
+            => Add2D(augend.I, augend.J, addend, addend);
 
         /// <summary>
         /// Add VectorF
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, float addend)
-            => new Vector2D(vector.I + addend, vector.J + addend);
+        public static Vector2D Add(this Vector2D augend, float addend)
+            => Add2D(augend.I, augend.J, addend);
 
         /// <summary>
         /// Add VectorF
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, double addend)
-            => new Vector2D((float)(vector.I + addend), (float)(vector.J + addend));
+        public static Vector2D Add(this Vector2D augend, double addend)
+            => Add2D(augend.I, augend.J, addend);
 
         /// <summary>
         /// Add VectorF
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Vector2D vector, Point addend)
-            => new Point2D(vector.I + addend.X, vector.J + addend.Y);
+        public static Point2D Add(this Vector2D augend, Point addend)
+            => Add2D(augend.I, augend.J, addend.X, addend.Y);
 
         /// <summary>
         /// Add VectorF
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(this Vector2D vector, Point2D addend)
-            => new Point2D(vector.I + addend.X, vector.J + addend.Y);
+        public static Point2D Add(this Vector2D augend, Point2D addend)
+            => Add2D(augend.I, augend.J, addend.X, addend.Y);
 
         /// <summary>
         /// Add Vector2D
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(this Vector2D vector, Vector2D addend)
-            => new Vector2D(vector.I + addend.I, vector.J + addend.J);
+        public static Vector2D Add(this Vector2D augend, Vector2D addend)
+            => Add2D(augend.I, augend.J, addend.I, addend.J);
 
         /// <summary>
         /// Add VectorF
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D Add(this Vector3D vector, double addend)
-            => new Vector3D((vector.I + addend), (vector.J + addend), (vector.K + addend));
+        public static Vector3D Add(this Vector3D augend, double addend)
+            => Add3D(augend.I, augend.J, augend.K, addend);
 
         /// <summary>
         /// Add Vector3D
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Add(this Vector3D vector, Point3D addend)
-            => new Point3D(vector.I + addend.X, vector.J + addend.Y, vector.K + addend.Z);
+        public static Point3D Add(this Vector3D augend, Point3D addend)
+            => Add3D(augend.I, augend.J, augend.K, addend.X, addend.Y, addend.Z);
 
         /// <summary>
-        /// Add Vector2D
+        /// Add Vector3D
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D Add(this Vector3D vector, Vector3D addend)
-            => new Vector3D(vector.I + addend.I, vector.J + addend.J, vector.K + addend.K);
+        public static Vector3D Add(this Vector3D augend, Vector3D addend)
+            => Add3D(augend.I, augend.J, augend.K, addend.I, addend.J, addend.K);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="segment"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment Add(this LineSegment segment, LineSegment addend)
-            => new LineSegment(
-            segment.Points[0].X + addend.Points[0].X,
-            segment.Points[0].Y + addend.Points[0].Y,
-            segment.Points[1].X + addend.Points[1].X,
-            segment.Points[1].Y + addend.Points[1].Y);
+        public static Vector4D Add(this Vector4D augend, double addend)
+            => Add4D(augend.I, augend.J, augend.K, augend.L, addend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Add(this Vector4D augend, Vector4D addend)
+            => Add4D(augend.I, augend.J, augend.K, augend.L, addend.I, addend.J, addend.K, addend.L);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineSegment Add(this LineSegment augend, double addend)
+            => Add4D(augend.AX, augend.AY, augend.BX, augend.BY, addend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineSegment Add(this LineSegment augend, LineSegment addend)
+            => Add4D(augend.AX, augend.AY, augend.BX, augend.BY, addend.AX, addend.AY, addend.BX, addend.BY);
 
         #endregion
 
@@ -450,6 +482,51 @@ namespace Engine
         #endregion
 
         #region Divide
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static Point2D Divide(this Point2D divisor, double divedend)
+            => Divide2D(divisor.X, divisor.Y, divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static Point2D Divide(this Size2D divisor, double divedend)
+            => Divide2D(divisor.Width, divisor.Height, divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static Vector2D Divide(this Vector2D divisor, double divedend)
+            => Divide2D(divisor.I, divisor.J, divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static Vector3D Divide(this Vector3D divisor, double divedend)
+            => Divide3D(divisor.I, divisor.J, divisor.K, divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static Vector4D Divide(this Vector4D divisor, double divedend)
+            => Divide4D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
 
         /// <summary>
         /// Divide Point
@@ -960,29 +1037,6 @@ namespace Engine
         #region Scale
 
         /// <summary>
-        /// Inflates a <see cref="Point"/> by a given factor.
-        /// </summary>
-        /// <param name="x">The x value to inflate.</param>
-        /// <param name="y">The y value to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Point"/>.</param>
-        /// <returns>Returns a <see cref="Point"/> structure inflated by the factor provided.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Scale(double x, double y, double factor)
-            => new Point2D((x * factor), (y * factor));
-
-        /// <summary>
-        /// Inflates a <see cref="Point"/> by a given factor.
-        /// </summary>
-        /// <param name="x">The x value to inflate.</param>
-        /// <param name="y">The y value to inflate.</param>
-        /// <param name="z">The z value to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Point"/>.</param>
-        /// <returns>Returns a <see cref="Point"/> structure inflated by the factor provided.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Scale(double x, double y, double z, double factor)
-            => new Point3D((x * factor), (y * factor), (z * factor));
-
-        /// <summary>
         /// Inflates a <see cref="Point2D"/> by a given factor.
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/> to inflate.</param>
@@ -991,7 +1045,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Scale(this Point2D point, double factor)
-            => Scale(point.X, point.Y, factor);
+            => Scale2D(point.X, point.Y, factor);
 
         /// <summary>
         /// Scale a Vector
@@ -1003,7 +1057,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, int factor)
-            => Scale(value.I, value.J, factor);
+            => Scale2D(value.I, value.J, factor);
 
         /// <summary>
         /// Scale a Vector
@@ -1015,7 +1069,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, float factor)
-            => Scale(value.I, value.J, factor);
+            => Scale2D(value.I, value.J, factor);
 
         /// <summary>
         /// Scale a Vector
@@ -1027,7 +1081,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, double factor)
-            => Scale(value.I, value.J, factor);
+            => Scale2D(value.I, value.J, factor);
 
         /// <summary>
         /// Scale a Vector
@@ -1039,7 +1093,20 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Scale(this Vector3D value, double factor)
-            => Scale(value.I, value.J, value.K, factor);
+            => Scale3D(value.I, value.J, value.K, factor);
+
+        /// <summary>
+        /// Scale a Vector
+        /// </summary>
+        /// <param name="value">The Point</param>
+        /// <param name="factor">The Multiplier</param>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Scale(this Vector4D value, double factor)
+            => Scale4D(value.I, value.J, value.K, value.L, factor);
+
         #endregion
 
         #region Slope
@@ -1082,179 +1149,205 @@ namespace Engine
         /// <summary>
         /// Subtracts a <see cref="Point2D"/> by a value.
         /// </summary>
-        /// <param name="vaule">The <see cref="Point2D"/> to reduce.</param>
-        /// <param name="subend">The amount to reduce the <see cref="Point2D"/>.</param>
+        /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
+        /// <param name="subtrahend">The amount to reduce the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
-        public static Point2D Subtract(this Point2D vaule, double subend)
-            => new Point2D(vaule.X - subend, vaule.Y - subend);
+        public static Point2D Subtract(this Point2D minuend, double subtrahend)
+            => Subtract2D(minuend.X, minuend.Y, subtrahend);
 
         /// <summary>
         /// Subtracts a <see cref="Point2D"/> by a value.
         /// </summary>
-        /// <param name="value">The <see cref="Point2D"/> to reduce.</param>
-        /// <param name="subend">The amount to reduce the <see cref="Point2D"/>.</param>
+        /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
+        /// <param name="subtrahend">The amount to reduce the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
-        public static Vector2D Subtract(this Point2D value, Point2D subend)
-            => new Vector2D(value.X - subend.X, value.Y - subend.Y);
+        public static Vector2D Subtract(this Point2D minuend, Point2D subtrahend)
+            => Subtract2D(minuend.X, minuend.Y, subtrahend.X, subtrahend.Y);
 
         /// <summary>
         /// Subtracts a <see cref="Point2D"/> by a value.
         /// </summary>
-        /// <param name="value">The <see cref="Point2D"/> to reduce.</param>
-        /// <param name="subend">The amount to reduce the <see cref="Point2D"/>.</param>
+        /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
+        /// <param name="subtrahend">The amount to reduce the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
-        public static Point2D Subtract(this Point2D value, Size2D subend)
-            => new Point2D(value.X - subend.Width, value.Y - subend.Height);
+        public static Point2D Subtract(this Point2D minuend, Size2D subtrahend)
+            => Subtract2D(minuend.X, minuend.Y, subtrahend.Width, subtrahend.Height);
 
         /// <summary>
         /// Subtracts a <see cref="Point2D"/> by a value.
         /// </summary>
-        /// <param name="value">The <see cref="Point2D"/> to reduce.</param>
-        /// <param name="subend">The amount to reduce the <see cref="Vector2D"/>.</param>
+        /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
+        /// <param name="subtrahend">The amount to reduce the <see cref="Vector2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
-        public static Point2D Subtract(this Point2D value, Vector2D subend)
-            => new Point2D(value.X - subend.I, value.Y - subend.J);
+        public static Point2D Subtract(this Point2D minuend, Vector2D subtrahend)
+            => Subtract2D(minuend.X, minuend.Y, subtrahend.I, subtrahend.J);
 
         /// <summary>
         /// Subtracts a <see cref="Size2D"/> by a value.
         /// </summary>
-        /// <param name="vaule">The <see cref="Size2D"/> to reduce.</param>
-        /// <param name="subend">The amount to reduce the <see cref="Size2D"/>.</param>
+        /// <param name="minuend">The <see cref="Size2D"/> to reduce.</param>
+        /// <param name="subtrahend">The amount to reduce the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure reduced by the amount provided.</returns>
-        public static Size2D Subtract(this Size2D vaule, double subend)
-            => new Size2D(vaule.Width - subend, vaule.Height - subend);
+        public static Size2D Subtract(this Size2D minuend, double subtrahend)
+            => Subtract2D(minuend.Width, minuend.Height, subtrahend, subtrahend);
 
         /// <summary>
         /// Subtracts a <see cref="Size2D"/> by a value.
         /// </summary>
-        /// <param name="value">The <see cref="Size2D"/> to reduce.</param>
-        /// <param name="subend">The amount to reduce the <see cref="Size2D"/>.</param>
+        /// <param name="minuend">The <see cref="Size2D"/> to reduce.</param>
+        /// <param name="subtrahend">The amount to reduce the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure reduced by the amount provided.</returns>
-        public static Size2D Subtract(this Size2D value, Point2D subend)
-            => new Size2D(value.Width - subend.X, value.Height - subend.Y);
+        public static Size2D Subtract(this Size2D minuend, Point2D subtrahend)
+            => Subtract2D(minuend.Width, minuend.Height, subtrahend.X, subtrahend.Y);
 
         /// <summary>
         /// Subtracts a <see cref="Size2D"/> by a value.
         /// </summary>
-        /// <param name="value">The <see cref="Size2D"/> to reduce.</param>
-        /// <param name="subend">The amount to reduce the <see cref="Size2D"/>.</param>
+        /// <param name="minuend">The <see cref="Size2D"/> to reduce.</param>
+        /// <param name="subtrahend">The amount to reduce the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure reduced by the amount provided.</returns>
-        public static Size2D Subtract(this Size2D value, Size2D subend)
-            => new Size2D(value.Width - subend.Width, value.Height - subend.Height);
+        public static Size2D Subtract(this Size2D minuend, Size2D subtrahend)
+            => Subtract2D(minuend.Width, minuend.Height, subtrahend.Width, subtrahend.Height);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D Subtract(this Vector2D vector, double value)
-            => new Vector2D(vector.I - value, vector.J - value);
+        public static Vector2D Subtract(this Vector2D minuend, double subtrahend)
+            => Subtract2D(minuend.I, minuend.J, subtrahend);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Subtract(this Vector2D vector, Point value)
-            => new PointF((float)(vector.I - value.X), (float)(vector.J - value.Y));
+        public static PointF Subtract(this Vector2D minuend, Point subtrahend)
+            => new PointF((float)(minuend.I - subtrahend.X), (float)(minuend.J - subtrahend.Y));
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point2D Subtract(this Vector2D vector, Point2D value)
-            => new Point2D((vector.I - value.X), (vector.J - value.Y));
+        public static Point2D Subtract(this Vector2D minuend, Point2D subtrahend)
+            => Subtract2D(minuend.I, minuend.J, subtrahend.X, subtrahend.Y);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="Value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static PointF Subtract(this Vector2D vector, PointF Value)
-            => new PointF((float)(vector.I - Value.X), (float)(vector.J - Value.Y));
+        public static PointF Subtract(this Vector2D minuend, PointF subtrahend)
+            => new PointF((float)(minuend.I - subtrahend.X), (float)(minuend.J - subtrahend.Y));
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D Subtract(this Vector2D point, Size value)
-            => new Vector2D(point.I - value.Width, point.J - value.Height);
+        public static Vector2D Subtract(this Vector2D minuend, Size subtrahend)
+            => Subtract2D(minuend.I, minuend.J, subtrahend.Width, subtrahend.Height);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D Subtract(this Vector2D point, SizeF value)
-            => new Vector2D((point.I - value.Width), (point.J - value.Height));
+        public static Vector2D Subtract(this Vector2D minuend, SizeF subtrahend)
+            => Subtract2D(minuend.I, minuend.J, subtrahend.Width, subtrahend.Height);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="Value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector2D Subtract(this Vector2D vector, Vector2D Value)
-            => new Vector2D(vector.I - Value.I, vector.J - Value.J);
+        public static Vector2D Subtract(this Vector2D minuend, Vector2D subtrahend)
+            => Subtract2D(minuend.I, minuend.J, subtrahend.I, subtrahend.J);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector3D Subtract(this Vector3D vector, double value)
-            => new Vector3D(vector.I - value, vector.J - value, vector.K - value);
+        public static Vector3D Subtract(this Vector3D minuend, double subtrahend)
+            => Subtract3D(minuend.I, minuend.J, minuend.K, subtrahend);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Point3D Subtract(this Vector3D vector, Point3D value)
-            => new Point3D((vector.I - value.X), (vector.J - value.Y), (vector.K - value.Z));
+        public static Point3D Subtract(this Vector3D minuend, Point3D subtrahend)
+            => Subtract3D(minuend.I, minuend.J, minuend.K, subtrahend.X, subtrahend.Y, subtrahend.Z);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="Value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static Vector3D Subtract(this Vector3D vector, Vector3D Value)
-            => new Vector3D(vector.I - Value.I, vector.J - Value.J, vector.K - Value.K);
+        public static Vector3D Subtract(this Vector3D minuend, Vector3D subtrahend)
+            => Subtract3D(minuend.I, minuend.J, minuend.K, subtrahend.I, subtrahend.J, subtrahend.K);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="segment"></param>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static LineSegment Subtract(this LineSegment segment, LineSegment value)
-            => new LineSegment(
-            segment.Points[0].X - value.Points[0].X,
-            segment.Points[0].Y - value.Points[0].Y,
-            segment.Points[1].X - value.Points[1].X,
-            segment.Points[1].Y - value.Points[1].Y);
+        public static Vector4D Subtract(this Vector4D minuend, double subtrahend)
+            => Subtract4D(minuend.I, minuend.J, minuend.K, minuend.L, subtrahend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector4D Subtract(this Vector4D minuend, Vector4D subtrahend)
+            => Subtract4D(minuend.I, minuend.J, minuend.K, minuend.L, subtrahend.I, subtrahend.J, subtrahend.K, subtrahend.L);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static LineSegment Subtract(this LineSegment minuend, double subtrahend)
+            => Subtract4D(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static LineSegment Subtract(this LineSegment minuend, LineSegment subtrahend)
+            => Subtract4D(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend.AX, subtrahend.AY, subtrahend.BX, subtrahend.BY);
 
         #endregion
 
@@ -1276,6 +1369,15 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         public static Vector3D Unit(this Vector3D value)
+            => value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
+
+        /// <summary>
+        /// Unit of a Vector
+        /// </summary>
+        /// <param name="value">The Point to Unitize</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector4D Unit(this Vector4D value)
             => value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
 
         #endregion

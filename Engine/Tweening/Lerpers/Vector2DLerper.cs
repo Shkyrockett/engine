@@ -42,8 +42,8 @@ namespace Engine.Tweening
         /// <param name="behavior"></param>
         public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
-            from = fromValue as Vector2D;
-            to = toValue as Vector2D;
+            from = (Vector2D)fromValue;
+            to = (Vector2D)toValue;
             range = new Vector2D(
                 to.I - from.I,
                 to.J - from.J);
@@ -67,7 +67,7 @@ namespace Engine.Tweening
                 j = Round(j);
             }
 
-            var current = currentValue as Vector2D;
+            var current = (Vector2D)currentValue;
             return new Vector2D(
                 (Abs(range.I) < Epsilon) ? current.I : i,
                 (Abs(range.J) < Epsilon) ? current.J : j);

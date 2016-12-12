@@ -228,3 +228,267 @@ public string ConvertToString()
 ## Profiling
 
 If you have several choices of how  to do things, profile the various methods, checking for accuracy and speed, then find the best compromise of the two.
+
+## Standard Methods
+
+To standardize these specific methods throughought the Engine to work the same, please use the following conventions.
+
+### Equality Comparison
+
+To reduce the chance of errors in equality comparisons accross various comparison operators, please use the following as a template for modeling Structs/Classes that need equality comparisons.
+
+```c#
+    public struct ComparableObject
+    {
+        #region Properties
+
+        public double A { get; set; }
+        public double B { get; set; }
+        public double C { get; set; }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Compares two <see cref="ComparableObject"/> instances for exact equality.
+        /// </summary>
+        /// <param name="a">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="b">The second <see cref="ComparableObject"/> to compare</param>
+        /// <returns>
+        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly equal.
+        /// The return value is true if they are equal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// </remarks>
+        public static bool operator ==(ComparableObject a, ComparableObject b)
+            => Equals(a, b);
+
+        /// <summary>
+        /// Compares two <see cref="ComparableObject"/> instances for exact inequality.
+        /// </summary>
+        /// <param name="a">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="b">The second <see cref="ComparableObject"/> to compare</param>
+        /// <returns>
+        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// The return value is true if they are unequal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// </remarks>
+        public static bool operator !=(ComparableObject a, ComparableObject b)
+            => !Equals(a, b);
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>Returns a 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+            => unchecked(
+            A.GetHashCode()
+            ^ B.GetHashCode()
+            ^ C.GetHashCode());
+
+        /// <summary>
+        /// Compares two <see cref="ComparableObject"/> structs.
+        /// </summary>
+        /// <param name="a">The object to comare.</param>
+        /// <param name="b">The object to compare against.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(ComparableObject a, ComparableObject b)
+            => Equals(a, b);
+
+        /// <summary>
+        /// Compares two <see cref="ComparableObject"/> instances for exact equality.
+        /// </summary>
+        /// <param name="a">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="b">The second <see cref="ComparableObject"/> to compare</param>
+        /// <returns>
+        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// The return value is true if they are unequal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(ComparableObject a, ComparableObject b)
+            => a?.A == b?.A
+             & a?.B == b?.B
+             & a?.C == b?.C;
+
+        /// <summary>
+        /// Compares this <see cref="ComparableObject"/> with the passed in object.
+        /// </summary>
+        /// <param name="obj">The object to compare to this <see cref="ComparableObject"/> to.</param>
+        /// <returns>
+        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// The return value is true if they are unequal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => obj is ComparableObject && Equals(this, (ComparableObject)obj);
+
+        /// <summary>
+        /// Compares this <see cref="ComparableObject"/> with the passed in <see cref="ComparableObject"/>.
+        /// </summary>
+        /// <param name="value">The <see cref="ComparableObject"/> to compare to this <see cref="ComparableObject"/> to.</param>
+        /// <returns>
+        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// The return value is true if they are unequal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(ComparableObject value)
+            => Equals(this, value);
+
+        #endregion
+    }
+```
+
+### IFormattable
+
+Please use the following as a template for IFormatable Structs/Classes, or objects that need to provide a string representation of the self.
+
+```c#
+    public struct FormatableObject
+         : IFormattable
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatableObject"/> struct.
+        /// </summary>
+        /// <param name="a">The <see cref="A"/> component of the <see cref="FormatableObject"/> struct.</param>
+        /// <param name="b">The <see cref="B"/> component of the <see cref="FormatableObject"/> struct.</param>
+        /// <param name="c">The <see cref="C"/> component of the <see cref="FormatableObject"/> struct.</param>
+        public Vector2D(double a, double b, double c)
+        {
+            A = a;
+            B = b;
+            C = c;
+        }
+
+        #endregion
+
+        #region Properties
+
+        public double A { get; set; }
+        public double B { get; set; }
+        public double C { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="FormatableObject"/> struct based on the current culture.
+        /// </summary>
+        /// <returns>A string representation of this instance.</returns>
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="FormatableObject"/> struct based on the IFormatProvider
+        /// passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>
+        /// A string representation of this instance as specified by provider.
+        /// </returns>
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="FormatableObject"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">A numeric format string.</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>
+        /// A string representation of this instance as specified by format and provider.
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="FormatableObject"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">A numeric format string.</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>
+        /// A string representation of this instance as specified by format and provider.
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
+        {
+            // If the object hasn't been initialized yet, for example reading from reflection, return its name.
+            #pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
+            if (this == null) return nameof(FormatableObject);
+            #pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
+
+            // Capture the culture's list ceparator character.
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+
+            // Create the string representation of the struct.
+            return $"{nameof(FormatableObject)}({nameof(A)}={A.ToString(format, provider)}{sep}{nameof(B)}={B.ToString(format, provider)}{sep}{nameof(C)}={C.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// Parses the provided string using the current culture to create an instance of the <see cref="FormatableObject"/> struct.
+        /// </summary>
+        /// <param name="source">A string containinig the <see cref="FormatableObject"/> data</param>
+        /// <returns>Returns an instance of the <see cref="FormatableObject"/> struct converted from the provided string.</returns>
+        public static FormatableObject Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parses the provided string using the provided culture to create an instance of the <see cref="FormatableObject"/> struct.
+        /// </summary>
+        /// <param name="source">A string containinig the <see cref="FormatableObject"/> data</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>Returns an instance of the <see cref="FormatableObject"/> struct converted from the provided string.</returns>
+        public static FormatableObject Parse(string source, IFormatProvider provider)
+        {
+            // Initialize the tokenizer.
+            var tokenizer = new Tokenizer(source, provider);
+
+            // Fetch the values from the tokens.
+            var value = new FormatableObject(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+
+            return value;
+        }
+
+        #endregion
+    }
+```

@@ -319,6 +319,18 @@ namespace Engine
 
         #endregion
 
+        #region Operators
+
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"></param>
+        public static implicit operator LineSegment((double I, double J, double K, double L) tuple)
+            => new LineSegment(tuple);
+
+        #endregion
+
         #region Interpolaters
 
         /// <summary>

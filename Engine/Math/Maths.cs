@@ -1348,6 +1348,243 @@ namespace Engine
 
         #region Derived Equivalent Math Functions
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augendI"></param>
+        /// <param name="augendJ"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Add2D(double augendI, double augendJ, double addend)
+            => (augendI + addend, augendJ + addend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augendI"></param>
+        /// <param name="augendJ"></param>
+        /// <param name="augendK"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Add3D(double augendI, double augendJ, double augendK, double addend)
+            => (augendI + addend, augendJ + addend, augendK + addend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augendI"></param>
+        /// <param name="augendJ"></param>
+        /// <param name="augendK"></param>
+        /// <param name="augendL"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Add4D(double augendI, double augendJ, double augendK, double augendL, double addend)
+            => (augendI + addend, augendJ + addend, augendK + addend, augendL + addend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augendI"></param>
+        /// <param name="augendJ"></param>
+        /// <param name="addendI"></param>
+        /// <param name="addendJ"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Add2D(double augendI, double augendJ, double addendI, double addendJ)
+            => (augendI + addendI, augendJ + addendJ);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augendI"></param>
+        /// <param name="augendJ"></param>
+        /// <param name="augendK"></param>
+        /// <param name="addendI"></param>
+        /// <param name="addendJ"></param>
+        /// <param name="addendK"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Add3D(double augendI, double augendJ, double augendK, double addendI, double addendJ, double addendK)
+            => (augendI + addendI, augendJ + addendJ, augendK + addendK);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augendI"></param>
+        /// <param name="augendJ"></param>
+        /// <param name="augendK"></param>
+        /// <param name="augendL"></param>
+        /// <param name="addendI"></param>
+        /// <param name="addendJ"></param>
+        /// <param name="addendK"></param>
+        /// <param name="addendL"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Add4D(double augendI, double augendJ, double augendK, double augendL, double addendI, double addendJ, double addendK, double addendL)
+            => (augendI + addendI, augendJ + addendJ, augendK + addendK, augendL + addendL);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuendI"></param>
+        /// <param name="minuendJ"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Subtract2D(double minuendI, double minuendJ, double subtrahend)
+            => (minuendI - subtrahend, minuendJ - subtrahend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuendI"></param>
+        /// <param name="minuendJ"></param>
+        /// <param name="minuendK"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Subtract3D(double minuendI, double minuendJ, double minuendK, double subtrahend)
+            => (minuendI - subtrahend, minuendJ - subtrahend, minuendK - subtrahend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuendI"></param>
+        /// <param name="minuendJ"></param>
+        /// <param name="minuendK"></param>
+        /// <param name="minuendL"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Subtract4D(double minuendI, double minuendJ, double minuendK, double minuendL, double subtrahend)
+            => (minuendI - subtrahend, minuendJ - subtrahend, minuendK - subtrahend, minuendL - subtrahend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuendI"></param>
+        /// <param name="minuendJ"></param>
+        /// <param name="subtrahendI"></param>
+        /// <param name="subtrahendJ"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Subtract2D(double minuendI, double minuendJ, double subtrahendI, double subtrahendJ)
+            => (minuendI - subtrahendI, minuendJ - subtrahendJ);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuendI"></param>
+        /// <param name="minuendJ"></param>
+        /// <param name="minuendK"></param>
+        /// <param name="subtrahendI"></param>
+        /// <param name="subtrahendJ"></param>
+        /// <param name="subtrahendK"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Subtract3D(double minuendI, double minuendJ, double minuendK, double subtrahendI, double subtrahendJ, double subtrahendK)
+            => (minuendI - subtrahendI, minuendJ - subtrahendJ, minuendK - subtrahendK);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuendI"></param>
+        /// <param name="minuendJ"></param>
+        /// <param name="minuendK"></param>
+        /// <param name="minuendL"></param>
+        /// <param name="subtrahendI"></param>
+        /// <param name="subtrahendJ"></param>
+        /// <param name="subtrahendK"></param>
+        /// <param name="subtrahendL"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Subtract4D(double minuendI, double minuendJ, double minuendK, double minuendL, double subtrahendI, double subtrahendJ, double subtrahendK, double subtrahendL)
+            => (minuendI - subtrahendI, minuendJ - subtrahendJ, minuendK - subtrahendK, minuendL - subtrahendL);
+
+        /// <summary>
+        /// Inflates a <see cref="Vector2D"/> by a given factor.
+        /// </summary>
+        /// <param name="i">The x value to inflate.</param>
+        /// <param name="j">The y value to inflate.</param>
+        /// <param name="factor">The factor to inflate the <see cref="Vector2D"/>.</param>
+        /// <returns>Returns a tupple with the values inflated by the factor provided.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Scale2D(double i, double j, double factor)
+            => ((i * factor), (j * factor));
+
+        /// <summary>
+        /// Inflates a <see cref="Vector3D"/> by a given factor.
+        /// </summary>
+        /// <param name="i">The x value to inflate.</param>
+        /// <param name="j">The y value to inflate.</param>
+        /// <param name="k">The z value to inflate.</param>
+        /// <param name="factor">The factor to inflate the <see cref="Vector3D"/>.</param>
+        /// <returns>Returns a tupple with the values inflated by the factor provided.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Scale3D(double i, double j, double k, double factor)
+            => ((i * factor), (j * factor), (k * factor));
+
+        /// <summary>
+        /// Inflates a <see cref="Vector4D"/> by a given factor.
+        /// </summary>
+        /// <param name="i">The x value to inflate.</param>
+        /// <param name="j">The y value to inflate.</param>
+        /// <param name="k">The z value to inflate.</param>
+        /// <param name="l">The w value to inflate.</param>
+        /// <param name="factor">The factor to inflate the <see cref="Vector4D"/>.</param>
+        /// <returns>Returns a tuple structure inflated by the factor provided.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Scale4D(double i, double j, double k, double l, double factor)
+            => ((i * factor), (j * factor), (k * factor), (l * factor));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisorI"></param>
+        /// <param name="divisorJ"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static (double I, double J) Divide2D(double divisorI, double divisorJ, double divedend)
+            => (divisorI / divedend, divisorJ / divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisorI"></param>
+        /// <param name="divisorJ"></param>
+        /// <param name="divisorK"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static (double I, double J, double K) Divide3D(double divisorI, double divisorJ, double divisorK, double divedend)
+            => (divisorI / divedend, divisorJ / divedend, divisorK / divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisorI"></param>
+        /// <param name="divisorJ"></param>
+        /// <param name="divisorK"></param>
+        /// <param name="divisorL"></param>
+        /// <param name="divedend"></param>
+        /// <returns></returns>
+        public static (double I, double J, double K, double L) Divide4D(double divisorI, double divisorJ, double divisorK, double divisorL, double divedend)
+            => (divisorI / divedend, divisorJ / divedend, divisorK / divedend, divisorL / divedend);
+
         // Derived equivalent Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
 
         /// <summary>

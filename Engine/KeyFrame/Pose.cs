@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Pose
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Bone[] Bones { get; set; }
     }
 }

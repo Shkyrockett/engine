@@ -292,7 +292,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
-        internal void OnSerializing(StreamingContext context)
+        private void OnSerializing(StreamingContext context)
         {
             // member2 = "This value went into the data file during serialization.";
         }
@@ -302,7 +302,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
-        internal void OnSerialized(StreamingContext context)
+        private void OnSerialized(StreamingContext context)
         {
             // member2 = "This value was reset after serialization.";
         }
@@ -312,7 +312,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
-        internal void OnDeserializing(StreamingContext context)
+        private void OnDeserializing(StreamingContext context)
         {
             // member3 = "This value was set during deserialization";
         }
@@ -322,7 +322,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
-        internal void OnDeserialized(StreamingContext context)
+        private void OnDeserialized(StreamingContext context)
         {
             // member4 = "This value was set after deserialization.";
             Recalculate();

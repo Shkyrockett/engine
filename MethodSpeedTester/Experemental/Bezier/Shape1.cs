@@ -33,42 +33,42 @@ namespace Engine
         /// <param name="bbox"></param>
         public Shape1(Bezier startcap, Bezier forward, Bezier back, Bezier endcap, BBox bbox)
         {
-            this.startcap = startcap;
-            this.forward = forward;
-            this.back = back;
-            this.endcap = endcap;
-            this.bbox = bbox;
+            Startcap = startcap;
+            Forward = forward;
+            Back = back;
+            Endcap = endcap;
+            Bbox = bbox;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Bezier startcap { get; internal set; }
+        public Bezier Startcap { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Bezier forward { get; internal set; }
+        public Bezier Forward { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Bezier back { get; internal set; }
+        public Bezier Back { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Bezier endcap { get; internal set; }
+        public Bezier Endcap { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public BBox bbox { get; internal set; }
+        public BBox Bbox { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IntersectionsDelegate intersections { get; internal set; }
+        public IntersectionsDelegate Intersections { get; internal set; }
     }
 }
 

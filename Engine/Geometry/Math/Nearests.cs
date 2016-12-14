@@ -30,9 +30,7 @@ namespace Engine
         /// <param name="pX"></param>
         /// <param name="pY"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Point2D ToPointOnLineSegment(
             double aX, double aY,
@@ -74,9 +72,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/36260793/algorithm-for-shortest-distance-from-a-point-to-an-elliptic-arc?rq=1
-        /// </remarks>
-        [Pure]
-        //[DebuggerStepThrough]
+        /// </remarks>        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) ToPointOnEllipse(
             double cX, double cY,
@@ -151,9 +147,7 @@ namespace Engine
         /// <param name="p3Y"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <returns></returns>
-        [Pure]
-        //[DebuggerStepThrough]
+        /// <returns></returns>        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double X, double Y)? ToPointOnCubicBezier(
             double p0X, double p0Y,
@@ -174,9 +168,7 @@ namespace Engine
         /// <param name="p2Y"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <returns></returns>
-        [Pure]
-        //[DebuggerStepThrough]
+        /// <returns></returns>        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double X, double Y)? ToPointOnQuadraticBezier(
             double p0Y, double p0X,

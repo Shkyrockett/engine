@@ -478,7 +478,6 @@ namespace Engine
         /// <param name="bottom"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        [Pure]
         public static RotatedRectangle2D FromLTRBA(double left, double top, double right, double bottom, double angle)
             => new RotatedRectangle2D(left, top, right - left, bottom - top, angle);
 
@@ -489,7 +488,6 @@ namespace Engine
         /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
         /// <param name="angle"></param>
         /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
-        [Pure]
         public static RotatedRectangle2D RectangleFromCenter(Point2D center, Size2D size, double angle)
             => new RotatedRectangle2D(center - size.Inflate(0.5d), size, angle);
 
@@ -499,7 +497,6 @@ namespace Engine
         ///// <param name="a"></param>
         ///// <param name="b"></param>
         ///// <returns></returns>
-        //[Pure]
         //public static RotatedRectangle2D Union(RotatedRectangle2D a, RotatedRectangle2D b)
         //{
         //    double left = Min(a.X, b.X);
@@ -513,7 +510,6 @@ namespace Engine
         ///// <summary>
         ///// Union - Return the result of the union of Rectangle2D and point.
         ///// </summary>
-        //[Pure]
         //public static RotatedRectangle2D Union(RotatedRectangle2D rect, RotatedRectangle2D point)
         //{
         //    rect.Union(new RotatedRectangle2D(point, point));
@@ -526,7 +522,6 @@ namespace Engine
         ///// <param name="a"></param>
         ///// <param name="b"></param>
         ///// <returns></returns>
-        //[Pure]
         //public static RotatedRectangle2D Intersect(RotatedRectangle2D a, RotatedRectangle2D b)
         //{
         //    double x1 = Max(a.X, b.X);
@@ -546,7 +541,6 @@ namespace Engine
         ///// Offset - return the result of offsetting Rectangle2D by the offset provided.
         ///// If this is Empty, this method is illegal.
         ///// </summary>
-        //[Pure]
         //public static RotatedRectangle2D Offset(RotatedRectangle2D rect, Vector2D offsetVector)
         //{
         //    rect.Offset(offsetVector.I, offsetVector.J);
@@ -557,7 +551,6 @@ namespace Engine
         ///// Offset - return the result of offsetting Rectangle2D by the offset provided
         ///// If this is Empty, this method is illegal.
         ///// </summary>
-        //[Pure]
         //public static RotatedRectangle2D Offset(RotatedRectangle2D rect, double offsetX, double offsetY)
         //{
         //    rect.Offset(offsetX, offsetY);
@@ -571,7 +564,6 @@ namespace Engine
         ///// <param name="x"></param>
         ///// <param name="y"></param>
         ///// <returns></returns>
-        //[Pure]
         //public static RotatedRectangle2D Inflate(RotatedRectangle2D rect, float x, float y)
         //{
         //    RotatedRectangle2D r = rect;
@@ -583,7 +575,6 @@ namespace Engine
         ///// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
         ///// If this is Empty, this method is illegal.
         ///// </summary>
-        //[Pure]
         //public static RotatedRectangle2D Inflate(RotatedRectangle2D rect, Size size)
         //{
         //    rect.Inflate(size.Width, size.Height);
@@ -594,7 +585,6 @@ namespace Engine
         ///// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
         ///// If this is Empty, this method is illegal.
         ///// </summary>
-        //[Pure]
         //public static RotatedRectangle2D Inflate(RotatedRectangle2D rect, double width, double height)
         //{
         //    rect.Inflate(width, height);
@@ -610,7 +600,6 @@ namespace Engine
         ///// </returns>
         ///// <param name="rect"> The Rectangle2D to transform. </param>
         ///// <param name="matrix"> The Matrix by which to transform. </param>
-        //[Pure]
         //public static RotatedRectangle2D Transform(RotatedRectangle2D rect, Matrix2D matrix)
         //{
         //    Matrix2D.TransformRect(ref rect, ref matrix);
@@ -762,7 +751,6 @@ namespace Engine
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        [Pure]
         public bool Contains(Rectangle2D rect)
             => Bounds.Contains(rect);
 
@@ -771,7 +759,6 @@ namespace Engine
         ///// </summary>
         ///// <param name="rect"></param>
         ///// <returns></returns>
-        //[Pure]
         //public bool IntersectsWith(Rectangle2D rect)
         //{
         //    return Intersections.RectangleIntersectsRectangle(this, rect);

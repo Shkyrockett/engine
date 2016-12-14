@@ -917,9 +917,7 @@ namespace Engine
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Polynomial"/> inherited class.
         /// </summary>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
@@ -930,9 +928,7 @@ namespace Engine
         /// </summary>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
@@ -947,9 +943,7 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
@@ -964,9 +958,7 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public virtual string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>        public virtual string ConvertToString(string format, IFormatProvider provider)
         {
             var sb = new StringBuilder();
             for (int i = 0; i < Coefficients.Count; i++)

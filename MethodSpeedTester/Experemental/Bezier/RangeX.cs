@@ -35,31 +35,31 @@ namespace Engine
         /// <param name="size"></param>
         public RangeX(double min, double mid, double max, double size)
         {
-            this.min = min;
-            this.mid = mid;
-            this.max = max;
-            this.size = size;
+            this.Min = min;
+            this.Mid = mid;
+            this.Max = max;
+            this.Size = size;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double min { get; set; }
+        public double Min { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double mid { get; set; }
+        public double Mid { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double max { get; set; }
+        public double Max { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double size { get; set; }
+        public double Size { get; set; }
     }
 }
 

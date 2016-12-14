@@ -11,7 +11,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -70,8 +69,9 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Point3D((double X, double Y, double Z) tuple)
-            : this(tuple.Item1, tuple.Item2, tuple.Item3)
-        { }
+        {
+            (X, Y, Z) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
@@ -238,7 +238,7 @@ namespace Engine
         /// <returns></returns>
         /// <param name="tuple"></param>
         public static implicit operator Point3D((double X, double Y, double Z) tuple)
-            => new Point3D(tuple.X, tuple.Y, tuple.Z);
+            => new Point3D(tuple);
 
         #endregion
 
@@ -249,7 +249,6 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         public static Point3D Random()
             => new Point3D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
@@ -261,7 +260,6 @@ namespace Engine
         /// Returns an instance of the <see cref="Point3D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
-        [Pure]
         public static Point3D Parse(string source)
         {
             var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
@@ -283,7 +281,6 @@ namespace Engine
         ///
         /// </summary>
         /// <returns></returns>
-        [Pure]
         public override int GetHashCode()
             => X.GetHashCode()
            ^ Y.GetHashCode()
@@ -332,7 +329,6 @@ namespace Engine
         /// Creates a human-readable string that represents this <see cref="Point3D"/> class.
         /// </summary>
         /// <returns></returns>
-        [Pure]
         public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
@@ -343,7 +339,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
 
@@ -358,7 +353,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
@@ -373,7 +367,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point3D);

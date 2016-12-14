@@ -51,8 +51,7 @@ namespace MethodSpeedTester
         /// </remarks>
         public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
         {
-            TValue result;
-            return dic.TryGetValue(key, out result) ? result : default(TValue);
+            return dic.TryGetValue(key, out var result) ? result : default(TValue);
         }
     }
 }

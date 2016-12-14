@@ -173,7 +173,6 @@ namespace Engine
         /////
         ///// </summary>
         ///// <returns></returns>
-        //[Pure]
         //public virtual T Clone<T>()
         //{
         //    throw new NotImplementedException();
@@ -183,7 +182,6 @@ namespace Engine
         /// Creates a human-readable string that represents this <see cref="GraphicsObject"/> inherited class.
         /// </summary>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
@@ -196,7 +194,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
@@ -213,7 +210,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         string IFormattable.ToString(string format, IFormatProvider provider)
@@ -230,7 +226,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         public virtual string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)

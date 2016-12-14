@@ -25,8 +25,8 @@ namespace Engine
         /// <param name="right"></param>
         public Pair(Bezier left, Bezier right)
         {
-            this.left = left;
-            this.right = right;
+            this.Left = left;
+            this.Right = right;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Engine
         public Pair(Bezier left, Bezier right, List<Point3D> span)
             : this(left, right)
         {
-            this.span = span;
+            this.Span = span;
         }
 
         /// <summary>
@@ -51,42 +51,42 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Bezier left { get; internal set; }
+        public Bezier Left { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Bezier right { get; internal set; }
+        public Bezier Right { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int length { get; internal set; }
+        public int Length { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Shape1 s1 { get; internal set; }
+        public Shape1 S1 { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Shape1 s2 { get; internal set; }
+        public Shape1 S2 { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Point3D> span { get; internal set; }
+        public List<Point3D> Span { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double _t1 { get; internal set; }
+        public double T1 { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double _t2 { get; internal set; }
+        public double T2 { get; internal set; }
 
         /// <summary>
         /// 
@@ -110,7 +110,7 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool Equals(Pair left, Pair right) => left.left == right.left && right.right == left.right;
+        public static bool Equals(Pair left, Pair right) => left.Left == right.Left && right.Right == left.Right;
 
         /// <summary>
         /// 
@@ -123,7 +123,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode() => left.GetHashCode() ^ right.GetHashCode();
+        public override int GetHashCode() => Left.GetHashCode() ^ Right.GetHashCode();
     }
 }
 

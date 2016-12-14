@@ -43,10 +43,8 @@ namespace Engine.Localization
         public Culture(string code)
         {
             string[] tokens = code.Split('-');
-            Languages language;
-            Countries country;
-            Enum.TryParse(tokens[0], out language);
-            Enum.TryParse(tokens[1], out country);
+            Enum.TryParse(tokens[0], out Languages language);
+            Enum.TryParse(tokens[1], out Countries country);
             Language = language;
             Country = country;
         }

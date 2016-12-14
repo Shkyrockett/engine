@@ -110,10 +110,22 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the location and size from a tuple.
         /// </summary>
+        /// <param name="tuple1"></param>
+        /// <param name="tuple2"></param>
+        public Rectangle2D((double, double) tuple1, (double, double) tuple2)
+        {
+            (x, y) = tuple1;
+            (width, height) = tuple2;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the location and size from a tuple.
+        /// </summary>
         /// <param name="tuple"></param>
         public Rectangle2D((double, double, double, double) tuple)
-            : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
-        { }
+        {
+            (x, y, width, height) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with a location and size.
@@ -621,9 +633,7 @@ namespace Engine
         /// <param name="top"></param>
         /// <param name="right"></param>
         /// <param name="bottom"></param>
-        /// <returns></returns>
-        [Pure]
-        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom)
+        /// <returns></returns>        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom)
             => new Rectangle2D(left, top, right - left, bottom - top);
 
         /// <summary>
@@ -631,9 +641,7 @@ namespace Engine
         /// </summary>
         /// <param name="center">The center point to create the <see cref="Rectangle"/> as a <see cref="Point"/>.</param>
         /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
-        /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
-        [Pure]
-        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
+        /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
             => new Rectangle2D(center - size.Inflate(0.5d), size);
 
         /// <summary>
@@ -641,9 +649,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        [Pure]
-        public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
+        /// <returns></returns>        public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
         {
             double left = Min(a.X, b.X);
             double top = Min(a.Y, b.Y);
@@ -655,9 +661,7 @@ namespace Engine
 
         /// <summary>
         /// Union - Return the result of the union of Rectangle2D and point.
-        /// </summary>
-        [Pure]
-        public static Rectangle2D Union(Rectangle2D rect, Point2D point)
+        /// </summary>        public static Rectangle2D Union(Rectangle2D rect, Point2D point)
         {
             rect.Union(new Rectangle2D(point, point));
             return rect;
@@ -668,9 +672,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        [Pure]
-        public static Rectangle2D Intersect(Rectangle2D a, Rectangle2D b)
+        /// <returns></returns>        public static Rectangle2D Intersect(Rectangle2D a, Rectangle2D b)
         {
             double x1 = Max(a.X, b.X);
             double x2 = Min(a.X + a.Width, b.X + b.Width);
@@ -686,9 +688,7 @@ namespace Engine
         /// <summary>
         /// Offset - return the result of offsetting Rectangle2D by the offset provided
         /// If this is Empty, this method is illegal.
-        /// </summary>
-        [Pure]
-        public static Rectangle2D Offset(Rectangle2D rect, Vector2D offsetVector)
+        /// </summary>        public static Rectangle2D Offset(Rectangle2D rect, Vector2D offsetVector)
         {
             rect.Offset(offsetVector.I, offsetVector.J);
             return rect;
@@ -697,9 +697,7 @@ namespace Engine
         /// <summary>
         /// Offset - return the result of offsetting Rectangle2D by the offset provided
         /// If this is Empty, this method is illegal.
-        /// </summary>
-        [Pure]
-        public static Rectangle2D Offset(Rectangle2D rect, double offsetX, double offsetY)
+        /// </summary>        public static Rectangle2D Offset(Rectangle2D rect, double offsetX, double offsetY)
         {
             rect.Offset(offsetX, offsetY);
             return rect;
@@ -711,9 +709,7 @@ namespace Engine
         /// <param name="rect"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <returns></returns>
-        [Pure]
-        public static Rectangle2D Inflate(Rectangle2D rect, float x, float y)
+        /// <returns></returns>        public static Rectangle2D Inflate(Rectangle2D rect, float x, float y)
         {
             Rectangle2D r = rect;
             r.Inflate(x, y);
@@ -723,9 +719,7 @@ namespace Engine
         /// <summary>
         /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
         /// If this is Empty, this method is illegal.
-        /// </summary>
-        [Pure]
-        public static Rectangle2D Inflate(Rectangle2D rect, Size size)
+        /// </summary>        public static Rectangle2D Inflate(Rectangle2D rect, Size size)
         {
             rect.Inflate(size.Width, size.Height);
             return rect;
@@ -734,9 +728,7 @@ namespace Engine
         /// <summary>
         /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
         /// If this is Empty, this method is illegal.
-        /// </summary>
-        [Pure]
-        public static Rectangle2D Inflate(Rectangle2D rect, double width, double height)
+        /// </summary>        public static Rectangle2D Inflate(Rectangle2D rect, double width, double height)
         {
             rect.Inflate(width, height);
             return rect;
@@ -750,9 +742,7 @@ namespace Engine
         /// The Rectangle2D which results from the transformation.
         /// </returns>
         /// <param name="rect"> The Rectangle2D to transform. </param>
-        /// <param name="matrix"> The Matrix by which to transform. </param>
-        [Pure]
-        public static Rectangle2D Transform(Rectangle2D rect, Matrix2D matrix)
+        /// <param name="matrix"> The Matrix by which to transform. </param>        public static Rectangle2D Transform(Rectangle2D rect, Matrix2D matrix)
         {
             Matrix2D.TransformRect(ref rect, ref matrix);
             return rect;
@@ -905,18 +895,14 @@ namespace Engine
         /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
         /// </summary>
         /// <param name="rect"></param>
-        /// <returns></returns>
-        [Pure]
-        public bool Contains(Rectangle2D rect)
+        /// <returns></returns>        public bool Contains(Rectangle2D rect)
             => Containings.Contains(this, rect);
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.
         /// </summary>
         /// <param name="rect"></param>
-        /// <returns></returns>
-        [Pure]
-        public bool IntersectsWith(Rectangle2D rect)
+        /// <returns></returns>        public bool IntersectsWith(Rectangle2D rect)
             => Intersectings.Intersects(this, rect);
 
         /// <summary>

@@ -45,9 +45,7 @@ namespace Engine
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
         /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta.</returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns>Interpolated point at theta.</returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) CircularArc(
             double cX, double cY,
@@ -64,9 +62,7 @@ namespace Engine
         /// <param name="r">Radius of circle.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
-        // Convert from unit iteration, to Pi radians.
-        [Pure]
-        [DebuggerStepThrough]
+        // Convert from unit iteration, to Pi radians.        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) UnitCircle(
         double cX, double cY,
@@ -82,9 +78,7 @@ namespace Engine
         /// <param name="r">Radius of circle.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
-        // Apply translation to equation of circle at origin.
-        [Pure]
-        [DebuggerStepThrough]
+        // Apply translation to equation of circle at origin.        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Circle(
             double cX, double cY,
@@ -107,9 +101,7 @@ namespace Engine
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
         /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta.</returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns>Interpolated point at theta.</returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) EllipticalArc(
             double cX, double cY,
@@ -145,9 +137,7 @@ namespace Engine
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
         /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta.</returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns>Interpolated point at theta.</returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) EllipticalArc(
             double cX, double cY,
@@ -166,9 +156,7 @@ namespace Engine
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) UnitPolarEllipse(
             double cX, double cY,
@@ -186,9 +174,7 @@ namespace Engine
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PolarEllipse(
             double cX, double cY,
@@ -206,9 +192,7 @@ namespace Engine
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta.</returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns>Interpolated point at theta.</returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Ellipse(
             double cX, double cY,
@@ -734,9 +718,7 @@ namespace Engine
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Hermite(
             double v0,
@@ -779,9 +761,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://paulbourke.net/miscellaneous/interpolation/
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Hermite(
             double x0, double y0,
@@ -834,9 +814,7 @@ namespace Engine
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Hermite(
             double x0, double y0, double z0,
@@ -881,9 +859,7 @@ namespace Engine
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="t"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(
                 double v1, double v2,
@@ -896,9 +872,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Linear(Point2D v1, Point2D v2, double t)
             => new Point2D(Linear(v1.X, v1.Y, v2.X, v2.Y, t));
@@ -909,9 +883,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Linear(Point3D v1, Point3D v2, double t)
             => new Point3D(Linear(v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, t));
@@ -924,9 +896,7 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <param name="t"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Linear(
             double x1, double y1,
@@ -946,9 +916,7 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <param name="t"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Linear(
             double x1, double y1, double z1,
@@ -970,9 +938,7 @@ namespace Engine
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="t"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezier(
             double v0,
@@ -997,9 +963,7 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <param name="t"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) QuadraticBezier(
             double x0, double y0,
@@ -1030,9 +994,7 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <param name="t"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) QuadraticBezier(
             double x0, double y0, double z0,
@@ -1103,9 +1065,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://paulbourke.net/miscellaneous/interpolation/
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sine(
             double v1,
@@ -1125,9 +1085,7 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Sine(
             double x1, double y1,
@@ -1152,9 +1110,7 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Sine(
             double x1, double y1, double z1,
@@ -1182,9 +1138,7 @@ namespace Engine
         /// <param name="fulcrumX"></param>
         /// <param name="fulcrumY"></param>
         /// <param name="angle"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RotatedRectangle(
             double x, double y,

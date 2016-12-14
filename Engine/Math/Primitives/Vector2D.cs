@@ -48,14 +48,6 @@ namespace Engine
 
         #region Constructors
 
-        ///// <summary>
-        ///// Initializes a new default instance of the <see cref="Vector2D"/>class.
-        ///// </summary>
-        ///// <remarks></remarks>
-        //public Vector2D()
-        //    : this(0, 0)
-        //{ }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
@@ -70,8 +62,9 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Vector2D((double X, double Y) tuple)
-            : this(tuple.Item1, tuple.Item2)
-        { }
+        {
+            (I, J) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -95,8 +88,7 @@ namespace Engine
         /// <remarks></remarks>
         public Vector2D(double aI, double aJ, double bI, double bJ)
             : this(new Point2D(aI, aJ), new Point2D(bI, bJ))
-        {
-        }
+        {        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -106,8 +98,7 @@ namespace Engine
         /// <remarks></remarks>
         public Vector2D(Point2D a, Point2D b)
             : this(a.Delta(b).Unit())
-        {
-        }
+        {        }
 
         #endregion
 
@@ -286,12 +277,12 @@ namespace Engine
         /// <summary>
         /// Tupple to <see cref="Vector2D"/>.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="tuple"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
-        public static implicit operator Vector2D((double X, double Y) value)
-            => new Vector2D(value.X, value.Y);
+        public static implicit operator Vector2D((double X, double Y) tuple)
+            => new Vector2D(tuple);
 
         /// <summary>
         /// <see cref="PointF"/> to <see cref="Vector2D"/>

@@ -138,8 +138,7 @@ namespace Engine.Tweening
             PropertyInfo[] props = dests.GetType().GetProperties();
             for (int i = 0; i < props.Length; ++i)
             {
-                List<Tween> library = null;
-                if (overwrite && tweens.TryGetValue(target, out library))
+                if (overwrite && tweens.TryGetValue(target, out var library))
                 {
                     for (int j = 0; j < library.Count; j++)
                         library[j].Cancel(props[i].Name);
@@ -233,8 +232,7 @@ namespace Engine.Tweening
         /// <returns></returns>
         private Lerper CreateLerper(Type propertyType)
         {
-            ConstructorInfo lerper = null;
-            if (!RegisteredLerpers.TryGetValue(propertyType, out lerper))
+            if (!RegisteredLerpers.TryGetValue(propertyType, out var lerper))
                 throw new Exception($"No {nameof(Lerper)} found for type {propertyType.FullName}.");
 
             return lerper.Invoke(null) as Lerper;
@@ -260,9 +258,7 @@ namespace Engine.Tweening
 
                 // don't sort timers by target
                 if (tween.Target == null) continue;
-
-                List<Tween> list = null;
-                if (!tweens.TryGetValue(tween.Target, out list))
+                if (!tweens.TryGetValue(tween.Target, out var list))
                     tweens[tween.Target] = list = new List<Tween>();
 
                 list.Add(tween);
@@ -274,9 +270,7 @@ namespace Engine.Tweening
 
                 // don't sort timers by target
                 if (tween.Target == null) continue;
-
-                List<Tween> list = null;
-                if (tweens.TryGetValue(tween.Target, out list))
+                if (tweens.TryGetValue(tween.Target, out var list))
                 {
                     list.Remove(tween);
                     if (list.Count == 0)
@@ -298,8 +292,7 @@ namespace Engine.Tweening
         /// <param name="target">The object being tweened that you want to cancel.</param>
         public void TargetCancel(object target)
         {
-            List<Tween> list;
-            if (tweens.TryGetValue(target, out list))
+            if (tweens.TryGetValue(target, out var list))
             {
                 foreach (Tween tween in list)
                     tween.Cancel();
@@ -313,8 +306,7 @@ namespace Engine.Tweening
         /// <param name="properties">The properties to cancel.</param>
         public void TargetCancel(object target, params string[] properties)
         {
-            List<Tween> list;
-            if (tweens.TryGetValue(target, out list))
+            if (tweens.TryGetValue(target, out var list))
             {
                 foreach (Tween tween in list)
                     tween.Cancel(properties);
@@ -327,8 +319,7 @@ namespace Engine.Tweening
         /// <param name="target">The object being tweened that you want to cancel and complete.</param>
         public void TargetCancelAndComplete(object target)
         {
-            List<Tween> list;
-            if (tweens.TryGetValue(target, out list))
+            if (tweens.TryGetValue(target, out var list))
             {
                 foreach (Tween tween in list)
                     tween.CancelAndComplete();
@@ -341,8 +332,7 @@ namespace Engine.Tweening
         /// <param name="target">The object being tweened that you want to pause.</param>
         public void TargetPause(object target)
         {
-            List<Tween> list;
-            if (tweens.TryGetValue(target, out list))
+            if (tweens.TryGetValue(target, out var list))
             {
                 foreach (Tween tween in list)
                     tween.Pause();
@@ -355,8 +345,7 @@ namespace Engine.Tweening
         /// <param name="target">The object being tweened that you want to toggle pause.</param>
         public void TargetPauseToggle(object target)
         {
-            List<Tween> list;
-            if (tweens.TryGetValue(target, out list))
+            if (tweens.TryGetValue(target, out var list))
             {
                 foreach (Tween tween in list)
                     tween.PauseToggle();
@@ -369,8 +358,7 @@ namespace Engine.Tweening
         /// <param name="target">The object being tweened that you want to resume.</param>
         public void TargetResume(object target)
         {
-            List<Tween> list;
-            if (tweens.TryGetValue(target, out list))
+            if (tweens.TryGetValue(target, out var list))
             {
                 foreach (Tween tween in list)
                     tween.Resume();

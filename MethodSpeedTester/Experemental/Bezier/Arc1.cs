@@ -20,22 +20,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Point3D center { get; internal set; }
+        public Point3D Center { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double radius { get; internal set; }
+        public double Radius { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double e { get; internal set; }
+        public double E { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double s { get; internal set; }
+        public double S { get; internal set; }
     }
 }
 

@@ -624,7 +624,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         private List<double> Inflections()
-            => Utilities.inflections(Points);
+            => Utilities.Inflections(Points);
 
         /// <summary>
         ///
@@ -727,7 +727,7 @@ namespace Engine
         public Bezier Split(double t1, double t2)
         {
             // shortcuts
-            if (t1 == 0 && t2 != 0) return Split(t2).left; if (t2 == 1) return Split(t1).right;
+            if (t1 == 0 && t2 != 0) return Split(t2).Left; if (t2 == 1) return Split(t1).Right;
             // no shortcut: use "de Casteljau" iteration.
             List<Point3D> q = Hull(t1);
             var result = new Pair(
@@ -737,17 +737,17 @@ namespace Engine
             );
 
             // make sure we bind _t1/_t2 information!
-            result.left.T1 = Map(0, 0, 1, T1, T2);
-            result.left.T2 = Map(t1, 0, 1, T1, T2);
-            result.right.T1 = Map(t1, 0, 1, T1, T2);
-            result.right.T2 = Map(1, 0, 1, T1, T2);
+            result.Left.T1 = Map(0, 0, 1, T1, T2);
+            result.Left.T2 = Map(t1, 0, 1, T1, T2);
+            result.Right.T1 = Map(t1, 0, 1, T1, T2);
+            result.Right.T2 = Map(1, 0, 1, T1, T2);
 
             // if we have no t2, we're done
-            if (t2 != 0) return result.left;
+            if (t2 != 0) return result.Left;
             // if we have a t2, split again:
             t2 = Map(t2, t1, 1, 0, 1);
-            Pair subsplit = result.right.Split(t2);
-            return subsplit.left;
+            Pair subsplit = result.Right.Split(t2);
+            return subsplit.Left;
         }
 
         private double Map(double t2, double t1, double v1, double v2, double v3)
@@ -1166,6 +1166,7 @@ namespace Engine
             tcurves.Reverse();
             bcurves = tcurves;
 
+            var segments = new List<Bezier>();
             // form the endcaps as lines
             Point3D fs = fcurves[0].Points[0];
             Point3D fe = fcurves[len - 1].Points[fcurves[len - 1].Points.Count - 1];
@@ -1173,7 +1174,6 @@ namespace Engine
             Point3D be = bcurves[0].Points[0];
             Bezier ls = MakeLine(bs, fs);
             Bezier le = MakeLine(fe, be);
-            var segments = new List<Bezier>();
             segments.Add(ls);
             segments.AddRange(fcurves);
             segments.Add(le);
@@ -1202,8 +1202,8 @@ namespace Engine
             for (int i = 1, len = outline.Count; i < len / 2; i++)
             {
                 Shape1 shape = MakeShape(outline[i], outline[len - i]);
-                shape.startcap.Virtual = (i > 1);
-                shape.endcap.Virtual = (i < len / 2 - 1);
+                shape.Startcap.Virtual = (i > 1);
+                shape.Endcap.Virtual = (i < len / 2 - 1);
                 shapes.Add(shape);
             }
             return shapes;
@@ -1309,7 +1309,7 @@ namespace Engine
             var intersections = new List<Pair>();
             foreach (Pair pair in pairs)
             {
-                List<Pair> result = Pairiteration(pair.left, pair.right);
+                List<Pair> result = Pairiteration(pair.Left, pair.Right);
                 if (result.Count > 0)
                     intersections.AddRange(result);
             }
@@ -1346,9 +1346,9 @@ namespace Engine
             double q = (e - s) / 4;
             Point3D c1 = Get(s + q);
             Point3D c2 = Get(e - q);
-            double reff = Distances.Distance(pc.center, np1);
-            double d1 = Distances.Distance(pc.center, c1);
-            double d2 = Distances.Distance(pc.center, c2);
+            double reff = Distances.Distance(pc.Center, np1);
+            double d1 = Distances.Distance(pc.Center, c1);
+            double d2 = Distances.Distance(pc.Center, c2);
             return Abs(d1 - reff) + Abs(d2 - reff);
         }
 

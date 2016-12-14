@@ -79,8 +79,9 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Size2D((double X, double Y) tuple)
-            : this(tuple.Item1, tuple.Item2)
-        { }
+        {
+            (Width, Height) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
@@ -281,7 +282,7 @@ namespace Engine
         /// <returns></returns>
         /// <param name="tuple"> Size - the Size to convert to a Vector </param>
         public static implicit operator Size2D((double X, double Y) tuple)
-            => new Size2D(tuple.X, tuple.Y);
+            => new Size2D(tuple);
 
         /// <summary>
         /// Explicit conversion to Vector.
@@ -309,9 +310,7 @@ namespace Engine
         /// Create a Random <see cref="Size2D"/>.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
-        [Pure]
-        public static Size2D Random()
+        /// <remarks></remarks>        public static Size2D Random()
             => new Size2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
@@ -321,9 +320,7 @@ namespace Engine
         /// <returns>
         /// Returns an instance of the <see cref="Size2D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [Pure]
-        public static Size2D Parse(string source)
+        /// </returns>        public static Size2D Parse(string source)
         {
             var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
 
@@ -357,31 +354,23 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override int GetHashCode() => Width.GetHashCode()
+        /// <returns></returns>        public override int GetHashCode() => Width.GetHashCode()
     ^ Height.GetHashCode();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public Point2D ToPoint2D() => (Point2D)this;
+        /// <returns></returns>        public Point2D ToPoint2D() => (Point2D)this;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public Size2D Truncate() => new Size2D((int)Width, (int)Height);
+        /// <returns></returns>        public Size2D Truncate() => new Size2D((int)Width, (int)Height);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Size2D"/> struct.
         /// </summary>
-        /// <returns></returns>
-        [Pure]
-        public override string ToString()
+        /// <returns></returns>        public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
@@ -390,9 +379,7 @@ namespace Engine
         /// </summary>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public string ToString(IFormatProvider provider)
+        /// </returns>        public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
@@ -405,9 +392,7 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        /// </returns>        string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -420,9 +405,7 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size2D);
             //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);

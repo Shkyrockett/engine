@@ -70,7 +70,7 @@ namespace MethodSpeedTester
             this.buttonRun.TabIndex = 0;
             this.buttonRun.Text = "&Run Tests";
             this.buttonRun.UseVisualStyleBackColor = true;
-            this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
+            this.buttonRun.Click += new System.EventHandler(this.ButtonRun_Click);
             // 
             // dataGridView1
             // 
@@ -94,8 +94,8 @@ namespace MethodSpeedTester
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(560, 308);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView1_Paint);
-            this.dataGridView1.Resize += new System.EventHandler(this.dataGridView1_Resize);
+            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.DataGridView1_Paint);
+            this.dataGridView1.Resize += new System.EventHandler(this.DataGridView1_Resize);
             // 
             // numericUpDownTrials
             // 
@@ -151,7 +151,7 @@ namespace MethodSpeedTester
             this.buttonCopy.TabIndex = 5;
             this.buttonCopy.Text = "&Copy";
             this.buttonCopy.UseVisualStyleBackColor = true;
-            this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
+            this.buttonCopy.Click += new System.EventHandler(this.ButtonCopy_Click);
             // 
             // labelTrials
             // 
@@ -172,7 +172,7 @@ namespace MethodSpeedTester
             this.comboBoxTests.Name = "comboBoxTests";
             this.comboBoxTests.Size = new System.Drawing.Size(104, 21);
             this.comboBoxTests.TabIndex = 6;
-            this.comboBoxTests.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTests_SelectionChangeCommitted);
+            this.comboBoxTests.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxTests_SelectionChangeCommitted);
             // 
             // FormSpeedTester
             // 

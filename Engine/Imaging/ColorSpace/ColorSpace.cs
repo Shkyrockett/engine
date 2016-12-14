@@ -26,8 +26,10 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>an adjusted color</returns>
         public static Color SetBrightness(this Color color, double brightness)
         {
-            var hsl = new AHSL(color);
-            hsl.Luminance = brightness;
+            var hsl = new AHSL(color)
+            {
+                Luminance = brightness
+            };
             return ToRGB(hsl);
         }
 
@@ -56,8 +58,10 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An adjusted color</returns>
         public static Color SetSaturation(this Color color, double Saturation)
         {
-            var hsl = new AHSL(color);
-            hsl.Saturation = Saturation;
+            var hsl = new AHSL(color)
+            {
+                Saturation = Saturation
+            };
             return ToRGB(hsl);
         }
 
@@ -86,8 +90,10 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An adjusted color</returns>
         public static Color SetHue(this Color color, double Hue)
         {
-            var hsl = new AHSL(color);
-            hsl.Hue = Hue;
+            var hsl = new AHSL(color)
+            {
+                Hue = Hue
+            };
             return ToRGB(hsl);
         }
 
@@ -644,7 +650,7 @@ namespace Engine.Imaging.ColorSpace
         /// <remarks>
         /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
         /// </remarks>
-        public static Color hsi2rgb(AHSI color)
+        public static Color Hsi2rgb(AHSI color)
         {
             double H = color.Hue;
             double S = color.Saturation;

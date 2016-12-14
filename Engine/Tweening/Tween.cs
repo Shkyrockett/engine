@@ -316,8 +316,10 @@ namespace Engine.Tweening
                 }
 
                 //	if we aren't tweening this value, just set it
-                var info = new GlideInfo(Target, property.Name, true);
-                info.Value = propValue;
+                var info = new GlideInfo(Target, property.Name, true)
+                {
+                    Value = propValue
+                };
             }
 
             return this;
@@ -466,8 +468,7 @@ namespace Engine.Tweening
             int canceled = 0;
             for (int i = 0; i < properties.Length; ++i)
             {
-                int index = 0;
-                if (!varHash.TryGetValue(properties[i], out index))
+                if (!varHash.TryGetValue(properties[i], out int index))
                     continue;
 
                 varHash.Remove(properties[i]);

@@ -1,4 +1,4 @@
-﻿// <copyright file="DateTimeExtentions.cs" >
+﻿// <copyright file="DateTimeExtentions.cs" company="Shyrockett">
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -12,34 +12,36 @@ using System;
 namespace Engine.Chrono
 {
     /// <summary>
-    /// 
+    /// Extensions for Date and Time operations.
     /// </summary>
     public static class DateTimeExtentions
     {
         /// <summary>
-        /// Returns the same day, at midnight
+        /// The same day, at midnight
         /// </summary>
         /// <example>
         /// DateTime startOfDay = DateTime.Now.AtMidnight();
         /// </example>
         /// <param name="date">Start date</param>
+        /// <returns>Returns the same day, at midnight</returns>
         public static DateTime AtMidnight(this DateTime date)
             => new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
 
         /// <summary>
-        /// Returns the same day, at midday
+        /// The same day, at midday
         /// </summary>
         /// <example>
         /// DateTime startOfAfternoon = DateTime.Now.AtMidday();
         /// </example>
         /// <param name="date">Start date</param>
+        /// <returns>Returns the same day, at midday</returns>
         public static DateTime AtMidday(this DateTime date)
             => new DateTime(date.Year, date.Month, date.Day, 12, 0, 0);
 
         /// <summary>
         /// If the date falls on a weekend, adjust to the nearest business day.
         /// </summary>
-        /// <param name="date"></param>
+        /// <param name="date">The date to find the Weekday from.</param>
         /// <returns></returns>
         public static DateTime EnsureWeekday(this DateTime date)
         {
@@ -95,7 +97,8 @@ namespace Engine.Chrono
         public static DateTime NextDayOfWeek02(this DateTime date, DayOfWeek weekday)
         {
             int offsetDays = weekday - date.DayOfWeek;
-            //return offsetDays > 0 ? date.AddDays(offsetDays) : date;
+
+            // return offsetDays > 0 ? date.AddDays(offsetDays) : date;
             return date.AddDays(offsetDays);
         }
 
@@ -194,20 +197,20 @@ namespace Engine.Chrono
             if (instance <= 0)
                 throw new ArgumentException("Instance count must be greater than zero", nameof(instance));
 
-            DateTime dtRet;
-            DateTime dtFirstDay = FirstInstanceWeekdayOfMonth(date, weekday);
+            DateTime returnDate;
+            DateTime firstDay = FirstInstanceWeekdayOfMonth(date, weekday);
             int instancesInMonth = WeekdayCountInMonth(date, weekday);
             if (instance <= instancesInMonth)
             {
                 int padDays = 7 * (instance - 1);
-                dtRet = new DateTime(date.Year, date.Month, dtFirstDay.Day + padDays);
+                returnDate = new DateTime(date.Year, date.Month, firstDay.Day + padDays);
             }
             else
             {
                 throw new ArgumentException("Instance range exceeded, max: " + instancesInMonth, nameof(instance));
             }
 
-            return dtRet;
+            return returnDate;
         }
 
         /// <summary>

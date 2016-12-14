@@ -49,8 +49,8 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(150, 156);
             this.tabControl.TabIndex = 1;
-            this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl_DrawItem);
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
             // 
             // tabPageDegrees
             // 
@@ -61,7 +61,7 @@
             this.tabPageDegrees.TabIndex = 0;
             this.tabPageDegrees.Text = "Degrees";
             this.tabPageDegrees.UseVisualStyleBackColor = true;
-            this.tabPageDegrees.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPageDegrees_Paint);
+            this.tabPageDegrees.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPageDegrees_Paint);
             // 
             // tabPageRadians
             // 
@@ -72,7 +72,7 @@
             this.tabPageRadians.TabIndex = 1;
             this.tabPageRadians.Text = "Radians";
             this.tabPageRadians.UseVisualStyleBackColor = true;
-            this.tabPageRadians.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPageRadians_Paint);
+            this.tabPageRadians.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPageRadians_Paint);
             // 
             // numericUpDown
             // 
@@ -83,8 +83,8 @@
             this.numericUpDown.Name = "numericUpDown";
             this.numericUpDown.Size = new System.Drawing.Size(143, 20);
             this.numericUpDown.TabIndex = 2;
-            this.numericUpDown.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
-            this.numericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericUpDown_KeyDown);
+            this.numericUpDown.ValueChanged += new System.EventHandler(this.NumericUpDown_ValueChanged);
+            this.numericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NumericUpDown_KeyDown);
             // 
             // needleControl1
             // 
@@ -97,8 +97,8 @@
             this.needleControl1.Name = "needleControl1";
             this.needleControl1.Size = new System.Drawing.Size(130, 118);
             this.needleControl1.TabIndex = 0;
-            this.needleControl1.ValueChanged += new Engine.NeedleControl.ValueChangedDelegate(this.needleControl1_ValueChanged);
-            this.needleControl1.ValueCommitted += new Engine.NeedleControl.ValueCommittedDelegate(this.needleControl1_ValueCommitted);
+            this.needleControl1.ValueChanged += new Engine.NeedleControl.ValueChangedDelegate(this.NeedleControl1_ValueChanged);
+            this.needleControl1.ValueCommitted += new Engine.NeedleControl.ValueCommittedDelegate(this.NeedleControl1_ValueCommitted);
             // 
             // AngleControl
             // 

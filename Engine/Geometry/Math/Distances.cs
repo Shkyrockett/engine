@@ -10,7 +10,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
@@ -31,7 +30,6 @@ namespace Engine
         /// <param name="x2">Second X component.</param>
         /// <param name="y2">Second Y component.</param>
         /// <returns>The distance between two points.</returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(
@@ -49,7 +47,6 @@ namespace Engine
         /// <param name="y2">Second Y component.</param>
         /// <param name="z2">Second Z component.</param>
         /// <returns>The distance between two points.</returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(
@@ -63,7 +60,6 @@ namespace Engine
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(Point3D p1, Point3D p2)
@@ -191,7 +187,6 @@ namespace Engine
         public static double Length(this LineSegment segment)
             => Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
 
-
         /// <summary>
         /// The square of the distance between two points.
         /// </summary>
@@ -200,7 +195,6 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(
@@ -218,7 +212,6 @@ namespace Engine
         /// <param name="lx3">The x component of the second point on the line.</param>
         /// <param name="ly3">The y component of the second point on the line.</param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistanceToLine(
             double x1, double y1,
@@ -237,7 +230,6 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="sweepAngle"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ArcLength(double r, double sweepAngle)
@@ -248,7 +240,6 @@ namespace Engine
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircleCircumference(double r)
@@ -267,7 +258,6 @@ namespace Engine
         /// <param name="dy"></param>
         /// <returns></returns>
         /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicBezierArcLength(
@@ -336,7 +326,6 @@ namespace Engine
         /// <param name="q5"></param>
         /// <returns></returns>
         /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double CubicBezierArcLengthHelper(ref double q1, ref double q2, ref double q3, ref double q4, ref double q5, double t)
@@ -353,7 +342,6 @@ namespace Engine
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
         /// </remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipsePerimeter(double a, double b)
@@ -367,9 +355,7 @@ namespace Engine
         /// <param name="sweepAngle"></param>
         /// <returns></returns>
         public static double EllipticalArcPerimeter(Point2D s, Point2D e, double sweepAngle)
-        {
-            return (Sqrt((e.X - s.X) * (e.X - s.X) + (e.Y - s.Y) * (e.X - s.Y)) / (2 * Sin(0.5d * sweepAngle))) * sweepAngle;
-        }
+            => (Sqrt((e.X - s.X) * (e.X - s.X) + (e.Y - s.Y) * (e.X - s.Y)) / (2 * Sin(0.5d * sweepAngle))) * sweepAngle;
 
         /// <summary>
         /// Closed-form solution to elliptic integral for arc length.
@@ -384,7 +370,6 @@ namespace Engine
         /// <remarks>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
         /// </remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezierArcLengthByIntegral(
@@ -415,7 +400,6 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonPerimeter(IEnumerable polygon)

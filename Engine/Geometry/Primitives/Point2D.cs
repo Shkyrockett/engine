@@ -35,7 +35,7 @@ namespace Engine
         /// <summary>
         /// An Empty <see cref="Point2D"/>.
         /// </summary>
-        public static readonly Point2D Empty = new Point2D();
+        public static readonly Point2D Empty = new Point2D(0, 0);
 
         /// <summary>
         /// A Unit <see cref="Point2D"/>.
@@ -72,8 +72,9 @@ namespace Engine
         /// <remarks></remarks>
         [DebuggerStepThrough]
         public Point2D((double X, double Y) tuple)
-            : this(tuple.Item1, tuple.Item2)
-        { }
+        {
+            (X, Y) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
@@ -124,7 +125,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value)
@@ -137,7 +137,6 @@ namespace Engine
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value, double addend)
@@ -150,7 +149,6 @@ namespace Engine
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Point2D value, Point2D addend)
@@ -163,7 +161,6 @@ namespace Engine
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value, Size2D addend)
@@ -177,7 +174,6 @@ namespace Engine
         /// <returns>
         /// Point - The result of the addition
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D point, Vector2D vector)
@@ -188,7 +184,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value)
@@ -201,7 +196,6 @@ namespace Engine
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, double subend)
@@ -214,7 +208,6 @@ namespace Engine
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Point2D value, Point2D subend)
@@ -227,7 +220,6 @@ namespace Engine
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, Size2D subend)
@@ -240,7 +232,6 @@ namespace Engine
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, Vector2D subend)
@@ -252,7 +243,6 @@ namespace Engine
         /// <param name="factor"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(double value, Point2D factor)
@@ -264,7 +254,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(Point2D value, double factor)
@@ -276,7 +265,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="matrix"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(Point2D value, Matrix2D matrix)
@@ -289,7 +277,6 @@ namespace Engine
         /// <param name="dividend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator /(Point2D divisor, double dividend)
@@ -303,7 +290,6 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Point2D left, Point2D right)
@@ -317,7 +303,6 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Point2D left, Point2D right)
@@ -330,7 +315,6 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Point2D a, Point2D b)
@@ -342,7 +326,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Point2D a, Point2D b)
@@ -353,7 +336,6 @@ namespace Engine
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
@@ -364,7 +346,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point2D value)
@@ -376,7 +357,6 @@ namespace Engine
         /// the resulting size will contains the absolute values of X and Y
         /// </summary>
         /// <param name="point"> Point - the Point to convert to a Size </param>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Size2D(Point2D point)
@@ -386,7 +366,6 @@ namespace Engine
         /// Explicit conversion to Vector
         /// </summary>
         /// <param name="point"> Point - the Point to convert to a Vector </param>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Vector2D(Point2D point)
@@ -396,7 +375,6 @@ namespace Engine
         /// Explicit conversion from Vector2D to Point2D.
         /// </summary>
         /// <param name="point"> Point - the Point to convert to a Vector </param>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Point2D(Vector2D point)
@@ -406,18 +384,16 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="tuple"></param>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Point2D((double X, double Y) tuple)
-            => new Point2D(tuple.Item1, tuple.Item2);
+            => new Point2D(tuple);
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Min(Point2D that)
@@ -428,7 +404,6 @@ namespace Engine
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Max(Point2D that)
@@ -443,7 +418,6 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Random()
@@ -457,7 +431,8 @@ namespace Engine
         /// Returns an instance of the <see cref="Point2D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
-        [Pure]
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Parse(string source)
         {
             var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
@@ -477,7 +452,6 @@ namespace Engine
         ///
         /// </summary>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
@@ -488,7 +462,6 @@ namespace Engine
         /// Creates a human-readable string that represents this <see cref="Point2D"/>.
         /// </summary>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
@@ -501,7 +474,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
@@ -518,7 +490,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         string IFormattable.ToString(string format, IFormatProvider provider)
@@ -535,7 +506,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal string ConvertToString(string format, IFormatProvider provider)

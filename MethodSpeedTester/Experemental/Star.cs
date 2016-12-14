@@ -105,13 +105,10 @@ namespace Engine
             var pt11 = new PointF(
                 (float)Cos(theta11),
                 (float)Sin(theta11));
-
             // See where the segments connecting the points intersect.
-            bool lines_intersect, segments_intersect;
-            PointF intersection, close_p1, close_p2;
             FindIntersection(pt00, pt01, pt10, pt11,
-                out lines_intersect, out segments_intersect,
-                out intersection, out close_p1, out close_p2);
+                out bool lines_intersect, out bool segments_intersect,
+                out var intersection, out var close_p1, out var close_p2);
 
             // Calculate the distance between the
             // point of intersection and the center.

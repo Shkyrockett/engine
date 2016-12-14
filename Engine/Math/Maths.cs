@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -28,7 +27,7 @@ namespace Engine
         /// <summary>
         /// Initialize random number generator with seed based on time.
         /// </summary>
-        internal static Random RandomNumberGenerator = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        public static Random RandomNumberGenerator = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
 
         /// <summary>
         ///
@@ -50,7 +49,6 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(double i, double j)
             => Atan2(i, -j);
@@ -64,7 +62,6 @@ namespace Engine
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Angle of a line.</returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1,
@@ -82,7 +79,6 @@ namespace Engine
         /// <param name="z2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1, double z1,
@@ -107,7 +103,6 @@ namespace Engine
         /// expect because Y coordinates increase downward.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleVector(
             double x1, double y1,
@@ -124,7 +119,6 @@ namespace Engine
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(
             double x1, double y1,
@@ -144,7 +138,6 @@ namespace Engine
         /// <param name="vY"></param>
         /// <returns></returns>
         /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY,
@@ -162,7 +155,6 @@ namespace Engine
         /// <param name="vZ"></param>
         /// <returns></returns>
         /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY, double uZ,
@@ -180,7 +172,6 @@ namespace Engine
         /// <remarks>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// </remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
             => (d - (3d * c) + (3d * b) - a,
@@ -199,7 +190,6 @@ namespace Engine
         /// Based on the answer by flup at:
         /// http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
         /// </remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipsePolarAngle(double angle, double rx, double ry)
         {
@@ -228,7 +218,6 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
         /// </remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) ComplexProduct(double x0, double y0, double x1, double y1)
@@ -243,7 +232,6 @@ namespace Engine
         /// <param name="y2">Second Point Y component.</param>
         /// <returns>the cross product AB · BC.</returns>
         /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(
@@ -261,7 +249,6 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double, double, double) CrossProduct(
             double x1, double y1, double z1,
@@ -290,7 +277,6 @@ namespace Engine
         /// Return the cross product AB x BC.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProductVector(
             double x1, double y1,
@@ -307,7 +293,6 @@ namespace Engine
         /// <param name="y2">Second Point Y component.</param>
         /// <returns>The Dot Product.</returns>
         /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
@@ -325,7 +310,6 @@ namespace Engine
         /// <param name="y2">Second Point Y component.</param>
         /// <param name="z2">Second Point Z component.</param>
         /// <returns>The Dot Product.</returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
@@ -341,7 +325,6 @@ namespace Engine
         /// <param name="y2">Second Point Y component.</param>
         /// <param name="z2">Second Point Z component.</param>
         /// <returns>The Dot Product.</returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             (double X, double Y, double Z) tuple,
@@ -354,7 +337,6 @@ namespace Engine
         /// <param name="tuple1">First set of X, Y, Z components in tuple form.</param>
         /// <param name="tuple2">Second set of X, Y, Z components in tuple form.</param>
         /// <returns>The Dot Product.</returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             (double X, double Y, double Z) tuple1,
@@ -380,7 +362,6 @@ namespace Engine
         /// Note that AB · BC = |AB| * |BC| * Cos(theta).
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector(
             double x1, double y1,
@@ -401,7 +382,6 @@ namespace Engine
         /// <param name="y3"></param>
         /// <param name="z3"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MixedProduct(
             double x1, double y1, double z1,
@@ -421,7 +401,6 @@ namespace Engine
         /// (Close to the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
             => Math.Abs(i) < Epsilon ? SlopeMax : (j / i);
@@ -439,7 +418,6 @@ namespace Engine
         /// the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(
             double x1, double y1,
@@ -452,7 +430,6 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Abs(double i, double j)
@@ -466,7 +443,6 @@ namespace Engine
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Abs(double i, double j, double k)
@@ -479,7 +455,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j)
@@ -493,7 +468,6 @@ namespace Engine
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j, double k)
@@ -506,7 +480,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j)
@@ -520,7 +493,6 @@ namespace Engine
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j, double k)
@@ -533,7 +505,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Unitize(double i, double j)
             => Normalize(i, j);
@@ -546,7 +517,6 @@ namespace Engine
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Unitize(double i, double j, double k)
             => Normalize(i, j, k);
@@ -558,7 +528,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize(
             double i, double j)
@@ -573,7 +542,6 @@ namespace Engine
         /// <param name="k"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize(
             double i, double j, double k)
@@ -590,7 +558,6 @@ namespace Engine
         /// <param name="y2">The y component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize(
             double x1, double y1,
@@ -611,7 +578,6 @@ namespace Engine
         /// <param name="z2">The z component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
         /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize(
             double x1, double y1, double z1,
@@ -629,7 +595,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularClockwise(double i, double j)
@@ -642,7 +607,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularCounterClockwise(double i, double j)
@@ -657,7 +621,6 @@ namespace Engine
         /// <param name="m2x2"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double m1x1, double m1x2,
@@ -679,7 +642,6 @@ namespace Engine
         /// <param name="i"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c,
@@ -711,7 +673,6 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c, double d,
@@ -753,7 +714,6 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c, double d, double e,
@@ -808,7 +768,6 @@ namespace Engine
         /// <param name="ii"></param>
         /// <param name="jj"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c, double d, double e, double f,
@@ -833,7 +792,6 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b,
@@ -856,7 +814,6 @@ namespace Engine
         /// <param name="i"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c,
@@ -888,7 +845,6 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c, double d,
@@ -930,7 +886,6 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c, double d, double e,
@@ -985,7 +940,6 @@ namespace Engine
         /// <param name="ii"></param>
         /// <param name="jj"></param>
         /// <returns></returns>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c, double d, double e, double f,
@@ -1013,7 +967,6 @@ namespace Engine
         /// <param name="z2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Projection(
             double x1, double y1, double z1,
@@ -1035,7 +988,6 @@ namespace Engine
         /// <param name="z2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Rejection(
             double x1, double y1, double z1,
@@ -1057,7 +1009,6 @@ namespace Engine
         /// <param name="k2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Reflection(
             double i1, double j1, double k1,
@@ -1084,7 +1035,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double rad)
             => (
@@ -1102,7 +1052,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Pitch(double x1, double y1, double z1, double rad)
             => RotateX(x1, y1, z1, rad);
@@ -1116,7 +1065,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double rad)
             => (
@@ -1134,7 +1082,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Yaw(double x1, double y1, double z1, double rad)
             => RotateY(x1, y1, z1, rad);
@@ -1148,7 +1095,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double rad)
             => (
@@ -1166,7 +1112,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Roll(double x1, double y1, double z1, double rad)
             => RotateZ(x1, y1, z1, rad);
@@ -1182,7 +1127,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
             => (
@@ -1202,7 +1146,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
             => (
@@ -1222,7 +1165,6 @@ namespace Engine
         /// <param name="rad"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
             => (
@@ -1242,7 +1184,6 @@ namespace Engine
         /// <param name="lineOfSightK2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBackFace(
             double normalI1, double normalJ1, double normalK1,
@@ -1256,7 +1197,6 @@ namespace Engine
         /// <param name="j1"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1)
             => Math.Abs(Magnitude(i1, j1) - 1) < Epsilon;
@@ -1269,7 +1209,6 @@ namespace Engine
         /// <param name="k1"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1, double k1)
             => Math.Abs(Magnitude(i1, j1, k1) - 1) < Epsilon;
@@ -1284,7 +1223,6 @@ namespace Engine
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this double[] values)
             => (values.Sum() / values.Length);
@@ -1295,7 +1233,6 @@ namespace Engine
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this List<double> values)
             => (values.Sum() / values.Count);
@@ -1306,7 +1243,6 @@ namespace Engine
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this IEnumerable<double> values)
             => values.Sum() / values.Count();
@@ -1317,7 +1253,6 @@ namespace Engine
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(double[] values)
             => values.Sum();
@@ -1328,7 +1263,6 @@ namespace Engine
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(List<double> values)
             => values.Sum();
@@ -1339,7 +1273,6 @@ namespace Engine
         /// <param name="values"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(IEnumerable<double> values)
             => values.Sum();
@@ -1511,43 +1444,45 @@ namespace Engine
         /// <param name="subtrahendK"></param>
         /// <param name="subtrahendL"></param>
         /// <returns></returns>
-        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Subtract4D(double minuendI, double minuendJ, double minuendK, double minuendL, double subtrahendI, double subtrahendJ, double subtrahendK, double subtrahendL)
             => (minuendI - subtrahendI, minuendJ - subtrahendJ, minuendK - subtrahendK, minuendL - subtrahendL);
 
         /// <summary>
-        /// Inflates a <see cref="Vector2D"/> by a given factor.
+        /// Inflates a vector by a given factor.
         /// </summary>
         /// <param name="i">The x value to inflate.</param>
         /// <param name="j">The y value to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Vector2D"/>.</param>
+        /// <param name="factor">The factor to inflate the vector.</param>
         /// <returns>Returns a tupple with the values inflated by the factor provided.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Scale2D(double i, double j, double factor)
             => ((i * factor), (j * factor));
 
         /// <summary>
-        /// Inflates a <see cref="Vector3D"/> by a given factor.
+        /// Inflates a vector by a given factor.
         /// </summary>
         /// <param name="i">The x value to inflate.</param>
         /// <param name="j">The y value to inflate.</param>
         /// <param name="k">The z value to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Vector3D"/>.</param>
+        /// <param name="factor">The factor to inflate the vector.</param>
         /// <returns>Returns a tupple with the values inflated by the factor provided.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Scale3D(double i, double j, double k, double factor)
             => ((i * factor), (j * factor), (k * factor));
 
         /// <summary>
-        /// Inflates a <see cref="Vector4D"/> by a given factor.
+        /// Inflates a vector by a given factor.
         /// </summary>
         /// <param name="i">The x value to inflate.</param>
         /// <param name="j">The y value to inflate.</param>
         /// <param name="k">The z value to inflate.</param>
         /// <param name="l">The w value to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Vector4D"/>.</param>
+        /// <param name="factor">The factor to inflate the vector.</param>
         /// <returns>Returns a tuple structure inflated by the factor provided.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Scale4D(double i, double j, double k, double l, double factor)
             => ((i * factor), (j * factor), (k * factor), (l * factor));
@@ -1559,6 +1494,8 @@ namespace Engine
         /// <param name="divisorJ"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Divide2D(double divisorI, double divisorJ, double divedend)
             => (divisorI / divedend, divisorJ / divedend);
 
@@ -1570,6 +1507,8 @@ namespace Engine
         /// <param name="divisorK"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Divide3D(double divisorI, double divisorJ, double divisorK, double divedend)
             => (divisorI / divedend, divisorJ / divedend, divisorK / divedend);
 
@@ -1582,6 +1521,8 @@ namespace Engine
         /// <param name="divisorL"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Divide4D(double divisorI, double divisorJ, double divisorK, double divisorL, double divedend)
             => (divisorI / divedend, divisorJ / divedend, divisorK / divedend, divisorL / divedend);
 
@@ -1594,6 +1535,8 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) QuadraticEquation(double a, double b, double c)
             => (
             (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
@@ -1605,7 +1548,7 @@ namespace Engine
         /// <param name="x">A double-precision floating-point number to find the specified root of.</param>
         /// <param name="y">A double-precision floating-point number that specifies a root.</param>
         /// <returns>The y root of the number x.</returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
             => (x < 0 && Math.Abs(y % 2 - 1) < Epsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
@@ -1617,8 +1560,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
             => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
@@ -1629,7 +1571,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
             => ((Math.Abs(value % PI - HalfPi) > Epsilon)
@@ -1641,7 +1583,7 @@ namespace Engine
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
             => ((Math.Abs(Value % PI) > Epsilon)
@@ -1653,7 +1595,7 @@ namespace Engine
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
             => ((Math.Abs(Value % PI) > Epsilon)
@@ -1665,7 +1607,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSine(double value)
         {
@@ -1685,7 +1627,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosine(double value)
         {
@@ -1705,7 +1647,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSecant(double value)
         {
@@ -1725,7 +1667,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosecant(double value)
         {
@@ -1745,7 +1687,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>Arc-co-tan(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCotangent(double value)
             => (Atan(value) + (2 * Atan(1)));
@@ -1756,7 +1698,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HSin(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSine(double value)
             => ((Exp(value) - Exp((value * -1))) * 0.5d);
@@ -1767,7 +1709,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCos(X)</remarks>
-        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosine(double value)
             => ((Exp(value) + Exp((value * -1))) * 0.5d);
@@ -1778,7 +1719,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HTan(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicTangent(double value)
             => ((Exp(value) - Exp((value * -1))) / (Exp(value) + Exp((value * -1))));
@@ -1789,7 +1730,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HSec(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSecant(double value)
             => (0.5d * (Exp(value) + Exp((value * -1))));
@@ -1800,7 +1741,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCosec(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosecant(double value)
             => (0.5d * (Exp(value) - Exp((value * -1))));
@@ -1811,7 +1752,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCotan(X) </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCotangent(double value)
             => ((Exp(value) + Exp((value * -1))) / (Exp(value) - Exp((value * -1))));
@@ -1822,7 +1763,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArcsin(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSine(double value)
             => Log((value + Sqrt(((value * value) + 1))));
@@ -1833,7 +1774,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccos(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosine(double value)
             => Log((value + Sqrt(((value * value) - 1))));
@@ -1844,7 +1785,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArctan(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicTangent(double value)
             => (Log(((1 + value) / (1 - value))) * 0.5d);
@@ -1855,7 +1796,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArcsec(X) </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSecant(double value)
             => Log(((Sqrt((((value * value) * -1) + 1)) + 1) / value));
@@ -1866,7 +1807,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccosec(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosecant(double value)
             => Log((((Sin(value) * Sqrt(((value * value) + 1))) + 1) / value));
@@ -1877,7 +1818,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccotan(X)</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCotangent(double value)
             => (Log(((value + 1) / (value - 1))) * 0.5d);
@@ -1892,7 +1833,7 @@ namespace Engine
         /// LogN(X)
         /// Return Log(Value) / Log(NumberBase)
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
             => (Math.Abs(numberBase - 1) > Epsilon) ? (Log(value) / Log(numberBase)) : 0;
@@ -1908,7 +1849,6 @@ namespace Engine
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
-        [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Clamp(this double value, double min, double max)
@@ -1921,7 +1861,6 @@ namespace Engine
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
-        [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Clamp<T>(this T value, T min, T max)
@@ -1935,7 +1874,6 @@ namespace Engine
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Wrap(this double value, double min, double max)
@@ -1947,7 +1885,6 @@ namespace Engine
         /// <param name="angle"></param>
         /// <returns>The absolute positive angle in radians.</returns>
         /// <remarks></remarks>
-        [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this double angle)
@@ -1967,7 +1904,6 @@ namespace Engine
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>
         /// <returns>The new angle, in radians.</returns>
-        [Pure]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngleModulus(this double angle)
@@ -1983,7 +1919,6 @@ namespace Engine
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>
         /// <returns>The new angle, in radians.</returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngle(this double angle)
@@ -2004,7 +1939,6 @@ namespace Engine
         /// <param name="valueB">Destination parameter</param>
         /// <returns>Returns the same Modulus Result that Excel returns.</returns>
         /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than .Net</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulo(this double valueA, double valueB)
@@ -2016,7 +1950,6 @@ namespace Engine
         /// <param name="degrees">Angle in Degrees.</param>
         /// <returns>Angle in Radians.</returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToRadians(this double degrees)
@@ -2028,7 +1961,6 @@ namespace Engine
         /// <param name="radiens">Angle in Radians.</param>
         /// <returns>Angle in Degrees.</returns>
         /// <remarks></remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDegrees(this double radiens)
@@ -2039,7 +1971,6 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Round(this float val)
@@ -2050,7 +1981,6 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Round(this double val)
@@ -2063,7 +1993,6 @@ namespace Engine
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
         /// <remarks>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</remarks>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
@@ -2088,7 +2017,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The integer value to count the digits.</param>
         /// <returns>An integer value representing the number of digits that would be printed out.</returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Digits(this int value)
             => value == 0 ? 1 : (int)Floor(Log10(Math.Abs(value)) + 1);
@@ -2102,7 +2031,7 @@ namespace Engine
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ParseFloat(this string text)
             => float.Parse(text, CultureInfo.InvariantCulture);
@@ -2113,7 +2042,7 @@ namespace Engine
         /// <param name="text"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ParseFloat(this string text, IFormatProvider provider)
             => float.Parse(text, provider);
@@ -2123,7 +2052,7 @@ namespace Engine
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ParseDouble(this string text)
             => double.Parse(text, CultureInfo.InvariantCulture);
@@ -2134,7 +2063,7 @@ namespace Engine
         /// <param name="text"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ParseDouble(this string text, IFormatProvider provider)
             => double.Parse(text, provider);
@@ -2153,6 +2082,8 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double x, double y, double z)
             => Math.Max(x, Math.Max(y, z));
 
@@ -2167,6 +2098,8 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double w, double x, double y, double z)
             => Math.Max(w, Math.Max(x, Math.Max(y, z)));
 
@@ -2175,6 +2108,8 @@ namespace Engine
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(params double[] values)
             => Enumerable.Max(values);
 
@@ -2188,6 +2123,8 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double x, double y, double z)
             => Math.Min(x, Math.Min(y, z));
 
@@ -2202,6 +2139,8 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double w, double x, double y, double z)
             => Math.Min(w, Math.Min(x, Math.Max(y, z)));
 
@@ -2210,6 +2149,8 @@ namespace Engine
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(params double[] values)
             => Enumerable.Min(values);
 
@@ -2220,7 +2161,7 @@ namespace Engine
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MinMax(double x, double min, double max)
             => (x < min) ? min : (x > max) ? max : x;
@@ -2235,24 +2176,24 @@ namespace Engine
         /// <remarks>
         /// http://pomax.github.io/bezierinfo
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Approximately(double a, double b, double precision = Epsilon)
             => Math.Abs(a - b) <= precision;
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="epsilonSqrd"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd = Epsilon)
-            => (Distances.SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="aX"></param>
+        ///// <param name="aY"></param>
+        ///// <param name="bX"></param>
+        ///// <param name="bY"></param>
+        ///// <param name="epsilonSqrd"></param>
+        ///// <returns></returns>
+        ////[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd = Epsilon)
+        //    => (Distances.SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
 
         /// <summary>
         /// AreClose - Returns whether or not two doubles are "close".  That is, whether or
@@ -2271,7 +2212,7 @@ namespace Engine
         /// <param name="value2"> The second double to compare. </param>
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
         {
@@ -2301,7 +2242,7 @@ namespace Engine
         /// <param name="value2"> The second double to compare. </param>
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(this double value1, double value2, double epsilon = Epsilon)
         {
@@ -2330,7 +2271,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this float value1, float value2)
             => (value1 < value2) && !AreClose(value1, value2);
@@ -2351,7 +2292,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this double value1, double value2)
             => (value1 < value2) && !AreClose(value1, value2);
@@ -2372,7 +2313,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this float value1, float value2)
             => (value1 > value2) && !AreClose(value1, value2);
@@ -2393,7 +2334,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this double value1, double value2)
             => (value1 > value2) && !AreClose(value1, value2);
@@ -2414,7 +2355,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this float value1, float value2)
             => (value1 < value2) || AreClose(value1, value2);
@@ -2435,7 +2376,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this double value1, double value2)
             => (value1 < value2) || AreClose(value1, value2);
@@ -2456,7 +2397,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this float value1, float value2)
             => (value1 > value2) || AreClose(value1, value2);
@@ -2477,7 +2418,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this double value1, double value2)
             => (value1 > value2) || AreClose(value1, value2);
@@ -2488,7 +2429,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearZero(double value, double epsilon = NearZeroEpsilon)
             => (value > -epsilon) && (value < -epsilon);
@@ -2502,7 +2443,7 @@ namespace Engine
         /// </returns>
         /// <param name="value"> The double to compare to 0. </param>
         /// <param name="epsilon"></param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsZero(this float value, float epsilon = FloatEpsilon)
             => Math.Abs(value) < 10f * epsilon;
@@ -2516,7 +2457,7 @@ namespace Engine
         /// </returns>
         /// <param name="value"> The double to compare to 0. </param>
         /// <param name="epsilon"></param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsZero(this double value, double epsilon = Epsilon)
             => Math.Abs(value) < 10d * epsilon;
@@ -2530,7 +2471,7 @@ namespace Engine
         /// </returns>
         /// <param name="value"> The double to compare to 1. </param>
         /// <param name="epsilon"></param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOne(this float value, float epsilon = FloatEpsilon)
             => Math.Abs(value - 1f) < 10f * epsilon;
@@ -2544,7 +2485,7 @@ namespace Engine
         /// </returns>
         /// <param name="value"> The double to compare to 1. </param>
         /// <param name="epsilon"></param>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOne(this double value, double epsilon = Epsilon)
             => Math.Abs(value - 1d) < 10d * epsilon;
@@ -2554,7 +2495,7 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this float val)
             => (GreaterThanOrClose(val, 0f) && LessThanOrClose(val, 1));
@@ -2564,7 +2505,7 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this double val)
             => (GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1));
@@ -2580,12 +2521,10 @@ namespace Engine
         /// <returns>
         /// true if the specified value is valid; otherwise, returns false.
         /// </returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsValid(this float value)
-        {
-            return !float.IsNaN(value) && !float.IsInfinity(value);
-        }
+            => !float.IsNaN(value) && !float.IsInfinity(value);
 
         /// <summary>
         /// Make sure that a double number is not a NaN or infinity.
@@ -2594,12 +2533,10 @@ namespace Engine
         /// <returns>
         /// true if the specified value is valid; otherwise, returns false.
         /// </returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsValid(this double value)
-        {
-            return !double.IsNaN(value) && !double.IsInfinity(value);
-        }
+            => !double.IsNaN(value) && !double.IsInfinity(value);
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -2610,7 +2547,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(sbyte a, sbyte b)
         {
@@ -2629,7 +2566,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(byte a, byte b)
         {
@@ -2647,7 +2584,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(short a, short b)
         {
@@ -2666,7 +2603,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ushort a, ushort b)
         {
@@ -2684,7 +2621,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(int a, int b)
         {
@@ -2703,7 +2640,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(uint a, uint b)
         {
@@ -2721,7 +2658,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(long a, long b)
         {
@@ -2740,7 +2677,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ulong a, ulong b)
         {
@@ -2758,7 +2695,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(float a, float b)
         {
@@ -2777,7 +2714,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(double a, double b)
         {
@@ -2796,7 +2733,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(decimal a, decimal b)
         {
@@ -2813,7 +2750,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(int a, int b)
         {
@@ -2829,7 +2766,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(uint a, uint b)
         {
@@ -2845,7 +2782,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(long a, long b)
         {
@@ -2861,7 +2798,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(ulong a, ulong b)
         {
@@ -2876,7 +2813,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(sbyte a, sbyte b)
         {
@@ -2892,7 +2829,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(byte a, byte b)
         {
@@ -2909,7 +2846,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(short a, short b)
         {
@@ -2925,7 +2862,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(ushort a, ushort b)
         {
@@ -2942,7 +2879,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(int a, int b)
         {
@@ -2958,7 +2895,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(uint a, uint b)
         {
@@ -2975,7 +2912,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(long a, long b)
         {
@@ -2991,7 +2928,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(ulong a, ulong b)
         {
@@ -3008,7 +2945,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(float a, float b)
         {
@@ -3024,7 +2961,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(double a, double b)
         {
@@ -3040,7 +2977,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        [Pure]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSubtractionSafe(decimal a, decimal b)
         {

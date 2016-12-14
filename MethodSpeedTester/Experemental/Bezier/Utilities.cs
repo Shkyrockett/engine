@@ -113,7 +113,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="derivativeFn"></param>
         /// <returns></returns>
-        public static double arcfn(double t, DerivitiveMethod2D derivativeFn)
+        public static double Arcfn(double t, DerivitiveMethod2D derivativeFn)
         {
             Point2D d = derivativeFn(t);
             double l = d.X * d.X + d.Y * d.Y;
@@ -126,7 +126,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="derivativeFn"></param>
         /// <returns></returns>
-        public static double arcfn(double t, DerivitiveMethod3D derivativeFn)
+        public static double Arcfn(double t, DerivitiveMethod3D derivativeFn)
         {
             Point3D d = derivativeFn(t);
             double l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
@@ -144,7 +144,7 @@ namespace Engine
             for (int i = 0; i < len; i++)
             {
                 t = z * Tvalues[i] + z;
-                sum += Cvalues[i] * arcfn(t, derivativeFn);
+                sum += Cvalues[i] * Arcfn(t, derivativeFn);
             }
 
             return z * sum;
@@ -159,7 +159,7 @@ namespace Engine
         /// <param name="ts"></param>
         /// <param name="te"></param>
         /// <returns></returns>
-        public static double map(double v, double ds, double de, double ts, double te)
+        public static double Map(double v, double ds, double de, double ts, double te)
         {
             double d1 = de - ds;
             double d2 = te - ts;
@@ -229,7 +229,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static double abcratio(double t = 0.5, double n = 0.5)
+        public static double Abcratio(double t = 0.5, double n = 0.5)
         {
             // see ratio(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
@@ -275,7 +275,7 @@ namespace Engine
         /// <param name="x4"></param>
         /// <param name="y4"></param>
         /// <returns></returns>
-        public static Point3D lli8(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+        public static Point3D Lli8(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
             double nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
             double ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
@@ -293,13 +293,13 @@ namespace Engine
         /// <param name="p3"></param>
         /// <param name="p4"></param>
         /// <returns></returns>
-        public static Point3D lli4(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
+        public static Point3D Lli4(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
         {
             double x1 = p1.X, y1 = p1.Y;
             double x2 = p2.X, y2 = p2.Y;
             double x3 = p3.X, y3 = p3.Y;
             double x4 = p4.X, y4 = p4.Y;
-            return lli8(x1, y1, x2, y2, x3, y3, x4, y4);
+            return Lli8(x1, y1, x2, y2, x3, y3, x4, y4);
         }
 
         /// <summary>
@@ -309,8 +309,8 @@ namespace Engine
         /// <param name="v2"></param>
         /// <returns></returns>
         // return utils.lli4(v1,v1.c,v2,v2.c);
-        public static Point3D lli(Point3D v1, Point3D v2)
-            => lli4(v1, v1, v2, v2);
+        public static Point3D Lli(Point3D v1, Point3D v2)
+            => Lli4(v1, v1, v2, v2);
 
         /// <summary>
         /// 
@@ -343,14 +343,14 @@ namespace Engine
             foreach (Bezier s in sections)
             {
                 BBox bbox = s.Bbox();
-                if (mx > bbox.x.min)
-                    mx = bbox.x.min;
-                if (my > bbox.y.min)
-                    my = bbox.y.min;
-                if (MX < bbox.x.max)
-                    MX = bbox.x.max;
-                if (MY < bbox.y.max)
-                    MY = bbox.y.max;
+                if (mx > bbox.X.Min)
+                    mx = bbox.X.Min;
+                if (my > bbox.Y.Min)
+                    my = bbox.Y.Min;
+                if (MX < bbox.X.Max)
+                    MX = bbox.X.Max;
+                if (MY < bbox.Y.Max)
+                    MY = bbox.Y.Max;
             }
 
             return new BBox(
@@ -369,11 +369,11 @@ namespace Engine
         /// <returns></returns>
         public static List<Pair> ShapeIntersections(Shape1 s1, BBox bbox1, Shape1 s2, BBox bbox2)
         {
-            if (!bboxoverlap(bbox1, bbox2))
+            if (!Bboxoverlap(bbox1, bbox2))
                 return new List<Pair>();
             var intersections = new List<Pair>();
-            var a1 = new List<Bezier> { s1.startcap, s1.forward, s1.back, s1.endcap };
-            var a2 = new List<Bezier> { s2.startcap, s2.forward, s2.back, s2.endcap };
+            var a1 = new List<Bezier> { s1.Startcap, s1.Forward, s1.Back, s1.Endcap };
+            var a2 = new List<Bezier> { s2.Startcap, s2.Forward, s2.Back, s2.Endcap };
             foreach (Bezier l1 in a1)
             {
                 if (l1.Virtual)
@@ -385,12 +385,12 @@ namespace Engine
                     List<Pair> iss = l1.Intersects(l2);
                     foreach (Pair i in iss)
                     {
-                        if (i.length > 0)
+                        if (i.Length > 0)
                         {
-                            i.left = l1;
-                            i.right = l2;
-                            i.s1 = s1;
-                            i.s2 = s2;
+                            i.Left = l1;
+                            i.Right = l2;
+                            i.S1 = s1;
+                            i.S2 = s2;
                             intersections.Add(i);
                         }
                     }
@@ -653,7 +653,7 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static List<double> inflections(List<Point3D> points)
+        public static List<double> Inflections(List<Point3D> points)
         {
             List<Point3D> p = Align(points, new Line1(p1: points[0], p2: points[3]));
             double a = p[2].X * p[1].Y;
@@ -687,21 +687,21 @@ namespace Engine
         /// <param name="b1"></param>
         /// <param name="b2"></param>
         /// <returns></returns>
-        public static bool bboxoverlap(BBox b1, BBox b2)
+        public static bool Bboxoverlap(BBox b1, BBox b2)
         {
             var dims = new List<int> { 0/*X*/, 1/*Y*/ };
             double len = dims.Count;
             double l;
             double t;
             double d;
-            l = b1.x.mid;
-            t = b2.x.mid;
-            d = (b1.x.size + b2.x.size) / 2;
+            l = b1.X.Mid;
+            t = b2.X.Mid;
+            d = (b1.X.Size + b2.X.Size) / 2;
             if (Abs(l - t) >= d)
                 return false;
-            l = b1.y.mid;
-            t = b2.y.mid;
-            d = (b1.y.size + b2.y.size) / 2;
+            l = b1.Y.Mid;
+            t = b2.Y.Mid;
+            d = (b1.Y.Size + b2.Y.Size) / 2;
             return Abs(l - t) < d;
         }
 
@@ -710,28 +710,28 @@ namespace Engine
         /// </summary>
         /// <param name="bbox"></param>
         /// <param name="_bbox"></param>
-        public static void expandbox(BBox bbox, BBox _bbox)
+        public static void Expandbox(BBox bbox, BBox _bbox)
         {
-            if (_bbox.x.min < bbox.x.min)
-                bbox.x.min = _bbox.x.min;
-            if (_bbox.y.min < bbox.y.min)
-                bbox.y.min = _bbox.y.min;
-            if (_bbox.z != null && _bbox.z.min < bbox.z.min)
-                bbox.z.min = _bbox.z.min;
-            if (_bbox.x.max > bbox.x.max)
-                bbox.x.max = _bbox.x.max;
-            if (_bbox.y.max > bbox.y.max)
-                bbox.y.max = _bbox.y.max;
-            if (_bbox.z != null && _bbox.z.max > bbox.z.max)
-                bbox.z.max = _bbox.z.max;
-            bbox.x.mid = (bbox.x.min + bbox.x.max) / 2;
-            bbox.y.mid = (bbox.y.min + bbox.y.max) / 2;
-            if (bbox.z != null)
-                bbox.z.mid = (bbox.z.min + bbox.z.max) / 2;
-            bbox.x.size = bbox.x.max - bbox.x.min;
-            bbox.y.size = bbox.y.max - bbox.y.min;
-            if (bbox.z != null)
-                bbox.z.size = bbox.z.max - bbox.z.min;
+            if (_bbox.X.Min < bbox.X.Min)
+                bbox.X.Min = _bbox.X.Min;
+            if (_bbox.Y.Min < bbox.Y.Min)
+                bbox.Y.Min = _bbox.Y.Min;
+            if (_bbox.Z != null && _bbox.Z.Min < bbox.Z.Min)
+                bbox.Z.Min = _bbox.Z.Min;
+            if (_bbox.X.Max > bbox.X.Max)
+                bbox.X.Max = _bbox.X.Max;
+            if (_bbox.Y.Max > bbox.Y.Max)
+                bbox.Y.Max = _bbox.Y.Max;
+            if (_bbox.Z != null && _bbox.Z.Max > bbox.Z.Max)
+                bbox.Z.Max = _bbox.Z.Max;
+            bbox.X.Mid = (bbox.X.Min + bbox.X.Max) / 2;
+            bbox.Y.Mid = (bbox.Y.Min + bbox.Y.Max) / 2;
+            if (bbox.Z != null)
+                bbox.Z.Mid = (bbox.Z.Min + bbox.Z.Max) / 2;
+            bbox.X.Size = bbox.X.Max - bbox.X.Min;
+            bbox.Y.Size = bbox.Y.Max - bbox.Y.Min;
+            if (bbox.Z != null)
+                bbox.Z.Size = bbox.Z.Max - bbox.Z.Min;
         }
 
         /// <summary>
@@ -739,13 +739,13 @@ namespace Engine
         /// </summary>
         /// <param name="c1"></param>
         /// <param name="c2"></param>
-        public static List<Pair> pairiteration(Bezier c1, Bezier c2)
+        public static List<Pair> Pairiteration(Bezier c1, Bezier c2)
         {
             BBox c1b = c1.Bbox();
             BBox c2b = c2.Bbox();
             //double r = 100000;
             double threshold = 0.5;
-            if (c1b.x.size + c1b.y.size < threshold && c2b.x.size + c2b.y.size < threshold)
+            if (c1b.X.Size + c1b.Y.Size < threshold && c2b.X.Size + c2b.Y.Size < threshold)
             {
                 //return new List<Pair>() { ((r * (c1._t1 + c1._t2) / 2) | 0d) / r + "/" + ((r * (c2._t1 + c2._t2) / 2) | 0) / r };
             }
@@ -754,11 +754,11 @@ namespace Engine
 
             var pairs = new List<Pair>(
                 from pair in new List<Pair> {
-                new Pair(left: cc1.left, right: cc2.left),
-                new Pair(left: cc1.left, right: cc2.right),
-                new Pair(left: cc1.right, right: cc2.right),
-                new Pair(left: cc1.right, right: cc2.left)}
-                where bboxoverlap(pair.left.Bbox(), pair.right.Bbox())
+                new Pair(left: cc1.Left, right: cc2.Left),
+                new Pair(left: cc1.Left, right: cc2.Right),
+                new Pair(left: cc1.Right, right: cc2.Right),
+                new Pair(left: cc1.Right, right: cc2.Left)}
+                where Bboxoverlap(pair.Left.Bbox(), pair.Right.Bbox())
                 select pair);
 
             var results = new List<Pair>();
@@ -766,7 +766,7 @@ namespace Engine
                 return results;
 
             foreach (Pair pair in pairs)
-                results.AddRange(pairiteration(pair.left, pair.right));
+                results.AddRange(Pairiteration(pair.Left, pair.Right));
 
             return (List<Pair>)new List<Pair>(
                 from v in results
@@ -780,7 +780,7 @@ namespace Engine
         /// <param name="p2"></param>
         /// <param name="p3"></param>
         /// <returns></returns>
-        public static Arc1 getccenter(Point3D p1, Point3D p2, Point3D p3)
+        public static Arc1 Getccenter(Point3D p1, Point3D p2, Point3D p3)
         {
             double dx1 = (p2.X - p1.X);
             double dy1 = (p2.Y - p1.Y);
@@ -801,7 +801,7 @@ namespace Engine
             double mx2n = mx2 + dx2p;
             double my2n = my2 + dy2p;
             // intersection of these lines:
-            Point3D arcCenter = lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
+            Point3D arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
             double r = Distances.Distance(arcCenter, p1);
             // arc start/end values, over mid point:
             double s = Atan2(p1.Y - arcCenter.Y, p1.X - arcCenter.X);
@@ -830,11 +830,13 @@ namespace Engine
                 { e += Tau; }
             }
             // assign and done.
-            var arc = new Arc1();
-            arc.center = arcCenter;
-            arc.s = s;
-            arc.e = e;
-            arc.radius = r;
+            var arc = new Arc1()
+            {
+                Center = arcCenter,
+                S = s,
+                E = e,
+                Radius = r
+            };
             return arc;
         }
     }

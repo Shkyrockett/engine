@@ -61,8 +61,9 @@ namespace Engine
         /// <param name="tuple">The X, Y, Z and W values in tupple form.</param>
         /// <remarks></remarks>
         public Vector4D((double X, double Y, double Z, double W) tuple)
-            : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
-        { }
+        {
+            (I, J, K, L) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class.
@@ -276,6 +277,42 @@ namespace Engine
             => !Equals(a, b);
 
         /// <summary>
+        /// Tuple to Vector4D
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        public static implicit operator Vector4D((double X, double Y, double Z, double W) value)
+            => new Vector4D(value);
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Create a Random <see cref="Vector4D"/>.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Vector4D Random()
+            => new Vector4D(
+                (2 * RandomNumberGenerator.NextDouble()) - 1,
+                (2 * RandomNumberGenerator.NextDouble()) - 1,
+                (2 * RandomNumberGenerator.NextDouble()) - 1,
+                (2 * RandomNumberGenerator.NextDouble()) - 1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+            => I.GetHashCode()
+            ^ J.GetHashCode()
+            ^ K.GetHashCode()
+            ^ L.GetHashCode();
+
+        /// <summary>
         /// Compares two Vectors
         /// </summary>
         /// <param name="a"></param>
@@ -313,42 +350,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector4D value)
             => Equals(this, value);
-
-        /// <summary>
-        /// Tuple to Vector4D
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        public static implicit operator Vector4D((double X, double Y, double Z, double W) value)
-            => new Vector4D(value.X, value.Y, value.Z, value.W);
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Create a Random <see cref="Vector4D"/>.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static Vector4D Random()
-            => new Vector4D(
-                (2 * RandomNumberGenerator.NextDouble()) - 1,
-                (2 * RandomNumberGenerator.NextDouble()) - 1,
-                (2 * RandomNumberGenerator.NextDouble()) - 1,
-                (2 * RandomNumberGenerator.NextDouble()) - 1);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-            => I.GetHashCode()
-            ^ J.GetHashCode()
-            ^ K.GetHashCode()
-            ^ L.GetHashCode();
 
         /// <summary>
         /// Parse a string for a <see cref="Vector4D"/> value.

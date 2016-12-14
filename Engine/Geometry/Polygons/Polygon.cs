@@ -193,9 +193,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="point"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
             => Containings.Contains(this, point) != Inclusion.Outside;
@@ -203,9 +201,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polygon Clone()
             => new Polygon(points.ToArray());
@@ -214,9 +210,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="offset"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual Polygon Offset(double offset)
             => Offsets.Offset(this, offset);
@@ -231,9 +225,7 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {

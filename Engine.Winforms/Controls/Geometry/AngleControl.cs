@@ -88,7 +88,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tabControl = sender as TabControl;
             if (tabControl.SelectedIndex == 0) method = Angles.Degree;
@@ -115,7 +115,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void needleControl1_ValueChanged(object sender, NeedleControl.ValueChangedEventArgs e)
+        private void NeedleControl1_ValueChanged(object sender, NeedleControl.ValueChangedEventArgs e)
         {
             switch (method)
             {
@@ -135,7 +135,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void needleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e)
+        private void NeedleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e)
         {
             EditorService?.CloseDropDown();
         }
@@ -145,7 +145,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void numericUpDown_ValueChanged(object sender, EventArgs e)
+        private void NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             var nums = sender as NumericUpDown;
             switch (method)
@@ -160,7 +160,7 @@ namespace Engine
             needleControl1.Invalidate();
         }
 
-        private void numericUpDown_KeyDown(object sender, KeyEventArgs e)
+        private void NumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
                 EditorService.CloseDropDown();
@@ -171,7 +171,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
+        private void TabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
             needleControl1.Invalidate();
         }
@@ -181,7 +181,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tabPageDegrees_Paint(object sender, PaintEventArgs e)
+        private void TabPageDegrees_Paint(object sender, PaintEventArgs e)
         {
             needleControl1.Invalidate();
         }
@@ -191,7 +191,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tabPageRadians_Paint(object sender, PaintEventArgs e)
+        private void TabPageRadians_Paint(object sender, PaintEventArgs e)
         {
             needleControl1.Invalidate();
         }

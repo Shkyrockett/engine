@@ -1144,7 +1144,7 @@ namespace Engine.Chrono
         /// <param name="ofSouthernHemisphere"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</remarks>
-        private Season getSeason(DateTime date, bool ofSouthernHemisphere)
+        private Season GetSeason(DateTime date, bool ofSouthernHemisphere)
         {
             int hemisphereConst = (ofSouthernHemisphere ? 2 : 0);
             Func<Season, Season> getReturn = (northern)

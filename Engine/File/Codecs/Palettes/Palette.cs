@@ -87,7 +87,7 @@ namespace Engine.File.Palettes
         public void Load(string fileName)
         {
             FileName = fileName;
-            PaletteFileExtensions format = checkExtensionSupport(FileName);
+            PaletteFileExtensions format = CheckExtensionSupport(FileName);
             if (format != PaletteFileExtensions.unknown)
             {
                 using (Stream paletteStream = new FileStream(FileName, FileMode.Open))
@@ -764,7 +764,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="filepath"></param>
         /// <returns></returns>
-        private static PaletteFileExtensions checkExtensionSupport(string filepath)
+        private static PaletteFileExtensions CheckExtensionSupport(string filepath)
         {
             PaletteFileExtensions format = PaletteFileExtensions.unknown;
             string extension = System.IO.Path.GetExtension(filepath).Substring(1);

@@ -54,12 +54,13 @@ namespace Engine
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;
 
-            var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>();
+            var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>
+            {
 
-            // Build a point list that refers to the corners of the
-            // polygons, as well as to the start point and endpoint.
-            pointList.Add((start.X, start.Y, 0d, 0));
-
+                // Build a point list that refers to the corners of the
+                // polygons, as well as to the start point and endpoint.
+                (start.X, start.Y, 0d, 0)
+            };
             foreach (Polygon poly in polygons.Polygons)
             {
                 foreach (Point2D point in poly.Points)

@@ -58,8 +58,7 @@ namespace Engine
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             var list = new List<PropertyDescriptor>();
-            var gameElements = value as List<IGameElement>;
-            if (gameElements != null)
+            if (value is List<IGameElement> gameElements)
             {
                 foreach (IGameElement gameElement in gameElements)
                 {

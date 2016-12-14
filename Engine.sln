@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.25914.0
+VisualStudioVersion = 15.0.26009.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{5EA0C702-64D5-4DA1-A716-A345D936F4D8}"
 EndProject
@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathGame", "MathGame\MathGame.csproj", "{CE30F980-C756-48F6-8151-A2137B6DAC2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Maths", "Engine.Maths\Engine.Maths.csproj", "{EAB216F0-0B65-457E-BE38-C0DB85CD722B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,6 +120,18 @@ Global
 		{CE30F980-C756-48F6-8151-A2137B6DAC2E}.Release|x64.Build.0 = Release|Any CPU
 		{CE30F980-C756-48F6-8151-A2137B6DAC2E}.Release|x86.ActiveCfg = Release|Any CPU
 		{CE30F980-C756-48F6-8151-A2137B6DAC2E}.Release|x86.Build.0 = Release|Any CPU
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Debug|x64.ActiveCfg = Debug|x64
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Debug|x64.Build.0 = Debug|x64
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Debug|x86.ActiveCfg = Debug|x86
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Debug|x86.Build.0 = Debug|x86
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Release|x64.ActiveCfg = Release|x64
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Release|x64.Build.0 = Release|x64
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Release|x86.ActiveCfg = Release|x86
+		{EAB216F0-0B65-457E-BE38-C0DB85CD722B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

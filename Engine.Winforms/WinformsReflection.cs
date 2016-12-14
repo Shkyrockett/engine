@@ -33,7 +33,6 @@ namespace Engine.Winforms
         /// Call this method to touch the <see cref="WinformsReflection"/> class so the static constructor initializes.
         /// </summary>
         public static void Tickle()
-        {
-        }
+        { }
     }
 }

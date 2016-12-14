@@ -66,7 +66,7 @@ namespace Engine.Imaging
         /// <param name="size"></param>
         /// <returns></returns>
         /// <remarks>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</remarks>
-        public static Image resizeImage(this Image canvas, Size size)
+        public static Image ResizeImage(this Image canvas, Size size)
         {
             int sourceWidth = canvas.Width;
             int sourceHeight = canvas.Height;

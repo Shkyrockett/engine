@@ -25,25 +25,25 @@ namespace Engine
         /// <param name="z"></param>
         public BBox(RangeX x, RangeX y, RangeX z = null)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            X = x;
+            Y = y;
+            Z = z;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public RangeX x { get; set; }
+        public RangeX X { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public RangeX y { get; set; }
+        public RangeX Y { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public RangeX z { get; set; }
+        public RangeX Z { get; set; }
     }
 }
 

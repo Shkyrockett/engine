@@ -205,9 +205,7 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Oval);
             char sep = Tokenizer.GetNumericListSeparator(provider);

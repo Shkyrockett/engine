@@ -43,9 +43,7 @@ namespace Engine
         /// <returns>A Boolean value indicating whether an angle is between two others.</returns>
         /// <remarks>
         /// http://www.xarg.org/2010/06/is-an-angle-between-two-other-angles/
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(double angle, double startAngle, double sweepAngle)
         {
@@ -71,9 +69,7 @@ namespace Engine
         /// <param name="a">The vector to compare.</param>
         /// <param name="b">The start vector.</param>
         /// <param name="c">The end vector.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(Vector2D a, Vector2D b, Vector2D c)
             => VectorVectorVector(a.I, a.J, b.I, b.J, c.I, c.J);
@@ -83,9 +79,7 @@ namespace Engine
         /// </summary>
         /// <param name="point0">First Point to test.</param>
         /// <param name="point1">Second Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Point2D point0, Point2D point1)
             => point0 == point1 ? Inclusion.Boundary : Inclusion.Outside;
@@ -95,9 +89,7 @@ namespace Engine
         /// </summary>
         /// <param name="seg">Line segment to test.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this LineSegment seg, Point2D point)
             => Intersectings.LineSegmentPoint(seg.AX,seg.AY,seg.BX,seg.BY,point.X,point.Y) ? Inclusion.Boundary : Inclusion.Outside;
@@ -107,9 +99,7 @@ namespace Engine
         /// </summary>
         /// <param name="circle"><see cref="Circle"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Circle circle, Point2D point)
             => CirclePoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
@@ -119,9 +109,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc"><see cref="Circle"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this CircularArc arc, Point2D point)
             => CircularArcSectorPoint(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle, point.X, point.Y);
@@ -131,9 +119,7 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse"><see cref="Ellipse"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Ellipse ellipse, Point2D point)
             => EllipsePoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.Angle, point.X, point.Y);
@@ -143,9 +129,7 @@ namespace Engine
         /// </summary>
         /// <param name="ellipseArc"><see cref="Ellipse"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this EllipticalArc ellipseArc, Point2D point)
             => EllipticalArcPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.Angle, ellipseArc.StartAngle, ellipseArc.SweepAngle, point.X, point.Y);
@@ -155,9 +139,7 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle"><see cref="Rectangle2D"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Rectangle2D rectangle, Point2D point)
             => RectanglePoint(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Bottom, point.X, point.Y);
@@ -167,9 +149,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"><see cref="Polygon"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Polygon polygon, Point2D point)
             => PolygonPoint(polygon.Points, point.X, point.Y);
@@ -180,9 +160,7 @@ namespace Engine
         /// <param name="polygons">List of <see cref="Polygon"/> classes.</param>
         /// <param name="point">Point to test.</param>
         /// <returns></returns>
-        /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this PolygonSet polygons, Point2D point)
             => PolygonSetPoint(polygons.Polygons, point.X, point.Y);
@@ -201,9 +179,7 @@ namespace Engine
         /// <remarks>
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(this PolygonSet polygons, Point2D start, Point2D end)
         {
@@ -280,9 +256,7 @@ namespace Engine
         /// </summary>
         /// <param name="figure"></param>
         /// <param name="point"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this GeometryPath figure, Point2D point)
             => GeometryPathPoint(figure, point);
@@ -292,9 +266,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(this Rectangle2D a, Rectangle2D b)
             => RectangleRectangle(a.X, a.Y, a.Width, a.Height, b.X, b.Y, b.Width, b.Height);
@@ -314,9 +286,7 @@ namespace Engine
         /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
         /// http://gamedev.stackexchange.com/questions/22392/what-is-a-good-way-to-determine-if-a-vector-is-between-two-other-vectors-in-2d
         /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool VectorVectorVector(double i0, double j0, double i1, double j1, double i2, double j2)
             => ((i1 * j0) - (j1 * i0)) * ((i1 * j2) - (j1 * i2)) >= 0
@@ -333,9 +303,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion CirclePoint(double x, double y, double r, double pX, double pY)
         {
@@ -368,9 +336,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion CircularArcSectorPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY)
         {
@@ -422,9 +388,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticalArcPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
         {
@@ -498,9 +462,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticalArcSectorPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
         {
@@ -572,9 +534,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </remarks>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipsePoint(double x, double y, double r1, double r2, double angle, double pX, double pY)
         {
@@ -610,9 +570,7 @@ namespace Engine
         /// <param name="bottom">The bottom location of the <see cref="Rectangle2D"/>.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion RectanglePoint(double left, double top, double right, double bottom, double pX, double pY)
             => (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
@@ -625,9 +583,7 @@ namespace Engine
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PolygonPoint(List<Point2D> points, double pX, double pY)
         {
@@ -694,9 +650,7 @@ namespace Engine
         /// <param name="polygons">List of polygons.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PolygonSetPoint(List<Polygon> polygons, double pX, double pY)
         {
@@ -721,9 +675,7 @@ namespace Engine
         /// </summary>
         /// <param name="figure"></param>
         /// <param name="point"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion GeometryPathPoint(GeometryPath figure, Point2D point)
         {
@@ -759,9 +711,7 @@ namespace Engine
         /// <param name="bY"></param>
         /// <param name="bWidth"></param>
         /// <param name="bHeight"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool RectangleRectangle(
             double aX, double aY,

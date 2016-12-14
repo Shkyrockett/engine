@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace Editor
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal static class Program
     {
         /// <summary>

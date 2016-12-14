@@ -92,7 +92,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        internal bool FoundSeparator => foundSeparator;
+        internal bool FoundSeparator
+            => foundSeparator;
 
         /// <summary>
         /// Initialize the TokenizerHelper with the string to tokenize,
@@ -104,7 +105,7 @@ namespace Engine
         private void Initialize(string str, char quoteChar, char separator)
         {
             this.str = str;
-            strLen = str == null ? 0 : str.Length;
+            strLen = (str?.Length).Value;
             currentTokenIndex = -1;
             this.quoteChar = quoteChar;
             argSeparator = separator;
@@ -150,7 +151,8 @@ namespace Engine
         /// Advances to the NextToken
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
-        internal bool NextToken() => NextToken(false);
+        internal bool NextToken()
+            => NextToken(false);
 
         /// <summary>
         /// Advances to the NextToken, throwing an exception if not present
@@ -187,7 +189,8 @@ namespace Engine
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
         // use the currently-set separator character.
-        internal bool NextToken(bool allowQuotedToken) => NextToken(allowQuotedToken, argSeparator);
+        internal bool NextToken(bool allowQuotedToken)
+            => NextToken(allowQuotedToken, argSeparator);
 
         /// <summary>
         /// Advances to the NextToken.  A separator character can be specified

@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
@@ -157,7 +156,6 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
@@ -167,7 +165,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolygonSet Clone()
@@ -179,7 +176,6 @@ namespace Engine
         /// <param name="format"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)

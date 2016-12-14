@@ -815,8 +815,10 @@ namespace Engine
         {
             if (matrix.type == MatrixTypes.Identity)
             {
-                matrix = new Matrix2D(1, 0, 0, 1, offsetX, offsetY);
-                matrix.type = MatrixTypes.Translation;
+                matrix = new Matrix2D(1, 0, 0, 1, offsetX, offsetY)
+                {
+                    type = MatrixTypes.Translation
+                };
             }
             else
             {

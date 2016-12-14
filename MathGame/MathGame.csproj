@@ -85,6 +85,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Engine.Maths\Engine.Maths.csproj">
+      <Project>{eab216f0-0b65-457e-be38-c0db85cd722b}</Project>
+      <Name>Engine.Maths</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
       <Project>{5EA0C702-64D5-4DA1-A716-A345D936F4D8}</Project>
       <Name>Engine</Name>

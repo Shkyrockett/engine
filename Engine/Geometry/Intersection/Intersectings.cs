@@ -24,9 +24,7 @@ namespace Engine
         /// </summary>
         /// <param name="point0"></param>
         /// <param name="point1"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this Point2D point0, Point2D point1)
             => point0 == point1;
 
@@ -35,9 +33,7 @@ namespace Engine
         /// </summary>
         /// <param name="s"></param>
         /// <param name="p"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this LineSegment s, Point2D p)
             => LineSegmentPoint(s.A.X, s.A.Y, s.B.X, s.B.Y, p.X, p.Y);
 
@@ -46,9 +42,7 @@ namespace Engine
         /// </summary>
         /// <param name="s"></param>
         /// <param name="p"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this Point2D p, LineSegment s)
             => LineSegmentPoint(s.A.X, s.A.Y, s.B.X, s.B.Y, p.X, p.Y);
 
@@ -57,9 +51,7 @@ namespace Engine
         /// </summary>
         /// <param name="s0"></param>
         /// <param name="s1"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this LineSegment s0, LineSegment s1)
             => LineSegmentLineSegment(s0.A.X, s0.A.Y, s0.B.X, s0.B.Y, s1.A.X, s1.A.Y, s1.B.X, s1.B.Y);
 
@@ -68,9 +60,7 @@ namespace Engine
         /// </summary>
         /// <param name="rect1"></param>
         /// <param name="rect2"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this Rectangle2D rect1, Rectangle2D rect2)
             => RectangleRectangle(rect1.X, rect1.Y, rect1.Width, rect1.Height, rect2.X, rect2.Y, rect2.Width, rect2.Height);
 
@@ -79,9 +69,7 @@ namespace Engine
         /// </summary>
         /// <param name="c0"></param>
         /// <param name="c1"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this Circle c0, Circle c1)
             => CircleCircle(c0.X, c0.Y, c0.Radius, c1.X, c1.Y, c1.Radius);
 
@@ -95,9 +83,7 @@ namespace Engine
         /// <param name="pointX"></param>
         /// <param name="pointY"></param>
         /// <returns></returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LineSegmentPoint(
             double segmentAX,
             double segmentAY,
@@ -124,9 +110,7 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LineSegmentLineSegment(
             double x0, double y0,
             double x1, double y1,
@@ -166,9 +150,7 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="height2"></param>
         /// <param name="width2"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool RectangleRectangle(
             double x1, double y1,
             double height1, double width1,
@@ -189,9 +171,7 @@ namespace Engine
         /// <param name="cy1"></param>
         /// <param name="radius1"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool CircleCircle(
             double cx0,
             double cy0,

@@ -38,11 +38,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private double w;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private double x;
 
         /// <summary>
@@ -55,6 +50,11 @@ namespace Engine
         /// </summary>
         private double z;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private double w;
+
         #endregion
 
         #region Constructors
@@ -66,23 +66,26 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public QuaternionD(double w, double x, double y, double z)
+        public QuaternionD(double x, double y, double z, double w)
         {
-            this.w = w;
             this.x = x;
             this.y = y;
             this.z = z;
+            this.w = w;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tuple"></param>
+        public QuaternionD((double X, double Y, double Z, double W) tuple)
+        {
+            (x, y, z, w) = tuple;
         }
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlAttribute]
-        public double W { get { return w; } set { w = value; } }
 
         /// <summary>
         /// 
@@ -102,6 +105,26 @@ namespace Engine
         [XmlAttribute]
         public double Z { get { return z; } set { z = value; } }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public double W { get { return w; } set { w = value; } }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Tupple to <see cref="QuaternionD"/>.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        public static implicit operator QuaternionD((double X, double Y, double Z, double W) tuple)
+            => new QuaternionD(tuple);
+
         #endregion
 
         #region Methods
@@ -110,7 +133,6 @@ namespace Engine
         ///
         /// </summary>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
@@ -123,7 +145,6 @@ namespace Engine
         /// Creates a human-readable string that represents this <see cref="QuaternionD"/>.
         /// </summary>
         /// <returns></returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
@@ -136,7 +157,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
@@ -153,7 +173,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         string IFormattable.ToString(string format, IFormatProvider provider)
@@ -170,7 +189,6 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        [Pure]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)

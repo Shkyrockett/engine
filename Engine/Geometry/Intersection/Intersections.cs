@@ -61,9 +61,7 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="s"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Intersection(this LineSegment s, Circle c)
             => CircleLineSegment(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
 
@@ -72,9 +70,7 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="s"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Intersection(this Circle c, LineSegment s)
             => CircleLineSegment(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
 
@@ -83,9 +79,7 @@ namespace Engine
         /// </summary>
         /// <param name="c0"></param>
         /// <param name="c1"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Intersection(this Circle c0, Circle c1)
             => CircleCircle(c0.X, c0.Y, c0.Radius, c1.X, c1.Y, c1.Radius);
 
@@ -94,9 +88,7 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Intersection(this Ellipse e, LineSegment s)
             => EllipseLineSegment(e.X, e.Y, e.RX, e.RY, s.A.X, s.A.Y, e.Angle, s.B.X, s.B.Y);
 
@@ -105,9 +97,7 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Intersection(this LineSegment s, Ellipse e)
             => EllipseLineSegment(e.X, e.Y, e.RX, e.RY, s.A.X, s.A.Y, e.Angle, s.B.X, s.B.Y);
 
@@ -123,9 +113,7 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> LineSegmentLineSegment(
             double x0, double y0,
             double x1, double y1,
@@ -169,9 +157,7 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> LineLine(
             double x0, double y0,
             double x1, double y1,
@@ -213,9 +199,7 @@ namespace Engine
         /// <param name="cy1"></param>
         /// <param name="radius1"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> CircleCircle(
             double cx0,
             double cy0,
@@ -295,9 +279,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
-        /// </remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> CircleLineSegment(
             double cX, double cY,
             double radius,
@@ -361,9 +343,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> UnrotatedEllipseLineSegment(
             double cx, double cy,
             double rx, double ry,
@@ -432,9 +412,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> EllipseLineSegment(
             double cx, double cy,
             double rx, double ry,
@@ -519,9 +497,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// https://www.particleincell.com/2013/cubic-line-intersection/
-        /// </remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> CubicBezierLineSegment(
             double p0x, double p0y,
             double p1x, double p1y,
@@ -540,7 +516,7 @@ namespace Engine
             var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
             var by = BezierCoefficients(p0y, p1y, p2y, p3y);
 
-            var r = cubicRoots(
+            var r = CubicRoots(
                 A * bx.A + B * by.A,    /*t^3*/
                 A * bx.B + B * by.B,    /*t^2*/
                 A * bx.C + B * by.C,    /*t*/
@@ -586,10 +562,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
-        /// </remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static double[] cubicRoots(double a, double b, double c, double d)
+        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static double[] CubicRoots(double a, double b, double c, double d)
         {
             // The horizontal line issue seems to be somewhere in here.
             var A = b / a;
@@ -637,7 +611,7 @@ namespace Engine
                 if (t[i] < 0 || t[i] > 1.0) t[i] = -1;
 
             /*sort but place -1 at the end*/
-            t = sortSpecial(t);
+            t = SortSpecial(t);
 
             //Console.log(t[0] + " " + t[1] + " " + t[2]);
             return t;
@@ -647,10 +621,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="a"></param>
-        /// <returns></returns>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static double[] sortSpecial(double[] a)
+        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static double[] SortSpecial(double[] a)
         {
             bool flip;
             double temp;
@@ -690,9 +662,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/27664298/calculating-intersection-point-of-quadratic-bezier-curve
-        /// </remarks>
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> QuadraticBezierLineSegment(
             double p1X, double p1Y,
             double p2X, double p2Y,

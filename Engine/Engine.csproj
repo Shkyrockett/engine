@@ -100,17 +100,20 @@
     <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
     <Compile Include="Geometry\Framework\ArrayUtilities.cs" />
     <Compile Include="Geometry\Framework\ExpandableCollectionPropertyDescriptor.cs" />
-    <Compile Include="Geometry\Complex\Figure\PathItem.cs" />
-    <Compile Include="Geometry\Complex\Figure\PathArc.cs" />
-    <Compile Include="Geometry\Complex\Figure\PathCardinal.cs" />
-    <Compile Include="Geometry\Complex\Figure\PathLineSegment.cs" />
-    <Compile Include="Geometry\Complex\Figure\PathQuadraticBezier.cs" />
-    <Compile Include="Geometry\Complex\Figure\PathCubicBezier.cs" />
-    <Compile Include="Geometry\Complex\Figure\PathPoint.cs" />
-    <Compile Include="Geometry\Complex\Figure\GeometryPath.cs" />
+    <Compile Include="Geometry\Complex\Path\PathItem.cs" />
+    <Compile Include="Geometry\Complex\Path\PathArc.cs" />
+    <Compile Include="Geometry\Complex\Path\PathCardinal.cs" />
+    <Compile Include="Geometry\Complex\Path\PathLineSegment.cs" />
+    <Compile Include="Geometry\Complex\Path\PathQuadraticBezier.cs" />
+    <Compile Include="Geometry\Complex\Path\PathCubicBezier.cs" />
+    <Compile Include="Geometry\Complex\Path\PathPoint.cs" />
+    <Compile Include="Geometry\Complex\Path\GeometryPath.cs" />
     <Compile Include="Geometry\Complex\Tools\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
+    <Compile Include="Geometry\Math\Distances.cs" />
     <Compile Include="Geometry\Primitives\Converters\Matrix2DConverter.cs" />
+    <Compile Include="Math\Maths.Constants.cs" />
+    <Compile Include="Math\Maths.cs" />
     <Compile Include="Math\Primitives\Converters\QuaternionDConverter.cs" />
     <Compile Include="Math\Primitives\Polynomial.cs" />
     <Compile Include="Math\Primitives\Quaternion.cs" />
@@ -157,8 +160,6 @@
     <Compile Include="Math\Notation\Range.cs" />
     <Compile Include="Math\Notation\Term.cs" />
     <Compile Include="Math\Notation\Variable.cs" />
-    <Compile Include="Geometry\Math\Distances.cs" />
-    <Compile Include="Math\Maths.Constants.cs" />
     <Compile Include="Math\Primitives\Vector4D.cs" />
     <Compile Include="Metadata\GeometryAngleDegreesAttribute.cs" />
     <Compile Include="Metadata\GeometryAngleRadiansAttribute.cs" />
@@ -350,7 +351,6 @@
     <Compile Include="Geometry\Complex\Tools\SquareCellGrid.cs" />
     <Compile Include="Geometry\Complex\Tools\RectangleDCellGrid.cs" />
     <Compile Include="Geometry\Polygons\LineSegment.cs" />
-    <Compile Include="Math\Maths.cs" />
     <Compile Include="Geometry\Primitives\Matrix2D.cs" />
     <Compile Include="Geometry\Enums\MatrixTypes.cs" />
     <Compile Include="Geometry\Enums\IntersectionType.cs" />
@@ -427,13 +427,18 @@
     <Compile Include="Tweening\Tweener.cs" />
     <Compile Include="Tweening\Lerpers\Vector3DLerper.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Compile Include="Calendar\Occasion.partial.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Tweening\readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine.Maths\Engine.Maths.csproj">
+      <Project>{eab216f0-0b65-457e-be38-c0db85cd722b}</Project>
+      <Name>Engine.Maths</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

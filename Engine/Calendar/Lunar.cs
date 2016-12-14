@@ -83,7 +83,7 @@ namespace Engine.Chrono
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        private int moon_phase(int year, int month, int day)
+        private int Moon_phase(int year, int month, int day)
         {
             int c, e;
             double jd;

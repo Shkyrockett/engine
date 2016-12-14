@@ -1141,19 +1141,19 @@ namespace Engine.Winforms
 
         //import dll method
         [DllImport("user32.dll")]
-        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
+        public static extern void Mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
 
         [DllImport("user32.dll", EntryPoint = "keybd_event", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern void keybd_event(byte vk, byte scan, int flags, IntPtr extrainfo);
+        public static extern void Keybd_event(byte vk, byte scan, int flags, IntPtr extrainfo);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         //use dll method for vertical scroll and works fine
-        public static void VScrollWheel(int steps) { mouse_event(MouseEventF_Wheel, 0, 0, (uint)steps, UIntPtr.Zero); }
+        public static void VScrollWheel(int steps) { Mouse_event(MouseEventF_Wheel, 0, 0, (uint)steps, UIntPtr.Zero); }
 
         //use dll method for horizontal scroll and no response
-        public static void HScrollWheel(int steps) { mouse_event(MouseEventF_HWheel, 0, 0, (uint)steps, UIntPtr.Zero); }
+        public static void HScrollWheel(int steps) { Mouse_event(MouseEventF_HWheel, 0, 0, (uint)steps, UIntPtr.Zero); }
 
         public static int SignedHIWORD(this int n) => (short)((n >> 0x10) & 0xffff);
         public static int SignedHIWORD(this IntPtr n) => SignedHIWORD((int)((long)n));

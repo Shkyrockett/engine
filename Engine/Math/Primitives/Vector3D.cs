@@ -61,8 +61,9 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Vector3D((double X, double Y, double Z) tuple)
-            : this(tuple.Item1, tuple.Item2, tuple.Item3)
-        { }
+        {
+            (I, J, K) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector3D"/> class.
@@ -286,13 +287,13 @@ namespace Engine
         /// <summary>
         /// Point to Vector3D
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="tuple"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Vector3D((double X, double Y, double Z) value)
-            => new Vector3D(value.X, value.Y, value.Z);
+        public static implicit operator Vector3D((double X, double Y, double Z) tuple)
+            => new Vector3D(tuple);
 
         /// <summary>
         /// Point to Vector3D

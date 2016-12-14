@@ -136,9 +136,7 @@ namespace Engine
 
         /// <summary>
         ///
-        /// </summary>
-        [Pure]
-        [XmlIgnore]
+        /// </summary>        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
@@ -146,9 +144,7 @@ namespace Engine
 
         /// <summary>
         ///
-        /// </summary>
-        [Pure]
-        [XmlIgnore]
+        /// </summary>        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -218,9 +214,7 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="offset"></param>
-        /// <returns></returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// <returns></returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline Offset(double offset)
             => Offsets.Offset(this, offset);
@@ -235,9 +229,7 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>
-        [Pure]
-        [DebuggerStepThrough]
+        /// </returns>        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {

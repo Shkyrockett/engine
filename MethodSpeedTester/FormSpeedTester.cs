@@ -49,7 +49,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridView1_Paint(Object sender, PaintEventArgs e)
+        private void DataGridView1_Paint(Object sender, PaintEventArgs e)
         {
             var dgv = (sender as DataGridView);
 
@@ -73,7 +73,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridView1_Resize(Object sender, EventArgs e)
+        private void DataGridView1_Resize(Object sender, EventArgs e)
         {
             var dgv = (sender as DataGridView);
             if (dgv.Rows.Count == 0) dgv.Invalidate();
@@ -84,7 +84,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBoxTests_SelectionChangeCommitted(object sender, EventArgs e)
+        private void ComboBoxTests_SelectionChangeCommitted(object sender, EventArgs e)
         {
             tests.Clear();
             var testSet = comboBoxTests.SelectedItem as MethodInfo;
@@ -103,7 +103,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonRun_Click(object sender, EventArgs e)
+        private void ButtonRun_Click(object sender, EventArgs e)
         {
             RunTests();
         }
@@ -113,7 +113,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonCopy_Click(object sender, EventArgs e)
+        private void ButtonCopy_Click(object sender, EventArgs e)
         {
             try
             {

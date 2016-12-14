@@ -1,4 +1,4 @@
-﻿// <copyright file="MasterStyle.cs" >
+﻿// <copyright file="MasterStyle.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -28,8 +28,7 @@ namespace Engine.Imaging
         /// </summary>
         public MasterStyle()
             : this(Brushes.Transparent, Brushes.Transparent, null, null, null)
-        {
-        }
+        { }
 
         /// <summary>
         /// 

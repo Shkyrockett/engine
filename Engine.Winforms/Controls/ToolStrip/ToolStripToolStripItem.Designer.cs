@@ -1,4 +1,13 @@
-﻿namespace Engine.Winforms
+﻿// <copyright file="ToolStripToolStripItem.Designer.cs" company="Shkyrockett" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+namespace Engine.Winforms
 {
     partial class ToolStripToolStripItem
     {

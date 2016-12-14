@@ -1,4 +1,4 @@
-﻿// <copyright file="ReflectionHelper.cs" >
+﻿// <copyright file="ReflectionHelper.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -6,6 +6,7 @@
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;

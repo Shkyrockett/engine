@@ -1,4 +1,4 @@
-﻿// <copyright file="Circle.cs" >
+﻿// <copyright file="Circle.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,7 +9,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
@@ -334,7 +333,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
                 return nameof(Circle);

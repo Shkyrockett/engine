@@ -1,4 +1,4 @@
-﻿// <copyright file="Program.cs" >
+﻿// <copyright file="Program.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

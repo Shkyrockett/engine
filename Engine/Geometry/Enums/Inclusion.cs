@@ -1,4 +1,4 @@
-﻿// <copyright file="Experiments.cs" >
+﻿// <copyright file="Experiments.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

@@ -1,4 +1,4 @@
-﻿// <copyright file="LineSegment.cs" >
+﻿// <copyright file="LineSegment.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -377,7 +376,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(LineSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);

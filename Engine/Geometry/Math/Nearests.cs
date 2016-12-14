@@ -1,4 +1,4 @@
-﻿// <copyright file="Nearests.cs" >
+﻿// <copyright file="Nearests.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -8,7 +8,6 @@
 // <summary></summary>
 
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
@@ -30,7 +29,8 @@ namespace Engine
         /// <param name="pX"></param>
         /// <param name="pY"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>        [DebuggerStepThrough]
+        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Point2D ToPointOnLineSegment(
             double aX, double aY,
@@ -72,7 +72,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/36260793/algorithm-for-shortest-distance-from-a-point-to-an-elliptic-arc?rq=1
-        /// </remarks>        //[DebuggerStepThrough]
+        /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) ToPointOnEllipse(
             double cX, double cY,
@@ -147,7 +148,8 @@ namespace Engine
         /// <param name="p3Y"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <returns></returns>        //[DebuggerStepThrough]
+        /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double X, double Y)? ToPointOnCubicBezier(
             double p0X, double p0Y,
@@ -168,7 +170,8 @@ namespace Engine
         /// <param name="p2Y"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <returns></returns>        //[DebuggerStepThrough]
+        /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double X, double Y)? ToPointOnQuadraticBezier(
             double p0Y, double p0X,

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experemental\Bezier\BezierFragment.cs" />
     <Compile Include="Experemental\Bezier\BBox.cs" />
     <Compile Include="Experemental\Bezier\Arc1.cs" />
     <Compile Include="Experemental\Agnesi.cs" />
@@ -118,7 +119,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ptinpoly.cs" />
+    <Compile Include="Ptinpoly.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="Experemental\Bezier\Shape1.cs" />
     <Compile Include="SpeedTester.cs" />

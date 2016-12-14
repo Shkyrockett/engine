@@ -1,4 +1,4 @@
-﻿// <copyright file="Areas.cs" >
+﻿// <copyright file="Areas.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,7 +9,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
@@ -24,7 +23,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="r"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Circle(double r)
             => PI * r * r;
@@ -34,7 +34,8 @@ namespace Engine
         /// </summary>
         /// <param name="r"></param>
         /// <param name="sweepAngle"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircularArcSector(double r, double sweepAngle)
             => Abs((r * r * 0.5d) * (sweepAngle - Sin(sweepAngle)));
@@ -44,7 +45,8 @@ namespace Engine
         /// </summary>
         /// <param name="r1"></param>
         /// <param name="r2"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Ellipse(double r1, double r2)
             => PI * r2 * r1;
@@ -59,7 +61,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// http://math.stackexchange.com/questions/114371/deriving-the-area-of-a-sector-of-an-ellipse?rq=1
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipticalArcSector(double rX, double rY, double startAngle, double sweepAngle)
             => 0.5d * rX * rY * (Atan(rX * Tan(startAngle) / rY) - Atan(rX * Tan(startAngle + sweepAngle) / rY));
@@ -71,7 +74,8 @@ namespace Engine
         /// Positive number if point is left, negative if point is right, 
         /// and 0 if points are collinear.
         /// </returns>
-        /// <remarks>From Farseer Physics Engine.</remarks>        [DebuggerStepThrough]
+        /// <remarks>From Farseer Physics Engine.</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangle(double aX, double aY, double bX, double bY, double cX, double cY)
             => aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
@@ -81,7 +85,8 @@ namespace Engine
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Rectangle(double width, double height)
             => width * height;
@@ -90,7 +95,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="depth"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Square(double depth)
             => depth * depth;
@@ -110,7 +116,8 @@ namespace Engine
         /// The signed area is negative if the polygon is
         /// oriented clockwise.
         /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>        [DebuggerStepThrough]
+        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Polygon(IEnumerable<Point2D> polygon)
             => Abs(SignedPolygon(polygon as List<Point2D>));
@@ -129,7 +136,8 @@ namespace Engine
         /// oriented clockwise.
         /// </summary>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>        [DebuggerStepThrough]
+        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygon(List<Point2D> polygon)
         {

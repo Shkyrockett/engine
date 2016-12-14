@@ -96,7 +96,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Geometry\Curves\BezierFragment.cs" />
     <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
     <Compile Include="Geometry\Framework\ArrayUtilities.cs" />
     <Compile Include="Geometry\Framework\ExpandableCollectionPropertyDescriptor.cs" />

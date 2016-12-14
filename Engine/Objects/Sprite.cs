@@ -1,4 +1,4 @@
-﻿// <copyright file="Sprite.cs" >
+﻿// <copyright file="Sprite.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

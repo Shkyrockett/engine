@@ -1,4 +1,4 @@
-﻿// <copyright file="AHSV.cs" >
+﻿// <copyright file="AHSV.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -27,8 +27,7 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public AHSV()
             : this(0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSV"/> class.
@@ -93,8 +92,7 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="value">Value color component.</param>
         public AHSV(double hue, double saturation, double value)
             : this(0, hue, saturation, value)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSV"/> class.

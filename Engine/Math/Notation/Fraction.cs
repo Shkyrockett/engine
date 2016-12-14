@@ -1,4 +1,4 @@
-﻿// <copyright file="Fraction.cs" >
+﻿// <copyright file="Fraction.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -6,7 +6,6 @@
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
-
 
 namespace Engine.MathNotation
 {

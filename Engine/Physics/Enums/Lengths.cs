@@ -1,4 +1,4 @@
-﻿// <copyright file="Lengths.cs" >
+﻿// <copyright file="Lengths.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

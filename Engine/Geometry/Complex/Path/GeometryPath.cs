@@ -1,10 +1,10 @@
-﻿// <copyright file="GeometryPath.cs" >
+﻿// <copyright file="GeometryPath.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author>Shkyrockett</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -113,7 +112,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="point"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
             => Containings.Contains(this, point) != Inclusion.Outside;

@@ -1,4 +1,4 @@
-﻿// <copyright file="Times.cs" >
+﻿// <copyright file="Times.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

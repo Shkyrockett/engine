@@ -1,4 +1,4 @@
-﻿// <copyright file="Calories.cs" >
+﻿// <copyright file="Calories.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

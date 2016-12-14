@@ -1,10 +1,10 @@
-﻿// <copyright file="AHSL.cs">
+﻿// <copyright file="AHSL.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author>Shkyrockett</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System.Drawing;
@@ -22,8 +22,8 @@ namespace Engine.Imaging.ColorSpace
         public static readonly AHSL Empty = new AHSL();
 
         /// <summary>
-                                                          /// Alpha color component.
-                                                          /// </summary>
+        /// Alpha color component.
+        /// </summary>
         private double alpha;
 
         /// <summary>
@@ -46,8 +46,7 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public AHSL()
             : this(0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSL"/> class Converted from RGB to HSL.
@@ -61,8 +60,7 @@ namespace Engine.Imaging.ColorSpace
         /// <returns>An HSL value</returns>
         public AHSL(Color color)
             : this(color.A, color.GetHue() / 360.0, color.GetSaturation(), color.GetBrightness())
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSL"/> class.
@@ -72,8 +70,7 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="luminance">Luminance color component.</param>
         public AHSL(double hue, double saturation, double luminance)
             : this(0, hue, saturation, luminance)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSL"/> class.

@@ -1,10 +1,10 @@
-﻿// <copyright file="DisplayNameAttribute.cs">
+﻿// <copyright file="DisplayNameAttribute.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author>Shkyrockett</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <notes></notes>
 // <references>
 //   Based on the information found in the MSDN topic <a href="https://msdn.microsoft.com/library/84c42s56.aspx">Writing Custom Attributes</a>.

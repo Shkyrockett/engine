@@ -1,4 +1,4 @@
-﻿// <copyright file="CIEXYZ.cs" >
+﻿// <copyright file="CIEXYZ.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -19,8 +19,7 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public CIEXYZ()
             : this(0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// 

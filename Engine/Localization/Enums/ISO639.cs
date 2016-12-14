@@ -1,4 +1,4 @@
-﻿// <copyright file="ISO639.cs" >
+﻿// <copyright file="ISO639.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

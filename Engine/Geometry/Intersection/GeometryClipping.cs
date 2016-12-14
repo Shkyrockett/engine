@@ -1,4 +1,4 @@
-﻿// <copyright file="GeometryClipping.cs" >
+﻿// <copyright file="GeometryClipping.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
@@ -32,7 +31,8 @@ namespace Engine
         /// http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
         /// Based on the psuedocode from:
         /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman
-        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
         {
             if (subjectPoly.Count < 3 || clipPoly.Count < 3)

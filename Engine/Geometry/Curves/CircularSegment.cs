@@ -1,4 +1,4 @@
-﻿// <copyright file="CircularSegment.cs" >
+﻿// <copyright file="CircularSegment.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -61,8 +60,7 @@ namespace Engine
         /// </summary>
         public CircularSegment()
             : this(Point2D.Empty, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment"/> class.
@@ -70,16 +68,14 @@ namespace Engine
         /// <param name="triangle"></param>
         public CircularSegment(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment"/> class.
         /// </summary>
         public CircularSegment(Circle circle, double startAngle, double endAngle)
             : this(circle.Center, circle.Radius, startAngle, endAngle)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment"/> class.
@@ -404,7 +400,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(CircularSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);

@@ -1,4 +1,4 @@
-﻿// <copyright file="Range.cs" >
+﻿// <copyright file="Range.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

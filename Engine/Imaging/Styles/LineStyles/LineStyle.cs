@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// <copyright file="LineStyle.cs" company="Shkyrockett" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine
 {

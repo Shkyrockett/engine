@@ -1,4 +1,4 @@
-﻿// <copyright file="BinaryWriterExtensions.cs" >
+﻿// <copyright file="BinaryWriterExtensions.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -29,8 +29,7 @@ namespace Engine.File
         /// <param name="output">The output stream.</param>
         public BinaryWriterExtensions(Stream output)
             : base(output)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the System.IO.BinaryWriterEx class based on the
@@ -40,8 +39,7 @@ namespace Engine.File
         /// <param name="encoding">The character encoding.</param>
         public BinaryWriterExtensions(Stream output, Encoding encoding) :
             base(output, encoding)
-        {
-        }
+        { }
 
         /// <summary>
         /// Gets or sets the position within the current stream.

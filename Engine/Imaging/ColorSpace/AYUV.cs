@@ -1,4 +1,4 @@
-﻿// <copyright file="AYUV.cs" >
+﻿// <copyright file="AYUV.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -47,8 +47,7 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="v">V color component.</param>
         public AYUV(byte y, byte u, byte v)
             : this(0, y, u, v)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AYUV"/> class.

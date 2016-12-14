@@ -1,4 +1,4 @@
-﻿// <copyright file="TestPoint2D.cs" >
+﻿// <copyright file="TestPoint2D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,7 +9,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
@@ -196,7 +195,8 @@ namespace Engine
         /// <returns>
         /// Returns an instance of the <see cref="TestPoint2D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>        public static Point2D Parse(string source)
+        /// </returns>
+        public static Point2D Parse(string source)
         {
             var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
             var value = new Point2D(
@@ -214,14 +214,16 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>        public override int GetHashCode()
+        /// <returns></returns>
+        public override int GetHashCode()
             => X.GetHashCode()
             ^ Y.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="TestPoint2D"/> struct.
         /// </summary>
-        /// <returns></returns>        public override string ToString()
+        /// <returns></returns>
+        public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
@@ -230,7 +232,8 @@ namespace Engine
         /// </summary>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public string ToString(IFormatProvider provider)
+        /// </returns>
+        public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
@@ -243,7 +246,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        string IFormattable.ToString(string format, IFormatProvider provider)
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -256,7 +260,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        internal string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(TestPoint2D);
             char sep = Tokenizer.GetNumericListSeparator(provider);

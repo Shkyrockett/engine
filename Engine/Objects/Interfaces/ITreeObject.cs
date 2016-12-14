@@ -1,4 +1,4 @@
-﻿// <copyright file="ITreeObject.cs" >
+﻿// <copyright file="ITreeObject.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,6 +10,5 @@
 namespace Engine
 {
     internal interface ITreeObject
-    {
-    }
+    { }
 }

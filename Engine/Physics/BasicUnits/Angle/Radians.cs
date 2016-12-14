@@ -1,4 +1,4 @@
-﻿// <copyright file="Radians.cs" >
+﻿// <copyright file="Radians.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,7 +9,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

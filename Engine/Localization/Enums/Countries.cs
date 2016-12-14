@@ -1,4 +1,4 @@
-﻿// <copyright file="Countries.cs" >
+﻿// <copyright file="Countries.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

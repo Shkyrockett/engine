@@ -1,4 +1,4 @@
-﻿// <copyright file="IntersectionType.cs" >
+﻿// <copyright file="IntersectionType.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

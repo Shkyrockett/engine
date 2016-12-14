@@ -1,4 +1,4 @@
-﻿// <copyright file="Vector3D.cs" >
+﻿// <copyright file="Vector3D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

@@ -1,4 +1,4 @@
-﻿// <copyright file="Vector3Lerper.cs" >
+﻿// <copyright file="Vector3Lerper.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 Jacob Albano. All rights reserved.
 // </copyright>
 // <license>

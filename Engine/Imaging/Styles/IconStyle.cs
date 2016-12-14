@@ -1,4 +1,4 @@
-﻿// <copyright file="IconStyle.cs" >
+﻿// <copyright file="IconStyle.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -28,16 +28,14 @@ namespace Engine.Imaging
         /// </summary>
         public IconStyle()
             : this(Pens.Transparent, Pens.Transparent, null, null)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         public IconStyle(Brush foreBrush, Brush backBrush, Font font, Icon icon)
             : this(new Pen(foreBrush), new Pen(backBrush), null, null)
-        {
-        }
+        { }
 
         /// <summary>
         /// 

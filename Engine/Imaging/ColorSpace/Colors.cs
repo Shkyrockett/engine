@@ -1,4 +1,4 @@
-﻿// <copyright file="Colors.cs" >
+﻿// <copyright file="Colors.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

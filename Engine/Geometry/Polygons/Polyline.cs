@@ -1,4 +1,4 @@
-﻿// <copyright file="Polyline.cs" >
+﻿// <copyright file="Polyline.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
@@ -43,8 +42,7 @@ namespace Engine
         /// </summary>
         public Polyline()
             : this(new List<Point2D>())
-        {
-        }
+        { }
 
         /// <summary>
         ///
@@ -52,8 +50,7 @@ namespace Engine
         /// <param name="polygon"></param>
         public Polyline(Polygon polygon)
             : this(polygon.Points)
-        {
-        }
+        { }
 
         /// <summary>
         ///
@@ -61,8 +58,7 @@ namespace Engine
         /// <param name="polyline"></param>
         public Polyline(Polyline polyline)
             : this(polyline.points)
-        {
-        }
+        { }
 
         /// <summary>
         ///
@@ -70,8 +66,7 @@ namespace Engine
         /// <param name="points"></param>
         public Polyline(params Point2D[] points)
             : this(new List<Point2D>(points))
-        {
-        }
+        { }
 
         /// <summary>
         ///
@@ -136,7 +131,8 @@ namespace Engine
 
         /// <summary>
         ///
-        /// </summary>        [XmlIgnore]
+        /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
@@ -144,7 +140,8 @@ namespace Engine
 
         /// <summary>
         ///
-        /// </summary>        [XmlIgnore]
+        /// </summary>
+        [XmlIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -214,7 +211,8 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="offset"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline Offset(double offset)
             => Offsets.Offset(this, offset);
@@ -229,7 +227,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        [DebuggerStepThrough]
+        /// </returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {

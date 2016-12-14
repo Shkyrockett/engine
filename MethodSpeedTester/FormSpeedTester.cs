@@ -1,4 +1,4 @@
-﻿// <copyright file="FormSpeedTester.cs" >
+﻿// <copyright file="FormSpeedTester.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -6,6 +6,7 @@
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -121,8 +122,7 @@ namespace MethodSpeedTester
                 Clipboard.SetDataObject(dataGridView1.GetClipboardContent());
             }
             catch (System.Runtime.InteropServices.ExternalException)
-            {
-            }
+            { }
         }
 
         /// <summary>

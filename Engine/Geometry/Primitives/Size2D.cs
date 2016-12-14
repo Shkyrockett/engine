@@ -1,4 +1,4 @@
-﻿// <copyright file="Size2D.cs" >
+﻿// <copyright file="Size2D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -11,7 +11,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -310,7 +309,8 @@ namespace Engine
         /// Create a Random <see cref="Size2D"/>.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>        public static Size2D Random()
+        /// <remarks></remarks>
+        public static Size2D Random()
             => new Size2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
         /// <summary>
@@ -320,7 +320,8 @@ namespace Engine
         /// <returns>
         /// Returns an instance of the <see cref="Size2D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>        public static Size2D Parse(string source)
+        /// </returns>
+        public static Size2D Parse(string source)
         {
             var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
 
@@ -354,23 +355,27 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>        public override int GetHashCode() => Width.GetHashCode()
+        /// <returns></returns>
+        public override int GetHashCode() => Width.GetHashCode()
     ^ Height.GetHashCode();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>        public Point2D ToPoint2D() => (Point2D)this;
+        /// <returns></returns>
+        public Point2D ToPoint2D() => (Point2D)this;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>        public Size2D Truncate() => new Size2D((int)Width, (int)Height);
+        /// <returns></returns>
+        public Size2D Truncate() => new Size2D((int)Width, (int)Height);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Size2D"/> struct.
         /// </summary>
-        /// <returns></returns>        public override string ToString()
+        /// <returns></returns>
+        public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
@@ -379,7 +384,8 @@ namespace Engine
         /// </summary>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public string ToString(IFormatProvider provider)
+        /// </returns>
+        public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
@@ -392,7 +398,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        string IFormattable.ToString(string format, IFormatProvider provider)
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -405,7 +412,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        internal string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size2D);
             //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);

@@ -1,4 +1,4 @@
-﻿// <copyright file="ShapeStyle.cs" >
+﻿// <copyright file="ShapeStyle.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

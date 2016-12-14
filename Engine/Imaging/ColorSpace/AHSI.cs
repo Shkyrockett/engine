@@ -1,4 +1,4 @@
-﻿// <copyright file="AHSI.cs" >
+﻿// <copyright file="AHSI.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -82,8 +82,7 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="intensity">Intensity color component.</param>
         public AHSI(double hue, double saturation, double intensity)
             : this(0, hue, saturation, intensity)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AHSI"/> class.

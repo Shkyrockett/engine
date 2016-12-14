@@ -1,4 +1,4 @@
-﻿// <copyright file="Line.cs" >
+﻿// <copyright file="Line.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -31,8 +31,7 @@ namespace Engine
         /// <remarks></remarks>
         public Line()
             :this(Point.Empty,Vector2D.Empty)
-        {
-        }
+        { }
 
         /// <summary>
         /// 

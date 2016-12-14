@@ -1,4 +1,4 @@
-﻿// <copyright file="Matrix.cs" >
+﻿// <copyright file="Matrix.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -15,6 +15,5 @@ namespace Engine.MathNotation
     /// </summary>
     public class Matrix
         : GraphicsObject
-    {
-    }
+    { }
 }

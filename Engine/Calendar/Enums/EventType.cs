@@ -1,4 +1,4 @@
-﻿// <copyright file="EventType.cs" >
+﻿// <copyright file="EventType.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,32 +10,32 @@
 namespace Engine.Chrono
 {
     /// <summary>
-    /// 
+    /// Calendar item event types.
     /// </summary>
     public enum EventType
     {
         /// <summary>
-        /// 
+        /// Unknown event.
         /// </summary>
         Unknown = 0,
 
         /// <summary>
-        /// 
+        /// Someone's Birthday.
         /// </summary>
         Birthday,
 
         /// <summary>
-        /// 
+        /// A Genaric Event.
         /// </summary>
         Event,
 
         /// <summary>
-        /// 
+        /// A Holiday.
         /// </summary>
         Holiday,
 
         /// <summary>
-        /// 
+        /// A General Notification.
         /// </summary>
         Notification
     }

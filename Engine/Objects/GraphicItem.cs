@@ -1,4 +1,4 @@
-﻿// <copyright file="GraphicItem.cs" >
+﻿// <copyright file="GraphicItem.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

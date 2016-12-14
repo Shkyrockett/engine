@@ -1,4 +1,4 @@
-﻿// <copyright file="CirclePointTester.Designer.cs" >
+﻿// <copyright file="CirclePointTester.Designer.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -6,6 +6,7 @@
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 namespace MethodSpeedTester
 {

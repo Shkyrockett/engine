@@ -1,4 +1,4 @@
-﻿// <copyright file="RotatedRectangle2D.cs" >
+﻿// <copyright file="RotatedRectangle2D.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;

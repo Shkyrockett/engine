@@ -1,15 +1,14 @@
-﻿// <copyright file="Oval.cs" >
+﻿// <copyright file="Oval.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author>Shkyrockett</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -205,7 +204,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Oval);
             char sep = Tokenizer.GetNumericListSeparator(provider);

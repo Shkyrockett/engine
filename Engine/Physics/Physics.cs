@@ -1,4 +1,4 @@
-﻿// <copyright file="Physics.cs" >
+﻿// <copyright file="Physics.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -13,6 +13,5 @@ namespace Engine.Physics
     ///
     /// </summary>
     public class Physics
-    {
-    }
+    { }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="ColorSpaces.cs" >
+﻿// <copyright file="ColorSpaces.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

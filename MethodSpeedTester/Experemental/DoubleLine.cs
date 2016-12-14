@@ -1,4 +1,4 @@
-﻿// <copyright file="DoubleLine.cs" >
+﻿// <copyright file="DoubleLine.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -32,8 +32,7 @@ namespace Engine
         /// </summary>
         public DoubleLine()
             :this(new List<Point2D>(),new List<Point2D>())
-        {
-        }
+        { }
 
         /// <summary>
         /// 

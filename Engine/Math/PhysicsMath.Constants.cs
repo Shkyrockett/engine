@@ -1,4 +1,4 @@
-﻿// <copyright file="Physics.Constants.cs" >
+﻿// <copyright file="Physics.Constants.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

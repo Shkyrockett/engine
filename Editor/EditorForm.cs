@@ -1,4 +1,4 @@
-﻿// <copyright file="EditorForm.cs" >
+﻿// <copyright file="EditorForm.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

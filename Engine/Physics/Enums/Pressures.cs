@@ -1,4 +1,4 @@
-﻿// <copyright file="Pressures.cs" >
+﻿// <copyright file="Pressures.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -13,6 +13,5 @@ namespace Engine.Physics
     /// 
     /// </summary>
     public enum Pressures
-    {
-    }
+    { }
 }

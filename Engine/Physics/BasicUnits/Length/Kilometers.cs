@@ -1,4 +1,4 @@
-﻿// <copyright file="Kilometers.cs" >
+﻿// <copyright file="Kilometers.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,7 +10,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using static Engine.Physics.LengthUnits;
@@ -275,7 +274,8 @@ namespace Engine.Physics
         /// </summary>
         /// <returns>
         /// A string representation of this <see cref="Kilometers"/> struct.
-        /// </returns>        [DebuggerStepThrough]
+        /// </returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
@@ -291,7 +291,8 @@ namespace Engine.Physics
         /// </param>
         /// <returns>
         /// A string representation of this <see cref="Kilometers"/> struct.
-        /// </returns>        [DebuggerStepThrough]
+        /// </returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
@@ -311,7 +312,8 @@ namespace Engine.Physics
         /// </param>
         /// <returns>
         /// A string representation of this <see cref="Kilometers"/> struct.
-        /// </returns>        [DebuggerStepThrough]
+        /// </returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
@@ -331,7 +333,8 @@ namespace Engine.Physics
         /// </param>
         /// <returns>
         /// A string representation of this <see cref="Kilometers"/> struct.
-        /// </returns>        [DebuggerStepThrough]
+        /// </returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
             => $"{Value.ToString(format, provider)} {Abreviation}";

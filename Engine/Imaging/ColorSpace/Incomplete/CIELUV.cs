@@ -1,4 +1,4 @@
-﻿// <copyright file="CIELUV.cs" >
+﻿// <copyright file="CIELUV.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -19,8 +19,7 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public CIELUV()
             : this(0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// 

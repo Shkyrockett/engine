@@ -1,4 +1,4 @@
-﻿// <copyright file="Vector2DConverter.cs" >
+﻿// <copyright file="Vector2DConverter.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

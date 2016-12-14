@@ -1,4 +1,4 @@
-﻿// <copyright file="CIExyY.cs" >
+﻿// <copyright file="CIExyY.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -19,8 +19,7 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public CIExyY()
             : this(0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -28,7 +27,7 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="x"></param>
         /// <param name="y1"></param>
         /// <param name="y2"></param>
-        public CIExyY(double x,double y1,double y2)
+        public CIExyY(double x, double y1, double y2)
         {
             X = x;
             Y1 = y1;

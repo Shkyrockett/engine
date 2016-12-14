@@ -1,4 +1,4 @@
-﻿// <copyright file="MathBox.cs" >
+﻿// <copyright file="MathBox.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -30,8 +30,6 @@ namespace Engine.MathNotation
         /// 
         /// </summary>
         public void BuildTable()
-        {
-
-        }
+        { }
     }
 }

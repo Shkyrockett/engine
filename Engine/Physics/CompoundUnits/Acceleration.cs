@@ -1,4 +1,4 @@
-﻿// <copyright file="Acceleration.cs" >
+﻿// <copyright file="Acceleration.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

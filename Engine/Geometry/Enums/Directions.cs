@@ -1,4 +1,4 @@
-﻿// <copyright file="Directions.cs" >
+﻿// <copyright file="Directions.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,17 +10,17 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// Text reading direction.
     /// </summary>
     public enum Directions
     {
         /// <summary>
-        /// 
+        /// Right to left reading direction.
         /// </summary>
         RightToLeft,
 
         /// <summary>
-        /// 
+        /// Left to right reading direction.
         /// </summary>
         LeftToRight
     }

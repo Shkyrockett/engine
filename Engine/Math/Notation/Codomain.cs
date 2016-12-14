@@ -1,4 +1,4 @@
-﻿// <copyright file="Codomain.cs" >
+﻿// <copyright file="Codomain.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-
 namespace Engine.MathNotation
 {
     /// <summary>
@@ -15,6 +14,5 @@ namespace Engine.MathNotation
     /// </summary>
     public class Codomain
         : GraphicsObject
-    {
-    }
+    { }
 }

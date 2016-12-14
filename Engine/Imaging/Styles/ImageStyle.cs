@@ -1,4 +1,4 @@
-﻿// <copyright file="ImageStyle.cs" >
+﻿// <copyright file="ImageStyle.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -28,16 +28,14 @@ namespace Engine.Imaging
         /// </summary>
         public ImageStyle()
             : this(Pens.Transparent, Pens.Transparent, null)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         public ImageStyle(Brush foreBrush, Brush backBrush, Image image)
             : this(new Pen(foreBrush), new Pen(backBrush), image)
-        {
-        }
+        { }
 
         /// <summary>
         /// 

@@ -1,4 +1,4 @@
-﻿// <copyright file="ISO3166_3.cs" >
+﻿// <copyright file="ISO3166_3.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

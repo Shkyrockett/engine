@@ -1,4 +1,4 @@
-﻿// <copyright file="Density.cs" >
+﻿// <copyright file="Density.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -7,10 +7,10 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
+using System.ComponentModel;
+
 namespace Engine.Physics
 {
-    using System.ComponentModel;
-
     /// <summary>
     /// 
     /// </summary>

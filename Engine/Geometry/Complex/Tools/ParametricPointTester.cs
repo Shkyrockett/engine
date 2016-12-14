@@ -1,4 +1,4 @@
-﻿// <copyright file="ParametricPointTester.cs" >
+﻿// <copyright file="ParametricPointTester.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

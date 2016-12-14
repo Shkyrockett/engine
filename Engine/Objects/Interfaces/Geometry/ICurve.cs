@@ -1,4 +1,4 @@
-﻿// <copyright file="ICurve.cs" >
+﻿// <copyright file="ICurve.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -13,6 +13,5 @@ namespace Engine
     /// 
     /// </summary>
     public interface ICurve
-    {
-    }
+    { }
 }

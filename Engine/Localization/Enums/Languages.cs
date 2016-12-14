@@ -1,4 +1,4 @@
-﻿// <copyright file="Languages.cs" >
+﻿// <copyright file="Languages.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

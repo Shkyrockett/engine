@@ -1,4 +1,4 @@
-﻿// <copyright file="Polygon.cs" >
+﻿// <copyright file="Polygon.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
@@ -193,7 +192,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="point"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
             => Containings.Contains(this, point) != Inclusion.Outside;
@@ -201,7 +201,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polygon Clone()
             => new Polygon(points.ToArray());
@@ -210,7 +211,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="offset"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual Polygon Offset(double offset)
             => Offsets.Offset(this, offset);
@@ -225,7 +227,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        [DebuggerStepThrough]
+        /// </returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {

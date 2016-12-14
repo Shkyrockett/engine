@@ -1,4 +1,4 @@
-﻿// <copyright file="OccasionDateType.cs" >
+﻿// <copyright file="OccasionDateType.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,7 +10,7 @@
 namespace Engine.Chrono
 {
     /// <summary>
-    /// 
+    /// Ocasion Occurence type.
     /// </summary>
     public enum OccasionDateType
     {

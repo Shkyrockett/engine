@@ -1,4 +1,4 @@
-﻿// <copyright file="PolygonPointTester.Designer.cs" >
+﻿// <copyright file="PolygonPointTester.Designer.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

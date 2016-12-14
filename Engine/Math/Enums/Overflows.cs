@@ -1,4 +1,4 @@
-﻿// <copyright file="Overflows.cs" >
+﻿// <copyright file="Overflows.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

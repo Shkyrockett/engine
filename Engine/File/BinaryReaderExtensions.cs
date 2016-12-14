@@ -1,4 +1,4 @@
-﻿// <copyright file="BinaryReaderExtensions.cs" >
+﻿// <copyright file="BinaryReaderExtensions.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -34,8 +34,7 @@ namespace Engine.File
         /// </exception>
         public BinaryReaderExtensions(Stream input) :
             base(input)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryReaderExtensions"/> class based on the
@@ -50,8 +49,7 @@ namespace Engine.File
         /// <exception cref="System.ArgumentNullException">encoding is null.</exception>
         public BinaryReaderExtensions(Stream input, Encoding encoding) :
             base(input, encoding)
-        {
-        }
+        { }
 
         #endregion
         #region Properties

@@ -1,4 +1,4 @@
-﻿// <copyright file="Bicorn.cs" >
+﻿// <copyright file="Bicorn.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using static System.Math;
 
 namespace Engine
@@ -55,8 +54,7 @@ namespace Engine
         /// </summary>
         public Bicorn()
             : this(new Point2D(), new Size2D())
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -156,7 +154,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Bicorn);
             char sep = Tokenizer.GetNumericListSeparator(provider);

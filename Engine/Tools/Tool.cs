@@ -1,10 +1,10 @@
-﻿// <copyright file="Tool.cs" >
+﻿// <copyright file="Tool.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author>Shkyrockett</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
 namespace Engine.Tools
@@ -95,56 +95,49 @@ namespace Engine.Tools
         /// 
         /// </summary>
         public virtual void Reset()
-        {
-        }
+        { }
 
         /// <summary>
         /// Update the tool with the keys that have been pressed.
         /// </summary>
         /// <param name="obj"></param>
         public virtual void KeyboardKeyDown(ToolStack obj)
-        {
-        }
+        { }
 
         /// <summary>
         /// Update the tool with the keys that have been released.
         /// </summary>
         /// <param name="obj"></param>
         public virtual void KeyboardKeyUp(ToolStack obj)
-        {
-        }
+        { }
 
         /// <summary>
         /// Update tool on mouse down.
         /// </summary>
         /// <param name="tools"></param>
         public virtual void MouseDownUpdate(ToolStack tools)
-        {
-        }
+        { }
 
         /// <summary>
         /// Update Tool on Mouse Move.
         /// </summary>
         /// <param name="tools">The Mouse Move event arguments.</param>
         public virtual void MouseMoveUpdate(ToolStack tools)
-        {
-        }
+        { }
 
         /// <summary>
         /// Update Tool on Mouse UP signal.
         /// </summary>
         /// <param name="tools"></param>
         public virtual void MouseUpUpdate(ToolStack tools)
-        {
-        }
+        { }
 
         /// <summary>
         /// Update Tool on Mouse scroll signal.
         /// </summary>
         /// <param name="tools"></param>
         public virtual void MouseScrollUpdate(ToolStack tools)
-        {
-        }
+        { }
 
         /// <summary>
         /// A string representing a string output of the tool.

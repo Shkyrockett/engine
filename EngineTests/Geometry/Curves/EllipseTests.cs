@@ -1,4 +1,4 @@
-﻿// <copyright file="EllipseTests.cs" >
+﻿// <copyright file="EllipseTests.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -30,32 +30,28 @@ namespace Engine.Tests
         /// <param name="context"></param>
         [ClassInitialize]
         public static void ClassInit(TestContext context)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         [TestInitialize]
         public void Initialize()
-        {
-        }
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         [TestCleanup]
         public void Cleanup()
-        {
-        }
+        { }
 
         /// <summary>
         /// 
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
-        {
-        }
+        { }
 
         /// <summary>
         /// 

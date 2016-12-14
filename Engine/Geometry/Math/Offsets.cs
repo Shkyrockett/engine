@@ -1,4 +1,4 @@
-﻿// <copyright file="Offsets.cs" >
+﻿// <copyright file="Offsets.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -8,7 +8,6 @@
 // <summary></summary>
 
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace Engine
@@ -63,7 +62,8 @@ namespace Engine
         /// <param name="bX"></param>
         /// <param name="bY"></param>
         /// <param name="distance"></param>
-        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x1, double y1, double x2, double y2)
             OffsetSegment(
             double aX, double aY,
@@ -91,7 +91,8 @@ namespace Engine
         /// <param name="distanceX"></param>
         /// <param name="distanceY"></param>
         /// <param name="distanceZ"></param>
-        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x1, double y1, double z1, double x2, double y2, double z2)
             OffsetSegment(
             double aX, double aY, double aZ,
@@ -114,7 +115,8 @@ namespace Engine
         /// Inflate Offsets a <see cref="Circle"/> by the specified amount.
         /// </summary>
         /// <param name="circle"></param>
-        /// <param name="offset"></param>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <param name="offset"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Circle Offset(this Circle circle, double offset)
         {
             return new Circle(circle.X, circle.Y, circle.Radius + offset);
@@ -124,7 +126,8 @@ namespace Engine
         /// Inflate Offsets a <see cref="Ellipse"/> by the specified amount.
         /// </summary>
         /// <param name="ellipse"></param>
-        /// <param name="offset"></param>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <param name="offset"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double offset)
         {
             return new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
@@ -135,7 +138,8 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse"></param>
         /// <param name="r1"></param>
-        /// <param name="r2"></param>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <param name="r2"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double r1, double r2)
         {
             return new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
@@ -146,7 +150,8 @@ namespace Engine
         /// </summary>
         /// <param name="triangle"></param>
         /// <param name="offset"></param>
-        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Triangle Offset(this Triangle triangle, double offset)
         {
             return (Triangle)Offset((Polygon)triangle, offset);
@@ -156,7 +161,8 @@ namespace Engine
         /// Inflate Offsets a <see cref="Rectangle2D"/> by the specified amount.
         /// </summary>
         /// <param name="rectangle"></param>
-        /// <param name="offset"></param>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <param name="offset"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double offset)
         {
             return new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2 * offset), rectangle.Height + (2 * offset));
@@ -167,7 +173,8 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle"></param>
         /// <param name="x"></param>
-        /// <param name="y"></param>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <param name="y"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double x, double y)
         {
             return new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2 * x), rectangle.Height + (2 * y));
@@ -178,7 +185,8 @@ namespace Engine
         /// </summary>
         /// <param name="polyline"></param>
         /// <param name="offset"></param>
-        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polyline Offset(this Polyline polyline, double offset)
         {
             var polygon = new Polyline();
@@ -203,7 +211,8 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"></param>
         /// <param name="offset"></param>
-        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polygon Offset(this Polygon polygon, double offset)
         {
             List<Point2D> points = (polygon.Points as List<Point2D>);

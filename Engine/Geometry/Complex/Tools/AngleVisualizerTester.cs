@@ -1,4 +1,4 @@
-﻿// <copyright file="AngleVisualizerTester.cs" >
+﻿// <copyright file="AngleVisualizerTester.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

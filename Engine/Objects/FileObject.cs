@@ -1,4 +1,4 @@
-﻿// <copyright file="FileObject.cs" >
+﻿// <copyright file="FileObject.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -14,6 +14,5 @@ namespace Engine
     /// </summary>
     public abstract class FileObject
         : IFileObject
-    {
-    }
+    { }
 }

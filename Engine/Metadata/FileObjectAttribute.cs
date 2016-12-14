@@ -1,10 +1,10 @@
-﻿// <copyright file="FileObjectAttribute.cs">
+﻿// <copyright file="FileObjectAttribute.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //      Licensed under the MIT License. See LICENSE file in the project root for full license information. 
 // </license>
-// <author>Shkyrockett</author>
+// <author id="shkyrockett">Shkyrockett</author>
 // <summary>
 //      Meta-data class used to tag a class to capture in a file objects tree.
 // </summary>
@@ -24,6 +24,5 @@ namespace Engine
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class FileObjectAttribute
         : Attribute
-    {
-    }
+    { }
 }

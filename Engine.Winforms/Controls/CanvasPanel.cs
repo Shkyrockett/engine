@@ -1,7 +1,15 @@
-﻿using System;
+﻿// <copyright file="CanvasPanel.cs" company="Shkyrockett" >
+//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
+
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using System.Diagnostics.Contracts;
 using System.Drawing;
 
 namespace Engine.Winforms
@@ -145,7 +153,6 @@ namespace Engine.Winforms
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         protected virtual void OnMouseWheelTilt(MouseEventArgs e)
         {
-            Contract.Requires(e != null);
             ((MouseEventHandler)Events[EventMouseWheelTilt])?.Invoke(this, e);
         }
 
@@ -159,7 +166,6 @@ namespace Engine.Winforms
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         protected override void OnMouseWheel(MouseEventArgs e)
         {
-            Contract.Requires(e != null);
             ((MouseEventHandler)Events[EventMouseWheel])?.Invoke(this, e);
         }
     }

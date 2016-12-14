@@ -1,4 +1,4 @@
-﻿// <copyright file="CirclePointTester.cs" >
+﻿// <copyright file="CirclePointTester.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -6,6 +6,7 @@
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using Engine;
 using Engine.Imaging;
@@ -221,8 +222,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox7_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -230,8 +230,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox8_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -239,8 +238,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox9_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -248,8 +246,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox10_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -257,8 +254,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox12_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -266,8 +262,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox11_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -275,8 +270,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox13_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -284,8 +278,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox14_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -293,8 +286,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox15_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -302,8 +294,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox19_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -311,8 +302,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox20_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -320,8 +310,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox18_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -329,8 +318,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox16_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -338,7 +326,6 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox17_Paint(object sender, PaintEventArgs e)
-        {
-        }
+        { }
     }
 }

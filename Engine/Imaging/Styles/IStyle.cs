@@ -1,4 +1,4 @@
-﻿// <copyright file="IStyle.cs" >
+﻿// <copyright file="IStyle.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

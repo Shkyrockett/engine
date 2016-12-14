@@ -1,4 +1,4 @@
-﻿// <copyright file="Intersection.cs" >
+﻿// <copyright file="Intersection.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -27,8 +27,7 @@ namespace Engine
         /// </summary>
         public Intersection()
             :this(false,new Point2D[] { Point2D.Empty })
-        {
-        }
+        { }
 
         /// <summary>
         /// 

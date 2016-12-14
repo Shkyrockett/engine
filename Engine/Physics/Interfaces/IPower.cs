@@ -1,4 +1,4 @@
-﻿// <copyright file="IPower.cs" >
+﻿// <copyright file="IPower.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

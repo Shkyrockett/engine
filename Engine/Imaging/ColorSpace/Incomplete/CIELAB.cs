@@ -1,4 +1,4 @@
-﻿// <copyright file="CIELAB.cs" >
+﻿// <copyright file="CIELAB.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -19,8 +19,7 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public CIELAB()
             : this(0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the Lightness and Channels A and B color space structure.

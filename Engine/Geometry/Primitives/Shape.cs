@@ -1,4 +1,4 @@
-﻿// <copyright file="Shape.cs">
+﻿// <copyright file="Shape.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright> 
 // <license>
@@ -6,7 +6,6 @@
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
-
 
 namespace Engine
 {

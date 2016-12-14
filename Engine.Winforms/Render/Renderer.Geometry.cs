@@ -1,4 +1,4 @@
-﻿// <copyright file="Renderer.Geometry.cs" >
+﻿// <copyright file="Renderer.Geometry.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

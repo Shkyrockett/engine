@@ -1,4 +1,4 @@
-﻿// <copyright file="Ellipse.cs" >
+﻿// <copyright file="Ellipse.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -65,8 +64,7 @@ namespace Engine
         /// </summary>
         public Ellipse()
             : this(0, 0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Ellipse"/> class.
@@ -112,8 +110,7 @@ namespace Engine
         /// <remarks></remarks>
         public Ellipse(Point2D center, Size2D size, double angle)
             : this(center, size.Width, size.Height, angle)
-        {
-        }
+        { }
 
         #endregion
 
@@ -549,7 +546,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
                 return nameof(Ellipse);

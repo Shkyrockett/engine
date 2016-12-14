@@ -1,4 +1,4 @@
-﻿// <copyright file="Renderer.cs" >
+﻿// <copyright file="Renderer.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

@@ -1,4 +1,4 @@
-﻿// <copyright file="Point3D.cs" >
+﻿// <copyright file="Point3D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

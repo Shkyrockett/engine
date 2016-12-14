@@ -1,4 +1,4 @@
-﻿// <copyright file="Physics.cs" >
+﻿// <copyright file="Physics.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

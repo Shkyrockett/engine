@@ -1,4 +1,4 @@
-﻿// <copyright file="SpeedTester.cs" >
+﻿// <copyright file="SpeedTester.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

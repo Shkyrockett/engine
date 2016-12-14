@@ -1,4 +1,4 @@
-﻿// <copyright file="QuaternionDConverter.cs" >
+﻿// <copyright file="QuaternionDConverter.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

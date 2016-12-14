@@ -1,4 +1,4 @@
-﻿// <copyright file="CircularArc.cs" >
+﻿// <copyright file="CircularArc.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,7 +9,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -60,8 +59,7 @@ namespace Engine
         /// </summary>
         public CircularArc()
             : this(0, 0, 0, 0, 0)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularArc"/> class.
@@ -69,16 +67,14 @@ namespace Engine
         /// <param name="triangle"></param>
         public CircularArc(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularArc"/> class.
         /// </summary>
         public CircularArc(Circle circle, double startAngle, double sweepAngle)
             : this(circle.Center, circle.Radius, startAngle, sweepAngle)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularArc"/> class.
@@ -438,7 +434,8 @@ namespace Engine
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public override string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
                 return nameof(CircularArc);

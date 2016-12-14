@@ -1,4 +1,4 @@
-﻿// <copyright file="AngleConverter.cs" >
+﻿// <copyright file="AngleConverter.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

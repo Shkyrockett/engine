@@ -1,4 +1,4 @@
-﻿// <copyright file="VectorMap.cs" >
+﻿// <copyright file="VectorMap.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -31,8 +31,7 @@ namespace Engine
         /// </summary>
         public VectorMap()
             : this(new List<GraphicItem>())
-        {
-        }
+        { }
 
         /// <summary>
         /// 

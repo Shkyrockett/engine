@@ -1,4 +1,4 @@
-﻿// <copyright file="DateTimeExtentions.cs" company="Shyrockett">
+﻿// <copyright file="DateTimeExtentions.cs" company="Shyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

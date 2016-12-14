@@ -1,4 +1,4 @@
-﻿// <copyright file="Season.cs" >
+﻿// <copyright file="Season.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -10,27 +10,27 @@
 namespace Engine.Chrono
 {
     /// <summary>
-    /// 
+    /// Anual Seasons.
     /// </summary>
     public enum Season
     {
         /// <summary>
-        /// 
+        /// The Spring time.
         /// </summary>
         Spring,
 
         /// <summary>
-        /// 
+        /// Summer time.
         /// </summary>
         Summer,
 
         /// <summary>
-        /// 
+        /// Fall or Autumn.
         /// </summary>
         Autumn,
 
         /// <summary>
-        /// 
+        /// Wintertime.
         /// </summary>
         Winter,
     }

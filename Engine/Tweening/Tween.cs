@@ -1,4 +1,4 @@
-﻿// <copyright file="Tween.cs" >
+﻿// <copyright file="Tween.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 Jacob Albano. All rights reserved.
 // </copyright>
 // <license>

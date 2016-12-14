@@ -1,4 +1,4 @@
-﻿// <copyright file="Degrees.cs" >
+﻿// <copyright file="Degrees.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -9,7 +9,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -202,7 +201,8 @@ namespace Engine.Physics
         /// <returns>
         /// Returns an instance of the <see cref="Degrees"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>        public static Degrees Parse(string source)
+        /// </returns>
+        public static Degrees Parse(string source)
         {
             var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
             var value = new Degrees(Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
@@ -218,17 +218,20 @@ namespace Engine.Physics
         /// <summary>
         /// override object.GetHashCode
         /// </summary>
-        /// <returns></returns>        public override int GetHashCode() => Value.GetHashCode();
+        /// <returns></returns>
+        public override int GetHashCode() => Value.GetHashCode();
 
         /// <summary>
         /// Convert Degrees to Radians.
         /// </summary>
-        /// <returns></returns>        public Radians ToRadian() => Value.ToRadians();
+        /// <returns></returns>
+        public Radians ToRadian() => Value.ToRadians();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Degrees"/> struct.
         /// </summary>
-        /// <returns></returns>        public override string ToString()
+        /// <returns></returns>
+        public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
@@ -237,7 +240,8 @@ namespace Engine.Physics
         /// </summary>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        public string ToString(IFormatProvider provider)
+        /// </returns>
+        public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
@@ -250,7 +254,8 @@ namespace Engine.Physics
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        string IFormattable.ToString(string format, IFormatProvider provider)
+        /// </returns>
+        string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -263,7 +268,8 @@ namespace Engine.Physics
         /// <param name="provider"></param>
         /// <returns>
         /// A string representation of this object.
-        /// </returns>        internal string ConvertToString(string format, IFormatProvider provider)
+        /// </returns>
+        internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Degrees);
             //return string.Format(provider, "{0:" + format + "}°", value);

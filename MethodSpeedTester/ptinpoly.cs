@@ -1,20 +1,25 @@
-﻿/* ptinpoly.c - point in polygon inside/outside code.
-
-   by Eric Haines, 3D/Eye Inc, erich@eye.com
-
-   This code contains the following algorithms:
-	crossings - count the crossing made by a ray from the test point
-	crossings-multiply - as above, but avoids a division; often a bit faster
-	angle summation - sum the angle formed by point and vertex pairs
-	weiler angle summation - sum the angles using quad movements
-	half-plane testing - test triangle fan using half-space planes
-	barycentric coordinates - test triangle fan w/barycentric coords
-	spackman barycentric - preprocessed barycentric coordinates
-	trapezoid testing - bin sorting algorithm
-	grid testing - grid imposed on polygon
-	exterior test - for convex polygons, check exterior of polygon
-	inclusion test - for convex polygons, use binary search for edge.
-*/
+﻿// <copyright file="Ptinpoly.cs" company="3D/Eye" >
+//     Copyright (c)  3D/Eye Inc. All rights reserved.
+// </copyright>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="erich@eye.com">Eric Haines</author>
+// <summary>point in polygon inside/outside code.</summary>
+// <remarks>
+// This code contains the following algorithms:
+// crossings - count the crossing made by a ray from the test point
+// crossings-multiply - as above, but avoids a division; often a bit faster
+// angle summation - sum the angle formed by point and vertex pairs
+// weiler angle summation - sum the angles using quad movements
+// half-plane testing - test triangle fan using half-space planes
+// barycentric coordinates - test triangle fan w/barycentric coords
+// spackman barycentric - preprocessed barycentric coordinates
+// trapezoid testing - bin sorting algorithm
+// grid testing - grid imposed on polygon
+// exterior test - for convex polygons, check exterior of polygon
+// inclusion test - for convex polygons, use binary search for edge.
+// </remarks>
 
 namespace MethodSpeedTester
 {

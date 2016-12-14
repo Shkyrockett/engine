@@ -1,4 +1,4 @@
-﻿// <copyright file="Ease.cs" >
+﻿// <copyright file="Ease.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 Jacob Albano. All rights reserved.
 // </copyright>
 // <license>

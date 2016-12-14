@@ -1,4 +1,4 @@
-﻿// <copyright file="Power.cs" >
+﻿// <copyright file="Power.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>

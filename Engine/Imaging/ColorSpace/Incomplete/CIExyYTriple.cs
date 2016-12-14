@@ -1,4 +1,4 @@
-﻿// <copyright file="CIExyYTriple.cs" >
+﻿// <copyright file="CIExyYTriple.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -19,8 +19,7 @@ namespace Engine.Imaging.ColorSpace
         /// </summary>
         public CIExyYTriple()
             : this(new CIExyY(), new CIExyY(), new CIExyY())
-        {
-        }
+        { }
 
         /// <summary>
         /// 
@@ -28,7 +27,7 @@ namespace Engine.Imaging.ColorSpace
         /// <param name="red"></param>
         /// <param name="green"></param>
         /// <param name="blue"></param>
-        public CIExyYTriple(CIExyY red,CIExyY green,CIExyY blue)
+        public CIExyYTriple(CIExyY red, CIExyY green, CIExyY blue)
         {
             Red = red;
             Green = green;

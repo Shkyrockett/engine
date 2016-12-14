@@ -1,4 +1,4 @@
-﻿// <copyright file="Star.cs" >
+﻿// <copyright file="Star.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -6,6 +6,7 @@
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary>http://csharphelper.com/blog/2014/08/draw-a-star-in-c/</summary>
+// <remarks></remarks>
 
 using System;
 using System.ComponentModel;

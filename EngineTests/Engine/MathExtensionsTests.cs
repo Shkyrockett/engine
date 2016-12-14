@@ -232,7 +232,7 @@ namespace Engine.Tests
 
         [TestMethod]
         [Ignore]
-        public void _Atan2Test()
+        public void Atan2Test()
         {
 #pragma warning disable RCS1079 // Throwing of new NotImplementedException.
             throw new NotImplementedException();

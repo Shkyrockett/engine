@@ -446,11 +446,6 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            // If the object hasn't been initialized yet, for example reading from reflection, return its name.
-            #pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            if (this == null) return nameof(FormatableObject);
-            #pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
-
             // Capture the culture's list ceparator character.
             char sep = Tokenizer.GetNumericListSeparator(provider);
 

@@ -83,6 +83,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
@@ -111,9 +112,16 @@
     <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
     <Compile Include="Geometry\Math\Distances.cs" />
     <Compile Include="Geometry\Primitives\Converters\Matrix2DConverter.cs" />
+    <Compile Include="Math\Maths.Arithmatic.cs" />
+    <Compile Include="Math\Maths.Vectors.cs" />
+    <Compile Include="Math\Maths.Trignometry.cs" />
+    <Compile Include="Math\Maths.Matrix.cs" />
     <Compile Include="Math\Maths.Constants.cs" />
     <Compile Include="Math\Maths.cs" />
     <Compile Include="Math\Primitives\Converters\QuaternionDConverter.cs" />
+    <Compile Include="Math\Primitives\Matrix4x4D.cs" />
+    <Compile Include="Math\Primitives\Matrix3x3D.cs" />
+    <Compile Include="Math\Primitives\Matrix2x2D.cs" />
     <Compile Include="Math\Primitives\Polynomial.cs" />
     <Compile Include="Math\Primitives\Quaternion.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
@@ -286,8 +294,8 @@
     <Compile Include="Physics\CompoundUnits\Work.cs" />
     <Compile Include="Tweening\Ease.cs" />
     <Compile Include="Geometry\Complex\PolylineSet.cs" />
-    <Compile Include="Geometry\Curves\CircularSegment.cs" />
-    <Compile Include="Geometry\Curves\ParametricDelegateCurve.cs" />
+    <Compile Include="Curves\CircularSegment.cs" />
+    <Compile Include="Curves\ParametricDelegateCurve.cs" />
     <Compile Include="Geometry\Primitives\Converters\Size2DConverter.cs" />
     <Compile Include="Geometry\Primitives\Converters\Point2DConverter.cs" />
     <Compile Include="Geometry\Polygons\Converters\Rectangle2DConverter.cs" />
@@ -338,12 +346,12 @@
     <Compile Include="File\Codecs\Palettes\Enums\CorelColorModel.cs" />
     <Compile Include="File\FileEx.cs" />
     <Compile Include="File\FileItem.cs" />
-    <Compile Include="Geometry\Curves\CubicBezier.cs" />
-    <Compile Include="Geometry\Curves\CircularArc.cs" />
-    <Compile Include="Geometry\Curves\Circle.cs" />
-    <Compile Include="Geometry\Curves\Ellipse.cs" />
-    <Compile Include="Geometry\Curves\EllipticalArc.cs" />
-    <Compile Include="Geometry\Curves\Oval.cs" />
+    <Compile Include="Curves\CubicBezier.cs" />
+    <Compile Include="Curves\CircularArc.cs" />
+    <Compile Include="Curves\Circle.cs" />
+    <Compile Include="Curves\Ellipse.cs" />
+    <Compile Include="Curves\EllipticalArc.cs" />
+    <Compile Include="Curves\Oval.cs" />
     <Compile Include="Geometry\Framework\PathExtensions.cs" />
     <Compile Include="Geometry\Complex\PolygonSet.cs" />
     <Compile Include="Geometry\Complex\Tools\SquareDCellGrid.cs" />
@@ -353,7 +361,7 @@
     <Compile Include="Geometry\Primitives\Matrix2D.cs" />
     <Compile Include="Geometry\Enums\MatrixTypes.cs" />
     <Compile Include="Geometry\Enums\IntersectionType.cs" />
-    <Compile Include="Geometry\Curves\QuadraticBezier.cs" />
+    <Compile Include="Curves\QuadraticBezier.cs" />
     <Compile Include="Geometry\Enums\RectangleCorners.cs" />
     <Compile Include="File\Codecs\Palettes\Palette.cs" />
     <Compile Include="File\Codecs\Palettes\Enums\PaletteFileExtensions.cs" />

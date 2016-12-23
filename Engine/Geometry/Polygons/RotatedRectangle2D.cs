@@ -26,7 +26,7 @@ namespace Engine
     public class RotatedRectangle2D
         : Shape, IClosedShape
     {
-        #region Static Implementations
+        #region Static Fields
 
         /// <summary>
         /// 

@@ -239,6 +239,7 @@ To reduce the chance of errors in equality comparisons accross various compariso
 
 ```c#
     public struct ComparableObject
+	    : IEquatable<ComparableObject>
     {
         #region Properties
 
@@ -400,6 +401,41 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
 
         #endregion
 
+        #region Factories
+		
+        /// <summary>
+        /// Parses the provided string using the current culture to create an instance of the <see cref="FormatableObject"/> struct.
+        /// </summary>
+        /// <param name="source">A string containinig the <see cref="FormatableObject"/> data</param>
+        /// <returns>Returns an instance of the <see cref="FormatableObject"/> struct converted from the provided string.</returns>
+        public static FormatableObject Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parses the provided string using the provided culture to create an instance of the <see cref="FormatableObject"/> struct.
+        /// </summary>
+        /// <param name="source">A string containinig the <see cref="FormatableObject"/> data</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>Returns an instance of the <see cref="FormatableObject"/> struct converted from the provided string.</returns>
+        public static FormatableObject Parse(string source, IFormatProvider provider)
+        {
+            // Initialize the tokenizer.
+            var tokenizer = new Tokenizer(source, provider);
+
+            // Fetch the values from the tokens.
+            var value = new FormatableObject(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+
+            return value;
+        }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -451,37 +487,6 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
 
             // Create the string representation of the struct.
             return $"{nameof(FormatableObject)}({nameof(A)}={A.ToString(format, provider)}{sep}{nameof(B)}={B.ToString(format, provider)}{sep}{nameof(C)}={C.ToString(format, provider)})";
-        }
-
-        /// <summary>
-        /// Parses the provided string using the current culture to create an instance of the <see cref="FormatableObject"/> struct.
-        /// </summary>
-        /// <param name="source">A string containinig the <see cref="FormatableObject"/> data</param>
-        /// <returns>Returns an instance of the <see cref="FormatableObject"/> struct converted from the provided string.</returns>
-        public static FormatableObject Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
-
-        /// <summary>
-        /// Parses the provided string using the provided culture to create an instance of the <see cref="FormatableObject"/> struct.
-        /// </summary>
-        /// <param name="source">A string containinig the <see cref="FormatableObject"/> data</param>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
-        /// <returns>Returns an instance of the <see cref="FormatableObject"/> struct converted from the provided string.</returns>
-        public static FormatableObject Parse(string source, IFormatProvider provider)
-        {
-            // Initialize the tokenizer.
-            var tokenizer = new Tokenizer(source, provider);
-
-            // Fetch the values from the tokens.
-            var value = new FormatableObject(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
-
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-
-            return value;
         }
 
         #endregion

@@ -29,9 +29,9 @@ namespace Engine
     //[DisplayName(nameof(Vector4D))]
     //[TypeConverter(typeof(Vector4DConverter))]
     public struct Vector4D
-         : IFormattable
+         : IEquatable<Vector4D>, IFormattable
     {
-        #region Static Implementations
+        #region Static Fields
 
         /// <summary>
         /// An Empty <see cref="Vector4D"/>.
@@ -61,9 +61,7 @@ namespace Engine
         /// <param name="tuple">The X, Y, Z and W values in tupple form.</param>
         /// <remarks></remarks>
         public Vector4D((double X, double Y, double Z, double W) tuple)
-        {
-            (I, J, K, L) = tuple;
-        }
+            => (I, J, K, L) = tuple;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class.

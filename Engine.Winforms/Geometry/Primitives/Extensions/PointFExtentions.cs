@@ -355,7 +355,7 @@ namespace Engine
         /// <returns>The Normal of two Points</returns>
         /// <remarks></remarks>
         public static PointF Normalize(this PointF point, SizeF value)
-            => new Point2D(Maths.Normalize(point.X, point.Y, value.Width, value.Height)).ToPointF();
+            => new Point2D(Maths.Normalize2D(point.X, point.Y, value.Width, value.Height)).ToPointF();
 
         /// <summary>
         /// Calculates the reflection of a point off a line segment

@@ -27,7 +27,7 @@ namespace Engine
     [DisplayName(nameof(Point2D))]
     [TypeConverter(typeof(Point2DConverter))]
     public class Point2D
-        : IFormattable
+        : IEquatable<Point2D>, IFormattable
     {
         #region Implementations
 
@@ -71,9 +71,7 @@ namespace Engine
         /// <remarks></remarks>
         [DebuggerStepThrough]
         public Point2D((double X, double Y) tuple)
-        {
-            (X, Y) = tuple;
-        }
+            => (X, Y) = tuple;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.

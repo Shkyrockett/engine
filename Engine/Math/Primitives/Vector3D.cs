@@ -29,9 +29,9 @@ namespace Engine
     //[DisplayName(nameof(Vector3D))]
     //[TypeConverter(typeof(Vector3DConverter))]
     public struct Vector3D
-         : IFormattable
+         : IEquatable<Vector3D>, IFormattable
     {
-        #region Static Implementations
+        #region Static Fields
 
         /// <summary>
         /// An Empty <see cref="Vector3D"/>.
@@ -61,9 +61,7 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Vector3D((double X, double Y, double Z) tuple)
-        {
-            (I, J, K) = tuple;
-        }
+            => (I, J, K) = tuple;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector3D"/> class.

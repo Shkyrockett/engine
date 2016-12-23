@@ -32,7 +32,7 @@ namespace Engine
     public struct Vector2D
          : IFormattable
     {
-        #region Static Implementations
+        #region Static Fields
 
         /// <summary>
         /// An Empty <see cref="Vector2D"/>.
@@ -51,20 +51,18 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
-        /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
-        public Vector2D(Vector2D vector2D)
-            : this(vector2D.I, vector2D.J)
-        { }
+        /// <param name="tuple"></param>
+        /// <remarks></remarks>
+        public Vector2D((double X, double Y) tuple)
+            => (I, J) = tuple;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <remarks></remarks>
-        public Vector2D((double X, double Y) tuple)
-        {
-            (I, J) = tuple;
-        }
+        /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
+        public Vector2D(Vector2D vector2D)
+            : this(vector2D.I, vector2D.J)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.

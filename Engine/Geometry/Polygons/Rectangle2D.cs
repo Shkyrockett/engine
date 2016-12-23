@@ -27,7 +27,7 @@ namespace Engine
     public class Rectangle2D
         : Shape, IClosedShape
     {
-        #region Static Implementations
+        #region Static Fields
 
         /// <summary>
         ///

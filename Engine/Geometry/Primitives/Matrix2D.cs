@@ -28,9 +28,9 @@ namespace Engine
     [ComVisible(true)]
     [TypeConverter(typeof(Matrix2DConverter))]
     public partial struct Matrix2D
-        : IFormattable
+        : IEquatable<Matrix2D>, IFormattable
     {
-        #region Static Implementations
+        #region Static Fields
 
         /// <summary>
         /// An Empty <see cref="Matrix2D"/>.
@@ -332,14 +332,6 @@ namespace Engine
                              0, 0,
                              MatrixTypes.Identity);
             return matrix;
-        }
-
-        /// <summary>
-        /// Sets the matrix to identity.
-        /// </summary>
-        public void SetIdentity()
-        {
-            type = MatrixTypes.Identity;
         }
 
         /// <summary>
@@ -847,18 +839,14 @@ namespace Engine
         /// </summary>
         /// <param name="matrix"> The Matrix to append to this Matrix </param>
         public void Append(Matrix2D matrix)
-        {
-            this *= matrix;
-        }
+            => this *= matrix;
 
         /// <summary>
         /// Prepend - "this" becomes matrix * this, the same as this = matrix * this.
         /// </summary>
         /// <param name="matrix"> The Matrix to prepend to this Matrix </param>
         public void Prepend(Matrix2D matrix)
-        {
-            this = matrix * this;
-        }
+            => this = matrix * this;
 
         /// <summary>
         /// Rotates this matrix about the origin
@@ -910,9 +898,7 @@ namespace Engine
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         public void Scale(double scaleX, double scaleY)
-        {
-            this *= CreateScaling(scaleX, scaleY);
-        }
+            => this *= CreateScaling(scaleX, scaleY);
 
         /// <summary>
         /// Prepends a scale around the origin to "this"
@@ -920,9 +906,7 @@ namespace Engine
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         public void ScalePrepend(double scaleX, double scaleY)
-        {
-            this = CreateScaling(scaleX, scaleY) * this;
-        }
+            => this = CreateScaling(scaleX, scaleY) * this;
 
         /// <summary>
         /// Scales this matrix around the center provided
@@ -932,9 +916,7 @@ namespace Engine
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
         public void ScaleAt(double scaleX, double scaleY, double centerX, double centerY)
-        {
-            this *= CreateScaling(scaleX, scaleY, centerX, centerY);
-        }
+            => this *= CreateScaling(scaleX, scaleY, centerX, centerY);
 
         /// <summary>
         /// Prepends a scale around the center provided to "this"
@@ -944,9 +926,7 @@ namespace Engine
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
         public void ScaleAtPrepend(double scaleX, double scaleY, double centerX, double centerY)
-        {
-            this = CreateScaling(scaleX, scaleY, centerX, centerY) * this;
-        }
+            => this = CreateScaling(scaleX, scaleY, centerX, centerY) * this;
 
         /// <summary>
         /// Skews this matrix
@@ -1020,9 +1000,7 @@ namespace Engine
         /// <param name='offsetX'>The offset in the x dimension</param>
         /// <param name='offsetY'>The offset in the y dimension</param>
         public void TranslatePrepend(double offsetX, double offsetY)
-        {
-            this = CreateTranslation(offsetX, offsetY) * this;
-        }
+            => this = CreateTranslation(offsetX, offsetY) * this;
 
         /// <summary>
         /// Transform - Transforms each Vector in the array by this matrix.

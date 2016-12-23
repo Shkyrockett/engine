@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
+using System;
 
 namespace Engine
 {
@@ -293,6 +294,81 @@ namespace Engine
             => Add4D(augend.I, augend.J, augend.K, augend.L, addend.I, addend.J, addend.K, addend.L);
 
         /// <summary>
+        /// Used to add two matrices together.
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Add(this Matrix2x2D augend, Matrix2x2D addend)
+            => Add2x2x2x2(
+                augend.M0x0, augend.M0x1,
+                augend.M1x0, augend.M1x1,
+                addend.M0x0, addend.M0x1,
+                addend.M1x0, addend.M1x1);
+
+        /// <summary>
+        /// Used to add two matrices together.
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Add(this Matrix3x3D augend, Matrix3x3D addend)
+            => Add3x3x3x3(
+                augend.M0x0, augend.M0x1, augend.M0x2,
+                augend.M1x0, augend.M1x1, augend.M1x2,
+                augend.M2x0, augend.M2x1, augend.M2x2,
+                addend.M0x0, addend.M0x1, addend.M0x2,
+                addend.M1x0, addend.M1x1, addend.M1x2,
+                addend.M2x0, addend.M2x1, addend.M2x2);
+
+        /// <summary>
+        /// Used to add two matrices together.
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Add(this Matrix4x4D augend, Matrix4x4D addend)
+            => Add4x4x4x4(
+                augend.M0x0, augend.M0x1, augend.M0x2, augend.M0x3,
+                augend.M1x0, augend.M1x1, augend.M1x2, augend.M1x3,
+                augend.M2x0, augend.M2x1, augend.M2x2, augend.M2x3,
+                augend.M3x0, augend.M3x1, augend.M3x2, augend.M3x3,
+                addend.M0x0, addend.M0x1, addend.M0x2, addend.M0x3,
+                addend.M1x0, addend.M1x1, addend.M1x2, addend.M1x3,
+                addend.M2x0, addend.M2x1, addend.M2x2, addend.M2x3,
+                addend.M3x0, addend.M3x1, addend.M3x2, addend.M3x3);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Add(this QuaternionD augend, double addend)
+            => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Add(this QuaternionD augend, QuaternionD addend)
+            => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend.X, addend.Y, addend.Z, addend.W);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="augend"></param>
@@ -315,6 +391,93 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Add(this LineSegment augend, LineSegment addend)
             => Add4D(augend.AX, augend.AY, augend.BX, augend.BY, addend.AX, addend.AY, addend.BX, addend.BY);
+
+        #endregion
+
+        #region Adjoint
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Adjoint(this Matrix2x2D source)
+            => new Matrix2x2D(
+                source.M1x1,
+                -source.M0x1,
+                -source.M1x0,
+                source.M0x0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Adjoint(this Matrix3x3D source)
+            => new Matrix3x3D(
+                (source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1),
+                (-(source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1)),
+                (source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1),
+                (-(source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0)),
+                (source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0),
+                (-(source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0)),
+                (source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0),
+                (-(source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0)),
+                (source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0));
+
+        /// <summary>
+        /// Used to generate the adjoint of this matrix.
+        /// </summary>
+        /// <returns>The adjoint matrix of the current instance.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Adjoint(this Matrix4x4D source)
+        {
+            double m22m33m32m23 = (source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3);
+            double m21m33m31m23 = (source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3);
+            double m21m32m31m22 = (source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2);
+
+            double m12m33m32m13 = (source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3);
+            double m11m33m31m13 = (source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3);
+            double m11m32m31m12 = (source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2);
+
+            double m12m23m22m13 = (source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3);
+            double m11m23m21m13 = (source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3);
+            double m11m22m21m12 = (source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2);
+
+            double m20m33m30m23 = (source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3);
+            double m20m32m30m22 = (source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2);
+            double m10m33m30m13 = (source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3);
+
+            double m10m32m30m12 = (source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2);
+            double m10m23m20m13 = (source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3);
+            double m10m22m20m12 = (source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2);
+
+            double m20m31m30m21 = (source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1);
+            double m10m31m30m11 = (source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1);
+            double m10m21m20m11 = (source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1);
+
+            return new Matrix4x4D(
+                (source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22),
+                (-(source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22)),
+                (source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12),
+                (-(source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12)),
+                (-(source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22)),
+                (source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22),
+                (-(source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12)),
+                (source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12),
+                (source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21),
+                (-(source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21)),
+                (source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21),
+                (-(source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11)),
+                (-(source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21)),
+                (source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21),
+                (-(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
+                (source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
+        }
 
         #endregion
 
@@ -354,6 +517,122 @@ namespace Engine
         /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
         public static Point2D Center(this Rectangle2D rectangle)
             => new Point2D((0.5f * rectangle.Width) + rectangle.X, (0.5f * rectangle.Height) + rectangle.Y);
+
+        #endregion
+
+        #region Cofactor
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Cofactor(this Matrix2x2D source)
+            => new Matrix2x2D(
+                -source.M1x1,
+                source.M0x1,
+                source.M1x0,
+                -source.M0x0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Cofactor(this Matrix3x3D source)
+            => new Matrix3x3D(
+                (-(source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1)),
+                ((source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1)),
+                (-(source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1)),
+                ((source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0)),
+                (-(source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0)),
+                ((source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0)),
+                (-(source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0)),
+                ((source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0)),
+                (-(source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Cofactor(this Matrix4x4D source)
+        {
+            double m22m33m32m23 = (source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3);
+            double m21m33m31m23 = (source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3);
+            double m21m32m31m22 = (source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2);
+            double m12m33m32m13 = (source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3);
+
+            double m11m33m31m13 = (source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3);
+            double m11m32m31m12 = (source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2);
+            double m12m23m22m13 = (source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3);
+            double m11m23m21m13 = (source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3);
+
+            double m11m22m21m12 = (source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2);
+            double m20m33m30m23 = (source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3);
+            double m20m32m30m22 = (source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2);
+            double m10m33m30m13 = (source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3);
+
+            double m10m32m30m12 = (source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2);
+            double m10m23m20m13 = (source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3);
+            double m10m22m20m12 = (source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2);
+            double m20m31m30m21 = (source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1);
+
+            double m10m31m30m11 = (source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1);
+            double m10m21m20m11 = (source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1);
+
+            return new Matrix4x4D(
+                (-(source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22)),
+                ((source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22)),
+                (-(source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12)),
+                ((source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12)),
+                ((source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22)),
+                (-(source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22)),
+                ((source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12)),
+                (-(source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12)),
+                (-(source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21)),
+                ((source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21)),
+                (-(source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21)),
+                ((source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11)),
+                ((source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21)),
+                (-(source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21)),
+                ((source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
+                (-(source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11)));
+
+        }
+
+        #endregion
+
+        #region Concatenate
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static QuaternionD Concatenate(this QuaternionD a, QuaternionD b)
+            => new QuaternionD(
+                ((b.X * a.W) + (a.X * b.W)) + ((b.Y * a.Z) - (b.Z * a.Y)),
+                ((b.Y * a.W) + (a.Y * b.W)) + ((b.Z * a.X) - (b.X * a.Z)),
+                ((b.Z * a.W) + (a.Z * b.W)) + ((b.X * a.Y) - (b.Y * a.X)),
+                (b.W * a.W) - (((b.X * a.X) + (b.Y * a.Y)) + (b.Z * a.Z)));
+
+        #endregion
+
+        #region Conjugate
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static QuaternionD Conjugate(this QuaternionD value)
+            => new QuaternionD(-value.X, -value.Y, -value.Z, value.W);
 
         #endregion
 
@@ -481,6 +760,18 @@ namespace Engine
 
         #endregion
 
+        #region Determinent
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static double Determinant(this Matrix2x2D source)
+            => (source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0);
+
+        #endregion
+
         #region Divide
 
         /// <summary>
@@ -537,6 +828,35 @@ namespace Engine
         /// <remarks></remarks>
         public static double Divide(this Vector2D Value1, Vector2D Value2)
             => Value1.DotProduct(Value2.Invert());
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion1"></param>
+        /// <param name="quaternion2"></param>
+        /// <returns></returns>
+        public static QuaternionD Divide(this QuaternionD quaternion1, QuaternionD quaternion2)
+        {
+            double x = quaternion1.X;
+            double y = quaternion1.Y;
+            double z = quaternion1.Z;
+            double w = quaternion1.W;
+            double num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
+            double num5 = 1f / num14;
+            double num4 = -quaternion2.X * num5;
+            double num3 = -quaternion2.Y * num5;
+            double num2 = -quaternion2.Z * num5;
+            double num = quaternion2.W * num5;
+            double num13 = (y * num2) - (z * num3);
+            double num12 = (z * num4) - (x * num2);
+            double num11 = (x * num3) - (y * num4);
+            double num10 = ((x * num4) + (y * num3)) + (z * num2);
+            return new QuaternionD(
+                ((x * num) + (num4 * w)) + num13,
+                ((y * num) + (num3 * w)) + num12,
+                ((z * num) + (num2 * w)) + num11,
+                (w * num) - num10);
+        }
 
         #endregion
 
@@ -633,6 +953,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D vector, Vector2D value)
             => Maths.DotProduct(vector.I, vector.J, value.I, value.J);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion1"></param>
+        /// <param name="quaternion2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(this QuaternionD quaternion1, QuaternionD quaternion2)
+            => ((((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W));
+
 
         #endregion
 
@@ -812,6 +1144,187 @@ namespace Engine
         public static Vector2D Invert(this Vector2D value)
             => Invert(value.I, value.J);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static Matrix2x2D Invert(this Matrix2x2D source)
+        {
+            double m11 = source.M1x1;
+            double detInv = 1 / (source.M0x0 * m11 - source.M0x1 * source.M1x0);
+            return new Matrix2x2D(
+                detInv * m11,
+                detInv * -source.M0x1,
+                detInv * -source.M1x0,
+                detInv * source.M0x0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        public static Matrix3x3D Invert(this Matrix3x3D source)
+        {
+            double m11m22m12m21 = (source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1);
+            double m10m22m12m20 = (source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0);
+            double m10m21m11m20 = (source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0);
+            double detInv = 1 / (source.M0x0 * (m11m22m12m21) - source.M0x1 * (m10m22m12m20) + source.M0x2 * (m10m21m11m20));
+            return new Matrix3x3D(
+                detInv * (m11m22m12m21),
+                detInv * (-(source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1)),
+                detInv * (source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1),
+                detInv * (-(m10m22m12m20)),
+                detInv * (source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0),
+                detInv * (-(source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0)),
+                detInv * (m10m21m11m20),
+                detInv * (-(source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0)),
+                detInv * (source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        public static Matrix4x4D Invert(this Matrix4x4D source)
+        {
+            double m22m33m32m23 = (source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3);
+            double m21m33m31m23 = (source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3);
+            double m21m32m31m22 = (source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2);
+
+            double m12m33m32m13 = (source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3);
+            double m11m33m31m13 = (source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3);
+            double m11m32m31m12 = (source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2);
+
+            double m12m23m22m13 = (source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3);
+            double m11m23m21m13 = (source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3);
+            double m11m22m21m12 = (source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2);
+
+            double m20m33m30m23 = (source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3);
+            double m20m32m30m22 = (source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2);
+            double m10m33m30m13 = (source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3);
+
+            double m10m32m30m12 = (source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2);
+            double m10m23m20m13 = (source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3);
+            double m10m22m20m12 = (source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2);
+
+            double m20m31m30m21 = (source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1);
+            double m10m31m30m11 = (source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1);
+            double m10m21m20m11 = (source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1);
+
+
+            double detInv = 1 /
+            (source.M0x0 * (source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22) -
+            source.M0x1 * (source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22) +
+            source.M0x2 * (source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21) -
+            source.M0x3 * (source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21));
+
+            return new Matrix4x4D(
+                detInv * (source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22),
+                detInv * (-(source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22)),
+                detInv * (source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12),
+                detInv * (-(source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12)),
+                detInv * (-(source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22)),
+                detInv * (source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22),
+                detInv * (-(source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12)),
+                detInv * (source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12),
+                detInv * (source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21),
+                detInv * (-(source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21)),
+                detInv * (source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21),
+                detInv * (-(source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11)),
+                detInv * (-(source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21)),
+                detInv * (source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21),
+                detInv * (-(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
+                detInv * (source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
+        }
+
+        #endregion
+
+        #region Inverse
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        public static QuaternionD Inverse(QuaternionD quaternion)
+        {
+            double num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+            double num = 1f / num2;
+            return new QuaternionD(
+                -quaternion.X * num,
+                -quaternion.Y * num,
+                -quaternion.Z * num,
+                quaternion.W * num);
+        }
+
+        #endregion
+
+        #region Length
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        public static double Length(this QuaternionD quaternion)
+            => Sqrt(LengthSquared(quaternion));
+
+        #endregion
+
+        #region Length Squared
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        public static double LengthSquared(this QuaternionD quaternion)
+            => ((((quaternion.X * quaternion.X)
+            + (quaternion.Y * quaternion.Y))
+            + (quaternion.Z * quaternion.Z))
+            + (quaternion.W * quaternion.W));
+
+        #endregion
+
+        #region Lerp
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion1"></param>
+        /// <param name="quaternion2"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public static QuaternionD Lerp(this QuaternionD quaternion1, QuaternionD quaternion2, double amount)
+        {
+            double num = amount;
+            double num2 = 1f - num;
+            QuaternionD quaternion = new QuaternionD();
+            double num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            if (num5 >= 0f)
+            {
+                quaternion.X = (num2 * quaternion1.X) + (num * quaternion2.X);
+                quaternion.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
+                quaternion.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
+                quaternion.W = (num2 * quaternion1.W) + (num * quaternion2.W);
+            }
+            else
+            {
+                quaternion.X = (num2 * quaternion1.X) - (num * quaternion2.X);
+                quaternion.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
+                quaternion.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
+                quaternion.W = (num2 * quaternion1.W) - (num * quaternion2.W);
+            }
+            double num4 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+            double num3 = 1f / Sqrt(num4);
+            quaternion.X *= num3;
+            quaternion.Y *= num3;
+            quaternion.Z *= num3;
+            quaternion.W *= num3;
+            return quaternion;
+        }
+
         #endregion
 
         #region Modulus
@@ -839,6 +1352,312 @@ namespace Engine
         public static Point2D Multiply(this Point2D point, Matrix2D matrix)
             => matrix.Transform(point);
 
+        /// <summary>
+        /// Used to multiply a Matrix2x2 object by a scalar value.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Multiply(this Matrix2x2D left, double scalar)
+            => new Matrix2x2D(
+            left.M0x0 * scalar,
+            left.M0x1 * scalar,
+            left.M1x0 * scalar,
+            left.M1x1 * scalar);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two Matrix2x2s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Multiply(this Matrix2x2D left, Matrix2x2D right)
+            => new Matrix2x2D(
+            left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0,
+            left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1,
+            left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0,
+            left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1);
+
+        /// <summary>
+        /// Used to multiply a Matrix3x3 object by a scalar value.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Multiply(this Matrix3x3D left, double scalar)
+            => new Matrix3x3D(
+                left.M0x0 * scalar,
+                left.M0x1 * scalar,
+                left.M0x2 * scalar,
+                left.M1x0 * scalar,
+                left.M1x1 * scalar,
+                left.M1x2 * scalar,
+                left.M2x0 * scalar,
+                left.M2x1 * scalar,
+                left.M2x2 * scalar);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two Matrix3x3s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Multiply(this Matrix3x3D left, Matrix2x2D right)
+            => new Matrix3x3D(
+                left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0,
+                left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1,
+                left.M0x2,
+                left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0,
+                left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1,
+                left.M1x2,
+                left.M2x0 * right.M0x0 + left.M2x1 * right.M1x0,
+                left.M2x0 * right.M0x1 + left.M2x1 * right.M1x1,
+                left.M2x2);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two Matrix3x3s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Multiply(this Matrix2x2D left, Matrix3x3D right)
+            => new Matrix3x3D(
+                left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0,
+                left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1,
+                left.M0x0 * right.M0x2 + left.M0x1 * right.M1x2,
+                left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0,
+                left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1,
+                left.M1x0 * right.M0x2 + left.M1x1 * right.M1x2,
+                right.M2x0,
+                right.M2x1,
+                right.M2x2);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two <see cref="Matrix3x3D"/>s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Multiply(this Matrix3x3D left, Matrix3x3D right)
+            => new Matrix3x3D(
+                left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0 + left.M0x2 * right.M2x0,
+                left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1 + left.M0x2 * right.M2x1,
+                left.M0x0 * right.M0x2 + left.M0x1 * right.M1x2 + left.M0x2 * right.M2x2,
+                left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0 + left.M1x2 * right.M2x0,
+                left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1 + left.M1x2 * right.M2x1,
+                left.M1x0 * right.M0x2 + left.M1x1 * right.M1x2 + left.M1x2 * right.M2x2,
+                left.M2x0 * right.M0x0 + left.M2x1 * right.M1x0 + left.M2x2 * right.M2x0,
+                left.M2x0 * right.M0x1 + left.M2x1 * right.M1x1 + left.M2x2 * right.M2x1,
+                left.M2x0 * right.M0x2 + left.M2x1 * right.M1x2 + left.M2x2 * right.M2x2);
+
+        /// <summary>
+        /// Used to multiply a Matrix4x4 object by a scalar value.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(this Matrix4x4D left, double scalar)
+            => Scale4x4(
+                left.M0x0, left.M0x1, left.M0x2, left.M0x3,
+                left.M1x0, left.M1x1, left.M1x2, left.M1x3,
+                left.M2x0, left.M2x1, left.M2x2, left.M2x3,
+                left.M3x0, left.M3x1, left.M3x2, left.M3x3,
+                scalar);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(this Matrix2x2D left, Matrix4x4D right)
+            => Multiply2x2x4x4(
+                left.M0x0, left.M0x1,
+                left.M1x0, left.M1x1,
+                right.M0x0, right.M0x1, right.M0x2, right.M0x3,
+                right.M1x0, right.M1x1, right.M1x2, right.M1x3,
+                right.M2x0, right.M2x1, right.M2x2, right.M2x3,
+                right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(this Matrix3x3D left, Matrix4x4D right)
+            => Multiply3x3x4x4(
+                left.M0x0, left.M0x1, left.M0x2,
+                left.M1x0, left.M1x1, left.M1x2,
+                left.M2x0, left.M2x1, left.M2x2,
+                right.M0x0, right.M0x1, right.M0x2, right.M0x3,
+                right.M1x0, right.M1x1, right.M1x2, right.M1x3,
+                right.M2x0, right.M2x1, right.M2x2, right.M2x3,
+                right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(this Matrix4x4D left, Matrix2x2D right)
+            => Multiply4x4x2x2(
+                left.M0x0, left.M0x1, left.M0x2, left.M0x3,
+                left.M1x0, left.M1x1, left.M1x2, left.M1x3,
+                left.M2x0, left.M2x1, left.M2x2, left.M2x3,
+                left.M3x0, left.M3x1, left.M3x2, left.M3x3,
+                right.M0x0, right.M0x1,
+                right.M1x0, right.M1x1);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(this Matrix4x4D left, Matrix3x3D right)
+            => Multiply4x4x3x3(
+                left.M0x0, left.M0x1, left.M0x2, left.M0x3,
+                left.M1x0, left.M1x1, left.M1x2, left.M1x3,
+                left.M2x0, left.M2x1, left.M2x2, left.M2x3,
+                left.M3x0, left.M3x1, left.M3x2, left.M3x3,
+                right.M0x0, right.M0x1, right.M0x2,
+                right.M1x0, right.M1x1, right.M1x2,
+                right.M2x0, right.M2x1, right.M2x2);
+
+        /// <summary>
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(this Matrix4x4D left, Matrix4x4D right)
+            => Multiply4x4x4x4(
+                left.M0x0, left.M0x1, left.M0x2, left.M0x3,
+                left.M1x0, left.M1x1, left.M1x2, left.M1x3,
+                left.M2x0, left.M2x1, left.M2x2, left.M2x3,
+                left.M3x0, left.M3x1, left.M3x2, left.M3x3,
+                right.M0x0, right.M0x1, right.M0x2, right.M0x3,
+                right.M1x0, right.M1x1, right.M1x2, right.M1x3,
+                right.M2x0, right.M2x1, right.M2x2, right.M2x3,
+                right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion1"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        public static QuaternionD Scale(this QuaternionD quaternion1, double scalar)
+            => new QuaternionD(
+                quaternion1.X * scalar,
+                quaternion1.Y * scalar,
+                quaternion1.Z * scalar,
+                quaternion1.W * scalar);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion1"></param>
+        /// <param name="quaternion2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Multiply(this QuaternionD quaternion1, QuaternionD quaternion2)
+        {
+            double x = quaternion1.X;
+            double y = quaternion1.Y;
+            double z = quaternion1.Z;
+            double w = quaternion1.W;
+            double num4 = quaternion2.X;
+            double num3 = quaternion2.Y;
+            double num2 = quaternion2.Z;
+            double num = quaternion2.W;
+            double num12 = (y * num2) - (z * num3);
+            double num11 = (z * num4) - (x * num2);
+            double num10 = (x * num3) - (y * num4);
+            double num9 = ((x * num4) + (y * num3)) + (z * num2);
+            return new QuaternionD (
+                ((x * num) + (num4 * w)) + num12,
+                ((y * num) + (num3 * w)) + num11,
+                ((z * num) + (num2 * w)) + num10,
+                (w * num) - num9);
+        }
+
+        #endregion
+
+        #region Negate
+
+        /// <summary>
+        ///	Negates a <see cref="Matrix2x2D"/>.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static Matrix2x2D Negate(this Matrix2x2D source)
+            => Maths.Negate(
+                source.M0x0, source.M0x1,
+                source.M1x0, source.M1x1);
+
+        /// <summary>
+        ///	Negates a <see cref="Matrix3x3D"/>.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static Matrix3x3D Negate(this Matrix3x3D source)
+            => Maths.Negate(
+                source.M0x0, source.M0x1, source.M0x2,
+                source.M1x0, source.M1x1, source.M1x2,
+                source.M2x0, source.M2x1, source.M2x2);
+
+        /// <summary>
+        ///	Negates a <see cref="Matrix4x4D"/>.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static Matrix4x4D Negate(this Matrix4x4D source)
+            => Maths.Negate(
+                source.M0x0, source.M0x1, source.M0x2, source.M0x3,
+                source.M1x0, source.M1x1, source.M1x2, source.M1x3,
+                source.M2x0, source.M2x1, source.M2x2, source.M2x3,
+                source.M3x0, source.M3x1, source.M3x2, source.M3x3);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        public static QuaternionD Negate(QuaternionD quaternion)
+            => new QuaternionD(
+                -quaternion.X,
+                -quaternion.Y,
+                -quaternion.Z,
+                -quaternion.W);
+
         #endregion
 
         #region Normalize
@@ -851,7 +1670,50 @@ namespace Engine
         /// <returns>The Normal of two Points</returns>
         /// <remarks></remarks>
         public static Point2D Normalize(this Point2D point, Size2D value)
-            => new Point2D(Maths.Normalize(point.X, point.Y, value.Width, value.Height));
+            => Normalize2D(point.X, point.Y, value.Width, value.Height);
+
+        /// <summary>
+        /// This returns the Normalized Vector3D that is passed. This is also known as a Unit Vector.
+        /// </summary>
+        /// <param name="source">The Vector3D to be Normalized.</param>
+        /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
+        /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        public static Vector2D Normalize(this Vector2D source)
+            => Normalize2D(source.I, source.J);
+
+        /// <summary>
+        /// This returns the Normalized Vector3D that is passed. This is also known as a Unit Vector.
+        /// </summary>
+        /// <param name="source">The Vector3D to be Normalized.</param>
+        /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
+        /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        public static Vector3D Normalize(this Vector3D source)
+            => Normalize3D(source.I, source.J, source.K);
+
+        /// <summary>
+        /// This returns the Normalized Vector3D that is passed. This is also known as a Unit Vector.
+        /// </summary>
+        /// <param name="source">The Vector3D to be Normalized.</param>
+        /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
+        /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        public static Vector4D Normalize(this Vector4D source)
+            => Normalize4D(source.I, source.J, source.K, source.L);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        public static QuaternionD Normalize(this QuaternionD quaternion)
+        {
+            double num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+            double num = 1f / Sqrt(num2);
+            return new QuaternionD(
+                quaternion.X * num,
+                quaternion.Y * num,
+                quaternion.Z * num,
+                quaternion.W * num);
+        }
 
         #endregion
 
@@ -946,9 +1808,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         public static void Reverse(this LineSegment segment)
-        {
-            segment.Points.Reverse();
-        }
+            => segment.Points.Reverse();
 
         #endregion
 
@@ -1109,6 +1969,48 @@ namespace Engine
 
         #endregion
 
+        #region Slerp
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion1"></param>
+        /// <param name="quaternion2"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public static QuaternionD Slerp(this QuaternionD quaternion1, QuaternionD quaternion2, double amount)
+        {
+            double num2;
+            double num3;
+            double num = amount;
+            double num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            bool flag = false;
+            if (num4 < 0f)
+            {
+                flag = true;
+                num4 = -num4;
+            }
+            if (num4 > 0.999999f)
+            {
+                num3 = 1f - num;
+                num2 = flag ? -num : num;
+            }
+            else
+            {
+                double num5 = Acos(num4);
+                double num6 = 1.0 / Sin(num5);
+                num3 = Sin((1f - num) * num5) * num6;
+                num2 = flag ? -Sin(num * num5) * num6 : Sin(num * num5) * num6;
+            }
+            return new QuaternionD(
+                (num3 * quaternion1.X) + (num2 * quaternion2.X),
+                (num3 * quaternion1.Y) + (num2 * quaternion2.Y),
+                (num3 * quaternion1.Z) + (num2 * quaternion2.Z),
+                (num3 * quaternion1.W) + (num2 * quaternion2.W));
+        }
+
+        #endregion
+
         #region Slope
 
         /// <summary>
@@ -1152,6 +2054,8 @@ namespace Engine
         /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
         /// <param name="subtrahend">The amount to reduce the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Subtract(this Point2D minuend, double subtrahend)
             => Subtract2D(minuend.X, minuend.Y, subtrahend);
 
@@ -1161,6 +2065,8 @@ namespace Engine
         /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
         /// <param name="subtrahend">The amount to reduce the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Point2D minuend, Point2D subtrahend)
             => Subtract2D(minuend.X, minuend.Y, subtrahend.X, subtrahend.Y);
 
@@ -1170,6 +2076,8 @@ namespace Engine
         /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
         /// <param name="subtrahend">The amount to reduce the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Subtract(this Point2D minuend, Size2D subtrahend)
             => Subtract2D(minuend.X, minuend.Y, subtrahend.Width, subtrahend.Height);
 
@@ -1179,6 +2087,8 @@ namespace Engine
         /// <param name="minuend">The <see cref="Point2D"/> to reduce.</param>
         /// <param name="subtrahend">The amount to reduce the <see cref="Vector2D"/>.</param>
         /// <returns>Returns a <see cref="Point2D"/> structure reduced by the amount provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Subtract(this Point2D minuend, Vector2D subtrahend)
             => Subtract2D(minuend.X, minuend.Y, subtrahend.I, subtrahend.J);
 
@@ -1188,6 +2098,8 @@ namespace Engine
         /// <param name="minuend">The <see cref="Size2D"/> to reduce.</param>
         /// <param name="subtrahend">The amount to reduce the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure reduced by the amount provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Subtract(this Size2D minuend, double subtrahend)
             => Subtract2D(minuend.Width, minuend.Height, subtrahend, subtrahend);
 
@@ -1197,6 +2109,8 @@ namespace Engine
         /// <param name="minuend">The <see cref="Size2D"/> to reduce.</param>
         /// <param name="subtrahend">The amount to reduce the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure reduced by the amount provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Subtract(this Size2D minuend, Point2D subtrahend)
             => Subtract2D(minuend.Width, minuend.Height, subtrahend.X, subtrahend.Y);
 
@@ -1206,6 +2120,8 @@ namespace Engine
         /// <param name="minuend">The <see cref="Size2D"/> to reduce.</param>
         /// <param name="subtrahend">The amount to reduce the <see cref="Size2D"/>.</param>
         /// <returns>Returns a <see cref="Size2D"/> structure reduced by the amount provided.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Subtract(this Size2D minuend, Size2D subtrahend)
             => Subtract2D(minuend.Width, minuend.Height, subtrahend.Width, subtrahend.Height);
 
@@ -1216,6 +2132,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Vector2D minuend, double subtrahend)
             => Subtract2D(minuend.I, minuend.J, subtrahend);
 
@@ -1226,6 +2144,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Subtract(this Vector2D minuend, Point subtrahend)
             => new PointF((float)(minuend.I - subtrahend.X), (float)(minuend.J - subtrahend.Y));
 
@@ -1236,6 +2156,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Subtract(this Vector2D minuend, Point2D subtrahend)
             => Subtract2D(minuend.I, minuend.J, subtrahend.X, subtrahend.Y);
 
@@ -1246,6 +2168,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Subtract(this Vector2D minuend, PointF subtrahend)
             => new PointF((float)(minuend.I - subtrahend.X), (float)(minuend.J - subtrahend.Y));
 
@@ -1256,6 +2180,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Vector2D minuend, Size subtrahend)
             => Subtract2D(minuend.I, minuend.J, subtrahend.Width, subtrahend.Height);
 
@@ -1266,6 +2192,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Vector2D minuend, SizeF subtrahend)
             => Subtract2D(minuend.I, minuend.J, subtrahend.Width, subtrahend.Height);
 
@@ -1276,6 +2204,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Vector2D minuend, Vector2D subtrahend)
             => Subtract2D(minuend.I, minuend.J, subtrahend.I, subtrahend.J);
 
@@ -1286,6 +2216,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Subtract(this Vector3D minuend, double subtrahend)
             => Subtract3D(minuend.I, minuend.J, minuend.K, subtrahend);
 
@@ -1296,6 +2228,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Subtract(this Vector3D minuend, Point3D subtrahend)
             => Subtract3D(minuend.I, minuend.J, minuend.K, subtrahend.X, subtrahend.Y, subtrahend.Z);
 
@@ -1306,6 +2240,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Subtract(this Vector3D minuend, Vector3D subtrahend)
             => Subtract3D(minuend.I, minuend.J, minuend.K, subtrahend.I, subtrahend.J, subtrahend.K);
 
@@ -1316,6 +2252,8 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Subtract(this Vector4D minuend, double subtrahend)
             => Subtract4D(minuend.I, minuend.J, minuend.K, minuend.L, subtrahend);
 
@@ -1326,8 +2264,61 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Subtract(this Vector4D minuend, Vector4D subtrahend)
             => Subtract4D(minuend.I, minuend.J, minuend.K, minuend.L, subtrahend.I, subtrahend.J, subtrahend.K, subtrahend.L);
+
+        /// <summary>
+        /// Used to subtract two matrices.
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Subtract(this Matrix2x2D minuend, Matrix2x2D subtrahend)
+            => Subtract2x2x2x2(
+                minuend.M0x0, minuend.M0x1,
+                minuend.M1x0, minuend.M1x1,
+                subtrahend.M0x0, subtrahend.M0x1,
+                subtrahend.M1x0, subtrahend.M1x1);
+
+        /// <summary>
+        /// Used to subtract two matrices.
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Subtract(this Matrix3x3D minuend, Matrix3x3D subtrahend)
+            => Subtract3x3x3x3(
+                minuend.M0x0, minuend.M0x1, minuend.M0x2,
+                minuend.M1x0, minuend.M1x1, minuend.M1x2,
+                minuend.M2x0, minuend.M2x1, minuend.M2x2,
+                subtrahend.M0x0, subtrahend.M0x1, subtrahend.M0x2,
+                subtrahend.M1x0, subtrahend.M1x1, subtrahend.M1x2,
+                subtrahend.M2x0, subtrahend.M2x1, subtrahend.M2x2);
+
+        /// <summary>
+        /// Used to subtract two matrices.
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Subtract(this Matrix4x4D minuend, Matrix4x4D subtrahend)
+            => Subtract4x4x4x4(
+                minuend.M0x0, minuend.M0x1, minuend.M0x2, minuend.M0x3,
+                minuend.M1x0, minuend.M1x1, minuend.M1x2, minuend.M1x3,
+                minuend.M2x0, minuend.M2x1, minuend.M2x2, minuend.M2x3,
+                minuend.M3x0, minuend.M3x1, minuend.M3x2, minuend.M3x3,
+                subtrahend.M0x0, subtrahend.M0x1, subtrahend.M0x2, subtrahend.M0x3,
+                subtrahend.M1x0, subtrahend.M1x1, subtrahend.M1x2, subtrahend.M1x3,
+                subtrahend.M2x0, subtrahend.M2x1, subtrahend.M2x2, subtrahend.M2x3,
+                subtrahend.M3x0, subtrahend.M3x1, subtrahend.M3x2, subtrahend.M3x3);
 
         /// <summary>
         /// 
@@ -1336,6 +2327,32 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Subtract(this QuaternionD minuend, double subtrahend)
+            => Subtract4D(minuend.X, minuend.Y, minuend.Z, minuend.W, subtrahend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Subtract(this QuaternionD minuend, QuaternionD subtrahend)
+            => Subtract4D(minuend.X, minuend.Y, minuend.Z, minuend.W, subtrahend.X, subtrahend.Y, subtrahend.Z, subtrahend.W);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Subtract(this LineSegment minuend, double subtrahend)
             => Subtract4D(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend);
 
@@ -1346,8 +2363,73 @@ namespace Engine
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Subtract(this LineSegment minuend, LineSegment subtrahend)
             => Subtract4D(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend.AX, subtrahend.AY, subtrahend.BX, subtrahend.BY);
+
+        #endregion
+
+        #region Transpose
+
+        /// <summary>
+        /// Swap the rows of the matrix with the columns.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns>A transposed Matrix.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Transpose(this Matrix2x2D source)
+            => new Matrix2x2D(
+                source.M0x0,
+                source.M1x0,
+                source.M0x1,
+                source.M1x1);
+
+        /// <summary>
+        /// Swap the rows of the matrix with the columns.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns>A transposed Matrix.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Transpose(this Matrix3x3D source)
+            => new Matrix3x3D(
+                source.M0x0,
+                source.M1x0,
+                source.M2x0,
+                source.M0x1,
+                source.M1x1,
+                source.M2x1,
+                source.M0x2,
+                source.M1x2,
+                source.M2x2);
+
+        /// <summary>
+        /// Swap the rows of the matrix with the columns.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns>A transposed Matrix.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Transpose(this Matrix4x4D source)
+            => new Matrix4x4D(
+                source.M0x0,
+                source.M1x0,
+                source.M2x0,
+                source.M3x0,
+                source.M0x1,
+                source.M1x1,
+                source.M2x1,
+                source.M3x1,
+                source.M0x2,
+                source.M1x2,
+                source.M2x2,
+                source.M3x2,
+                source.M0x3,
+                source.M1x3,
+                source.M2x3,
+                source.M3x3);
 
         #endregion
 

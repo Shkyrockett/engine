@@ -142,15 +142,14 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
-        public static Polynomial X() { return new Polynomial(0, 1); }
+        public static Polynomial X()
+            => new Polynomial(0, 1);
 
         /// <summary>
         /// 
         /// </summary>
         public Polynomial()
-        {
-            Coefficients = new List<double>(1);
-        }
+            => Coefficients = new List<double>(1);
 
         /// <summary>
         /// 
@@ -181,8 +180,7 @@ namespace Engine
         /// </remarks>
         public bool IsReadonly
         {
-            get { return isReadonly; }
-            set
+            get => isReadonly; set
             {
                 if (IsReadonly)
                     return;
@@ -449,7 +447,8 @@ namespace Engine
         /// https://github.com/superlloyd/Poly
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Trim() { return Trim(Epsilon); }
+        public Polynomial Trim()
+            => Trim(Epsilon);
 
         /// <summary>
         /// 

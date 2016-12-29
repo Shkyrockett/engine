@@ -98,8 +98,9 @@ namespace Engine
         /// <remarks>This code added to correctly implement the disposable pattern.</remarks>
         public void Dispose()
         {
+            bool v = true;
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
+            Dispose(v);
             // TODO: uncomment the following line if the finalizer is overridden above.
             //GC.SuppressFinalize(this);
         }

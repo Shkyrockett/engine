@@ -350,7 +350,7 @@ namespace Engine.Tests
         public void LineLineTest()
         {
             // A listing of expected results for specific values.
-            var testCases = new Dictionary<(double A1X, double A1Y, double B1X, double B1Y, double A2X, double A2Y, double B2X, double B2Y), (bool, Point2D)>
+            var testCases = new Dictionary<(double A1X, double A1Y, double B1X, double B1Y, double A2X, double A2Y, double B2X, double B2Y), (bool, Point2D?)>
             {
                 // Intersection at one point.
                 { (1d, 1d, 2d, 2d, 1d, 1d, 2d, 1d), (true, new Point2D(1d, 1d)) },

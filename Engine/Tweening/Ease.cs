@@ -21,12 +21,35 @@ namespace Engine.Tweening
     {
         #region Constants
 
-        private const double B1 = 1d / 2.75d;
-        private const double B2 = 2d / 2.75d;
-        private const double B3 = 1.5d / 2.75d;
-        private const double B4 = 2.5d / 2.75d;
-        private const double B5 = 2.25d / 2.75d;
-        private const double B6 = 2.625d / 2.75d;
+        /// <summary>
+        /// 
+        /// </summary>
+        private const double BounceKey1 = 1d / 2.75d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const double BounceKey2 = 2d / 2.75d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const double BounceKey3 = 1.5d / 2.75d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const double BounceKey4 = 2.5d / 2.75d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const double BounceKey5 = 2.25d / 2.75d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const double BounceKey6 = 2.625d / 2.75d;
 
         #endregion
 
@@ -48,7 +71,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ElasticIn(double t)
-            => (Sin(13 * HalfPi * t) * Pow(2, 10 * (t - 1)));
+            => (Sin(13d * HalfPi * t) * Pow(2d, 10d * (t - 1d)));
 
         /// <summary>
         /// Elastic out.
@@ -56,10 +79,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ElasticOut(double t)
-        {
-            if (Abs(t - 1) < Epsilon) return 1;
-            return (Sin(-13 * HalfPi * (t + 1)) * Pow(2, -10 * t) + 1);
-        }
+            => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * HalfPi * (t + 1d)) * Pow(2d, -10d * t) + 1d);
 
         /// <summary>
         /// Elastic in and out.
@@ -67,12 +87,9 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ElasticInOut(double t)
-        {
-            if (t < 0.5)
-                return (0.5 * Sin(13 * HalfPi * (2 * t)) * Pow(2, 10 * ((2 * t) - 1)));
-
-            return (0.5 * (Sin(-13 * HalfPi * ((2 * t - 1) + 1)) * Pow(2, -10 * (2 * t - 1)) + 2));
-        }
+            => (t < 0.5d) ?
+                (0.5d * Sin(13d * HalfPi * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) :
+                (0.5d * (Sin(-13d * HalfPi * ((2d * t - 1) + 1d)) * Pow(2d, -10d * (2d * t - 1d)) + 2d));
 
         /// <summary>
         /// Quadratic in.
@@ -96,7 +113,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double QuadInOut(double t)
-            => t <= .5 ? t * t * 2 : 1 - (--t) * t * 2;
+            => t <= 0.5d ? t * t * 2d : 1d - (--t) * t * 2d;
 
         /// <summary>
         /// Cubic in.
@@ -112,7 +129,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double CubeOut(double t)
-            => 1 + (--t) * t * t;
+            => 1d + (--t) * t * t;
 
         /// <summary>
         /// Cubic in and out.
@@ -120,7 +137,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double CubeInOut(double t)
-            => t <= .5 ? t * t * t * 4 : 1 + (--t) * t * t * 4;
+            => t <= 0.5d ? t * t * t * 4d : 1d + (--t) * t * t * 4d;
 
         /// <summary>
         /// Quart in.
@@ -136,7 +153,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double QuartOut(double t)
-            => 1 - (t -= 1) * t * t * t;
+            => 1d - (t -= 1d) * t * t * t;
 
         /// <summary>
         /// Quart in and out.
@@ -144,7 +161,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double QuartInOut(double t)
-            => t <= .5 ? t * t * t * t * 8 : (1 - (t = t * 2 - 2) * t * t * t) / 2 + .5;
+            => t <= 0.5d ? t * t * t * t * 8d : (1d - (t = t * 2d - 2d) * t * t * t) / 2d + 0.5d;
 
         /// <summary>
         /// Quint in.
@@ -160,7 +177,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double QuintOut(double t)
-            => (t -= 1) * t * t * t * t + 1;
+            => (t -= 1d) * t * t * t * t + 1d;
 
         /// <summary>
         /// Quint in and out.
@@ -168,7 +185,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double QuintInOut(double t)
-            => t *= 2 < 1 ? (t * t * t * t * t) / 2 : ((t -= 2) * t * t * t * t + 2) / 2;
+            => t *= 2d < 1d ? (t * t * t * t * t) / 2d : ((t -= 2d) * t * t * t * t + 2d) / 2d;
 
         /// <summary>
         /// Sine in.
@@ -176,10 +193,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double SineIn(double t)
-        {
-            if (Abs(t - 1) < Epsilon) return 1;
-            return (-Cos(HalfPi * t) + 1);
-        }
+            => (Abs(t - 1d) < Epsilon) ? 1d : (-Cos(HalfPi * t) + 1d);
 
         /// <summary>
         /// Sine out.
@@ -195,7 +209,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double SineInOut(double t)
-            => (-Cos(PI * t) / 2 + .5);
+            => (-Cos(PI * t) / 2d + 0.5d);
 
         /// <summary>
         /// Bounce in.
@@ -204,11 +218,11 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double BounceIn(double t)
         {
-            t = 1 - t;
-            if (t < B1) return (1 - 7.5625 * t * t);
-            if (t < B2) return (1 - (7.5625 * (t - B3) * (t - B3) + .75));
-            if (t < B4) return (1 - (7.5625 * (t - B5) * (t - B5) + .9375));
-            return (1 - (7.5625 * (t - B6) * (t - B6) + .984375));
+            t = 1d - t;
+            if (t < BounceKey1) return (1d - 7.5625d * t * t);
+            if (t < BounceKey2) return (1d - (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d));
+            if (t < BounceKey4) return (1d - (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d));
+            return (1d - (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d));
         }
 
         /// <summary>
@@ -218,10 +232,10 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double BounceOut(double t)
         {
-            if (t < B1) return (7.5625 * t * t);
-            if (t < B2) return (7.5625 * (t - B3) * (t - B3) + .75);
-            if (t < B4) return (7.5625 * (t - B5) * (t - B5) + .9375);
-            return (7.5625 * (t - B6) * (t - B6) + .984375);
+            if (t < BounceKey1) return (7.5625d * t * t);
+            if (t < BounceKey2) return (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d);
+            if (t < BounceKey4) return (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d);
+            return (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d);
         }
 
         /// <summary>
@@ -231,19 +245,19 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double BounceInOut(double t)
         {
-            if (t < .5)
+            if (t < 0.5d)
             {
-                t = 1 - t * 2;
-                if (t < B1) return ((1 - 7.5625 * t * t) / 2);
-                if (t < B2) return ((1 - (7.5625 * (t - B3) * (t - B3) + .75)) / 2);
-                if (t < B4) return ((1 - (7.5625 * (t - B5) * (t - B5) + .9375)) / 2);
-                return ((1 - (7.5625 * (t - B6) * (t - B6) + .984375)) / 2);
+                t = 1d - t * 2d;
+                if (t < BounceKey1) return ((1d - 7.5625d * t * t) / 2d);
+                if (t < BounceKey2) return ((1d - (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75)) / 2d);
+                if (t < BounceKey4) return ((1d - (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375)) / 2d);
+                return ((1d - (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d)) / 2d);
             }
-            t = t * 2 - 1;
-            if (t < B1) return ((7.5625 * t * t) / 2 + .5);
-            if (t < B2) return ((7.5625 * (t - B3) * (t - B3) + .75) / 2 + .5);
-            if (t < B4) return ((7.5625 * (t - B5) * (t - B5) + .9375) / 2 + .5);
-            return ((7.5625 * (t - B6) * (t - B6) + .984375) / 2 + .5);
+            t = t * 2d - 1d;
+            if (t < BounceKey1) return ((7.5625d * t * t) / 2d + 0.5d);
+            if (t < BounceKey2) return ((7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d) / 2d + 0.5d);
+            if (t < BounceKey4) return ((7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d) / 2d + 0.5d);
+            return ((7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d) / 2d + 0.5d);
         }
 
         /// <summary>
@@ -252,7 +266,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double CircIn(double t)
-            => (-(Sqrt(1 - t * t) - 1));
+            => (-(Sqrt(1d - t * t) - 1d));
 
         /// <summary>
         /// Circle out.
@@ -260,7 +274,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double CircOut(double t)
-            => (Sqrt(1 - (t - 1) * (t - 1)));
+            => (Sqrt(1d - (t - 1d) * (t - 1d)));
 
         /// <summary>
         /// Circle in and out.
@@ -268,7 +282,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double CircInOut(double t)
-            => (t <= .5 ? (Sqrt(1 - t * t * 4) - 1) / -2 : (Sqrt(1 - (t * 2 - 2) * (t * 2 - 2)) + 1) / 2);
+            => (t <= 0.5d ? (Sqrt(1 - t * t * 4d) - 1d) / -2d : (Sqrt(1d - (t * 2d - 2d) * (t * 2d - 2d)) + 1d) / 2d);
 
         /// <summary>
         /// Exponential in.
@@ -276,7 +290,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ExpoIn(double t)
-            => (Pow(2, 10 * (t - 1)));
+            => (Pow(2d, 10d * (t - 1d)));
 
         /// <summary>
         /// Exponential out.
@@ -284,10 +298,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ExpoOut(double t)
-        {
-            if (Abs(t - 1) < Epsilon) return 1;
-            return (-Pow(2, -10 * t) + 1);
-        }
+            => (Abs(t - 1d) < Epsilon) ? 1d : -Pow(2d, -10d * t) + 1d;
 
         /// <summary>
         /// Exponential in and out.
@@ -295,10 +306,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ExpoInOut(double t)
-        {
-            if (Abs(t - 1) < Epsilon) return 1;
-            return (t < .5 ? Pow(2, 10 * (t * 2 - 1)) / 2 : (-Pow(2, -10 * (t * 2 - 1)) + 2) / 2);
-        }
+            => (Abs(t - 1d) < Epsilon) ? 1d : (t < 0.5d ? Pow(2d, 10d * (t * 2d - 1d)) / 2d : (-Pow(2d, -10d * (t * 2d - 1d)) + 2d) / 2d);
 
         /// <summary>
         /// Back in.
@@ -306,7 +314,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double BackIn(double t)
-            => (t * t * (2.70158 * t - 1.70158));
+            => (t * t * (2.70158d * t - 1.70158d));
 
         /// <summary>
         /// Back out.
@@ -314,7 +322,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double BackOut(double t)
-            => (1 - (--t) * (t) * (-2.70158 * t - 1.70158));
+            => (1d - (--t) * (t) * (-2.70158d * t - 1.70158d));
 
         /// <summary>
         /// Back in and out.
@@ -323,10 +331,10 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double BackInOut(double t)
         {
-            t *= 2;
-            if (t < 1) return (t * t * (2.70158 * t - 1.70158) / 2);
+            t *= 2d;
+            if (t < 1d) return (t * t * (2.70158d * t - 1.70158d) / 2d);
             t--;
-            return ((1 - (--t) * (t) * (-2.70158 * t - 1.70158)) / 2 + .5);
+            return ((1d - (--t) * (t) * (-2.70158d * t - 1.70158d)) / 2d + 0.5d);
         }
     }
 }

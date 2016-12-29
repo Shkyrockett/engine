@@ -103,7 +103,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public GeometryPath CapPath { get { return capPath; } set { capPath = value; } }
 
         /// <summary>

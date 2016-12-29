@@ -151,7 +151,7 @@ namespace Engine
         /// First Point of a line segment
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The first Point of a line segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -215,7 +215,7 @@ namespace Engine
         /// Ending Point of a Line Segment
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The ending Point of a Line Segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -280,7 +280,7 @@ namespace Engine
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -297,7 +297,7 @@ namespace Engine
         /// Get or sets an array of points representing a line segment.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public List<Point2D> Points
         {
             get { return new List<Point2D> { A, B }; }
@@ -312,7 +312,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public double Length
             => Distances.Distance(A.X, A.Y, B.X, B.Y);
 

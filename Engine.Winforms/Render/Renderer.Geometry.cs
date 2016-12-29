@@ -276,10 +276,10 @@ namespace Engine.Imaging
                 {
                     case PathPoint t:
                         path.StartFigure();
-                        path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
+                        path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
                         break;
                     case PathLineSegment t:
-                        path.AddLine(t.Start.ToPointF(), t.End.ToPointF());
+                        path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
                         break;
                     case PathArc t:
                         var arc = t.ToEllipticalArc();
@@ -291,10 +291,10 @@ namespace Engine.Imaging
                         path.Transform(mat);
                         break;
                     case PathCubicBezier t:
-                        path.AddBezier(t.Start.ToPointF(), t.Handle1.ToPointF(), t.Handle2.ToPointF(), t.End.ToPointF());
+                        path.AddBezier(t.Start.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.End.Value.ToPointF());
                         break;
                     case PathQuadraticBezier t:
-                        path.AddBeziers(new PointF[] { t.Start.ToPointF(), t.Handle.ToPointF(), t.End.ToPointF() });
+                        path.AddBeziers(new PointF[] { t.Start.Value.ToPointF(), t.Handle.Value.ToPointF(), t.End.Value.ToPointF() });
                         break;
                     case PathCardinal t:
                         path.AddCurve(t.Nodes.ToPointFArray());

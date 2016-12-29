@@ -132,7 +132,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
@@ -141,7 +141,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]

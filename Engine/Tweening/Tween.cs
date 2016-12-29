@@ -488,9 +488,7 @@ namespace Engine.Tweening
         /// Remove tweens from the tweener without calling their complete functions.
         /// </summary>
         public void Cancel()
-        {
-            Remover.Remove(this);
-        }
+            => Remover.Remove(this);
 
         /// <summary>
         /// Assign tweens their final value and remove them from the tweener.
@@ -506,25 +504,19 @@ namespace Engine.Tweening
         /// Set tweens to pause. They won't update and their delays won't tick down.
         /// </summary>
         public void Pause()
-        {
-            Paused = true;
-        }
+            => Paused = true;
 
         /// <summary>
         /// Toggle tweens' paused value.
         /// </summary>
         public void PauseToggle()
-        {
-            Paused = !Paused;
-        }
+            => Paused = !Paused;
 
         /// <summary>
         /// Resumes tweens from a paused state.
         /// </summary>
         public void Resume()
-        {
-            Paused = false;
-        }
+            => Paused = false;
 
         #endregion
     }

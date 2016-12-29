@@ -26,9 +26,9 @@ namespace Engine
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(Matrix4x4DConverter))]
+    [TypeConverter(typeof(StructConverter<Matrix4x4D>))]
     public partial struct Matrix4x4D
-        : IEquatable<Matrix4x4D>, IFormattable
+        : IMatrix<Matrix4x4D, Vector4D>
     {
         #region Static Fields
 
@@ -292,7 +292,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Vector4D Cx
         {
             get => new Vector4D(m0x0, m1x0, m2x0, m3x0);
@@ -308,7 +308,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Vector4D Cy
         {
             get => new Vector4D(m0x1, m1x1, m2x1, m3x1);
@@ -324,7 +324,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Vector4D Cz
         {
             get => new Vector4D(m0x2, m1x2, m2x2, m3x2);
@@ -340,7 +340,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Vector4D Cw
         {
             get => new Vector4D(m0x3, m1x3, m2x3, m3x3);
@@ -356,7 +356,7 @@ namespace Engine
         /// <summary>
         /// The X Row or row zero.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Description("The First row of the " + nameof(Matrix4x4D))]
         public Vector4D Rx
         {
@@ -373,7 +373,7 @@ namespace Engine
         /// <summary>
         /// The Y Row or row one.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix4x4D))]
         public Vector4D Ry
         {
@@ -390,7 +390,7 @@ namespace Engine
         /// <summary>
         /// The Z Row or row one.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix4x4D))]
         public Vector4D Rz
         {
@@ -407,7 +407,7 @@ namespace Engine
         /// <summary>
         /// The W Row or row one.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix4x4D))]
         public Vector4D Rw
         {
@@ -424,7 +424,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public double Determinant
             => Determinant(m0x0, m0x1, M0x2, M0x3, m1x0, m1x1, m1x2, m1x3, m2x0, m2x1, m2x2, m2x3, m3x0, m3x1, m3x2, m3x3);
 
@@ -432,35 +432,35 @@ namespace Engine
         /// Swap the rows of the matrix with the columns.
         /// </summary>
         /// <returns>A transposed Matrix.</returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix4x4D Transposed
             => Primitives.Transpose(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix4x4D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix4x4D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix4x4D Inverted
             => Primitives.Invert(this);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public bool IsIdentity
             => (Abs(m0x0 - 1) < Epsilon
                 && Abs(m0x1) < Epsilon
@@ -520,7 +520,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         public static Matrix4x4D operator *(Matrix4x4D matrix, double scalar)
-            => matrix.Multiply(scalar);
+            => matrix.Scale(scalar);
 
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
@@ -530,7 +530,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         public static Matrix4x4D operator *(double scalar, Matrix4x4D matrix)
-            => matrix.Multiply(scalar);
+            => matrix.Scale(scalar);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
@@ -725,17 +725,29 @@ namespace Engine
                 0, 0, 0, scaleW);
 
         /// <summary>
-        /// Parse a string for a <see cref="Matrix2D"/> value.
+        /// Parse a string for a <see cref="Matrix4x4D"/> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Matrix2D"/> data </param>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
         /// <returns>
-        /// Returns an instance of the <see cref="Matrix2D"/> struct converted
+        /// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
+        [ParseMethod]
         public static Matrix4x4D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Matrix4x4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Matrix4x4D Parse(string source, IFormatProvider provider)
         {
-            IFormatProvider formatProvider = CultureInfo.InvariantCulture;
-            var tokenizer = new Tokenizer(source, formatProvider);
+            var tokenizer = new Tokenizer(source, provider);
             Matrix4x4D value;
             string firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
@@ -747,22 +759,22 @@ namespace Engine
             else
             {
                 value = new Matrix4x4D(
-                    firstToken.ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider));
+                    firstToken.ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider));
             }
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();

@@ -80,10 +80,10 @@ namespace Engine.Tweening
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))
                     value *= Degree;
 
-                value %= 360.0f;
+                value %= 360d;
 
                 if (value < 0)
-                    value += 360.0f;
+                    value += 360d;
 
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))
                     value *= Radian;

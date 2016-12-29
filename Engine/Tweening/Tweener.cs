@@ -104,9 +104,7 @@ namespace Engine.Tweening
         public static void RegisterLerper<TLerper>(Type propertyType)
             where TLerper
             : Lerper, new()
-        {
-            RegisteredLerpers[propertyType] = typeof(TLerper).GetConstructor(Type.EmptyTypes);
-        }
+            => RegisteredLerpers[propertyType] = typeof(TLerper).GetConstructor(Type.EmptyTypes);
 
         /// <summary>
         /// <para>Tweens a set of properties on an object.</para>
@@ -129,7 +127,6 @@ namespace Engine.Tweening
             if (targetType.IsValueType) throw new Exception("Target of tween cannot be a struct!");
 
             var tween = new Tween(target, duration, delay, this);
-            AddAndRemove();
             toAdd.Add(tween);
 
             // valid in case of manual timer
@@ -152,6 +149,7 @@ namespace Engine.Tweening
                 tween.AddLerp(lerper, info, info.Value, to.Value);
             }
 
+            AddAndRemove();
             return tween;
         }
 
@@ -173,9 +171,7 @@ namespace Engine.Tweening
         /// Remove tweens from the tweener without calling their complete functions.
         /// </summary>
         public void Cancel()
-        {
-            toRemove.AddRange(allTweens);
-        }
+            => toRemove.AddRange(allTweens);
 
         /// <summary>
         /// Assign tweens their final value and remove them from the tweener.
@@ -243,9 +239,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="tween"></param>
         internal void Remove(Tween tween)
-        {
-            toRemove.Add(tween);
-        }
+            => toRemove.Add(tween);
 
         /// <summary>
         /// 

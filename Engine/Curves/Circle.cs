@@ -185,7 +185,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the center point of the circle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The center location of the circle.")]
@@ -250,7 +250,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the rectangular boundaries of the circle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
@@ -273,7 +273,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Circumference))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
@@ -283,7 +283,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the circle.")]

@@ -131,7 +131,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The end angle of the Arc.")]
@@ -146,7 +146,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The center location of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -165,7 +165,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -184,7 +184,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The point on the arc at the test angle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

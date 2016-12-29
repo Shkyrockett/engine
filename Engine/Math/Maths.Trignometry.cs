@@ -42,6 +42,51 @@ namespace Engine
             => radiens * Degree;
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="w"></param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double Roll, double Pitch, double Yaw) QuaternionToEulerAngles(double x, double y, double z, double w)
+        {
+            double halfPi = PI / 2;
+            double test = x * y + z * w;
+            (double Roll, double Pitch, double Yaw) quat = (0, 0, 0);
+            if (test > 0.499d)
+            { // singularitY at north pole
+                quat.Yaw = 2d * Atan2(x, w);
+                quat.Roll = halfPi;
+                quat.Pitch = 0d;
+            }
+            else if (test < -0.499d)
+            { // singularitY at south pole
+                quat.Yaw = -2d * Atan2(x, w);
+                quat.Roll = -halfPi;
+                quat.Pitch = 0d;
+            }
+            else
+            {
+                double sqX = x * x;
+                double sqY = y * y;
+                double sqZ = z * z;
+                quat.Yaw = Atan2(2d * y * w - 2d * x * z, 1d - 2d * sqY - 2d * sqZ);
+                quat.Roll = Asin(2d * test);
+                quat.Pitch = Atan2(2d * x * w - 2d * y * z, 1d - 2d * sqX - 2d * sqZ);
+            }
+
+            if (quat.Pitch <= Epsilon)
+                quat.Pitch = 0d;
+            if (quat.Yaw <= Epsilon)
+                quat.Yaw = 0d;
+            if (quat.Roll <= Epsilon)
+                quat.Roll = 0d;
+            return quat;
+        }
+
+        /// <summary>
         /// Find the absolute positive value of a radian angle.
         /// </summary>
         /// <param name="angle"></param>
@@ -112,6 +157,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(double i, double j)
             => Atan2(i, -j);
@@ -125,6 +171,7 @@ namespace Engine
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Angle of a line.</returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1,
@@ -142,6 +189,7 @@ namespace Engine
         /// <param name="z2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1, double z1,
@@ -166,6 +214,7 @@ namespace Engine
         /// expect because Y coordinates increase downward.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleVector(
             double x1, double y1,
@@ -182,6 +231,7 @@ namespace Engine
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(
             double x1, double y1,
@@ -201,6 +251,7 @@ namespace Engine
         /// <param name="vY"></param>
         /// <returns></returns>
         /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY,
@@ -218,6 +269,7 @@ namespace Engine
         /// <param name="vZ"></param>
         /// <returns></returns>
         /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY, double uZ,
@@ -235,6 +287,7 @@ namespace Engine
         /// Based on the answer by flup at:
         /// http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipsePolarAngle(double angle, double rx, double ry)
         {
@@ -252,6 +305,71 @@ namespace Engine
                 return Atan(rx * Tan(theta) / ry);
         }
 
+        #region Reflect
+
+        /// <summary>
+        /// Calculates the reflection of a point off a line segment
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="axisX"></param>
+        /// <param name="axisY"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Reflect(double x1, double y1, double x2, double y2, double axisX, double axisY)
+        {
+            var vectorDelta = Delta(x1, y1, x2, y2);
+            var magnatude = 0.5d * DotProduct(vectorDelta.I, vectorDelta.J, vectorDelta.I, vectorDelta.J);
+            var reflection = CrossProduct(vectorDelta.I, vectorDelta.J, CrossProduct(x2, y2, x1, y1), DotProduct(axisX, axisY, vectorDelta.I, vectorDelta.J));
+            return ((magnatude * reflection - axisX),
+                    (magnatude * reflection - axisY));
+        }
+
+        #endregion
+
+        #region Rotate Point
+
+        /// <summary>
+        /// Rotate a point around the world origin.
+        /// </summary>
+        /// <param name="x">The x component of the point to rotate.</param>
+        /// <param name="y">The y component of the point to rotate.</param>
+        /// <param name="angle">The angle to rotate in pi radians.</param>
+        /// <returns>A point rotated about the origin by the specified pi radian angle.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) RotatePoint2D(double x, double y, double angle)
+            => RotatePoint2D(x, y, 0, 0, angle);
+
+        /// <summary>
+        /// Rotate a point around a fulcrum point.
+        /// </summary>
+        /// <param name="x">The x component of the point to rotate.</param>
+        /// <param name="y">The y component of the point to rotate.</param>
+        /// <param name="cx">The x component of the fulcrum point to rotate the point around.</param>
+        /// <param name="cy">The y component of the fulcrum point to rotate the point around.</param>
+        /// <param name="angle">The angle to rotate the point in pi radians.</param>
+        /// <returns>A point rotated about the fulcrum point by the specified pi radian angle.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) RotatePoint2D(double x, double y, double cx, double cy, double angle)
+        {
+            double deltaX = x - cx;
+            double deltaY = y - cy;
+            double angleCos = Cos(angle);
+            double angleSin = Sin(angle);
+            return ((cx + (deltaX * angleCos - deltaY * angleSin)),
+                    (cy + (deltaX * angleSin + deltaY * angleCos)));
+        }
+
+        #endregion
+
+        #region Slope
+
         /// <summary>
         /// Calculates the Slope of a vector.
         /// </summary>
@@ -264,6 +382,7 @@ namespace Engine
         /// (Close to the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
             => Math.Abs(i) < Epsilon ? SlopeMax : (j / i);
@@ -281,11 +400,57 @@ namespace Engine
         /// the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(
             double x1, double y1,
             double x2, double y2)
             => (Math.Abs(x1 - x2) < Epsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
+
+        #endregion
+
+        #region Unit
+
+        /// <summary>
+        /// Unit of a 2D Vector.
+        /// </summary>
+        /// <param name="i">The i component of the Vector to Unitize.</param>
+        /// <param name="j">The j component of the Vector to Unitize.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Unit(double i, double j)
+            => Scale2D(i, j, 1 / Sqrt(((i * i) + (j * j))));
+
+        /// <summary>
+        /// Unit of a 3D Vector.
+        /// </summary>
+        /// <param name="i">The i component of the Vector to Unitize.</param>
+        /// <param name="j">The j component of the Vector to Unitize.</param>
+        /// <param name="k">The k component of the Vector to Unitize.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Unit(double i, double j, double k)
+            => Scale3D(i, j, k, 1 / Sqrt(((i * i) + (j * j) + (k * k))));
+
+        /// <summary>
+        /// Unit of a 4D Vector.
+        /// </summary>
+        /// <param name="i">The i component of the Vector to Unitize.</param>
+        /// <param name="j">The j component of the Vector to Unitize.</param>
+        /// <param name="k">The k component of the Vector to Unitize.</param>
+        /// <param name="l">The l component of the Vector to Unitize.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Unit(double i, double j, double k, double l)
+            => Scale4D(i, j, k, l, 1 / Sqrt(((i * i) + (j * j) + (k * k) + (l * l))));
+
+        #endregion
 
         #region Derived Equivalent Math Functions
 

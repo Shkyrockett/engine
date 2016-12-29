@@ -80,7 +80,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public bool IsReadOnly { get; } = false;
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Rectangle2D VisibleBounds { get; set; }
 
         /// <summary>
@@ -116,19 +116,19 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public List<GraphicItem> SelectedItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public List<GraphicItem> RubberbandItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public int Count
             => Items.Count;
 

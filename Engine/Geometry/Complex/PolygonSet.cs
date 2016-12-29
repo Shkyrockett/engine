@@ -105,7 +105,7 @@ namespace Engine
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override double Perimeter
         {
             get

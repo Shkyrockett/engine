@@ -59,7 +59,7 @@ namespace Engine
         /// 
         /// </summary>
         [Browsable(true)]
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Func<double, double, Inclusion> Intersecter { get; set; }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
         {
             get { return Rectangle2D.FromLTRB(MinX, MinY, MaxX, MaxY); }

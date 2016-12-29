@@ -286,7 +286,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the location of the center point of the elliptical arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The location of the center point of the elliptical arc.")]
@@ -310,7 +310,7 @@ namespace Engine
         /// Gets or sets the Center Point of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(EllipticalArc) + ".")]
@@ -421,7 +421,7 @@ namespace Engine
         /// Gets the Major radius of elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the elliptical arc.")]
@@ -432,7 +432,7 @@ namespace Engine
         /// Gets the Minor radius of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The smaller radius of the elliptical arc.")]
@@ -444,7 +444,7 @@ namespace Engine
         /// Gets or sets the Aspect ratio of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the elliptical arc.")]
@@ -465,7 +465,7 @@ namespace Engine
         /// Gets or sets the Angle of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Elements")]
@@ -511,7 +511,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the start angle of the elliptical arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
@@ -555,7 +555,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
@@ -599,7 +599,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
@@ -621,7 +621,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc in Degrees.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [GeometryAngleDegrees]
         [Category("Clipping")]
@@ -644,7 +644,7 @@ namespace Engine
         /// Gets the Focus Radius of the elliptical arc.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the elliptical arc.")]
@@ -655,7 +655,7 @@ namespace Engine
         /// Gets the <see cref="Eccentricity"/> of the elliptical arc.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the elliptical arc.")]
@@ -665,7 +665,7 @@ namespace Engine
         /// <summary>
         /// Gets the point on the Elliptical arc circumference coincident to the starting angle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
@@ -675,7 +675,7 @@ namespace Engine
         /// <summary>
         /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
@@ -685,7 +685,7 @@ namespace Engine
         /// <summary>
         /// Gets the Bounding box of the elliptical arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The rectangular bounds of the elliptical arc.")]
@@ -700,7 +700,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// 
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
@@ -710,7 +710,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Area"/> of the elliptical arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the elliptical arc.")]
@@ -722,7 +722,7 @@ namespace Engine
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The unrotated rectangular bounds of the elliptical arc.")]

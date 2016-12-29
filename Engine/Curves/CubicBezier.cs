@@ -178,7 +178,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -242,7 +242,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -306,7 +306,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -370,7 +370,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -433,14 +433,14 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public double Length
             => Distances.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override double Perimeter
             => Length;
 
@@ -450,7 +450,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => Boundings.CubicBezier(ax, ay, bx, by, cx, cy, dx, dy);
 

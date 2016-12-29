@@ -233,6 +233,62 @@ If you have several choices of how  to do things, profile the various methods, c
 
 To standardize these specific methods throughought the Engine to work the same, please use the following conventions.
 
+### Tuple Constructors
+
+If a struct/class can be generalized by a numaric tuple; please use a tuple constructor and explicit operator so you can take advantage of any existing methods with the same signature.
+
+```c#
+    public struct NumaricObject
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumaricObject"/> struct from a tuple.
+        /// </summary>
+        /// <param name="tuple">A Tuple containing the values for this <see cref="NumaricObject"/>.</param>
+        [DebuggerStepThrough]
+        public NumaricObject((double A, double B, double C) tuple)
+            => (A, B, C) = tuple;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumaricObject"/> struct from a tuple.
+        /// </summary>
+        /// <param name="a">The a parameter.</param>
+        /// <param name="b">The b parameter.</param>
+        /// <param name="c">The c parameter.</param>
+        [DebuggerStepThrough]
+        public NumaricObject(double a, double b, double c)
+        {
+            A = a;
+            B = b;
+            C = c;
+        }
+
+        #endregion
+
+        #region Properties
+
+        public double A { get; set; }
+        public double B { get; set; }
+        public double C { get; set; }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Convert a tuple to a <see cref="NumaricObject"/> struct.
+        /// </summary>
+        /// <param name="tuple">The source Tuple.</param>
+        /// <returns>A new instance of the <see cref="NumaricObject"/> struct with the contents of the tuple.</returns>
+        [DebuggerStepThrough]
+        public static implicit operator NumaricObject((double A, double B, double C) tuple)
+            => new NumaricObject(tuple);
+
+        #endregion
+    }
+```
+
 ### Equality Comparison
 
 To reduce the chance of errors in equality comparisons accross various comparison operators, please use the following as a template for modeling Structs/Classes that need equality comparisons.

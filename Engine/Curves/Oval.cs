@@ -75,7 +75,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public Point2D Location
         {
@@ -130,7 +130,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public Size2D Size
         {
@@ -185,7 +185,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public override Rectangle2D Bounds
             => new Rectangle2D(x, y, h, v);

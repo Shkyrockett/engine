@@ -82,20 +82,20 @@ namespace Engine
         /// 
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public double TotalDistance { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public int Previous { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(X) < Epsilon

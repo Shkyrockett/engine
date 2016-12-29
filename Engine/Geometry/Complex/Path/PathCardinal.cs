@@ -49,8 +49,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? Start { get => Previous.End; set => Previous.End = value; }
 
         /// <summary>
         /// 
@@ -61,12 +61,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public List<Point2D> Nodes
         {
             get
             {
-                var nodes = new List<Point2D>() { Start };
+                var nodes = new List<Point2D>() { Start.Value };
                 nodes.AddRange(CenteralPoints);
                 return nodes;
             }
@@ -75,19 +75,19 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D NextToEnd { get { return Nodes[Nodes.Count - 1]; } set { Nodes[Nodes.Count - 1] = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? NextToEnd { get => Nodes[Nodes.Count - 1]; set => Nodes[Nodes.Count - 1] = value.Value; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D End { get { return CenteralPoints[CenteralPoints.Count - 1]; } set { CenteralPoints[CenteralPoints.Count - 1] = value; } }
+        public override Point2D? End { get => CenteralPoints[CenteralPoints.Count - 1]; set => CenteralPoints[CenteralPoints.Count - 1] = value.Value; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]

@@ -47,7 +47,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="args"></param>
         public PathCubicBezier(PathItem item, bool relitive, Point2D[] args)
-            : this(item, args.Length == 3 ? args[0] : null, args.Length == 3 ? args[1] : args[0], args.Length == 3 ? args[1] : args[2])
+            : this(item, args.Length == 3 ? (Point2D?)args[0] : null, args.Length == 3 ? args[1] : args[0], args.Length == 3 ? args[1] : args[2])
         {
             if (relitive)
             {
@@ -64,7 +64,7 @@ namespace Engine
         /// <param name="handle1"></param>
         /// <param name="handle2"></param>
         /// <param name="end"></param>
-        public PathCubicBezier(PathItem previous, Point2D handle1, Point2D handle2, Point2D end)
+        public PathCubicBezier(PathItem previous, Point2D? handle1, Point2D handle2, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
@@ -80,8 +80,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? Start { get => Previous.End; set => Previous.End = value; }
 
         /// <summary>
         /// 
@@ -93,29 +93,29 @@ namespace Engine
         /// 
         /// </summary>
         [XmlElement]
-        public Point2D Handle2 { get; set; }
+        public Point2D? Handle2 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D NextToEnd { get { return Handle2; } set { Handle2 = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? NextToEnd { get => Handle2; set => Handle2 = value; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D End { get; set; }
+        public override Point2D? End { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.CubicBezier(Start.X,Start.Y, Handle1.X,Handle1.Y, Handle2.X,Handle2.Y, End.X, End.Y);
+            => Boundings.CubicBezier(Start.Value.X,Start.Value.Y, Handle1.X,Handle1.Y, Handle2.Value.X,Handle2.Value.Y, End.Value.X, End.Value.Y);
 
         #endregion
 
@@ -126,7 +126,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public CubicBezier ToCubicBezier()
-            => new CubicBezier(Start, Handle1, Handle2, End);
+            => new CubicBezier(Start.Value, Handle1, Handle2.Value, End.Value);
 
         #endregion
     }

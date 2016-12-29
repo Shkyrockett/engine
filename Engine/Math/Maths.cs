@@ -197,6 +197,16 @@ namespace Engine
             => (x < 0 && Math.Abs(y % 2 - 1) < Epsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double InverseSqrt(double number)
+            => 1 / Sqrt(number);
+
+        /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
         /// three roots: one real, two complex, and we don't care about the latter):
         /// </summary>
@@ -207,6 +217,16 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
             => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double InverseCrt(double number)
+            => 1 / Crt(number);
 
         /// <summary>
         ///
@@ -233,6 +253,7 @@ namespace Engine
         /// <remarks>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
             => (d - (3d * c) + (3d * b) - a,
@@ -297,6 +318,7 @@ namespace Engine
         /// <param name="lineOfSightK2"></param>
         /// <returns></returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBackFace(
             double normalI1, double normalJ1, double normalK1,

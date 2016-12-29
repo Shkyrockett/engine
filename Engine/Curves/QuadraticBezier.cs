@@ -112,7 +112,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -174,7 +174,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -236,7 +236,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the closing node for the <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -298,21 +298,21 @@ namespace Engine
         /// <summary>
         /// An approximation of the length of a <see cref="QuadraticBezier"/> curve.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public double Length
             => Distances.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override double Perimeter
             => Length;
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]

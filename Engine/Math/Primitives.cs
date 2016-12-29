@@ -14,7 +14,6 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
-using System;
 
 namespace Engine
 {
@@ -32,6 +31,7 @@ namespace Engine
         /// <param name="pointB">Second Point.</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this Point2D pointA, Point2D pointB)
             => Maths.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
@@ -42,6 +42,7 @@ namespace Engine
         /// <param name="segment">Line segment.</param>
         /// <returns>The absolute angle of a line in radians.</returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this LineSegment segment)
             => Maths.AbsoluteAngle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
@@ -294,6 +295,42 @@ namespace Engine
             => Add4D(augend.I, augend.J, augend.K, augend.L, addend.I, addend.J, addend.K, addend.L);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Add(this QuaternionD augend, double addend)
+            => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Add(this QuaternionD augend, QuaternionD addend)
+            => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend.X, addend.Y, addend.Z, addend.W);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineSegment Add(this LineSegment augend, double addend)
+            => Add4D(augend.AX, augend.AY, augend.BX, augend.BY, addend);
+
+        /// <summary>
         /// Used to add two matrices together.
         /// </summary>
         /// <param name="augend"></param>
@@ -343,42 +380,6 @@ namespace Engine
                 addend.M1x0, addend.M1x1, addend.M1x2, addend.M1x3,
                 addend.M2x0, addend.M2x1, addend.M2x2, addend.M2x3,
                 addend.M3x0, addend.M3x1, addend.M3x2, addend.M3x3);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuaternionD Add(this QuaternionD augend, double addend)
-            => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuaternionD Add(this QuaternionD augend, QuaternionD addend)
-            => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend.X, addend.Y, addend.Z, addend.W);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment Add(this LineSegment augend, double addend)
-            => Add4D(augend.AX, augend.AY, augend.BX, augend.BY, addend);
 
         /// <summary>
         /// 
@@ -515,8 +516,10 @@ namespace Engine
         /// <param name="rectangle">The <see cref="Rectangle2D"/> of which you want the center.</param>
         /// <returns>A <see cref="Point2D"/> representing the center point of the <see cref="RectangleF"/>.</returns>
         /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Center(this Rectangle2D rectangle)
-            => new Point2D((0.5f * rectangle.Width) + rectangle.X, (0.5f * rectangle.Height) + rectangle.Y);
+            => new Point2D((0.5d * rectangle.Width) + rectangle.X, (0.5d * rectangle.Height) + rectangle.Y);
 
         #endregion
 
@@ -615,6 +618,8 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Concatenate(this QuaternionD a, QuaternionD b)
             => new QuaternionD(
                 ((b.X * a.W) + (a.X * b.W)) + ((b.Y * a.Z) - (b.Z * a.Y)),
@@ -631,8 +636,95 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Conjugate(this QuaternionD value)
             => new QuaternionD(-value.X, -value.Y, -value.Z, value.W);
+
+        #endregion
+
+        #region Convert
+
+        /// <summary>
+        /// Gets a 3x3 rotation matrix from this Quaternion.
+        /// </summary>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D ToRotationMatrix(this QuaternionD quaternion)
+            => new Matrix3x3D(
+                1d - 2d * (quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z),
+                2d * quaternion.Y * quaternion.X - 2d * quaternion.Z * quaternion.W,
+                2d * quaternion.Z * quaternion.X + 2d * quaternion.Y * quaternion.W,
+                2d * quaternion.Y * quaternion.X + 2d * quaternion.Z * quaternion.W,
+                1d - 2d * (quaternion.X * quaternion.X + quaternion.Z * quaternion.Z),
+                2d * quaternion.Z * quaternion.Y - 2d * quaternion.X * quaternion.W,
+                2d * quaternion.Z * quaternion.X - 2d * quaternion.Y * quaternion.W,
+                2d * quaternion.Z * quaternion.Y + 2d * quaternion.X * quaternion.W,
+                1d - 2d * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y));
+
+        /// <summary>
+        /// Gets a 4x4 matrix from this Quaternion.
+        /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// source -> http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation#Quaternion_to_Matrix
+        /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D ToMatrix(this QuaternionD quaternion)
+            => new Matrix4x4D(
+                1d - 2d * (quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z),
+                2d * (quaternion.X * quaternion.Y - quaternion.W * quaternion.Z),
+                2d * (quaternion.X * quaternion.Z + quaternion.W * quaternion.Y),
+                0d,
+                2d * (quaternion.X * quaternion.Y + quaternion.W * quaternion.Z),
+                1d - 2d * (quaternion.X * quaternion.X + quaternion.Z * quaternion.Z),
+                2d * (quaternion.Y * quaternion.Z - quaternion.W * quaternion.X),
+                0d,
+                2d * (quaternion.X * quaternion.Z - quaternion.W * quaternion.Y),
+                2d * (quaternion.Y * quaternion.Z + quaternion.W * quaternion.X),
+                1d - 2d * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y),
+                0d,
+                2d * (quaternion.X * quaternion.Z - quaternion.W * quaternion.Y),
+                2d * (quaternion.Y * quaternion.Z + quaternion.W * quaternion.X),
+                1d - 2d * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y),
+                0d);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion"></param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis) ToAxis(this QuaternionD quaternion)
+        {
+            var rotation = ToRotationMatrix(quaternion);
+            return (rotation.Cx, rotation.Cy, rotation.Cz);
+        }
+
+        /// <summary>
+        /// The quaternion representing the rotation is
+        /// q = cos(A/2)+sin(A/2)*(X*i+Y*j+Z*k)
+        /// </summary>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double Angle, Vector3D Axis) ToAngleAxis(this QuaternionD quaternion)
+        {
+            double sqrLength = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z;
+            if (sqrLength == 0d) return (0d, new Vector3D(1d, 0d, 0d));
+            double inverseLength = InverseSqrt(sqrLength);
+            return (2d * Acos(quaternion.W), new Vector3D(quaternion.X * inverseLength, quaternion.Y * inverseLength, quaternion.Z * inverseLength));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Orientation ToEulerAngles(this QuaternionD quaternion)
+            => QuaternionToEulerAngles(quaternion.X,quaternion.Y,quaternion.Z,quaternion.W);
 
         #endregion
 
@@ -732,7 +824,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Point2D value1, Point2D value2)
-            => value2.Subtract(value1);
+            => Maths.Delta(value1.X, value1.Y, value2.X, value2.Y);
 
         /// <summary>
         /// Finds the Delta of two Sizes
@@ -744,7 +836,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Delta(this Size2D size, Size2D value)
-            => value - size;
+            => Maths.Delta(size.Width, size.Height, value.Width, value.Height);
 
         /// <summary>
         /// Finds the Delta of two Vectors
@@ -756,7 +848,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Vector2D vector, Vector2D value)
-            => value - vector;
+            => Maths.Delta(vector.I, vector.J, value.I, value.J);
 
         #endregion
 
@@ -767,8 +859,39 @@ namespace Engine
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(this Matrix2x2D source)
-            => (source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0);
+            => Maths.Determinant(
+                source.M0x0, source.M0x1,
+                source.M1x0, source.M1x1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant(this Matrix3x3D source)
+            => Maths.Determinant(
+                source.M0x0, source.M0x1, source.M0x2,
+                source.M1x0, source.M1x1, source.M1x2,
+                source.M2x0, source.M2x1, source.M2x2);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant(this Matrix4x4D source)
+            => Maths.Determinant(
+                source.M0x0, source.M0x1, source.M0x2, source.M0x3,
+                source.M1x0, source.M1x1, source.M1x2, source.M1x3,
+                source.M2x0, source.M2x1, source.M2x2, source.M2x3,
+                source.M3x0, source.M3x1, source.M3x2, source.M3x3);
 
         #endregion
 
@@ -780,8 +903,10 @@ namespace Engine
         /// <param name="divisor"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Divide(this Point2D divisor, double divedend)
-            => Divide2D(divisor.X, divisor.Y, divedend);
+            => Divide2D1D(divisor.X, divisor.Y, divedend);
 
         /// <summary>
         /// 
@@ -789,8 +914,10 @@ namespace Engine
         /// <param name="divisor"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Divide(this Size2D divisor, double divedend)
-            => Divide2D(divisor.Width, divisor.Height, divedend);
+            => Divide2D1D(divisor.Width, divisor.Height, divedend);
 
         /// <summary>
         /// 
@@ -798,8 +925,10 @@ namespace Engine
         /// <param name="divisor"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Divide(this Vector2D divisor, double divedend)
-            => Divide2D(divisor.I, divisor.J, divedend);
+            => Divide2D1D(divisor.I, divisor.J, divedend);
 
         /// <summary>
         /// 
@@ -807,8 +936,10 @@ namespace Engine
         /// <param name="divisor"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Divide(this Vector3D divisor, double divedend)
-            => Divide3D(divisor.I, divisor.J, divisor.K, divedend);
+            => Divide3D1D(divisor.I, divisor.J, divisor.K, divedend);
 
         /// <summary>
         /// 
@@ -816,18 +947,10 @@ namespace Engine
         /// <param name="divisor"></param>
         /// <param name="divedend"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Divide(this Vector4D divisor, double divedend)
-            => Divide4D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
-
-        /// <summary>
-        /// Divide Point
-        /// </summary>
-        /// <param name="Value1">First Point</param>
-        /// <param name="Value2">Second Point</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static double Divide(this Vector2D Value1, Vector2D Value2)
-            => Value1.DotProduct(Value2.Invert());
+            => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
 
         /// <summary>
         /// 
@@ -835,6 +958,8 @@ namespace Engine
         /// <param name="quaternion1"></param>
         /// <param name="quaternion2"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Divide(this QuaternionD quaternion1, QuaternionD quaternion2)
         {
             double x = quaternion1.X;
@@ -965,6 +1090,47 @@ namespace Engine
         public static double DotProduct(this QuaternionD quaternion1, QuaternionD quaternion2)
             => ((((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W));
 
+        #endregion
+
+        #region Exponent
+
+        /// <summary>
+        /// Calculates the Exponent of a Quaternion.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Exponent(QuaternionD source)
+        {
+            // If q = A*(X*i+Y*j+Z*k) Where (X,Y,Z) is unit length, then
+            // eXp(q) = cos(A)+sin(A)*(X*i+Y*j+Z*k).  If sin(A) is near Zero,
+            // use eXp(q) = cos(A)+A*(X*i+Y*j+Z*k) since A/sin(A) has limit 1.
+
+            double angle = Sqrt(source.X * source.X + source.Y * source.Y + source.Z * source.Z);
+            double sin = Sin(angle);
+
+            // start off With a Zero quat
+            QuaternionD returnvalue = QuaternionD.Empty;
+
+            returnvalue.W = Cos(angle);
+
+            if (Abs(sin) >= Epsilon)
+            {
+                double coeff = sin / angle;
+
+                returnvalue.X = coeff * source.X;
+                returnvalue.Y = coeff * source.Y;
+                returnvalue.Z = coeff * source.Z;
+            }
+            else
+            {
+                returnvalue.X = source.X;
+                returnvalue.Y = source.Y;
+                returnvalue.Z = source.Z;
+            }
+
+            return returnvalue;
+        }
 
         #endregion
 
@@ -1023,7 +1189,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, int factor)
-            => new Vector2D((point.I * factor), (point.J * factor));
+            => new Vector2D(point.I * factor, point.J * factor);
 
         /// <summary>
         /// Inflates a <see cref="Vector2D"/> by a given factor.
@@ -1034,7 +1200,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, float factor)
-            => new Vector2D((point.I * factor), (point.J * factor));
+            => new Vector2D(point.I * factor, point.J * factor);
 
         /// <summary>
         /// Inflates a <see cref="Vector2D"/> by a given factor.
@@ -1045,7 +1211,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, double factor)
-            => new Vector2D((float)(point.I * factor), (float)(point.J * factor));
+            => new Vector2D(point.I * factor, point.J * factor);
 
         /// <summary>
         /// Inflates a <see cref="Vector2D"/> by a given factor.
@@ -1056,7 +1222,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, Point factors)
-            => new Vector2D((point.I * factors.X), (point.J * factors.Y));
+            => new Vector2D(point.I * factors.X, point.J * factors.Y);
 
         /// <summary>
         /// Inflates a <see cref="Vector2D"/> by a given factor.
@@ -1067,7 +1233,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, PointF factors)
-            => new Vector2D((point.I * factors.X), (point.J * factors.Y));
+            => new Vector2D(point.I * factors.X, point.J * factors.Y);
 
         /// <summary>
         /// Inflates a <see cref="Vector2D"/> by a given factor.
@@ -1100,7 +1266,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, Vector2D factors)
-            => new Vector2D((point.I * factors.I), (point.J * factors.J));
+            => new Vector2D(point.I * factors.I, point.J * factors.J);
 
         #endregion
 
@@ -1111,6 +1277,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(float x, float y)
             => new Vector2D((1 / x), (1 / y));
@@ -1120,6 +1287,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(double x, double y)
             => new Vector2D((1 / x), (1 / y));
@@ -1147,8 +1315,29 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Invert(QuaternionD quaternion)
+        {
+            double normal = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+            if (normal == 0d) return QuaternionD.Empty;
+            double inverseNormal = 1f / normal;
+            return new QuaternionD(
+                -quaternion.X * inverseNormal,
+                -quaternion.Y * inverseNormal,
+                -quaternion.Z * inverseNormal,
+                quaternion.W * inverseNormal);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Invert(this Matrix2x2D source)
         {
             double m11 = source.M1x1;
@@ -1164,6 +1353,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Invert(this Matrix3x3D source)
         {
             double m11m22m12m21 = (source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1);
@@ -1186,6 +1377,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Invert(this Matrix4x4D source)
         {
             double m22m33m32m23 = (source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3);
@@ -1240,26 +1433,6 @@ namespace Engine
 
         #endregion
 
-        #region Inverse
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
-        public static QuaternionD Inverse(QuaternionD quaternion)
-        {
-            double num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-            double num = 1f / num2;
-            return new QuaternionD(
-                -quaternion.X * num,
-                -quaternion.Y * num,
-                -quaternion.Z * num,
-                quaternion.W * num);
-        }
-
-        #endregion
-
         #region Length
 
         /// <summary>
@@ -1267,6 +1440,8 @@ namespace Engine
         /// </summary>
         /// <param name="quaternion"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this QuaternionD quaternion)
             => Sqrt(LengthSquared(quaternion));
 
@@ -1279,6 +1454,8 @@ namespace Engine
         /// </summary>
         /// <param name="quaternion"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LengthSquared(this QuaternionD quaternion)
             => ((((quaternion.X * quaternion.X)
             + (quaternion.Y * quaternion.Y))
@@ -1296,6 +1473,8 @@ namespace Engine
         /// <param name="quaternion2"></param>
         /// <param name="amount"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Lerp(this QuaternionD quaternion1, QuaternionD quaternion2, double amount)
         {
             double num = amount;
@@ -1327,6 +1506,50 @@ namespace Engine
 
         #endregion
 
+        #region Log
+
+        /// <summary>
+        /// Calculates the logarithm of a Quaternion.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Log(this QuaternionD source)
+        {
+            // BLACKBOX: Learn this
+            // If q = cos(A)+sin(A)*(X*i+Y*j+Z*k) Where (X,Y,Z) is unit length, then
+            // log(q) = A*(X*i+Y*j+Z*k).  If sin(A) is near Zero, use log(q) =
+            // sin(A)*(X*i+Y*j+Z*k) since sin(A)/A has limit 1.
+
+            // start off With a Zero quat
+            QuaternionD returnvalue = QuaternionD.Empty;
+
+            if (Abs(source.W) < 1d)
+            {
+                double angle = Acos(source.W);
+                double sin = Sin(angle);
+
+                if (Abs(sin) >= Epsilon)
+                {
+                    double coeff = angle / sin;
+                    returnvalue.X = coeff * source.X;
+                    returnvalue.Y = coeff * source.Y;
+                    returnvalue.Z = coeff * source.Z;
+                }
+                else
+                {
+                    returnvalue.X = source.X;
+                    returnvalue.Y = source.Y;
+                    returnvalue.Z = source.Z;
+                }
+            }
+
+            return returnvalue;
+        }
+
+        #endregion
+
         #region Modulus
 
         /// <summary>
@@ -1347,25 +1570,10 @@ namespace Engine
         /// <summary>
         /// Multiply: Point * Matrix
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Multiply(this Point2D point, Matrix2D matrix)
             => matrix.Transform(point);
-
-        /// <summary>
-        /// Used to multiply a Matrix2x2 object by a scalar value.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="scalar"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2x2D Multiply(this Matrix2x2D left, double scalar)
-            => new Matrix2x2D(
-            left.M0x0 * scalar,
-            left.M0x1 * scalar,
-            left.M1x0 * scalar,
-            left.M1x1 * scalar);
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix2x2s.
@@ -1381,26 +1589,6 @@ namespace Engine
             left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1,
             left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0,
             left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1);
-
-        /// <summary>
-        /// Used to multiply a Matrix3x3 object by a scalar value.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="scalar"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix3x3D Multiply(this Matrix3x3D left, double scalar)
-            => new Matrix3x3D(
-                left.M0x0 * scalar,
-                left.M0x1 * scalar,
-                left.M0x2 * scalar,
-                left.M1x0 * scalar,
-                left.M1x1 * scalar,
-                left.M1x2 * scalar,
-                left.M2x0 * scalar,
-                left.M2x1 * scalar,
-                left.M2x2 * scalar);
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix3x3s.
@@ -1461,22 +1649,6 @@ namespace Engine
                 left.M2x0 * right.M0x0 + left.M2x1 * right.M1x0 + left.M2x2 * right.M2x0,
                 left.M2x0 * right.M0x1 + left.M2x1 * right.M1x1 + left.M2x2 * right.M2x1,
                 left.M2x0 * right.M0x2 + left.M2x1 * right.M1x2 + left.M2x2 * right.M2x2);
-
-        /// <summary>
-        /// Used to multiply a Matrix4x4 object by a scalar value.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="scalar"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D Multiply(this Matrix4x4D left, double scalar)
-            => Scale4x4(
-                left.M0x0, left.M0x1, left.M0x2, left.M0x3,
-                left.M1x0, left.M1x1, left.M1x2, left.M1x3,
-                left.M2x0, left.M2x1, left.M2x2, left.M2x3,
-                left.M3x0, left.M3x1, left.M3x2, left.M3x3,
-                scalar);
 
         /// <summary>
         /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
@@ -1571,19 +1743,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="quaternion1"></param>
-        /// <param name="scalar"></param>
-        /// <returns></returns>
-        public static QuaternionD Scale(this QuaternionD quaternion1, double scalar)
-            => new QuaternionD(
-                quaternion1.X * scalar,
-                quaternion1.Y * scalar,
-                quaternion1.Z * scalar,
-                quaternion1.W * scalar);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="quaternion1"></param>
         /// <param name="quaternion2"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
@@ -1602,7 +1761,7 @@ namespace Engine
             double num11 = (z * num4) - (x * num2);
             double num10 = (x * num3) - (y * num4);
             double num9 = ((x * num4) + (y * num3)) + (z * num2);
-            return new QuaternionD (
+            return new QuaternionD(
                 ((x * num) + (num4 * w)) + num12,
                 ((y * num) + (num3 * w)) + num11,
                 ((z * num) + (num2 * w)) + num10,
@@ -1618,6 +1777,8 @@ namespace Engine
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Negate(this Matrix2x2D source)
             => Maths.Negate(
                 source.M0x0, source.M0x1,
@@ -1628,6 +1789,8 @@ namespace Engine
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Negate(this Matrix3x3D source)
             => Maths.Negate(
                 source.M0x0, source.M0x1, source.M0x2,
@@ -1639,6 +1802,8 @@ namespace Engine
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Negate(this Matrix4x4D source)
             => Maths.Negate(
                 source.M0x0, source.M0x1, source.M0x2, source.M0x3,
@@ -1651,6 +1816,8 @@ namespace Engine
         /// </summary>
         /// <param name="quaternion"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Negate(QuaternionD quaternion)
             => new QuaternionD(
                 -quaternion.X,
@@ -1669,6 +1836,8 @@ namespace Engine
         /// <param name="value">Second Point</param>
         /// <returns>The Normal of two Points</returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Normalize(this Point2D point, Size2D value)
             => Normalize2D(point.X, point.Y, value.Width, value.Height);
 
@@ -1678,6 +1847,8 @@ namespace Engine
         /// <param name="source">The Vector3D to be Normalized.</param>
         /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
         /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Normalize(this Vector2D source)
             => Normalize2D(source.I, source.J);
 
@@ -1687,6 +1858,8 @@ namespace Engine
         /// <param name="source">The Vector3D to be Normalized.</param>
         /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
         /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Normalize(this Vector3D source)
             => Normalize3D(source.I, source.J, source.K);
 
@@ -1696,6 +1869,8 @@ namespace Engine
         /// <param name="source">The Vector3D to be Normalized.</param>
         /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
         /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Normalize(this Vector4D source)
             => Normalize4D(source.I, source.J, source.K, source.L);
 
@@ -1704,6 +1879,8 @@ namespace Engine
         /// </summary>
         /// <param name="quaternion"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Normalize(this QuaternionD quaternion)
         {
             double num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
@@ -1726,9 +1903,10 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use X = -Y, Y = X</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(float i, float j)
-            => new Vector2D(PerpendicularClockwise(i, j));
+            => PerpendicularClockwise(i, j);
 
         /// <summary>
         /// Perpendicular of a Vector.
@@ -1737,9 +1915,10 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns></returns>
         /// <remarks>To get the perpendicular vector in two dimensions use X = -Y, Y = X</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(double i, double j)
-            => new Vector2D(PerpendicularClockwise(i, j));
+            => PerpendicularClockwise(i, j);
 
         /// <summary>
         /// Perpendicular of a Vector.
@@ -1750,7 +1929,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(this Vector2D vector)
-            => new Vector2D(PerpendicularClockwise(vector.I, vector.J));
+            => PerpendicularClockwise(vector.I, vector.J);
 
         #endregion
 
@@ -1764,19 +1943,22 @@ namespace Engine
         /// <param name="axis">Point to Reflect</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Reflect(this Point2D point, Point2D value, Point2D axis)
-        {
-            Vector2D SegmentVectorDelta = point.Delta(value);
-            var QC12 = new Vector2D(
-                value.CrossProduct(point),
-                axis.DotProduct((Point2D)SegmentVectorDelta)
-                );
-            double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
-            return new Point2D(
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
-                );
-        }
+            => Maths.Reflect(point.X, point.Y, value.X, value.Y, axis.X, axis.Y);
+        //{
+        //    Vector2D SegmentVectorDelta = point.Delta(value);
+        //    var QC12 = new Vector2D(
+        //        value.CrossProduct(point),
+        //        axis.DotProduct((Point2D)SegmentVectorDelta)
+        //        );
+        //    double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
+        //    return new Point2D(
+        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
+        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
+        //        );
+        //}
 
         /// <summary>
         /// Calculates the reflection of a point off a line segment
@@ -1785,19 +1967,22 @@ namespace Engine
         /// <param name="axis">Point to reflect about</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Reflect(this LineSegment segment, Point2D axis)
-        {
-            Vector2D SegmentVectorDelta = segment.A.Delta(segment.B);
-            var QC12 = new Vector2D(
-                segment.B.CrossProduct(segment.A),
-                axis.DotProduct((Point2D)SegmentVectorDelta)
-                );
-            double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
-            return new Point2D(
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
-                );
-        }
+            => Maths.Reflect(segment.AX, segment.AY, segment.BX, segment.BY, axis.X, axis.Y);
+        //{
+        //    Vector2D SegmentVectorDelta = segment.A.Delta(segment.B);
+        //    var QC12 = new Vector2D(
+        //        segment.B.CrossProduct(segment.A),
+        //        axis.DotProduct((Point2D)SegmentVectorDelta)
+        //        );
+        //    double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
+        //    return new Point2D(
+        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
+        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
+        //        );
+        //}
 
         #endregion
 
@@ -1807,6 +1992,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Reverse(this LineSegment segment)
             => segment.Points.Reverse();
 
@@ -1820,6 +2007,8 @@ namespace Engine
         /// <param name="angle">The angle to rotate in radians.</param>
         /// <param name="center">The point around which to rotate.</param>
         /// <returns>Return a rotation matrix to rotate around a point.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2D RotateAroundPoint(this Point2D center, double angle)
         {
             // Translate the point to the origin.
@@ -1841,8 +2030,10 @@ namespace Engine
         /// <param name="point">The point to rotate.</param>
         /// <param name="angle">The angle to rotate in pi radians.</param>
         /// <returns>A point rotated about the origin by the specified pi radian angle.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D RotatePoint(this Point2D point, double angle)
-            => RotatePoint(point, Point2D.Empty, angle);
+            => RotatePoint2D(point.X, point.Y, 0, 0, angle);
 
         /// <summary>
         /// Rotate a point around a fulcrum point.
@@ -1851,19 +2042,10 @@ namespace Engine
         /// <param name="axis">The fulcrum point to rotate the point around.</param>
         /// <param name="angle">The angle to rotate the point in pi radians.</param>
         /// <returns>A point rotated about the fulcrum point by the specified pi radian angle.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D RotatePoint(this Point2D point, Point2D axis, double angle)
-        {
-            double deltaX = point.X - axis.X;
-            double deltaY = point.Y - axis.Y;
-
-            double angleCos = Cos(angle);
-            double angleSin = Sin(angle);
-
-            return new Point2D(
-                (axis.X + (deltaX * angleCos - deltaY * angleSin)),
-                (axis.Y + (deltaX * angleSin + deltaY * angleCos))
-            );
-        }
+            => RotatePoint2D(point.X, point.Y, axis.X, axis.Y, angle);
 
         #endregion
 
@@ -1874,6 +2056,8 @@ namespace Engine
         /// </summary>
         /// <param name="points">The array of points to rotate.</param>
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RotatePoints(this Point2D[] points, double angle)
         {
             for (int i = 0; i < points.Length; i++)
@@ -1886,6 +2070,8 @@ namespace Engine
         /// <param name="points">The array of points to rotate.</param>
         /// <param name="fulcrum">The point to rotate all other points around.</param>
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RotatePoints(this Point2D[] points, Point2D fulcrum, double angle)
         {
             for (int i = 0; i < points.Length; i++)
@@ -1967,6 +2153,70 @@ namespace Engine
         public static Vector4D Scale(this Vector4D value, double factor)
             => Scale4D(value.I, value.J, value.K, value.L, factor);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quaternion1"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        public static QuaternionD Scale(this QuaternionD quaternion1, double scalar)
+            => new QuaternionD(
+                quaternion1.X * scalar,
+                quaternion1.Y * scalar,
+                quaternion1.Z * scalar,
+                quaternion1.W * scalar);
+
+        /// <summary>
+        /// Used to multiply a Matrix2x2 object by a scalar value.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix2x2D Scale(this Matrix2x2D left, double scalar)
+            => new Matrix2x2D(
+            left.M0x0 * scalar,
+            left.M0x1 * scalar,
+            left.M1x0 * scalar,
+            left.M1x1 * scalar);
+
+        /// <summary>
+        /// Used to multiply a Matrix3x3 object by a scalar value.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Scale(this Matrix3x3D left, double scalar)
+            => new Matrix3x3D(
+                left.M0x0 * scalar,
+                left.M0x1 * scalar,
+                left.M0x2 * scalar,
+                left.M1x0 * scalar,
+                left.M1x1 * scalar,
+                left.M1x2 * scalar,
+                left.M2x0 * scalar,
+                left.M2x1 * scalar,
+                left.M2x2 * scalar);
+
+        /// <summary>
+        /// Used to multiply a Matrix4x4 object by a scalar value.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Scale(this Matrix4x4D left, double scalar)
+            => Scale4x4(
+                left.M0x0, left.M0x1, left.M0x2, left.M0x3,
+                left.M1x0, left.M1x1, left.M1x2, left.M1x3,
+                left.M2x0, left.M2x1, left.M2x2, left.M2x3,
+                left.M3x0, left.M3x1, left.M3x2, left.M3x3,
+                scalar);
+
         #endregion
 
         #region Slerp
@@ -1978,6 +2228,8 @@ namespace Engine
         /// <param name="quaternion2"></param>
         /// <param name="amount"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Slerp(this QuaternionD quaternion1, QuaternionD quaternion2, double amount)
         {
             double num2;
@@ -2020,6 +2272,7 @@ namespace Engine
         /// <param name="PointB">Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Point2D PointA, Point2D PointB)
             => Maths.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
@@ -2030,6 +2283,7 @@ namespace Engine
         /// <param name="Point">Starting Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>The slope is calculated with Slope = Y / X or rise over run</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Vector2D Point)
             => Maths.Slope(Point.I, Point.J);
@@ -2040,6 +2294,7 @@ namespace Engine
         /// <param name="Line">Line to get length of</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this LineSegment Line)
             => Maths.Slope(Line.A.X, Line.A.Y, Line.B.X, Line.B.Y);
@@ -2270,6 +2525,30 @@ namespace Engine
             => Subtract4D(minuend.I, minuend.J, minuend.K, minuend.L, subtrahend.I, subtrahend.J, subtrahend.K, subtrahend.L);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Subtract(this QuaternionD minuend, double subtrahend)
+            => Subtract4D(minuend.X, minuend.Y, minuend.Z, minuend.W, subtrahend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static QuaternionD Subtract(this QuaternionD minuend, QuaternionD subtrahend)
+            => Subtract4D(minuend.X, minuend.Y, minuend.Z, minuend.W, subtrahend.X, subtrahend.Y, subtrahend.Z, subtrahend.W);
+
+        /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
         /// <param name="minuend"></param>
@@ -2319,30 +2598,6 @@ namespace Engine
                 subtrahend.M1x0, subtrahend.M1x1, subtrahend.M1x2, subtrahend.M1x3,
                 subtrahend.M2x0, subtrahend.M2x1, subtrahend.M2x2, subtrahend.M2x3,
                 subtrahend.M3x0, subtrahend.M3x1, subtrahend.M3x2, subtrahend.M3x3);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuaternionD Subtract(this QuaternionD minuend, double subtrahend)
-            => Subtract4D(minuend.X, minuend.Y, minuend.Z, minuend.W, subtrahend);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuaternionD Subtract(this QuaternionD minuend, QuaternionD subtrahend)
-            => Subtract4D(minuend.X, minuend.Y, minuend.Z, minuend.W, subtrahend.X, subtrahend.Y, subtrahend.Z, subtrahend.W);
 
         /// <summary>
         /// 
@@ -2441,8 +2696,10 @@ namespace Engine
         /// <param name="value">The Vector to Unitize</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Unit(this Vector2D value)
-            => value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
+            => Maths.Unit(value.I, value.J);
 
         /// <summary>
         /// Unit of a Vector
@@ -2450,8 +2707,10 @@ namespace Engine
         /// <param name="value">The Point to Unitize</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Unit(this Vector3D value)
-            => value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
+            => Maths.Unit(value.I, value.J, value.K);
 
         /// <summary>
         /// Unit of a Vector
@@ -2459,8 +2718,10 @@ namespace Engine
         /// <param name="value">The Point to Unitize</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Unit(this Vector4D value)
-            => value.Scale(1 / Sqrt(((value.I * value.I) + (value.J * value.J))));
+            => Maths.Unit(value.I, value.J, value.K, value.L);
 
         #endregion
     }

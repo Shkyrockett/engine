@@ -119,7 +119,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public Point2D Location
         {
@@ -137,7 +137,7 @@ namespace Engine
         /// Gets or sets the Center Point of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(Ellipse) + ".")]
@@ -244,7 +244,7 @@ namespace Engine
         /// Gets the Major radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the " + nameof(Ellipse) + ".")]
@@ -255,7 +255,7 @@ namespace Engine
         /// Gets the Minor radius of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The smaller radius of the " + nameof(Ellipse) + ".")]
@@ -267,7 +267,7 @@ namespace Engine
         /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the " + nameof(Ellipse) + ".")]
@@ -288,7 +288,7 @@ namespace Engine
         /// Gets or sets the Angle of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Elements")]
@@ -335,7 +335,7 @@ namespace Engine
         /// Gets the Focus Radius of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the " + nameof(Ellipse) + ".")]
@@ -346,7 +346,7 @@ namespace Engine
         /// Gets the <see cref="Eccentricity"/> of the <see cref="Ellipse"/>.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
@@ -356,7 +356,7 @@ namespace Engine
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
@@ -399,7 +399,7 @@ namespace Engine
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
@@ -433,7 +433,7 @@ namespace Engine
         /// <summary>
         /// Gets the Bounding box of the <see cref="Ellipse"/>.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The rectangular bounds of the " + nameof(Ellipse) + ".")]
@@ -469,7 +469,7 @@ namespace Engine
         /// Gets the <see cref="Perimeter"/> of the <see cref="Ellipse"/>.
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
@@ -479,7 +479,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
@@ -502,7 +502,7 @@ namespace Engine
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The unrotated rectangular bounds of the " + nameof(Ellipse) + ".")]

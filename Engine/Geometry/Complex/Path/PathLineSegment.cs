@@ -36,7 +36,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="args"></param>
         public PathLineSegment(PathItem previous, bool relitive, params Double[] args)
-            : this(previous, args.Length == 2 ? new Point2D(args[0], args[1]) : null)
+            : this(previous, args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
             if (relitive)
                 End = (Point2D)(End + previous.End);
@@ -47,7 +47,7 @@ namespace Engine
         /// </summary>
         /// <param name="previous"></param>
         /// <param name="end"></param>
-        public PathLineSegment(PathItem previous, Point2D end)
+        public PathLineSegment(PathItem previous, Point2D? end)
         {
             Previous = previous;
             previous.Next = this;
@@ -61,30 +61,30 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? Start { get => Previous.End; set => Previous.End = value; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D NextToEnd { get { return Start; } set { Start = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? NextToEnd { get => Start; set => Start = value; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D End { get; set; }
+        public override Point2D? End { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.LineSegment(Start.X, Start.Y, End.X, End.Y);
+            => Boundings.LineSegment(Start.Value.X, Start.Value.Y, End.Value.X, End.Value.Y);
 
         #endregion
 
@@ -94,7 +94,7 @@ namespace Engine
         /// 
         /// </summary>
         public LineSegment ToLineSegment()
-            => new LineSegment(Start, End);
+            => new LineSegment(Start.Value, End.Value);
 
         #endregion
     }

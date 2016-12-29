@@ -37,17 +37,13 @@ namespace Engine
         /// 
         /// </summary>
         public GeometryPath()
-        {
-            Items = new List<PathItem>();
-        }
+            => Items = new List<PathItem>();
 
         /// <summary>
         /// 
         /// </summary>
         public GeometryPath(Point2D start)
-        {
-            Items.Add(new PathPoint(start));
-        }
+            => Items.Add(new PathPoint(start));
 
         #endregion
 
@@ -69,7 +65,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public List<PathItem> Items { get; set; } = new List<PathItem>();
@@ -82,25 +78,25 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Deffinition { get { return ToPathDefString(); } set { Items = ParsePathDefString(value).Item1; } }
+        public string Deffinition { get => ToPathDefString(); set => Items = ParsePathDefString(value).Item1; }
 
         /// <summary>
         /// Gets a listing of all end nodes from the Figure.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public List<Point2D> Nodes
-            => Items.Select(item => item.End).ToList();
+            => Items.Select(item => item.End.Value).ToList();
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public bool Closed { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => Boundings.GeometryPath(this);
 
@@ -200,7 +196,7 @@ namespace Engine
             bool closed = false;
 
             bool relitive = false;
-            Point2D startPoint = null;
+            Point2D? startPoint = null;
             PathItem item = null;
 
             // These letters are valid SVG commands. Split the tokens at these.
@@ -234,7 +230,7 @@ namespace Engine
                         relitive = true;
                         goto case 'Z';
                     case 'Z': // Svg closepath
-                        item = new PathPoint(item, relitive, startPoint);
+                        item = new PathPoint(item, relitive, startPoint.Value);
                         closed = true;
                         item.Relitive = relitive;
                         relitive = false;
@@ -252,7 +248,7 @@ namespace Engine
                         relitive = true;
                         goto case 'H';
                     case 'H': // Svg horizontal-lineto
-                        item = new PathLineSegment(item, relitive, item.End.X, args[0]);
+                        item = new PathLineSegment(item, relitive, item.End.Value.X, args[0]);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -261,7 +257,7 @@ namespace Engine
                         relitive = true;
                         goto case 'V';
                     case 'V': // Svg vertical-lineto
-                        item = new PathLineSegment(item, relitive, args[0], item.End.Y);
+                        item = new PathLineSegment(item, relitive, args[0], item.End.Value.Y);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -334,39 +330,39 @@ namespace Engine
                 {
                     case PathPoint t:
                         // ToDo: Figure out how to seporate M from Z.
-                        output.Append(t.Relitive ? $"m{t.Start.X},{t.Start.Y} " : $"M{t.Start.X},{t.Start.Y} ");
+                        output.Append(t.Relitive ? $"m{t.Start.Value.X},{t.Start.Value.Y} " : $"M{t.Start.Value.X},{t.Start.Value.Y} ");
                         break;
                     case PathLineSegment t:
                         // L is ageneral line.
                         char l = t.Relitive ? 'l' : 'L';
-                        string coords = $"{t.End.X},{t.End.Y}";
-                        if (t.Start.X == t.End.X)
+                        string coords = $"{t.End.Value.X},{t.End.Value.Y}";
+                        if (t.Start.Value.X == t.End.Value.X)
                         {
                             // H is a horizontal line, so the x-coordinate can be ommited.
-                            coords = $"{t.End.Y}";
+                            coords = $"{t.End.Value.Y}";
                             l = t.Relitive ? 'h' : 'H';
                         }
-                        else if (t.Start.Y == t.End.Y)
+                        else if (t.Start.Value.Y == t.End.Value.Y)
                         {
                             // V is a horizontal line, so the y-coordinate can be ommited.
-                            coords = $"{t.End.X}";
+                            coords = $"{t.End.Value.X}";
                             l = t.Relitive ? 'v' : 'V';
                         }
                         output.Append($"{l}{coords} ");
                         break;
                     case PathCubicBezier t:
                         // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
-                        output.Append(t.Relitive ? $"c{t.Handle1.X},{t.Handle1.Y},{t.Handle2.X},{t.Handle2.Y},{t.End.X},{t.End.Y} " : $"C{t.Handle1.X},{t.Handle1.Y},{t.Handle2.X},{t.Handle2.Y},{t.End.X},{t.End.Y} ");
+                        output.Append(t.Relitive ? $"c{t.Handle1.X},{t.Handle1.Y},{t.Handle2.Value.X},{t.Handle2.Value.Y},{t.End.Value.X},{t.End.Value.Y} " : $"C{t.Handle1.X},{t.Handle1.Y},{t.Handle2.Value.X},{t.Handle2.Value.Y},{t.End.Value.X},{t.End.Value.Y} ");
                         break;
                     case PathQuadraticBezier t:
                         // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
-                        output.Append(t.Relitive ? $"q{t.Handle.X},{t.Handle.X},{t.End.X},{t.End.Y} " : $"Q{t.Handle.X},{t.Handle.X},{t.End.X},{t.End.Y} ");
+                        output.Append(t.Relitive ? $"q{t.Handle.Value.X},{t.Handle.Value.X},{t.End.Value.X},{t.End.Value.Y} " : $"Q{t.Handle.Value.X},{t.Handle.Value.X},{t.End.Value.X},{t.End.Value.Y} ");
                         break;
                     case PathArc t:
                         // Arc deffinition. 
                         int largearc = t.LargeArc ? 1 : 0;
                         int sweep = t.Sweep ? 1 : 0;
-                        output.Append(t.Relitive ? $"a{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.X},{t.End.Y} " : $"A{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.X},{t.End.Y} ");
+                        output.Append(t.Relitive ? $"a{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.Value.X},{t.End.Value.Y} " : $"A{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.Value.X},{t.End.Value.Y} ");
                         break;
                     default:
                         break;

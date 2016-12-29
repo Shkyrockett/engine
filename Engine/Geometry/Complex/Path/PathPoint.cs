@@ -36,7 +36,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="args"></param>
         public PathPoint(PathItem previous, bool relitive, Double[] args)
-            : this(args.Length == 2 ? new Point2D(args[0], args[1]) : null)
+            : this(args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
             if (relitive)
                 Start = (Point2D)(Start + previous.End);
@@ -59,7 +59,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="start"></param>
-        public PathPoint(Point2D start)
+        public PathPoint(Point2D? start)
         {
             Start = start;
             Previous = this;
@@ -73,29 +73,29 @@ namespace Engine
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D Start { get; set; }
+        public override Point2D? Start { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D NextToEnd { get { return Start; } set { Start = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? NextToEnd { get => Start; set => Start = value; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D End { get { return Start; } set { Start = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? End { get => Start; set => Start = value; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.LineSegment(Start, End);
+            => Boundings.LineSegment(Start.Value, End.Value);
 
         #endregion
 
@@ -104,9 +104,9 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Point2D ToPoint2D
-            => Start;
+            => Start.Value;
 
         #endregion
     }

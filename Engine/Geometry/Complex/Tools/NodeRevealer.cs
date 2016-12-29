@@ -62,7 +62,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
         {
             get

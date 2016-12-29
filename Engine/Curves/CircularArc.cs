@@ -139,7 +139,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the center of the Arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The center location of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -219,7 +219,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the start angle of the Arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The start angle of the Arc.")]
@@ -261,7 +261,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the sweep angle of the Arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The sweep angle of the Arc.")]
@@ -303,7 +303,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the Arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
@@ -324,7 +324,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the Arc.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [GeometryAngleDegrees]
         [Category("Clipping")]
@@ -345,28 +345,28 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Point2D StartPoint
             => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 0);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Point2D EndPoint
             => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 1);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public override double Perimeter
             => ArcLength;
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The tight rectangular boundaries of the Arc.")]
         public override Rectangle2D Bounds
@@ -375,7 +375,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Arc.")]
         public Rectangle2D DrawingBounds
@@ -385,7 +385,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The distance around the Arc.")]
         public double ArcLength
@@ -394,7 +394,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The area of the arc.")]
         public override double Area

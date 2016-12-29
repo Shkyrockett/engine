@@ -1,5 +1,5 @@
 ﻿/*
-  Aport of the javascript Bezier curve Utility library by Pomax.
+  A port of the javascript Bezier curve Utility library by Pomax.
 
   Based on http://pomax.github.io/bezierinfo
 
@@ -275,7 +275,7 @@ namespace Engine
         /// <param name="x4"></param>
         /// <param name="y4"></param>
         /// <returns></returns>
-        public static Point3D Lli8(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+        public static Point3D? Lli8(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
             double nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
             double ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
@@ -293,7 +293,7 @@ namespace Engine
         /// <param name="p3"></param>
         /// <param name="p4"></param>
         /// <returns></returns>
-        public static Point3D Lli4(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
+        public static Point3D? Lli4(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
         {
             double x1 = p1.X, y1 = p1.Y;
             double x2 = p2.X, y2 = p2.Y;
@@ -309,7 +309,7 @@ namespace Engine
         /// <param name="v2"></param>
         /// <returns></returns>
         // return utils.lli4(v1,v1.c,v2,v2.c);
-        public static Point3D Lli(Point3D v1, Point3D v2)
+        public static Point3D? Lli(Point3D v1, Point3D v2)
             => Lli4(v1, v1, v2, v2);
 
         /// <summary>
@@ -801,12 +801,12 @@ namespace Engine
             double mx2n = mx2 + dx2p;
             double my2n = my2 + dy2p;
             // intersection of these lines:
-            Point3D arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
-            double r = Distances.Distance(arcCenter, p1);
+            Point3D? arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
+            double r = Distances.Distance(arcCenter.Value, p1);
             // arc start/end values, over mid point:
-            double s = Atan2(p1.Y - arcCenter.Y, p1.X - arcCenter.X);
-            double m = Atan2(p2.Y - arcCenter.Y, p2.X - arcCenter.X);
-            double e = Atan2(p3.Y - arcCenter.Y, p3.X - arcCenter.X);
+            double s = Atan2(p1.Y - arcCenter.Value.Y, p1.X - arcCenter.Value.X);
+            double m = Atan2(p2.Y - arcCenter.Value.Y, p2.X - arcCenter.Value.X);
+            double e = Atan2(p3.Y - arcCenter.Value.Y, p3.X - arcCenter.Value.X);
             double _;
             // determine arc direction (cw/ccw correction)
             if (s < e)
@@ -832,7 +832,7 @@ namespace Engine
             // assign and done.
             var arc = new Arc1()
             {
-                Center = arcCenter,
+                Center = arcCenter.Value,
                 S = s,
                 E = e,
                 Radius = r

@@ -164,7 +164,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Point2D Center
         {
             get { return new Point2D(x, y); }
@@ -220,14 +220,14 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Point2D StartPoint
             => new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Point2D EndPoint
             => new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle));
 

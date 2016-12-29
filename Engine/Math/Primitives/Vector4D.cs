@@ -26,10 +26,9 @@ namespace Engine
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    //[DisplayName(nameof(Vector4D))]
-    //[TypeConverter(typeof(Vector4DConverter))]
+    [TypeConverter(typeof(StructConverter<Vector4D>))]
     public struct Vector4D
-         : IEquatable<Vector4D>, IFormattable
+        : IVector<Vector4D>
     {
         #region Static Fields
 
@@ -42,6 +41,26 @@ namespace Engine
         /// A Unit <see cref="Vector4D"/>.
         /// </summary>
         public static readonly Vector4D Unit = new Vector4D(1, 1, 1, 1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly Vector4D XAxis = new Vector4D(1, 0, 0, 0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly Vector4D YAxis = new Vector4D(0, 1, 0, 0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly Vector4D ZAxis = new Vector4D(0, 0, 1, 0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly Vector4D WAxis = new Vector4D(0, 0, 0, 1);
 
         #endregion
 
@@ -140,7 +159,7 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether this <see cref="Vector4D"/> is empty.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(I) < Epsilon
@@ -151,7 +170,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Magnitude
             => Sqrt(I * I + J * J + K * K + L * L);
@@ -244,7 +263,7 @@ namespace Engine
         /// <returns>A Vector4D divided by the divisor</returns>
         /// <remarks></remarks>
         public static Vector4D operator /(Vector4D divisor, double divedend)
-            => Divide4D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
+            => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
 
         /// <summary>
         /// Divide a Vector4D
@@ -286,7 +305,7 @@ namespace Engine
 
         #endregion
 
-        #region Public Methods
+        #region Factories
 
         /// <summary>
         /// Create a Random <see cref="Vector4D"/>.
@@ -299,6 +318,45 @@ namespace Engine
                 (2 * RandomNumberGenerator.NextDouble()) - 1,
                 (2 * RandomNumberGenerator.NextDouble()) - 1,
                 (2 * RandomNumberGenerator.NextDouble()) - 1);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Vector4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Vector4D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Vector4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Vector4D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var value = new Vector4D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// 
@@ -348,28 +406,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector4D value)
             => Equals(this, value);
-
-        /// <summary>
-        /// Parse a string for a <see cref="Vector4D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Vector4D Parse(string source)
-        {
-            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            var value = new Vector4D(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture)
-                );
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector4D"/>.

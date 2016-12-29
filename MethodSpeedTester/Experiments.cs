@@ -103,7 +103,8 @@ namespace MethodSpeedTester
         /// <param name="vX"></param>
         /// <param name="vY"></param>
         /// <returns></returns>
-        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY,
             double vX, double vY)
@@ -133,7 +134,8 @@ namespace MethodSpeedTester
         /// <param name="vY"></param>
         /// <param name="vZ"></param>
         /// <returns></returns>
-        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
             double uX, double uY, double uZ,
             double vX, double vY, double vZ)
@@ -219,7 +221,8 @@ namespace MethodSpeedTester
         /// <param name="x2">Horizontal Component of Ending Point</param>
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1,
             double x2, double y2)
@@ -249,7 +252,8 @@ namespace MethodSpeedTester
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>        public static double Angle(
+        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        public static double Angle(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
             => (Abs(x1 - x2) < DoubleEpsilon
@@ -616,7 +620,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Rectangle2D EllipseBoundingBox(double x, double y, int r1, int r2, double angle)
         {
@@ -639,7 +644,8 @@ namespace MethodSpeedTester
         /// <param name="r1"></param>
         /// <param name="r2"></param>
         /// <param name="angle"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)
         {
@@ -699,7 +705,8 @@ namespace MethodSpeedTester
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
         /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipticalArc0(
             double cX, double cY,
@@ -778,7 +785,8 @@ namespace MethodSpeedTester
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
         /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipticalArc1(
             double cX, double cY,
@@ -855,7 +863,8 @@ namespace MethodSpeedTester
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
         /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipticalArc2(
             double cX, double cY,
@@ -922,7 +931,8 @@ namespace MethodSpeedTester
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
         /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipticalArc3(
             double cX, double cY,
@@ -1741,7 +1751,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) ComplexProduct(
             double x0, double y0,
@@ -4668,15 +4679,15 @@ namespace MethodSpeedTester
 
             if (invert_x)
             {
-                device_points[0].X = device_rect.Right;
-                device_points[1].X = device_rect.Left;
-                device_points[2].X = device_rect.Right;
+                device_points[0] = new Point2D(device_rect.Right, device_points[0].Y);
+                device_points[1] = new Point2D(device_rect.Left, device_points[1].Y);
+                device_points[2] = new Point2D(device_rect.Right, device_points[2].Y);
             }
             if (invert_y)
             {
-                device_points[0].Y = device_rect.Bottom;
-                device_points[1].Y = device_rect.Bottom;
-                device_points[2].Y = device_rect.Top;
+                device_points[0] = new Point2D(device_points[0].X, device_rect.Bottom);
+                device_points[1] = new Point2D(device_points[1].X, device_rect.Bottom);
+                device_points[2] = new Point2D(device_points[2].X, device_rect.Top);
             }
 
             gr.Transform = new Matrix(world_rect.ToRectangleF(), device_points.ToPointFArray());
@@ -6895,7 +6906,8 @@ namespace MethodSpeedTester
         /// <param name="value">The value to check.</param>
         /// <returns>
         /// true if the specified value is valid; otherwise, returns false.
-        /// </returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsValid(double value)
         {
             return !double.IsNaN(value) && !double.IsInfinity(value);
@@ -7688,7 +7700,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="value"></param>
         /// <param name="epsilon"></param>
-        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearZero0(double value, double epsilon = NearZeroEpsilon)
             => (value > -epsilon) && (value < -epsilon);
 
@@ -7697,7 +7710,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="value"></param>
         /// <param name="epsilon"></param>
-        /// <returns></returns>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool NearZero1(double value, double epsilon = NearZeroEpsilon)
             => Abs(value) <= epsilon;
 
@@ -7711,7 +7725,8 @@ namespace MethodSpeedTester
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks></remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize(
             double i, double j)
             => (
@@ -7730,7 +7745,8 @@ namespace MethodSpeedTester
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-        /// <remarks></remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize(
             double i, double j, double k)
             => (
@@ -7751,7 +7767,8 @@ namespace MethodSpeedTester
         /// <param name="x2">The x component of the second Point.</param>
         /// <param name="y2">The y component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks></remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize(
             double x1, double y1,
             double x2, double y2)
@@ -7774,7 +7791,8 @@ namespace MethodSpeedTester
         /// <param name="y2">The y component of the second Point.</param>
         /// <param name="z2">The z component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
@@ -8482,7 +8500,8 @@ namespace MethodSpeedTester
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>        [DebuggerStepThrough]
+        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularClockwise(double i, double j)
             => (-j, i);
@@ -8497,7 +8516,8 @@ namespace MethodSpeedTester
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>        [DebuggerStepThrough]
+        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularCounterClockwise(double i, double j)
             => (j, -i);
@@ -8695,7 +8715,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         public static Inclusion PointInEllipse(Ellipse ellipse, Point2D point)
         {
             if (ellipse.RX <= 0d || ellipse.RY <= 0d)
@@ -9735,7 +9756,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="rectangle"></param>
         /// <param name="point"></param>
-        /// <returns></returns>        //[DebuggerStepThrough]
+        /// <returns></returns>
+        //[DebuggerStepThrough]
         public static Inclusion Contains(Rectangle2D rectangle, Point2D point) => (rectangle.X <= point.X
             && point.X < rectangle.X + rectangle.Width
             && rectangle.Y <= point.Y
@@ -9746,7 +9768,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="rectangle"></param>
         /// <param name="point"></param>
-        /// <returns></returns>        //[DebuggerStepThrough]
+        /// <returns></returns>
+        //[DebuggerStepThrough]
         public static Inclusion Contains2(Rectangle2D rectangle, Point2D point)
         {
             if (((Abs(rectangle.X - point.X) < DoubleEpsilon
@@ -9770,7 +9793,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="rectangle"></param>
         /// <param name="point"></param>
-        /// <returns></returns>        //[DebuggerStepThrough]
+        /// <returns></returns>
+        //[DebuggerStepThrough]
         public static Inclusion PointOnRectangleX(Rectangle2D rectangle, Point2D point)
         {
             double top = Sqrt((rectangle.TopRight.X - rectangle.TopLeft.X) * (rectangle.TopRight.X - rectangle.TopLeft.X) + (rectangle.TopRight.Y - rectangle.TopLeft.Y) * (rectangle.TopRight.Y - rectangle.TopLeft.Y));
@@ -10590,7 +10614,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double[] CubicRoots(double a, double b, double c, double d)
         {
@@ -10655,7 +10680,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>
         /// http://pomax.github.io/bezierinfo
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuadraticRoots(double a, double b, double c)
         {
@@ -10683,7 +10709,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>
         /// http://pomax.github.io/bezierinfo
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> LinearRoots(double a, double b)
         {
@@ -10818,21 +10845,24 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="value"></param>
         /// <param name="decimals"></param>
-        /// <returns></returns>        public static double RoundAFZ(double value, int decimals)
+        /// <returns></returns>
+        public static double RoundAFZ(double value, int decimals)
             => Math.Round(value, decimals, MidpointRounding.AwayFromZero);
 
         /// <summary>
         /// Away from zero rounding.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>        public static double RoundAFZ(double value)
+        /// <returns></returns>
+        public static double RoundAFZ(double value)
             => Math.Round(value, 0, MidpointRounding.AwayFromZero);
 
         /// <summary>
         /// To Even, or Bankers rounding.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>        public static double RoundToEven(double value)
+        /// <returns></returns>
+        public static double RoundToEven(double value)
             => Math.Round(value, 0, MidpointRounding.ToEven);
 
         /// <summary>
@@ -11058,7 +11088,8 @@ namespace MethodSpeedTester
         /// If the line is vertical, return something close to infinity
         /// (Close to the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
-        /// </remarks>        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
             => Abs(i) < DoubleEpsilon ? SlopeMax : (j / i);
 
@@ -11079,7 +11110,8 @@ namespace MethodSpeedTester
         /// the largest value allowed for the data type).
         /// Otherwise calculate and return the slope.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]        public static double Slope(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Slope(
             double x1, double y1,
             double x2, double y2)
             => (Abs(x1 - x2) < DoubleEpsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
@@ -11184,7 +11216,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
-        /// </remarks>        [DebuggerStepThrough]
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double[] SortSpecial(double[] a)
         {
@@ -11253,7 +11286,8 @@ namespace MethodSpeedTester
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(
             double x1, double y1,
@@ -11273,7 +11307,8 @@ namespace MethodSpeedTester
         /// <param name="y2_">The y component of the first point on the line.</param>
         /// <param name="x3_">The x component of the second point on the line.</param>
         /// <param name="y3_">The y component of the second point on the line.</param>
-        /// <returns></returns>        public static double SquareDistanceToLine(
+        /// <returns></returns>
+        public static double SquareDistanceToLine(
             double x1, double y1,
             double x2_, double y2_,
             double x3_, double y3_)
@@ -11820,7 +11855,8 @@ namespace MethodSpeedTester
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
         /// <param name="epsilon"></param>
-        /// <remarks></remarks>        public static bool AreClose(double value1, double value2, double epsilon = DoubleEpsilon)
+        /// <remarks></remarks>
+        public static bool AreClose(double value1, double value2, double epsilon = DoubleEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
             if (Abs(value1 - value2) < DoubleEpsilon)
@@ -11937,7 +11973,8 @@ namespace MethodSpeedTester
         /// Reduces a given angle to a value between 2π and -2π.
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>
-        /// <returns>The new angle, in radians.</returns>        [DebuggerStepThrough]
+        /// <returns>The new angle, in radians.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double WrapAngle1(double angle)
         {

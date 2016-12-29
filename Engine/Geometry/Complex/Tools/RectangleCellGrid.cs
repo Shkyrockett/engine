@@ -123,7 +123,7 @@ namespace Engine
         /// </summary>
         /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
         /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public int this[Point location]
         {
             get
@@ -145,7 +145,7 @@ namespace Engine
         /// </summary>
         /// <param name="index">The index of a cell in the grid.</param>
         /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Rectangle this[int index]
         {
             get
@@ -159,7 +159,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public new Rectangle Bounds
         {
             get { return new Rectangle(x, y, h, v); }
@@ -258,28 +258,28 @@ namespace Engine
         /// <summary>
         /// Gets the calculated optimum <see cref="Size"/> height and width of any cell in the grid.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Size CellSize
             => cellSize;
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle"/> of the grid. 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Rectangle InnerBounds
             => innerBounds;
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public int Columns
             => columns;
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public int Rows
             => rows;
 

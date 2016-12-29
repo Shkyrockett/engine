@@ -36,7 +36,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="args"></param>
         public PathArc(PathItem item, bool relitive, Double[] args)
-            : this(item, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? new Point2D(args[5], args[6]) : null)
+            : this(item, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {
             if (relitive)
                 End = (Point2D)(End + item.End);
@@ -52,7 +52,7 @@ namespace Engine
         /// <param name="largeArc"></param>
         /// <param name="sweep"></param>
         /// <param name="end"></param>
-        public PathArc(PathItem previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D end)
+        public PathArc(PathItem previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D? end)
         {
             Previous = previous;
             previous.Next = this;
@@ -61,7 +61,7 @@ namespace Engine
             Angle = angle;
             LargeArc = largeArc;
             Sweep = sweep;
-            End = end;
+            End = end.Value;
         }
 
         #endregion
@@ -72,7 +72,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D Start { get { return Previous.End; } set { Previous.End = value; } }
+        public override Point2D? Start { get => Previous.End; set => Previous.End = value; }
 
         /// <summary>
         /// 
@@ -107,19 +107,19 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
-        public override Point2D NextToEnd { get { return Start; } set { Start = value; } }
+        [XmlIgnore, SoapIgnore]
+        public override Point2D? NextToEnd { get => Start; set => Start = value; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D End { get; set; }
+        public override Point2D? End { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(Rectangle2DConverter))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -143,7 +143,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public EllipticalArc ToEllipticalArc()
-            => new EllipticalArc(Start.X, Start.Y, RX, RY, Angle, LargeArc, Sweep, End.X, End.Y);
+            => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y);
 
         #endregion
     }

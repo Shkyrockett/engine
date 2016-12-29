@@ -65,7 +65,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the shape.")]
@@ -74,7 +74,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The perimeter length of the shape.")]
@@ -83,7 +83,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The bounding box of the shape.")]
@@ -99,7 +99,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public virtual Point2D Interpolate(double t)
-            => null;
+            => new Point2D();
 
         /// <summary>
         /// Retrieves a list of points interpolated from a<see cref="Shape"/>.
@@ -155,18 +155,14 @@ namespace Engine
         /// </summary>
         /// <param name="name"></param>
         protected void OnPropertyChanging([CallerMemberName] string name = "")
-        {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
-        }
+            => PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="name"></param>
         protected void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
         ///// <summary>
         /////

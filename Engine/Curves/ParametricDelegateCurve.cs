@@ -90,14 +90,14 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public Func<double, double, double, double, double, double, Point2D> Interpolater { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public Func<double, double, double, double, double, double, double, Inclusion> PointIntersector { get; set; }
 
@@ -111,7 +111,7 @@ namespace Engine
         [Browsable(false)]
         public Double X
         {
-            get { return x; }
+            get => x;
             set
             {
                 x = value;
@@ -130,7 +130,7 @@ namespace Engine
         [Browsable(false)]
         public Double Y
         {
-            get { return y; }
+            get => y;
             set
             {
                 y = value;
@@ -142,7 +142,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Adjustments")]
         [Description("The " + nameof(Location) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -152,7 +152,7 @@ namespace Engine
         [Browsable(true)]
         public Point2D Location
         {
-            get { return new Point2D(x, y); }
+            get => new Point2D(x, y);
             set
             {
                 x = value.X;
@@ -172,7 +172,7 @@ namespace Engine
         [Browsable(false)]
         public Double Width
         {
-            get { return h; }
+            get => h;
             set
             {
                 h = value;
@@ -191,7 +191,7 @@ namespace Engine
         [Browsable(false)]
         public Double Height
         {
-            get { return v; }
+            get => v;
             set
             {
                 v = value;
@@ -203,7 +203,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Category("Adjustments")]
         [Description("The " + nameof(Scale) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -213,7 +213,7 @@ namespace Engine
         [Browsable(true)]
         public Size2D Scale
         {
-            get { return new Size2D(h, v); }
+            get => new Size2D(h, v);
             set
             {
                 h = value.Width; v = value.Height;
@@ -236,7 +236,7 @@ namespace Engine
         [Browsable(true)]
         public double Rotation
         {
-            get { return r; }
+            get => r;
             set
             {
                 r = value;
@@ -260,7 +260,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -314,7 +314,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public static Point2D Interpolate(Func<double, double, double, double, double, double, Point2D> function, double x, double y, double w, double h, double a, double t)
-            => function?.Invoke(x, y, w, h, a, t);
+            => function.Invoke(x, y, w, h, a, t);
 
         /// <summary>
         /// 

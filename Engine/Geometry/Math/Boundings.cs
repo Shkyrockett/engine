@@ -524,7 +524,7 @@ namespace Engine
         public static Rectangle2D GeometryPath(GeometryPath chain)
         {
             var start = chain.Items[0] as PathPoint;
-            Rectangle2D result = new Rectangle2D(start.Start, start.End);
+            Rectangle2D result = new Rectangle2D(start.Start.Value, start.End.Value);
 
             foreach (PathItem member in chain.Items)
             {

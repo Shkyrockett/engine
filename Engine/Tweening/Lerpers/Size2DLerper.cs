@@ -42,8 +42,8 @@ namespace Engine.Tweening
         /// <param name="behavior"></param>
         public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
-            from = fromValue as Size2D;
-            to = toValue as Size2D;
+            from = (Size2D)fromValue;
+            to = (Size2D)toValue;
             range = new Size2D(
                 to.Width - from.Width,
                 to.Height - from.Height);
@@ -67,7 +67,7 @@ namespace Engine.Tweening
                 height = Round(height);
             }
 
-            var current = currentValue as Size2D;
+            var current = (Size2D)currentValue;
             return new Size2D(
                 (Abs(range.Width) < Epsilon) ? current.Width : width,
                 (Abs(range.Height) < Epsilon) ? current.Height : height);

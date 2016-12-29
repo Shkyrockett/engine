@@ -26,10 +26,9 @@ namespace Engine
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    //[DisplayName(nameof(Vector3D))]
-    //[TypeConverter(typeof(Vector3DConverter))]
+    [TypeConverter(typeof(StructConverter<Vector3D>))]
     public struct Vector3D
-         : IEquatable<Vector3D>, IFormattable
+        : IVector<Vector3D>
     {
         #region Static Fields
 
@@ -42,6 +41,21 @@ namespace Engine
         /// A Unit <see cref="Vector3D"/>.
         /// </summary>
         public static readonly Vector3D Unit = new Vector3D(1, 1, 1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly Vector3D XAxis = new Vector3D(1, 0, 0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly Vector3D YAxis = new Vector3D(0, 1, 0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly Vector3D ZAxis = new Vector3D(0, 0, 1);
 
         #endregion
 
@@ -129,7 +143,7 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether this <see cref="Vector3D"/> is empty.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(I) < Epsilon
@@ -139,7 +153,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Magnitude
             => Sqrt(I * I + J * J + K * K);
@@ -306,7 +320,7 @@ namespace Engine
 
         #endregion
 
-        #region Public Methods
+        #region Factories
 
         /// <summary>
         /// Create a Random <see cref="Vector3D"/>.
@@ -318,6 +332,44 @@ namespace Engine
                 (2 * RandomNumberGenerator.NextDouble()) - 1,
                 (2 * RandomNumberGenerator.NextDouble()) - 1,
                 (2 * RandomNumberGenerator.NextDouble()) - 1);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Vector3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector3D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Vector3D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Vector3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector3D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Vector3D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var value = new Vector3D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// 
@@ -368,27 +420,6 @@ namespace Engine
             => a.I == b.I & a.J == b.J & a.K == b.K;
 
         /// <summary>
-        /// Parse a string for a <see cref="Vector3D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector3D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector3D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Vector3D Parse(string source)
-        {
-            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            var value = new Vector3D(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture)
-                );
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
-
-        /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector3D"/>.
         /// </summary>
         /// <returns></returns>
@@ -422,11 +453,6 @@ namespace Engine
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            // If the object hasn't been initialized yet, for example reading from reflection, return its name.
-#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            if (this == null) return nameof(Vector3D);
-#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
-
             // Capture the culture's list ceparator character.
             char sep = Tokenizer.GetNumericListSeparator(provider);
 

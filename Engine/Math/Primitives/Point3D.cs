@@ -25,10 +25,9 @@ namespace Engine
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    [DisplayName(nameof(Point3D))]
-    //[TypeConverter(typeof(Point2DConverter))]
-    public class Point3D
-        : IEquatable<Point3D>, IFormattable
+    [TypeConverter(typeof(StructConverter<Point3D>))]
+    public struct Point3D
+        : IVector<Point3D>
     {
         #region Implementations
 
@@ -45,14 +44,6 @@ namespace Engine
         #endregion
 
         #region Constructors
-
-        /// <summary>
-        /// Initializes a new default instance of the <see cref="Point3D"/> class.
-        /// </summary>
-        /// <remarks></remarks>
-        public Point3D()
-            : this(0, 0, 0)
-        { }
 
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
@@ -113,7 +104,7 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point3D"/> is empty.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(X) < Epsilon
@@ -258,13 +249,26 @@ namespace Engine
         /// Returns an instance of the <see cref="Point3D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
+        [ParseMethod]
         public static Point3D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Point3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Point3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Point3D Parse(string source, IFormatProvider provider)
         {
-            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            var tokenizer = new Tokenizer(source, provider);
             var value = new Point3D(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture)
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
                 );
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
@@ -303,7 +307,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Point3D a, Point3D b)
-            => (a?.X == b?.X) & (a?.Y == b?.Y) & (a?.Z == b?.Z);
+            => (a.X == b.X) & (a.Y == b.Y) & (a.Z == b.Z);
 
         /// <summary>
         ///
@@ -312,7 +316,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is Point3D && Equals(this, obj as Point3D);
+            => obj is Point3D && Equals(this, (Point3D)obj);
 
         /// <summary>
         ///

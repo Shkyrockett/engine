@@ -89,13 +89,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         internal DashStyle DashStyle { get { return dashStyle; } set { dashStyle = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public float[] DashPattern
         {
             get { return dashPattern; }

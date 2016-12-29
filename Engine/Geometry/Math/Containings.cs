@@ -581,6 +581,20 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static bool TrianglePoint(Point2D p, Point2D a, Point2D b, Point2D c)
+        {
+            bool bClockwise = ((((b - a).CrossProduct(p - b))) >= 0);
+            return !(((((c - b).CrossProduct(p - c)) >= 0) ^ bClockwise) && ((((a - c).CrossProduct(p - a)) >= 0) ^ bClockwise));
+        }
+
+        /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="left">The left location of the <see cref="Rectangle2D"/>.</param>

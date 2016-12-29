@@ -26,9 +26,9 @@ namespace Engine
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(Matrix2x2DConverter))]
+    [TypeConverter(typeof(StructConverter<Matrix2x2D>))]
     public partial struct Matrix2x2D
-        : IEquatable<Matrix2x2D>, IFormattable
+        : IMatrix<Matrix2x2D, Vector2D>
     {
         #region Static Fields
 
@@ -127,7 +127,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Vector2D Cx
         {
             get => new Vector2D(m0x0, m1x0);
@@ -141,7 +141,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Vector2D Cy
         {
             get => new Vector2D(m0x1, m1x1);
@@ -155,7 +155,7 @@ namespace Engine
         /// <summary>
         /// The X Row or row zero.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Description("The First row of the Matrix2x2")]
         public Vector2D Rx
         {
@@ -170,7 +170,7 @@ namespace Engine
         /// <summary>
         /// The Y Row or row one.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Description("The Second row of the Matrix2x2")]
         public Vector2D Ry
         {
@@ -185,7 +185,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public double Determinant
             => Determinant(m0x0, m0x1, m1x0, m1x1);
 
@@ -193,35 +193,35 @@ namespace Engine
         /// Swap the rows of the matrix with the columns.
         /// </summary>
         /// <returns>A transposed Matrix.</returns>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix2x2D Transposed
             => Primitives.Transpose(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix2x2D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix2x2D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public Matrix2x2D Inverted
             => Primitives.Invert(this);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         public bool IsIdentity
             => (Abs(m0x0 - 1) < Epsilon
                 && Abs(m0x1) < Epsilon
@@ -269,7 +269,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         public static Matrix2x2D operator *(Matrix2x2D matrix, double scalar)
-            => matrix.Multiply(scalar);
+            => matrix.Scale(scalar);
 
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
@@ -279,7 +279,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         public static Matrix2x2D operator *(double scalar, Matrix2x2D matrix)
-            => matrix.Multiply(scalar);
+            => matrix.Scale(scalar);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
@@ -372,17 +372,29 @@ namespace Engine
             => new Matrix2x2D(1.0f, Tan(skewY), Tan(skewX), 1.0f);
 
         /// <summary>
+        /// Parse a string for a <see cref="Matrix2x2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix2x2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Matrix2x2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Matrix2x2D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
         /// Parse a string for a <see cref="Matrix2D"/> value.
         /// </summary>
         /// <param name="source"><see cref="string"/> with <see cref="Matrix2D"/> data </param>
+        /// <param name="provider"></param>
         /// <returns>
         /// Returns an instance of the <see cref="Matrix2D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
-        public static Matrix2x2D Parse(string source)
+        public static Matrix2x2D Parse(string source, IFormatProvider provider)
         {
-            IFormatProvider formatProvider = CultureInfo.InvariantCulture;
-            var tokenizer = new Tokenizer(source, formatProvider);
+            var tokenizer = new Tokenizer(source, provider);
             Matrix2x2D value;
             string firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
@@ -394,10 +406,10 @@ namespace Engine
             else
             {
                 value = new Matrix2x2D(
-                    firstToken.ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider));
+                    firstToken.ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider),
+                    tokenizer.NextTokenRequired().ParseFloat(provider));
             }
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();

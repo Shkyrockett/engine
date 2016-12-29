@@ -27,10 +27,9 @@ namespace Engine
     /// </summary>
     [Serializable]
     [ComVisible(true)]
-    //[DisplayName(nameof(Vector2D))]
-    [TypeConverter(typeof(Vector2DConverter))]
+    [TypeConverter(typeof(StructConverter<Vector2D>))]
     public struct Vector2D
-         : IFormattable
+        : IVector<Vector2D>
     {
         #region Static Fields
 
@@ -43,6 +42,16 @@ namespace Engine
         /// A Unit <see cref="Vector2D"/>.
         /// </summary>
         public static readonly Vector2D Unit = new Vector2D(1, 1);
+
+        /// <summary>
+        /// Vector2D(1,0,0)
+        /// </summary>
+        public static readonly Vector2D XAxis = new Vector2D(1, 0);
+
+        /// <summary>
+        /// Vector2D(0,1,0)
+        /// </summary>
+        public static readonly Vector2D YAxis = new Vector2D(0, 1);
 
         #endregion
 
@@ -119,7 +128,7 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether this <see cref="Vector2D"/> is empty.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(I) < Epsilon
@@ -128,7 +137,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Magnitude
             => Sqrt(I * I + J * J);
@@ -334,7 +343,7 @@ namespace Engine
 
         #endregion
 
-        #region Public Methods
+        #region Factories
 
         /// <summary>
         /// Create a Random <see cref="Vector2D"/>.
@@ -342,7 +351,45 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         public static Vector2D Random()
-            => new Vector2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
+            => new Vector2D(
+                (2 * RandomNumberGenerator.NextDouble()) - 1,
+                (2 * RandomNumberGenerator.NextDouble()) - 1);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Vector2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Vector2D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Vector2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Vector2D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var value = new Vector2D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider));
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Returns the hash code for this instance.
@@ -445,37 +492,6 @@ namespace Engine
 
             // Create the string representation of the struct.
             return $"{nameof(Vector2D)}({nameof(I)}={I.ToString(format, provider)}{sep}{nameof(J)}={J.ToString(format, provider)})";
-        }
-
-        /// <summary>
-        /// Parse a string for a <see cref="Vector2D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Vector2D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
-
-        /// <summary>
-        /// Parse a string for a <see cref="Vector2D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Vector2D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var value = new Vector2D(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
         }
 
         #endregion

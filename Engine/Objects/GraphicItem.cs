@@ -109,7 +109,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Style))]
         [Category("Properties")]
         [Description("The style of the item.")]
@@ -118,7 +118,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Metadata))]
         [Category("Properties")]
         [Description("The meta-data of the item.")]
@@ -127,7 +127,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The perimeter length of the item.")]
@@ -138,7 +138,7 @@ namespace Engine
         /// <summary>
         /// Gets the bounding rectangle of the graphical object.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The bounding box of the item.")]
@@ -150,7 +150,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(LengthInterpolatedPoints))]
         [Category("Properties")]

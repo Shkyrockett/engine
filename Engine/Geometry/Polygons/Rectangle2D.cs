@@ -245,7 +245,7 @@ namespace Engine
         /// Gets or sets the Aspect ratio of the rectangle.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [DisplayName(nameof(Aspect))]
         [Category("Properties")]
@@ -266,7 +266,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the angle the rectangle should be rotated.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(Location))]
         [Category("Elements")]
@@ -290,7 +290,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the center point X and Y coordinates of the rectangle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(Center))]
         [Category("Elements")]
@@ -314,7 +314,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the height and width of the rectangle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(Size))]
         [Category("Elements")]
@@ -338,7 +338,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(TopLeft))]
         [Category("Elements")]
@@ -359,7 +359,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(TopRight))]
         [Category("Elements")]
@@ -380,7 +380,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(BottomLeft))]
         [Category("Elements")]
@@ -401,7 +401,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(BottomRight))]
         [Category("Elements")]
@@ -422,7 +422,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(Left))]
         [Category("Elements")]
@@ -443,7 +443,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(Top))]
         [Category("Elements")]
@@ -464,7 +464,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(Right))]
         [Category("Elements")]
@@ -484,7 +484,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [DisplayName(nameof(Bottom))]
         [Category("Elements")]
@@ -504,7 +504,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [ReadOnly(true)]
         [DisplayName(nameof(IsEmpty))]
@@ -516,7 +516,7 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether the Rectangle2D has area.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [ReadOnly(true)]
         [DisplayName(nameof(HasArea))]
@@ -528,7 +528,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [ReadOnly(true)]
         [DisplayName(nameof(Area))]
@@ -545,7 +545,7 @@ namespace Engine
         /// <summary>
         /// Gets the length of the perimeter of the rectangle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [ReadOnly(true)]
         [DisplayName(nameof(Perimeter))]
@@ -559,7 +559,7 @@ namespace Engine
         /// <summary>
         /// Gets the bounding box of the rectangle.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [ReadOnly(true)]
         [DisplayName(nameof(Bounds))]

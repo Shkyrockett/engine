@@ -28,7 +28,7 @@ namespace Engine
     [DataContract]
     [Serializable]
     [ComVisible(true)]
-    [TypeConverter(typeof(QuaternionDConverter))]
+    [TypeConverter(typeof(StructConverter<QuaternionD>))]
     public struct QuaternionD
         : IEquatable<QuaternionD>, IFormattable
     {
@@ -140,6 +140,137 @@ namespace Engine
         [XmlAttribute]
         public double W { get => w; set => w = value; }
 
+        /// <summary>
+        /// Squared 'length' of this quaternion.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double Normal
+            => X * X + Y * Y + Z * Z + W * W;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double Pitch
+        {
+            set
+            {
+                var euler = this.ToEulerAngles();
+                FromEulerAngles(euler.Roll, value, euler.Yaw);
+            }
+            get
+            {
+
+                double test = X * Y + Z * W;
+                if (Abs(test) > 0.499d) // singularitY at north and south pole
+                    return 0d;
+                return Atan2(2d * X * W - 2d * Y * Z, 1d - 2d * X * X - 2d * Z * Z);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double Yaw
+        {
+            set
+            {
+                var euler = this.ToEulerAngles();
+                FromEulerAngles(euler.Roll, euler.Pitch, value);
+            }
+            get
+            {
+                double test = X * Y + Z * W;
+                if (Abs(test) > 0.499d) // singularitY at north and south pole
+                    return Sign(test) * 2d * Atan2(X, W);
+                return Atan2(2d * Y * W - 2d * X * Z, 1d - 2d * Y * Y - 2d * Z * Z);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double Roll
+        {
+            set
+            {
+                var euler = this.ToEulerAngles();
+                FromEulerAngles(value, euler.Pitch, euler.Yaw);
+            }
+            get
+            {
+                double test = X * Y + Z * W;
+                if (Abs(test) > 0.499d) // singularitY at north and south pole
+                    return Sign(test) * HalfPi;
+                return Asin(2d * test);
+            }
+        }
+
+        /// <summary>
+        /// Local X-aXis portion of this rotation.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Vector3D XAxis
+        {
+            get
+            {
+                double fTX = 2.0f * X;
+                double fTY = 2.0f * Y;
+                double fTZ = 2.0f * Z;
+                double fTWY = fTY * W;
+                double fTWZ = fTZ * W;
+                double fTXY = fTY * X;
+                double fTXZ = fTZ * X;
+                double fTYY = fTY * Y;
+                double fTZZ = fTZ * Z;
+                return new Vector3D(1.0f - (fTYY + fTZZ), fTXY + fTWZ, fTXZ - fTWY);
+            }
+        }
+
+        /// <summary>
+        /// Local Y-aXis portion of this rotation.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Vector3D YAxis
+        {
+            get
+            {
+                double fTX = 2.0f * X;
+                double fTY = 2.0f * Y;
+                double fTZ = 2.0f * Z;
+                double fTWX = fTX * W;
+                double fTWZ = fTZ * W;
+                double fTXX = fTX * X;
+                double fTXY = fTY * X;
+                double fTYZ = fTZ * Y;
+                double fTZZ = fTZ * Z;
+                return new Vector3D(fTXY - fTWZ, 1d - (fTXX + fTZZ), fTYZ + fTWX);
+            }
+        }
+
+        /// <summary>
+        /// Local Z-aXis portion of this rotation.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Vector3D ZAxis
+        {
+            get
+            {
+                double fTX = 2.0f * X;
+                double fTY = 2.0f * Y;
+                double fTZ = 2.0f * Z;
+                double fTWX = fTX * W;
+                double fTWY = fTY * W;
+                double fTXX = fTX * X;
+                double fTXZ = fTZ * X;
+                double fTYY = fTY * Y;
+                double fTYZ = fTZ * Y;
+                return new Vector3D(fTXZ + fTWY, fTYZ - fTWX, 1d - (fTXX + fTYY));
+            }
+        }
+
         #endregion
 
         #region Operators
@@ -238,26 +369,6 @@ namespace Engine
         public static QuaternionD operator /(QuaternionD divisor, QuaternionD dividend)
             => divisor.Divide(dividend);
 
-        ///// <summary>
-        ///// Scale
-        ///// </summary>
-        ///// <param name="value"></param>
-        ///// <param name="factor">The Multiplier</param>
-        ///// <returns>A Point Multiplied by the Multiplier</returns>
-        ///// <remarks></remarks>
-        //public static QuaternionD operator *(QuaternionD value, double factor)
-        //    => value.Scale(factor);
-
-        ///// <summary>
-        ///// Scale
-        ///// </summary>
-        ///// <param name="factor">The Multiplier</param>
-        ///// <param name="value"></param>
-        ///// <returns>A Point Multiplied by the Multiplier</returns>
-        ///// <remarks></remarks>
-        //public static QuaternionD operator *(double factor, QuaternionD value)
-        //    => value.Scale(factor);
-
         /// <summary>
         /// Compares two <see cref="QuaternionD"/> instances for exact equality.
         /// </summary>
@@ -304,6 +415,20 @@ namespace Engine
 
         #endregion
 
+        #region Factories
+
+        /// <summary>
+        /// set this quaternion's values from the rotation matrix built from the Axi.
+        /// </summary>
+        /// <param name="XAxis"></param>
+        /// <param name="YAxis"></param>
+        /// <param name="ZAxis"></param>
+        public static QuaternionD FromAxis(Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis)
+            => FromRotationMatrix(new Matrix3x3D(
+                XAxis.I, YAxis.I, ZAxis.I,
+                XAxis.J, YAxis.J, ZAxis.J,
+                XAxis.K, YAxis.K, ZAxis.K));
+
         /// <summary>
         /// 
         /// </summary>
@@ -313,8 +438,8 @@ namespace Engine
         public static QuaternionD FromAxisAngle(Vector3D axis, double angle)
         {
             double halfAngle = angle * 0.5d;
-            double sin = Math.Sin(halfAngle);
-            double cos = Math.Cos(halfAngle);
+            double sin = Sin(halfAngle);
+            double cos = Cos(halfAngle);
             return new QuaternionD(axis.I * sin, axis.J * sin, axis.K * sin, cos);
 
         }
@@ -326,44 +451,44 @@ namespace Engine
         /// <returns></returns>
         public static QuaternionD FromRotationMatrix(Matrix3x3D matrix)
         {
-            double num8 = (matrix.M0x0 + matrix.M1x1) + matrix.M2x2;
+            double trace = (matrix.M0x0 + matrix.M1x1) + matrix.M2x2;
             QuaternionD quaternion = new QuaternionD();
-            if (num8 > 0d)
+            if (trace > 0d)
             {
-                double num = Sqrt(num8 + 1d);
-                quaternion.W = num * 0.5d;
-                num = 0.5d / num;
-                quaternion.X = (matrix.M1x2 - matrix.M2x1) * num;
-                quaternion.Y = (matrix.M2x0 - matrix.M0x2) * num;
-                quaternion.Z = (matrix.M0x1 - matrix.M1x0) * num;
+                double root = Sqrt(trace + 1d);
+                quaternion.W = root * 0.5d;
+                root = 0.5d / root;
+                quaternion.X = (matrix.M1x2 - matrix.M2x1) * root;
+                quaternion.Y = (matrix.M2x0 - matrix.M0x2) * root;
+                quaternion.Z = (matrix.M0x1 - matrix.M1x0) * root;
                 return quaternion;
             }
             if ((matrix.M0x0 >= matrix.M1x1) && (matrix.M0x0 >= matrix.M2x2))
             {
-                double num7 = Sqrt(((1f + matrix.M0x0) - matrix.M1x1) - matrix.M2x2);
-                double num4 = 0.5d / num7;
-                quaternion.X = 0.5d * num7;
-                quaternion.Y = (matrix.M0x1 + matrix.M1x0) * num4;
-                quaternion.Z = (matrix.M0x2 + matrix.M2x0) * num4;
-                quaternion.W = (matrix.M1x2 - matrix.M2x1) * num4;
+                double root = Sqrt(((1f + matrix.M0x0) - matrix.M1x1) - matrix.M2x2);
+                double w = 0.5d / root;
+                quaternion.X = 0.5d * root;
+                quaternion.Y = (matrix.M0x1 + matrix.M1x0) * w;
+                quaternion.Z = (matrix.M0x2 + matrix.M2x0) * w;
+                quaternion.W = (matrix.M1x2 - matrix.M2x1) * w;
                 return quaternion;
             }
             if (matrix.M1x1 > matrix.M2x2)
             {
-                double num6 = Sqrt(((1f + matrix.M1x1) - matrix.M0x0) - matrix.M2x2);
-                double num3 = 0.5d / num6;
-                quaternion.X = (matrix.M1x0 + matrix.M0x1) * num3;
-                quaternion.Y = 0.5d * num6;
-                quaternion.Z = (matrix.M2x1 + matrix.M1x2) * num3;
-                quaternion.W = (matrix.M2x0 - matrix.M0x2) * num3;
+                double root = Sqrt(((1f + matrix.M1x1) - matrix.M0x0) - matrix.M2x2);
+                double w = 0.5d / root;
+                quaternion.X = (matrix.M1x0 + matrix.M0x1) * w;
+                quaternion.Y = 0.5d * root;
+                quaternion.Z = (matrix.M2x1 + matrix.M1x2) * w;
+                quaternion.W = (matrix.M2x0 - matrix.M0x2) * w;
                 return quaternion;
             }
-            double num5 = Sqrt(((1f + matrix.M2x2) - matrix.M0x0) - matrix.M1x1);
-            double num2 = 0.5d / num5;
-            quaternion.X = (matrix.M2x0 + matrix.M0x2) * num2;
-            quaternion.Y = (matrix.M2x1 + matrix.M1x2) * num2;
-            quaternion.Z = 0.5d * num5;
-            quaternion.W = (matrix.M0x1 - matrix.M1x0) * num2;
+            double sqrt = Sqrt(((1f + matrix.M2x2) - matrix.M0x0) - matrix.M1x1);
+            double ww = 0.5d / sqrt;
+            quaternion.X = (matrix.M2x0 + matrix.M0x2) * ww;
+            quaternion.Y = (matrix.M2x1 + matrix.M1x2) * ww;
+            quaternion.Z = 0.5d * sqrt;
+            quaternion.W = (matrix.M0x1 - matrix.M1x0) * ww;
             return quaternion;
         }
 
@@ -374,15 +499,15 @@ namespace Engine
         /// <param name="pitch"></param>
         /// <param name="roll"></param>
         /// <returns></returns>
-        public static QuaternionD FromYawPitchRoll(double yaw, double pitch, double roll)
+        public static QuaternionD FromEulerAngles(double roll, double pitch, double yaw)
         {
             double halfRoll = roll * 0.5d;
             double rollSin = Sin(halfRoll);
             double rollCos = Cos(halfRoll);
-            double halfPitch = pitch * 0.5f;
+            double halfPitch = pitch * 0.5d;
             double pitchSin = Sin(halfPitch);
             double pitchCos = Cos(halfPitch);
-            double halfYaw = yaw * 0.5f;
+            double halfYaw = yaw * 0.5d;
             double yawSin = Sin(halfYaw);
             double yawCos = Cos(halfYaw);
             return new QuaternionD(
@@ -397,6 +522,7 @@ namespace Engine
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [ParseMethod]
         public static QuaternionD Parse(string source)
             => Parse(source, CultureInfo.InvariantCulture);
 
@@ -432,44 +558,9 @@ namespace Engine
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// source -> http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation#Quaternion_to_Matrix
-        /// </remarks>
-        public static Matrix4x4D ToMatrix(QuaternionD quaternion)
-        {
-            double x2 = quaternion.X * quaternion.X;
-            double y2 = quaternion.Y * quaternion.Y;
-            double z2 = quaternion.Z * quaternion.Z;
-            double xy = quaternion.X * quaternion.Y;
-            double xz = quaternion.X * quaternion.Z;
-            double yz = quaternion.Y * quaternion.Z;
-            double wx = quaternion.W * quaternion.X;
-            double wy = quaternion.W * quaternion.Y;
-            double wz = quaternion.W * quaternion.Z;
-
-            return new Matrix4x4D(
-                1d - 2d * (y2 + z2), 2d * (xy - wz), 2d * (xz + wy), 0d,
-                2d * (xy + wz), 1d - 2d * (x2 + z2), 2d * (yz - wx), 0d,
-                2d * (xz - wy), 2d * (yz + wx), 1d - 2d * (x2 + y2), 0d,
-                2d * (xz - wy), 2d * (yz + wx), 1d - 2d * (x2 + y2), 0d);
-        }
+        #endregion
 
         #region Methods
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Conjugate()
-        {
-            X = -X;
-            Y = -Y;
-            Z = -Z;
-        }
 
         /// <summary>
         ///

@@ -414,6 +414,54 @@ namespace Engine
         #region Subtraction
 
         /// <summary>
+        /// Finds the Delta of two 2D Vectors.
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="j1"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <returns>Returns the Difference Between PointA and PointB</returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Delta(double i1, double j1, double i2, double j2)
+            => Subtract2D(i2, j2, i1, j1);
+
+        /// <summary>
+        /// Finds the Delta of two 3D Vectors.
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="j1"></param>
+        /// <param name="k1"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <param name="k2"></param>
+        /// <returns>Returns the Difference Between PointA and PointB</returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Delta(double i1, double j1, double k1, double i2, double j2, double k2)
+            => Subtract3D(i2, j2, k2, i1, j1, k1);
+
+        /// <summary>
+        /// Finds the Delta of two 3D Vectors.
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="j1"></param>
+        /// <param name="k1"></param>
+        /// <param name="l1"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <param name="k2"></param>
+        /// <param name="l2"></param>
+        /// <returns>Returns the Difference Between PointA and PointB</returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Delta(double i1, double j1, double k1, double l1, double i2, double j2, double k2, double l2)
+            => Subtract4D(i2, j2, k2, l2, i1, j1, k1, l1);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="minuendI"></param>
@@ -1192,8 +1240,20 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J) Divide2D(double divisorI, double divisorJ, double divedend)
+        public static (double I, double J) Divide2D1D(double divisorI, double divisorJ, double divedend)
             => (divisorI / divedend, divisorJ / divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedendI"></param>
+        /// <param name="divedendJ"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J) Divide1D2D(double divisor, double divedendI, double divedendJ)
+            => (divisor / divedendI, divisor / divedendJ);
 
         /// <summary>
         /// 
@@ -1205,8 +1265,21 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K) Divide3D(double divisorI, double divisorJ, double divisorK, double divedend)
+        public static (double I, double J, double K) Divide3D1D(double divisorI, double divisorJ, double divisorK, double divedend)
             => (divisorI / divedend, divisorJ / divedend, divisorK / divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedendI"></param>
+        /// <param name="divedendJ"></param>
+        /// <param name="divedendK"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K) Divide1D3D(double divisor, double divedendI, double divedendJ, double divedendK)
+            => (divisor / divedendI, divisor / divedendJ, divisor / divedendK);
 
         /// <summary>
         /// 
@@ -1219,8 +1292,22 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K, double L) Divide4D(double divisorI, double divisorJ, double divisorK, double divisorL, double divedend)
+        public static (double I, double J, double K, double L) Divide4D1D(double divisorI, double divisorJ, double divisorK, double divisorL, double divedend)
             => (divisorI / divedend, divisorJ / divedend, divisorK / divedend, divisorL / divedend);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedendI"></param>
+        /// <param name="divedendJ"></param>
+        /// <param name="divedendK"></param>
+        /// <param name="divedendL"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double I, double J, double K, double L) Divide1D4D(double divisor, double divedendI, double divedendJ, double divedendK, double divedendL)
+            => (divisor / divedendI, divisor / divedendJ, divisor / divedendK, divisor / divedendL);
 
         #endregion
 

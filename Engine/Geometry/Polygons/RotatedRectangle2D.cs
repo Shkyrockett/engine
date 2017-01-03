@@ -179,7 +179,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get { return x; }
+            get => x;
             set
             {
                 x = value;
@@ -199,7 +199,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get { return y; }
+            get => y;
             set
             {
                 y = value;
@@ -219,7 +219,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Height
         {
-            get { return height; }
+            get => height;
             set
             {
                 height = value;
@@ -239,7 +239,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Width
         {
-            get { return width; }
+            get => width;
             set
             {
                 width = value;
@@ -260,7 +260,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get { return height / width; }
+            get => height / width;
             set
             {
                 height = width * value;
@@ -284,7 +284,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
-            get { return angle; }
+            get => angle;
             set
             {
                 angle = value;
@@ -307,7 +307,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(X, Y); }
+            get => new Point2D(X, Y);
             set
             {
                 x = value.X;
@@ -331,7 +331,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
-            get { return new Size2D(width, height); }
+            get => new Size2D(width, height);
             set
             {
                 width = value.Width;
@@ -372,10 +372,7 @@ namespace Engine
         [Category("Elements")]
         [Description("The area of the rectangle.")]
         public override double Area
-        {
-            get { return height * width; }
-            //set { base.Area = value; }
-        }
+            => height * width;
 
         /// <summary>
         /// Gets the length of the perimeter of the rectangle.
@@ -599,9 +596,9 @@ namespace Engine
         ///// </returns>
         ///// <param name="rect"> The Rectangle2D to transform. </param>
         ///// <param name="matrix"> The Matrix by which to transform. </param>
-        //public static RotatedRectangle2D Transform(RotatedRectangle2D rect, Matrix2D matrix)
+        //public static RotatedRectangle2D Transform(RotatedRectangle2D rect, Matrix2x3D matrix)
         //{
-        //    Matrix2D.TransformRect(ref rect, ref matrix);
+        //    Matrix2x3D.TransformRect(ref rect, ref matrix);
         //    return rect;
         //}
 
@@ -726,9 +723,9 @@ namespace Engine
         ///// The Empty Rectangle2D is not affected by this call.        
         ///// </summary>
         ///// <param name="matrix"> Matrix </param>
-        //public void Transform(Matrix2D matrix)
+        //public void Transform(Matrix2x3D matrix)
         //{
-        //    Matrix2D.TransformRect(ref this, ref matrix);
+        //    Matrix2x3D.TransformRect(ref this, ref matrix);
         //}
 
         #endregion

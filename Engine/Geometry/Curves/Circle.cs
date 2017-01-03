@@ -173,7 +173,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Radius
         {
-            get { return radius; }
+            get => radius;
             set
             {
                 radius = value;
@@ -195,7 +195,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(x, y); }
+            get => new Point2D(x, y);
             set
             {
                 x = value.X;
@@ -217,7 +217,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get { return x; }
+            get => x;
             set
             {
                 x = value;
@@ -238,7 +238,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get { return y; }
+            get => y;
             set
             {
                 y = value;
@@ -259,7 +259,7 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
-            get { return Boundings.Circle(x, y, radius); }
+            get => Boundings.Circle(x, y, radius);
             set
             {
                 Center = value.Center();
@@ -289,7 +289,7 @@ namespace Engine
         [Description("The area of the circle.")]
         public override double Area
         {
-            get { return Areas.Circle(radius); }
+            get => Areas.Circle(radius);
             set
             {
                 radius = Sqrt(value / PI);
@@ -336,11 +336,9 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
-                return nameof(Circle);
+            if (this == null) return nameof(Circle);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Circle)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}}}";
-            return formatable.ToString(format, provider);
+            return $"{nameof(Circle)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Radius)}={radius.ToString(format, provider)}}}";
         }
 
         #endregion

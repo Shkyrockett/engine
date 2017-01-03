@@ -78,7 +78,7 @@ namespace Engine
             => (m0x0, m0x1, m1x0, m1x1) = tuple;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix2D"/> class of the form:<br/>
+        /// Initializes a new instance of the <see cref="Matrix2x3D"/> class of the form:<br/>
         /// / m11, m12, 0 \<br/>
         /// | m21, m22, 0 |<br/>
         /// \ offsetX, offsetY, 1 /<br/>
@@ -384,12 +384,12 @@ namespace Engine
             => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Matrix2D"/> value.
+        /// Parse a string for a <see cref="Matrix2x3D"/> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Matrix2D"/> data </param>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix2x3D"/> data </param>
         /// <param name="provider"></param>
         /// <returns>
-        /// Returns an instance of the <see cref="Matrix2D"/> struct converted
+        /// Returns an instance of the <see cref="Matrix2x3D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
         public static Matrix2x2D Parse(string source, IFormatProvider provider)
@@ -433,7 +433,7 @@ namespace Engine
             ^ m1x1.GetHashCode();
 
         /// <summary>
-        /// Compares two Matrix2D
+        /// Compares two Matrix2x3D
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -505,7 +505,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the current culture.
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the current culture.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
@@ -514,7 +514,7 @@ namespace Engine
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <returns>
@@ -524,7 +524,7 @@ namespace Engine
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -536,7 +536,7 @@ namespace Engine
             => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

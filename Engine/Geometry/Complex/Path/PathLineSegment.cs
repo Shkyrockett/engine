@@ -86,6 +86,12 @@ namespace Engine
         public override Rectangle2D Bounds
             => Boundings.LineSegment(Start.Value.X, Start.Value.Y, End.Value.X, End.Value.Y);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public override double Length => ToLineSegment().Length;
+
         #endregion
 
         #region Methods

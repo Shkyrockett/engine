@@ -208,7 +208,7 @@ namespace Engine
             double Px1 = x1 * x1;
             double Py1 = y1 * y1;
 
-            // check that radii are large enough
+            // Check that radii are large enough
             double radiiCheck = Px1 / Prx + Py1 / Pry;
             if (radiiCheck > 1)
             {
@@ -296,7 +296,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get { return new Point2D(cX, cY); }
+            get => new Point2D(cX, cY);
             set
             {
                 cX = value.X;
@@ -320,8 +320,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(cX, cY); }
-            set
+            get => new Point2D(cX, cY); set
             {
                 cX = value.X;
                 cY = value.Y;
@@ -343,7 +342,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get { return cX; }
+            get => cX;
             set
             {
                 cX = value;
@@ -364,7 +363,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get { return cY; }
+            get => cY;
             set
             {
                 cY = value;
@@ -386,7 +385,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double RX
         {
-            get { return rX; }
+            get => rX;
             set
             {
                 rX = value;
@@ -408,7 +407,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double RY
         {
-            get { return rY; }
+            get => rY;
             set
             {
                 rY = value;
@@ -451,7 +450,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get { return rY / rX; }
+            get => rY / rX;
             set
             {
                 rY = rX * value;
@@ -476,7 +475,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
-            get { return angle; }
+            get => angle;
             set
             {
                 angle = value;
@@ -499,7 +498,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AngleDegrees
         {
-            get { return angle.ToDegrees(); }
+            get => angle.ToDegrees();
             set
             {
                 angle = value.ToRadians();
@@ -521,7 +520,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
-            get { return startAngle; }
+            get => startAngle;
             set
             {
                 startAngle = value;
@@ -543,7 +542,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngleDegrees
         {
-            get { return startAngle.ToDegrees(); }
+            get => startAngle.ToDegrees();
             set
             {
                 startAngle = value.ToRadians();
@@ -565,7 +564,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
         {
-            get { return sweepAngle; }
+            get => sweepAngle;
             set
             {
                 sweepAngle = value;
@@ -587,7 +586,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngleDegrees
         {
-            get { return sweepAngle.ToDegrees(); }
+            get => sweepAngle.ToDegrees();
             set
             {
                 sweepAngle = value.ToRadians();
@@ -609,7 +608,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
-            get { return startAngle + sweepAngle; }
+            get => startAngle + sweepAngle;
             set
             {
                 sweepAngle = value - startAngle;
@@ -631,7 +630,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngleDegrees
         {
-            get { return (startAngle + sweepAngle).ToDegrees(); }
+            get => (startAngle + sweepAngle).ToDegrees();
             set
             {
                 sweepAngle = value.ToRadians() - startAngle;
@@ -699,13 +698,12 @@ namespace Engine
         /// Gets the <see cref="Perimeter"/> of the elliptical arc.
         /// </summary>
         /// <returns></returns>
-        /// 
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
         public override double Perimeter
-            => Distances.EllipticalArcPerimeter(StartPoint, EndPoint, sweepAngle);
+            => Distances.EllipticalArcPerimeter(StartPoint, EndPoint, startAngle, EndAngle);
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the elliptical arc.

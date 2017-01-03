@@ -1572,7 +1572,7 @@ namespace Engine
         /// </summary>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Multiply(this Point2D point, Matrix2D matrix)
+        public static Point2D Multiply(this Point2D point, Matrix2x3D matrix)
             => matrix.Transform(point);
 
         /// <summary>
@@ -2009,10 +2009,10 @@ namespace Engine
         /// <returns>Return a rotation matrix to rotate around a point.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2D RotateAroundPoint(this Point2D center, double angle)
+        public static Matrix2x3D RotateAroundPoint(this Point2D center, double angle)
         {
             // Translate the point to the origin.
-            var result = new Matrix2D();
+            var result = new Matrix2x3D();
 
             // We need to go counter-clockwise.
             result.RotateAt((float)-angle.ToDegrees(), center.X, center.Y);

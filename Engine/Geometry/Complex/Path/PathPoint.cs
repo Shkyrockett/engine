@@ -108,6 +108,12 @@ namespace Engine
         public Point2D ToPoint2D
             => Start.Value;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public override double Length => 0;
+
         #endregion
     }
 }

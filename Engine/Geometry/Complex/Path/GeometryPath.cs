@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -100,6 +101,14 @@ namespace Engine
         public override Rectangle2D Bounds
             => Boundings.GeometryPath(this);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [XmlIgnore, SoapIgnore]
+        public override double Perimeter => Items.Sum(p => p.Length);
+
         #endregion
 
         #region Methods
@@ -185,12 +194,24 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="pathString"></param>
+        /// <param name="pathDefinition"></param>
         /// <returns></returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
-        public (List<PathItem>, bool) ParsePathDefString(string pathString)
+        public (List<PathItem>, bool) ParsePathDefString(string pathDefinition)
+            => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pathDefinition"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
+        /// </remarks>
+        public (List<PathItem>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             List<PathItem> figure = new List<PathItem>();
             bool closed = false;
@@ -202,11 +223,13 @@ namespace Engine
             // These letters are valid SVG commands. Split the tokens at these.
             string separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
 
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+
             // Discard whitespace and comma but keep the - minus sign.
-            string argSeparators = @"[\s,]|(?=-)";
+            string argSeparators = $@"[\s{sep}]|(?=-)";
 
             // Split the deffinition string into shape tokens.
-            foreach (var token in Regex.Split(pathString, separators).Where(t => !string.IsNullOrWhiteSpace(t)))
+            foreach (var token in Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrWhiteSpace(t)))
             {
                 // Get the token type.
                 var cmd = token.Take(1).Single();
@@ -321,48 +344,62 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         private String ToPathDefString()
+            => ToPathDefString(null, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        private String ToPathDefString(string format, IFormatProvider provider)
         {
             StringBuilder output = new StringBuilder();
+
+            char sep = Tokenizer.GetNumericListSeparator(provider);
 
             foreach (var item in Items)
             {
                 switch (item)
                 {
-                    case PathPoint t:
+                    case PathPoint t when (t.Previous is null):
                         // ToDo: Figure out how to seporate M from Z.
-                        output.Append(t.Relitive ? $"m{t.Start.Value.X},{t.Start.Value.Y} " : $"M{t.Start.Value.X},{t.Start.Value.Y} ");
+                        output.Append(t.Relitive ? $"m{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"M{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
+                        break;
+                    case PathPoint t:
+                        output.Append(t.Relitive ? $"z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"Z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
                         break;
                     case PathLineSegment t:
                         // L is ageneral line.
                         char l = t.Relitive ? 'l' : 'L';
-                        string coords = $"{t.End.Value.X},{t.End.Value.Y}";
+                        string coords = $"{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)}";
                         if (t.Start.Value.X == t.End.Value.X)
                         {
                             // H is a horizontal line, so the x-coordinate can be ommited.
-                            coords = $"{t.End.Value.Y}";
+                            coords = $"{t.End.Value.Y.ToString(format, provider)}";
                             l = t.Relitive ? 'h' : 'H';
                         }
                         else if (t.Start.Value.Y == t.End.Value.Y)
                         {
                             // V is a horizontal line, so the y-coordinate can be ommited.
-                            coords = $"{t.End.Value.X}";
+                            coords = $"{t.End.Value.X.ToString(format, provider)}";
                             l = t.Relitive ? 'v' : 'V';
                         }
                         output.Append($"{l}{coords} ");
                         break;
                     case PathCubicBezier t:
                         // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
-                        output.Append(t.Relitive ? $"c{t.Handle1.X},{t.Handle1.Y},{t.Handle2.Value.X},{t.Handle2.Value.Y},{t.End.Value.X},{t.End.Value.Y} " : $"C{t.Handle1.X},{t.Handle1.Y},{t.Handle2.Value.X},{t.Handle2.Value.Y},{t.End.Value.X},{t.End.Value.Y} ");
+                        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     case PathQuadraticBezier t:
                         // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
-                        output.Append(t.Relitive ? $"q{t.Handle.Value.X},{t.Handle.Value.X},{t.End.Value.X},{t.End.Value.Y} " : $"Q{t.Handle.Value.X},{t.Handle.Value.X},{t.End.Value.X},{t.End.Value.Y} ");
+                        output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     case PathArc t:
                         // Arc deffinition. 
                         int largearc = t.LargeArc ? 1 : 0;
                         int sweep = t.Sweep ? 1 : 0;
-                        output.Append(t.Relitive ? $"a{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.Value.X},{t.End.Value.Y} " : $"A{t.RX},{t.RY},{t.Angle},{largearc},{sweep},{t.End.Value.X},{t.End.Value.Y} ");
+                        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     default:
                         break;
@@ -374,6 +411,20 @@ namespace Engine
             output.Replace(",-", "-");
             return output.ToString().TrimEnd();
         }
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="GeometryPath"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        public override string ConvertToString(string format, IFormatProvider provider)
+            => (this == null) ? nameof(GeometryPath) : $"{nameof(GeometryPath)}{{{ToPathDefString(format, provider)}}}";
 
         #endregion
     }

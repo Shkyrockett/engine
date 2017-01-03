@@ -882,7 +882,7 @@ namespace Engine
             => Equals(this, value);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the current culture.
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the current culture.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
@@ -891,7 +891,7 @@ namespace Engine
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <returns>
@@ -901,7 +901,7 @@ namespace Engine
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -913,7 +913,7 @@ namespace Engine
             => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

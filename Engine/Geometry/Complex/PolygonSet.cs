@@ -45,17 +45,13 @@ namespace Engine
         /// Initializes a default instance of the <see cref="PolygonSet"/> class.
         /// </summary>
         public PolygonSet()
-        {
-            polygons = new List<Polygon>();
-        }
+            => polygons = new List<Polygon>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonSet"/> class.
         /// </summary>
         public PolygonSet(IEnumerable<Polygon> polygons)
-        {
-            this.polygons = polygons as List<Polygon>;
-        }
+            => this.polygons = polygons as List<Polygon>;
 
         #endregion
 
@@ -68,7 +64,7 @@ namespace Engine
         /// <returns></returns>
         public Polygon this[int index]
         {
-            get { return polygons[index]; }
+            get => polygons[index];
             set
             {
                 polygons[index] = value;
@@ -85,7 +81,7 @@ namespace Engine
         /// </summary>
         public List<Polygon> Polygons
         {
-            get { return polygons; }
+            get => polygons;
             set
             {
                 polygons = value;
@@ -107,12 +103,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore, SoapIgnore]
         public override double Perimeter
-        {
-            get
-            {
-                return polygons.Sum(p => p.Perimeter);
-            }
-        }
+            => polygons.Sum(p => p.Perimeter);
 
         /// <summary>
         /// 

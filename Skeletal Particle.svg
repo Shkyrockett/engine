@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="8.5in"
+   height="11in"
+   viewBox="0 0 765 990"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="Skeletal Particle.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path4243"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="413.86866"
+     inkscape:cy="646.93255"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="in"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:window-width="1536"
+     inkscape:window-height="801"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-62.362205)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="39.447121"
+       y="119.80066"
+       id="text3338"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3340"
+         x="39.447121"
+         y="119.80066"
+         style="font-size:15px">Vector Graphics Catelog Array List</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.96147662;stroke-opacity:1"
+       id="rect3342"
+       width="399.03854"
+       height="299.03851"
+       x="160.4514"
+       y="229.38638" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="157.32065"
+       y="183.21472"
+       id="text3338-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3340-8"
+         x="157.32065"
+         y="183.21472"
+         style="font-size:15px">Graphical elements are stored at their neutral possition, orientation etc. Then </tspan><tspan
+         sodipodi:role="line"
+         x="157.32065"
+         y="201.96472"
+         style="font-size:15px"
+         id="tspan4196">The shapes are transformed to the screen references for the final output.</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4162"
+       width="40"
+       height="40"
+       x="40.789406"
+       y="123.31824" />
+    <rect
+       y="123.31824"
+       x="81.789406"
+       height="40"
+       width="40"
+       id="rect4164"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       y="123.31824"
+       x="122.7894"
+       height="40"
+       width="40"
+       id="rect4166"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4168"
+       width="40"
+       height="40"
+       x="163.7894"
+       y="123.31824" />
+    <rect
+       y="123.31824"
+       x="204.7894"
+       height="40"
+       width="40"
+       id="rect4170"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4172"
+       width="40"
+       height="40"
+       x="245.7894"
+       y="123.31824" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4174"
+       width="40"
+       height="40"
+       x="286.7894"
+       y="123.31824" />
+    <rect
+       y="123.31824"
+       x="327.7894"
+       height="40"
+       width="40"
+       id="rect4176"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       y="123.31824"
+       x="368.7894"
+       height="40"
+       width="40"
+       id="rect4178"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4180"
+       width="40"
+       height="40"
+       x="409.7894"
+       y="123.31824" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4182"
+       width="40"
+       height="40"
+       x="450.7894"
+       y="123.31824" />
+    <rect
+       y="123.31824"
+       x="491.7894"
+       height="40"
+       width="40"
+       id="rect4184"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4186"
+       width="40"
+       height="40"
+       x="532.78937"
+       y="123.31824" />
+    <rect
+       y="123.31824"
+       x="573.78937"
+       height="40"
+       width="40"
+       id="rect4188"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       y="123.31824"
+       x="614.78937"
+       height="40"
+       width="40"
+       id="rect4190"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4192"
+       width="40"
+       height="40"
+       x="655.78937"
+       y="123.31824" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4198"
+       y="225.88806"
+       x="159.12837"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-size:15px"
+         y="225.88806"
+         x="159.12837"
+         id="tspan4200"
+         sodipodi:role="line">Vector Map</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4202"
+       y="550.37537"
+       x="45.842422"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-size:15px"
+         y="550.37537"
+         x="45.842422"
+         sodipodi:role="line"
+         id="tspan4210">Positions and dimensions of Particles, Skeletons, Objects etc. are stored in the Vector Map</tspan><tspan
+         style="font-size:15px"
+         y="569.12537"
+         x="45.842422"
+         sodipodi:role="line"
+         id="tspan4552">to check whether the graphical object should be drawn on screen.</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 323.3432,351.50579 26.70422,-53.20657"
+       id="path4212"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 348.21035,377.72885 2.5082,-79.63591"
+       id="path4214"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 304.1403,448.53225 44.07005,-70.8034"
+       id="path4216"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 351.42123,298.34728 43.31173,33.10101"
+       id="path4218"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.39305556;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4232"
+       width="56.518257"
+       height="19.104761"
+       x="328.00766"
+       y="273.03632"
+       transform="matrix(0.98167932,0.19054059,-0.19054059,0.98167932,0,0)" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 323.02246,351.44755 265.64818,339.14196"
+       id="path4220"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 394.43991,331.71908 0,52.65409"
+       id="path4222"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 348.21035,377.72885 13.21975,74.44632"
+       id="path4224"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 304.1403,448.53225 -28.38408,80.14688"
+       id="path4226"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 361.38402,452.35498 51.42857,59.40779"
+       id="path4228"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 350.71428,298.07649 -9.28571,-46.16244"
+       id="path4230"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="M 59.599,145.24522 269.97384,330.53287"
+       id="path4234"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="43.822117"
+       y="605.93378"
+       id="text4554"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan4558"
+         sodipodi:role="line"
+         x="43.822117"
+         y="605.93378"
+         style="font-size:15px">Animations are applied to the skeletal components, then the graphical elements are copied</tspan><tspan
+         sodipodi:role="line"
+         x="43.822117"
+         y="624.68378"
+         style="font-size:15px"
+         id="tspan4562">and transformed as needed for updated componants, then drawn on screen at the next</tspan><tspan
+         sodipodi:role="line"
+         x="43.822117"
+         y="643.43378"
+         style="font-size:15px"
+         id="tspan4564">screen refresh.</tspan></text>
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4566"
+       cx="467.70062"
+       cy="296.7681"
+       r="4.0406103" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="395.50406"
+       y="422.8678"
+       id="text4568"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4570"
+         x="395.50406"
+         y="422.8678"
+         style="font-size:15px">Skeleton</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4572"
+       y="279.87543"
+       x="462.05356"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-size:15px"
+         y="279.87543"
+         x="462.05356"
+         id="tspan4574"
+         sodipodi:role="line">Particle</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="222.45071"
+       y="372.34286"
+       id="text4576"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4578"
+         x="222.45071"
+         y="372.34286"
+         style="font-size:15px">Tranformed </tspan><tspan
+         sodipodi:role="line"
+         x="222.45071"
+         y="391.09286"
+         style="font-size:15px"
+         id="tspan4580">Element</tspan></text>
+    <rect
+       transform="matrix(0.99993327,0.01155244,-0.01155244,0.99993327,0,0)"
+       y="137.12988"
+       x="46.239624"
+       height="10.953059"
+       width="32.402802"
+       id="rect4582"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.79866058;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

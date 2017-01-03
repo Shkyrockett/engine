@@ -348,14 +348,34 @@ namespace Engine
             => 4d * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
 
         /// <summary>
-        /// http://mathforum.org/kb/servlet/JiveServlet/download/130-2391290-7852023-766514/PERIMETER%20OF%20THE%20ELLIPTICAL%20ARC%20A%20GEOMETRIC%20METHOD.pdf
+        /// 
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="e"></param>
-        /// <param name="sweepAngle"></param>
+        /// <param name="start">Start.</param>
+        /// <param name="end">End.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="endAngle">Sweep Angle.</param>
         /// <returns></returns>
-        public static double EllipticalArcPerimeter(Point2D s, Point2D e, double sweepAngle)
-            => (Sqrt((e.X - s.X) * (e.X - s.X) + (e.Y - s.Y) * (e.X - s.Y)) / (2 * Sin(0.5d * sweepAngle))) * sweepAngle;
+        public static double EllipticalArcPerimeter(Point2D start, Point2D end, double startAngle, double endAngle)
+            => EllipticalArcPerimeter(start.X, start.Y, end.X, end.Y, startAngle, endAngle);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="startX"></param>
+        /// <param name="startY"></param>
+        /// <param name="endX"></param>
+        /// <param name="endY"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="endAngle">Sweep Angle.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.iosrjournals.org/iosr-jm/papers/Vol3-issue2/B0320813.pdf
+        /// http://mathforum.org/kb/servlet/JiveServlet/download/130-2391290-7852023-766514/PERIMETER%20OF%20THE%20ELLIPTICAL%20ARC%20A%20GEOMETRIC%20METHOD.pdf
+        /// </remarks>
+        public static double EllipticalArcPerimeter(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
+            => (/*ChordLength*/(Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY)))
+            / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle))))
+            * (startAngle - endAngle);
 
         /// <summary>
         /// Closed-form solution to elliptic integral for arc length.

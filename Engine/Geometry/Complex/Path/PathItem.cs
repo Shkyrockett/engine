@@ -85,6 +85,12 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public abstract Rectangle2D Bounds { get; }
 
+        /// <summary>
+        /// Gets the length of the Path segment.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public abstract double Length { get; }
+
         #endregion
     }
 }

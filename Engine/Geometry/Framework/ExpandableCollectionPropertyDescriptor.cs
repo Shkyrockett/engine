@@ -50,9 +50,7 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         private static string GetDisplayName(IList list, int index)
-        {
-            return $"[{index,4}] {CSharpName(list[index].GetType())}";
-        }
+            => $"[{index,4}] {CSharpName(list[index].GetType())}";
 
         /// <summary>
         /// 
@@ -73,14 +71,13 @@ namespace Engine
         /// <param name="component"></param>
         /// <returns></returns>
         public override bool CanResetValue(object component)
-        {
-            return true;
-        }
+            => true;
 
         /// <summary>
         /// 
         /// </summary>
-        public override Type ComponentType { get { return collection.GetType(); } }
+        public override Type ComponentType
+            => collection.GetType();
 
         /// <summary>
         /// 
@@ -88,31 +85,31 @@ namespace Engine
         /// <param name="component"></param>
         /// <returns></returns>
         public override object GetValue(object component)
-        {
-            return collection[_index];
-        }
+            => collection[_index];
 
         /// <summary>
         /// 
         /// </summary>
-        public override bool IsReadOnly { get { return false; } }
+        public override bool IsReadOnly
+            => false;
 
         /// <summary>
         /// 
         /// </summary>
-        public override string Name { get { return _index.ToString(CultureInfo.InvariantCulture); } }
+        public override string Name
+            => _index.ToString(CultureInfo.InvariantCulture);
 
         /// <summary>
         /// 
         /// </summary>
-        public override Type PropertyType { get { return collection[_index].GetType(); } }
+        public override Type PropertyType
+            => collection[_index].GetType();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="component"></param>
-        public override void ResetValue(object component)
-        { }
+        public override void ResetValue(object component) { }
 
         /// <summary>
         /// 
@@ -120,9 +117,7 @@ namespace Engine
         /// <param name="component"></param>
         /// <returns></returns>
         public override bool ShouldSerializeValue(object component)
-        {
-            return true;
-        }
+            => true;
 
         /// <summary>
         /// 
@@ -130,8 +125,6 @@ namespace Engine
         /// <param name="component"></param>
         /// <param name="value"></param>
         public override void SetValue(object component, object value)
-        {
-            collection[_index] = value;
-        }
+            => collection[_index] = value;
     }
 }

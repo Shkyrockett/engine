@@ -10803,10 +10803,10 @@ namespace MethodSpeedTester
         /// <param name="center">The point around which to rotate.</param>
         /// <param name="angle">The angle to rotate in radians.</param>
         /// <returns>Return a rotation matrix to rotate around a point.</returns>
-        public static Matrix2D RotateAroundPoint(Point2D center, double angle)
+        public static Matrix2x3D RotateAroundPoint(Point2D center, double angle)
         {
             // Translate the point to the origin.
-            var result = new Matrix2D();
+            var result = new Matrix2x3D();
 
             // We need to go counter-clockwise.
             result.RotateAt(-angle.ToDegrees(), center.X, center.Y);

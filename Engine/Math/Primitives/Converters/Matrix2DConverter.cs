@@ -70,7 +70,7 @@ namespace Engine
                 throw GetConvertFromException(value);
 
             if (value is string source)
-                return Matrix2D.Parse(source);
+                return Matrix2x3D.Parse(source);
 
             return base.ConvertFrom(context, culture, value);
         }
@@ -91,9 +91,9 @@ namespace Engine
         /// <param name="destinationType"> The type to which this will convert the Matrix instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != null && value is Matrix2D)
+            if (destinationType != null && value is Matrix2x3D)
             {
-                var instance = (Matrix2D)value;
+                var instance = (Matrix2x3D)value;
 
                 if (destinationType == typeof(string))
                 {

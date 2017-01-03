@@ -1,4 +1,4 @@
-﻿// <copyright file="Matrix2D.cs" company="Shkyrockett" >
+﻿// <copyright file="Matrix2x3D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -27,20 +27,20 @@ namespace Engine
     [Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(Matrix2DConverter))]
-    public partial struct Matrix2D
-        : IEquatable<Matrix2D>, IFormattable
+    public partial struct Matrix2x3D
+        : IEquatable<Matrix2x3D>, IFormattable
     {
         #region Static Fields
 
         /// <summary>
-        /// An Empty <see cref="Matrix2D"/>.
+        /// An Empty <see cref="Matrix2x3D"/>.
         /// </summary>
-        public static readonly Matrix2D Empty = new Matrix2D();
+        public static readonly Matrix2x3D Empty = new Matrix2x3D();
 
         /// <summary>
-        /// An Identity <see cref="Matrix2D"/>.
+        /// An Identity <see cref="Matrix2x3D"/>.
         /// </summary>
-        public static readonly Matrix2D Identity = CreateIdentity();
+        public static readonly Matrix2x3D Identity = CreateIdentity();
 
         #endregion
 
@@ -104,20 +104,13 @@ namespace Engine
 
         #region Constructors
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public Matrix2D()
-        //    : this(0,0,0,0,0,0)
-        //{ }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix2D"/> class of the form:<br/>
+        /// Initializes a new instance of the <see cref="Matrix2x3D"/> class of the form:<br/>
         /// / m11, m12, 0 \<br/>
         /// | m21, m22, 0 |<br/>
         /// \ offsetX, offsetY, 1 /<br/>
         /// </summary>
-        public Matrix2D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
+        public Matrix2x3D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
         {
             this.m1x1 = m1x1;
             this.m1x2 = m1x2;
@@ -324,9 +317,9 @@ namespace Engine
         /// <summary>
         /// Sets the transformation to the identity.
         /// </summary>
-        private static Matrix2D CreateIdentity()
+        private static Matrix2x3D CreateIdentity()
         {
-            var matrix = new Matrix2D();
+            var matrix = new Matrix2x3D();
             matrix.SetMatrix(1, 0,
                              0, 1,
                              0, 0,
@@ -359,12 +352,13 @@ namespace Engine
         /// <summary>
         /// Operator Point * Matrix
         /// </summary>
-        public static Point2D operator *(Point2D point, Matrix2D matrix) => matrix.Transform(point);
+        public static Point2D operator *(Point2D point, Matrix2x3D matrix)
+            => matrix.Transform(point);
 
         /// <summary>
         /// Multiplies two transformations.
         /// </summary>
-        public static Matrix2D operator *(Matrix2D trans1, Matrix2D trans2)
+        public static Matrix2x3D operator *(Matrix2x3D trans1, Matrix2x3D trans2)
         {
             MultiplyMatrix(ref trans1, ref trans2);
             return trans1;
@@ -373,7 +367,7 @@ namespace Engine
         /// <summary>
         /// Multiply
         /// </summary>
-        public static Matrix2D Multiply(Matrix2D trans1, Matrix2D trans2)
+        public static Matrix2x3D Multiply(Matrix2x3D trans1, Matrix2x3D trans2)
         {
             MultiplyMatrix(ref trans1, ref trans2);
             return trans1;
@@ -390,7 +384,7 @@ namespace Engine
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator ==(Matrix2D matrix1, Matrix2D matrix2) => Equals(matrix1, matrix2);
+        public static bool operator ==(Matrix2x3D matrix1, Matrix2x3D matrix2) => Equals(matrix1, matrix2);
 
         /// <summary>
         /// Compares two Matrix instances for exact inequality.
@@ -403,17 +397,17 @@ namespace Engine
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator !=(Matrix2D matrix1, Matrix2D matrix2) => !Equals(matrix1, matrix2);
+        public static bool operator !=(Matrix2x3D matrix1, Matrix2x3D matrix2) => !Equals(matrix1, matrix2);
 
         /// <summary>
-        /// Compares two Matrix2D
+        /// Compares two Matrix2x3D
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Matrix2D a, Matrix2D b) => Equals(a, b);
+        public static bool Compare(Matrix2x3D a, Matrix2x3D b) => Equals(a, b);
 
         /// <summary>
         /// Compares two Matrix instances for object equality.  In this equality
@@ -428,7 +422,7 @@ namespace Engine
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Matrix2D matrix1, Matrix2D matrix2)
+        public static bool Equals(Matrix2x3D matrix1, Matrix2x3D matrix2)
         {
             if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
             {
@@ -457,7 +451,8 @@ namespace Engine
         /// </returns>
         /// <param name='obj'>The object to compare to "this"</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Matrix2D && Equals(this, (Matrix2D)obj);
+        public override bool Equals(object obj)
+            => obj is Matrix2x3D && Equals(this, (Matrix2x3D)obj);
 
         /// <summary>
         /// Equals - compares this Matrix with the passed in object.  In this equality
@@ -471,7 +466,7 @@ namespace Engine
         /// </returns>
         /// <param name='value'>The Matrix to compare to "this"</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Matrix2D value) => Equals(this, value);
+        public bool Equals(Matrix2x3D value) => Equals(this, value);
 
         #endregion
 
@@ -481,7 +476,7 @@ namespace Engine
         /// Creates a rotation transformation about the given point
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in radians</param>
-        internal static Matrix2D CreateRotationRadians(double angle) => CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
+        internal static Matrix2x3D CreateRotationRadians(double angle) => CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
 
         /// <summary>
         /// Creates a rotation transformation about the given point
@@ -489,9 +484,9 @@ namespace Engine
         /// <param name='angle'>The angle to rotate specified in radians</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
-        internal static Matrix2D CreateRotationRadians(double angle, double centerX, double centerY)
+        internal static Matrix2x3D CreateRotationRadians(double angle, double centerX, double centerY)
         {
-            var matrix = new Matrix2D();
+            var matrix = new Matrix2x3D();
             double sin = Sin(angle);
             double cos = Cos(angle);
             double dx = ((centerX * (1.0 - cos)) + (centerY * sin));
@@ -511,9 +506,9 @@ namespace Engine
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name='centerX'>The centerX of scaling</param>
         /// <param name='centerY'>The centerY of scaling</param>
-        internal static Matrix2D CreateScaling(double scaleX, double scaleY, double centerX, double centerY)
+        internal static Matrix2x3D CreateScaling(double scaleX, double scaleY, double centerX, double centerY)
         {
-            var matrix = new Matrix2D();
+            var matrix = new Matrix2x3D();
 
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
@@ -528,9 +523,9 @@ namespace Engine
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
-        internal static Matrix2D CreateScaling(double scaleX, double scaleY)
+        internal static Matrix2x3D CreateScaling(double scaleX, double scaleY)
         {
-            var matrix = new Matrix2D();
+            var matrix = new Matrix2x3D();
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
                              0, 0,
@@ -543,9 +538,9 @@ namespace Engine
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
         /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
-        internal static Matrix2D CreateSkewRadians(double skewX, double skewY)
+        internal static Matrix2x3D CreateSkewRadians(double skewX, double skewY)
         {
-            var matrix = new Matrix2D();
+            var matrix = new Matrix2x3D();
 
             matrix.SetMatrix(1.0f, Tan(skewY),
                              Tan(skewX), 1.0f,
@@ -560,9 +555,9 @@ namespace Engine
         /// </summary>
         /// <param name='offsetX'>The offset in X</param>
         /// <param name='offsetY'>The offset in Y</param>
-        internal static Matrix2D CreateTranslation(double offsetX, double offsetY)
+        internal static Matrix2x3D CreateTranslation(double offsetX, double offsetY)
         {
-            var matrix = new Matrix2D();
+            var matrix = new Matrix2x3D();
 
             matrix.SetMatrix(1, 0,
                              0, 1,
@@ -573,18 +568,18 @@ namespace Engine
         }
 
         /// <summary>
-        /// Parse a string for a <see cref="Matrix2D"/> value.
+        /// Parse a string for a <see cref="Matrix2x3D"/> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Matrix2D"/> data </param>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix2x3D"/> data </param>
         /// <returns>
-        /// Returns an instance of the <see cref="Matrix2D"/> struct converted
+        /// Returns an instance of the <see cref="Matrix2x3D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
-        public static Matrix2D Parse(string source)
+        public static Matrix2x3D Parse(string source)
         {
             IFormatProvider formatProvider = CultureInfo.InvariantCulture;
             var tokenizer = new Tokenizer(source, formatProvider);
-            Matrix2D value;
+            Matrix2x3D value;
             string firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
@@ -594,7 +589,7 @@ namespace Engine
             }
             else
             {
-                value = new Matrix2D(
+                value = new Matrix2x3D(
                     firstToken.ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
@@ -616,7 +611,7 @@ namespace Engine
         /// </summary>
         /// <param name="rect"> The Rectangle to transform. </param>
         /// <param name="matrix"> The Matrix with which to transform the Rectangle. </param>
-        internal static void TransformRect(ref Rectangle2D rect, ref Matrix2D matrix)
+        internal static void TransformRect(ref Rectangle2D rect, ref Matrix2x3D matrix)
         {
             if (rect.IsEmpty)
                 return;
@@ -686,7 +681,7 @@ namespace Engine
         /// To reduce duplication and to ensure consistent behavior, this is the
         /// method which is used to implement Matrix * Matrix as well.
         /// </summary>
-        internal static void MultiplyMatrix(ref Matrix2D matrix1, ref Matrix2D matrix2)
+        internal static void MultiplyMatrix(ref Matrix2x3D matrix1, ref Matrix2x3D matrix2)
         {
             MatrixTypes type1 = matrix1.type;
             MatrixTypes type2 = matrix2.type;
@@ -782,7 +777,7 @@ namespace Engine
                 case 66: // U * S
                 case 67: // U * S|T
                 case 68: // U * U
-                    matrix1 = new Matrix2D(
+                    matrix1 = new Matrix2x3D(
                         matrix1.m1x1 * matrix2.m1x1 + matrix1.m1x2 * matrix2.m2x1,
                         matrix1.m1x1 * matrix2.m1x2 + matrix1.m1x2 * matrix2.m2x2,
 
@@ -801,13 +796,134 @@ namespace Engine
         }
 
         /// <summary>
+        /// Multiplies two transformations, where the behavior is matrix1 *= matrix2.
+        /// This code exists so that we can efficient combine matrices without copying
+        /// the data around, since each matrix is 52 bytes.
+        /// To reduce duplication and to ensure consistent behavior, this is the
+        /// method which is used to implement Matrix * Matrix as well.
+        /// </summary>
+        internal static Matrix2x3D MultiplyMatrix(Matrix2x3D matrix1, Matrix2x3D matrix2)
+        {
+            MatrixTypes type1 = matrix1.type;
+            MatrixTypes type2 = matrix2.type;
+
+            // Check for identities
+
+            // If the second is identities, we can just return
+            if (type2 == MatrixTypes.Identity)
+                return matrix1;
+
+            // If the first is identities, we can just copy the memory across.
+            if (type1 == MatrixTypes.Identity)
+                return matrix2;
+
+            // Optimize for translate case, where the second is a translate
+            if (type2 == MatrixTypes.Translation)
+            {
+                // 2 additions
+                matrix1.offsetX += matrix2.offsetX;
+                matrix1.offsetY += matrix2.offsetY;
+
+                // If matrix 1 wasn't unknown we added a translation
+                if (type1 != MatrixTypes.Unknown)
+                    matrix1.type |= MatrixTypes.Translation;
+
+                return matrix1;
+            }
+
+            // Check for the first value being a translate
+            if (type1 == MatrixTypes.Translation)
+            {
+                // Save off the old offsets
+                double offsetX = matrix1.offsetX;
+                double offsetY = matrix1.offsetY;
+
+                // Copy the matrix
+                matrix1 = matrix2;
+
+                matrix1.offsetX = (float)(offsetX * matrix2.m1x1 + offsetY * matrix2.m2x1 + matrix2.offsetX);
+                matrix1.offsetY = (float)(offsetX * matrix2.m1x2 + offsetY * matrix2.m2x2 + matrix2.offsetY);
+
+                if (type2 == MatrixTypes.Unknown)
+                    matrix1.type = MatrixTypes.Unknown;
+                else
+                    matrix1.type = MatrixTypes.Scaling | MatrixTypes.Translation;
+                return matrix1;
+            }
+
+            // The following code combines the type of the transformations so that the high nibble
+            // is "this"'s type, and the low nibble is mat's type.  This allows for a switch rather
+            // than nested switches.
+
+            // trans1._type |  trans2._type
+            //  7  6  5  4   |  3  2  1  0
+            int combinedType = ((int)type1 << 4) | (int)type2;
+
+            switch (combinedType)
+            {
+                case 34:  // S * S
+                    // 2 multiplications
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
+                    return matrix1;
+
+                case 35:  // S * S|T
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
+                    matrix1.offsetX = matrix2.offsetX;
+                    matrix1.offsetY = matrix2.offsetY;
+
+                    // Transform set to Translate and Scale
+                    matrix1.type = MatrixTypes.Translation | MatrixTypes.Scaling;
+                    return matrix1;
+
+                case 50: // S|T * S
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
+                    matrix1.offsetX *= matrix2.m1x1;
+                    matrix1.offsetY *= matrix2.m2x2;
+                    return matrix1;
+
+                case 51: // S|T * S|T
+                    matrix1.m1x1 *= matrix2.m1x1;
+                    matrix1.m2x2 *= matrix2.m2x2;
+                    matrix1.offsetX = matrix2.m1x1 * matrix1.offsetX + matrix2.offsetX;
+                    matrix1.offsetY = matrix2.m2x2 * matrix1.offsetY + matrix2.offsetY;
+                    return matrix1;
+                case 36: // S * U
+                case 52: // S|T * U
+                case 66: // U * S
+                case 67: // U * S|T
+                case 68: // U * U
+                    matrix1 = new Matrix2x3D(
+                        matrix1.m1x1 * matrix2.m1x1 + matrix1.m1x2 * matrix2.m2x1,
+                        matrix1.m1x1 * matrix2.m1x2 + matrix1.m1x2 * matrix2.m2x2,
+
+                        matrix1.m2x1 * matrix2.m1x1 + matrix1.m2x2 * matrix2.m2x1,
+                        matrix1.m2x1 * matrix2.m1x2 + matrix1.m2x2 * matrix2.m2x2,
+
+                        matrix1.offsetX * matrix2.m1x1 + matrix1.offsetY * matrix2.m2x1 + matrix2.offsetX,
+                        matrix1.offsetX * matrix2.m1x2 + matrix1.offsetY * matrix2.m2x2 + matrix2.offsetY);
+                    return matrix1;
+#if DEBUG
+                default:
+                    Debug.Fail("Matrix multiply hit an invalid case: " + combinedType);
+                    break;
+#endif
+            }
+
+            return matrix1;
+        }
+
+
+        /// <summary>
         /// Applies an offset to the specified matrix in place.
         /// </summary>
-        internal static void PrependOffset(ref Matrix2D matrix, double offsetX, double offsetY)
+        internal static void PrependOffset(ref Matrix2x3D matrix, double offsetX, double offsetY)
         {
             if (matrix.type == MatrixTypes.Identity)
             {
-                matrix = new Matrix2D(1, 0, 0, 1, offsetX, offsetY)
+                matrix = new Matrix2x3D(1, 0, 0, 1, offsetX, offsetY)
                 {
                     type = MatrixTypes.Translation
                 };
@@ -838,14 +954,14 @@ namespace Engine
         /// Append - "this" becomes this * matrix, the same as this *= matrix.
         /// </summary>
         /// <param name="matrix"> The Matrix to append to this Matrix </param>
-        public void Append(Matrix2D matrix)
+        public void Append(Matrix2x3D matrix)
             => this *= matrix;
 
         /// <summary>
         /// Prepend - "this" becomes matrix * this, the same as this = matrix * this.
         /// </summary>
         /// <param name="matrix"> The Matrix to prepend to this Matrix </param>
-        public void Prepend(Matrix2D matrix)
+        public void Prepend(Matrix2x3D matrix)
             => this = matrix * this;
 
         /// <summary>
@@ -1327,7 +1443,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the current culture.
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the current culture.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
@@ -1336,7 +1452,7 @@ namespace Engine
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <returns>
@@ -1346,7 +1462,7 @@ namespace Engine
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -1358,7 +1474,7 @@ namespace Engine
             => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix2x3D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -1369,12 +1485,12 @@ namespace Engine
         internal string ConvertToString(string format, IFormatProvider provider)
         {
 #pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            if (this == null) return nameof(Matrix2D);
+            if (this == null) return nameof(Matrix2x3D);
 #pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
             if (IsIdentity) return "Identity";
             // Helper to get the numeric list separator for a given culture.
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Matrix2D)}{{{nameof(M11)}={m1x1}{sep}{nameof(M12)}={m1x2}{sep}{nameof(M21)}={m2x1}{sep}{nameof(M22)}={m2x2}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
+            IFormattable formatable = $"{nameof(Matrix2x3D)}{{{nameof(M11)}={m1x1}{sep}{nameof(M12)}={m1x2}{sep}{nameof(M21)}={m2x1}{sep}{nameof(M22)}={m2x2}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
             return formatable.ToString(format, provider);
         }
 

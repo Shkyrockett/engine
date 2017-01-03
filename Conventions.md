@@ -208,9 +208,9 @@ var list = new List<double> {3, 1, 4, 1, 5, 9,  2, 6};
 
 ## C# 7 Features
 
-### Tupples
+### Tuples
 
-Feel free to use the new Tupple syntax where ever it makes sense. Tupples work great where you need a single use struct that will only be used within a single method, or for generalizing the return struct for several structs that could potentially use the same method with different type returns.
+Feel free to use the new Tuple syntax where ever it makes sense. Tuples work great where you need a single use struct that will only be used within a single method, or for generalizing the return struct for several structs that could potentially use the same method with different type returns.
 
 ```c#
 (double X, double Y) tempPoint = (x, y);

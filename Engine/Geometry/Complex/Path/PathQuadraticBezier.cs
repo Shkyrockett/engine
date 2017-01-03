@@ -101,18 +101,28 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public QuadraticBezier ToQuadtraticBezier()
-            => new QuadraticBezier(Start.Value, Handle.Value, End.Value);
-
-        /// <summary>
-        /// 
-        /// </summary>
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => Boundings.QuadraticBezier(Start.Value.X, Start.Value.Y, Handle.Value.X, Handle.Value.Y, End.Value.X, End.Value.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public override double Length => ToQuadtraticBezier().Length;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public QuadraticBezier ToQuadtraticBezier()
+            => new QuadraticBezier(Start.Value, Handle.Value, End.Value);
 
         #endregion
     }

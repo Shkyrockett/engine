@@ -263,7 +263,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Point2D value, Matrix2D matrix)
+        public static Point2D operator *(Point2D value, Matrix2x3D matrix)
             => matrix.Transform(value);
 
         /// <summary>

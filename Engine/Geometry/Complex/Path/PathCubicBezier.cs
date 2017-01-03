@@ -117,6 +117,13 @@ namespace Engine
         public override Rectangle2D Bounds
             => Boundings.CubicBezier(Start.Value.X,Start.Value.Y, Handle1.X,Handle1.Y, Handle2.Value.X,Handle2.Value.Y, End.Value.X, End.Value.Y);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public override double Length
+            => ToCubicBezier().Length;
+
         #endregion
 
         #region Methods

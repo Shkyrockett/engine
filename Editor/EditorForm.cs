@@ -33,7 +33,7 @@ namespace Editor
         /// <summary>
         /// Map containing all of the vector objects.
         /// </summary>
-        private VectorMap vectorMap;
+        private VectorMap vectorMap = new VectorMap();
 
         /// <summary>
         /// Container for actions to take on input.
@@ -536,19 +536,19 @@ namespace Editor
             //vectorMap.Add(intersection3NodesItem);
             //vectorMap.Add(intersection2NodesItem);
 
-            //var figure = new GeometryPath(new Point2D(150d, 200d));
-            //figure.AddLineSegment(new Point2D(200, 200))
-            //    .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
-            //    .AddLineSegment(new Point2D(250, 300))
-            //    .AddArc(50d, 50d, 0d, false, true, new Point2D(200d, 350d))
-            //    .AddLineSegment(new Point2D(150, 350))
-            //    .AddArc(50d, 50d, 0d, true, false, new Point2D(100d, 300d))
-            //    .AddLineSegment(new Point2D(100, 250))
-            //    .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
-            //var figureItem = new GraphicItem(figure, styles[1]);
+            var figure = new GeometryPath(new Point2D(150d, 200d));
+            figure.AddLineSegment(new Point2D(200, 200))
+                .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
+                .AddLineSegment(new Point2D(250, 300))
+                .AddArc(50d, 50d, 0d, false, true, new Point2D(200d, 350d))
+                .AddLineSegment(new Point2D(150, 350))
+                .AddArc(50d, 50d, 0d, true, false, new Point2D(100d, 300d))
+                .AddLineSegment(new Point2D(100, 250))
+                .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
+            var figureItem = new GraphicItem(figure, styles[1]);
 
-            //var figureBounds = figure.Bounds;
-            //var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
+            var figureBounds = figure.Bounds;
+            var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
 
             //var parametricPointTesterFigure = new ParametricPointTester(
             //    (px, py) => Containings.FigurePoint(figure, new Point2D(px, py)),
@@ -565,8 +565,8 @@ namespace Editor
             //    figureBounds.X - 200, figureBounds.Y - 200, figureBounds.Right + 205, figureBounds.Bottom + 205, 5, 5);
             //var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, styles[3]);
 
-            //vectorMap.Add(figureBoundsItem);
-            //vectorMap.Add(figureItem);
+            vectorMap.Add(figureBoundsItem);
+            vectorMap.Add(figureItem);
             //vectorMap.Add(parametricPointTesterSegmentItem);
             //vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
@@ -672,17 +672,13 @@ namespace Editor
         /// Tweening update callback.
         /// </summary>
         private void UpdateCallback()
-        {
-            CanvasPanel.Invalidate(true);
-        }
+            => CanvasPanel.Invalidate(true);
 
         /// <summary>
         /// Callback for when tweening completes.
         /// </summary>
         private void CompleteCallback()
-        {
-            CanvasPanel.Invalidate(true);
-        }
+            => CanvasPanel.Invalidate(true);
 
         /// <summary>
         ///
@@ -702,9 +698,7 @@ namespace Editor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Timer1_Tick(object sender, EventArgs e)
-        {
-            tweener.Update(tick);
-        }
+            => tweener.Update(tick);
 
         /// <summary>
         ///
@@ -712,9 +706,7 @@ namespace Editor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ListBox1_SelectedValueChanged(object sender, EventArgs e)
-        {
-            propertyGrid1.SelectedObject = (sender as ListBox)?.SelectedItem as GraphicItem;
-        }
+            => propertyGrid1.SelectedObject = (sender as ListBox)?.SelectedItem as GraphicItem;
 
         /// <summary>
         ///
@@ -722,9 +714,7 @@ namespace Editor
         /// <param name="s"></param>
         /// <param name="e"></param>
         private void PropertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            CanvasPanel.Invalidate();
-        }
+            => CanvasPanel.Invalidate();
 
         /// <summary>
         ///
@@ -813,7 +803,9 @@ namespace Editor
         /// <param name="e"></param>
         private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
+#pragma warning disable IDE0021 // Use expression body for methods
             toolStack.MouseMove(new Point2D(e.X, e.Y));
+#pragma warning restore IDE0021 // Use expression body for methods
             //propertyGrid1.Refresh();
             //CanvasPanel.Invalidate(true);
         }
@@ -825,8 +817,10 @@ namespace Editor
         /// <param name="e"></param>
         private void CanvasPanel_MouseWheel(object sender, MouseEventArgs e)
         {
+#pragma warning disable IDE0021 // Use expression body for methods
             toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
-            //propertyGrid1.Refresh();
+#pragma warning restore IDE0021 // Use expression body for methods
+                               //propertyGrid1.Refresh();
         }
 
         /// <summary>
@@ -836,8 +830,10 @@ namespace Editor
         /// <param name="e"></param>
         private void CanvasPanel_MouseWheelTilt(object sender, MouseEventArgs e)
         {
+#pragma warning disable IDE0021 // Use expression body for methods
             toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
-            //propertyGrid1.Refresh();
+#pragma warning restore IDE0021 // Use expression body for methods
+                               //propertyGrid1.Refresh();
         }
 
         /// <summary>
@@ -886,7 +882,8 @@ namespace Editor
         private void CanvasPanel_Resize(object sender, EventArgs e)
         {
             var panel = sender as CanvasPanel;
-            vectorMap.VisibleBounds = new Rectangle2D(panel.Bounds.X, panel.Bounds.Y, panel.Bounds.Width, panel.Bounds.Height);
+            if (vectorMap != null)
+                vectorMap.VisibleBounds = new Rectangle2D(panel.Bounds.X, panel.Bounds.Y, panel.Bounds.Width, panel.Bounds.Height);
         }
 
         /// <summary>
@@ -936,10 +933,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e)
-        {
-            SaveAs(vectorFilename);
-        }
+        private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e) => SaveAs(vectorFilename);
 
         /// <summary>
         /// 
@@ -998,8 +992,6 @@ namespace Editor
         /// <param name="writer"></param>
         /// <param name="item"></param>
         private void Serialize(TextWriter writer, VectorMap item)
-        {
-            vectorMapSserializer.Serialize(writer, item);
-        }
+            => vectorMapSserializer.Serialize(writer, item);
     }
 }

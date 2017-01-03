@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine.Physics;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -125,6 +126,13 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public override Rectangle2D Bounds
             => ToEllipticalArc().Bounds;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public override double Length
+            => ToEllipticalArc().Perimeter;
 
         #endregion
 

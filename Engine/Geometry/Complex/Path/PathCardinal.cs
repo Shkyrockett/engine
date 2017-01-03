@@ -94,6 +94,11 @@ namespace Engine
         public override Rectangle2D Bounds
             => Boundings.Polygon(Nodes);
 
+        /// <summary>
+        /// ToDo: Add length calculation for Cardinal curves.
+        /// </summary>
+        public override double Length => 0;
+
         #endregion
     }
 }

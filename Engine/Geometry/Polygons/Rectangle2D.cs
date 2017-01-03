@@ -122,9 +122,7 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public Rectangle2D((double, double, double, double) tuple)
-        {
-            (x, y, width, height) = tuple;
-        }
+            => (x, y, width, height) = tuple;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with a location and size.
@@ -173,7 +171,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get { return x; }
+            get => x;
             set
             {
                 x = value;
@@ -193,7 +191,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get { return y; }
+            get => y;
             set
             {
                 y = value;
@@ -212,7 +210,7 @@ namespace Engine
         [Description("The height of the rectangle.")]
         public double Height
         {
-            get { return height; }
+            get => height;
             set
             {
                 height = value;
@@ -232,7 +230,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Width
         {
-            get { return width; }
+            get => width;
             set
             {
                 width = value;
@@ -253,7 +251,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get { return height / width; }
+            get => height / width;
             set
             {
                 height = width * value;
@@ -277,7 +275,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get { return new Point2D(X, Y); }
+            get => new Point2D(X, Y);
             set
             {
                 x = value.X;
@@ -301,7 +299,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(X - width * 0.5d, Y - height * 0.5d); }
+            get => new Point2D(X - width * 0.5d, Y - height * 0.5d);
             set
             {
                 x = value.X + width * 0.5d;
@@ -325,7 +323,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
-            get { return new Size2D(width, height); }
+            get => new Size2D(width, height);
             set
             {
                 width = value.Width;
@@ -346,7 +344,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D TopLeft
         {
-            get { return new Point2D(Left, Top); }
+            get => new Point2D(Left, Top);
             set
             {
                 Left = value.X;
@@ -367,7 +365,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D TopRight
         {
-            get { return new Point2D(Top, Right); }
+            get => new Point2D(Top, Right);
             set
             {
                 Right = value.X;
@@ -388,7 +386,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D BottomLeft
         {
-            get { return new Point2D(Left, Bottom); }
+            get => new Point2D(Left, Bottom);
             set
             {
                 Left = value.X;
@@ -409,7 +407,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D BottomRight
         {
-            get { return new Point2D(Right, Bottom); }
+            get => new Point2D(Right, Bottom);
             set
             {
                 Right = value.X;
@@ -430,7 +428,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Left
         {
-            get { return x; }
+            get => x;
             set
             {
                 width += x - value;
@@ -451,7 +449,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Top
         {
-            get { return y; }
+            get => y;
             set
             {
                 height += y - value;
@@ -472,7 +470,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Right
         {
-            get { return x + width; }
+            get => x + width;
             set
             {
                 width = value - x;
@@ -492,7 +490,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Bottom
         {
-            get { return y + height; }
+            get => y + height;
             set
             {
                 height = value - y;
@@ -537,10 +535,7 @@ namespace Engine
         [Category("Elements")]
         [Description("The area of the rectangle.")]
         public override double Area
-        {
-            get { return height * width; }
-            //set { base.Area = value; }
-        }
+            => height * width;
 
         /// <summary>
         /// Gets the length of the perimeter of the rectangle.
@@ -752,9 +747,9 @@ namespace Engine
         /// </returns>
         /// <param name="rect"> The Rectangle2D to transform. </param>
         /// <param name="matrix"> The Matrix by which to transform. </param>
-        public static Rectangle2D Transform(Rectangle2D rect, Matrix2D matrix)
+        public static Rectangle2D Transform(Rectangle2D rect, Matrix2x3D matrix)
         {
-            Matrix2D.TransformRect(ref rect, ref matrix);
+            Matrix2x3D.TransformRect(ref rect, ref matrix);
             return rect;
         }
 
@@ -803,9 +798,7 @@ namespace Engine
         /// Union - Update this rectangle to be the union of this and point.
         /// </summary>
         public void Union(Point2D point)
-        {
-            Union(new Rectangle2D(point, point));
-        }
+            => Union(new Rectangle2D(point, point));
 
         /// <summary>
         /// Creates a Rectangle that represents the intersection between this Rectangle and rect.
@@ -827,9 +820,7 @@ namespace Engine
         /// </summary>
         /// <param name="pos"></param>
         public void Offset(Point2D pos)
-        {
-            Offset(pos.X, pos.Y);
-        }
+            => Offset(pos.X, pos.Y);
 
         /// <summary>
         /// Offset - translate the Location by the offset provided.
@@ -837,9 +828,7 @@ namespace Engine
         /// </summary>
         /// <param name="offsetVector"></param>
         public void Offset(Vector2D offsetVector)
-        {
-            Offset(offsetVector.I, offsetVector.J);
-        }
+            => Offset(offsetVector.I, offsetVector.J);
 
         /// <summary>
         /// Adjusts the location of this rectangle by the specified amount.
@@ -874,9 +863,7 @@ namespace Engine
         /// </summary>
         /// <param name="size"></param>
         public void Inflate(Size2D size)
-        {
-            Inflate(size.Width, size.Height);
-        }
+            => Inflate(size.Width, size.Height);
 
         ///// <summary>
         ///// Updates rectangle to be the bounds of the original value transformed
@@ -884,9 +871,9 @@ namespace Engine
         ///// The Empty Rectangle2D is not affected by this call.
         ///// </summary>
         ///// <param name="matrix"> Matrix </param>
-        //public void Transform(Matrix2D matrix)
+        //public void Transform(Matrix2x3D matrix)
         //{
-        //    Matrix2D.TransformRect(ref this, ref matrix);
+        //    Matrix2x3D.TransformRect(ref this, ref matrix);
         //}
 
         #endregion

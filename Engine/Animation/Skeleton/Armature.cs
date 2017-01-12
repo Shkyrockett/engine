@@ -1,4 +1,4 @@
-﻿// <copyright file="SkeletonBone.cs" company="Shkyrockett" >
+﻿// <copyright file="Armature.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -18,6 +18,11 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public class SkeletonBone
-    { }
+    public class Armature
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<Bone> Bones { get; set; }
+    }
 }

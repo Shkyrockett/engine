@@ -44,12 +44,12 @@ namespace Engine
         public static readonly Vector2D Unit = new Vector2D(1, 1);
 
         /// <summary>
-        /// Vector2D(1,0,0)
+        /// Vector2D(1,0)
         /// </summary>
         public static readonly Vector2D XAxis = new Vector2D(1, 0);
 
         /// <summary>
-        /// Vector2D(0,1,0)
+        /// Vector2D(0,1)
         /// </summary>
         public static readonly Vector2D YAxis = new Vector2D(0, 1);
 

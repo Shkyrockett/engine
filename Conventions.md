@@ -229,6 +229,47 @@ public string ConvertToString()
 
 If you have several choices of how  to do things, profile the various methods, checking for accuracy and speed, then find the best compromise of the two.
 
+## Regions
+
+In order to help keep classes organised as they become unweildly long, I'm using regions to keep similar parts together, so I can go to a file and know where to look for what.
+
+Here is the general format I am using.
+
+```c#
+    public struct RegionObject
+    {
+        #region Implementors
+        // Public static read only fields.
+        #endregion
+        
+        #region Constants
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Constructors
+        #endregion
+
+        #region Properties
+        // Read-write properties.
+        #endregion
+
+        #region Accessors
+        // Read only properties.
+        #endregion
+
+        #region Operators
+        #endregion
+
+        #region Factories
+        #endregion
+
+        #region Methods
+        #endregion
+    }
+```
+
 ## Standard Methods
 
 To standardize these specific methods throughought the Engine to work the same, please use the following conventions.

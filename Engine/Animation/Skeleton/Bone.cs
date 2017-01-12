@@ -19,5 +19,10 @@ namespace Engine
     /// 
     /// </summary>
     public class Bone
-    { }
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<Bone> Bones { get; set; }
+    }
 }

@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="Transform.cs" company="Shkyrockett" >
+//    Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <license>
+//    Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <author id="shkyrockett">Shkyrockett</author>
+// <summary></summary>
 
 namespace Engine
 {
@@ -82,36 +85,36 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public double X { get => x; set => x = value; }
+        public double X { get { return x; } set { x = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Y { get => y; set => y = value; }
+        public double Y { get { return y; } set { y = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public double SkewX { get => skewX; set => skewX = value; }
+        public double SkewX { get { return skewX; } set { skewX = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public double SkewY { get => skewY; set => skewY = value; }
+        public double SkewY { get { return skewY; } set { skewY = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public double ScaleX { get => scaleX; set => scaleX = value; }
+        public double ScaleX { get { return scaleX; } set { scaleX = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public double ScaleY { get => scaleY; set => scaleY = value; }
+        public double ScaleY { get { return scaleY; } set { scaleY = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Angle { get => angle; set => angle = value; }
+        public double Angle { get { return angle; } set { angle = value; } }
     }
 }

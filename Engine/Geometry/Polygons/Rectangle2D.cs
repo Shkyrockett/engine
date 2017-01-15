@@ -171,7 +171,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get => x;
+            get
+            {
+                return x;
+            }
+
             set
             {
                 x = value;
@@ -191,7 +195,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get => y;
+            get
+            {
+                return y;
+            }
+
             set
             {
                 y = value;
@@ -210,7 +218,11 @@ namespace Engine
         [Description("The height of the rectangle.")]
         public double Height
         {
-            get => height;
+            get
+            {
+                return height;
+            }
+
             set
             {
                 height = value;
@@ -230,7 +242,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Width
         {
-            get => width;
+            get
+            {
+                return width;
+            }
+
             set
             {
                 width = value;
@@ -251,7 +267,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get => height / width;
+            get
+            {
+                return height / width;
+            }
+
             set
             {
                 height = width * value;
@@ -275,7 +295,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get => new Point2D(X, Y);
+            get
+            {
+                return new Point2D(X, Y);
+            }
+
             set
             {
                 x = value.X;
@@ -299,7 +323,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get => new Point2D(X - width * 0.5d, Y - height * 0.5d);
+            get
+            {
+                return new Point2D(X - width * 0.5d, Y - height * 0.5d);
+            }
+
             set
             {
                 x = value.X + width * 0.5d;
@@ -323,7 +351,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
-            get => new Size2D(width, height);
+            get
+            {
+                return new Size2D(width, height);
+            }
+
             set
             {
                 width = value.Width;
@@ -344,7 +376,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D TopLeft
         {
-            get => new Point2D(Left, Top);
+            get
+            {
+                return new Point2D(Left, Top);
+            }
+
             set
             {
                 Left = value.X;
@@ -365,7 +401,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D TopRight
         {
-            get => new Point2D(Top, Right);
+            get
+            {
+                return new Point2D(Top, Right);
+            }
+
             set
             {
                 Right = value.X;
@@ -386,7 +426,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D BottomLeft
         {
-            get => new Point2D(Left, Bottom);
+            get
+            {
+                return new Point2D(Left, Bottom);
+            }
+
             set
             {
                 Left = value.X;
@@ -407,7 +451,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D BottomRight
         {
-            get => new Point2D(Right, Bottom);
+            get
+            {
+                return new Point2D(Right, Bottom);
+            }
+
             set
             {
                 Right = value.X;
@@ -428,7 +476,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Left
         {
-            get => x;
+            get
+            {
+                return x;
+            }
+
             set
             {
                 width += x - value;
@@ -449,7 +501,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Top
         {
-            get => y;
+            get
+            {
+                return y;
+            }
+
             set
             {
                 height += y - value;
@@ -470,7 +526,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Right
         {
-            get => x + width;
+            get
+            {
+                return x + width;
+            }
+
             set
             {
                 width = value - x;
@@ -490,7 +550,11 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double Bottom
         {
-            get => y + height;
+            get
+            {
+                return y + height;
+            }
+
             set
             {
                 height = value - y;

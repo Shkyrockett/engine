@@ -117,28 +117,68 @@ namespace Engine
         /// </summary>
         [DataMember]
         [XmlAttribute]
-        public double X { get => x; set => x = value; }
+        public double X {
+            get
+            {
+                return x;
+            }
+
+            set
+            {
+                x = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember]
         [XmlAttribute]
-        public double Y { get => y; set => y = value; }
+        public double Y {
+            get
+            {
+                return y;
+            }
+
+            set
+            {
+                y = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember]
         [XmlAttribute]
-        public double Z { get => z; set => z = value; }
+        public double Z {
+            get
+            {
+                return z;
+            }
+
+            set
+            {
+                z = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember]
         [XmlAttribute]
-        public double W { get => w; set => w = value; }
+        public double W {
+            get
+            {
+                return w;
+            }
+
+            set
+            {
+                w = value;
+            }
+        }
 
         /// <summary>
         /// Squared 'length' of this quaternion.

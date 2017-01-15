@@ -179,7 +179,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get => x;
+            get
+            {
+                return x;
+            }
+
             set
             {
                 x = value;
@@ -199,7 +203,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get => y;
+            get
+            {
+                return y;
+            }
+
             set
             {
                 y = value;
@@ -219,7 +227,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Height
         {
-            get => height;
+            get
+            {
+                return height;
+            }
+
             set
             {
                 height = value;
@@ -239,7 +251,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Width
         {
-            get => width;
+            get
+            {
+                return width;
+            }
+
             set
             {
                 width = value;
@@ -260,7 +276,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get => height / width;
+            get
+            {
+                return height / width;
+            }
+
             set
             {
                 height = width * value;
@@ -284,7 +304,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
-            get => angle;
+            get
+            {
+                return angle;
+            }
+
             set
             {
                 angle = value;
@@ -307,7 +331,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get => new Point2D(X, Y);
+            get
+            {
+                return new Point2D(X, Y);
+            }
+
             set
             {
                 x = value.X;
@@ -331,7 +359,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
-            get => new Size2D(width, height);
+            get
+            {
+                return new Size2D(width, height);
+            }
+
             set
             {
                 width = value.Width;

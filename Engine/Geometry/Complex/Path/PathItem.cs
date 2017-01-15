@@ -91,6 +91,12 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public abstract double Length { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public abstract Point2D Interpolate(double t);
+
         #endregion
     }
 }

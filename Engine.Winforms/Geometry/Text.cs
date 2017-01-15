@@ -142,14 +142,16 @@ namespace Engine.Winforms
         /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
         /// </summary>
         /// <param name="rect"></param>
-        /// <returns></returns>        public bool Contains(Rectangle2D rect)
+        /// <returns></returns>
+        public bool Contains(Rectangle2D rect)
             => Containings.Contains(Bounds, rect);
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.
         /// </summary>
         /// <param name="rect"></param>
-        /// <returns></returns>        public bool IntersectsWith(Rectangle2D rect)
+        /// <returns></returns>
+        public bool IntersectsWith(Rectangle2D rect)
             => Intersectings.Intersects(Bounds, rect);
 
         /// <summary>

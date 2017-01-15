@@ -173,7 +173,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Radius
         {
-            get => radius;
+            get
+            {
+                return radius;
+            }
+
             set
             {
                 radius = value;
@@ -195,7 +199,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get => new Point2D(x, y);
+            get
+            {
+                return new Point2D(x, y);
+            }
+
             set
             {
                 x = value.X;
@@ -217,7 +225,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get => x;
+            get
+            {
+                return x;
+            }
+
             set
             {
                 x = value;
@@ -238,7 +250,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get => y;
+            get
+            {
+                return y;
+            }
+
             set
             {
                 y = value;
@@ -259,7 +275,11 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
-            get => Boundings.Circle(x, y, radius);
+            get
+            {
+                return Boundings.Circle(x, y, radius);
+            }
+
             set
             {
                 Center = value.Center();
@@ -284,12 +304,22 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [DisplayName(nameof(Circumference))]
+        [Category("Properties")]
+        [Description("The distance around the circle.")]
+        public override double Perimeter
+            => Distances.CircleCircumference(radius);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
         [DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the circle.")]
         public override double Area
         {
-            get => Areas.Circle(radius);
+            get { return Areas.Circle(radius); }
             set
             {
                 radius = Sqrt(value / PI);

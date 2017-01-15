@@ -89,7 +89,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public double Perimeters
+        public override double Perimeter
             => polylines.Sum(p => p.Perimeter);
 
         /// <summary>

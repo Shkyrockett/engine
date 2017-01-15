@@ -180,7 +180,12 @@ namespace Engine
         /// </remarks>
         public bool IsReadonly
         {
-            get => isReadonly; set
+            get
+            {
+                return isReadonly;
+            }
+
+            set
             {
                 if (IsReadonly)
                     return;

@@ -78,7 +78,17 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? Start { get => Previous.End; set => Previous.End = value; }
+        public override Point2D? Start {
+            get
+            {
+                return Previous.End;
+            }
+
+            set
+            {
+                Previous.End = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -90,7 +100,17 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get => Handle; set => Handle = value; }
+        public override Point2D? NextToEnd {
+            get
+            {
+                return Handle;
+            }
+
+            set
+            {
+                Handle = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -115,6 +135,14 @@ namespace Engine
         public override double Length => ToQuadtraticBezier().Length;
 
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public override Point2D Interpolate(double t)
+            => ToQuadtraticBezier().Interpolate(t);
 
         #region Methods
 

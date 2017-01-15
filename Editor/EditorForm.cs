@@ -111,10 +111,7 @@ namespace Editor
 
             paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
 
-            vectorMap = new VectorMap()
-            {
-                Tweener = tweener
-            };
+            vectorMap.Tweener = tweener;
             toolStack = new ToolStack(vectorMap);
             toolStack?.RegisterMouseLeftButton(new SelectTop());
             toolStack?.RegisterMouseMiddleButton(new Pan());
@@ -225,7 +222,10 @@ namespace Editor
                     }
                 )
             );
-            var setItem = new GraphicItem(set, styles[8]);
+            var setItem = new GraphicItem(set, styles[8])
+            {
+                Name = "Polygon Set"
+            };
             vectorMap.Add(setItem);
 
             Shape innerPolygon = new Polygon( // First inner triangle
@@ -235,20 +235,33 @@ namespace Editor
                                 new Point2D(40, 30)
                             }
                         ).Offset(10);
-            var innerPolygonItem = new GraphicItem(innerPolygon, styles[9]);
+            var innerPolygonItem = new GraphicItem(innerPolygon, styles[9])
+            {
+                Name = "Inner Polygon Triangle"
+            };
             vectorMap.Add(innerPolygonItem);
 
-            //Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
-            //Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
-            //Polyline pathPolyline2 = pathPolyline.Offset(-10);
-            //pathPolyline2.Reverse();
-            //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
-            //GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9]);
-            //var polylineSetItem = new GraphicItem(polylineSet, styles[10]);
-            //var pathPolylineItem = new GraphicItem(pathPolyline, styles[10]);
-            //vectorMap.Add(polygonLineItem);
-            //vectorMap.Add(polylineSetItem);
-            //vectorMap.Add(pathPolylineItem);
+            Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
+            Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
+            Polyline pathPolyline2 = pathPolyline.Offset(-10);
+            pathPolyline2.Reverse();
+            Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
+            GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9])
+            {
+                Name = "Polygon Line"
+            };
+            var polylineSetItem = new GraphicItem(polylineSet, styles[10])
+            {
+                Name = "Polyline Set"
+            };
+            var pathPolylineItem = new GraphicItem(pathPolyline, styles[10])
+            {
+                Name = "Path Polyline"
+            };
+
+            vectorMap.Add(polygonLineItem);
+            vectorMap.Add(polylineSetItem);
+            vectorMap.Add(pathPolylineItem);
 
             //var text = new Text2D("Test Text.", this.Font, new Point2D(100, 100));
             //var textItem = new GraphicItem(text, styles[1]);
@@ -282,14 +295,14 @@ namespace Editor
             ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
             ////MessageBox.Show(cubicBezierLengths.ToString());
 
-            var ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
-            var ellipseItem = new GraphicItem(ellipse, styles[6]);
+            //var ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
+            //var ellipseItem = new GraphicItem(ellipse, styles[6]);
 
-            var ellipseBounds = Boundings.Ellipse(200, 200, 50, 25, 45d.ToRadians());
-            var ellipseBoundsItem = new GraphicItem(ellipseBounds, styles[10]);
+            //var ellipseBounds = Boundings.Ellipse(200, 200, 50, 25, 45d.ToRadians());
+            //var ellipseBoundsItem = new GraphicItem(ellipseBounds, styles[10]);
 
-            vectorMap.Add(ellipseBoundsItem);
-            vectorMap.Add(ellipseItem);
+            //vectorMap.Add(ellipseBoundsItem);
+            //vectorMap.Add(ellipseItem);
 
             //Polygon triangleI = new Triangle(
             //    new Point2D(75, 125),
@@ -547,8 +560,8 @@ namespace Editor
                 .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
             var figureItem = new GraphicItem(figure, styles[1]);
 
-            var figureBounds = figure.Bounds;
-            var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
+            //var figureBounds = figure.Bounds;
+            //var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
 
             //var parametricPointTesterFigure = new ParametricPointTester(
             //    (px, py) => Containings.FigurePoint(figure, new Point2D(px, py)),
@@ -565,11 +578,19 @@ namespace Editor
             //    figureBounds.X - 200, figureBounds.Y - 200, figureBounds.Right + 205, figureBounds.Bottom + 205, 5, 5);
             //var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, styles[3]);
 
-            vectorMap.Add(figureBoundsItem);
+            //vectorMap.Add(figureBoundsItem);
             vectorMap.Add(figureItem);
             //vectorMap.Add(parametricPointTesterSegmentItem);
             //vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
+
+            Shape ego = new Circle(figure.Interpolate(.75), 10);
+            var egoItem = new GraphicItem(ego, styles[5])
+            {
+                Name = "Ego Circle"
+            };
+            vectorMap.Add(egoItem);
+
 
             var foreColor = Color.Black;
             var backColor = Color.White;
@@ -820,7 +841,7 @@ namespace Editor
 #pragma warning disable IDE0021 // Use expression body for methods
             toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
 #pragma warning restore IDE0021 // Use expression body for methods
-                               //propertyGrid1.Refresh();
+            //propertyGrid1.Refresh();
         }
 
         /// <summary>
@@ -833,7 +854,7 @@ namespace Editor
 #pragma warning disable IDE0021 // Use expression body for methods
             toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
 #pragma warning restore IDE0021 // Use expression body for methods
-                               //propertyGrid1.Refresh();
+            //propertyGrid1.Refresh();
         }
 
         /// <summary>

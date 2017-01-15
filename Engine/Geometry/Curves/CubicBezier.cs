@@ -186,7 +186,11 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
-            get => new Point2D(ax, ay);
+            get
+            {
+                return new Point2D(ax, ay);
+            }
+
             set
             {
                 ax = value.X;
@@ -209,7 +213,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AX
         {
-            get => ax;
+            get
+            {
+                return ax;
+            }
+
             set
             {
                 ax = value;
@@ -230,7 +238,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AY
         {
-            get => ay;
+            get
+            {
+                return ay;
+            }
+
             set
             {
                 ay = value;
@@ -250,7 +262,11 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
-            get => new Point2D(bx, by);
+            get
+            {
+                return new Point2D(bx, by);
+            }
+
             set
             {
                 bx = value.X;
@@ -273,7 +289,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double BX
         {
-            get => bx;
+            get
+            {
+                return bx;
+            }
+
             set
             {
                 bx = value;
@@ -294,7 +314,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double BY
         {
-            get => by;
+            get
+            {
+                return by;
+            }
+
             set
             {
                 by = value;
@@ -314,7 +338,11 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D C
         {
-            get => new Point2D(cx, cy);
+            get
+            {
+                return new Point2D(cx, cy);
+            }
+
             set
             {
                 cx = value.X;
@@ -337,7 +365,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double CX
         {
-            get => cx;
+            get
+            {
+                return cx;
+            }
+
             set
             {
                 bx = value;
@@ -358,7 +390,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double CY
         {
-            get => cy;
+            get
+            {
+                return cy;
+            }
+
             set
             {
                 by = value;
@@ -376,7 +412,11 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D D
         {
-            get => new Point2D(dx, dy);
+            get
+            {
+                return new Point2D(dx, dy);
+            }
+
             set
             {
                 dx = value.X;
@@ -399,7 +439,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double DX
         {
-            get => dx;
+            get
+            {
+                return dx;
+            }
+
             set
             {
                 bx = value;
@@ -420,7 +464,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double DY
         {
-            get => dy;
+            get
+            {
+                return dy;
+            }
+
             set
             {
                 by = value;

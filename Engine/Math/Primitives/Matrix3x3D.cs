@@ -156,47 +156,137 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public double M0x0 { get => m0x0; set => m0x0 = value; }
+        public double M0x0 {
+            get
+            {
+                return m0x0;
+            }
+
+            set
+            {
+                m0x0 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M0x1 { get => m0x1; set => m0x1 = value; }
+        public double M0x1 {
+            get
+            {
+                return m0x1;
+            }
+
+            set
+            {
+                m0x1 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M0x2 { get => m0x2; set => m0x2 = value; }
+        public double M0x2 {
+            get
+            {
+                return m0x2;
+            }
+
+            set
+            {
+                m0x2 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M1x0 { get => m1x0; set => m1x0 = value; }
+        public double M1x0 {
+            get
+            {
+                return m1x0;
+            }
+
+            set
+            {
+                m1x0 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M1x1 { get => m1x1; set => m1x1 = value; }
+        public double M1x1 {
+            get
+            {
+                return m1x1;
+            }
+
+            set
+            {
+                m1x1 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M1x2 { get => m1x2; set => m1x2 = value; }
+        public double M1x2 {
+            get
+            {
+                return m1x2;
+            }
+
+            set
+            {
+                m1x2 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M2x0 { get => m2x0; set => m2x0 = value; }
+        public double M2x0 {
+            get
+            {
+                return m2x0;
+            }
+
+            set
+            {
+                m2x0 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M2x1 { get => m2x1; set => m2x1 = value; }
+        public double M2x1 {
+            get
+            {
+                return m2x1;
+            }
+
+            set
+            {
+                m2x1 = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public double M2x2 { get => m2x2; set => m2x2 = value; }
+        public double M2x2 {
+            get
+            {
+                return m2x2;
+            }
+
+            set
+            {
+                m2x2 = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -204,7 +294,11 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public Vector3D Cx
         {
-            get => new Vector3D(m0x0, m1x0, m2x0);
+            get
+            {
+                return new Vector3D(m0x0, m1x0, m2x0);
+            }
+
             set
             {
                 m0x0 = value.I;
@@ -219,7 +313,11 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public Vector3D Cy
         {
-            get => new Vector3D(m0x1, m1x1, m2x1);
+            get
+            {
+                return new Vector3D(m0x1, m1x1, m2x1);
+            }
+
             set
             {
                 m0x1 = value.I;
@@ -234,7 +332,11 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public Vector3D Cz
         {
-            get => new Vector3D(m0x2, m1x2, m2x2);
+            get
+            {
+                return new Vector3D(m0x2, m1x2, m2x2);
+            }
+
             set
             {
                 m0x2 = value.I;
@@ -250,7 +352,11 @@ namespace Engine
         [Description("The First row of the " + nameof(Matrix3x3D))]
         public Vector3D Rx
         {
-            get => new Vector3D(m0x0, m0x1, m0x2);
+            get
+            {
+                return new Vector3D(m0x0, m0x1, m0x2);
+            }
+
             set
             {
                 m0x0 = value.I;
@@ -266,7 +372,11 @@ namespace Engine
         [Description("The Second row of the " + nameof(Matrix3x3D))]
         public Vector3D Ry
         {
-            get => new Vector3D(m1x0, m1x1, M1x2);
+            get
+            {
+                return new Vector3D(m1x0, m1x1, M1x2);
+            }
+
             set
             {
                 m1x0 = value.I;
@@ -282,7 +392,11 @@ namespace Engine
         [Description("The Third row of the " + nameof(Matrix3x3D))]
         public Vector3D Rz
         {
-            get => new Vector3D(m2x0, m2x1, M2x2);
+            get
+            {
+                return new Vector3D(m2x0, m2x1, M2x2);
+            }
+
             set
             {
                 m2x0 = value.I;

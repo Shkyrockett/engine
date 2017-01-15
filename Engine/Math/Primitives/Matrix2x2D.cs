@@ -107,22 +107,62 @@ namespace Engine
         /// <summary>
         /// M11
         /// </summary>
-        public double M0x0 { get => m0x0; set => m0x0 = value; }
+        public double M0x0 {
+            get
+            {
+                return m0x0;
+            }
+
+            set
+            {
+                m0x0 = value;
+            }
+        }
 
         /// <summary>
         /// M12
         /// </summary>
-        public double M0x1 { get => m0x1; set => m0x1 = value; }
+        public double M0x1 {
+            get
+            {
+                return m0x1;
+            }
+
+            set
+            {
+                m0x1 = value;
+            }
+        }
 
         /// <summary>
         /// M22
         /// </summary>
-        public double M1x0 { get => m1x0; set => m1x0 = value; }
+        public double M1x0 {
+            get
+            {
+                return m1x0;
+            }
+
+            set
+            {
+                m1x0 = value;
+            }
+        }
 
         /// <summary>
         /// M22
         /// </summary>
-        public double M1x1 { get => m1x1; set => m1x1 = value; }
+        public double M1x1 {
+            get
+            {
+                return m1x1;
+            }
+
+            set
+            {
+                m1x1 = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -130,7 +170,11 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public Vector2D Cx
         {
-            get => new Vector2D(m0x0, m1x0);
+            get
+            {
+                return new Vector2D(m0x0, m1x0);
+            }
+
             set
             {
                 m0x0 = value.I;
@@ -144,7 +188,11 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public Vector2D Cy
         {
-            get => new Vector2D(m0x1, m1x1);
+            get
+            {
+                return new Vector2D(m0x1, m1x1);
+            }
+
             set
             {
                 m0x1 = value.I;
@@ -159,7 +207,11 @@ namespace Engine
         [Description("The First row of the Matrix2x2")]
         public Vector2D Rx
         {
-            get => new Vector2D(m0x0, m0x1);
+            get
+            {
+                return new Vector2D(m0x0, m0x1);
+            }
+
             set
             {
                 m0x0 = value.I;
@@ -174,7 +226,11 @@ namespace Engine
         [Description("The Second row of the Matrix2x2")]
         public Vector2D Ry
         {
-            get => new Vector2D(m1x0, m1x1);
+            get
+            {
+                return new Vector2D(m1x0, m1x1);
+            }
+
             set
             {
                 m1x0 = value.I;

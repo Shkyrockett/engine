@@ -79,13 +79,33 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get => Start; set => Start = value; }
+        public override Point2D? NextToEnd {
+            get
+            {
+                return Start;
+            }
+
+            set
+            {
+                Start = value;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? End { get => Start; set => Start = value; }
+        public override Point2D? End {
+            get
+            {
+                return Start;
+            }
+
+            set
+            {
+                Start = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -98,6 +118,13 @@ namespace Engine
             => Boundings.LineSegment(Start.Value, End.Value);
 
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public override Point2D Interpolate(double t) => Start.Value;
 
         #region Methods
 

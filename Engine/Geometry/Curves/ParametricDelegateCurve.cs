@@ -111,7 +111,11 @@ namespace Engine
         [Browsable(false)]
         public Double X
         {
-            get => x;
+            get
+            {
+                return x;
+            }
+
             set
             {
                 x = value;
@@ -130,7 +134,11 @@ namespace Engine
         [Browsable(false)]
         public Double Y
         {
-            get => y;
+            get
+            {
+                return y;
+            }
+
             set
             {
                 y = value;
@@ -152,7 +160,11 @@ namespace Engine
         [Browsable(true)]
         public Point2D Location
         {
-            get => new Point2D(x, y);
+            get
+            {
+                return new Point2D(x, y);
+            }
+
             set
             {
                 x = value.X;
@@ -172,7 +184,11 @@ namespace Engine
         [Browsable(false)]
         public Double Width
         {
-            get => h;
+            get
+            {
+                return h;
+            }
+
             set
             {
                 h = value;
@@ -191,7 +207,11 @@ namespace Engine
         [Browsable(false)]
         public Double Height
         {
-            get => v;
+            get
+            {
+                return v;
+            }
+
             set
             {
                 v = value;
@@ -213,7 +233,11 @@ namespace Engine
         [Browsable(true)]
         public Size2D Scale
         {
-            get => new Size2D(h, v);
+            get
+            {
+                return new Size2D(h, v);
+            }
+
             set
             {
                 h = value.Width; v = value.Height;
@@ -236,7 +260,11 @@ namespace Engine
         [Browsable(true)]
         public double Rotation
         {
-            get => r;
+            get
+            {
+                return r;
+            }
+
             set
             {
                 r = value;

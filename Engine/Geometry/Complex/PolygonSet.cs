@@ -64,7 +64,11 @@ namespace Engine
         /// <returns></returns>
         public Polygon this[int index]
         {
-            get => polygons[index];
+            get
+            {
+                return polygons[index];
+            }
+
             set
             {
                 polygons[index] = value;
@@ -81,7 +85,7 @@ namespace Engine
         /// </summary>
         public List<Polygon> Polygons
         {
-            get => polygons;
+            get { return polygons; }
             set
             {
                 polygons = value;

@@ -263,6 +263,14 @@ namespace Editor
             vectorMap.Add(polylineSetItem);
             vectorMap.Add(pathPolylineItem);
 
+            Shape ego = new Circle(innerPolygon.Interpolate(1), 10);
+            var egoItem = new GraphicItem(ego, styles[5])
+            {
+                Name = "Ego Circle"
+            };
+            vectorMap.Add(egoItem);
+
+
             //var text = new Text2D("Test Text.", this.Font, new Point2D(100, 100));
             //var textItem = new GraphicItem(text, styles[1]);
             //vectorMap.Add(textItem);
@@ -583,14 +591,6 @@ namespace Editor
             //vectorMap.Add(parametricPointTesterSegmentItem);
             //vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
-
-            Shape ego = new Circle(figure.Interpolate(.75), 10);
-            var egoItem = new GraphicItem(ego, styles[5])
-            {
-                Name = "Ego Circle"
-            };
-            vectorMap.Add(egoItem);
-
 
             var foreColor = Color.Black;
             var backColor = Color.White;

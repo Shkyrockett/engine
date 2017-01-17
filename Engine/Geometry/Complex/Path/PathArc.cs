@@ -73,17 +73,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D? Start {
-            get
-            {
-                return Previous.End;
-            }
-
-            set
-            {
-                Previous.End = value;
-            }
-        }
+        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
         /// 
@@ -119,17 +109,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd {
-            get
-            {
-                return Start;
-            }
-
-            set
-            {
-                Start = value;
-            }
-        }
+        public override Point2D? NextToEnd { get { return Start; } set { Start = value; } }
 
         /// <summary>
         /// 

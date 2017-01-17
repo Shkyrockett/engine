@@ -204,7 +204,7 @@ namespace Engine
         public override Point2D Interpolate(double t)
         {
             if (t == 0) return points[0];
-            if (t == 1) return points[points.Count];
+            if (t == 1) return points[points.Count - 1];
 
             var weights = new(double length, double accumulated)[points.Count];
             weights[0] = (0, 0);
@@ -227,6 +227,7 @@ namespace Engine
             {
                 if (weights[i].accumulated <= accumulatedLengthT)
                 {
+                    // Interpolate the possition.
                     double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
                     cursor = Interpolaters.Linear(points[i], points[i + 1], th);
                     break;

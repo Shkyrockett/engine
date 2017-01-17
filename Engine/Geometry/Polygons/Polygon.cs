@@ -193,21 +193,20 @@ namespace Engine
         /// <returns></returns>
         public override Point2D Interpolate(double t)
         {
-            if (t == 0) return points[0];
-            if (t == 1) return points[points.Count];
+            if (t == 0 || t == 1) return points[0];
 
-            var weights = new(double length, double accumulated)[points.Count];
+            var weights = new(double length, double accumulated)[points.Count + 1];
             weights[0] = (0, 0);
             Point2D cursor = points[0];
             double accumulatedLength = 0;
 
             // Build up the weights map.
-            for (int i = 1; i < points.Count; i++)
+            for (int i = 1; i < points.Count + 1; i++)
             {
-                double curentLength = Distances.Length(cursor, points[i]);
+                double curentLength = Distances.Length(cursor, (i == points.Count) ? points[0] : points[i]);
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
-                cursor = points[i];
+                cursor = (i == points.Count) ? points[0] : points[i];
             }
 
             double accumulatedLengthT = accumulatedLength * t;
@@ -217,8 +216,9 @@ namespace Engine
             {
                 if (weights[i].accumulated <= accumulatedLengthT)
                 {
+                    // Interpolate the possition.
                     double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
-                    cursor = Interpolaters.Linear(points[i], points[i + 1], th);
+                    cursor = Interpolaters.Linear(points[i], (i == points.Count - 1) ? points[0] : points[i + 1], th);
                     break;
                 }
             }

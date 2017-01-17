@@ -79,7 +79,8 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Deffinition {
+        public string Deffinition
+        {
             get
             {
                 return ToPathDefString();
@@ -129,20 +130,18 @@ namespace Engine
         public override Point2D Interpolate(double t)
         {
             if (t == 0) return Items[0].Start.Value;
-            if (t == 1) return Items[Items.Count].End.Value;
+            if (t == 1) return Items[Items.Count - 1].End.Value;
 
             var weights = new(double length, double accumulated)[Items.Count];
-            weights[0] = (0, 0);
             Point2D cursor = Items[0].End.Value;
             double accumulatedLength = 0;
 
             // Build up the weights map.
-            for (int i = 1; i < Items.Count; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
                 double curentLength = Items[i].Length;
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
-                cursor = Items[i].End.Value;
             }
 
             double accumulatedLengthT = accumulatedLength * t;
@@ -150,10 +149,11 @@ namespace Engine
             // Find the segment.
             for (int i = Items.Count - 1; i >= 0; i--)
             {
-                if (weights[i].accumulated <= accumulatedLengthT)
+                if (weights[i].accumulated < accumulatedLengthT)
                 {
+                    // Interpolate the possition.
                     double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
-                    cursor = Items[i].Interpolate(th);
+                    cursor = Items[i + 1].Interpolate(th);
                     break;
                 }
             }

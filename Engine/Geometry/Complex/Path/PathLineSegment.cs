@@ -35,6 +35,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathLineSegment(PathItem previous, bool relitive, params Double[] args)
             : this(previous, args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
@@ -47,6 +48,7 @@ namespace Engine
         /// </summary>
         /// <param name="previous"></param>
         /// <param name="end"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathLineSegment(PathItem previous, Point2D? end)
         {
             Previous = previous;
@@ -62,33 +64,13 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? Start {
-            get
-            {
-                return Previous.End;
-            }
-
-            set
-            {
-                Previous.End = value;
-            }
-        }
+        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd {
-            get
-            {
-                return Start;
-            }
-
-            set
-            {
-                Start = value;
-            }
-        }
+        public override Point2D? NextToEnd { get { return Start; } set { Start = value; } }
 
         /// <summary>
         /// 

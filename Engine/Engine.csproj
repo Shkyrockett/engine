@@ -451,12 +451,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine.Maths\Engine.Maths.csproj">
-      <Project>{eab216f0-0b65-457e-be38-c0db85cd722b}</Project>
-      <Name>Engine.Maths</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Animation\KeyFrame\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

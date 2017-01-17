@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Engine.Physics;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -36,6 +35,7 @@ namespace Engine
         /// <param name="item"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathArc(PathItem item, bool relitive, Double[] args)
             : this(item, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {
@@ -53,6 +53,7 @@ namespace Engine
         /// <param name="largeArc"></param>
         /// <param name="sweep"></param>
         /// <param name="end"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathArc(PathItem previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D? end)
         {
             Previous = previous;

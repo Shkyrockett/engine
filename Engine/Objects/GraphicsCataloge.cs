@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Engine
 {
@@ -11,6 +7,14 @@ namespace Engine
     /// </summary>
     public class GraphicsCataloge
     {
-        List<GraphicsObject> Items;
+        /// <summary>
+        /// 
+        /// </summary>
+        List<GraphicsObject> items;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<GraphicsObject> Items { get { return items; } set { items = value; } }
     }
 }

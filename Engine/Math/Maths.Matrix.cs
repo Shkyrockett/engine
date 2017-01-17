@@ -8,7 +8,6 @@
 // <summary></summary>
 
 using System.Runtime.CompilerServices;
-using static System.Math;
 
 namespace Engine
 {

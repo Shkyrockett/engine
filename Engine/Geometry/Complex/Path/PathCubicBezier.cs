@@ -46,6 +46,7 @@ namespace Engine
         /// <param name="item"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathCubicBezier(PathItem item, bool relitive, Point2D[] args)
             : this(item, args.Length == 3 ? (Point2D?)args[0] : null, args.Length == 3 ? args[1] : args[0], args.Length == 3 ? args[1] : args[2])
         {
@@ -64,11 +65,12 @@ namespace Engine
         /// <param name="handle1"></param>
         /// <param name="handle2"></param>
         /// <param name="end"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathCubicBezier(PathItem previous, Point2D? handle1, Point2D handle2, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
-            Handle1 = handle1 ?? (Point2D)(2 * previous.End - previous.NextToEnd) ;
+            Handle1 = handle1 ?? (Point2D)(2 * previous.End - previous.NextToEnd);
             Handle2 = handle2;
             End = end;
         }
@@ -81,17 +83,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? Start {
-            get
-            {
-                return Previous.End;
-            }
-
-            set
-            {
-                Previous.End = value;
-            }
-        }
+        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
         /// 
@@ -109,17 +101,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd {
-            get
-            {
-                return Handle2;
-            }
-
-            set
-            {
-                Handle2 = value;
-            }
-        }
+        public override Point2D? NextToEnd { get { return Handle2; } set { Handle2 = value; } }
 
         /// <summary>
         /// 
@@ -135,7 +117,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.CubicBezier(Start.Value.X,Start.Value.Y, Handle1.X,Handle1.Y, Handle2.Value.X,Handle2.Value.Y, End.Value.X, End.Value.Y);
+            => Boundings.CubicBezier(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y);
 
         /// <summary>
         /// 

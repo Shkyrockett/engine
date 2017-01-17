@@ -19,6 +19,7 @@ namespace Engine.Tools
         /// <summary>
         /// 
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         event Tool.ToolFinishEvent Finish;
 
         #endregion

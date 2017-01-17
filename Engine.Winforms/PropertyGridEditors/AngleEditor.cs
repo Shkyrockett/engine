@@ -78,7 +78,8 @@ namespace Engine
             if (!disposedValue)
             {
                 if (disposing)
-                    uiDisplay?.Dispose();
+                    if (uiDisplay != null)
+                        uiDisplay.Dispose();
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.

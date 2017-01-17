@@ -35,6 +35,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathPoint(PathItem previous, bool relitive, Double[] args)
             : this(args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
@@ -48,6 +49,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="startPoint"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathPoint(PathItem previous, Boolean relitive, Point2D startPoint)
             : this(startPoint)
         {
@@ -59,6 +61,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="start"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathPoint(Point2D? start)
         {
             Start = start;
@@ -79,33 +82,13 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd {
-            get
-            {
-                return Start;
-            }
-
-            set
-            {
-                Start = value;
-            }
-        }
+        public override Point2D? NextToEnd { get { return Start; } set { Start = value; } }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? End {
-            get
-            {
-                return Start;
-            }
-
-            set
-            {
-                Start = value;
-            }
-        }
+        public override Point2D? End { get { return Start; } set { Start = value; } }
 
         /// <summary>
         /// 

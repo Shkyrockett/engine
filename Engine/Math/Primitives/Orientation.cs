@@ -13,7 +13,6 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Maths;
 using System.Xml.Serialization;
 

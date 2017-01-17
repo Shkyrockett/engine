@@ -46,6 +46,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathQuadraticBezier(PathItem previous, bool relitive, Point2D[] args)
             : this(previous, args.Length == 2 ? (Point2D?)args[0] : null, args.Length == 2 ? args[0] : args[1])
         {
@@ -62,6 +63,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="handle"></param>
         /// <param name="end"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PathQuadraticBezier(PathItem previous, Point2D? handle, Point2D end)
         {
             Previous = previous;
@@ -78,17 +80,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? Start {
-            get
-            {
-                return Previous.End;
-            }
-
-            set
-            {
-                Previous.End = value;
-            }
-        }
+        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
         /// 
@@ -100,17 +92,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd {
-            get
-            {
-                return Handle;
-            }
-
-            set
-            {
-                Handle = value;
-            }
-        }
+        public override Point2D? NextToEnd { get { return Handle; } set { Handle = value; } }
 
         /// <summary>
         /// 

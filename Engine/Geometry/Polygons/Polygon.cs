@@ -73,9 +73,7 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public Polygon(IEnumerable<Point2D> points)
-        {
-            this.points = points as List<Point2D>;
-        }
+            => this.points = points as List<Point2D>;
 
         /// <summary>
         /// 

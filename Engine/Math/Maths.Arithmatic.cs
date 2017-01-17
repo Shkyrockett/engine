@@ -9,10 +9,8 @@
 
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Maths;
 
 namespace Engine
 {

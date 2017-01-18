@@ -1,8 +1,11 @@
 ﻿// <copyright file="Containings.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
 // </copyright>
-// <license>
+// <license id="MIT">
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <license id="Boost">
+//     The Point in Polygon method is from the Clipper Library, which is licensed under the Boost Software License (http://www.boost.org/LICENSE_1_0.txt).
 // </license>
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>

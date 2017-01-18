@@ -9011,8 +9011,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="point"></param>
         /// <param name="polygon">coordinates of corners</param>
-        /// <param name="constant">storage for precalculated constants (same size as polyX)</param>
-        /// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        /// <param name="constant">storage for pre-calculated constants (same size as polyX)</param>
+        /// <param name="multiple">storage for pre-calculated multipliers (same size as polyX)</param>
         /// <returns></returns>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
         public static bool PointInPolygonPatrickMullen(
@@ -9041,8 +9041,8 @@ namespace MethodSpeedTester
         ///
         /// </summary>
         /// <param name="polygon">coordinates of corners</param>
-        ///// <param name="constant">storage for precalculated constants (same size as polyX)</param>
-        ///// <param name="multiple">storage for precalculated multipliers (same size as polyX)</param>
+        ///// <param name="constant">storage for pre-calculated constants (same size as polyX)</param>
+        ///// <param name="multiple">storage for pre-calculated multipliers (same size as polyX)</param>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
         public static (List<double>, List<double>)? PrecalcPointInPolygonPatrickMullenValues(
             List<PointF> polygon)
@@ -9557,6 +9557,7 @@ namespace MethodSpeedTester
         /// <param name="point"></param>
         /// <param name="polygon"></param>
         /// <returns></returns>
+        /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
         public static Inclusion PointInPolygonHormannAgathos(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
@@ -9620,6 +9621,7 @@ namespace MethodSpeedTester
         /// <param name="point"></param>
         /// <param name="polygon"></param>
         /// <returns></returns>
+        /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
         public static Inclusion PointInPolygonHormannAgathosX(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary

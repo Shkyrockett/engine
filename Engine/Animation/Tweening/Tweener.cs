@@ -67,11 +67,11 @@ namespace Engine.Tweening
                 RegisterLerper<NumericLerper>(numericType);
 
             // Adding custom Lerpers. Normally these would be added to project initializer, but I want these global.
-            Tweener.RegisterLerper<Point2DLerper>(typeof(Point2D));
-            Tweener.RegisterLerper<Point3DLerper>(typeof(Point3D));
-            Tweener.RegisterLerper<Size2DLerper>(typeof(Size2D));
-            Tweener.RegisterLerper<Vector2DLerper>(typeof(Vector2D));
-            Tweener.RegisterLerper<Vector3DLerper>(typeof(Vector3D));
+            RegisterLerper<Point2DLerper>(typeof(Point2D));
+            RegisterLerper<Point3DLerper>(typeof(Point3D));
+            RegisterLerper<Size2DLerper>(typeof(Size2D));
+            RegisterLerper<Vector2DLerper>(typeof(Vector2D));
+            RegisterLerper<Vector3DLerper>(typeof(Vector3D));
         }
 
         /// <summary>
@@ -104,7 +104,15 @@ namespace Engine.Tweening
         public static void RegisterLerper<TLerper>(Type propertyType)
             where TLerper
             : Lerper, new()
-            => RegisteredLerpers[propertyType] = typeof(TLerper).GetConstructor(Type.EmptyTypes);
+            => RegisterLerper(typeof(TLerper), propertyType);
+
+        /// <summary>
+        /// Associate a Lerper type with a property type.
+        /// </summary>
+        /// <param name="lerperType">The type of the Lerper to use for properties of the given type.</param>
+        /// <param name="propertyType">The type of the property to associate the given Lerper with.</param>
+        public static void RegisterLerper(Type lerperType, Type propertyType)
+            => RegisteredLerpers[propertyType] = lerperType.GetConstructor(Type.EmptyTypes);
 
         /// <summary>
         /// <para>Tweens a set of properties on an object.</para>

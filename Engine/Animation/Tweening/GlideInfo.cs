@@ -129,11 +129,7 @@ namespace Engine.Tweening
         /// </summary>
         public object Value
         {
-            get
-            {
-                return member is FieldInfo ? (member as FieldInfo).GetValue(target) : (member as PropertyInfo).GetValue(target, null);
-            }
-
+            get { return member is FieldInfo ? (member as FieldInfo).GetValue(target) : (member as PropertyInfo).GetValue(target, null); }
             set
             {
                 if (member is FieldInfo)

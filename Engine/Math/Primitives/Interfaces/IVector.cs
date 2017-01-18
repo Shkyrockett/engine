@@ -7,8 +7,7 @@ namespace Engine
     /// </summary>
     /// <typeparam name="V"></typeparam>
     public interface IVector<V>
-        : IFormattable,
+        : IFormattable, //IComparable<V>, //IConvertible,
         IEquatable<V> where V : struct, IVector<V>
-    {
-    }
+    { }
 }

@@ -14,7 +14,7 @@ Use comments as needed to clarify code for other coders.
 
 ### XML Comments
 
-Please use triple slash XML comments for all methods, and objects. type out three slashes "\\\" and let Visual Studio build out the XML comments. Briefly describe what each does. These comments are used as the Intelisense text in tool tips. They also act as valuable documentation.
+Please use triple slash XML comments for all methods, and objects. type out three slashes "\\\" and let Visual Studio build out the XML comments. Briefly describe what each does. These comments are used as the IntelliSense text in tool tips. They also act as valuable documentation.
 
 ```
 namespace Engine
@@ -85,15 +85,15 @@ Use abbreviations sparingly.
 
 **Hungarian Notation** is where identifiers are prefixed with three letter codes meant to identify the type of the construct used. 
 
-Please do not use Hungarian notation. It is inconsistent with the naming conventions of the .NET framework, and is renderd unnessisary with intelisense.
+Please do not use Hungarian notation. It is inconsistent with the naming conventions of the .NET framework, and is rendered unnecessary with IntelliSense.
 
 **All Caps** All Caps is where every character in an identifier is capitalized. 
 
 Please avoid Screaming All Caps. They are difficult to read and is inconsistent with the naming conventions of the .NET framework.
 
-**Pascal** casing is where words are concatenated together with only the first leter of each word capitalized as indication of word seporation.
+**Pascal** casing is where words are concatenated together with only the first letter of each word capitalized as indication of word separation.
 
-Use Pascal casing for public Namespace, class, structure, enumeration, event, property and method names. As well as public Tupple deffinitions.
+Use Pascal casing for public Namespace, class, structure, enumeration, event, property and method names. As well as public Tuple definitions.
 
 **Camel** casing is similar to Pascal casing except that the first character is lower case.
 
@@ -200,7 +200,7 @@ public ToString()
 
 ### Var declaration
 
-Use var where apropriate. Declaring a field in a method as var, you can let the compiler determine what the return type is. This can make long List or array declarations easier to read. 
+Use var where appropriate. Declaring a field in a method as var, you can let the compiler determine what the return type is. This can make long List or array declarations easier to read. 
 
 ```c#
 var list = new List<double> {3, 1, 4, 1, 5, 9,  2, 6};
@@ -218,7 +218,7 @@ Feel free to use the new Tuple syntax where ever it makes sense. Tuples work gre
 
 ### Interpolated Strings
 
-Use interpolated strings inplace of `String.Format(...)` or wherever you need a simple string concatenation. Interpolated strings tend to be more readable, unless the concatination is for splaying out a line of text accross multiple lines.
+Use interpolated strings in place of `String.Format(...)` or wherever you need a simple string concatenation. Interpolated strings tend to be more readable, unless the concatenation is for splaying out a line of text across multiple lines.
 
 ```c#
 public string ConvertToString()
@@ -231,7 +231,7 @@ If you have several choices of how  to do things, profile the various methods, c
 
 ## Regions
 
-In order to help keep classes organised as they become unweildly long, I'm using regions to keep similar parts together, so I can go to a file and know where to look for what.
+In order to help keep classes organized as they become unwieldy long, I'm using regions to keep similar parts together, so I can go to a file and know where to look for what.
 
 Here is the general format I am using.
 
@@ -272,11 +272,11 @@ Here is the general format I am using.
 
 ## Standard Methods
 
-To standardize these specific methods throughought the Engine to work the same, please use the following conventions.
+To standardize these specific methods throughout the Engine to work the same, please use the following conventions.
 
 ### Tuple Constructors
 
-If a struct/class can be generalized by a numaric tuple; please use a tuple constructor and explicit operator so you can take advantage of any existing methods with the same signature.
+If a struct/class can be generalized by a numeric tuple; please use a tuple constructor and explicit operator so you can take advantage of any existing methods with the same signature.
 
 ```c#
     public struct NumaricObject
@@ -332,7 +332,7 @@ If a struct/class can be generalized by a numaric tuple; please use a tuple cons
 
 ### Equality Comparison
 
-To reduce the chance of errors in equality comparisons accross various comparison operators, please use the following as a template for modeling Structs/Classes that need equality comparisons.
+To reduce the chance of errors in equality comparisons across various comparison operators, please use the following as a template for modeling Structs/Classes that need equality comparisons.
 
 ```c#
     public struct ComparableObject

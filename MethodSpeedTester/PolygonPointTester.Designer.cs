@@ -29,6 +29,7 @@ namespace MethodSpeedTester
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

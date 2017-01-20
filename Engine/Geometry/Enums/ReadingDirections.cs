@@ -1,5 +1,5 @@
 ﻿// <copyright file="Directions.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -12,7 +12,7 @@ namespace Engine
     /// <summary>
     /// Text reading direction.
     /// </summary>
-    public enum Directions
+    public enum ReadingDirections
         : byte
     {
         /// <summary>

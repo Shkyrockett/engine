@@ -70,6 +70,12 @@ namespace Engine
         /// <summary>
         /// Returns a positive number if c is to the left of the line going from a to b.
         /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
         /// <returns>
         /// Positive number if point is left, negative if point is right, 
         /// and 0 if points are collinear.
@@ -102,62 +108,25 @@ namespace Engine
             => depth * depth;
 
         /// <summary>
-        /// Return the polygon's area in "square units."
-        /// Add the areas of the trapezoids defined by the
-        /// polygon's edges dropped to the X-axis. When the
-        /// program considers a bottom edge of a polygon, the
-        /// calculation gives a negative area so the space
-        /// between the polygon and the axis is subtracted,
-        /// leaving the polygon's area. This method gives odd
-        /// results for non-simple polygons.
+        /// 
         /// </summary>
-        /// <returns>
-        /// Return the absolute value of the signed area.
-        /// The signed area is negative if the polygon is
-        /// oriented clockwise.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Polygon(IEnumerable<Point2D> polygon)
-            => Abs(SignedPolygon(polygon as List<Point2D>));
-
-        /// <summary>
-        /// Return the polygon's area in "square units."
-        /// Add the areas of the trapezoids defined by the
-        /// polygon's edges dropped to the X-axis. When the
-        /// program considers a bottom edge of a polygon, the
-        /// calculation gives a negative area so the space
-        /// between the polygon and the axis is subtracted,
-        /// leaving the polygon's area. This method gives odd
-        /// results for non-simple polygons.
-        ///
-        /// The value will be negative if the polygon is
-        /// oriented clockwise.
-        /// </summary>
+        /// <param name="polygon"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygon(List<Point2D> polygon)
         {
-            // Add the first point to the end.
-            int num_points = polygon.Count;
-            var pts = new Point2D[num_points + 1];
-            polygon.CopyTo(pts, 0);
-            pts[num_points] = polygon[0];
+            int count = polygon.Count;
+            if (count < 3) return 0d;
 
-            // Get the areas.
             double area = 0d;
-            for (int i = 0; i < num_points; i++)
+            for (int i = 0, j = count - 1; i < count; ++i)
             {
-                area +=
-                    (pts[i + 1].X - pts[i].X)
-                    * (pts[i + 1].Y + pts[i].Y) * 0.5d;
+                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y);
+                j = i;
             }
 
-            // Return the result.
-            return area;
+            return -area * 0.5d;
         }
     }
 }

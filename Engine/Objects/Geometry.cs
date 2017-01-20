@@ -12,7 +12,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public class Geometry
+    public class Geometry_
     {
         /// <summary>
         /// 

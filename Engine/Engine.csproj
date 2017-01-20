@@ -113,9 +113,11 @@
     <Compile Include="Animation\Tweening\Tweener.cs" />
     <Compile Include="Geometry\Enums\ClipingOperations.cs" />
     <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
+    <Compile Include="Geometry\Enums\DirectionOrentations.cs" />
     <Compile Include="Geometry\Enums\EndCaps.cs" />
     <Compile Include="Geometry\Enums\LineJoins.cs" />
     <Compile Include="Geometry\Enums\PolyFills.cs" />
+    <Compile Include="Geometry\Enums\ReadingDirections.cs" />
     <Compile Include="Geometry\Framework\ArrayUtilities.cs" />
     <Compile Include="Geometry\Framework\ExpandableCollectionPropertyDescriptor.cs" />
     <Compile Include="Geometry\Complex\Path\PathItem.cs" />
@@ -208,7 +210,6 @@
     <Compile Include="Calendar\Enums\OccasionDateType.cs" />
     <Compile Include="Calendar\Enums\Season.cs" />
     <Compile Include="Calendar\Enums\TimeFormat.cs" />
-    <Compile Include="Geometry\Enums\Directions.cs" />
     <Compile Include="Geometry\Enums\LeftRight.cs" />
     <Compile Include="Geometry\Enums\Inclusion.cs" />
     <Compile Include="Geometry\Intersection\Intersections.cs" />

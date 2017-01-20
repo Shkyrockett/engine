@@ -341,6 +341,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         [DisplayName(nameof(PolygonAreaTests))]
         public static List<SpeedTester> PolygonAreaTests() => new List<SpeedTester> {
+                new SpeedTester(() => PolygonArea00(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
+                $"{nameof(Experiments.PolygonArea00)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
                 new SpeedTester(() => PolygonArea0(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
                 $"{nameof(Experiments.PolygonArea0)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
                 new SpeedTester(() => PolygonArea1(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
@@ -356,6 +358,26 @@ namespace MethodSpeedTester
           };
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        /// <remarks>From http://www.angusj.com</remarks>
+        public static double PolygonArea00(List<Point2D> polygon)
+        {
+            int cnt = polygon.Count;
+            if (cnt < 3) return 0;
+            double area = 0;
+            for (int i = 0, j = cnt - 1; i < cnt; ++i)
+            {
+                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y);
+                j = i;
+            }
+
+            return -area * 0.5;
+        }
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="polygon"></param>
@@ -363,11 +385,10 @@ namespace MethodSpeedTester
         /// <remarks>http://alienryderflex.com/polygon_area/</remarks>
         public static double PolygonArea0(IEnumerable<Point2D> polygon)
         {
-            double area = 0d;
             List<Point2D> points = polygon as List<Point2D>;
-            int i, j = points.Count - 1;
-
-            for (i = 0; i < points.Count; i++)
+            int j = points.Count - 1;
+            double area = 0d;
+            for (int i = 0; i < points.Count; i++)
             {
                 area += (points[j].X + points[i].X) * (points[j].Y - points[i].Y); j = i;
             }
@@ -586,6 +607,112 @@ namespace MethodSpeedTester
                 3d * a - 6d * b + 3d * c,
                 -3d * a + 3d * b,
                 a);
+
+        #endregion
+
+        #region Boundaries of Polygons
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public static Rectangle2D GetBounds(List<List<Point2D>> paths)
+        {
+            int i = 0, cnt = paths.Count;
+            while (i < cnt && paths[i].Count == 0) i++;
+            if (i == cnt) return new Rectangle2D(0, 0, 0, 0);
+            Rectangle2D result = new Rectangle2D()
+            {
+                Left = paths[i][0].X
+            };
+            result.Right = result.Left;
+            result.Top = paths[i][0].Y;
+            result.Bottom = result.Top;
+            for (; i < cnt; i++)
+                for (int j = 0; j < paths[i].Count; j++)
+                {
+                    if (paths[i][j].X < result.Left) result.Left = paths[i][j].X;
+                    else if (paths[i][j].X > result.Right) result.Right = paths[i][j].X;
+                    if (paths[i][j].Y < result.Top) result.Top = paths[i][j].Y;
+                    else if (paths[i][j].Y > result.Bottom) result.Bottom = paths[i][j].Y;
+                }
+            return result;
+        }
+
+        #endregion
+
+        #region Boundaries of Polygons
+
+        /// <summary>
+        /// Set of tests to run testing methods that Find the bounds of polygons.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(BoundsOfPolygon))]
+        public static List<SpeedTester> BoundsOfPolygon()
+            => new List<SpeedTester> {
+                new SpeedTester(() => PolygonBounds0(new List<Point2D>(){(10, 10), (25,5), (5,30)}),
+                $"{nameof(Experiments.PolygonBounds0)}(new List<Point2D>(){{(10, 10), (25,5), (5,30)}})"),
+                 new SpeedTester(() => PolygonBounds1(new List<Point2D>(){(10, 10), (25,5), (5,30)}),
+                $"{nameof(Experiments.PolygonBounds1)}(new List<Point2D>(){{(10, 10), (25,5), (5,30)}})")
+           };
+
+        /// <summary>
+        /// Calculate the external bounding rectangle of a Polygon.
+        /// </summary>
+        /// <param name="polygon">The points of the polygon.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D PolygonBounds0(IEnumerable<Point2D> polygon)
+        {
+            List<Point2D> points = (polygon as List<Point2D>);
+            if (points?.Count < 1) return null;
+
+            double left = points[0].X;
+            double top = points[0].Y;
+            double right = points[0].X;
+            double bottom = points[0].Y;
+
+            foreach (Point2D point in points)
+            {
+                // ToDo: Measure performance impact of overwriting each time.
+                left = point.X <= left ? point.X : left;
+                top = point.Y <= top ? point.Y : top;
+                right = point.X >= right ? point.X : right;
+                bottom = point.Y >= bottom ? point.Y : bottom;
+            }
+
+            return Rectangle2D.FromLTRB(left, top, right, bottom);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D PolygonBounds1(List<Point2D> path)
+        {
+            Rectangle2D result = new Rectangle2D()
+            {
+                Left = path[0].X,
+                Top = path[0].Y,
+                Right = path[0].X,
+                Bottom = path[0].Y
+            };
+
+            for (int i = 0; i < path.Count; i++)
+            {
+                if (path[i].X < result.Left) result.Left = path[i].X;
+                else if (path[i].X > result.Right) result.Right = path[i].X;
+                if (path[i].Y < result.Top) result.Top = path[i].Y;
+                else if (path[i].Y > result.Bottom) result.Bottom = path[i].Y;
+            }
+
+            return result;
+        }
 
         #endregion
 
@@ -3152,10 +3279,10 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance3D_1(
-    double x1, double y1, double z1,
-    double x2, double y2, double z2) => Sqrt((x2 - x1) * (x2 - x1)
-    + (y2 - y1) * (y2 - y1)
-    + (z2 - z1) * (z2 - z1));
+        double x1, double y1, double z1,
+        double x2, double y2, double z2) => Sqrt((x2 - x1) * (x2 - x1)
+        + (y2 - y1) * (y2 - y1)
+        + (z2 - z1) * (z2 - z1));
 
         /// <summary>
         /// Distance between two 3D points.
@@ -3239,9 +3366,9 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance2D_2(
-    double x1, double y1,
-    double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
-    + (y2 - y1) * (y2 - y1));
+        double x1, double y1,
+        double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
+        + (y2 - y1) * (y2 - y1));
 
         /// <summary>
         /// Distance between two 2D points.
@@ -3476,8 +3603,8 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct2Points2D_1(
-    double x1, double y1,
-    double x2, double y2) => ((x1 * x2) + (y1 * y2));
+        double x1, double y1,
+        double x2, double y2) => ((x1 * x2) + (y1 * y2));
 
         #endregion
 
@@ -3597,10 +3724,10 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector2D_1(
-    double x1, double y1,
-    double x2, double y2,
-    double x3, double y3) => ((x1 - x2) * (x3 - x2)
-    + (y1 - y2) * (y3 - y2));
+        double x1, double y1,
+        double x2, double y2,
+        double x3, double y3) => ((x1 - x2) * (x3 - x2)
+        + (y1 - y2) * (y3 - y2));
 
         /// <summary>
         /// Return the dot product AB · BC.
@@ -3711,8 +3838,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterAlmkvist(double a, double b) => 2 * PI
-    * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
-    / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, (1 / 4)))));
+        * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
+        / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, (1 / 4)))));
 
         /// <summary>
         ///
@@ -8276,7 +8403,7 @@ namespace MethodSpeedTester
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
         public static void OrientPolygonClockwise(Polygon polygon)
         {
-            if (!polygon.PolygonIsOrientedClockwise())
+            if (polygon.Orientation == DirectionOrentations.CounterClockwise)
                 polygon.Points.Reverse();
         }
 
@@ -10882,7 +11009,63 @@ namespace MethodSpeedTester
         #region Sign
 
         // sign of number
-        private static double Sign0(double x) => (x < 0d) ? -1 : 1;
+        private static double Sign0(double x)
+            => (x < 0d) ? -1 : 1;
+
+        #endregion
+
+        #region Signed Triangle Area
+
+        /// <summary>
+        /// Set of Finds the signed area of a triangle.
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(SignedTriangleArea))]
+        public static List<SpeedTester> SignedTriangleArea()
+            => new List<SpeedTester> {
+                new SpeedTester(() => SignedTriangleArea(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.SignedTriangleArea)}(0, 0, 0, 1, 1, 1)"),
+                new SpeedTester(() => SignedTriangleAreaW8R(0, 0, 0, 1, 1, 1),
+                $"{nameof(Experiments.SignedTriangleAreaW8R)}(0, 0, 0, 1, 1, 1)"),
+            };
+
+        /// <summary>
+        /// Returns a positive number if c is to the left of the line going from a to b.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns>
+        /// Positive number if point is left, negative if point is right, 
+        /// and 0 if points are collinear.
+        /// </returns>
+        /// <remarks>From Farseer Physics Engine.</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)
+            => aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
+
+        /// <summary>
+        /// Returns a positive number if c is to the left of the line going from a to b.
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns>
+        /// Positive number if point is left, negative if point is right, 
+        /// and 0 if points are collinear.
+        /// </returns>
+        /// <remarks>w8r</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SignedTriangleAreaW8R(double aX, double aY, double bX, double bY, double cX, double cY)
+            => (aX - cX) * (bY - cY) - (bX - cX) * (aY - cY);
 
         #endregion
 

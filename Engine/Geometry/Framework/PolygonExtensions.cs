@@ -162,7 +162,7 @@ namespace Engine
             }
 
             // Divide by 6 times the polygon's area.
-            double polygon_area = Areas.Polygon(polygon.Points);
+            double polygon_area = Abs(Areas.SignedPolygon(polygon.Points));
             X /= (6 * polygon_area);
             Y /= (6 * polygon_area);
 
@@ -178,22 +178,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Return true if the polygon is oriented clockwise.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static bool PolygonIsOrientedClockwise(this Polygon polygon)
-            => (Areas.SignedPolygon(polygon.Points) < 0);
-
-        /// <summary>
         /// If the polygon is oriented counterclockwise, reverse the order of its points.
         /// </summary>
         /// <param name="polygon"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         private static void OrientPolygonClockwise(this Polygon polygon)
         {
-            if (!PolygonIsOrientedClockwise(polygon))
-                polygon.Points.Reverse();
+            if (polygon.Orientation == DirectionOrentations.CounterClockwise) polygon.Points.Reverse();
         }
 
         /// <summary>
@@ -694,7 +685,7 @@ namespace Engine
         {
             // This algorithm assumes the polygon
             // is oriented counter-clockwise.
-            Debug.Assert(!PolygonIsOrientedClockwise(polygon));
+            Debug.Assert(polygon.Orientation == DirectionOrentations.CounterClockwise);
 
             // Get ready;
             ResetBoundingRect(polygon, boundingRect);

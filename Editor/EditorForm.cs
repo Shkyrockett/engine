@@ -41,7 +41,7 @@ namespace Editor
         private ToolStack toolStack;
 
         /// <summary>
-        /// Tweening interpolator for animation.
+        /// Tweening interpolater for animation.
         /// </summary>
         private Tweener tweener = new Tweener();
 
@@ -263,7 +263,7 @@ namespace Editor
             vectorMap.Add(polylineSetItem);
             vectorMap.Add(pathPolylineItem);
 
-            Shape ego = new Circle(innerPolygon.Interpolate(1), 10);
+            Shape ego = new Circle(innerPolygon.Interpolate(.1), 10);
             var egoItem = new GraphicItem(ego, styles[5])
             {
                 Name = "Ego Circle"

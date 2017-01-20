@@ -165,6 +165,15 @@ namespace Engine
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public int Count => points.Count;
+
         #endregion
 
         #region Mutators
@@ -233,6 +242,28 @@ namespace Engine
             }
 
             return cursor;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="delta"></param>
+        /// <returns></returns>
+        public Polyline Translate(Point2D delta)
+            => Translate(this, delta);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="delta"></param>
+        /// <returns></returns>
+        public static Polyline Translate(Polyline path, Point2D delta)
+        {
+            List<Point2D> outPath = new List<Point2D>(path.points.Count);
+            for (int i = 0; i < path.points.Count; i++)
+                outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
+            return new Polyline(outPath);
         }
 
         #region Methods

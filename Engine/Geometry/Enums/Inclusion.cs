@@ -13,7 +13,7 @@ namespace Engine
     /// Enumeration of the inclusion of a point within a shape.
     /// </summary>
     public enum Inclusion
-        : byte
+        : sbyte
     {
         /// <summary>
         /// Point lies outside the shape.

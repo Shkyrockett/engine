@@ -142,6 +142,17 @@ namespace Engine
             update?.Invoke();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Reverse()
+        {
+            foreach (var poly in polygons)
+            {
+                poly.Reverse();
+            }
+        }
+
         #endregion
 
         #region Methods

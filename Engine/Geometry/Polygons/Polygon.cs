@@ -132,6 +132,14 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public int Count => points.Count;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
             => Distances.PolygonPerimeter(points);
 
@@ -151,9 +159,27 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
         public override double Area
-            => Areas.Polygon(points);
+            => Math.Abs(Areas.SignedPolygon(points));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public double SignedArea
+            => Areas.SignedPolygon(points);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public DirectionOrentations Orientation
+            => (DirectionOrentations)Math.Sign(Areas.SignedPolygon(points));
 
         #endregion
 
@@ -180,6 +206,28 @@ namespace Engine
             OnPropertyChanged(nameof(Reverse));
             update?.Invoke();
             return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="delta"></param>
+        /// <returns></returns>
+        public Polygon Translate(Point2D delta)
+            => Translate(this, delta);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="delta"></param>
+        /// <returns></returns>
+        public static Polygon Translate(Polygon path, Point2D delta)
+        {
+            List<Point2D> outPath = new List<Point2D>(path.points.Count);
+            for (int i = 0; i < path.points.Count; i++)
+                outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
+            return new Polygon(outPath);
         }
 
         #endregion

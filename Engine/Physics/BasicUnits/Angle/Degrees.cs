@@ -38,10 +38,6 @@ namespace Engine.Physics
 
         #endregion
 
-        #region Fields
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -49,27 +45,21 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="degrees"></param>
         public Degrees(double degrees)
-        {
-            Value = degrees;
-        }
+            => Value = degrees;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Degrees"/> struct as a clone.
         /// </summary>
         /// <param name="degrees"></param>
         public Degrees(Degrees degrees)
-        {
-            Value = degrees.Value;
-        }
+            => Value = degrees.Value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Degrees"/> struct from a <see cref="Engine.Physics.Radians"/>.
         /// </summary>
         /// <param name="radians"></param>
         public Degrees(Radians radians)
-        {
-            Value = radians.Value.ToDegrees();
-        }
+            => Value = radians.Value.ToDegrees();
 
         #endregion
 

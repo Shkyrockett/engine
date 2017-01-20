@@ -14,6 +14,8 @@ namespace Engine.Physics
     /// </summary>
     public partial class PhysicsMath
     {
+        #region Motion
+
         /// <summary>
         /// The speed of light in a vacuum.
         /// </summary>
@@ -29,10 +31,14 @@ namespace Engine.Physics
         /// </summary>
         public static readonly Acceleration EarthGravity = new Acceleration(new Velocity(new Speed(new Meters(9.8d), new Seconds(1d)), new Degrees(0d)), new Seconds(1d));
 
+        #endregion
+
         /// <summary>
         /// Standard Atmospheric Pressure.
         /// </summary>
         public const double StandardAtmosphericPressure = 1.01e11d; // Pa
+
+        #region Distances
 
         /// <summary>
         /// Astronomical Unit. Average Earth-Sun distance.
@@ -55,7 +61,7 @@ namespace Engine.Physics
         public static readonly ILength EquatorialRadiusOfEarth = new Meters(6.37e6d);
 
         /// <summary>
-        /// Radius of Earths orbit.
+        /// Radius of Earth's orbit.
         /// </summary>
         public static readonly ILength RadiusOfEarthsOrbit = AstronomicalUnit;
 
@@ -78,6 +84,10 @@ namespace Engine.Physics
         /// Radius of Hydrogen atom.
         /// </summary>
         public static readonly ILength RadiusOfHydrogenAtom = new Meters(5e-11d);
+
+        #endregion
+
+        #region Mass
 
         /// <summary>
         /// Mass of Sun.
@@ -116,6 +126,8 @@ namespace Engine.Physics
         /// 0.51099906 MeV
         /// </summary>
         public static readonly IMass MassOfElectron = new Kilograms(9.1093897e-31d);
+
+        #endregion
 
         /// <summary>
         /// Charge of Electron.

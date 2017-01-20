@@ -97,6 +97,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\KeyFrame\KeyFrameAnimation.cs" />
+    <Compile Include="Animation\KeyFrame\TimeLine.cs" />
     <Compile Include="Animation\Tweening\Ease.cs" />
     <Compile Include="Animation\Tweening\Enums\LerpBehavior.cs" />
     <Compile Include="Animation\Tweening\GlideInfo.cs" />
@@ -123,7 +125,7 @@
     <Compile Include="Geometry\Complex\Tools\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
     <Compile Include="Geometry\Math\Distances.cs" />
-    <Compile Include="Math\Primitives\Transform.cs" />
+    <Compile Include="Animation\Transform.cs" />
     <Compile Include="Objects\GraphicsCataloge.cs" />
     <Compile Include="Animation\Particles\Particle.cs" />
     <Compile Include="Math\Primitives\Converters\Matrix2DConverter.cs" />
@@ -450,9 +452,7 @@
     <None Include="Animation\Tweening\readme.md" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Animation\KeyFrame\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -112,7 +112,6 @@
     <Compile Include="Experemental\Heart.cs" />
     <Compile Include="Experemental\Hermite.cs" />
     <Compile Include="Experemental\Hyperbola.cs" />
-    <Compile Include="Experemental\KeyFrameAnimation.cs" />
     <Compile Include="Experemental\Line.cs" />
     <Compile Include="Experemental\NGonStar.cs" />
     <Compile Include="Experemental\NonIntStar.cs" />
@@ -124,7 +123,6 @@
     <Compile Include="Experemental\RoundRectangle.cs" />
     <Compile Include="Experemental\Sine.cs" />
     <Compile Include="Experemental\Star.cs" />
-    <Compile Include="Experemental\TimeLine.cs" />
     <Compile Include="Experemental\Bezier\Utilities.cs" />
     <Compile Include="Experemental\Voronoi.cs" />
     <Compile Include="Experemental\Bezier\RangeX.cs" />

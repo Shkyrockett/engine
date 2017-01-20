@@ -627,7 +627,7 @@ namespace Engine
         {
             // From Clipper library: http://www.angusj.com/delphi/clipper.php
 
-            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
+            // returns 0 if false, +1 if true, -1 if pt on polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
             Inclusion result = Inclusion.Outside;
@@ -725,7 +725,7 @@ namespace Engine
                 switch (item)
                 {
                     case PathArc t:
-                        // This produces false negitives at the Polygon boundaries. But that is better than false positives.
+                        // This produces false negatives at the Polygon boundaries. But that is better than false positives.
                         var arc = t.Contains(point);
                         if (included == Inclusion.Boundary & arc == Inclusion.Inside) included = Inclusion.Inside;
                         //var line = Intersectings.LineSegmentPoint(t.Start.X, t.Start.Y, t.End.X, t.End.Y, point.X, point.Y);

@@ -52,11 +52,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private double angle;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="tuple"></param>
         public Transform((double x, double y, double skewX, double skewY, double scaleX, double scaleY, double angle) tuple)
             => (x, y, skewX, skewY, scaleX, scaleY, angle) = tuple;

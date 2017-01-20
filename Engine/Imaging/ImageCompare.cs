@@ -1,5 +1,5 @@
 ﻿// <copyright file="ImageCompare.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -18,7 +18,14 @@ namespace Engine.Imaging
     /// </summary>
     public class ImageCompare
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private const int bytes = 4;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private const byte max = 255;
 
         /// <summary>
@@ -169,10 +176,8 @@ namespace Engine.Imaging
         /// From http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp 
         /// </remarks>
         private unsafe void Compare(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
-        {
             // For alpha, use the average of both images (otherwise pixels with the same alpha won't be visible)
-            *cPtr = colorComp == 0 ? (byte)((aPtr + bPtr) / 2) : (byte)~(aPtr ^ bPtr);
-        }
+            => *cPtr = colorComp == 0 ? (byte)((aPtr + bPtr) / 2) : (byte)~(aPtr ^ bPtr);
 
         /// <summary>
         /// </summary>
@@ -184,8 +189,6 @@ namespace Engine.Imaging
         /// Based on http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
         /// </remarks>
         private unsafe void Compare1(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
-        {
-            *cPtr = (byte)(aPtr + bPtr - 2 * Min(aPtr, bPtr));
-        }
+            => *cPtr = (byte)(aPtr + bPtr - 2 * Min(aPtr, bPtr));
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="AtomicMassUnit.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -22,9 +22,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public AtomicMassUnit(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         ///
@@ -35,18 +33,22 @@ namespace Engine.Physics
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Atomic Mass Unit";
+        public string Name
+            => "Atomic Mass Unit";
+
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "amu";
+        public string Abreviation
+            => "amu";
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator AtomicMassUnit(double value) => new AtomicMassUnit(value);
+        public static implicit operator AtomicMassUnit(double value)
+            => new AtomicMassUnit(value);
 
         /// <summary>
         ///

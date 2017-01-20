@@ -1,5 +1,5 @@
 ﻿// <copyright file="GraphicItem.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -231,9 +231,7 @@ namespace Engine
         /// This should be run anytime a property of the item is modified.
         /// </summary>
         private void ClearCache()
-        {
-            propertyCache.Clear();
-        }
+            => propertyCache.Clear();
 
         /// <summary>
         /// Private method for caching computationally and memory intensive properties of child objects

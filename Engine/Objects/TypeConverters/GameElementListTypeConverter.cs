@@ -1,5 +1,5 @@
 ﻿// <copyright file="GameElementListTypeConverter.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -77,19 +77,13 @@ namespace Engine
             : SimplePropertyDescriptor
         {
             public GameElementDescriptor(IGameElement gameElement, int index)
-                : base(gameElement.GetType(), index.ToString(), typeof(string))
-            {
-                GameElement = gameElement;
-            }
+                : base(gameElement.GetType(), index.ToString(), typeof(string)) => GameElement = gameElement;
 
             public IGameElement GameElement { get; }
 
             public override object GetValue(object component) => GameElement.Name;
 
-            public override void SetValue(object component, object value)
-            {
-                GameElement.Name = (string)value;
-            }
+            public override void SetValue(object component, object value) => GameElement.Name = (string)value;
         }
     }
 }

@@ -73,10 +73,7 @@ namespace Engine
             return bbox;
         }
 
-        private void Expandbox(BBox bbox, BBox bBox)
-        {
-            throw new NotImplementedException();
-        }
+        private void Expandbox(BBox bbox, BBox bBox) => throw new NotImplementedException();
 
         /// <summary>
         /// 

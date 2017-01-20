@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolygonPointTester.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -46,9 +46,7 @@ namespace MethodSpeedTester
         /// 
         /// </summary>
         public PolygonPointTester()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         /// <summary>
         /// 
@@ -211,239 +209,179 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox1_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonAlienRyderFlex(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonAlienRyderFlex));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox2_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox2_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonDarelRexFinley(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonDarelRexFinley));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox3_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox3_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonGilKr(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonGilKr));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox4_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox4_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonKeith(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonKeith));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox5_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox5_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonLaschaLagidse(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonLaschaLagidse));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox6_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox6_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonLaschaLagidse2(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonLaschaLagidse2));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox7_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox7_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonMeowNET(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonMeowNET));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox8_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox8_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonMKatzWRandolphFranklin(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonMKatzWRandolphFranklin));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox9_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox9_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonNathanMercer(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonNathanMercer));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox10_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox10_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonPatrickMullen(s, p, PatrickMullenValues?.Item1, PatrickMullenValues?.Item2) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonPatrickMullen));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox12_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox12_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonRodStephens(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonRodStephens));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox11_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox11_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonSaeedAmiri(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonSaeedAmiri));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox13_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox13_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonJerryKnauss(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonJerryKnauss));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox14_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox14_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonJerryKnauss2(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonJerryKnauss2));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox15_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox15_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonPaulBourke(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonPaulBourke));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox19_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox19_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonWRandolphFranklin(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonWRandolphFranklin));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox20_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox20_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonPhilippeReverdy(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonPhilippeReverdy));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox18_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox18_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonBobStein(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
                 nameof(Experiments.PointInPolygonBobStein));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox16_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox16_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 Experiments.PointInPolygonHormannAgathos,
                 nameof(Experiments.PointInPolygonHormannAgathos));
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PictureBox17_Paint(object sender, PaintEventArgs e)
-        {
-            DrawPolys(e.Graphics, Font, polygon, points,
+        private void PictureBox17_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
                 (s, p) => Experiments.PointInPolygonHormannAgathosX(s, p),
                 nameof(Experiments.PointInPolygonHormannAgathosX));
-        }
     }
 }

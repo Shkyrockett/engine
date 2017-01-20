@@ -36,10 +36,7 @@ namespace Engine
         /// <param name="right"></param>
         /// <param name="span"></param>
         public Pair(Bezier left, Bezier right, List<Point3D> span)
-            : this(left, right)
-        {
-            this.Span = span;
-        }
+            : this(left, right) => this.Span = span;
 
         /// <summary>
         /// 

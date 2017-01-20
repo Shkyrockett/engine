@@ -1,5 +1,5 @@
 ﻿// <copyright file="Kilograms.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -22,9 +22,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Kilograms(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         ///
@@ -35,24 +33,28 @@ namespace Engine.Physics
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Kilograms";
+        public string Name
+            => "Kilograms";
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "Kg";
+        public string Abreviation
+            => "Kg";
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Kilograms(double value) => new Kilograms(value);
+        public static implicit operator Kilograms(double value)
+            => new Kilograms(value);
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{Value} kg";
+        public override string ToString()
+            => $"{Value} kg";
     }
 }

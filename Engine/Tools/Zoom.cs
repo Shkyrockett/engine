@@ -1,5 +1,5 @@
 ﻿// <copyright file="Select.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -115,9 +115,7 @@ namespace Engine.Tools
         /// </summary>
         /// <param name="tools"></param>
         public override void MouseScrollUpdate(ToolStack tools)
-        {
-            tools.Surface.Zoom += 120d / tools.MouseScrollDelta;
-        }
+            => tools.Surface.Zoom += 120d / tools.MouseScrollDelta;
 
         /// <summary>
         /// Reset the command if canceled mid command.
@@ -134,7 +132,8 @@ namespace Engine.Tools
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => nameof(SelectTop);
+        public override string ToString()
+            => $"{nameof(SelectTop)}{{{Index}}}";
 
         /// <summary>
         /// 

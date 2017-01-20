@@ -1,5 +1,5 @@
 ﻿// <copyright file="Minutes.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -47,9 +47,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Minutes(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         /// 
@@ -96,24 +94,28 @@ namespace Engine.Physics
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Minutes(double value) => new Minutes(value);
+        public static implicit operator Minutes(double value)
+            => new Minutes(value);
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Minutes";
+        public string Name
+            => "Minutes";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "min";
+        public string Abreviation
+            => "min";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{Value} min";
+        public override string ToString()
+            => $"{Value} min";
     }
 }

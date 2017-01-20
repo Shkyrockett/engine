@@ -1,5 +1,5 @@
 ﻿// <copyright file="VectorMap.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -37,10 +37,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="shapes"></param>
-        public VectorMap(List<GraphicItem> shapes)
-        {
-            Items = shapes;
-        }
+        public VectorMap(List<GraphicItem> shapes) => Items = shapes;
 
         #endregion
 
@@ -52,15 +49,10 @@ namespace Engine
         /// <param name="area"></param>
         /// <returns></returns>
         public List<GraphicItem> this[Rectangle2D area]
-        {
-            get
-            {
-                return new List<GraphicItem>(
+            => new List<GraphicItem>(
                 from shape in Items
                 where (shape?.Bounds != null) && (shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area))
                 select shape);
-            }
-        }
 
         /// <summary>
         /// 
@@ -139,9 +131,7 @@ namespace Engine
         /// </summary>
         /// <param name="item"></param>
         public void Add(GraphicItem item)
-        {
-            Items.Add(item);
-        }
+            => Items.Add(item);
 
         /// <summary>
         /// 
@@ -232,10 +222,7 @@ namespace Engine
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
-        public void CopyTo(GraphicItem[] array, int arrayIndex)
-        {
-            Items.CopyTo(array, arrayIndex);
-        }
+        public void CopyTo(GraphicItem[] array, int arrayIndex) => Items.CopyTo(array, arrayIndex);
 
         /// <summary>
         /// 

@@ -1,5 +1,5 @@
 ﻿// <copyright file="IntersectionsTests.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -76,9 +76,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -89,9 +87,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest1()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -102,9 +98,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest2()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -115,9 +109,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void CirclePointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -128,9 +120,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest3()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -141,9 +131,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void CircularArcSectorPointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -154,9 +142,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest4()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -167,9 +153,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void EllipticSectorPointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -180,9 +164,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest5()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -193,9 +175,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void EllipsePointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -206,9 +186,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest6()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -219,9 +197,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void RectanglePointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -232,9 +208,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest7()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -245,9 +219,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void PolygonPointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -258,9 +230,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest8()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -271,9 +241,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void PolygonSetPointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -284,9 +252,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest9()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -297,9 +263,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void ContainsTest10()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -310,9 +274,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void RectangleRectangleTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -364,17 +326,17 @@ namespace Engine.Tests
                 { (1.5d, 1.5d, 2d, 2d, 1d, 2d, 2d, 1d), (true, new Point2D(1.5d, 1.5d)) },
                 // Both line segments share a point.
                 { (1.5d, 1.5d, 2d, 2d, 1.5d, 1.5d, 2d, 1d), (true, new Point2D(1.5d, 1.5d)) },
-                // Paralell lines. No intersection.
+                // Parallel lines. No intersection.
                 { (1d, 1d, 2d, 2d, 2d, 1d, 3d, 2d), (false, null) },
 
                 // The following special case intersections need some thought on how to handle. 
                 // Coincidental lines. One intersection.
                 { (0d, 0d, 1d, 1d, 1d, 1d, 2d, 2d), (false, null) },
-                // Same lines. Infinate intersection.
+                // Same lines. Infinite intersection.
                 { (1d, 1d, 2d, 2d, 1d, 1d, 2d, 2d), (false, null) },
-                // Same lines, opposite directions. Infinate intersection.
+                // Same lines, opposite directions. Infinite intersection.
                 { (2d, 2d, 1d, 1d, 1d, 1d, 2d, 2d), (false, null) },
-                // Same lines, opposite directions. Infinate intersection.
+                // Same lines, opposite directions. Infinite intersection.
                 { (1d, 1d, 2d, 2d, 2d, 2d, 1d, 1d), (false, null) },
             };
 
@@ -394,8 +356,6 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [Ignore]
         public void PolygonPolygonTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
     }
 }

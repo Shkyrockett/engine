@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tokenizer.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -85,9 +85,7 @@ namespace Engine
         /// <param name="quoteChar"> The quote char. </param>
         /// <param name="separator"> The list separator. </param>
         internal Tokenizer(string str, char quoteChar, char separator)
-        {
-            Initialize(str, quoteChar, separator);
-        }
+            => Initialize(str, quoteChar, separator);
 
         /// <summary>
         /// 

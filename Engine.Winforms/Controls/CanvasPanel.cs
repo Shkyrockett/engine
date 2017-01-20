@@ -1,5 +1,5 @@
 ﻿// <copyright file="CanvasPanel.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -72,9 +72,7 @@ namespace Engine.Winforms
         /// 
         /// </summary>
         public CanvasPanel()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         /// <summary>
         /// 
@@ -151,10 +149,7 @@ namespace Engine.Winforms
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        protected virtual void OnMouseWheelTilt(MouseEventArgs e)
-        {
-            ((MouseEventHandler)Events[EventMouseWheelTilt])?.Invoke(this, e);
-        }
+        protected virtual void OnMouseWheelTilt(MouseEventArgs e) => ((MouseEventHandler)Events[EventMouseWheelTilt])?.Invoke(this, e);
 
         /// <summary>
         /// Raises the <see cref='MouseWheel'/> event.
@@ -164,9 +159,6 @@ namespace Engine.Winforms
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        protected override void OnMouseWheel(MouseEventArgs e)
-        {
-            ((MouseEventHandler)Events[EventMouseWheel])?.Invoke(this, e);
-        }
+        protected override void OnMouseWheel(MouseEventArgs e) => ((MouseEventHandler)Events[EventMouseWheel])?.Invoke(this, e);
     }
 }

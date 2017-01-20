@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolylineSet.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -43,17 +43,13 @@ namespace Engine
         /// Initializes a default instance of the <see cref="PolylineSet"/> class.
         /// </summary>
         public PolylineSet()
-        {
-            polylines = new List<Polyline>();
-        }
+            => polylines = new List<Polyline>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolylineSet"/> class.
         /// </summary>
         public PolylineSet(IEnumerable<Polyline> polylines)
-        {
-            this.polylines = polylines as List<Polyline>;
-        }
+            => this.polylines = polylines as List<Polyline>;
 
         #endregion
 
@@ -120,10 +116,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polyline"></param>
-        public void Add(Polyline polyline)
-        {
-            polylines.Add(polyline);
-        }
+        public void Add(Polyline polyline) => polylines.Add(polyline);
 
         #endregion
 

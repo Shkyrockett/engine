@@ -1,5 +1,5 @@
 ﻿// <copyright file="LineStyle.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -210,17 +210,13 @@ namespace Engine
         /// </summary>
         /// <param name="name"></param>
         protected void OnPropertyChanging([CallerMemberName] string name = "")
-        {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
-        }
+            => PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="name"></param>
         protected void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

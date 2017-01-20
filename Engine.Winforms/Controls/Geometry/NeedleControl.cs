@@ -1,5 +1,5 @@
 ﻿// <copyright file="NeedleControl.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -35,9 +35,7 @@ namespace Engine
             /// </summary>
             /// <param name="value"></param>
             public ValueChangedEventArgs(double value)
-            {
-                Value = value;
-            }
+                => Value = value;
 
             /// <summary>
             /// 
@@ -106,7 +104,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private bool IsTransparent => (BackColor == Color.Transparent);
+        private bool IsTransparent
+            => (BackColor == Color.Transparent);
 
         /// <summary>
         /// 
@@ -129,10 +128,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NeedleControl_MouseDown(object sender, MouseEventArgs e)
-        {
-            selecting = true;
-        }
+        private void NeedleControl_MouseDown(object sender, MouseEventArgs e) => selecting = true;
 
         /// <summary>
         /// 

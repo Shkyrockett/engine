@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tool.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -87,9 +87,7 @@ namespace Engine.Tools
         /// Signal the parent to provide feedback to finish the command.
         /// </summary>
         protected virtual void RaiseFinishEvent(ToolStack tools)
-        {
-            Finish?.Invoke(this, tools);
-        }
+            => Finish?.Invoke(this, tools);
 
         /// <summary>
         /// 
@@ -143,6 +141,7 @@ namespace Engine.Tools
         /// A string representing a string output of the tool.
         /// </summary>
         /// <returns>Returns a <see cref="string"/> representing the type of the tool.</returns>
-        public override string ToString() => GetType().ToString();
+        public override string ToString()
+            => GetType().ToString();
     }
 }

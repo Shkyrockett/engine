@@ -1,5 +1,5 @@
 ﻿// <copyright file="Offsets.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -118,9 +118,7 @@ namespace Engine
         /// <param name="offset"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Circle Offset(this Circle circle, double offset)
-        {
-            return new Circle(circle.X, circle.Y, circle.Radius + offset);
-        }
+            => new Circle(circle.X, circle.Y, circle.Radius + offset);
 
         /// <summary>
         /// Inflate Offsets a <see cref="Ellipse"/> by the specified amount.
@@ -129,9 +127,7 @@ namespace Engine
         /// <param name="offset"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double offset)
-        {
-            return new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
-        }
+            => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
 
         /// <summary>
         /// Inflate Offsets a <see cref="Ellipse"/> by the specified amount.
@@ -141,9 +137,7 @@ namespace Engine
         /// <param name="r2"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double r1, double r2)
-        {
-            return new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
-        }
+            => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
 
         /// <summary>
         /// 
@@ -153,9 +147,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Triangle Offset(this Triangle triangle, double offset)
-        {
-            return (Triangle)Offset((Polygon)triangle, offset);
-        }
+            => (Triangle)Offset((Polygon)triangle, offset);
 
         /// <summary>
         /// Inflate Offsets a <see cref="Rectangle2D"/> by the specified amount.
@@ -164,9 +156,7 @@ namespace Engine
         /// <param name="offset"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double offset)
-        {
-            return new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2 * offset), rectangle.Height + (2 * offset));
-        }
+            => new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2 * offset), rectangle.Height + (2 * offset));
 
         /// <summary>
         /// Inflate Offsets a <see cref="Rectangle2D"/> by the specified amount.
@@ -176,9 +166,7 @@ namespace Engine
         /// <param name="y"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double x, double y)
-        {
-            return new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2 * x), rectangle.Height + (2 * y));
-        }
+            => new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2 * x), rectangle.Height + (2 * y));
 
         /// <summary>
         /// 

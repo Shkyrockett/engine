@@ -1,5 +1,5 @@
 ﻿// <copyright file="IntersectionExtentionTests.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -71,9 +71,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void AreCloseTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -84,9 +82,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void AreCloseTest1()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -97,9 +93,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void AreCloseTest2()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -110,9 +104,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void AreCloseTest3()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -123,9 +115,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void AreCloseTest4()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -136,9 +126,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void RectHasNaNTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -149,9 +137,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonSaeedAmiriTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -162,9 +148,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonKeithTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -175,9 +159,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonMeowNETTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -188,9 +170,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonAlienRyderFlexTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -201,9 +181,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonNathanMercerTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -214,9 +192,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonLaschaLagidseTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -227,9 +203,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonGilKrTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -240,9 +214,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonMKatzTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -253,9 +225,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInPolygonRodStephensTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -266,9 +236,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInArcTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -279,9 +247,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PointInCircleTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -292,9 +258,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void CentroidTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -305,9 +269,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PolygonAreaTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -318,9 +280,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void SignedPolygonAreaTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -331,9 +291,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void IsConvexTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -344,9 +302,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void FindEarTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -357,9 +313,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void RemoveEarTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -370,9 +324,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void RemovePointTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -383,9 +335,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void TriangulateTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -396,9 +346,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void PolygonIsOrientedClockwiseTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -409,9 +357,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void OrientPolygonClockwiseTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -422,9 +368,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void SegmentsIntersectTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -435,9 +379,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void GetAngleTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -448,9 +390,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void GetAngleTest1()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -461,9 +401,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void CrossProductLengthTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -474,9 +412,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void CrossProductLengthTest1()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -487,9 +423,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void DotProductTest()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
 
         /// <summary>
         /// 
@@ -500,8 +434,6 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionExtentionTests")]
         [Ignore]
         public void DotProductTest1()
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
     }
 }

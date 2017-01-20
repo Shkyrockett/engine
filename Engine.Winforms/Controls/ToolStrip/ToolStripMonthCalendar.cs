@@ -1,5 +1,5 @@
 ﻿// <copyright file="ToolStripMonthCalendar.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -30,14 +30,13 @@ namespace Engine.Winforms
         /// </summary>
         public ToolStripMonthCalendar()
             : base(new MonthCalendar())
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         /// <summary>
         /// 
         /// </summary>
-        public MonthCalendar MonthCalendarControl => Control as MonthCalendar;
+        public MonthCalendar MonthCalendarControl
+            => Control as MonthCalendar;
 
         /// <summary>
         /// 
@@ -53,9 +52,7 @@ namespace Engine.Winforms
         /// </summary>
         /// <param name="dateToBold"></param>
         public void AddBoldedDate(DateTime dateToBold)
-        {
-            MonthCalendarControl.AddBoldedDate(dateToBold);
-        }
+            => MonthCalendarControl.AddBoldedDate(dateToBold);
 
         /// <summary>
         /// 
@@ -100,8 +97,6 @@ namespace Engine.Winforms
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnDateChanged(object sender, DateRangeEventArgs e)
-        {
-            DateChanged?.Invoke(this, e);
-        }
+            => DateChanged?.Invoke(this, e);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Radians.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -49,27 +49,21 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Radians(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Radians"/> struct as a clone.
         /// </summary>
         /// <param name="radians"></param>
         public Radians(Radians radians)
-        {
-            Value = radians.Value;
-        }
+            => Value = radians.Value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Radians"/> struct from a <see cref="Degrees"/>.
         /// </summary>
         /// <param name="degrees"></param>
         public Radians(Degrees degrees)
-        {
-            Value = degrees.Value.ToRadians();
-        }
+            => Value = degrees.Value.ToRadians();
 
         #endregion
 

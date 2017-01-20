@@ -1,5 +1,5 @@
 ﻿// <copyright file="ElectronVolt.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -22,9 +22,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public ElectronVolt(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         ///
@@ -35,24 +33,28 @@ namespace Engine.Physics
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Electron Volt";
+        public string Name
+            => "Electron Volt";
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "eV";
+        public string Abreviation
+            => "eV";
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator ElectronVolt(double value) => new ElectronVolt(value);
+        public static implicit operator ElectronVolt(double value)
+            => new ElectronVolt(value);
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{Value} eV";
+        public override string ToString()
+            => $"{Value} eV";
     }
 }

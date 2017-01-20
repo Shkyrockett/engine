@@ -1,5 +1,5 @@
 ﻿// <copyright file="ListHelper.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -60,8 +60,6 @@ namespace MethodSpeedTester
         /// http://blogs.windward.net/davidt/2012/01/12/c-dictionary-getvalueordefault/
         /// </remarks>
         public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
-        {
-            return dic.TryGetValue(key, out var result) ? result : default(TValue);
-        }
+            => dic.TryGetValue(key, out var result) ? result : default(TValue);
     }
 }

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shkyrockett")]
 [assembly: AssemblyProduct("Engine.Winforms")]
-[assembly: AssemblyCopyright("Copyright © Shkyrockett 2013 - 2016")]
+[assembly: AssemblyCopyright("Copyright © Shkyrockett 2013 - 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

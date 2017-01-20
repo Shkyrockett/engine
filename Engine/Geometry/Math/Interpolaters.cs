@@ -1,5 +1,5 @@
 ﻿// <copyright file="Interpolaters.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -1044,15 +1044,13 @@ namespace Engine
             double x0, double y0,
             double x1, double y1,
             double x2, double y2)
-        {
-            return new List<(double X, double Y)>()
+            => new List<(double X, double Y)>()
             {
                 (x0, y0),
                 (x0 + TwoThirds * (x1 - x0), y0 + TwoThirds * (y1 - y0)),
                 (x2 + TwoThirds * (x1 - x2), y2 + TwoThirds * (y1 - y2)),
                 (x2, y2)
             };
-        }
 
         /// <summary>
         /// 

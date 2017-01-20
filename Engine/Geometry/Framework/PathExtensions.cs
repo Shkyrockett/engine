@@ -1,5 +1,5 @@
 ﻿// <copyright file="PathExtensions.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -24,8 +24,6 @@ namespace Engine
         /// <param name="pointB"></param>
         /// <param name="pointC"></param>
         public static void AddArc(this List<Shape> path, Point2D pointA, Point2D pointB, Point2D pointC)
-        {
-            path.Add(new CircularArc(pointA, pointB, pointC));
-        }
+            => path.Add(new CircularArc(pointA, pointB, pointC));
     }
 }

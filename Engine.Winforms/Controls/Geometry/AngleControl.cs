@@ -1,5 +1,5 @@
 ﻿// <copyright file="AngleControl.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -32,9 +32,7 @@ namespace Engine
             /// </summary>
             /// <param name="value"></param>
             public ValueChangedEventArgs(double value)
-            {
-                Value = value;
-            }
+                => Value = value;
 
             /// <summary>
             /// 
@@ -144,10 +142,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NeedleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e)
-        {
-            EditorService?.CloseDropDown();
-        }
+        private void NeedleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e) => EditorService?.CloseDropDown();
 
         /// <summary>
         /// 
@@ -166,6 +161,7 @@ namespace Engine
                     Angle = (double)nums.Value;
                     break;
             }
+
             needleControl1.Invalidate();
         }
 
@@ -180,29 +176,20 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TabControl_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            needleControl1.Invalidate();
-        }
+        private void TabControl_DrawItem(object sender, DrawItemEventArgs e) => needleControl1.Invalidate();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TabPageDegrees_Paint(object sender, PaintEventArgs e)
-        {
-            needleControl1.Invalidate();
-        }
+        private void TabPageDegrees_Paint(object sender, PaintEventArgs e) => needleControl1.Invalidate();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TabPageRadians_Paint(object sender, PaintEventArgs e)
-        {
-            needleControl1.Invalidate();
-        }
+        private void TabPageRadians_Paint(object sender, PaintEventArgs e) => needleControl1.Invalidate();
     }
 }

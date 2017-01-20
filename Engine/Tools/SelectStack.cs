@@ -1,5 +1,5 @@
 ﻿// <copyright file="SelectStack.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -21,9 +21,7 @@ namespace Engine.Tools
         /// Initializes a new instance of the <see cref="SelectStack"/> class.
         /// </summary>
         public SelectStack()
-        {
-            Index = 0;
-        }
+            => Index = 0;
 
         /// <summary>
         /// Provides the current index of the select tool.
@@ -88,7 +86,8 @@ namespace Engine.Tools
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => nameof(SelectTop);
+        public override string ToString()
+            => nameof(SelectTop);
 
         /// <summary>
         /// 

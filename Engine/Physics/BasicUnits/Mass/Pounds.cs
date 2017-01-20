@@ -1,5 +1,5 @@
 ﻿// <copyright file="Pounds.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -22,9 +22,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Pounds(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         ///
@@ -35,24 +33,28 @@ namespace Engine.Physics
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Pounds";
+        public string Name
+            => "Pounds";
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "lb";
+        public string Abreviation
+            => "lb";
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Pounds(double value) => new Pounds(value);
+        public static implicit operator Pounds(double value)
+            => new Pounds(value);
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{Value} lb";
+        public override string ToString()
+            => $"{Value} lb";
     }
 }

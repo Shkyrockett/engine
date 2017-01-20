@@ -1,5 +1,5 @@
 ﻿// <copyright file="Hours.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -47,9 +47,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Hours(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         /// 
@@ -96,24 +94,28 @@ namespace Engine.Physics
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Hours(double value) => new Hours(value);
+        public static implicit operator Hours(double value)
+            => new Hours(value);
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Hours";
+        public string Name
+            => "Hours";
 
         /// <summary>
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "h";
+        public string Abreviation
+            => "h";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{Value} h";
+        public override string ToString()
+            => $"{Value} h";
     }
 }

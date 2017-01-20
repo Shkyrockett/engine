@@ -1,5 +1,5 @@
 ﻿// <copyright file="RectanglePointTester.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -43,9 +43,7 @@ namespace MethodSpeedTester
         /// 
         /// </summary>
         public RectanglePointTester()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         /// <summary>
         /// 
@@ -150,11 +148,9 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            DrawRectangles(e.Graphics, Font, rectangle, points,
+            => DrawRectangles(e.Graphics, Font, rectangle, points,
                 Experiments.Contains,
                 nameof(Experiments.Contains));
-        }
 
         /// <summary>
         /// 
@@ -162,11 +158,9 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox2_Paint(object sender, PaintEventArgs e)
-        {
-            DrawRectangles(e.Graphics, Font, rectangle, points,
+            => DrawRectangles(e.Graphics, Font, rectangle, points,
                 Experiments.Contains2,
                 nameof(Experiments.Contains2));
-        }
 
         /// <summary>
         /// 
@@ -174,11 +168,9 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox3_Paint(object sender, PaintEventArgs e)
-        {
-            DrawRectangles(e.Graphics, Font, rectangle, points,
+            => DrawRectangles(e.Graphics, Font, rectangle, points,
                 Experiments.PointOnRectangleX,
                 nameof(Experiments.PointOnRectangleX));
-        }
 
         /// <summary>
         /// 

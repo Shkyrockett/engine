@@ -17,7 +17,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public static Transform Identity = new Transform(0, 0, 0, 0, 1, 1, 0);
+        public static Transform Identity = new Transform(0, 0, 0, 0, 1, 1);
 
         /// <summary>
         /// 
@@ -53,8 +53,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="tuple"></param>
-        public Transform((double x, double y, double skewX, double skewY, double scaleX, double scaleY, double angle) tuple)
-            => (x, y, skewX, skewY, scaleX, scaleY, angle) = tuple;
+        public Transform((double x, double y, double skewX, double skewY, double scaleX, double scaleY) tuple)
+            => (x, y, skewX, skewY, scaleX, scaleY) = tuple;
 
         /// <summary>
         /// 
@@ -65,8 +65,7 @@ namespace Engine
         /// <param name="skewY"></param>
         /// <param name="scaleX"></param>
         /// <param name="scaleY"></param>
-        /// <param name="angle"></param>
-        public Transform(double x, double y, double skewX, double skewY, double scaleX, double scaleY, double angle)
+        public Transform(double x, double y, double skewX, double skewY, double scaleX, double scaleY)
         {
             this.x = x;
             this.y = y;
@@ -74,7 +73,6 @@ namespace Engine
             this.skewY = skewY;
             this.scaleX = scaleX;
             this.scaleY = scaleY;
-            this.angle = angle;
         }
 
         /// <summary>
@@ -106,10 +104,5 @@ namespace Engine
         /// 
         /// </summary>
         public double ScaleY { get { return scaleY; } set { scaleY = value; } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double Angle { get { return angle; } set { angle = value; } }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Years.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -47,9 +47,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Years(double value)
-        {
-            Value = value;
-        }
+            => Value = value;
 
         /// <summary>
         ///
@@ -96,24 +94,28 @@ namespace Engine.Physics
         ///
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Years(double value) => new Years(value);
+        public static implicit operator Years(double value)
+            => new Years(value);
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Years";
+        public string Name
+            => "Years";
 
         /// <summary>
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "years";
+        public string Abreviation
+            => "years";
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{Value} years";
+        public override string ToString()
+            => $"{Value} years";
     }
 }

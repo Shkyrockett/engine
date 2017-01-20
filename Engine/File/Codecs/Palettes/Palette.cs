@@ -1,5 +1,5 @@
 ﻿// <copyright file="Palette.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -286,18 +286,14 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="item">The color to add to the palette.</param>
         public void Add(Color item)
-        {
-            Colors.Add(item);
-        }
+            => Colors.Add(item);
 
         /// <summary>
         /// Add a list of palette color entries to the end of the palette.
         /// </summary>
         /// <param name="items">The colors to add to the palette.</param>
         public void AddRange(IEnumerable<Color> items)
-        {
-            Colors.AddRange(items);
-        }
+            => Colors.AddRange(items);
 
         /// <summary>
         /// Adds a palette entry at a specified index.
@@ -305,27 +301,19 @@ namespace Engine.File.Palettes
         /// <param name="index">Index to insert the palette entry color.</param>
         /// <param name="item">Palette entry color to add to the list.</param>
         public void Insert(int index, Color item)
-        {
-            Colors.Insert(index, item);
-        }
+            => Colors.Insert(index, item);
 
         /// <summary>
         /// Adds a list of palette entries at a specified index.
         /// </summary>
         /// <param name="index">Index to insert the palette entry color.</param>
         /// <param name="item">List of palette entry colors to add to the list.</param>
-        public void InsertRange(int index, IEnumerable<Color> item)
-        {
-            Colors.InsertRange(index, item);
-        }
+        public void InsertRange(int index, IEnumerable<Color> item) => Colors.InsertRange(index, item);
 
         /// <summary>
         /// Clears all palette entries from the list of colors.
         /// </summary>
-        public void Clear()
-        {
-            Colors.Clear();
-        }
+        public void Clear() => Colors.Clear();
 
         /// <summary>
         /// 
@@ -371,18 +359,12 @@ namespace Engine.File.Palettes
         /// <summary>
         /// Reverses the order of the colors in the colors in the palette.
         /// </summary>
-        public void Reverse()
-        {
-            Colors.Reverse();
-        }
+        public void Reverse() => Colors.Reverse();
 
         /// <summary>
         /// Sorts the colors in the palette by the default sorting order.
         /// </summary>
-        public void Sort()
-        {
-            Colors.Sort();
-        }
+        public void Sort() => Colors.Sort();
 
         /// <summary>
         /// 

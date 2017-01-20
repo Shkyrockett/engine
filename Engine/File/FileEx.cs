@@ -1,5 +1,5 @@
 ﻿// <copyright file="FileEx.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -104,9 +104,7 @@ namespace Engine.File
         /// <param name="bw"></param>
         /// <param name="value"></param>
         public static void WriteString(this BinaryWriter bw, string value)
-        {
-            bw.Write(Encoding.ASCII.GetBytes(value));
-        }
+            => bw.Write(Encoding.ASCII.GetBytes(value));
 
         /// <summary>
         /// Converts a long value from host byte order to network byte order.

@@ -1,5 +1,5 @@
 ﻿// <copyright file="PaletteControl.cs" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -60,9 +60,7 @@ namespace Engine.Winforms
         /// Initializes a new instance of the <see cref="PaletteControl"/> class.
         /// </summary>
         public PaletteControl()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         /// <summary>
         /// The palette list of colors.

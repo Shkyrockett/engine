@@ -1,5 +1,5 @@
 ﻿// <copyright file="ShapeStyle.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -46,9 +46,7 @@ namespace Engine.Imaging
         /// </summary>
         public ShapeStyle()
             : this(Brushes.Transparent, Pens.Transparent)
-        {
-            LineStyle.PropertyChanged += new  PropertyChangedEventHandler(PropertyChanged_Event);
-        }
+            => LineStyle.PropertyChanged += new PropertyChangedEventHandler(PropertyChanged_Event);
 
         /// <summary>
         /// 
@@ -73,9 +71,7 @@ namespace Engine.Imaging
         #endregion
 
         private void PropertyChanged_Event(Object sender, PropertyChangedEventArgs e)
-        {
-            BuildPen();
-        }
+            => BuildPen();
 
         #region Destructors
 

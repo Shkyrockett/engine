@@ -132,15 +132,13 @@ namespace Engine
             /// 
             /// </summary>
             /// <param name="values"></param>
-            internal ReadonlyPoints(Point2D[] values) { this.values = values; }
-
+            internal ReadonlyPoints(Point2D[] values) => this.values = values;
             /// <summary>
             /// 
             /// </summary>
             /// <param name="index"></param>
             /// <returns></returns>
-            public Point2D this[int index] { get { return values[index]; } }
-
+            public Point2D this[int index] => values[index];
             /// <summary>
             /// 
             /// </summary>
@@ -150,13 +148,12 @@ namespace Engine
             /// 
             /// </summary>
             /// <returns></returns>
-            public IEnumerator<Point2D> GetEnumerator() { return values.Cast<Point2D>().GetEnumerator(); }
-
+            public IEnumerator<Point2D> GetEnumerator() => values.Cast<Point2D>().GetEnumerator();
             /// <summary>
             /// 
             /// </summary>
             /// <returns></returns>
-            IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
         /// <summary>

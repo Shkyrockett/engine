@@ -1,5 +1,5 @@
 ﻿// <copyright file="BinaryWriterExtensions.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -62,10 +62,7 @@ namespace Engine.File
         /// <param name="value">The two-byte signed integer to write.</param>
         /// <exception cref="IOException">An I/O error occurs</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        public void WriteNetwork(short value)
-        {
-            Write(IPAddress.HostToNetworkOrder(value));
-        }
+        public void WriteNetwork(short value) => Write(IPAddress.HostToNetworkOrder(value));
 
         /// <summary>
         /// Writes a four-byte signed integer to the current stream and advances the
@@ -74,10 +71,7 @@ namespace Engine.File
         /// <param name="value">The four-byte signed integer to write.</param>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        public void WriteNetwork(int value)
-        {
-            Write(IPAddress.HostToNetworkOrder(value));
-        }
+        public void WriteNetwork(int value) => Write(IPAddress.HostToNetworkOrder(value));
 
         /// <summary>
         /// Writes an eight-byte signed integer to the current stream and advances the
@@ -86,10 +80,7 @@ namespace Engine.File
         /// <param name="value">The eight-byte signed integer to write.</param>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        public void WriteNetwork(long value)
-        {
-            Write(IPAddress.HostToNetworkOrder(value));
-        }
+        public void WriteNetwork(long value) => Write(IPAddress.HostToNetworkOrder(value));
 
         /// <summary>
         /// Writes a variable-length unsigned integer to the current stream and advances the

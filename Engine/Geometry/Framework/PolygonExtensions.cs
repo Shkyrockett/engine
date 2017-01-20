@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolygonExtensions.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -219,7 +219,7 @@ namespace Engine
                 C = (B + 1) % num_points;
 
                 double cross_product =
-                    Maths.CrossProductVector(
+                    CrossProductVector(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
@@ -330,13 +330,7 @@ namespace Engine
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         private static void RemovePoint2DFromArray(this Polygon polygon, int target)
-        {
-            polygon.Points.RemoveAt(target);
-            //List<Point2D> pts = new List<Point2D>(polygon.Points.Count);
-            //Array.Copy(polygon.Points.ToArray(), 0, pts, 0, target);
-            //Array.Copy(polygon.Points.ToArray(), target + 1, pts, target, polygon.Points.Count - target - 1);
-            //polygon.Points = pts;
-        }
+            => polygon.Points.RemoveAt(target);
 
         /// <summary>
         /// Triangulate the polygon.

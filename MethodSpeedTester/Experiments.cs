@@ -1,5 +1,5 @@
 ﻿// <copyright file="Experiments.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -565,13 +565,10 @@ namespace MethodSpeedTester
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// </remarks>
         private static (double A, double B, double C, double D) BezierCoefficients0(double a, double b, double c, double d)
-        {
-            return (
-                d - (3d * c) + (3d * b) - a,
+            => (d - (3d * c) + (3d * b) - a,
                 (3d * c) - (6d * b) + (3d * a),
                 3d * (b - a),
                 a);
-        }
 
         /// <summary>
         /// 
@@ -585,13 +582,10 @@ namespace MethodSpeedTester
         /// https://www.particleincell.com/2013/cubic-line-intersection/
         /// </remarks>
         private static (double A, double B, double C, double D) BezierCoefficients1(double a, double b, double c, double d)
-        {
-            return (
-                -a + 3d * b + -3d * c + d,
+            => (-a + 3d * b + -3d * c + d,
                 3d * a - 6d * b + 3d * c,
                 -3d * a + 3d * b,
                 a);
-        }
 
         #endregion
 
@@ -2667,11 +2661,8 @@ namespace MethodSpeedTester
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
-        private PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t)
-        {
-            return new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
+        private PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t) => new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
                               (float)(3 * Pow(1 - t, 2) * (p1.Y - p0.Y) + 6 * (1 - t) * t * (p2.Y - p1.Y) + 3 * Pow(t, 2) * (p3.Y - p2.Y)));
-        }
 
         /// <summary>
         /// 
@@ -6908,10 +6899,7 @@ namespace MethodSpeedTester
         /// true if the specified value is valid; otherwise, returns false.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsValid(double value)
-        {
-            return !double.IsNaN(value) && !double.IsInfinity(value);
-        }
+        public static bool IsValid(double value) => !double.IsNaN(value) && !double.IsInfinity(value);
 
         /// <summary>
         /// This function is used to ensure that a floating point number is
@@ -9889,9 +9877,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(RoundTests))]
-        public static List<SpeedTester> PointOnLineSegmentTests()
-        {
-            return new List<SpeedTester> {
+        public static List<SpeedTester> PointOnLineSegmentTests() => new List<SpeedTester> {
                 new SpeedTester(() => PointOnLineSegment(1, 1, 2, 2, 1.5, 1.5),
                 $"{nameof(Experiments.PointOnLineSegment)}(1, 1, 2, 2, 1.5, 1.5)"),
                 new SpeedTester(() => PointLineSegment(1, 1, 2, 2, 1.5, 1.5),
@@ -9899,7 +9885,6 @@ namespace MethodSpeedTester
                 new SpeedTester(() => PointOnLine( new LineSegment(1, 1, 2, 2), new Point2D( 1.5, 1.5)),
                 $"{nameof(Experiments.PointOnLine)}(1, 1, 2, 2, 1.5, 1.5)")
             };
-        }
 
         /// <summary>
         ///
@@ -10520,10 +10505,7 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static void RemovePoint(Polygon polygon, int target)
-        {
-            polygon.Points.RemoveAt(target);
-        }
+        public static void RemovePoint(Polygon polygon, int target) => polygon.Points.RemoveAt(target);
 
         /// <summary>
         /// Remove point target from the array.
@@ -10900,10 +10882,7 @@ namespace MethodSpeedTester
         #region Sign
 
         // sign of number
-        private static double Sign0(double x)
-        {
-            return (x < 0d) ? -1 : 1;
-        }
+        private static double Sign0(double x) => (x < 0d) ? -1 : 1;
 
         #endregion
 
@@ -10944,17 +10923,13 @@ namespace MethodSpeedTester
             return 0;
         }
 
-        public static (double, double) SinCos0(double radian)
-        {
+        public static (double, double) SinCos0(double radian) =>
             // lookup, if not exists add to table and return the result.
-            return sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
-        }
+            sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
 
-        public static (double, double) SinCos1(double radian)
-        {
+        public static (double, double) SinCos1(double radian) =>
             // lookup and replace with same value, or add if not exists.
-            return (sinCosTable[radian] = sinCosTable.GetValueOrDefault(radian) ?? (Sin(radian), Cos(radian))).Value;
-        }
+            (sinCosTable[radian] = sinCosTable.GetValueOrDefault(radian) ?? (Sin(radian), Cos(radian))).Value;
 
         private static (double, double) SinCos2(double radian)
         {

@@ -47,16 +47,13 @@ namespace Engine
         /// <param name="v4"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        public Bezier(double x1, double y1, double v1, double v2, double v3, double v4, double x2, double y2)
-        {
-            Points = new List<Point3D>
+        public Bezier(double x1, double y1, double v1, double v2, double v3, double v4, double x2, double y2) => Points = new List<Point3D>
             {
                 new Point3D(x1,y1,0),
                 new Point3D(v1,v2,0),
                 new Point3D(v3,v4,0),
                 new Point3D(x2,y2,0)
             };
-        }
 
         /// <summary>
         ///
@@ -73,25 +70,19 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <param name="z2"></param>
-        public Bezier(double x1, double y1, double z1, double v1, double v2, double v3, double v4, double v5, double v6, double x2, double y2, double z2)
-        {
-            Points = new List<Point3D>
+        public Bezier(double x1, double y1, double z1, double v1, double v2, double v3, double v4, double v5, double v6, double x2, double y2, double z2) => Points = new List<Point3D>
             {
                 new Point3D(x1,y1,z1),
                 new Point3D(v1,v2,v3),
                 new Point3D(v4,v5,v6),
                 new Point3D(x2,y2,z2)
             };
-        }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="points"></param>
-        public Bezier(List<Point3D> points)
-        {
-            this.Points = points;
-        }
+        public Bezier(List<Point3D> points) => this.Points = points;
 
         /// <summary>
         ///
@@ -256,15 +247,9 @@ namespace Engine
             return (A, B, C);
         }
 
-        private static double Abcratio(double t, double n)
-        {
-            throw new NotImplementedException();
-        }
+        private static double Abcratio(double t, double n) => throw new NotImplementedException();
 
-        private static double ProjectionRatio(double t, double n)
-        {
-            throw new NotImplementedException();
-        }
+        private static double ProjectionRatio(double t, double n) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -750,10 +735,7 @@ namespace Engine
             return subsplit.Left;
         }
 
-        private double Map(double t2, double t1, double v1, double v2, double v3)
-        {
-            throw new NotImplementedException();
-        }
+        private double Map(double t2, double t1, double v1, double v2, double v3) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -807,10 +789,7 @@ namespace Engine
                 );
         }
 
-        private RangeX GetMinMax(Bezier bezier, int v, List<double> extrema)
-        {
-            throw new NotImplementedException();
-        }
+        private RangeX GetMinMax(Bezier bezier, int v, List<double> extrema) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -824,10 +803,7 @@ namespace Engine
             return Bboxoverlap(lbbox, tbbox);
         }
 
-        private bool Bboxoverlap(BBox lbbox, BBox tbbox)
-        {
-            throw new NotImplementedException();
-        }
+        private bool Bboxoverlap(BBox lbbox, BBox tbbox) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -962,10 +938,7 @@ namespace Engine
             return pass2;
         }
 
-        private double Map(double t1, int v1, int v2, double t2, double t3)
-        {
-            throw new NotImplementedException();
-        }
+        private double Map(double t1, int v1, int v2, double t2, double t3) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1021,15 +994,9 @@ namespace Engine
             return new Bezier(np);
         }
 
-        private Point3D Copy(Point3D point3D)
-        {
-            throw new NotImplementedException();
-        }
+        private Point3D Copy(Point3D point3D) => throw new NotImplementedException();
 
-        private Point3D Lli4(Point3D item31, Point3D item11, Point3D item32, Point3D item12)
-        {
-            throw new NotImplementedException();
-        }
+        private Point3D Lli4(Point3D item31, Point3D item11, Point3D item32, Point3D item12) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1183,10 +1150,7 @@ namespace Engine
             return new PolyBezier(segments);
         }
 
-        private Bezier MakeLine(Point3D bs, Point3D fs)
-        {
-            throw new NotImplementedException();
-        }
+        private Bezier MakeLine(Point3D bs, Point3D fs) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1209,10 +1173,7 @@ namespace Engine
             return shapes;
         }
 
-        private Shape1 MakeShape(Bezier bezier1, Bezier bezier2)
-        {
-            throw new NotImplementedException();
-        }
+        private Shape1 MakeShape(Bezier bezier1, Bezier bezier2) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1257,10 +1218,7 @@ namespace Engine
                 select Containings.Between(p.X, mx, MX) && Containings.Between(p.Y, my, MY));
         }
 
-        private List<double> Roots(List<Point3D> points, Line1 line)
-        {
-            return new List<double> { 0 };
-        }
+        private List<double> Roots(List<Point3D> points, Line1 line) => new List<double> { 0 };
 
         /// <summary>
         ///
@@ -1316,10 +1274,7 @@ namespace Engine
             return intersections;
         }
 
-        private List<Pair> Pairiteration(Bezier left, Bezier right)
-        {
-            throw new NotImplementedException();
-        }
+        private List<Pair> Pairiteration(Bezier left, Bezier right) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1435,10 +1390,7 @@ namespace Engine
             return circles;
         }
 
-        private Arc1 Getccenter(Point3D np1, Point3D np2, Point3D np3)
-        {
-            throw new NotImplementedException();
-        }
+        private Arc1 Getccenter(Point3D np1, Point3D np2, Point3D np3) => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1527,9 +1479,6 @@ namespace Engine
             }
         }
 
-        private static List<Point3D> Align(List<Point3D> list, Line1 line)
-        {
-            throw new NotImplementedException();
-        }
+        private static List<Point3D> Align(List<Point3D> list, Line1 line) => throw new NotImplementedException();
     }
 }

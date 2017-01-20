@@ -1,5 +1,5 @@
 ﻿// <copyright file="SquareDCellGrid.cs" company="Shkyrockett" >
-//     Copyright (c) 2013 - 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2013 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -322,10 +322,8 @@ namespace Engine
         /// <param name="context"></param>
         [OnDeserialized()]
         private void OnDeserialized(StreamingContext context)
-        {
             // member4 = "This value was set after deserialization.";
-            Recalculate();
-        }
+            => Recalculate();
 
         /// <summary>
         /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 

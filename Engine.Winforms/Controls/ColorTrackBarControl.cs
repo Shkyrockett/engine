@@ -1,5 +1,5 @@
 ﻿// <copyright file="ColorTrackBarControl.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 Shkyrockett. All rights reserved.
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -41,9 +41,7 @@ namespace Engine.Winforms
         /// </summary>
         /// <param name="m"></param>
         protected override void WndProc(ref Message m)
-        {
-            base.WndProc(ref m);
-        }
+            => base.WndProc(ref m);
 
         /// <summary>
         /// 

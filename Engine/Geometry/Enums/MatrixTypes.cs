@@ -16,6 +16,7 @@ namespace Engine
     /// </summary>
     [Flags]
     public enum MatrixTypes
+        : byte
     {
         /// <summary>
         /// 

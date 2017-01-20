@@ -13,6 +13,7 @@ namespace Engine
     /// Text reading direction.
     /// </summary>
     public enum Directions
+        : byte
     {
         /// <summary>
         /// Right to left reading direction.

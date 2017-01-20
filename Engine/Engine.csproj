@@ -111,7 +111,11 @@
     <Compile Include="Animation\Tweening\Lerpers\Vector3DLerper.cs" />
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
+    <Compile Include="Geometry\Enums\ClipingOperations.cs" />
     <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
+    <Compile Include="Geometry\Enums\EndCaps.cs" />
+    <Compile Include="Geometry\Enums\LineJoins.cs" />
+    <Compile Include="Geometry\Enums\PolyFills.cs" />
     <Compile Include="Geometry\Framework\ArrayUtilities.cs" />
     <Compile Include="Geometry\Framework\ExpandableCollectionPropertyDescriptor.cs" />
     <Compile Include="Geometry\Complex\Path\PathItem.cs" />

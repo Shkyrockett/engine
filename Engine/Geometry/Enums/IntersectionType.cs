@@ -14,6 +14,7 @@ namespace Engine
     /// </summary>
     /// <remarks></remarks>
     public enum IntersectionType
+        : byte
     {
         /// <summary>
         /// Plane Intersection

@@ -1,5 +1,5 @@
-﻿// <copyright file="UpDown.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+﻿// <copyright file="LineJoins.cs" company="Shkyrockett" >
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -12,17 +12,26 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public enum UpDown
-        : byte
+    public enum LineJoins
     {
         /// <summary>
-        /// Up.
+        /// 
         /// </summary>
-        Up = 0,
+        Miter = 0,
 
         /// <summary>
-        /// Down.
+        /// 
         /// </summary>
-        Down = 1,
+        Bevel = 1,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Round = 2,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Square = 3
     }
 }

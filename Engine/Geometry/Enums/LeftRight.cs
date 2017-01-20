@@ -13,6 +13,7 @@ namespace Engine
     /// 
     /// </summary>
     public enum LeftRight
+        : byte
     {
         /// <summary>
         /// Left.

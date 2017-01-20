@@ -1,5 +1,5 @@
-﻿// <copyright file="RectangleCorners.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2016 Shkyrockett. All rights reserved.
+﻿// <copyright file="ClipingOperations.cs" company="Shkyrockett" >
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -7,45 +7,31 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-using System;
-
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// An enumeration of polygon filling winding rules.
     /// </summary>
-    [Flags]
-    public enum RectangleCorners
-        : byte
+    public enum WindingRules
     {
         /// <summary>
         /// 
         /// </summary>
-        None = 0,
+        NonZero = 0,
 
         /// <summary>
         /// 
         /// </summary>
-        TopLeft = 1,
+        EvenOdd = 1,
 
         /// <summary>
         /// 
         /// </summary>
-        TopRight = 2,
+        Positive = 2,
 
         /// <summary>
         /// 
         /// </summary>
-        BottomLeft = 4,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        BottomRight = 8,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        All = TopLeft | TopRight | BottomLeft | BottomRight
+        Negitive = 3
     }
 }

@@ -53,6 +53,20 @@ namespace Engine
         public PolygonSet(IEnumerable<Polygon> polygons)
             => this.polygons = polygons as List<Polygon>;
 
+        /// <summary>
+        /// INitializes a new instance of the <see cref="PolygonSet"/> class.
+        /// </summary>
+        /// <param name="lists"></param>
+        public PolygonSet(List<List<Point2D>> lists)
+        {
+            polygons = new List<Polygon>();
+
+            foreach (var list in lists)
+            {
+                polygons.Add(new Polygon(list));
+            }
+        }
+
         #endregion
 
         #region Indexers

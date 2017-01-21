@@ -19,13 +19,13 @@ namespace Engine
     /// <remarks></remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(Intersection))]
-    public class Intersection
+    [DisplayName(nameof(Intersection_))]
+    public class Intersection_
     {
         /// <summary>
         /// 
         /// </summary>
-        public Intersection()
+        public Intersection_()
             :this(false,new Point2D[] { Point2D.Empty })
         { }
 
@@ -34,7 +34,7 @@ namespace Engine
         /// </summary>
         /// <param name="isIntersection"></param>
         /// <param name="intersectionPoint"></param>
-        public Intersection(bool isIntersection, Point2D[] intersectionPoint)
+        public Intersection_(bool isIntersection, Point2D[] intersectionPoint)
         {
             Itersecting = isIntersection;
             IntersectionPoint = intersectionPoint;
@@ -47,7 +47,7 @@ namespace Engine
         /// <param name="Intersects"></param>
         /// <param name="Type"></param>
         /// <remarks></remarks>
-        public Intersection(Point2D[] Locations, bool Intersects, IntersectionType Type)
+        public Intersection_(Point2D[] Locations, bool Intersects, IntersectionType Type)
         {
             IntersectionPoint = Locations;
             Itersecting = Intersects;
@@ -62,7 +62,7 @@ namespace Engine
         /// <param name="Intersects"></param>
         /// <param name="Paralell"></param>
         /// <remarks></remarks>
-        public Intersection(Point2D[] Locations, bool Intersects, bool Paralell)
+        public Intersection_(Point2D[] Locations, bool Intersects, bool Paralell)
         {
             IntersectionPoint = Locations;
             Itersecting = Intersects;
@@ -78,7 +78,7 @@ namespace Engine
         /// <param name="Intersects"></param>
         /// <param name="Paralell"></param>
         /// <remarks></remarks>
-        public Intersection(Point2D Locations, bool Intersects, bool Paralell)
+        public Intersection_(Point2D Locations, bool Intersects, bool Paralell)
         {
             IntersectionPoint = new Point2D[] { Locations };
             Itersecting = Intersects;
@@ -94,7 +94,7 @@ namespace Engine
         /// <param name="Intersects"></param>
         /// <param name="Type"></param>
         /// <remarks></remarks>
-        public Intersection(Point2D Locations, bool Intersects, IntersectionType Type)
+        public Intersection_(Point2D Locations, bool Intersects, IntersectionType Type)
         {
             IntersectionPoint = new Point2D[] {
                      Locations};

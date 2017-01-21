@@ -190,85 +190,85 @@ namespace Editor
             //var lineItem = new GraphicItem(line, styles[5]);
             //vectorMap.Add(lineItem);
 
-            Shape set = new PolygonSet(
-                new List<Polygon>(
-                    new List<Polygon> {
-                        new Polygon( // Boundary
-                            new List<Point2D> {
-                                new Point2D(10, 10),
-                                new Point2D(300, 10),
-                                new Point2D(300, 300),
-                                new Point2D(10, 300),
-                                // Cut out
-                                new Point2D(10, 200),
-                                new Point2D(200, 80),
-                                new Point2D(10, 150)
-                            }
-                        ),
-                        new Polygon( // First inner triangle
-                            new List<Point2D> {
-                                new Point2D(20, 100),
-                                new Point2D(175, 60),
-                                new Point2D(40, 30)
-                            }
-                        ),
-                        new Polygon( // Second inner triangle
-                            new List<Point2D> {
-                                new Point2D(250, 150),
-                                new Point2D(150, 150),
-                                new Point2D(250, 200)
-                            }
-                        )
-                    }
-                )
-            );
-            var setItem = new GraphicItem(set, styles[8])
-            {
-                Name = "Polygon Set"
-            };
-            vectorMap.Add(setItem);
+            //Shape set = new PolygonSet(
+            //    new List<Polygon>(
+            //        new List<Polygon> {
+            //            new Polygon( // Boundary
+            //                new List<Point2D> {
+            //                    new Point2D(10, 10),
+            //                    new Point2D(300, 10),
+            //                    new Point2D(300, 300),
+            //                    new Point2D(10, 300),
+            //                    // Cut out
+            //                    new Point2D(10, 200),
+            //                    new Point2D(200, 80),
+            //                    new Point2D(10, 150)
+            //                }
+            //            ),
+            //            new Polygon( // First inner triangle
+            //                new List<Point2D> {
+            //                    new Point2D(20, 100),
+            //                    new Point2D(175, 60),
+            //                    new Point2D(40, 30)
+            //                }
+            //            ),
+            //            new Polygon( // Second inner triangle
+            //                new List<Point2D> {
+            //                    new Point2D(250, 150),
+            //                    new Point2D(150, 150),
+            //                    new Point2D(250, 200)
+            //                }
+            //            )
+            //        }
+            //    )
+            //);
+            //var setItem = new GraphicItem(set, styles[8])
+            //{
+            //    Name = "Polygon Set"
+            //};
+            //vectorMap.Add(setItem);
 
-            Shape innerPolygon = new Polygon( // First inner triangle
-                            new List<Point2D> {
-                                new Point2D(20, 100),
-                                new Point2D(175, 60),
-                                new Point2D(40, 30)
-                            }
-                        ).Offset(10);
-            var innerPolygonItem = new GraphicItem(innerPolygon, styles[9])
-            {
-                Name = "Inner Polygon Triangle"
-            };
-            vectorMap.Add(innerPolygonItem);
+            //Shape innerPolygon = new Polygon( // First inner triangle
+            //                new List<Point2D> {
+            //                    new Point2D(20, 100),
+            //                    new Point2D(175, 60),
+            //                    new Point2D(40, 30)
+            //                }
+            //            ).Offset(10);
+            //var innerPolygonItem = new GraphicItem(innerPolygon, styles[9])
+            //{
+            //    Name = "Inner Polygon Triangle"
+            //};
+            //vectorMap.Add(innerPolygonItem);
 
-            Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
-            Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
-            Polyline pathPolyline2 = pathPolyline.Offset(-10);
-            pathPolyline2.Reverse();
-            Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
-            GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9])
-            {
-                Name = "Polygon Line"
-            };
-            var polylineSetItem = new GraphicItem(polylineSet, styles[10])
-            {
-                Name = "Polyline Set"
-            };
-            var pathPolylineItem = new GraphicItem(pathPolyline, styles[10])
-            {
-                Name = "Path Polyline"
-            };
+            //Polyline pathPolyline = (set as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
+            //Shape polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
+            //Polyline pathPolyline2 = pathPolyline.Offset(-10);
+            //pathPolyline2.Reverse();
+            //Shape polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
+            //GraphicItem polygonLineItem = new GraphicItem(polygonLine, styles[9])
+            //{
+            //    Name = "Polygon Line"
+            //};
+            //var polylineSetItem = new GraphicItem(polylineSet, styles[10])
+            //{
+            //    Name = "Polyline Set"
+            //};
+            //var pathPolylineItem = new GraphicItem(pathPolyline, styles[10])
+            //{
+            //    Name = "Path Polyline"
+            //};
 
-            vectorMap.Add(polygonLineItem);
-            vectorMap.Add(polylineSetItem);
-            vectorMap.Add(pathPolylineItem);
+            //vectorMap.Add(polygonLineItem);
+            //vectorMap.Add(polylineSetItem);
+            //vectorMap.Add(pathPolylineItem);
 
-            Shape ego = new Circle(innerPolygon.Interpolate(.1), 10);
-            var egoItem = new GraphicItem(ego, styles[5])
-            {
-                Name = "Ego Circle"
-            };
-            vectorMap.Add(egoItem);
+            //Shape ego = new Circle(innerPolygon.Interpolate(.1), 10);
+            //var egoItem = new GraphicItem(ego, styles[5])
+            //{
+            //    Name = "Ego Circle"
+            //};
+            //vectorMap.Add(egoItem);
 
 
             //var text = new Text2D("Test Text.", this.Font, new Point2D(100, 100));
@@ -557,16 +557,16 @@ namespace Editor
             //vectorMap.Add(intersection3NodesItem);
             //vectorMap.Add(intersection2NodesItem);
 
-            var figure = new GeometryPath(new Point2D(150d, 200d));
-            figure.AddLineSegment(new Point2D(200, 200))
-                .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
-                .AddLineSegment(new Point2D(250, 300))
-                .AddArc(50d, 50d, 0d, false, true, new Point2D(200d, 350d))
-                .AddLineSegment(new Point2D(150, 350))
-                .AddArc(50d, 50d, 0d, true, false, new Point2D(100d, 300d))
-                .AddLineSegment(new Point2D(100, 250))
-                .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
-            var figureItem = new GraphicItem(figure, styles[1]);
+            //var figure = new GeometryPath(new Point2D(150d, 200d));
+            //figure.AddLineSegment(new Point2D(200, 200))
+            //    .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
+            //    .AddLineSegment(new Point2D(250, 300))
+            //    .AddArc(50d, 50d, 0d, false, true, new Point2D(200d, 350d))
+            //    .AddLineSegment(new Point2D(150, 350))
+            //    .AddArc(50d, 50d, 0d, true, false, new Point2D(100d, 300d))
+            //    .AddLineSegment(new Point2D(100, 250))
+            //    .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
+            //var figureItem = new GraphicItem(figure, styles[1]);
 
             //var figureBounds = figure.Bounds;
             //var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
@@ -587,10 +587,22 @@ namespace Editor
             //var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, styles[3]);
 
             //vectorMap.Add(figureBoundsItem);
-            vectorMap.Add(figureItem);
+            //vectorMap.Add(figureItem);
             //vectorMap.Add(parametricPointTesterSegmentItem);
             //vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
+
+            var polyOne = new Polygon(new List<Point2D> { (300, 0), (600, 450), (00, 450) });
+            var polyOneItem = new GraphicItem(polyOne, styles[3]);
+            var polyTwo = new Polygon(new List<Point2D> { (00, 150), (600, 150), (300, 600) });
+            var polyTwoItem = new GraphicItem(polyTwo, styles[3]);
+
+            var clips = new PolygonSet(Clip.Diff2(polyOne.Points, polyTwo.Points));
+            var clipsItem = new GraphicItem(clips, styles[6]);
+
+            //vectorMap.Add(polyOneItem);
+            //vectorMap.Add(polyTwoItem);
+            vectorMap.Add(clipsItem);
 
             var foreColor = Color.Black;
             var backColor = Color.White;

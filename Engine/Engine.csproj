@@ -111,6 +111,10 @@
     <Compile Include="Animation\Tweening\Lerpers\Vector3DLerper.cs" />
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
+    <Compile Include="Clipping\GreinerHormann\Clip.cs" />
+    <Compile Include="Clipping\GreinerHormann\ClippingIntersection.cs" />
+    <Compile Include="Clipping\GreinerHormann\ClippingPolygon.cs" />
+    <Compile Include="Clipping\GreinerHormann\ClippingVertex.cs" />
     <Compile Include="Geometry\Enums\ClipingOperations.cs" />
     <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
     <Compile Include="Geometry\Enums\DirectionOrentations.cs" />

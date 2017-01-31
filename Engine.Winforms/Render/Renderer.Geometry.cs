@@ -41,6 +41,19 @@ namespace Engine.Imaging
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
+        public static void Render(this ScreenPoint shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            g.FillRectangle(itemStyle.ForeBrush, (float)shape.X, (float)shape.Y, 1, 1);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
         public static void Render(this LineSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
@@ -221,6 +234,38 @@ namespace Engine.Imaging
             //  Draw the path.
             g.FillPath(itemStyle.BackBrush, path);
             g.DrawPath(itemStyle.ForePen, path);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="shape"></param>
+        /// <param name="style"></param>
+        public static void Render(this BezierSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            GraphicsPath path = new GraphicsPath();
+
+            switch (shape.Points.Length)
+            {
+                case 2:
+                    path.AddLine(shape.Points[0].ToPointF(), shape.Points[1].ToPointF());
+                    break;
+                case 3:
+                    Point2D[] cubic = Interpolaters.QuadraticBezierToCubicBezier(shape.Points[0], shape.Points[1], shape.Points[2]);
+                    path.AddBezier(cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
+                    break;
+                case 4:
+                    path.AddBezier(shape.Points[0].ToPointF(), shape.Points[1].ToPointF(), shape.Points[2].ToPointF(), shape.Points[3].ToPointF());
+                    break;
+                default:
+                    break;
+            }
+
+            g.FillPath((itemStyle).BackBrush, path);
+            g.DrawPath((itemStyle).ForePen, path);
         }
 
         /// <summary>

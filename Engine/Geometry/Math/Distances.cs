@@ -55,60 +55,19 @@ namespace Engine
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
 
         /// <summary>
-        ///
+        /// The square of the distance between two points.
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Point3D p1, Point3D p2)
-            => Distance(p1.X, p1.Y, p1.Z, p2.X, p2.Y, p2.Z);
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance((double X, double Y) p1, (double X, double Y) p2)
-            => Distance(p1.Item1, p1.Item2, p2.Item1, p2.Item2);
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Point2D p1, Point2D p2)
-            => Distance(p1.X, p1.Y, p2.X, p2.Y);
-
-        /// <summary>
-        /// Length of a Vector
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Vector2D a, Vector2D b)
-            => Distance(a.I, a.J, b.I, b.J);
-
-        /// <summary>
-        /// Length of a Segment
-        /// </summary>
-        /// <param name="segment"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this LineSegment segment)
-            => Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+        public static double SquareDistance(
+            double x1, double y1,
+            double x2, double y2)
+            => ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 
         /// <summary>
         /// Returns the Length of a lineSeg.
@@ -153,70 +112,20 @@ namespace Engine
             => Distance(x1, y1, x2, y2);
 
         /// <summary>
-        /// Calculates the Length between two points.
-        /// </summary>
-        /// <param name="point">Starting Point.</param>
-        /// <param name="value">Ending Point.</param>
-        /// <returns>Returns the length of a line segment between two points.</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this Point2D point, Point2D value)
-            => Distance(point.X, point.Y, value.X, value.Y);
-
-        /// <summary>
-        /// Finds the length of a 2D vector
-        /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"> Point</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this Vector2D vector, Vector2D value)
-            => Distance(vector.I, vector.J, value.I, value.J);
-
-        /// <summary>
-        /// Finds the Length between two points
-        /// </summary>
-        /// <param name="segment">line segment</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this LineSegment segment)
-            => Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-
-        /// <summary>
-        /// The square of the distance between two points.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(
-            double x1, double y1,
-            double x2, double y2)
-            => ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-
-        /// <summary>
         /// Find the square of the distance of a point from a line.
         /// </summary>
-        /// <param name="x1">The x component of the Point.</param>
-        /// <param name="y1">The y component of the Point.</param>
         /// <param name="lx2">The x component of the first point on the line.</param>
         /// <param name="ly2">The y component of the first point on the line.</param>
         /// <param name="lx3">The x component of the second point on the line.</param>
         /// <param name="ly3">The y component of the second point on the line.</param>
+        /// <param name="x1">The x component of the Point.</param>
+        /// <param name="y1">The y component of the Point.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistanceToLine(
-            double x1, double y1,
             double lx2, double ly2,
-            double lx3, double ly3)
+            double lx3, double ly3,
+            double x1, double y1)
         {
             double A = ly2 - ly3;
             double B = lx3 - lx2;
@@ -244,6 +153,48 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircleCircumference(double r)
             => 2d * r * PI;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
+        /// </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double EllipsePerimeter(double a, double b)
+            => 4d * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start">Start.</param>
+        /// <param name="end">End.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="endAngle">Sweep Angle.</param>
+        /// <returns></returns>
+        public static double EllipticalArcPerimeter(Point2D start, Point2D end, double startAngle, double endAngle)
+            => EllipticalArcPerimeter(start.X, start.Y, end.X, end.Y, startAngle, endAngle);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="startX"></param>
+        /// <param name="startY"></param>
+        /// <param name="endX"></param>
+        /// <param name="endY"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="endAngle">Sweep Angle.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.iosrjournals.org/iosr-jm/papers/Vol3-issue2/B0320813.pdf
+        /// http://mathforum.org/kb/servlet/JiveServlet/download/130-2391290-7852023-766514/PERIMETER%20OF%20THE%20ELLIPTICAL%20ARC%20A%20GEOMETRIC%20METHOD.pdf
+        /// </remarks>
+        public static double EllipticalArcPerimeter(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
+            => (/*ChordLength*/(Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY)))
+            / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle))))
+            * (startAngle - endAngle);
 
         /// <summary>
         /// 
@@ -336,48 +287,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipsePerimeter(double a, double b)
-            => 4d * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="start">Start.</param>
-        /// <param name="end">End.</param>
-        /// <param name="startAngle"></param>
-        /// <param name="endAngle">Sweep Angle.</param>
-        /// <returns></returns>
-        public static double EllipticalArcPerimeter(Point2D start, Point2D end, double startAngle, double endAngle)
-            => EllipticalArcPerimeter(start.X, start.Y, end.X, end.Y, startAngle, endAngle);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="startX"></param>
-        /// <param name="startY"></param>
-        /// <param name="endX"></param>
-        /// <param name="endY"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="endAngle">Sweep Angle.</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://www.iosrjournals.org/iosr-jm/papers/Vol3-issue2/B0320813.pdf
-        /// http://mathforum.org/kb/servlet/JiveServlet/download/130-2391290-7852023-766514/PERIMETER%20OF%20THE%20ELLIPTICAL%20ARC%20A%20GEOMETRIC%20METHOD.pdf
-        /// </remarks>
-        public static double EllipticalArcPerimeter(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
-            => (/*ChordLength*/(Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY)))
-            / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle))))
-            * (startAngle - endAngle);
-
-        /// <summary>
         /// Closed-form solution to elliptic integral for arc length.
         /// </summary>
         /// <param name="ax">The starting x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
@@ -413,19 +322,6 @@ namespace Engine
             double ba = b / a2;
 
             return (a32 * abc + a2 * b * (abc - c2) + (4d * c * a - b * b) * Log((2d * a2 + ba + abc) / (ba + c2))) / (4d * a32);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(IEnumerable polygon)
-        {
-            List<Point2D> points = (polygon as List<Point2D>);
-            return points.Count > 0 ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0d;
         }
     }
 }

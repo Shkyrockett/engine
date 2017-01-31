@@ -1871,7 +1871,11 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MinMax(double x, double min, double max)
-            => (x < min) ? min : (x > max) ? max : x;
+            => (x < min)
+            ? min
+            : (x > max)
+            ? max
+            : x;
 
         /// <summary>
         ///

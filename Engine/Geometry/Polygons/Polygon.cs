@@ -132,7 +132,8 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public int Count => points.Count;
+        public int Count
+            => points.Count;
 
         /// <summary>
         /// 
@@ -141,7 +142,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
-            => Distances.PolygonPerimeter(points);
+            => Primitives.PolygonPerimeter(points);
 
         /// <summary>
         /// 
@@ -237,6 +238,8 @@ namespace Engine
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
         {
             if (t == 0 || t == 1) return points[0];
@@ -249,7 +252,7 @@ namespace Engine
             // Build up the weights map.
             for (int i = 1; i < points.Count + 1; i++)
             {
-                double curentLength = Distances.Length(cursor, (i == points.Count) ? points[0] : points[i]);
+                double curentLength = Primitives.Length(cursor, (i == points.Count) ? points[0] : points[i]);
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
                 cursor = (i == points.Count) ? points[0] : points[i];
@@ -262,7 +265,7 @@ namespace Engine
             {
                 if (weights[i].accumulated <= accumulatedLengthT)
                 {
-                    // Interpolate the possition.
+                    // Interpolate the position.
                     double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
                     cursor = Interpolaters.Linear(points[i], (i == points.Count - 1) ? points[0] : points[i + 1], th);
                     break;

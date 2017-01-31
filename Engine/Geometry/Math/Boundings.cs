@@ -426,7 +426,7 @@ namespace Engine
             var b = 6 * ax - 12 * bx + 6 * cx;
             var c = -3 * ax + 3 * bx;
 
-            // Calculate the descriminant of the polynomial.
+            // Calculate the discriminant of the polynomial.
             var discriminant = b * b - 4 * a * c;
 
             // Find the high and low x ends.
@@ -445,7 +445,7 @@ namespace Engine
                     if (x1 > xhigh) xhigh = x1;
                 }
 
-                // Find the negitive solution using the quadratic formula.
+                // Find the negative solution using the quadratic formula.
                 var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 if (t2 > 0 && t2 < 1)

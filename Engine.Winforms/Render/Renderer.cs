@@ -61,6 +61,9 @@ namespace Engine.Imaging
                 case Logarithm t:
                     t.Render(g, item, style as TextStyle);
                     break;
+                case ScreenPoint t:
+                    t.Render(g, item, style as ShapeStyle);
+                    break;
                 case LineSegment t: // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
                     t.Render(g, item, style as ShapeStyle);
                     break;
@@ -94,6 +97,9 @@ namespace Engine.Imaging
                 case Ellipse t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
+                case BezierSegment t:
+                    t.Render(g, item, style as ShapeStyle);
+                    break;
                 case CubicBezier t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
@@ -119,7 +125,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            var itemStyle = style ?? (ShapeStyle)item.Style;
+            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.DrawString(shape.Text, shape.Font, itemStyle.ForeBrush, shape.Bounds.ToRectangleF());
         }
     }

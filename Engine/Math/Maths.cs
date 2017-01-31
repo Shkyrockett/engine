@@ -216,7 +216,9 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
-            => value < 0 ? -Pow(-value, 1d / 3d) : Pow(value, 1d / 3d);
+            => value < 0
+            ? -Pow(-value, OneThird)
+            : Pow(value, OneThird);
 
         /// <summary>
         /// 

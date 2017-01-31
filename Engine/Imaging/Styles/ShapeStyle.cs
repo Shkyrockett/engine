@@ -133,7 +133,11 @@ namespace Engine.Imaging
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [NotifyParentProperty(true)]
-        public Brush ForeBrush { get; set; }
+        public Brush ForeBrush
+        {
+            get { return ForePen.Brush; }
+            set { ForePen.Brush = value; }
+        }
 
         /// <summary>
         /// 

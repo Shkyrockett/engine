@@ -28,9 +28,46 @@ namespace Engine
         /// </remarks>
         public static void Add<T>(ref T[] array, T t)
         {
-            int newSize = array.Length + 1;
-            Array.Resize(ref array, newSize);
-            array[newSize - 1] = t;
+            Array.Resize(ref array, array.Length + 1);
+            array[array.Length - 1] = t;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static T[] Add<T>(this T[] array, T t)
+        {
+            array.Add(t);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        public static void RemoveAt<T>(ref T[] array, int index)
+        {
+            if (index < array.Length - 1)
+                Array.Copy(array, index + 1, array, index, array.Length - index - 1);
+            Array.Resize(ref array, array.Length - 1);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static T[] RemoveAt<T>(this T[] array, int index)
+        {
+            array.RemoveAt(index);
+            return array;
         }
 
         /// <summary>

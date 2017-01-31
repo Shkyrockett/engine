@@ -98,7 +98,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this LineSegment seg, Point2D point)
-            => Intersectings.LineSegmentPoint(seg.AX,seg.AY,seg.BX,seg.BY,point.X,point.Y) ? Inclusion.Boundary : Inclusion.Outside;
+            => Intersections.PointLineSegmentIntersects(point.X, point.Y, seg.AX, seg.AY, seg.BX, seg.BY) ? Inclusion.Boundary : Inclusion.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.

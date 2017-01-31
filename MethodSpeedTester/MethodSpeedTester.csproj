@@ -97,6 +97,7 @@
     <Compile Include="Experemental\Bezier\Arc1.cs" />
     <Compile Include="Experemental\Agnesi.cs" />
     <Compile Include="Experemental\Bezier\Bezier.cs" />
+    <Compile Include="Experemental\Bezier\Polynomialx.cs" />
     <Compile Include="Experemental\Bicorn.cs" />
     <Compile Include="Experemental\Bow.cs" />
     <Compile Include="Experemental\Butterfly.cs" />
@@ -112,13 +113,13 @@
     <Compile Include="Experemental\Heart.cs" />
     <Compile Include="Experemental\Hermite.cs" />
     <Compile Include="Experemental\Hyperbola.cs" />
-    <Compile Include="Experemental\Line.cs" />
+    <Compile Include="Experemental\Intersection\IntersectionParams.cs" />
+    <Compile Include="Experemental\Intersection\Intersectionx.cs" />
     <Compile Include="Experemental\NGonStar.cs" />
     <Compile Include="Experemental\NonIntStar.cs" />
     <Compile Include="Experemental\Parabola.cs" />
     <Compile Include="Experemental\Bezier\PolyBezier.cs" />
     <Compile Include="Experemental\PolyPath.cs" />
-    <Compile Include="Experemental\Ray.cs" />
     <Compile Include="Experemental\RoundedRectangle2.cs" />
     <Compile Include="Experemental\RoundRectangle.cs" />
     <Compile Include="Experemental\Sine.cs" />
@@ -157,7 +158,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ptinpoly.cs" />
+    <Compile Include="Experemental\Ptinpoly.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="Experemental\Bezier\Shape1.cs" />
     <Compile Include="SpeedTester.cs" />
@@ -214,9 +215,7 @@
       <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Experemental\Intersection\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

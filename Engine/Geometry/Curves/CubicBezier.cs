@@ -179,6 +179,15 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<Point2D> Points
+            => new List<Point2D> { A, B, C, D };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

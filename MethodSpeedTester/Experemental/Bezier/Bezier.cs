@@ -422,8 +422,8 @@ namespace Engine
             int l = LUT.Count - 1;
 
             (double X, double Y) closest = Utilities.Closest(LUT, point);
-            double mdist = closest.Item1;
-            double mpos = closest.Item2;
+            double mdist = closest.X;
+            double mpos = closest.Y;
             if (mpos == 0 || mpos == l)
             {
                 double t0 = mpos / l;

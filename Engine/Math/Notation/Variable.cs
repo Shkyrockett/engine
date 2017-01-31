@@ -7,7 +7,6 @@
 // <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 
-
 namespace Engine.MathNotation
 {
     /// <summary>

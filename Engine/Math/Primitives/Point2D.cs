@@ -305,49 +305,6 @@ namespace Engine
             => !Equals(left, right);
 
         /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Point2D a, Point2D b)
-            => Equals(a, b);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Point2D a, Point2D b)
-            => (a.X == b.X) & (a.Y == b.Y);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Point2D && Equals(this, (Point2D)obj);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Point2D value)
-            => Equals(this, value);
-
-        /// <summary>
         /// Explicit conversion to <see cref="Size2D"/>.
         /// Note that since Size cannot contain negative values,
         /// the resulting size will contains the absolute values of X and Y
@@ -384,26 +341,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Point2D((double X, double Y) tuple)
             => new Point2D(tuple);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="that"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Min(Point2D that)
-            => new Point2D(Math.Min(X, that.X), Math.Min(Y, that.Y));
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="that"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Max(Point2D that)
-            => new Point2D(Math.Max(X, that.X), Math.Max(Y, that.Y));
 
         #endregion
 
@@ -464,6 +401,49 @@ namespace Engine
         public override int GetHashCode()
             => X.GetHashCode()
             ^ Y.GetHashCode();
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Point2D a, Point2D b)
+            => Equals(a, b);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Point2D a, Point2D b)
+            => (a.X == b.X) & (a.Y == b.Y);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => obj is Point2D && Equals(this, (Point2D)obj);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Point2D value)
+            => Equals(this, value);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point2D"/>.

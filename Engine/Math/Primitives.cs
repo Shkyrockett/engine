@@ -14,6 +14,9 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -508,6 +511,87 @@ namespace Engine
 
         #endregion
 
+        #region Append
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static int[] Add(this int[] array, int t)
+        {
+            ArrayUtilities.Add(ref array, t);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static float[] Add(this float[] array, float t)
+        {
+            ArrayUtilities.Add(ref array, t);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static double[] Add(this double[] array, double t)
+        {
+            ArrayUtilities.Add(ref array, t);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static Point2D[] Add(this Point2D[] array, Point2D t)
+        {
+            ArrayUtilities.Add(ref array, t);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static Point3D[] Add(this Point3D[] array, Point3D t)
+        {
+            ArrayUtilities.Add(ref array, t);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static Vector2D[] Add(this Vector2D[] array, Vector2D t)
+        {
+            ArrayUtilities.Add(ref array, t);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="t"></param>
+        public static Vector3D[] Add(this Vector3D[] array, Vector3D t)
+        {
+            ArrayUtilities.Add(ref array, t);
+            return array;
+        }
+
+        #endregion
+
         #region Center
 
         /// <summary>
@@ -724,7 +808,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public static Orientation ToEulerAngles(this QuaternionD quaternion)
-            => QuaternionToEulerAngles(quaternion.X,quaternion.Y,quaternion.Z,quaternion.W);
+            => QuaternionToEulerAngles(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
         #endregion
 
@@ -983,6 +1067,19 @@ namespace Engine
                 (w * num) - num10);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="divisor"></param>
+        /// <param name="divedend"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Divide(this Polynomial divisor, double divedend)
+        {
+            for (var i = 0; i < divisor.Coefficients.Length; i++)
+                divisor.Coefficients[i] /= divedend;
+        }
+
         #endregion
 
         #region Dot Product
@@ -1131,6 +1228,84 @@ namespace Engine
 
             return returnvalue;
         }
+
+        #endregion
+
+        #region Equals
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(this Point2D point1, Point2D point2)
+            => (point1.X == point2.X && point1.Y == point2.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(this Vector2D point1, Vector2D point2)
+            => (point1.I == point2.I && point1.J == point2.J);
+
+        #endregion
+
+        #region Greater Than
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GreaterThan(this Point2D point1, Point2D point2)
+            => (point1.X > point2.X && point1.Y > point2.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GreaterThan(this Vector2D point1, Vector2D point2)
+            => (point1.I > point2.I && point1.J > point2.J);
+
+        #endregion
+
+        #region Greater Than or Equal to
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GreaterThanOrEqual(this Point2D point1, Point2D point2)
+            => (point1.X >= point2.X && point1.Y >= point2.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GreaterThanOEqual(this Vector2D point1, Vector2D point2)
+            => (point1.I >= point2.I && point1.J >= point2.J);
 
         #endregion
 
@@ -1436,6 +1611,108 @@ namespace Engine
         #region Length
 
         /// <summary>
+        /// Distance between two tuple points.
+        /// </summary>
+        /// <param name="p1">First point.</param>
+        /// <param name="p2">Second point.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this(double X, double Y) p1, (double X, double Y) p2)
+            => Distances.Distance(p1.X, p1.Y, p2.X, p2.Y);
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="p1">First point.</param>
+        /// <param name="p2">Second point.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Point2D p1, Point2D p2)
+            => Distances.Distance(p1.X, p1.Y, p2.X, p2.Y);
+
+        /// <summary>
+        /// Calculates the Length between two points.
+        /// </summary>
+        /// <param name="point">Starting Point.</param>
+        /// <param name="value">Ending Point.</param>
+        /// <returns>Returns the length of a line segment between two points.</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Point2D point, Point2D value)
+            => Distances.Distance(point.X, point.Y, value.X, value.Y);
+
+        /// <summary>
+        /// Length of a Vector.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Vector2D a, Vector2D b)
+            => Distances.Distance(a.I, a.J, b.I, b.J);
+
+        /// <summary>
+        /// Finds the length of a 2D vector
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="value"> Point</param>
+        /// <returns>The Length between two Points</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Vector2D vector, Vector2D value)
+            => Distances.Distance(vector.I, vector.J, value.I, value.J);
+
+        /// <summary>
+        /// Distance between two points.
+        /// </summary>
+        /// <param name="p1">First point.</param>
+        /// <param name="p2">Second point.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Point3D p1, Point3D p2)
+            => Distances.Distance(p1.X, p1.Y, p1.Z, p2.X, p2.Y, p2.Z);
+
+        /// <summary>
+        /// The length of a vector.
+        /// </summary>
+        /// <param name="p1">First vector.</param>
+        /// <param name="p2">Second vector.</param>
+        /// <returns>The distance between two points.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Vector3D p1, Vector3D p2)
+            => Distances.Distance(p1.I, p1.J, p1.K, p2.I, p2.J, p2.K);
+
+        /// <summary>
+        /// Length of a Segment
+        /// </summary>
+        /// <param name="segment"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this LineSegment segment)
+            => Distances.Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+
+        /// <summary>
+        /// Finds the Length between two points
+        /// </summary>
+        /// <param name="segment">line segment</param>
+        /// <returns>The Length between two Points</returns>
+        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this LineSegment segment)
+            => Distances.Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="quaternion"></param>
@@ -1444,6 +1721,42 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this QuaternionD quaternion)
             => Sqrt(LengthSquared(quaternion));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double PolygonPerimeter(this Point2D[] polygon)
+        {
+            Point2D[] points = polygon;
+            return points.Length > 0 ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Length - 1]) : 0d;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double PolygonPerimeter(this IEnumerable<Point2D> polygon)
+            => PolygonPerimeter(polygon as List<Point2D>);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double PolygonPerimeter(this List<Point2D> polygon)
+        {
+            List<Point2D> points = polygon;
+            return points.Count > 0 ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0d;
+        }
 
         #endregion
 
@@ -1464,7 +1777,89 @@ namespace Engine
 
         #endregion
 
-        #region Lerp
+        #region Less Than
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LessThan(this Point2D point1, Point2D point2)
+            => (point1.X < point2.X && point1.Y < point2.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LessThan(this Vector2D point1, Vector2D point2)
+            => (point1.I < point2.I && point1.J < point2.J);
+
+        #endregion
+
+        #region Less Than or Equal to
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LessThanOrEqual(this Point2D point1, Point2D point2)
+            => (point1.X <= point2.X && point1.Y <= point2.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LessThanOrEqual(this Vector2D point1, Vector2D point2)
+            => (point1.I <= point2.I && point1.J <= point2.J);
+
+        #endregion
+
+        #region Linear Interpolation
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Point2D Lerp(this Point2D point1, Point2D point2, double t)
+            => new Point2D(point1.X + (point2.X - point1.X) * t, point1.Y + (point2.Y - point1.Y) * t);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Vector2D Lerp(this Vector2D point1, Vector2D point2, double t)
+            => new Vector2D(point1.I + (point2.I - point1.I) * t, point1.J + (point2.J - point1.J) * t);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Size2D Lerp(this Size2D point1, Size2D point2, double t)
+            => new Size2D(point1.Width + (point2.Width - point1.Width) * t, point1.Height + (point2.Height - point1.Height) * t);
 
         /// <summary>
         /// 
@@ -1547,6 +1942,58 @@ namespace Engine
 
             return returnvalue;
         }
+
+        #endregion
+
+        #region Max
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Max(this Point2D point1, Point2D point2)
+            => new Point2D(Math.Max(point1.X, point2.X), Math.Max(point1.Y, point2.Y));
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Max(this Vector2D point1, Vector2D point2)
+            => new Vector2D(Math.Max(point1.I, point2.I), Math.Max(point1.J, point2.J));
+
+        #endregion
+
+        #region Min
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Min(this Point2D point1, Point2D point2)
+            => new Point2D(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y));
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Min(this Vector2D point1, Vector2D point2)
+            => new Vector2D(Math.Min(point1.I, point2.I), Math.Min(point1.J, point2.J));
 
         #endregion
 
@@ -1768,6 +2215,23 @@ namespace Engine
                 (w * num) - num9);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Polynomial Multiply(this Polynomial left, Polynomial right)
+        {
+            var result = new Polynomial();
+            for (var i = 0; i <= Degree + right.Degree; i++)
+                result.Coefficients.Add(0);
+            for (var i = 0; i <= Degree; i++)
+                for (var j = 0; j <= right.Degree; j++)
+                    result.Coefficients[i + j] += left.Coefficients[i] * right.Coefficients[j];
+            return result;
+        }
+
         #endregion
 
         #region Negate
@@ -1983,6 +2447,65 @@ namespace Engine
         //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
         //        );
         //}
+
+        #endregion
+
+        #region Remove At
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        public static double[] RemoveAt(this double[] array, int index)
+        {
+            ArrayUtilities.RemoveAt(ref array, index);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        public static Point2D[] RemoveAt(this Point2D[] array, int index)
+        {
+            ArrayUtilities.RemoveAt(ref array, index);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        public static Point3D[] RemoveAt(this Point3D[] array, int index)
+        {
+            ArrayUtilities.RemoveAt(ref array, index);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        public static Vector2D[] RemoveAt(this Vector2D[] array, int index)
+        {
+            ArrayUtilities.RemoveAt(ref array, index);
+            return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        public static Vector3D[] RemoveAt(this Vector3D[] array, int index)
+        {
+            ArrayUtilities.RemoveAt(ref array, index);
+            return array;
+        }
 
         #endregion
 

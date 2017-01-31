@@ -43,13 +43,36 @@ namespace Engine
         /// Initializes a default instance of the <see cref="PolylineSet"/> class.
         /// </summary>
         public PolylineSet()
-            => polylines = new List<Polyline>();
+            : this(new List<Polyline>())
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolylineSet"/> class from a parameter list.
+        /// </summary>
+        /// <param name="polylines"></param>
+        public PolylineSet(params IEnumerable<Point2D>[] polylines)
+            :this(new List<List<Point2D>>(polylines as List<Point2D>[]))
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolylineSet"/> class.
         /// </summary>
         public PolylineSet(IEnumerable<Polyline> polylines)
             => this.polylines = polylines as List<Polyline>;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolylineSet"/> class.
+        /// </summary>
+        /// <param name="polylines"></param>
+        public PolylineSet(IEnumerable<List<Point2D>> polylines)
+        {
+            this.polylines = new List<Polyline>();
+
+            foreach (var list in polylines)
+            {
+                this.polylines.Add(new Polyline(list));
+            }
+        }
 
         #endregion
 

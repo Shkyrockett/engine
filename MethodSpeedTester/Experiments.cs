@@ -1447,8 +1447,8 @@ namespace MethodSpeedTester
             double PointCX, double PointCY)
         {
             (double X, double Y) Center = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            double Radius = Distance2D_0(Center.Item1, Center.Item2, PointAX, PointAY);
-            return Rectangle2D.FromLTRB((Center.Item1 - Radius), (Center.Item2 - Radius), (Center.Item1 + Radius), (Center.Item2 + Radius));
+            double Radius = Distance2D_0(Center.X, Center.Y, PointAX, PointAY);
+            return Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
         }
 
         /// <summary>
@@ -1780,8 +1780,8 @@ namespace MethodSpeedTester
             double PointCX, double PointCY)
         {
             (double X, double Y) center = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            double radius = Distance2D_0(center.Item1, center.Item2, PointAX, PointAY);
-            return new Circle(new Point2D(center.Item1, center.Item2), radius);
+            double radius = Distance2D_0(center.X, center.Y, PointAX, PointAY);
+            return new Circle(new Point2D(center.X, center.Y), radius);
         }
 
         /// <summary>
@@ -2929,11 +2929,11 @@ namespace MethodSpeedTester
             // point between c and d
             (double X, double Y) cd = LinearInterpolate2D_0(x2, y2, x3, y3, t);
             // point between ab and bc
-            (double X, double Y) abbc = LinearInterpolate2D_0(ab.Item1, ab.Item2, bc.Item1, bc.Item2, t);
+            (double X, double Y) abbc = LinearInterpolate2D_0(ab.X, ab.Y, bc.X, bc.Y, t);
             // point between bc and cd
-            (double X, double Y) bccd = LinearInterpolate2D_0(bc.Item1, bc.Item2, cd.Item1, cd.Item2, t);
+            (double X, double Y) bccd = LinearInterpolate2D_0(bc.X, bc.Y, cd.X, cd.Y, t);
             // point on the bezier-curve
-            return LinearInterpolate2D_0(abbc.Item1, abbc.Item2, bccd.Item1, bccd.Item2, t);
+            return LinearInterpolate2D_0(abbc.X, abbc.Y, bccd.X, bccd.Y, t);
         }
 
         /// <summary>
@@ -3352,8 +3352,8 @@ namespace MethodSpeedTester
         public static double Distance2D_1(
             (double X, double Y) a,
             (double X, double Y) b)
-            => Sqrt((b.Item1 - a.Item1) * (b.Item1 - a.Item1)
-                + (b.Item2 - a.Item2) * (b.Item1 - a.Item2));
+            => Sqrt((b.X - a.X) * (b.X - a.X)
+                + (b.Y - a.Y) * (b.X - a.Y));
 
         /// <summary>
         /// Distance between two 2D points.
@@ -3366,9 +3366,10 @@ namespace MethodSpeedTester
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance2D_2(
-        double x1, double y1,
-        double x2, double y2) => Sqrt((x2 - x1) * (x2 - x1)
-        + (y2 - y1) * (y2 - y1));
+            double x1, double y1,
+            double x2, double y2)
+                => Sqrt((x2 - x1) * (x2 - x1)
+                + (y2 - y1) * (y2 - y1));
 
         /// <summary>
         /// Distance between two 2D points.
@@ -3379,6 +3380,7 @@ namespace MethodSpeedTester
         /// <param name="y2">Second Y component.</param>
         /// <returns>The distance between two points.</returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance2D_3(
             double x1, double y1,
             double x2, double y2)
@@ -3386,6 +3388,36 @@ namespace MethodSpeedTester
             double x = (x2 - x1);
             double y = (y2 - y1);
             return Sqrt(x * x + y * y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(Point2D point1, Point2D point2)
+        {
+            var dx = point1.X - point2.X;
+            var dy = point1.Y - point2.Y;
+            return Sqrt(dx * dx + dy * dy);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vector1"></param>
+        /// <param name="vector2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(Vector2D vector1, Vector2D vector2)
+        {
+            var dx = vector1.I - vector2.I;
+            var dy = vector1.J - vector2.J;
+            return Sqrt(dx * dx + dy * dy);
         }
 
         #endregion
@@ -3653,7 +3685,7 @@ namespace MethodSpeedTester
         public static double DotProduct(
             (double X, double Y, double Z) tuple,
             double x2, double y2, double z2)
-            => DotProduct(tuple.Item1, tuple.Item2, tuple.Item3, x2, y2, z2);
+            => DotProduct(tuple.X, tuple.Y, tuple.Z, x2, y2, z2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -3666,8 +3698,8 @@ namespace MethodSpeedTester
             (double X, double Y, double Z) tuple1,
             (double X, double Y, double Z) tuple2)
             => DotProduct(
-                tuple1.Item1, tuple1.Item2, tuple1.Item3,
-                tuple2.Item1, tuple2.Item2, tuple2.Item3
+                tuple1.X, tuple1.Y, tuple1.Z,
+                tuple2.X, tuple2.Y, tuple2.Z
                 );
 
         #endregion
@@ -5315,12 +5347,12 @@ namespace MethodSpeedTester
         {
             double t;
 
-            double dx = point2.Item1 - point1.Item1;
-            double dy = point2.Item2 - point1.Item2;
+            double dx = point2.X - point1.X;
+            double dy = point2.Y - point1.Y;
 
             double A = dx * dx + dy * dy;
-            double B = 2 * (dx * (point1.Item1 - center.Item1) + dy * (point1.Item2 - center.Item2));
-            double C = (point1.Item1 - center.Item1) * (point1.Item1 - center.Item1) + (point1.Item2 - center.Item2) * (point1.Item2 - center.Item2) - radius * radius;
+            double B = 2 * (dx * (point1.X - center.X) + dy * (point1.Y - center.Y));
+            double C = (point1.X - center.X) * (point1.X - center.X) + (point1.Y - center.Y) * (point1.Y - center.Y) - radius * radius;
 
             (double X, double Y) intersection1;
             (double X, double Y) intersection2;
@@ -7026,7 +7058,8 @@ namespace MethodSpeedTester
         /// true if the specified value is valid; otherwise, returns false.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsValid(double value) => !double.IsNaN(value) && !double.IsInfinity(value);
+        public static bool IsValid(double value)
+			=> !double.IsNaN(value) && !double.IsInfinity(value);
 
         /// <summary>
         /// This function is used to ensure that a floating point number is
@@ -8434,7 +8467,7 @@ namespace MethodSpeedTester
             double dist = 0;
             foreach (var cur in points.Skip(1))
             {
-                dist += Distance2D_0(last.Item1, last.Item2, cur.Item1, cur.Item2);
+                dist += Distance2D_0(last.X, last.Y, cur.X, cur.Y);
                 last = cur;
             }
             return dist;
@@ -10004,7 +10037,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         [DisplayName(nameof(RoundTests))]
-        public static List<SpeedTester> PointOnLineSegmentTests() => new List<SpeedTester> {
+        public static List<SpeedTester> PointOnLineSegmentTests()
+			=> new List<SpeedTester> {
                 new SpeedTester(() => PointOnLineSegment(1, 1, 2, 2, 1.5, 1.5),
                 $"{nameof(Experiments.PointOnLineSegment)}(1, 1, 2, 2, 1.5, 1.5)"),
                 new SpeedTester(() => PointLineSegment(1, 1, 2, 2, 1.5, 1.5),
@@ -10342,7 +10376,7 @@ namespace MethodSpeedTester
             // point between b and c
             (double X, double Y) bc = LinearInterpolate2D_0(x1, y1, x2, y2, t);
             // point on the bezier-curve
-            return LinearInterpolate2D_0(ab.Item1, ab.Item2, bc.Item1, bc.Item2, t);
+            return LinearInterpolate2D_0(ab.X, ab.Y, bc.X, bc.Y, t);
         }
 
         #endregion
@@ -10417,7 +10451,7 @@ namespace MethodSpeedTester
             // point between b and c
             (double X, double Y, double Z) bc = LinearInterpolate3D_0(x1, y1, z1, x2, y2, z2, t);
             // point on the bezier-curve
-            return LinearInterpolate3D_0(ab.Item1, ab.Item2, ab.Item3, bc.Item1, bc.Item2, bc.Item3, t);
+            return LinearInterpolate3D_0(ab.X, ab.Y, ab.Z, bc.X, bc.Y, bc.Z, t);
         }
 
         #endregion
@@ -10632,7 +10666,8 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static void RemovePoint(Polygon polygon, int target) => polygon.Points.RemoveAt(target);
+        public static void RemovePoint(Polygon polygon, int target)
+			=> polygon.Points.RemoveAt(target);
 
         /// <summary>
         /// Remove point target from the array.
@@ -11106,13 +11141,13 @@ namespace MethodSpeedTester
             return 0;
         }
 
-        public static (double, double) SinCos0(double radian) =>
+        public static (double, double) SinCos0(double radian)
             // lookup, if not exists add to table and return the result.
-            sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
+            => sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
 
-        public static (double, double) SinCos1(double radian) =>
+        public static (double, double) SinCos1(double radian)
             // lookup and replace with same value, or add if not exists.
-            (sinCosTable[radian] = sinCosTable.GetValueOrDefault(radian) ?? (Sin(radian), Cos(radian))).Value;
+            => (sinCosTable[radian] = sinCosTable.GetValueOrDefault(radian) ?? (Sin(radian), Cos(radian))).Value;
 
         private static (double, double) SinCos2(double radian)
         {
@@ -11606,7 +11641,7 @@ namespace MethodSpeedTester
                     {
                         if (LineInPolygonSet(polygons, (Point2D)pointList[i], (Point2D)pointList[j]))
                         {
-                            newDist = pointList[i].TotalDistance + Distances.Distance((Point2D)pointList[i], (Point2D)pointList[j]);
+                            newDist = pointList[i].TotalDistance + Distance((Point2D)pointList[i], (Point2D)pointList[j]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -11731,7 +11766,7 @@ namespace MethodSpeedTester
                     {
                         if (polygons.Contains((Point2D)pointList[ti], (Point2D)pointList[tj]))
                         {
-                            newDist = pointList[ti].TotalDistance + Distances.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
+                            newDist = pointList[ti].TotalDistance + Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;

@@ -22,7 +22,7 @@ namespace MethodSpeedTester
         /// <param name="tuple"></param>
         /// <returns></returns>
         public static Point ToPoint(this (double X, double Y) tuple)
-            => new Point((int)tuple.Item1, (int)tuple.Item2);
+            => new Point((int)tuple.X, (int)tuple.Y);
 
         /// <summary>
         /// 
@@ -30,7 +30,7 @@ namespace MethodSpeedTester
         /// <param name="tuple"></param>
         /// <returns></returns>
         public static PointF ToPointF(this (double X, double Y) tuple)
-            => new PointF((float)tuple.Item1, (float)tuple.Item2);
+            => new PointF((float)tuple.X, (float)tuple.Y);
 
         /// <summary>
         /// 

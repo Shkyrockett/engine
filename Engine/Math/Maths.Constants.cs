@@ -226,6 +226,11 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        public const double Zero = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const double OneSixtyfourth = 1d / 64d;
 
         /// <summary>
@@ -553,6 +558,11 @@ namespace Engine
         /// </summary>
         public const double One = 1d;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double OneTwentySeventh = 1 / 27;
+
         #endregion
 
         #region Logarithms
@@ -581,6 +591,21 @@ namespace Engine
         /// The base 10 natural log.
         /// </summary>
         public const double LN10 = 2.30258509299404568402d;
+
+        /// <summary>
+        /// The Log of Two.
+        /// </summary>
+        public static readonly double LogTwo = Log(2);
+
+        /// <summary>
+        /// The Log of Ten.
+        /// </summary>
+        public static readonly double LogTen = Log(10);
+
+        /// <summary>
+        /// The inverse of the log of two.
+        /// </summary>
+        public static readonly double InverseLogTwo = 1 / LogTwo;
 
         #endregion
 

@@ -1,4 +1,4 @@
-﻿// <copyright file="EmptyLocus.cs" company="Shkyrockett" >
+﻿// <copyright file="CoincidentLineLocus.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -12,10 +12,14 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    /// <remarks>
-    /// http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
-    /// </remarks>
-    public class EmptyLocus
+    /// <remarks> http://stackoverflow.com/a/2258178 </remarks>
+    public class CoincidentLineLocus
         : Locus
-    { }
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public CoincidentLineLocus()
+        { }
+    }
 }

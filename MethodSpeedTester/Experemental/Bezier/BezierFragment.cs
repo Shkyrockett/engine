@@ -34,12 +34,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        Polynomial mCurveX;
+        Polynomialx mCurveX;
 
         /// <summary>
         /// 
         /// </summary>
-        Polynomial mCurveY;
+        Polynomialx mCurveY;
 
         /// <summary>
         /// 
@@ -84,7 +84,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Polynomial CurveX
+        public Polynomialx CurveX
         {
             get
             {
@@ -100,7 +100,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Polynomial CurveY
+        public Polynomialx CurveY
         {
             get
             {
@@ -178,7 +178,7 @@ namespace Engine
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public static Polynomial Bezier(params double[] values)
+        public static Polynomialx Bezier(params double[] values)
         {
             if (values == null || values.Length < 1)
                 throw new ArgumentNullException();
@@ -192,22 +192,22 @@ namespace Engine
         /// <param name="to"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        static Polynomial Bezier(int from, int to, double[] values)
+        static Polynomialx Bezier(int from, int to, double[] values)
         {
             if (from == to)
-                return new Polynomial(values[from]);
+                return new Polynomialx(values[from]);
             return OneMinusT * Bezier(from, to - 1, values) + T * Bezier(from + 1, to, values);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        static readonly Polynomial T = new Polynomial(0, 1);
+        static readonly Polynomialx T = new Polynomialx(0, 1);
 
         /// <summary>
         /// 
         /// </summary>
-        static readonly Polynomial OneMinusT = 1 - T;
+        static readonly Polynomialx OneMinusT = 1 - T;
 
         /// <summary>
         /// 
@@ -215,9 +215,9 @@ namespace Engine
         /// <param name="p0"></param>
         /// <param name="p1"></param>
         /// <returns></returns>
-        public static Polynomial Line(double p0, double p1)
+        public static Polynomialx Line(double p0, double p1)
         {
-            var T = new Polynomial(0, 1);
+            var T = new Polynomialx(0, 1);
             return (1 - T) * p0 + T * p1;
         }
 
@@ -228,9 +228,9 @@ namespace Engine
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static Polynomial Quadratic(double p0, double p1, double p2)
+        public static Polynomialx Quadratic(double p0, double p1, double p2)
         {
-            var T = new Polynomial(0, 1);
+            var T = new Polynomialx(0, 1);
             return (1 - T) * Line(p0, p1) + T * Line(p1, p2);
         }
 
@@ -242,9 +242,9 @@ namespace Engine
         /// <param name="p2"></param>
         /// <param name="p3"></param>
         /// <returns></returns>
-        public static Polynomial Cubic(double p0, double p1, double p2, double p3)
+        public static Polynomialx Cubic(double p0, double p1, double p2, double p3)
         {
-            var T = new Polynomial(0, 1);
+            var T = new Polynomialx(0, 1);
             return (1 - T) * Quadratic(p0, p1, p2) + T * Quadratic(p1, p2, p3);
         }
 
@@ -346,7 +346,7 @@ namespace Engine
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public Polynomial ParameterizedSquareDistance(Point2D p)
+        public Polynomialx ParameterizedSquareDistance(Point2D p)
         {
             var vx = CurveX - p.X;
             var vy = CurveY - p.Y;

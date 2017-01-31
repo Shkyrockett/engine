@@ -966,7 +966,7 @@ namespace Engine
         /// <param name="rect"></param>
         /// <returns></returns>
         public bool IntersectsWith(Rectangle2D rect)
-            => Intersectings.Intersects(this, rect);
+            => Intersections.Intersects(this, rect);
 
         /// <summary>
         /// Convert a rectangle to an array of it's corner points.

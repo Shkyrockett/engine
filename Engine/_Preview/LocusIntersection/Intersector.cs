@@ -88,7 +88,7 @@ namespace Engine
         /// <returns></returns>
         public static Point2D[] Intersection(Point2D a1, Point2D a2, Point2D b1, Point2D b2)
         {
-            // This is the general case. Really really general
+            // This is the general case. Really general
             if (a1.Equals(a2) && b1.Equals(b2))
             {
                 // Both "segments" are points, return either point
@@ -99,14 +99,14 @@ namespace Engine
             }
             else if (b1.Equals(b2)) // b is a point, a is a segment
             {
-                if (Intersectings.LineSegmentPoint(a1.X, a1.Y, a2.X, a2.Y, b1.X, b1.Y))
+                if (Intersections.PointLineSegmentIntersects(b1.X, b1.Y, a1.X, a1.Y, a2.X, a2.Y))
                     return new Point2D[] { b1 };
                 else
                     return new Point2D[] { };
             }
             else if (a1.Equals(a2)) // a is a point, b is a segment
             {
-                if (Intersectings.LineSegmentPoint(b1.X, b1.Y, b2.X, b2.Y, a1.X, a1.Y))
+                if (Intersections.PointLineSegmentIntersects(a1.X, a1.Y, b1.X, b1.Y, b2.X, b2.Y))
                     return new Point2D[] { a1 };
                 else
                     return new Point2D[] { };

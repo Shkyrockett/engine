@@ -27,10 +27,69 @@ namespace Engine
         /// 
         /// </summary>
         public NodeRevealer()
+            : this(new List<Point2D>(), 0)
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locus"></param>
+        /// <param name="radius"></param>
+        public NodeRevealer(Locus locus, double radius)
         {
-            Points = new List<Point2D>();
-            Radius = 0;
+            Radius = radius;
+            ConnectPoints = true;
+            switch (locus)
+            {
+                case PointLocus p:
+                    Points = new List<Point2D> { p };
+                    ConnectPoints = false;
+                    break;
+                case LineSegmentLocus l:
+                    Points = l.Points;
+                    break;
+                case PointSetLocus p:
+                    Points = p.Points;
+                    ConnectPoints = false;
+                    break;
+                case PolylineLocus p:
+                    Points = p.Points;
+                    break;
+                case PolygonLocus p:
+                    Points = p.Points;
+                    break;
+                case PolylineSetLocus p:
+                    Points = ((PointSetLocus)p).Points;
+                    break;
+                case PolygonSetLocus p:
+                    Points = ((PointSetLocus)p).Points;
+                    break;
+                case ParallelLocus p:
+                case OutsideLocus o:
+                case EmptyLocus e:
+                default:
+                    Points = new List<Point2D>();
+                    break;
+            }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="radius"></param>
+        public NodeRevealer(Point2D point, double radius)
+            : this(new List<Point2D> { point }, radius)
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="radius"></param>
+        public NodeRevealer(Point2D[] points, double radius)
+            : this(new List<Point2D>(points), radius)
+        { }
 
         /// <summary>
         /// 
@@ -58,6 +117,12 @@ namespace Engine
         /// </summary>
         [XmlAttribute]
         public double Radius { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAttribute]
+        public bool ConnectPoints { get; set; } = true;
 
         /// <summary>
         /// 

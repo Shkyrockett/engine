@@ -45,7 +45,8 @@ namespace Engine
         /// Initializes a default instance of the <see cref="PolygonSet"/> class.
         /// </summary>
         public PolygonSet()
-            => polygons = new List<Polygon>();
+            : this(new List<Polygon>())
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonSet"/> class.
@@ -54,16 +55,24 @@ namespace Engine
             => this.polygons = polygons as List<Polygon>;
 
         /// <summary>
-        /// INitializes a new instance of the <see cref="PolygonSet"/> class.
+        /// Initializes a new instance of the <see cref="PolygonSet"/> class from a parameter list.
         /// </summary>
-        /// <param name="lists"></param>
-        public PolygonSet(List<List<Point2D>> lists)
-        {
-            polygons = new List<Polygon>();
+        /// <param name="polygons"></param>
+        public PolygonSet(params IEnumerable<Point2D>[] polygons)
+            : this(new List<List<Point2D>>(polygons as List<Point2D>[]))
+        { }
 
-            foreach (var list in lists)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolygonSet"/> class.
+        /// </summary>
+        /// <param name="polygons"></param>
+        public PolygonSet(IEnumerable<List<Point2D>> polygons)
+        {
+            this.polygons = new List<Polygon>();
+
+            foreach (var list in polygons)
             {
-                polygons.Add(new Polygon(list));
+                this.polygons.Add(new Polygon(list));
             }
         }
 
@@ -153,6 +162,16 @@ namespace Engine
         public void Add(Polygon polygon)
         {
             polygons.Add(polygon);
+            update?.Invoke();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        public void Add(List<Point2D> polygon)
+        {
+            polygons.Add(new Polygon(polygon));
             update?.Invoke();
         }
 

@@ -111,10 +111,12 @@
     <Compile Include="Animation\Tweening\Lerpers\Vector3DLerper.cs" />
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
-    <Compile Include="Clipping\GreinerHormann\Clip.cs" />
-    <Compile Include="Clipping\GreinerHormann\ClippingIntersection.cs" />
-    <Compile Include="Clipping\GreinerHormann\ClippingPolygon.cs" />
-    <Compile Include="Clipping\GreinerHormann\ClippingVertex.cs" />
+    <Compile Include="Geometry\Curves\BezierSegment.cs" />
+    <Compile Include="Geometry\Polygons\Line.cs" />
+    <Compile Include="_Preview\Clipping\GreinerHormann\Clip.cs" />
+    <Compile Include="_Preview\Clipping\GreinerHormann\ClippingIntersection.cs" />
+    <Compile Include="_Preview\Clipping\GreinerHormann\ClippingPolygon.cs" />
+    <Compile Include="_Preview\Clipping\GreinerHormann\ClippingVertex.cs" />
     <Compile Include="Geometry\Enums\ClipingOperations.cs" />
     <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
     <Compile Include="Geometry\Enums\DirectionOrentations.cs" />
@@ -122,8 +124,8 @@
     <Compile Include="Geometry\Enums\LineJoins.cs" />
     <Compile Include="Geometry\Enums\PolyFills.cs" />
     <Compile Include="Geometry\Enums\ReadingDirections.cs" />
-    <Compile Include="Geometry\Framework\ArrayUtilities.cs" />
-    <Compile Include="Geometry\Framework\ExpandableCollectionPropertyDescriptor.cs" />
+    <Compile Include="Framework\ArrayUtilities.cs" />
+    <Compile Include="Framework\ExpandableCollectionPropertyDescriptor.cs" />
     <Compile Include="Geometry\Complex\Path\PathItem.cs" />
     <Compile Include="Geometry\Complex\Path\PathArc.cs" />
     <Compile Include="Geometry\Complex\Path\PathCardinal.cs" />
@@ -136,6 +138,14 @@
     <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
     <Compile Include="Geometry\Math\Distances.cs" />
     <Compile Include="Animation\Transform.cs" />
+    <Compile Include="Geometry\Polygons\PointSet.cs" />
+    <Compile Include="Geometry\Polygons\ScreenPoint.cs" />
+    <Compile Include="Math\Enums\Relations.cs" />
+    <Compile Include="Geometry\Polygons\Ray.cs" />
+    <Compile Include="_Preview\Intersection\IntersectionStatus.cs" />
+    <Compile Include="_Preview\LocusIntersection\EmptyLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\IntersectionsPreview.cs" />
+    <Compile Include="_Preview\Intersection\Intersection.cs" />
     <Compile Include="Objects\GraphicsCataloge.cs" />
     <Compile Include="Animation\Particles\Particle.cs" />
     <Compile Include="Math\Primitives\Converters\Matrix2DConverter.cs" />
@@ -157,10 +167,9 @@
     <Compile Include="Math\Primitives\Matrix3x3D.cs" />
     <Compile Include="Math\Primitives\Matrix2x2D.cs" />
     <Compile Include="Math\Primitives\Orientation.cs" />
-    <Compile Include="Math\Primitives\Polynomial.cs" />
     <Compile Include="Math\Primitives\Quaternion.cs" />
     <Compile Include="Imaging\ColorSpace\Colors.cs" />
-    <Compile Include="Geometry\Framework\ListConverter.cs" />
+    <Compile Include="Framework\ListConverter.cs" />
     <Compile Include="Imaging\Styles\LineStyles\LineStyle.cs" />
     <Compile Include="Imaging\Styles\LineStyles\LineCapStyle.cs" />
     <Compile Include="Imaging\Styles\LineStyles\LineDashStyle.cs" />
@@ -168,18 +177,21 @@
     <Compile Include="Animation\Skeleton\Pose.cs" />
     <Compile Include="Animation\Skeleton\Armature.cs" />
     <Compile Include="Geometry\Math\Containings.cs" />
-    <Compile Include="Geometry\Intersection\Intersectings.cs" />
-    <Compile Include="Geometry\Intersection\GeometryClipping.cs" />
-    <Compile Include="Geometry\Intersection\EmptyLocus.cs" />
-    <Compile Include="Geometry\Intersection\Intersection.cs" />
-    <Compile Include="Geometry\Intersection\Intersector.cs" />
-    <Compile Include="Geometry\Intersection\CoincidentLocus.cs" />
-    <Compile Include="Geometry\Intersection\ParalellLocus.cs" />
-    <Compile Include="Geometry\Intersection\OverlapLocus.cs" />
-    <Compile Include="Geometry\Intersection\LineSegmentLocus.cs" />
-    <Compile Include="Geometry\Intersection\Locus.cs" />
-    <Compile Include="Geometry\Intersection\PointLocus.cs" />
-    <Compile Include="Geometry\Intersection\UnionLocus.cs" />
+    <Compile Include="_Preview\Clipping\GeometryClipping.cs" />
+    <Compile Include="_Preview\LocusIntersection\Intersector.cs" />
+    <Compile Include="_Preview\LocusIntersection\CoincidentLineLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\Locus.cs" />
+    <Compile Include="_Preview\LocusIntersection\OverlapLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\LineSegmentLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\OutsideLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\ParallelLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\PointSetLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\PolylineSetLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\PolygonSetLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\PolylineLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\PolygonLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\PointLocus.cs" />
+    <Compile Include="_Preview\LocusIntersection\UnionLocus.cs" />
     <Compile Include="Geometry\Math\Nearests.cs" />
     <Compile Include="Geometry\Math\Areas.cs" />
     <Compile Include="Geometry\Math\Boundings.cs" />
@@ -216,7 +228,7 @@
     <Compile Include="Calendar\Enums\TimeFormat.cs" />
     <Compile Include="Geometry\Enums\LeftRight.cs" />
     <Compile Include="Geometry\Enums\Inclusion.cs" />
-    <Compile Include="Geometry\Intersection\Intersections.cs" />
+    <Compile Include="_Preview\Intersection\Intersections.cs" />
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Math\Primitives\Converters\AngleConverter.cs" />
@@ -227,6 +239,7 @@
     <Compile Include="Physics\UnitStrings.cs" />
     <Compile Include="Math\Primitives\Range.cs" />
     <Compile Include="Physics\BasicUnits\Length\Smoots.cs" />
+    <Compile Include="Math\Primitives\Polynomial.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />
     <Compile Include="Tools\Enums\ScrollOrientation.cs" />
     <Compile Include="Tools\Enums\Keys.cs" />
@@ -320,7 +333,7 @@
     <Compile Include="Physics\CompoundUnits\VelocityFreeFall.cs" />
     <Compile Include="Physics\CompoundUnits\WeightDensity.cs" />
     <Compile Include="Physics\CompoundUnits\Work.cs" />
-    <Compile Include="Geometry\Complex\PolylineSet.cs" />
+    <Compile Include="Geometry\Polygons\PolylineSet.cs" />
     <Compile Include="Geometry\Curves\CircularSegment.cs" />
     <Compile Include="Geometry\Curves\ParametricDelegateCurve.cs" />
     <Compile Include="Math\Primitives\Converters\Size2DConverter.cs" />
@@ -342,11 +355,11 @@
     <Compile Include="Objects\Interfaces\Geometry\IOpenShape.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
     <Compile Include="Objects\Interfaces\ITweenable.cs" />
-    <Compile Include="Geometry\Framework\TestPoint2D.cs" />
+    <Compile Include="Math\Primitives\TestPoint2D.cs" />
     <Compile Include="Math\Primitives\Size2D.cs" />
     <Compile Include="Math\Primitives\Point2D.cs" />
-    <Compile Include="Geometry\Framework\BoundingRectPolygon.cs" />
-    <Compile Include="Geometry\Framework\PolygonExtensions.cs" />
+    <Compile Include="Geometry\Polygons\BoundingRectPolygon.cs" />
+    <Compile Include="Geometry\Polygons\PolygonExtensions.cs" />
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Physics\BasicUnits\Angle\Radians.cs" />
     <Compile Include="Physics\BasicUnits\Angle\Degrees.cs" />
@@ -378,8 +391,8 @@
     <Compile Include="Geometry\Curves\Ellipse.cs" />
     <Compile Include="Geometry\Curves\EllipticalArc.cs" />
     <Compile Include="Geometry\Curves\Oval.cs" />
-    <Compile Include="Geometry\Framework\PathExtensions.cs" />
-    <Compile Include="Geometry\Complex\PolygonSet.cs" />
+    <Compile Include="Geometry\Complex\Path\PathExtensions.cs" />
+    <Compile Include="Geometry\Polygons\PolygonSet.cs" />
     <Compile Include="Geometry\Complex\Tools\SquareDCellGrid.cs" />
     <Compile Include="Geometry\Complex\Tools\SquareCellGrid.cs" />
     <Compile Include="Geometry\Complex\Tools\RectangleDCellGrid.cs" />
@@ -446,7 +459,7 @@
     <Compile Include="Geometry\Shape.cs" />
     <Compile Include="Geometry\Complex\Tools\RectangleCellGrid.cs" />
     <Compile Include="Math\Primitives\Vector2D.cs" />
-    <Compile Include="Geometry\Framework\Tokenizer.cs" />
+    <Compile Include="Framework\Tokenizer.cs" />
     <Compile Include="Geometry\Polygons\Triangle.cs" />
     <Compile Include="Tools\DrawShape.cs" />
     <Compile Include="Tools\Straightener.cs" />
@@ -460,6 +473,7 @@
   <ItemGroup>
     <None Include="Animation\Tweening\readme.md" />
     <None Include="packages.config" />
+    <None Include="_Preview\LocusIntersection\ShapeIntersections.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

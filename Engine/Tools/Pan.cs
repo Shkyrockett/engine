@@ -89,7 +89,7 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (Distances.Length(Points[0], tools.MouseLocation) > 8)
+                    if (Primitives.Length(Points[0], tools.MouseLocation) > 8)
                     {
                         if (MouseDown) Index = 1;
                         Points[Index] = tools.MouseLocation;
@@ -141,7 +141,8 @@ namespace Engine.Tools
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => nameof(SelectTop);
+        public override string ToString()
+            => nameof(SelectTop);
 
         /// <summary>
         /// 

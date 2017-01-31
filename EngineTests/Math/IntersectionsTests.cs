@@ -342,7 +342,7 @@ namespace Engine.Tests
 
             foreach (var testCase in testCases.Keys)
             {
-                var result = Intersections.LineLine(testCase.A1X, testCase.A1Y, testCase.B1X, testCase.B1Y, testCase.A2X, testCase.A2Y, testCase.B2X, testCase.B2Y);
+                var result = Intersections.LineLineIntersection(testCase.A1X, testCase.A1Y, testCase.B1X, testCase.B1Y, testCase.A2X, testCase.A2Y, testCase.B2X, testCase.B2Y);
                 Assert.AreEqual(testCases[testCase], result);
             }
         }

@@ -134,7 +134,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
-            => points.Zip(points.Skip(1), Distances.Distance).Sum();
+            => points.Zip(points.Skip(1), Primitives.Distance).Sum();
 
         /// <summary>
         ///
@@ -221,7 +221,7 @@ namespace Engine
             // Build up the weights map.
             for (int i = 1; i < points.Count; i++)
             {
-                double curentLength = Distances.Length(cursor, points[i]);
+                double curentLength = Primitives.Length(cursor, points[i]);
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
                 cursor = points[i];

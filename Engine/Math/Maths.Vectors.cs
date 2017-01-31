@@ -154,8 +154,8 @@ namespace Engine
             (double X, double Y, double Z) tuple1,
             (double X, double Y, double Z) tuple2)
             => DotProduct(
-                tuple1.Item1, tuple1.Item2, tuple1.Item3,
-                tuple2.Item1, tuple2.Item2, tuple2.Item3
+                tuple1.X, tuple1.Y, tuple1.Z,
+                tuple2.X, tuple2.Y, tuple2.Z
                 );
 
         /// <summary>

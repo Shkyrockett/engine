@@ -74,7 +74,7 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public LineSegment((double x1, double y1, double x2, double y2) tuple)
-            : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
+            : this(tuple.x1, tuple.y1, tuple.x2, tuple.y2)
         { }
 
         /// <summary>

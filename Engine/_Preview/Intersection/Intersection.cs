@@ -115,7 +115,7 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         public void AppendPoint(Point2D point)
-            => this.points.Add(point);
+            => points.Add(point);
 
         /// <summary>
         /// 

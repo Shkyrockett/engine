@@ -142,7 +142,8 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NeedleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e) => EditorService?.CloseDropDown();
+        private void NeedleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e)
+            => EditorService?.CloseDropDown();
 
         /// <summary>
         /// 
@@ -165,6 +166,11 @@ namespace Engine
             needleControl1.Invalidate();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -176,20 +182,23 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TabControl_DrawItem(object sender, DrawItemEventArgs e) => needleControl1.Invalidate();
+        private void TabControl_DrawItem(object sender, DrawItemEventArgs e)
+            => needleControl1.Invalidate();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TabPageDegrees_Paint(object sender, PaintEventArgs e) => needleControl1.Invalidate();
+        private void TabPageDegrees_Paint(object sender, PaintEventArgs e)
+            => needleControl1.Invalidate();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TabPageRadians_Paint(object sender, PaintEventArgs e) => needleControl1.Invalidate();
+        private void TabPageRadians_Paint(object sender, PaintEventArgs e)
+            => needleControl1.Invalidate();
     }
 }

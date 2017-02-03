@@ -51,7 +51,7 @@ namespace Engine
         public List<GraphicItem> this[Rectangle2D area]
             => new List<GraphicItem>(
                 from shape in Items
-                where (shape?.Bounds != null) && (shape.Bounds.IntersectsWith(area) || shape.Bounds.Contains(area))
+                where (shape?.Bounds != null) && (shape.Bounds.Contains(area) || (shape.Bounds.IntersectsWith(area)))
                 select shape);
 
         /// <summary>
@@ -222,7 +222,8 @@ namespace Engine
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
-        public void CopyTo(GraphicItem[] array, int arrayIndex) => Items.CopyTo(array, arrayIndex);
+        public void CopyTo(GraphicItem[] array, int arrayIndex)
+            => Items.CopyTo(array, arrayIndex);
 
         /// <summary>
         /// 

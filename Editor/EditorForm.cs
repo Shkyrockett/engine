@@ -61,6 +61,8 @@ namespace Editor
         /// </summary>
         private int tick = 1;
 
+        private GraphicItem boundaryItem = new GraphicItem(Rectangle2D.Empty, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
         /// </summary>
@@ -132,6 +134,10 @@ namespace Editor
                 new ShapeStyle(Brushes.Azure, new Pen(Brushes.Transparent)),
                 new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent), new Pen(Brushes.Transparent))
             };
+
+            vectorMap.VisibleBounds = CanvasPanel.ClientRectangle.ToRectangle2D();
+            boundaryItem = new GraphicItem(vectorMap.VisibleBounds, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
+            vectorMap.Add(boundaryItem);
 
             //var triangleItem = new GraphicItem(Examples.TrianglePointingRight, styles[0])
             //{
@@ -879,7 +885,7 @@ namespace Editor
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             // Only need to draw the shapes that are on screen.
-            foreach (GraphicItem item in vectorMap[CanvasPanel.Bounds.ToRectangle2D()])
+            foreach (GraphicItem item in vectorMap[vectorMap.VisibleBounds])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
                     Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
@@ -1005,7 +1011,14 @@ namespace Editor
         {
             var panel = sender as CanvasPanel;
             if (vectorMap != null)
-                vectorMap.VisibleBounds = new Rectangle2D(panel.Bounds.X, panel.Bounds.Y, panel.Bounds.Width, panel.Bounds.Height);
+            {
+                vectorMap.VisibleBounds = new Rectangle2D(
+                    panel.ClientRectangle.X,
+                    panel.ClientRectangle.Y,
+                    panel.ClientRectangle.Width - 1,
+                    panel.ClientRectangle.Height - 1);
+                boundaryItem.Item = vectorMap.VisibleBounds;
+            }
         }
 
         /// <summary>

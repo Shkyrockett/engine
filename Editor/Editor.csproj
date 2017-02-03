@@ -97,6 +97,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Direct2DForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Direct2DForm.Designer.cs">
+      <DependentUpon>Direct2DForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
     <Compile Include="Examples.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Direct2DForm.resx">
+      <DependentUpon>Direct2DForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +143,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Engine.Winforms.Direct2D\Engine.Winforms.Direct2D.csproj">
+      <Project>{1a57269e-ead9-40ad-80b6-e3949ea45d1e}</Project>
+      <Name>Engine.Winforms.Direct2D</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine.Winforms\Engine.Winforms.csproj">
       <Project>{c6593aae-28d2-494b-9765-b548aa24c8ca}</Project>
       <Name>Engine.Winforms</Name>

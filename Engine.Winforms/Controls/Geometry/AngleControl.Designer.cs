@@ -9,12 +9,21 @@
 
 namespace Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     partial class AngleControl
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+
+        private NeedleControl needleControl1;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPageDegrees;
+        private System.Windows.Forms.TabPage tabPageRadians;
+        private System.Windows.Forms.NumericUpDown numericUpDown;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -26,6 +35,7 @@ namespace Engine
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -125,11 +135,5 @@ namespace Engine
         }
 
         #endregion
-
-        private NeedleControl needleControl1;
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPageDegrees;
-        private System.Windows.Forms.TabPage tabPageRadians;
-        private System.Windows.Forms.NumericUpDown numericUpDown;
     }
 }

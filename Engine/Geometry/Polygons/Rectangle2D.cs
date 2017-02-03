@@ -171,11 +171,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get
-            {
-                return x;
-            }
-
+            get { return x; }
             set
             {
                 x = value;
@@ -195,11 +191,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get
-            {
-                return y;
-            }
-
+            get { return y; }
             set
             {
                 y = value;
@@ -216,13 +208,10 @@ namespace Engine
         [DisplayName(nameof(Height))]
         [Category("Elements")]
         [Description("The height of the rectangle.")]
+        [RefreshProperties(RefreshProperties.All)]
         public double Height
         {
-            get
-            {
-                return height;
-            }
-
+            get { return height; }
             set
             {
                 height = value;
@@ -242,11 +231,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Width
         {
-            get
-            {
-                return width;
-            }
-
+            get { return width; }
             set
             {
                 width = value;
@@ -267,11 +252,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get
-            {
-                return height / width;
-            }
-
+            get { return height / width; }
             set
             {
                 height = width * value;
@@ -295,11 +276,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get
-            {
-                return new Point2D(X, Y);
-            }
-
+            get { return new Point2D(X, Y); }
             set
             {
                 x = value.X;
@@ -323,11 +300,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get
-            {
-                return new Point2D(X - width * 0.5d, Y - height * 0.5d);
-            }
-
+            get { return new Point2D(X - width * 0.5d, Y - height * 0.5d); }
             set
             {
                 x = value.X + width * 0.5d;
@@ -351,11 +324,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
-            get
-            {
-                return new Size2D(width, height);
-            }
-
+            get { return new Size2D(width, height); }
             set
             {
                 width = value.Width;
@@ -374,13 +343,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The top left location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D TopLeft
         {
-            get
-            {
-                return new Point2D(Left, Top);
-            }
-
+            get { return new Point2D(Left, Top); }
             set
             {
                 Left = value.X;
@@ -399,13 +365,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The top right location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D TopRight
         {
-            get
-            {
-                return new Point2D(Top, Right);
-            }
-
+            get { return new Point2D(Top, Right); }
             set
             {
                 Right = value.X;
@@ -424,13 +387,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The bottom left location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D BottomLeft
         {
-            get
-            {
-                return new Point2D(Left, Bottom);
-            }
-
+            get { return new Point2D(Left, Bottom); }
             set
             {
                 Left = value.X;
@@ -449,13 +409,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The bottom right location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D BottomRight
         {
-            get
-            {
-                return new Point2D(Right, Bottom);
-            }
-
+            get { return new Point2D(Right, Bottom); }
             set
             {
                 Right = value.X;
@@ -474,13 +431,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The left location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public double Left
         {
-            get
-            {
-                return x;
-            }
-
+            get { return x; }
             set
             {
                 width += x - value;
@@ -499,13 +453,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The top location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public double Top
         {
-            get
-            {
-                return y;
-            }
-
+            get { return y; }
             set
             {
                 height += y - value;
@@ -524,13 +475,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The right location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public double Right
         {
-            get
-            {
-                return x + width;
-            }
-
+            get { return x + width; }
             set
             {
                 width = value - x;
@@ -548,13 +496,10 @@ namespace Engine
         [Category("Elements")]
         [Description("The bottom location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public double Bottom
         {
-            get
-            {
-                return y + height;
-            }
-
+            get { return y + height; }
             set
             {
                 height = value - y;

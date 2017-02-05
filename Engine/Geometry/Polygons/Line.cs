@@ -37,12 +37,12 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="location"></param>
-        /// <param name="vector"></param>
+        /// <param name="direction"></param>
         /// <remarks></remarks>
-        public Line(Point location, Vector2D vector)
+        public Line(Point location, Vector2D direction)
         {
             Location = location;
-            Vector = vector;
+            Direction = direction;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute]
-        public Vector2D Vector { get; set; }
+        public Vector2D Direction { get; set; }
 
         /// <summary>
         /// 

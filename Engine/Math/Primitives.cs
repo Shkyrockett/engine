@@ -1293,6 +1293,17 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GreaterThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
+            => (point1.X >= point2.X && point1.Y >= point2.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrEqual(this Point2D point1, Point2D point2)
             => (point1.X >= point2.X && point1.Y >= point2.Y);
 
@@ -1618,7 +1629,7 @@ namespace Engine
         /// <returns>The distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this(double X, double Y) p1, (double X, double Y) p2)
+        public static double Distance(this (double X, double Y) p1, (double X, double Y) p2)
             => Distances.Distance(p1.X, p1.Y, p2.X, p2.Y);
 
         /// <summary>
@@ -1804,6 +1815,17 @@ namespace Engine
         #endregion
 
         #region Less Than or Equal to
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LessThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
+            => (point1.X <= point2.X && point1.Y <= point2.Y);
 
         /// <summary>
         /// 
@@ -2902,6 +2924,19 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Subtract(this Size2D minuend, Size2D subtrahend)
             => Subtract2D(minuend.Width, minuend.Height, subtrahend.Width, subtrahend.Height);
+
+        /// <summary>
+        /// Subtract Points
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subtrahendX"></param>
+        /// <param name="subtrahendY"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Subtract(this Vector2D minuend, double subtrahendX, double subtrahendY)
+            => Subtract2D(minuend.I, minuend.J, subtrahendX, subtrahendY);
 
         /// <summary>
         /// Subtract Points

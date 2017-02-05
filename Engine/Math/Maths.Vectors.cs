@@ -20,6 +20,21 @@ namespace Engine
     public partial class Maths
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1X"></param>
+        /// <param name="point1Y"></param>
+        /// <param name="point2X"></param>
+        /// <param name="point2Y"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static (double X, double Y) Lerp(
+            double point1X, double point1Y,
+            double point2X, double point2Y,
+            double t)
+            => (point1X + (point2X - point1X) * t, point1Y + (point2Y - point1Y) * t);
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="x0"></param>
@@ -32,7 +47,9 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) ComplexProduct(double x0, double y0, double x1, double y1)
+        public static (double X, double Y) ComplexProduct(
+            double x0, double y0,
+            double x1, double y1)
             => (x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
 
         /// <summary>

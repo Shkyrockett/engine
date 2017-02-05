@@ -895,7 +895,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override bool Contains(Point2D point)
-            => Containings.Contains(this, point) != Inclusion.Outside;
+            => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
@@ -903,7 +903,7 @@ namespace Engine
         /// <param name="rect"></param>
         /// <returns></returns>
         public bool Contains(Rectangle2D rect)
-            => Containings.Contains(this, rect);
+            => Intersections.Contains(this, rect);
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.

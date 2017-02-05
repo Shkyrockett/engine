@@ -34,7 +34,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        Point2D[] controlPoints;
+        Point2D[] points;
 
         /// <summary>
         /// 
@@ -46,6 +46,9 @@ namespace Engine
         /// </summary>
         Polynomial curveY;
 
+        /// <summary>
+        /// 
+        /// </summary>
         Rectangle2D bounds = Rectangle2D.Empty;
 
         #endregion
@@ -70,7 +73,22 @@ namespace Engine
                 throw new ArgumentNullException();
             if (points.Length < 2)
                 throw new ArgumentException("Bezier curve need at least 2 points (segment).");
-            controlPoints = points;
+            this.points = points;
+        }
+
+        #endregion
+
+        #region Indexers
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public Point2D this[int index]
+        {
+            get { return points[index]; }
+            set { points[index] = value; }
         }
 
         #endregion
@@ -82,8 +100,8 @@ namespace Engine
         /// </summary>
         public Point2D[] Points
         {
-            get { return controlPoints; }
-            set { controlPoints = value; }
+            get { return points; }
+            set { points = value; }
         }
 
         /// <summary>
@@ -114,7 +132,7 @@ namespace Engine
             {
                 if (curveX == null)
                 {
-                    curveX = Bezier(controlPoints.Select(p => p.X).ToArray());
+                    curveX = Bezier(points.Select(p => p.X).ToArray());
                     curveX.IsReadonly = true;
                 }
                 return curveX;
@@ -130,12 +148,18 @@ namespace Engine
             {
                 if (curveY == null)
                 {
-                    curveY = Bezier(controlPoints.Select(p => p.Y).ToArray());
+                    curveY = Bezier(points.Select(p => p.Y).ToArray());
                     curveY.IsReadonly = true;
                 }
                 return curveY;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CurveDegree Degree
+            => (CurveDegree)(Points.Length - 1);
 
         #endregion
 
@@ -276,7 +300,7 @@ namespace Engine
             // http://pomax.github.io/bezierinfo/#decasteljau
             var r0 = new List<Point2D>();
             var r1 = new List<Point2D>();
-            var lp = controlPoints.ToList();
+            var lp = points.ToList();
             while (lp.Count > 0)
             {
                 r0.Add(lp.First());
@@ -348,7 +372,7 @@ namespace Engine
         {
             if (this == null) return nameof(BezierSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(BezierSegment)}{{{string.Join(sep.ToString(), controlPoints)}}}";
+            IFormattable formatable = $"{nameof(BezierSegment)}{{{string.Join(sep.ToString(), points)}}}";
             return formatable.ToString(format, provider);
         }
 

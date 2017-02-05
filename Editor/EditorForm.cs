@@ -520,7 +520,7 @@ namespace Editor
                 Name = "Cubic Bézier Bounds."
             };
 
-            var cubicIntersections = Intersections.CubicBezierLineIntersection(cubicBezier.Points[0], cubicBezier.Points[1], cubicBezier.Points[2], cubicBezier.Points[3], cubicSegment.A, cubicSegment.B);
+            var cubicIntersections = Intersections.Intersection(cubicBezier, cubicSegment);
             var cubicIntersectionNodesItem = new GraphicItem(new NodeRevealer(cubicIntersections.Points, 5d), styles[6]);
 
             vectorMap.Add(cubicBezierBoundsItem);
@@ -542,7 +542,7 @@ namespace Editor
                 Name = "Ellipse Intersecting One."
             };
 
-            var ellipseIntersections = Intersections.UnrotatedEllipseUnrotatedEllipseIntersection(ellipseOne.Center, ellipseOne.RX, ellipseOne.RY, ellipseTwo.Center, ellipseTwo.RX, ellipseTwo.RY);
+            var ellipseIntersections = Intersections.Intersection(ellipseOne, ellipseTwo);
             var ellipseIntersectionNodesItem = new GraphicItem(new NodeRevealer(ellipseIntersections.Points, 5d), styles[6]);
 
             vectorMap.Add(ellipseOneItem);
@@ -608,7 +608,7 @@ namespace Editor
 
             var quadraticBezierNodeItem = new GraphicItem(new NodeRevealer(quadraticBezier.Points, 5d), styles[6]);
 
-            var quadraticIntersections = Intersections.QuadraticBezierLineIntersection(quadraticBezier.Points[0], quadraticBezier.Points[1], quadraticBezier.Points[2], quadraticSegment.A, quadraticSegment.B);
+            var quadraticIntersections = Intersections.Intersection(quadraticBezier, quadraticSegment);
             var quadraticIntersectionNodes = new NodeRevealer(quadraticIntersections.Points, 5d);
             var quadraticIntersectionNodesItem = new GraphicItem(quadraticIntersectionNodes, styles[6]);
 

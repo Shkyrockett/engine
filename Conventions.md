@@ -70,12 +70,34 @@ Code files should start with an XML copyright header like the following, to indi
 // <copyright file="Filenme.cs" >
 //     Copyright (c) Year Copyright holder. All rights reserved.
 // </copyright>
+// <author id="username">Author</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="username">Author</author>
 // <summary></summary>
 ```
+
+### Attribution
+
+Methods found online should be attributed to their original source in a remarks section of the method's xml header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author. 
+
+```c#
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="blah"></param>
+        /// <remarks>
+        ///     This method was found at: https://example.com/blah/
+        /// </remarks>
+        public static void DoSomething(bool blah)
+        {
+            Something done here...
+        }
+```
+
+### Sources
+
+When looking online for methods that might solve a particular issue, be aware of the license restrictions of any code found. Look for licenses that are compatible with the MIT License used for this project. 
 
 ### Naming and Casing Guidelines
 

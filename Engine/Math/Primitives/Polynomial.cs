@@ -113,8 +113,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public int Degree
-            => coefficients.Length - 1;
+        public CurveDegree Degree
+            => (CurveDegree)(coefficients.Length - 1);
 
         /// <summary>
         /// 
@@ -488,7 +488,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="f"></param>
         /// <returns></returns>
-        private static Polynomial Sextic(double a, double b, double c, double d, double e, double f)
+        public static Polynomial Quintic(double a, double b, double c, double d, double e, double f)
             => new Polynomial(a, b, c, d, e, f);
 
         /// <summary>
@@ -502,7 +502,7 @@ namespace Engine
         /// <param name="f"></param>
         /// <param name="g"></param>
         /// <returns></returns>
-        private static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g)
+        private static Polynomial Sextic(double a, double b, double c, double d, double e, double f, double g)
             => new Polynomial(a, b, c, d, e, f, g);
 
         /// <summary>
@@ -517,8 +517,24 @@ namespace Engine
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <returns></returns>
-        private static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h)
+        private static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g, double h)
             => new Polynomial(a, b, c, d, e, f, g, h);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        private static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+            => new Polynomial(a, b, c, d, e, f, g, h, i);
 
         #endregion
 
@@ -565,7 +581,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Derivate()
         {
-            var res = new double[Max(1, Degree)];
+            var res = new double[Max(1, (int)Degree)];
             for (int i = 1; i < Count; i++)
                 res[i - 1] = i * coefficients[i];
             return new Polynomial(res);
@@ -602,7 +618,7 @@ namespace Engine
         {
             if (n < 0)
                 throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negitive.");
-            var order = Degree;
+            var order = (int)Degree;
             var res = new double[order * n + 1];
             var tmp = new double[order * n + 1];
             res[0] = 1;
@@ -637,7 +653,7 @@ namespace Engine
 
             var z = 0d;
             for (var i = Degree; i >= 0; i--)
-                z = z * x + coefficients[i];
+                z = z * x + coefficients[(int)i];
 
             return z;
         }
@@ -766,16 +782,30 @@ namespace Engine
             Simplify(epsilon);
             switch (Degree)
             {
-                case 1:
+                case CurveDegree.Constant:
+                    return new List<double>();
+                case CurveDegree.Linear:
                     return LinearRoot(epsilon);
-                case 2:
+                case CurveDegree.Quadratic:
                     return QuadraticRoots(epsilon);
-                case 3:
+                case CurveDegree.Cubic:
                     return CubicRoots(epsilon);
-                case 4:
+                case CurveDegree.Quartic:
                     return QuarticRoots(epsilon);
-                case 0:
+                case CurveDegree.Quintic:
+                    // ToDo: Uncomment when Quintic roots are implemented.
+                    //return QuinticRoots(epsilon);
+                case CurveDegree.Sextic:
+                    // ToDo: Uncomment when Sextic roots are implemented.
+                    //return SexticRoots(epsilon);
+                case CurveDegree.Septic:
+                    // ToDo: Uncomment when Septic roots are implemented.
+                    //return SepticRoots(epsilon);
+                case CurveDegree.Octic:
+                    // ToDo: Uncomment when Octic roots are implemented.
+                    //return OcticRoots(epsilon);
                 default:
+                    // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
                     return new List<double>();
             }
         }
@@ -852,7 +882,7 @@ namespace Engine
         {
             var roots = new List<double>();
             double? root;
-            if (Degree == 1)
+            if (Degree == CurveDegree.Linear)
             {
                 root = Bisection(min, max, epsilon);
                 if (root != null) roots.Add(root.Value);
@@ -905,7 +935,7 @@ namespace Engine
         private List<double> QuadraticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == 2)
+            if (Degree == CurveDegree.Quadratic)
             {
                 var a = coefficients[2];
                 var b = coefficients[1] / a;
@@ -936,7 +966,7 @@ namespace Engine
         private List<double> CubicRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == 3)
+            if (Degree == CurveDegree.Cubic)
             {
                 var c3 = coefficients[3];
                 var c2 = coefficients[2] / c3;
@@ -996,7 +1026,7 @@ namespace Engine
         private List<double> QuarticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == 4)
+            if (Degree == CurveDegree.Quartic)
             {
                 var c4 = coefficients[4];
                 var c3 = coefficients[3] / c4;
@@ -1057,6 +1087,80 @@ namespace Engine
                         }
                     }
                 }
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
+        /// This method computes complex and real roots for any quintic polynomial.
+        /// It applies the Lin-Bairstow algorithm which iteratively solves for the 
+        /// roots starting from random guesses for a solution. 
+        /// The calculator is designed to solve for the roots of a quintic polynomial
+        /// with the form: x⁵ + ax⁴ + bx³ + cx² + dx + e = 0
+        /// ⁰¹²³⁴⁵⁶⁷⁸⁹
+        /// </summary>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        ///     http://abecedarical.com/javascript/script_quintic.html
+        ///     http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
+        /// </remarks>
+        private List<double> QuinticRoots(double epsilon = Epsilon)
+        {
+            var results = new List<double>();
+            if (Degree == CurveDegree.Quintic)
+            {
+                // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        private List<double> SexticRoots(double epsilon = Epsilon)
+        {
+            var results = new List<double>();
+            if (Degree == CurveDegree.Sextic)
+            {
+                // ToDo: Find implementation for finding Sextic Roots.
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        private List<double> SepticRoots(double epsilon = Epsilon)
+        {
+            var results = new List<double>();
+            if (Degree == CurveDegree.Septic)
+            {
+                // ToDo: Find implementation for finding Septic Roots.
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        private List<double> OcticRoots(double epsilon = Epsilon)
+        {
+            var results = new List<double>();
+            if (Degree == CurveDegree.Octic)
+            {
+                // ToDo: Find implementation for finding Octic Roots.
             }
 
             return results;
@@ -1180,7 +1284,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Simplify(double epsilon = Epsilon)
         {
-            for (var i = Degree; i >= 0; i--)
+            for (var i = (int)Degree; i >= 0; i--)
             {
                 if (Abs(coefficients[i]) <= epsilon)
                     coefficients = coefficients.RemoveAt(i);
@@ -1195,11 +1299,11 @@ namespace Engine
         public static Polynomial Simplify(Polynomial polynomial, double epsilon = Epsilon)
         {
             var coefficients = new double[polynomial.Count];
-            Array.Copy(polynomial.coefficients, coefficients, polynomial.Degree);
+            Array.Copy(polynomial.coefficients, coefficients, (int)polynomial.Degree);
             for (var i = polynomial.Degree; i >= 0; i--)
             {
-                if (Abs(coefficients[i]) <= epsilon)
-                    coefficients = coefficients.RemoveAt(i);
+                if (Abs(coefficients[(int)i]) <= epsilon)
+                    coefficients = coefficients.RemoveAt((int)i);
                 else break;
             }
             return new Polynomial(coefficients);
@@ -1249,7 +1353,7 @@ namespace Engine
         public static Polynomial Trim(Polynomial polynomial, double epsilon = Epsilon)
         {
             var coefficients = new double[polynomial.Count];
-            Array.Copy(polynomial.coefficients, coefficients, polynomial.Degree);
+            Array.Copy(polynomial.coefficients, coefficients, (int)polynomial.Degree);
             int order = 0;
             for (int i = 0; i < polynomial.Count; i++)
             {

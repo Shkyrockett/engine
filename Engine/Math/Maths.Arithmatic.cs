@@ -1552,7 +1552,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Test whether a multication operation is likely to overflow.
+        /// Test whether a multiplication operation is likely to overflow.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -1568,7 +1568,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Test whether a multication operation is likely to overflow.
+        /// Test whether a multiplication operation is likely to overflow.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -1584,7 +1584,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Test whether a multication operation is likely to overflow.
+        /// Test whether a multiplication operation is likely to overflow.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -1600,7 +1600,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Test whether a multication operation is likely to overflow.
+        /// Test whether a multiplication operation is likely to overflow.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -1831,6 +1831,19 @@ namespace Engine
             => Math.Max(w, Math.Max(x, Math.Max(y, z)));
 
         /// <summary>
+        ///
+        /// </summary>
+        /// <param name="point1X"></param>
+        /// <param name="point1Y"></param>
+        /// <param name="point2X"></param>
+        /// <param name="point2Y"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y)
+            => (Math.Max(point1X, point2X), Math.Max(point1Y, point2Y));
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="x"></param>
@@ -1876,6 +1889,19 @@ namespace Engine
             : (x > max)
             ? max
             : x;
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="point1X"></param>
+        /// <param name="point1Y"></param>
+        /// <param name="point2X"></param>
+        /// <param name="point2Y"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y)
+            => (Math.Min(point1X, point2X), Math.Min(point1Y, point2Y));
 
         /// <summary>
         ///

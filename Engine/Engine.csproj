@@ -111,6 +111,7 @@
     <Compile Include="Animation\Tweening\Lerpers\Vector3DLerper.cs" />
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
+    <Compile Include="_Preview\Intersection\Enums\CurveDegree.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
     <Compile Include="Geometry\Polygons\Line.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\Clip.cs" />
@@ -142,7 +143,7 @@
     <Compile Include="Geometry\Polygons\ScreenPoint.cs" />
     <Compile Include="Math\Enums\Relations.cs" />
     <Compile Include="Geometry\Polygons\Ray.cs" />
-    <Compile Include="_Preview\Intersection\IntersectionStatus.cs" />
+    <Compile Include="_Preview\Intersection\Enums\IntersectionStatus.cs" />
     <Compile Include="_Preview\LocusIntersection\EmptyLocus.cs" />
     <Compile Include="_Preview\LocusIntersection\IntersectionsPreview.cs" />
     <Compile Include="_Preview\Intersection\Intersection.cs" />
@@ -176,7 +177,6 @@
     <Compile Include="Animation\Skeleton\Bone.cs" />
     <Compile Include="Animation\Skeleton\Pose.cs" />
     <Compile Include="Animation\Skeleton\Armature.cs" />
-    <Compile Include="Geometry\Math\Containings.cs" />
     <Compile Include="_Preview\Clipping\GeometryClipping.cs" />
     <Compile Include="_Preview\LocusIntersection\Intersector.cs" />
     <Compile Include="_Preview\LocusIntersection\CoincidentLineLocus.cs" />
@@ -227,7 +227,7 @@
     <Compile Include="Calendar\Enums\Season.cs" />
     <Compile Include="Calendar\Enums\TimeFormat.cs" />
     <Compile Include="Geometry\Enums\LeftRight.cs" />
-    <Compile Include="Geometry\Enums\Inclusion.cs" />
+    <Compile Include="_Preview\Intersection\Enums\Inclusion.cs" />
     <Compile Include="_Preview\Intersection\Intersections.cs" />
     <Compile Include="Geometry\Enums\UpDown.cs" />
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />

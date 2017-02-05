@@ -285,7 +285,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
-            => Containings.Contains(this, point) != Inclusion.Outside;
+            => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// 

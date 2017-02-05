@@ -25,6 +25,25 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        public Ray(Point2D location, Vector2D direction)
+        {
+            Location = location;
+            Direction = direction;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Point2D Location { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Vector2D Direction { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public override string ToString()
         {

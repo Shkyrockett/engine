@@ -11731,7 +11731,7 @@ namespace MethodSpeedTester
             }
 
             //  If there is a straight-line solution, return with it immediately.
-            if (polygons.Contains(start, end))
+            if (polygons.PolygonSetContainsPoints(start, end))
                 return new Polyline(new List<Point2D> { start, end });
 
             //  Build a point list that refers to the corners of the
@@ -11764,7 +11764,7 @@ namespace MethodSpeedTester
                 {
                     for (int tj = treeCount; tj < pointCount; tj++)
                     {
-                        if (polygons.Contains((Point2D)pointList[ti], (Point2D)pointList[tj]))
+                        if (polygons.PolygonSetContainsPoints((Point2D)pointList[ti], (Point2D)pointList[tj]))
                         {
                             newDist = pointList[ti].TotalDistance + Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
@@ -11841,7 +11841,7 @@ namespace MethodSpeedTester
             }
 
             // If there is a straight-line solution, return with it immediately.
-            if (polygons.Contains(start, end))
+            if (polygons.PolygonSetContainsPoints(start, end))
                 return new Polyline(new List<Point2D> { start, end });
 
             // (larger than total solution dist could ever be)
@@ -11883,7 +11883,7 @@ namespace MethodSpeedTester
                 {
                     for (int tj = treeCount; tj < pointList.Count; tj++)
                     {
-                        if (polygons.Contains(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)))
+                        if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)))
                         {
                             newDist = pointList[ti].TotalDistance + (new Point2D(pointList[ti].X, pointList[ti].Y)).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)

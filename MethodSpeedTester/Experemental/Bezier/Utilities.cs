@@ -212,7 +212,7 @@ namespace Engine
             double mpos = 0;
             for (int i = 0; i < lookUpTable.Count; i++)
             {
-                double d = Distances.Distance(point, lookUpTable[i]);
+                double d = Measurements.Distance(point, lookUpTable[i]);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -229,7 +229,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static double Abcratio(double t = 0.5, double n = 0.5)
+        public static double Abcratio(double t = 0.5d, double n = 0.5d)
         {
             // see ratio(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
@@ -249,7 +249,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static double ProjectionRatio(double t = 0.5, double n = 0.5)
+        public static double ProjectionRatio(double t = 0.5d, double n = 0.5d)
         {
             // see u(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
@@ -336,7 +336,7 @@ namespace Engine
         /// <returns></returns>
         public static BBox FindBoundingBox(List<Bezier> sections)
         {
-            double mx = 99999999;
+            double mx = 99999999d;
             double my = mx;
             double MX = -mx;
             double MY = MX;
@@ -802,7 +802,7 @@ namespace Engine
             double my2n = my2 + dy2p;
             // intersection of these lines:
             Point3D? arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
-            double r = Distances.Distance(arcCenter.Value, p1);
+            double r = Measurements.Distance(arcCenter.Value, p1);
             // arc start/end values, over mid point:
             double s = Atan2(p1.Y - arcCenter.Value.Y, p1.X - arcCenter.Value.X);
             double m = Atan2(p2.Y - arcCenter.Value.Y, p2.X - arcCenter.Value.X);

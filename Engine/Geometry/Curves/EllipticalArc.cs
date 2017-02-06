@@ -1,11 +1,12 @@
 ﻿// <copyright file="EllipticArc.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.ComponentModel;
@@ -296,11 +297,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get
-            {
-                return new Point2D(cX, cY);
-            }
-
+            get { return new Point2D(cX, cY); }
             set
             {
                 cX = value.X;
@@ -324,11 +321,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get
-            {
-                return new Point2D(cX, cY);
-            }
-
+            get { return new Point2D(cX, cY); }
             set
             {
                 cX = value.X;
@@ -351,11 +344,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get
-            {
-                return cX;
-            }
-
+            get { return cX; }
             set
             {
                 cX = value;
@@ -376,11 +365,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get
-            {
-                return cY;
-            }
-
+            get { return cY; }
             set
             {
                 cY = value;
@@ -402,11 +387,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double RX
         {
-            get
-            {
-                return rX;
-            }
-
+            get { return rX; }
             set
             {
                 rX = value;
@@ -428,11 +409,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double RY
         {
-            get
-            {
-                return rY;
-            }
-
+            get { return rY; }
             set
             {
                 rY = value;
@@ -475,11 +452,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get
-            {
-                return rY / rX;
-            }
-
+            get { return rY / rX; }
             set
             {
                 rY = rX * value;
@@ -504,11 +477,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
-            get
-            {
-                return angle;
-            }
-
+            get { return angle; }
             set
             {
                 angle = value;
@@ -531,11 +500,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AngleDegrees
         {
-            get
-            {
-                return angle.ToDegrees();
-            }
-
+            get { return angle.ToDegrees(); }
             set
             {
                 angle = value.ToRadians();
@@ -557,11 +522,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
-            get
-            {
-                return startAngle;
-            }
-
+            get { return startAngle; }
             set
             {
                 startAngle = value;
@@ -583,11 +544,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngleDegrees
         {
-            get
-            {
-                return startAngle.ToDegrees();
-            }
-
+            get { return startAngle.ToDegrees(); }
             set
             {
                 startAngle = value.ToRadians();
@@ -609,11 +566,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
         {
-            get
-            {
-                return sweepAngle;
-            }
-
+            get { return sweepAngle; }
             set
             {
                 sweepAngle = value;
@@ -635,11 +588,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngleDegrees
         {
-            get
-            {
-                return sweepAngle.ToDegrees();
-            }
-
+            get { return sweepAngle.ToDegrees(); }
             set
             {
                 sweepAngle = value.ToRadians();
@@ -661,11 +610,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
-            get
-            {
-                return startAngle + sweepAngle;
-            }
-
+            get { return startAngle + sweepAngle; }
             set
             {
                 sweepAngle = value - startAngle;
@@ -687,11 +632,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngleDegrees
         {
-            get
-            {
-                return (startAngle + sweepAngle).ToDegrees();
-            }
-
+            get { return (startAngle + sweepAngle).ToDegrees(); }
             set
             {
                 sweepAngle = value.ToRadians() - startAngle;
@@ -753,7 +694,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.EllipticalArc(cX, cY, rX, rY, angle, startAngle, sweepAngle);
+            => Measurements.EllipticalArcBounds(cX, cY, rX, rY, angle, startAngle, sweepAngle);
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of the elliptical arc.
@@ -764,7 +705,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
         public override double Perimeter
-            => Distances.EllipticalArcPerimeter(StartPoint, EndPoint, startAngle, EndAngle);
+            => Measurements.Length(this);
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the elliptical arc.
@@ -774,7 +715,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the elliptical arc.")]
         public override double Area
-            => Areas.EllipticalArcSector(rX, rY, startAngle, sweepAngle);
+            => Measurements.EllipticalArcSectorArea(rX, rY, startAngle, sweepAngle);
 
         /// <summary>
         /// Gets the size and location of the elliptical arc, in double-point pixels, relative to the parent canvas.
@@ -789,7 +730,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D DrawingBounds
-            => Boundings.Ellipse(cX, cY, rX, rY);
+            => Measurements.EllipseBounds(cX, cY, rX, rY);
 
         #endregion
 

@@ -1,10 +1,10 @@
 ﻿// <copyright file="NodeRevealer.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -30,48 +30,48 @@ namespace Engine
             : this(new List<Point2D>(), 0)
         { }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="locus"></param>
-        /// <param name="radius"></param>
-        public NodeRevealer(Locus locus, double radius)
-        {
-            Radius = radius;
-            ConnectPoints = true;
-            switch (locus)
-            {
-                case PointLocus p:
-                    Points = new List<Point2D> { p };
-                    ConnectPoints = false;
-                    break;
-                case LineSegmentLocus l:
-                    Points = l.Points;
-                    break;
-                case PointSetLocus p:
-                    Points = p.Points;
-                    ConnectPoints = false;
-                    break;
-                case PolylineLocus p:
-                    Points = p.Points;
-                    break;
-                case PolygonLocus p:
-                    Points = p.Points;
-                    break;
-                case PolylineSetLocus p:
-                    Points = ((PointSetLocus)p).Points;
-                    break;
-                case PolygonSetLocus p:
-                    Points = ((PointSetLocus)p).Points;
-                    break;
-                case ParallelLocus p:
-                case OutsideLocus o:
-                case EmptyLocus e:
-                default:
-                    Points = new List<Point2D>();
-                    break;
-            }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="locus"></param>
+        ///// <param name="radius"></param>
+        //public NodeRevealer(Locus locus, double radius)
+        //{
+        //    Radius = radius;
+        //    ConnectPoints = true;
+        //    switch (locus)
+        //    {
+        //        case PointLocus p:
+        //            Points = new List<Point2D> { p };
+        //            ConnectPoints = false;
+        //            break;
+        //        case LineSegmentLocus l:
+        //            Points = l.Points;
+        //            break;
+        //        case PointSetLocus p:
+        //            Points = p.Points;
+        //            ConnectPoints = false;
+        //            break;
+        //        case PolylineLocus p:
+        //            Points = p.Points;
+        //            break;
+        //        case PolygonLocus p:
+        //            Points = p.Points;
+        //            break;
+        //        case PolylineSetLocus p:
+        //            Points = ((PointSetLocus)p).Points;
+        //            break;
+        //        case PolygonSetLocus p:
+        //            Points = ((PointSetLocus)p).Points;
+        //            break;
+        //        case ParallelLocus p:
+        //        case OutsideLocus o:
+        //        case EmptyLocus e:
+        //        default:
+        //            Points = new List<Point2D>();
+        //            break;
+        //    }
+        //}
 
         /// <summary>
         /// 
@@ -115,13 +115,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double Radius { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public bool ConnectPoints { get; set; } = true;
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Engine
             get
             {
                 if (Points == null) return null;
-                var boundings = Boundings.Polygon(Points);
+                var boundings = Measurements.PolygonBounds(Points);
                 boundings?.Inflate(Radius, Radius);
                 return boundings;
             }

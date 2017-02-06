@@ -1,11 +1,12 @@
 ﻿// <copyright file="Polygon.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -115,6 +116,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlArray]
         public List<Point2D> Points
         {
             get { return points; }
@@ -123,6 +125,7 @@ namespace Engine
                 points = value;
                 OnPropertyChanged(nameof(Points));
                 update?.Invoke();
+                Refresh();
             }
         }
 
@@ -142,7 +145,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
-            => Primitives.PolygonPerimeter(points);
+            => (double)CachingProperty(() => Measurements.PolygonPerimeter(points));
 
         /// <summary>
         /// 
@@ -152,7 +155,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.Polygon(points);
+            => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points));
 
         /// <summary>
         /// 
@@ -161,7 +164,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Area
-            => Math.Abs(Areas.SignedPolygon(points));
+            => (double)CachingProperty(() => Math.Abs(Measurements.SignedPolygonArea(points)));
 
         /// <summary>
         /// 
@@ -170,7 +173,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public double SignedArea
-            => Areas.SignedPolygon(points);
+            => (double)CachingProperty(() => Measurements.SignedPolygonArea(points));
 
         /// <summary>
         /// 
@@ -180,7 +183,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public DirectionOrentations Orientation
-            => (DirectionOrentations)Math.Sign(Areas.SignedPolygon(points));
+            => (DirectionOrentations)CachingProperty(() => (DirectionOrentations)Math.Sign(Measurements.SignedPolygonArea(points)));
 
         #endregion
 
@@ -252,7 +255,7 @@ namespace Engine
             // Build up the weights map.
             for (int i = 1; i < points.Count + 1; i++)
             {
-                double curentLength = Primitives.Length(cursor, (i == points.Count) ? points[0] : points[i]);
+                double curentLength = Measurements.Distance(cursor, (i == points.Count) ? points[0] : points[i]);
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
                 cursor = (i == points.Count) ? points[0] : points[i];

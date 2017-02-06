@@ -1,10 +1,10 @@
 ﻿// <copyright file="Size2D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <date></date>
 // <summary></summary>
 // <remarks></remarks>
@@ -93,14 +93,14 @@ namespace Engine
         /// Width component of a <see cref="Size2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double Width { get; set; }
 
         /// <summary>
         /// Height component of a <see cref="Size2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double Height { get; set; }
 
         /// <summary>

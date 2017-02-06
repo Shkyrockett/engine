@@ -1,20 +1,21 @@
 ﻿// <copyright file="BinaryReaderExtensions.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
+
+using System;
+using System.IO;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Engine.File
 {
-    using System;
-    using System.IO;
-    using System.Net;
-    using System.Runtime.InteropServices;
-    using System.Text;
-
     /// <summary>
     /// Overloads BinaryReader to read extended primitive data types as binary values in specific encodings.
     /// </summary>

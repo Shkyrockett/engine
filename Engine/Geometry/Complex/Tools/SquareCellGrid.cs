@@ -1,11 +1,12 @@
 ﻿// <copyright file="SquareCellGrid.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.ComponentModel;
@@ -177,7 +178,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public int X
         {
             get { return x; }
@@ -193,7 +194,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public int Y
         {
             get { return y; }
@@ -209,7 +210,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public int Width
         {
             get { return h; }
@@ -225,7 +226,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public int Height
         {
             get { return v; }
@@ -241,7 +242,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the number of cells the grid is to contain.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public int Count
         {
             get { return count; }

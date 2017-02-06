@@ -1,11 +1,12 @@
 ﻿// <copyright file="CircularArc.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.ComponentModel;
@@ -129,7 +130,7 @@ namespace Engine
             y = (f.I - f.J) / (slopeB - slopeA);
 
             // Get the radius.
-            radius = (Center.Length(PointA));
+            radius = (Center.Distance(PointA));
         }
 
         #endregion
@@ -370,7 +371,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The tight rectangular boundaries of the Arc.")]
         public override Rectangle2D Bounds
-            => Boundings.CircularArc(x, y, radius, startAngle, SweepAngle);
+            => Measurements.CircularArcBounds(x, y, radius, startAngle, SweepAngle);
 
         /// <summary>
         /// 
@@ -379,7 +380,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Arc.")]
         public Rectangle2D DrawingBounds
-            => Boundings.Circle(x, y, radius);
+            => Measurements.CircleBounds(x, y, radius);
 
         /// <summary>
         /// 
@@ -389,7 +390,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The distance around the Arc.")]
         public double ArcLength
-            => Distances.ArcLength(radius, SweepAngle);
+            => Measurements.ArcLength(radius, SweepAngle);
 
         /// <summary>
         /// 
@@ -398,7 +399,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The area of the arc.")]
         public override double Area
-            => Areas.CircularArcSector(radius, SweepAngle);
+            => Measurements.CircularArcSectorArea(radius, SweepAngle);
 
         #endregion
 

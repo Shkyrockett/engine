@@ -1,4 +1,24 @@
-﻿using System;
+﻿// <copyright file="Intersections.cs" company="Shkyrockett" >
+//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+
+// <copyright company="kevlindev" >
+//     The original implementation was based on methods found on Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/. 
+//     Copyright (c) 2000 - 2003 Kevin Lindsey. All rights reserved.
+// </copyright>
+// <author id="thelonious">Kevin Lindsey</author>
+// <license>
+//     Licensed under the BSD-3-Clause https://github.com/thelonious/kld-intersections/blob/development/LICENSE
+// </license>
+
+// <summary></summary>
+// <remarks></remarks>
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -17,7 +37,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private IntersectionStatus status;
+        private IntersectionState state;
 
         /// <summary>
         /// 
@@ -39,28 +59,43 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="status"></param>
-        public Intersection(IntersectionStatus status)
-            : this(IntersectionStatus.NoIntersection, new List<Point2D>())
+        public Intersection(IntersectionState status)
+            : this(IntersectionState.NoIntersection, new List<Point2D>())
         { }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="status"></param>
+        /// <param name="state"></param>
         /// <param name="points"></param>
-        public Intersection(IntersectionStatus status, params Point2D[] points)
-            : this(status, new List<Point2D>(points))
+        public Intersection(IntersectionState state, params Point2D[] points)
+            : this(state, new List<Point2D>(points))
         { }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="status"></param>
+        /// <param name="state"></param>
         /// <param name="points"></param>
-        public Intersection(IntersectionStatus status, List<Point2D> points)
+        public Intersection(IntersectionState state, List<Point2D> points)
         {
-            this.status = status;
+            this.state = state;
             this.points = points;
+        }
+
+        #endregion
+
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="points"></param>
+        public void Deconstruct(out IntersectionState state, out List<Point2D> points)
+        {
+            state = this.State;
+            points = this.Points;
         }
 
         #endregion
@@ -85,10 +120,10 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public IntersectionStatus Status
+        public IntersectionState State
         {
-            get { return status; }
-            set { status = value; }
+            get { return state; }
+            set { state = value; }
         }
 
         /// <summary>
@@ -134,7 +169,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         public override int GetHashCode()
-            => status.GetHashCode()
+            => state.GetHashCode()
             ^ points.GetHashCode();
 
         /// <summary>
@@ -187,7 +222,7 @@ namespace Engine
         {
             //if (this == null) return nameof(Intersection);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(Status)}: {status.ToString()}, {string.Join(sep.ToString(), points)}}}";
+            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {state.ToString()}, {string.Join(sep.ToString(), points)}}}";
             return formatable.ToString(format, provider);
         }
 

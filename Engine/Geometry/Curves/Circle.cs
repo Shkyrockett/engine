@@ -1,11 +1,12 @@
 ﻿// <copyright file="Circle.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.ComponentModel;
@@ -98,6 +99,7 @@ namespace Engine
         /// <param name="y">The center y coordinate point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         public Circle(double x, double y, double radius)
+            : base()
         {
             this.x = x;
             this.y = y;
@@ -110,6 +112,7 @@ namespace Engine
         /// <param name="center">The center point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         public Circle(Point2D center, double radius)
+            : base()
         {
             x = center.X;
             y = center.Y;
@@ -121,6 +124,7 @@ namespace Engine
         /// </summary>
         /// <param name="bounds">The bounding box of the circle.</param>
         public Circle(Rectangle2D bounds)
+            : base()
         {
             x = bounds.Center().X;
             y = bounds.Center().Y;
@@ -142,6 +146,7 @@ namespace Engine
         /// <param name="PointB"></param>
         /// <param name="PointC"></param>
         public Circle(Point2D PointA, Point2D PointB, Point2D PointC)
+            : base()
         {
             //  Calculate the slopes of the lines.
             double slopeA = (PointA.Slope(PointB));
@@ -154,7 +159,7 @@ namespace Engine
             y = (f.I - f.J) / (slopeB - slopeA);
 
             // Get the radius.
-            radius = (Center.Length(PointA));
+            radius = (Center.Distance(PointA));
         }
 
         #endregion
@@ -164,7 +169,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the radius of the circle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [DisplayName(nameof(Radius))]
         [Category("Elements")]
         [Description("The radius of the circle.")]
@@ -208,7 +213,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [DisplayName(nameof(X))]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
@@ -229,7 +234,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [DisplayName(nameof(Y))]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
@@ -259,7 +264,7 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
-            get { return Boundings.Circle(x, y, radius); }
+            get { return Measurements.CircleBounds(x, y, radius); }
             set
             {
                 Center = value.Center();
@@ -278,7 +283,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public double Circumference
-            => Distances.CircleCircumference(radius);
+            => Measurements.CircleCircumference(radius);
 
         /// <summary>
         /// 
@@ -288,7 +293,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public override double Perimeter
-            => Distances.CircleCircumference(radius);
+            => Measurements.CircleCircumference(radius);
 
         /// <summary>
         /// 
@@ -299,7 +304,7 @@ namespace Engine
         [Description("The area of the circle.")]
         public override double Area
         {
-            get { return Areas.Circle(radius); }
+            get { return Measurements.CircleArea(radius); }
             set
             {
                 radius = Sqrt(value / PI);

@@ -1,4 +1,14 @@
-﻿using System;
+﻿// <copyright file="BezierSegment.cs" company="Shkyrockett" >
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -23,11 +33,15 @@ namespace Engine
     public class BezierSegment
         : Shape, IOpenShape
     {
-        static readonly double[] Bezier01 = new double[] { 0, 1 };
+        #region Constants
 
-        static readonly Polynomial T = new Polynomial(Bezier01);
+        private static readonly double[] Bezier01 = new double[] { 0, 1 };
 
-        static readonly Polynomial OneMinusT = 1 - T;
+        private static readonly Polynomial T = new Polynomial(Bezier01);
+
+        private static readonly Polynomial OneMinusT = 1 - T;
+
+        #endregion
 
         #region Fields
 
@@ -36,24 +50,16 @@ namespace Engine
         /// </summary>
         Point2D[] points;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        Polynomial curveX;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Polynomial curveY;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Rectangle2D bounds = Rectangle2D.Empty;
-
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BezierSegment()
+            : this(new Point2D[] { })
+        { }
 
         /// <summary>
         /// 
@@ -68,12 +74,20 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public BezierSegment(params Point2D[] points)
+            : base()
+            => this.points = points;
+
+        #endregion
+
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        public void Deconstruct(out Point2D[] points)
         {
-            if (points == null)
-                throw new ArgumentNullException();
-            if (points.Length < 2)
-                throw new ArgumentException("Bezier curve need at least 2 points (segment).");
-            this.points = points;
+            points = this.points;
         }
 
         #endregion
@@ -98,43 +112,48 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlArray]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D[] Points
         {
             get { return points; }
-            set { points = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override Rectangle2D Bounds
-        {
-            get
+            set
             {
-                if ((bounds?.IsEmpty) ?? true)
-                {
-                    (double x0, double x1) = CurveX.GetMinMax(0, 1);
-                    (double y0, double y1) = CurveY.GetMinMax(0, 1);
-                    bounds = new Rectangle2D(x0, y0, x1 - x0, y1 - y0);
-                }
-
-                return bounds;
+                points = value;
+                OnPropertyChanged(nameof(Points));
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        public override Rectangle2D Bounds
+        {
+            get
+            {
+                return (Rectangle2D)CachingProperty(() => bounds());
+
+                Rectangle2D bounds()
+                {
+                    (double x0, double x1) = CurveX.GetMinMax(0, 1);
+                    (double y0, double y1) = CurveY.GetMinMax(0, 1);
+                    return new Rectangle2D(x0, y0, x1 - x0, y1 - y0);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
             get
             {
-                if (curveX == null)
-                {
-                    curveX = Bezier(points.Select(p => p.X).ToArray());
-                    curveX.IsReadonly = true;
-                }
+                var curveX = (Polynomial)CachingProperty(() => Bezier(points.Select(p => p.X).ToArray()));
+                curveX.IsReadonly = true;
                 return curveX;
             }
         }
@@ -142,15 +161,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore, SoapIgnore]
         public Polynomial CurveY
         {
             get
             {
-                if (curveY == null)
-                {
-                    curveY = Bezier(points.Select(p => p.Y).ToArray());
-                    curveY.IsReadonly = true;
-                }
+                var curveY = (Polynomial)CachingProperty(() => Bezier(points.Select(p => p.Y).ToArray()));
+                curveY.IsReadonly = true;
                 return curveY;
             }
         }
@@ -158,8 +175,9 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public CurveDegree Degree
-            => (CurveDegree)(Points.Length - 1);
+        [XmlIgnore, SoapIgnore]
+        public PolynomialDegree Degree
+            => (PolynomialDegree)(Points.Length - 1);
 
         #endregion
 

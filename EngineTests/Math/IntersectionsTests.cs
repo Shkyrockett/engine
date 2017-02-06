@@ -1,11 +1,12 @@
 ﻿// <copyright file="IntersectionsTests.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -297,7 +298,7 @@ namespace Engine.Tests
 
             foreach (var testCase in testCases.Keys)
             {
-                bool result = Intersectings.LineSegmentPoint(testCase.AX, testCase.AY, testCase.BX, testCase.BY, testCase.X, testCase.Y);
+                bool result = Intersections.PointLineSegmentIntersects(testCase.AX, testCase.AY, testCase.BX, testCase.BY, testCase.X, testCase.Y);
                 Assert.AreEqual(testCases[testCase], result);
             }
         }

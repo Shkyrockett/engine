@@ -1,11 +1,12 @@
 ﻿// <copyright file="RotatedRectangle2D.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -171,7 +172,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Browsable(true)]
         [DisplayName(nameof(X))]
         [Category("Elements")]
@@ -195,7 +196,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Browsable(true)]
         [DisplayName(nameof(Y))]
         [Category("Elements")]
@@ -219,7 +220,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the height of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Browsable(true)]
         [DisplayName(nameof(Height))]
         [Category("Elements")]
@@ -243,7 +244,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the width of the rectangle.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Browsable(true)]
         [DisplayName(nameof(Width))]
         [Category("Elements")]
@@ -293,7 +294,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the angle the rectangle should be rotated.
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Browsable(true)]
         [DisplayName(nameof(Aspect))]
         [Category("Properties")]
@@ -418,7 +419,7 @@ namespace Engine
         [Category("Elements")]
         [Description("The distance around the rectangle.")]
         public override double Perimeter
-            => (Distances.Distance(0, 0, width, 0) * 2) + (Distances.Distance(0, 0, 0, height) * 2);
+            => (Measurements.Distance(0, 0, width, 0) * 2) + (Measurements.Distance(0, 0, 0, height) * 2);
 
         /// <summary>
         /// Gets the bounding box of the rectangle.
@@ -434,7 +435,7 @@ namespace Engine
         [Category("Elements")]
         [Description("bounding box of the rectangle.")]
         public override Rectangle2D Bounds
-            => Boundings.RotatedRectangle(width, height, Center, angle);
+            => Measurements.RotatedRectangleBounds(width, height, Center, angle);
 
         #endregion
 

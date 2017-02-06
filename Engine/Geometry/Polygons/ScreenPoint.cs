@@ -1,11 +1,12 @@
 ﻿// <copyright file="ScreenPoint.cs" company="Shkyrockett" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.ComponentModel;
@@ -21,10 +22,16 @@ namespace Engine
     public class ScreenPoint
         : Shape
     {
+        #region Fields
+
         /// <summary>
         /// 
         /// </summary>
-        Point2D point;
+        private Point2D point;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -38,6 +45,7 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         public ScreenPoint(Point2D point)
+            : base()
             => this.point = point;
 
         /// <summary>
@@ -47,9 +55,29 @@ namespace Engine
             : this(new Point2D(x, y))
         { }
 
+        #endregion
+
+        #region Deconstructors
+
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void Deconstruct(out double x, out double y)
+        {
+            x = this.point.X;
+            y = this.point.Y;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlAnyAttribute, SoapAttribute]
         public double X
         {
             get { return point.X; }
@@ -64,6 +92,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlAnyAttribute, SoapAttribute]
         public double Y
         {
             get { return point.Y; }
@@ -109,7 +138,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => new Rectangle2D(point, point);
+            => (Rectangle2D)CachingProperty(() => new Rectangle2D(point, point));
 
         /// <summary>
         /// 
@@ -119,6 +148,8 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Area
             => 0;
+
+        #endregion
 
         /// <summary>
         /// 

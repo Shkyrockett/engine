@@ -111,7 +111,6 @@
     <Compile Include="Animation\Tweening\Lerpers\Vector3DLerper.cs" />
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
-    <Compile Include="_Preview\Intersection\Enums\CurveDegree.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
     <Compile Include="Geometry\Polygons\Line.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\Clip.cs" />
@@ -137,15 +136,14 @@
     <Compile Include="Geometry\Complex\Path\GeometryPath.cs" />
     <Compile Include="Geometry\Complex\Tools\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
-    <Compile Include="Geometry\Math\Distances.cs" />
     <Compile Include="Animation\Transform.cs" />
     <Compile Include="Geometry\Polygons\PointSet.cs" />
     <Compile Include="Geometry\Polygons\ScreenPoint.cs" />
     <Compile Include="Math\Enums\Relations.cs" />
     <Compile Include="Geometry\Polygons\Ray.cs" />
-    <Compile Include="_Preview\Intersection\Enums\IntersectionStatus.cs" />
-    <Compile Include="_Preview\LocusIntersection\EmptyLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\IntersectionsPreview.cs" />
+    <Compile Include="_Preview\Intersection\Enums\IntersectionState.cs" />
+    <Compile Include="_Preview\Intersection\Enums\PolynomialDegree.cs" />
+    <Compile Include="_Preview\Intersection\Measurements.cs" />
     <Compile Include="_Preview\Intersection\Intersection.cs" />
     <Compile Include="Objects\GraphicsCataloge.cs" />
     <Compile Include="Animation\Particles\Particle.cs" />
@@ -178,23 +176,6 @@
     <Compile Include="Animation\Skeleton\Pose.cs" />
     <Compile Include="Animation\Skeleton\Armature.cs" />
     <Compile Include="_Preview\Clipping\GeometryClipping.cs" />
-    <Compile Include="_Preview\LocusIntersection\Intersector.cs" />
-    <Compile Include="_Preview\LocusIntersection\CoincidentLineLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\Locus.cs" />
-    <Compile Include="_Preview\LocusIntersection\OverlapLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\LineSegmentLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\OutsideLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\ParallelLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\PointSetLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\PolylineSetLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\PolygonSetLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\PolylineLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\PolygonLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\PointLocus.cs" />
-    <Compile Include="_Preview\LocusIntersection\UnionLocus.cs" />
-    <Compile Include="Geometry\Math\Nearests.cs" />
-    <Compile Include="Geometry\Math\Areas.cs" />
-    <Compile Include="Geometry\Math\Boundings.cs" />
     <Compile Include="Math\Notation\Codomain.cs" />
     <Compile Include="Math\Notation\Coefficient.cs" />
     <Compile Include="Math\Notation\Constant.cs" />
@@ -473,7 +454,7 @@
   <ItemGroup>
     <None Include="Animation\Tweening\readme.md" />
     <None Include="packages.config" />
-    <None Include="_Preview\LocusIntersection\ShapeIntersections.md" />
+    <None Include="_Preview\Intersection\ShapeIntersections.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

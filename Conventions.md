@@ -207,9 +207,9 @@ Method parameters should generally be on the same line, unless the number of par
 
 ## C# 6 Features
 
-### Lambda Methods/Properties
+### Expression Body Methods/Properties
 
-For methods and read-only properties where they make sense, please feel free to use the Lambda syntax. A little profiling indicates there may be some speed improvements with them.
+For methods and read-only properties where they make sense, please feel free to use the expression body syntax. A little profiling indicates there may be some speed improvements with them.
 I am placing the 
 
 ```c#
@@ -236,6 +236,10 @@ Feel free to use the new Tuple syntax where ever it makes sense. Tuples work gre
 
 ```c#
 (double X, double Y) tempPoint = (x, y);
+```
+
+```c#
+(double X, double Y) = (x, y);
 ```
 
 ### Interpolated Strings
@@ -296,7 +300,7 @@ Here is the general format I am using.
 
 To standardize these specific methods throughout the Engine to work the same, please use the following conventions.
 
-### Tuple Constructors
+### Tuple Constructors Deconstructors
 
 If a struct/class can be generalized by a numeric tuple; please use a tuple constructor and explicit operator so you can take advantage of any existing methods with the same signature.
 
@@ -325,6 +329,24 @@ If a struct/class can be generalized by a numeric tuple; please use a tuple cons
             A = a;
             B = b;
             C = c;
+        }
+
+        #endregion
+
+        #region Deconstructors
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        [DebuggerStepThrough]
+        public void Deconstruct(out double a, out double b, out double c)
+        {
+            a = this.A;
+            b = this.B;
+            c = this.C;
         }
 
         #endregion

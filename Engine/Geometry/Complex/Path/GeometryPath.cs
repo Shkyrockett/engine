@@ -1,10 +1,10 @@
 ﻿// <copyright file="GeometryPath.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -32,19 +32,45 @@ namespace Engine
     public class GeometryPath
         : Shape
     {
+        List<PathItem> items = new List<PathItem>();
+
+        bool closed = false;
+
         #region Constructors
 
         /// <summary>
         /// 
         /// </summary>
         public GeometryPath()
+            : base()
             => Items = new List<PathItem>();
 
         /// <summary>
         /// 
         /// </summary>
         public GeometryPath(Point2D start)
+            : base()
             => Items.Add(new PathPoint(start));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public GeometryPath(List<PathItem> items)
+            : base()
+            => Items = items;
+
+        #endregion
+
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        public void Deconstruct(out List<PathItem> items)
+        {
+            items = this.Items;
+        }
 
         #endregion
 
@@ -69,26 +95,35 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public List<PathItem> Items { get; set; } = new List<PathItem>();
+        public List<PathItem> Items
+        {
+            get { return items; }
+            set
+            {
+                items = value;
+                OnPropertyChanged(nameof(Definition));
+                update?.Invoke();
+                Refresh();
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [Browsable(false)]
-        [XmlAttribute("d")]
+        [XmlAttribute("d"), SoapAttribute("d")]
         [RefreshProperties(RefreshProperties.All)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Deffinition
+        public string Definition
         {
-            get
-            {
-                return ToPathDefString();
-            }
-
+            get { return ToPathDefString(); }
             set
             {
                 Items = ParsePathDefString(value).Item1;
+                OnPropertyChanged(nameof(Definition));
+                update?.Invoke();
+                Refresh();
             }
         }
 
@@ -103,14 +138,18 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public bool Closed { get; set; }
+        public bool Closed
+        {
+            get { return closed; }
+            set { closed = value; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
-            => Boundings.GeometryPath(this);
+            => (Rectangle2D)CachingProperty(() => Measurements.GeometryPathBounds(this));
 
         /// <summary>
         /// 
@@ -118,7 +157,8 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [XmlIgnore, SoapIgnore]
-        public override double Perimeter => Items.Sum(p => p.Length);
+        public override double Perimeter
+            => (double)CachingProperty(() => Items.Sum(p => p.Length));
 
         #endregion
 

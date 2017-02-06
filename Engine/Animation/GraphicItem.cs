@@ -1,11 +1,12 @@
 ﻿// <copyright file="GraphicItem.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,7 @@ namespace Engine
         [XmlElement(typeof(CubicBezier))]
         [XmlElement(typeof(Ellipse))]
         [XmlElement(typeof(EllipticalArc))]
+        [XmlElement(typeof(Line))]
         [XmlElement(typeof(LineSegment))]
         [XmlElement(typeof(NodeRevealer))]
         [XmlElement(typeof(Oval))]
@@ -87,6 +89,7 @@ namespace Engine
         [XmlElement(typeof(PolygonSet))]
         [XmlElement(typeof(Polyline))]
         [XmlElement(typeof(PolylineSet))]
+        [XmlElement(typeof(Ray))]
         [XmlElement(typeof(Rectangle2D))]
         [XmlElement(typeof(RectangleCellGrid))]
         [XmlElement(typeof(RectangleDCellGrid))]

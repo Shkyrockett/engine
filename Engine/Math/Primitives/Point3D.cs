@@ -1,10 +1,10 @@
 ﻿// <copyright file="Point3D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <date></date>
 // <summary></summary>
 // <remarks></remarks>
@@ -78,27 +78,44 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        public void Deconstruct(out double x, out double y, out double z)
+        {
+            x = this.X;
+            y = this.Y;
+            z = this.Z;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
         /// X component of a <see cref="Point3D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="Point3D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
         /// <summary>
         /// Z component of a <see cref="Point3D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double Z { get; set; }
 
         /// <summary>

@@ -1,11 +1,12 @@
 ﻿// <copyright file="AreasTests.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -175,7 +176,7 @@ namespace Engine.Tests
 
             foreach (var arc in results.Keys)
             {
-                var area = Areas.CircularArcSector(arc.radius, arc.sweepAngle.ToRadians());
+                var area = Measurements.CircularArcSectorArea(arc.radius, arc.sweepAngle.ToRadians());
                 Assert.AreEqual(results[(arc)], area, TestEpsilon);
             }
         }
@@ -203,7 +204,7 @@ namespace Engine.Tests
             foreach (var r in results.Keys)
             {
                 // Retrieve the area of the circle, provided it's radius. 
-                var area = Areas.Circle(r);
+                var area = Measurements.CircleArea(r);
 
                 // Check for a correct result.
                 Assert.AreEqual(results[r], area, TestEpsilon);
@@ -232,7 +233,7 @@ namespace Engine.Tests
             foreach (var radii in results.Keys)
             {
                 // Retrieve the area of the circle, provided it's radius. 
-                var area = Areas.Ellipse(radii.r1, radii.r2);
+                var area = Measurements.EllipseArea(radii.r1, radii.r2);
 
                 // Check for a correct result.
                 Assert.AreEqual(results[(radii)], area, TestEpsilon);
@@ -261,7 +262,7 @@ namespace Engine.Tests
             foreach (var size in results.Keys)
             {
                 // Retrieve the area of the circle, provided it's radius. 
-                var area = Areas.Rectangle(size.w, size.h);
+                var area = Measurements.RectangleArea(size.w, size.h);
 
                 // Check for a correct result.
                 Assert.AreEqual(results[size], area, TestEpsilon);
@@ -291,7 +292,7 @@ namespace Engine.Tests
             foreach (var w in results.Keys)
             {
                 // Retrieve the area of the circle, provided it's radius. 
-                var area = Areas.Square(w);
+                var area = Measurements.SquareArea(w);
 
                 // Check for a correct result.
                 Assert.AreEqual(results[w], area, TestEpsilon);
@@ -327,7 +328,7 @@ namespace Engine.Tests
             for (int i = 0; i < results.Count; i++)
             {
                 // Retrieve the area of the polygon, provided a chain of points. 
-                var area = Areas.Polygon(polygons[i].polygon);
+                var area = Measurements.SignedPolygonArea(polygons[i].polygon);
 
                 // Check for a correct result.
                 Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);
@@ -362,7 +363,7 @@ namespace Engine.Tests
             for (int i = 0; i < results.Count; i++)
             {
                 // Retrieve the area of the polygon, provided a chain of points. 
-                var area = Areas.SignedPolygon(polygons[i].polygon);
+                var area = Measurements.SignedPolygonArea(polygons[i].polygon);
 
                 // Check for a correct result.
                 Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);

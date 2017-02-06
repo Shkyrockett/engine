@@ -82,7 +82,7 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="points"></param>
-        public Bezier(List<Point3D> points) => this.Points = points;
+        public Bezier(List<Point3D> points) => Points = points;
 
         /// <summary>
         ///
@@ -229,7 +229,7 @@ namespace Engine
         /// <param name="E"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static (Point3D, Point3D, Point3D) GetABC(double n, Point3D S, Point3D B, Point3D E, double t = 0.5)
+        public static (Point3D, Point3D, Point3D) GetABC(double n, Point3D S, Point3D B, Point3D E, double t = 0.5d)
         {
             double u = ProjectionRatio(t, n);
             double um = 1 - u;
@@ -247,9 +247,11 @@ namespace Engine
             return (A, B, C);
         }
 
-        private static double Abcratio(double t, double n) => throw new NotImplementedException();
+        private static double Abcratio(double t, double n)
+            => throw new NotImplementedException();
 
-        private static double ProjectionRatio(double t, double n) => throw new NotImplementedException();
+        private static double ProjectionRatio(double t, double n)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -259,7 +261,7 @@ namespace Engine
         /// <param name="p3"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static Bezier QuadraticFromPoints(Point3D p1, Point3D p2, Point3D p3, double t = 0.5)
+        public static Bezier QuadraticFromPoints(Point3D p1, Point3D p2, Point3D p3, double t = 0.5d)
         {
             // shortcuts, although they're really dumb
             if (t == 0) return new Bezier(p2, p2, p3); if (t == 1) return new Bezier(p1, p2, p2);             // real fitting.
@@ -276,12 +278,12 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="d1"></param>
         /// <returns></returns>
-        public static Bezier CubicFromPoints(Point3D S, Point3D B, Point3D E, double t = 0.5, double d1 = 0)
+        public static Bezier CubicFromPoints(Point3D S, Point3D B, Point3D E, double t = 0.5d, double d1 = 0d)
         {
             (Point3D, Point3D, Point3D) abc = GetABC(3, S, B, E, t);
-            if (d1 == 0) d1 = Distances.Distance(B, abc.Item3); double d2 = d1 * (1 - t) / t;
+            if (d1 == 0) d1 = Measurements.Distance(B, abc.Item3); double d2 = d1 * (1 - t) / t;
 
-            double selen = Distances.Distance(S, E);
+            double selen = Measurements.Distance(S, E);
             double lx = (E.X - S.X) / selen;
             double ly = (E.Y - S.Y) / selen;
             double lz = (E.Z - S.Z) / selen;
@@ -358,7 +360,7 @@ namespace Engine
         /// </summary>
         public void Computedirection()
         {
-            List<Point3D> points = this.Points;
+            List<Point3D> points = Points;
             double angle = Utilities.Angle(points[0], points[Order], points[1]);
             Clockwise = angle > 0;
         }
@@ -400,7 +402,7 @@ namespace Engine
             for (int i = 0; i < lut.Count; i++)
             {
                 c = lut[i];
-                if (Distances.Distance(c, point) < error)
+                if (Measurements.Distance(c, point) < error)
                 {
                     hits.Add(c);
                     t += i / lut.Count;
@@ -446,7 +448,7 @@ namespace Engine
             for (t = t1, ft = t; t < t2 + step; t += step)
             {
                 p = Compute(t);
-                d = Distances.Distance(point, p);
+                d = Measurements.Distance(point, p);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -735,7 +737,8 @@ namespace Engine
             return subsplit.Left;
         }
 
-        private double Map(double t2, double t1, double v1, double v2, double v3) => throw new NotImplementedException();
+        private double Map(double t2, double t1, double v1, double v2, double v3)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -781,7 +784,7 @@ namespace Engine
         /// <returns></returns>
         public BBox Bbox()
         {
-            List<double> extrema = this.Extrema();
+            List<double> extrema = Extrema();
             return new BBox(
                 GetMinMax(this, 0, extrema),
                 GetMinMax(this, 1, extrema),
@@ -789,7 +792,8 @@ namespace Engine
                 );
         }
 
-        private RangeX GetMinMax(Bezier bezier, int v, List<double> extrema) => throw new NotImplementedException();
+        private RangeX GetMinMax(Bezier bezier, int v, List<double> extrema)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -803,7 +807,8 @@ namespace Engine
             return Bboxoverlap(lbbox, tbbox);
         }
 
-        private bool Bboxoverlap(BBox lbbox, BBox tbbox) => throw new NotImplementedException();
+        private bool Bboxoverlap(BBox lbbox, BBox tbbox)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -889,7 +894,7 @@ namespace Engine
             var pass1 = new List<Bezier>();
             var pass2 = new List<Bezier>();
             // first pass: split on extrema
-            List<double> extrema = this.Extrema();
+            List<double> extrema = Extrema();
             if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0); if (extrema.IndexOf(1) == -1) extrema.Add(1); for (t1 = extrema[0], i = 1; i < extrema.Count; i++)
             {
                 t2 = extrema[i];
@@ -938,7 +943,8 @@ namespace Engine
             return pass2;
         }
 
-        private double Map(double t1, int v1, int v2, double t2, double t3) => throw new NotImplementedException();
+        private double Map(double t1, int v1, int v2, double t2, double t3)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -947,19 +953,19 @@ namespace Engine
         /// <returns></returns>
         public Bezier Scale(DerivitiveMethodDouble distanceFn)
         {
-            int order = this.Order;
+            int order = Order;
             if (order == 2)
                 return Raise().Scale(distanceFn);
 
             // TODO: add special handling for degenerate (=linear) curves.
-            bool clockwise = this.Clockwise;
+            bool clockwise = Clockwise;
             double r1 = distanceFn(0);
             double r2 = distanceFn(1);
             var v = new List<(Point3D, Point3D, Point3D)> { Offset(0, 10), Offset(1, 10) };
             Point3D o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
-            List<Point3D> points = this.Points;
+            List<Point3D> points = Points;
             var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
@@ -974,7 +980,7 @@ namespace Engine
             // ensure the correct tangent to endpoint".
             foreach (int t in new List<int> { 0, 1 })
             {
-                if (this.Order == 2) break;
+                if (Order == 2) break;
                 Point3D p = points[t + 1];
                 var ov = new Point3D(
                         x: p.X - o.X,
@@ -994,9 +1000,11 @@ namespace Engine
             return new Bezier(np);
         }
 
-        private Point3D Copy(Point3D point3D) => throw new NotImplementedException();
+        private Point3D Copy(Point3D point3D)
+            => throw new NotImplementedException();
 
-        private Point3D Lli4(Point3D item31, Point3D item11, Point3D item32, Point3D item12) => throw new NotImplementedException();
+        private Point3D Lli4(Point3D item31, Point3D item11, Point3D item32, Point3D item12)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1005,14 +1013,15 @@ namespace Engine
         /// <returns></returns>
         public Bezier Scale(double d)
         {
-            int order = this.Order;
-            bool clockwise = this.Clockwise;
+            int order = Order;
+            bool clockwise = Clockwise;
             double r1 = d;
             double r2 = d;
             var v = new List<(Point3D, Point3D, Point3D)> { Offset(0, 10), Offset(1, 10) };
             Point3D o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
-            if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");             // move all points by distance 'd' wrt the origin 'o'
-            List<Point3D> points = this.Points;
+            if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
+            // move all points by distance 'd' wrt the origin 'o'
+            List<Point3D> points = Points;
             var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
@@ -1027,7 +1036,7 @@ namespace Engine
             // derivative vector, and the origin-through-control vector
             foreach (int t in new List<int> { 0, 1 })
             {
-                if (this.Order == 2) break;
+                if (Order == 2) break;
                 Point3D p = np[t * order];
                 Point3D d2 = Derivative(t);
                 var p2 = new Point3D(x: p.X + d2.X, y: p.Y + d2.Y, z: p.Z + d2.Z);
@@ -1101,7 +1110,7 @@ namespace Engine
             double slen = 0;
             double tlen = Length();
 
-            // form curve oulines
+            // form curve outlines
             foreach (Bezier segment in reduced)
             {
                 slen = segment.Length();
@@ -1150,7 +1159,8 @@ namespace Engine
             return new PolyBezier(segments);
         }
 
-        private Bezier MakeLine(Point3D bs, Point3D fs) => throw new NotImplementedException();
+        private Bezier MakeLine(Point3D bs, Point3D fs)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1161,7 +1171,7 @@ namespace Engine
         public List<Shape1> Outlineshapes(double d1, double d2)
         {
             //d2 = d2 || d1;
-            List<Bezier> outline = this.Outline(d1, d2).Curves;
+            List<Bezier> outline = Outline(d1, d2).Curves;
             var shapes = new List<Shape1>();
             for (int i = 1, len = outline.Count; i < len / 2; i++)
             {
@@ -1173,7 +1183,8 @@ namespace Engine
             return shapes;
         }
 
-        private Shape1 MakeShape(Bezier bezier1, Bezier bezier2) => throw new NotImplementedException();
+        private Shape1 MakeShape(Bezier bezier1, Bezier bezier2)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1215,10 +1226,11 @@ namespace Engine
                 from t in Roots(Points, line)
                 let p = self.Get(t)
 
-                select Containings.Between(p.X, mx, MX) && Containings.Between(p.Y, my, MY));
+                select Intersections.Between(p.X, mx, MX) && Intersections.Between(p.Y, my, MY));
         }
 
-        private List<double> Roots(List<Point3D> points, Line1 line) => new List<double> { 0 };
+        private List<double> Roots(List<Point3D> points, Line1 line)
+            => new List<double> { 0 };
 
         /// <summary>
         ///
@@ -1274,14 +1286,15 @@ namespace Engine
             return intersections;
         }
 
-        private List<Pair> Pairiteration(Bezier left, Bezier right) => throw new NotImplementedException();
+        private List<Pair> Pairiteration(Bezier left, Bezier right)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="errorThreshold"></param>
         /// <returns></returns>
-        public List<Arc1> Arcs(double errorThreshold = 0.5)
+        public List<Arc1> Arcs(double errorThreshold = 0.5d)
         {
             //errorThreshold = errorThreshold || 0.5;
             var circles = new List<Arc1>();
@@ -1301,9 +1314,9 @@ namespace Engine
             double q = (e - s) / 4;
             Point3D c1 = Get(s + q);
             Point3D c2 = Get(e - q);
-            double reff = Distances.Distance(pc.Center, np1);
-            double d1 = Distances.Distance(pc.Center, c1);
-            double d2 = Distances.Distance(pc.Center, c2);
+            double reff = Measurements.Distance(pc.Center, np1);
+            double d1 = Measurements.Distance(pc.Center, c1);
+            double d2 = Measurements.Distance(pc.Center, c2);
             return Abs(d1 - reff) + Abs(d2 - reff);
         }
 
@@ -1390,7 +1403,8 @@ namespace Engine
             return circles;
         }
 
-        private Arc1 Getccenter(Point3D np1, Point3D np2, Point3D np3) => throw new NotImplementedException();
+        private Arc1 Getccenter(Point3D np1, Point3D np2, Point3D np3)
+            => throw new NotImplementedException();
 
         /// <summary>
         ///
@@ -1479,6 +1493,7 @@ namespace Engine
             }
         }
 
-        private static List<Point3D> Align(List<Point3D> list, Line1 line) => throw new NotImplementedException();
+        private static List<Point3D> Align(List<Point3D> list, Line1 line)
+            => throw new NotImplementedException();
     }
 }

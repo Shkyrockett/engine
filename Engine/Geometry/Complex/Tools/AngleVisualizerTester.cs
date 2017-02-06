@@ -1,11 +1,12 @@
 ﻿// <copyright file="AngleVisualizerTester.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Category("Properties")]
         [Description("The center x coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -78,7 +79,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Category("Properties")]
         [Description("The center y coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -88,7 +89,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [Category("Properties")]
         [Description("The radius of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -98,7 +99,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The test angle of the Arc.")]
@@ -109,7 +110,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The start angle of the Arc.")]
@@ -120,7 +121,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The sweep angle of the Arc.")]
@@ -222,7 +223,7 @@ namespace Engine
         /// 
         /// </summary>
         public bool InSweep(double angle)
-            => Containings.Contains(angle, StartAngle, SweepAngle);
+            => Intersections.Within(angle, StartAngle, SweepAngle);
 
         #endregion
     }

@@ -1,11 +1,12 @@
 ﻿// <copyright file="CubicBezier.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -492,7 +493,7 @@ namespace Engine
         /// <returns></returns>
         [XmlIgnore, SoapIgnore]
         public double Length
-            => Distances.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy);
+            => Measurements.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy);
 
         /// <summary>
         /// 
@@ -509,7 +510,7 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
-            => Boundings.CubicBezier(ax, ay, bx, by, cx, cy, dx, dy);
+            => Measurements.CubicBezierBounds(ax, ay, bx, by, cx, cy, dx, dy);
 
         #endregion
 

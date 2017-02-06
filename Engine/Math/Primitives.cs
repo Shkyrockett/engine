@@ -1,11 +1,10 @@
 ﻿// <copyright file="Primitives.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
-// <date></date>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -25,6 +24,8 @@ namespace Engine
     /// </summary>
     public static class Primitives
     {
+        // ToDo: Add Tuple Math here.
+
         #region Absolute Angle
 
         /// <summary>
@@ -1619,175 +1620,6 @@ namespace Engine
 
         #endregion
 
-        #region Length
-
-        /// <summary>
-        /// Distance between two tuple points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this (double X, double Y) p1, (double X, double Y) p2)
-            => Distances.Distance(p1.X, p1.Y, p2.X, p2.Y);
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Point2D p1, Point2D p2)
-            => Distances.Distance(p1.X, p1.Y, p2.X, p2.Y);
-
-        /// <summary>
-        /// Calculates the Length between two points.
-        /// </summary>
-        /// <param name="point">Starting Point.</param>
-        /// <param name="value">Ending Point.</param>
-        /// <returns>Returns the length of a line segment between two points.</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this Point2D point, Point2D value)
-            => Distances.Distance(point.X, point.Y, value.X, value.Y);
-
-        /// <summary>
-        /// Length of a Vector.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Vector2D a, Vector2D b)
-            => Distances.Distance(a.I, a.J, b.I, b.J);
-
-        /// <summary>
-        /// Finds the length of a 2D vector
-        /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="value"> Point</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this Vector2D vector, Vector2D value)
-            => Distances.Distance(vector.I, vector.J, value.I, value.J);
-
-        /// <summary>
-        /// Distance between two points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Point3D p1, Point3D p2)
-            => Distances.Distance(p1.X, p1.Y, p1.Z, p2.X, p2.Y, p2.Z);
-
-        /// <summary>
-        /// The length of a vector.
-        /// </summary>
-        /// <param name="p1">First vector.</param>
-        /// <param name="p2">Second vector.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Vector3D p1, Vector3D p2)
-            => Distances.Distance(p1.I, p1.J, p1.K, p2.I, p2.J, p2.K);
-
-        /// <summary>
-        /// Length of a Segment
-        /// </summary>
-        /// <param name="segment"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this LineSegment segment)
-            => Distances.Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-
-        /// <summary>
-        /// Finds the Length between two points
-        /// </summary>
-        /// <param name="segment">line segment</param>
-        /// <returns>The Length between two Points</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this LineSegment segment)
-            => Distances.Distance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this QuaternionD quaternion)
-            => Sqrt(LengthSquared(quaternion));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this Point2D[] polygon)
-        {
-            Point2D[] points = polygon;
-            return points.Length > 0 ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Length - 1]) : 0d;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this IEnumerable<Point2D> polygon)
-            => PolygonPerimeter(polygon as List<Point2D>);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this List<Point2D> polygon)
-        {
-            List<Point2D> points = polygon;
-            return points.Count > 0 ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0d;
-        }
-
-        #endregion
-
-        #region Length Squared
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LengthSquared(this QuaternionD quaternion)
-            => ((((quaternion.X * quaternion.X)
-            + (quaternion.Y * quaternion.Y))
-            + (quaternion.Z * quaternion.Z))
-            + (quaternion.W * quaternion.W));
-
-        #endregion
-
         #region Less Than
 
         /// <summary>
@@ -2246,10 +2078,10 @@ namespace Engine
         public static Polynomial Multiply(this Polynomial left, Polynomial right)
         {
             var result = new Polynomial();
-            for (var i = 0; i <= Degree + right.Degree; i++)
+            for (var i = 0; i <= Degree + (int)right.Degree; i++)
                 result.Coefficients.Add(0);
             for (var i = 0; i <= Degree; i++)
-                for (var j = 0; j <= right.Degree; j++)
+                for (var j = 0; j <= (int)right.Degree; j++)
                     result.Coefficients[i + j] += left.Coefficients[i] * right.Coefficients[j];
             return result;
         }

@@ -1,11 +1,12 @@
 ﻿// <copyright file="LineCapStyle.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.ComponentModel;
@@ -114,7 +115,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string CapPathText { get { return CapPath?.Deffinition; } set { CapPath.Deffinition = value; } }
+        public string CapPathText { get { return CapPath?.Definition; } set { CapPath.Definition = value; } }
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="LineCapStyle"/> struct.
@@ -167,6 +168,6 @@ namespace Engine
         public string ConvertToString(string format, IFormatProvider provider)
             //if (this == null)
             //    return nameof(GraphicsObject);
-            => capPath.Deffinition;
+            => capPath.Definition;
     }
 }

@@ -1,11 +1,12 @@
 ﻿// <copyright file="PolygonSet.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Engine
         /// An array of Polygons representing a set.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         private List<Polygon> polygons;
 
         #endregion
@@ -106,6 +107,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlArray]
         public List<Polygon> Polygons
         {
             get { return polygons; }
@@ -120,21 +122,23 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore, SoapIgnore]
         public int Count
             => polygons.Count;
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [XmlIgnore, SoapIgnore]
         public override double Perimeter
             => polygons.Sum(p => p.Perimeter);
 
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]

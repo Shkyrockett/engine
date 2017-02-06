@@ -1,12 +1,12 @@
 ﻿// <copyright file="SpeedTester.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
-// <remarks>Based on the class found at: http://www.vcskicks.com/algorithm-performance.php </remarks>
+// <remarks> Based on the class found at: http://www.vcskicks.com/algorithm-performance.php </remarks>
 
 using System;
 using System.ComponentModel;

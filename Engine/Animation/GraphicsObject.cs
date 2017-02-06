@@ -1,11 +1,12 @@
 ﻿// <copyright file="GraphicsObject.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,18 @@ namespace Engine
     /// <summary>
     /// Graphic objects base class.
     /// </summary>
+    [XmlInclude(typeof(BezierSegment))]
     [XmlInclude(typeof(Circle))]
     [XmlInclude(typeof(CircularArc))]
     [XmlInclude(typeof(CubicBezier))]
     [XmlInclude(typeof(Ellipse))]
     [XmlInclude(typeof(EllipticalArc))]
     [XmlInclude(typeof(GeometryPath))]
+    [XmlInclude(typeof(Line))]
     [XmlInclude(typeof(LineSegment))]
     [XmlInclude(typeof(NodeRevealer))]
     [XmlInclude(typeof(QuadraticBezier))]
+    [XmlInclude(typeof(Ray))]
     [XmlInclude(typeof(Rectangle2D))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GraphicsObject
@@ -54,11 +58,24 @@ namespace Engine
 
         #endregion
 
+        #region Fields
+
+        /// <summary>
+        /// Property cache for commonly used properties that may take time to calculate.
+        /// </summary>
+        protected Dictionary<object, object> propertyCache = new Dictionary<object, object>();
+
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         ///
         /// </summary>
         public GraphicsObject()
         { }
+
+        #endregion
 
         #region Properties
 
@@ -163,6 +180,38 @@ namespace Engine
         /// <param name="name"></param>
         protected void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        /// <summary>
+        ///
+        /// </summary>
+        public void Refresh()
+            => ClearCache();
+
+        /// <summary>
+        /// This should be run anytime a property of the item is modified.
+        /// </summary>
+        protected void ClearCache()
+            => propertyCache.Clear();
+
+        /// <summary>
+        /// Private method for caching computationally and memory intensive properties of child objects
+        /// so the child object's properties only get touched when necessary.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
+        protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
+        {
+            if (!propertyCache.ContainsKey(name))
+            {
+                var value = property.Invoke();
+                propertyCache.Add(name, value);
+                return value;
+            }
+
+            return propertyCache[name];
+        }
 
         ///// <summary>
         /////

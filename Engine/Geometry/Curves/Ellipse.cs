@@ -1,11 +1,12 @@
 ﻿// <copyright file="Ellipse.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -442,7 +443,7 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
-            get { return Boundings.Ellipse(x, y, rX, rY, angle); }
+            get { return Measurements.EllipseBounds(x, y, rX, rY, angle); }
             set
             {
                 Rectangle2D bounds1 = Bounds;
@@ -474,7 +475,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
-            => Distances.EllipsePerimeter(rX, rY);
+            => Measurements.EllipsePerimeter(rX, rY);
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
@@ -485,7 +486,7 @@ namespace Engine
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
         public override double Area
         {
-            get { return Areas.Ellipse(rX, rY); }
+            get { return Measurements.EllipseArea(rX, rY); }
             set
             {
                 // ToDo: Figure out the correct formula.
@@ -510,7 +511,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
-            => Boundings.Ellipse(x, y, rX, rY);
+            => Measurements.EllipseBounds(x, y, rX, rY);
 
         #endregion
 

@@ -1,11 +1,12 @@
 ﻿// <copyright file="Offsets.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -70,7 +71,7 @@ namespace Engine
             double bX, double bY,
             double distance)
         {
-            double d = Distances.Distance(aX, aY, bX, bY);
+            double d = Measurements.Distance(aX, aY, bX, bY);
             double dY = (bY - aY) / d;
             double dX = (bX - aX) / d;
             return ((aX + 0.5 * -dY * distance),
@@ -99,7 +100,7 @@ namespace Engine
             double bX, double bY, double bZ,
             double distanceX, double distanceY, double distanceZ)
         {
-            double d = Distances.Distance(aX, aY, aZ, bX, bY, bZ);
+            double d = Measurements.Distance(aX, aY, aZ, bX, bY, bZ);
             double dX = (bX - aX) / d;
             double dY = (bY - aY) / d;
             double dZ = (bZ - aZ) / d;

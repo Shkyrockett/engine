@@ -1,11 +1,12 @@
 ﻿// <copyright file="PointExtentions.cs" company="Shkyrockett" >
 //     Copyright (c) 2013 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System.Diagnostics;
 using System.Drawing;
@@ -204,7 +205,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Point a, Point b)
-            => Distances.Distance(a.X, a.Y, b.X, b.Y);
+            => Measurements.Distance(a.X, a.Y, b.X, b.Y);
 
         /// <summary>
         /// Calculates the Length between two points.
@@ -216,7 +217,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this Point point, Point value)
-            => Distances.Distance(point.X, point.Y, value.X, value.Y);
+            => Measurements.Distance(point.X, point.Y, value.X, value.Y);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector. 

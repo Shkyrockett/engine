@@ -1,11 +1,12 @@
 ﻿// <copyright file="Polyline.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -88,6 +89,19 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        public void Deconstruct(out List<Point2D> points)
+        {
+            points = this.points;
+        }
+
+        #endregion
+
         #region Indexers
 
         /// <summary>
@@ -116,6 +130,7 @@ namespace Engine
         ///
         /// </summary>
         [XmlArray]
+        [RefreshProperties(RefreshProperties.All)]
         public List<Point2D> Points
         {
             get { return points; }
@@ -134,7 +149,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
-            => points.Zip(points.Skip(1), Primitives.Distance).Sum();
+            => (double)CachingProperty(() => points.Zip(points.Skip(1), Measurements.Distance).Sum());
 
         /// <summary>
         ///
@@ -144,26 +159,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-        {
-            get
-            {
-                double left = points[0].X;
-                double top = points[0].Y;
-                double right = points[0].X;
-                double bottom = points[0].Y;
-
-                foreach (Point2D point in points)
-                {
-                    // ToDo: Measure performance impact of overwriting each time.
-                    left = point.X <= left ? point.X : left;
-                    top = point.Y <= top ? point.Y : top;
-                    right = point.X >= right ? point.X : right;
-                    bottom = point.Y >= bottom ? point.Y : bottom;
-                }
-
-                return Rectangle2D.FromLTRB(left, top, right, bottom);
-            }
-        }
+            => (Rectangle2D)CachingProperty(() => Measurements.PolylineBounds(points));
 
         /// <summary>
         /// 
@@ -172,7 +168,8 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public int Count => points.Count;
+        public int Count
+            => points.Count;
 
         #endregion
 
@@ -221,7 +218,7 @@ namespace Engine
             // Build up the weights map.
             for (int i = 1; i < points.Count; i++)
             {
-                double curentLength = Primitives.Length(cursor, points[i]);
+                double curentLength = Measurements.Distance(cursor, points[i]);
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
                 cursor = points[i];
@@ -234,7 +231,7 @@ namespace Engine
             {
                 if (weights[i].accumulated <= accumulatedLengthT)
                 {
-                    // Interpolate the possition.
+                    // Interpolate the position.
                     double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
                     cursor = Interpolaters.Linear(points[i], points[i + 1], th);
                     break;

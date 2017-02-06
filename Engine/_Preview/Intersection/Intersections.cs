@@ -36,6 +36,7 @@
 // </license>
 
 // <summary></summary>
+// <remarks></remarks>
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -834,44 +835,44 @@ namespace Engine
         {
             switch (b0.Degree)
             {
-                case CurveDegree.Linear:
+                case PolynomialDegree.Linear:
                     switch (b1.Degree)
                     {
-                        case CurveDegree.Linear:
+                        case PolynomialDegree.Linear:
                             return LineSegmentLineSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y);
-                        case CurveDegree.Quadratic:
+                        case PolynomialDegree.Quadratic:
                             return QuadraticBezierLineSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y);
-                        case CurveDegree.Cubic:
+                        case PolynomialDegree.Cubic:
                             return CubicBezierLineSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y);
                         default:
-                            return new Intersection(IntersectionStatus.NoIntersection);
+                            return new Intersection(IntersectionState.NoIntersection);
                     }
-                case CurveDegree.Quadratic:
+                case PolynomialDegree.Quadratic:
                     switch (b1.Degree)
                     {
-                        case CurveDegree.Linear:
+                        case PolynomialDegree.Linear:
                             return QuadraticBezierLineSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y);
-                        case CurveDegree.Quadratic:
+                        case PolynomialDegree.Quadratic:
                             return QuadraticBezierQuadraticBezierIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y);
-                        case CurveDegree.Cubic:
+                        case PolynomialDegree.Cubic:
                             return QuadraticBezierCubicBezierIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b1[3].X, b1[3].Y);
                         default:
-                            return new Intersection(IntersectionStatus.NoIntersection);
+                            return new Intersection(IntersectionState.NoIntersection);
                     }
-                case CurveDegree.Cubic:
+                case PolynomialDegree.Cubic:
                     switch (b1.Degree)
                     {
-                        case CurveDegree.Linear:
+                        case PolynomialDegree.Linear:
                             return CubicBezierLineSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y);
-                        case CurveDegree.Quadratic:
+                        case PolynomialDegree.Quadratic:
                             return QuadraticBezierCubicBezierIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y);
-                        case CurveDegree.Cubic:
+                        case PolynomialDegree.Cubic:
                             return CubicBezierCubicBezierIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b1[3].X, b1[3].Y);
                         default:
-                            return new Intersection(IntersectionStatus.NoIntersection);
+                            return new Intersection(IntersectionState.NoIntersection);
                     }
                 default:
-                    return new Intersection(IntersectionStatus.NoIntersection);
+                    return new Intersection(IntersectionState.NoIntersection);
             }
         }
 
@@ -896,14 +897,14 @@ namespace Engine
         {
             switch (b.Degree)
             {
-                case CurveDegree.Linear:
+                case PolynomialDegree.Linear:
                     return LineSegmentLineSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, l.AX, l.AY, l.BX, l.BY);
-                case CurveDegree.Quadratic:
+                case PolynomialDegree.Quadratic:
                     return QuadraticBezierLineSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, l.AX, l.AY, l.BX, l.BY);
-                case CurveDegree.Cubic:
+                case PolynomialDegree.Cubic:
                     return CubicBezierLineSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, b[3].X, b[3].Y, l.AX, l.AY, l.BX, l.BY);
                 default:
-                    return new Intersection(IntersectionStatus.NoIntersection);
+                    return new Intersection(IntersectionState.NoIntersection);
             }
         }
 
@@ -928,14 +929,14 @@ namespace Engine
         {
             switch (b0.Degree)
             {
-                case CurveDegree.Linear:
+                case PolynomialDegree.Linear:
                     return QuadraticBezierLineSegmentIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y);
-                case CurveDegree.Quadratic:
+                case PolynomialDegree.Quadratic:
                     return QuadraticBezierQuadraticBezierIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y);
-                case CurveDegree.Cubic:
+                case PolynomialDegree.Cubic:
                     return QuadraticBezierCubicBezierIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y);
                 default:
-                    return new Intersection(IntersectionStatus.NoIntersection);
+                    return new Intersection(IntersectionState.NoIntersection);
             }
         }
 
@@ -960,14 +961,14 @@ namespace Engine
         {
             switch (b.Degree)
             {
-                case CurveDegree.Linear:
+                case PolynomialDegree.Linear:
                     return CubicBezierLineSegmentIntersection(c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, b[0].X, b[0].Y, b[1].X, b[1].Y);
-                case CurveDegree.Quadratic:
+                case PolynomialDegree.Quadratic:
                     return QuadraticBezierCubicBezierIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY);
-                case CurveDegree.Cubic:
+                case PolynomialDegree.Cubic:
                     return CubicBezierCubicBezierIntersection(c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, b[3].X, b[3].Y);
                 default:
-                    return new Intersection(IntersectionStatus.NoIntersection);
+                    return new Intersection(IntersectionState.NoIntersection);
             }
         }
 
@@ -1740,8 +1741,8 @@ namespace Engine
             double point0X, double point0Y,
             double point1X, double point1Y)
             => PointPointIntersects(point0X, point0Y, point1X, point1Y)
-            ? new Intersection(IntersectionStatus.Intersection, new Point2D(point0X, point0Y))
-            : new Intersection(IntersectionStatus.NoIntersection);
+            ? new Intersection(IntersectionState.Intersection, new Point2D(point0X, point0Y))
+            : new Intersection(IntersectionState.NoIntersection);
 
         /// <summary>
         /// 
@@ -1759,8 +1760,8 @@ namespace Engine
             double segmentAX, double segmentAY,
             double segmentBX, double segmentBY)
             => (PointLineSegmentIntersects(pointX, pointY, segmentAX, segmentAY, segmentBX, segmentBY))
-            ? new Intersection(IntersectionStatus.Intersection, new Point2D(pointX, pointY))
-            : new Intersection(IntersectionStatus.NoIntersection);
+            ? new Intersection(IntersectionState.Intersection, new Point2D(pointX, pointY))
+            : new Intersection(IntersectionState.NoIntersection);
 
         /// <summary>
         /// 
@@ -1789,18 +1790,18 @@ namespace Engine
             if (u_b != 0)
             {
                 var ua = ua_t / u_b;
-                result = new Intersection(IntersectionStatus.Intersection);
+                result = new Intersection(IntersectionState.Intersection);
                 result.AppendPoint(new Point2D(a1X + ua * (a2X - a1X), a1Y + ua * (a2Y - a1Y)));
             }
             else
             {
                 if (ua_t == 0 || ub_t == 0)
                 {
-                    result = new Intersection(IntersectionStatus.Coincident);
+                    result = new Intersection(IntersectionState.Coincident);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionStatus.Parallel);
+                    result = new Intersection(IntersectionState.Parallel);
                 }
             }
 
@@ -1827,7 +1828,7 @@ namespace Engine
             double x2, double y2,
             double x3, double y3)
         {
-            Intersection result = new Intersection(IntersectionStatus.NoIntersection);
+            Intersection result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate lines to origin.
             double u1 = (x1 - x0);
@@ -1849,7 +1850,7 @@ namespace Engine
             // Check whether the point is on the segment.
             if ((t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d))
             {
-                result = new Intersection(IntersectionStatus.Intersection);
+                result = new Intersection(IntersectionState.Intersection);
                 result.AppendPoint(new Point2D(x0 + t * u1, y0 + t * v1));
             }
 
@@ -1886,23 +1887,23 @@ namespace Engine
                 var ub = ub_t / u_b;
                 if (0 <= ua && ua <= 1 && 0 <= ub && ub <= 1)
                 {
-                    result = new Intersection(IntersectionStatus.Intersection);
+                    result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(a1X + ua * (a2X - a1X), a1Y + ua * (a2Y - a1Y)));
                 }
                 else
                 {
-                    result = new Intersection(IntersectionStatus.NoIntersection);
+                    result = new Intersection(IntersectionState.NoIntersection);
                 }
             }
             else
             {
                 if (ua_t == 0 || ub_t == 0)
                 {
-                    result = new Intersection(IntersectionStatus.Coincident);
+                    result = new Intersection(IntersectionState.Coincident);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionStatus.Parallel);
+                    result = new Intersection(IntersectionState.Parallel);
                 }
             }
             return result;
@@ -1928,7 +1929,7 @@ namespace Engine
             double x2, double y2,
             double x3, double y3)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate lines to origin.
             double u1 = (x1 - x0);
@@ -1948,7 +1949,7 @@ namespace Engine
             double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
 
             // Check whether the point is on the segment.
-            result = new Intersection(IntersectionStatus.Intersection);
+            result = new Intersection(IntersectionState.Intersection);
             result.AppendPoint(new Point2D(x0 + t * u1, y0 + t * v1));
 
             return result;
@@ -1982,13 +1983,13 @@ namespace Engine
             var inter2 = LineSegmentLineSegmentIntersection(topRight.X, topRight.Y, max.X, max.Y, a1X, a1Y, a2X, a2Y);
             var inter3 = LineSegmentLineSegmentIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, a1X, a1Y, a2X, a2Y);
             var inter4 = LineSegmentLineSegmentIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, a1X, a1Y, a2X, a2Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             result.AppendPoints(inter1.Points);
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -2020,13 +2021,13 @@ namespace Engine
             var inter2 = LineSegmentRectangleIntersection(topRight.X, topRight.Y, max.X, max.Y, b1X, b1Y, b2X, b2Y);
             var inter3 = LineSegmentRectangleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, b1X, b1Y, b2X, b2Y);
             var inter4 = LineSegmentRectangleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, b1X, b1Y, b2X, b2Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             result.AppendPoints(inter1.Points);
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -2046,7 +2047,7 @@ namespace Engine
             double a2X, double a2Y,
             List<Point2D> points)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             var length = points.Count;
             for (var i = 0; i < length; i++)
             {
@@ -2056,7 +2057,7 @@ namespace Engine
                 result.AppendPoints(inter.Points);
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -2084,13 +2085,13 @@ namespace Engine
             var inter2 = LineSegmentPolygonIntersection(topRight.X, topRight.Y, max.X, max.Y, points);
             var inter3 = LineSegmentPolygonIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, points);
             var inter4 = LineSegmentPolygonIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, points);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             result.AppendPoints(inter1.Points);
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -2106,7 +2107,7 @@ namespace Engine
             List<Point2D> points1,
             List<Point2D> points2)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             var length = points1.Count;
             for (var i = 0; i < length; i++)
             {
@@ -2116,7 +2117,7 @@ namespace Engine
                 result.AppendPoints(inter.Points);
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -2141,7 +2142,7 @@ namespace Engine
             double x1, double y1,
             double x2, double y2)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((radius == 0d) || ((x1 == x2) && (y1 == y2)))
@@ -2170,7 +2171,7 @@ namespace Engine
                 // Add the points if they are between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
                 {
-                    result = new Intersection(IntersectionStatus.Intersection);
+                    result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(x1 + t * dx, y1 + t * dy));
                 }
             }
@@ -2181,7 +2182,7 @@ namespace Engine
                 double t2 = ((-b - Sqrt(discriminant)) / (2 * a));
 
                 // Add the points if they are between the end points of the line segment.
-                result = new Intersection(IntersectionStatus.Intersection);
+                result = new Intersection(IntersectionState.Intersection);
                 if ((t1 >= 0d) && (t1 <= 1d))
                     result.AppendPoint(new Point2D(x1 + t1 * dx, y1 + t1 * dy));
                 if ((t2 >= 0d) && (t2 <= 1d))
@@ -2217,11 +2218,11 @@ namespace Engine
             var deter = b * b - 4 * a * cc;
             if (deter < 0)
             {
-                result = new Intersection(IntersectionStatus.Outside);
+                result = new Intersection(IntersectionState.Outside);
             }
             else if (deter == 0)
             {
-                result = new Intersection(IntersectionStatus.Tangent);
+                result = new Intersection(IntersectionState.Tangent);
             }
             else
             {
@@ -2232,16 +2233,16 @@ namespace Engine
                 {
                     if ((u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1))
                     {
-                        result = new Intersection(IntersectionStatus.Outside);
+                        result = new Intersection(IntersectionState.Outside);
                     }
                     else
                     {
-                        result = new Intersection(IntersectionStatus.Inside);
+                        result = new Intersection(IntersectionState.Inside);
                     }
                 }
                 else
                 {
-                    result = new Intersection(IntersectionStatus.Intersection);
+                    result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
                         result.Points.Add(Lerp(a1X, a1Y, a2X, a2Y, u1));
                     if (0 <= u2 && u2 <= 1)
@@ -2277,14 +2278,14 @@ namespace Engine
             var inter2 = CircleLineSegmentIntersection(cX, cY, r, topRight.X, topRight.Y, max.X, max.Y);
             var inter3 = CircleLineSegmentIntersection(cX, cY, r, max.X, max.Y, bottomLeft.X, bottomLeft.Y);
             var inter4 = CircleLineSegmentIntersection(cX, cY, r, bottomLeft.X, bottomLeft.Y, min.X, min.Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             result.AppendPoints(inter1.Points);
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
-            else result.Status = inter1.Status;
+                result.State = IntersectionState.Intersection;
+            else result.State = inter1.State;
             return result;
         }
 
@@ -2302,9 +2303,9 @@ namespace Engine
             double r,
             List<Point2D> points)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             var length = points.Count;
-            Intersection inter = new Intersection(IntersectionStatus.NoIntersection);
+            Intersection inter = new Intersection(IntersectionState.NoIntersection);
             for (var i = 0; i < length; i++)
             {
                 var a1 = points[i];
@@ -2313,8 +2314,8 @@ namespace Engine
                 result.AppendPoints(inter.Points);
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
-            else result.Status = inter.Status;
+                result.State = IntersectionState.Intersection;
+            else result.State = inter.State;
             return result;
         }
 
@@ -2338,7 +2339,7 @@ namespace Engine
             double cy1,
             double radius1)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             // If either of the circles are empty, return no intersections.
             if ((radius0 == 0d) || (radius1 == 0d))
@@ -2379,7 +2380,7 @@ namespace Engine
                 if (Abs(dist - radius0 + radius1) < Epsilon)
                 {
                     // Get the points P3.
-                    result = new Intersection(IntersectionStatus.Intersection);
+                    result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(
                         (cx2 + h * (cy1 - cy0) / dist),
                         (cy2 - h * (cx1 - cx0) / dist)));
@@ -2387,7 +2388,7 @@ namespace Engine
                 else
                 {
                     // Get the points P3.
-                    result = new Intersection(IntersectionStatus.Intersection);
+                    result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(
                     (cx2 + h * (cy1 - cy0) / dist),
                     (cy2 - h * (cx1 - cx0) / dist)));
@@ -2421,18 +2422,18 @@ namespace Engine
             Intersection result;
             var r_max = r1 + r2;
             var r_min = Abs(r1 - r2);
-            var c_dist = Distances.Distance(c1X, c1Y, c2X, c2Y);
+            var c_dist = Measurements.Distance(c1X, c1Y, c2X, c2Y);
             if (c_dist > r_max)
             {
-                result = new Intersection(IntersectionStatus.Outside);
+                result = new Intersection(IntersectionState.Outside);
             }
             else if (c_dist < r_min)
             {
-                result = new Intersection(IntersectionStatus.Inside);
+                result = new Intersection(IntersectionState.Inside);
             }
             else
             {
-                result = new Intersection(IntersectionStatus.Intersection);
+                result = new Intersection(IntersectionState.Intersection);
                 var a = (r1 * r1 - r2 * r2 + c_dist * c_dist) / (2 * c_dist);
                 var h = Sqrt(r1 * r1 - a * a);
                 var p = Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
@@ -2486,7 +2487,7 @@ namespace Engine
             double x0, double y0,
             double x1, double y1)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
@@ -2520,7 +2521,7 @@ namespace Engine
                 if ((t >= 0d) && (t <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
-                    result.Status = IntersectionStatus.Intersection;
+                    result.State = IntersectionState.Intersection;
                 }
             }
             else if (discriminant > 0)
@@ -2533,13 +2534,13 @@ namespace Engine
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                    result.Status = IntersectionStatus.Intersection;
+                    result.State = IntersectionState.Intersection;
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
-                    result.Status = IntersectionStatus.Intersection;
+                    result.State = IntersectionState.Intersection;
                 }
             }
 
@@ -2580,7 +2581,7 @@ namespace Engine
             var d = b * b - a * c;
             if (d < 0)
             {
-                result = new Intersection(IntersectionStatus.Outside);
+                result = new Intersection(IntersectionState.Outside);
             }
             else if (d > 0)
             {
@@ -2590,12 +2591,12 @@ namespace Engine
                 if ((t_a < 0 || 1 < t_a) && (t_b < 0 || 1 < t_b))
                 {
                     if ((t_a < 0 && t_b < 0) || (t_a > 1 && t_b > 1))
-                        result = new Intersection(IntersectionStatus.Outside);
-                    else result = new Intersection(IntersectionStatus.Inside);
+                        result = new Intersection(IntersectionState.Outside);
+                    else result = new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionStatus.Intersection);
+                    result = new Intersection(IntersectionState.Intersection);
                     if (0 <= t_a && t_a <= 1) result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_a));
                     if (0 <= t_b && t_b <= 1) result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_b));
                 }
@@ -2604,12 +2605,12 @@ namespace Engine
             {
                 var t = -b / a; if (0 <= t && t <= 1)
                 {
-                    result = new Intersection(IntersectionStatus.Intersection);
+                    result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t));
                 }
                 else
                 {
-                    result = new Intersection(IntersectionStatus.Outside);
+                    result = new Intersection(IntersectionState.Outside);
                 }
             }
 
@@ -2640,7 +2641,7 @@ namespace Engine
             double x0, double y0,
             double x1, double y1)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
@@ -2684,7 +2685,7 @@ namespace Engine
                 if ((t >= 0d) && (t <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
-                    result.Status = IntersectionStatus.Intersection;
+                    result.State = IntersectionState.Intersection;
                 }
 
             }
@@ -2698,13 +2699,13 @@ namespace Engine
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                    result.Status = IntersectionStatus.Intersection;
+                    result.State = IntersectionState.Intersection;
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
-                    result.Status = IntersectionStatus.Intersection;
+                    result.State = IntersectionState.Intersection;
                 }
 
                 // ToDo: Figure out why the results are weird between 30 degrees and 5 degrees.
@@ -2742,13 +2743,13 @@ namespace Engine
             var inter2 = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, topRight.X, topRight.Y, max.X, max.Y);
             var inter3 = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, max.X, max.Y, bottomLeft.X, bottomLeft.Y);
             var inter4 = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, bottomLeft.X, bottomLeft.Y, min.X, min.Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             result.AppendPoints(inter1.Points);
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -2769,7 +2770,7 @@ namespace Engine
             double ry,
             List<Point2D> points)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             var length = points.Count;
             for (var i = 0; i < length; i++)
             {
@@ -2779,7 +2780,7 @@ namespace Engine
                 result.AppendPoints(inter.Points);
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -2812,7 +2813,7 @@ namespace Engine
             var epsilon = 1e-3;
             var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
             var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             for (var y = 0; y < yRoots.Count; y++)
             {
                 var xPoly = new Polynomial(
@@ -2836,7 +2837,7 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection; return result;
+                result.State = IntersectionState.Intersection; return result;
         }
 
         /// <summary>
@@ -2869,7 +2870,7 @@ namespace Engine
             double l1x, double l1y)
         {
             // ToDo: Figure out why this can't handle intersection with horizontal lines.
-            var I = new Intersection(IntersectionStatus.NoIntersection);
+            var I = new Intersection(IntersectionState.NoIntersection);
 
             var A = l1y - l0y;      //A=y2-y1
             var B = l0x - l1x;      //B=x1-x2
@@ -2911,7 +2912,7 @@ namespace Engine
                 {
                     /*intersection point*/
                     I.AppendPoint(new Point2D(x, y));
-                    I.Status = IntersectionStatus.Intersection;
+                    I.State = IntersectionState.Intersection;
                 }
             }
             return I;
@@ -2948,7 +2949,7 @@ namespace Engine
             Vector2D n;
             var min = MinPoint(a1X, a1Y, a2X, a2Y);
             var max = MaxPoint(a1X, a1Y, a2X, a2Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             a = new Vector2D(p1X, p1Y).Scale(-1);
             b = new Vector2D(p2X, p2Y).Scale(3);
             c = new Vector2D(p3X, p3Y).Scale(-3);
@@ -2987,7 +2988,7 @@ namespace Engine
                     {
                         if (min.Y <= p10.Y && p10.Y <= max.Y)
                         {
-                            result.Status = IntersectionStatus.Intersection;
+                            result.State = IntersectionState.Intersection;
                             result.AppendPoint(p10);
                         }
                     }
@@ -2995,13 +2996,13 @@ namespace Engine
                     {
                         if (min.X <= p10.X && p10.X <= max.X)
                         {
-                            result.Status = IntersectionStatus.Intersection;
+                            result.State = IntersectionState.Intersection;
                             result.AppendPoint(p10);
                         }
                     }
                     else if (p10.GreaterThanOrEqual(min) && p10.LessThanOrEqual(max))
                     {
-                        result.Status = IntersectionStatus.Intersection;
+                        result.State = IntersectionState.Intersection;
                         result.AppendPoint(p10);
                     }
                 }
@@ -3042,13 +3043,13 @@ namespace Engine
             var inter2 = CubicBezierLineSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, topRight.X, topRight.Y, max.X, max.Y);
             var inter3 = CubicBezierLineSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y);
             var inter4 = CubicBezierLineSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             result.AppendPoints(inter1.Points);
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3073,7 +3074,7 @@ namespace Engine
             double p4X, double p4Y,
             List<Point2D> points)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             var length = points.Count;
             for (var i = 0; i < length; i++)
             {
@@ -3083,7 +3084,7 @@ namespace Engine
                 result.AppendPoints(inter.Points);
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3139,7 +3140,7 @@ namespace Engine
         {
             Vector2D a, b, c, d;
             Vector2D c3, c2, c1, c0;
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             a = new Vector2D(p1X, p1Y).Scale(-1);
             b = new Vector2D(p2X, p2Y).Scale(3);
             c = new Vector2D(p3X, p3Y).Scale(-3);
@@ -3172,7 +3173,7 @@ namespace Engine
                 result.Points.Add((Point2D)c3.Scale(t * t * t).Add(c2.Scale(t * t).Add(c1.Scale(t).Add(c0))));
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3212,7 +3213,7 @@ namespace Engine
             Vector2D a, b, c, d;
             Vector2D c13, c12, c11, c10;
             Vector2D c23, c22, c21, c20;
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             a = new Vector2D(a1X, a1Y).Scale(-1);
             b = new Vector2D(a2X, a2Y).Scale(3);
             c = new Vector2D(a3X, a3Y).Scale(-3);
@@ -3318,7 +3319,7 @@ namespace Engine
                     checkRoots:;
                 }
             }
-            if (result.Points.Count > 0) result.Status = IntersectionStatus.Intersection;
+            if (result.Points.Count > 0) result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3347,7 +3348,7 @@ namespace Engine
             double a1X, double a1Y,
             double a2X, double a2Y)
         {
-            var intersections = new Intersection(IntersectionStatus.NoIntersection);
+            var intersections = new Intersection(IntersectionState.NoIntersection);
 
             // inverse line normal
             var normal = new Point2D(a1Y - a2Y, a2X - a1X);
@@ -3393,7 +3394,7 @@ namespace Engine
                         Interpolaters.Linear(Interpolaters.Linear(p1Y, p2Y, t), Interpolaters.Linear(p2Y, p3Y, t), t));
                     var x = point.X;
                     var y = point.Y;
-                    var result = new Intersection(IntersectionStatus.Intersection);
+                    var result = new Intersection(IntersectionState.Intersection);
                     // bounds checks
                     if (a1X == a2X && y >= minY && y <= maxY)
                     {
@@ -3439,7 +3440,7 @@ namespace Engine
         {
             var min = MinPoint(a1X, a1Y, a2X, a2Y);
             var max = MaxPoint(a1X, a1Y, a2X, a2Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             var a = new Vector2D(p2X, p2Y).Scale(-2);
             var c2 = new Vector2D(p1X, p1Y).Add(a.Add((p3X, p3Y)));
             a = new Vector2D(p1X, p1Y).Scale(-2);
@@ -3464,7 +3465,7 @@ namespace Engine
                     {
                         if (min.Y <= p6.Y && p6.Y <= max.Y)
                         {
-                            result.Status = IntersectionStatus.Intersection;
+                            result.State = IntersectionState.Intersection;
                             result.AppendPoint(p6);
                         }
                     }
@@ -3472,13 +3473,13 @@ namespace Engine
                     {
                         if (min.X <= p6.X && p6.X <= max.X)
                         {
-                            result.Status = IntersectionStatus.Intersection;
+                            result.State = IntersectionState.Intersection;
                             result.AppendPoint(p6);
                         }
                     }
                     else if (p6.GreaterThanOrEqual(min) && p6.LessThanOrEqual(max))
                     {
-                        result.Status = IntersectionStatus.Intersection;
+                        result.State = IntersectionState.Intersection;
                         result.AppendPoint(p6);
                     }
                 }
@@ -3516,13 +3517,13 @@ namespace Engine
             var inter2 = QuadraticBezierLineSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, topRight.X, topRight.Y, max.X, max.Y);
             var inter3 = QuadraticBezierLineSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y);
             var inter4 = QuadraticBezierLineSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y);
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             result.AppendPoints(inter1.Points);
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3544,7 +3545,7 @@ namespace Engine
             double p3X, double p3Y,
             List<Point2D> points)
         {
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             var length = points.Count;
             for (var i = 0; i < length; i++)
             {
@@ -3554,7 +3555,7 @@ namespace Engine
                 result.AppendPoints(inter.Points);
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3604,7 +3605,7 @@ namespace Engine
         {
             Vector2D a, b;
             Vector2D c2, c1, c0;
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             a = new Vector2D(p2X, p2Y).Scale(-2);
             c2 = new Vector2D(p1X, p1Y).Add(a.Add((p3X, p3Y)));
             a = new Vector2D(p1X, p1Y).Scale(-2);
@@ -3626,7 +3627,7 @@ namespace Engine
                     result.Points.Add((Point2D)c2.Scale(t * t).Add(c1.Scale(t).Add(c0)));
             }
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3663,7 +3664,7 @@ namespace Engine
             Vector2D a, b, c, d;
             Vector2D c12, c11, c10;
             Vector2D c23, c22, c21, c20;
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             a = new Vector2D(a2X, a2Y).Scale(-2);
             c12 = new Vector2D(a1X, a1Y).Add(a.Add((a3X, a3Y)));
             a = new Vector2D(a1X, a1Y).Scale(-2);
@@ -3741,7 +3742,7 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3775,7 +3776,7 @@ namespace Engine
             Vector2D va, vb;
             Vector2D c12, c11, c10;
             Vector2D c22, c21, c20;
-            var result = new Intersection(IntersectionStatus.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
             va = new Vector2D(a2X, a2Y).Scale(-2);
             c12 = new Vector2D(a1X, a1Y).Add(va.Add((a3X, a3Y)));
             va = new Vector2D(a1X, a1Y).Scale(-2);
@@ -3838,7 +3839,7 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
-                result.Status = IntersectionStatus.Intersection;
+                result.State = IntersectionState.Intersection;
             return result;
         }
 

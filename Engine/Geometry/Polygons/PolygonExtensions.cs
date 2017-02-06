@@ -1,11 +1,12 @@
 ﻿// <copyright file="PolygonExtensions.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -162,7 +163,7 @@ namespace Engine
             }
 
             // Divide by 6 times the polygon's area.
-            double polygon_area = Abs(Areas.SignedPolygon(polygon.Points));
+            double polygon_area = Abs(Measurements.SignedPolygonArea(polygon.Points));
             X /= (6 * polygon_area);
             Y /= (6 * polygon_area);
 

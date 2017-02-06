@@ -1,11 +1,12 @@
 ﻿// <copyright file="ClippingPolygon.cs" company="Shkyrockett" >
 //     Copyright (c) 2015 - 2017 w8r. All rights reserved.
 // </copyright>
+// <author id="w8r">Alexander Milevski</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="w8r">Alexander Milevski</author>
 // <summary>Ported from https://github.com/w8r/GreinerHormann</summary>
+// <remarks></remarks>
 
 using System.Collections.Generic;
 

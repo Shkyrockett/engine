@@ -1,11 +1,12 @@
 ﻿// <copyright file="QuadraticBezier.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -309,7 +310,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public double Length
-            => Distances.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy);
+            => Measurements.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy);
 
         /// <summary>
         /// 
@@ -326,7 +327,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.QuadraticBezier(ax, ay, bx, by, cx, cy);
+            => Measurements.QuadraticBezierBounds(ax, ay, bx, by, cx, cy);
 
         #endregion
 

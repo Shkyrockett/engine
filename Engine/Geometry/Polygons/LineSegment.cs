@@ -1,11 +1,12 @@
 ﻿// <copyright file="LineSegment.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -40,22 +41,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private double ax;
+        private double aX;
 
         /// <summary>
         /// 
         /// </summary>
-        private double ay;
+        private double aY;
 
         /// <summary>
         /// 
         /// </summary>
-        private double bx;
+        private double bX;
 
         /// <summary>
         /// 
         /// </summary>
-        private double by;
+        private double bY;
 
         #endregion
 
@@ -121,6 +122,25 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        public void Deconstruct(out double aX, out double aY, out double bX, out double bY)
+        {
+            aX = this.aX;
+            aY = this.aY;
+            bX = this.bX;
+            bY = this.bY;
+        }
+
+        #endregion
+
         #region Indexers
 
         /// <summary>
@@ -137,6 +157,7 @@ namespace Engine
             set
             {
                 (Points as List<Point2D>)[index] = value;
+                OnPropertyChanged(nameof(Points));
                 update?.Invoke();
             }
         }
@@ -157,11 +178,11 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
-            get { return new Point2D(ax, ay); }
+            get { return new Point2D(aX, aY); }
             set
             {
-                ax = value.X;
-                ay = value.Y;
+                aX = value.X;
+                aY = value.Y;
                 OnPropertyChanged(nameof(A));
             }
         }
@@ -179,10 +200,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AX
         {
-            get { return ax; }
+            get { return aX; }
             set
             {
-                ax = value;
+                aX = value;
                 OnPropertyChanged(nameof(AX));
                 update?.Invoke();
             }
@@ -200,10 +221,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AY
         {
-            get { return ay; }
+            get { return aY; }
             set
             {
-                ay = value;
+                aY = value;
                 OnPropertyChanged(nameof(AY));
                 update?.Invoke();
             }
@@ -221,11 +242,11 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
-            get { return new Point2D(bx, by); }
+            get { return new Point2D(bX, bY); }
             set
             {
-                bx = value.X;
-                by = value.Y;
+                bX = value.X;
+                bY = value.Y;
                 OnPropertyChanged(nameof(B));
             }
         }
@@ -243,10 +264,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double BX
         {
-            get { return bx; }
+            get { return bX; }
             set
             {
-                bx = value;
+                bX = value;
                 OnPropertyChanged(nameof(BX));
                 update?.Invoke();
             }
@@ -264,10 +285,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double BY
         {
-            get { return by; }
+            get { return bY; }
             set
             {
-                by = value;
+                bY = value;
                 OnPropertyChanged(nameof(BY));
                 update?.Invoke();
             }
@@ -283,13 +304,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Rectangle2D.FromLTRB
-            (
-            A.X <= B.X ? A.X : B.X,
-            A.Y <= B.Y ? A.Y : B.Y,
-            A.X >= B.X ? A.X : B.X,
-            A.Y >= B.Y ? A.Y : B.Y
-            );
+            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// Get or sets an array of points representing a line segment.
@@ -312,7 +327,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public double Length
-            => Distances.Distance(A.X, A.Y, B.X, B.Y);
+            => (double) CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
 
         #endregion
 
@@ -351,6 +366,7 @@ namespace Engine
             A = B;
             B = temp;
             update?.Invoke();
+            Refresh();
         }
 
         #endregion
@@ -362,7 +378,8 @@ namespace Engine
         /// </summary>
         /// <returns>an array of points</returns>
         /// <remarks></remarks>
-        public Point2D[] ToArray() => new Point2D[] { A, B };
+        public Point2D[] ToArray()
+            => new Point2D[] { A, B };
 
         /// <summary>
         /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string
@@ -379,8 +396,7 @@ namespace Engine
         {
             if (this == null) return nameof(LineSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(LineSegment)}{{{nameof(A)}={A},{nameof(B)}={B}}}";
-            return formatable.ToString(format, provider);
+            return $"{nameof(LineSegment)}{{{nameof(A)}={A.ConvertToString(format,provider)},{nameof(B)}={B.ConvertToString(format,provider)}}}";
         }
 
         #endregion

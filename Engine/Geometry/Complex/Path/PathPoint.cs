@@ -1,10 +1,10 @@
 ﻿// <copyright file="PathPoint.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -98,7 +98,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Boundings.LineSegment(Start.Value, End.Value);
+            => Measurements.LineSegmentBounds(Start.Value, End.Value);
 
         #endregion
 

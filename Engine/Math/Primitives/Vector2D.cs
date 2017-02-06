@@ -1,11 +1,10 @@
 ﻿// <copyright file="Vector2D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
-// <date></date>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -115,14 +114,14 @@ namespace Engine
         /// First Point of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute]
+        [XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>

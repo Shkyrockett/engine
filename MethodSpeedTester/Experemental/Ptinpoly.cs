@@ -1,10 +1,10 @@
 ﻿// <copyright file="Ptinpoly.cs" company="3D/Eye" >
 //     Copyright (c)  3D/Eye Inc. All rights reserved.
 // </copyright>
+// <author id="erich@eye.com">Eric Haines</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="erich@eye.com">Eric Haines</author>
 // <summary>point in polygon inside/outside code.</summary>
 // <remarks>
 // This code contains the following algorithms:

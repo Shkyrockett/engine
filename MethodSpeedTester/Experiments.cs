@@ -1,10 +1,10 @@
 ﻿// <copyright file="Experiments.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -798,8 +798,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         [DisplayName(nameof(BoundsOfRotatedEllipticalArcTests))]
         public static List<SpeedTester> BoundsOfRotatedEllipticalArcTests() => new List<SpeedTester> {
-                new SpeedTester(() => Boundings.EllipticalArc(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
-                $"{nameof(Boundings.EllipticalArc)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
+                new SpeedTester(() => Measurements.EllipticalArcBounds(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
+                $"{nameof(Measurements.EllipticalArcBounds)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
                 new SpeedTester(() => EllipticalArc0(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
                 $"{nameof(Experiments.EllipticalArc0)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
                  new SpeedTester(() => EllipticalArc1(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
@@ -877,13 +877,13 @@ namespace MethodSpeedTester
             double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -955,13 +955,13 @@ namespace MethodSpeedTester
             double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -1023,13 +1023,13 @@ namespace MethodSpeedTester
                 Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -1097,13 +1097,13 @@ namespace MethodSpeedTester
                 Interpolaters.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Containings.Contains(angles[0], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
                 bounds.Right = cX + halfWidth;
-            if (Containings.Contains(angles[1], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
                 bounds.Bottom = cY + halfHeight;
-            if (Containings.Contains(angles[2], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
                 bounds.Left = cX - halfWidth;
-            if (Containings.Contains(angles[3], angle + startAngle, sweepAngle))
+            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
                 bounds.Top = cY - halfHeight;
 
             // Return the points of the Cartesian extremes of the rotated elliptical arc.
@@ -1279,7 +1279,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static Rectangle2D CubicBezierBounds(Point2D a, Point2D b, Point2D c, Point2D d)
         {
-            var sortOfCloseLength = (int)Distances.CubicBezierArcLength(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y);
+            var sortOfCloseLength = (int)Measurements.CubicBezierArcLength(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y);
             var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, i), sortOfCloseLength));
 
             double left = points[0].X;
@@ -1393,7 +1393,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static Rectangle2D QuadraticBezierBounds(Point2D a, Point2D b, Point2D c)
         {
-            var sortOfCloseLength = Distances.QuadraticBezierArcLengthByIntegral(a.X, a.Y, b.X, b.Y, c.X, c.Y);
+            var sortOfCloseLength = Measurements.QuadraticBezierArcLengthByIntegral(a.X, a.Y, b.X, b.Y, c.X, c.Y);
             // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
             var points = new List<Point2D>(Interpolaters.Interpolate0to1((i) => Interpolaters.QuadraticBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, i), (int)(sortOfCloseLength / 3)));
 
@@ -3584,7 +3584,7 @@ namespace MethodSpeedTester
             double dx10 = q0.X - p.X;
             double dy10 = q0.Y - p.Y;
             double segLength = Math.Sqrt(dx21 * dx21 + dy21 * dy21);
-            if (segLength < Maths.Epsilon)
+            if (segLength < Epsilon)
                 throw new Exception("Expected line segment, not point.");
             double num = Math.Abs(dx21 * dy10 - dx10 * dy21);
             double d = num / segLength;
@@ -7059,7 +7059,7 @@ namespace MethodSpeedTester
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsValid(double value)
-			=> !double.IsNaN(value) && !double.IsInfinity(value);
+            => !double.IsNaN(value) && !double.IsInfinity(value);
 
         /// <summary>
         /// This function is used to ensure that a floating point number is
@@ -10038,7 +10038,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         [DisplayName(nameof(RoundTests))]
         public static List<SpeedTester> PointOnLineSegmentTests()
-			=> new List<SpeedTester> {
+            => new List<SpeedTester> {
                 new SpeedTester(() => PointOnLineSegment(1, 1, 2, 2, 1.5, 1.5),
                 $"{nameof(Experiments.PointOnLineSegment)}(1, 1, 2, 2, 1.5, 1.5)"),
                 new SpeedTester(() => PointLineSegment(1, 1, 2, 2, 1.5, 1.5),
@@ -10107,8 +10107,8 @@ namespace MethodSpeedTester
         private static bool PointLineSegment(Point2D p, Point2D a1, Point2D a2)
         {
             double dummyU = 0.0d;
-            double d = DistFromSeg(p, a1, a2, Maths.Epsilon, ref dummyU);
-            return d < Maths.Epsilon;
+            double d = DistFromSeg(p, a1, a2, Epsilon, ref dummyU);
+            return d < Epsilon;
         }
 
         /// <summary>
@@ -10120,9 +10120,9 @@ namespace MethodSpeedTester
         /// <remarks></remarks>
         public static bool PointOnLine(LineSegment segment, Point2D point)
         {
-            double Length1 = point.Length(segment.B);
+            double Length1 = point.Distance(segment.B);
             // Sqrt((Point.X - Line.B.X) ^ 2 + (Point.Y - Line.B.Y))
-            double Length2 = point.Length(segment.A);
+            double Length2 = point.Distance(segment.A);
             // Sqrt((Point.X - Line.A.X) ^ 2 + (Point.Y - Line.A.Y))
             return Abs(segment.Length() - Length1 + Length2) < DoubleEpsilon;
         }
@@ -10667,7 +10667,7 @@ namespace MethodSpeedTester
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
         public static void RemovePoint(Polygon polygon, int target)
-			=> polygon.Points.RemoveAt(target);
+            => polygon.Points.RemoveAt(target);
 
         /// <summary>
         /// Remove point target from the array.
@@ -11731,7 +11731,7 @@ namespace MethodSpeedTester
             }
 
             //  If there is a straight-line solution, return with it immediately.
-            if (polygons.PolygonSetContainsPoints(start, end))
+            if (polygons.PolygonSetContainsPoints(start, end) == Inclusion.Inside)
                 return new Polyline(new List<Point2D> { start, end });
 
             //  Build a point list that refers to the corners of the
@@ -11764,7 +11764,7 @@ namespace MethodSpeedTester
                 {
                     for (int tj = treeCount; tj < pointCount; tj++)
                     {
-                        if (polygons.PolygonSetContainsPoints((Point2D)pointList[ti], (Point2D)pointList[tj]))
+                        if (polygons.PolygonSetContainsPoints((Point2D)pointList[ti], (Point2D)pointList[tj]) == Inclusion.Inside)
                         {
                             newDist = pointList[ti].TotalDistance + Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
@@ -11841,7 +11841,7 @@ namespace MethodSpeedTester
             }
 
             // If there is a straight-line solution, return with it immediately.
-            if (polygons.PolygonSetContainsPoints(start, end))
+            if (polygons.PolygonSetContainsPoints(start, end) == Inclusion.Inside)
                 return new Polyline(new List<Point2D> { start, end });
 
             // (larger than total solution dist could ever be)
@@ -11883,7 +11883,7 @@ namespace MethodSpeedTester
                 {
                     for (int tj = treeCount; tj < pointList.Count; tj++)
                     {
-                        if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)))
+                        if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusion.Inside)
                         {
                             newDist = pointList[ti].TotalDistance + (new Point2D(pointList[ti].X, pointList[ti].Y)).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)

@@ -1,11 +1,12 @@
 ﻿// <copyright file="DrawShape.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary></summary>
+// <remarks></remarks>
 
 // ToDo: Implement shape drawing tool.
 
@@ -75,7 +76,7 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (Primitives.Length(Points[0], tools.MouseLocation) > 8)
+                    if (Measurements.Distance(Points[0], tools.MouseLocation) > 8)
                     {
                         if (MouseDown) Index = 1;
                         Points[Index] = tools.MouseLocation;

@@ -1,10 +1,10 @@
 ﻿// <copyright file="Vector2DConverter.cs" company="" >
 //     Copyright (c) 2005-2007 Jonathan Mark Porter.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <date></date>
 // <summary></summary>
 // <remarks></remarks>

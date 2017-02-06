@@ -1,13 +1,14 @@
 ﻿// <copyright file="Polynomial.cs" company="Shkyrockett" >
 //     Copyright (c) 2014 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
 // <summary>
 //     Based on classes from https://github.com/superlloyd/Poly, http://www.kevlindev.com/geometry/2D/intersections/, and https://github.com/Pomax/bezierjs.
 // </summary>
+// <remarks></remarks>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -24,6 +25,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class Polynomial
     {
         /// <summary>
@@ -113,8 +115,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public CurveDegree Degree
-            => (CurveDegree)(coefficients.Length - 1);
+        public PolynomialDegree Degree
+            => (PolynomialDegree)(coefficients.Length - 1);
 
         /// <summary>
         /// 
@@ -782,26 +784,26 @@ namespace Engine
             Simplify(epsilon);
             switch (Degree)
             {
-                case CurveDegree.Constant:
+                case PolynomialDegree.Constant:
                     return new List<double>();
-                case CurveDegree.Linear:
+                case PolynomialDegree.Linear:
                     return LinearRoot(epsilon);
-                case CurveDegree.Quadratic:
+                case PolynomialDegree.Quadratic:
                     return QuadraticRoots(epsilon);
-                case CurveDegree.Cubic:
+                case PolynomialDegree.Cubic:
                     return CubicRoots(epsilon);
-                case CurveDegree.Quartic:
+                case PolynomialDegree.Quartic:
                     return QuarticRoots(epsilon);
-                case CurveDegree.Quintic:
+                case PolynomialDegree.Quintic:
                     // ToDo: Uncomment when Quintic roots are implemented.
                     //return QuinticRoots(epsilon);
-                case CurveDegree.Sextic:
+                case PolynomialDegree.Sextic:
                     // ToDo: Uncomment when Sextic roots are implemented.
                     //return SexticRoots(epsilon);
-                case CurveDegree.Septic:
+                case PolynomialDegree.Septic:
                     // ToDo: Uncomment when Septic roots are implemented.
                     //return SepticRoots(epsilon);
-                case CurveDegree.Octic:
+                case PolynomialDegree.Octic:
                     // ToDo: Uncomment when Octic roots are implemented.
                     //return OcticRoots(epsilon);
                 default:
@@ -882,7 +884,7 @@ namespace Engine
         {
             var roots = new List<double>();
             double? root;
-            if (Degree == CurveDegree.Linear)
+            if (Degree == PolynomialDegree.Linear)
             {
                 root = Bisection(min, max, epsilon);
                 if (root != null) roots.Add(root.Value);
@@ -935,7 +937,7 @@ namespace Engine
         private List<double> QuadraticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == CurveDegree.Quadratic)
+            if (Degree == PolynomialDegree.Quadratic)
             {
                 var a = coefficients[2];
                 var b = coefficients[1] / a;
@@ -966,7 +968,7 @@ namespace Engine
         private List<double> CubicRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == CurveDegree.Cubic)
+            if (Degree == PolynomialDegree.Cubic)
             {
                 var c3 = coefficients[3];
                 var c2 = coefficients[2] / c3;
@@ -1026,7 +1028,7 @@ namespace Engine
         private List<double> QuarticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == CurveDegree.Quartic)
+            if (Degree == PolynomialDegree.Quartic)
             {
                 var c4 = coefficients[4];
                 var c3 = coefficients[3] / c4;
@@ -1110,7 +1112,7 @@ namespace Engine
         private List<double> QuinticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == CurveDegree.Quintic)
+            if (Degree == PolynomialDegree.Quintic)
             {
                 // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
             }
@@ -1126,7 +1128,7 @@ namespace Engine
         private List<double> SexticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == CurveDegree.Sextic)
+            if (Degree == PolynomialDegree.Sextic)
             {
                 // ToDo: Find implementation for finding Sextic Roots.
             }
@@ -1142,7 +1144,7 @@ namespace Engine
         private List<double> SepticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == CurveDegree.Septic)
+            if (Degree == PolynomialDegree.Septic)
             {
                 // ToDo: Find implementation for finding Septic Roots.
             }
@@ -1158,7 +1160,7 @@ namespace Engine
         private List<double> OcticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == CurveDegree.Octic)
+            if (Degree == PolynomialDegree.Octic)
             {
                 // ToDo: Find implementation for finding Octic Roots.
             }

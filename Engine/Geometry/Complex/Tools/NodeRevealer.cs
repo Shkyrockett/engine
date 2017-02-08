@@ -30,49 +30,6 @@ namespace Engine
             : this(new List<Point2D>(), 0)
         { }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="locus"></param>
-        ///// <param name="radius"></param>
-        //public NodeRevealer(Locus locus, double radius)
-        //{
-        //    Radius = radius;
-        //    ConnectPoints = true;
-        //    switch (locus)
-        //    {
-        //        case PointLocus p:
-        //            Points = new List<Point2D> { p };
-        //            ConnectPoints = false;
-        //            break;
-        //        case LineSegmentLocus l:
-        //            Points = l.Points;
-        //            break;
-        //        case PointSetLocus p:
-        //            Points = p.Points;
-        //            ConnectPoints = false;
-        //            break;
-        //        case PolylineLocus p:
-        //            Points = p.Points;
-        //            break;
-        //        case PolygonLocus p:
-        //            Points = p.Points;
-        //            break;
-        //        case PolylineSetLocus p:
-        //            Points = ((PointSetLocus)p).Points;
-        //            break;
-        //        case PolygonSetLocus p:
-        //            Points = ((PointSetLocus)p).Points;
-        //            break;
-        //        case ParallelLocus p:
-        //        case OutsideLocus o:
-        //        case EmptyLocus e:
-        //        default:
-        //            Points = new List<Point2D>();
-        //            break;
-        //    }
-        //}
-
         /// <summary>
         /// 
         /// </summary>
@@ -97,9 +54,25 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="radius"></param>
         public NodeRevealer(List<Point2D> points, double radius)
+            : base()
         {
             Points = points;
             Radius = radius;
+        }
+
+        #endregion
+
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="radius"></param>
+        public void Deconstruct(out List<Point2D> points, out double radius)
+        {
+            points = this.Points;
+            radius = this.Radius;
         }
 
         #endregion

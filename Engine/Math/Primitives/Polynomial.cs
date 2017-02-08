@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using static System.Math;
 using static Engine.Maths;
 using System.Numerics;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
@@ -537,6 +538,50 @@ namespace Engine
         /// <returns></returns>
         private static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
             => new Polynomial(a, b, c, d, e, f, g, h, i);
+
+        #endregion
+
+        #region Serialization
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerializing()]
+        private void OnSerializing(StreamingContext context)
+        {
+            // Assert("This value went into the data file during serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerialized()]
+        private void OnSerialized(StreamingContext context)
+        {
+            // Assert("This value was reset after serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserializing()]
+        private void OnDeserializing(StreamingContext context)
+        {
+            // Assert("This value was set during deserialization");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized()]
+        private void OnDeserialized(StreamingContext context)
+        {
+            // Assert("This value was set after deserialization.");
+        }
 
         #endregion
 

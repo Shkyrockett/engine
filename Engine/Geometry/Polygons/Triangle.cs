@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -146,6 +147,50 @@ namespace Engine
                 OnPropertyChanged(nameof(C));
                 update?.Invoke();
             }
+        }
+
+        #endregion
+
+        #region Serialization
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerializing()]
+        protected new void OnSerializing(StreamingContext context)
+        {
+            // Assert("This value went into the data file during serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerialized()]
+        protected new void OnSerialized(StreamingContext context)
+        {
+            // Assert("This value was reset after serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserializing()]
+        protected new void OnDeserializing(StreamingContext context)
+        {
+            // Assert("This value was set during deserialization");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized()]
+        protected new void OnDeserialized(StreamingContext context)
+        {
+            // Assert("This value was set after deserialization.");
         }
 
         #endregion

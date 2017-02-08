@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -23,7 +24,7 @@ namespace Engine
 {
     /// <summary>
     /// A path shape item constructed with various sub shapes.
-    /// Based roughly on then SVG Path.
+    /// Based roughly on the SVG Path.
     /// </summary>
     [Serializable]
     [DisplayName("Geometry Path")]
@@ -32,9 +33,13 @@ namespace Engine
     public class GeometryPath
         : Shape
     {
+        #region Fields
+
         List<PathItem> items = new List<PathItem>();
 
         bool closed = false;
+
+        #endregion
 
         #region Constructors
 
@@ -93,6 +98,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [RefreshProperties(RefreshProperties.All)]
         [TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public List<PathItem> Items
@@ -138,6 +144,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [RefreshProperties(RefreshProperties.All)]
         public bool Closed
         {
             get { return closed; }
@@ -159,6 +166,50 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public override double Perimeter
             => (double)CachingProperty(() => Items.Sum(p => p.Length));
+
+        #endregion
+
+        #region Serialization
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerializing()]
+        protected void OnSerializing(StreamingContext context)
+        {
+            // Assert("This value went into the data file during serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerialized()]
+        protected void OnSerialized(StreamingContext context)
+        {
+            // Assert("This value was reset after serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserializing()]
+        protected void OnDeserializing(StreamingContext context)
+        {
+            // Assert("This value was set during deserialization");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized()]
+        protected void OnDeserialized(StreamingContext context)
+        {
+            // Assert("This value was set after deserialization.");
+        }
 
         #endregion
 

@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
@@ -731,6 +732,50 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D DrawingBounds
             => Measurements.EllipseBounds(cX, cY, rX, rY);
+
+        #endregion
+
+        #region Serialization
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerializing()]
+        protected void OnSerializing(StreamingContext context)
+        {
+            // Assert("This value went into the data file during serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerialized()]
+        protected void OnSerialized(StreamingContext context)
+        {
+            // Assert("This value was reset after serialization.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserializing()]
+        protected void OnDeserializing(StreamingContext context)
+        {
+            // Assert("This value was set during deserialization");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized()]
+        protected void OnDeserialized(StreamingContext context)
+        {
+            // Assert("This value was set after deserialization.");
+        }
 
         #endregion
 

@@ -108,6 +108,18 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static double NormalizeRadian(double angle)
+        {
+            var value = (angle + PI) % (Tau);
+            value += value > 0d ? -PI : PI;
+            return value;
+        }
+
+        /// <summary>
         /// Reduces a given angle to a value between 2π and -2π.
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>

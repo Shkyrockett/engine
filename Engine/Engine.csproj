@@ -111,6 +111,7 @@
     <Compile Include="Animation\Tweening\Lerpers\Vector3DLerper.cs" />
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
+    <Compile Include="Animation\ColorTransform.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
     <Compile Include="Geometry\Polygons\Line.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\Clip.cs" />
@@ -136,7 +137,7 @@
     <Compile Include="Geometry\Complex\Path\GeometryPath.cs" />
     <Compile Include="Geometry\Complex\Tools\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
-    <Compile Include="Animation\Transform.cs" />
+    <Compile Include="Math\Primitives\Transform.cs" />
     <Compile Include="Geometry\Polygons\PointSet.cs" />
     <Compile Include="Geometry\Polygons\ScreenPoint.cs" />
     <Compile Include="Math\Enums\Relations.cs" />

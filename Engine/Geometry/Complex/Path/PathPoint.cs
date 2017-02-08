@@ -107,7 +107,8 @@ namespace Engine
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double t) => Start.Value;
+        public override Point2D Interpolate(double t)
+            => Start.Value;
 
         #region Methods
 

@@ -53,30 +53,6 @@ namespace Engine
         /// </summary>
         private int count;
 
-        /// <summary>
-        /// The calculated optimal <see cref="Size"/> height and width of the cells in the grid.
-        /// </summary>
-        [NonSerialized()]
-        private Size cellSize;
-
-        /// <summary>
-        /// The calculated inner <see cref="Rectangle"/> bounds of the grid.
-        /// </summary>
-        [NonSerialized()]
-        private Rectangle innerBounds;
-
-        /// <summary>
-        /// The calculated optimal number of columns the grid can contain for it's height and width.
-        /// </summary>
-        [NonSerialized()]
-        private int columns;
-
-        /// <summary>
-        /// The calculated optimal number of rows the grid can contain for it's height and width.
-        /// </summary>
-        [NonSerialized()]
-        private int rows;
-
         #endregion
 
         #region Constructors
@@ -106,18 +82,39 @@ namespace Engine
         /// <param name="height"></param>
         /// <param name="count"></param>
         public RectangleCellGrid(int x, int y, int width, int height, int count)
+            : base()
         {
             this.x = x;
             this.y = y;
             this.h = width;
             this.v = height;
             this.count = count;
-            Recalculate();
         }
 
         #endregion
 
-        #region Properties
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="count"></param>
+        public void Deconstruct(out int x, out int y, out int width, out int height, out int count)
+        {
+            x = this.x;
+            y = this.y;
+            width = this.h;
+            height = this.v;
+            count = this.count;
+        }
+
+        #endregion
+
+        #region Indexers
 
         /// <summary>
         /// Gets the index of a cell at a given point in the grid.
@@ -130,11 +127,11 @@ namespace Engine
             get
             {
                 // Check whether the point is inside the grid.
-                if (!innerBounds.Contains(location))
+                if (!InnerBounds.Contains(location))
                     return -1;
 
                 // Calculate the index of the item under the point location.
-                var value = ((((location.Y - y) / cellSize.Height) % rows) * columns) + (((location.X - x) / cellSize.Width) % columns);
+                var value = ((((location.Y - y) / CellSize.Height) % Rows) * Columns) + (((location.X - x) / CellSize.Width) % Columns);
 
                 // Return only valid cells.
                 return (value < count) ? value : -1;
@@ -152,10 +149,14 @@ namespace Engine
             get
             {
                 // ToDo: Implement flow orientation options.
-                var point = new Point(x + (index % columns) * cellSize.Width, y + (index / columns) * cellSize.Height);
-                return new Rectangle(point, cellSize);
+                var point = new Point(x + (index % Columns) * CellSize.Width, y + (index / Columns) * CellSize.Height);
+                return new Rectangle(point, CellSize);
             }
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
@@ -170,7 +171,7 @@ namespace Engine
                 y = value.Y;
                 h = value.Width;
                 v = value.Height;
-                Recalculate();
+                ClearCache();
                 OnPropertyChanged(nameof(Bounds));
                 update?.Invoke();
             }
@@ -186,7 +187,7 @@ namespace Engine
             set
             {
                 x = value;
-                Recalculate();
+                ClearCache();
                 OnPropertyChanged(nameof(Count));
                 update?.Invoke();
             }
@@ -202,7 +203,7 @@ namespace Engine
             set
             {
                 y = value;
-                Recalculate();
+                ClearCache();
                 OnPropertyChanged(nameof(Count));
                 update?.Invoke();
             }
@@ -218,7 +219,7 @@ namespace Engine
             set
             {
                 h = value;
-                Recalculate();
+                ClearCache();
                 OnPropertyChanged(nameof(Count));
                 update?.Invoke();
             }
@@ -234,7 +235,7 @@ namespace Engine
             set
             {
                 v = value;
-                Recalculate();
+                ClearCache();
                 OnPropertyChanged(nameof(Count));
                 update?.Invoke();
             }
@@ -250,52 +251,59 @@ namespace Engine
             set
             {
                 count = value;
-                Recalculate();
+                ClearCache();
                 OnPropertyChanged(nameof(Count));
                 update?.Invoke();
             }
         }
 
         /// <summary>
+        /// Gets the calculated optimum cell scale.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public int CellScale
+            => (int)CachingProperty(() => Min(h / Columns, v / Rows));
+
+        /// <summary>
         /// Gets the calculated optimum <see cref="Size"/> height and width of any cell in the grid.
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public Size CellSize
-            => cellSize;
+            => (Size)CachingProperty(() => new Size(CellScale, CellScale));
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle"/> of the grid. 
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public Rectangle InnerBounds
-            => innerBounds;
+            => (Rectangle)CachingProperty(() => new Rectangle(new Point(x, y), new Size(Columns * CellSize.Width, Rows * CellSize.Height)));
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public int Columns
-            => columns;
+            => (int)CachingProperty(() => (int)Ceiling(Sqrt((h * count) / v)));
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public int Rows
-            => rows;
+            => (int)CachingProperty(() => (int)Ceiling((double)count / Columns));
 
         #endregion
 
-        #region Methods
+        #region Serialization
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
+        protected void OnSerializing(StreamingContext context)
         {
-            // member2 = "This value went into the data file during serialization.";
+            // Assert("This value went into the data file during serialization.");
         }
 
         /// <summary>
@@ -303,9 +311,9 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
+        protected void OnSerialized(StreamingContext context)
         {
-            // member2 = "This value was reset after serialization.";
+            // Assert("This value was reset after serialization.");
         }
 
         /// <summary>
@@ -313,9 +321,9 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
+        protected void OnDeserializing(StreamingContext context)
         {
-            // member3 = "This value was set during deserialization";
+            // Assert("This value was set during deserialization");
         }
 
         /// <summary>
@@ -323,53 +331,23 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-            // member4 = "This value was set after deserialization.";
-            => Recalculate();
-
-        /// <summary>
-        /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 
-        /// </summary>
-        private void Recalculate()
+        protected void OnDeserialized(StreamingContext context)
         {
-            if (count > 0)
-            {
-                // Find the best fitting rectangular grid for the number of colors.
-                columns = (int)Ceiling(Sqrt((h * count) / v));
-                rows = (int)Ceiling((double)count / columns);
-
-                // Calculate the optimum cell size for the grid.
-                var cellScale = Min(h / columns, v / rows);
-
-                // Set the size of the cell.
-                cellSize = new Size(cellScale, cellScale);
-
-                // Set up the inner boundaries of the grid to the canvas size.
-                innerBounds = new Rectangle(new Point(x, y), new Size(columns * cellSize.Width, rows * cellSize.Height));
-            }
+            // Assert("This value was set after deserialization.");
         }
 
-        /// <summary>
-        /// Calculate the columns, rows, cell sizes, and inner boundaries for the grid. 
-        /// </summary>
-        /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
-        /// <param name="count">The number of cells the grid is to contain.</param>
-        private void Recalculate(Rectangle bounds, int count)
-        {
-            x = bounds.X;
-            y = bounds.Y;
-            h = bounds.Width;
-            v = bounds.Height;
-            this.count = count;
-            Recalculate();
-        }
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Converts the attributes of this <see cref="RectangleCellGrid"/> to a human-readable string. 
         /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
         /// <returns></returns>
-        public override string ToString()
-            => $"{nameof(RectangleCellGrid)}{{Bounds {{{Bounds}}}, Count {count}}}";
+        public override string ConvertToString(string format, IFormatProvider provider)
+            => $"{nameof(RectangleCellGrid)}{{Bounds{{{Bounds}}}, Count {count}}}";
 
         #endregion
     }

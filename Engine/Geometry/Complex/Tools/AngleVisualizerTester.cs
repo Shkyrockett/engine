@@ -36,11 +36,11 @@ namespace Engine
         /// </summary>
         /// <param name="location"></param>
         /// <param name="radius"></param>
-        /// <param name="testAngle"></param>
+        /// <param name="testAngles"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        public AngleVisualizerTester(Point2D location, double radius, List<double> testAngle, double startAngle, double sweepAngle)
-            : this(location.X, location.Y, radius, testAngle, startAngle, sweepAngle)
+        public AngleVisualizerTester(Point2D location, double radius, List<double> testAngles, double startAngle, double sweepAngle)
+            : this(location.X, location.Y, radius, testAngles, startAngle, sweepAngle)
         { }
 
         /// <summary>
@@ -49,17 +49,41 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="radius"></param>
-        /// <param name="testAngle"></param>
+        /// <param name="testAngles"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        public AngleVisualizerTester(double x, double y, double radius, List<double> testAngle, double startAngle, double sweepAngle)
+        public AngleVisualizerTester(double x, double y, double radius, List<double> testAngles, double startAngle, double sweepAngle)
+            : base()
         {
             X = x;
             Y = y;
             Radius = radius;
-            TestAngles = testAngle;
+            TestAngles = testAngles;
             StartAngle = startAngle;
             SweepAngle = sweepAngle;
+        }
+
+        #endregion
+
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="radius"></param>
+        /// <param name="testAngles"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        public void Deconstruct(out double x, out double y, out double radius, out List<double> testAngles, out double startAngle, out double sweepAngle)
+        {
+            x = this.X;
+            y = this.Y;
+            radius = this.Radius;
+            testAngles = this.TestAngles;
+            startAngle = this.StartAngle;
+            sweepAngle = this.SweepAngle;
         }
 
         #endregion

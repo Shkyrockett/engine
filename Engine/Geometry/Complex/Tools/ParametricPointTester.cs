@@ -29,6 +29,7 @@ namespace Engine
         /// 
         /// </summary>
         public ParametricPointTester()
+            : base()
         { }
 
         /// <summary>
@@ -42,6 +43,7 @@ namespace Engine
         /// <param name="stepX"></param>
         /// <param name="stepY"></param>
         public ParametricPointTester(Func<double, double, Inclusion> intersecter, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
+            : base()
         {
             Intersecter = intersecter;
             MinX = minX;
@@ -50,6 +52,31 @@ namespace Engine
             MaxY = maxY;
             StepX = stepX;
             StepY = stepY;
+        }
+
+        #endregion
+
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="intersecter"></param>
+        /// <param name="minX"></param>
+        /// <param name="minY"></param>
+        /// <param name="maxX"></param>
+        /// <param name="maxY"></param>
+        /// <param name="stepX"></param>
+        /// <param name="stepY"></param>
+        public void Deconstruct(out Func<double, double, Inclusion> intersecter, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
+        {
+            intersecter = this.Intersecter;
+            minX = this.MinX;
+            minY = this.MinY;
+            maxX = this.MaxX;
+            maxY = this.MaxY;
+            stepX = this.StepX;
+            stepY = this.StepY;
         }
 
         #endregion

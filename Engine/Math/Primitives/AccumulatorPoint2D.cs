@@ -1,4 +1,4 @@
-﻿// <copyright file="TestPoint2D.cs" company="Shkyrockett" >
+﻿// <copyright file="AccumulatorPoint2D.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -23,40 +23,40 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class TestPoint2D
+    public class AccumulatorPoint2D
         : IFormattable
     {
         #region Implementations
 
         /// <summary>
-        /// An Empty <see cref="TestPoint2D"/>.
+        /// An Empty <see cref="AccumulatorPoint2D"/>.
         /// </summary>
-        public static readonly TestPoint2D Empty = new TestPoint2D();
+        public static readonly AccumulatorPoint2D Empty = new AccumulatorPoint2D();
 
         /// <summary>
-        /// A Unit <see cref="TestPoint2D"/>.
+        /// A Unit <see cref="AccumulatorPoint2D"/>.
         /// </summary>
-        public static readonly TestPoint2D Unit = new TestPoint2D(1, 1);
+        public static readonly AccumulatorPoint2D Unit = new AccumulatorPoint2D(1, 1);
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestPoint2D"/> class.
+        /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
         /// <remarks></remarks>
-        public TestPoint2D()
+        public AccumulatorPoint2D()
             : this(0, 0)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestPoint2D"/> class.
+        /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <remarks></remarks>
-        public TestPoint2D(double x, double y)
+        public AccumulatorPoint2D(double x, double y)
         {
             X = x;
             Y = y;
@@ -67,14 +67,14 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// X component of a <see cref="TestPoint2D"/> coordinate.
+        /// X component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
-        /// Y component of a <see cref="TestPoint2D"/> coordinate.
+        /// Y component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute, SoapAttribute]
@@ -108,25 +108,25 @@ namespace Engine
         #region Operators
 
         /// <summary>
-        /// Compares two <see cref="TestPoint2D"/> objects. 
+        /// Compares two <see cref="AccumulatorPoint2D"/> objects. 
         /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/> 
-        /// values of the two <see cref="TestPoint2D"/> objects are equal.
+        /// values of the two <see cref="AccumulatorPoint2D"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator ==(TestPoint2D left, TestPoint2D right)
+        public static bool operator ==(AccumulatorPoint2D left, AccumulatorPoint2D right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="TestPoint2D"/> objects. 
+        /// Compares two <see cref="AccumulatorPoint2D"/> objects. 
         /// The result specifies whether the values of the <see cref="X"/> or <see cref="Y"/> 
-        /// values of the two <see cref="TestPoint2D"/> objects are unequal.
+        /// values of the two <see cref="AccumulatorPoint2D"/> objects are unequal.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static bool operator !=(TestPoint2D left, TestPoint2D right)
+        public static bool operator !=(AccumulatorPoint2D left, AccumulatorPoint2D right)
             => !Equals(left, right);
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(TestPoint2D a, TestPoint2D b)
+        public static bool Compare(AccumulatorPoint2D a, AccumulatorPoint2D b)
             => Equals(a, b);
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(TestPoint2D a, TestPoint2D b)
+        public static bool Equals(AccumulatorPoint2D a, AccumulatorPoint2D b)
             => a?.X == b?.X & a?.Y == b?.Y & a?.Previous == b?.Previous & a?.TotalDistance == b?.TotalDistance;
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is TestPoint2D && Equals(this, obj as TestPoint2D);
+            => obj is AccumulatorPoint2D && Equals(this, obj as AccumulatorPoint2D);
 
         /// <summary>
         /// 
@@ -165,7 +165,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(TestPoint2D value)
+        public bool Equals(AccumulatorPoint2D value)
             => Equals(this, value);
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Engine
         /// <returns>
         /// </returns>
         /// <param name="point"></param>
-        public static explicit operator Point2D(TestPoint2D point)
+        public static explicit operator Point2D(AccumulatorPoint2D point)
             => new Point2D(point.X, point.Y);
 
         /// <summary>
@@ -183,19 +183,19 @@ namespace Engine
         /// <returns>
         /// </returns>
         /// <param name="point"></param>
-        public static implicit operator TestPoint2D(Point2D point)
-            => new TestPoint2D(point.X, point.Y);
+        public static implicit operator AccumulatorPoint2D(Point2D point)
+            => new AccumulatorPoint2D(point.X, point.Y);
 
         #endregion
 
         #region Factories
 
         /// <summary>
-        /// Parse a string for a <see cref="TestPoint2D"/> value.
+        /// Parse a string for a <see cref="AccumulatorPoint2D"/> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="TestPoint2D"/> data </param>
+        /// <param name="source"><see cref="string"/> with <see cref="AccumulatorPoint2D"/> data </param>
         /// <returns>
-        /// Returns an instance of the <see cref="TestPoint2D"/> struct converted
+        /// Returns an instance of the <see cref="AccumulatorPoint2D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
         public static Point2D Parse(string source)
@@ -266,14 +266,14 @@ namespace Engine
             ^ Y.GetHashCode();
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="TestPoint2D"/> struct.
+        /// Creates a human-readable string that represents this <see cref="AccumulatorPoint2D"/> struct.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="TestPoint2D"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <returns>
@@ -283,7 +283,7 @@ namespace Engine
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="TestPoint2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -297,7 +297,7 @@ namespace Engine
             => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="TestPoint2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -309,7 +309,7 @@ namespace Engine
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(TestPoint2D);
+            if (this == null) return nameof(AccumulatorPoint2D);
             char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Point2D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}}}";
             return formatable.ToString(format, provider);

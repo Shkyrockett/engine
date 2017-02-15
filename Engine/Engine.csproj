@@ -114,6 +114,8 @@
     <Compile Include="Animation\ColorTransform.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
     <Compile Include="Geometry\Polygons\Line.cs" />
+    <Compile Include="Math\Primitives\AccumulatorPoint2D.cs" />
+    <Compile Include="_Preview\Splitings.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\Clip.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\ClippingIntersection.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\ClippingPolygon.cs" />
@@ -337,7 +339,6 @@
     <Compile Include="Objects\Interfaces\Geometry\IOpenShape.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
     <Compile Include="Objects\Interfaces\ITweenable.cs" />
-    <Compile Include="Math\Primitives\TestPoint2D.cs" />
     <Compile Include="Math\Primitives\Size2D.cs" />
     <Compile Include="Math\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Polygons\BoundingRectPolygon.cs" />
@@ -455,7 +456,7 @@
   <ItemGroup>
     <None Include="Animation\Tweening\readme.md" />
     <None Include="packages.config" />
-    <None Include="_Preview\Intersection\ShapeIntersections.md" />
+    <None Include="_Preview\InteractionMethods.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -168,6 +169,23 @@ namespace Engine
         #region Properties
 
         /// <summary>
+        /// Get or sets an array of points representing a line segment.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlIgnore, SoapIgnore]
+        public List<Point2D> Points
+        {
+            get { return new List<Point2D> { A, B }; }
+            set
+            {
+                A = value[0];
+                B = value[1];
+                ClearCache();
+                OnPropertyChanged(nameof(Points));
+            }
+        }
+
+        /// <summary>
         /// First Point of a line segment
         /// </summary>
         /// <remarks></remarks>
@@ -184,6 +202,7 @@ namespace Engine
             {
                 aX = value.X;
                 aY = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(A));
             }
         }
@@ -205,6 +224,7 @@ namespace Engine
             set
             {
                 aX = value;
+                ClearCache();
                 OnPropertyChanged(nameof(AX));
                 update?.Invoke();
             }
@@ -226,6 +246,7 @@ namespace Engine
             set
             {
                 aY = value;
+                ClearCache();
                 OnPropertyChanged(nameof(AY));
                 update?.Invoke();
             }
@@ -248,7 +269,9 @@ namespace Engine
             {
                 bX = value.X;
                 bY = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(B));
+                update?.Invoke();
             }
         }
 
@@ -269,6 +292,7 @@ namespace Engine
             set
             {
                 bX = value;
+                ClearCache();
                 OnPropertyChanged(nameof(BX));
                 update?.Invoke();
             }
@@ -290,6 +314,7 @@ namespace Engine
             set
             {
                 bY = value;
+                ClearCache();
                 OnPropertyChanged(nameof(BY));
                 update?.Invoke();
             }
@@ -308,18 +333,23 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
-        /// Get or sets an array of points representing a line segment.
+        /// 
         /// </summary>
-        /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        public List<Point2D> Points
+        public double Length
+            => (double) CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Polynomial CurveX
         {
-            get { return new List<Point2D> { A, B }; }
-            set
+            get
             {
-                A = value[0];
-                B = value[1];
-                OnPropertyChanged(nameof(Points));
+                var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.X).ToArray()));
+                curveX.IsReadonly = true;
+                return curveX;
             }
         }
 
@@ -327,8 +357,22 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public double Length
-            => (double) CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
+        public Polynomial CurveY
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.Y).ToArray()));
+                curveY.IsReadonly = true;
+                return curveY;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public PolynomialDegree Degree
+            => PolynomialDegree.Linear;
 
         #endregion
 

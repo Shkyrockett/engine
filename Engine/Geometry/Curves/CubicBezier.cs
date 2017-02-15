@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -197,15 +198,12 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
-            get
-            {
-                return new Point2D(ax, ay);
-            }
-
+            get { return new Point2D(ax, ay); }
             set
             {
                 ax = value.X;
                 ay = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(A));
                 update?.Invoke();
             }
@@ -224,14 +222,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AX
         {
-            get
-            {
-                return ax;
-            }
-
+            get { return ax; }
             set
             {
                 ax = value;
+                ClearCache();
                 OnPropertyChanged(nameof(AX));
                 update?.Invoke();
             }
@@ -249,14 +244,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AY
         {
-            get
-            {
-                return ay;
-            }
-
+            get { return ay; }
             set
             {
                 ay = value;
+                ClearCache();
                 OnPropertyChanged(nameof(AY));
                 update?.Invoke();
             }
@@ -273,15 +265,12 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
-            get
-            {
-                return new Point2D(bx, by);
-            }
-
+            get { return new Point2D(bx, by); }
             set
             {
                 bx = value.X;
                 by = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(B));
                 update?.Invoke();
             }
@@ -300,14 +289,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double BX
         {
-            get
-            {
-                return bx;
-            }
-
+            get { return bx; }
             set
             {
                 bx = value;
+                ClearCache();
                 OnPropertyChanged(nameof(BX));
                 update?.Invoke();
             }
@@ -325,14 +311,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double BY
         {
-            get
-            {
-                return by;
-            }
-
+            get { return by; }
             set
             {
                 by = value;
+                ClearCache();
                 OnPropertyChanged(nameof(BY));
                 update?.Invoke();
             }
@@ -349,15 +332,12 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D C
         {
-            get
-            {
-                return new Point2D(cx, cy);
-            }
-
+            get { return new Point2D(cx, cy); }
             set
             {
                 cx = value.X;
                 cy = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(C));
                 update?.Invoke();
             }
@@ -376,14 +356,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double CX
         {
-            get
-            {
-                return cx;
-            }
-
+            get { return cx; }
             set
             {
                 bx = value;
+                ClearCache();
                 OnPropertyChanged(nameof(CX));
                 update?.Invoke();
             }
@@ -401,14 +378,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double CY
         {
-            get
-            {
-                return cy;
-            }
-
+            get { return cy; }
             set
             {
                 by = value;
+                ClearCache();
                 OnPropertyChanged(nameof(CY));
                 update?.Invoke();
             }
@@ -423,15 +397,12 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D D
         {
-            get
-            {
-                return new Point2D(dx, dy);
-            }
-
+            get { return new Point2D(dx, dy); }
             set
             {
                 dx = value.X;
                 dy = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(D));
                 update?.Invoke();
             }
@@ -450,14 +421,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double DX
         {
-            get
-            {
-                return dx;
-            }
-
+            get { return dx; }
             set
             {
                 bx = value;
+                ClearCache();
                 OnPropertyChanged(nameof(DX));
                 update?.Invoke();
             }
@@ -475,14 +443,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double DY
         {
-            get
-            {
-                return dy;
-            }
-
+            get { return dy; }
             set
             {
                 by = value;
+                ClearCache();
                 OnPropertyChanged(nameof(DY));
                 update?.Invoke();
             }
@@ -512,6 +477,41 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => Measurements.CubicBezierBounds(ax, ay, bx, by, cx, cy, dx, dy);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Polynomial CurveX
+        {
+            get
+            {
+                var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.X).ToArray()));
+                curveX.IsReadonly = true;
+                return curveX;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Polynomial CurveY
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.Y).ToArray()));
+                curveY.IsReadonly = true;
+                return curveY;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public PolynomialDegree Degree
+            => PolynomialDegree.Cubic;
 
         #endregion
 

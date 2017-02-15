@@ -11590,7 +11590,7 @@ namespace MethodSpeedTester
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;// 9999999.0;
 
-            var pointList = new List<TestPoint2D>();
+            var pointList = new List<AccumulatorPoint2D>();
             var solution = new List<Point2D>();
 
             int pointCount, solutionNodes;
@@ -11658,7 +11658,7 @@ namespace MethodSpeedTester
                 pointList[bestJ].TotalDistance = bestDist;
 
                 // Swap
-                TestPoint2D temp = pointList[bestJ];
+                AccumulatorPoint2D temp = pointList[bestJ];
                 pointList[bestJ] = pointList[treeCount];
                 pointList[treeCount] = temp;
 
@@ -11711,7 +11711,7 @@ namespace MethodSpeedTester
             // (larger than total solution dist could ever be)
             double maxLength = double.MaxValue;
 
-            var pointList = new List<TestPoint2D>();
+            var pointList = new List<AccumulatorPoint2D>();
             var solution = new List<Point2D>();
 
             int pointCount;
@@ -11783,7 +11783,7 @@ namespace MethodSpeedTester
                 pointList[bestJ].TotalDistance = bestDist;
 
                 // Swap
-                TestPoint2D temp = pointList[bestJ];
+                AccumulatorPoint2D temp = pointList[bestJ];
                 pointList[bestJ] = pointList[treeCount];
                 pointList[treeCount] = temp;
 

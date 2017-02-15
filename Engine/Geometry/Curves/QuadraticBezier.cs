@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -61,11 +62,6 @@ namespace Engine
         /// Position 2 y-coordinate.
         /// </summary>
         private double cy;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<Point2D> points = new List<Point2D>();
 
         #endregion
 
@@ -134,6 +130,7 @@ namespace Engine
             {
                 ax = value.X;
                 ay = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(A));
                 update?.Invoke();
             }
@@ -156,6 +153,7 @@ namespace Engine
             set
             {
                 ax = value;
+                ClearCache();
                 OnPropertyChanged(nameof(AX));
                 update?.Invoke();
             }
@@ -177,6 +175,7 @@ namespace Engine
             set
             {
                 ay = value;
+                ClearCache();
                 OnPropertyChanged(nameof(AY));
                 update?.Invoke();
             }
@@ -196,6 +195,7 @@ namespace Engine
             {
                 bx = value.X;
                 by = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(B));
                 update?.Invoke();
             }
@@ -218,6 +218,7 @@ namespace Engine
             set
             {
                 bx = value;
+                ClearCache();
                 OnPropertyChanged(nameof(BX));
                 update?.Invoke();
             }
@@ -239,6 +240,7 @@ namespace Engine
             set
             {
                 by = value;
+                ClearCache();
                 OnPropertyChanged(nameof(BY));
                 update?.Invoke();
             }
@@ -258,6 +260,7 @@ namespace Engine
             {
                 cx = value.X;
                 cy = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(C));
                 update?.Invoke();
             }
@@ -280,6 +283,7 @@ namespace Engine
             set
             {
                 bx = value;
+                ClearCache();
                 OnPropertyChanged(nameof(CX));
                 update?.Invoke();
             }
@@ -301,6 +305,7 @@ namespace Engine
             set
             {
                 by = value;
+                ClearCache();
                 OnPropertyChanged(nameof(CY));
                 update?.Invoke();
             }
@@ -329,6 +334,41 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => Measurements.QuadraticBezierBounds(ax, ay, bx, by, cx, cy);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Polynomial CurveX
+        {
+            get
+            {
+                var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.X).ToArray()));
+                curveX.IsReadonly = true;
+                return curveX;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Polynomial CurveY
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.Y).ToArray()));
+                curveY.IsReadonly = true;
+                return curveY;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public PolynomialDegree Degree
+            => PolynomialDegree.Quadratic;
 
         #endregion
 
@@ -387,6 +427,10 @@ namespace Engine
             => new Point2D(Interpolaters.QuadraticBezier(ax, ay, ax, by, cx, cy, t));
 
         #endregion
+
+
+
+
 
         #region Methods
 

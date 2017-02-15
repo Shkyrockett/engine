@@ -124,9 +124,51 @@ namespace Engine
         public static double Distance(this Point2D point, Line line)
             => DistanceLinePoint(line.Location.X, line.Location.Y, line.Direction.I, line.Direction.J, point.X, point.Y);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this BezierSegment bezier, Point2D point)
+            => DistanceTo(bezier.CurveX, bezier.CurveY, point);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this QuadraticBezier bezier, Point2D point)
+            => DistanceTo(bezier.CurveX, bezier.CurveY, point);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this CubicBezier bezier, Point2D point)
+            => DistanceTo(bezier.CurveX, bezier.CurveY, point);
+
         #endregion
 
         #region Nearest Extension Method Overloads
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static (double X, double Y) NearestPoint(this Point2D p, Point2D point)
+            => (p.X, p.Y);
 
         /// <summary>
         /// 
@@ -135,7 +177,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public static (double X, double Y) NearestPoint(this LineSegment seg, Point2D point)
-            => NearestPointOnLineSegment(seg.AX,seg.AY,seg.BX,seg.BY,point.X,point.Y);
+            => NearestPointOnLineSegment(seg.AX, seg.AY, seg.BX, seg.BY, point.X, point.Y);
 
         /// <summary>
         /// 
@@ -144,7 +186,7 @@ namespace Engine
         /// <param name="seg"></param>
         /// <returns></returns>
         public static (double X, double Y) NearestPoint(this Point2D point, LineSegment seg)
-            => NearestPointOnLineSegment(seg.AX,seg.AY,seg.BX,seg.BY,point.X,point.Y);
+            => NearestPointOnLineSegment(seg.AX, seg.AY, seg.BX, seg.BY, point.X, point.Y);
 
         /// <summary>
         /// 
@@ -153,11 +195,48 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public static (double X, double Y) NearestPoint(this EllipticalArc e, Point2D point)
-            => NearestPointOnEllipticalArc(e.X,e.Y,e.RX,e.RY,e.StartAngle,e.SweepAngle,point.X,point.Y);
+            => NearestPointOnEllipticalArc(e.X, e.Y, e.RX, e.RY, e.StartAngle, e.SweepAngle, point.X, point.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static double NearestT(this BezierSegment bezier, Point2D point)
+            => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static double NearestT(this QuadraticBezier bezier, Point2D point)
+            => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static double NearestT(this CubicBezier bezier, Point2D point)
+            => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
 
         #endregion
 
         #region Length Extension Method Overloads
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this ScreenPoint point)
+            => 0;
 
         /// <summary>
         /// Finds the length of a line segment.
@@ -1765,6 +1844,77 @@ namespace Engine
             }
 
             return -area * 0.5d;
+        }
+
+        #endregion
+
+        #region Other
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curveX"></param>
+        /// <param name="curveY"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static double ClosestParameter(Polynomial curveX, Polynomial curveY, Point2D point)
+        {
+            var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
+            var deriv = dsquare.Derivate().Normalize();
+            var derivRoots = deriv.RealOrComplexRoots();
+            return derivRoots
+                .Where(t => t > 0 && t < 1)
+                .Concat(Polynomial.Identity)
+                .OrderBy(x => dsquare.Compute(x))
+                .First();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curveX"></param>
+        /// <param name="curveY"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static double DistanceTo(Polynomial curveX, Polynomial curveY, Point2D point)
+        {
+            var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
+            var deriv = dsquare.Derivate().Normalize();
+            var derivRoots = deriv.RealOrComplexRoots();
+            return derivRoots
+                .Where(t => t > 0 && t < 1)
+                .Concat(Polynomial.Identity)
+                .Select(x => Sqrt(dsquare.Compute(x)))
+                .OrderBy(x => x)
+                .First();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curveX"></param>
+        /// <param name="curveY"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public static Polynomial ParameterizedSquareDistance(Polynomial curveX, Polynomial curveY, Point2D p)
+        {
+            var vx = curveX - p.X;
+            var vy = curveY - p.Y;
+            return vx * vx + vy * vy;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curveX"></param>
+        /// <param name="curveY"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static (double X, double Y) Compute(Polynomial curveX, Polynomial curveY, double t)
+        {
+            var x = curveX.Compute(t);
+            var y = curveY.Compute(t);
+            return (x, y);
         }
 
         #endregion

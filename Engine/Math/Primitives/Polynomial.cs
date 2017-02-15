@@ -32,6 +32,21 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        internal static readonly double[] Identity = new double[] { 0, 1 };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static readonly Polynomial T = new Polynomial(Identity);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static readonly Polynomial OneMinusT = 1 - T;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private const double accuracy = 6;
 
         #region Fields
@@ -442,11 +457,35 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static Polynomial Bezier(params double[] values)
+        {
+            if (values == null || values.Length < 1)
+                throw new ArgumentNullException();
+            return Bezier(0, values.Length - 1, values);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static Polynomial Bezier(int from, int to, double[] values)
+            => (from == to)
+            ? new Polynomial(values[from])
+            : OneMinusT * Bezier(from, to - 1, values) + T * Bezier(from + 1, to, values);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
         public static Polynomial Linear(double a, double b)
-            => new Polynomial(a, b);
+            => OneMinusT * a + T * b;
 
         /// <summary>
         /// 
@@ -456,7 +495,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <returns></returns>
         public static Polynomial Quadratic(double a, double b, double c)
-            => new Polynomial(a, b, c);
+            => OneMinusT * Linear(a, b) + T * Linear(b, c);
 
         /// <summary>
         /// 
@@ -467,7 +506,7 @@ namespace Engine
         /// <param name="d"></param>
         /// <returns></returns>
         public static Polynomial Cubic(double a, double b, double c, double d)
-            => new Polynomial(a, b, c, d);
+            => OneMinusT * Quadratic(a, b, c) + T * Quadratic(b, c, d);
 
         /// <summary>
         /// 
@@ -479,7 +518,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <returns></returns>
         public static Polynomial Quartic(double a, double b, double c, double d, double e)
-            => new Polynomial(a, b, c, d, e);
+            => OneMinusT * Cubic(a, b, c, d) + T * Cubic(b, c, d, e);
 
         /// <summary>
         /// 
@@ -492,7 +531,7 @@ namespace Engine
         /// <param name="f"></param>
         /// <returns></returns>
         public static Polynomial Quintic(double a, double b, double c, double d, double e, double f)
-            => new Polynomial(a, b, c, d, e, f);
+            => OneMinusT * Quartic(a, b, c, d, e) + T * Quartic(b, c, d, e, f);
 
         /// <summary>
         /// 
@@ -505,8 +544,8 @@ namespace Engine
         /// <param name="f"></param>
         /// <param name="g"></param>
         /// <returns></returns>
-        private static Polynomial Sextic(double a, double b, double c, double d, double e, double f, double g)
-            => new Polynomial(a, b, c, d, e, f, g);
+        public static Polynomial Sextic(double a, double b, double c, double d, double e, double f, double g)
+            => OneMinusT * Quintic(a, b, c, d, e, f) + T * Quintic(b, c, d, e, f, g);
 
         /// <summary>
         /// 
@@ -516,12 +555,13 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <param name="e"></param>
+        /// <param name="f"></param>
         /// <param name="f"></param>
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <returns></returns>
-        private static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g, double h)
-            => new Polynomial(a, b, c, d, e, f, g, h);
+        public static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g, double h)
+            => OneMinusT * Sextic(a, b, c, d, e, f, g) + T * Sextic(b, c, d, e, f, g, h);
 
         /// <summary>
         /// 
@@ -536,8 +576,8 @@ namespace Engine
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
-        private static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-            => new Polynomial(a, b, c, d, e, f, g, h, i);
+        public static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+            => OneMinusT * Septic(a, b, c, d, e, f, g, h) + T * Septic(b, c, d, e, f, g, h, i);
 
         #endregion
 
@@ -628,9 +668,12 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Derivate()
         {
-            var res = new double[Max(1, (int)Degree)];
+            var res = new double[Max(1, Count - 1)];
             for (int i = 1; i < Count; i++)
+            {
                 res[i - 1] = i * coefficients[i];
+            }
+
             return new Polynomial(res);
         }
 
@@ -663,8 +706,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Power(int n)
         {
-            if (n < 0)
-                throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negitive.");
+            if (n < 0) throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negative.");
+
             var order = (int)Degree;
             var res = new double[order * n + 1];
             var tmp = new double[order * n + 1];
@@ -684,6 +727,7 @@ namespace Engine
                     tmp[i] = 0;
                 }
             }
+
             return new Polynomial(res);
         }
 
@@ -695,8 +739,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Evaluate(double x)
         {
-            if (Double.IsNaN(x))
-                throw new Exception($"{nameof(Evaluate)}: parameter must be a number");
+            if (Double.IsNaN(x)) throw new Exception($"{nameof(Evaluate)}: parameter must be a number");
 
             var z = 0d;
             for (var i = Degree; i >= 0; i--)
@@ -716,11 +759,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Compute(double x)
         {
-            if (Double.IsNaN(x))
-                throw new Exception($"{nameof(Compute)}: parameter must be a number");
+            if (Double.IsNaN(x)) throw new Exception($"{nameof(Evaluate)}: parameter must be a number");
 
-            double z = 0;
-            double xcoef = 1;
+            double z = 0d;
+            double xcoef = 1d;
             for (int i = 0; i < Count; i++)
             {
                 z += Coefficients[i] * xcoef;
@@ -741,14 +783,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Complex Compute(Complex x)
         {
-            Complex res = 0;
+            Complex z = 0;
             Complex xcoef = 1;
             for (int i = 0; i < Count; i++)
             {
-                res += Coefficients[i] * xcoef;
+                z += Coefficients[i] * xcoef;
                 xcoef *= x;
             }
-            return res;
+            return z;
         }
 
         /// <summary>
@@ -840,17 +882,17 @@ namespace Engine
                 case PolynomialDegree.Quartic:
                     return QuarticRoots(epsilon);
                 case PolynomialDegree.Quintic:
-                    // ToDo: Uncomment when Quintic roots are implemented.
-                    //return QuinticRoots(epsilon);
+                // ToDo: Uncomment when Quintic roots are implemented.
+                //return QuinticRoots(epsilon);
                 case PolynomialDegree.Sextic:
-                    // ToDo: Uncomment when Sextic roots are implemented.
-                    //return SexticRoots(epsilon);
+                // ToDo: Uncomment when Sextic roots are implemented.
+                //return SexticRoots(epsilon);
                 case PolynomialDegree.Septic:
-                    // ToDo: Uncomment when Septic roots are implemented.
-                    //return SepticRoots(epsilon);
+                // ToDo: Uncomment when Septic roots are implemented.
+                //return SepticRoots(epsilon);
                 case PolynomialDegree.Octic:
-                    // ToDo: Uncomment when Octic roots are implemented.
-                    //return OcticRoots(epsilon);
+                // ToDo: Uncomment when Octic roots are implemented.
+                //return OcticRoots(epsilon);
                 default:
                     // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
                     return new List<double>();

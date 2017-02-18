@@ -1,4 +1,4 @@
-﻿// <copyright file="GeometryClipping.cs" company="Shkyrockett" >
+﻿// <copyright file="SutherlandHodgman.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -18,7 +18,7 @@ namespace Engine
     /// <summary>
     /// A collection of methods for collecting the interactions of geometry.
     /// </summary>
-    public static class GeometryClipping
+    public static class SutherlandHodgman
     {
         /// <summary>
         /// Sutherland Hodgman Intersection. This clips the subject polygon against the clip polygon (gets the intersection of the two polygons)
@@ -28,7 +28,7 @@ namespace Engine
         /// <returns>The intersection of the two polygons (or null)</returns>
         /// <remarks>
         /// http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
-        /// Based on the psuedocode from:
+        /// Based on the pseudocode from:
         /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -37,7 +37,7 @@ namespace Engine
             if (subjectPoly.Count < 3 || clipPoly.Count < 3)
                 throw new ArgumentException($"The polygons passed in must have at least 3 points: subject={subjectPoly.Count}, clip={clipPoly.Count}");
 
-            // clone it
+            // Clone it
             List<Point2D> outputList = subjectPoly.ToList();
 
             // Make sure it's clockwise

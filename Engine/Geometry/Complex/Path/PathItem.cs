@@ -40,14 +40,14 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets or sets the flag indicating whether the item'spossition should be 
-        /// calculated relitive to the last item, or from Origin. 
+        /// Gets or sets the flag indicating whether the item's position should be 
+        /// calculated relative to the last item, or from Origin. 
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public bool Relitive { get; set; }
 
         /// <summary>
-        /// Gets or sets a reference to the previous gometric item.
+        /// Gets or sets a reference to the previous geometric item.
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public PathItem Previous { get; set; }

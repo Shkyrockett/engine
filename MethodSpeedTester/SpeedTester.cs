@@ -66,7 +66,7 @@ namespace MethodSpeedTester
         public void RunTest(int trials = 10000)
         {
             var watch = new Stopwatch();
-
+            watch.Reset();
             watch.Start();
             for (int i = 0; i < trials; i++)
             {

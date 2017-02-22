@@ -1,4 +1,4 @@
-﻿// <copyright file="GreinerHormannClip.cs" company="Shkyrockett" >
+﻿// <copyright file="GreinerHormannClipper.cs" >
 //     Copyright (c) 2015 - 2017 w8r. All rights reserved.
 // </copyright>
 // <author id="w8r">Alexander Milevski</author>
@@ -15,7 +15,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public static class GreinerHormannClip
+    public static class GreinerHormannClipper
     {
         /// <summary>
         /// 

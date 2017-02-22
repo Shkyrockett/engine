@@ -1,4 +1,4 @@
-﻿// <copyright file="PolynomialDegree.cs" company="Shkyrockett" >
+﻿// <copyright file="PolynomialDegree.cs" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>

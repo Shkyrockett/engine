@@ -50,8 +50,8 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="locus"></param>
-        public static implicit operator PolygonSet(PolygonSetLocus locus)
-            => new PolygonSet(locus.Polygons);
+        public static implicit operator Polygon(PolygonSetLocus locus)
+            => new Polygon(locus.Polygons);
 
         /// <summary>
         /// 

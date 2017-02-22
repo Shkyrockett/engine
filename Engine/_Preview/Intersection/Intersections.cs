@@ -1,4 +1,4 @@
-﻿// <copyright file="Intersections.cs" company="Shkyrockett" >
+﻿// <copyright file="Intersections.cs" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -43,6 +43,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
+using static Engine.Measurements;
 
 namespace Engine
 {
@@ -148,14 +149,14 @@ namespace Engine
             => RectangleContainsPoint(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Bottom, point.X, point.Y);
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Contour"/>.
         /// </summary>
-        /// <param name="polygon"><see cref="Polygon"/> class.</param>
+        /// <param name="polygon"><see cref="Contour"/> class.</param>
         /// <param name="point">Point to test.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Polygon polygon, Point2D point)
+        public static Inclusion Contains(this Contour polygon, Point2D point)
             => PolygonContainsPoint(polygon.Points, point.X, point.Y);
 
         /// <summary>
@@ -170,16 +171,16 @@ namespace Engine
             => GeometryPathContainsPoint(figure, point);
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="PolygonSet"/>.
+        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="Polygon"/>.
         /// </summary>
-        /// <param name="polygons">List of <see cref="Polygon"/> classes.</param>
+        /// <param name="polygons">List of <see cref="Contour"/> classes.</param>
         /// <param name="point">Point to test.</param>
         /// <returns></returns>
         /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this PolygonSet polygons, Point2D point)
-            => PolygonSetContainsPoint(polygons.Polygons, point.X, point.Y);
+        public static Inclusion Contains(this Polygon polygons, Point2D point)
+            => PolygonSetContainsPoint(polygons.Contours, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -441,7 +442,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Polygon p)
+        public static Intersection Intersection(this Ellipse e, Contour p)
             => UnrotatedEllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, p.Points);
 
         /// <summary>
@@ -451,7 +452,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Polygon p, Ellipse e)
+        public static Intersection Intersection(this Contour p, Ellipse e)
             => UnrotatedEllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, p.Points);
 
         /// <summary>
@@ -521,7 +522,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment l, Polygon p)
+        public static Intersection Intersection(this LineSegment l, Contour p)
             => LineSegmentPolygonIntersection(l.AX, l.AY, l.BX, l.BY, p.Points);
 
         /// <summary>
@@ -531,7 +532,7 @@ namespace Engine
         /// <param name="l"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Polygon p, LineSegment l)
+        public static Intersection Intersection(this Contour p, LineSegment l)
             => LineSegmentPolygonIntersection(l.AX, l.AY, l.BX, l.BY, p.Points);
 
         /// <summary>
@@ -541,7 +542,7 @@ namespace Engine
         /// <param name="l"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Polygon p, Rectangle2D l)
+        public static Intersection Intersection(this Contour p, Rectangle2D l)
             => PolygonRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom);
 
         /// <summary>
@@ -551,7 +552,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D l, Polygon p)
+        public static Intersection Intersection(this Rectangle2D l, Contour p)
             => PolygonRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom);
 
         /// <summary>
@@ -561,7 +562,7 @@ namespace Engine
         /// <param name="p1"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Polygon p0, Polygon p1)
+        public static Intersection Intersection(this Contour p0, Contour p1)
             => PolygonPolygonIntersection(p0.Points, p1.Points);
 
         /// <summary>
@@ -631,7 +632,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier b, Polygon p)
+        public static Intersection Intersection(this CubicBezier b, Contour p)
             => CubicBezierPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, p.Points);
 
         /// <summary>
@@ -641,7 +642,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Polygon p, CubicBezier b)
+        public static Intersection Intersection(this Contour p, CubicBezier b)
             => CubicBezierPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, p.Points);
 
         /// <summary>
@@ -741,7 +742,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier b, Polygon p)
+        public static Intersection Intersection(this QuadraticBezier b, Contour p)
             => QuadraticBezierPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points);
 
         /// <summary>
@@ -751,7 +752,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Polygon p, QuadraticBezier b)
+        public static Intersection Intersection(this Contour p, QuadraticBezier b)
             => QuadraticBezierPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points);
 
         /// <summary>
@@ -1005,6 +1006,19 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="s"></param>
+        /// <param name="o"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public static bool PointInTriangle(LineSegment s, Point2D o, Point2D p)
+        {
+            int x = Sign(s.A, s.B, p);
+            return ((x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
         /// <param name="bX"></param>
@@ -1052,7 +1066,7 @@ namespace Engine
                 : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Polygon"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Contour"/>.
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
@@ -1153,7 +1167,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="PolygonSet"/>.
+        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="Polygon"/>.
         /// </summary>
         /// <param name="polygons">List of polygons.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
@@ -1161,11 +1175,11 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonSetContainsPoint(List<Polygon> polygons, double pX, double pY)
+        public static Inclusion PolygonSetContainsPoint(List<Contour> polygons, double pX, double pY)
         {
             Inclusion returnValue = Inclusion.Outside;
 
-            foreach (Polygon poly in polygons)
+            foreach (Contour poly in polygons)
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
@@ -1470,7 +1484,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonSetContainsPoints(this PolygonSet polygons, Point2D start, Point2D end)
+        public static Inclusion PolygonSetContainsPoints(this Polygon polygons, Point2D start, Point2D end)
         {
             int j;
             double sX;
@@ -1489,7 +1503,7 @@ namespace Engine
             double theCos = end.X / dist;
             double theSin = end.Y / dist;
 
-            foreach (Polygon poly in polygons.Polygons)
+            foreach (Contour poly in polygons.Contours)
             {
                 for (int i = 0; i < poly.Points.Count; i++)
                 {
@@ -1536,7 +1550,7 @@ namespace Engine
                 }
             }
 
-            return PolygonSetContainsPoint(polygons.Polygons, start.X + end.X / 2.0, start.Y + end.Y / 2.0);
+            return PolygonSetContainsPoint(polygons.Contours, start.X + end.X / 2.0, start.Y + end.Y / 2.0);
         }
 
         /// <summary>

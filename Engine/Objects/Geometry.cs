@@ -28,7 +28,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Matrix2x3D Transform { get; set; }
+        public Matrix3x2D Transform { get; set; }
 
         /// <summary>
         /// 

@@ -1,4 +1,4 @@
-﻿// <copyright file="IntersectionStatus.cs" company="Shkyrockett" >
+﻿// <copyright file="IntersectionStatus.cs" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>

@@ -135,10 +135,10 @@ namespace Engine.File
         public short ReadNetworkInt16() => IPAddress.NetworkToHostOrder(ReadInt16());
 
         /// <summary>
-        /// Reads a 2-byte unsigned integer from the current stream using big-endian
+        /// Reads a 2-byte uinteger from the current stream using big-endian
         /// encoding, and advances the current position of the stream by two bytes.
         /// </summary>
-        /// <returns>A 2-byte unsigned integer read from this stream.</returns>
+        /// <returns>A 2-byte uinteger read from this stream.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
@@ -175,10 +175,10 @@ namespace Engine.File
         public int ReadNetworkInt32() => IPAddress.NetworkToHostOrder(ReadInt32());
 
         /// <summary>
-        /// Reads a 4-byte unsigned integer from the current stream using big-endinan
+        /// Reads a 4-byte uinteger from the current stream using big-endinan
         /// encoding, and advances the current position of the stream by four bytes.
         /// </summary>
-        /// <returns>A 4-byte unsigned integer read from this stream.</returns>
+        /// <returns>A 4-byte uinteger read from this stream.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
@@ -195,10 +195,10 @@ namespace Engine.File
         public long ReadNetworkInt64() => IPAddress.NetworkToHostOrder(ReadInt64());
 
         /// <summary>
-        /// Reads an 8-byte unsigned integer from the current stream using big-endinan
+        /// Reads an 8-byte uinteger from the current stream using big-endinan
         /// encoding, and advances the current position of the stream by eight bytes.
         /// </summary>
-        /// <returns>An 8-byte unsigned integer read from this stream.</returns>
+        /// <returns>An 8-byte uinteger read from this stream.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
@@ -225,10 +225,10 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// Reads a variable length unsigned integer from the current stream using big-endinan
+        /// Reads a variable length uinteger from the current stream using big-endinan
         /// encoding, and advances the current position by the number of bytes read.
         /// </summary>
-        /// <returns>A 4-byte unsigned integer read from the current stream as variable length.</returns>
+        /// <returns>A 4-byte uinteger read from the current stream as variable length.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
@@ -252,10 +252,10 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// (Alternate)Reads a variable length unsigned integer from the current stream using big-endinan
+        /// (Alternate)Reads a variable length uinteger from the current stream using big-endinan
         /// encoding, and advances the current position by the number of bytes read.
         /// </summary>
-        /// <returns>A 4-byte unsigned integer read from the current stream as variable length.</returns>
+        /// <returns>A 4-byte uinteger read from the current stream as variable length.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
@@ -281,10 +281,10 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// Reads a variable length unsigned integer from the current stream using big-endinan
+        /// Reads a variable length uinteger from the current stream using big-endinan
         /// encoding, and advances the current position by the number of bytes read.
         /// </summary>
-        /// <returns>A 4-byte unsigned integer read from the current stream as variable length.</returns>
+        /// <returns>A 4-byte uinteger read from the current stream as variable length.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
@@ -309,10 +309,10 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// (Alternate)Reads a variable length unsigned integer from the current stream using big-endinan
+        /// (Alternate)Reads a variable length uinteger from the current stream using big-endinan
         /// encoding, and advances the current position by the number of bytes read.
         /// </summary>
-        /// <returns>A 4-byte unsigned integer read from the current stream as variable length.</returns>
+        /// <returns>A 4-byte uinteger read from the current stream as variable length.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
@@ -339,10 +339,10 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// (Alternate)Reads a variable length unsigned integer from the current stream using big-endinan
+        /// (Alternate)Reads a variable length uinteger from the current stream using big-endinan
         /// encoding, and advances the current position by the number of bytes read.
         /// </summary>
-        /// <returns>A 4-byte unsigned integer read from the current stream as variable length.</returns>
+        /// <returns>A 4-byte uinteger read from the current stream as variable length.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>

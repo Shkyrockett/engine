@@ -74,10 +74,10 @@ namespace Engine.Imaging
                 case PolylineSet t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
-                case Polygon t:
+                case Contour t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
-                case PolygonSet t:
+                case Polygon t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case Oval t:

@@ -859,8 +859,8 @@ namespace Engine
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public Polygon ToPolygon()
-            => new Polygon(ToPoints());
+        public Contour ToPolygon()
+            => new Contour(ToPoints());
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

@@ -280,7 +280,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Point2D value, Matrix2x3D matrix)
+        public static Point2D operator *(Point2D value, Matrix3x2D matrix)
             => matrix.Transform(value);
 
         /// <summary>
@@ -505,6 +505,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point2D value)
             => Equals(this, value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal Point2D Clone()
+            => new Point2D(X, Y);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point2D"/>.

@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -69,6 +70,45 @@ namespace Engine
         {
             array.RemoveAt(index);
             return array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static T Pop<T>(this List<T> list)
+        {
+            T r = list[list.Count - 1];
+            list.RemoveAt(list.Count - 1);
+            return r;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static T Shift<T>(this List<T> list)
+        {
+            T r = list[0];
+            list.RemoveAt(0);
+            return r;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static List<T> UnShift<T>(this List<T> list, T item)
+        {
+            list.Insert(0, item);
+            return list;
         }
 
         /// <summary>
@@ -153,6 +193,22 @@ namespace Engine
                 acc = func(i, acc);
 
             return acc;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Source"></param>
+        /// <param name="Start"></param>
+        /// <param name="Size"></param>
+        /// <returns></returns>
+        /// <remarks> http://stackoverflow.com/q/9325627 </remarks>
+        public static List<T> Splice<T>(this List<T> Source, int Start, int Size)
+        {
+            List<T> retVal = Source.Skip(Start).Take(Size).ToList<T>();
+            Source.RemoveRange(Start, Size);
+            return retVal;
         }
     }
 }

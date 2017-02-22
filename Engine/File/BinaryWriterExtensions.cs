@@ -84,7 +84,7 @@ namespace Engine.File
         public void WriteNetwork(long value) => Write(IPAddress.HostToNetworkOrder(value));
 
         /// <summary>
-        /// Writes a variable-length unsigned integer to the current stream and advances the
+        /// Writes a variable-length uinteger to the current stream and advances the
         /// stream position by the size of the integer in bytes.
         /// </summary>
         /// <param name="input">The value to write</param>

@@ -41,7 +41,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        public static Shape InnerPolygon = new Polygon( // First inner triangle
+        public static Shape InnerPolygon = new Contour( // First inner triangle
                         new List<Point2D> {
                             new Point2D(20, 100),
                             new Point2D(175, 60),
@@ -62,15 +62,15 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        public static Polygon PaperPlane = new Polygon(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) });
+        public static Contour PaperPlane = new Contour(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) });
         
         /// <summary>
         /// 
         /// </summary>
-        public static PolygonSet PolySet = new PolygonSet(
-            new List<Polygon>(
-                new List<Polygon> {
-                    new Polygon( // Boundary
+        public static Polygon PolySet = new Polygon(
+            new List<Contour>(
+                new List<Contour> {
+                    new Contour( // Boundary
                         new List<Point2D> {
                             new Point2D(10, 10),
                             new Point2D(300, 10),
@@ -82,14 +82,14 @@ namespace Editor
                             new Point2D(10, 150)
                         }
                     ),
-                    new Polygon( // First inner triangle
+                    new Contour( // First inner triangle
                         new List<Point2D> {
                             new Point2D(20, 100),
                             new Point2D(175, 60),
                             new Point2D(40, 30)
                         }
                     ),
-                    new Polygon( // Second inner triangle
+                    new Contour( // Second inner triangle
                         new List<Point2D> {
                             new Point2D(250, 150),
                             new Point2D(150, 150),
@@ -108,12 +108,12 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        public static Polygon PolygonTriangleA = new Polygon(new List<Point2D> { (300, 0), (600, 450), (0, 450) });
+        public static Contour PolygonTriangleA = new Contour(new List<Point2D> { (300, 0), (600, 450), (0, 450) });
         
         /// <summary>
         /// 
         /// </summary>
-        public static Polygon PolygonTriangleB = new Polygon(new List<Point2D> { (0, 150), (600, 150), (300, 600) });
+        public static Contour PolygonTriangleB = new Contour(new List<Point2D> { (0, 150), (600, 150), (300, 600) });
         
         /// <summary>
         /// 

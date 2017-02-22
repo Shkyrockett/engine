@@ -1,4 +1,4 @@
-﻿// <copyright file="PolyBezier.cs" company="Shkyrockett" >
+﻿// <copyright file="PolyBezier.cs" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -345,9 +345,9 @@ namespace Engine
             var figure = new List<PolyBezierSegment>();
             bool closed = false;
 
-            bool relitive = false;
-            Point2D? startPoint = null;
-            PathItem item = null;
+            //bool relitive = false;
+            //Point2D? startPoint = null;
+            //PathItem item = null;
 
             // These letters are valid SVG commands. Split the tokens at these.
             string separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";

@@ -23,7 +23,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Triangle))]
     public class Triangle
-         : Polygon, IClosedShape
+         : Contour, IClosedShape
     {
         #region Constructors
 
@@ -48,7 +48,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polygon"></param>
-        public Triangle(Polygon polygon)
+        public Triangle(Contour polygon)
             : base(polygon.Points)
         {
             if (polygon.Points.Count > 3) throw new IndexOutOfRangeException();
@@ -198,7 +198,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Contour"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

@@ -1,4 +1,4 @@
-﻿// <copyright file="Measurements.cs" company="Shkyrockett" >
+﻿// <copyright file="Measurements.cs" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -404,7 +404,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Bounds(this Polygon poly)
+        public static Rectangle2D Bounds(this Contour poly)
             => PolygonBounds(poly.Points);
 
         /// <summary>
@@ -488,7 +488,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Area(this Polygon poly)
+        public static double Area(this Contour poly)
             => Abs(SignedPolygonArea(poly.Points));
 
         /// <summary>
@@ -1689,7 +1689,7 @@ namespace Engine
 
             foreach (PathItem member in chain.Items)
             {
-                result.Union(member.Bounds);
+                result.UnionMutate(member.Bounds);
             }
 
             return result;
@@ -1735,6 +1735,54 @@ namespace Engine
         #endregion
 
         #region Area Methods
+
+        /// <summary>
+        /// Sign of triangle (p1, p2, o)
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static int Sign(Point2D p1, Point2D p2, Point2D o)
+        {
+            double det = (p1.X - o.X) * (p2.Y - o.Y) - (p2.X - o.X) * (p1.Y - o.Y);
+            return (det < 0 ? -1 : (det > 0 ? +1 : 0));
+        }
+
+        /// <summary>
+        /// Signed area of the Triangle ( (0,0), p1, p2)
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SignedArea(Point2D p1, Point2D p2)
+            => -p2.X * (p1.Y - p2.Y) - -p2.Y * (p1.X - p2.X);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SignedTriangleArea(Point2D p0, Point2D p1, Point2D p2)
+            => SignedTriangleArea(p0.X, p0.Y, p1.X, p1.Y, p2.X, p2.Y);
+
+        /// <summary>
+        /// Signed area of the triangle (p0, p1, p2)
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SignedTriangleArea2(Point2D p0, Point2D p1, Point2D p2)
+            => (p0.X - p2.X) * (p1.Y - p2.Y) - (p1.X - p2.X) * (p0.Y - p2.Y);
 
         /// <summary>
         /// Returns a positive number if c is to the left of the line going from a to b.

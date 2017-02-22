@@ -148,7 +148,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Triangle Offset(this Triangle triangle, double offset)
-            => (Triangle)Offset((Polygon)triangle, offset);
+            => (Triangle)Offset((Contour)triangle, offset);
 
         /// <summary>
         /// Inflate Offsets a <see cref="Rectangle2D"/> by the specified amount.
@@ -202,11 +202,11 @@ namespace Engine
         /// <param name="offset"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polygon Offset(this Polygon polygon, double offset)
+        public static Contour Offset(this Contour polygon, double offset)
         {
             List<Point2D> points = (polygon.Points as List<Point2D>);
 
-            var polyline = new Polygon();
+            var polyline = new Contour();
 
             LineSegment offsetLine = OffsetSegment(points[polygon.Points.Count - 1], points[0], offset);
             LineSegment startLine = offsetLine;

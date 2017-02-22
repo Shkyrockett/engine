@@ -20,7 +20,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName("Star")]
     public class NonIntStar
-        : Polygon
+        : Contour
     {
         /// <summary>
         /// 

@@ -73,9 +73,7 @@ namespace Engine
         /// </summary>
         /// <param name="items"></param>
         public void Deconstruct(out List<PathItem> items)
-        {
-            items = this.Items;
-        }
+            => items = this.Items;
 
         #endregion
 

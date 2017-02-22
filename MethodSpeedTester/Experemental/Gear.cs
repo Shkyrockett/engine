@@ -21,7 +21,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(Gear))]
     public class Gear
-        : Polygon
+        : Contour
     {
         /// <summary>
         /// 

@@ -68,7 +68,7 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="item"></param>
         /// <param name="style"></param>
-        public static void Render(this Polygon shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Contour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
@@ -113,12 +113,12 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="item"></param>
         /// <param name="style"></param>
-        public static void Render(this PolygonSet set, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Polygon set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
             var path = new GraphicsPath();
-            foreach (Polygon shape in set.Polygons)
+            foreach (Contour shape in set.Contours)
                 path.AddPolygon(shape.Points.ToPointFArray());
 
             g.FillPath((itemStyle).BackBrush, path);

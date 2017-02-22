@@ -26,7 +26,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(LineSegment))]
-    [XmlType(TypeName = "line")]
+    [XmlType(TypeName = "line-segment")]
     public class LineSegment
         : Shape, IOpenShape
     {
@@ -337,7 +337,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public double Length
-            => (double) CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
+            => (double)CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// 
@@ -368,11 +368,49 @@ namespace Engine
         }
 
         /// <summary>
+        /// Return the point of the segment with lexicographically smallest coordinate.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Point2D Min
+            => (aX < bX) || (aX == bX && aY < bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
+
+        /// <summary>
+        /// Return the point of the segment with lexicographically largest coordinate.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public Point2D Max
+            => (aX > bX) || (aX == bX && aY > bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
+
+        /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => PolynomialDegree.Linear;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        public bool Degenerate
+            => aX == bX && aY == bY;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        public bool IsHorizontal
+            => aY == bY;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        public bool IsVertical
+            => aX == bX;
 
         #endregion
 
@@ -432,7 +470,7 @@ namespace Engine
 
         #endregion
 
-        #region Interpolaters
+        #region Interpolators
 
         /// <summary>
         /// Interpolates a shape.
@@ -485,7 +523,7 @@ namespace Engine
         {
             if (this == null) return nameof(LineSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(LineSegment)}{{{nameof(A)}={A.ConvertToString(format,provider)},{nameof(B)}={B.ConvertToString(format,provider)}}}";
+            return $"{nameof(LineSegment)}{{{nameof(A)}={A.ConvertToString(format, provider)},{nameof(B)}={B.ConvertToString(format, provider)}}}";
         }
 
         #endregion

@@ -25,6 +25,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName("Line")]
+    [XmlType(TypeName = "line", Namespace = "http://www.w3.org/2000/svg")]
     public class Line
         : Shape
     {

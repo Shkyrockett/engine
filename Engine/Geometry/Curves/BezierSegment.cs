@@ -219,7 +219,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Contour"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

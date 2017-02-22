@@ -199,7 +199,7 @@ namespace Engine
         /// </summary>
         /// <param name="matrix"></param>
         /// <returns></returns>
-        public static Transform FromMatrix(Matrix2x3D matrix)
+        public static Transform FromMatrix(Matrix3x2D matrix)
         {
             var backupScaleX = 0;//scaleX;
             var backupScaleY = 0;// scaleY;
@@ -231,8 +231,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public Matrix2x3D ToMatrix()
-            => new Matrix2x3D(ScaleX * Cos(SkewY), ScaleX * Sin(SkewY), -ScaleY * Sin(SkewX), ScaleY * Cos(SkewX), X, Y);
+        public Matrix3x2D ToMatrix()
+            => new Matrix3x2D(ScaleX * Cos(SkewY), ScaleX * Sin(SkewY), -ScaleY * Sin(SkewX), ScaleY * Cos(SkewX), X, Y);
 
         #endregion
 

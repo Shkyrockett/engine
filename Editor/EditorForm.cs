@@ -9,9 +9,9 @@
 // <remarks></remarks>
 
 using Engine;
+using Engine._Preview;
 using Engine.File.Palettes;
 using Engine.Imaging;
-using Engine.Physics;
 using Engine.Tools;
 using Engine.Tweening;
 using Engine.Winforms;
@@ -43,7 +43,7 @@ namespace Editor
         private ToolStack toolStack;
 
         /// <summary>
-        /// Tweening interpolater for animation.
+        /// Tweening interpolator for animation.
         /// </summary>
         private Tweener tweener = new Tweener();
 
@@ -62,6 +62,9 @@ namespace Editor
         /// </summary>
         private int tick = 1;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private GraphicItem boundaryItem = new GraphicItem(Rectangle2D.Empty, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
 
         /// <summary>
@@ -133,12 +136,15 @@ namespace Editor
                 new ShapeStyle(Brushes.DarkGoldenrod, new Pen(Brushes.Honeydew)),
                 new ShapeStyle(Brushes.AntiqueWhite, new Pen(Brushes.CadetBlue)),
                 new ShapeStyle(Brushes.Azure, new Pen(Brushes.Transparent)),
-                new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent), new Pen(Brushes.Transparent))
+                new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard, Color.Pink, Color.Transparent), new Pen(Brushes.Transparent)),
+                new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Blue)), new SolidBrush(Color.FromArgb(128, Color.Blue))),
+                new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Green)), new SolidBrush(Color.FromArgb(128, Color.Green))),
+                new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Red)), new SolidBrush(Color.FromArgb(128, Color.Red))),
             };
 
             vectorMap.VisibleBounds = CanvasPanel.ClientRectangle.ToRectangle2D();
             boundaryItem = new GraphicItem(vectorMap.VisibleBounds, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
-            vectorMap.Add(boundaryItem);
+            //vectorMap.Add(boundaryItem);
 
             //var triangleItem = new GraphicItem(Examples.TrianglePointingRight, styles[0])
             //{
@@ -184,24 +190,24 @@ namespace Editor
 
             //var setItem = new GraphicItem(Examples.PolySet, styles[8])
             //{
-            //    Name = "Polygon Set"
+            //    Name = "Polygon"
             //};
             //vectorMap.Add(setItem);
 
             //var innerPolygonItem = new GraphicItem(Examples.InnerPolygon, styles[9])
             //{
-            //    Name = "Inner Polygon Triangle"
+            //    Name = "Inner Triangle Contour"
             //};
             //vectorMap.Add(innerPolygonItem);
 
-            //var pathPolyline = (Examples.PolySet as PolygonSet).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
+            //var pathPolyline = (Examples.PolySet as Polygon).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
             //var polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
             //var pathPolyline2 = pathPolyline.Offset(-10);
             //pathPolyline2.Reverse();
-            //var polygonLine = new Polygon(new Polygon(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
+            //var polygonLine = new Contour2D(new Contour2D(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
             //var polygonLineItem = new GraphicItem(polygonLine, styles[9])
             //{
-            //    Name = "Polygon Line"
+            //    Name = "Polygon Contour Line"
             //};
             //var polylineSetItem = new GraphicItem(polylineSet, styles[10])
             //{
@@ -215,6 +221,53 @@ namespace Editor
             //vectorMap.Add(polygonLineItem);
             //vectorMap.Add(polylineSetItem);
             //vectorMap.Add(pathPolylineItem);
+
+            Polygon poly1 = new Polygon() {
+                new Contour() {
+                    new Point2D(25, 200),
+                    new Point2D(225, 200),
+                    new Point2D(125, 375),
+                },
+                new Contour()
+                {
+                    new Point2D(125, 225),
+                    new Point2D(90, 275),
+                    new Point2D(160, 275),
+                }
+            };
+            var poly1Item = new GraphicItem(poly1, styles[11])
+            {
+                Name = "Polygon 1"
+            };
+
+            Polygon poly2 = new Polygon() {
+                new Contour() {
+                    new Point2D(25,325),
+                    new Point2D(225,325),
+                    new Point2D(125,150),
+                },
+                new Contour()
+                {
+                    new Point2D(125, 290),
+                    new Point2D(90, 240),
+                    new Point2D(160, 240),
+                }
+            };
+            var poly2Item = new GraphicItem(poly2, styles[12])
+            {
+                Name = "Polygon 2"
+            };
+
+            var clip = new MartinezPolygonClipper(poly1, poly2);
+            var poly3 = clip.Compute(ClipingOperations.Intersection);
+            var poly3Item = new GraphicItem(poly3, styles[13])
+            {
+                Name = "Polygon 3"
+            };
+
+            vectorMap.Add(poly1Item);
+            vectorMap.Add(poly2Item);
+            vectorMap.Add(poly3Item);
 
             //Shape ego = new Circle(pathPolyline.Interpolate(.1), 10);
             //var egoItem = new GraphicItem(ego, styles[5])
@@ -620,8 +673,6 @@ namespace Editor
             vectorMap.Add(quadraticSegmentNodeItem);
             vectorMap.Add(quadraticIntersectionNodesItem);
 
-
-
             //var quadraticBezier = new QuadraticBezier(new Point2D(50, 100), new Point2D(75, 50), new Point2D(150, 100));
             //var quadraticBezierItem = new GraphicItem(quadraticBezier, styles[1]);
 
@@ -933,7 +984,9 @@ namespace Editor
         private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
 #pragma warning disable IDE0021 // Use expression body for methods
+#pragma warning disable IDE0022 // Use expression body for methods
             toolStack.MouseMove(new Point2D(e.X, e.Y));
+#pragma warning restore IDE0022 // Use expression body for methods
 #pragma warning restore IDE0021 // Use expression body for methods
             //propertyGrid1.Refresh();
             //CanvasPanel.Invalidate(true);
@@ -947,7 +1000,9 @@ namespace Editor
         private void CanvasPanel_MouseWheel(object sender, MouseEventArgs e)
         {
 #pragma warning disable IDE0021 // Use expression body for methods
+#pragma warning disable IDE0022 // Use expression body for methods
             toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
+#pragma warning restore IDE0022 // Use expression body for methods
 #pragma warning restore IDE0021 // Use expression body for methods
             //propertyGrid1.Refresh();
         }
@@ -960,7 +1015,9 @@ namespace Editor
         private void CanvasPanel_MouseWheelTilt(object sender, MouseEventArgs e)
         {
 #pragma warning disable IDE0021 // Use expression body for methods
+#pragma warning disable IDE0022 // Use expression body for methods
             toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
+#pragma warning restore IDE0022 // Use expression body for methods
 #pragma warning restore IDE0021 // Use expression body for methods
             //propertyGrid1.Refresh();
         }

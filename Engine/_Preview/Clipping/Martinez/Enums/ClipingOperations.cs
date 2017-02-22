@@ -1,4 +1,4 @@
-﻿// <copyright file="ClipingOperations.cs" company="Shkyrockett" >
+﻿// <copyright file="ClipingOperations.cs" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -32,7 +32,7 @@ namespace Engine
         Union = 2,
 
         /// <summary>
-        /// Locate the geomertry that does not overlap.
+        /// Locate the geometry that does not overlap.
         /// </summary>
         Xor = 3
     }

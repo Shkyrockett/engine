@@ -1,4 +1,4 @@
-﻿// <copyright file="ClippingIntersection.cs" company="Shkyrockett" >
+﻿// <copyright file="ClippingIntersection.cs" >
 //     Copyright (c) 2015 - 2017 w8r. All rights reserved.
 // </copyright>
 // <author id="w8r">Alexander Milevski</author>

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Engine</RootNamespace>
     <AssemblyName>Engine</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -112,25 +112,38 @@
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
     <Compile Include="Animation\ColorTransform.cs" />
-    <Compile Include="_Preview\Clipping\Martinez\Queue.cs" />
-    <Compile Include="_Preview\Clipping\Martinez\SegmentIntersection.cs" />
-    <Compile Include="_Preview\Clipping\Martinez\Set.cs" />
-    <Compile Include="_Preview\Clipping\Martinez\CompareEvents.cs" />
-    <Compile Include="_Preview\Clipping\Martinez\MartinezClip.cs" />
-    <Compile Include="_Preview\Clipping\Martinez\SweepEvent.cs" />
-    <Compile Include="_Preview\Clipping\GreinerHormann\GreinerHormannClip.cs" />
-    <Compile Include="_Preview\Clipping\Martinez\Enums\EdgeTypes.cs" />
+    <Compile Include="Geometry\Polygons\Contour.cs" />
+    <Compile Include="Geometry\Polygons\Polygon.cs" />
+    <Compile Include="Math\Primitives\Interfaces\IMatrix.cs" />
+    <Compile Include="Math\Primitives\Interfaces\IVector.cs" />
+    <Compile Include="Math\Primitives\Matrix3x2D.cs" />
+    <Compile Include="Math\Primitives\Point2D.cs" />
+    <Compile Include="Math\Primitives\Point3D.cs" />
+    <Compile Include="Math\Primitives\Vector2D.cs" />
+    <Compile Include="Math\Primitives\Vector3D.cs" />
+    <Compile Include="Math\Primitives\Vector4D.cs" />
+    <Compile Include="_Preview\Clipping\GreinerHormann\GreinerHormannClipper.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Comparators\SegmentComp.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Comparators\ReverseSweepEventComp.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Enums\EdgeContributions.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Enums\PolygonRelations.cs" />
     <Compile Include="_Preview\Clipping\SutherlandHodgman\SutherlandHodgman.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Queues\EventQueue.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Connector.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\PointChain.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezier.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierSegment.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
     <Compile Include="Geometry\Polygons\Line.cs" />
     <Compile Include="Math\Primitives\AccumulatorPoint2D.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Queues\PriorityQueue.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\MartinezPolygonClipper.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Comparators\SegmentComparators.cs" />
     <Compile Include="_Preview\Splitings.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\ClippingIntersection.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\ClippingPolygon.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\ClippingVertex.cs" />
-    <Compile Include="Geometry\Enums\ClipingOperations.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Enums\ClipingOperations.cs" />
     <Compile Include="Geometry\Complex\Tools\NodeRevealer.cs" />
     <Compile Include="Geometry\Enums\DirectionOrentations.cs" />
     <Compile Include="Geometry\Enums\EndCaps.cs" />
@@ -173,8 +186,6 @@
     <Compile Include="Math\Primitives\Attributes\InstanceConstructorAttribute.cs" />
     <Compile Include="Math\Primitives\Attributes\ParseMethodAttribute.cs" />
     <Compile Include="Math\Primitives\Converters\StructConverter.cs" />
-    <Compile Include="Math\Primitives\Interfaces\IMatrix.cs" />
-    <Compile Include="Math\Primitives\Interfaces\IVector.cs" />
     <Compile Include="Math\Primitives\Matrix4x4D.cs" />
     <Compile Include="Math\Primitives\Matrix3x3D.cs" />
     <Compile Include="Math\Primitives\Matrix2x2D.cs" />
@@ -206,7 +217,6 @@
     <Compile Include="Math\Notation\Range.cs" />
     <Compile Include="Math\Notation\Term.cs" />
     <Compile Include="Math\Notation\Variable.cs" />
-    <Compile Include="Math\Primitives\Vector4D.cs" />
     <Compile Include="Metadata\GeometryAngleDegreesAttribute.cs" />
     <Compile Include="Metadata\GeometryAngleRadiansAttribute.cs" />
     <Compile Include="Calendar\DateTimeExtentions.cs" />
@@ -240,7 +250,6 @@
     <Compile Include="Tools\SelectStack.cs" />
     <Compile Include="Tools\TweenTo.cs" />
     <Compile Include="Tools\TypeConverters\YesNoTypeConverter.cs" />
-    <Compile Include="Math\Primitives\Vector3D.cs" />
     <Compile Include="Physics\CompoundUnits\Acceleration.cs" />
     <Compile Include="Physics\CompoundUnits\AverageSpeed.cs" />
     <Compile Include="Math\PhysicsMath.Constants.cs" />
@@ -332,7 +341,6 @@
     <Compile Include="Math\Primitives\Converters\Size2DConverter.cs" />
     <Compile Include="Math\Primitives\Converters\Point2DConverter.cs" />
     <Compile Include="Geometry\Polygons\Converters\Rectangle2DConverter.cs" />
-    <Compile Include="Math\Primitives\Point3D.cs" />
     <Compile Include="Geometry\Math\Interpolaters.cs" />
     <Compile Include="Localization\Enums\Countries.cs" />
     <Compile Include="Localization\Culture.cs" />
@@ -349,7 +357,6 @@
     <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
     <Compile Include="Objects\Interfaces\ITweenable.cs" />
     <Compile Include="Math\Primitives\Size2D.cs" />
-    <Compile Include="Math\Primitives\Point2D.cs" />
     <Compile Include="Geometry\Polygons\BoundingRectPolygon.cs" />
     <Compile Include="Geometry\Polygons\PolygonExtensions.cs" />
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
@@ -384,12 +391,10 @@
     <Compile Include="Geometry\Curves\EllipticalArc.cs" />
     <Compile Include="Geometry\Curves\Oval.cs" />
     <Compile Include="Geometry\Complex\Path\PathExtensions.cs" />
-    <Compile Include="Geometry\Polygons\PolygonSet.cs" />
     <Compile Include="Geometry\Complex\Tools\SquareDCellGrid.cs" />
     <Compile Include="Geometry\Complex\Tools\SquareCellGrid.cs" />
     <Compile Include="Geometry\Complex\Tools\RectangleDCellGrid.cs" />
     <Compile Include="Geometry\Polygons\LineSegment.cs" />
-    <Compile Include="Math\Primitives\Matrix2x3D.cs" />
     <Compile Include="Geometry\Enums\MatrixTypes.cs" />
     <Compile Include="Geometry\Enums\IntersectionType.cs" />
     <Compile Include="Geometry\Curves\QuadraticBezier.cs" />
@@ -445,12 +450,10 @@
     <Compile Include="Tools\ITool.cs" />
     <Compile Include="Metadata\DisplayNameAttribute.cs" />
     <Compile Include="Math\Primitives.cs" />
-    <Compile Include="Geometry\Polygons\Polygon.cs" />
     <Compile Include="Geometry\Polygons\Polyline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Geometry\Shape.cs" />
     <Compile Include="Geometry\Complex\Tools\RectangleCellGrid.cs" />
-    <Compile Include="Math\Primitives\Vector2D.cs" />
     <Compile Include="Framework\Tokenizer.cs" />
     <Compile Include="Geometry\Polygons\Triangle.cs" />
     <Compile Include="Tools\DrawShape.cs" />
@@ -458,6 +461,9 @@
     <Compile Include="Tools\Tool.cs" />
     <Compile Include="Tools\ToolStack.cs" />
     <Compile Include="Physics\Enums\RotationUnit.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\SweepEvent.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\Comparators\SweepEventComp.cs" />
+    <Compile Include="_Preview\Clipping\Martinez\SweepEventSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calendar\Occasion.partial.cs" />

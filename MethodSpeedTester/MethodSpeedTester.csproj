@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MethodSpeedTester</RootNamespace>
     <AssemblyName>MethodSpeedTester</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -95,6 +95,8 @@
     <Compile Include="Experemental\Bezier\BezierFragment.cs" />
     <Compile Include="Experemental\Bezier\BBox.cs" />
     <Compile Include="Experemental\Bezier\Arc1.cs" />
+    <Compile Include="Experemental\BoundingBbox2D.cs" />
+    <Compile Include="Experemental\Contour.cs" />
     <Compile Include="Experemental\Curves\Agnesi.cs" />
     <Compile Include="Experemental\Bezier\Bezier.cs" />
     <Compile Include="Experemental\Bezier\Polynomialx.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="Experemental\Hyperbola.cs" />
     <Compile Include="Experemental\Intersection\IntersectionParams.cs" />
     <Compile Include="Experemental\Intersection\Intersectionx.cs" />
+    <Compile Include="Experemental\LineSegment2D.cs" />
     <Compile Include="Experemental\LocusIntersection\CoincidentLineLocus.cs" />
     <Compile Include="Experemental\LocusIntersection\EmptyLocus.cs" />
     <Compile Include="Experemental\LocusIntersection\IntersectionsPreview.cs" />
@@ -135,6 +138,7 @@
     <Compile Include="Experemental\NonIntStar.cs" />
     <Compile Include="Experemental\Curves\Parabola.cs" />
     <Compile Include="Experemental\Bezier\PolyBezier.cs" />
+    <Compile Include="Experemental\Polygon2D.cs" />
     <Compile Include="Experemental\PolyPath.cs" />
     <Compile Include="Experemental\RoundedRectangle2.cs" />
     <Compile Include="Experemental\RoundRectangle.cs" />
@@ -201,6 +205,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="Reports\Interesting.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -1,4 +1,4 @@
-﻿// <copyright file="Polygon.cs" company="Shkyrockett" >
+﻿// <copyright file="PolygonSet.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -20,72 +21,79 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// A closed Polygon made up of sets of Contours.
     /// </summary>
+    /// <structure>Engine.Geometry.PolyGon2D</structure>
+    /// <remarks></remarks>
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polygon))]
+    [XmlType(TypeName = "polygon", Namespace = "http://www.w3.org/2000/svg")]
     public class Polygon
-        : Shape, IClosedShape
+        : Shape, IEnumerable<Contour>
     {
         #region Private Fields
 
         /// <summary>
-        /// 
+        /// An array of Polygon Contours.
         /// </summary>
-        private List<Point2D> points;
+        /// <remarks></remarks>
+        [XmlAttribute, SoapAttribute]
+        private List<Contour> contours;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a default instance of the <see cref="Polygon"/> class.
         /// </summary>
         public Polygon()
-            : this(new List<Point2D>())
+            : this(new List<Contour>())
         { }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon"></param>
-        public Polygon(Polygon polygon)
-            : this(polygon.points)
-        { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polyline"></param>
-        public Polygon(Polyline polyline)
-            : this(polyline.Points)
-        { }
-
-        /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="Contour"/> of a set of <see cref="Point2D"/>s from a parameter list.
         /// </summary>
         /// <param name="points"></param>
         public Polygon(params Point2D[] points)
-            : this(new List<Point2D>(points))
+            : this(new[] { points })
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="Contour"/> from a set of <see cref="Point2D"/>s.
         /// </summary>
         /// <param name="points"></param>
         public Polygon(IEnumerable<Point2D> points)
-            => this.points = points as List<Point2D>;
+            : this(new IEnumerable<Point2D>[] { points })
+        { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Polygon"/> class.
         /// </summary>
-        /// <param name="polylines"></param>
-        public Polygon(IEnumerable<Polyline> polylines)
+        public Polygon(IEnumerable<Contour> contours)
+            => this.contours = contours as List<Contour>;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polygon"/> class from a parameter list.
+        /// </summary>
+        /// <param name="contours"></param>
+        public Polygon(params IEnumerable<Point2D>[] contours)
+            : this(new List<List<Point2D>>(contours as List<Point2D>[]))
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polygon"/> class.
+        /// </summary>
+        /// <param name="contours"></param>
+        public Polygon(IEnumerable<List<Point2D>> contours)
         {
-            points = new List<Point2D>();
-            foreach (Polyline polyline in polylines)
-                points.Concat(polyline.Points);
+            this.contours = new List<Contour>();
+
+            foreach (var list in contours)
+            {
+                this.contours.Add(new Contour(list));
+            }
         }
 
         #endregion
@@ -97,15 +105,16 @@ namespace Engine
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
-        public Point2D this[int index]
+        public Contour this[int index]
         {
-            get { return (points as List<Point2D>)[index]; }
+            get
+            {
+                return contours[index];
+            }
+
             set
             {
-                (points as List<Point2D>)[index] = value;
+                contours[index] = value;
                 update?.Invoke();
             }
         }
@@ -118,15 +127,38 @@ namespace Engine
         /// 
         /// </summary>
         [XmlArray]
-        public List<Point2D> Points
+        public List<Contour> Contours
         {
-            get { return points; }
+            get { return contours; }
             set
             {
-                points = value;
-                OnPropertyChanged(nameof(Points));
+                contours = value;
+                OnPropertyChanged(nameof(Contours));
                 update?.Invoke();
-                Refresh();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public int Count
+            => contours.Count;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        public int VerticesCount
+        {
+            get
+            {
+                int verticesCount = 0;
+                foreach (var c in contours)
+                    verticesCount += c.Points.Count;
+
+                return verticesCount;
             }
         }
 
@@ -136,17 +168,8 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public int Count
-            => points.Count;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
-            => (double)CachingProperty(() => Measurements.PolygonPerimeter(points));
+            => contours.Sum(p => p.Perimeter);
 
         /// <summary>
         /// 
@@ -156,35 +179,22 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points));
+        {
+            get
+            {
+                return (Rectangle2D)CachingProperty(() => bounds(contours));
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public override double Area
-            => (double)CachingProperty(() => Math.Abs(Measurements.SignedPolygonArea(points)));
+                Rectangle2D bounds(List<Contour> contours)
+                {
+                    Rectangle2D bb = contours[0].Bounds;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public double SignedArea
-            => (double)CachingProperty(() => Measurements.SignedPolygonArea(points));
+                    foreach (Contour c in contours)
+                        bb = bb.Union(c.Bounds);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public DirectionOrentations Orientation
-            => (DirectionOrentations)CachingProperty(() => (DirectionOrentations)Math.Sign(Measurements.SignedPolygonArea(points)));
+                    return bb;
+                }
+            }
+        }
 
         #endregion
 
@@ -237,91 +247,35 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="point"></param>
-        public Polygon Add(Point2D point)
+        /// <param name="contour"></param>
+        public void Add(Contour contour)
         {
-            Points.Add(point);
-            OnPropertyChanged(nameof(Add));
+            contours.Add(contour);
             update?.Invoke();
-            return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Polygon Reverse()
+        /// <param name="contour"></param>
+        public void Add(List<Point2D> contour)
         {
-            Points.Reverse();
-            OnPropertyChanged(nameof(Reverse));
+            contours.Add(new Contour(contour));
             update?.Invoke();
-            return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="delta"></param>
-        /// <returns></returns>
-        public Polygon Translate(Point2D delta)
-            => Translate(this, delta);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="delta"></param>
-        /// <returns></returns>
-        public static Polygon Translate(Polygon path, Point2D delta)
+        public void Reverse()
         {
-            List<Point2D> outPath = new List<Point2D>(path.points.Count);
-            for (int i = 0; i < path.points.Count; i++)
-                outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
-            return new Polygon(outPath);
+            foreach (var poly in contours)
+            {
+                poly.Reverse();
+            }
         }
 
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Interpolate(double t)
-        {
-            if (t == 0 || t == 1) return points[0];
-
-            var weights = new(double length, double accumulated)[points.Count + 1];
-            weights[0] = (0, 0);
-            Point2D cursor = points[0];
-            double accumulatedLength = 0;
-
-            // Build up the weights map.
-            for (int i = 1; i < points.Count + 1; i++)
-            {
-                double curentLength = Measurements.Distance(cursor, (i == points.Count) ? points[0] : points[i]);
-                accumulatedLength += curentLength;
-                weights[i] = (curentLength, accumulatedLength);
-                cursor = (i == points.Count) ? points[0] : points[i];
-            }
-
-            double accumulatedLengthT = accumulatedLength * t;
-
-            // Find the segment.
-            for (int i = points.Count - 1; i >= 0; i--)
-            {
-                if (weights[i].accumulated <= accumulatedLengthT)
-                {
-                    // Interpolate the position.
-                    double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
-                    cursor = Interpolaters.Linear(points[i], (i == points.Count - 1) ? points[0] : points[i + 1], th);
-                    break;
-                }
-            }
-
-            return cursor;
-        }
 
         #region Methods
 
@@ -342,36 +296,35 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polygon Clone()
-            => new Polygon(points.ToArray());
+            => new Polygon(Contours.ToArray() as IEnumerable<Contour>);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="offset"></param>
         /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual Polygon Offset(double offset)
-            => Offsets.Offset(this, offset);
+        public IEnumerator<Contour> GetEnumerator()
+            => contours.GetEnumerator();
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Polygon"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => contours.GetEnumerator();
+
+        /// <summary>
+        /// 
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Polygon);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);
         }
 

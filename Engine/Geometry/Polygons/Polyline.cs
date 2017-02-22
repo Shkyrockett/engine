@@ -50,7 +50,7 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="polygon"></param>
-        public Polyline(Polygon polygon)
+        public Polyline(Contour polygon)
             : this(polygon.Points)
         { }
 

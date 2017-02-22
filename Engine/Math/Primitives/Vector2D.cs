@@ -142,6 +142,22 @@ namespace Engine
         public double Magnitude
             => Sqrt(I * I + J * J);
 
+        /// <summary>
+        /// Length Property - the length of this Vector
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double Length
+            => Sqrt(I * I + J * J);
+
+        /// <summary>
+        /// LengthSquared Property - the squared length of this Vector
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double LengthSquared
+            => I * I + J * J;
+
         #endregion
 
         #region Operators
@@ -531,7 +547,7 @@ namespace Engine
             if (this == null) return nameof(Vector2D);
 #pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
 
-            // Capture the culture's list ceparator character.
+            // Capture the culture's list separator character.
             char sep = Tokenizer.GetNumericListSeparator(provider);
 
             // Create the string representation of the struct.

@@ -1,4 +1,14 @@
-﻿using System;
+﻿// <copyright file="Maths.Splitings.cs" >
+//    Copyright (c) 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//    Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -439,6 +449,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <remarks>
         /// http://pomax.github.io/bezierinfo/#decasteljau
+        /// https://github.com/superlloyd/Poly
         /// </remarks>
         public static BezierSegment[] SplitBezier(IEnumerable<Point2D> points, double t)
         {

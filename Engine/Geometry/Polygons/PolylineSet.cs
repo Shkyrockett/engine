@@ -127,7 +127,7 @@ namespace Engine
                 Rectangle2D bounds = polylines[0].Bounds;
 
                 foreach (Polyline polyline in polylines)
-                    bounds.Union(polyline.Bounds);
+                    bounds.UnionMutate(polyline.Bounds);
 
                 return bounds;
             }

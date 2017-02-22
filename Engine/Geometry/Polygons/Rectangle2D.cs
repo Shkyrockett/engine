@@ -25,7 +25,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Rectangle2D))]
-    [XmlType(TypeName = "rect")]
+    [XmlType(TypeName = "rect", Namespace = "http://www.w3.org/2000/svg")]
     public class Rectangle2D
         : Shape, IClosedShape
     {
@@ -672,7 +672,7 @@ namespace Engine
         /// </summary>
         public static Rectangle2D Union(Rectangle2D rect, Point2D point)
         {
-            rect.Union(new Rectangle2D(point, point));
+            rect.UnionMutate(new Rectangle2D(point, point));
             return rect;
         }
 
@@ -758,9 +758,9 @@ namespace Engine
         /// </returns>
         /// <param name="rect"> The Rectangle2D to transform. </param>
         /// <param name="matrix"> The Matrix by which to transform. </param>
-        public static Rectangle2D Transform(Rectangle2D rect, Matrix2x3D matrix)
+        public static Rectangle2D Transform(Rectangle2D rect, Matrix3x2D matrix)
         {
-            Matrix2x3D.TransformRect(ref rect, ref matrix);
+            Matrix3x2D.TransformRect(ref rect, ref matrix);
             return rect;
         }
 
@@ -815,7 +815,9 @@ namespace Engine
         /// <summary>
         /// Union - Update this rectangle to be the union of this and Rectangle2D.
         /// </summary>
-        public void Union(Rectangle2D rect)
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        public void UnionMutate(Rectangle2D rect)
         {
             double left = Min(Left, rect.Left);
             double top = Min(Top, rect.Top);
@@ -850,13 +852,58 @@ namespace Engine
         }
 
         /// <summary>
+        /// Return a rectangle that is a union of this and a supplied Rectangle2D.
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        public Rectangle2D Union(Rectangle2D rect)
+        {
+            double left = Min(Left, rect.Left);
+            double top = Min(Top, rect.Top);
+            double width = this.width;
+            double height = this.width;
+
+            // We need this check so that the math does not result in NaN
+            if ((double.IsPositiveInfinity(rect.Width)) || (double.IsPositiveInfinity(Width)))
+            {
+                width = double.PositiveInfinity;
+            }
+            else
+            {
+                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
+                double maxRight = Max(Right, rect.Right);
+                width = Max(maxRight - left, 0);
+            }
+
+            // We need this check so that the math does not result in NaN
+            if ((double.IsPositiveInfinity(rect.Height)) || (double.IsPositiveInfinity(Height)))
+            {
+                height = double.PositiveInfinity;
+            }
+            else
+            {
+                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
+                double maxBottom = Max(Bottom, rect.Bottom);
+                height = Max(maxBottom - top, 0);
+            }
+
+            return new Rectangle2D(left, top, width, height);
+        }
+
+        /// <summary>
         /// Union - Update this rectangle to be the union of this and point.
         /// </summary>
-        public void Union(Point2D point)
+        public void UnionMutate(Point2D point)
+            => UnionMutate(new Rectangle2D(point, point));
+
+        /// <summary>
+        /// Return a rectangle that is a union of this and a supplied Point2D.
+        /// </summary>
+        public Rectangle2D Union(Point2D point)
             => Union(new Rectangle2D(point, point));
 
         /// <summary>
-        /// Creates a Rectangle that represents the intersection between this Rectangle and rect.
+        /// Creates a Rectangle that represents the intersection between this Rectangle and rectangle.
         /// </summary>
         /// <param name="rect"></param>
         public void Intersect(Rectangle2D rect)
@@ -986,8 +1033,8 @@ namespace Engine
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public Polygon ToPolygon()
-            => new Polygon(ToPoints());
+        public Contour ToPolygon()
+            => new Contour(ToPoints());
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

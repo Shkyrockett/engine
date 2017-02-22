@@ -40,7 +40,7 @@ namespace Engine
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </remarks>
-        public static Polyline ShortestPath(this PolygonSet polygons, Point2D start, Point2D end)
+        public static Polyline ShortestPath(this Polygon polygons, Point2D start, Point2D end)
         {
             //  Fail if either the start point or endpoint is outside the polygon set.
             if (!polygons.Contains(start) || !polygons.Contains(end))
@@ -62,7 +62,7 @@ namespace Engine
                 // polygons, as well as to the start point and endpoint.
                 (start.X, start.Y, 0d, 0)
             };
-            foreach (Polygon poly in polygons.Polygons)
+            foreach (Contour poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
                     pointList.Add((point.X, point.Y, 0d, 0));
@@ -141,7 +141,7 @@ namespace Engine
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static (double X, double Y) FindCentroid(this Polygon polygon)
+        public static (double X, double Y) FindCentroid(this Contour polygon)
         {
             // Add the first point at the end of the array.
             int num_points = polygon.Points.Count;
@@ -183,7 +183,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void OrientPolygonClockwise(this Polygon polygon)
+        private static void OrientPolygonClockwise(this Contour polygon)
         {
             if (polygon.Orientation == DirectionOrentations.CounterClockwise) polygon.Points.Reverse();
         }
@@ -193,7 +193,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static bool PolygonIsConvex(this Polygon polygon)
+        public static bool PolygonIsConvex(this Contour polygon)
         {
             // For each set of three adjacent points A, B, C,
             // find the dot product AB · BC. If the sign of
@@ -232,7 +232,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static (int A, int B, int C) FindEar(this Polygon polygon)
+        private static (int A, int B, int C) FindEar(this Contour polygon)
         {
             int num_points = polygon.Points.Count;
             int A = 0;
@@ -303,7 +303,7 @@ namespace Engine
         /// <param name="polygon"></param>
         /// <param name="triangles"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void RemoveEar(this Polygon polygon, List<Triangle> triangles)
+        private static void RemoveEar(this Contour polygon, List<Triangle> triangles)
         {
             // Find an ear.
             (int A, int B, int C) ear = FindEar(polygon);
@@ -321,7 +321,7 @@ namespace Engine
         /// <param name="polygon"></param>
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void RemovePoint2DFromArray(this Polygon polygon, int target)
+        private static void RemovePoint2DFromArray(this Contour polygon, int target)
             => polygon.Points.RemoveAt(target);
 
         /// <summary>
@@ -333,14 +333,14 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static List<Triangle> Triangulate(this Polygon polygon)
+        public static List<Triangle> Triangulate(this Contour polygon)
         {
             // Copy the points into a scratch array.
             var pts = new Point2D[polygon.Points.Count];
             Array.Copy(polygon.Points.ToArray(), pts, polygon.Points.Count);
 
             // Make a scratch polygon.
-            var pgon = new Polygon(new List<Point2D>(pts));
+            var pgon = new Contour(new List<Point2D>(pts));
 
             // Orient the polygon clockwise.
             pgon.OrientPolygonClockwise();
@@ -368,7 +368,7 @@ namespace Engine
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void ResetBoundingRect(this Polygon polygon, BoundingRectPolygon boundingRect)
+        private static void ResetBoundingRect(this Contour polygon, BoundingRectPolygon boundingRect)
         {
             boundingRect.NumPoints = polygon.Points.Count;
 
@@ -395,7 +395,7 @@ namespace Engine
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void FindInitialControlPoints(this Polygon polygon, BoundingRectPolygon boundingRect)
+        private static void FindInitialControlPoints(this Contour polygon, BoundingRectPolygon boundingRect)
         {
             for (int i = 0; i < boundingRect.NumPoints; i++)
             {
@@ -414,7 +414,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static bool CheckInitialControlPoints(this Polygon polygon, BoundingRectPolygon boundingRect, int i)
+        private static bool CheckInitialControlPoints(this Contour polygon, BoundingRectPolygon boundingRect, int i)
         {
             // Get the i -> i + 1 unit vector.
             int i1 = (i + 1) % boundingRect.NumPoints;
@@ -520,7 +520,7 @@ namespace Engine
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void CheckNextRectangle(this Polygon polygon, BoundingRectPolygon boundingRect)
+        private static void CheckNextRectangle(this Contour polygon, BoundingRectPolygon boundingRect)
         {
             // Increment the current control point.
             // This means we are done with using this edge.
@@ -589,7 +589,7 @@ namespace Engine
         /// <param name="polygon"></param>
         /// <param name="boundingRect"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static void FindBoundingRectangle(this Polygon polygon, BoundingRectPolygon boundingRect)
+        private static void FindBoundingRectangle(this Contour polygon, BoundingRectPolygon boundingRect)
         {
             // See which point has the current edge.
             int i1 = boundingRect.ControlPoints[boundingRect.CurrentControlPoint];
@@ -668,7 +668,7 @@ namespace Engine
         /// <param name="boundingRect"></param>
         /// <param name="i"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static (double X, double Y) FindDxDy(this Polygon polygon, BoundingRectPolygon boundingRect, int i)
+        private static (double X, double Y) FindDxDy(this Contour polygon, BoundingRectPolygon boundingRect, int i)
         {
             int i2 = (i + 1) % boundingRect.NumPoints;
             return (polygon.Points[i2].X - polygon.Points[i].X,
@@ -682,7 +682,7 @@ namespace Engine
         /// <param name="boundingRect"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static Point2D[] FindSmallestBoundingRectangle(this Polygon polygon, BoundingRectPolygon boundingRect)
+        public static Point2D[] FindSmallestBoundingRectangle(this Contour polygon, BoundingRectPolygon boundingRect)
         {
             // This algorithm assumes the polygon
             // is oriented counter-clockwise.

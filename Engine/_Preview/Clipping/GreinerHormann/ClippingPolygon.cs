@@ -1,4 +1,4 @@
-﻿// <copyright file="ClippingPolygon.cs" company="Shkyrockett" >
+﻿// <copyright file="ClippingPolygon.cs" >
 //     Copyright (c) 2015 - 2017 w8r. All rights reserved.
 // </copyright>
 // <author id="w8r">Alexander Milevski</author>
@@ -17,6 +17,8 @@ namespace Engine
     /// </summary>
     public class ClippingPolygon
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
@@ -27,6 +29,10 @@ namespace Engine
                 AddVertex(new ClippingVertex(p[i]));
             }
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
@@ -47,6 +53,8 @@ namespace Engine
         /// 
         /// </summary>
         private ClippingVertex FirstIntersect { get; set; } = null;
+
+        #endregion
 
         /// <summary>
         /// Add a vertex object to the polygon (vertex is added at the 'end' of the list')
@@ -181,7 +189,7 @@ namespace Engine
         /// Clip polygon against another one.
         /// Result depends on algorithm direction:
         /// Intersection: forwards forwards
-        /// Union:        backwars backwards
+        /// Union:        backwards backwards
         /// Diff:         backwards forwards
         /// </summary>
         /// <param name="clip"></param>

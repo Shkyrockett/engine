@@ -50,7 +50,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polygon"></param>
-        public PointSet(Polygon polygon)
+        public PointSet(Contour polygon)
             : this(polygon.Points)
         { }
 
@@ -66,8 +66,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polygons"></param>
-        public PointSet(PolygonSet polygons)
-            : this(polygons.Polygons)
+        public PointSet(Polygon polygons)
+            : this(polygons.Contours)
         { }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polygons"></param>
-        public PointSet(IEnumerable<Polygon> polygons)
+        public PointSet(IEnumerable<Contour> polygons)
         {
             points = new List<Point2D>();
             foreach (var polygon in polygons)

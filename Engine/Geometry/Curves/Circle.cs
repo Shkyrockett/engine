@@ -23,6 +23,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Circle))]
+    [XmlType(TypeName = "circle", Namespace = "shape")]
     public class Circle
         : Shape, IClosedShape
     {

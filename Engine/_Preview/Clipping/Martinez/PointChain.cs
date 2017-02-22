@@ -11,7 +11,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Engine._Preview
+namespace Engine
 {
      /// <summary>
      /// Represents a connected sequence of segments. The sequence can only be extended by connecting

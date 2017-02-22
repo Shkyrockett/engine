@@ -14,6 +14,7 @@ namespace Engine
     /// An enumeration indicating whether a clipping polygon is the subject or clipping polygon.
     /// </summary>
     public enum PolygonRelations
+        : byte
     {
         /// <summary>
         /// The geometry is the subject.

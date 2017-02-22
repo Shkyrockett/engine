@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// EventQueue data structure.

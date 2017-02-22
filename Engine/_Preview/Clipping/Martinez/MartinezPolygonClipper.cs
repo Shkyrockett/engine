@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using static Engine.SegmentComparators;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// This class contains methods for computing clipping operations on polygons. 

@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using Engine;
-using Engine._Preview;
 using Engine.File.Palettes;
 using Engine.Imaging;
 using Engine.Tools;

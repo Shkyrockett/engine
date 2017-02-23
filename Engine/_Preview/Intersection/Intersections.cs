@@ -1666,25 +1666,25 @@ namespace Engine
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.
         /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="height0"></param>
+        /// <param name="width0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="height1"></param>
         /// <param name="width1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="height2"></param>
-        /// <param name="width2"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool RectangleRectangleIntersects(
+            double x0, double y0,
+            double width0, double height0,
             double x1, double y1,
-            double height1, double width1,
-            double x2, double y2,
-            double height2, double width2)
-            => (x2 < x1 + width1)
-            && (x1 < (x2 + width2))
-            && (y2 < y1 + height1)
-            && (y1 < y2 + width2);
+            double width1, double height1)
+            => (x1 < x0 + width0)
+            && (x0 < (x1 + width1))
+            && (y1 < y0 + height0)
+            && (y0 < y1 + height1);
 
         /// <summary>
         /// Find the points where the two circles intersect.

@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -31,7 +32,7 @@ namespace Engine
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "path", Namespace = "http://www.w3.org/2000/svg")]
     public class GeometryPath
-        : Shape
+        : Shape, IEnumerable<PathItem>
     {
         #region Fields
 
@@ -261,6 +262,48 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<PathItem> GetEnumerator()
+            => items.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
+        public void Add(object o)
+        {
+            switch (o)
+            {
+                case PathLineSegment p:
+                    AddLineSegment(p.End.Value);
+                    break;
+                case PathArc p:
+                    AddArc(p.RX, p.RY, p.Angle, p.LargeArc, p.Sweep, p.End.Value);
+                    break;
+                case PathQuadraticBezier p:
+                    AddQuadraticBezier(p.Handle.Value, p.End.Value);
+                    break;
+                case PathCubicBezier p:
+                    AddCubicBezier(p.Handle1, p.Handle2.Value, p.End.Value);
+                    break;
+                case PathCardinal p:
+                    AddCardinalCurve(p.Nodes);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         /// <summary>
         /// 

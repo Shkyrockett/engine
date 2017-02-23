@@ -13,22 +13,28 @@ using System.Linq;
 
 namespace Engine
 {
-     /// <summary>
-     /// Represents a connected sequence of segments. The sequence can only be extended by connecting
-     /// new segments that share an endpoint with the PointChain.
-     /// @author Mahir Iqbal
-     /// </summary>
+    /// <summary>
+    /// Represents a connected sequence of segments. The sequence can only be extended by connecting
+    /// new segments that share an endpoint with the PointChain.
+    /// @author Mahir Iqbal
+    /// </summary>
     public class PointChain
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool closed;
+        #region Fields
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Point2D> pointList;
+        private List<Point2D> pointList;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool closed;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -36,13 +42,26 @@ namespace Engine
         /// <param name="s"></param>
         public PointChain(LineSegment s)
         {
-            pointList = new List<Point2D>
+            PointList = new List<Point2D>
             {
                 s.A,
                 s.B
             };
-            closed = false;
+            Closed = false;
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Closed { get { return closed; } set { closed = value; } }
+
+        public List<Point2D> PointList { get { return pointList; } set { pointList = value; } }
+
+        #endregion
 
         /// <summary>
         /// Links a segment to the pointChain
@@ -51,42 +70,42 @@ namespace Engine
         /// <returns></returns>
         public bool LinkSegment(LineSegment s)
         {
-            var front = pointList[0];
-            var back = pointList[pointList.Count - 1];
+            var front = PointList[0];
+            var back = PointList[PointList.Count - 1];
 
             if (s.A.Equals(front))
             {
                 if (s.B.Equals(back))
-                    closed = true;
+                    Closed = true;
                 else
-                    pointList.Insert(0, s.B);//unshift
+                    PointList.Insert(0, s.B);//unshift
 
                 return true;
             }
             else if (s.B.Equals(back))
             {
                 if (s.A.Equals(front))
-                    closed = true;
+                    Closed = true;
                 else
-                    pointList.Add(s.A);
+                    PointList.Add(s.A);
 
                 return true;
             }
             else if (s.B.Equals(front))
             {
                 if (s.A.Equals(back))
-                    closed = true;
+                    Closed = true;
                 else
-                    pointList.Insert(0, s.A);//unshift
+                    PointList.Insert(0, s.A);//unshift
 
                 return true;
             }
             else if (s.A.Equals(back))
             {
                 if (s.B.Equals(front))
-                    closed = true;
+                    Closed = true;
                 else
-                    pointList.Add(s.B);
+                    PointList.Add(s.B);
 
                 return true;
             }
@@ -101,40 +120,40 @@ namespace Engine
         /// <returns></returns>
         public bool LinkPointChain(PointChain chain)
         {
-            var firstPoint = pointList[0];
-            var lastPoint = pointList[pointList.Count - 1];
+            var firstPoint = PointList[0];
+            var lastPoint = PointList[PointList.Count - 1];
 
-            var chainFront = chain.pointList[0];
-            var chainBack = chain.pointList[chain.pointList.Count - 1];
+            var chainFront = chain.PointList[0];
+            var chainBack = chain.PointList[chain.PointList.Count - 1];
 
             if (chainFront.Equals(lastPoint))
             {
-                pointList.RemoveAt(pointList.Count - 1);//pop
-                pointList = pointList.Concat(chain.pointList).ToList();
+                PointList.RemoveAt(PointList.Count - 1);//pop
+                PointList = PointList.Concat(chain.PointList).ToList();
                 return true;
             }
 
             if (chainBack.Equals(firstPoint))
             {
-                pointList.RemoveAt(0); //shift: Remove the first element, and join this list to chain.pointList.
-                pointList = chain.pointList.Concat(pointList).ToList();
+                PointList.RemoveAt(0); //shift: Remove the first element, and join this list to chain.pointList.
+                PointList = chain.PointList.Concat(PointList).ToList();
                 return true;
             }
 
             if (chainFront.Equals(firstPoint))
             {
-                pointList.RemoveAt(0); //shift Remove the first element, and join to reversed chain.pointList
-                var reversedChainList = chain.pointList; // Don't need chain so can ruin it
+                PointList.RemoveAt(0); //shift Remove the first element, and join to reversed chain.pointList
+                var reversedChainList = chain.PointList; // Don't need chain so can ruin it
                 reversedChainList.Reverse();
-                pointList = reversedChainList.Concat(pointList).ToList();
+                PointList = reversedChainList.Concat(PointList).ToList();
                 return true;
             }
 
             if (chainBack.Equals(lastPoint))
             {
-                pointList.RemoveAt(pointList.Count - 1);//pop
-                pointList.Reverse();
-                pointList = chain.pointList.Concat(pointList).ToList();
+                PointList.RemoveAt(PointList.Count - 1);//pop
+                PointList.Reverse();
+                PointList = chain.PointList.Concat(PointList).ToList();
                 return true;
             }
 

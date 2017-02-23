@@ -56,14 +56,14 @@ namespace Engine
                 PointChain chain = openPolygons[j];
                 if (chain.LinkSegment(s))
                 {
-                    if (chain.closed)
+                    if (chain.Closed)
                     {
-                        if (chain.pointList.Count == 2)
+                        if (chain.PointList.Count == 2)
                         {
                             // We tried linking the same segment (but flipped end and start) to 
                             // a chain. (i.e. chain was <p0, p1>, we tried linking Segment(p1, p0)
                             // so the chain was closed illegally.
-                            chain.closed = false;
+                            chain.Closed = false;
                             return;
                         }
 
@@ -109,7 +109,7 @@ namespace Engine
                 }*/
 
                 var c = new Contour();
-                foreach (var p in pointChain.pointList)
+                foreach (var p in pointChain.PointList)
                     c.Add(p);
                 polygon.Add(c);
 

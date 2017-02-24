@@ -185,8 +185,8 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public DirectionOrentations Orientation
-            => (DirectionOrentations)CachingProperty(() => (DirectionOrentations)Math.Sign(Measurements.SignedPolygonArea(points)));
+        public RotationDirections Orientation
+            => (RotationDirections)CachingProperty(() => (RotationDirections)Math.Sign(Measurements.SignedPolygonArea(points)));
 
         #endregion
 

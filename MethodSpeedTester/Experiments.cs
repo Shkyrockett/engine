@@ -8436,7 +8436,7 @@ namespace MethodSpeedTester
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
         public static void OrientPolygonClockwise(Contour polygon)
         {
-            if (polygon.Orientation == DirectionOrentations.CounterClockwise)
+            if (polygon.Orientation == RotationDirections.CounterClockwise)
                 polygon.Points.Reverse();
         }
 

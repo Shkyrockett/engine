@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine.Geometry.Enums
+namespace Engine
 {
     /// <summary>
     /// 

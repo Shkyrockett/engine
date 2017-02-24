@@ -186,19 +186,19 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The click state of the " + nameof(MouseButtons.Left) + " mouse button.")]
         [RefreshProperties(RefreshProperties.All)]
-        public UpDown MouseLeftButtonStatus
+        public Verticality MouseLeftButtonStatus
         {
-            get { return ((MouseButtonStates & MouseButtons.Left) != 0) ? UpDown.Down : UpDown.Up; }
+            get { return ((MouseButtonStates & MouseButtons.Left) != 0) ? Verticality.Down : Verticality.Up; }
             set
             {
-                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Left : MouseButtonStates &= ~MouseButtons.Left;
+                MouseButtonStates = (value == Verticality.Down) ? MouseButtonStates |= MouseButtons.Left : MouseButtonStates &= ~MouseButtons.Left;
                 switch (value)
                 {
-                    case UpDown.Up:
+                    case Verticality.Up:
                         //mouseButtonUp?.Invoke(this);
                         mouseLeftButtonUp?.Invoke(this);
                         break;
-                    case UpDown.Down:
+                    case Verticality.Down:
                         //mouseButtonDown?.Invoke(this);
                         mouseLeftButtonDown?.Invoke(this);
                         break;
@@ -214,18 +214,18 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The click state of the " + nameof(MouseButtons.Middle) + " mouse button.")]
         [RefreshProperties(RefreshProperties.All)]
-        public UpDown MouseMiddleButtonStatus
+        public Verticality MouseMiddleButtonStatus
         {
-            get { return ((MouseButtonStates & MouseButtons.Middle) != 0) ? UpDown.Down : UpDown.Up; }
+            get { return ((MouseButtonStates & MouseButtons.Middle) != 0) ? Verticality.Down : Verticality.Up; }
             set
             {
-                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Middle : MouseButtonStates &= ~MouseButtons.Middle;
+                MouseButtonStates = (value == Verticality.Down) ? MouseButtonStates |= MouseButtons.Middle : MouseButtonStates &= ~MouseButtons.Middle;
                 switch (value)
                 {
-                    case UpDown.Up:
+                    case Verticality.Up:
                         mouseMiddleButtonUp?.Invoke(this);
                         break;
-                    case UpDown.Down:
+                    case Verticality.Down:
                         mouseMiddleButtonDown?.Invoke(this);
                         break;
                     default:
@@ -240,18 +240,18 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The click state of the " + nameof(MouseButtons.Right) + " mouse button.")]
         [RefreshProperties(RefreshProperties.All)]
-        public UpDown MouseRightButtonStatus
+        public Verticality MouseRightButtonStatus
         {
-            get { return ((MouseButtonStates & MouseButtons.Right) != 0) ? UpDown.Down : UpDown.Up; }
+            get { return ((MouseButtonStates & MouseButtons.Right) != 0) ? Verticality.Down : Verticality.Up; }
             set
             {
-                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Right : MouseButtonStates &= ~MouseButtons.Right;
+                MouseButtonStates = (value == Verticality.Down) ? MouseButtonStates |= MouseButtons.Right : MouseButtonStates &= ~MouseButtons.Right;
                 switch (value)
                 {
-                    case UpDown.Up:
+                    case Verticality.Up:
                         mouseRightButtonUp?.Invoke(this);
                         break;
-                    case UpDown.Down:
+                    case Verticality.Down:
                         mouseRightButtonDown?.Invoke(this);
                         break;
                     default:
@@ -266,18 +266,18 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The click state of the " + nameof(MouseButtons.Back) + " mouse button.")]
         [RefreshProperties(RefreshProperties.All)]
-        public UpDown MouseBackButtonStatus
+        public Verticality MouseBackButtonStatus
         {
-            get { return ((MouseButtonStates & MouseButtons.Back) != 0) ? UpDown.Down : UpDown.Up; }
+            get { return ((MouseButtonStates & MouseButtons.Back) != 0) ? Verticality.Down : Verticality.Up; }
             set
             {
-                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Back : MouseButtonStates &= ~MouseButtons.Back;
+                MouseButtonStates = (value == Verticality.Down) ? MouseButtonStates |= MouseButtons.Back : MouseButtonStates &= ~MouseButtons.Back;
                 switch (value)
                 {
-                    case UpDown.Up:
+                    case Verticality.Up:
                         mouseBackButtonUp?.Invoke(this);
                         break;
-                    case UpDown.Down:
+                    case Verticality.Down:
                         mouseBackButtonDown?.Invoke(this);
                         break;
                     default:
@@ -292,18 +292,18 @@ namespace Engine.Tools
         [Category("Buttons")]
         [Description("The click state of the " + nameof(MouseButtons.Forward) + " mouse button.")]
         [RefreshProperties(RefreshProperties.All)]
-        public UpDown MouseForwardButtonStatus
+        public Verticality MouseForwardButtonStatus
         {
-            get { return ((MouseButtonStates & MouseButtons.Forward) != 0) ? UpDown.Down : UpDown.Up; }
+            get { return ((MouseButtonStates & MouseButtons.Forward) != 0) ? Verticality.Down : Verticality.Up; }
             set
             {
-                MouseButtonStates = (value == UpDown.Down) ? MouseButtonStates |= MouseButtons.Forward : MouseButtonStates &= ~MouseButtons.Forward;
+                MouseButtonStates = (value == Verticality.Down) ? MouseButtonStates |= MouseButtons.Forward : MouseButtonStates &= ~MouseButtons.Forward;
                 switch (value)
                 {
-                    case UpDown.Up:
+                    case Verticality.Up:
                         mouseForwardButtonUp?.Invoke(this);
                         break;
-                    case UpDown.Down:
+                    case Verticality.Down:
                         mouseForwardButtonDown?.Invoke(this);
                         break;
                     default:
@@ -385,11 +385,11 @@ namespace Engine.Tools
         {
             if (buttons != MouseButtons.None)
             {
-                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != UpDown.Up) MouseLeftButtonStatus = UpDown.Up;
-                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != UpDown.Up) MouseMiddleButtonStatus = UpDown.Up;
-                if (buttons == MouseButtons.Right && MouseRightButtonStatus != UpDown.Up) MouseRightButtonStatus = UpDown.Up;
-                if (buttons == MouseButtons.Back && MouseBackButtonStatus != UpDown.Up) MouseBackButtonStatus = UpDown.Up;
-                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != UpDown.Up) MouseForwardButtonStatus = UpDown.Up;
+                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Up) MouseLeftButtonStatus = Verticality.Up;
+                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != Verticality.Up) MouseMiddleButtonStatus = Verticality.Up;
+                if (buttons == MouseButtons.Right && MouseRightButtonStatus != Verticality.Up) MouseRightButtonStatus = Verticality.Up;
+                if (buttons == MouseButtons.Back && MouseBackButtonStatus != Verticality.Up) MouseBackButtonStatus = Verticality.Up;
+                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != Verticality.Up) MouseForwardButtonStatus = Verticality.Up;
             }
         }
 
@@ -402,11 +402,11 @@ namespace Engine.Tools
         {
             if (buttons != MouseButtons.None)
             {
-                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != UpDown.Down) MouseLeftButtonStatus = UpDown.Down;
-                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != UpDown.Down) MouseMiddleButtonStatus = UpDown.Down;
-                if (buttons == MouseButtons.Right && MouseRightButtonStatus != UpDown.Down) MouseRightButtonStatus = UpDown.Down;
-                if (buttons == MouseButtons.Back && MouseBackButtonStatus != UpDown.Down) MouseBackButtonStatus = UpDown.Down;
-                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != UpDown.Down) MouseForwardButtonStatus = UpDown.Down;
+                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Down) MouseLeftButtonStatus = Verticality.Down;
+                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != Verticality.Down) MouseMiddleButtonStatus = Verticality.Down;
+                if (buttons == MouseButtons.Right && MouseRightButtonStatus != Verticality.Down) MouseRightButtonStatus = Verticality.Down;
+                if (buttons == MouseButtons.Back && MouseBackButtonStatus != Verticality.Down) MouseBackButtonStatus = Verticality.Down;
+                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != Verticality.Down) MouseForwardButtonStatus = Verticality.Down;
             }
         }
 

@@ -1,4 +1,4 @@
-﻿// <copyright file="Directions.cs" company="Shkyrockett" >
+﻿// <copyright file="Laterality.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,22 +8,25 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
-    /// Text reading direction.
+    /// 
     /// </summary>
-    public enum ReadingDirections
+    [Flags]
+    public enum Laterality
         : byte
     {
         /// <summary>
-        /// Right to left reading direction.
+        /// Left.
         /// </summary>
-        RightToLeft,
+        Left = 1,
 
         /// <summary>
-        /// Left to right reading direction.
+        /// Right.
         /// </summary>
-        LeftToRight
+        Right = 2,
     }
 }

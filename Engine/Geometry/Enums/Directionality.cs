@@ -1,5 +1,5 @@
-﻿// <copyright file="UpDown.cs" company="Shkyrockett" >
-//     Copyright (c) 2015 - 2017 Shkyrockett. All rights reserved.
+﻿// <copyright file="Directionality.cs" company="Shkyrockett" >
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,19 +11,19 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// Text reading direction.
     /// </summary>
-    public enum UpDown
+    public enum Directionality
         : byte
     {
         /// <summary>
-        /// Up.
+        /// Right to left reading direction.
         /// </summary>
-        Up = 0,
+        RightToLeft,
 
         /// <summary>
-        /// Down.
+        /// Left to right reading direction.
         /// </summary>
-        Down = 1,
+        LeftToRight
     }
 }

@@ -1,5 +1,5 @@
-﻿// <copyright file="DirectionOrentations.cs" company="Shkyrockett" >
-//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+﻿// <copyright file="Verticality.cs" company="Shkyrockett" >
+//     Copyright (c) 2015 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -8,22 +8,25 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum DirectionOrentations
-        : sbyte
+    [Flags]
+    public enum Verticality
+        : byte
     {
         /// <summary>
-        /// The object is rotating over the top to the left.
+        /// Up.
         /// </summary>
-        CounterClockwise = -1,
+        Up = 1,
 
         /// <summary>
-        /// The object is rotating over the top to the right.
+        /// Down.
         /// </summary>
-        Clockwise = 1,
+        Down = 2,
     }
 }

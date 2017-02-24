@@ -185,7 +185,7 @@ namespace Engine
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         private static void OrientPolygonClockwise(this Contour polygon)
         {
-            if (polygon.Orientation == DirectionOrentations.CounterClockwise) polygon.Points.Reverse();
+            if (polygon.Orientation == RotationDirections.CounterClockwise) polygon.Points.Reverse();
         }
 
         /// <summary>
@@ -686,7 +686,7 @@ namespace Engine
         {
             // This algorithm assumes the polygon
             // is oriented counter-clockwise.
-            Debug.Assert(polygon.Orientation == DirectionOrentations.CounterClockwise);
+            Debug.Assert(polygon.Orientation == RotationDirections.CounterClockwise);
 
             // Get ready;
             ResetBoundingRect(polygon, boundingRect);

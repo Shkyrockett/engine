@@ -1,5 +1,5 @@
-﻿// <copyright file="LeftRight.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+﻿// <copyright file="RotationDirections.cs" company="Shkyrockett" >
+//     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,17 +13,17 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public enum LeftRight
-        : byte
+    public enum RotationDirections
+        : sbyte
     {
         /// <summary>
-        /// Left.
+        /// The object is rotating over the top to the left.
         /// </summary>
-        Left = 0,
+        CounterClockwise = -1,
 
         /// <summary>
-        /// Right.
+        /// The object is rotating over the top to the right.
         /// </summary>
-        Right = 1,
+        Clockwise = 1,
     }
 }

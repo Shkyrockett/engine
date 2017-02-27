@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using Engine;
+using Engine._Preview;
 using Engine.File.Palettes;
 using Engine.Imaging;
 using Engine.Tools;
@@ -221,6 +222,8 @@ namespace Editor
             //vectorMap.Add(polylineSetItem);
             //vectorMap.Add(pathPolylineItem);
 
+
+
             Polygon poly1 = new Polygon() {
                 new Contour() {
                     new Point2D(25, 200),
@@ -267,6 +270,71 @@ namespace Editor
             vectorMap.Add(poly1Item);
             vectorMap.Add(poly2Item);
             vectorMap.Add(poly3Item);
+
+
+
+            var rect1 = new Rectangle2D(200, 100, 200, 100);
+            var rect1Item = new GraphicItem(rect1, styles[12])
+            {
+                Name = "Rectangle"
+            };
+
+            var warp = new ParametricWarpGrid((a, b) => distort(a, b),
+                rect1,
+                rect1.Bounds.X,
+                rect1.Bounds.Y,
+                rect1.Bounds.Right,
+                rect1.Bounds.Bottom,
+                5, 5);
+            Point2D distort(Rectangle2D rect, Point2D point)
+            {
+                var n = -0.5;
+                return computePinch(rect.Center, point, n, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2);
+            }
+
+            Point2D computePinch(Point2D center, Point2D point, double strength, double radius)
+            {
+                var dx = point.X - center.X;
+                var dy = point.Y - center.Y;
+                var distanceSquared = dx * dx + dy * dy;
+                var sx = point.X;
+                var sy = point.Y;
+                if (center == point)
+                    return point;
+                if (distanceSquared < radius * radius)
+                {
+                    double distance = Math.Sqrt(distanceSquared);
+                    if (strength < 0)
+                    {
+                        double r = distance / radius;
+                        double a = Math.Atan2(dy, dx);
+                        double rn = Math.Pow(r, strength) * distance;
+                        double newX = rn * Math.Cos(a) + center.X;
+                        double newY = rn * Math.Sin(a) + center.Y;
+                        sx += (newX - point.X);
+                        sy += (newY - point.Y);
+                    }
+                    else
+                    {
+                        double dirX = dx / distance;
+                        double dirY = dy / distance;
+                        double alpha = distance / radius;
+                        double distortionFactor = distance * Math.Pow(1 - alpha, 1d / strength);
+                        sx -= distortionFactor * dirX;
+                        sy -= distortionFactor * dirY;
+                    }
+                }
+
+                return new Point2D(sx, sy);
+            }
+
+            var warpItem = new GraphicItem(warp, styles[12])
+            {
+                Name = "Warp"
+            };
+
+            vectorMap.Add(rect1Item);
+            vectorMap.Add(warpItem);
 
             //Shape ego = new Circle(pathPolyline.Interpolate(.1), 10);
             //var egoItem = new GraphicItem(ego, styles[5])

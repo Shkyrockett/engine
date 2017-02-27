@@ -24,7 +24,7 @@ namespace Engine._Preview
         /// <summary>
         /// 
         /// </summary>
-        private GeometryPath distortionPath;
+        public GeometryPath distortionPath;
 
         /// <summary>
         /// 
@@ -64,12 +64,15 @@ namespace Engine._Preview
         /// <summary>
         /// 
         /// </summary>
-        private readonly Dictionary<float, Point2D[]> boundCache = new Dictionary<float, Point2D[]>();
+        private readonly Dictionary<double, Point2D[]> boundCache = new Dictionary<double, Point2D[]>();
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// 
+        /// </summary>
         public BulgeDistortion()
             : base()
         { }
@@ -108,12 +111,12 @@ namespace Engine._Preview
             upperBoundPoint = new Point2D();
             lowerBoundPoint = new Point2D();
 
-            //if (boundCache.ContainsKey(source.X))
-            //{
-            //    upperBoundPoint = boundCache[source.X][0];
-            //    lowerBoundPoint = boundCache[source.X][1];
-            //    return;
-            //}
+            if (boundCache.ContainsKey(source.X))
+            {
+                upperBoundPoint = boundCache[source.X][0];
+                lowerBoundPoint = boundCache[source.X][1];
+                return;
+            }
 
             //var Path = new GeometryPath();
             //var UpperX = source.X * (sourceBounds.Width / (upperRight.X - upperLeft.X));
@@ -125,10 +128,10 @@ namespace Engine._Preview
             //    new Point2D(LowerX, distortionBounds.Bottom),
             //});
             //Path.CloseFigure();
-            ////var ClippingPath = ClipperUtility.ConvertToClipperPolygons(Path);
+            //var ClippingPath = ClipperUtility.ConvertToClipperPolygons(Path);
             //Path.Dispose();
 
-            ////var ClippedPath = ClipperUtility.Clip(ClippingPath, distortionPoints);
+            //var ClippedPath = ClipperUtility.Clip(ClippingPath, distortionPoints);
             //if (Math.Abs(source.X - sourceBounds.Left) < .1 || Math.Abs(source.X - sourceBounds.Right) < .1)
             //{
             //    upperBoundPoint = new Point2D(sourceBounds.Left, sourceBounds.Top);
@@ -152,7 +155,6 @@ namespace Engine._Preview
             //    }
             //    ClippedPath.Dispose();
             //}
-
         }
 
         /// <summary>
@@ -161,34 +163,32 @@ namespace Engine._Preview
         /// <param name="source"></param>
         private void BuildDistortion(GeometryPath source)
         {
-            //sourceBounds = source.GetBounds();
+            sourceBounds = source.Bounds();
 
-            //distortionPath = new GraphicsPath(source.FillMode);
+            lowerLeft = new Point2D(sourceBounds.Left, sourceBounds.Bottom);
+            lowerRight = new Point2D(sourceBounds.Right, sourceBounds.Bottom);
+            upperLeft = new Point2D(sourceBounds.Left, sourceBounds.Top);
+            upperRight = new Point2D(sourceBounds.Right, sourceBounds.Top);
 
-            //lowerLeft = new Point2D(sourceBounds.Left, sourceBounds.Bottom);
-            //lowerRight = new Point2D(sourceBounds.Right, sourceBounds.Bottom);
-            //upperLeft = new Point2D(sourceBounds.Left, sourceBounds.Top);
-            //upperRight = new Point2D(sourceBounds.Right, sourceBounds.Top);
 
-            //distortionPath.AddLine(lowerLeft, upperLeft);
+            distortionPath = new GeometryPath(lowerLeft);// source.FillMode);
+            distortionPath.AddLineSegment(upperLeft);
 
-            //distortionPath.AddBezier(
-            //    upperLeft,
-            //    new Point2D(sourceBounds.Left, sourceBounds.Top + ((sourceBounds.Height * (float)Intensity)) * -1),
-            //    new Point2D(sourceBounds.Right, sourceBounds.Top + ((sourceBounds.Height * (float)Intensity)) * -1),
-            //    upperRight);
+            distortionPath.AddCubicBezier(
+                new Point2D(sourceBounds.Left, sourceBounds.Top + ((sourceBounds.Height * (float)Intensity)) * -1),
+                new Point2D(sourceBounds.Right, sourceBounds.Top + ((sourceBounds.Height * (float)Intensity)) * -1),
+                upperRight);
 
-            //distortionPath.AddLine(upperRight, lowerRight);
+            distortionPath.AddLineSegment(lowerRight);
 
-            //distortionPath.AddBezier(
-            //    lowerRight,
-            //    new Point2D(sourceBounds.Right, sourceBounds.Bottom + (sourceBounds.Height * (float)Intensity)),
-            //    new Point2D(sourceBounds.Left, sourceBounds.Bottom + (sourceBounds.Height * (float)Intensity)),
-            //    lowerLeft);
+            distortionPath.AddCubicBezier(
+                new Point2D(sourceBounds.Right, sourceBounds.Bottom + (sourceBounds.Height * (float)Intensity)),
+                new Point2D(sourceBounds.Left, sourceBounds.Bottom + (sourceBounds.Height * (float)Intensity)),
+                lowerLeft);
 
             //distortionPath.Flatten();
             //distortionPoints = ClipperUtility.ConvertToClipperPolygons(distortionPath);
-            //distortionBounds = distortionPath.GetBounds();
+            distortionBounds = distortionPath.Bounds();
         }
     }
 }

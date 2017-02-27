@@ -177,6 +177,7 @@ namespace Engine
             set
             {
                 x = value;
+                Refresh();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
@@ -197,6 +198,7 @@ namespace Engine
             set
             {
                 y = value;
+                Refresh();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
@@ -217,6 +219,7 @@ namespace Engine
             set
             {
                 height = value;
+                Refresh();
                 OnPropertyChanged(nameof(Height));
                 update?.Invoke();
             }
@@ -237,6 +240,7 @@ namespace Engine
             set
             {
                 width = value;
+                Refresh();
                 OnPropertyChanged(nameof(Width));
                 update?.Invoke();
             }
@@ -259,6 +263,7 @@ namespace Engine
             {
                 height = width * value;
                 width = height / value;
+                Refresh();
                 OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
@@ -283,6 +288,7 @@ namespace Engine
             {
                 x = value.X;
                 y = value.Y;
+                Refresh();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
@@ -302,11 +308,12 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(X - width * 0.5d, Y - height * 0.5d); }
+            get { return new Point2D(X + width * 0.5d, Y + height * 0.5d); }
             set
             {
-                x = value.X + width * 0.5d;
-                y = value.Y + height * 0.5d;
+                x = value.X - width * 0.5d;
+                y = value.Y - height * 0.5d;
+                Refresh();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
@@ -331,6 +338,7 @@ namespace Engine
             {
                 width = value.Width;
                 height = value.Height;
+                Refresh();
                 OnPropertyChanged(nameof(Size));
                 update?.Invoke();
             }
@@ -353,6 +361,7 @@ namespace Engine
             {
                 Left = value.X;
                 Top = value.Y;
+                Refresh();
                 OnPropertyChanged(nameof(TopLeft));
                 update?.Invoke();
             }
@@ -375,6 +384,7 @@ namespace Engine
             {
                 Right = value.X;
                 Top = value.Y;
+                Refresh();
                 OnPropertyChanged(nameof(TopRight));
                 update?.Invoke();
             }
@@ -397,6 +407,7 @@ namespace Engine
             {
                 Left = value.X;
                 Bottom = value.Y;
+                Refresh();
                 OnPropertyChanged(nameof(BottomLeft));
                 update?.Invoke();
             }
@@ -419,6 +430,7 @@ namespace Engine
             {
                 Right = value.X;
                 Bottom = value.Y;
+                Refresh();
                 OnPropertyChanged(nameof(BottomRight));
                 update?.Invoke();
             }
@@ -441,6 +453,7 @@ namespace Engine
             {
                 width += x - value;
                 x = value;
+                Refresh();
                 OnPropertyChanged(nameof(Left));
                 update?.Invoke();
             }
@@ -463,6 +476,7 @@ namespace Engine
             {
                 height += y - value;
                 y = value;
+                Refresh();
                 OnPropertyChanged(nameof(Top));
                 update?.Invoke();
             }
@@ -484,6 +498,7 @@ namespace Engine
             set
             {
                 width = value - x;
+                Refresh();
                 OnPropertyChanged(nameof(Right));
                 update?.Invoke();
             }
@@ -505,6 +520,7 @@ namespace Engine
             set
             {
                 height = value - y;
+                Refresh();
                 OnPropertyChanged(nameof(Bottom));
                 update?.Invoke();
             }

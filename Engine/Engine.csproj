@@ -127,6 +127,8 @@
     <Compile Include="Math\Primitives\Vector2D.cs" />
     <Compile Include="Math\Primitives\Vector3D.cs" />
     <Compile Include="Math\Primitives\Vector4D.cs" />
+    <Compile Include="_Preview\Envelope\ParametricWarpGrid.cs" />
+    <Compile Include="_Preview\Envelope\PunchDistortion.cs" />
     <Compile Include="_Preview\Envelope\BulgeDistortion.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\GreinerHormannClipper.cs" />
     <Compile Include="_Preview\Clipping\Martinez\Comparators\SegmentComp.cs" />

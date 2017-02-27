@@ -20,7 +20,7 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class ParametricPointTester
+    public class ParametricWarpGrid
         : Shape
     {
         #region Constructors
@@ -28,24 +28,26 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public ParametricPointTester()
+        public ParametricWarpGrid()
             : base()
         { }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="intersecter"></param>
+        /// <param name="filter"></param>
+        /// <param name="path"></param>
         /// <param name="minX"></param>
         /// <param name="minY"></param>
         /// <param name="maxX"></param>
         /// <param name="maxY"></param>
         /// <param name="stepX"></param>
         /// <param name="stepY"></param>
-        public ParametricPointTester(Func<double, double, Inclusion> intersecter, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
+        public ParametricWarpGrid(Func<Rectangle2D, Point2D, Point2D> filter, Rectangle2D path, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
             : base()
         {
-            Intersecter = intersecter;
+            Filter = filter;
+            Path = path;
             MinX = minX;
             MinY = minY;
             MaxX = maxX;
@@ -61,16 +63,18 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="intersecter"></param>
+        /// <param name="filter"></param>
+        /// <param name="path"></param>
         /// <param name="minX"></param>
         /// <param name="minY"></param>
         /// <param name="maxX"></param>
         /// <param name="maxY"></param>
         /// <param name="stepX"></param>
         /// <param name="stepY"></param>
-        public void Deconstruct(out Func<double, double, Inclusion> intersecter, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
+        public void Deconstruct(out Func<Rectangle2D, Point2D, Point2D> filter, Rectangle2D path, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
-            intersecter = this.Intersecter;
+            filter = this.Filter;
+            path = this.Path;
             minX = this.MinX;
             minY = this.MinY;
             maxX = this.MaxX;
@@ -88,7 +92,14 @@ namespace Engine
         /// </summary>
         [Browsable(true)]
         [XmlIgnore, SoapIgnore]
-        public Func<double, double, Inclusion> Intersecter { get; set; }
+        public Func<Rectangle2D, Point2D, Point2D> Filter { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Browsable(true)]
+        [XmlElement, SoapElement]
+        public Rectangle2D Path { get; set; }
 
         /// <summary>
         /// 
@@ -177,29 +188,15 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public (List<Point2D>, List<Point2D>, List<Point2D>) Interactions()
+        public List<Point2D> Warp()
         {
-            var boundary = new List<Point2D>();
-            var inside = new List<Point2D>();
-            var outside = new List<Point2D>();
+            var result = new List<Point2D>();
             foreach (Point2D point in Grid())
             {
-                Inclusion value = Intersecter.Invoke(point.X, point.Y);
-                switch (value)
-                {
-                    case Inclusion.Outside:
-                        outside.Add(point);
-                        break;
-                    case Inclusion.Inside:
-                        inside.Add(point);
-                        break;
-                    case Inclusion.Boundary:
-                        boundary.Add(point);
-                        break;
-                }
+                result.Add(Filter.Invoke(Path.Bounds, point));
             }
 
-            return (boundary, inside, outside);
+            return result;
         }
 
         #endregion

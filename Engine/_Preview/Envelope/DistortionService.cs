@@ -49,7 +49,7 @@ namespace Engine._Preview
             this.distortion = distortion;
             this.source = source;
             this.flatness = flatness;
-            this.source.Flatten(null, flatness);
+            //this.source.Flatten(null, flatness);
         }
 
         #endregion

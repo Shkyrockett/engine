@@ -38,6 +38,8 @@ namespace Engine.Imaging
                 case ParametricPointTester t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
+                    t.Render(g, item, style as ShapeStyle);
+                    break;
                 case AngleVisualizerTester t:
                     t.Render(g, item, style as ShapeStyle);
                     break;

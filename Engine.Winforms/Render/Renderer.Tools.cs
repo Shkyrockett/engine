@@ -61,6 +61,27 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="item"></param>
         /// <param name="style"></param>
+        public static void Render(this ParametricWarpGrid shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        {
+            float pointRadius = 1;
+
+            List<Point2D> results = shape.Warp();
+
+            Pen pointpen = Pens.Gold;
+            foreach (var point in results)
+            {
+                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
+                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="g"></param>
+        /// <param name="item"></param>
+        /// <param name="style"></param>
         public static void Render(this AngleVisualizerTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item?.Style;

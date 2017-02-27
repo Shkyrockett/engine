@@ -38,6 +38,7 @@ namespace Engine.Imaging
                 case ParametricPointTester t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
+                case ParametricWarpGrid t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case AngleVisualizerTester t:

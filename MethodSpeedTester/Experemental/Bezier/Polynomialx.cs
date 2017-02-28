@@ -43,7 +43,9 @@ namespace Engine
         /// Initializes a default instance of the <see cref="Polynomialx"/> class.
         /// </summary>
         public Polynomialx()
-            => Coefficients = new List<double>(1);
+        {
+            Coefficients = new List<double>(1);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomialx"/> class.

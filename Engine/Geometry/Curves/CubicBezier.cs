@@ -459,7 +459,7 @@ namespace Engine
         /// <returns></returns>
         [XmlIgnore, SoapIgnore]
         public double Length
-            => Measurements.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy);
+            => (double)CachingProperty(() => Measurements.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy));
 
         /// <summary>
         /// 
@@ -476,7 +476,7 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
-            => Measurements.CubicBezierBounds(ax, ay, bx, by, cx, cy, dx, dy);
+            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// 

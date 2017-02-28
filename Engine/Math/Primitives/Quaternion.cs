@@ -82,7 +82,9 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public QuaternionD((double X, double Y, double Z, double W) tuple)
-            => (x, y, z, w) = tuple;
+        {
+            (x, y, z, w) = tuple;
+        }
 
         /// <summary>
         /// 

@@ -73,7 +73,9 @@ namespace Engine.Winforms
         /// 
         /// </summary>
         public CanvasPanel()
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

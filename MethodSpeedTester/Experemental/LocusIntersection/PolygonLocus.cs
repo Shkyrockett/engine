@@ -38,7 +38,9 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public PolygonLocus(List<Point2D> points)
-            => Points = points;
+        {
+            Points = points;
+        }
 
         /// <summary>
         /// 

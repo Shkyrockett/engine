@@ -47,13 +47,16 @@ namespace Engine
         /// <param name="v4"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        public Bezier(double x1, double y1, double v1, double v2, double v3, double v4, double x2, double y2) => Points = new List<Point3D>
+        public Bezier(double x1, double y1, double v1, double v2, double v3, double v4, double x2, double y2)
+        {
+            Points = new List<Point3D>
             {
                 new Point3D(x1,y1,0),
                 new Point3D(v1,v2,0),
                 new Point3D(v3,v4,0),
                 new Point3D(x2,y2,0)
             };
+        }
 
         /// <summary>
         ///
@@ -70,19 +73,25 @@ namespace Engine
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <param name="z2"></param>
-        public Bezier(double x1, double y1, double z1, double v1, double v2, double v3, double v4, double v5, double v6, double x2, double y2, double z2) => Points = new List<Point3D>
+        public Bezier(double x1, double y1, double z1, double v1, double v2, double v3, double v4, double v5, double v6, double x2, double y2, double z2)
+        {
+            Points = new List<Point3D>
             {
                 new Point3D(x1,y1,z1),
                 new Point3D(v1,v2,v3),
                 new Point3D(v4,v5,v6),
                 new Point3D(x2,y2,z2)
             };
+        }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="points"></param>
-        public Bezier(List<Point3D> points) => Points = points;
+        public Bezier(List<Point3D> points)
+        {
+            Points = points;
+        }
 
         /// <summary>
         ///

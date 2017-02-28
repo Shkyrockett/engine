@@ -167,7 +167,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this GeometryPath figure, Point2D point)
+        public static Inclusion Contains(this PathContour figure, Point2D point)
             => GeometryPathContainsPoint(figure, point);
 
         /// <summary>
@@ -1143,7 +1143,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion GeometryPathContainsPoint(GeometryPath figure, Point2D point)
+        public static Inclusion GeometryPathContainsPoint(PathContour figure, Point2D point)
         {
             Inclusion included = PolygonContainsPoint(figure.Nodes, point.X, point.Y);
             foreach (var item in figure?.Items)

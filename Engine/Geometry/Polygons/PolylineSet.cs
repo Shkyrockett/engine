@@ -60,7 +60,9 @@ namespace Engine
         /// Initializes a new instance of the <see cref="PolylineSet"/> class.
         /// </summary>
         public PolylineSet(IEnumerable<Polyline> polylines)
-            => this.polylines = polylines as List<Polyline>;
+        {
+            this.polylines = polylines as List<Polyline>;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolylineSet"/> class.

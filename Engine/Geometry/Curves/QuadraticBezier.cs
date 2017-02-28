@@ -316,7 +316,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public double Length
-            => Measurements.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy);
+            => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy));
 
         /// <summary>
         /// 
@@ -333,7 +333,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.QuadraticBezierBounds(ax, ay, bx, by, cx, cy);
+            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// 
@@ -427,10 +427,6 @@ namespace Engine
             => new Point2D(Interpolaters.QuadraticBezier(ax, ay, ax, by, cx, cy, t));
 
         #endregion
-
-
-
-
 
         #region Methods
 

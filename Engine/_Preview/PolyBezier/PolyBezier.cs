@@ -1,5 +1,5 @@
-﻿// <copyright file="PolyBezier.cs" >
-//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+﻿// <copyright file="PolyBezier.cs" company="Shkyrockett" >
+//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -23,58 +24,96 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// A path shape item constructed with various BezierCurves.
-    /// Based roughly on the SVG Path.
+    /// A closed Polygon made up of sets of Bezier Contours.
     /// </summary>
+    /// <structure>Engine.Geometry.PolyGon2D</structure>
+    /// <remarks></remarks>
     [Serializable]
-    [DisplayName("PolyBezier")]
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    [XmlType(TypeName = "polybezier", Namespace = "http://www.w3.org/2000/svg")]
+    [GraphicsObject]
+    [DisplayName(nameof(PolyBezier))]
+    [XmlType(TypeName = "polybezier", Namespace = "shapes")]
     public class PolyBezier
-        : Shape
+        : Shape, IEnumerable<PolyBezierContour>
     {
-        #region Fields
+        #region Private Fields
 
-        List<PolyBezierSegment> items = new List<PolyBezierSegment>();
-
-        bool closed = false;
+        /// <summary>
+        /// An array of Polygon Contours.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute, SoapAttribute]
+        private List<PolyBezierContour> contours;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a default instance of the <see cref="PolyBezier"/> class.
         /// </summary>
         public PolyBezier()
-            : base()
-            => items = new List<PolyBezierSegment>();
+            : this(new List<PolyBezierContour>())
+        { }
 
         /// <summary>
-        /// 
+        /// Initializes a default instance of the <see cref="PolyBezier"/> class.
         /// </summary>
-        public PolyBezier(Point2D start)
+        public PolyBezier(string definition)
             : base()
-            => items.Add(new PolyBezierSegment(start));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public PolyBezier(List<PolyBezierSegment> items)
-            : base()
-            => this.items = items;
-
-        #endregion
-
-        #region Deconstructors
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="items"></param>
-        public void Deconstruct(out List<PolyBezierSegment> items)
         {
-            items = this.items;
+            contours = ParsePathDefString(definition);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="Contour"/> of a set of <see cref="Point2D"/>s from a parameter list.
+        /// </summary>
+        /// <param name="points"></param>
+        public PolyBezier(params Point2D[] points)
+            : this(new[] { points })
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="Contour"/> from a set of <see cref="Point2D"/>s.
+        /// </summary>
+        /// <param name="points"></param>
+        public PolyBezier(IEnumerable<Point2D> points)
+            : this(new IEnumerable<Point2D>[] { points })
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class.
+        /// </summary>
+        public PolyBezier(IEnumerable<PolyBezierContour> contours)
+        {
+            this.contours = contours as List<PolyBezierContour>;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class from a parameter list.
+        /// </summary>
+        /// <param name="contours"></param>
+        public PolyBezier(params IEnumerable<Point2D>[] contours)
+            : this(new List<List<Point2D>>(contours as List<Point2D>[]))
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class.
+        /// </summary>
+        /// <param name="contours"></param>
+        public PolyBezier(IEnumerable<List<Point2D>> contours)
+        {
+            this.contours = new List<PolyBezierContour>();
+
+            foreach (var list in contours)
+            {
+                var contour = new PolyBezierContour();
+                foreach (var item in list)
+                {
+                    contour.AddLineSegment(item);
+                }
+
+                this.contours.Add(contour);
+            }
         }
 
         #endregion
@@ -86,9 +125,19 @@ namespace Engine
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public PolyBezierSegment this[int index]
-                => items[index];
+        public PolyBezierContour this[int index]
+        {
+            get
+            {
+                return contours[index];
+            }
+
+            set
+            {
+                contours[index] = value;
+                update?.Invoke();
+            }
+        }
 
         #endregion
 
@@ -98,17 +147,14 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [RefreshProperties(RefreshProperties.All)]
-        [TypeConverter(typeof(ListConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public List<PolyBezierSegment> Items
+        public List<PolyBezierContour> Contours
         {
-            get { return items; }
+            get { return contours; }
             set
             {
-                items = value;
+                contours = value;
                 ClearCache();
-                OnPropertyChanged(nameof(Definition));
+                OnPropertyChanged(nameof(Contours));
                 update?.Invoke();
             }
         }
@@ -126,7 +172,7 @@ namespace Engine
             get { return ToPathDefString(); }
             set
             {
-                items = ParsePathDefString(value).Item1;
+                contours = ParsePathDefString(value);
                 ClearCache();
                 OnPropertyChanged(nameof(Definition));
                 update?.Invoke();
@@ -134,38 +180,59 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets a listing of all end nodes from the Figure.
+        /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public List<Point2D> Nodes
-            => Items.Select(item => item.End.Value).ToList();
+        public int Count
+            => contours.Count;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        public int VerticesCount
+        {
+            get
+            {
+                int verticesCount = 0;
+                foreach (var contour in contours)
+                    verticesCount += contour.Nodes.Count;
+                return verticesCount;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [RefreshProperties(RefreshProperties.All)]
-        public bool Closed
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public override double Perimeter
+            => contours.Sum(p => p.Perimeter);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override Rectangle2D Bounds
         {
-            get { return closed; }
-            set { closed = value; }
+            get
+            {
+                return (Rectangle2D)CachingProperty(() => bounds(contours));
+
+                Rectangle2D bounds(List<PolyBezierContour> contours)
+                {
+                    Rectangle2D box = contours[0].Bounds;
+                    foreach (PolyBezierContour contour in contours)
+                        box = box.Union(contour.Bounds);
+                    return box;
+                }
+            }
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[XmlIgnore, SoapIgnore]
-        //public override Rectangle2D Bounds
-        //    => (Rectangle2D)CachingProperty(() => Measurements.GeometryPathBounds(this));
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        //[EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[XmlIgnore, SoapIgnore]
-        //public override double Perimeter
-        //    => (double)CachingProperty(() => Items.Sum(p => p.Length));
 
         #endregion
 
@@ -213,122 +280,51 @@ namespace Engine
 
         #endregion
 
+        #region Mutators
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public override Point2D Interpolate(double t)
+        /// <param name="contour"></param>
+        public void Add(PolyBezierContour contour)
         {
-            if (t == 0) return Items[0].Start.Value;
-            if (t == 1) return Items[Items.Count - 1].End.Value;
+            contours.Add(contour);
+            ClearCache();
+            update?.Invoke();
+        }
 
-            var weights = new(double length, double accumulated)[Items.Count];
-            Point2D cursor = Items[0].End.Value;
-            double accumulatedLength = 0;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contour"></param>
+        public void Add(List<PolyBezierSegment> contour)
+        {
+            contours.Add(new PolyBezierContour(contour));
+            ClearCache();
+            update?.Invoke();
+        }
 
-            // Build up the weights map.
-            for (int i = 0; i < Items.Count; i++)
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Reverse()
+        {
+            foreach (var poly in contours)
             {
-                double curentLength = Items[i].Length;
-                accumulatedLength += curentLength;
-                weights[i] = (curentLength, accumulatedLength);
+                poly.Reverse();
             }
 
-            double accumulatedLengthT = accumulatedLength * t;
-
-            // Find the segment.
-            for (int i = Items.Count - 1; i >= 0; i--)
-            {
-                if (weights[i].accumulated < accumulatedLengthT)
-                {
-                    // Interpolate the position.
-                    double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
-                    cursor = Items[i + 1].Interpolate(th);
-                    break;
-                }
-            }
-
-            return cursor;
+            ClearCache();
         }
 
-        #region Methods
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="point"></param>
-        ///// <returns></returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public override bool Contains(Point2D point)
-        //    => Intersections.Contains(this, point) != Inclusion.Outside;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="end"></param>
-        /// <returns></returns>
-        public PolyBezier AddLineSegment(Point2D end)
-        {
-            var segment = new PolyBezierSegment(Items[Items.Count - 1], end);
-            Items.Add(segment);
-            return this;
-        }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="r1"></param>
-        ///// <param name="r2"></param>
-        ///// <param name="angle"></param>
-        ///// <param name="largeArc"></param>
-        ///// <param name="sweep"></param>
-        ///// <param name="end"></param>
-        ///// <returns></returns>
-        //public PolyBezier AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
-        //{
-        //    var arc = new PathArc(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
-        //    Items.Add(arc);
-        //    return this;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="handle"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
-        public PolyBezier AddQuadraticBezier(Point2D handle, Point2D end)
-        {
-            var quad = new PolyBezierSegment(Items[Items.Count - 1], handle, end);
-            Items.Add(quad);
-            return this;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="handle1"></param>
-        /// <param name="handle2"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
-        public PolyBezier AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
-        {
-            var cubic = new PolyBezierSegment(Items[Items.Count - 1], handle1, handle2, end);
-            Items.Add(cubic);
-            return this;
-        }
+        #endregion
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
-        /// </remarks>
-        public (List<PolyBezierSegment>, bool) ParsePathDefString(string pathDefinition)
+        public static List<PolyBezierContour> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -337,25 +333,19 @@ namespace Engine
         /// <param name="pathDefinition"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
-        /// </remarks>
-        public (List<PolyBezierSegment>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
+        public static List<PolyBezierContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
-            var figure = new List<PolyBezierSegment>();
-            bool closed = false;
-
-            //bool relitive = false;
-            //Point2D? startPoint = null;
-            //PathItem item = null;
-
-            // These letters are valid SVG commands. Split the tokens at these.
-            string separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
-
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            // These letters are valid PolyBezier commands. Split the tokens at these.
+            string separators = @"(?=[MZLCQ])";
 
             // Discard whitespace and comma but keep the - minus sign.
-            string argSeparators = $@"[\s{sep}]|(?=-)";
+            string argSeparators = $@"[\s{Tokenizer.GetNumericListSeparator(provider)}]|(?=-)";
+
+            var poly = new List<PolyBezierContour>();
+            var contour = new PolyBezierContour();
+            var segment = new PolyBezierSegment();
+            Point2D startPoint = new Point2D();
+            bool newContour = false;
 
             // Split the definition string into shape tokens.
             foreach (var token in Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrWhiteSpace(t)))
@@ -366,106 +356,44 @@ namespace Engine
                 // Retrieve the values.
                 var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
 
-                //    switch (cmd)
-                //    {
-                //        case 'm': // Relative Svg moveto
-                //            relitive = true;
-                //            goto case 'M';
-                //        case 'M': // Svg moveto
-                //            item = new PolyBezierSegment(item, relitive, args);
-                //            startPoint = item.Start;
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 'z': // Reletive closepath
-                //            relitive = true;
-                //            goto case 'Z';
-                //        case 'Z': // Svg closepath
-                //            item = new PolyBezierSegment(item, relitive, startPoint.Value);
-                //            closed = true;
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 'l': // Reletive Svg lineto
-                //            relitive = true;
-                //            goto case 'L';
-                //        case 'L': // Svg lineto
-                //            item = new PolyBezierSegment(item, relitive, args);
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 'h': // Reletive Svg horizontal-lineto
-                //            relitive = true;
-                //            goto case 'H';
-                //        case 'H': // Svg horizontal-lineto
-                //            item = new PolyBezierSegment(item, relitive, item.End.Value.X, args[0]);
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 'v': // Reletive Svg vertical-lineto
-                //            relitive = true;
-                //            goto case 'V';
-                //        case 'V': // Svg vertical-lineto
-                //            item = new PolyBezierSegment(item, relitive, args[0], item.End.Value.Y);
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 'c': // Reletive Svg Cubic Bezier curveto
-                //            relitive = true;
-                //            goto case 'C';
-                //        case 'C': // Svg Cubic Bezier curveto
-                //            item = new PolyBezierSegment(item, relitive, args);
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 's': // Reletive smooth-curveto
-                //            relitive = true;
-                //            goto case 'S';
-                //        case 'S': // Svg smooth-curveto
-                //            item = new PolyBezierSegment(item, relitive, args);
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 'q': // Reletive quadratic-bezier-curveto
-                //            relitive = true;
-                //            goto case 'Q';
-                //        case 'Q': // Svg quadratic-bezier-curveto
-                //            item = new PolyBezierSegment(item, relitive, args);
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        case 't': // Reletive smooth-quadratic-bezier-curveto
-                //            relitive = true;
-                //            goto case 'T';
-                //        case 'T': // Svg smooth-quadratic-bezier-curveto
-                //            item = new PolyBezierSegment(item, relitive, args)
-                //            {
-                //                Relitive = relitive
-                //            };
-                //            relitive = false;
-                //            break;
-                //        case 'a': // Reletive Svg elliptical-arc
-                //            relitive = true;
-                //            goto case 'A';
-                //        case 'A': // Svg elliptical-arc
-                //            item = new PolyBezierSegment(item, relitive, args);
-                //            figure.Add(item);
-                //            item.Relitive = relitive;
-                //            relitive = false;
-                //            break;
-                //        default: // Unknown element.
-                //            break;
-                //    }
+                switch (cmd)
+                {
+                    case 'M':
+                        // M is Move to.
+                        contour = new PolyBezierContour(new Point2D(args[0], args[1]));
+                        startPoint = segment.Start.Value;
+                        newContour = false;
+                        break;
+                    case 'Z':
+                        // Z is End of Path.
+                        contour.Closed = true;
+                        poly.Add(contour);
+                        newContour = true;
+                        break;
+                    case 'L':
+                        // L is a linear curve.
+                        contour.AddLineSegment(new Point2D(args[0], args[1]));
+                        newContour = false;
+                        break;
+                    case 'Q':
+                        // Q is for Quadratic.
+                        contour.AddQuadraticBezier(new Point2D(args[0], args[1]), new Point2D(args[2], args[3]));
+                        newContour = false;
+                        break;
+                    case 'C':
+                        // C is for Cubic.
+                        contour.AddCubicBezier(new Point2D(args[0], args[1]), new Point2D(args[2], args[3]), new Point2D(args[4], args[5]));
+                        newContour = false;
+                        break;
+                    default:
+                        // Unknown element.
+                        break;
+                }
+
+                if (!newContour) poly.Add(contour);
             }
 
-            return (figure, closed);
+            return poly;
         }
 
         /// <summary>
@@ -485,75 +413,62 @@ namespace Engine
         {
             StringBuilder output = new StringBuilder();
 
-            char sep = Tokenizer.GetNumericListSeparator(provider);
-
-            foreach (var item in Items)
+            foreach (var item in contours)
             {
-                //switch (item)
-                //{
-                //    case PathPoint t when (t.Previous is null):
-                //        // ToDo: Figure out how to seporate M from Z.
-                //        output.Append(t.Relitive ? $"m{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"M{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
-                //        break;
-                //    case PathPoint t:
-                //        output.Append(t.Relitive ? $"z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"Z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
-                //        break;
-                //    case PathLineSegment t:
-                //        // L is ageneral line.
-                //        char l = t.Relitive ? 'l' : 'L';
-                //        string coords = $"{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)}";
-                //        if (t.Start.Value.X == t.End.Value.X)
-                //        {
-                //            // H is a horizontal line, so the x-coordinate can be ommited.
-                //            coords = $"{t.End.Value.Y.ToString(format, provider)}";
-                //            l = t.Relitive ? 'h' : 'H';
-                //        }
-                //        else if (t.Start.Value.Y == t.End.Value.Y)
-                //        {
-                //            // V is a horizontal line, so the y-coordinate can be ommited.
-                //            coords = $"{t.End.Value.X.ToString(format, provider)}";
-                //            l = t.Relitive ? 'v' : 'V';
-                //        }
-                //        output.Append($"{l}{coords} ");
-                //        break;
-                //    case PathCubicBezier t:
-                //        // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
-                //        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
-                //        break;
-                //    case PathQuadraticBezier t:
-                //        // ToDo: Figure out how to tell if a point can be ommited for the smooth version.
-                //        output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
-                //        break;
-                //    case PathArc t:
-                //        // Arc deffinition. 
-                //        int largearc = t.LargeArc ? 1 : 0;
-                //        int sweep = t.Sweep ? 1 : 0;
-                //        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
-                //        break;
-                //    default:
-                //        break;
-                //}
+                output.Append($"{item.ToPathDefString(format, provider)} ");
             }
 
-            // Minus signs are valid seperators in SVG path deffinitions which can be
-            // used in place of commas to shrink the length of the string. 
-            output.Replace(",-", "-");
             return output.ToString().TrimEnd();
         }
 
+        #region Methods
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="point"></param>
+        ///// <returns></returns>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public override bool Contains(Point2D point)
+        //    => Intersections.Contains(this, point) != Inclusion.Outside;
+
         /// <summary>
-        /// Creates a string representation of this <see cref="GeometryPath"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PolyBezier Clone()
+            => new PolyBezier(Contours.ToArray() as IEnumerable<PolyBezierContour>);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<PolyBezierContour> GetEnumerator()
+            => contours.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => contours.GetEnumerator();
+
+        /// <summary>
+        /// 
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
-            => (this == null) ? nameof(GeometryPath) : $"{nameof(GeometryPath)}{{{ToPathDefString(format, provider)}}}";
+        {
+            if (this == null) return nameof(PolyBezier);
+            return $"{nameof(PolyBezier)}{{{ToPathDefString(format, provider)}}}";
+        }
 
         #endregion
     }

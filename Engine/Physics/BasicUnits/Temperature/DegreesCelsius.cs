@@ -23,7 +23,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public DegreesCelsius(double value)
-            => Value = value;
+        {
+            Value = value;
+        }
 
         /// <summary>
         /// 

@@ -40,7 +40,9 @@ namespace Engine
         /// </summary>
         /// <param name="parameterNames">"CSV list"</param>
         public InstanceConstructorAttribute(string parameterNames)
-            => this.parameterNames = parameterNames.Split(',');
+        {
+            this.parameterNames = parameterNames.Split(',');
+        }
 
         /// <summary>
         /// 

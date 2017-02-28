@@ -70,7 +70,9 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public Transform((double x, double y, double skewX, double skewY, double scaleX, double scaleY) tuple)
-            => (x, y, skewX, skewY, scaleX, scaleY) = tuple;
+        {
+            (x, y, skewX, skewY, scaleX, scaleY) = tuple;
+        }
 
         /// <summary>
         /// 

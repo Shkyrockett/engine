@@ -112,6 +112,7 @@
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
     <Compile Include="Animation\ColorTransform.cs" />
+    <Compile Include="Geometry\Complex\Path\PathContour.cs" />
     <Compile Include="Geometry\Enums\Directionality.cs" />
     <Compile Include="Geometry\Enums\Laterality.cs" />
     <Compile Include="Geometry\Enums\RotationDirections.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Math\Primitives\Vector2D.cs" />
     <Compile Include="Math\Primitives\Vector3D.cs" />
     <Compile Include="Math\Primitives\Vector4D.cs" />
+    <Compile Include="_Preview\Envelope\Distortions.cs" />
     <Compile Include="_Preview\Envelope\ParametricWarpGrid.cs" />
     <Compile Include="_Preview\Envelope\PunchDistortion.cs" />
     <Compile Include="_Preview\Envelope\BulgeDistortion.cs" />
@@ -143,7 +145,7 @@
     <Compile Include="_Preview\Envelope\DistortionDirection.cs" />
     <Compile Include="_Preview\Envelope\DistortionBase.cs" />
     <Compile Include="_Preview\Envelope\IDistortion.cs" />
-    <Compile Include="_Preview\PolyBezier\PolyBezier.cs" />
+    <Compile Include="_Preview\PolyBezier\PolyBezierContour.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierSegment.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
     <Compile Include="Geometry\Polygons\Line.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="_Preview\Clipping\Martinez\Queues\PriorityQueue.cs" />
     <Compile Include="_Preview\Clipping\Martinez\MartinezPolygonClipper.cs" />
     <Compile Include="_Preview\Clipping\Martinez\Comparators\SegmentComparators.cs" />
+    <Compile Include="_Preview\PolyBezier\PolyBezier.cs" />
     <Compile Include="_Preview\Splitings.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\ClippingIntersection.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\ClippingPolygon.cs" />
@@ -168,7 +171,6 @@
     <Compile Include="Geometry\Complex\Path\PathQuadraticBezier.cs" />
     <Compile Include="Geometry\Complex\Path\PathCubicBezier.cs" />
     <Compile Include="Geometry\Complex\Path\PathPoint.cs" />
-    <Compile Include="Geometry\Complex\Path\GeometryPath.cs" />
     <Compile Include="Geometry\Complex\Tools\AngleVisualizerTester.cs" />
     <Compile Include="Geometry\Complex\Tools\ParametricPointTester.cs" />
     <Compile Include="Math\Primitives\Transform.cs" />

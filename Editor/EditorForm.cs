@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -32,6 +33,8 @@ namespace Editor
     public partial class EditorForm
         : Form
     {
+        #region Fields
+
         /// <summary>
         /// Map containing all of the vector objects.
         /// </summary>
@@ -48,6 +51,11 @@ namespace Editor
         private Tweener tweener = new Tweener();
 
         /// <summary>
+        /// Amount to advance the timer every tick
+        /// </summary>
+        private int tick = 1;
+
+        /// <summary>
         /// 
         /// </summary>
         private string vectorFilename = String.Empty;
@@ -58,14 +66,13 @@ namespace Editor
         XmlSerializer vectorMapSserializer = new XmlSerializer(typeof(VectorMap));
 
         /// <summary>
-        /// Amount to advance the timer every tick
-        /// </summary>
-        private int tick = 1;
-
-        /// <summary>
         /// 
         /// </summary>
         private GraphicItem boundaryItem = new GraphicItem(Rectangle2D.Empty, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
@@ -107,23 +114,13 @@ namespace Editor
             propertyGrid1.SelectedObject = val;
         }
 
+        #endregion
+
         /// <summary>
-        /// Events to execute when the form loads.
+        /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EditorForm_Load(object sender, EventArgs e)
+        public void BuildMap()
         {
-            SetStyle(ControlStyles.ResizeRedraw, true);
-
-            paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
-
-            vectorMap.Tweener = tweener;
-            toolStack = new ToolStack(vectorMap);
-            toolStack?.RegisterMouseLeftButton(new SelectTop());
-            toolStack?.RegisterMouseMiddleButton(new Pan());
-            toolStack?.RegisterMouseScroll(new Zoom());
-
             var styles = new List<ShapeStyle>
             {
                 new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)),
@@ -222,8 +219,6 @@ namespace Editor
             //vectorMap.Add(polylineSetItem);
             //vectorMap.Add(pathPolylineItem);
 
-
-
             Polygon poly1 = new Polygon() {
                 new Contour() {
                     new Point2D(25, 200),
@@ -271,8 +266,6 @@ namespace Editor
             vectorMap.Add(poly2Item);
             vectorMap.Add(poly3Item);
 
-
-
             var rect1 = new Rectangle2D(200, 100, 200, 100);
             var rect1Item = new GraphicItem(rect1, styles[12])
             {
@@ -289,43 +282,11 @@ namespace Editor
             Point2D distort(Rectangle2D rect, Point2D point)
             {
                 var n = -0.5;
-                return computePinch(rect.Center, point, n, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2);
-            }
-
-            Point2D computePinch(Point2D center, Point2D point, double strength, double radius)
-            {
-                var dx = point.X - center.X;
-                var dy = point.Y - center.Y;
-                var distanceSquared = dx * dx + dy * dy;
-                var sx = point.X;
-                var sy = point.Y;
-                if (center == point)
-                    return point;
-                if (distanceSquared < radius * radius)
-                {
-                    double distance = Math.Sqrt(distanceSquared);
-                    if (strength < 0)
-                    {
-                        double r = distance / radius;
-                        double a = Math.Atan2(dy, dx);
-                        double rn = Math.Pow(r, strength) * distance;
-                        double newX = rn * Math.Cos(a) + center.X;
-                        double newY = rn * Math.Sin(a) + center.Y;
-                        sx += (newX - point.X);
-                        sy += (newY - point.Y);
-                    }
-                    else
-                    {
-                        double dirX = dx / distance;
-                        double dirY = dy / distance;
-                        double alpha = distance / radius;
-                        double distortionFactor = distance * Math.Pow(1 - alpha, 1d / strength);
-                        sx -= distortionFactor * dirX;
-                        sy -= distortionFactor * dirY;
-                    }
-                }
-
-                return new Point2D(sx, sy);
+                return Distortions.Pinch(rect.Center, point, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2, n);
+                //return Distortions.Swirl(rect.Center, point, n);
+                //return Distortions.Water(rect.Center, point, 8);
+                //return Distortions.TimeWarp(rect.Center, point, 10);
+                //return Distortions.Flip(rect.Center, point, true, true);
             }
 
             var warpItem = new GraphicItem(warp, styles[12])
@@ -418,21 +379,25 @@ namespace Editor
             //vectorMap.Add(rectangle8Item);
 
 
-            //QuadraticBezier quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            //GraphicItem quadBezierItem = new GraphicItem(quadBezier, styles[7]);
-            //vectorMap.Add(quadBezierItem);
-            ////StringBuilder quadBezierLengths = new StringBuilder();
-            ////quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.QuadraticBezierArcLengthBySegments());
-            ////quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.QuadraticBezierArcLengthByIntegral());
-            ////quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.QuadraticBezierApproxArcLength());
-            ////MessageBox.Show(quadBezierLengths.ToString());
+            var quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
+            var quadBezierItem = new GraphicItem(quadBezier, styles[7]);
+            var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, styles[7]);
+            vectorMap.Add(quadBezierBoundsIthem);
+            vectorMap.Add(quadBezierItem);
+            //StringBuilder quadBezierLengths = new StringBuilder();
+            //quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.Length);
+            //quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.Length);
+            //quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.Length);
+            //MessageBox.Show(quadBezierLengths.ToString());
 
-            //CubicBezier cubicBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
-            //GraphicItem cubicBezierItem = new GraphicItem(cubicBezier, styles[8]);
-            //vectorMap.Add(cubicBezierItem);
-            ////StringBuilder cubicBezierLengths = new StringBuilder();
-            ////cubicBezierLengths.AppendLine("Bezier arc length: \t" + cubicBezier.CubicBezierLength(100));
-            ////MessageBox.Show(cubicBezierLengths.ToString());
+            var cubeBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
+            var cubeBezierItem = new GraphicItem(cubeBezier, styles[8]);
+            var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, styles[8]);
+            vectorMap.Add(cubeBezierBoundsItem);
+            vectorMap.Add(cubeBezierItem);
+            //StringBuilder cubeBezierLengths = new StringBuilder();
+            //cubeBezierLengths.AppendLine("Bezier arc length: \t" + cubeBezier.Length);
+            //MessageBox.Show(cubeBezierLengths.ToString());
 
             //Polygon triangleI = new Triangle(
             //    new Point2D(75, 125),
@@ -778,18 +743,18 @@ namespace Editor
             //vectorMap.Add(intersection2NodesItem);
             //vectorMap.Add(parametricPointTesterSegmentItem);
 
-            //var figure = new GeometryPath(new Point2D(150d, 200d));
-            //figure.AddLineSegment(new Point2D(200, 200))
-            //    .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
-            //    .AddLineSegment(new Point2D(250, 300))
-            //    .AddArc(50d, 50d, 0d, false, true, new Point2D(200d, 350d))
-            //    .AddLineSegment(new Point2D(150, 350))
-            //    .AddArc(50d, 50d, 0d, true, false, new Point2D(100d, 300d))
-            //    .AddLineSegment(new Point2D(100, 250))
-            //    .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
-            //var figureItem = new GraphicItem(figure, styles[1]);
-            //var figureBounds = figure.Bounds;
-            //var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
+            var figure = new PathContour(new Point2D(150d, 200d));
+            figure.AddLineSegment(new Point2D(200, 200))
+                .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
+                .AddLineSegment(new Point2D(250, 300))
+                .AddArc(50d, 50d, 0d, false, true, new Point2D(200d, 350d))
+                .AddLineSegment(new Point2D(150, 350))
+                .AddArc(50d, 50d, 0d, true, false, new Point2D(100d, 300d))
+                .AddLineSegment(new Point2D(100, 250))
+                .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
+            var figureItem = new GraphicItem(figure, styles[1]);
+            var figureBounds = figure.Bounds;
+            var figureBoundsItem = new GraphicItem(figureBounds, styles[10]);
 
             //var parametricPointTesterFigure = new ParametricPointTester(
             //    (px, py) => Containings.GeometryPathPoint(figure, new Point2D(px, py)),
@@ -801,8 +766,8 @@ namespace Editor
             //    figureBounds.X - 200, figureBounds.Y - 200, figureBounds.Right + 205, figureBounds.Bottom + 205, 5, 5);
             //var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, styles[3]);
 
-            //vectorMap.Add(figureBoundsItem);
-            //vectorMap.Add(figureItem);
+            vectorMap.Add(figureBoundsItem);
+            vectorMap.Add(figureItem);
             //vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
 
@@ -817,9 +782,6 @@ namespace Editor
             //vectorMap.Add(polyOneItem);
             //vectorMap.Add(polyTwoItem);
             //vectorMap.Add(clipsItem);
-
-            var foreColor = Color.Black;
-            var backColor = Color.White;
 
             var mapStyles = new List<ShapeStyle>
             {
@@ -911,21 +873,35 @@ namespace Editor
             //    vectorMap.Add(rectangleGrid[mapStyles.IndexOf(style)], style);
             //}
 
+        }
+
+        #region Events
+
+        /// <summary>
+        /// Events to execute when the form loads.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditorForm_Load(object sender, EventArgs e)
+        {
+            SetStyle(ControlStyles.ResizeRedraw, true);
+
+            paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
+
+            vectorMap.Tweener = tweener;
+            toolStack = new ToolStack(vectorMap);
+            toolStack?.RegisterMouseLeftButton(new SelectTop());
+            toolStack?.RegisterMouseMiddleButton(new Pan());
+            toolStack?.RegisterMouseScroll(new Zoom());
+
+            var foreColor = Color.Black;
+            var backColor = Color.White;
+
+            BuildMap();
+
             listBox1.DataSource = vectorMap.Items;
             //listBox1.ValueMember = "Name";
         }
-
-        /// <summary>
-        /// Tweening update callback.
-        /// </summary>
-        private void UpdateCallback()
-            => CanvasPanel.Invalidate(true);
-
-        /// <summary>
-        /// Callback for when tweening completes.
-        /// </summary>
-        private void CompleteCallback()
-            => CanvasPanel.Invalidate(true);
 
         /// <summary>
         ///
@@ -1193,7 +1169,12 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e) => SaveAs(vectorFilename);
+        private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e)
+            => SaveAs(vectorFilename);
+
+        #endregion
+
+        #region Helpers
 
         /// <summary>
         /// 
@@ -1253,5 +1234,19 @@ namespace Editor
         /// <param name="item"></param>
         private void Serialize(TextWriter writer, VectorMap item)
             => vectorMapSserializer.Serialize(writer, item);
+
+        /// <summary>
+        /// Tweening update callback.
+        /// </summary>
+        private void UpdateCallback()
+            => CanvasPanel.Invalidate(true);
+
+        /// <summary>
+        /// Callback for when tweening completes.
+        /// </summary>
+        private void CompleteCallback()
+            => CanvasPanel.Invalidate(true);
+
+        #endregion
     }
 }

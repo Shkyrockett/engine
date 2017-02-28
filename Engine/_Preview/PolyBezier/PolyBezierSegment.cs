@@ -1,4 +1,4 @@
-﻿// <copyright file="BezierSegment.cs" >
+﻿// <copyright file="PolyBezierSegment.cs" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -13,8 +13,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
-using static System.Math;
-using static Engine.Maths;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -100,7 +98,9 @@ namespace Engine
         /// <param name="points"></param>
         public PolyBezierSegment(PolyBezierSegment previous, params Point2D[] points)
             : base()
-            => this.handles = points;
+        {
+            this.handles = points;
+        }
 
         /// <summary>
         /// 
@@ -120,9 +120,7 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public void Deconstruct(out Point2D[] points)
-        {
-            points = this.handles;
-        }
+            => points = this.handles;
 
         #endregion
 
@@ -332,9 +330,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(BezierSegment);
+            if (this == null) return nameof(PolyBezierSegment);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(BezierSegment)}{{{string.Join(sep.ToString(), handles)}}}";
+            IFormattable formatable = $"{nameof(PolyBezierSegment)}{{{string.Join(sep.ToString(), handles)}}}";
             return formatable.ToString(format, provider);
         }
 

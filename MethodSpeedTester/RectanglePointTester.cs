@@ -43,7 +43,9 @@ namespace MethodSpeedTester
         /// 
         /// </summary>
         public RectanglePointTester()
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

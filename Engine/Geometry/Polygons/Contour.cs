@@ -13,9 +13,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -26,7 +29,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Contour))]
-    [XmlType(TypeName = "contour", Namespace = "http://www.w3.org/2000/svg")]
+    [XmlType(TypeName = "polygon", Namespace = "http://www.w3.org/2000/svg")]
     public class Contour
         : Shape, IEnumerable<Point2D>, IClosedShape
     {
@@ -77,7 +80,9 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public Contour(IEnumerable<Point2D> points)
-            => this.points = points as List<Point2D>;
+        {
+            this.points = points as List<Point2D>;
+        }
 
         /// <summary>
         /// 
@@ -119,16 +124,36 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlArray]
+        [XmlIgnore, SoapIgnore]
         public List<Point2D> Points
         {
             get { return points; }
             set
             {
                 points = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Points));
                 update?.Invoke();
-                Refresh();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Browsable(false)]
+        [XmlAttribute("points"), SoapAttribute("points")]
+        [RefreshProperties(RefreshProperties.All)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string Definition
+        {
+            get { return ToPathDefString(); }
+            set
+            {
+                points = ParsePathDefString(value);
+                ClearCache();
+                OnPropertyChanged(nameof(Definition));
+                update?.Invoke();
             }
         }
 
@@ -243,7 +268,7 @@ namespace Engine
         public Contour Add(Point2D point)
         {
             Points.Add(point);
-            Refresh();
+            ClearCache();
             OnPropertyChanged(nameof(Add));
             update?.Invoke();
             return this;
@@ -255,7 +280,7 @@ namespace Engine
         public Contour Reverse()
         {
             Points.Reverse();
-            Refresh();
+            ClearCache();
             OnPropertyChanged(nameof(Reverse));
             update?.Invoke();
             return this;
@@ -381,6 +406,71 @@ namespace Engine
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pathDefinition"></param>
+        /// <returns></returns>
+        public static List<Point2D> ParsePathDefString(string pathDefinition)
+            => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pathDefinition"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public static List<Point2D> ParsePathDefString(string pathDefinition, IFormatProvider provider)
+        {
+            // Discard whitespace and comma but keep the - minus sign.
+            string separators = $@"[\s{Tokenizer.GetNumericListSeparator(provider)}]|(?=-)";
+
+            var poly = new List<Point2D>();
+
+            // Split the definition string into shape tokens.
+            var list = Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
+
+            if (list.Length % 2 != 0) throw new Exception("Polygon definitions must be in sets of two numbers.");
+
+            for (int i = 0; i < list.Length - 1; i = i = 2)
+            {
+                poly.Add(new Point2D(list[i], list[i + 1]));
+            }
+
+            return poly;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String ToPathDefString()
+            => ToPathDefString(null, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        private String ToPathDefString(string format, IFormatProvider provider)
+        {
+            StringBuilder output = new StringBuilder();
+
+            char sep = Tokenizer.GetNumericListSeparator(provider);
+
+            foreach (var item in points)
+            {
+                // M is Move to.
+                output.Append($"{item.X},{item.Y} ");
+            }
+
+            // Minus signs are valid separators in SVG path definitions which can be
+            // used in place of commas to shrink the length of the string. 
+            output.Replace(",-", "-");
+            return output.ToString().TrimEnd();
+        }
 
         /// <summary>
         /// Creates a string representation of this <see cref="Contour"/> struct based on the format string

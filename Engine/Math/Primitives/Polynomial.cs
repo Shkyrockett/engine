@@ -69,7 +69,9 @@ namespace Engine
         /// Initializes a default instance of the <see cref="Polynomial"/> class.
         /// </summary>
         public Polynomial()
-            => coefficients = new double[] { 0 };
+        {
+            coefficients = new double[] { 0 };
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> class.

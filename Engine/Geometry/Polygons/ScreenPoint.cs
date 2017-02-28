@@ -47,7 +47,9 @@ namespace Engine
         /// <param name="point"></param>
         public ScreenPoint(Point2D point)
             : base()
-            => this.point = point;
+        {
+            this.point = point;
+        }
 
         /// <summary>
         /// 

@@ -75,7 +75,9 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public Polyline(IEnumerable<Point2D> points)
-            => Points = points as List<Point2D>;
+        {
+            Points = points as List<Point2D>;
+        }
 
         /// <summary>
         ///

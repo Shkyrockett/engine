@@ -26,7 +26,9 @@ namespace Engine.Winforms
         /// </summary>
         public ToolStripToolStripItem()
             : base(new ToolStrip())
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

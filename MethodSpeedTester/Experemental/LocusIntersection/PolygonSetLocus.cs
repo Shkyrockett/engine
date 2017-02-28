@@ -31,7 +31,9 @@ namespace Engine
         /// </summary>
         /// <param name="polygons"></param>
         public PolygonSetLocus(IEnumerable<List<Point2D>> polygons)
-            => Polygons = polygons as List<List<Point2D>>;
+        {
+            Polygons = polygons as List<List<Point2D>>;
+        }
 
         /// <summary>
         /// 

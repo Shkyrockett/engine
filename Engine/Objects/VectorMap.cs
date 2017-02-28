@@ -38,7 +38,10 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="shapes"></param>
-        public VectorMap(List<GraphicItem> shapes) => Items = shapes;
+        public VectorMap(List<GraphicItem> shapes)
+        {
+            Items = shapes;
+        }
 
         #endregion
 

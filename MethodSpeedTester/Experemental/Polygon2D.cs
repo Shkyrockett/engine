@@ -21,7 +21,9 @@ namespace Engine._Preview
         /// 
         /// </summary>
         public Polygon2D()
-            => contours = new List<Contour>();
+        {
+            contours = new List<Contour>();
+        }
 
         /// <summary>
         /// 

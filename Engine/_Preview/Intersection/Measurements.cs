@@ -444,7 +444,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Bounds(this GeometryPath path)
+        public static Rectangle2D Bounds(this PathContour path)
             => GeometryPathBounds(path);
 
         #endregion
@@ -1560,6 +1560,21 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="CurveX"></param>
+        /// <param name="CurveY"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D BezierBounds(Polynomial CurveX, Polynomial CurveY)
+        {
+            (double x0, double x1) = CurveX.GetMinMax(0, 1);
+            (double y0, double y1) = CurveY.GetMinMax(0, 1);
+            return new Rectangle2D(x0, y0, x1 - x0, y1 - y0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="ax"></param>
         /// <param name="ay"></param>
         /// <param name="bx"></param>
@@ -1570,6 +1585,8 @@ namespace Engine
         /// <param name="dy"></param>
         /// <returns></returns>
         /// <remarks>
+        /// This method has an error where if the end nodes are horizontal to each other, while the handles are also horizontal to each other the bounds are not correctly calculated.
+        /// Method created using the following resources.
         /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
         /// http://nishiohirokazu.blogspot.com/2009/06/how-to-calculate-bezier-curves-bounding.html
         /// http://jsfiddle.net/SalixAlba/QQnvm/4/
@@ -1682,7 +1699,7 @@ namespace Engine
         /// <param name="chain">The Chain.</param>
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D GeometryPathBounds(GeometryPath chain)
+        public static Rectangle2D GeometryPathBounds(PathContour chain)
         {
             var start = chain.Items[0] as PathPoint;
             Rectangle2D result = new Rectangle2D(start.Start.Value, start.End.Value);

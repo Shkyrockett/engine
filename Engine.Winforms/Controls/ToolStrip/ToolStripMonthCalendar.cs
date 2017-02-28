@@ -31,7 +31,9 @@ namespace Engine.Winforms
         /// </summary>
         public ToolStripMonthCalendar()
             : base(new MonthCalendar())
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

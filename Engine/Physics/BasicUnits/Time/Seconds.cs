@@ -43,7 +43,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Seconds(double value)
-            => Value = value;
+        {
+            Value = value;
+        }
 
         /// <summary>
         /// 

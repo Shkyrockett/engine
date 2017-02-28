@@ -99,9 +99,9 @@ namespace Engine
             set
             {
                 location = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
-                Refresh();
             }
         }
 
@@ -115,9 +115,9 @@ namespace Engine
             set
             {
                 direction = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Direction));
                 update?.Invoke();
-                Refresh();
             }
         }
 

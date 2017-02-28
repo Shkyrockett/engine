@@ -311,7 +311,7 @@ namespace Engine.Imaging
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
-        public static void Render(this GeometryPath shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this PathContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.

@@ -49,7 +49,9 @@ namespace Engine
         /// </summary>
         /// <param name="name"></param>
         public AdvBrowsableAttribute(string name)
-            => this.name = name;
+        {
+            this.name = name;
+        }
 
         /// <summary>
         /// 

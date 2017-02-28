@@ -35,7 +35,9 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public CubicBSpline(List<Point2D> points)
-            => NodePoints = points;
+        {
+            NodePoints = points;
+        }
 
         /// <summary>
         /// 

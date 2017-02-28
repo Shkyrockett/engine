@@ -47,7 +47,9 @@ namespace Engine.Imaging
         /// </summary>
         public ShapeStyle()
             : this(Brushes.Transparent, Pens.Transparent)
-            => LineStyle.PropertyChanged += new PropertyChangedEventHandler(PropertyChanged_Event);
+        {
+            LineStyle.PropertyChanged += new PropertyChangedEventHandler(PropertyChanged_Event);
+        }
 
         /// <summary>
         /// 

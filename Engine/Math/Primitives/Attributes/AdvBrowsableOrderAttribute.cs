@@ -39,7 +39,9 @@ namespace Engine
         /// </summary>
         /// <param name="order">"CSV list"</param>
         public AdvBrowsableOrderAttribute(string order)
-            => this.order = order.Split(',');
+        {
+            this.order = order.Split(',');
+        }
 
         ///// <summary>
         ///// 

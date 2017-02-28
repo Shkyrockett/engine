@@ -75,7 +75,9 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Vector3D((double X, double Y, double Z) tuple)
-            => (I, J, K) = tuple;
+        {
+            (I, J, K) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector3D"/> class.

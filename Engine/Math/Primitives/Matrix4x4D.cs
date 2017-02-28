@@ -144,10 +144,12 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
-            => (m0x0, m0x1, m0x2, m0x3,
-                m1x0, m1x1, m1x2, m1x3,
-                m2x0, m2x1, m2x2, m2x3,
-                m3x0, m3x1, m3x2, m3x3) = tuple;
+        {
+            (m0x0, m0x1, m0x2, m0x3,
+                           m1x0, m1x1, m1x2, m1x3,
+                           m2x0, m2x1, m2x2, m2x3,
+                           m3x0, m3x1, m3x2, m3x3) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix4x4D"/> class.

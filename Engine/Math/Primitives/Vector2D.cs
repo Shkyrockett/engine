@@ -63,7 +63,9 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Vector2D((double X, double Y) tuple)
-            => (I, J) = tuple;
+        {
+            (I, J) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.

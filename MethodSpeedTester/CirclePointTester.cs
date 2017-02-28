@@ -43,7 +43,9 @@ namespace MethodSpeedTester
         /// 
         /// </summary>
         public CirclePointTester()
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

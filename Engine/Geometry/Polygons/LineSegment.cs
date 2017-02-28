@@ -120,7 +120,9 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public LineSegment(List<Point2D> points)
-            => Points = points;
+        {
+            Points = points;
+        }
 
         #endregion
 
@@ -492,8 +494,8 @@ namespace Engine
             Point2D temp = A;
             A = B;
             B = temp;
+            ClearCache();
             update?.Invoke();
-            Refresh();
         }
 
         #endregion

@@ -27,7 +27,9 @@ namespace Engine
         /// 
         /// </summary>
         public SweepEventSet()
-            => eventSet = new List<SweepEvent>();
+        {
+            eventSet = new List<SweepEvent>();
+        }
 
         /// <summary>
         /// 

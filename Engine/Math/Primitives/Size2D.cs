@@ -70,7 +70,9 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Size2D((double X, double Y) tuple)
-            => (Width, Height) = tuple;
+        {
+            (Width, Height) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.

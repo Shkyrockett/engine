@@ -27,52 +27,52 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Flat = new LineCapStyle(LineCap.Flat, new GeometryPath());
+        public static readonly LineCapStyle Flat = new LineCapStyle(LineCap.Flat, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Square = new LineCapStyle(LineCap.Square, new GeometryPath());
+        public static readonly LineCapStyle Square = new LineCapStyle(LineCap.Square, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Round = new LineCapStyle(LineCap.Round, new GeometryPath());
+        public static readonly LineCapStyle Round = new LineCapStyle(LineCap.Round, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Triangle = new LineCapStyle(LineCap.Triangle, new GeometryPath());
+        public static readonly LineCapStyle Triangle = new LineCapStyle(LineCap.Triangle, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle NoAnchor = new LineCapStyle(LineCap.NoAnchor, new GeometryPath());
+        public static readonly LineCapStyle NoAnchor = new LineCapStyle(LineCap.NoAnchor, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle SquareAnchor = new LineCapStyle(LineCap.SquareAnchor, new GeometryPath());
+        public static readonly LineCapStyle SquareAnchor = new LineCapStyle(LineCap.SquareAnchor, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle RoundAnchor = new LineCapStyle(LineCap.RoundAnchor, new GeometryPath());
+        public static readonly LineCapStyle RoundAnchor = new LineCapStyle(LineCap.RoundAnchor, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle DiamondAnchor = new LineCapStyle(LineCap.DiamondAnchor, new GeometryPath());
+        public static readonly LineCapStyle DiamondAnchor = new LineCapStyle(LineCap.DiamondAnchor, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle ArrowAnchor = new LineCapStyle(LineCap.ArrowAnchor, new GeometryPath());
+        public static readonly LineCapStyle ArrowAnchor = new LineCapStyle(LineCap.ArrowAnchor, new PathContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle AnchorMask = new LineCapStyle(LineCap.AnchorMask, new GeometryPath());
+        public static readonly LineCapStyle AnchorMask = new LineCapStyle(LineCap.AnchorMask, new PathContour());
 
         /// <summary>
         /// 
@@ -82,14 +82,14 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private GeometryPath capPath;
+        private PathContour capPath;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="lineCap"></param>
         /// <param name="path"></param>
-        public LineCapStyle(LineCap lineCap, GeometryPath path)
+        public LineCapStyle(LineCap lineCap, PathContour path)
             : this()
         {
             this.lineCap = lineCap;
@@ -105,7 +105,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public GeometryPath CapPath { get { return capPath; } set { capPath = value; } }
+        public PathContour CapPath { get { return capPath; } set { capPath = value; } }
 
         /// <summary>
         /// 

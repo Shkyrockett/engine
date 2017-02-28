@@ -32,7 +32,9 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public Orientation((double Roll, double Pitch, double Yaw) tuple)
-            => (Roll, Pitch, Yaw) = tuple;
+        {
+            (Roll, Pitch, Yaw) = tuple;
+        }
 
         /// <summary>
         /// 

@@ -47,7 +47,9 @@ namespace MethodSpeedTester
         /// 
         /// </summary>
         public PolygonPointTester()
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

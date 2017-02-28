@@ -29,7 +29,9 @@ namespace Engine.Winforms
         /// </summary>
         public PaletteToolStripItem()
             : base(new PaletteControl())
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

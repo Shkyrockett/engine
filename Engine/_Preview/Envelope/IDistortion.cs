@@ -21,6 +21,6 @@ namespace Engine._Preview
         /// <param name="source"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        Point2D Distort(GeometryPath source, Point2D point);
+        Point2D Distort(PathContour source, Point2D point);
     }
 }

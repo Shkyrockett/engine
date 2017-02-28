@@ -61,7 +61,9 @@ namespace Engine.Winforms
         /// Initializes a new instance of the <see cref="PaletteControl"/> class.
         /// </summary>
         public PaletteControl()
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// The palette list of colors.

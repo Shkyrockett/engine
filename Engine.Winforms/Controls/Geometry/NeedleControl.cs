@@ -36,7 +36,9 @@ namespace Engine
             /// </summary>
             /// <param name="value"></param>
             public ValueChangedEventArgs(double value)
-                => Value = value;
+            {
+                Value = value;
+            }
 
             /// <summary>
             /// 

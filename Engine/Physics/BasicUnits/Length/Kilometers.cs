@@ -84,7 +84,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Kilometers(double value)
-            => Value = value;
+        {
+            Value = value;
+        }
 
         #endregion
 

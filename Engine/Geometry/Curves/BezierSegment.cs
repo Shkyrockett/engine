@@ -13,8 +13,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
-using static System.Math;
-using static Engine.Maths;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -66,7 +64,9 @@ namespace Engine
         /// <param name="points"></param>
         public BezierSegment(params Point2D[] points)
             : base()
-            => this.points = points;
+        {
+            this.points = points;
+        }
 
         #endregion
 
@@ -77,9 +77,7 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public void Deconstruct(out Point2D[] points)
-        {
-            points = this.points;
-        }
+            => points = this.points;
 
         #endregion
 
@@ -121,19 +119,7 @@ namespace Engine
         /// <returns></returns>
         [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
-        {
-            get
-            {
-                return (Rectangle2D)CachingProperty(() => bounds());
-
-                Rectangle2D bounds()
-                {
-                    (double x0, double x1) = CurveX.GetMinMax(0, 1);
-                    (double y0, double y1) = CurveY.GetMinMax(0, 1);
-                    return new Rectangle2D(x0, y0, x1 - x0, y1 - y0);
-                }
-            }
-        }
+            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// 

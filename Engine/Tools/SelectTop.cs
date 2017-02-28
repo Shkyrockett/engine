@@ -22,7 +22,10 @@ namespace Engine.Tools
         /// <summary>
         /// Initializes a new instance of the <see cref="SelectTop"/> class.
         /// </summary>
-        public SelectTop() => Index = 0;
+        public SelectTop()
+        {
+            Index = 0;
+        }
 
         /// <summary>
         /// Provides the current index of the select tool.

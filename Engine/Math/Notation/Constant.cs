@@ -22,7 +22,9 @@ namespace Engine.MathNotation
         /// 
         /// </summary>
         public Constant()
-            => Variables = new List<Variable>();
+        {
+            Variables = new List<Variable>();
+        }
 
         /// <summary>
         /// 

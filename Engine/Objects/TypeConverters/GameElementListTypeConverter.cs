@@ -78,7 +78,10 @@ namespace Engine
             : SimplePropertyDescriptor
         {
             public GameElementDescriptor(IGameElement gameElement, int index)
-                : base(gameElement.GetType(), index.ToString(), typeof(string)) => GameElement = gameElement;
+                : base(gameElement.GetType(), index.ToString(), typeof(string))
+            {
+                GameElement = gameElement;
+            }
 
             public IGameElement GameElement { get; }
 

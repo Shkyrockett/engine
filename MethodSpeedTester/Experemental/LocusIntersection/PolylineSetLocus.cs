@@ -31,7 +31,9 @@ namespace Engine
         /// </summary>
         /// <param name="polylines"></param>
         public PolylineSetLocus(IEnumerable<List<Point2D>> polylines)
-            => Polylines = polylines as List<List<Point2D>>;
+        {
+            Polylines = polylines as List<List<Point2D>>;
+        }
 
         /// <summary>
         /// 

@@ -23,7 +23,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public ElectronVolt(double value)
-            => Value = value;
+        {
+            Value = value;
+        }
 
         /// <summary>
         ///

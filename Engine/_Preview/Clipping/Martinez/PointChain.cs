@@ -59,6 +59,9 @@ namespace Engine
         /// </summary>
         public bool Closed { get { return closed; } set { closed = value; } }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public List<Point2D> PointList { get { return pointList; } set { pointList = value; } }
 
         #endregion

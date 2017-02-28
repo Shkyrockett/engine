@@ -39,7 +39,9 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public PointSetLocus(List<Point2D> points)
-            => Points = points;
+        {
+            Points = points;
+        }
 
         /// <summary>
         /// 

@@ -84,7 +84,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value">The distance in <see cref="Meters"/>.</param>
         public Meters(double value)
-            => Value = value;
+        {
+            Value = value;
+        }
 
         #endregion
 

@@ -13,9 +13,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -28,7 +31,7 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polygon))]
-    [XmlType(TypeName = "polygon", Namespace = "http://www.w3.org/2000/svg")]
+    [XmlType(TypeName = "polygonSet", Namespace = "http://www.w3.org/2000/svg")]
     public class Polygon
         : Shape, IEnumerable<Contour>
     {
@@ -72,7 +75,9 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Polygon"/> class.
         /// </summary>
         public Polygon(IEnumerable<Contour> contours)
-            => this.contours = contours as List<Contour>;
+        {
+            this.contours = contours as List<Contour>;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon"/> class from a parameter list.
@@ -126,7 +131,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlArray]
+        [XmlIgnore, SoapIgnore]
         public List<Contour> Contours
         {
             get { return contours; }
@@ -134,6 +139,26 @@ namespace Engine
             {
                 contours = value;
                 OnPropertyChanged(nameof(Contours));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Browsable(false)]
+        [XmlAttribute("d"), SoapAttribute("d")]
+        [RefreshProperties(RefreshProperties.All)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string Definition
+        {
+            get { return ToPathDefString(); }
+            set
+            {
+                contours = ParsePathDefString(value);
+                ClearCache();
+                OnPropertyChanged(nameof(Definition));
                 update?.Invoke();
             }
         }
@@ -241,6 +266,76 @@ namespace Engine
         }
 
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pathDefinition"></param>
+        /// <returns></returns>
+        public static List<Contour> ParsePathDefString(string pathDefinition)
+            => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pathDefinition"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public static List<Contour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
+        {
+            // These letters are valid PolyBezier commands. Split the tokens at these.
+            string separators = @"(?=[M])";
+            //string separators = @"(?=[MZ])";
+
+            var contours = new List<Contour>();
+
+            // Split the definition string into shape tokens.
+            foreach (var token in Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrWhiteSpace(t)))
+            {
+                // Get the token type.
+                var cmd = token.Take(1).Single();
+
+                switch (cmd)
+                {
+                    case 'M':
+                        // M is Move to.
+                        contours.Add(new Contour(Contour.ParsePathDefString(token.Substring(1))));
+                        break;
+                    //case 'Z':
+                    //    // Z is End of Path.
+                    //    contours.Closed = true;
+                    //    break;
+                }
+
+            }
+
+            return contours;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private String ToPathDefString()
+            => ToPathDefString(null, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        private String ToPathDefString(string format, IFormatProvider provider)
+        {
+            StringBuilder output = new StringBuilder();
+
+            foreach (var contour in contours)
+            {
+                output.Append($"M{contour.Definition} ");
+            }
+
+            return output.ToString().TrimEnd();
+        }
 
         #region Mutators
 

@@ -29,7 +29,7 @@ namespace Engine
     [XmlInclude(typeof(CubicBezier))]
     [XmlInclude(typeof(Ellipse))]
     [XmlInclude(typeof(EllipticalArc))]
-    [XmlInclude(typeof(GeometryPath))]
+    [XmlInclude(typeof(PathContour))]
     [XmlInclude(typeof(Line))]
     [XmlInclude(typeof(LineSegment))]
     [XmlInclude(typeof(NodeRevealer))]
@@ -226,12 +226,6 @@ namespace Engine
         /// <param name="name"></param>
         protected void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
-        /// <summary>
-        ///
-        /// </summary>
-        public void Refresh()
-            => ClearCache();
 
         /// <summary>
         /// This should be run anytime a property of the item is modified.

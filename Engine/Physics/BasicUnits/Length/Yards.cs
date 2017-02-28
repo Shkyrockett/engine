@@ -84,7 +84,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="value"></param>
         public Yards(double value)
-            => Value = value;
+        {
+            Value = value;
+        }
 
         #endregion
 

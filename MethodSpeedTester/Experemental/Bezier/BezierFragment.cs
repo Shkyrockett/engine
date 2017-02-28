@@ -132,7 +132,11 @@ namespace Engine
             /// 
             /// </summary>
             /// <param name="values"></param>
-            internal ReadonlyPoints(Point2D[] values) => this.values = values;
+            internal ReadonlyPoints(Point2D[] values)
+            {
+                this.values = values;
+            }
+
             /// <summary>
             /// 
             /// </summary>

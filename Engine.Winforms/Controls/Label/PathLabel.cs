@@ -27,7 +27,9 @@ namespace Engine.Winforms
         /// 
         /// </summary>
         public PathLabel()
-            => InitializeComponent();
+        {
+            InitializeComponent();
+        }
 
         /// <summary>
         /// 

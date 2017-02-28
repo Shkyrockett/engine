@@ -86,7 +86,9 @@ namespace Engine
         /// <param name="quoteChar"> The quote char. </param>
         /// <param name="separator"> The list separator. </param>
         internal Tokenizer(string str, char quoteChar, char separator)
-            => Initialize(str, quoteChar, separator);
+        {
+            Initialize(str, quoteChar, separator);
+        }
 
         /// <summary>
         /// 

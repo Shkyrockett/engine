@@ -22,7 +22,9 @@ namespace Engine.Tools
         /// Initializes a new instance of the <see cref="SelectStack"/> class.
         /// </summary>
         public SelectStack()
-            => Index = 0;
+        {
+            Index = 0;
+        }
 
         /// <summary>
         /// Provides the current index of the select tool.

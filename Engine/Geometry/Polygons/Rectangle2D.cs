@@ -124,7 +124,9 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public Rectangle2D((double, double, double, double) tuple)
-            => (x, y, width, height) = tuple;
+        {
+            (x, y, width, height) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with a location and size.
@@ -177,7 +179,7 @@ namespace Engine
             set
             {
                 x = value;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
@@ -198,7 +200,7 @@ namespace Engine
             set
             {
                 y = value;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
@@ -219,7 +221,7 @@ namespace Engine
             set
             {
                 height = value;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Height));
                 update?.Invoke();
             }
@@ -240,7 +242,7 @@ namespace Engine
             set
             {
                 width = value;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Width));
                 update?.Invoke();
             }
@@ -263,7 +265,7 @@ namespace Engine
             {
                 height = width * value;
                 width = height / value;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
@@ -288,7 +290,7 @@ namespace Engine
             {
                 x = value.X;
                 y = value.Y;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
@@ -313,7 +315,7 @@ namespace Engine
             {
                 x = value.X - width * 0.5d;
                 y = value.Y - height * 0.5d;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
@@ -338,7 +340,7 @@ namespace Engine
             {
                 width = value.Width;
                 height = value.Height;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Size));
                 update?.Invoke();
             }
@@ -361,7 +363,7 @@ namespace Engine
             {
                 Left = value.X;
                 Top = value.Y;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(TopLeft));
                 update?.Invoke();
             }
@@ -384,7 +386,7 @@ namespace Engine
             {
                 Right = value.X;
                 Top = value.Y;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(TopRight));
                 update?.Invoke();
             }
@@ -407,7 +409,7 @@ namespace Engine
             {
                 Left = value.X;
                 Bottom = value.Y;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(BottomLeft));
                 update?.Invoke();
             }
@@ -430,7 +432,7 @@ namespace Engine
             {
                 Right = value.X;
                 Bottom = value.Y;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(BottomRight));
                 update?.Invoke();
             }
@@ -453,7 +455,7 @@ namespace Engine
             {
                 width += x - value;
                 x = value;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Left));
                 update?.Invoke();
             }
@@ -476,7 +478,7 @@ namespace Engine
             {
                 height += y - value;
                 y = value;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Top));
                 update?.Invoke();
             }
@@ -498,7 +500,7 @@ namespace Engine
             set
             {
                 width = value - x;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Right));
                 update?.Invoke();
             }
@@ -520,7 +522,7 @@ namespace Engine
             set
             {
                 height = value - y;
-                Refresh();
+                ClearCache();
                 OnPropertyChanged(nameof(Bottom));
                 update?.Invoke();
             }

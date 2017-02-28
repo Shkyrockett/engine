@@ -30,7 +30,9 @@ namespace Engine
         /// </summary>
         /// <param name="actions"></param>
         public TimeLine(Dictionary<double, List<(Delegate, List<object>)>> actions)
-            => Actions = actions;
+        {
+            Actions = actions;
+        }
 
         /// <summary>
         /// 

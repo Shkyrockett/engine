@@ -76,7 +76,9 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public Matrix2x2D((double M1x1, double M1x2, double M2x1, double M2x2) tuple)
-            => (m0x0, m0x1, m1x0, m1x1) = tuple;
+        {
+            (m0x0, m0x1, m1x0, m1x1) = tuple;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix3x2D"/> class of the form:<br/>

@@ -1825,55 +1825,6 @@ namespace Engine
         /// <summary>
         /// Find the intersection point between two line segments.
         /// </summary>
-        /// <param name="x0">The x component of the first point of the first line.</param>
-        /// <param name="y0">The y component of the first point of the first line.</param>
-        /// <param name="x1">The x component of the second point of the first line.</param>
-        /// <param name="y1">The y component of the second point of the first line.</param>
-        /// <param name="x2">The x component of the first point of the second line.</param>
-        /// <param name="y2">The y component of the first point of the second line.</param>
-        /// <param name="x3">The x component of the second point of the second line.</param>
-        /// <param name="y3">The y component of the second point of the second line.</param>
-        /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection LineSegmentLineSegmentIntersection2(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3)
-        {
-            Intersection result = new Intersection(IntersectionState.NoIntersection);
-
-            // Translate lines to origin.
-            double u1 = (x1 - x0);
-            double v1 = (y1 - y0);
-            double u2 = (x3 - x2);
-            double v2 = (y3 - y2);
-
-            // Calculate the determinant of the coefficient matrix.
-            double determinant = (v2 * u1) - (u2 * v1);
-
-            // Check if the lines are parallel or coincident.
-            if (Abs(determinant) < Epsilon)
-                return result;
-
-            // Find the index where the intersection point lies on the line.
-            double s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
-            double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
-
-            // Check whether the point is on the segment.
-            if ((t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d))
-            {
-                result = new Intersection(IntersectionState.Intersection);
-                result.AppendPoint(new Point2D(x0 + t * u1, y0 + t * v1));
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Find the intersection point between two line segments.
-        /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
         /// <param name="a2X"></param>
@@ -1920,6 +1871,55 @@ namespace Engine
                     result = new Intersection(IntersectionState.Parallel);
                 }
             }
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection point between two line segments.
+        /// </summary>
+        /// <param name="x0">The x component of the first point of the first line.</param>
+        /// <param name="y0">The y component of the first point of the first line.</param>
+        /// <param name="x1">The x component of the second point of the first line.</param>
+        /// <param name="y1">The y component of the second point of the first line.</param>
+        /// <param name="x2">The x component of the first point of the second line.</param>
+        /// <param name="y2">The y component of the first point of the second line.</param>
+        /// <param name="x3">The x component of the second point of the second line.</param>
+        /// <param name="y3">The y component of the second point of the second line.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection LineSegmentLineSegmentIntersection2(
+            double x0, double y0,
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+        {
+            Intersection result = new Intersection(IntersectionState.NoIntersection);
+
+            // Translate lines to origin.
+            double u1 = (x1 - x0);
+            double v1 = (y1 - y0);
+            double u2 = (x3 - x2);
+            double v2 = (y3 - y2);
+
+            // Calculate the determinant of the coefficient matrix.
+            double determinant = (v2 * u1) - (u2 * v1);
+
+            // Check if the lines are parallel or coincident.
+            if (Abs(determinant) < Epsilon)
+                return result;
+
+            // Find the index where the intersection point lies on the line.
+            double s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+
+            // Check whether the point is on the segment.
+            if ((t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d))
+            {
+                result = new Intersection(IntersectionState.Intersection);
+                result.AppendPoint(new Point2D(x0 + t * u1, y0 + t * v1));
+            }
+
             return result;
         }
 
@@ -2871,6 +2871,7 @@ namespace Engine
         /// <param name="l1y"></param>
         /// <returns></returns>
         /// <remarks>
+        /// This method has an error where it does not return an intersection with a horizontal line and the end points of the curve share the same y value, as well as the handles sharing another y value.
         /// Found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Based on code now found at: http://www.abecedarical.com/javascript/script_cubic.html
         /// </remarks>

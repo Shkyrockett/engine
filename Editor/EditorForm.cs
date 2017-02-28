@@ -346,8 +346,6 @@ namespace Editor
             //vectorMap.Add(circleBoundsItem);
             //vectorMap.Add(circleBItem);
 
-
-
             //double cent = 1d;
 
             //Shape rectangle2 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 20d.ToRadians());
@@ -379,22 +377,22 @@ namespace Editor
             //vectorMap.Add(rectangle8Item);
 
 
-            var quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            var quadBezierItem = new GraphicItem(quadBezier, styles[7]);
-            var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, styles[7]);
-            vectorMap.Add(quadBezierBoundsIthem);
-            vectorMap.Add(quadBezierItem);
+            //var quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
+            //var quadBezierItem = new GraphicItem(quadBezier, styles[7]);
+            //var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, styles[7]);
+            //vectorMap.Add(quadBezierBoundsIthem);
+            //vectorMap.Add(quadBezierItem);
             //StringBuilder quadBezierLengths = new StringBuilder();
             //quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.Length);
             //quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.Length);
             //quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.Length);
             //MessageBox.Show(quadBezierLengths.ToString());
 
-            var cubeBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
-            var cubeBezierItem = new GraphicItem(cubeBezier, styles[8]);
-            var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, styles[8]);
-            vectorMap.Add(cubeBezierBoundsItem);
-            vectorMap.Add(cubeBezierItem);
+            //var cubeBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
+            //var cubeBezierItem = new GraphicItem(cubeBezier, styles[8]);
+            //var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, styles[8]);
+            //vectorMap.Add(cubeBezierBoundsItem);
+            //vectorMap.Add(cubeBezierItem);
             //StringBuilder cubeBezierLengths = new StringBuilder();
             //cubeBezierLengths.AppendLine("Bezier arc length: \t" + cubeBezier.Length);
             //MessageBox.Show(cubeBezierLengths.ToString());
@@ -593,7 +591,7 @@ namespace Editor
 
             var cubicSegmentNodeItem = new GraphicItem(new NodeRevealer(cubicSegment.Points, 5d), styles[6]);
 
-            var cubicBezier = new BezierSegment(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
+            var cubicBezier = new CubicBezier(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
             var cubicBezierItem = new GraphicItem(cubicBezier, styles[1])
             {
                 Name = "Cubic Bézier."
@@ -681,7 +679,7 @@ namespace Editor
 
             var quadraticSegmentNodeItem = new GraphicItem(new NodeRevealer(quadraticSegment.Points, 5d), styles[6]);
 
-            var quadraticBezier = new BezierSegment(new Point2D(250, 50), new Point2D(300, 100), new Point2D(350, 50));
+            var quadraticBezier = new QuadraticBezier(new Point2D(250, 50), new Point2D(300, 100), new Point2D(350, 50));
             var quadraticBezierItem = new GraphicItem(quadraticBezier, styles[1])
             {
                 Name = "Quadratic Bezier."

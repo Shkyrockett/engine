@@ -26,11 +26,6 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        public static Circle Circle = new Circle(new Point2D(200, 200), 100);
-        
-        /// <summary>
-        /// 
-        /// </summary>
         public static Ellipse Ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
         
         /// <summary>
@@ -53,16 +48,6 @@ namespace Editor
         /// 
         /// </summary>
         public static LineSegment Line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public static Oval OvalVertical = new Oval(new Point2D(200, 200), new Size2D(100, 200));
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public static Contour PaperPlane = new Contour(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) });
         
         /// <summary>
         /// 
@@ -104,25 +89,5 @@ namespace Editor
         /// 
         /// </summary>
         public static Polyline PolyTriangle = new Polyline(new List<Point2D>() { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) });
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public static Contour PolygonTriangleA = new Contour(new List<Point2D> { (300, 0), (600, 450), (0, 450) });
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public static Contour PolygonTriangleB = new Contour(new List<Point2D> { (0, 150), (600, 150), (300, 600) });
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public static Rectangle2D Square = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100));
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public static Triangle TrianglePointingRight = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100));
     }
 }

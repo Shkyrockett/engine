@@ -29,7 +29,7 @@ namespace Engine
     public class Rectangle2D
         : Shape, IClosedShape
     {
-        #region Static Fields
+        #region Implementations
 
         /// <summary>
         ///
@@ -43,7 +43,7 @@ namespace Engine
 
         #endregion
 
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         ///

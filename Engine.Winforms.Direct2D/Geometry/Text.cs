@@ -13,7 +13,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Engine.Winforms
+namespace Engine.Direct2D
 {
     /// <summary>
     /// 

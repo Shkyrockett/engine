@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Engine
 {
@@ -683,6 +684,83 @@ namespace Engine
         [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
             => Interpolaters.EllipticalArc(cX, cY, rX, rY, angle, startAngle, sweepAngle, 1);
+
+        /// <summary>
+        /// Gets the angles of the extreme points of the rotated ellipse.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<double> ExtremeAngles
+        {
+            get
+            {
+                // Get the ellipse rotation transform.
+                double cosT = Cos(angle);
+                double sinT = Sin(angle);
+
+                // Calculate the radii of the angle of rotation.
+                double a = rX * cosT;
+                double b = rY * sinT;
+                double c = rX * sinT;
+                double d = rY * cosT;
+
+                // Ellipse equation for an ellipse at origin.
+                double u1 = rX * Cos(Atan2(d, c));
+                double v1 = -(rY * Sin(Atan2(d, c)));
+                double u2 = rX * Cos(Atan2(-b, a));
+                double v2 = -(rY * Sin(Atan2(-b, a)));
+
+                return new List<double>
+                {
+                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
+                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
+                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
+                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
+                };
+            }
+        }
+
+        /// <summary>
+        /// Get the points of the Cartesian extremes of a rotated ellipse.
+        /// </summary>
+        /// <remarks>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<Point2D> ExtremePoints
+        {
+            get
+            {
+                double a = rX * Cos(angle);
+                double c = rX * Sin(angle);
+                double d = rY * Cos(angle);
+                double b = rY * Sin(angle);
+
+                // Find the angles of the Cartesian extremes.
+                double a1 = Atan2(-b, a);
+                double a2 = Atan2(-b, a) + PI;
+                double a3 = Atan2(d, c);
+                double a4 = Atan2(d, c) + PI;
+
+                // Return the points of Cartesian extreme of the rotated ellipse.
+                return new List<Point2D> {
+                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a1),
+                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a2),
+                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a3),
+                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a4)
+                };
+            }
+        }
 
         /// <summary>
         /// Gets the Bounding box of the elliptical arc.

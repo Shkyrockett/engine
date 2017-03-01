@@ -30,12 +30,14 @@ namespace Engine
     public class LineSegment
         : Shape, IOpenShape
     {
-        #region Static Fields
+        #region Implementations
+
         /// <summary>
         /// Represents a Engine.Geometry.Segment that is null.
         /// </summary>
         /// <remarks></remarks>
         public static readonly LineSegment Empty = new LineSegment();
+
         #endregion
 
         #region Private Fields

@@ -28,7 +28,7 @@ namespace Engine
     public class PointSet
         : Shape, IClosedShape
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// 

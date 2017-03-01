@@ -26,7 +26,7 @@ namespace Engine
     public class CircularSegment
         : Shape, IClosedShape
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// The center x coordinate point of the circle.

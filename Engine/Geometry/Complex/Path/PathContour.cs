@@ -36,7 +36,7 @@ namespace Engine
     {
         #region Fields
 
-        List<PathItem> items = new List<PathItem>();
+        List<PathItem> items;
 
         bool closed = false;
 

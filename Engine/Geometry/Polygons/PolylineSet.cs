@@ -29,7 +29,7 @@ namespace Engine
     public class PolylineSet
         : Shape
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// An array of Polygons representing a set.

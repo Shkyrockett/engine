@@ -8,12 +8,13 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine.Imaging;
 using Engine.MathNotation;
 using Engine.Winforms;
 using System;
 using System.Drawing;
 
-namespace Engine.Imaging
+namespace Engine.Direct2D
 {
     /// <summary>
     ///

@@ -35,7 +35,7 @@ namespace Engine
     public class PolyBezier
         : Shape, IEnumerable<PolyBezierContour>
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// An array of Polygon Contours.

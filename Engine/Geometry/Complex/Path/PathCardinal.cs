@@ -136,6 +136,7 @@ namespace Engine
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public override Point2D Interpolate(double t) => throw new NotImplementedException();
+        public override Point2D Interpolate(double t)
+            => throw new NotImplementedException();
     }
 }

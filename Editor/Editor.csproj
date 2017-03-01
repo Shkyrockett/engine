@@ -112,6 +112,7 @@
     <Compile Include="Examples.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCases.cs" />
     <EmbeddedResource Include="Direct2DForm.resx">
       <DependentUpon>Direct2DForm.cs</DependentUpon>
     </EmbeddedResource>

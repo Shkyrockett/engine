@@ -33,7 +33,7 @@ namespace Engine
     public class Contour
         : Shape, IEnumerable<Point2D>, IClosedShape
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// 
@@ -183,7 +183,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points));
+            => (points != null) ? (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points)) : null;
 
         /// <summary>
         /// 

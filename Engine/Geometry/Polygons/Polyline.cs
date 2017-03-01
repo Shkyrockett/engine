@@ -28,7 +28,7 @@ namespace Engine
     public class Polyline
         : Shape, IOpenShape
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         ///

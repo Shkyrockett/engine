@@ -212,6 +212,7 @@ namespace Engine
         /// <param name="y3"></param>
         /// <param name="z3"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MixedProduct(
             double x1, double y1, double z1,

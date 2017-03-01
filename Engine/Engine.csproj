@@ -142,9 +142,9 @@
     <Compile Include="_Preview\Clipping\Martinez\Connector.cs" />
     <Compile Include="_Preview\Clipping\Martinez\PointChain.cs" />
     <Compile Include="_Preview\Envelope\DistortionService.cs" />
-    <Compile Include="_Preview\Envelope\DistortionDirection.cs" />
+    <Compile Include="_Preview\Envelope\Enums\DistortionDirection.cs" />
     <Compile Include="_Preview\Envelope\DistortionBase.cs" />
-    <Compile Include="_Preview\Envelope\IDistortion.cs" />
+    <Compile Include="_Preview\Envelope\Interfaces\IDistortion.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierContour.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierSegment.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
@@ -419,7 +419,7 @@
     <Compile Include="Imaging\Styles\TextStyle.cs" />
     <Compile Include="Imaging\Styles\ShapeStyle.cs" />
     <Compile Include="Imaging\Styles\MasterStyle.cs" />
-    <Compile Include="Imaging\Styles\IStyle.cs" />
+    <Compile Include="Imaging\Styles\Interfaces\IStyle.cs" />
     <Compile Include="Metadata\GraphicsObjectAttribute.cs" />
     <Compile Include="Metadata\FileObjectAttribute.cs" />
     <Compile Include="Objects\Actor.cs" />

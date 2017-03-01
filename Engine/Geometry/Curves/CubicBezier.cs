@@ -32,7 +32,7 @@ namespace Engine
     public class CubicBezier
         : Shape, IOpenShape
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// Position 1 x-coordinate.

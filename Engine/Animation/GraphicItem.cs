@@ -27,6 +27,7 @@ namespace Engine
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
+        /// <remarks>This needs to be staticaly initialized because not all classes initialize the base constructor.</remarks>
         private Dictionary<object, object> propertyCache = new Dictionary<object, object>();
 
         #endregion
@@ -38,7 +39,6 @@ namespace Engine
         /// </summary>
         public GraphicItem()
         {
-            propertyCache = new Dictionary<object, object>();
             Item = null;
         }
 

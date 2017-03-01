@@ -33,7 +33,7 @@ namespace Engine
     {
         #region Fields
 
-        List<PolyBezierSegment> items = new List<PolyBezierSegment>();
+        List<PolyBezierSegment> items;
 
         bool closed = false;
 

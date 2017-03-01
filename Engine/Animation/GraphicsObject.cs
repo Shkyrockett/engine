@@ -15,7 +15,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -65,7 +64,7 @@ namespace Engine
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
         [NonSerialized()]
-        protected Dictionary<object, object> propertyCache = new Dictionary<object, object>();
+        protected Dictionary<object, object> propertyCache;
 
         #endregion
 
@@ -75,7 +74,9 @@ namespace Engine
         ///
         /// </summary>
         public GraphicsObject()
-        { }
+        {
+            propertyCache = new Dictionary<object, object>();
+        }
 
         #endregion
 
@@ -109,6 +110,11 @@ namespace Engine
         public virtual Rectangle2D Bounds { get; set; }
 
         #endregion
+
+        /* 
+         * The following serialization methods were commented out because it caused initialization errors, either in reflection, or serialization.
+         * I would still like them to be inherited and overridden, but I have to work out what the error is.
+         */
 
         //#region Serialization
 

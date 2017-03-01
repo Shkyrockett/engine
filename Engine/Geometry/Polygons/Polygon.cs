@@ -84,8 +84,14 @@ namespace Engine
         /// </summary>
         /// <param name="contours"></param>
         public Polygon(params IEnumerable<Point2D>[] contours)
-            : this(new List<List<Point2D>>(contours as List<Point2D>[]))
-        { }
+        {
+            this.contours = new List<Contour>();
+
+            foreach (var list in contours)
+            {
+                this.contours.Add(new Contour(list));
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon"/> class.
@@ -301,10 +307,10 @@ namespace Engine
                         // M is Move to.
                         contours.Add(new Contour(Contour.ParsePathDefString(token.Substring(1))));
                         break;
-                    //case 'Z':
-                    //    // Z is End of Path.
-                    //    contours.Closed = true;
-                    //    break;
+                        //case 'Z':
+                        //    // Z is End of Path.
+                        //    contours.Closed = true;
+                        //    break;
                 }
 
             }

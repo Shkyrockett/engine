@@ -319,6 +319,26 @@ namespace Editor
                 Name = "Rectangle"
             };
 
+            var triangle = new Contour() { (300, 100), (250, 200), (350, 200) };
+            var triangleItem = new GraphicItem(triangle, solidPurpleStyle)
+            {
+                Name = "Triangle"
+            };
+
+            var curver = interpolateSides(interpolateSides(triangle));
+
+            var curved = new Contour();
+            foreach (var point in curver)
+            {
+                curved.Add(distort(rect1, point));
+            }
+            var curvedTriangleItem = new GraphicItem(curved, solidPurpleStyle)
+            {
+                Name = "Curved Triangle"
+            };
+
+            //var curvedTriangleNodeItem = new GraphicItem(new NodeRevealer(curved.Points, 5d), handleStyle);
+
             var warp = new ParametricWarpGrid((a, b) => distort(a, b),
                 rect1,
                 rect1.Bounds.X,
@@ -326,23 +346,45 @@ namespace Editor
                 rect1.Bounds.Right,
                 rect1.Bounds.Bottom,
                 5, 5);
-            Point2D distort(Rectangle2D rect, Point2D point)
-            {
-                var n = -0.5;
-                return Distortions.Pinch(rect.Center, point, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2, n);
-                //return Distortions.Swirl(rect.Center, point, n);
-                //return Distortions.Water(rect.Center, point, 8);
-                //return Distortions.TimeWarp(rect.Center, point, 10);
-                //return Distortions.Flip(rect.Center, point, true, true);
-            }
-
             var warpItem = new GraphicItem(warp, handleStyle)
             {
                 Name = "Warp"
             };
 
             vectorMap.Add(rect1Item);
+            vectorMap.Add(curvedTriangleItem);
+            //vectorMap.Add(triangleItem);
             vectorMap.Add(warpItem);
+            //vectorMap.Add(curvedTriangleNodeItem);
+
+            Point2D distort(Rectangle2D rect, Point2D point)
+            {
+                var n = -0.5;
+                return Distortions.Pinch(rect.Center, point, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2, n);
+                //var n = -0.008;
+                //return Distortions.Swirl(rect.Center, point, n);
+                //return Distortions.Water(rect.Center, point, 8);
+                //return Distortions.TimeWarp(rect.Center, point, 10);
+                //return Distortions.Flip(rect.Center, point, true, true);
+            }
+
+            Contour interpolateSides(Contour contour)
+            {
+                var result = new Contour();
+                for (int i = 1; i < contour.Count; i++)
+                {
+                    for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
+                    {
+                        result.Add(Interpolaters.Linear(contour[i - 1], contour[i], j));
+                    }
+                }
+                for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
+                {
+                    result.Add(Interpolaters.Linear(contour[contour.Count - 1], contour[0], j));
+                }
+
+                return result;
+            }
         }
 
         /// <summary>

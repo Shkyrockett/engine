@@ -27,7 +27,7 @@ namespace Engine
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
-        /// <remarks>This needs to be staticaly initialized because not all classes initialize the base constructor.</remarks>
+        /// <remarks>This needs to be statically initialized because not all classes initialize the base constructor.</remarks>
         private Dictionary<object, object> propertyCache = new Dictionary<object, object>();
 
         #endregion
@@ -151,6 +151,7 @@ namespace Engine
             => CachingProperty(() => Item?.Bounds) as Rectangle2D;
 
         // ToDo: Need to update point list when the nodes are moved.
+
         /// <summary>
         ///
         /// </summary>
@@ -233,7 +234,7 @@ namespace Engine
         #region Private methods
 
         /// <summary>
-        /// This should be run anytime a property of the item is modified.
+        /// This should be run anytime a property of the item is modified so that cached properties get recalculated for the new values.
         /// </summary>
         private void ClearCache()
             => propertyCache.Clear();
@@ -242,9 +243,13 @@ namespace Engine
         /// Private method for caching computationally and memory intensive properties of child objects
         /// so the child object's properties only get touched when necessary.
         /// </summary>
-        /// <param name="property"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="property">
+        /// The method to execute if the property hasn't been cached.
+        /// To pass a method or property, use the Lambda notation (T)CachingProperty(()=>PropertyName) 
+        /// or (T)CachingProperty(()=>MethodName(Parameters)) where T is the type of the return value.
+        /// </param>
+        /// <param name="name">Auto-filled parameter representing the name of the property being accessed.</param>
+        /// <returns>Returns an <see cref="object"/> containing the results of the delegate property, or cached value.</returns>
         /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
         private object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {

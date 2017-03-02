@@ -1,4 +1,14 @@
-﻿using Engine;
+﻿// <copyright file="TestCases.cs" company="Shkyrockett" >
+//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
+
+using Engine;
 using Engine._Preview;
 using Engine.Imaging;
 using Engine.Physics;
@@ -311,6 +321,20 @@ namespace Editor
         /// 
         /// </summary>
         /// <param name="vectorMap"></param>
+        public static void CurveFitting(VectorMap vectorMap)
+        {
+            Contour points = new Contour() { (50, 50), (100, 75), (150, 75), (200, 75) };
+            var curves = CurveFit.Fit(points.Points, 8);
+            foreach (var curve in curves)
+            {
+                vectorMap.Add(curve);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
         public static void WarpGeometry(VectorMap vectorMap)
         {
             var rect1 = new Rectangle2D(200, 100, 200, 100);
@@ -359,10 +383,10 @@ namespace Editor
 
             Point2D distort(Rectangle2D rect, Point2D point)
             {
-                var n = -0.5;
-                return Distortions.Pinch(rect.Center, point, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2, n);
-                //var n = -0.008;
-                //return Distortions.Swirl(rect.Center, point, n);
+                //var n = -0.5;
+                //return Distortions.Pinch(rect.Center, point, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2, n);
+                var n = -0.008;
+                return Distortions.Swirl(rect.Center, point, n);
                 //return Distortions.Water(rect.Center, point, 8);
                 //return Distortions.TimeWarp(rect.Center, point, 10);
                 //return Distortions.Flip(rect.Center, point, true, true);

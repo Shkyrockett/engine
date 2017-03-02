@@ -30,7 +30,7 @@ namespace Engine
     [DisplayName(nameof(QuadraticBezier))]
     [XmlType(TypeName = "bezier-Segment")]
     public class BezierSegment
-        : Shape, IOpenShape
+        : Shape
     {
         #region Fields
 

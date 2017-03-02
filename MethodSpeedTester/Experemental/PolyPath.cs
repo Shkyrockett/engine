@@ -26,7 +26,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public List<IOpenShape> Shapes { get; set; }
+        public List<Shape> Shapes { get; set; }
 
         /// <summary>
         /// 

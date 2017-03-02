@@ -14,8 +14,6 @@ using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine
 {
@@ -25,6 +23,26 @@ namespace Engine
     public static class Primitives
     {
         // ToDo: Add Tuple Math here.
+
+        /// <summary>
+        /// Checks if two vectors are equal within a small bounded error.
+        /// </summary>
+        /// <param name="p0">First vector to compare.</param>
+        /// <param name="p1">Second vector to compare.</param>
+        /// <returns>True if the vectors are almost equal.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool EqualsOrClose(Point2D p0, Point2D p1)
+            => Measurements.SquareDistance(p0, p1) < Epsilon;
+
+        /// <summary>
+        /// Checks if two vectors are equal within a small bounded error.
+        /// </summary>
+        /// <param name="v0">First vector to compare.</param>
+        /// <param name="v1">Second vector to compare.</param>
+        /// <returns>True if the vectors are almost equal.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool EqualsOrClose(Vector2D v0, Vector2D v1)
+            => Measurements.SquareDistance(v0, v1) < Epsilon;
 
         #region Absolute Angle
 
@@ -2160,10 +2178,10 @@ namespace Engine
             => Normalize2D(point.X, point.Y, value.Width, value.Height);
 
         /// <summary>
-        /// This returns the Normalized Vector3D that is passed. This is also known as a Unit Vector.
+        /// This returns the Normalized Vector2D that is passed. This is also known as a Unit Vector.
         /// </summary>
         /// <param name="source">The Vector3D to be Normalized.</param>
-        /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
+        /// <returns>The Normalized Vector2D. (Unit Vector)</returns>
         /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

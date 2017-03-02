@@ -1077,7 +1077,7 @@ namespace Engine
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
-        public PolyBezier Outline(double d1)
+        public PolyBezier2 Outline(double d1)
             => Outline(d1, d1, 0, 0, true);
 
         /// <summary>
@@ -1086,7 +1086,7 @@ namespace Engine
         /// <param name="d1"></param>
         /// <param name="d2"></param>
         /// <returns></returns>
-        public PolyBezier Outline(double d1, double d2)
+        public PolyBezier2 Outline(double d1, double d2)
             => Outline(d1, d2, 0, 0, true);
 
         /// <summary>
@@ -1096,7 +1096,7 @@ namespace Engine
         /// <param name="d3"></param>
         /// <param name="d4"></param>
         /// <returns></returns>
-        public PolyBezier Outline(double d1, double d3, double d4)
+        public PolyBezier2 Outline(double d1, double d3, double d4)
             => Outline(d1, d1, d3, d4, false);
 
         /// <summary>
@@ -1108,7 +1108,7 @@ namespace Engine
         /// <param name="d4"></param>
         /// <param name="graduated"></param>
         /// <returns></returns>
-        public PolyBezier Outline(double d1, double d2, double d3, double d4, bool graduated = false)
+        public PolyBezier2 Outline(double d1, double d2, double d3, double d4, bool graduated = false)
         {
             List<Bezier> reduced = Reduce();
             int len = reduced.Count;
@@ -1165,7 +1165,7 @@ namespace Engine
             segments.AddRange(bcurves);
             slen = segments.Count;
 
-            return new PolyBezier(segments);
+            return new PolyBezier2(segments);
         }
 
         private Bezier MakeLine(Point3D bs, Point3D fs)

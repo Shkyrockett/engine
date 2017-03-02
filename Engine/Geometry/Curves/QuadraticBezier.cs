@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -29,7 +30,7 @@ namespace Engine
     [DisplayName(nameof(QuadraticBezier))]
     [XmlType(TypeName = "bezier-Quadratic")]
     public class QuadraticBezier
-        : Shape, IOpenShape
+        : Shape
     {
         #region Private Fields
 
@@ -372,6 +373,28 @@ namespace Engine
 
         #endregion
 
+        #region Operators
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(QuadraticBezier left, QuadraticBezier right)
+            => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(QuadraticBezier left, QuadraticBezier right)
+            => !left.Equals(right);
+
+        #endregion
+
         #region Serialization
 
         /// <summary>
@@ -416,19 +439,55 @@ namespace Engine
 
         #endregion
 
-        #region Interpolations
+        /// <summary>
+        /// Samples the bezier curve at the given t value.
+        /// </summary>
+        /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
+        /// <returns>Sampled point.</returns>
+        /// <remarks> https://github.com/burningmime/curves </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D Sample(double t)
+        {
+            double ti = 1 - t;
+            double t0 = ti * ti * ti;
+            double t1 = 3 * ti * ti * t;
+            double t2 = 3 * ti * t * t;
+            return (t0 * A) + (t1 * B) + (t2 * C);
+        }
+
+        /// <summary>
+        /// Gets the first derivative of the curve at the given T value.
+        /// </summary>
+        /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
+        /// <returns>First derivative of curve at sampled point.</returns>
+        /// <remarks> https://github.com/burningmime/curves </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D Derivative(double t)
+        {
+            double ti = 1 - t;
+            double tp0 = 3 * ti * ti;
+            double tp1 = 6 * t * ti;
+            return (tp0 * (B - A)) + (tp1 * (C - B));
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
             => new Point2D(Interpolaters.QuadraticBezier(ax, ay, ax, by, cx, cy, t));
 
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// Gets the tangent (normalized derivative) of the curve at a given T value.
+        /// </summary>
+        /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
+        /// <returns>Direction the curve is going at that point.</returns>
+        /// <remarks> https://github.com/burningmime/curves </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D Tangent(double t)
+            => Primitives.Normalize(Derivative(t));
 
         /// <summary>
         /// 
@@ -436,6 +495,50 @@ namespace Engine
         /// <returns></returns>
         public CubicBezier ToCubicBezier()
             => new CubicBezier(ax, ay, bx,by, cx,cy);
+
+        #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<Point2D> GetEnumerator()
+        {
+            yield return new Point2D(Interpolaters.QuadraticBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, Length));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(CubicBezier other)
+            => A.Equals(other?.A) && B.Equals(other?.B) && C.Equals(other?.C);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+            => obj is CubicBezier && Equals((CubicBezier)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks> https://github.com/burningmime/curves </remarks>
+        public override int GetHashCode()
+        {
+            JenkinsHash hash = new JenkinsHash();
+            hash.Mixin(ax.GetHashCode());
+            hash.Mixin(ay.GetHashCode());
+            hash.Mixin(bx.GetHashCode());
+            hash.Mixin(by.GetHashCode());
+            hash.Mixin(cx.GetHashCode());
+            hash.Mixin(cy.GetHashCode());
+            return hash.GetValue();
+        }
 
         /// <summary>
         /// Creates a string representation of this <see cref="QuadraticBezier"/> struct based on the format string

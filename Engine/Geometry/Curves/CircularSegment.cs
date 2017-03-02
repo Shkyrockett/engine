@@ -24,7 +24,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(CircularSegment))]
     public class CircularSegment
-        : Shape, IClosedShape
+        : Shape
     {
         #region Fields
 

@@ -27,7 +27,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Bow))]
     public class Bow
-        : Shape, IClosedShape, IFormattable
+        : Shape, IFormattable
     {
         #region Fields
 

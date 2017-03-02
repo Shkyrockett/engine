@@ -14,7 +14,7 @@ namespace Engine
     /// 
     /// </summary>
     public class BoundingRectPolygon
-        : IClosedShape
+        : Shape
     {
         /// <summary>
         /// 

@@ -30,7 +30,7 @@ namespace Engine
     [DisplayName(nameof(QuadraticBezier))]
     [XmlType(TypeName = "Polybezier-Segment")]
     public class PolyBezierSegment
-        : Shape, IOpenShape
+        : Shape
     {
         #region Fields
 

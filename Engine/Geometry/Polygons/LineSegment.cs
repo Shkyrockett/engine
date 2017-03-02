@@ -28,7 +28,7 @@ namespace Engine
     [DisplayName(nameof(LineSegment))]
     [XmlType(TypeName = "line-segment")]
     public class LineSegment
-        : Shape, IOpenShape
+        : Shape
     {
         #region Implementations
 

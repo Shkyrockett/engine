@@ -85,7 +85,7 @@ namespace Engine._Preview
             {
                 var c = new Contour();
                 foreach (var p in cont.Points)
-                    c.Add(p.Clone());
+                    c.Add( new Point2D(p));
 
                 poly.Add(c);
 

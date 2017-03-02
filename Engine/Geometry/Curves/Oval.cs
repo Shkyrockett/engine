@@ -23,7 +23,7 @@ namespace Engine
     [DisplayName(nameof(Oval))]
     [XmlType(TypeName = "oval")]
     public class Oval
-        : Shape, IClosedShape
+        : Shape
     {
         #region Fields
 

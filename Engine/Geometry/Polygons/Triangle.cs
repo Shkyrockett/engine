@@ -23,7 +23,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Triangle))]
     public class Triangle
-         : Contour, IClosedShape
+         : Contour
     {
         #region Constructors
 

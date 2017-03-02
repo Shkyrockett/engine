@@ -329,15 +329,15 @@ namespace Engine
         public static implicit operator Vector2D(Point value)
             => new Vector2D(value.X, value.Y);
 
-        /// <summary>
-        /// Vector2D to Point
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        public static implicit operator Vector2D(Point2D value)
-            => new Vector2D(value.X, value.Y);
+        ///// <summary>
+        ///// Vector2D to Point
+        ///// </summary>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        ///// <remarks></remarks>
+        //[DebuggerStepThrough]
+        //public static implicit operator Vector2D(Point2D value)
+        //    => new Vector2D(value.X, value.Y);
 
         /// <summary>
         /// PointF to Vector2D

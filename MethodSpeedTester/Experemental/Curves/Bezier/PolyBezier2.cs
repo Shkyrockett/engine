@@ -7,13 +7,13 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public class PolyBezier
+    public class PolyBezier2
     {
         /// <summary>
         /// Poly Bezier
         /// </summary>
         /// <param name="curves"></param>
-        public PolyBezier(List<Bezier> curves)
+        public PolyBezier2(List<Bezier> curves)
         {
             Is3d = false;
             if (curves == null)

@@ -26,7 +26,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(PointSet))]
     public class PointSet
-        : Shape, IClosedShape
+        : Shape
     {
         #region Fields
 

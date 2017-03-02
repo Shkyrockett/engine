@@ -25,7 +25,7 @@ namespace Engine
     [DisplayName(nameof(Circle))]
     [XmlType(TypeName = "circle", Namespace = "shape")]
     public class Circle
-        : Shape, IClosedShape
+        : Shape
     {
         #region Static creation methods
 

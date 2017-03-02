@@ -2968,7 +2968,7 @@ namespace Engine
             a = new Vector2D(p1X, p1Y).Scale(-1);
             b = new Vector2D(p2X, p2Y).Scale(3);
             c = new Vector2D(p3X, p3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add((p4X, p4Y))));
+            d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
             c3 = new Vector2D(d.I, d.J);
             a = new Vector2D(p1X, p1Y).Scale(3);
             b = new Vector2D(p2X, p2Y).Scale(-6);
@@ -3159,7 +3159,7 @@ namespace Engine
             a = new Vector2D(p1X, p1Y).Scale(-1);
             b = new Vector2D(p2X, p2Y).Scale(3);
             c = new Vector2D(p3X, p3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add((p4X, p4Y))));
+            d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
             c3 = new Vector2D(d.I, d.J);
             a = new Vector2D(p1X, p1Y).Scale(3);
             b = new Vector2D(p2X, p2Y).Scale(-6);
@@ -3232,7 +3232,7 @@ namespace Engine
             a = new Vector2D(a1X, a1Y).Scale(-1);
             b = new Vector2D(a2X, a2Y).Scale(3);
             c = new Vector2D(a3X, a3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add((a4X, a4Y))));
+            d = a.Add(b.Add(c.Add(new Vector2D(a4X, a4Y))));
             c13 = new Vector2D(d.I, d.J);
             a = new Vector2D(a1X, a1Y).Scale(3);
             b = new Vector2D(a2X, a2Y).Scale(-6);
@@ -3247,7 +3247,7 @@ namespace Engine
             a = new Vector2D(b1X, b1Y).Scale(-1);
             b = new Vector2D(b2X, b2Y).Scale(3);
             c = new Vector2D(b3X, b3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add((b4X, b4Y))));
+            d = a.Add(b.Add(c.Add(new Vector2D(b4X, b4Y))));
             c23 = new Vector2D(d.I, d.J);
             a = new Vector2D(b1X, b1Y).Scale(3);
             b = new Vector2D(b2X, b2Y).Scale(-6);
@@ -3457,12 +3457,12 @@ namespace Engine
             var max = MaxPoint(a1X, a1Y, a2X, a2Y);
             var result = new Intersection(IntersectionState.NoIntersection);
             var a = new Vector2D(p2X, p2Y).Scale(-2);
-            var c2 = new Vector2D(p1X, p1Y).Add(a.Add((p3X, p3Y)));
+            var c2 = new Vector2D(p1X, p1Y).Add(a.Add(new Vector2D(p3X, p3Y)));
             a = new Vector2D(p1X, p1Y).Scale(-2);
             var b = new Vector2D(p2X, p2Y).Scale(2);
             var c1 = a.Add(b);
             var c0 = new Point2D(p1X, p1Y);
-            var n = new Vector2D(a1Y - a2Y, a2X - a1X);
+            var n = new Point2D(a1Y - a2Y, a2X - a1X);
             var cl = a1X * a2Y - a2X * a1Y;
             var roots = new Polynomial(
                 n.DotProduct(c0) + cl,
@@ -3622,11 +3622,11 @@ namespace Engine
             Vector2D c2, c1, c0;
             var result = new Intersection(IntersectionState.NoIntersection);
             a = new Vector2D(p2X, p2Y).Scale(-2);
-            c2 = new Vector2D(p1X, p1Y).Add(a.Add((p3X, p3Y)));
+            c2 = new Vector2D(p1X, p1Y).Add(a.Add(new Vector2D(p3X, p3Y)));
             a = new Vector2D(p1X, p1Y).Scale(-2);
             b = new Vector2D(p2X, p2Y).Scale(2);
             c1 = a.Add(b);
-            c0 = new Point2D(p1X, p1Y);
+            c0 = new Vector2D(p1X, p1Y);
             var rxrx = rx * rx;
             var ryry = ry * ry;
             var roots = new Polynomial(
@@ -3681,15 +3681,15 @@ namespace Engine
             Vector2D c23, c22, c21, c20;
             var result = new Intersection(IntersectionState.NoIntersection);
             a = new Vector2D(a2X, a2Y).Scale(-2);
-            c12 = new Vector2D(a1X, a1Y).Add(a.Add((a3X, a3Y)));
+            c12 = new Vector2D(a1X, a1Y).Add(a.Add(new Vector2D(a3X, a3Y)));
             a = new Vector2D(a1X, a1Y).Scale(-2);
             b = new Vector2D(a2X, a2Y).Scale(2);
             c11 = a.Add(b);
-            c10 = new Point2D(a1X, a1Y);
+            c10 = new Vector2D(a1X, a1Y);
             a = new Vector2D(b1X, b1Y).Scale(-1);
             b = new Vector2D(b2X, b2Y).Scale(3);
             c = new Vector2D(b3X, b3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add((b4X, b4Y))));
+            d = a.Add(b.Add(c.Add(new Vector2D(b4X, b4Y))));
             c23 = new Vector2D(d.I, d.J);
             a = new Vector2D(b1X, b1Y).Scale(3);
             b = new Vector2D(b2X, b2Y).Scale(-6);
@@ -3793,17 +3793,17 @@ namespace Engine
             Vector2D c22, c21, c20;
             var result = new Intersection(IntersectionState.NoIntersection);
             va = new Vector2D(a2X, a2Y).Scale(-2);
-            c12 = new Vector2D(a1X, a1Y).Add(va.Add((a3X, a3Y)));
+            c12 = new Vector2D(a1X, a1Y).Add(va.Add(new Vector2D(a3X, a3Y)));
             va = new Vector2D(a1X, a1Y).Scale(-2);
             vb = new Vector2D(a2X, a2Y).Scale(2);
             c11 = va.Add(vb);
-            c10 = new Point2D(a1X, a1Y);
+            c10 = new Vector2D(a1X, a1Y);
             va = new Vector2D(b2X, b2Y).Scale(-2);
-            c22 = new Vector2D(b1X, b1Y).Add(va.Add((b3X, b3Y)));
+            c22 = new Vector2D(b1X, b1Y).Add(va.Add(new Vector2D(b3X, b3Y)));
             va = new Vector2D(b1X, b1Y).Scale(-2);
             vb = new Vector2D(b2X, b2Y).Scale(2);
             c21 = va.Add(vb);
-            c20 = new Point2D(b1X, b1Y);
+            c20 = new Vector2D(b1X, b1Y);
             var a = c12.I * c11.J - c11.I * c12.J;
             var b = c22.I * c11.J - c11.I * c22.J;
             var c = c21.I * c11.J - c11.I * c21.J;

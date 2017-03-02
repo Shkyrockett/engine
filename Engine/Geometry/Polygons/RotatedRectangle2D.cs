@@ -26,7 +26,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(RotatedRectangle2D))]
     public class RotatedRectangle2D
-        : Shape, IClosedShape
+        : Shape
     {
         #region Implementations
 

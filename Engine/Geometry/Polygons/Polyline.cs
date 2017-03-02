@@ -26,7 +26,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Polyline))]
     public class Polyline
-        : Shape, IOpenShape
+        : Shape
     {
         #region Fields
 
@@ -99,9 +99,7 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public void Deconstruct(out List<Point2D> points)
-        {
-            points = this.points;
-        }
+            => points = this.points;
 
         #endregion
 

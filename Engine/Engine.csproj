@@ -120,6 +120,7 @@
     <Compile Include="Geometry\Enums\WindingRules.cs" />
     <Compile Include="Geometry\Polygons\Contour.cs" />
     <Compile Include="Geometry\Polygons\Polygon.cs" />
+    <Compile Include="Framework\JenkinsHash.cs" />
     <Compile Include="Math\Primitives\Interfaces\IMatrix.cs" />
     <Compile Include="Math\Primitives\Interfaces\IVector.cs" />
     <Compile Include="Math\Primitives\Matrix3x2D.cs" />
@@ -128,7 +129,9 @@
     <Compile Include="Math\Primitives\Vector2D.cs" />
     <Compile Include="Math\Primitives\Vector3D.cs" />
     <Compile Include="Math\Primitives\Vector4D.cs" />
+    <Compile Include="_Preview\CurveFitting\CurveFitBase.cs" />
     <Compile Include="_Preview\CurveFitting\CurveFit.cs" />
+    <Compile Include="_Preview\CurveFitting\CurvePreprocess.cs" />
     <Compile Include="_Preview\Envelope\Distortions.cs" />
     <Compile Include="_Preview\Envelope\ParametricWarpGrid.cs" />
     <Compile Include="_Preview\Envelope\PunchDistortion.cs" />
@@ -181,7 +184,7 @@
     <Compile Include="Geometry\Polygons\Ray.cs" />
     <Compile Include="_Preview\Intersection\Enums\IntersectionState.cs" />
     <Compile Include="_Preview\Intersection\Enums\PolynomialDegree.cs" />
-    <Compile Include="_Preview\Intersection\Measurements.cs" />
+    <Compile Include="_Preview\Measurements.cs" />
     <Compile Include="_Preview\Intersection\Intersection.cs" />
     <Compile Include="Objects\GraphicsCataloge.cs" />
     <Compile Include="Animation\Particles\Particle.cs" />
@@ -360,10 +363,8 @@
     <Compile Include="Localization\Enums\ISO3166_3.cs" />
     <Compile Include="Localization\Enums\ISO639.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IInfinateShape.cs" />
-    <Compile Include="Objects\Interfaces\Geometry\IClosedShape.cs" />
     <Compile Include="Objects\Interfaces\Geometry\ICurve.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IIteratablePathElement.cs" />
-    <Compile Include="Objects\Interfaces\Geometry\IOpenShape.cs" />
     <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
     <Compile Include="Objects\Interfaces\ITweenable.cs" />
     <Compile Include="Math\Primitives\Size2D.cs" />

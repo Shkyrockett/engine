@@ -31,7 +31,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Agnesi))]
     public class Agnesi
-        : Shape, IClosedShape
+        : Shape
     {
         #region Fields
 

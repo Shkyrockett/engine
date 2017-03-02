@@ -23,7 +23,7 @@ namespace Engine
     [DisplayName(nameof(CircularArc))]
     [XmlType(TypeName = "arc-Circular")]
     public class CircularArc
-        : Shape, IOpenShape
+        : Shape
     {
         #region Fields
 

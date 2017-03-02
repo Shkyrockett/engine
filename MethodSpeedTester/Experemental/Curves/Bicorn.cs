@@ -27,7 +27,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Bicorn))]
     public class Bicorn
-        : Shape, IClosedShape
+        : Shape
     {
         #region Fields
 

@@ -1,6 +1,4 @@
-﻿using static Engine._Preview.MartinezClipping;
-
-namespace Engine._Preview
+﻿namespace Engine._Preview
 {
     /// <summary>
     /// The Segment class is used to represent an edge of a polygon.
@@ -84,7 +82,7 @@ namespace Engine._Preview
         /// <returns></returns>
         public LineSegment2D Reverse()
         {
-            Swap(a, b);
+            Maths.Swap(ref a, ref b);
             return this;
         }
     }

@@ -27,7 +27,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Butterfly))]
     public class Butterfly
-        : Shape, IClosedShape
+        : Shape
     {
         #region Fields
 

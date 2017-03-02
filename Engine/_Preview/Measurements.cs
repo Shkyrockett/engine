@@ -159,6 +159,32 @@ namespace Engine
 
         #endregion
 
+        #region SquareDistance Extension Method Overloads
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistance(this Point2D point1, Point2D point2)
+            => SquareDistance(point1.X, point1.Y, point2.X, point2.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistance(this Vector2D point1, Vector2D point2)
+            => SquareDistance(point1.I, point1.J, point2.I, point2.J);
+
+        #endregion
+
         #region Nearest Extension Method Overloads
 
         /// <summary>
@@ -598,57 +624,6 @@ namespace Engine
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1) + (w2 - w1) * (w2 - w1));
 
         /// <summary>
-        /// The square of the distance between two points.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(
-            double x1, double y1,
-            double x2, double y2)
-            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
-
-        /// <summary>
-        /// The square of the distance between two points.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2)
-            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1);
-
-        /// <summary>
-        /// The square of the distance between two points.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="w1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="w2"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(
-            double x1, double y1, double z1, double w1,
-            double x2, double y2, double z2, double w2)
-            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1) + (w2 - z1) * (w2 - w1);
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="aX"></param>
@@ -769,6 +744,61 @@ namespace Engine
                 : Abs(ul * vp0 - up0 * vl) / length;
         }
 
+        #endregion
+
+        #region SquareDistance Methods
+
+        /// <summary>
+        /// The square of the distance between two points.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistance(
+            double x1, double y1,
+            double x2, double y2)
+            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+
+        /// <summary>
+        /// The square of the distance between two points.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistance(
+            double x1, double y1, double z1,
+            double x2, double y2, double z2)
+            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1);
+
+        /// <summary>
+        /// The square of the distance between two points.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="w1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="w2"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistance(
+            double x1, double y1, double z1, double w1,
+            double x2, double y2, double z2, double w2)
+            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1) + (w2 - z1) * (w2 - w1);
+
         /// <summary>
         /// Find the square of the distance of a point from a line.
         /// </summary>
@@ -794,7 +824,7 @@ namespace Engine
 
         #endregion
 
-        #region Nearest
+        #region Nearest Methods
 
         /// <summary>
         /// 

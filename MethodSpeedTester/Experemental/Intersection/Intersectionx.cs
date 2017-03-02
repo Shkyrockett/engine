@@ -48,7 +48,7 @@ namespace Engine
         /// <param name="Intersects"></param>
         /// <param name="Type"></param>
         /// <remarks></remarks>
-        public Intersectionx(Point2D[] Locations, bool Intersects, IntersectionType Type)
+        public Intersectionx(Point2D[] Locations, bool Intersects, IntersectionState Type)
         {
             IntersectionPoint = Locations;
             Itersecting = Intersects;
@@ -69,7 +69,7 @@ namespace Engine
             Itersecting = Intersects;
             this.Paralell = Paralell;
             if (Paralell)
-                Type = IntersectionType.Parallel;
+                Type = IntersectionState.Parallel;
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Engine
             Itersecting = Intersects;
             this.Paralell = Paralell;
             if (Paralell)
-                Type = IntersectionType.Parallel;
+                Type = IntersectionState.Parallel;
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Engine
         /// <param name="Intersects"></param>
         /// <param name="Type"></param>
         /// <remarks></remarks>
-        public Intersectionx(Point2D Locations, bool Intersects, IntersectionType Type)
+        public Intersectionx(Point2D Locations, bool Intersects, IntersectionState Type)
         {
             IntersectionPoint = new Point2D[] {
                      Locations};
@@ -124,6 +124,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public IntersectionType Type { get; set; }
+        public IntersectionState Type { get; set; }
     }
 }

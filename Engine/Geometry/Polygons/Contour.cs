@@ -31,7 +31,7 @@ namespace Engine
     [DisplayName(nameof(Contour))]
     [XmlType(TypeName = "polygon", Namespace = "http://www.w3.org/2000/svg")]
     public class Contour
-        : Shape, IEnumerable<Point2D>, IClosedShape
+        : Shape, IEnumerable<Point2D>
     {
         #region Fields
 

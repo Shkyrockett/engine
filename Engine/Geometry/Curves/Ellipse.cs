@@ -25,7 +25,7 @@ namespace Engine
     [DisplayName(nameof(Ellipse))]
     [XmlType(TypeName = "ellipse", Namespace = "http://www.w3.org/2000/svg")]
     public class Ellipse
-        : Shape, IClosedShape
+        : Shape
     {
         #region Fields
 

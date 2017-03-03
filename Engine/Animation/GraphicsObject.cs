@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -22,19 +23,6 @@ namespace Engine
     /// <summary>
     /// Graphic objects base class.
     /// </summary>
-    [XmlInclude(typeof(BezierSegment))]
-    [XmlInclude(typeof(Circle))]
-    [XmlInclude(typeof(CircularArc))]
-    [XmlInclude(typeof(CubicBezier))]
-    [XmlInclude(typeof(Ellipse))]
-    [XmlInclude(typeof(EllipticalArc))]
-    [XmlInclude(typeof(PathContour))]
-    [XmlInclude(typeof(Line))]
-    [XmlInclude(typeof(LineSegment))]
-    [XmlInclude(typeof(NodeRevealer))]
-    [XmlInclude(typeof(QuadraticBezier))]
-    [XmlInclude(typeof(Ray))]
-    [XmlInclude(typeof(Rectangle2D))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GraphicsObject
         : IFormattable, INotifyPropertyChanging, INotifyPropertyChanged
@@ -111,54 +99,49 @@ namespace Engine
 
         #endregion
 
-        /* 
-         * The following serialization methods were commented out because it caused initialization errors, either in reflection, or serialization.
-         * I would still like them to be inherited and overridden, but I have to work out what the error is.
-         */
+        #region Serialization
 
-        //#region Serialization
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerializing()]
+        protected virtual void OnSerializing(StreamingContext context)
+        {
+            // Assert("This value went into the data file during serialization.");
+        }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //protected virtual void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnSerialized()]
+        protected virtual void OnSerialized(StreamingContext context)
+        {
+            // Assert("This value was reset after serialization.");
+        }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //protected virtual void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserializing()]
+        protected virtual void OnDeserializing(StreamingContext context)
+        {
+            // Assert("This value was set during deserialization");
+        }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //protected virtual void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized()]
+        protected virtual void OnDeserialized(StreamingContext context)
+        {
+            // Assert("This value was set after deserialization.");
+        }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //protected virtual void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
+        #endregion
 
         #region Interpolation
 
@@ -175,7 +158,7 @@ namespace Engine
         /// </summary>
         /// <param name="count">The number of points desired.</param>
         /// <returns></returns>
-        public virtual List<Point2D> InterpolatePoints(int count)
+        public virtual List<Point2D> InterpolatePoints(int count = 100)
             => new List<Point2D>(
             from i in Enumerable.Range(0, count)
             select Interpolate((1d / count) * i));
@@ -236,7 +219,7 @@ namespace Engine
         /// <summary>
         /// This should be run anytime a property of the item is modified.
         /// </summary>
-        protected void ClearCache()
+        public void ClearCache()
             => propertyCache.Clear();
 
         /// <summary>

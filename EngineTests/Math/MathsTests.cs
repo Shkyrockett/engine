@@ -376,9 +376,9 @@ namespace Engine.Tests
                 { (double.MaxValue, 0), true },
                 { (double.MinValue, double.MaxValue), true },
                 { (double.MaxValue, double.MinValue), true },
-                { ((double.MinValue / 2d), (double.MaxValue / 2d)), true },
-                { ((double.MinValue / 2d), (double.MinValue / 2d)), true },
-                { ((double.MaxValue / 2d), (double.MaxValue / 2d)), true },
+                { ((double.MinValue * 0.5d), (double.MaxValue * 0.5d)), true },
+                { ((double.MinValue * 0.5d), (double.MinValue * 0.5d)), true },
+                { ((double.MaxValue * 0.5d), (double.MaxValue * 0.5d)), true },
                 { (double.MaxValue, double.MaxValue), false },
             };
 
@@ -759,9 +759,9 @@ namespace Engine.Tests
                 { (double.MaxValue, 0), true },
                 //{ (double.MinValue, double.MaxValue), false },
                 //{ (double.MaxValue, double.MinValue), true },
-                //{ ((double.MinValue / 2d), (double.MaxValue / 2d)), true },
-                //{ ((double.MinValue / 2d), (double.MinValue / 2d)), true },
-                //{ ((double.MaxValue / 2d), (double.MaxValue / 2d)), true },
+                //{ ((double.MinValue * 0.5d), (double.MaxValue * 0.5d)), true },
+                //{ ((double.MinValue * 0.5d), (double.MinValue * 0.5d)), true },
+                //{ ((double.MaxValue * 0.5d), (double.MaxValue * 0.5d)), true },
                 //{ (double.MaxValue, double.MaxValue), true },
             };
 

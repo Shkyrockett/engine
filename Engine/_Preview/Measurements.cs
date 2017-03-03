@@ -1075,6 +1075,8 @@ namespace Engine
         /// http://www.iosrjournals.org/iosr-jm/papers/Vol3-issue2/B0320813.pdf
         /// http://mathforum.org/kb/servlet/JiveServlet/download/130-2391290-7852023-766514/PERIMETER%20OF%20THE%20ELLIPTICAL%20ARC%20A%20GEOMETRIC%20METHOD.pdf
         /// </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipticalArcPerimeter(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
             => (/*ChordLength*/(Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY)))
             / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle))))
@@ -1160,19 +1162,19 @@ namespace Engine
 
             double multiplier = (b - a) / 6d;
             double endsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a) + CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, b);
-            double interval = (b - a) / 2d;
+            double interval = (b - a) * 0.5d;
             double asum = 0d;
             double bsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a + interval);
             double est1 = multiplier * (endsum + 2d * asum + 4d * bsum);
             double est0 = 2d * est1;
 
-            while (n < n_limit && (Abs(est1) > 0 && Abs((est1 - est0) / est1) > TOLERANCE))
+            while (n < n_limit && (Abs(est1) > 0d && Abs((est1 - est0) / est1) > TOLERANCE))
             {
                 n *= 2;
                 multiplier /= 2d;
                 interval /= 2d;
                 asum += bsum;
-                bsum = 0;
+                bsum = 0d;
                 est0 = est1;
                 double interval_div_2n = interval / (2d * n);
 
@@ -1217,15 +1219,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="points"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this Point2D[] polygon)
-        {
-            Point2D[] points = polygon;
-            return points.Length > 0 ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Length - 1]) : 0d;
-        }
+        public static double PolygonPerimeter(this Point2D[] points)
+            => points.Length > 0d ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Length - 1]) : 0d;
 
         /// <summary>
         /// 
@@ -1240,15 +1239,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="points"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this List<Point2D> polygon)
-        {
-            List<Point2D> points = polygon;
-            return points.Count > 0 ? points.Zip(points.Skip(1), Measurements.Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0d;
-        }
+        public static double PolygonPerimeter(this List<Point2D> points)
+            => points.Count > 0d ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0d;
 
         /// <summary>
         /// 
@@ -1728,6 +1724,7 @@ namespace Engine
         /// </summary>
         /// <param name="chain">The Chain.</param>
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D GeometryPathBounds(PathContour chain)
         {
@@ -1790,6 +1787,8 @@ namespace Engine
         /// <param name="p2"></param>
         /// <param name="o"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(Point2D p1, Point2D p2, Point2D o)
         {
             double det = (p1.X - o.X) * (p2.Y - o.Y) - (p2.X - o.X) * (p1.Y - o.Y);
@@ -1952,6 +1951,7 @@ namespace Engine
         /// <param name="curveY"></param>
         /// <param name="point"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ClosestParameter(Polynomial curveX, Polynomial curveY, Point2D point)
         {
             var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
@@ -1965,12 +1965,28 @@ namespace Engine
         }
 
         /// <summary>
+        /// Finds the shortest distance between a point and a line. See: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+        /// </summary>
+        /// <param name="segment">The line segment.</param>
+        /// <param name="p">The point to test.</param>
+        /// <returns>The perpendicular distance to the line.</returns>
+        /// <remarks> Based on: https://github.com/burningmime/curves </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double PerpendicularDistance(LineSegment segment, Point2D p)
+        {
+            double area = Abs(segment.CrossProduct + segment.BX * p.Y + p.X * segment.A.Y - p.X * segment.B.Y - segment.A.X * p.Y);
+            double height = area / segment.Length;
+            return height;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="curveX"></param>
         /// <param name="curveY"></param>
         /// <param name="point"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DistanceTo(Polynomial curveX, Polynomial curveY, Point2D point)
         {
             var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
@@ -1991,6 +2007,7 @@ namespace Engine
         /// <param name="curveY"></param>
         /// <param name="p"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial ParameterizedSquareDistance(Polynomial curveX, Polynomial curveY, Point2D p)
         {
             var vx = curveX - p.X;
@@ -2005,6 +2022,7 @@ namespace Engine
         /// <param name="curveY"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Compute(Polynomial curveX, Polynomial curveY, double t)
         {
             var x = curveX.Compute(t);

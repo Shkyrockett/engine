@@ -843,7 +843,7 @@ namespace Engine
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
         public List<Point2D> ToPoints()
-            => Interpolaters.RotatedRectangle(x - (width / 2d), y - (height / 2d), width, height, Center.X, Center.Y, angle);
+            => Interpolaters.RotatedRectangle(x - (width * 0.5d), y - (height * 0.5d), width, height, Center.X, Center.Y, angle);
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.

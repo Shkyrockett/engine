@@ -1470,8 +1470,8 @@ namespace MethodSpeedTester
             double p3X, double p3Y)
         {
             double offset = (p2X * p2X) + (p2Y * p2Y);
-            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) / 2d;
-            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
+            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) * 0.5d;
+            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
             double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
 
             if (Abs(determinant) < DoubleEpsilon)
@@ -1803,8 +1803,8 @@ namespace MethodSpeedTester
             double p3X, double p3Y)
         {
             double offset = (p2X * p2X) + (p2Y * p2Y);
-            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) / 2d;
-            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
+            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) * 0.5d;
+            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
             double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
 
             if (Abs(determinant) < DoubleEpsilon)
@@ -4480,8 +4480,8 @@ namespace MethodSpeedTester
             double p3X, double p3Y)
         {
             double offset = (p2X * p2X) + (p2Y * p2Y);
-            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) / 2d;
-            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) / 2d;
+            double bc = ((p1X * p1X) + (p1Y * p1Y) - offset) * 0.5d;
+            double cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
             double determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
 
             if (Abs(determinant) < DoubleEpsilon)
@@ -7444,7 +7444,7 @@ namespace MethodSpeedTester
                 }
             }
 
-            return polygon.Contains(new Point2D(start.X + end.X / 2d, start.Y + end.Y / 2d));
+            return polygon.Contains(new Point2D(start.X + end.X * 0.5d, start.Y + end.Y * 0.5d));
         }
 
         #endregion
@@ -7526,7 +7526,7 @@ namespace MethodSpeedTester
                 }
             }
 
-            return allPolys.Contains(new Point2D(start.X + end.X / 2d, start.Y + end.Y / 2d));
+            return allPolys.Contains(new Point2D(start.X + end.X * 0.5d, start.Y + end.Y * 0.5d));
         }
 
         #endregion
@@ -10609,8 +10609,8 @@ namespace MethodSpeedTester
         {
             double smallest = rect.Height <= rect.Width ? rect.Height : rect.Width;
             return new Rectangle2D(
-                rect.X + ((rect.Width - smallest) / 2d),
-                rect.Y + ((rect.Height - smallest) / 2d),
+                rect.X + ((rect.Width - smallest) * 0.5d),
+                rect.Y + ((rect.Height - smallest) * 0.5d),
                 smallest,
                 smallest);
         }

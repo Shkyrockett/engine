@@ -23,17 +23,71 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="point1X"></param>
-        /// <param name="point1Y"></param>
-        /// <param name="point2X"></param>
-        /// <param name="point2Y"></param>
+        /// <param name="u0"></param>
+        /// <param name="u1"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Lerp(double u0, double u1, double t)
+            => u0 + (u1 - u0) * t;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Lerp(
-            double point1X, double point1Y,
-            double point2X, double point2Y,
+            double x0, double y0,
+            double x1, double y1,
             double t)
-            => (point1X + (point2X - point1X) * t, point1Y + (point2Y - point1Y) * t);
+            => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="z0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z) Lerp(
+            double x0, double y0, double z0,
+            double x1, double y1, double z1,
+            double t)
+            => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, z0 + (z1 - z0) * t);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="z0"></param>
+        /// <param name="w0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="w1"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z, double W) Lerp(
+            double x0, double y0, double z0, double w0,
+            double x1, double y1, double z1, double w1,
+            double t)
+            => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, z0 + (z1 - z0) * t, w0 + (w1 - w0) * t);
 
         /// <summary>
         ///
@@ -79,6 +133,7 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double, double, double) CrossProduct(
             double x1, double y1, double z1,
@@ -107,6 +162,7 @@ namespace Engine
         /// Return the cross product AB x BC.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProductVector(
             double x1, double y1,
@@ -155,6 +211,7 @@ namespace Engine
         /// <param name="y2">Second Point Y component.</param>
         /// <param name="z2">Second Point Z component.</param>
         /// <returns>The Dot Product.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             (double X, double Y, double Z) tuple,
@@ -167,6 +224,7 @@ namespace Engine
         /// <param name="tuple1">First set of X, Y, Z components in tuple form.</param>
         /// <param name="tuple2">Second set of X, Y, Z components in tuple form.</param>
         /// <returns>The Dot Product.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             (double X, double Y, double Z) tuple1,
@@ -192,6 +250,7 @@ namespace Engine
         /// Note that AB · BC = |AB| * |BC| * Cos(theta).
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector(
             double x1, double y1,
@@ -212,7 +271,7 @@ namespace Engine
         /// <param name="y3"></param>
         /// <param name="z3"></param>
         /// <returns></returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MixedProduct(
             double x1, double y1, double z1,

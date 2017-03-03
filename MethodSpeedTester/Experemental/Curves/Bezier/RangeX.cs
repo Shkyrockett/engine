@@ -23,7 +23,7 @@ namespace Engine
         /// <param name="min"></param>
         /// <param name="max"></param>
         public RangeX(int min, int max)
-            : this(min, min + (max - min) / 2d, max, min - max)
+            : this(min, min + (max - min) * 0.5d, max, min - max)
         { }
 
         /// <summary>

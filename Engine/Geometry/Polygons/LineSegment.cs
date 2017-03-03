@@ -347,6 +347,34 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        public double LengthSquared
+            => (double)CachingProperty(() => Measurements.SquareDistance(A.X, A.Y, B.X, B.Y));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double DotProduct
+            => (double)CachingProperty(() => Maths.DotProduct(aX, aY, bX, bY));
+
+        /// <summary>
+        /// "a.X * b.Y - b.X * a.Y" This would be the Z-component of (⟪a.X, a.Y, 0⟫ ⨯ ⟪b.X, b.Y, 0⟫) in 3-space.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double CrossProduct
+            => (double)CachingProperty(() => Maths.CrossProduct(aX, aY, bX, bY));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double ComplexProduct
+            => (double)CachingProperty(() => Maths.ComplexProduct(aX, aY, bX, bY));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
             get

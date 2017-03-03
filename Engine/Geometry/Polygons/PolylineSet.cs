@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -27,7 +28,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(PolylineSet))]
     public class PolylineSet
-        : Shape
+        : Shape, IEnumerable<Polyline>
     {
         #region Fields
 
@@ -192,6 +193,20 @@ namespace Engine
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<Polyline> GetEnumerator()
+            => polylines.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => polylines.GetEnumerator();
 
         /// <summary>
         /// 

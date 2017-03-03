@@ -6,13 +6,13 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> https://github.com/burningmime/curves </remarks>
+// <remarks> Adapted from: https://github.com/burningmime/curves </remarks>
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// This is the base class containing implementations common to <see cref="CurveFit"/>. Most of this

@@ -112,6 +112,11 @@
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
     <Compile Include="Animation\ColorTransform.cs" />
+    <Compile Include="Filtering\Filters.cs" />
+    <Compile Include="Filtering\Filters\TimeWarpDistort.cs" />
+    <Compile Include="Filtering\Filters\FlipDistort.cs" />
+    <Compile Include="Filtering\Filters\WaterDistort.cs" />
+    <Compile Include="Filtering\Filters\SwirlDistort.cs" />
     <Compile Include="Geometry\Complex\Path\PathContour.cs" />
     <Compile Include="Geometry\Enums\Directionality.cs" />
     <Compile Include="Geometry\Enums\Laterality.cs" />
@@ -129,12 +134,10 @@
     <Compile Include="Math\Primitives\Vector2D.cs" />
     <Compile Include="Math\Primitives\Vector3D.cs" />
     <Compile Include="Math\Primitives\Vector4D.cs" />
-    <Compile Include="_Preview\CurveFitting\CurveFitBase.cs" />
-    <Compile Include="_Preview\CurveFitting\CurveFit.cs" />
-    <Compile Include="_Preview\CurveFitting\CurvePreprocess.cs" />
-    <Compile Include="_Preview\Envelope\Distortions.cs" />
-    <Compile Include="_Preview\Envelope\ParametricWarpGrid.cs" />
-    <Compile Include="_Preview\Envelope\PunchDistortion.cs" />
+    <Compile Include="Geometry\CurveFitting\CurveFitBase.cs" />
+    <Compile Include="Geometry\CurveFitting\CurveFit.cs" />
+    <Compile Include="Filtering\Distortions.cs" />
+    <Compile Include="Geometry\Complex\Tools\ParametricWarpGrid.cs" />
     <Compile Include="_Preview\Envelope\BulgeDistortion.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\GreinerHormannClipper.cs" />
     <Compile Include="_Preview\Clipping\Martinez\Comparators\SegmentComp.cs" />
@@ -149,6 +152,9 @@
     <Compile Include="_Preview\Envelope\Enums\DistortionDirection.cs" />
     <Compile Include="_Preview\Envelope\DistortionBase.cs" />
     <Compile Include="_Preview\Envelope\Interfaces\IDistortion.cs" />
+    <Compile Include="Filtering\Filter.cs" />
+    <Compile Include="Filtering\Interfaces\IFilter.cs" />
+    <Compile Include="Filtering\Filters\SphereDistort.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierContour.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierSegment.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />
@@ -368,7 +374,6 @@
     <Compile Include="Objects\Interfaces\Geometry\IPolygon.cs" />
     <Compile Include="Objects\Interfaces\ITweenable.cs" />
     <Compile Include="Math\Primitives\Size2D.cs" />
-    <Compile Include="Geometry\Polygons\BoundingRectPolygon.cs" />
     <Compile Include="Geometry\Polygons\PolygonExtensions.cs" />
     <Compile Include="Geometry\Polygons\Rectangle2D.cs" />
     <Compile Include="Physics\BasicUnits\Angle\Radians.cs" />

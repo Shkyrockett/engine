@@ -1,12 +1,37 @@
-﻿using System;
+﻿// <copyright file="Filter.cs" company="Shkyrockett" >
+//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
 
-namespace Engine._Preview
+// <copyright file="CurvePreprocess.cs" >
+//     Copyright (c) 2015 burningmime. All rights reserved.
+// </copyright>
+// <author id="burningmime">burningmime</author>
+// <license>
+//     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
+// </license>
+// <summary></summary>
+// <remarks>
+//     Linearize, RecursiveRamerDouglasPeukerReduce, and RemoveDuplicates are from: https://github.com/burningmime/curves
+// </remarks>
+
+using System;
+using System.Collections.Generic;
+
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
     public static class Distortions
     {
+        #region Point Warp Filters
+
         /// <summary>
         /// 
         /// </summary>
@@ -182,6 +207,197 @@ namespace Engine._Preview
             double newX = (point.X + xo);
             double newY = (point.Y + yo);
             return new Point2D(newX, newY);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Creates a list of equally spaced points that lie on the path described by straight line segments between
+        /// adjacent points in the source list.
+        /// </summary>
+        /// <param name="source">Source list of points.</param>
+        /// <param name="distance">Distance between points on the new path.</param>
+        /// <returns>List of equally-spaced points on the path.</returns>
+        public static List<Point2D> Linearize(List<Point2D> source, double distance)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source), "List must not be null");
+            if (distance <= Maths.Epsilon)
+                throw new InvalidOperationException($"{nameof(distance)} {distance} must not be less than epsilon { Maths.Epsilon }.");
+            List<Point2D> dest = new List<Point2D>();
+            if (source.Count < 1)
+                return dest;
+
+            Point2D pp = source[0];
+            dest.Add(pp);
+            double cd = 0;
+            for (int ip = 1; ip < source.Count; ip++)
+            {
+                Point2D p0 = source[ip - 1];
+                Point2D p1 = source[ip];
+                double td = Measurements.Distance(p0, p1);
+                if (cd + td > distance)
+                {
+                    double pd = distance - cd;
+                    dest.Add(Primitives.Lerp(p0, p1, pd / td));
+                    double rd = td - pd;
+                    while (rd > distance)
+                    {
+                        rd -= distance;
+                        Point2D np = Primitives.Lerp(p0, p1, (td - rd) / td);
+                        if (!Primitives.EqualsOrClose(np, pp))
+                        {
+                            dest.Add(np);
+                            pp = np;
+                        }
+                    }
+                    cd = rd;
+                }
+                else
+                {
+                    cd += td;
+                }
+            }
+            // last point
+            Point2D lp = source[source.Count - 1];
+            if (!Primitives.EqualsOrClose(pp, lp))
+                dest.Add(lp);
+
+            return dest;
+        }
+
+        /// <summary>
+        /// "Reduces" a set of line segments by removing points that are too far away. Does not modify the input list; returns
+        /// a new list with the points removed.
+        /// </summary>
+        /// <param name="points">Points to reduce</param>
+        /// <param name="error">Maximum distance of a point to a line. Low values (~2-4) work well for mouse/touchscreen data.</param>
+        /// <returns>A new list containing only the points needed to approximate the curve.</returns>
+        /// <remarks>
+        /// The image says it better than I could ever describe: http://upload.wikimedia.org/wikipedia/commons/3/30/Douglas-Peucker_animated.gif
+        /// The Wiki article: http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
+        /// Based on:  http://www.codeproject.com/Articles/18936/A-Csharp-Implementation-of-Douglas-Peucker-Line-Ap
+        /// </remarks>
+        public static List<Point2D> RamerDouglasPeukerReduce(List<Point2D> points, double error)
+        {
+            if (points == null)
+                throw new ArgumentNullException(nameof(points), "Must not be null.");
+            points = RemoveDuplicates(points);
+            if (points.Count < 3)
+                return new List<Point2D>(points);
+            var keepIndex = new List<int>(Math.Max(points.Count / 2, 16)) { 0, points.Count - 1 };
+            RecursiveRamerDouglasPeukerReduce(points, error, 0, points.Count - 1, ref keepIndex);
+            keepIndex.Sort();
+            List<Point2D> res = new List<Point2D>(keepIndex.Count);
+            foreach (int idx in keepIndex)
+                res.Add(points[idx]);
+            return res;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pts"></param>
+        /// <param name="error"></param>
+        /// <param name="first"></param>
+        /// <param name="last"></param>
+        /// <param name="keepIndex"></param>
+        private static void RecursiveRamerDouglasPeukerReduce(List<Point2D> pts, double error, int first, int last, ref List<int> keepIndex)
+        {
+            int nPts = last - first + 1;
+            if (nPts < 3)
+                return;
+
+            var segment = new LineSegment(pts[first], pts[last]);
+
+            double maxDist = error;
+            int split = 0;
+            for (int i = first + 1; i < last - 1; i++)
+            {
+                Point2D p = pts[i];
+                double pDist = Measurements.PerpendicularDistance(segment, p);
+                if (pDist != double.NaN && pDist > maxDist)
+                {
+                    maxDist = pDist;
+                    split = i;
+                }
+            }
+
+            if (split != 0)
+            {
+                keepIndex.Add(split);
+                RecursiveRamerDouglasPeukerReduce(pts, error, first, split, ref keepIndex);
+                RecursiveRamerDouglasPeukerReduce(pts, error, split, last, ref keepIndex);
+            }
+        }
+
+        /// <summary>
+        /// Removes any repeated points (that is, one point extremely close to the previous one). The same point can
+        /// appear multiple times just not right after one another. This does not modify the input list. If no repeats
+        /// were found, it returns the input list; otherwise it creates a new list with the repeats removed.
+        /// </summary>
+        /// <param name="points">Initial list of points.</param>
+        /// <returns>Either points (if no duplicates were found), or a new list containing points with duplicates removed.</returns>
+        public static List<Point2D> RemoveDuplicates(List<Point2D> points)
+        {
+            if (points.Count < 2)
+                return points;
+
+            // Common case -- no duplicates, so just return the source list
+            Point2D prev = points[0];
+            int len = points.Count;
+            int nDup = 0;
+            for (int i = 1; i < len; i++)
+            {
+                Point2D cur = points[i];
+                if (Primitives.EqualsOrClose(prev, cur))
+                    nDup++;
+                else
+                    prev = cur;
+            }
+
+            if (nDup == 0)
+                return points;
+            else
+            {
+                // Create a copy without them
+                List<Point2D> dst = new List<Point2D>(len - nDup);
+                prev = points[0];
+                dst.Add(prev);
+                for (int i = 1; i < len; i++)
+                {
+                    Point2D cur = points[i];
+                    if (!Primitives.EqualsOrClose(prev, cur))
+                    {
+                        dst.Add(cur);
+                        prev = cur;
+                    }
+                }
+                return dst;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contour"></param>
+        /// <returns></returns>
+        public static Contour AddPointsToSides(Contour contour)
+        {
+            var result = new Contour();
+            for (int i = 1; i < contour.Count; i++)
+            {
+                for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
+                {
+                    result.Add(Interpolaters.Linear(contour[i - 1], contour[i], j));
+                }
+            }
+            for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
+            {
+                result.Add(Interpolaters.Linear(contour[contour.Count - 1], contour[0], j));
+            }
+
+            return result;
         }
 
         /// <summary>

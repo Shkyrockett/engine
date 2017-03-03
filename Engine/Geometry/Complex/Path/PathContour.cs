@@ -59,6 +59,7 @@ namespace Engine
         public PathContour(Point2D start)
             : base()
         {
+            Items = new List<PathItem>();
             Items.Add(new PathPoint(start));
         }
 
@@ -162,6 +163,23 @@ namespace Engine
             => Items.Select(item => item.End.Value).ToList();
 
         /// <summary>
+        /// Gets a listing of all end grips from the Figure.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public List<Point2D> Grips
+        {
+            get
+            {
+                var result = new List<Point2D>();
+                foreach (var item in Items)
+                {
+                    result.AddRange(item.Grips);
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
@@ -188,6 +206,12 @@ namespace Engine
         public override double Perimeter
             => (double)CachingProperty(() => Items.Sum(p => p.Length));
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public int Count => items.Count;
+
         #endregion
 
         #region Serialization
@@ -197,7 +221,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
-        protected void OnSerializing(StreamingContext context)
+        protected new void OnSerializing(StreamingContext context)
         {
             // Assert("This value went into the data file during serialization.");
         }
@@ -207,7 +231,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
-        protected void OnSerialized(StreamingContext context)
+        protected new void OnSerialized(StreamingContext context)
         {
             // Assert("This value was reset after serialization.");
         }
@@ -217,7 +241,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
-        protected void OnDeserializing(StreamingContext context)
+        protected new void OnDeserializing(StreamingContext context)
         {
             // Assert("This value was set during deserialization");
         }
@@ -227,7 +251,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
-        protected void OnDeserialized(StreamingContext context)
+        protected new void OnDeserialized(StreamingContext context)
         {
             // Assert("This value was set after deserialization.");
         }

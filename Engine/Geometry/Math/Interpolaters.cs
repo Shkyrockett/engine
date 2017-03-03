@@ -734,21 +734,21 @@ namespace Engine
             double v1,
             double v2,
             double v3,
-            double time, double tension = 0, double bias = 0)
+            double time, double tension = 0d, double bias = 0d)
         {
             double m0, m1, mu2, mu3;
             double a0, a1, a2, a3;
 
             mu2 = time * time;
             mu3 = mu2 * time;
-            m0 = (v1 - v0) * (1 + bias) * (1 - tension) / 2;
-            m0 += (v2 - v1) * (1 - bias) * (1 - tension) / 2;
-            m1 = (v2 - v1) * (1 + bias) * (1 - tension) / 2;
-            m1 += (v3 - v2) * (1 - bias) * (1 - tension) / 2;
-            a0 = 2 * mu3 - 3 * mu2 + 1;
-            a1 = mu3 - 2 * mu2 + time;
+            m0 = (v1 - v0) * (1d + bias) * (1d - tension) * 0.5d;
+            m0 += (v2 - v1) * (1d - bias) * (1d - tension) * 0.5d;
+            m1 = (v2 - v1) * (1d + bias) * (1d - tension) * 0.5d;
+            m1 += (v3 - v2) * (1d - bias) * (1d - tension) * 0.5d;
+            a0 = 2d * mu3 - 3d * mu2 + 1d;
+            a1 = mu3 - 2d * mu2 + time;
             a2 = mu3 - mu2;
-            a3 = -2 * mu3 + 3 * mu2;
+            a3 = -2d * mu3 + 3d * mu2;
 
             return (a0 * v1 + a1 * m0 + a2 * m1 + a3 * v2);
         }
@@ -778,27 +778,27 @@ namespace Engine
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
-            double time, double tension = 0, double bias = 0)
+            double time, double tension = 0d, double bias = 0d)
         {
             double mu2 = time * time;
             double mu3 = mu2 * time;
 
-            double mX0 = (x1 - x0) * (1 + bias) * (1 - tension) / 2;
-            mX0 += (x2 - x1) * (1 - bias) * (1 - tension) / 2;
+            double mX0 = (x1 - x0) * (1d + bias) * (1d - tension) * 0.5d;
+            mX0 += (x2 - x1) * (1d - bias) * (1d - tension) * 0.5d;
 
-            double mY0 = (y1 - y0) * (1 + bias) * (1 - tension) / 2;
-            mY0 += (y2 - y1) * (1 - bias) * (1 - tension) / 2;
+            double mY0 = (y1 - y0) * (1d + bias) * (1d - tension) * 0.5d;
+            mY0 += (y2 - y1) * (1d - bias) * (1d - tension) * 0.5d;
 
-            double mX1 = (x2 - x1) * (1 + bias) * (1 - tension) / 2;
-            mX1 += (x3 - x2) * (1 - bias) * (1 - tension) / 2;
+            double mX1 = (x2 - x1) * (1d + bias) * (1d - tension) * 0.5d;
+            mX1 += (x3 - x2) * (1d - bias) * (1d - tension) * 0.5d;
 
-            double mY1 = (y2 - y1) * (1 + bias) * (1 - tension) / 2;
-            mY1 += (y3 - y2) * (1 - bias) * (1 - tension) / 2;
+            double mY1 = (y2 - y1) * (1d + bias) * (1d - tension) * 0.5d;
+            mY1 += (y3 - y2) * (1d - bias) * (1d - tension) * 0.5d;
 
-            double a0 = 2 * mu3 - 3 * mu2 + 1;
-            double a1 = mu3 - 2 * mu2 + time;
+            double a0 = 2d * mu3 - 3d * mu2 + 1d;
+            double a1 = mu3 - 2d * mu2 + time;
             double a2 = mu3 - mu2;
-            double a3 = -2 * mu3 + 3 * mu2;
+            double a3 = -2d * mu3 + 3d * mu2;
 
             return (
                 a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
@@ -832,27 +832,27 @@ namespace Engine
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double x3, double y3, double z3,
-            double time, double tension = 0, double bias = 0)
+            double time, double tension = 0d, double bias = 0d)
         {
             double mu2 = time * time;
             double mu3 = mu2 * time;
 
-            double mX0 = (x1 - x0) * (1 + bias) * (1 - tension) / 2;
-            mX0 += (x2 - x1) * (1 - bias) * (1 - tension) / 2;
-            double mY0 = (y1 - y0) * (1 + bias) * (1 - tension) / 2;
-            mY0 += (y2 - y1) * (1 - bias) * (1 - tension) / 2;
-            double mZ0 = (z1 - z0) * (1 + bias) * (1 - tension) / 2;
-            mZ0 += (z2 - z1) * (1 - bias) * (1 - tension) / 2;
-            double mX1 = (x2 - x1) * (1 + bias) * (1 - tension) / 2;
-            mX1 += (x3 - x2) * (1 - bias) * (1 - tension) / 2;
-            double mY1 = (y2 - y1) * (1 + bias) * (1 - tension) / 2;
-            mY1 += (y3 - y2) * (1 - bias) * (1 - tension) / 2;
-            double mZ1 = (z2 - z1) * (1 + bias) * (1 - tension) / 2;
-            mZ1 += (z3 - z2) * (1 - bias) * (1 - tension) / 2;
-            double a0 = 2 * mu3 - 3 * mu2 + 1;
-            double a1 = mu3 - 2 * mu2 + time;
+            double mX0 = (x1 - x0) * (1d + bias) * (1d - tension) * 0.5d;
+            mX0 += (x2 - x1) * (1d - bias) * (1d - tension) * 0.5d;
+            double mY0 = (y1 - y0) * (1d + bias) * (1d - tension) * 0.5d;
+            mY0 += (y2 - y1) * (1d - bias) * (1d - tension) * 0.5d;
+            double mZ0 = (z1 - z0) * (1d + bias) * (1d - tension) * 0.5d;
+            mZ0 += (z2 - z1) * (1d - bias) * (1d - tension) * 0.5d;
+            double mX1 = (x2 - x1) * (1d + bias) * (1 - tension) * 0.5d;
+            mX1 += (x3 - x2) * (1d - bias) * (1d - tension) * 0.5d;
+            double mY1 = (y2 - y1) * (1d + bias) * (1d - tension) * 0.5d;
+            mY1 += (y3 - y2) * (1d - bias) * (1d - tension) * 0.5d;
+            double mZ1 = (z2 - z1) * (1d + bias) * (1d - tension) * 0.5d;
+            mZ1 += (z3 - z2) * (1d - bias) * (1d - tension) * 0.5d;
+            double a0 = 2d * mu3 - 3d * mu2 + 1d;
+            double a1 = mu3 - 2d * mu2 + time;
             double a2 = mu3 - mu2;
-            double a3 = -2 * mu3 + 3 * mu2;
+            double a3 = -2d * mu3 + 3d * mu2;
 
             return (
                 a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
@@ -917,9 +917,8 @@ namespace Engine
             double x1, double y1,
             double x2, double y2,
             double t)
-            => (
-                (1 - t) * x1 + t * x2,
-                (1 - t) * y1 + t * y2);
+            => ((1d - t) * x1 + t * x2,
+                (1d - t) * y1 + t * y2);
 
         /// <summary>
         ///
@@ -939,9 +938,9 @@ namespace Engine
             double x2, double y2, double z2,
             double t)
             => (
-                (1 - t) * x1 + t * x2,
-                (1 - t) * y1 + t * y2,
-                (1 - t) * z1 + t * z2);
+                (1d - t) * x1 + t * x2,
+                (1d - t) * y1 + t * y2,
+                (1d - t) * z1 + t * z2);
 
         #endregion
 
@@ -963,11 +962,11 @@ namespace Engine
             double v2,
             double t)
         {
-            double mu1 = 1 - t;
+            double mu1 = 1d - t;
             double mu12 = mu1 * mu1;
             double mu2 = t * t;
 
-            return v0 * mu12 + 2 * v1 * mu1 * t + v2 * mu2;
+            return v0 * mu12 + 2d * v1 * mu1 * t + v2 * mu2;
         }
 
         /// <summary>
@@ -989,13 +988,13 @@ namespace Engine
             double x2, double y2,
             double t)
         {
-            double mu1 = 1 - t;
+            double mu1 = 1d - t;
             double mu12 = mu1 * mu1;
             double mu2 = t * t;
 
             return (
-                (x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2),
-                (y0 * mu12 + 2 * y1 * mu1 * t + y2 * mu2)
+                (x0 * mu12 + 2d * x1 * mu1 * t + x2 * mu2),
+                (y0 * mu12 + 2d * y1 * mu1 * t + y2 * mu2)
                 );
         }
 
@@ -1021,14 +1020,14 @@ namespace Engine
             double x2, double y2, double z2,
             double t)
         {
-            double mu1 = 1 - t;
+            double mu1 = 1d - t;
             double mu12 = mu1 * mu1;
             double mu2 = t * t;
 
             return (
-                (x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2),
-                (y0 * mu12 + 2 * y1 * mu1 * t + y2 * mu2),
-                (z0 * mu12 + 2 * z1 * mu1 * t + z2 * mu2));
+                (x0 * mu12 + 2d * x1 * mu1 * t + x2 * mu2),
+                (y0 * mu12 + 2d * y1 * mu1 * t + y2 * mu2),
+                (z0 * mu12 + 2d * z1 * mu1 * t + z2 * mu2));
         }
 
         /// <summary>
@@ -1064,8 +1063,8 @@ namespace Engine
             => new Point2D[]
             {
                 a,
-                new Point2D((int)(a.X + TwoThirds * (b.X - a.X)), (int)(a.Y + TwoThirds * (b.Y - a.Y))),
-                new Point2D((int)(c.X + TwoThirds * (b.X - c.X)), (int)(c.Y + TwoThirds * (b.Y - c.Y))),
+                new Point2D(a.X + TwoThirds * (b.X - a.X), a.Y + TwoThirds * (b.Y - a.Y)),
+                new Point2D(c.X + TwoThirds * (b.X - c.X), c.Y + TwoThirds * (b.Y - c.Y)),
                 c
             };
 
@@ -1090,8 +1089,8 @@ namespace Engine
             double v2,
             double t)
         {
-            double mu2 = (1 - Sin(t * PI)) / 2;
-            return v1 * (1 - mu2) + v2 * mu2;
+            double mu2 = (1d - Sin(t * PI)) * 0.5d;
+            return v1 * (1d - mu2) + v2 * mu2;
         }
 
         /// <summary>
@@ -1111,11 +1110,10 @@ namespace Engine
             double x2, double y2,
             double t)
         {
-            double mu2 = (1 - Sin(t * PI)) / 2;
+            double mu2 = (1d - Sin(t * PI)) * 0.5d;
             return (
-                x1 * (1 - mu2) + x2 * mu2,
-                y1 * (1 - mu2) + y2 * mu2
-                );
+                x1 * (1d - mu2) + x2 * mu2,
+                y1 * (1d - mu2) + y2 * mu2);
         }
 
         /// <summary>
@@ -1137,11 +1135,11 @@ namespace Engine
             double x2, double y2, double z2,
             double t)
         {
-            double mu2 = (1 - Sin(t * PI)) / 2;
+            double mu2 = (1d - Sin(t * PI)) * 0.5d;
             return (
-                x1 * (1 - mu2) + x2 * mu2,
-                y1 * (1 - mu2) + y2 * mu2,
-                z1 * (1 - mu2) + z2 * mu2);
+                x1 * (1d - mu2) + x2 * mu2,
+                y1 * (1d - mu2) + y2 * mu2,
+                z1 * (1d - mu2) + z2 * mu2);
         }
 
         #endregion
@@ -1175,20 +1173,20 @@ namespace Engine
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(
-                fulcrumX + ((-width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
-                fulcrumY + ((-width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                fulcrumX + ((-width * 0.5d) * xaxis.X + (-height * 0.5d) * xaxis.Y),
+                fulcrumY + ((-width * 0.5d) * yaxis.X + (-height * 0.5d) * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrumX + ((width / 2) * xaxis.X + (-height / 2) * xaxis.Y),
-                fulcrumY + ((width / 2) * yaxis.X + (-height / 2) * yaxis.Y)
+                fulcrumX + ((width * 0.5d) * xaxis.X + (-height * 0.5d) * xaxis.Y),
+                fulcrumY + ((width * 0.5d) * yaxis.X + (-height * 0.5d) * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrumX + ((width / 2) * xaxis.X + (height / 2) * xaxis.Y),
-                fulcrumY + ((width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                fulcrumX + ((width * 0.5d) * xaxis.X + (height * 0.5d) * xaxis.Y),
+                fulcrumY + ((width * 0.5d) * yaxis.X + (height * 0.5d) * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrumX + ((-width / 2) * xaxis.X + (height / 2) * xaxis.Y),
-                fulcrumY + ((-width / 2) * yaxis.X + (height / 2) * yaxis.Y)
+                fulcrumX + ((-width * 0.5d) * xaxis.X + (height * 0.5d) * xaxis.Y),
+                fulcrumY + ((-width * 0.5d) * yaxis.X + (height * 0.5d) * yaxis.Y)
                 ));
 
             return points;

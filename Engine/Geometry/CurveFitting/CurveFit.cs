@@ -6,13 +6,13 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> https://github.com/burningmime/curves </remarks>
+// <remarks> Adapted from: https://github.com/burningmime/curves </remarks>
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// Implements a least-squares bezier curve fitting routine based on http://tog.acm.org/resources/GraphicsGems/gems/FitCurves.c with a few 
@@ -60,7 +60,7 @@ namespace Engine._Preview
         /// if less than two points in input.
         /// 
         /// Input data MUST not contain repeated points (that is, the same point twice in succession). The best way to
-        /// ensure this is to call any one of the methods in <see cref="CurvePreprocess" />, since all three pre-processing
+        /// ensure this is to call any one of the methods in <see cref="Distortions" />, since all three pre-processing
         /// methods will remove duplicate points. If repeated points are encountered, unexpected behavior can occur.
         /// </summary>
         /// <param name="points">Set of points to fit to.</param>

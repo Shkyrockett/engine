@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(PointSet))]
     public class PointSet
-        : Shape
+        : Shape, IEnumerable<Point2D>
     {
         #region Fields
 
@@ -332,6 +333,20 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PointSet Clone()
             => new PointSet(points.ToArray());
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<Point2D> GetEnumerator()
+            => points.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
 
         /// <summary>
         /// Creates a string representation of this <see cref="PointSet"/> struct based on the format string

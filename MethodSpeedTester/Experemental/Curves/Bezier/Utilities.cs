@@ -791,10 +791,10 @@ namespace Engine
             double dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
             double dy2p = dx2 * Sin(Quart) + dy2 * Cos(Quart);
             // chord midpoints
-            double mx1 = (p1.X + p2.X) / 2d;
-            double my1 = (p1.Y + p2.Y) / 2d;
-            double mx2 = (p2.X + p3.X) / 2d;
-            double my2 = (p2.Y + p3.Y) / 2d;
+            double mx1 = (p1.X + p2.X) * 0.5d;
+            double my1 = (p1.Y + p2.Y) * 0.5d;
+            double mx2 = (p2.X + p3.X) * 0.5d;
+            double my2 = (p2.Y + p3.Y) * 0.5d;
             // midpoint offsets
             double mx1n = mx1 + dx1p;
             double my1n = my1 + dy1p;

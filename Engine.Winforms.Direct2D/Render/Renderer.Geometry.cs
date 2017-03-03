@@ -30,7 +30,7 @@ namespace Engine.Imaging
         public static void Render(this ParametricDelegateCurve shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            List<Point2D> points = item?.InterpolatePoints();
+            List<Point2D> points = shape.InterpolatePoints(100);
             g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
             g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
         }

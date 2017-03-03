@@ -349,66 +349,36 @@ namespace Editor
                 Name = "Triangle"
             };
 
-            var curver = interpolateSides(interpolateSides(triangle));
+            var sphereDistort = new SphereDistort(rect1);
+            var swirlDistort = new SwirlDistort(rect1.Center);
 
-            var curved = new Contour();
-            foreach (var point in curver)
+            var curvedRectangle = sphereDistort.Process(rect1);
+            var curvedRectangleItem = new GraphicItem(curvedRectangle, solidCyanStyle)
             {
-                curved.Add(distort(rect1, point));
-            }
-            var curvedTriangleItem = new GraphicItem(curved, solidPurpleStyle)
+                Name = "Curved Rectangle"
+            };
+            var curvedRectangleNodeItem = new GraphicItem(new NodeRevealer(curvedRectangle.Grips, 5d), handleStyle);
+
+            var curvedTriangle = swirlDistort.Process(sphereDistort.Process(triangle));
+            var curvedTriangleItem = new GraphicItem(curvedTriangle, solidPurpleStyle)
             {
                 Name = "Curved Triangle"
             };
+            var curvedTriangleNodeItem = new GraphicItem(new NodeRevealer(curvedTriangle.Grips, 5d), handleStyle);
 
-            //var curvedTriangleNodeItem = new GraphicItem(new NodeRevealer(curved.Points, 5d), handleStyle);
-
-            var warp = new ParametricWarpGrid((a, b) => distort(a, b),
-                rect1,
-                rect1.Bounds.X,
-                rect1.Bounds.Y,
-                rect1.Bounds.Right,
-                rect1.Bounds.Bottom,
-                5, 5);
-            var warpItem = new GraphicItem(warp, handleStyle)
+            var warpGrid = new ParametricWarpGrid((a) => sphereDistort.Process(a), rect1, rect1.Bounds.X, rect1.Bounds.Y, rect1.Bounds.Right, rect1.Bounds.Bottom, 5, 5);
+            var warpGridItem = new GraphicItem(warpGrid, handleStyle)
             {
                 Name = "Warp"
             };
 
+            vectorMap.Add(curvedRectangleItem);
             vectorMap.Add(rect1Item);
             vectorMap.Add(curvedTriangleItem);
             //vectorMap.Add(triangleItem);
-            vectorMap.Add(warpItem);
-            //vectorMap.Add(curvedTriangleNodeItem);
-
-            Point2D distort(Rectangle2D rect, Point2D point)
-            {
-                //var n = -0.5;
-                //return Distortions.Pinch(rect.Center, point, Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) / 2, n);
-                var n = -0.008;
-                return Distortions.Swirl(rect.Center, point, n);
-                //return Distortions.Water(rect.Center, point, 8);
-                //return Distortions.TimeWarp(rect.Center, point, 10);
-                //return Distortions.Flip(rect.Center, point, true, true);
-            }
-
-            Contour interpolateSides(Contour contour)
-            {
-                var result = new Contour();
-                for (int i = 1; i < contour.Count; i++)
-                {
-                    for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
-                    {
-                        result.Add(Interpolaters.Linear(contour[i - 1], contour[i], j));
-                    }
-                }
-                for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
-                {
-                    result.Add(Interpolaters.Linear(contour[contour.Count - 1], contour[0], j));
-                }
-
-                return result;
-            }
+            vectorMap.Add(warpGridItem);
+            vectorMap.Add(curvedRectangleNodeItem);
+            vectorMap.Add(curvedTriangleNodeItem);
         }
 
         /// <summary>

@@ -43,7 +43,7 @@ namespace Engine
         /// <param name="maxY"></param>
         /// <param name="stepX"></param>
         /// <param name="stepY"></param>
-        public ParametricWarpGrid(Func<Rectangle2D, Point2D, Point2D> filter, Rectangle2D path, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
+        public ParametricWarpGrid(Func<Point2D, Point2D> filter, Rectangle2D path, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
             : base()
         {
             Filter = filter;
@@ -71,7 +71,7 @@ namespace Engine
         /// <param name="maxY"></param>
         /// <param name="stepX"></param>
         /// <param name="stepY"></param>
-        public void Deconstruct(out Func<Rectangle2D, Point2D, Point2D> filter, Rectangle2D path, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
+        public void Deconstruct(out Func<Point2D, Point2D> filter, Rectangle2D path, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
             filter = this.Filter;
             path = this.Path;
@@ -92,7 +92,7 @@ namespace Engine
         /// </summary>
         [Browsable(true)]
         [XmlIgnore, SoapIgnore]
-        public Func<Rectangle2D, Point2D, Point2D> Filter { get; set; }
+        public Func<Point2D, Point2D> Filter { get; set; }
 
         /// <summary>
         /// 
@@ -193,7 +193,7 @@ namespace Engine
             var result = new List<Point2D>();
             foreach (Point2D point in Grid())
             {
-                result.Add(Filter.Invoke(Path.Bounds, point));
+                result.Add(Filter.Invoke(point));
             }
 
             return result;

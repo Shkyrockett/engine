@@ -22,15 +22,15 @@ namespace Engine
     /// </summary>
     public class GraphicItem
     {
-        #region Fields
+        //#region Fields
 
-        /// <summary>
-        /// Property cache for commonly used properties that may take time to calculate.
-        /// </summary>
-        /// <remarks>This needs to be statically initialized because not all classes initialize the base constructor.</remarks>
-        private Dictionary<object, object> propertyCache = new Dictionary<object, object>();
+        ///// <summary>
+        ///// Property cache for commonly used properties that may take time to calculate.
+        ///// </summary>
+        ///// <remarks>This needs to be statically initialized because not all classes initialize the base constructor.</remarks>
+        //private Dictionary<object, object> propertyCache = new Dictionary<object, object>();
 
-        #endregion
+        //#endregion
 
         #region Constructors
 
@@ -39,7 +39,6 @@ namespace Engine
         /// </summary>
         public GraphicItem()
         {
-            Item = null;
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace Engine
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             Item = item;
-            item?.OnUpdate(ClearCache);
+            //item?.OnUpdate(ClearCache);
             Style = style;
         }
 
@@ -128,77 +127,40 @@ namespace Engine
         [Description("The meta-data of the item.")]
         public Metadata Metadata { get; set; } = null;
 
-        /// <summary>
-        ///
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Perimeter))]
-        [Category("Properties")]
-        [Description("The perimeter length of the item.")]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public double Perimeter
-            => (double)CachingProperty(() => Item?.Perimeter);
-
-        /// <summary>
-        /// Gets the bounding rectangle of the graphical object.
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Bounds))]
-        [Category("Properties")]
-        [Description("The bounding box of the item.")]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public Rectangle2D Bounds
-            => CachingProperty(() => Item?.Bounds) as Rectangle2D;
-
-        // ToDo: Need to update point list when the nodes are moved.
-
-        /// <summary>
-        ///
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [Browsable(false)]
-        [DisplayName(nameof(LengthInterpolatedPoints))]
-        [Category("Properties")]
-        [Description("The length of the interpolated points of the item.")]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public List<Point2D> LengthInterpolatedPoints
-            => (List<Point2D>)CachingProperty(() => Item?.InterpolatePoints((int)Perimeter.Round()));
-
         #endregion
 
         #region Public methods
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public Point2D Interpolate(double t)
-            => Item.Interpolate(t);
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="t"></param>
+        ///// <returns></returns>
+        //public Point2D Interpolate(double t)
+        //    => Item.Interpolate(t);
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public List<Point2D> SmoothInterpolate(double t)
-            => ((List<Point2D>)CachingProperty(() => Item.Interpolate(t)));
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="t"></param>
+        ///// <returns></returns>
+        //public List<Point2D> SmoothInterpolate(double t)
+        //    => ((List<Point2D>)CachingProperty(() => Item.Interpolate(t)));
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public List<Point2D> InterpolatePoints()
-            => ((List<Point2D>)CachingProperty(() => Item?.InterpolatePoints(500)));
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <returns></returns>
+        //public List<Point2D> InterpolatePoints()
+        //    => ((List<Point2D>)CachingProperty(() => Item?.InterpolatePoints(500)));
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        public List<Point2D> InterpolateToPolygon(double points)
-            => null;
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="points"></param>
+        ///// <returns></returns>
+        //public List<Point2D> InterpolateToPolygon(double points)
+        //    => null;
 
         /// <summary>
         ///
@@ -216,11 +178,11 @@ namespace Engine
         public bool VisibleTest(Rectangle2D bounds)
             => (Item.Bounds.IntersectsWith(bounds) || Item.Bounds.Contains(bounds));
 
-        /// <summary>
-        ///
-        /// </summary>
-        public void Refresh()
-            => ClearCache();
+        ///// <summary>
+        /////
+        ///// </summary>
+        //public void Refresh()
+        //    => ClearCache();
 
         /// <summary>
         ///
@@ -231,38 +193,38 @@ namespace Engine
 
         #endregion
 
-        #region Private methods
+        //#region Private methods
 
-        /// <summary>
-        /// This should be run anytime a property of the item is modified so that cached properties get recalculated for the new values.
-        /// </summary>
-        private void ClearCache()
-            => propertyCache.Clear();
+        ///// <summary>
+        ///// This should be run anytime a property of the item is modified so that cached properties get recalculated for the new values.
+        ///// </summary>
+        //private void ClearCache()
+        //    => propertyCache.Clear();
 
-        /// <summary>
-        /// Private method for caching computationally and memory intensive properties of child objects
-        /// so the child object's properties only get touched when necessary.
-        /// </summary>
-        /// <param name="property">
-        /// The method to execute if the property hasn't been cached.
-        /// To pass a method or property, use the Lambda notation (T)CachingProperty(()=>PropertyName) 
-        /// or (T)CachingProperty(()=>MethodName(Parameters)) where T is the type of the return value.
-        /// </param>
-        /// <param name="name">Auto-filled parameter representing the name of the property being accessed.</param>
-        /// <returns>Returns an <see cref="object"/> containing the results of the delegate property, or cached value.</returns>
-        /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
-        private object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
-        {
-            if (!propertyCache.ContainsKey(name))
-            {
-                var value = property.Invoke();
-                propertyCache.Add(name, value);
-                return value;
-            }
+        ///// <summary>
+        ///// Private method for caching computationally and memory intensive properties of child objects
+        ///// so the child object's properties only get touched when necessary.
+        ///// </summary>
+        ///// <param name="property">
+        ///// The method to execute if the property hasn't been cached.
+        ///// To pass a method or property, use the Lambda notation (T)CachingProperty(()=>PropertyName) 
+        ///// or (T)CachingProperty(()=>MethodName(Parameters)) where T is the type of the return value.
+        ///// </param>
+        ///// <param name="name">Auto-filled parameter representing the name of the property being accessed.</param>
+        ///// <returns>Returns an <see cref="object"/> containing the results of the delegate property, or cached value.</returns>
+        ///// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
+        //private object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
+        //{
+        //    if (!propertyCache.ContainsKey(name))
+        //    {
+        //        var value = property.Invoke();
+        //        propertyCache.Add(name, value);
+        //        return value;
+        //    }
 
-            return propertyCache[name];
-        }
+        //    return propertyCache[name];
+        //}
 
-        #endregion
+        //#endregion
     }
 }

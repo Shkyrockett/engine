@@ -76,7 +76,7 @@ namespace Engine.Tools
                 {
                     tools.Surface.SelectedItems = new List<GraphicItem>(1) { tools.Surface.SelectItem(tools.MouseLocation) };
                     if (tools.Surface.SelectedItems == null) return;
-                    Line.A = tools.Surface.SelectedItems[0].Bounds.Location;
+                    Line.A = tools.Surface.SelectedItems[0].Item.Bounds.Location;
                     tools.Surface.RubberbandItems = new List<GraphicItem> { new GraphicItem(Line, null) };
                     Started = true;
                 }
@@ -146,7 +146,8 @@ namespace Engine.Tools
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => nameof(Straightener);
+        public override string ToString()
+            => nameof(Straightener);
 
         /// <summary>
         /// 

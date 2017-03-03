@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -89,6 +90,13 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public override Point2D? End { get { return Start; } set { Start = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public override List<Point2D> Grips
+            => new List<Point2D> { Start.Value };
 
         /// <summary>
         /// 

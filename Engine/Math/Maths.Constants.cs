@@ -182,7 +182,7 @@ namespace Engine
         /// Represents the golden ratio as specified by the constant, φ (phi).
         /// </summary>
         /// <value>≈1.61803...</value>
-        public static readonly double Phi = (1d + Sqrt(5)) / 2d; // 1.6180339887498948482045868343656d;
+        public static readonly double Phi = (1d + Sqrt(5)) * 0.5d; // 1.6180339887498948482045868343656d;
 
         /// <summary>
         ///  Represents the plastic constant as specified by the constant, ρ.
@@ -392,7 +392,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public const double OneHalf = 1d / 2d;
+        public const double OneHalf = 1d * 0.5d;
 
         /// <summary>
         /// 

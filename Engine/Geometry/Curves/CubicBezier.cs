@@ -540,6 +540,9 @@ namespace Engine
 
         #region Serialization
 
+        /* Adding overrides to these causes the program to crash. */
+
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         /// <summary>
         /// 
         /// </summary>
@@ -579,6 +582,7 @@ namespace Engine
         {
             // Assert("This value was set after deserialization.");
         }
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
 
         #endregion
 

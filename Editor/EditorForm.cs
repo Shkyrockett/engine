@@ -121,7 +121,7 @@ namespace Editor
         {
             /* Experimental Previews */
             TestCases.CurveFitting(vectorMap);
-            //TestCases.WarpGeometry(vectorMap);
+            TestCases.WarpGeometry(vectorMap);
             //TestCases.ComplexPolygonClipping(vectorMap);
             //TestCases.PolyClipping(vectorMap);
             //TestCases.PathContourWArcLine(vectorMap);

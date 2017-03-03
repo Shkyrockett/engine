@@ -381,7 +381,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D TopRight
         {
-            get { return new Point2D(Top, Right); }
+            get { return new Point2D(Right, Top); }
             set
             {
                 Right = value.X;

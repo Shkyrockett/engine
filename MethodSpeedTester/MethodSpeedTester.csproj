@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experemental\BoundingRectPolygon.cs" />
     <Compile Include="Experemental\Curves\Bezier\BezierFragment.cs" />
     <Compile Include="Experemental\Curves\Bezier\BBox.cs" />
     <Compile Include="Experemental\Curves\Bezier\Arc1.cs" />

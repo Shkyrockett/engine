@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -104,6 +105,13 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        public override List<Point2D> Grips
+            => new List<Point2D> { Start.Value, Handle.Value, End.Value };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -113,8 +121,10 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
         [XmlIgnore, SoapIgnore]
-        public override double Length => ToQuadtraticBezier().Length;
+        public override double Length
+            => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(Start.Value.X, Start.Value.Y, Handle.Value.X, Handle.Value.Y, End.Value.X, End.Value.Y));
 
         #endregion
 

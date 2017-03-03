@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -113,6 +114,13 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        public override List<Point2D> Grips
+            => new List<Point2D> { Start.Value, Handle1, Handle2.Value, End.Value };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -122,9 +130,10 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
         [XmlIgnore, SoapIgnore]
         public override double Length
-            => ToCubicBezier().Length;
+            => (double)CachingProperty(() => Measurements.CubicBezierArcLength(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y));
 
         #endregion
 

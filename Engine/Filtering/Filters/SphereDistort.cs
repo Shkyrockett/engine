@@ -16,7 +16,7 @@ namespace Engine
     /// 
     /// </summary>
     public class SphereDistort
-        : Filter
+        : DestructiveFilter
     {
         #region Constructors
 

@@ -112,7 +112,15 @@
     <Compile Include="Animation\Tweening\Tween.cs" />
     <Compile Include="Animation\Tweening\Tweener.cs" />
     <Compile Include="Animation\ColorTransform.cs" />
+    <Compile Include="Filtering\Filters\MatrixDistort.cs" />
+    <Compile Include="Filtering\Filters\ParametricDestructiveDistort.cs" />
+    <Compile Include="Filtering\Filters\ParametricPreservingDistort.cs" />
+    <Compile Include="Filtering\Filters\RotateDistort.cs" />
+    <Compile Include="Filtering\Filters\ScaleDistort.cs" />
+    <Compile Include="Filtering\Filters\TranslateDistort.cs" />
+    <Compile Include="Filtering\PreservingFilter.cs" />
     <Compile Include="Filtering\Filters.cs" />
+    <Compile Include="Filtering\Filters\BulgeDistort.cs" />
     <Compile Include="Filtering\Filters\TimeWarpDistort.cs" />
     <Compile Include="Filtering\Filters\FlipDistort.cs" />
     <Compile Include="Filtering\Filters\WaterDistort.cs" />
@@ -152,7 +160,7 @@
     <Compile Include="_Preview\Envelope\Enums\DistortionDirection.cs" />
     <Compile Include="_Preview\Envelope\DistortionBase.cs" />
     <Compile Include="_Preview\Envelope\Interfaces\IDistortion.cs" />
-    <Compile Include="Filtering\Filter.cs" />
+    <Compile Include="Filtering\DestructiveFilter.cs" />
     <Compile Include="Filtering\Interfaces\IFilter.cs" />
     <Compile Include="Filtering\Filters\SphereDistort.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierContour.cs" />

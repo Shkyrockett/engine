@@ -412,7 +412,7 @@ namespace Engine
         /// </summary>
         /// <param name="nodes"></param>
         /// <returns></returns>
-        private PathContour AddCardinalCurve(List<Point2D> nodes)
+        internal PathContour AddCardinalCurve(List<Point2D> nodes)
         {
             var cubic = new PathCardinal(Items[Items.Count - 1], nodes);
             Items.Add(cubic);

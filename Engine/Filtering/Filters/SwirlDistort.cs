@@ -14,7 +14,7 @@ namespace Engine
     /// 
     /// </summary>
     public class SwirlDistort
-        : Filter
+        : DestructiveFilter
     {
         #region Constructors
 

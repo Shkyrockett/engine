@@ -120,7 +120,7 @@ namespace Editor
         public void BuildMap()
         {
             /* Experimental Previews */
-            TestCases.CurveFitting(vectorMap);
+            //TestCases.CurveFitting(vectorMap);
             TestCases.WarpGeometry(vectorMap);
             //TestCases.ComplexPolygonClipping(vectorMap);
             //TestCases.PolyClipping(vectorMap);

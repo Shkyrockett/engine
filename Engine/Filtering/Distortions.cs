@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Engine
 {
@@ -35,11 +36,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="point"></param>
+        /// <param name="factors"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Scale(Point2D point, Size2D factors)
+            => new Point2D(point.X * factors.Width, point.Y * factors.Height);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="fulcrum"></param>
         /// <param name="point"></param>
         /// <param name="bHorz"></param>
         /// <param name="bVert"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Flip(Point2D fulcrum, Point2D point, bool bHorz, bool bVert)
         {
             var x = (bHorz) ? fulcrum.X - (point.X - fulcrum.X + 1) : point.X;
@@ -50,11 +62,85 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="point"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Translate(Point2D point, Vector2D offset)
+            => point + offset;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Matrix(Point2D point, Matrix3x2D matrix)
+            => matrix.Transform(point);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="center"></param>
+        /// <param name="xAxis"></param>
+        /// <param name="yAxis"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Rotate(Point2D point, Point2D center, Point2D xAxis, Point2D yAxis) 
+            => new Point2D(center.X - (point.X * xAxis.X + point.Y * xAxis.Y), center.Y - (point.X * yAxis.X + point.Y * yAxis.Y));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fulcrum"></param>
+        /// <param name="point"></param>
+        /// <param name="strength"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Pinch(Point2D fulcrum, Point2D point, double strength = 0.5d)
+        {
+            if (fulcrum == point)
+                return point;
+            var dx = point.X - fulcrum.X;
+            var dy = point.Y - fulcrum.Y;
+            var distanceSquared = dx * dx + dy * dy;
+            var sx = point.X;
+            var sy = point.Y;
+            double distance = Math.Sqrt(distanceSquared);
+            if (strength < 0)
+            {
+                double r = distance;
+                double a = Math.Atan2(dy, dx);
+                double rn = Math.Pow(r, strength) * distance;
+                double newX = rn * Math.Cos(a) + fulcrum.X;
+                double newY = rn * Math.Sin(a) + fulcrum.Y;
+                sx += (newX - point.X);
+                sy += (newY - point.Y);
+            }
+            else
+            {
+                double dirX = dx / distance;
+                double dirY = dy / distance;
+                double alpha = distance;
+                double distortionFactor = distance * Math.Pow(1 - alpha, 1d / strength);
+                sx -= distortionFactor * dirX;
+                sy -= distortionFactor * dirY;
+            }
+
+            return new Point2D(sx, sy);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="fulcrum"></param>
         /// <param name="point"></param>
         /// <param name="radius"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch(Point2D fulcrum, Point2D point, double radius, double strength = 0.5d)
         {
             if (fulcrum == point)
@@ -99,6 +185,7 @@ namespace Engine
         /// <param name="radius"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch1(Point2D fulcrum, Point2D point, double radius, double strength = 0.5d)
         {
             if (fulcrum == point)
@@ -131,6 +218,7 @@ namespace Engine
         /// <param name="radius"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch2(Point2D fulcrum, Point2D point, double radius, double strength = 0.5d)
         {
             if (fulcrum == point)
@@ -161,6 +249,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <param name="degree"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Swirl(Point2D fulcrum, Point2D point, double degree = 0.05d)
         {
             if (fulcrum == point)
@@ -181,6 +270,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D TimeWarp(Point2D fulcrum, Point2D point, double factor = 10d)
         {
             var dX = point.X - fulcrum.X;
@@ -200,6 +290,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <param name="nWave"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Water(Point2D fulcrum, Point2D point, double nWave = 1)
         {
             double xo = nWave * Math.Sin(2d * Math.PI * point.Y / 128d);

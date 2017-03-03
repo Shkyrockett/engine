@@ -1,4 +1,4 @@
-﻿// <copyright file="WaterDistort.cs" company="Shkyrockett" >
+﻿// <copyright file="MatrixDistort.cs" company="Shkyrockett" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -13,20 +13,18 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public class WaterDistort
-        : DestructiveFilter
+    public class MatrixDistort
+        : PreservingFilter
     {
         #region Constructors
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
-        public WaterDistort(Point2D center, double strength = 8)
+        /// <param name="matrix"></param>
+        public MatrixDistort(Matrix3x2D matrix)
         {
-            Center = center;
-            Strength = strength;
+            this.Matrix = matrix;
         }
 
         #endregion
@@ -36,12 +34,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Point2D Center { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double Strength { get; set; }
+        public Matrix3x2D Matrix { get; set; }
 
         #endregion
 
@@ -53,7 +46,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Water(Center, point, Strength);
+            => Distortions.Matrix(point, Matrix);
 
         #endregion
     }

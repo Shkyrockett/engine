@@ -1,4 +1,4 @@
-﻿// <copyright file="Filter.cs" company="Shkyrockett" >
+﻿// <copyright file="DestructiveFilter.cs" company="Shkyrockett" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -15,7 +15,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public abstract class Filter
+    public abstract class DestructiveFilter
         : IFilter
     {
         #region Properties

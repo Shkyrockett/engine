@@ -39,7 +39,7 @@ namespace Engine
         {
             Previous = previous;
             previous.Next = this;
-            CenteralPoints = points;
+            CentralPoints = points;
         }
 
         #endregion
@@ -56,7 +56,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlArray]
-        public List<Point2D> CenteralPoints { get; set; }
+        public List<Point2D> CentralPoints { get; set; }
 
         /// <summary>
         /// 
@@ -67,7 +67,7 @@ namespace Engine
             get
             {
                 var nodes = new List<Point2D>() { Start.Value };
-                nodes.AddRange(CenteralPoints);
+                nodes.AddRange(CentralPoints);
                 return nodes;
             }
         }
@@ -82,7 +82,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D? End { get { return CenteralPoints[CenteralPoints.Count - 1]; } set { CenteralPoints[CenteralPoints.Count - 1] = value.Value; } }
+        public override Point2D? End { get { return CentralPoints[CentralPoints.Count - 1]; } set { CentralPoints[CentralPoints.Count - 1] = value.Value; } }
 
         /// <summary>
         /// 
@@ -93,7 +93,7 @@ namespace Engine
             get
             {
                 var result = new List<Point2D> { Start.Value  };
-                result.AddRange(CenteralPoints);
+                result.AddRange(CentralPoints);
                 result.Add(End.Value);
                 return result;
             }

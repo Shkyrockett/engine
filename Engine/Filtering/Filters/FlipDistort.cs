@@ -14,7 +14,7 @@ namespace Engine
     /// 
     /// </summary>
     public class FlipDistort
-        : Filter
+        : PreservingFilter
     {
         #region Constructors
 

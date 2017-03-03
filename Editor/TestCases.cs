@@ -349,17 +349,38 @@ namespace Editor
                 Name = "Triangle"
             };
 
+            //var scaleDistort = new ScaleDistort(new Size2D(2, 2));
+            //var translateDistort = new TranslateDistort(new Vector2D(-rect1.Center.X, -rect1.Center.Y));
+
+            var angle = 60d.ToRadians();
+            var xAxis = new Point2D(Math.Cos(angle), Math.Sin(angle));
+            var yAxis = new Point2D(-Math.Sin(angle), Math.Cos(angle));
+
+            var matrix = Matrix3x2D.Identity;
+            matrix.Translate(-rect1.Center.X, -rect1.Center.Y);
+            matrix.Scale(2, 2);
+            matrix.Rotate(angle);
+            matrix.Translate(rect1.Center.X, rect1.Center.Y);
+
+            var matrixTest = new MatrixDistort(matrix);
+
+            var test = new ParametricPreservingDistort(
+                (a) => Distortions.Translate(a, new Vector2D(-rect1.Center.X, -rect1.Center.Y)),
+                (a) => Distortions.Rotate(a, rect1.Center, xAxis, yAxis),
+                (a) => Distortions.Scale(a, new Size2D(2, 2)),
+                (a) => Distortions.Translate(a, new Vector2D(-rect1.Center.X, -rect1.Center.Y))
+                );
             var sphereDistort = new SphereDistort(rect1);
             var swirlDistort = new SwirlDistort(rect1.Center);
 
-            var curvedRectangle = sphereDistort.Process(rect1);
+            var curvedRectangle = matrixTest.Process(sphereDistort.Process(rect1));
             var curvedRectangleItem = new GraphicItem(curvedRectangle, solidCyanStyle)
             {
                 Name = "Curved Rectangle"
             };
             var curvedRectangleNodeItem = new GraphicItem(new NodeRevealer(curvedRectangle.Grips, 5d), handleStyle);
 
-            var curvedTriangle = swirlDistort.Process(sphereDistort.Process(triangle));
+            var curvedTriangle = swirlDistort.Process(test.Process(sphereDistort.Process(triangle)));
             var curvedTriangleItem = new GraphicItem(curvedTriangle, solidPurpleStyle)
             {
                 Name = "Curved Triangle"
@@ -375,11 +396,13 @@ namespace Editor
             vectorMap.Add(curvedRectangleItem);
             vectorMap.Add(rect1Item);
             vectorMap.Add(curvedTriangleItem);
-            //vectorMap.Add(triangleItem);
+            vectorMap.Add(triangleItem);
             vectorMap.Add(warpGridItem);
-            vectorMap.Add(curvedRectangleNodeItem);
-            vectorMap.Add(curvedTriangleNodeItem);
+            //vectorMap.Add(curvedRectangleNodeItem);
+            //vectorMap.Add(curvedTriangleNodeItem);
         }
+
+        private static object ToRadians(int v) => throw new NotImplementedException();
 
         /// <summary>
         /// 

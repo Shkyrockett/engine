@@ -477,7 +477,8 @@ namespace Engine
         /// Creates a rotation transformation about the given point
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in radians</param>
-        internal static Matrix3x2D CreateRotationRadians(double angle) => CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
+        internal static Matrix3x2D CreateRotationRadians(double angle)
+            => CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
 
         /// <summary>
         /// Creates a rotation transformation about the given point
@@ -1015,8 +1016,9 @@ namespace Engine
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         public void Rotate(double angle)
         {
-            angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this *= CreateRotationRadians((angle * (PI / 180.0)));
+            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
+            //this *= CreateRotationRadians((angle * (PI / 180.0)));
+            this *= CreateRotationRadians(Maths.WrapAngle(angle));
         }
 
         /// <summary>
@@ -1025,8 +1027,9 @@ namespace Engine
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         public void RotatePrepend(double angle)
         {
-            angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this = CreateRotationRadians((angle * (PI / 180.0))) * this;
+            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
+            //this = CreateRotationRadians((angle * (PI / 180.0))) * this;
+            this = CreateRotationRadians(Maths.WrapAngle(angle)) * this;
         }
 
         /// <summary>
@@ -1037,8 +1040,9 @@ namespace Engine
         /// <param name='centerY'>The centerY of rotation</param>
         public void RotateAt(double angle, double centerX, double centerY)
         {
-            angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this *= CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY);
+            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
+            //this *= CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY);
+            this *= CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY);
         }
 
         /// <summary>
@@ -1049,8 +1053,9 @@ namespace Engine
         /// <param name='centerY'>The centerY of rotation</param>
         public void RotateAtPrepend(double angle, double centerX, double centerY)
         {
-            angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            this = CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY) * this;
+            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
+            //this = CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY) * this;
+            this = CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY) * this;
         }
 
         /// <summary>
@@ -1092,27 +1097,29 @@ namespace Engine
         /// <summary>
         /// Skews this matrix
         /// </summary>
-        /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
-        /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
+        /// <param name='skewX'>The skew angle in the x dimension in radians</param>
+        /// <param name='skewY'>The skew angle in the y dimension in radians</param>
         public void Skew(double skewX, double skewY)
         {
-            skewX %= 360;
-            skewY %= 360;
-            this *= CreateSkewRadians((skewX * (PI / 180.0)),
-                                      (skewY * (PI / 180.0)));
+            //skewX %= 360;
+            //skewY %= 360;
+            //this *= CreateSkewRadians((skewX * (PI / 180.0)),
+            //                         (skewY * (PI / 180.0)));
+            this *= CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY));
         }
 
         /// <summary>
         /// Prepends a skew to this matrix
         /// </summary>
-        /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
-        /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
+        /// <param name='skewX'>The skew angle in the x dimension in radians</param>
+        /// <param name='skewY'>The skew angle in the y dimension in radians</param>
         public void SkewPrepend(double skewX, double skewY)
         {
-            skewX %= 360;
-            skewY %= 360;
-            this = CreateSkewRadians((skewX * (PI / 180.0)),
-                                     (skewY * (PI / 180.0))) * this;
+            //skewX %= 360;
+            //skewY %= 360;
+            //this = CreateSkewRadians((skewX * (PI / 180.0)),
+            //                         (skewY * (PI / 180.0))) * this;
+            this = CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY)) * this;
         }
 
         /// <summary>

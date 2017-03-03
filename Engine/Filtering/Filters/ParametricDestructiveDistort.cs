@@ -1,4 +1,4 @@
-﻿// <copyright file="WaterDistort.cs" company="Shkyrockett" >
+﻿// <copyright file="ParametricDestructiveDistort.cs" company="Shkyrockett" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,12 +8,14 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    public class WaterDistort
+    public class ParametricDestructiveDistort
         : DestructiveFilter
     {
         #region Constructors
@@ -21,12 +23,10 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
-        public WaterDistort(Point2D center, double strength = 8)
+        /// <param name="functions"></param>
+        public ParametricDestructiveDistort(params Func<Point2D, Point2D>[] functions)
         {
-            Center = center;
-            Strength = strength;
+            Functions = functions;
         }
 
         #endregion
@@ -36,12 +36,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Point2D Center { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double Strength { get; set; }
+        public Func<Point2D, Point2D>[] Functions { get; set; }
 
         #endregion
 
@@ -53,7 +48,14 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Water(Center, point, Strength);
+        {
+            var result = point;
+            foreach (var function in Functions)
+            {
+                result = function.Invoke(result);
+            }
+            return result;
+        }
 
         #endregion
     }

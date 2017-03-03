@@ -106,7 +106,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
-        protected virtual void OnSerializing(StreamingContext context)
+        protected void OnSerializing(StreamingContext context)
         {
             // Assert("This value went into the data file during serialization.");
         }
@@ -116,7 +116,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
-        protected virtual void OnSerialized(StreamingContext context)
+        protected void OnSerialized(StreamingContext context)
         {
             // Assert("This value was reset after serialization.");
         }
@@ -126,7 +126,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
-        protected virtual void OnDeserializing(StreamingContext context)
+        protected void OnDeserializing(StreamingContext context)
         {
             // Assert("This value was set during deserialization");
         }
@@ -136,7 +136,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
-        protected virtual void OnDeserialized(StreamingContext context)
+        protected void OnDeserialized(StreamingContext context)
         {
             // Assert("This value was set after deserialization.");
         }

@@ -14,7 +14,7 @@ namespace Engine
     /// 
     /// </summary>
     public class TimeWarpDistort
-        : Filter
+        : DestructiveFilter
     {
         #region Constructors
 

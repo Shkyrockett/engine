@@ -185,5 +185,68 @@ namespace Engine._Preview
             //distortionPoints = ClipperUtility.ConvertToClipperPolygons(distortionPath);
             distortionBounds = distortionPath.Bounds();
         }
+
+
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="graphics"></param>
+        ///// <param name="width"></param>
+        ///// <param name="height"></param>
+        ///// <param name="phrase"></param>
+        ///// <remarks> http://stackoverflow.com/a/9019432 </remarks>
+        //internal static void DrawPhrase(this Contour graphics, int width, int height, string phrase)
+        //{
+        //    graphics.FillRectangle(Brushes.White, 0, 0, width, height);
+
+        //    var gp = new Contour();
+        //    gp.AddString(phrase, FontFamily.GenericMonospace, (int)FontStyle.Bold, 33f, new Point(0, 0), StringFormat.GenericTypographic);
+
+        //    using (var gpp = Deform(gp, width, height))
+        //    {
+        //        var bounds = gpp.GetBounds();
+        //        var matrix = new Matrix();
+        //        var x = (width - bounds.Width) / 2 - bounds.Left;
+        //        var y = (height - bounds.Height) / 2 - bounds.Top;
+        //        matrix.Translate(x, y);
+        //        gpp.Transform(matrix);
+        //        graphics.FillPath(Brushes.Black, gpp);
+        //    }
+
+        //    graphics.Flush();
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        /// <remarks> http://stackoverflow.com/a/9019432 </remarks>
+        internal static Contour Deform(Contour path, int width, int height)
+        {
+            var rng = new Random();
+            var WarpFactor = 4;
+            var xAmp = WarpFactor * width / 300d;
+            var yAmp = WarpFactor * height / 50d;
+            var xFreq = Maths.Tau / width;
+            var yFreq = Maths.Tau / height;
+            var deformed = new Point2D[path.Count];
+            var xSeed = rng.NextDouble() * Maths.Tau;
+            var ySeed = rng.NextDouble() * Maths.Tau;
+            var i = 0;
+            foreach (var original in path.Points)
+            {
+                var val = xFreq * original.X + yFreq * original.Y;
+                var xOffset = (int)(xAmp * Math.Sin(val + xSeed));
+                var yOffset = (int)(yAmp * Math.Sin(val + ySeed));
+                deformed[i++] = new Point2D(original.X + xOffset, original.Y + yOffset);
+            }
+
+            return new Contour(deformed);
+        }
+
     }
 }

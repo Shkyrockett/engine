@@ -1,4 +1,4 @@
-﻿// <copyright file="WaterDistort.cs" company="Shkyrockett" >
+﻿// <copyright file="BulgeDistort.cs" company="Shkyrockett" >
 //     Copyright (c) 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,12 +8,14 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    public class WaterDistort
+    public class BulgeDistort
         : DestructiveFilter
     {
         #region Constructors
@@ -23,7 +25,7 @@ namespace Engine
         /// </summary>
         /// <param name="center"></param>
         /// <param name="strength"></param>
-        public WaterDistort(Point2D center, double strength = 8)
+        public BulgeDistort(Point2D center, double strength = 0.5)
         {
             Center = center;
             Strength = strength;
@@ -53,7 +55,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Water(Center, point, Strength);
+            => Distortions.Pinch(Center, point, -Strength);
 
         #endregion
     }

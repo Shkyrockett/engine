@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -25,8 +26,9 @@ namespace Engine
     [Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polyline))]
+    [XmlType(TypeName = "polyline", Namespace = "http://www.w3.org/2000/svg")]
     public class Polyline
-        : Shape
+        : Shape, IEnumerable<Point2D>
     {
         #region Fields
 
@@ -181,7 +183,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
-        protected void OnSerializing(StreamingContext context)
+        protected new void OnSerializing(StreamingContext context)
         {
             // Assert("This value went into the data file during serialization.");
         }
@@ -191,7 +193,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
-        protected void OnSerialized(StreamingContext context)
+        protected new void OnSerialized(StreamingContext context)
         {
             // Assert("This value was reset after serialization.");
         }
@@ -201,7 +203,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
-        protected void OnDeserializing(StreamingContext context)
+        protected new void OnDeserializing(StreamingContext context)
         {
             // Assert("This value was set during deserialization");
         }
@@ -211,7 +213,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
-        protected void OnDeserialized(StreamingContext context)
+        protected new void OnDeserialized(StreamingContext context)
         {
             // Assert("This value was set after deserialization.");
         }
@@ -328,6 +330,20 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline Offset(double offset)
             => Offsets.Offset(this, offset);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<Point2D> GetEnumerator()
+            => points.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polyline"/> struct based on the format string

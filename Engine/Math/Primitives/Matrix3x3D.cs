@@ -659,7 +659,7 @@ namespace Engine
                 }
                 else
                 {
-                    zAngle = HalfPi;
+                    zAngle = Right;
                     yAngle = Atan(axis.K / axis.J);
                 }
             }

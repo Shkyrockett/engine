@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using static System.Math;
 
 namespace Engine
 {
@@ -88,8 +89,31 @@ namespace Engine
         /// <param name="yAxis"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Rotate(Point2D point, Point2D center, Point2D xAxis, Point2D yAxis) 
+        public static Point2D Rotate(Point2D point, Point2D center, Point2D xAxis, Point2D yAxis)
             => new Point2D(center.X - (point.X * xAxis.X + point.Y * xAxis.Y), center.Y - (point.X * yAxis.X + point.Y * yAxis.Y));
+
+        /// <summary>
+        /// Rotate all the coordinates in-place around the center point (cx, cy) by angle theta.
+        /// </summary>
+        /// <param name="a">an array of arrays of coordinates in 2D space.</param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="theta"></param>
+        public static void RotateArrays(List<List<Point2D>> a, double cx, double cy, double theta)
+        {
+            var cosine = Cos(theta);
+            var sine = Sin(theta);
+            for (var i = 0; i < a.Count; i++)
+            {
+                var p = a[i];
+                for (var j = 0; j < p.Count;)
+                {
+                    var x = p[j].X - cx;
+                    var y = p[j].Y - cy;
+                    p[j] = new Point2D(cosine * x - sine * y + cx, sine * x + cosine * y + cy);
+                }
+            }
+        }
 
         /// <summary>
         /// 
@@ -407,7 +431,7 @@ namespace Engine
             {
                 Point2D p = pts[i];
                 double pDist = Measurements.PerpendicularDistance(segment, p);
-                if (pDist != double.NaN && pDist > maxDist)
+                if (!double.IsNaN(pDist) && pDist > maxDist)
                 {
                     maxDist = pDist;
                     split = i;

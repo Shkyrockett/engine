@@ -119,9 +119,11 @@ namespace Editor
         /// </summary>
         public void BuildMap()
         {
+#pragma warning disable IDE0022 // Use expression body for methods
             /* Experimental Previews */
             //TestCases.CurveFitting(vectorMap);
-            TestCases.WarpGeometry(vectorMap);
+            TestCases.EllipseToBezier(vectorMap);
+            //TestCases.WarpGeometry(vectorMap);
             //TestCases.ComplexPolygonClipping(vectorMap);
             //TestCases.PolyClipping(vectorMap);
             //TestCases.PathContourWArcLine(vectorMap);
@@ -157,6 +159,7 @@ namespace Editor
             //TestCases.CircleBounds(vectorMap);
             //TestCases.QuadraticLength(vectorMap);
             //TestCases.CubicBezierLength(vectorMap);
+#pragma warning restore IDE0022 // Use expression body for methods
         }
 
         #region Events

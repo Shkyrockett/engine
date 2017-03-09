@@ -146,6 +146,7 @@
     <Compile Include="Geometry\CurveFitting\CurveFit.cs" />
     <Compile Include="Filtering\Distortions.cs" />
     <Compile Include="Geometry\Complex\Tools\ParametricWarpGrid.cs" />
+    <Compile Include="_Preview\Conversions.cs" />
     <Compile Include="_Preview\Envelope\BulgeDistortion.cs" />
     <Compile Include="_Preview\Clipping\GreinerHormann\GreinerHormannClipper.cs" />
     <Compile Include="_Preview\Clipping\Martinez\Comparators\SegmentComp.cs" />
@@ -263,7 +264,7 @@
     <Compile Include="Geometry\Polygons\RotatedRectangle2D.cs" />
     <Compile Include="Math\Primitives\Converters\AngleConverter.cs" />
     <Compile Include="Math\Enums\Overflows.cs" />
-    <Compile Include="Geometry\Math\Offsets.cs" />
+    <Compile Include="_Preview\Offsets.cs" />
     <Compile Include="Objects\Geometry.cs" />
     <Compile Include="Physics\BasicUnits\Length\LengthUnits.cs" />
     <Compile Include="Physics\UnitStrings.cs" />
@@ -494,6 +495,7 @@
   <ItemGroup>
     <None Include="Animation\Tweening\readme.md" />
     <None Include="packages.config" />
+    <None Include="RuleSet.ruleset" />
     <None Include="_Preview\InteractionMethods.md" />
   </ItemGroup>
   <ItemGroup />

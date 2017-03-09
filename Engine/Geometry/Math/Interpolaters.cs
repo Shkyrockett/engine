@@ -1033,28 +1033,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
-        public static List<(double X, double Y)> QuadraticBezierToCubicBezier(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2)
-            => new List<(double X, double Y)>()
-            {
-                (x0, y0),
-                (x0 + TwoThirds * (x1 - x0), y0 + TwoThirds * (y1 - y0)),
-                (x2 + TwoThirds * (x1 - x2), y2 + TwoThirds * (y1 - y2)),
-                (x2, y2)
-            };
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
+using Engine._Preview;
 
 namespace Engine
 {
@@ -1354,7 +1355,7 @@ namespace Engine
                 e += 2d * PI;
             if ((e >= 0d) && (s <= 0d))
                 bounds.Right = cX + r;
-            if ((e >= HalfPi) && (s <= HalfPi))
+            if ((e >= Right) && (s <= Right))
                 bounds.Top = cY - r;
             if ((e >= PI) && (s <= PI))
                 bounds.Left = cX - r;
@@ -1715,7 +1716,7 @@ namespace Engine
             double bx, double by,
             double cx, double cy)
         {
-            var cubic = Interpolaters.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
+            var cubic = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
             return CubicBezierBounds(cubic[0].X, cubic[0].Y, cubic[1].X, cubic[1].Y, cubic[2].X, cubic[2].Y, cubic[3].X, cubic[3].Y);
         }
 

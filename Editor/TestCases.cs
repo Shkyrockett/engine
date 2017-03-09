@@ -321,6 +321,46 @@ namespace Editor
         /// 
         /// </summary>
         /// <param name="vectorMap"></param>
+        public static void EllipseToBezier(VectorMap vectorMap)
+        {
+            var ellipse = new Ellipse(150, 100, 100, 50, 0);
+            var ellipseItem = new GraphicItem(ellipse, solidGreenStyle)
+            {
+                Name = "Ellipse"
+            };
+
+            var ellipticalArc = new EllipticalArc(ellipse, -30d.ToRadians(), 90d.ToRadians());
+            var ellipticalArcItem = new GraphicItem(ellipticalArc, solidCyanStyle)
+            {
+                Name = "Elliptical Arc"
+            };
+
+            var beziers = Conversions.EllipticalArcToCubicBeziers(ellipticalArc);
+            var contour = new PathContour(beziers[0].A);
+
+            foreach (var bezier in beziers)
+            {
+                contour.AddCubicBezier(bezier.B, bezier.C, bezier.D);
+            }
+            var arcContourItem = new GraphicItem(contour, solidPurpleStyle)
+            {
+                Name = "Bezier Arc"
+            };
+            var arcContourNodeItem = new GraphicItem(new NodeRevealer(contour.Grips, 5d), handleStyle)
+            {
+                Name = "Contour Nodes"
+            };
+
+            vectorMap.Add(ellipseItem);
+            vectorMap.Add(ellipticalArcItem);
+            vectorMap.Add(arcContourItem);
+            vectorMap.Add(arcContourNodeItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
         public static void CurveFitting(VectorMap vectorMap)
         {
             Contour points = new Contour() { (50, 50), (100, 75), (150, 75), (200, 75) };
@@ -401,8 +441,6 @@ namespace Editor
             //vectorMap.Add(curvedRectangleNodeItem);
             //vectorMap.Add(curvedTriangleNodeItem);
         }
-
-        private static object ToRadians(int v) => throw new NotImplementedException();
 
         /// <summary>
         /// 

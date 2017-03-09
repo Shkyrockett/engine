@@ -71,7 +71,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ElasticIn(double t)
-            => (Sin(13d * HalfPi * t) * Pow(2d, 10d * (t - 1d)));
+            => (Sin(13d * Right * t) * Pow(2d, 10d * (t - 1d)));
 
         /// <summary>
         /// Elastic out.
@@ -79,7 +79,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double ElasticOut(double t)
-            => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * HalfPi * (t + 1d)) * Pow(2d, -10d * t) + 1d);
+            => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * Right * (t + 1d)) * Pow(2d, -10d * t) + 1d);
 
         /// <summary>
         /// Elastic in and out.
@@ -88,8 +88,8 @@ namespace Engine.Tweening
         /// <returns>Eased timescale.</returns>
         public static double ElasticInOut(double t)
             => (t < 0.5d) ?
-                (0.5d * Sin(13d * HalfPi * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) :
-                (0.5d * (Sin(-13d * HalfPi * ((2d * t - 1) + 1d)) * Pow(2d, -10d * (2d * t - 1d)) + 2d));
+                (0.5d * Sin(13d * Right * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) :
+                (0.5d * (Sin(-13d * Right * ((2d * t - 1) + 1d)) * Pow(2d, -10d * (2d * t - 1d)) + 2d));
 
         /// <summary>
         /// Quadratic in.
@@ -193,7 +193,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double SineIn(double t)
-            => (Abs(t - 1d) < Epsilon) ? 1d : (-Cos(HalfPi * t) + 1d);
+            => (Abs(t - 1d) < Epsilon) ? 1d : (-Cos(Right * t) + 1d);
 
         /// <summary>
         /// Sine out.
@@ -201,7 +201,7 @@ namespace Engine.Tweening
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
         public static double SineOut(double t)
-            => (Sin(HalfPi * t));
+            => (Sin(Right * t));
 
         /// <summary>
         /// Sine in and out

@@ -308,14 +308,43 @@ namespace Engine
             double theta = angle % Tau;
 
             // Find the elliptical t that matches the circular angle.
-            if (Math.Abs(theta) == HalfPi || Math.Abs(theta) == Pau)
+            if (Math.Abs(theta) == Right || Math.Abs(theta) == Pau)
                 return angle;
-            else if (theta > HalfPi && theta < Pau)
+            else if (theta > Right && theta < Pau)
                 return Atan(rx * Tan(theta) / ry) + PI;
-            else if (theta < -HalfPi && theta > -Pau)
+            else if (theta < -Right && theta > -Pau)
                 return Atan(rx * Tan(theta) / ry) - PI;
             else
                 return Atan(rx * Tan(theta) / ry);
+        }
+
+        /// <summary>
+        /// Return a "correction" angle that converts a subtended angle to a parametric angle for an
+        /// ellipse with radii a and b.
+        /// </summary>
+        /// <param name="subtended"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
+        /// Math from: http://mathworld.wolfram.com/Ellipse-LineIntersection.html
+        /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SubtendedToParametric(double subtended, double a, double b)
+        {
+            if (a == b)
+                return 0;  /* circle needs no correction */
+
+            var rx = Cos(subtended);  /* ray from the origin */
+            var ry = Sin(subtended);
+            var e = (a * b) / Sqrt(a * a * ry * ry + b * b * rx * rx);
+            var ex = e * rx;  /* where ray intersects ellipse */
+            var ey = e * ry;
+            var parametric = Atan2(a * ey, b * ex);
+            subtended = Atan2(ry, rx);  /* Normalized! */
+            return parametric - subtended;
         }
 
         #region Reflect
@@ -502,8 +531,8 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => ((Math.Abs(value % PI - HalfPi) > Epsilon)
-            && (Math.Abs(value % PI - -HalfPi) > Epsilon)) ? (1 / Cos(value)) : 0;
+            => ((Math.Abs(value % PI - Right) > Epsilon)
+            && (Math.Abs(value % PI - -Right) > Epsilon)) ? (1 / Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -540,9 +569,9 @@ namespace Engine
         public static double InverseSine(double value)
         {
             if (value == 1)
-                return HalfPi;
+                return Right;
             if (value == -1)
-                return -HalfPi;
+                return -Right;
             if (Math.Abs(value) < 1)
                 // Arc-sin(X)
                 return Atan(value / Sqrt(-value * value + 1));
@@ -600,9 +629,9 @@ namespace Engine
         public static double InverseCosecant(double value)
         {
             if (value == 1)
-                return HalfPi;
+                return Right;
             if (value == -1)
-                return -HalfPi;
+                return -Right;
             if (Math.Abs(value) < 1)
                 // Arc-co-sec(X)
                 return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Engine._Preview;
 
 namespace Engine
 {
@@ -116,7 +117,7 @@ namespace Engine
         /// <param name="cy"></param>
         public CubicBezier(double ax, double ay, double bx, double by, double cx, double cy)
         {
-            var nodes = Interpolaters.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
+            var nodes = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
             ax = nodes[0].X;
             ay = nodes[0].Y;
             bx = nodes[1].X;
@@ -547,7 +548,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
-        protected new void OnSerializing(StreamingContext context)
+        private void OnSerializing(StreamingContext context)
         {
             // Assert("This value went into the data file during serialization.");
         }
@@ -557,7 +558,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
-        protected new void OnSerialized(StreamingContext context)
+        private void OnSerialized(StreamingContext context)
         {
             // Assert("This value was reset after serialization.");
         }
@@ -567,7 +568,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
-        protected new void OnDeserializing(StreamingContext context)
+        private void OnDeserializing(StreamingContext context)
         {
             // Assert("This value was set during deserialization");
         }
@@ -577,7 +578,7 @@ namespace Engine
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
-        protected new void OnDeserialized(StreamingContext context)
+        private void OnDeserialized(StreamingContext context)
         {
             // Assert("This value was set after deserialization.");
         }

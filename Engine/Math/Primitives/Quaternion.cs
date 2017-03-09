@@ -245,7 +245,7 @@ namespace Engine
             {
                 double test = X * Y + Z * W;
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
-                    return Sign(test) * HalfPi;
+                    return Sign(test) * Right;
                 return Asin(2d * test);
             }
         }

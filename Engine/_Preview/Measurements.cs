@@ -402,7 +402,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this CircularArc arc)
-            => CircularArcBounds(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle);
+            => CircularArcBounds(arc.X, arc.Y, arc.Radius, 0, arc.StartAngle, arc.SweepAngle);
 
         /// <summary>
         /// 
@@ -1326,11 +1326,12 @@ namespace Engine
             => Rectangle2D.FromLTRB((cX - r), (cY - r), (cX + r), (cY + r));
 
         /// <summary>
-        /// Calculate the external close fitting rectangular bounds of a circular arc.
+        /// Calculate the axial aligned bounding box of a circular arc.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of the Circle.</param>
+        /// <param name="angle"></param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
         /// <returns>The close bounding box of a circular arc.</returns>
@@ -1340,29 +1341,26 @@ namespace Engine
         public static Rectangle2D CircularArcBounds(
             double cX, double cY,
             double r,
+            double angle,
             double startAngle, double sweepAngle)
         {
-            double s = Maths.WrapAngle(startAngle);
-            double e = Maths.WrapAngle(s + sweepAngle);
-            var startPoint = new Point2D(cX + r * Cos(startAngle), cY + r * Sin(startAngle));
-            var endPoint = new Point2D(cX + r * Cos(e), cY + r * Sin(e));
-            //if (sweepAngle < 0)
-            //    Swap(ref e, ref s);
-            var bounds = new Rectangle2D(startPoint, endPoint);
+            double start = Maths.WrapAngle(angle + startAngle);
+            double end = Maths.WrapAngle(start + sweepAngle);
 
-            // check that s > e
-            if (e < s)
-                e += 2d * PI;
-            if ((e >= 0d) && (s <= 0d))
+            var bounds = new Rectangle2D(
+                new Point2D(cX + r * Cos(startAngle), cY + r * Sin(startAngle)),
+                new Point2D(cX + r * Cos(end), cY + r * Sin(end)));
+
+            // Expand the boundaries if any of the extreme angles fall within the sweep angle.
+            if (Intersections.Within(0, start, sweepAngle))
                 bounds.Right = cX + r;
-            if ((e >= Right) && (s <= Right))
-                bounds.Top = cY - r;
-            if ((e >= PI) && (s <= PI))
-                bounds.Left = cX - r;
-            if ((e >= Pau) && (s <= Pau))
+            if (Intersections.Within(Right, start, sweepAngle))
                 bounds.Bottom = cY + r;
-            if ((e >= Tau) && (s <= Tau))
-                bounds.Right = cX + r;
+            if (Intersections.Within(PI, start, sweepAngle))
+                bounds.Left = cX - r;
+            if (Intersections.Within(Pau, start, sweepAngle))
+                bounds.Top = cY - r;
+
             return bounds;
         }
 

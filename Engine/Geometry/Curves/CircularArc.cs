@@ -372,7 +372,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The tight rectangular boundaries of the Arc.")]
         public override Rectangle2D Bounds
-            => Measurements.CircularArcBounds(x, y, radius, startAngle, SweepAngle);
+            => Measurements.CircularArcBounds(x, y, radius, 0, startAngle, SweepAngle);
 
         /// <summary>
         /// 

@@ -269,24 +269,318 @@ namespace Editor
         /// <param name="vectorMap"></param>
         public static void CircularArcBounds(VectorMap vectorMap)
         {
-            var arc = new CircularArc(new Point2D(100, 100), 100, -60d.ToRadians(), -300d.ToRadians());
-            var chord = new LineSegment(arc.StartPoint, Examples.Arc.EndPoint);
-            var arcBounds = new Rectangle2D(arc.Bounds);
-            var arcItem = new GraphicItem(arc, whiteishStyle)
+            var arc_0_30 = new CircularArc(0, 50, 50, 0d.ToRadians(), 30d.ToRadians());
+            var arc_0_30Item = new GraphicItem(arc_0_30, whiteishStyle)
             {
-                Name = "Arc Shape."
+                Name = "Arc 0° to 30°"
             };
-            var chordItem = new GraphicItem(chord, solidCyanStyle)
+            var arc_0_30Bounds = new Rectangle2D(arc_0_30.Bounds);
+            var arc_0_30BoundsItem = new GraphicItem(arc_0_30Bounds, selectionStyle)
             {
-                Name = "Arc Chord."
+                Name = "Arc 0° to 30° Bounding Box."
             };
-            var arcBoundsItem = new GraphicItem(arcBounds, selectionStyle)
+
+            var arc_0_45 = new CircularArc(50, 50, 50, 0d.ToRadians(), 45d.ToRadians());
+            var arc_0_45Item = new GraphicItem(arc_0_45, whiteishStyle)
             {
-                Name = "Arc Bounding Box."
+                Name = "Arc 0° to 45°"
             };
-            vectorMap.Add(arcBoundsItem);
-            vectorMap.Add(arcItem);
-            vectorMap.Add(chordItem);
+            var arc_0_45Bounds = new Rectangle2D(arc_0_45.Bounds);
+            var arc_0_45BoundsItem = new GraphicItem(arc_0_45Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 45° Bounding Box."
+            };
+
+            var arc_0_60 = new CircularArc(100, 50, 50, 0d.ToRadians(), 60d.ToRadians());
+            var arc_0_60Item = new GraphicItem(arc_0_60, whiteishStyle)
+            {
+                Name = "Arc 0° to 60°"
+            };
+            var arc_0_60Bounds = new Rectangle2D(arc_0_60.Bounds);
+            var arc_0_60BoundsItem = new GraphicItem(arc_0_60Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 60° Bounding Box."
+            };
+
+            var arc_0_90 = new CircularArc(175, 50, 50, 0d.ToRadians(), 90d.ToRadians());
+            var arc_0_90Item = new GraphicItem(arc_0_90, whiteishStyle)
+            {
+                Name = "Arc 0° to 90°"
+            };
+            var arc_0_90Bounds = new Rectangle2D(arc_0_90.Bounds);
+            var arc_0_90BoundsItem = new GraphicItem(arc_0_90Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 90° Bounding Box."
+            };
+
+            var arc_0_120 = new CircularArc(275, 50, 50, 0d.ToRadians(), 120d.ToRadians());
+            var arc_0_120Item = new GraphicItem(arc_0_120, whiteishStyle)
+            {
+                Name = "Arc 0° to 120°"
+            };
+            var arc_0_120Bounds = new Rectangle2D(arc_0_120.Bounds);
+            var arc_0_120BoundsItem = new GraphicItem(arc_0_120Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 120° Bounding Box."
+            };
+
+            var arc_0_180 = new CircularArc(400, 50, 50, 0d.ToRadians(), 180d.ToRadians());
+            var arc_0_180Item = new GraphicItem(arc_0_180, whiteishStyle)
+            {
+                Name = "Arc 0° to 180°"
+            };
+            var arc_0_180Bounds = new Rectangle2D(arc_0_180.Bounds);
+            var arc_0_180BoundsItem = new GraphicItem(arc_0_180Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 180° Bounding Box."
+            };
+
+            var arc_0_210 = new CircularArc(75, 175, 50, 0d.ToRadians(), 210d.ToRadians());
+            var arc_0_210Item = new GraphicItem(arc_0_210, whiteishStyle)
+            {
+                Name = "Arc 0° to 210°"
+            };
+            var arc_0_210Bounds = new Rectangle2D(arc_0_210.Bounds);
+            var arc_0_210BoundsItem = new GraphicItem(arc_0_210Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 210° Bounding Box."
+            };
+
+            var arc_0_270 = new CircularArc(200, 175, 50, 0d.ToRadians(), 270d.ToRadians());
+            var arc_0_270Item = new GraphicItem(arc_0_270, whiteishStyle)
+            {
+                Name = "Arc 0° to 270°"
+            };
+            var arc_0_270Bounds = new Rectangle2D(arc_0_270.Bounds);
+            var arc_0_270BoundsItem = new GraphicItem(arc_0_270Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 270° Bounding Box."
+            };
+
+            var arc_0_315 = new CircularArc(325, 175, 50, 0d.ToRadians(), 315d.ToRadians());
+            var arc_0_315Item = new GraphicItem(arc_0_315, whiteishStyle)
+            {
+                Name = "Arc 0° to 315°"
+            };
+            var arc_0_315Bounds = new Rectangle2D(arc_0_315.Bounds);
+            var arc_0_315BoundsItem = new GraphicItem(arc_0_315Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 315° Bounding Box."
+            };
+
+            var arc_0_360 = new CircularArc(450, 175, 50, 0d.ToRadians(), 360d.ToRadians());
+            var arc_0_360Item = new GraphicItem(arc_0_360, whiteishStyle)
+            {
+                Name = "Arc 0° to 360°"
+            };
+            var arc_0_360Bounds = new Rectangle2D(arc_0_360.Bounds);
+            var arc_0_360BoundsItem = new GraphicItem(arc_0_360Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to 360° Bounding Box."
+            };
+
+            var arc_0_n30 = new CircularArc(0, 50, 50, 0d.ToRadians(), -30d.ToRadians());
+            var arc_0_n30Item = new GraphicItem(arc_0_n30, whiteishStyle)
+            {
+                Name = "Arc 0° to -30°"
+            };
+            var arc_0_n30Bounds = new Rectangle2D(arc_0_n30.Bounds);
+            var arc_0_n30BoundsItem = new GraphicItem(arc_0_n30Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -30° Bounding Box."
+            };
+
+            var arc_0_n45 = new CircularArc(50, 50, 50, 0d.ToRadians(), -45d.ToRadians());
+            var arc_0_n45Item = new GraphicItem(arc_0_n45, whiteishStyle)
+            {
+                Name = "Arc 0° to -45°"
+            };
+            var arc_0_n45Bounds = new Rectangle2D(arc_0_n45.Bounds);
+            var arc_0_n45BoundsItem = new GraphicItem(arc_0_n45Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -45° Bounding Box."
+            };
+
+            var arc_0_n60 = new CircularArc(100, 50, 50, 0d.ToRadians(), -60d.ToRadians());
+            var arc_0_n60Item = new GraphicItem(arc_0_n60, whiteishStyle)
+            {
+                Name = "Arc 0° to -60°"
+            };
+            var arc_0_n60Bounds = new Rectangle2D(arc_0_n60.Bounds);
+            var arc_0_n60BoundsItem = new GraphicItem(arc_0_n60Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -60° Bounding Box."
+            };
+
+            var arc_0_n90 = new CircularArc(175, 50, 50, 0d.ToRadians(), -90d.ToRadians());
+            var arc_0_n90Item = new GraphicItem(arc_0_n90, whiteishStyle)
+            {
+                Name = "Arc 0° to -90°"
+            };
+            var arc_0_n90Bounds = new Rectangle2D(arc_0_n90.Bounds);
+            var arc_0_n90BoundsItem = new GraphicItem(arc_0_n90Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -90° Bounding Box."
+            };
+
+            var arc_0_n120 = new CircularArc(275, 50, 50, 0d.ToRadians(), -120d.ToRadians());
+            var arc_0_n120Item = new GraphicItem(arc_0_n120, whiteishStyle)
+            {
+                Name = "Arc 0° to -120°"
+            };
+            var arc_0_n120Bounds = new Rectangle2D(arc_0_n120.Bounds);
+            var arc_0_n120BoundsItem = new GraphicItem(arc_0_n120Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -120° Bounding Box."
+            };
+
+            var arc_0_n180 = new CircularArc(400, 50, 50, 0d.ToRadians(), -180d.ToRadians());
+            var arc_0_n180Item = new GraphicItem(arc_0_n180, whiteishStyle)
+            {
+                Name = "Arc 0° to -180°"
+            };
+            var arc_0_n180Bounds = new Rectangle2D(arc_0_n180.Bounds);
+            var arc_0_n180BoundsItem = new GraphicItem(arc_0_n180Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -180° Bounding Box."
+            };
+
+            var arc_0_n210 = new CircularArc(75, 300, 50, 0d.ToRadians(), -210d.ToRadians());
+            var arc_0_n210Item = new GraphicItem(arc_0_n210, whiteishStyle)
+            {
+                Name = "Arc 0° to -210°"
+            };
+            var arc_0_n210Bounds = new Rectangle2D(arc_0_n210.Bounds);
+            var arc_0_n210BoundsItem = new GraphicItem(arc_0_n210Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -210° Bounding Box."
+            };
+
+            var arc_0_n270 = new CircularArc(200, 300, 50, 0d.ToRadians(), -270d.ToRadians());
+            var arc_0_n270Item = new GraphicItem(arc_0_n270, whiteishStyle)
+            {
+                Name = "Arc 0° to -270°"
+            };
+            var arc_0_n270Bounds = new Rectangle2D(arc_0_n270.Bounds);
+            var arc_0_n270BoundsItem = new GraphicItem(arc_0_n270Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -270° Bounding Box."
+            };
+
+            var arc_0_n315 = new CircularArc(325, 300, 50, 0d.ToRadians(), -315d.ToRadians());
+            var arc_0_n315Item = new GraphicItem(arc_0_n315, whiteishStyle)
+            {
+                Name = "Arc 0° to -315°"
+            };
+            var arc_0_n315Bounds = new Rectangle2D(arc_0_n315.Bounds);
+            var arc_0_n315BoundsItem = new GraphicItem(arc_0_n315Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -315° Bounding Box."
+            };
+
+            var arc_0_n360 = new CircularArc(450, 300, 50, 0d.ToRadians(), -360d.ToRadians());
+            var arc_0_n360Item = new GraphicItem(arc_0_n360, whiteishStyle)
+            {
+                Name = "Arc 0° to -360°"
+            };
+            var arc_0_n360Bounds = new Rectangle2D(arc_0_n360.Bounds);
+            var arc_0_n360BoundsItem = new GraphicItem(arc_0_n360Bounds, selectionStyle)
+            {
+                Name = "Arc 0° to -360° Bounding Box."
+            };
+
+            var arc_45_90 = new CircularArc(75, 400, 50, 45d.ToRadians(), 90d.ToRadians());
+            var arc_45_90Item = new GraphicItem(arc_45_90, whiteishStyle)
+            {
+                Name = "Arc -45° to 90°"
+            };
+            var arc_45_90Bounds = new Rectangle2D(arc_45_90.Bounds);
+            var arc_45_90BoundsItem = new GraphicItem(arc_45_90Bounds, selectionStyle)
+            {
+                Name = "Arc 45° to 90° Bounding Box."
+            };
+
+            var arc_n45_90 = new CircularArc(75, 400, 50, -45d.ToRadians(), 90d.ToRadians());
+            var arc_n45_90Item = new GraphicItem(arc_n45_90, whiteishStyle)
+            {
+                Name = "Arc -45° to 90°"
+            };
+            var arc_n45_90Bounds = new Rectangle2D(arc_n45_90.Bounds);
+            var arc_n45_90BoundsItem = new GraphicItem(arc_n45_90Bounds, selectionStyle)
+            {
+                Name = "Arc -45° to 90° Bounding Box."
+            };
+
+            var arc_n45_n90 = new CircularArc(75, 400, 50, -45d.ToRadians(), -90d.ToRadians());
+            var arc_n45_n90Item = new GraphicItem(arc_n45_n90, whiteishStyle)
+            {
+                Name = "Arc -45° to -90°"
+            };
+            var arc_n45_n90Bounds = new Rectangle2D(arc_n45_n90.Bounds);
+            var arc_n45_n90BoundsItem = new GraphicItem(arc_n45_n90Bounds, selectionStyle)
+            {
+                Name = "Arc -45° to -90° Bounding Box."
+            };
+
+            var arc_225_n90 = new CircularArc(75, 400, 50, 225d.ToRadians(), -90d.ToRadians());
+            var arc_225_n90Item = new GraphicItem(arc_225_n90, whiteishStyle)
+            {
+                Name = "Arc 45° to -90°"
+            };
+            var arc_225_n90Bounds = new Rectangle2D(arc_225_n90.Bounds);
+            var arc_225_n90BoundsItem = new GraphicItem(arc_225_n90Bounds, selectionStyle)
+            {
+                Name = "Arc 45° to -90° Bounding Box."
+            };
+
+            vectorMap.Add(arc_0_30BoundsItem);
+            vectorMap.Add(arc_0_45BoundsItem);
+            vectorMap.Add(arc_0_60BoundsItem);
+            vectorMap.Add(arc_0_90BoundsItem);
+            vectorMap.Add(arc_0_120BoundsItem);
+            vectorMap.Add(arc_0_180BoundsItem);
+            vectorMap.Add(arc_0_210BoundsItem);
+            vectorMap.Add(arc_0_270BoundsItem);
+            vectorMap.Add(arc_0_315BoundsItem);
+            vectorMap.Add(arc_0_360BoundsItem);
+            vectorMap.Add(arc_0_n30BoundsItem);
+            vectorMap.Add(arc_0_n45BoundsItem);
+            vectorMap.Add(arc_0_n60BoundsItem);
+            vectorMap.Add(arc_0_n90BoundsItem);
+            vectorMap.Add(arc_0_n120BoundsItem);
+            vectorMap.Add(arc_0_n180BoundsItem);
+            vectorMap.Add(arc_0_n210BoundsItem);
+            vectorMap.Add(arc_0_n270BoundsItem);
+            vectorMap.Add(arc_0_n315BoundsItem);
+            vectorMap.Add(arc_0_n360BoundsItem);
+            vectorMap.Add(arc_45_90BoundsItem);
+            vectorMap.Add(arc_n45_90BoundsItem);
+            vectorMap.Add(arc_n45_n90BoundsItem);
+            vectorMap.Add(arc_225_n90BoundsItem);
+            vectorMap.Add(arc_0_30Item);
+            vectorMap.Add(arc_0_45Item);
+            vectorMap.Add(arc_0_60Item);
+            vectorMap.Add(arc_0_90Item);
+            vectorMap.Add(arc_0_120Item);
+            vectorMap.Add(arc_0_180Item);
+            vectorMap.Add(arc_0_210Item);
+            vectorMap.Add(arc_0_270Item);
+            vectorMap.Add(arc_0_315Item);
+            vectorMap.Add(arc_0_360Item);
+            vectorMap.Add(arc_0_n30Item);
+            vectorMap.Add(arc_0_n45Item);
+            vectorMap.Add(arc_0_n60Item);
+            vectorMap.Add(arc_0_n90Item);
+            vectorMap.Add(arc_0_n120Item);
+            vectorMap.Add(arc_0_n180Item);
+            vectorMap.Add(arc_0_n210Item);
+            vectorMap.Add(arc_0_n270Item);
+            vectorMap.Add(arc_0_n315Item);
+            vectorMap.Add(arc_0_n360Item);
+            vectorMap.Add(arc_45_90Item);
+            vectorMap.Add(arc_n45_90Item);
+            vectorMap.Add(arc_n45_n90Item);
+            vectorMap.Add(arc_225_n90Item);
         }
 
         /// <summary>
@@ -321,7 +615,7 @@ namespace Editor
         /// 
         /// </summary>
         /// <param name="vectorMap"></param>
-        public static void EllipseToBezier(VectorMap vectorMap)
+        public static void EllipseToBeziers(VectorMap vectorMap)
         {
             var ellipse = new Ellipse(150, 100, 100, 50, 0);
             var ellipseItem = new GraphicItem(ellipse, solidGreenStyle)
@@ -829,7 +1123,7 @@ namespace Editor
             var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
             var circularArcItem = new GraphicItem(circularArc, paperLikeStyle);
 
-            Rectangle2D circularArcBounds = Measurements.CircularArcBounds(centerX, centerY, radius1, startAngle + angle, sweepAngle);
+            Rectangle2D circularArcBounds = Measurements.CircularArcBounds(centerX, centerY, radius1, 0, startAngle + angle, sweepAngle);
             var circularArcBoundsItem = new GraphicItem(circularArcBounds, selectionStyle);
 
             var testAngle = ellipticArc.ExtremeAngles;
@@ -896,7 +1190,7 @@ namespace Editor
             var parametricCircleArcItem = new GraphicItem(parametricCircleArc, paperLikeStyle);
             vectorMap.Add(parametricCircleArcItem);
 
-            var CircleArcBounds = Measurements.CircularArcBounds(100, 200, 50, 0d, 90d.ToRadians());
+            var CircleArcBounds = Measurements.CircularArcBounds(100, 200, 50, 0d, 0d, 90d.ToRadians());
             var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, selectionStyle);
             vectorMap.Add(CircleArcBoundsItem);
 

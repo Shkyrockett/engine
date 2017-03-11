@@ -9,7 +9,9 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -184,6 +186,7 @@ namespace Engine
             set
             {
                 radius = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Radius));
                 update?.Invoke();
             }
@@ -207,6 +210,7 @@ namespace Engine
             {
                 x = value.X;
                 y = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
@@ -228,6 +232,7 @@ namespace Engine
             set
             {
                 x = value;
+                ClearCache();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
@@ -249,10 +254,75 @@ namespace Engine
             set
             {
                 y = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        [DisplayName(nameof(Circumference))]
+        [Category("Properties")]
+        [Description("The distance around the circle.")]
+        public double Circumference
+            => (double)CachingProperty(() => Measurements.CircleCircumference(radius));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [DisplayName(nameof(Circumference))]
+        [Category("Properties")]
+        [Description("The distance around the circle.")]
+        public override double Perimeter
+            => Circumference;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [DisplayName(nameof(Area))]
+        [Category("Properties")]
+        [Description("The area of the circle.")]
+        public override double Area
+        {
+            get { return Measurements.CircleArea(radius); }
+            set
+            {
+                radius = Sqrt(value / PI);
+                ClearCache();
+                OnPropertyChanged(nameof(Area));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets the angles of the extreme points of the circle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The angles of the extreme points of the " + nameof(Circle) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<double> ExtremeAngles
+            => (List<double>)CachingProperty(() => Measurements.CircleExtremeAngles());
+
+        /// <summary>
+        /// Get the points of the Cartesian extremes of the circle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The locations of the extreme points of the " + nameof(Circle) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<Point2D> ExtremePoints
+            => (List<Point2D>)CachingProperty(() => Measurements.CircleExtremePoints(x, y, radius));
 
         /// <summary>
         /// Gets or sets the rectangular boundaries of the circle.
@@ -271,46 +341,8 @@ namespace Engine
             {
                 Center = value.Center();
                 radius = value.Width <= value.Height ? value.Width : value.Height;
+                ClearCache();
                 OnPropertyChanged(nameof(Bounds));
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Circumference))]
-        [Category("Properties")]
-        [Description("The distance around the circle.")]
-        public double Circumference
-            => Measurements.CircleCircumference(radius);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Circumference))]
-        [Category("Properties")]
-        [Description("The distance around the circle.")]
-        public override double Perimeter
-            => Measurements.CircleCircumference(radius);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Area))]
-        [Category("Properties")]
-        [Description("The area of the circle.")]
-        public override double Area
-        {
-            get { return Measurements.CircleArea(radius); }
-            set
-            {
-                radius = Sqrt(value / PI);
-                OnPropertyChanged(nameof(Area));
                 update?.Invoke();
             }
         }
@@ -320,43 +352,43 @@ namespace Engine
         #region Serialization
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value went into the data file during serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
         private void OnSerializing(StreamingContext context)
         {
-            // Assert("This value went into the data file during serialization.");
+            Debug.WriteLine($"{nameof(Circle)} is being serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was reset after serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
         private void OnSerialized(StreamingContext context)
         {
-            // Assert("This value was reset after serialization.");
+            Debug.WriteLine($"{nameof(Circle)} has been serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set during deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
         private void OnDeserializing(StreamingContext context)
         {
-            // Assert("This value was set during deserialization");
+            Debug.WriteLine($"{nameof(Circle)} is being deserialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set after deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
         private void OnDeserialized(StreamingContext context)
         {
-            // Assert("This value was set after deserialization.");
+            Debug.WriteLine($"{nameof(Circle)} has been deserialized.");
         }
 
         #endregion

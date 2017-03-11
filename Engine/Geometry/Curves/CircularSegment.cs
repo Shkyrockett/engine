@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -140,19 +141,25 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets or sets the radius of the Chord.
+        /// Gets or sets the location of the center point of the circular segment.
         /// </summary>
-        [RefreshProperties(RefreshProperties.All)]
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
-        [Description("The radius of the Chord.")]
-        [XmlAttribute, SoapAttribute]
-        public double Radius
+        [Description("The location of the center point of the circular segment.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        public Point2D Location
         {
-            get { return radius; }
+            get { return new Point2D(x, y); }
             set
             {
-                radius = value;
-                OnPropertyChanged(nameof(Radius));
+                x = value.X;
+                y = value.Y;
+                ClearCache();
+                OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
         }
@@ -174,10 +181,31 @@ namespace Engine
             {
                 x = value.X;
                 y = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// Gets the point on the circular arc circumference coincident to the starting angle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The point on the circular arc circumference coincident to the starting angle.")]
+        public Point2D StartPoint
+            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.CircularArc(x, y, radius, startAngle, SweepAngle, 0));
+
+        /// <summary>
+        /// Gets the point on the circular arc circumference coincident to the ending angle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The point on the circular arc circumference coincident to the ending angle.")]
+        public Point2D EndPoint
+            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.CircularArc(x, y, radius, startAngle, SweepAngle, 1));
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
@@ -194,6 +222,7 @@ namespace Engine
             set
             {
                 x = value;
+                ClearCache();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
@@ -214,24 +243,30 @@ namespace Engine
             set
             {
                 y = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the radius of the Chord.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        public Point2D StartPoint
-            => new Point2D(x + radius * Cos(-startAngle), y + radius * Sin(-startAngle));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        public Point2D EndPoint
-            => new Point2D(x + radius * Cos(-endAngle), y + radius * Sin(-endAngle));
+        [RefreshProperties(RefreshProperties.All)]
+        [Category("Elements")]
+        [Description("The radius of the Chord.")]
+        [XmlAttribute, SoapAttribute]
+        public double Radius
+        {
+            get { return radius; }
+            set
+            {
+                radius = value;
+                ClearCache();
+                OnPropertyChanged(nameof(Radius));
+                update?.Invoke();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the start angle of the Chord.
@@ -246,25 +281,30 @@ namespace Engine
             set
             {
                 startAngle = value;
+                ClearCache();
                 OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
             }
         }
 
         /// <summary>
-        /// Gets or sets the end angle of the Chord.
+        /// Gets or sets the start angle of the Arc in Degrees.
         /// </summary>
-        [Category("Elements")]
-        [Description("The end angle of the ellipse.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [XmlAttribute("angle-Start")]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The start angle of the Arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double EndAngle
+        public double StartAngleDegrees
         {
-            get { return endAngle; }
+            get { return startAngle.ToDegrees(); }
             set
             {
-                endAngle = value;
-                OnPropertyChanged(nameof(EndAngle));
+                startAngle = value.ToRadians();
+                ClearCache();
+                OnPropertyChanged(nameof(StartAngleDegrees));
                 update?.Invoke();
             }
         }
@@ -282,10 +322,108 @@ namespace Engine
             set
             {
                 endAngle = value + startAngle;
+                ClearCache();
                 OnPropertyChanged(nameof(SweepAngle));
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the sweep angle of the Arc in Degrees.
+        /// </summary>
+        [XmlAttribute("angle-Sweep")]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The sweep angle of the Arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double SweepAngleDegrees
+        {
+            get { return SweepAngle.ToDegrees(); }
+            set
+            {
+                SweepAngle = value.ToRadians();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the end angle of the Chord.
+        /// </summary>
+        [Category("Elements")]
+        [Description("The end angle of the Chord.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double EndAngle
+        {
+            get { return endAngle; }
+            set
+            {
+                endAngle = value;
+                ClearCache();
+                OnPropertyChanged(nameof(EndAngle));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the end angle of the Arc.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Clipping")]
+        [Description("The end angle of the Arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double EndAngleDegrees
+        {
+            get { return endAngle.ToDegrees(); }
+            set
+            {
+                endAngle = value.ToRadians();
+                ClearCache();
+                OnPropertyChanged(nameof(EndAngleDegrees));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Category("Properties")]
+        [Description("The distance around the Chord.")]
+        public double ChordLength
+            => (double)CachingProperty(() => Abs(SweepAngle) * radius);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Category("Properties")]
+        [Description("The distance around the arc.")]
+        public double Perimiter
+            => (double)CachingProperty(() => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        [Category("Properties")]
+        [Description("The area of the Chord.")]
+        public override double Area
+            => (double)CachingProperty(() => (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        //return radius * (1 - Cos(SweepAngle * 0.5d));
+        [Category("Properties")]
+        [Description("The sagitta of the Chord.")]
+        public double Sagitta
+            => (double)CachingProperty(() => (radius - Sqrt(radius * radius - ((SweepAngle * SweepAngle) / 4))));
 
         /// <summary>
         /// 
@@ -296,16 +434,21 @@ namespace Engine
         {
             get
             {
-                var bounds = new Rectangle2D(StartPoint, EndPoint);
-                double angleEnd = endAngle;
-                // check that angle2 > angle1
-                if (angleEnd < startAngle) angleEnd += 2 * PI;
-                if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = x + radius;
-                if ((angleEnd >= Maths.Right) && (startAngle <= Maths.Right)) bounds.Top = y - radius;
-                if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = x - radius;
-                if ((angleEnd >= Maths.Pau) && (startAngle <= Maths.Pau)) bounds.Bottom = y + radius;
-                if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = x + radius;
-                return bounds;
+                return (Rectangle2D)CachingProperty(() => boundings());
+
+                Rectangle2D boundings()
+                {
+                    var bounds = new Rectangle2D(StartPoint, EndPoint);
+                    double angleEnd = endAngle;
+                    // check that angle2 > angle1
+                    if (angleEnd < startAngle) angleEnd += 2 * PI;
+                    if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = x + radius;
+                    if ((angleEnd >= Maths.Right) && (startAngle <= Maths.Right)) bounds.Top = y - radius;
+                    if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = x - radius;
+                    if ((angleEnd >= Maths.Pau) && (startAngle <= Maths.Pau)) bounds.Bottom = y + radius;
+                    if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = x + radius;
+                    return bounds;
+                }
             }
         }
 
@@ -315,87 +458,50 @@ namespace Engine
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Chord.")]
         public Rectangle2D DrawingBounds
-            => Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [Category("Properties")]
-        [Description("The distance around the Chord.")]
-        public double ChordLength
-            => Abs(SweepAngle) * radius;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [Category("Properties")]
-        [Description("The distance around the Chord.")]
-        public double Perimiter
-            => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
-        [Category("Properties")]
-        [Description("The area of the Chord.")]
-        public override double Area
-            => (radius * radius * 0.5d) * (SweepAngle - Sin(SweepAngle));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
-        //return radius * (1 - Cos(SweepAngle * 0.5d));
-        [Category("Properties")]
-        [Description("The sagitta of the Chord.")]
-        public double Sagitta
-            => radius - Sqrt(radius * radius - ((SweepAngle * SweepAngle) / 4));
+            => (Rectangle2D)CachingProperty(() => Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius)));
 
         #endregion
 
         #region Serialization
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value went into the data file during serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
         private void OnSerializing(StreamingContext context)
         {
-            // Assert("This value went into the data file during serialization.");
+            Debug.WriteLine($"{nameof(CircularSegment)} is being serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was reset after serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
         private void OnSerialized(StreamingContext context)
         {
-            // Assert("This value was reset after serialization.");
+            Debug.WriteLine($"{nameof(CircularSegment)} has been serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set during deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
         private void OnDeserializing(StreamingContext context)
         {
-            // Assert("This value was set during deserialization");
+            Debug.WriteLine($"{nameof(CircularSegment)} is being deserialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set after deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
         private void OnDeserialized(StreamingContext context)
         {
-            // Assert("This value was set after deserialization.");
+            Debug.WriteLine($"{nameof(CircularSegment)} has been deserialized.");
         }
 
         #endregion

@@ -9,7 +9,9 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -139,6 +141,30 @@ namespace Engine
         #region Properties
 
         /// <summary>
+        /// Gets or sets the location of the center point of the circular arc.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The location of the center point of the circular arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        public Point2D Location
+        {
+            get { return new Point2D(x, y); }
+            set
+            {
+                x = value.X;
+                y = value.Y;
+                ClearCache();
+                OnPropertyChanged(nameof(Location));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the center of the Arc.
         /// </summary>
         [XmlIgnore, SoapIgnore]
@@ -155,10 +181,31 @@ namespace Engine
             {
                 x = value.X;
                 y = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// Gets the point on the circular arc circumference coincident to the starting angle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The point on the circular arc circumference coincident to the starting angle.")]
+        public Point2D StartPoint
+            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 0));
+
+        /// <summary>
+        /// Gets the point on the circular arc circumference coincident to the ending angle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The point on the circular arc circumference coincident to the ending angle.")]
+        public Point2D EndPoint
+            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 1));
 
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="CircularArc"/>.
@@ -175,6 +222,7 @@ namespace Engine
             set
             {
                 x = value;
+                ClearCache();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
@@ -195,6 +243,7 @@ namespace Engine
             set
             {
                 y = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
@@ -213,6 +262,7 @@ namespace Engine
             set
             {
                 radius = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Radius));
                 update?.Invoke();
             }
@@ -234,6 +284,7 @@ namespace Engine
             set
             {
                 startAngle = value;
+                ClearCache();
                 OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
             }
@@ -255,6 +306,7 @@ namespace Engine
             set
             {
                 startAngle = value.ToRadians();
+                ClearCache();
                 OnPropertyChanged(nameof(StartAngleDegrees));
                 update?.Invoke();
             }
@@ -276,6 +328,7 @@ namespace Engine
             set
             {
                 sweepAngle = value;
+                ClearCache();
                 OnPropertyChanged(nameof(SweepAngle));
                 update?.Invoke();
             }
@@ -297,6 +350,7 @@ namespace Engine
             set
             {
                 sweepAngle = value.ToRadians();
+                ClearCache();
                 OnPropertyChanged(nameof(SweepAngleDegrees));
                 update?.Invoke();
             }
@@ -318,6 +372,7 @@ namespace Engine
             set
             {
                 sweepAngle = value - startAngle;
+                ClearCache();
                 OnPropertyChanged(nameof(EndAngle));
                 update?.Invoke();
             }
@@ -339,111 +394,124 @@ namespace Engine
             set
             {
                 sweepAngle = value.ToRadians() - startAngle;
+                ClearCache();
                 OnPropertyChanged(nameof(EndAngleDegrees));
                 update?.Invoke();
             }
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        public Point2D StartPoint
-            => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 0);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        public Point2D EndPoint
-            => Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 1);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        public override double Perimeter
-            => ArcLength;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [Category("Properties")]
-        [Description("The tight rectangular boundaries of the Arc.")]
-        public override Rectangle2D Bounds
-            => Measurements.CircularArcBounds(x, y, radius, 0, startAngle, SweepAngle);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [Category("Properties")]
-        [Description("The rectangular boundaries of the circle containing the Arc.")]
-        public Rectangle2D DrawingBounds
-            => Measurements.CircleBounds(x, y, radius);
-
-        /// <summary>
-        /// 
+        /// Gets the arc length of the circular arc.
         /// </summary>
         /// <returns></returns>
         [XmlIgnore, SoapIgnore]
         [Category("Properties")]
-        [Description("The distance around the Arc.")]
+        [Description("The arc length of the circular arc.")]
         public double ArcLength
-            => Measurements.ArcLength(radius, SweepAngle);
+            => (double)CachingProperty(() => Measurements.ArcLength(radius, SweepAngle));
 
         /// <summary>
-        /// 
+        /// Gets the length of the perimeter of the circular arc.
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Category("Properties")]
-        [Description("The area of the arc.")]
+        [Description("The length of the perimeter of the circular arc.")]
+        public override double Perimeter
+            => ArcLength;
+
+        /// <summary>
+        /// Gets the area of the circular sector contained by the arc.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Category("Properties")]
+        [Description("The area of the circular sector contained by the arc.")]
         public override double Area
-            => Measurements.CircularArcSectorArea(radius, SweepAngle);
+            => (double)CachingProperty(() => Measurements.CircularArcSectorArea(radius, SweepAngle));
+
+        /// <summary>
+        /// Gets the angles of the extreme points of the circle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<double> ExtremeAngles
+            => (List<double>)CachingProperty(() => Measurements.CirclularArcExtremeAngles(startAngle, sweepAngle));
+
+        /// <summary>
+        /// Get the points of the Cartesian extremes of the circle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public List<Point2D> ExtremePoints
+            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, radius, radius, 0));
+
+        /// <summary>
+        /// Gets the axis aligned bounding box of the circular arc.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Category("Properties")]
+        [Description("The axis aligned bounding box of the circular arc.")]
+        public override Rectangle2D Bounds
+            => (Rectangle2D)CachingProperty(() => Measurements.CircularArcBounds(x, y, radius, 0, startAngle, sweepAngle));
+
+        /// <summary>
+        /// Gets the axis aligned bounding box of the complete circle that the arc is a segment of.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Category("Properties")]
+        [Description("The axis aligned bounding box of the complete circle that the arc is a segment of.")]
+        public Rectangle2D DrawingBounds
+            => (Rectangle2D)CachingProperty(() => Measurements.CircleBounds(x, y, radius));
 
         #endregion
 
         #region Serialization
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value went into the data file during serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
         private void OnSerializing(StreamingContext context)
         {
-            // Assert("This value went into the data file during serialization.");
+            Debug.WriteLine($"{nameof(CircularArc)} is being serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was reset after serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
         private void OnSerialized(StreamingContext context)
         {
-            // Assert("This value was reset after serialization.");
+            Debug.WriteLine($"{nameof(CircularArc)} has been serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set during deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
         private void OnDeserializing(StreamingContext context)
         {
-            // Assert("This value was set during deserialization");
+            Debug.WriteLine($"{nameof(CircularArc)} is being deserialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set after deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
         private void OnDeserialized(StreamingContext context)
         {
-            // Assert("This value was set after deserialization.");
+            Debug.WriteLine($"{nameof(CircularArc)} has been deserialized.");
         }
 
         #endregion

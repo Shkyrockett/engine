@@ -37,12 +37,12 @@ namespace Engine
         /// <summary>
         /// The center x-coordinate point of the <see cref="EllipticalArc"/>.
         /// </summary>
-        private double cX;
+        private double x;
 
         /// <summary>
         /// The center y-coordinate point of the <see cref="EllipticalArc"/>.
         /// </summary>
-        private double cY;
+        private double y;
 
         /// <summary>
         /// Major Radius of <see cref="Ellipse"/>.
@@ -96,8 +96,8 @@ namespace Engine
         /// <remarks></remarks>
         public EllipticalArc(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle)
         {
-            this.cX = x;
-            this.cY = y;
+            this.x = x;
+            this.y = y;
             this.rX = rX;
             this.rY = rY;
             this.angle = angle;
@@ -117,8 +117,8 @@ namespace Engine
         /// <remarks></remarks>
         public EllipticalArc(Point2D center, double rX, double rY, double angle, double startAngle, double sweepAngle)
         {
-            cX = center.X;
-            cY = center.Y;
+            x = center.X;
+            y = center.Y;
             this.rX = rX;
             this.rY = rY;
             this.angle = angle;
@@ -274,8 +274,8 @@ namespace Engine
             //
             // We can now build the resulting Arc2D in double precision
             //
-            this.cX = cx;
-            this.cY = cy;
+            this.x = cx;
+            this.y = cy;
             this.rX = rx;
             this.rY = ry;
             this.angle = angle;
@@ -300,11 +300,12 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get { return new Point2D(cX, cY); }
+            get { return new Point2D(x, y); }
             set
             {
-                cX = value.X;
-                cY = value.Y;
+                x = value.X;
+                y = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
@@ -324,15 +325,36 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(cX, cY); }
+            get { return new Point2D(x, y); }
             set
             {
-                cX = value.X;
-                cY = value.Y;
+                x = value.X;
+                y = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// Gets the point on the Elliptical arc circumference coincident to the starting angle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
+        public Point2D StartPoint
+            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 0));
+
+        /// <summary>
+        /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
+        public Point2D EndPoint
+            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 1));
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the elliptical arc.
@@ -347,10 +369,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get { return cX; }
+            get { return x; }
             set
             {
-                cX = value;
+                x = value;
+                ClearCache();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
@@ -368,10 +391,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get { return cY; }
+            get { return y; }
             set
             {
-                cY = value;
+                y = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
@@ -394,6 +418,7 @@ namespace Engine
             set
             {
                 rX = value;
+                ClearCache();
                 OnPropertyChanged(nameof(RX));
                 update?.Invoke();
             }
@@ -416,6 +441,7 @@ namespace Engine
             set
             {
                 rY = value;
+                ClearCache();
                 OnPropertyChanged(nameof(RY));
                 update?.Invoke();
             }
@@ -460,6 +486,7 @@ namespace Engine
             {
                 rY = rX * value;
                 rX = rY / value;
+                ClearCache();
                 OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
@@ -484,6 +511,7 @@ namespace Engine
             set
             {
                 angle = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Angle));
                 update?.Invoke();
             }
@@ -507,6 +535,7 @@ namespace Engine
             set
             {
                 angle = value.ToRadians();
+                ClearCache();
                 OnPropertyChanged(nameof(Angle));
                 update?.Invoke();
             }
@@ -529,6 +558,7 @@ namespace Engine
             set
             {
                 startAngle = value;
+                ClearCache();
                 OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
             }
@@ -551,6 +581,7 @@ namespace Engine
             set
             {
                 startAngle = value.ToRadians();
+                ClearCache();
                 OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
             }
@@ -573,6 +604,7 @@ namespace Engine
             set
             {
                 sweepAngle = value;
+                ClearCache();
                 OnPropertyChanged(nameof(SweepAngle));
                 update?.Invoke();
             }
@@ -595,6 +627,7 @@ namespace Engine
             set
             {
                 sweepAngle = value.ToRadians();
+                ClearCache();
                 OnPropertyChanged(nameof(SweepAngleDegrees));
                 update?.Invoke();
             }
@@ -617,6 +650,7 @@ namespace Engine
             set
             {
                 sweepAngle = value - startAngle;
+                ClearCache();
                 OnPropertyChanged(nameof(EndAngle));
                 update?.Invoke();
             }
@@ -639,6 +673,7 @@ namespace Engine
             set
             {
                 sweepAngle = value.ToRadians() - startAngle;
+                ClearCache();
                 OnPropertyChanged(nameof(EndAngleDegrees));
                 update?.Invoke();
             }
@@ -647,44 +682,53 @@ namespace Engine
         /// <summary>
         /// Gets the Focus Radius of the elliptical arc.
         /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the elliptical arc.")]
         public double FocusRadius
-            => Sqrt((rX * rX) - (rY * rY));
+            => (double)CachingProperty(() => Measurements.EllipseFocusRadius(rX, rY));
 
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the elliptical arc.
         /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the elliptical arc.")]
         public double Eccentricity
-            => Sqrt(1 - ((rX / rY) * (rX / rY)));
+            => (double)CachingProperty(() => Measurements.Eccentricity(rX, rY));
 
         /// <summary>
-        /// Gets the point on the Elliptical arc circumference coincident to the starting angle.
+        /// Gets the arc length of the elliptical arc.
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        [Category("Properties")]
+        [Description("The arc length of the elliptical arc.")]
+        public double ArcLength
+            => (double)CachingProperty(() => Measurements.Length(this));
+
+        /// <summary>
+        /// Gets the <see cref="Perimeter"/> of the elliptical arc.
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
+        public override double Perimeter
+            => ArcLength;
+
+        /// <summary>
+        /// Gets the <see cref="Area"/> of the elliptical arc.
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
-        [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
-        public Point2D StartPoint
-            => Interpolaters.EllipticalArc(cX, cY, rX, rY, angle, startAngle, sweepAngle, 0);
-
-        /// <summary>
-        /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [Category("Properties")]
-        [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
-        public Point2D EndPoint
-            => Interpolaters.EllipticalArc(cX, cY, rX, rY, angle, startAngle, sweepAngle, 1);
+        [Description("The " + nameof(Area) + " of the elliptical arc.")]
+        public override double Area
+            => (double)CachingProperty(() => Measurements.EllipticalArcSectorArea(rX, rY, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
@@ -696,42 +740,11 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public List<double> ExtremeAngles
-        {
-            get
-            {
-                // Get the ellipse rotation transform.
-                double cosT = Cos(angle);
-                double sinT = Sin(angle);
-
-                // Calculate the radii of the angle of rotation.
-                double a = rX * cosT;
-                double b = rY * sinT;
-                double c = rX * sinT;
-                double d = rY * cosT;
-
-                // Ellipse equation for an ellipse at origin.
-                double u1 = rX * Cos(Atan2(d, c));
-                double v1 = -(rY * Sin(Atan2(d, c)));
-                double u2 = rX * Cos(Atan2(-b, a));
-                double v2 = -(rY * Sin(Atan2(-b, a)));
-
-                return new List<double>
-                {
-                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
-                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
-                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
-                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
-                };
-            }
-        }
+            => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
         /// </summary>
-        /// <remarks>
-        /// Based roughly on the principles found at:
-        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
@@ -739,29 +752,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public List<Point2D> ExtremePoints
-        {
-            get
-            {
-                double a = rX * Cos(angle);
-                double c = rX * Sin(angle);
-                double d = rY * Cos(angle);
-                double b = rY * Sin(angle);
-
-                // Find the angles of the Cartesian extremes.
-                double a1 = Atan2(-b, a);
-                double a2 = Atan2(-b, a) + PI;
-                double a3 = Atan2(d, c);
-                double a4 = Atan2(d, c) + PI;
-
-                // Return the points of Cartesian extreme of the rotated ellipse.
-                return new List<Point2D> {
-                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a1),
-                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a2),
-                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a3),
-                    Interpolaters.Ellipse(X, Y, rX, rY, angle, a4)
-                };
-            }
-        }
+            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, rX, rY, angle));
 
         /// <summary>
         /// Gets the Bounding box of the elliptical arc.
@@ -774,28 +765,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.EllipticalArcBounds(cX, cY, rX, rY, angle, startAngle, sweepAngle);
-
-        /// <summary>
-        /// Gets the <see cref="Perimeter"/> of the elliptical arc.
-        /// </summary>
-        /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [Category("Properties")]
-        [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
-        public override double Perimeter
-            => Measurements.Length(this);
-
-        /// <summary>
-        /// Gets the <see cref="Area"/> of the elliptical arc.
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [Category("Properties")]
-        [Description("The " + nameof(Area) + " of the elliptical arc.")]
-        public override double Area
-            => Measurements.EllipticalArcSectorArea(rX, rY, startAngle, sweepAngle);
+            => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(x, y, rX, rY, angle, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the size and location of the elliptical arc, in double-point pixels, relative to the parent canvas.
@@ -810,7 +780,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D DrawingBounds
-            => Measurements.EllipseBounds(cX, cY, rX, rY);
+            => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
 
         #endregion
 
@@ -866,7 +836,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.EllipticalArc(cX, cY, rX, rY, angle, startAngle, sweepAngle, t);
+            => Interpolaters.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, t);
 
         #endregion
 

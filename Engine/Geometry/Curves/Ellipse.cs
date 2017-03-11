@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -130,6 +131,7 @@ namespace Engine
             {
                 x = value.X + rX;
                 y = value.Y + rY;
+                ClearCache();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
             }
@@ -154,6 +156,7 @@ namespace Engine
             {
                 x = value.X;
                 y = value.Y;
+                ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
             }
@@ -176,6 +179,7 @@ namespace Engine
             set
             {
                 x = value;
+                ClearCache();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
             }
@@ -197,6 +201,7 @@ namespace Engine
             set
             {
                 y = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
             }
@@ -217,6 +222,7 @@ namespace Engine
             set
             {
                 rX = value;
+                ClearCache();
                 OnPropertyChanged(nameof(RX));
                 update?.Invoke();
             }
@@ -237,6 +243,7 @@ namespace Engine
             set
             {
                 rY = value;
+                ClearCache();
                 OnPropertyChanged(nameof(RY));
                 update?.Invoke();
             }
@@ -276,11 +283,12 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get { return rY / rX; }
+            get { return Measurements.Aspect(rX, rY); }
             set
             {
                 rY = rX * value;
                 rX = rY / value;
+                ClearCache();
                 OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
             }
@@ -305,6 +313,7 @@ namespace Engine
             set
             {
                 angle = value;
+                ClearCache();
                 OnPropertyChanged(nameof(Angle));
                 update?.Invoke();
             }
@@ -328,6 +337,7 @@ namespace Engine
             set
             {
                 angle = value.ToRadians();
+                ClearCache();
                 OnPropertyChanged(nameof(AngleDegrees));
                 update?.Invoke();
             }
@@ -336,24 +346,55 @@ namespace Engine
         /// <summary>
         /// Gets the Focus Radius of the <see cref="Ellipse"/>.
         /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the " + nameof(Ellipse) + ".")]
         public double FocusRadius
-            => Sqrt((rX * rX) - (rY * rY));
+            => (double)CachingProperty(() => Measurements.EllipseFocusRadius(rX, rY));
 
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the <see cref="Ellipse"/>.
         /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
         public double Eccentricity
-            => Sqrt(1 - ((rX / rY) * (rX / rY)));
+            => (double)CachingProperty(() => Measurements.Eccentricity(rX, rY));
+
+        /// <summary>
+        /// Gets the <see cref="Perimeter"/> of the <see cref="Ellipse"/>.
+        /// </summary>
+        /// <returns></returns>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
+        public override double Perimeter
+            => (double)CachingProperty(() => Measurements.EllipsePerimeter(rX, rY));
+
+        /// <summary>
+        /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
+        public override double Area
+        {
+            get { return Measurements.EllipseArea(rX, rY); }
+            set
+            {
+                // ToDo: Figure out the correct formula.
+                double a = Aspect;
+                rX = value * a / PI;
+                rY = value * a / PI;
+                ClearCache();
+                OnPropertyChanged(nameof(Area));
+                update?.Invoke();
+            }
+        }
 
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
@@ -365,34 +406,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public List<double> ExtremeAngles
-        {
-            get
-            {
-                // Get the ellipse rotation transform.
-                double cosT = Cos(angle);
-                double sinT = Sin(angle);
-
-                // Calculate the radii of the angle of rotation.
-                double a = rX * cosT;
-                double b = rY * sinT;
-                double c = rX * sinT;
-                double d = rY * cosT;
-
-                // Ellipse equation for an ellipse at origin.
-                double u1 = rX * Cos(Atan2(d, c));
-                double v1 = -(rY * Sin(Atan2(d, c)));
-                double u2 = rX * Cos(Atan2(-b, a));
-                double v2 = -(rY * Sin(Atan2(-b, a)));
-
-                return new List<double>
-                {
-                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
-                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
-                    Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
-                    Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
-                };
-            }
-        }
+            => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
@@ -408,32 +422,10 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public List<Point2D> ExtremePoints
-        {
-            get
-            {
-                double a = rX * Cos(angle);
-                double c = rX * Sin(angle);
-                double d = rY * Cos(angle);
-                double b = rY * Sin(angle);
-
-                // Find the angles of the Cartesian extremes.
-                double a1 = Atan2(-b, a);
-                double a2 = Atan2(-b, a) + PI;
-                double a3 = Atan2(d, c);
-                double a4 = Atan2(d, c) + PI;
-
-                // Return the points of Cartesian extreme of the rotated ellipse.
-                return new List<Point2D> {
-                    Interpolaters.Ellipse(x, y, rX, rY, angle, a1),
-                    Interpolaters.Ellipse(x, y, rX, rY, angle, a2),
-                    Interpolaters.Ellipse(x, y, rX, rY, angle, a3),
-                    Interpolaters.Ellipse(x, y, rX, rY, angle, a4)
-                };
-            }
-        }
+            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, rX, rY, angle));
 
         /// <summary>
-        /// Gets the Bounding box of the <see cref="Ellipse"/>.
+        /// Gets an sets the Bounding box of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -463,39 +455,8 @@ namespace Engine
                     rY = rY / bounds1.Width * bounds2.Width;
                     rX = rX / bounds1.Height * bounds2.Height;
                 }
+                ClearCache();
                 OnPropertyChanged(nameof(Bounds));
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Perimeter"/> of the <see cref="Ellipse"/>.
-        /// </summary>
-        /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [Category("Properties")]
-        [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
-        public override double Perimeter
-            => Measurements.EllipsePerimeter(rX, rY);
-
-        /// <summary>
-        /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [Category("Properties")]
-        [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
-        public override double Area
-        {
-            get { return Measurements.EllipseArea(rX, rY); }
-            set
-            {
-                // ToDo: Figure out the correct formula.
-                double a = Aspect;
-                rX = value * a / PI;
-                rY = value * a / PI;
-                OnPropertyChanged(nameof(Area));
-                update?.Invoke();
             }
         }
 
@@ -512,50 +473,50 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
-            => Measurements.EllipseBounds(x, y, rX, rY);
+            => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
 
         #endregion
 
         #region Serialization
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value went into the data file during serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerializing()]
         private void OnSerializing(StreamingContext context)
         {
-            // Assert("This value went into the data file during serialization.");
+            Debug.WriteLine($"{nameof(Ellipse)} is being serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was reset after serialization.
         /// </summary>
         /// <param name="context"></param>
         [OnSerialized()]
         private void OnSerialized(StreamingContext context)
         {
-            // Assert("This value was reset after serialization.");
+            Debug.WriteLine($"{nameof(Ellipse)} has been serialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set during deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserializing()]
         private void OnDeserializing(StreamingContext context)
         {
-            // Assert("This value was set during deserialization");
+            Debug.WriteLine($"{nameof(Ellipse)} is being deserialized.");
         }
 
         /// <summary>
-        /// 
+        /// Sends an event indicating that this value was set after deserialization.
         /// </summary>
         /// <param name="context"></param>
         [OnDeserialized()]
         private void OnDeserialized(StreamingContext context)
         {
-            // Assert("This value was set after deserialization.");
+            Debug.WriteLine($"{nameof(Ellipse)} has been deserialized.");
         }
 
         #endregion

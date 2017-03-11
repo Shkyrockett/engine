@@ -633,3 +633,95 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         #endregion
     }
 ```
+
+## Property Caching
+
+With certain types of classes, there are often properties that have to be calculated using the values of other properties, where the calculation can take some time, and where the value is used frequently in some cases, but in other cases never touched. 
+
+In this situation, it would be faster to run the calculation once and store it in a field. But if the field won't be used all of the time it can be difficult to justify the memory for the field, and justify the time spent calculating when the class is initialized, or updated.
+
+This can be solved with property caching. The memory expense is a single dictionary that expands or shrinks as needed.
+
+```c#
+        /// <summary>
+        /// Property cache for commonly used properties that may take time to calculate.
+        /// </summary>
+        [NonSerialized()]
+        protected Dictionary<object, object> propertyCache;
+```
+
+To support it, you need a method that you pass a property to, and it checks whether the property's value is in the cache, keyed to the property's name, if it is; it returns the value, if not; it runs the calculation, caches the value, and returns the cached value.
+
+```c#
+        /// <summary>
+        /// Private method for caching computationally and memory intensive properties of child objects
+        /// so that the intensive properties only get recalculated and stored when necessary.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
+        {
+            if (!propertyCache.ContainsKey(name))
+            {
+                var value = property.Invoke();
+                propertyCache.Add(name, value);
+                return value;
+            }
+
+            return propertyCache[name];
+        }
+```
+
+In the property, the calculations get moved out to a separate method, and a call to the cachingProperty method gets called instead, with a lambda reference to the method that does the calculation.
+
+```c#
+        /// <summary>
+        /// Gets the axis aligned bounding box of the Shape.
+        /// </summary>
+        public override Rectangle2D Bounds
+            => (Rectangle2D)CachingProperty(() => Measurements.CalculateBounds(x, y));
+```
+
+Hereafter, it is important that whenever a referenced property changes, the property cache gets cleared. Because if the property is ever accessed, the class instance will carry the resulting value of the calculated property around until the dictionary is emptied, or until the end of the life of the class instance. If a parameter has changed that would result in a different calculation and the cache had not been cleared, then the property would continue to present the old values.
+
+Unfortunately this means that under the current syntax rules, if you use property caching you cannot use auto properties for any value that can affect a cached property, and you have to fall back to using properties with fields and a clearProperty() call in the setter.
+
+```c#
+        /// <summary>
+        /// The center x coordinate point of the Shape.
+        /// </summary>
+        private double x;
+
+        /// <summary>
+        /// The center y coordinate point of the Shape.
+        /// </summary>
+        private double y;
+
+        /// <summary>
+        /// Gets or sets the center of the Shape.
+        /// </summary>
+        [RefreshProperties(RefreshProperties.All)]
+        public Point2D Center
+        {
+            get { return new Point2D(x, y); }
+            set
+            {
+                x = value.X;
+                y = value.Y;
+                ClearCache();
+            }
+        }
+
+        /// <summary>
+        /// This should be run anytime a property of the item is modified.
+        /// </summary>
+        public void ClearCache()
+            => propertyCache.Clear();
+```
+
+Unfortunately, this does leave these properties open to problems with race conditions. So, it may need some refinement if changed from multiple processes.
+
+In general, property caching should be used when the calculation time of a read only property exceeds the amount of time it would take to lookup the value in a dictionary. 
+
+Right now, the shapes classes inherit property caching from their parent class, and have to have properties modified to use it.

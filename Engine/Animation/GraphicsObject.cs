@@ -224,7 +224,7 @@ namespace Engine
 
         /// <summary>
         /// Private method for caching computationally and memory intensive properties of child objects
-        /// so the child object's properties only get touched when necessary.
+        /// so that the intensive properties only get recalculated and stored when necessary.
         /// </summary>
         /// <param name="property"></param>
         /// <param name="name"></param>

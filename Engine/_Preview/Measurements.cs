@@ -1944,6 +1944,32 @@ namespace Engine
         #region Other
 
         /// <summary>
+        /// Finds the Aspect ratio of the elliptical arc or rectangle.
+        /// </summary>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Aspect(double rX, double rY)
+            => rY / rX;
+
+        /// <summary>
+        /// Finds the <see cref="Eccentricity"/> of the elliptical arc or rectangle.
+        /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Eccentricity(double rX, double rY)
+            => Sqrt(1 - ((rX / rY) * (rX / rY)));
+
+        /// <summary>
+        /// Gets the Focus Radius of an <see cref="Ellipse"/>.
+        /// </summary>
+        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double EllipseFocusRadius(double rX, double rY)
+            => Sqrt((rX * rX) - (rY * rY));
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="curveX"></param>
@@ -2027,6 +2053,133 @@ namespace Engine
             var x = curveX.Compute(t);
             var y = curveY.Compute(t);
             return (x, y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> CircleExtremeAngles()
+            => new List<double> { 0, Right, PI, Pau };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> CirclularArcExtremeAngles(double startAngle, double sweepAngle)
+            => CircleExtremeAngles().Where((a) => Intersections.Within(a, startAngle, sweepAngle)).ToList();
+
+        /// <summary>
+        /// Gets the angles of the extreme points of the rotated ellipse.
+        /// </summary>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> EllipseExtremeAngles(double rX, double rY, double angle)
+        {
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Calculate the radii of the angle of rotation.
+            double a = rX * cosT;
+            double b = rY * sinT;
+            double c = rX * sinT;
+            double d = rY * cosT;
+
+            // Ellipse equation for an ellipse at origin.
+            double u1 = rX * Cos(Atan2(d, c));
+            double v1 = -(rY * Sin(Atan2(d, c)));
+            double u2 = rX * Cos(Atan2(-b, a));
+            double v2 = -(rY * Sin(Atan2(-b, a)));
+
+            // Return the list of angles.
+            return new List<double>
+            {
+                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
+                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
+                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
+                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> EllipticalArcExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
+            => EllipseExtremeAngles(rX, rY, angle).Where((a) => Intersections.Within(a, angle + startAngle, sweepAngle)).ToList();
+
+        /// <summary>
+        /// Get the points of the Cartesian extremes of a circle.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> CircleExtremePoints(double x, double y, double radius)
+            => new List<Point2D>
+            {
+                Interpolaters.Circle(x, y, radius, 0),
+                Interpolaters.Circle(x, y, radius, Right),
+                Interpolaters.Circle(x, y, radius, PI),
+                Interpolaters.Circle(x, y, radius, Pau)
+            };
+
+        /// <summary>
+        /// Get the points of the Cartesian extremes of a rotated ellipse.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> EllipseExtremePoints(double x, double y, double rX, double rY, double angle)
+        {
+            // Get the ellipse rotation transform.
+            double cosT = Cos(angle);
+            double sinT = Sin(angle);
+
+            // Calculate the radii of the angle of rotation.
+            double a = rX * cosT;
+            double c = rX * sinT;
+            double d = rY * cosT;
+            double b = rY * sinT;
+
+            // Find the angles of the Cartesian extremes.
+            double a1 = Atan2(-b, a);
+            double a2 = Atan2(-b, a) + PI;
+            double a3 = Atan2(d, c);
+            double a4 = Atan2(d, c) + PI;
+
+            // Return the points of Cartesian extreme of the rotated ellipse.
+            return new List<Point2D>
+            {
+                Interpolaters.Ellipse(x, y, rX, rY, angle, a1),
+                Interpolaters.Ellipse(x, y, rX, rY, angle, a2),
+                Interpolaters.Ellipse(x, y, rX, rY, angle, a3),
+                Interpolaters.Ellipse(x, y, rX, rY, angle, a4)
+            };
         }
 
         #endregion

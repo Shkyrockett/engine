@@ -23,16 +23,16 @@ A **Solution** is the result of an equation.
 
 ### Polynomial
 
-A **Polynomial** is a general term for the sets of expresions set up with terms containing constants, coefficients, variables, and exponents. 
+A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents. 
 
 ![][polynomial]
 
 #### Common Sub-Sets of Polynomials
 
-| Name | Examle | Description |
+| Name | Example | Description |
 |:---:|---|---|
 | Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
-| Binomial | ![][binomial] | A Binomial is a polinomial that consists of two terms. |
+| Binomial | ![][binomial] | A Binomial is a polynomial that consists of two terms. |
 | Trinomial | ![][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
 |  |  |  |
 
@@ -86,9 +86,9 @@ A **coefficient** is the number used to multiply a variable. The coefficient is 
 
 #### Constant Variables
 
-In some instances a numarical value is replaced with a symbolic representation that is always represented with the same symbol.
+In some instances a numerical value is replaced with a symbolic representation that is always represented with the same symbol.
 
-| Const | Value | Notes|
+| Constant | Value | Notes|
 |:---:|---|---|
 | ![][pi.inline] | ≈3.1415926… | Pi is the ratio of the circumference of a circle to it's radius. |
 | ![][i] | Imaginary  |  Denotes an imaginary number. |
@@ -189,7 +189,7 @@ Below are tables of common operators.
 
 #### Operators and Order of Precidence
 
-There are a few quirks on the order of precidence of operations.
+There are a few quirks on the order of precedence of operations.
 
 ##### Addition Subtraction
 
@@ -282,7 +282,7 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 ### Lengths
 
-| Unit | Deffinition |
+| Unit | Definition |
 |---|---|
 | Mils | One thousandth of an Inch. |
 | Centimeters |  |
@@ -293,10 +293,10 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Smoots | 67 Inches |
 | Miles |  |
 | Nautical Miles (International) |  |
-| kilometres |  |
-| petametres |  |
+| kilometers |  |
+| petameters |  |
 | Astronomical Units |  |
-| Light-Year | 9460730472580800 metres |
+| Light-Year | 9460730472580800 meters |
 | Parsecs |  |
 |  |  |
 | Angstroms |  |
@@ -361,7 +361,7 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 ### Angular Units
 
-| Unit | Deffinition |
+| Unit | Definition |
 |---|---|
 | Radians |  |
 | Degrees |  |
@@ -392,7 +392,7 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 ### Mass
 
-| Unit | Deffinition |
+| Unit | Definition |
 |---|---|
 | Attograms |  |
 | Bags of Coffee |  |
@@ -465,7 +465,7 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 ### Temperature
 
-| Unit | Deffinition |
+| Unit | Definition |
 |---|---|
 | Degrees Celsius |  |
 | Degrees Delisle |  |
@@ -480,7 +480,7 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 ### Time
 
-| Unit | Deffinition |
+| Unit | Definition |
 |---|---|
 | Callippic Cycles |  |
 | Centiseconds |  |
@@ -510,7 +510,7 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Millennia | Thousand Years |
 | Millidays |  |
 | Millifortnights |  |
-| Milliseconds | Thousandth of seccond |
+| Milliseconds | Thousandth of second |
 | Minutes | 60 Seconds |
 | Moments |  |
 | Months | 28 - 31 days |

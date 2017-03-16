@@ -186,7 +186,7 @@ namespace Engine
         {
             get
             {
-                int verticesCount = 0;
+                var verticesCount = 0;
                 foreach (var c in contours)
                     verticesCount += c.Points.Count;
 
@@ -291,7 +291,7 @@ namespace Engine
         public static List<Contour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
-            string separators = @"(?=[M])";
+            var separators = @"(?=[M])";
             //string separators = @"(?=[MZ])";
 
             var contours = new List<Contour>();
@@ -334,7 +334,7 @@ namespace Engine
         /// <returns></returns>
         private String ToPathDefString(string format, IFormatProvider provider)
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
 
             foreach (var contour in contours)
             {
@@ -425,7 +425,7 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Polygon);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);
         }

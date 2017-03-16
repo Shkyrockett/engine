@@ -55,7 +55,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="CanvasPanel"></param>
         /// <param name="boundaryItem"></param>
         public static void ResizeRefreshBounds(VectorMap vectorMap, CanvasPanel CanvasPanel, out GraphicItem boundaryItem)
@@ -72,7 +72,7 @@ namespace Editor
         /// <summary>
         /// This is a regression test case for an error where the intersection of a horizontal line and a specific Quadratic Bezier might not end up with intersection points. 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void QuadraticBezierHorizontalLineIntersection(VectorMap vectorMap)
         {
             // Horizontal line segment.
@@ -113,7 +113,7 @@ namespace Editor
         /// <summary>
         /// This is a regression test case for an error where the intersection of a horizontal line and a specific Cubic Bezier might not end up with intersection points. 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void CubicBezierHorizontalLineIntersection(VectorMap vectorMap)
         {
             // Horizontal line segment.
@@ -153,7 +153,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="form"></param>
         public static void SegmentIntersections(VectorMap vectorMap, EditorForm form)
         {
@@ -199,7 +199,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void IntersectionsTests(VectorMap vectorMap)
         {
             var segment = new LineSegment(new Point2D(20, 150), new Point2D(180, 200));
@@ -266,7 +266,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void CircularArcBounds(VectorMap vectorMap)
         {
             var arc_0_30 = new CircularArc(0, 50, 50, 0d.ToRadians(), 30d.ToRadians());
@@ -586,7 +586,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipseBound(VectorMap vectorMap)
         {
             var ellipseItem = new GraphicItem(Examples.Ellipse, solidPurpleStyle);
@@ -598,7 +598,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipticalArcBounds(VectorMap vectorMap)
         {
             var ellpticArcItem = new GraphicItem(Examples.EllpticArc, paperLikeStyle);
@@ -614,7 +614,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipseToBeziers(VectorMap vectorMap)
         {
             var ellipse = new Ellipse(150, 100, 100, 50, 0);
@@ -654,10 +654,10 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void CurveFitting(VectorMap vectorMap)
         {
-            Contour points = new Contour() { (50, 50), (100, 75), (150, 75), (200, 75) };
+            var points = new Contour() { (50, 50), (100, 75), (150, 75), (200, 75) };
             var curves = CurveFit.Fit(points.Points, 8);
             foreach (var curve in curves)
             {
@@ -668,7 +668,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void WarpGeometry(VectorMap vectorMap)
         {
             var rect1 = new Rectangle2D(200, 100, 200, 100);
@@ -739,20 +739,22 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void ComplexPolygonClipping(VectorMap vectorMap)
         {
-            Polygon poly1 = new Polygon() {
+            var left = 25;
+            var top = 300;
+            var poly1 = new Polygon() {
                 new Contour() {
-                    new Point2D(25, 200),
-                    new Point2D(225, 200),
-                    new Point2D(125, 375),
+                    new Point2D(left, top + 50),
+                    new Point2D(left + 200, top + 50),
+                    new Point2D(left + 100, top + 225),
                 },
                 new Contour()
                 {
-                    new Point2D(125, 225),
-                    new Point2D(90, 275),
-                    new Point2D(160, 275),
+                    new Point2D(left + 100, top + 75),
+                    new Point2D(left + 65, top + 125),
+                    new Point2D(left + 135, top + 125),
                 }
             };
             var poly1Item = new GraphicItem(poly1, intersectionBlue)
@@ -760,17 +762,17 @@ namespace Editor
                 Name = "Polygon 1"
             };
 
-            Polygon poly2 = new Polygon() {
+            var poly2 = new Polygon() {
                 new Contour() {
-                    new Point2D(25,325),
-                    new Point2D(225,325),
-                    new Point2D(125,150),
+                    new Point2D(left, top + 175),
+                    new Point2D(left + 200, top + 175),
+                    new Point2D(left + 100, top),
                 },
                 new Contour()
                 {
-                    new Point2D(125, 290),
-                    new Point2D(90, 240),
-                    new Point2D(160, 240),
+                    new Point2D(left + 100, top + 140),
+                    new Point2D(left + 65, top + 90),
+                    new Point2D(left + 135, top + 90),
                 }
             };
             var poly2Item = new GraphicItem(poly2, intersectionGreen)
@@ -785,15 +787,22 @@ namespace Editor
                 Name = "Polygon 3"
             };
 
+            var bounds = poly3.Bounds;
+            var parametricPointTesterRectangle = new ParametricPointTester(
+                (px, py) => Intersections.PolygonContainsPoint(poly3.Contours, px, py),
+                bounds.X - 50, bounds.Y - 50, bounds.Right + 50, bounds.Bottom + 50, 5, 5);
+            var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, handleStyle);
+
             vectorMap.Add(poly1Item);
             vectorMap.Add(poly2Item);
             vectorMap.Add(poly3Item);
+            vectorMap.Add(parametricPointTesterRectangleItem);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void PolyClipping(VectorMap vectorMap)
         {
             var PolygonTriangleA = new Contour(new List<Point2D> { (300, 0), (600, 450), (0, 450) });
@@ -818,23 +827,26 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void PathContourWArcLine(VectorMap vectorMap)
         {
-            var figure = new PathContour(new Point2D(150d, 200d));
-            figure.AddLineSegment(new Point2D(200, 200))
-                .AddArc(50d, 50d, 0d, false, false, new Point2D(250d, 250d))
-                .AddLineSegment(new Point2D(250, 300))
-                .AddArc(50d, 50d, 0d, false, true, new Point2D(200d, 350d))
-                .AddLineSegment(new Point2D(150, 350))
-                .AddArc(50d, 50d, 0d, true, false, new Point2D(100d, 300d))
-                .AddLineSegment(new Point2D(100, 250))
-                .AddArc(50d, 50d, 0d, true, true, new Point2D(150d, 200d));
+            var left = 100;
+            var top = 0;
+            var figure = new PathContour(new Point2D(left + 50d, top + 100d));
+            figure.AddLineSegment(new Point2D(left + 100, top + 100))
+                .AddArc(50d, 50d, 0d, false, false, new Point2D(left + 150d, top + 150d))
+                .AddLineSegment(new Point2D(left + 150, top + 200))
+                .AddArc(50d, 50d, 0d, false, true, new Point2D(left + 100d, top + 250d))
+                .AddLineSegment(new Point2D(left + 50, top + 250))
+                .AddArc(50d, 50d, 0d, true, false, new Point2D(left, top + 200d))
+                .AddLineSegment(new Point2D(left, top + 150))
+                .AddArc(50d, 50d, 0d, true, true, new Point2D(left + 50d, top + 100d))
+                .Close();
             var figureItem = new GraphicItem(figure, solidGreenStyle);
             var figureBounds = figure.Bounds;
             var figureBoundsItem = new GraphicItem(figureBounds, selectionStyle);
             var parametricPointTesterFigure = new ParametricPointTester(
-                (px, py) => Intersections.GeometryPathContainsPoint(figure, new Point2D(px, py)),
+                (px, py) => Intersections.PathContourContainsPoint(figure, new Point2D(px, py)),
                 figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
             var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, handleStyle);
 
@@ -845,14 +857,48 @@ namespace Editor
 
             vectorMap.Add(figureBoundsItem);
             vectorMap.Add(figureItem);
-            //vectorMap.Add(parametricPointTesterFigureItem);
+            vectorMap.Add(parametricPointTesterFigureItem);
             //vectorMap.Add(parametricPointTesterRectangleItem);
+        }
+
+        /// <summary>
+        /// Test what winding order is used. If the overlapping is empty it is likely odd-even, if filled non-zero winding order.
+        /// </summary>
+        /// <param name="vectorMap">The Map to draw on.</param>
+        public static void WindingOrder(VectorMap vectorMap)
+        {
+            var left = 25;
+            var top = 25;
+            var poly = new Contour()
+            {
+                (left + 50, top),
+                (left + 100, top + 50),
+                (left, top + 100),
+                (left + 100, top + 200),
+                (left + 50, top + 50),
+                (left + 100, top + 100),
+                (left + 50, top + 200),
+                (left, top + 50),
+            };
+            var polyItem = new GraphicItem(poly, solidCyanStyle)
+            {
+                Name = "Polygon."
+            };
+
+            var bounds = poly.Bounds;
+            var parametricPointTester = new ParametricPointTester(
+                (px, py) => Intersections.PolygonContainsPoint(new List<Contour> { poly }, px, py),
+                bounds.X - 5, bounds.Y - 5, bounds.Right + 5, bounds.Bottom + 5, 5, 5);
+            var parametricPointTesterItem = new GraphicItem(parametricPointTester, handleStyle);
+
+            vectorMap.Add(polyItem);
+            vectorMap.Add(parametricPointTesterItem);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void Pathfinding(VectorMap vectorMap)
         {
             var lineItem = new GraphicItem(Examples.Line, solidCyanStyle)
@@ -906,20 +952,21 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void PolylineClicking(VectorMap vectorMap)
         {
             var polylineItem = new GraphicItem(Examples.PolyTriangle, paperLikeStyle)
             {
                 Name = "Polygon Triangle"
             };
+
             vectorMap.Add(polylineItem);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="form"></param>
         public static void TextRendering(VectorMap vectorMap, EditorForm form)
         {
@@ -934,7 +981,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void RotatedRectangle(VectorMap vectorMap)
         {
             //double cent = 1d;
@@ -971,30 +1018,30 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void SutherlandHodgman(VectorMap vectorMap)
         {
             var triangleI = new Triangle(
                 new Point2D(75, 125),
                 new Point2D(225, 125),
                 new Point2D(150, 250));
-            GraphicItem triangleIItem = new GraphicItem(triangleI, solidPinkStyle);
+            var triangleIItem = new GraphicItem(triangleI, solidPinkStyle);
             vectorMap.Add(triangleIItem);
             var rectangle = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100)).ToPolygon();
-            GraphicItem rectangleItem = new GraphicItem(rectangle, solidLightBlueStyle)
+            var rectangleItem = new GraphicItem(rectangle, solidLightBlueStyle)
             {
                 Name = "Square Polygon."
             };
             vectorMap.Add(rectangleItem);
             var intersection = new Contour(Engine.SutherlandHodgman.PolygonPolygon(triangleI.Points, rectangle.Points));
-            GraphicItem intersectionItem = new GraphicItem(intersection, paperLikeStyle);
+            var intersectionItem = new GraphicItem(intersection, paperLikeStyle);
             vectorMap.Add(intersectionItem);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="form"></param>
         public static void Tweenning(VectorMap vectorMap, EditorForm form)
         {
@@ -1025,7 +1072,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricEllipseBounds(VectorMap vectorMap)
         {
             var parametricEllipse = new ParametricDelegateCurve(
@@ -1043,16 +1090,16 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricEllipseArc(VectorMap vectorMap)
         {
-            double centerX = 200d;
-            double centerY = 200d;
-            double radius1 = 100d;
-            double radius2 = 200d;
-            double angle = 45d.ToRadians();
-            double startAngle = -45d.ToRadians();
-            double sweepAngle = 90d.ToRadians();
+            var centerX = 200d;
+            var centerY = 200d;
+            var radius1 = 100d;
+            var radius2 = 200d;
+            var angle = 45d.ToRadians();
+            var startAngle = -45d.ToRadians();
+            var sweepAngle = 90d.ToRadians();
             var parametricEllipticArc = new ParametricDelegateCurve(
                 (x, y, w, h, a, t) => Interpolaters.EllipticalArc(x, y, w, h, a, startAngle, sweepAngle, t),
                 (x, y, w, h, a, px, py) => Intersections.EllipticalArcContainsPoint(x, y, w, h, a, startAngle, sweepAngle, px, py),
@@ -1068,17 +1115,17 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricTesting(VectorMap vectorMap)
         {
-            double centerX = 200d;
-            double centerY = 200d;
-            double radius1 = 100d;
-            double radius2 = 200d;
+            var centerX = 200d;
+            var centerY = 200d;
+            var radius1 = 100d;
+            var radius2 = 200d;
 
-            double angle = -30d.ToRadians();
-            double startAngle = -60d.ToRadians();
-            double sweepAngle = -90d.ToRadians();
+            var angle = -30d.ToRadians();
+            var startAngle = -60d.ToRadians();
+            var sweepAngle = -90d.ToRadians();
 
             var parametricEllipse = new ParametricDelegateCurve(
                 (x, y, w, h, a, t) => Interpolaters.UnitPolarEllipse(x, y, w, h, a, t),
@@ -1146,16 +1193,16 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricTesting2(VectorMap vectorMap)
         {
-            double centerX = 100d;
-            double centerY = 200d;
-            double radius1 = 100d;
-            double radius2 = 200d;
-            double angle = -45d.ToRadians();
-            double startAngle = -45d.ToRadians();
-            double sweepAngle = 90d.ToRadians();
+            var centerX = 100d;
+            var centerY = 200d;
+            var radius1 = 100d;
+            var radius2 = 200d;
+            var angle = -45d.ToRadians();
+            var startAngle = -45d.ToRadians();
+            var sweepAngle = 90d.ToRadians();
 
             var EllpticArcBounds = Measurements.EllipticalArcBounds(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var EllpticArcBoundsItem = new GraphicItem(EllpticArcBounds, selectionStyle);
@@ -1217,7 +1264,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="foreColor"></param>
         /// <param name="backColor"></param>
         public static void GridTests(VectorMap vectorMap, Color foreColor, Color backColor)
@@ -1318,7 +1365,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void TrianglePointingRight(VectorMap vectorMap)
         {
             var trianglePointingRight = new Triangle(new Point2D(10, 10), new Point2D(50, 50), new Point2D(10, 100));
@@ -1332,7 +1379,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void PaperPlaneTriangles(VectorMap vectorMap)
         {
             var PaperPlane = new Contour(new List<Point2D>() { new Point2D(20, 100), new Point2D(300, 60), new Point2D(40, 30) });
@@ -1346,7 +1393,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void PlainCircle(VectorMap vectorMap)
         {
             var circle = new Circle(new Point2D(200, 200), 100);
@@ -1360,7 +1407,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void CircleBounds(VectorMap vectorMap)
         {
             var circleB = new Circle(100, 200, 50);
@@ -1373,7 +1420,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void PlainSquare(VectorMap vectorMap)
         {
             var square = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100));
@@ -1387,7 +1434,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void PlainOval(VectorMap vectorMap)
         {
             var OvalVertical = new Oval(new Point2D(200, 200), new Size2D(100, 200));
@@ -1408,7 +1455,7 @@ namespace Editor
             var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, selectionStyle);
             vectorMap.Add(quadBezierBoundsIthem);
             vectorMap.Add(quadBezierItem);
-            StringBuilder quadBezierLengths = new StringBuilder();
+            var quadBezierLengths = new StringBuilder();
             quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.Length);
             quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.Length);
             quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.Length);
@@ -1418,7 +1465,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The Map to draw on.</param>
         public static void CubicBezierLength(VectorMap vectorMap)
         {
             var cubeBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
@@ -1426,7 +1473,7 @@ namespace Editor
             var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, selectionStyle);
             vectorMap.Add(cubeBezierBoundsItem);
             vectorMap.Add(cubeBezierItem);
-            StringBuilder cubeBezierLengths = new StringBuilder();
+            var cubeBezierLengths = new StringBuilder();
             cubeBezierLengths.AppendLine("Bezier arc length: \t" + cubeBezier.Length);
             MessageBox.Show(cubeBezierLengths.ToString());
         }

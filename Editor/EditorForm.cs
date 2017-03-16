@@ -124,9 +124,10 @@ namespace Editor
             //TestCases.CurveFitting(vectorMap);
             //TestCases.EllipseToBeziers(vectorMap);
             //TestCases.WarpGeometry(vectorMap);
-            //TestCases.ComplexPolygonClipping(vectorMap);
+            TestCases.ComplexPolygonClipping(vectorMap);
+            TestCases.PathContourWArcLine(vectorMap);
+            //TestCases.WindingOrder(vectorMap);
             //TestCases.PolyClipping(vectorMap);
-            //TestCases.PathContourWArcLine(vectorMap);
             //TestCases.Pathfinding(vectorMap);
             //TestCases.PlainOval(vectorMap);
             //TestCases.PolylineClicking(vectorMap);
@@ -143,7 +144,7 @@ namespace Editor
             //TestCases.CubicBezierHorizontalLineIntersection(vectorMap);
             //TestCases.SegmentIntersections(vectorMap,this);
             //TestCases.IntersectionsTests(vectorMap);
-            TestCases.CircularArcBounds(vectorMap);
+            //TestCases.CircularArcBounds(vectorMap);
             //TestCases.EllipseBound(vectorMap);
             //TestCases.EllipticalArcBounds(vectorMap);
 
@@ -235,7 +236,7 @@ namespace Editor
         {
             var box = sender as ToolStripComboBox;
             var item = box.SelectedItem as Type;
-            object constructor = Activator.CreateInstance(item);
+            var constructor = Activator.CreateInstance(item);
             toolStack?.RegisterMouseLeftButton(constructor as Tool);
         }
 

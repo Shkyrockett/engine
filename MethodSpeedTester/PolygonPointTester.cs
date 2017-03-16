@@ -187,8 +187,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static List<PointF> GenerateGrid(int minX, int minY, int maxX, int maxY, int stepX, int stepY)
         {
-            int width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
-            int height = stepY == 0 ? (maxY - minY) : (maxY - minY) / stepY;
+            var width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
+            var height = stepY == 0 ? (maxY - minY) : (maxY - minY) / stepY;
             return new List<PointF>(
                 from x in Enumerable.Range(0, width)
                 from y in Enumerable.Range(0, height)
@@ -375,8 +375,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox16_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonHormannAgathos,
-                nameof(Experiments.PointInPolygonHormannAgathos));
+                Experiments.PointInPolygonHormannAgathosExpanded,
+                nameof(Experiments.PointInPolygonHormannAgathosExpanded));
 
         /// <summary>
         /// 
@@ -384,7 +384,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox17_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonHormannAgathosX(s, p),
-                nameof(Experiments.PointInPolygonHormannAgathosX));
+                (s, p) => Experiments.PointInPolygonHormannAgathosSimplified(s, p),
+                nameof(Experiments.PointInPolygonHormannAgathosSimplified));
     }
 }

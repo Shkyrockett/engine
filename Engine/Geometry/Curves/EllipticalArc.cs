@@ -165,15 +165,15 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
         /// </summary>
-        /// <param name="x0">The starting X-coordinate.</param>
-        /// <param name="y0">The starting Y-coordinate.</param>
+        /// <param name="startX">The starting X-coordinate.</param>
+        /// <param name="startY">The starting Y-coordinate.</param>
         /// <param name="rx">The first radius.</param>
         /// <param name="ry">The second Radius.</param>
         /// <param name="angle">The angle of rotation in radians.</param>
         /// <param name="largeArcFlag">Flag used to toggle whether to choose the largest matching ellipse.</param>
         /// <param name="sweepFlag">Flag used to toggle whether to choose the upper or lower elliptical solution. </param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="endX"></param>
+        /// <param name="endY"></param>
         /// <returns></returns>
         /// <remarks>
         /// Elliptical arc implementation based on the SVG specification notes
@@ -183,37 +183,35 @@ namespace Engine
         /// http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
         /// </remarks>
         public EllipticalArc(
-            double x0, double y0,
+            double startX, double startY,
             double rx, double ry,
             double angle,
             bool largeArcFlag,
             bool sweepFlag,
-            double x, double y)
+            double endX, double endY)
         {
-            // Compute the half distance between the current and the final point
-            double dx2 = (x0 - x) * 0.5d;
-            double dy2 = (y0 - y) * 0.5d;
+            // Compute the half distance between the start and end points.
+            var dx2 = (startX - endX) * OneHalf;
+            var dy2 = (startY - endY) * OneHalf;
 
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
-            //
-            // Step 1 : Compute (x1, y1)
-            //
-            double x1 = (cosT * dx2 + sinT * dy2);
-            double y1 = (-sinT * dx2 + cosT * dy2);
+            // Step 1 : Compute (x1, y1).
+            var x1 = (cosT * dx2 + sinT * dy2);
+            var y1 = (-sinT * dx2 + cosT * dy2);
 
-            // Ensure radii are large enough
+            // Ensure radii are positive.
             rx = Abs(rx);
             ry = Abs(ry);
-            double Prx = rx * rx;
-            double Pry = ry * ry;
-            double Px1 = x1 * x1;
-            double Py1 = y1 * y1;
+            var Prx = rx * rx;
+            var Pry = ry * ry;
+            var Px1 = x1 * x1;
+            var Py1 = y1 * y1;
 
-            // Check that radii are large enough
-            double radiiCheck = Px1 / Prx + Py1 / Pry;
+            // Check that radii are large enough.
+            var radiiCheck = Px1 / Prx + Py1 / Pry;
             if (radiiCheck > 1)
             {
                 rx = Sqrt(radiiCheck) * rx;
@@ -222,43 +220,37 @@ namespace Engine
                 Pry = ry * ry;
             }
 
-            //
-            // Step 2 : Compute (cx1, cy1)
-            //
-            double sign = (largeArcFlag == sweepFlag) ? -1 : 1;
-            double sq = ((Prx * Pry) - (Prx * Py1) - (Pry * Px1)) / ((Prx * Py1) + (Pry * Px1));
+            // Step 2 : Compute (cx1, cy1).
+            var sign = (largeArcFlag == sweepFlag) ? -1d : 1d;
+            var sq = ((Prx * Pry) - (Prx * Py1) - (Pry * Px1)) / ((Prx * Py1) + (Pry * Px1));
             sq = (sq < 0) ? 0 : sq;
-            double coef = (sign * Sqrt(sq));
-            double cx1 = coef * ((rx * y1) / ry);
-            double cy1 = coef * -((ry * x1) / rx);
+            var coef = (sign * Sqrt(sq));
+            var cx1 = coef * ((rx * y1) / ry);
+            var cy1 = coef * -((ry * x1) / rx);
 
-            //
-            // Step 3 : Compute (cx, cy) from (cx1, cy1)
-            //
-            double sx2 = (x0 + x) / 2.0;
-            double sy2 = (y0 + y) / 2.0;
-            double cx = sx2 + (cosT * cx1 - sinT * cy1);
-            double cy = sy2 + (sinT * cx1 + cosT * cy1);
+            // Step 3 : Compute (cx, cy) from (cx1, cy1).
+            var sx2 = (startX + endX) * OneHalf;
+            var sy2 = (startY + endY) * OneHalf;
+            var cx = sx2 + (cosT * cx1 - sinT * cy1);
+            var cy = sy2 + (sinT * cx1 + cosT * cy1);
 
-            //
-            // Step 4 : Compute the angleStart (angle1) and the angleExtent (dangle)
-            //
-            double ux = (x1 - cx1) / rx;
-            double uy = (y1 - cy1) / ry;
-            double vx = (-x1 - cx1) / rx;
-            double vy = (-y1 - cy1) / ry;
+            // Step 4 : Compute the angleStart (angle1) and the angleExtent (dangle).
+            var ux = (x1 - cx1) / rx;
+            var uy = (y1 - cy1) / ry;
+            var vx = (-x1 - cx1) / rx;
+            var vy = (-y1 - cy1) / ry;
 
-            // Compute the angle start
-            double n = Sqrt((ux * ux) + (uy * uy));
-            double p = ux; // (1 * ux) + (0 * uy)
+            // Compute the angle start.
+            var n = Sqrt((ux * ux) + (uy * uy));
+            var p = ux; // (1 * ux) + (0 * uy)
             sign = (uy < 0) ? -1d : 1d;
-            double angleStart = sign * Acos(p / n);
+            var angleStart = sign * Acos(p / n);
 
-            // Compute the angle extent
+            // Compute the angle extent.
             n = Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
             p = ux * vx + uy * vy;
             sign = (ux * vy - uy * vx < 0) ? -1d : 1d;
-            double angleExtent = sign * Acos(p / n);
+            var angleExtent = sign * Acos(p / n);
 
             if (!sweepFlag && angleExtent > 0)
             {
@@ -271,9 +263,7 @@ namespace Engine
             angleExtent %= Tau;
             angleStart %= Tau;
 
-            //
-            // We can now build the resulting Arc2D in double precision
-            //
+            // We can now build the resulting Arc2D in double precision.
             this.x = cx;
             this.y = cy;
             this.rX = rx;
@@ -865,7 +855,7 @@ namespace Engine
         {
             if (this == null)
                 return nameof(Ellipse);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(EllipticalArc)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle},{nameof(StartAngle)}={startAngle},{SweepAngle}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }

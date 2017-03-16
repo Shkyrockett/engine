@@ -125,8 +125,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static List<Point2D> GenerateGrid(int minX, int minY, int maxX, int maxY, int stepX, int stepY)
         {
-            int width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
-            int height = stepY == 0 ? (maxY - minY) : (maxY - minY) / stepY;
+            var width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
+            var height = stepY == 0 ? (maxY - minY) : (maxY - minY) / stepY;
             return new List<Point2D>(
                 from x in Enumerable.Range(0, width)
                 from y in Enumerable.Range(0, height)

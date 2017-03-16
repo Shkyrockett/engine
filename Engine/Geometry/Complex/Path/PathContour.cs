@@ -74,7 +74,7 @@ namespace Engine
             Items = new List<PathItem>();
             PathItem cursor = new PathPoint(polygon[0]);
             Items.Add(cursor);
-            for (int i = 1; i < polygon.Count; i++)
+            for (var i = 1; i < polygon.Count; i++)
             {
                 cursor = new PathLineSegment(cursor, polygon[i]);
                 Items.Add(cursor);
@@ -275,22 +275,22 @@ namespace Engine
             double accumulatedLength = 0;
 
             // Build up the weights map.
-            for (int i = 0; i < Items.Count; i++)
+            for (var i = 0; i < Items.Count; i++)
             {
-                double curentLength = Items[i].Length;
+                var curentLength = Items[i].Length;
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
             }
 
-            double accumulatedLengthT = accumulatedLength * t;
+            var accumulatedLengthT = accumulatedLength * t;
 
             // Find the segment.
-            for (int i = Items.Count - 1; i >= 0; i--)
+            for (var i = Items.Count - 1; i >= 0; i--)
             {
                 if (weights[i].accumulated < accumulatedLengthT)
                 {
                     // Interpolate the position.
-                    double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
+                    var th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
                     cursor = Items[i + 1].Interpolate(th);
                     break;
                 }
@@ -333,6 +333,23 @@ namespace Engine
         {
             switch (o)
             {
+                case Point2D p:
+                    AddLineSegment(p);
+                    break;
+                case ScreenPoint p:
+                    AddLineSegment(p.Point);
+                    break;
+                case LineSegment p:
+                    if(p.A == Items[Items.Count - 1].End)
+                        AddLineSegment(p.B);
+                    else if(p.B == Items[Items.Count - 1].End)
+                        AddLineSegment(p.A);
+                    else
+                    {
+                        AddLineSegment(p.A);
+                        AddLineSegment(p.B);
+                    }
+                    break;
                 case PathLineSegment p:
                     AddLineSegment(p.End.Value);
                     break;
@@ -416,8 +433,23 @@ namespace Engine
         /// <returns></returns>
         internal PathContour AddCardinalCurve(List<Point2D> nodes)
         {
-            var cubic = new PathCardinal(Items[Items.Count - 1], nodes);
-            Items.Add(cubic);
+            var cardinal = new PathCardinal(Items[Items.Count - 1], nodes);
+            Items.Add(cardinal);
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public PathContour Close()
+        {
+            if (Items[0].Start.Value != Items[Items.Count - 1].End.Value)
+            {
+                AddLineSegment(Items[0].Start.Value);
+            }
+
+            closed = true;
             return this;
         }
 
@@ -443,20 +475,20 @@ namespace Engine
         /// </remarks>
         public (List<PathItem>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
-            List<PathItem> figure = new List<PathItem>();
-            bool closed = false;
+            var figure = new List<PathItem>();
+            var closed = false;
 
-            bool relitive = false;
+            var relitive = false;
             Point2D? startPoint = null;
             PathItem item = null;
 
             // These letters are valid SVG commands. Split the tokens at these.
-            string separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
+            var separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
 
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
 
             // Discard whitespace and comma but keep the - minus sign.
-            string argSeparators = $@"[\s{sep}]|(?=-)";
+            var argSeparators = $@"[\s{sep}]|(?=-)";
 
             // Split the definition string into shape tokens.
             foreach (var token in Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrWhiteSpace(t)))
@@ -584,9 +616,9 @@ namespace Engine
         /// <returns></returns>
         private String ToPathDefString(string format, IFormatProvider provider)
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
 
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
 
             foreach (var item in Items)
             {
@@ -601,8 +633,8 @@ namespace Engine
                         break;
                     case PathLineSegment t:
                         // L is a general line.
-                        char l = t.Relitive ? 'l' : 'L';
-                        string coords = $"{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)}";
+                        var l = t.Relitive ? 'l' : 'L';
+                        var coords = $"{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)}";
                         if (t.Start.Value.X == t.End.Value.X)
                         {
                             // H is a horizontal line, so the x-coordinate can be omitted.
@@ -627,8 +659,8 @@ namespace Engine
                         break;
                     case PathArc t:
                         // Arc definition. 
-                        int largearc = t.LargeArc ? 1 : 0;
-                        int sweep = t.Sweep ? 1 : 0;
+                        var largearc = t.LargeArc ? 1 : 0;
+                        var sweep = t.Sweep ? 1 : 0;
                         output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     default:

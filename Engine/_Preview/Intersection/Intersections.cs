@@ -88,9 +88,9 @@ namespace Engine
                 return true;
 
             // Wrap the angles to values between 2PI and -2PI.
-            double s = Maths.WrapAngle(startAngle);
-            double e = Maths.WrapAngle(s + sweepAngle);
-            double a = Maths.WrapAngle(angle);
+            var s = Maths.WrapAngle(startAngle);
+            var e = Maths.WrapAngle(s + sweepAngle);
+            var a = Maths.WrapAngle(angle);
 
             // return whether the angle is contained within the sweep angle.
             // The calculations are opposite when the sweep angle is negative.
@@ -157,7 +157,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Contour polygon, Point2D point)
-            => PolygonContainsPoint(polygon.Points, point.X, point.Y);
+            => PolygonContourContainsPoint(polygon.Points, point.X, point.Y);
 
         /// <summary>
         /// 
@@ -168,7 +168,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this PathContour figure, Point2D point)
-            => GeometryPathContainsPoint(figure, point);
+            => PathContourContainsPoint(figure, point);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="Polygon"/>.
@@ -180,7 +180,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Polygon polygons, Point2D point)
-            => PolygonSetContainsPoint(polygons.Contours, point.X, point.Y);
+            => PolygonContainsPoint(polygons.Contours, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -1010,9 +1010,10 @@ namespace Engine
         /// <param name="o"></param>
         /// <param name="p"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInTriangle(LineSegment s, Point2D o, Point2D p)
         {
-            int x = Sign(s.A, s.B, p);
+            var x = Sign(s.A, s.B, p);
             return ((x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p)));
         }
 
@@ -1041,7 +1042,7 @@ namespace Engine
             var c = new Point2D(cX, cY);
             var p = new Point2D(pX, pY);
             if (Intersects(a, b) || Intersects(b, c) || Intersects(c, a)) return Inclusion.Boundary;
-            bool clockwise = ((((b - a).CrossProduct(p - b))) >= 0);
+            var clockwise = ((((b - a).CrossProduct(p - b))) >= 0);
             return !(((((c - b).CrossProduct(p - c)) >= 0) ^ clockwise) && ((((a - c).CrossProduct(p - a)) >= 0) ^ clockwise)) ? Inclusion.Inside : Inclusion.Outside;
         }
 
@@ -1071,39 +1072,59 @@ namespace Engine
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <returns></returns>
+        /// <param name="epsilon"></param>
+        /// <returns>
+        /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
+        /// </returns>
+        /// <remarks>
+        /// Adapted from Clipper library: http://www.angusj.com/delphi/clipper.php
+        /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
+        /// http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
+        /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonContainsPoint(
+        public static Inclusion PolygonContourContainsPoint(
             List<Point2D> points,
-            double pX, double pY)
+            double pX, double pY,
+            double epsilon = Epsilon)
         {
-            // From Clipper library: http://www.angusj.com/delphi/clipper.php
-
-            // returns 0 if false, +1 if true, -1 if pt on polygon boundary
-            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
-            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
+            // Default value is no inclusion.
             Inclusion result = Inclusion.Outside;
 
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
+            // Special cases for points and line segments.
             if (points.Count < 3)
-                return Inclusion.Outside;
+                if (points.Count == 1)
+                    // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
+                    return (pX == points[0].X && pY == points[0].Y) ? Inclusion.Boundary : Inclusion.Outside;
+                else if (points.Count == 2)
+                    // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
+                    return ((pX == points[0].X) && (pY == points[0].Y))
+                        || ((pX == points[1].X) && (pY == points[1].Y))
+                        || (((pX > points[0].X) == (pX < points[1].X))
+                        && ((pY > points[0].Y) == (pY < points[1].Y))
+                        && ((pX - points[0].X) * (points[1].Y - points[0].Y) == (pY - points[0].Y) * (points[1].X - points[0].X))) ? Inclusion.Boundary : Inclusion.Outside;
+                else
+                    // Empty geometry.
+                    return Inclusion.Outside;
+
+            // Loop through each line segment.
             Point2D curPoint = points[0];
-            for (int i = 1; i <= points.Count; ++i)
+            for (var i = 1; i <= points.Count; ++i)
             {
                 Point2D nextPoint = (i == points.Count ? points[0] : points[i]);
-                if (Abs(nextPoint.Y - pY) < Epsilon)
+
+                // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
+                if (((nextPoint.Y == pY)) && (((nextPoint.X == pX)) || ((curPoint.Y == pY) && ((nextPoint.X > pX) == (curPoint.X < pX)))))
+                //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                 {
-                    if ((Abs(nextPoint.X - pX) < Epsilon)
-                        || (Abs(curPoint.Y - pY) < Epsilon
-                        && ((nextPoint.X > pX) == (curPoint.X < pX))))
-                    {
-                        return Inclusion.Boundary;
-                    }
+                    return Inclusion.Boundary;
                 }
 
+                // If Point between start and end points horizontally.
+                //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
                 if ((curPoint.Y < pY) != (nextPoint.Y < pY))
                 {
+                    // If point between start and end points vertically.
                     if (curPoint.X >= pX)
                     {
                         if (nextPoint.X > pX)
@@ -1112,8 +1133,8 @@ namespace Engine
                         }
                         else
                         {
-                            double determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
-                            if (Abs(determinant) < Epsilon)
+                            var determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
+                            if (Abs(determinant) < epsilon)
                                 return Inclusion.Boundary;
                             else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                                 result = 1 - result;
@@ -1121,8 +1142,8 @@ namespace Engine
                     }
                     else if (nextPoint.X > pX)
                     {
-                        double determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
-                        if (Abs(determinant) < Epsilon)
+                        var determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
+                        if (Abs(determinant) < epsilon)
                             return Inclusion.Boundary;
                         if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                             result = 1 - result;
@@ -1135,6 +1156,173 @@ namespace Engine
             return result;
         }
 
+#if Test
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="point"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        public static Inclusion PathContourContainsPoint(
+            PathContour path,
+            Point2D point,
+            double epsilon = Epsilon)
+        {
+            Inclusion result = Inclusion.Outside;
+            Inclusion boundary = Inclusion.Outside;
+
+            if (path.Count < 2)
+                return Contains(path[0].Start.Value, point);
+            foreach (var item in path)
+            {
+                switch (item)
+                {
+                    case PathPoint p:
+                        {
+                            if (path[0].Start.Value == point)
+                                return Inclusion.Boundary;
+                            break;
+                        }
+                    case PathLineSegment l:
+                        {
+                            // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
+                            if (((l.End.Value.Y == point.Y)) && (((l.End.Value.X == point.X)) || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
+                            //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
+                            {
+                                return Inclusion.Boundary;
+                            }
+
+                            // If Point between start and end points horizontally.
+                            //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
+                            if ((l.Start.Value.Y < point.Y) != (l.End.Value.Y < point.Y))
+                            {
+                                // If point between start and end points vertically.
+                                if (l.Start.Value.X >= point.X)
+                                {
+                                    if (l.End.Value.X > point.X)
+                                    {
+                                        result = 1 - result;
+                                    }
+                                    else
+                                    {
+                                        var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                        if (Abs(determinant) < epsilon)
+                                            return Inclusion.Boundary;
+                                        else if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                            result = 1 - result;
+                                    }
+                                }
+                                else if (l.End.Value.X > point.X)
+                                {
+                                    var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                    if (Abs(determinant) < epsilon)
+                                        return Inclusion.Boundary;
+                                    if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                        result = 1 - result;
+                                }
+                            }
+                            break;
+                        }
+                    case PathArc t:
+                        {
+                            // Find the start and end angles.
+                            var sa = EllipsePolarAngle(t.StartAngle, t.RX, t.RY);
+                            var ea = EllipsePolarAngle(t.StartAngle + t.SweepAngle, t.RX, t.RY);
+
+                            // Get the ellipse rotation transform.
+                            var cosT = Cos(t.Angle);
+                            var sinT = Sin(t.Angle);
+
+                            // Ellipse equation for an ellipse at origin for the chord end points.
+                            var u1 = t.RX * Cos(sa);
+                            var v1 = -(t.RY * Sin(sa));
+                            var u2 = t.RX * Cos(ea);
+                            var v2 = -(t.RY * Sin(ea));
+
+                            // Find the points of the chord.
+                            var sX = t.Center.X + (u1 * cosT + v1 * sinT);
+                            var sY = t.Center.Y + (u1 * sinT - v1 * cosT);
+                            var eX = t.Center.X + (u2 * cosT + v2 * sinT);
+                            var eY = t.Center.Y + (u2 * sinT - v2 * cosT);
+
+                            // Find the determinant of the chord.
+                            var determinant = (sX - point.X) * (eY - point.Y) - (eX - point.X) * (sY - point.Y);
+
+                            // Check whether the point is on the side of the chord as the center.
+                            if (Sign(-determinant) == Sign(t.SweepAngle))
+                            {
+                                // Translate points to origin.
+                                var u0 = point.X - t.Center.X;
+                                var v0 = point.Y - t.Center.Y;
+
+                                // Apply the rotation transformation.
+                                var a = u0 * cosT + v0 * sinT;
+                                var b = u0 * sinT - v0 * cosT;
+
+                                // Normalize the radius.
+                                var normalizedRadius
+                                    = ((a * a) / (t.RX * t.RX))
+                                    + ((b * b) / (t.RY * t.RY));
+
+                                if (Abs(normalizedRadius - 1d) < Epsilon)
+                                    return Inclusion.Boundary;
+
+                                if (normalizedRadius < 1d)
+                                    result = 1 - result;
+                            }
+
+
+                            // If Point between start and end points horizontally.
+                            //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
+                            if ((t.Start.Value.Y < point.Y) != (t.End.Value.Y < point.Y))
+                            {
+                                // If point between start and end points vertically.
+                                if (t.Start.Value.X >= point.X)
+                                {
+                                    if (t.End.Value.X > point.X)
+                                    {
+                                        result = 1 - result;
+                                    }
+                                    else
+                                    {
+                                        var determinant2 = (t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y) - (t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y);
+                                        if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
+                                            result = 1 - result;
+                                    }
+                                }
+                                else if (t.End.Value.X > point.X)
+                                {
+                                    var determinant2 = (t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y) - (t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y);
+                                    if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
+                                        result = 1 - result;
+                                }
+                            }
+
+                            break;
+                        }
+                    case PathQuadraticBezier b:
+                        break;
+                    case PathCubicBezier b:
+                        break;
+                    case PathCardinal c:
+                        break;
+                    default:
+                        break;
+                }
+
+                if (boundary == Inclusion.Boundary)
+                {
+                    result = boundary;
+                    return result;
+                }
+            }
+            return result;
+        }
+
+#else 
+
         /// <summary>
         /// 
         /// </summary>
@@ -1143,9 +1331,9 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion GeometryPathContainsPoint(PathContour figure, Point2D point)
+        public static Inclusion PathContourContainsPoint(PathContour figure, Point2D point)
         {
-            Inclusion included = PolygonContainsPoint(figure.Nodes, point.X, point.Y);
+            Inclusion included = PolygonContourContainsPoint(figure.Nodes, point.X, point.Y);
             foreach (var item in figure?.Items)
             {
                 switch (item)
@@ -1166,6 +1354,8 @@ namespace Engine
             return included;
         }
 
+#endif
+
         /// <summary>
         /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="Polygon"/>.
         /// </summary>
@@ -1175,7 +1365,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonSetContainsPoint(List<Contour> polygons, double pX, double pY)
+        public static Inclusion PolygonContainsPoint(List<Contour> polygons, double pX, double pY)
         {
             Inclusion returnValue = Inclusion.Outside;
 
@@ -1183,7 +1373,7 @@ namespace Engine
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= PolygonContainsPoint(poly.Points, pX, pY);
+                returnValue ^= PolygonContourContainsPoint(poly.Points, pX, pY);
 
                 // Any point on any boundary is on a boundary.
                 if (returnValue == Inclusion.Boundary)
@@ -1213,12 +1403,12 @@ namespace Engine
             if (pX >= x - r && pX <= x + r
                 && pY >= y - r && pY <= y + r)
             {
-                double dx = x - pX;
-                double dy = y - pY;
+                var dx = x - pX;
+                var dy = y - pY;
                 dx *= dx;
                 dy *= dy;
-                double distanceSquared = dx + dy;
-                double radiusSquared = r * r;
+                var distanceSquared = dx + dy;
+                var radiusSquared = r * r;
                 return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < Epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
@@ -1247,18 +1437,18 @@ namespace Engine
                 return Inclusion.Outside;
 
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
             // Translate points to origin.
-            double u = pX - x;
-            double v = (pY - y);
+            var u = pX - x;
+            var v = (pY - y);
 
             // Apply the rotation transformation.
-            double a = (u * cosT + v * sinT);
-            double b = (u * sinT - v * cosT);
+            var a = (u * cosT + v * sinT);
+            var b = (u * sinT - v * cosT);
 
-            double normalizedRadius = ((a * a) / (r1 * r1))
+            var normalizedRadius = ((a * a) / (r1 * r1))
                                     + ((b * b) / (r2 * r2));
 
             return (normalizedRadius <= 1d)
@@ -1296,7 +1486,7 @@ namespace Engine
                 Point2D endPoint = Interpolaters.CircularArc(x, y, r, startAngle, sweepAngle, 1);
 
                 // Find the determinant of the chord and point.
-                double determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check if the point is on the chord.
                 if (Abs(determinant) < Epsilon)
@@ -1305,12 +1495,12 @@ namespace Engine
                 else if (Sign(determinant) == Sign(sweepAngle))
                     return Inclusion.Outside;
 
-                double dx = x - pX;
-                double dy = y - pY;
+                var dx = x - pX;
+                var dy = y - pY;
                 dx *= dx;
                 dy *= dy;
-                double distanceSquared = dx + dy;
-                double radiusSquared = r * r;
+                var distanceSquared = dx + dy;
+                var radiusSquared = r * r;
                 return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < Epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
@@ -1341,49 +1531,42 @@ namespace Engine
                 return Inclusion.Outside;
 
             // Find the start and end angles.
-            double sa = EllipsePolarAngle(startAngle, r1, r2);
-            double ea = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+            var sa = EllipsePolarAngle(startAngle, r1, r2);
+            var ea = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
 
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
             // Ellipse equation for an ellipse at origin for the chord end points.
-            double u1 = r1 * Cos(sa);
-            double v1 = -(r2 * Sin(sa));
-            double u2 = r1 * Cos(ea);
-            double v2 = -(r2 * Sin(ea));
+            var u1 = r1 * Cos(sa);
+            var v1 = -(r2 * Sin(sa));
+            var u2 = r1 * Cos(ea);
+            var v2 = -(r2 * Sin(ea));
 
             // Find the points of the chord.
-            double sX = cX + (u1 * cosT + v1 * sinT);
-            double sY = cY + (u1 * sinT - v1 * cosT);
-            double eX = cX + (u2 * cosT + v2 * sinT);
-            double eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + (u1 * cosT + v1 * sinT);
+            var sY = cY + (u1 * sinT - v1 * cosT);
+            var eX = cX + (u2 * cosT + v2 * sinT);
+            var eY = cY + (u2 * sinT - v2 * cosT);
 
             // Find the determinant of the chord.
-            double determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
-
-            //// Check if the point is on the chord.
-            //if (Abs(determinant) <= Epsilon)
-            //{
-            //    return (sX < eX) ?
-            //    (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
-            //    (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
-            //}
+            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
 
             // Check whether the point is on the side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
                 return Inclusion.Outside;
 
             // Translate points to origin.
-            double u0 = pX - cX;
-            double v0 = pY - cY;
+            var u0 = pX - cX;
+            var v0 = pY - cY;
 
             // Apply the rotation transformation.
-            double a = u0 * cosT + v0 * sinT;
-            double b = u0 * sinT - v0 * cosT;
+            var a = u0 * cosT + v0 * sinT;
+            var b = u0 * sinT - v0 * cosT;
 
-            double normalizedRadius
+            // Normalize the radius.
+            var normalizedRadius
                 = ((a * a) / (r1 * r1))
                 + ((b * b) / (r2 * r2));
 
@@ -1416,27 +1599,27 @@ namespace Engine
                 return Inclusion.Outside;
 
             // Find the start and end angles.
-            double sa = EllipsePolarAngle(startAngle, r1, r2);
-            double ea = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+            var sa = EllipsePolarAngle(startAngle, r1, r2);
+            var ea = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
 
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
             // Ellipse equation for an ellipse at origin for the chord end points.
-            double u1 = r1 * Cos(sa);
-            double v1 = -(r2 * Sin(sa));
-            double u2 = r1 * Cos(ea);
-            double v2 = -(r2 * Sin(ea));
+            var u1 = r1 * Cos(sa);
+            var v1 = -(r2 * Sin(sa));
+            var u2 = r1 * Cos(ea);
+            var v2 = -(r2 * Sin(ea));
 
             // Find the points of the chord.
-            double sX = cX + (u1 * cosT + v1 * sinT);
-            double sY = cY + (u1 * sinT - v1 * cosT);
-            double eX = cX + (u2 * cosT + v2 * sinT);
-            double eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + (u1 * cosT + v1 * sinT);
+            var sY = cY + (u1 * sinT - v1 * cosT);
+            var eX = cX + (u2 * cosT + v2 * sinT);
+            var eY = cY + (u2 * sinT - v2 * cosT);
 
             // Find the determinant of the chord.
-            double determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
 
             // Check if the point is on the chord.
             if (Abs(determinant) <= Epsilon)
@@ -1451,14 +1634,15 @@ namespace Engine
                 return Inclusion.Outside;
 
             // Translate points to origin.
-            double u0 = pX - cX;
-            double v0 = pY - cY;
+            var u0 = pX - cX;
+            var v0 = pY - cY;
 
             // Apply the rotation transformation.
-            double a = u0 * cosT + v0 * sinT;
-            double b = u0 * sinT - v0 * cosT;
+            var a = u0 * cosT + v0 * sinT;
+            var b = u0 * sinT - v0 * cosT;
 
-            double normalizedRadius
+            // Normalize the radius.
+            var normalizedRadius
                 = ((a * a) / (r1 * r1))
                 + ((b * b) / (r2 * r2));
 
@@ -1499,13 +1683,13 @@ namespace Engine
 
             end.X -= start.X;
             end.Y -= start.Y;
-            double dist = Sqrt(end.X * end.X + end.Y * end.Y);
-            double theCos = end.X / dist;
-            double theSin = end.Y / dist;
+            var dist = Sqrt(end.X * end.X + end.Y * end.Y);
+            var theCos = end.X / dist;
+            var theSin = end.Y / dist;
 
             foreach (Contour poly in polygons.Contours)
             {
-                for (int i = 0; i < poly.Points.Count; i++)
+                for (var i = 0; i < poly.Points.Count; i++)
                 {
                     j = i + 1;
                     if (j == poly.Points.Count)
@@ -1550,7 +1734,7 @@ namespace Engine
                 }
             }
 
-            return PolygonSetContainsPoint(polygons.Contours, start.X + end.X / 2.0, start.Y + end.Y / 2.0);
+            return PolygonContainsPoint(polygons.Contours, start.X + end.X / 2.0, start.Y + end.Y / 2.0);
         }
 
         /// <summary>
@@ -1614,12 +1798,11 @@ namespace Engine
             double segmentAY,
             double segmentBX,
             double segmentBY)
-            => ((pointX == segmentAX) && (pointY == segmentAY)) ||
-                ((pointX == segmentBX) && (pointY == segmentBY)) ||
-                (((pointX > segmentAX) == (pointX < segmentBX)) &&
-                ((pointY > segmentAY) == (pointY < segmentBY)) &&
-                ((pointX - segmentAX) * (segmentBY - segmentAY) ==
-                (segmentBX - segmentAX) * (pointY - segmentAY)));
+            => ((pointX == segmentAX) && (pointY == segmentAY))
+            || ((pointX == segmentBX) && (pointY == segmentBY))
+            || (((pointX > segmentAX) == (pointX < segmentBX))
+            && ((pointY > segmentAY) == (pointY < segmentBY))
+            && ((pointX - segmentAX) * (segmentBY - segmentAY) == (pointY - segmentAY) * (segmentBX - segmentAX)));
 
         /// <summary>
         /// Find out whether two line segments intersect.
@@ -1642,13 +1825,13 @@ namespace Engine
             double x3, double y3)
         {
             // Translate lines to origin.
-            double u1 = (x1 - x0);
-            double v1 = (y1 - y0);
-            double u2 = (x3 - x2);
-            double v2 = (y3 - y2);
+            var u1 = (x1 - x0);
+            var v1 = (y1 - y0);
+            var u2 = (x3 - x2);
+            var v2 = (y3 - y2);
 
             // Calculate the determinant of the coefficient matrix.
-            double determinant = (v2 * u1) - (u2 * v1);
+            var determinant = (v2 * u1) - (u2 * v1);
 
             // Check if the line segments are parallel.
             if (Abs(determinant) < Epsilon)
@@ -1656,8 +1839,8 @@ namespace Engine
                 return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
 
             // Find the index where the intersection point lies on the line.
-            double s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
-            double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+            var s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            var t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
 
             // Check whether the point is on the segment.
             return (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d);
@@ -1711,9 +1894,9 @@ namespace Engine
                 return false;
 
             // Find the distance between the centers.
-            double dx = cx0 - cx1;
-            double dy = cy0 - cy1;
-            double dist = Sqrt(dx * dx + dy * dy);
+            var dx = cx0 - cx1;
+            var dy = cy0 - cy1;
+            var dist = Sqrt(dx * dx + dy * dy);
 
             // See how many solutions there are.
             if (dist > radius0 + radius1)
@@ -1894,24 +2077,24 @@ namespace Engine
             double x2, double y2,
             double x3, double y3)
         {
-            Intersection result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate lines to origin.
-            double u1 = (x1 - x0);
-            double v1 = (y1 - y0);
-            double u2 = (x3 - x2);
-            double v2 = (y3 - y2);
+            var u1 = (x1 - x0);
+            var v1 = (y1 - y0);
+            var u2 = (x3 - x2);
+            var v2 = (y3 - y2);
 
             // Calculate the determinant of the coefficient matrix.
-            double determinant = (v2 * u1) - (u2 * v1);
+            var determinant = (v2 * u1) - (u2 * v1);
 
             // Check if the lines are parallel or coincident.
             if (Abs(determinant) < Epsilon)
                 return result;
 
             // Find the index where the intersection point lies on the line.
-            double s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
-            double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+            var s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            var t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
 
             // Check whether the point is on the segment.
             if ((t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d))
@@ -1946,21 +2129,21 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate lines to origin.
-            double u1 = (x1 - x0);
-            double v1 = (y1 - y0);
-            double u2 = (x3 - x2);
-            double v2 = (y3 - y2);
+            var u1 = (x1 - x0);
+            var v1 = (y1 - y0);
+            var u2 = (x3 - x2);
+            var v2 = (y3 - y2);
 
             // Calculate the determinant of the coefficient matrix.
-            double determinant = (v2 * u1) - (u2 * v1);
+            var determinant = (v2 * u1) - (u2 * v1);
 
             // Check if the lines are parallel.
             if (Abs(determinant) < Epsilon)
                 return result;
 
             // Find the index where the intersection point lies on the line.
-            double s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
-            double t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+            var s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            var t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
 
             // Check whether the point is on the segment.
             result = new Intersection(IntersectionState.Intersection);
@@ -2162,16 +2345,16 @@ namespace Engine
             if ((radius == 0d) || ((x1 == x2) && (y1 == y2)))
                 return result;
 
-            double dx = x2 - x1;
-            double dy = y2 - y1;
+            var dx = x2 - x1;
+            var dy = y2 - y1;
 
             // Calculate the quadratic parameters.
-            double a = dx * dx + dy * dy;
-            double b = 2 * (dx * (x1 - cX) + dy * (y1 - cY));
-            double c = (x1 - cX) * (x1 - cX) + (y1 - cY) * (y1 - cY) - radius * radius;
+            var a = dx * dx + dy * dy;
+            var b = 2 * (dx * (x1 - cX) + dy * (y1 - cY));
+            var c = (x1 - cX) * (x1 - cX) + (y1 - cY) * (y1 - cY) - radius * radius;
 
             // Calculate the discriminant.
-            double discriminant = b * b - 4 * a * c;
+            var discriminant = b * b - 4 * a * c;
 
             if ((a <= Epsilon) || (discriminant < 0))
             {
@@ -2180,7 +2363,7 @@ namespace Engine
             else if (discriminant == 0)
             {
                 // One possible solution.
-                double t = -b / (2 * a);
+                var t = -b / (2 * a);
 
                 // Add the points if they are between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
@@ -2192,8 +2375,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                double t1 = ((-b + Sqrt(discriminant)) / (2 * a));
-                double t2 = ((-b - Sqrt(discriminant)) / (2 * a));
+                var t1 = ((-b + Sqrt(discriminant)) / (2 * a));
+                var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
 
                 // Add the points if they are between the end points of the line segment.
                 result = new Intersection(IntersectionState.Intersection);
@@ -2319,7 +2502,7 @@ namespace Engine
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var length = points.Count;
-            Intersection inter = new Intersection(IntersectionState.NoIntersection);
+            var inter = new Intersection(IntersectionState.NoIntersection);
             for (var i = 0; i < length; i++)
             {
                 var a1 = points[i];
@@ -2360,9 +2543,9 @@ namespace Engine
                 return result;
 
             // Find the distance between the centers.
-            double dx = cx0 - cx1;
-            double dy = cy0 - cy1;
-            double dist = Sqrt(dx * dx + dy * dy);
+            var dx = cx0 - cx1;
+            var dy = cy0 - cy1;
+            var dist = Sqrt(dx * dx + dy * dy);
 
             // See how many solutions there are.
             if (dist > radius0 + radius1)
@@ -2383,12 +2566,12 @@ namespace Engine
             else
             {
                 // Find a and h.
-                double a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
-                double h = Sqrt(radius0 * radius0 - a * a);
+                var a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
+                var h = Sqrt(radius0 * radius0 - a * a);
 
                 // Find P2.
-                double cx2 = cx0 + a * (cx1 - cx0) / dist;
-                double cy2 = cy0 + a * (cy1 - cy0) / dist;
+                var cx2 = cx0 + a * (cx1 - cx0) / dist;
+                var cy2 = cy0 + a * (cy1 - cy0) / dist;
 
                 // See if we have 1 or 2 solutions.
                 if (Abs(dist - radius0 + radius1) < Epsilon)
@@ -2509,18 +2692,18 @@ namespace Engine
                 return result;
 
             // Translate the line to put the ellipse centered at the origin.
-            double u1 = x0 - cx;
-            double v1 = y0 - cy;
-            double u2 = x1 - cx;
-            double v2 = y1 - cy;
+            var u1 = x0 - cx;
+            var v1 = y0 - cy;
+            var u2 = x1 - cx;
+            var v2 = y1 - cy;
 
             // Calculate the quadratic parameters.
-            double a = (u2 - u1) * (u2 - u1) / (rx * rx) + (v2 - v1) * (v2 - v1) / (ry * ry);
-            double b = 2d * u1 * (u2 - u1) / (rx * rx) + 2d * v1 * (v2 - v1) / (ry * ry);
-            double c = (u1 * u1) / (rx * rx) + (v1 * v1) / (ry * ry) - 1d;
+            var a = (u2 - u1) * (u2 - u1) / (rx * rx) + (v2 - v1) * (v2 - v1) / (ry * ry);
+            var b = 2d * u1 * (u2 - u1) / (rx * rx) + 2d * v1 * (v2 - v1) / (ry * ry);
+            var c = (u1 * u1) / (rx * rx) + (v1 * v1) / (ry * ry) - 1d;
 
             // Calculate the discriminant.
-            double discriminant = b * b - 4d * a * c;
+            var discriminant = b * b - 4d * a * c;
 
             if ((a <= Epsilon) || (discriminant < 0))
             {
@@ -2529,7 +2712,7 @@ namespace Engine
             else if (discriminant == 0)
             {
                 // One real possible solution.
-                double t = 0.5d * -b / a;
+                var t = 0.5d * -b / a;
 
                 // Add the points if it is between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
@@ -2541,8 +2724,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                double t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
-                double t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+                var t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
+                var t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
 
                 // Add the points if they are between the end points of the line segment.
                 if ((t1 >= 0d) && (t1 <= 1d))
@@ -2580,8 +2763,7 @@ namespace Engine
             double rx,
             double ry,
             double a1X, double a1Y,
-            double a2X, double a2Y
-            )
+            double a2X, double a2Y)
         {
             Intersection result;
             var origin = new Vector2D(a1X, a1Y);
@@ -2663,28 +2845,28 @@ namespace Engine
                 return result;
 
             // Get the Sine and Cosine of the angle.
-            double sinA = Sin(angle);
-            double cosA = Cos(angle);
+            var sinA = Sin(angle);
+            var cosA = Cos(angle);
 
             // Translate the line to put the ellipse centered at the origin.
-            double u1 = x0 - cx;
-            double v1 = y0 - cy;
-            double u2 = x1 - cx;
-            double v2 = y1 - cy;
+            var u1 = x0 - cx;
+            var v1 = y0 - cy;
+            var u2 = x1 - cx;
+            var v2 = y1 - cy;
 
             // Apply Rotation Transform to line at the origin.
-            double u1A = (0 + (u1 * cosA - v1 * sinA));
-            double v1A = (0 + (u1 * sinA + v1 * cosA));
-            double u2A = (0 + (u2 * cosA - v2 * sinA));
-            double v2A = (0 + (u2 * sinA + v2 * cosA));
+            var u1A = (0 + (u1 * cosA - v1 * sinA));
+            var v1A = (0 + (u1 * sinA + v1 * cosA));
+            var u2A = (0 + (u2 * cosA - v2 * sinA));
+            var v2A = (0 + (u2 * sinA + v2 * cosA));
 
             // Calculate the quadratic parameters.
-            double a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            double b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            double c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
+            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
+            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
+            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
 
             // Calculate the discriminant.
-            double discriminant = b * b - 4d * a * c;
+            var discriminant = b * b - 4d * a * c;
 
             if ((a <= Epsilon) || (discriminant < 0))
             {
@@ -2693,7 +2875,7 @@ namespace Engine
             else if (discriminant == 0)
             {
                 // One real possible solution.
-                double t = 0.5d * -b / a;
+                var t = 0.5d * -b / a;
 
                 // Add the point if it is between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
@@ -2706,8 +2888,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                double t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
-                double t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+                var t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
+                var t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
 
                 // Add the points if they are between the end points of the line segment.
                 if ((t1 >= 0d) && (t1 <= 1d))
@@ -2904,10 +3086,10 @@ namespace Engine
             /*verify the roots are in bounds of the linear segment*/
             for (var i = 0; i < 3; i++)
             {
-                double t = r[i];
+                var t = r[i];
 
-                double x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
-                double y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
+                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
+                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
 
                 /*above is intersection point assuming infinitely long line segment,
                   make sure we are also in bounds of the line*/
@@ -3153,24 +3335,22 @@ namespace Engine
             double ecX, double ecY,
             double rx, double ry)
         {
-            Vector2D a, b, c, d;
-            Vector2D c3, c2, c1, c0;
             var result = new Intersection(IntersectionState.NoIntersection);
-            a = new Vector2D(p1X, p1Y).Scale(-1);
-            b = new Vector2D(p2X, p2Y).Scale(3);
-            c = new Vector2D(p3X, p3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
-            c3 = new Vector2D(d.I, d.J);
+            var a = new Vector2D(p1X, p1Y).Scale(-1);
+            var b = new Vector2D(p2X, p2Y).Scale(3);
+            var c = new Vector2D(p3X, p3Y).Scale(-3);
+            var d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
+            var c3 = new Vector2D(d.I, d.J);
             a = new Vector2D(p1X, p1Y).Scale(3);
             b = new Vector2D(p2X, p2Y).Scale(-6);
             c = new Vector2D(p3X, p3Y).Scale(3);
             d = a.Add(b.Add(c));
-            c2 = new Vector2D(d.I, d.J);
+            var c2 = new Vector2D(d.I, d.J);
             a = new Vector2D(p1X, p1Y).Scale(-3);
             b = new Vector2D(p2X, p2Y).Scale(3);
             c = a.Add(b);
-            c1 = new Vector2D(c.I, c.J);
-            c0 = new Vector2D(p1X, p1Y);
+            var c1 = new Vector2D(c.I, c.J);
+            var c0 = new Vector2D(p1X, p1Y);
             var rxrx = rx * rx;
             var ryry = ry * ry;
             var poly = new Polynomial(
@@ -3225,40 +3405,37 @@ namespace Engine
             double b4X, double b4Y,
             double epsilon = Epsilon)
         {
-            Vector2D a, b, c, d;
-            Vector2D c13, c12, c11, c10;
-            Vector2D c23, c22, c21, c20;
             var result = new Intersection(IntersectionState.NoIntersection);
-            a = new Vector2D(a1X, a1Y).Scale(-1);
-            b = new Vector2D(a2X, a2Y).Scale(3);
-            c = new Vector2D(a3X, a3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add(new Vector2D(a4X, a4Y))));
-            c13 = new Vector2D(d.I, d.J);
+            var a = new Vector2D(a1X, a1Y).Scale(-1);
+            var b = new Vector2D(a2X, a2Y).Scale(3);
+            var c = new Vector2D(a3X, a3Y).Scale(-3);
+            var d = a.Add(b.Add(c.Add(new Vector2D(a4X, a4Y))));
+            var c13 = new Vector2D(d.I, d.J);
             a = new Vector2D(a1X, a1Y).Scale(3);
             b = new Vector2D(a2X, a2Y).Scale(-6);
             c = new Vector2D(a3X, a3Y).Scale(3);
             d = a.Add(b.Add(c));
-            c12 = new Vector2D(d.I, d.J);
+            var c12 = new Vector2D(d.I, d.J);
             a = new Vector2D(a1X, a1Y).Scale(-3);
             b = new Vector2D(a2X, a2Y).Scale(3);
             c = a.Add(b);
-            c11 = new Vector2D(c.I, c.J);
-            c10 = new Vector2D(a1X, a1Y);
+            var c11 = new Vector2D(c.I, c.J);
+            var c10 = new Vector2D(a1X, a1Y);
             a = new Vector2D(b1X, b1Y).Scale(-1);
             b = new Vector2D(b2X, b2Y).Scale(3);
             c = new Vector2D(b3X, b3Y).Scale(-3);
             d = a.Add(b.Add(c.Add(new Vector2D(b4X, b4Y))));
-            c23 = new Vector2D(d.I, d.J);
+            var c23 = new Vector2D(d.I, d.J);
             a = new Vector2D(b1X, b1Y).Scale(3);
             b = new Vector2D(b2X, b2Y).Scale(-6);
             c = new Vector2D(b3X, b3Y).Scale(3);
             d = a.Add(b.Add(c));
-            c22 = new Vector2D(d.I, d.J);
+            var c22 = new Vector2D(d.I, d.J);
             a = new Vector2D(b1X, b1Y).Scale(-3);
             b = new Vector2D(b2X, b2Y).Scale(3);
             c = a.Add(b);
-            c21 = new Vector2D(c.I, c.J);
-            c20 = new Vector2D(b1X, b1Y);
+            var c21 = new Vector2D(c.I, c.J);
+            var c20 = new Vector2D(b1X, b1Y);
             var c10x2 = c10.I * c10.I;
             var c10x3 = c10.I * c10.I * c10.I;
             var c10y2 = c10.J * c10.J;
@@ -3380,7 +3557,7 @@ namespace Engine
             var c = (normal.X * c0.X + normal.Y * c0.Y + coefficient) / a;
 
             // solve the roots
-            List<double> roots = new List<double>();
+            var roots = new List<double>();
             var d = b * b - 4 * c;
             if (d > 0)
             {
@@ -3914,9 +4091,9 @@ namespace Engine
 
             double S, T, Im;
 
-            double Q = (3 * B - Pow(A, 2)) / 9;
-            double R = (9 * A * B - 27 * C - 2 * Pow(A, 3)) / 54;
-            double D = Pow(Q, 3) + Pow(R, 2);    // polynomial discriminant
+            var Q = (3 * B - Pow(A, 2)) / 9;
+            var R = (9 * A * B - 27 * C - 2 * Pow(A, 3)) / 54;
+            var D = Pow(Q, 3) + Pow(R, 2);    // polynomial discriminant
 
             var t = new double[3];
 

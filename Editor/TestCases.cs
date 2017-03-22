@@ -630,7 +630,7 @@ namespace Editor
             };
 
             var beziers = Conversions.EllipticalArcToCubicBeziers(ellipticalArc);
-            var contour = new PathContour(beziers[0].A);
+            var contour = new PolycurveContour(beziers[0].A);
 
             foreach (var bezier in beziers)
             {
@@ -832,7 +832,7 @@ namespace Editor
         {
             var left = 100;
             var top = 0;
-            var figure = new PathContour(new Point2D(left + 50d, top + 100d));
+            var figure = new PolycurveContour(new Point2D(left + 50d, top + 100d));
             figure.AddLineSegment(new Point2D(left + 100, top + 100))
                 .AddArc(50d, 50d, 0d, false, false, new Point2D(left + 150d, top + 150d))
                 .AddLineSegment(new Point2D(left + 150, top + 200))

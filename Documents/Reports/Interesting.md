@@ -49,4 +49,24 @@ for (int i = 1; i < points.Length; i++)
 result = ProcessSegment(points[points.Length - 1], points[0]);
 ```
 
+A more traditional method for solving this issue is using cursors. This one uses an if at the end.
+
+```c#
+var curPoint = points[0];
+for (var i = 1; i <= points.Count; ++i)
+{
+    var nextPoint = (i == points.Count ? points[0] : points[i]);
+    result = ProcessSegment(curPoint, nextPoint);
+}
+```
+
+The final method just works, and is likely the best optimization, so long as you don't care about the order of the segments.
+
+```c#
+for (int i = points.Length - 1, j = 0; j < points.Length; i = j++)
+{
+    result = ProcessSegment(points[i], points[j]);
+}
+```
+
 [n-1]: http://latex.codecogs.com/svg.latex?%5Cinline%20n-1

@@ -92,70 +92,71 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Experemental\BoundingRectPolygon.cs" />
-    <Compile Include="Experemental\Curves\Bezier\BezierFragment.cs" />
-    <Compile Include="Experemental\Curves\Bezier\BBox.cs" />
-    <Compile Include="Experemental\Curves\Bezier\Arc1.cs" />
-    <Compile Include="Experemental\BoundingBbox2D.cs" />
-    <Compile Include="Experemental\Contour.cs" />
-    <Compile Include="Experemental\Curves\Spline\AddPointResult.cs" />
-    <Compile Include="Experemental\Curves\Agnesi.cs" />
-    <Compile Include="Experemental\Curves\Bezier\Bezier.cs" />
-    <Compile Include="Experemental\Curves\Bezier\Polynomialx.cs" />
-    <Compile Include="Experemental\Curves\Bicorn.cs" />
-    <Compile Include="Experemental\Curves\Bow.cs" />
-    <Compile Include="Experemental\Curves\Butterfly.cs" />
-    <Compile Include="Experemental\Curves\CardinalSpline.cs" />
-    <Compile Include="Experemental\Curves\CatmullRom.cs" />
-    <Compile Include="Experemental\Curves\ConicSections.cs" />
-    <Compile Include="Experemental\Curves\Cosine.cs" />
-    <Compile Include="Experemental\Curves\CubicBSpline.cs" />
-    <Compile Include="Experemental\Curves\Curve.cs" />
-    <Compile Include="Experemental\Curves\Spline\CurveBuilder.cs" />
-    <Compile Include="Experemental\Curves\Spline\SamplePosition.cs" />
-    <Compile Include="Experemental\Curves\Spline\Spline.cs" />
-    <Compile Include="Experemental\Curves\Spline\SplineBuilder.cs" />
-    <Compile Include="Experemental\DoubleLine.cs" />
-    <Compile Include="Experemental\EllipticStar.cs" />
-    <Compile Include="Experemental\Gear.cs" />
-    <Compile Include="Experemental\Curves\Heart.cs" />
-    <Compile Include="Experemental\Curves\Hermite.cs" />
-    <Compile Include="Experemental\Hyperbola.cs" />
-    <Compile Include="Experemental\Intersection\IntersectionParams.cs" />
-    <Compile Include="Experemental\Intersection\Intersectionx.cs" />
-    <Compile Include="Experemental\LineSegment2D.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\CoincidentLineLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\EmptyLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\IntersectionsPreview.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\Intersector.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\LineSegmentLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\Locus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\OutsideLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\OverlapLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\ParallelLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\PointLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\PointSetLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\PolygonLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\PolygonSetLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\PolylineLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\PolylineSetLocus.cs" />
-    <Compile Include="Experemental\Intersection\LocusIntersection\UnionLocus.cs" />
-    <Compile Include="Experemental\NGonStar.cs" />
-    <Compile Include="Experemental\NonIntStar.cs" />
-    <Compile Include="Experemental\Curves\Parabola.cs" />
-    <Compile Include="Experemental\Curves\Bezier\PolyBezier2.cs" />
-    <Compile Include="Experemental\Polygon2D.cs" />
-    <Compile Include="Experemental\PolyPath.cs" />
-    <Compile Include="Experemental\RoundedRectangle2.cs" />
-    <Compile Include="Experemental\RoundRectangle.cs" />
-    <Compile Include="Experemental\Curves\Sine.cs" />
-    <Compile Include="Experemental\Star.cs" />
-    <Compile Include="Experemental\Curves\Bezier\Utilities.cs" />
-    <Compile Include="Experemental\Voronoi.cs" />
-    <Compile Include="Experemental\Curves\Bezier\RangeX.cs" />
-    <Compile Include="Experemental\Curves\Bezier\Line1.cs" />
-    <Compile Include="Experemental\Curves\Bezier\Pair.cs" />
-    <Compile Include="Experemental\Curves\Bezier\PairComparer.cs" />
+    <Compile Include="Experimental\BoundingRectPolygon.cs" />
+    <Compile Include="Experimental\Curves\Bezier\BezierFragment.cs" />
+    <Compile Include="Experimental\Curves\Bezier\BBox.cs" />
+    <Compile Include="Experimental\Curves\Bezier\Arc1.cs" />
+    <Compile Include="Experimental\BoundingBbox2D.cs" />
+    <Compile Include="Experimental\Contour.cs" />
+    <Compile Include="Experimental\Curves\Spline\AddPointResult.cs" />
+    <Compile Include="Experimental\Curves\Agnesi.cs" />
+    <Compile Include="Experimental\Curves\Bezier\Bezier.cs" />
+    <Compile Include="Experimental\Curves\Bezier\Polynomialx.cs" />
+    <Compile Include="Experimental\Curves\Bicorn.cs" />
+    <Compile Include="Experimental\Curves\Bow.cs" />
+    <Compile Include="Experimental\Curves\Butterfly.cs" />
+    <Compile Include="Experimental\Curves\CardinalSpline.cs" />
+    <Compile Include="Experimental\Curves\CatmullRom.cs" />
+    <Compile Include="Experimental\Curves\ConicSections.cs" />
+    <Compile Include="Experimental\Curves\Cosine.cs" />
+    <Compile Include="Experimental\Curves\CubicBSpline.cs" />
+    <Compile Include="Experimental\Curves\Curve.cs" />
+    <Compile Include="Experimental\Curves\Spline\CurveBuilder.cs" />
+    <Compile Include="Experimental\Curves\Spline\SamplePosition.cs" />
+    <Compile Include="Experimental\Curves\Spline\Spline.cs" />
+    <Compile Include="Experimental\Curves\Spline\SplineBuilder.cs" />
+    <Compile Include="Experimental\DoubleLine.cs" />
+    <Compile Include="Experimental\EllipticStar.cs" />
+    <Compile Include="Experimental\Gear.cs" />
+    <Compile Include="Experimental\Curves\Heart.cs" />
+    <Compile Include="Experimental\Curves\Hermite.cs" />
+    <Compile Include="Experimental\Hyperbola.cs" />
+    <Compile Include="Experimental\Intersection\IntersectionParams.cs" />
+    <Compile Include="Experimental\Intersection\Intersectionx.cs" />
+    <Compile Include="Experimental\LineSegment2D.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\CoincidentLineLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\EmptyLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\IntersectionsPreview.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\Intersector.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\LineSegmentLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\Locus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\OutsideLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\OverlapLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\ParallelLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\PointLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\PointSetLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\PolygonLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\PolygonSetLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\PolylineLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\PolylineSetLocus.cs" />
+    <Compile Include="Experimental\Intersection\LocusIntersection\UnionLocus.cs" />
+    <Compile Include="Experimental\NGonStar.cs" />
+    <Compile Include="Experimental\NonIntStar.cs" />
+    <Compile Include="Experimental\Curves\Parabola.cs" />
+    <Compile Include="Experimental\Curves\Bezier\PolyBezier2.cs" />
+    <Compile Include="Experimental\Polygon2D.cs" />
+    <Compile Include="Experimental\PolyPath.cs" />
+    <Compile Include="Experimental\RoundedRectangle2.cs" />
+    <Compile Include="Experimental\RoundRectangle.cs" />
+    <Compile Include="Experimental\Curves\Sine.cs" />
+    <Compile Include="Experimental\Star.cs" />
+    <Compile Include="Experimental\Curves\Bezier\Utilities.cs" />
+    <Compile Include="Experimental\Voronoi.cs" />
+    <Compile Include="Experimental\Curves\Bezier\RangeX.cs" />
+    <Compile Include="Experimental\Curves\Bezier\Line1.cs" />
+    <Compile Include="Experimental\Curves\Bezier\Pair.cs" />
+    <Compile Include="Experimental\Curves\Bezier\PairComparer.cs" />
+    <Compile Include="Experimental\polyloops.cs" />
     <Compile Include="RectanglePointTester.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,7 +170,7 @@
     <Compile Include="FormSpeedTester.Designer.cs">
       <DependentUpon>FormSpeedTester.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListHelper.cs" />
+    <Compile Include="Framework\ListHelper.cs" />
     <Compile Include="CirclePointTester.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,10 +185,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Experemental\Ptinpoly.cs" />
-    <Compile Include="ReflectionHelper.cs" />
-    <Compile Include="Experemental\Curves\Bezier\Shape1.cs" />
-    <Compile Include="SpeedTester.cs" />
+    <Compile Include="Experimental\Ptinpoly.cs" />
+    <Compile Include="Framework\ReflectionHelper.cs" />
+    <Compile Include="Experimental\Curves\Bezier\Shape1.cs" />
+    <Compile Include="Framework\SpeedTester.cs" />
     <EmbeddedResource Include="RectanglePointTester.resx">
       <DependentUpon>RectanglePointTester.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,7 +212,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="Reports\Interesting.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -222,12 +222,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Reports\Distance2D.md" />
-    <None Include="Reports\LineIntersectionBool.md" />
-    <None Include="Reports\LineIntersectionPoint.md" />
-    <None Include="Reports\Template.md" />
-    <None Include="Reports\WrapAngle.md" />
-    <None Include="Reports\Modulus.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />

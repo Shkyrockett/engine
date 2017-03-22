@@ -24,7 +24,7 @@ namespace Engine._Preview
         /// <summary>
         /// 
         /// </summary>
-        public PathContour distortionPath;
+        public PolycurveContour distortionPath;
 
         /// <summary>
         /// 
@@ -80,7 +80,7 @@ namespace Engine._Preview
         /// <param name="source"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public Point2D Distort(PathContour source, Point2D point)
+        public Point2D Distort(PolycurveContour source, Point2D point)
         {
             if (distortionPath == null)
             {
@@ -156,7 +156,7 @@ namespace Engine._Preview
         /// 
         /// </summary>
         /// <param name="source"></param>
-        private void BuildDistortion(PathContour source)
+        private void BuildDistortion(PolycurveContour source)
         {
             sourceBounds = source.Bounds();
 
@@ -166,7 +166,7 @@ namespace Engine._Preview
             upperRight = new Point2D(sourceBounds.Right, sourceBounds.Top);
 
 
-            distortionPath = new PathContour(lowerLeft);// source.FillMode);
+            distortionPath = new PolycurveContour(lowerLeft);// source.FillMode);
             distortionPath.AddLineSegment(upperLeft);
 
             distortionPath.AddCubicBezier(

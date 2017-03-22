@@ -108,7 +108,7 @@ namespace Engine.Direct2D
                 case QuadraticBezier t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
-                case PathContour t:
+                case PolycurveContour t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case null:

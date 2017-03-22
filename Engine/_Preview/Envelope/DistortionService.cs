@@ -27,7 +27,7 @@ namespace Engine._Preview
         /// <summary>
         /// 
         /// </summary>
-        private readonly PathContour source;
+        private readonly PolycurveContour source;
 
         /// <summary>
         /// 
@@ -44,7 +44,7 @@ namespace Engine._Preview
         /// <param name="distortion">The distortion to be performed</param>
         /// <param name="source">The graphics path to be distorted</param>
         /// <param name="flatness">The precision of the flattening operation (smaller = more points = slower)</param>
-        public DistortionService(IDistortion distortion, PathContour source, float flatness = .2f)
+        public DistortionService(IDistortion distortion, PolycurveContour source, float flatness = .2f)
         {
             this.distortion = distortion;
             this.source = source;
@@ -58,7 +58,7 @@ namespace Engine._Preview
         /// returns a newly created graphics path with points distorted
         /// </summary>
         /// <returns>The distorted Graphics Path</returns>
-        public PathContour ApplyDistortion()
+        public PolycurveContour ApplyDistortion()
         {
             //var it = new GraphicsPathIterator(source);
             //it.Rewind();
@@ -85,7 +85,7 @@ namespace Engine._Preview
         /// 
         /// </summary>
         /// <param name="gp"></param>
-        private void InjectPrecisionPoints(PathContour gp)
+        private void InjectPrecisionPoints(PolycurveContour gp)
         {
             var InsertDictionary = new Dictionary<int, Point2D[]>();
             //inject points on vertical and horizontal runs to increase precision

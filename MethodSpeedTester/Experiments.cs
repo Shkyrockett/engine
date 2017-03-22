@@ -8918,66 +8918,68 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Point in Polygon
+        #region Point in Polygon Contour
 
         /// <summary>
-        /// Set of tests to run testing methods that calculate the cross product of three 2D points.
+        /// Set of tests to run testing methods that test whether a point is contained in a polygon contour.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(PointInPolygonTests))]
-        public static List<SpeedTester> PointInPolygonTests()
+        [DisplayName(nameof(PointInPolygonContourTests))]
+        public static List<SpeedTester> PointInPolygonContourTests()
         {
             var polygon = new List<PointF> {
                 new PointF(0, 0),
                 new PointF(2, 0),
                 new PointF(0, 2) };
-            (List<double>, List<double>)? PatrickMullenValues = PrecalcPointInPolygonPatrickMullenValues(polygon);
+            var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var point = new PointF(1, 1);
             return new List<SpeedTester> {
-                //new SpeedTester(() => PointInPolygonDarelRexFinley(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonDarelRexFinley)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonNathanMercer(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonNathanMercer)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonLaschaLagidse(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonLaschaLagidse)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonPatrickMullen(polygon, point, PatrickMullenValues.Item1, PatrickMullenValues.Item2),
-                //$"{nameof(Experiments.PointInPolygonPatrickMullen)}(polygon, {point}, constant, multiple)"),
-                //new SpeedTester(() => PointInPolygonMeowNET(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonMeowNET)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonAlienRyderFlex(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonAlienRyderFlex)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonLaschaLagidse2(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonLaschaLagidse2)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonGilKr(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonGilKr)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonMKatzWRandolphFranklin(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonMKatzWRandolphFranklin)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonRodStephens(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonRodStephens)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonSaeedAmiri(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonSaeedAmiri)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonKeith(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonKeith)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonJerryKnauss(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonJerryKnauss)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonJerryKnauss2(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonJerryKnauss2)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonPaulBourke(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonPaulBourke)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonWRandolphFranklin(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonWRandolphFranklin)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonPhilippeReverdy(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonPhilippeReverdy)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonBobStein(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonBobStein)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonHormannAgathosSimplified(polygon, point),
-                $"{nameof(Experiments.PointInPolygonHormannAgathosSimplified)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonHormannAgathosExpanded3(polygon, point),
-                $"{nameof(Experiments.PointInPolygonHormannAgathosExpanded3)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonHormannAgathosExpanded(polygon, point),
-                $"{nameof(Experiments.PointInPolygonHormannAgathosExpanded)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonHormannAgathosExpanded2(polygon, point),
-                $"{nameof(Experiments.PointInPolygonHormannAgathosExpanded2)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourDarelRexFinley(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourDarelRexFinley)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourNathanMercer(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourNathanMercer)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourLaschaLagidse(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourLaschaLagidse)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourPatrickMullen(polygon, point, PatrickMullenValues.Value.Item1, PatrickMullenValues.Value.Item2),
+                //$"{nameof(Experiments.PointInPolygonContourPatrickMullen)}(polygon, {point}, constant, multiple)"),
+                //new SpeedTester(() => PointInPolygonContourMeowNET(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourMeowNET)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourAlienRyderFlex(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourAlienRyderFlex)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourLaschaLagidse2(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourLaschaLagidse2)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourGilKr(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourGilKr)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourMKatzWRandolphFranklin(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourMKatzWRandolphFranklin)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourRodStephens(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourRodStephens)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourSaeedAmiri(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourSaeedAmiri)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourKeith(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourKeith)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourJerryKnauss(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourJerryKnauss)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourJerryKnauss2(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourJerryKnauss2)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourPaulBourke(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourPaulBourke)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourWRandolphFranklin(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourWRandolphFranklin)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourPhilippeReverdy(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourPhilippeReverdy)}(polygon, {point})"),
+                //new SpeedTester(() => PointInPolygonContourBobStein(polygon, point),
+                //$"{nameof(Experiments.PointInPolygonContourBobStein)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonContourHormannAgathosSimplified(polygon, point),
+                $"{nameof(Experiments.PointInPolygonContourHormannAgathosSimplified)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonContourHormannAgathosExpanded3(polygon, point),
+                $"{nameof(Experiments.PointInPolygonContourHormannAgathosExpanded3)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonContourHormannAgathosExpanded(polygon, point),
+                $"{nameof(Experiments.PointInPolygonContourHormannAgathosExpanded)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonContourHormannAgathosExpanded2(polygon, point),
+                $"{nameof(Experiments.PointInPolygonContourHormannAgathosExpanded2)}(polygon, {point})"),
+                new SpeedTester(() => PointInPolygonContourHormannAgathosNewFor(polygon, point),
+                $"{nameof(Experiments.PointInPolygonContourHormannAgathosNewFor)}(polygon, {point})"),
             };
         }
 
@@ -8991,7 +8993,8 @@ namespace MethodSpeedTester
         /// http://paulbourke.net/geometry/polygonmesh/
         /// http://paulbourke.net/geometry/polygonmesh/contains.txt
         /// </remarks>
-        public static bool PointInPolygonJerryKnauss(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourJerryKnauss(
             List<PointF> polygon, PointF point)
         {
             var result = false;
@@ -9020,7 +9023,8 @@ namespace MethodSpeedTester
         /// http://paulbourke.net/geometry/polygonmesh/
         /// http://paulbourke.net/geometry/polygonmesh/contains.txt
         /// </remarks>
-        public static bool PointInPolygonJerryKnauss2(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourJerryKnauss2(
             List<PointF> polygon, PointF point)
         {
             var j = polygon.Count - 1;
@@ -9054,7 +9058,8 @@ namespace MethodSpeedTester
         /// <param name="polygon">coordinates of corners</param>
         /// <returns></returns>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygonDarelRexFinley(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourDarelRexFinley(
             List<PointF> polygon, PointF point)
         {
             var j = polygon.Count - 1;
@@ -9090,7 +9095,8 @@ namespace MethodSpeedTester
         /// <param name="polygon">coordinates of corners</param>
         /// <returns></returns>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygonNathanMercer(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourNathanMercer(
             List<PointF> polygon, PointF point)
         {
             var j = polygon.Count - 1;
@@ -9126,7 +9132,8 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygonLaschaLagidse(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourLaschaLagidse(
             List<PointF> polygon, PointF point)
         {
             int i;
@@ -9167,7 +9174,8 @@ namespace MethodSpeedTester
         /// <param name="multiple">storage for pre-calculated multipliers (same size as polyX)</param>
         /// <returns></returns>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static bool PointInPolygonPatrickMullen(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourPatrickMullen(
             List<PointF> polygon, PointF point,
             List<double> constant, List<double> multiple)
         {
@@ -9196,7 +9204,8 @@ namespace MethodSpeedTester
         ///// <param name="constant">storage for pre-calculated constants (same size as polyX)</param>
         ///// <param name="multiple">storage for pre-calculated multipliers (same size as polyX)</param>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        public static (List<double>, List<double>)? PrecalcPointInPolygonPatrickMullenValues(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (List<double>, List<double>)? PrecalcPointInPolygonContourPatrickMullenValues(
             List<PointF> polygon)
         {
             if (polygon == null)
@@ -9228,13 +9237,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// Determines if the given point is inside the polygon
+        /// Determines if the given point is inside the polygon contour.
         /// </summary>
         /// <param name="polygon">the vertices of polygon</param>
         /// <param name="point">the given point</param>
         /// <returns>true if the point is inside the polygon; otherwise, false</returns>
         /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
-        public static bool PointInPolygonMeowNET(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourMeowNET(
             List<PointF> polygon, PointF point)
         {
             var result = false;
@@ -9279,7 +9289,8 @@ namespace MethodSpeedTester
         ///  Note that division by zero is avoided because the division is protected
         ///  by the "if" clause which surrounds it.
         /// </remarks>
-        public static bool PointInPolygonAlienRyderFlex(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourAlienRyderFlex(
             List<PointF> polygon, PointF point)
         {
             int i;
@@ -9328,7 +9339,8 @@ namespace MethodSpeedTester
         ///  Note that division by zero is avoided because the division is protected
         ///  by the "if" clause which surrounds it.
         /// </remarks>
-        public static bool PointInPolygonLaschaLagidse2(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourLaschaLagidse2(
             List<PointF> polygon, PointF point)
         {
             int i;
@@ -9361,7 +9373,8 @@ namespace MethodSpeedTester
         /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
         /// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
         /// </remarks>
-        public static bool PointInPolygonGilKr(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourGilKr(
             List<PointF> polygon, PointF point)
         {
             var nvert = polygon.Count;
@@ -9389,7 +9402,8 @@ namespace MethodSpeedTester
         /// http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
         /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
         /// </remarks>
-        public static bool PointInPolygonMKatzWRandolphFranklin(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourMKatzWRandolphFranklin(
             List<PointF> polygon, PointF point)
         {
             double minX = polygon[0].X;
@@ -9434,7 +9448,8 @@ namespace MethodSpeedTester
         /// http://astronomy.swin.edu.au/pbourke/geometry/
         /// http://www.eecs.umich.edu/courses/eecs380/HANDOUTS/PROJ2/InsidePoly.html
         /// </remarks>
-        public static bool PointInPolygonPaulBourke(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourPaulBourke(
             List<PointF> polygon, PointF point)
         {
             PointF p1, p2;
@@ -9474,7 +9489,8 @@ namespace MethodSpeedTester
         /// <param name="point"></param>
         /// <returns></returns>
         /// <remarks>https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html</remarks>
-        public static bool PointInPolygonWRandolphFranklin(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourWRandolphFranklin(
             List<PointF> polygon, PointF point)
         {
             var inside = false;
@@ -9498,7 +9514,8 @@ namespace MethodSpeedTester
         /// <param name="point"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
-        public static bool PointInPolygonSaeedAmiri(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourSaeedAmiri(
             List<PointF> polygon, PointF point)
         {
             var coef = polygon.Skip(1).Select((p, i) =>
@@ -9525,7 +9542,8 @@ namespace MethodSpeedTester
         /// <param name="point"></param>
         /// <returns></returns>
         /// <remarks>http://paulbourke.net/geometry/polygonmesh/</remarks>
-        public static bool PointInPolygonPhilippeReverdy(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourPhilippeReverdy(
             List<PointF> polygon, PointF point)
         {
             int i;
@@ -9555,6 +9573,7 @@ namespace MethodSpeedTester
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle2D(double x1, double y1, double x2, double y2)
         {
             double dtheta, theta1, theta2;
@@ -9577,7 +9596,8 @@ namespace MethodSpeedTester
         /// <param name="point"></param>
         /// <returns>Return true if the point is in the polygon.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static bool PointInPolygonRodStephens(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourRodStephens(
             List<PointF> polygon, PointF point)
         {
             // Get the angle between the point and the
@@ -9613,7 +9633,8 @@ namespace MethodSpeedTester
         /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
         /// https://social.msdn.microsoft.com/Forums/windows/en-US/95055cdc-60f8-4c22-8270-ab5f9870270a/determine-if-the-point-is-in-the-polygon-c?forum=winforms
         /// </remarks>
-        public static bool PointInPolygonKeith(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourKeith(
             List<PointF> polygon, PointF point)
         {
             PointF p1, p2;
@@ -9659,7 +9680,8 @@ namespace MethodSpeedTester
         /// <param name="polygon">polygon points</param>
         /// <param name="point">target point</param>
         /// <returns></returns>
-        public static bool PointInPolygonBobStein(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourBobStein(
             List<PointF> polygon, PointF point)
         {
             double xnew, ynew;
@@ -9710,7 +9732,8 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        public static Inclusion PointInPolygonHormannAgathosExpanded(List<PointF> polygon, PointF point)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion PointInPolygonContourHormannAgathosExpanded(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
@@ -9772,7 +9795,8 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        public static Inclusion PointInPolygonHormannAgathosExpanded2(List<PointF> polygon, PointF point)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion PointInPolygonContourHormannAgathosExpanded2(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
@@ -9838,7 +9862,8 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        public static Inclusion PointInPolygonHormannAgathosSimplified(List<PointF> polygon, PointF point)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion PointInPolygonContourHormannAgathosSimplified(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
@@ -9892,7 +9917,8 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        public static Inclusion PointInPolygonHormannAgathosExpanded3(List<PointF> polygon, PointF point)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion PointInPolygonContourHormannAgathosExpanded3(List<PointF> polygon, PointF point)
         {
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
@@ -9948,6 +9974,94 @@ namespace MethodSpeedTester
                 if ((determinant > 0d) == (nextPointY > curPoint.Y))
                     return 1 - result;
                 return result;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Contour"/>.
+        /// </summary>
+        /// <param name="points">The points that form the corners of the polygon.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
+        /// <returns>
+        /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
+        /// </returns>
+        /// <remarks>
+        /// Adapted from Clipper library: http://www.angusj.com/delphi/clipper.php
+        /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
+        /// http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion PointInPolygonContourHormannAgathosNewFor(
+            List<PointF> points,
+            PointF p,
+            double epsilon = Epsilon)
+        {
+            // Default value is no inclusion.
+            Inclusion result = Inclusion.Outside;
+
+            // Special cases for points and line segments.
+            if (points.Count < 3)
+                if (points.Count == 1)
+                    // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
+                    return (p.X == points[0].X && p.Y == points[0].Y) ? Inclusion.Boundary : Inclusion.Outside;
+                else if (points.Count == 2)
+                    // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
+                    return ((p.X == points[0].X) && (p.Y == points[0].Y))
+                        || ((p.X == points[1].X) && (p.Y == points[1].Y))
+                        || (((p.X > points[0].X) == (p.X < points[1].X))
+                        && ((p.Y > points[0].Y) == (p.Y < points[1].Y))
+                        && ((p.X - points[0].X) * (points[1].Y - points[0].Y) == (p.Y - points[0].Y) * (points[1].X - points[0].X))) ? Inclusion.Boundary : Inclusion.Outside;
+                else
+                    // Empty geometry.
+                    return Inclusion.Outside;
+
+            // Loop through each line segment.
+            PointF curPoint;
+            PointF nextPoint;
+            for (int i = points.Count - 1, j = 0; j < points.Count; i = j++)
+            {
+                curPoint = points[i];
+                nextPoint = points[j];
+                // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
+                if (((nextPoint.Y == p.Y)) && (((nextPoint.X == p.X)) || ((curPoint.Y == p.Y) && ((nextPoint.X > p.X) == (curPoint.X < p.X)))))
+                //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
+                {
+                    return Inclusion.Boundary;
+                }
+
+                // If Point between start and end points horizontally.
+                //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
+                if ((curPoint.Y < p.Y) != (nextPoint.Y < p.Y))
+                {
+                    // If point between start and end points vertically.
+                    if (curPoint.X >= p.X)
+                    {
+                        if (nextPoint.X > p.X)
+                        {
+                            result = 1 - result;
+                        }
+                        else
+                        {
+                            var determinant = (curPoint.X - p.X) * (nextPoint.Y - p.Y) - (nextPoint.X - p.X) * (curPoint.Y - p.Y);
+                            if (Abs(determinant) < epsilon)
+                                return Inclusion.Boundary;
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                                result = 1 - result;
+                        }
+                    }
+                    else if (nextPoint.X > p.X)
+                    {
+                        var determinant = (curPoint.X - p.X) * (nextPoint.Y - p.Y) - (nextPoint.X - p.X) * (curPoint.Y - p.Y);
+                        if (Abs(determinant) < epsilon)
+                            return Inclusion.Boundary;
+                        if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                            result = 1 - result;
+                    }
+                }
             }
 
             return result;
@@ -10012,7 +10126,7 @@ namespace MethodSpeedTester
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= PointInPolygonHormannAgathosExpanded(poly, point);
+                returnValue ^= PointInPolygonContourHormannAgathosExpanded(poly, point);
 
                 // Any point on any boundary is on a boundary.
                 if (returnValue == Inclusion.Boundary)

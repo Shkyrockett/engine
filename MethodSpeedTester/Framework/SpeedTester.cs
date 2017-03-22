@@ -68,7 +68,7 @@ namespace MethodSpeedTester
             var watch = new Stopwatch();
             watch.Reset();
             watch.Start();
-            for (int i = 0; i < trials; i++)
+            for (var i = 0; i < trials; i++)
             {
                 //run the method
                 ReturnValue = (method as Func<object>).Invoke();

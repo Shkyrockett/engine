@@ -464,7 +464,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="PathContour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolycurveContour"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -475,7 +475,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
-            => (this == null) ? nameof(PathContour) : $"{nameof(PathContour)}{{{ToPathDefString(format, provider)}}}";
+            => (this == null) ? nameof(PolycurveContour) : $"{nameof(PolycurveContour)}{{{ToPathDefString(format, provider)}}}";
 
         #endregion
     }

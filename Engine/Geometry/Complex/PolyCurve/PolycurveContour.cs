@@ -1,4 +1,4 @@
-﻿// <copyright file="PathContour.cs" company="Shkyrockett" >
+﻿// <copyright file="PolyCurveContour.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -28,10 +28,10 @@ namespace Engine
     /// Based roughly on the SVG Path.
     /// </summary>
     [Serializable]
-    [DisplayName("Geometry Path")]
+    [DisplayName("PolyCurve Contour")]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "path", Namespace = "http://www.w3.org/2000/svg")]
-    public class PathContour
+    public class PolycurveContour
         : Shape, IEnumerable<PathItem>
     {
         #region Fields
@@ -47,7 +47,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public PathContour()
+        public PolycurveContour()
             : base()
         {
             Items = new List<PathItem>();
@@ -56,7 +56,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public PathContour(Point2D start)
+        public PolycurveContour(Point2D start)
             : base()
         {
             Items = new List<PathItem>
@@ -69,7 +69,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polygon"></param>
-        public PathContour(Contour polygon)
+        public PolycurveContour(Contour polygon)
         {
             Items = new List<PathItem>();
             PathItem cursor = new PathPoint(polygon[0]);
@@ -84,7 +84,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public PathContour(List<PathItem> items)
+        public PolycurveContour(List<PathItem> items)
             : base()
         {
             Items = items;
@@ -225,7 +225,7 @@ namespace Engine
         [OnSerializing()]
         private void OnSerializing(StreamingContext context)
         {
-            Debug.WriteLine($"{nameof(PathContour)} is being serialized.");
+            Debug.WriteLine($"{nameof(PolycurveContour)} is being serialized.");
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace Engine
         [OnSerialized()]
         private void OnSerialized(StreamingContext context)
         {
-            Debug.WriteLine($"{nameof(PathContour)} has been serialized.");
+            Debug.WriteLine($"{nameof(PolycurveContour)} has been serialized.");
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace Engine
         [OnDeserializing()]
         private void OnDeserializing(StreamingContext context)
         {
-            Debug.WriteLine($"{nameof(PathContour)} is being deserialized.");
+            Debug.WriteLine($"{nameof(PolycurveContour)} is being deserialized.");
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Engine
         [OnDeserialized()]
         private void OnDeserialized(StreamingContext context)
         {
-            Debug.WriteLine($"{nameof(PathContour)} has been deserialized.");
+            Debug.WriteLine($"{nameof(PolycurveContour)} has been deserialized.");
         }
 
         #endregion
@@ -375,7 +375,7 @@ namespace Engine
         /// </summary>
         /// <param name="end"></param>
         /// <returns></returns>
-        public PathContour AddLineSegment(Point2D end)
+        public PolycurveContour AddLineSegment(Point2D end)
         {
             var segment = new PathLineSegment(Items[Items.Count - 1], end);
             Items.Add(segment);
@@ -392,7 +392,7 @@ namespace Engine
         /// <param name="sweep"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public PathContour AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
+        public PolycurveContour AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         {
             var arc = new PathArc(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
             Items.Add(arc);
@@ -405,7 +405,7 @@ namespace Engine
         /// <param name="handle"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public PathContour AddQuadraticBezier(Point2D handle, Point2D end)
+        public PolycurveContour AddQuadraticBezier(Point2D handle, Point2D end)
         {
             var quad = new PathQuadraticBezier(Items[Items.Count - 1], handle, end);
             Items.Add(quad);
@@ -419,7 +419,7 @@ namespace Engine
         /// <param name="handle2"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public PathContour AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
+        public PolycurveContour AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
             var cubic = new PathCubicBezier(Items[Items.Count - 1], handle1, handle2, end);
             Items.Add(cubic);
@@ -431,7 +431,7 @@ namespace Engine
         /// </summary>
         /// <param name="nodes"></param>
         /// <returns></returns>
-        internal PathContour AddCardinalCurve(List<Point2D> nodes)
+        internal PolycurveContour AddCardinalCurve(List<Point2D> nodes)
         {
             var cardinal = new PathCardinal(Items[Items.Count - 1], nodes);
             Items.Add(cardinal);
@@ -442,7 +442,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public PathContour Close()
+        public PolycurveContour Close()
         {
             if (Items[0].Start.Value != Items[Items.Count - 1].End.Value)
             {
@@ -461,7 +461,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
-        public (List<PathItem>, bool) ParsePathDefString(string pathDefinition)
+        public static (List<PathItem>, bool) ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -473,7 +473,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
-        public (List<PathItem>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
+        public static (List<PathItem>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             var figure = new List<PathItem>();
             var closed = false;
@@ -675,7 +675,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="PathContour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolycurveContour"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -686,7 +686,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
-            => (this == null) ? nameof(PathContour) : $"{nameof(PathContour)}{{{ToPathDefString(format, provider)}}}";
+            => (this == null) ? nameof(PolycurveContour) : $"{nameof(PolycurveContour)}{{{ToPathDefString(format, provider)}}}";
 
         #endregion
     }

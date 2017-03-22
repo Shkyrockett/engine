@@ -8,8 +8,6 @@ Because this is a playground, APIs get refactored frequently. Files get moved ar
 
 ## Acknowledgments
 
-A good portion of code comes from sources such as Stack Overflow. Such snippets usually get torn up, rewritten, refactored, studied, tested, chewed up, and integrated into different places if they work as needed.
-
 - Many of the geometry methods are inspired by samples from [C# Helper](http://csharphelper.com/) written by Rod Stephens.
 - A portion of code for Bézier curves has been ported from the awesome information found on [A Primer on Bézier Curves](https://pomax.github.io/bezierinfo/) by Pomax.
 - Polygon path finding based on [code](http://alienryderflex.com/shortest_path/) posted by Darel Rex Finley.

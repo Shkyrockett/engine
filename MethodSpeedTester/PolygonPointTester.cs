@@ -121,7 +121,7 @@ namespace MethodSpeedTester
                 new PointF(25, 100) }));
 
             polygon = polygons[0].points;
-            PatrickMullenValues = Experiments.PrecalcPointInPolygonPatrickMullenValues(polygon);
+            PatrickMullenValues = Experiments.PrecalcPointInPolygonContourPatrickMullenValues(polygon);
 
             comboBox1.DataSource = polygons;
             //comboBox1.ValueMember = "Item1";
@@ -203,7 +203,7 @@ namespace MethodSpeedTester
         private void ComboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             polygon = (((string, List<PointF>))comboBox1.SelectedItem).Item2;
-            PatrickMullenValues = Experiments.PrecalcPointInPolygonPatrickMullenValues(polygon);
+            PatrickMullenValues = Experiments.PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             Invalidate(true);
         }
 
@@ -213,8 +213,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox1_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonAlienRyderFlex(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonAlienRyderFlex));
+                (s, p) => Experiments.PointInPolygonContourAlienRyderFlex(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourAlienRyderFlex));
 
         /// <summary>
         /// 
@@ -222,8 +222,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox2_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonDarelRexFinley(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonDarelRexFinley));
+                (s, p) => Experiments.PointInPolygonContourDarelRexFinley(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourDarelRexFinley));
 
         /// <summary>
         /// 
@@ -231,8 +231,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox3_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonGilKr(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonGilKr));
+                (s, p) => Experiments.PointInPolygonContourGilKr(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourGilKr));
 
         /// <summary>
         /// 
@@ -240,8 +240,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox4_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonKeith(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonKeith));
+                (s, p) => Experiments.PointInPolygonContourKeith(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourKeith));
 
         /// <summary>
         /// 
@@ -249,8 +249,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox5_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonLaschaLagidse(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonLaschaLagidse));
+                (s, p) => Experiments.PointInPolygonContourLaschaLagidse(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourLaschaLagidse));
 
         /// <summary>
         /// 
@@ -258,8 +258,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox6_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonLaschaLagidse2(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonLaschaLagidse2));
+                (s, p) => Experiments.PointInPolygonContourLaschaLagidse2(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourLaschaLagidse2));
 
         /// <summary>
         /// 
@@ -267,8 +267,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox7_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonMeowNET(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonMeowNET));
+                (s, p) => Experiments.PointInPolygonContourMeowNET(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourMeowNET));
 
         /// <summary>
         /// 
@@ -276,8 +276,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox8_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonMKatzWRandolphFranklin(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonMKatzWRandolphFranklin));
+                (s, p) => Experiments.PointInPolygonContourMKatzWRandolphFranklin(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourMKatzWRandolphFranklin));
 
         /// <summary>
         /// 
@@ -285,8 +285,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox9_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonNathanMercer(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonNathanMercer));
+                (s, p) => Experiments.PointInPolygonContourNathanMercer(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourNathanMercer));
 
         /// <summary>
         /// 
@@ -294,8 +294,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox10_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonPatrickMullen(s, p, PatrickMullenValues?.Item1, PatrickMullenValues?.Item2) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonPatrickMullen));
+                (s, p) => Experiments.PointInPolygonContourPatrickMullen(s, p, PatrickMullenValues?.Item1, PatrickMullenValues?.Item2) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourPatrickMullen));
 
         /// <summary>
         /// 
@@ -303,8 +303,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox12_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonRodStephens(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonRodStephens));
+                (s, p) => Experiments.PointInPolygonContourRodStephens(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourRodStephens));
 
         /// <summary>
         /// 
@@ -312,8 +312,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox11_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonSaeedAmiri(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonSaeedAmiri));
+                (s, p) => Experiments.PointInPolygonContourSaeedAmiri(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourSaeedAmiri));
 
         /// <summary>
         /// 
@@ -321,8 +321,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox13_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonJerryKnauss(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonJerryKnauss));
+                (s, p) => Experiments.PointInPolygonContourJerryKnauss(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourJerryKnauss));
 
         /// <summary>
         /// 
@@ -330,8 +330,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox14_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonJerryKnauss2(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonJerryKnauss2));
+                (s, p) => Experiments.PointInPolygonContourJerryKnauss2(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourJerryKnauss2));
 
         /// <summary>
         /// 
@@ -339,8 +339,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox15_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonPaulBourke(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonPaulBourke));
+                (s, p) => Experiments.PointInPolygonContourPaulBourke(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourPaulBourke));
 
         /// <summary>
         /// 
@@ -348,8 +348,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox19_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonWRandolphFranklin(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonWRandolphFranklin));
+                (s, p) => Experiments.PointInPolygonContourWRandolphFranklin(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourWRandolphFranklin));
 
         /// <summary>
         /// 
@@ -357,8 +357,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox20_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonPhilippeReverdy(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonPhilippeReverdy));
+                (s, p) => Experiments.PointInPolygonContourPhilippeReverdy(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourPhilippeReverdy));
 
         /// <summary>
         /// 
@@ -366,8 +366,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox18_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonBobStein(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
-                nameof(Experiments.PointInPolygonBobStein));
+                (s, p) => Experiments.PointInPolygonContourBobStein(s, p) == true ? Inclusion.Inside : Inclusion.Outside,
+                nameof(Experiments.PointInPolygonContourBobStein));
 
         /// <summary>
         /// 
@@ -375,8 +375,8 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox16_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                Experiments.PointInPolygonHormannAgathosExpanded,
-                nameof(Experiments.PointInPolygonHormannAgathosExpanded));
+                Experiments.PointInPolygonContourHormannAgathosExpanded,
+                nameof(Experiments.PointInPolygonContourHormannAgathosExpanded));
 
         /// <summary>
         /// 
@@ -384,7 +384,7 @@ namespace MethodSpeedTester
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PictureBox17_Paint(object sender, PaintEventArgs e) => DrawPolys(e.Graphics, Font, polygon, points,
-                (s, p) => Experiments.PointInPolygonHormannAgathosSimplified(s, p),
-                nameof(Experiments.PointInPolygonHormannAgathosSimplified));
+                (s, p) => Experiments.PointInPolygonContourHormannAgathosSimplified(s, p),
+                nameof(Experiments.PointInPolygonContourHormannAgathosSimplified));
     }
 }

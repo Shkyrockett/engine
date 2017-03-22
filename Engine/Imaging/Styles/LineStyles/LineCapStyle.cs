@@ -27,52 +27,52 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Flat = new LineCapStyle(LineCap.Flat, new PathContour());
+        public static readonly LineCapStyle Flat = new LineCapStyle(LineCap.Flat, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Square = new LineCapStyle(LineCap.Square, new PathContour());
+        public static readonly LineCapStyle Square = new LineCapStyle(LineCap.Square, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Round = new LineCapStyle(LineCap.Round, new PathContour());
+        public static readonly LineCapStyle Round = new LineCapStyle(LineCap.Round, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Triangle = new LineCapStyle(LineCap.Triangle, new PathContour());
+        public static readonly LineCapStyle Triangle = new LineCapStyle(LineCap.Triangle, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle NoAnchor = new LineCapStyle(LineCap.NoAnchor, new PathContour());
+        public static readonly LineCapStyle NoAnchor = new LineCapStyle(LineCap.NoAnchor, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle SquareAnchor = new LineCapStyle(LineCap.SquareAnchor, new PathContour());
+        public static readonly LineCapStyle SquareAnchor = new LineCapStyle(LineCap.SquareAnchor, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle RoundAnchor = new LineCapStyle(LineCap.RoundAnchor, new PathContour());
+        public static readonly LineCapStyle RoundAnchor = new LineCapStyle(LineCap.RoundAnchor, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle DiamondAnchor = new LineCapStyle(LineCap.DiamondAnchor, new PathContour());
+        public static readonly LineCapStyle DiamondAnchor = new LineCapStyle(LineCap.DiamondAnchor, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle ArrowAnchor = new LineCapStyle(LineCap.ArrowAnchor, new PathContour());
+        public static readonly LineCapStyle ArrowAnchor = new LineCapStyle(LineCap.ArrowAnchor, new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle AnchorMask = new LineCapStyle(LineCap.AnchorMask, new PathContour());
+        public static readonly LineCapStyle AnchorMask = new LineCapStyle(LineCap.AnchorMask, new PolycurveContour());
 
         /// <summary>
         /// 
@@ -82,14 +82,14 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private PathContour capPath;
+        private PolycurveContour capPath;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="lineCap"></param>
         /// <param name="path"></param>
-        public LineCapStyle(LineCap lineCap, PathContour path)
+        public LineCapStyle(LineCap lineCap, PolycurveContour path)
             : this()
         {
             this.lineCap = lineCap;
@@ -105,7 +105,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public PathContour CapPath { get { return capPath; } set { capPath = value; } }
+        public PolycurveContour CapPath { get { return capPath; } set { capPath = value; } }
 
         /// <summary>
         /// 

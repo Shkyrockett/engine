@@ -78,7 +78,7 @@ namespace Engine
                     return Process(t);
                 case Polyline t:
                     return Process(t);
-                case PathContour t:
+                case PolycurveContour t:
                     return Process(t);
                 case Rectangle2D t:
                     return Process(t);
@@ -179,9 +179,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
-        public PathContour Process(PathContour contour)
+        public PolycurveContour Process(PolycurveContour contour)
         {
-            var result = new PathContour(Process(contour.Items[0].Start.Value));
+            var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
             foreach (var item in contour)
             {
                 switch (item)

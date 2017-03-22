@@ -167,7 +167,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this PathContour figure, Point2D point)
+        public static Inclusion Contains(this PolycurveContour figure, Point2D point)
             => PathContourContainsPoint(figure, point);
 
         /// <summary>
@@ -1114,7 +1114,7 @@ namespace Engine
                 Point2D nextPoint = (i == points.Count ? points[0] : points[i]);
 
                 // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                if (((nextPoint.Y == pY)) && (((nextPoint.X == pX)) || ((curPoint.Y == pY) && ((nextPoint.X > pX) == (curPoint.X < pX)))))
+                if (((curPoint.Y == pY)) && (((curPoint.X == pX)) || ((nextPoint.Y == pY) && ((curPoint.X > pX) == (nextPoint.X < pX)))))
                 //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                 {
                     return Inclusion.Boundary;
@@ -1122,30 +1122,30 @@ namespace Engine
 
                 // If Point between start and end points horizontally.
                 //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
-                if ((curPoint.Y < pY) != (nextPoint.Y < pY))
+                if ((nextPoint.Y < pY) != (curPoint.Y < pY))
                 {
                     // If point between start and end points vertically.
-                    if (curPoint.X >= pX)
+                    if (nextPoint.X >= pX)
                     {
-                        if (nextPoint.X > pX)
+                        if (curPoint.X > pX)
                         {
                             result = 1 - result;
                         }
                         else
                         {
-                            var determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
+                            var determinant = (nextPoint.X - pX) * (curPoint.Y - pY) - (curPoint.X - pX) * (nextPoint.Y - pY);
                             if (Abs(determinant) < epsilon)
                                 return Inclusion.Boundary;
-                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                            else if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
                                 result = 1 - result;
                         }
                     }
-                    else if (nextPoint.X > pX)
+                    else if (curPoint.X > pX)
                     {
-                        var determinant = (curPoint.X - pX) * (nextPoint.Y - pY) - (nextPoint.X - pX) * (curPoint.Y - pY);
+                        var determinant = (nextPoint.X - pX) * (curPoint.Y - pY) - (curPoint.X - pX) * (nextPoint.Y - pY);
                         if (Abs(determinant) < epsilon)
                             return Inclusion.Boundary;
-                        if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                        if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
                             result = 1 - result;
                     }
                 }
@@ -1156,7 +1156,7 @@ namespace Engine
             return result;
         }
 
-#if Test
+#if !Test
 
         /// <summary>
         /// 
@@ -1166,7 +1166,46 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         public static Inclusion PathContourContainsPoint(
-            PathContour path,
+            PolycurveContour path,
+            Point2D point,
+            double epsilon = Epsilon)
+        {
+            var inside = false;
+
+            foreach (var item in path)
+            {
+                switch (item)
+                {
+                    case PathLineSegment l:
+                        var p1 = item.Start.Value;
+                        var p2 = item.End.Value;
+
+                        if ((p1.Y < point.Y != p2.Y < point.Y) && //at least one point is below the Y threshold and the other is above or equal
+                            (p1.X >= point.X || p2.X >= point.X)) //optimization: at least one point must be to the right of the test point
+                        {
+                            if (p1.X + (point.Y - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) > point.X)
+                                inside = !inside;
+                        }
+                        break;
+                    case PathArc a:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return inside ? Inclusion.Inside: Inclusion.Outside;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="point"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        public static Inclusion PathContourContainsPoint2(
+            PolycurveContour path,
             Point2D point,
             double epsilon = Epsilon)
         {

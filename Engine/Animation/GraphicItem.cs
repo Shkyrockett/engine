@@ -8,11 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -22,24 +18,13 @@ namespace Engine
     /// </summary>
     public class GraphicItem
     {
-        //#region Fields
-
-        ///// <summary>
-        ///// Property cache for commonly used properties that may take time to calculate.
-        ///// </summary>
-        ///// <remarks>This needs to be statically initialized because not all classes initialize the base constructor.</remarks>
-        //private Dictionary<object, object> propertyCache = new Dictionary<object, object>();
-
-        //#endregion
-
         #region Constructors
 
         /// <summary>
         /// 
         /// </summary>
         public GraphicItem()
-        {
-        }
+        { }
 
         /// <summary>
         ///
@@ -50,7 +35,6 @@ namespace Engine
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             Item = item;
-            //item?.OnUpdate(ClearCache);
             Style = style;
         }
 
@@ -96,7 +80,8 @@ namespace Engine
         [XmlElement(typeof(RectangleDCellGrid))]
         [XmlElement(typeof(RotatedRectangle2D))]
         [XmlElement(typeof(QuadraticBezier))]
-        [XmlElement(typeof(PathContour))]
+        [XmlElement(typeof(Polycurve))]
+        [XmlElement(typeof(PolycurveContour))]
         [XmlElement(typeof(SquareCellGrid))]
         [XmlElement(typeof(SquareDCellGrid))]
         [XmlElement(typeof(Triangle))]
@@ -192,39 +177,5 @@ namespace Engine
             => $"{nameof(GraphicItem)}{{{Item}}}";
 
         #endregion
-
-        //#region Private methods
-
-        ///// <summary>
-        ///// This should be run anytime a property of the item is modified so that cached properties get recalculated for the new values.
-        ///// </summary>
-        //private void ClearCache()
-        //    => propertyCache.Clear();
-
-        ///// <summary>
-        ///// Private method for caching computationally and memory intensive properties of child objects
-        ///// so the child object's properties only get touched when necessary.
-        ///// </summary>
-        ///// <param name="property">
-        ///// The method to execute if the property hasn't been cached.
-        ///// To pass a method or property, use the Lambda notation (T)CachingProperty(()=>PropertyName) 
-        ///// or (T)CachingProperty(()=>MethodName(Parameters)) where T is the type of the return value.
-        ///// </param>
-        ///// <param name="name">Auto-filled parameter representing the name of the property being accessed.</param>
-        ///// <returns>Returns an <see cref="object"/> containing the results of the delegate property, or cached value.</returns>
-        ///// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
-        //private object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
-        //{
-        //    if (!propertyCache.ContainsKey(name))
-        //    {
-        //        var value = property.Invoke();
-        //        propertyCache.Add(name, value);
-        //        return value;
-        //    }
-
-        //    return propertyCache[name];
-        //}
-
-        //#endregion
     }
 }

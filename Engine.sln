@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{5EA0C702-64D5-4DA1-A716-A345D936F4D8}"
 EndProject
@@ -25,6 +25,23 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Winforms.Direct2D", "Engine.Winforms.Direct2D\Engine.Winforms.Direct2D.csproj", "{1A57269E-EAD9-40AD-80B6-E3949EA45D1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathGame", "MathGame\MathGame.csproj", "{CE30F980-C756-48F6-8151-A2137B6DAC2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{BCF43DB9-8FE6-46DA-8AF9-47A4D9CCF376}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\Primer.md = Documents\Primer.md
+		Documents\Shapes.md = Documents\Shapes.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{1D90D95F-62C7-4AE0-9CA2-55DAEF79D121}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\Reports\Distance2D.md = Documents\Reports\Distance2D.md
+		Documents\Reports\Interesting.md = Documents\Reports\Interesting.md
+		Documents\Reports\LineIntersectionBool.md = Documents\Reports\LineIntersectionBool.md
+		Documents\Reports\LineIntersectionPoint.md = Documents\Reports\LineIntersectionPoint.md
+		Documents\Reports\Modulus.md = Documents\Reports\Modulus.md
+		Documents\Reports\Template.md = Documents\Reports\Template.md
+		Documents\Reports\WrapAngle.md = Documents\Reports\WrapAngle.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,5 +184,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BCF43DB9-8FE6-46DA-8AF9-47A4D9CCF376} = {972FD154-B0FA-4B53-A6F6-5108024D2E77}
+		{1D90D95F-62C7-4AE0-9CA2-55DAEF79D121} = {BCF43DB9-8FE6-46DA-8AF9-47A4D9CCF376}
 	EndGlobalSection
 EndGlobal

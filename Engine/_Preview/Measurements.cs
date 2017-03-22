@@ -471,7 +471,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Bounds(this PathContour path)
+        public static Rectangle2D Bounds(this PolycurveContour path)
             => GeometryPathBounds(path);
 
         #endregion
@@ -1725,7 +1725,7 @@ namespace Engine
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D GeometryPathBounds(PathContour chain)
+        public static Rectangle2D GeometryPathBounds(PolycurveContour chain)
         {
             var start = chain.Items[0] as PathPoint;
             Rectangle2D result = new Rectangle2D(start.Start.Value, start.End.Value);

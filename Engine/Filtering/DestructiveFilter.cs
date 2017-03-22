@@ -63,7 +63,7 @@ namespace Engine
                     return Process(t);
                 case Polyline t:
                     return Process(t);
-                case PathContour t:
+                case PolycurveContour t:
                     return Process(t);
                 case Rectangle2D t:
                     return Process(t);
@@ -93,9 +93,9 @@ namespace Engine
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
-        public PathContour Process(LineSegment line)
+        public PolycurveContour Process(LineSegment line)
         {
-            var result = new PathContour(Process(line.Points[0]));
+            var result = new PolycurveContour(Process(line.Points[0]));
 
             List<Point2D> side = null;
             List<CubicBezier> curves = null;
@@ -118,9 +118,9 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"></param>
         /// <returns></returns>
-        public PathContour Process(Polygon polygon)
+        public PolycurveContour Process(Polygon polygon)
         {
-            var result = new PathContour();
+            var result = new PolycurveContour();
             foreach (var contour in polygon)
             {
                 result.Add(Process(contour));
@@ -133,9 +133,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
-        public PathContour Process(Contour contour)
+        public PolycurveContour Process(Contour contour)
         {
-            var result = new PathContour(Process(contour.Points[0]));
+            var result = new PolycurveContour(Process(contour.Points[0]));
 
             List<Point2D> side = null;
             List<CubicBezier> curves = null;
@@ -171,9 +171,9 @@ namespace Engine
         /// </summary>
         /// <param name="polylines"></param>
         /// <returns></returns>
-        public PathContour Process(PolylineSet polylines)
+        public PolycurveContour Process(PolylineSet polylines)
         {
-            var result = new PathContour();
+            var result = new PolycurveContour();
             foreach (var contour in polylines)
             {
                 result.Add(Process(contour));
@@ -186,9 +186,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
-        public PathContour Process(Polyline contour)
+        public PolycurveContour Process(Polyline contour)
         {
-            var result = new PathContour(Process(contour.Points[0]));
+            var result = new PolycurveContour(Process(contour.Points[0]));
 
             List<Point2D> side = null;
             List<CubicBezier> curves = null;
@@ -214,9 +214,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
-        public PathContour Process(PathContour contour)
+        public PolycurveContour Process(PolycurveContour contour)
         {
-            var result = new PathContour(Process(contour.Items[0].Start.Value));
+            var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
 
             List<Point2D> side = null;
             List<CubicBezier> curves = null;
@@ -243,9 +243,9 @@ namespace Engine
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public PathContour Process(Rectangle2D rect)
+        public PolycurveContour Process(Rectangle2D rect)
         {
-            var result = new PathContour(Process(rect.Location));
+            var result = new PolycurveContour(Process(rect.Location));
 
             var side = new List<Point2D>();
             for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.TopLeft, rect.TopRight) * SampleDistance))

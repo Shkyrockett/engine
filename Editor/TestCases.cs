@@ -231,25 +231,15 @@ namespace Editor
                 segment.Bounds.X - 5, segment.Bounds.Y - 5, segment.Bounds.Right + 10, segment.Bounds.Bottom + 10, 5, 5);
             var parametricPointTesterSegmentItem = new GraphicItem(parametricPointTesterSegment, paperLikeStyle);
 
-            var ellipseLineIntersections = Intersections.EllipseLineSegmentIntersection(
-                ellipseTween.Center.X,
-                ellipseTween.Center.Y,
-                ellipseTween.RX,
-                ellipseTween.RY,
-                ellipseTween.Angle,
-                segment.A.X,
-                segment.A.Y,
-                segment.B.X,
-                segment.B.Y
-                );
+            var ellipseLineIntersections = Intersections.Intersection(ellipseTween, segment);
             var ellipseLineIntersectionNodes = new NodeRevealer(ellipseLineIntersections.Points, 5d);
             var ellipseLineIntersectionNodesItem = new GraphicItem(ellipseLineIntersectionNodes, solidPurpleStyle);
 
-            var intersection3s = Intersections.QuadraticBezierCubicBezierIntersection(quadraticBezier.A.X, quadraticBezier.A.Y, quadraticBezier.B.X, quadraticBezier.B.Y, quadraticBezier.C.X, quadraticBezier.C.Y, cubicBezier.A.X, cubicBezier.A.Y, cubicBezier.B.X, cubicBezier.B.Y, cubicBezier.C.X, cubicBezier.C.Y, cubicBezier.D.X, cubicBezier.D.Y);
+            var intersection3s = Intersections.Intersection(quadraticBezier, cubicBezier);
             var intersectio3nNodes = new NodeRevealer(intersection3s.Points, 5d);
             var intersection3NodesItem = new GraphicItem(intersectio3nNodes, solidPurpleStyle);
 
-            var intersections2 = Intersections.CubicBezierCubicBezierIntersection(cubicBezier.A.X, cubicBezier.A.Y, cubicBezier.B.X, cubicBezier.B.Y, cubicBezier.C.X, cubicBezier.C.Y, cubicBezier.D.X, cubicBezier.D.Y, cubicBezier2.A.X, cubicBezier2.A.Y, cubicBezier2.B.X, cubicBezier2.B.Y, cubicBezier2.C.X, cubicBezier2.C.Y, cubicBezier2.D.X, cubicBezier2.D.Y);
+            var intersections2 = Intersections.Intersection(cubicBezier, cubicBezier2);
             var intersection2Nodes = new NodeRevealer(intersections2.Points, 5d);
             var intersection2NodesItem = new GraphicItem(intersection2Nodes, solidPurpleStyle);
 
@@ -614,6 +604,167 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void CommonIntersections(VectorMap vectorMap)
+        {
+            double left = 0;
+            double top = 0;
+            var circle = new Circle(left + 100, top + 100, 50);
+            var circleItem = new GraphicItem(circle, solidGreenStyle)
+            {
+                Name = "Circle"
+            };
+
+            var line1 = new Line(left + 160, top + 160, 100, 50);
+            var line1Item = new GraphicItem(line1, solidGreenStyle)
+            {
+                Name = "Line"
+            };
+
+            var intersectionLineCircle = Intersections.Intersection(circle, line1);
+            var intersectionLineCircleNodeItem = new GraphicItem(new NodeRevealer(intersectionLineCircle.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes"
+            };
+
+            var lineSegmentCircleTangent = new LineSegment(left - 50, top + 50, left + 200, top + 50);
+            var lineSegmentCircleTangentItem = new GraphicItem(lineSegmentCircleTangent, solidPurpleStyle)
+            {
+                Name = "Line Segment on Circle Tangent"
+            };
+
+            var lineSegmentCircleCenter = new LineSegment(left - 50, top + 100, left + 200, top + 100);
+            var lineSegmentCircleCenterItem = new GraphicItem(lineSegmentCircleCenter, solidPurpleStyle)
+            {
+                Name = "Line Segment at Circle Center"
+            };
+
+            var intersectionLineSegmentCircleTangent = Intersections.Intersection(circle, lineSegmentCircleTangent);
+            var intersectionLineSegmentCircleTangentNodeItem = new GraphicItem(new NodeRevealer(intersectionLineSegmentCircleTangent.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes 0"
+            };
+
+            var intersectionlineSegmentCircleCenter = Intersections.Intersection(circle, lineSegmentCircleCenter);
+            var intersectionlineSegmentCircleCenterItem = new GraphicItem(new NodeRevealer(intersectionlineSegmentCircleCenter.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes"
+            };
+
+            left += 200;
+
+            var rectangle = new Rectangle2D(left, top + 50, 100d, 100d);
+            var rectangleItem = new GraphicItem(rectangle, solidGreenStyle)
+            {
+                Name = "Rectangle"
+            };
+
+            var lineSegmentRectangle = new LineSegment(left - 50, top + 100, left + 200, top + 200);
+            var lineSegmentRectangleItem = new GraphicItem(lineSegmentRectangle, solidPurpleStyle)
+            {
+                Name = "Line Segment 1"
+            };
+
+            var lineSegmentLineSegment = new LineSegment(left - 50, top + 125, left + 200, top + 125);
+            var lineSegmentLineSegmentItem = new GraphicItem(lineSegmentLineSegment, solidPurpleStyle)
+            {
+                Name = "Line Segment 2"
+            };
+
+            var intersection1 = Intersections.Intersection(lineSegmentRectangle, rectangle);
+            var intersection1NodeItem = new GraphicItem(new NodeRevealer(intersection1.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes"
+            };
+
+            var intersection2 = Intersections.Intersection(lineSegmentRectangle, lineSegmentLineSegment);
+            var intersection2NodeItem = new GraphicItem(new NodeRevealer(intersection2.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes"
+            };
+
+            left -= 200;
+            top += 200;
+
+            var line2 = new Line(left + 56, top + 30, 100, 50);
+            var line2Item = new GraphicItem(line2, solidGreenStyle)
+            {
+                Name = "Line"
+            };
+
+            var rectangle2 = new Rectangle2D(left + 50, top, 100d, 100d);
+            var rectangle2Item = new GraphicItem(rectangle2, solidGreenStyle)
+            {
+                Name = "Rectangle"
+            };
+
+            var intersection3 = Intersections.Intersection(line2, rectangle2);
+            var intersection3NodeItem = new GraphicItem(new NodeRevealer(intersection3.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes"
+            };
+
+            left += 200;
+
+            var triangle = Generators.NGon(left + 50, top + 50, 50, 3);
+            var triangleItem = new GraphicItem(triangle, solidGreenStyle)
+            {
+                Name = "Triangle"
+            };
+
+            var lineTriangle = new Line(left + 56, top + 30, 100, 50);
+            var lineTriangleItem = new GraphicItem(lineTriangle, solidGreenStyle)
+            {
+                Name = "Line"
+            };
+
+            var intersection5 = Intersections.Intersection(lineTriangle, triangle);
+            var intersection5NodeItem = new GraphicItem(new NodeRevealer(intersection5.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes"
+            };
+
+            var lineSegmentTriangle = new LineSegment(left, top + 25, left + 100, top + 100);
+            var lineSegmentTriangleItem = new GraphicItem(lineSegmentTriangle, solidPurpleStyle)
+            {
+                Name = "Line Segment 3"
+            };
+
+            var intersection4 = Intersections.Intersection(lineSegmentTriangle, triangle);
+            var intersection4NodeItem = new GraphicItem(new NodeRevealer(intersection4.Points, 5d), handleStyle)
+            {
+                Name = "Intersection Nodes"
+            };
+
+            vectorMap.Add(circleItem);
+            vectorMap.Add(rectangleItem);
+            vectorMap.Add(rectangle2Item);
+            vectorMap.Add(triangleItem);
+
+            vectorMap.Add(line1Item);
+            vectorMap.Add(line2Item);
+            vectorMap.Add(lineTriangleItem);
+
+            vectorMap.Add(lineSegmentCircleTangentItem);
+            vectorMap.Add(lineSegmentCircleCenterItem);
+            vectorMap.Add(lineSegmentRectangleItem);
+            vectorMap.Add(lineSegmentLineSegmentItem);
+            vectorMap.Add(lineSegmentTriangleItem);
+
+            vectorMap.Add(intersectionLineCircleNodeItem);
+            vectorMap.Add(intersectionLineSegmentCircleTangentNodeItem);
+            vectorMap.Add(intersectionlineSegmentCircleCenterItem);
+
+            vectorMap.Add(intersection1NodeItem);
+            vectorMap.Add(intersection2NodeItem);
+            vectorMap.Add(intersection3NodeItem);
+            vectorMap.Add(intersection4NodeItem);
+            vectorMap.Add(intersection5NodeItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipseToBeziers(VectorMap vectorMap)
         {
@@ -796,7 +947,7 @@ namespace Editor
             vectorMap.Add(poly1Item);
             vectorMap.Add(poly2Item);
             vectorMap.Add(poly3Item);
-            vectorMap.Add(parametricPointTesterRectangleItem);
+            //vectorMap.Add(parametricPointTesterRectangleItem);
         }
 
         /// <summary>
@@ -846,7 +997,7 @@ namespace Editor
             var figureBounds = figure.Bounds;
             var figureBoundsItem = new GraphicItem(figureBounds, selectionStyle);
             var parametricPointTesterFigure = new ParametricPointTester(
-                (px, py) => Intersections.PathContourContainsPoint(figure, new Point2D(px, py)),
+                (px, py) => Intersections.PolycurveContourContainsPoint(figure, new Point2D(px, py)),
                 figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
             var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, handleStyle);
 

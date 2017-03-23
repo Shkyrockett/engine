@@ -66,6 +66,17 @@ namespace Engine
             Direction = direction;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        public Line(double x, double y, double i, double j)
+            : this(new Point2D(x, y), new Vector2D(i, j))
+        { }
+
         #endregion
 
         #region Deconstructors
@@ -77,7 +88,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="i"></param>
         /// <param name="j"></param>
-        public void Deconstruct(out double x, out double y,out double i, out double j)
+        public void Deconstruct(out double x, out double y, out double i, out double j)
         {
             x = this.Location.X;
             y = this.Location.Y;
@@ -120,6 +131,13 @@ namespace Engine
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlElement, SoapElement]
+        public override Rectangle2D Bounds
+            => new Rectangle2D(location, location + direction);
 
         #endregion
 

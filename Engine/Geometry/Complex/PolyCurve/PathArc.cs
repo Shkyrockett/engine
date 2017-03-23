@@ -215,6 +215,7 @@ namespace Engine
                 //return (double)CachingProperty(() => startAngle(Start.Value, End.Value, Cos(Angle), Sin(Angle)));
                 return (double)CachingProperty(() => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y).StartAngle);
 
+                // ToDo: Figure out why the following inline method doesn't work correctly.
                 double startAngle(Point2D start, Point2D end, double cosT, double sinT)
                 {
                     // Compute (x1, y1).
@@ -261,6 +262,7 @@ namespace Engine
                 //return (double)CachingProperty(() => sweepAngle(Start.Value, End.Value, Cos(Angle), Sin(Angle)));
                 return (double)CachingProperty(() => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y).SweepAngle);
 
+                // ToDo: Figure out why the following inline method does not work.
                 double sweepAngle(Point2D start, Point2D end, double cosT, double sinT)
                 {
                     // Compute (x1, y1).

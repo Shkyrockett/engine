@@ -8,18 +8,21 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
     /// An enumeration of intersections between two shapes.
     /// </summary>
+    [Flags]
     public enum IntersectionState
         : sbyte
     {
         /// <summary>
         /// One shape is outside of the other.
         /// </summary>
-        Outside = -3,
+        Outside = -4,
 
         /// <summary>
         /// One shape is inside the other.
@@ -50,6 +53,6 @@ namespace Engine
         /// <summary>
         /// A line, ray, or line segment is tangent to a curve.
         /// </summary>
-        Tangent = 3,
+        Tangent = 4,
     }
 }

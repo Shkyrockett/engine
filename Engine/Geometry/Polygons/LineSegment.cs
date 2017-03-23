@@ -542,6 +542,13 @@ namespace Engine
             => new Point2D[] { A, B };
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Line ToLine()
+            => new Line(aX, aY, aX - bX, aY - bY);
+
+        /// <summary>
         /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
@@ -555,7 +562,7 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(LineSegment);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(LineSegment)}{{{nameof(A)}={A.ConvertToString(format, provider)},{nameof(B)}={B.ConvertToString(format, provider)}}}";
         }
 

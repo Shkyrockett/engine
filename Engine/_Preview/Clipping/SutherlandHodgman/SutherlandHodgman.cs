@@ -38,7 +38,7 @@ namespace Engine
                 throw new ArgumentException($"The polygons passed in must have at least 3 points: subject={subjectPoly.Count}, clip={clipPoly.Count}");
 
             // Clone it
-            List<Point2D> outputList = subjectPoly.ToList();
+            var outputList = subjectPoly.ToList();
 
             // Make sure it's clockwise
             if (!PolygonExtensions.IsClockwise(subjectPoly))
@@ -48,7 +48,7 @@ namespace Engine
             foreach (LineSegment clipEdge in PolygonExtensions.IterateEdgesClockwise(clipPoly))
             {
                 // clone it
-                List<Point2D> inputList = outputList.ToList();
+                var inputList = outputList.ToList();
                 outputList.Clear();
 
                 // Sometimes when the polygons don't intersect, this list goes to zero.
@@ -64,7 +64,7 @@ namespace Engine
                     {
                         if (!PolygonExtensions.IsInside(clipEdge, S))
                         {
-                            var point = Intersections.LineSegmentLineSegmentIntersection(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                            var point = Intersections.Intersection(new LineSegment(S.X, S.Y, e.X, e.Y), new LineSegment(clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y));
                             if (point.Count < 1)
                             {
                                 // May be collinear, or may be a bug
@@ -85,7 +85,7 @@ namespace Engine
                     }
                     else if (PolygonExtensions.IsInside(clipEdge, S))
                     {
-                        var point = Intersections.LineSegmentLineSegmentIntersection(S.X, S.Y, e.X, e.Y, clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y);
+                        var point = Intersections.Intersection(new LineSegment(S.X, S.Y, e.X, e.Y), new LineSegment(clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y));
                         if (point.Count < 1)
                         {
                             // may be collinear, or may be a bug

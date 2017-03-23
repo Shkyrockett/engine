@@ -53,10 +53,15 @@ namespace Engine
         /// <param name="area"></param>
         /// <returns></returns>
         public List<GraphicItem> this[Rectangle2D area]
-            => new List<GraphicItem>(
-                from shape in Items
-                where (shape?.Item?.Bounds != null) && (shape.Item.Bounds.Contains(area) || (shape.Item.Bounds.IntersectsWith(area)))
-                select shape);
+        {
+            get
+            {
+                return new List<GraphicItem>(
+                    from shape in Items
+                    where (shape?.Item?.Bounds != null) && shape.VisibleTest(area)
+                    select shape);
+            }
+        }
 
         /// <summary>
         /// 

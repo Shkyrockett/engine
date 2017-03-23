@@ -163,6 +163,13 @@ namespace Engine
         #region Methods
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Line ToLine()
+            => new Line(location, direction);
+
+        /// <summary>
         /// Creates a string representation of this <see cref="Ray"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.

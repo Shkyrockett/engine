@@ -165,6 +165,7 @@
     <Compile Include="Filtering\DestructiveFilter.cs" />
     <Compile Include="Filtering\Interfaces\IFilter.cs" />
     <Compile Include="Filtering\Filters\SphereDistort.cs" />
+    <Compile Include="_Preview\Generators\Generators.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierContour.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierSegment.cs" />
     <Compile Include="Geometry\Curves\BezierSegment.cs" />

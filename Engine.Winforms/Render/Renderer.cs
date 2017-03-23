@@ -25,8 +25,9 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="g"></param>
         /// <param name="item"></param>
+        /// <param name="bounds"></param>
         /// <param name="style"></param>
-        public static void Render(GraphicItem item, Graphics g, IStyle style = null)
+        public static void Render(GraphicItem item, Rectangle2D bounds, Graphics g, IStyle style = null)
         {
             //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
@@ -68,6 +69,12 @@ namespace Engine.Imaging
                 case ScreenPoint t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
+                case Ray t:
+                    t.Render(g, item, bounds, style as ShapeStyle);
+                    break;
+                case Line t:
+                    t.Render(g, item, bounds, style as ShapeStyle);
+                    break;
                 case LineSegment t: // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
                     t.Render(g, item, style as ShapeStyle);
                     break;
@@ -81,6 +88,12 @@ namespace Engine.Imaging
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case Polygon t:
+                    t.Render(g, item, style as ShapeStyle);
+                    break;
+                case PolycurveContour t:
+                    t.Render(g, item, style as ShapeStyle);
+                    break;
+                case Polycurve t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case Oval t:
@@ -108,9 +121,6 @@ namespace Engine.Imaging
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case QuadraticBezier t:
-                    t.Render(g, item, style as ShapeStyle);
-                    break;
-                case PolycurveContour t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
                 case null:

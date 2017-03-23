@@ -1,21 +1,30 @@
 ﻿# Uniform Interaction Methods Specification
 
-## Primitives
+## Primitive Structures
 
-- [x] **Polynomial** Used mostly with Bezier curve calculations.
-- [x] **2D Point** The two dimensional Euclidean geometry primitive point.
-- [x] **3D Point** The three dimensional Euclidean geometry primitive point.
+The geometrical calculations use the following basic primitives:
+
+### Mathmatical Primitives 
+
+- [x] **Polynomial** A mathematical primitive used to store the polynomial function of a polynomial based shape. Used mostly with Bezier curve calculations.
+- [x] **2x2 Matrix**
+- [x] **3x3 Matrix**
+- [x] **4x4 Matrix**
+- [x] **2x3 Translation Matrix** A 2x2 matrix with a location.
+
+### Geometric Primitives 
+
+- [x] **2D Point** The two dimensional primitive Euclidean geometry coordinate point.
+- [x] **3D Point** The three dimensional primitive Euclidean geometry coordinate point.
+- [ ] **4D Point** The four dimensional primitive Euclidean geometry coordinate point.
 - [x] **2D Vector** A direction and distance in two dimensional Euclidean space.
 - [x] **3D Vector** A direction and distance in three dimensional Euclidean space.
 - [x] **4D Vector** A direction and distance in four dimensional Euclidean space.
 - [x] **3D Orientation** Roll, Pitch and Yaw.
 - [x] **Quaternion** 
-- [x] **2D Size**
-- [x] **3D Size**
-- [x] **2x2 Matrix**
-- [x] **3x3 Matrix**
-- [x] **4x4 Matrix**
-- [x] **2x3 Translation Matrix**
+- [x] **2D Size** The height and width of an object in relative space.
+- [x] **3D Size** The height, width, and depth of an object in relative space.
+- [ ] **4D Size** The height, width, depth, and w of an object in relative space.
 - [x] **2D Transform**
 - [x] **3D Transform**
 - [x] **2D Accumulator Point**
@@ -23,7 +32,7 @@
 
 ## Shapes
 
-The following shapes should be renderable.
+The following 2D shapes should be renderable.
 
 - [x] **Point** <svg width="25" height="25">
   <g style="fill:transparent;stroke-width:1;">
@@ -39,7 +48,11 @@ The following shapes should be renderable.
     <line x1="5" y1="0" x2="20" y2="25" style="stroke:blue" />
   </g>
 </svg>
-- [ ] **Ray**
+- [ ] **Ray** <svg width="25" height="25">
+  <g style="fill:transparent;stroke-width:1;">
+    <line x1="5" y1="10" x2="25" y2="15" style="stroke:blue" />
+  </g>
+</svg>
 - [x] **Line Segment** <svg width="25" height="25">
   <g style="fill:transparent;stroke-width:1;">
     <line x1="5" y1="5" x2="25" y2="25" style="stroke:blue" />
@@ -60,10 +73,14 @@ The following shapes should be renderable.
     <rect x="1" y="1" width="17" height="17" style="stroke:blue" />
   </g>
 </svg> _Need to think through location issues._
-- [x] **Polyline**
+- [x] **Polyline Contour**
 - [ ] **Polyline Set** _Needs testing._
-- [x] **Polygon**
+- [x] **Polygon Contour**
 - [ ] **Polygon Set** _Needs testing._
+- [x] **Polycurve Contour** _Needs work._
+- [ ] **Polycurve Set** _Needs work._
+- [ ] **PolyBezier** A Polyline like structure that is constructed out of Bezier curves of various degrees. Generally a start point, Bezier line segments, Quadratic curves, and Cubic curves.
+- [ ] **PolyBezier Set**
 - [x] **Circle** <svg width="25" height="25">
   <g style="fill:transparent;stroke-width:1;">
     <circle cx="15" cy="15" r="9" stroke="green" style="stroke:blue" />
@@ -76,13 +93,11 @@ The following shapes should be renderable.
 </svg>
 - [x] **Circular Arc**
 - [x] **Elliptical Arc**
-- [ ] **Oval** _May be implemented through Geometry Path._
+- [ ] **Oval** _May be implemented through Polycurve._
 - [x] **Quadratic Bezier**
 - [x] **Cubic Bezier**
 - [x] **Bezier Segment**
 - [ ] **Parametric Delegate Curve** _Mostly used for testing._
-- [x] **Geometry Path**
-- [ ] **Bezier Segment Path** _Not implemented_
 
 ## Area
 
@@ -93,10 +108,12 @@ The following shapes should be renderable.
 - [x] **Triangle**
 - [x] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [x] **Polyline**
+- [x] **Polyline Contour**
 - [ ] **Polyline Set**
-- [x] **Polygon**
+- [x] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [x] **Circle**
 - [x] **Ellipse**
 - [x] **Circular Arc**
@@ -106,7 +123,6 @@ The following shapes should be renderable.
 - [ ] **Cubic Bezier**
 - [ ] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## double Length
@@ -118,10 +134,12 @@ The following shapes should be renderable.
 - [ ] **Triangle**
 - [ ] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [ ] **Polygon** _Perimeter._
+- [ ] **Polygon Contour** _Perimeter._
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [x] **Circle** _Circumference._
 - [x] **Ellipse** _Elliptical Circumference._
 - [x] **Circular Arc**
@@ -131,7 +149,6 @@ The following shapes should be renderable.
 - [x] **Cubic Bezier**
 - [x] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## Rectangle Bounds
@@ -143,10 +160,12 @@ The following shapes should be renderable.
 - [ ] **Triangle**
 - [ ] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [x] **Polyline**
+- [x] **Polyline Contour**
 - [ ] **Polyline Set**
-- [x] **Polygon**
+- [x] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [x] **Circle**
 - [x] **Ellipse**
 - [ ] **Circular Arc** _Broken_
@@ -156,7 +175,6 @@ The following shapes should be renderable.
 - [x] **Cubic Bezier** _Use Bezier Segment._
 - [x] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [x] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## double Distance(Point)
@@ -168,10 +186,12 @@ The following shapes should be renderable.
 - [ ] **Triangle**
 - [ ] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [ ] **Polygon**
+- [ ] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [ ] **Circle**
 - [ ] **Ellipse**
 - [ ] **Circular Arc**
@@ -181,7 +201,6 @@ The following shapes should be renderable.
 - [x] **Cubic Bezier**
 - [x] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## bool NearestPoint(Point)
@@ -193,10 +212,12 @@ The following shapes should be renderable.
 - [ ] **Triangle**
 - [ ] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [ ] **Polygon**
+- [ ] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [ ] **Circle**
 - [ ] **Ellipse**
 - [ ] **Circular Arc**
@@ -206,7 +227,6 @@ The following shapes should be renderable.
 - [ ] **Cubic Bezier**
 - [ ] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## bool NearestT(t)
@@ -218,10 +238,12 @@ The following shapes should be renderable.
 - [ ] **Triangle**
 - [ ] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [ ] **Polygon**
+- [ ] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [ ] **Circle**
 - [ ] **Ellipse**
 - [ ] **Circular Arc**
@@ -231,7 +253,6 @@ The following shapes should be renderable.
 - [x] **Cubic Bezier**
 - [x] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## Inclusion Contains(Point)
@@ -243,10 +264,12 @@ The following shapes should be renderable.
 - [ ] **Triangle**
 - [x] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [x] **Polygon**
+- [x] **Polygon Contour**
 - [x] **Polygon Set**
+- [ ] **Polycurve Contour** _Implementation is buggy._
+- [ ] **Polycurve Set**
 - [x] **Circle**
 - [x] **Ellipse**
 - [x] **Circular Arc**
@@ -256,7 +279,6 @@ The following shapes should be renderable.
 - [ ] **Cubic Bezier**
 - [ ] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path** _Implementation is buggy._
 - [ ] **Bezier Segment Path**
 
 ## bool Contains(Rectangle)
@@ -268,10 +290,12 @@ The following shapes should be renderable.
 - [ ] **Triangle**
 - [x] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [ ] **Polygon**
+- [ ] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [ ] **Circle**
 - [ ] **Ellipse**
 - [ ] **Circular Arc**
@@ -281,60 +305,59 @@ The following shapes should be renderable.
 - [ ] **Cubic Bezier**
 - [ ] **Bezier Segment**
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## bool Intersects(Shape)
 
 Intersects methods in the Intersections class should be marked as public static with the first parameter marked with this to make it an extension method.
 
-|  | Point | Line Segment | Ray | Line | Triangle | Rectangle | Polyline | Polygon | Polyline Set | Polygon Set | Circle | Ellipse | Circular Arc | Elliptical Arc | Quadratic Bezier | Cubic Bezier | Path | Oval |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Point** | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Line Segment** | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Ray** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Line** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Triangle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Rectangle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polyline** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polygon** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polyline Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polygon Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Circle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Ellipse** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Circular Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Elliptical Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Quadratic Bezier** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Cubic Bezier** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Path** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Oval** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-|  | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+|  | Point | Line Segment | Ray | Line | Triangle | Rectangle | Polyline Contour | Polygon Contour | Polycurve Contour | Polyline Set | Polygon Set | Polycurve Set | Circle | Ellipse | Circular Arc | Elliptical Arc | Quadratic Bezier | Cubic Bezier | Oval |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Point** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Line Segment** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Ray** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Line** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Triangle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Rectangle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polyline Contour** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polygon Contour** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polycurve Contour** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polyline Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polygon Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polycurve Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Circle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Ellipse** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Circular Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Elliptical Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Quadratic Bezier** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Cubic Bezier** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Oval** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 ## Intersection Intersection(Shape)
 
 Intersection methods in the Intersections class should be marked as public static with the first parameter marked with this to make it an extension method.
 
-|  | Point | Line Segment | Ray | Line | Triangle | Rectangle | Polyline | Polygon | Polyline Set | Polygon Set | Circle | Ellipse | Circular Arc | Elliptical Arc | Quadratic Bezier | Cubic Bezier | Path | Oval |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Point** | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Line Segment** | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Ray** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Line** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Triangle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Rectangle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polyline** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polygon** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polyline Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polygon Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Circle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Ellipse** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Circular Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Elliptical Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Quadratic Bezier** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Cubic Bezier** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Path** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Oval** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-|  | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+|  | Point | Line Segment | Ray | Line | Triangle | Rectangle | Polyline Contour | Polygon Contour | Polycurve Contour | Polyline Set | Polygon Set | Polycurve Set | Circle | Ellipse | Circular Arc | Elliptical Arc | Quadratic Bezier | Cubic Bezier | Oval |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Point** | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Line Segment** | [x] | [x] | [ ] | [ ] | [ ] | [x] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [x] | [ ] |
+| **Ray** | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Line** | [ ] | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Triangle** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Rectangle** | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [x] | [ ] |
+| **Polyline Contour** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polygon Contour** | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [x] | [ ] |
+| **Polycurve Contour** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polyline Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polygon Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Polycurve Set** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Circle** | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [x] | [ ] |
+| **Ellipse** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Circular Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Elliptical Arc** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Quadratic Bezier** | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [x] | [ ] |
+| **Cubic Bezier** | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [x] | [ ] | [ ] | [ ] | [x] | [x] | [ ] |
+| **Oval** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 ## Split(t)
 
@@ -345,10 +368,12 @@ Intersection methods in the Intersections class should be marked as public stati
 - [ ] **Triangle**
 - [ ] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [ ] **Polygon**
+- [ ] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [x] **Circle** _Needs testing._
 - [x] **Ellipse** _Needs testing._
 - [x] **Circular Arc** _Needs testing._
@@ -358,7 +383,6 @@ Intersection methods in the Intersections class should be marked as public stati
 - [x] **Cubic Bezier** _Needs testing._
 - [x] **Bezier Segment** _Needs testing._
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier Segment Path**
 
 ## Split(t[])
@@ -370,10 +394,12 @@ Intersection methods in the Intersections class should be marked as public stati
 - [ ] **Triangle**
 - [ ] **Rectangle**
 - [ ] **Rotated Rectangle**
-- [ ] **Polyline**
+- [ ] **Polyline Contour**
 - [ ] **Polyline Set**
-- [ ] **Polygon**
+- [ ] **Polygon Contour**
 - [ ] **Polygon Set**
+- [ ] **Polycurve Contour**
+- [ ] **Polycurve Set**
 - [x] **Circle** _Needs testing._
 - [x] **Ellipse** _Needs testing._
 - [x] **Circular Arc** _Needs testing._
@@ -383,5 +409,4 @@ Intersection methods in the Intersections class should be marked as public stati
 - [x] **Cubic Bezier** _Needs testing._
 - [x] **Bezier Segment** _Needs testing._
 - [ ] **Parametric Delegate Curve**
-- [ ] **Geometry Path**
 - [ ] **Bezier** Segment Path

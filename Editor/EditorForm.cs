@@ -121,11 +121,12 @@ namespace Editor
         {
 #pragma warning disable IDE0022 // Use expression body for methods
             /* Experimental Previews */
+            TestCases.CommonIntersections(vectorMap);
             //TestCases.CurveFitting(vectorMap);
             //TestCases.EllipseToBeziers(vectorMap);
             //TestCases.WarpGeometry(vectorMap);
-            TestCases.ComplexPolygonClipping(vectorMap);
-            TestCases.PathContourWArcLine(vectorMap);
+            //TestCases.ComplexPolygonClipping(vectorMap);
+            //TestCases.PathContourWArcLine(vectorMap);
             //TestCases.WindingOrder(vectorMap);
             //TestCases.PolyClipping(vectorMap);
             //TestCases.Pathfinding(vectorMap);
@@ -264,6 +265,7 @@ namespace Editor
         /// <param name="e"></param>
         private void CanvasPanel_Paint(object sender, PaintEventArgs e)
         {
+            var panel = sender as CanvasPanel;
             base.OnPaint(e);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
@@ -271,15 +273,15 @@ namespace Editor
             foreach (GraphicItem item in vectorMap[vectorMap.VisibleBounds])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
-                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
+                    Renderer.Render(item, panel.Bounds.ToRectangle2D(), e.Graphics, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
                 else
-                    Renderer.Render(item, e.Graphics);
+                    Renderer.Render(item, panel.Bounds.ToRectangle2D(), e.Graphics);
             }
 
             if (vectorMap?.RubberbandItems != null)
             {
                 foreach (GraphicItem item in vectorMap?.RubberbandItems)
-                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Red, Brushes.Red));
+                    Renderer.Render(item, panel.Bounds.ToRectangle2D(), e.Graphics, new ShapeStyle(Brushes.Red, Brushes.Red));
             }
         }
 

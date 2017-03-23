@@ -60,7 +60,7 @@ namespace Engine
         /// </summary>
         /// <param name="status"></param>
         public Intersection(IntersectionState status)
-            : this(IntersectionState.NoIntersection, new List<Point2D>())
+            : this(status, new List<Point2D>())
         { }
 
         /// <summary>
@@ -157,7 +157,11 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public void AppendPoints(List<Point2D> points)
-            => this.points = points.Concat(points).ToList();
+        {
+            if (this.points == null) this.points = points;
+            else
+                this.points.AddRange(points);
+        }
 
         #endregion
 
@@ -221,7 +225,7 @@ namespace Engine
         public string ConvertToString(string format, IFormatProvider provider)
         {
             //if (this == null) return nameof(Intersection);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {state.ToString()}, {string.Join(sep.ToString(), points)}}}";
             return formatable.ToString(format, provider);
         }

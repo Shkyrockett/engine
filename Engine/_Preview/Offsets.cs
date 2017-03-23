@@ -71,9 +71,9 @@ namespace Engine
             double bX, double bY,
             double distance)
         {
-            double d = Measurements.Distance(aX, aY, bX, bY);
-            double dY = (bY - aY) / d;
-            double dX = (bX - aX) / d;
+            var d = Measurements.Distance(aX, aY, bX, bY);
+            var dY = (bY - aY) / d;
+            var dX = (bX - aX) / d;
             return ((aX + 0.5 * -dY * distance),
                 (aY + 0.5 * dX * distance),
                 (bX + 0.5 * -dY * distance),
@@ -100,10 +100,10 @@ namespace Engine
             double bX, double bY, double bZ,
             double distanceX, double distanceY, double distanceZ)
         {
-            double d = Measurements.Distance(aX, aY, aZ, bX, bY, bZ);
-            double dX = (bX - aX) / d;
-            double dY = (bY - aY) / d;
-            double dZ = (bZ - aZ) / d;
+            var d = Measurements.Distance(aX, aY, aZ, bX, bY, bZ);
+            var dX = (bX - aX) / d;
+            var dY = (bY - aY) / d;
+            var dZ = (bZ - aZ) / d;
             return ((aX + 0.5 * -dY * distanceX),
                 (aY + 0.5 * dX * distanceY),
                 (aZ + 0.5 * dZ * distanceZ),
@@ -180,17 +180,17 @@ namespace Engine
         {
             var polygon = new Polyline();
 
-            LineSegment offsetLine = OffsetSegment(polyline.Points[0], polyline.Points[1], offset);
-            polygon.Add(offsetLine.A);
+            var offsetLine = OffsetSegment(polyline.Points[0], polyline.Points[1], offset).ToLine();
+            polygon.Add(offsetLine.Location);
 
-            for (int i = 2; i < polyline.Points.Count; i++)
+            for (var i = 2; i < polyline.Points.Count; i++)
             {
-                LineSegment newOffsetLine = OffsetSegment(polyline.Points[i - 1], polyline.Points[i], offset);
-                polygon.Add(Intersections.LineLineIntersection(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)[0]);
+                var newOffsetLine = OffsetSegment(polyline.Points[i - 1], polyline.Points[i], offset).ToLine();
+                polygon.Add(Intersections.Intersection(offsetLine, newOffsetLine)[0]);
                 offsetLine = newOffsetLine;
             }
 
-            polygon.Add(offsetLine.B);
+            polygon.Add(offsetLine.Location + offsetLine.Direction);
 
             return polygon;
         }
@@ -204,21 +204,21 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Contour Offset(this Contour polygon, double offset)
         {
-            List<Point2D> points = (polygon.Points as List<Point2D>);
+            var points = (polygon.Points as List<Point2D>);
 
             var polyline = new Contour();
 
-            LineSegment offsetLine = OffsetSegment(points[polygon.Points.Count - 1], points[0], offset);
-            LineSegment startLine = offsetLine;
+            var offsetLine = OffsetSegment(points[polygon.Points.Count - 1], points[0], offset).ToLine();
+            var startLine = offsetLine;
 
-            for (int i = 1; i < polygon.Points.Count; i++)
+            for (var i = 1; i < polygon.Points.Count; i++)
             {
-                LineSegment newOffsetLine = OffsetSegment(points[i - 1], points[i], offset);
-                polyline.Add(Intersections.LineLineIntersection(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, newOffsetLine.A.X, newOffsetLine.A.Y, newOffsetLine.B.X, newOffsetLine.B.Y)[0]);
+                var newOffsetLine = OffsetSegment(points[i - 1], points[i], offset).ToLine();
+                polyline.Add(Intersections.Intersection(offsetLine, newOffsetLine)[0]);
                 offsetLine = newOffsetLine;
             }
 
-            polyline.Add(Intersections.LineLineIntersection(offsetLine.A.X, offsetLine.A.Y, offsetLine.B.X, offsetLine.B.Y, startLine.A.X, startLine.A.Y, startLine.B.X, startLine.B.Y)[0]);
+            polyline.Add(Intersections.Intersection(offsetLine, startLine)[0]);
 
             return polyline;
         }

@@ -55,36 +55,36 @@ namespace Engine
         /// The item that gets displayed on screen.
         /// </summary>
         [Browsable(true)]
-        [XmlElement(typeof(AngleVisualizerTester))]
-        [XmlElement(typeof(BezierSegment))]
         [XmlElement(typeof(Circle))]
         [XmlElement(typeof(CircularArc))]
         [XmlElement(typeof(CircularSegment))]
-        [XmlElement(typeof(CubicBezier))]
         [XmlElement(typeof(Ellipse))]
         [XmlElement(typeof(EllipticalArc))]
+        [XmlElement(typeof(BezierSegment))]
+        [XmlElement(typeof(CubicBezier))]
+        [XmlElement(typeof(QuadraticBezier))]
         [XmlElement(typeof(Line))]
+        [XmlElement(typeof(Ray))]
         [XmlElement(typeof(LineSegment))]
-        [XmlElement(typeof(NodeRevealer))]
-        [XmlElement(typeof(Oval))]
-        [XmlElement(typeof(ParametricDelegateCurve))]
-        [XmlElement(typeof(ParametricPointTester))]
-        [XmlElement(typeof(ParametricWarpGrid))]
+        [XmlElement(typeof(Triangle))]
         [XmlElement(typeof(Contour))]
         [XmlElement(typeof(Polygon))]
         [XmlElement(typeof(Polyline))]
         [XmlElement(typeof(PolylineSet))]
-        [XmlElement(typeof(Ray))]
+        [XmlElement(typeof(Polycurve))]
+        [XmlElement(typeof(PolycurveContour))]
         [XmlElement(typeof(Rectangle2D))]
         [XmlElement(typeof(RectangleCellGrid))]
         [XmlElement(typeof(RectangleDCellGrid))]
         [XmlElement(typeof(RotatedRectangle2D))]
-        [XmlElement(typeof(QuadraticBezier))]
-        [XmlElement(typeof(Polycurve))]
-        [XmlElement(typeof(PolycurveContour))]
+        [XmlElement(typeof(Oval))]
         [XmlElement(typeof(SquareCellGrid))]
         [XmlElement(typeof(SquareDCellGrid))]
-        [XmlElement(typeof(Triangle))]
+        [XmlElement(typeof(AngleVisualizerTester))]
+        [XmlElement(typeof(NodeRevealer))]
+        [XmlElement(typeof(ParametricDelegateCurve))]
+        [XmlElement(typeof(ParametricPointTester))]
+        [XmlElement(typeof(ParametricWarpGrid))]
         [DisplayName(nameof(Item))]
         [Category("Properties")]
         [Description("The item.")]
@@ -116,37 +116,6 @@ namespace Engine
 
         #region Public methods
 
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="t"></param>
-        ///// <returns></returns>
-        //public Point2D Interpolate(double t)
-        //    => Item.Interpolate(t);
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="t"></param>
-        ///// <returns></returns>
-        //public List<Point2D> SmoothInterpolate(double t)
-        //    => ((List<Point2D>)CachingProperty(() => Item.Interpolate(t)));
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<Point2D> InterpolatePoints()
-        //    => ((List<Point2D>)CachingProperty(() => Item?.InterpolatePoints(500)));
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="points"></param>
-        ///// <returns></returns>
-        //public List<Point2D> InterpolateToPolygon(double points)
-        //    => null;
-
         /// <summary>
         ///
         /// </summary>
@@ -161,13 +130,18 @@ namespace Engine
         /// <param name="bounds"></param>
         /// <returns></returns>
         public bool VisibleTest(Rectangle2D bounds)
-            => (Item.Bounds.IntersectsWith(bounds) || Item.Bounds.Contains(bounds));
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        //public void Refresh()
-        //    => ClearCache();
+        {
+            // Unbounded shapes have to be cropped to the visible bounds.
+            switch (Item)
+            {
+                case Ray r:
+                    return (Intersections.LineRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom));
+                case Line l:
+                    return (Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom));
+                default:
+                    return (Item.Bounds.IntersectsWith(bounds) || Item.Bounds.Contains(bounds));
+            }
+        }
 
         /// <summary>
         ///

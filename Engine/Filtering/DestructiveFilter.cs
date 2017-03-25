@@ -102,7 +102,7 @@ namespace Engine
             side = new List<Point2D>();
             for (double j = 0; j < 1; j = j + 1d / (line.Length * SampleDistance))
             {
-                side.Add(Process(Interpolaters.Linear(line.A, line.B, j)));
+                side.Add(Process(Interpolators.Linear(line.A, line.B, j)));
             }
             curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
             foreach (var curve in curves)
@@ -144,7 +144,7 @@ namespace Engine
                 side = new List<Point2D>();
                 for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
                 {
-                    side.Add(Process(Interpolaters.Linear(contour[i - 1], contour[i], j)));
+                    side.Add(Process(Interpolators.Linear(contour[i - 1], contour[i], j)));
                 }
                 curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
                 foreach (var curve in curves)
@@ -155,7 +155,7 @@ namespace Engine
             side = new List<Point2D>();
             for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
             {
-                side.Add(Process(Interpolaters.Linear(contour[contour.Count - 1], contour[0], j)));
+                side.Add(Process(Interpolators.Linear(contour[contour.Count - 1], contour[0], j)));
             }
             curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
             foreach (var curve in curves)
@@ -197,7 +197,7 @@ namespace Engine
                 side = new List<Point2D>();
                 for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
                 {
-                    side.Add(Process(Interpolaters.Linear(contour[i - 1], contour[i], j)));
+                    side.Add(Process(Interpolators.Linear(contour[i - 1], contour[i], j)));
                 }
                 curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
                 foreach (var curve in curves)
@@ -250,7 +250,7 @@ namespace Engine
             var side = new List<Point2D>();
             for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.TopLeft, rect.TopRight) * SampleDistance))
             {
-                side.Add(Process(Interpolaters.Linear(rect.Location, rect.TopRight, j)));
+                side.Add(Process(Interpolators.Linear(rect.Location, rect.TopRight, j)));
             }
             var curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
             foreach (var curve in curves)
@@ -261,7 +261,7 @@ namespace Engine
             side = new List<Point2D>();
             for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.TopRight, rect.BottomRight) * SampleDistance))
             {
-                side.Add(Process(Interpolaters.Linear(rect.TopRight, rect.BottomRight, j)));
+                side.Add(Process(Interpolators.Linear(rect.TopRight, rect.BottomRight, j)));
             }
             curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
             foreach (var curve in curves)
@@ -272,7 +272,7 @@ namespace Engine
             side = new List<Point2D>();
             for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.BottomRight, rect.BottomLeft) * SampleDistance))
             {
-                side.Add(Process(Interpolaters.Linear(rect.BottomRight, rect.BottomLeft, j)));
+                side.Add(Process(Interpolators.Linear(rect.BottomRight, rect.BottomLeft, j)));
             }
             curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
             foreach (var curve in curves)
@@ -283,7 +283,7 @@ namespace Engine
             side = new List<Point2D>();
             for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.BottomLeft, rect.TopLeft) * SampleDistance))
             {
-                side.Add(Process(Interpolaters.Linear(rect.BottomLeft, rect.Location, j)));
+                side.Add(Process(Interpolators.Linear(rect.BottomLeft, rect.Location, j)));
             }
             curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
             foreach (var curve in curves)

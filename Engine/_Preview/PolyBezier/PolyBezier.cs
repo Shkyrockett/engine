@@ -297,7 +297,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="contour"></param>
-        public void Add(List<PolyBezierSegment> contour)
+        public void Add(List<BezierSegmentX> contour)
         {
             contours.Add(new PolyBezierContour(contour));
             ClearCache();
@@ -343,7 +343,7 @@ namespace Engine
 
             var poly = new List<PolyBezierContour>();
             var contour = new PolyBezierContour();
-            var segment = new PolyBezierSegment();
+            var segment = new BezierSegmentX();
             Point2D startPoint = new Point2D();
             bool newContour = false;
 

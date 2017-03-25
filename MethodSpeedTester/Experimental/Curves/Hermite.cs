@@ -89,7 +89,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => new Point2D(Interpolaters.Hermite(A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Tension, Bias, t));
+            => new Point2D(Interpolators.Hermite(A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Tension, Bias, t));
 
         /// <summary>
         /// 

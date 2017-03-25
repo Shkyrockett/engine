@@ -344,6 +344,20 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double CosAngle
+            => (double)CachingProperty(() => Cos(angle));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double SinAngle
+            => (double)CachingProperty(() => Sin(angle));
+
+        /// <summary>
         /// Gets the Focus Radius of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore, SoapIgnore]
@@ -387,7 +401,7 @@ namespace Engine
             set
             {
                 // ToDo: Figure out the correct formula.
-                double a = Aspect;
+                var a = Aspect;
                 rX = value * a / PI;
                 rY = value * a / PI;
                 ClearCache();
@@ -440,7 +454,7 @@ namespace Engine
             set
             {
                 Rectangle2D bounds1 = Bounds;
-                double aspect = Aspect;
+                var aspect = Aspect;
                 Rectangle2D bounds2 = value;
                 Vector2D locDif = bounds2.Location - bounds1.Location;
                 Size2D scaleDif = bounds2.Size - bounds1.Size;
@@ -521,7 +535,7 @@ namespace Engine
 
         #endregion
 
-        #region Interpolaters
+        #region Interpolators
 
         /// <summary>
         ///
@@ -529,7 +543,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.Ellipse(x, y, rX, rY, angle, t);
+            => Interpolators.Ellipse(x, y, rX, rY, angle, t);
 
         #endregion
 
@@ -558,7 +572,7 @@ namespace Engine
         {
             if (this == null)
                 return nameof(Ellipse);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle}}}";
             return formatable.ToString(format, provider);
         }

@@ -1,4 +1,15 @@
-﻿using static System.Math;
+﻿// <copyright file="Generators.cs" company="Shkyrockett" >
+//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
+
+using System.Runtime.CompilerServices;
+using static System.Math;
 using static Engine.Maths;
 
 namespace Engine._Preview
@@ -17,7 +28,8 @@ namespace Engine._Preview
         /// <param name="count"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public static Contour NGon(double x, double y, double radius, int count, double angle = -Right)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Contour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -Right)
         {
             Point2D[] points = new Point2D[count];
             var theta = angle;

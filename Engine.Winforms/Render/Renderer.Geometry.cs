@@ -182,14 +182,14 @@ namespace Engine.Imaging
             {
                 switch (figureItem)
                 {
-                    case PathPoint t:
+                    case PointSegment t:
                         path.StartFigure();
                         path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
                         break;
-                    case PathLineSegment t:
+                    case LineCurveSegment t:
                         path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
                         break;
-                    case PathArc t:
+                    case ArcSegment t:
                         var arc = t.ToEllipticalArc();
                         var mat = new Matrix();
                         mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
@@ -198,13 +198,13 @@ namespace Engine.Imaging
                         mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                         path.Transform(mat);
                         break;
-                    case PathCubicBezier t:
+                    case CubicBezierSegment t:
                         path.AddBezier(t.Start.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.End.Value.ToPointF());
                         break;
-                    case PathQuadraticBezier t:
+                    case QuadraticBezierSegment t:
                         path.AddBeziers(new PointF[] { t.Start.Value.ToPointF(), t.Handle.Value.ToPointF(), t.End.Value.ToPointF() });
                         break;
-                    case PathCardinal t:
+                    case CardinalSegment t:
                         path.AddCurve(t.Nodes.ToPointFArray());
                         break;
                     case null:
@@ -240,14 +240,14 @@ namespace Engine.Imaging
                 {
                     switch (figureItem)
                     {
-                        case PathPoint t:
+                        case PointSegment t:
                             path.StartFigure();
                             path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
                             break;
-                        case PathLineSegment t:
+                        case LineCurveSegment t:
                             path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
                             break;
-                        case PathArc t:
+                        case ArcSegment t:
                             var arc = t.ToEllipticalArc();
                             var mat = new Matrix();
                             mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
@@ -256,13 +256,13 @@ namespace Engine.Imaging
                             mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                             path.Transform(mat);
                             break;
-                        case PathCubicBezier t:
+                        case CubicBezierSegment t:
                             path.AddBezier(t.Start.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.End.Value.ToPointF());
                             break;
-                        case PathQuadraticBezier t:
+                        case QuadraticBezierSegment t:
                             path.AddBeziers(new PointF[] { t.Start.Value.ToPointF(), t.Handle.Value.ToPointF(), t.End.Value.ToPointF() });
                             break;
-                        case PathCardinal t:
+                        case CardinalSegment t:
                             path.AddCurve(t.Nodes.ToPointFArray());
                             break;
                         case null:
@@ -411,7 +411,7 @@ namespace Engine.Imaging
                     path.AddLine(shape.Points[0].ToPointF(), shape.Points[1].ToPointF());
                     break;
                 case 3:
-                    Point2D[] cubic = Interpolaters.QuadraticBezierToCubicBezier(shape.Points[0], shape.Points[1], shape.Points[2]);
+                    Point2D[] cubic = Interpolators.QuadraticBezierToCubicBezier(shape.Points[0], shape.Points[1], shape.Points[2]);
                     path.AddBezier(cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
                     break;
                 case 4:
@@ -453,7 +453,7 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
 
-            Point2D[] cubic = Interpolaters.QuadraticBezierToCubicBezier(shape.A, shape.B, shape.C);
+            Point2D[] cubic = Interpolators.QuadraticBezierToCubicBezier(shape.A, shape.B, shape.C);
             path.AddBezier(cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
 
             g.FillPath((itemStyle).BackBrush, path);

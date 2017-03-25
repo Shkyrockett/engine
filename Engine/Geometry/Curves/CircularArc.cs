@@ -195,7 +195,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 0));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(x, y, radius, startAngle, sweepAngle, 0));
 
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the ending angle.
@@ -205,7 +205,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.CircularArc(x, y, radius, startAngle, sweepAngle, 1));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(x, y, radius, startAngle, sweepAngle, 1));
 
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="CircularArc"/>.
@@ -516,7 +516,7 @@ namespace Engine
 
         #endregion
 
-        #region Interpolaters
+        #region Interpolators
 
         /// <summary>
         /// Interpolates the Arc.
@@ -524,7 +524,7 @@ namespace Engine
         /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.CircularArc(x, y, radius, startAngle, SweepAngle, t);
+            => Interpolators.CircularArc(x, y, radius, startAngle, SweepAngle, t);
 
         #endregion
 

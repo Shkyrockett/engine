@@ -1,4 +1,4 @@
-﻿// <copyright file="PathArc.cs" company="Shkyrockett" >
+﻿// <copyright file="ArcSegment.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -21,20 +21,20 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class PathArc
-        : PathItem
+    public class ArcSegment
+        : CurveSegment
     {
         #region Fields
 
         /// <summary>
         /// 
         /// </summary>
-        private double rx;
+        private double rX;
 
         /// <summary>
         /// 
         /// </summary>
-        private double ry;
+        private double rY;
 
         /// <summary>
         /// 
@@ -63,7 +63,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public PathArc()
+        public ArcSegment()
         { }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="args"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PathArc(PathItem item, bool relitive, Double[] args)
+        public ArcSegment(CurveSegment item, bool relitive, Double[] args)
             : this(item, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {
             if (relitive)
@@ -91,7 +91,7 @@ namespace Engine
         /// <param name="sweep"></param>
         /// <param name="end"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PathArc(PathItem previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D? end)
+        public ArcSegment(CurveSegment previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D? end)
         {
             Previous = previous;
             previous.Next = this;
@@ -111,6 +111,9 @@ namespace Engine
         /// 
         /// </summary>
         [XmlElement]
+        [Browsable(true)]
+        [Category("Properties")]
+        [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
         public override Point2D? Start
         {
             get { return Previous.End; }
@@ -125,6 +128,13 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The " + nameof(Center) + " location of the " + nameof(EllipticalArc) + ".")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
             get
@@ -163,37 +173,60 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the first radius of the elliptical arc.
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        /// <remarks></remarks>
+        [XmlAttribute("rx")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The first radius of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
         public double RX
         {
-            get { return rx; }
+            get { return rX; }
             set
             {
-                rx = value;
+                rX = value;
                 ClearCache();
             }
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the second radius of elliptical arc.
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        /// <remarks></remarks>
+        [XmlAttribute("ry")]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The second radius of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
         public double RY
         {
-            get { return ry; }
+            get { return rY; }
             set
             {
-                ry = value;
+                rY = value;
                 ClearCache();
             }
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the Angle of the elliptical arc.
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        /// <remarks></remarks>
+        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Elements")]
+        [Description("The " + nameof(Angle) + " to rotate the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [TypeConverter(typeof(AngleConverter))]
+        [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
             get { return angle; }
@@ -205,9 +238,52 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the Angle of the elliptical arc in Degrees.
+        /// </summary>
+        /// <remarks></remarks>
+        [XmlAttribute("angle")]
+        [Browsable(false)]
+        [GeometryAngleDegrees]
+        [Category("Elements")]
+        [Description("The " + nameof(Angle) + " to rotate the elliptical arc in Degrees.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double AngleDegrees
+        {
+            get { return angle.ToDegrees(); }
+            set
+            {
+                angle = value.ToRadians();
+                ClearCache();
+            }
+        }
+
+        /// <summary>
+        /// Gets the Cosine of the angle of rotation.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double CosAngle
+            => (double)CachingProperty(() => Cos(angle));
+
+        /// <summary>
+        /// Gets the Sine of the angle of rotation.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double SinAngle
+            => (double)CachingProperty(() => Sin(angle));
+
+        /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The start angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
             get
@@ -252,9 +328,24 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets the Polar corrected start angle of the <see cref="Ellipse"/>.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [GeometryAngleRadians]
+        public double PolarStartAngle
+            => (double)CachingProperty(() => EllipsePolarAngle(StartAngle, rX, rY));
+
+        /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The sweep angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
         {
             get
@@ -313,8 +404,23 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The end angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
             => (double)CachingProperty(() => StartAngle + SweepAngle);
+
+        /// <summary>
+        /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [GeometryAngleRadians]
+        public double PolarEndAngle
+            => (double)CachingProperty(() => EllipsePolarAngle(StartAngle + SweepAngle, rX, rY));
 
         /// <summary>
         /// 

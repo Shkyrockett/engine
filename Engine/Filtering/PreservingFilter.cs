@@ -186,21 +186,21 @@ namespace Engine
             {
                 switch (item)
                 {
-                    case PathPoint t:
+                    case PointSegment t:
                         break;
-                    case PathLineSegment t:
+                    case LineCurveSegment t:
                         result.AddLineSegment(Process(t.End.Value));
                         break;
-                    case PathArc t:
+                    case ArcSegment t:
                         result.AddArc(t.RX, t.RY, t.Angle, t.LargeArc, t.Sweep, Process(t.End.Value));
                         break;
-                    case PathCardinal t:
+                    case CardinalSegment t:
                         result.AddCardinalCurve(Process(t.CentralPoints));
                         break;
-                    case PathQuadraticBezier t:
+                    case QuadraticBezierSegment t:
                         result.AddQuadraticBezier(Process(t.Handle.Value), Process(t.End.Value));
                         break;
-                    case PathCubicBezier t:
+                    case CubicBezierSegment t:
                         result.AddCubicBezier(Process(t.Handle1), Process(t.Handle2.Value), Process(t.End.Value));
                         break;
                     default:

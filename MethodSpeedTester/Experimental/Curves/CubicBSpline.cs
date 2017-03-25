@@ -50,7 +50,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.CubicBSpline(NodePoints, t);
+            => Interpolators.CubicBSpline(NodePoints, t);
 
         /// <summary>
         /// 

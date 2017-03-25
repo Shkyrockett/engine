@@ -32,11 +32,11 @@ namespace Engine
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "path", Namespace = "http://www.w3.org/2000/svg")]
     public class PolycurveContour
-        : Shape, IEnumerable<PathItem>
+        : Shape, IEnumerable<CurveSegment>
     {
         #region Fields
 
-        List<PathItem> items;
+        List<CurveSegment> items;
 
         bool closed = false;
 
@@ -50,7 +50,7 @@ namespace Engine
         public PolycurveContour()
             : base()
         {
-            Items = new List<PathItem>();
+            Items = new List<CurveSegment>();
         }
 
         /// <summary>
@@ -59,9 +59,9 @@ namespace Engine
         public PolycurveContour(Point2D start)
             : base()
         {
-            Items = new List<PathItem>
+            Items = new List<CurveSegment>
             {
-                new PathPoint(start)
+                new PointSegment(start)
             };
         }
 
@@ -71,12 +71,12 @@ namespace Engine
         /// <param name="polygon"></param>
         public PolycurveContour(Contour polygon)
         {
-            Items = new List<PathItem>();
-            PathItem cursor = new PathPoint(polygon[0]);
+            Items = new List<CurveSegment>();
+            CurveSegment cursor = new PointSegment(polygon[0]);
             Items.Add(cursor);
             for (var i = 1; i < polygon.Count; i++)
             {
-                cursor = new PathLineSegment(cursor, polygon[i]);
+                cursor = new LineCurveSegment(cursor, polygon[i]);
                 Items.Add(cursor);
             }
         }
@@ -84,7 +84,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public PolycurveContour(List<PathItem> items)
+        public PolycurveContour(List<CurveSegment> items)
             : base()
         {
             Items = items;
@@ -98,7 +98,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="items"></param>
-        public void Deconstruct(out List<PathItem> items)
+        public void Deconstruct(out List<CurveSegment> items)
             => items = this.Items;
 
         #endregion
@@ -111,7 +111,7 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public PathItem this[int index]
+        public CurveSegment this[int index]
                 => Items[index];
 
         #endregion
@@ -125,7 +125,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public List<PathItem> Items
+        public List<CurveSegment> Items
         {
             get { return items; }
             set
@@ -197,7 +197,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.GeometryPathBounds(this));
+            => (Rectangle2D)CachingProperty(() => Measurements.PolycurveContourBounds(this));
 
         /// <summary>
         /// 
@@ -315,7 +315,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<PathItem> GetEnumerator()
+        public IEnumerator<CurveSegment> GetEnumerator()
             => items.GetEnumerator();
 
         /// <summary>
@@ -350,19 +350,19 @@ namespace Engine
                         AddLineSegment(p.B);
                     }
                     break;
-                case PathLineSegment p:
+                case LineCurveSegment p:
                     AddLineSegment(p.End.Value);
                     break;
-                case PathArc p:
+                case ArcSegment p:
                     AddArc(p.RX, p.RY, p.Angle, p.LargeArc, p.Sweep, p.End.Value);
                     break;
-                case PathQuadraticBezier p:
+                case QuadraticBezierSegment p:
                     AddQuadraticBezier(p.Handle.Value, p.End.Value);
                     break;
-                case PathCubicBezier p:
+                case CubicBezierSegment p:
                     AddCubicBezier(p.Handle1, p.Handle2.Value, p.End.Value);
                     break;
-                case PathCardinal p:
+                case CardinalSegment p:
                     AddCardinalCurve(p.Nodes);
                     break;
                 default:
@@ -377,7 +377,7 @@ namespace Engine
         /// <returns></returns>
         public PolycurveContour AddLineSegment(Point2D end)
         {
-            var segment = new PathLineSegment(Items[Items.Count - 1], end);
+            var segment = new LineCurveSegment(Items[Items.Count - 1], end);
             Items.Add(segment);
             return this;
         }
@@ -394,7 +394,7 @@ namespace Engine
         /// <returns></returns>
         public PolycurveContour AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         {
-            var arc = new PathArc(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
+            var arc = new ArcSegment(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
             Items.Add(arc);
             return this;
         }
@@ -407,7 +407,7 @@ namespace Engine
         /// <returns></returns>
         public PolycurveContour AddQuadraticBezier(Point2D handle, Point2D end)
         {
-            var quad = new PathQuadraticBezier(Items[Items.Count - 1], handle, end);
+            var quad = new QuadraticBezierSegment(Items[Items.Count - 1], handle, end);
             Items.Add(quad);
             return this;
         }
@@ -421,7 +421,7 @@ namespace Engine
         /// <returns></returns>
         public PolycurveContour AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
-            var cubic = new PathCubicBezier(Items[Items.Count - 1], handle1, handle2, end);
+            var cubic = new CubicBezierSegment(Items[Items.Count - 1], handle1, handle2, end);
             Items.Add(cubic);
             return this;
         }
@@ -433,7 +433,7 @@ namespace Engine
         /// <returns></returns>
         internal PolycurveContour AddCardinalCurve(List<Point2D> nodes)
         {
-            var cardinal = new PathCardinal(Items[Items.Count - 1], nodes);
+            var cardinal = new CardinalSegment(Items[Items.Count - 1], nodes);
             Items.Add(cardinal);
             return this;
         }
@@ -461,7 +461,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
-        public static (List<PathItem>, bool) ParsePathDefString(string pathDefinition)
+        public static (List<CurveSegment>, bool) ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -473,14 +473,14 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
-        public static (List<PathItem>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
+        public static (List<CurveSegment>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
-            var figure = new List<PathItem>();
+            var figure = new List<CurveSegment>();
             var closed = false;
 
             var relitive = false;
             Point2D? startPoint = null;
-            PathItem item = null;
+            CurveSegment item = null;
 
             // These letters are valid SVG commands. Split the tokens at these.
             var separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
@@ -505,7 +505,7 @@ namespace Engine
                         relitive = true;
                         goto case 'M';
                     case 'M': // Svg moveto
-                        item = new PathPoint(item, relitive, args);
+                        item = new PointSegment(item, relitive, args);
                         startPoint = item.Start;
                         figure.Add(item);
                         item.Relitive = relitive;
@@ -515,7 +515,7 @@ namespace Engine
                         relitive = true;
                         goto case 'Z';
                     case 'Z': // Svg closepath
-                        item = new PathPoint(item, relitive, startPoint.Value);
+                        item = new PointSegment(item, relitive, startPoint.Value);
                         closed = true;
                         item.Relitive = relitive;
                         relitive = false;
@@ -524,7 +524,7 @@ namespace Engine
                         relitive = true;
                         goto case 'L';
                     case 'L': // Svg lineto
-                        item = new PathLineSegment(item, relitive, args);
+                        item = new LineCurveSegment(item, relitive, args);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -533,7 +533,7 @@ namespace Engine
                         relitive = true;
                         goto case 'H';
                     case 'H': // Svg horizontal-lineto
-                        item = new PathLineSegment(item, relitive, item.End.Value.X, args[0]);
+                        item = new LineCurveSegment(item, relitive, item.End.Value.X, args[0]);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -542,7 +542,7 @@ namespace Engine
                         relitive = true;
                         goto case 'V';
                     case 'V': // Svg vertical-lineto
-                        item = new PathLineSegment(item, relitive, args[0], item.End.Value.Y);
+                        item = new LineCurveSegment(item, relitive, args[0], item.End.Value.Y);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -551,7 +551,7 @@ namespace Engine
                         relitive = true;
                         goto case 'C';
                     case 'C': // Svg Cubic Bezier curveto
-                        item = new PathCubicBezier(item, relitive, args);
+                        item = new CubicBezierSegment(item, relitive, args);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -560,7 +560,7 @@ namespace Engine
                         relitive = true;
                         goto case 'S';
                     case 'S': // Svg smooth-curveto
-                        item = new PathCubicBezier(item, relitive, args);
+                        item = new CubicBezierSegment(item, relitive, args);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -569,7 +569,7 @@ namespace Engine
                         relitive = true;
                         goto case 'Q';
                     case 'Q': // Svg quadratic-bezier-curveto
-                        item = new PathQuadraticBezier(item, relitive, args);
+                        item = new QuadraticBezierSegment(item, relitive, args);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -578,7 +578,7 @@ namespace Engine
                         relitive = true;
                         goto case 'T';
                     case 'T': // Svg smooth-quadratic-bezier-curveto
-                        item = new PathQuadraticBezier(item, relitive, args)
+                        item = new QuadraticBezierSegment(item, relitive, args)
                         {
                             Relitive = relitive
                         };
@@ -588,7 +588,7 @@ namespace Engine
                         relitive = true;
                         goto case 'A';
                     case 'A': // Svg elliptical-arc
-                        item = new PathArc(item, relitive, args);
+                        item = new ArcSegment(item, relitive, args);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -624,14 +624,14 @@ namespace Engine
             {
                 switch (item)
                 {
-                    case PathPoint t when (t.Previous is null):
+                    case PointSegment t when (t.Previous is null):
                         // ToDo: Figure out how to separate M from Z.
                         output.Append(t.Relitive ? $"m{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"M{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
                         break;
-                    case PathPoint t:
+                    case PointSegment t:
                         output.Append(t.Relitive ? $"z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"Z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
                         break;
-                    case PathLineSegment t:
+                    case LineCurveSegment t:
                         // L is a general line.
                         var l = t.Relitive ? 'l' : 'L';
                         var coords = $"{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)}";
@@ -649,15 +649,15 @@ namespace Engine
                         }
                         output.Append($"{l}{coords} ");
                         break;
-                    case PathCubicBezier t:
+                    case CubicBezierSegment t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
                         output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
                         break;
-                    case PathQuadraticBezier t:
+                    case QuadraticBezierSegment t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
                         output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
                         break;
-                    case PathArc t:
+                    case ArcSegment t:
                         // Arc definition. 
                         var largearc = t.LargeArc ? 1 : 0;
                         var sweep = t.Sweep ? 1 : 0;

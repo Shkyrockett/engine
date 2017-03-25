@@ -96,7 +96,7 @@ namespace Engine
         /// <param name="c"></param>
         public CubicBezier(Point2D a, Point2D b, Point2D c)
         {
-            var nodes = Interpolaters.QuadraticBezierToCubicBezier(a, b, c);
+            var nodes = Interpolators.QuadraticBezierToCubicBezier(a, b, c);
             ax = nodes[0].X;
             ay = nodes[0].Y;
             bx = nodes[1].X;
@@ -625,7 +625,7 @@ namespace Engine
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
-            => new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, t));
+            => new Point2D(Interpolators.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, t));
 
         /// <summary>
         /// Gets the tangent (normalized derivative) of the curve at a given T value.
@@ -645,7 +645,7 @@ namespace Engine
         /// <returns></returns>
         public IEnumerator<Point2D> GetEnumerator()
         {
-            yield return new Point2D(Interpolaters.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, Length));
+            yield return new Point2D(Interpolators.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, Length));
         }
 
         /// <summary>

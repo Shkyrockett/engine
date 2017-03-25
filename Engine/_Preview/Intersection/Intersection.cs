@@ -77,6 +77,15 @@ namespace Engine
         /// </summary>
         /// <param name="state"></param>
         /// <param name="points"></param>
+        public Intersection(IntersectionState state, IEnumerable<Point2D> points)
+            : this(state, new List<Point2D>(points))
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="points"></param>
         public Intersection(IntersectionState state, List<Point2D> points)
         {
             this.state = state;
@@ -139,7 +148,7 @@ namespace Engine
         /// 
         /// </summary>
         public int Count
-            => Points.Count;
+            => (Points == null) ? 0 : Points.Count;
 
         #endregion
 
@@ -150,7 +159,11 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         public void AppendPoint(Point2D point)
-            => points.Add(point);
+        {
+            if (points == null)
+                points = new List<Point2D>();
+            points.Add(point);
+        }
 
         /// <summary>
         /// 
@@ -158,7 +171,21 @@ namespace Engine
         /// <param name="points"></param>
         public void AppendPoints(List<Point2D> points)
         {
-            if (this.points == null) this.points = points;
+            if (points == null)
+                return;
+            if (this.points == null)
+                this.points = points;
+            else
+                this.points.AddRange(points);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        public void AppendPoints(HashSet<Point2D> points)
+        {
+            if (this.points == null) this.points = points.ToList();
             else
                 this.points.AddRange(points);
         }

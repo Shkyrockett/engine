@@ -1,4 +1,4 @@
-﻿// <copyright file="PathPoint.cs" company="Shkyrockett" >
+﻿// <copyright file="PointSegment.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -19,15 +19,15 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class PathPoint
-        : PathItem
+    public class PointSegment
+        : CurveSegment
     {
         #region Constructors
 
         /// <summary>
         /// 
         /// </summary>
-        public PathPoint()
+        public PointSegment()
         { }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="args"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PathPoint(PathItem previous, bool relitive, Double[] args)
+        public PointSegment(CurveSegment previous, bool relitive, Double[] args)
             : this(args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
             if (relitive)
@@ -51,7 +51,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="startPoint"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PathPoint(PathItem previous, Boolean relitive, Point2D startPoint)
+        public PointSegment(CurveSegment previous, Boolean relitive, Point2D startPoint)
             : this(startPoint)
         {
             if (relitive)
@@ -63,7 +63,7 @@ namespace Engine
         /// </summary>
         /// <param name="start"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PathPoint(Point2D? start)
+        public PointSegment(Point2D? start)
         {
             Start = start;
             Previous = this;

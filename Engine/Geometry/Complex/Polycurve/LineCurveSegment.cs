@@ -1,4 +1,4 @@
-﻿// <copyright file="PathCardinal.cs" company="Shkyrockett" >
+﻿// <copyright file="LineCurveSegment.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -19,27 +19,42 @@ namespace Engine
     /// 
     /// </summary>
     [Serializable]
-    public class PathCardinal
-         : PathItem
+    public class LineCurveSegment
+         : CurveSegment
     {
         #region Constructors
 
         /// <summary>
         /// 
         /// </summary>
-        public PathCardinal()
+        public LineCurveSegment()
         { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="previous"></param>
-        /// <param name="points"></param>
-        public PathCardinal(PathItem previous, List<Point2D> points)
+        /// <param name="relitive"></param>
+        /// <param name="args"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LineCurveSegment(CurveSegment previous, bool relitive, params Double[] args)
+            : this(previous, args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
+        {
+            if (relitive)
+                End = (Point2D)(End + previous.End);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="previous"></param>
+        /// <param name="end"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LineCurveSegment(CurveSegment previous, Point2D? end)
         {
             Previous = previous;
             previous.Next = this;
-            CentralPoints = points;
+            End = end;
         }
 
         #endregion
@@ -55,49 +70,21 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlArray]
-        public List<Point2D> CentralPoints { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         [XmlIgnore, SoapIgnore]
-        public List<Point2D> Nodes
-        {
-            get
-            {
-                var nodes = new List<Point2D>() { Start.Value };
-                nodes.AddRange(CentralPoints);
-                return nodes;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Nodes[Nodes.Count - 1]; } set { Nodes[Nodes.Count - 1] = value.Value; } }
+        public override Point2D? NextToEnd { get { return Start; } set { Start = value; } }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement]
-        public override Point2D? End { get { return CentralPoints[CentralPoints.Count - 1]; } set { CentralPoints[CentralPoints.Count - 1] = value.Value; } }
+        public override Point2D? End { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
         public override List<Point2D> Grips
-        {
-            get
-            {
-                var result = new List<Point2D> { Start.Value  };
-                result.AddRange(CentralPoints);
-                result.Add(End.Value);
-                return result;
-            }
-        }
+            => new List<Point2D> { Start.Value, End.Value };
 
         /// <summary>
         /// 
@@ -107,12 +94,13 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.PolygonBounds(Nodes);
+            => Measurements.LineSegmentBounds(Start.Value.X, Start.Value.Y, End.Value.X, End.Value.Y);
 
         /// <summary>
-        /// ToDo: Add length calculation for Cardinal curves.
+        /// 
         /// </summary>
-        public override double Length => 0;
+        [XmlIgnore, SoapIgnore]
+        public override double Length => ToLineSegment().Length;
 
         #endregion
 
@@ -122,6 +110,16 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => throw new NotImplementedException();
+            => ToLineSegment().Interpolate(t);
+
+        #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public LineSegment ToLineSegment()
+            => new LineSegment(Start.Value, End.Value);
+
+        #endregion
     }
 }

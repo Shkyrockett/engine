@@ -220,7 +220,7 @@ namespace Engine
             {
                 var points = new List<Point2D>();
                 foreach (double angle in TestAngles)
-                    points.Add(Interpolaters.Circle(X, Y, Radius, angle));
+                    points.Add(Interpolators.Circle(X, Y, Radius, angle));
                 return points;
             }
             set
@@ -241,7 +241,7 @@ namespace Engine
         /// 
         /// </summary>
         public Point2D TestPoint(double angle)
-            => Interpolaters.Circle(X, Y, Radius, angle);
+            => Interpolators.Circle(X, Y, Radius, angle);
 
         /// <summary>
         /// 

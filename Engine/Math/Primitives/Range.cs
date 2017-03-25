@@ -88,11 +88,11 @@ namespace Engine
                 switch (Overflow)
                 {
                     case Overflows.Clamp:
-                        return Interpolaters.Linear(Min, Max, Maths.Clamp(index, UnitMin, UnitMax));
+                        return Interpolators.Linear(Min, Max, Maths.Clamp(index, UnitMin, UnitMax));
                     case Overflows.Wrap:
-                        return Interpolaters.Linear(Min, Max, Maths.Wrap(index, UnitMin, UnitMax));
+                        return Interpolators.Linear(Min, Max, Maths.Wrap(index, UnitMin, UnitMax));
                     default:
-                        return Interpolaters.Linear(Min, Max, index);
+                        return Interpolators.Linear(Min, Max, index);
                 }
             }
         }

@@ -33,7 +33,7 @@ namespace Engine
     {
         #region Fields
 
-        List<PolyBezierSegment> items;
+        List<BezierSegmentX> items;
 
         bool closed = false;
 
@@ -47,7 +47,7 @@ namespace Engine
         public PolyBezierContour()
             : base()
         {
-            items = new List<PolyBezierSegment>();
+            items = new List<BezierSegmentX>();
         }
 
         /// <summary>
@@ -56,13 +56,13 @@ namespace Engine
         public PolyBezierContour(Point2D start)
             : base()
         {
-            items.Add(new PolyBezierSegment(start));
+            items.Add(new BezierSegmentX(start));
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public PolyBezierContour(List<PolyBezierSegment> items)
+        public PolyBezierContour(List<BezierSegmentX> items)
             : base()
         {
             this.items = items;
@@ -76,7 +76,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="items"></param>
-        public void Deconstruct(out List<PolyBezierSegment> items)
+        public void Deconstruct(out List<BezierSegmentX> items)
             => items = this.items;
 
         #endregion
@@ -89,7 +89,7 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public PolyBezierSegment this[int index]
+        public BezierSegmentX this[int index]
                 => items[index];
 
         #endregion
@@ -103,7 +103,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public List<PolyBezierSegment> Items
+        public List<BezierSegmentX> Items
         {
             get { return items; }
             set
@@ -294,7 +294,7 @@ namespace Engine
         /// <returns></returns>
         public PolyBezierContour AddLineSegment(Point2D end)
         {
-            var segment = new PolyBezierSegment(Items[Items.Count - 1], end);
+            var segment = new BezierSegmentX(Items[Items.Count - 1], end);
             Items.Add(segment);
             return this;
         }
@@ -324,7 +324,7 @@ namespace Engine
         /// <returns></returns>
         public PolyBezierContour AddQuadraticBezier(Point2D handle, Point2D end)
         {
-            var quad = new PolyBezierSegment(Items[Items.Count - 1], handle, end);
+            var quad = new BezierSegmentX(Items[Items.Count - 1], handle, end);
             Items.Add(quad);
             return this;
         }
@@ -338,7 +338,7 @@ namespace Engine
         /// <returns></returns>
         public PolyBezierContour AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
-            var cubic = new PolyBezierSegment(Items[Items.Count - 1], handle1, handle2, end);
+            var cubic = new BezierSegmentX(Items[Items.Count - 1], handle1, handle2, end);
             Items.Add(cubic);
             return this;
         }
@@ -348,7 +348,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <returns></returns>
-        public static List<PolyBezierSegment> ParsePathDefString(string pathDefinition)
+        public static List<BezierSegmentX> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace Engine
         /// <param name="pathDefinition"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static List<PolyBezierSegment> ParsePathDefString(string pathDefinition, IFormatProvider provider)
+        public static List<BezierSegmentX> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
             string separators = @"(?=[MZLCQ])";
@@ -366,7 +366,7 @@ namespace Engine
             string argSeparators = $@"[\s{Tokenizer.GetNumericListSeparator(provider)}]|(?=-)";
 
             var contour = new PolyBezierContour();
-            var segment = new PolyBezierSegment();
+            var segment = new BezierSegmentX();
             Point2D startPoint = new Point2D();
 
             // Split the definition string into shape tokens.

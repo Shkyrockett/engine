@@ -1,4 +1,4 @@
-﻿// <copyright file="PathItem.cs" company="Shkyrockett" >
+﻿// <copyright file="CurveSegment.cs" company="Shkyrockett" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -20,14 +20,14 @@ namespace Engine
     /// An abstract class representing a piece of a geometric figure.
     /// </summary>
     [Serializable]
-    [XmlInclude(typeof(PathArc))]
-    [XmlInclude(typeof(PathCardinal))]
-    [XmlInclude(typeof(PathCubicBezier))]
-    [XmlInclude(typeof(PathLineSegment))]
-    [XmlInclude(typeof(PathPoint))]
-    [XmlInclude(typeof(PathQuadraticBezier))]
+    [XmlInclude(typeof(ArcSegment))]
+    [XmlInclude(typeof(CardinalSegment))]
+    [XmlInclude(typeof(CubicBezierSegment))]
+    [XmlInclude(typeof(LineCurveSegment))]
+    [XmlInclude(typeof(PointSegment))]
+    [XmlInclude(typeof(QuadraticBezierSegment))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class PathItem
+    public abstract class CurveSegment
     {
         #region Fields
 
@@ -44,7 +44,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public PathItem()
+        public CurveSegment()
         { }
 
         #endregion
@@ -62,13 +62,13 @@ namespace Engine
         /// Gets or sets a reference to the previous geometric item.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public PathItem Previous { get; set; }
+        public CurveSegment Previous { get; set; }
 
         /// <summary>
         /// Gets or sets a reference to the next geometric item.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public PathItem Next { get; set; }
+        public CurveSegment Next { get; set; }
 
         /// <summary>
         /// Gets or sets the starting coordinates for the item.

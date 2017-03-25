@@ -705,7 +705,7 @@ namespace Engine
                 _p = new List<Point3D>();
                 for (i = 0, l = p.Count - 1; i < l; i++)
                 {
-                    pt = Interpolaters.Linear(p[i], p[i + 1], t);
+                    pt = Interpolators.Linear(p[i], p[i + 1], t);
                     q[idx++] = pt;
                     _p.Add(pt);
                 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="PolyBezierSegment.cs" >
+﻿// <copyright file="BezierSegment.cs" >
 //     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -27,9 +27,9 @@ namespace Engine
     /// <remarks> https://github.com/superlloyd/Poly </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(QuadraticBezier))]
-    [XmlType(TypeName = "Polybezier-Segment")]
-    public class PolyBezierSegment
+    [DisplayName(nameof(BezierSegmentX))]
+    [XmlType(TypeName = "bezier-Segment")]
+    public class BezierSegmentX
         : Shape
     {
         #region Fields
@@ -44,59 +44,59 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// Initializes a default instance of the <see cref="PolyBezierSegment"/> class with no terms.
+        /// Initializes a default instance of the <see cref="BezierSegmentX"/> class with no terms.
         /// </summary>
-        public PolyBezierSegment()
+        public BezierSegmentX()
         {
             handles = new Point2D[] { };
             Previous = this;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezierSegment"/> class as a single point constant term curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a single point constant term curve.
         /// </summary>
-        public PolyBezierSegment(Point2D point)
+        public BezierSegmentX(Point2D point)
         {
             handles = new[] { point };
             Previous = this;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezierSegment"/> class as a line segment from the previous curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a line segment from the previous curve.
         /// </summary>
         /// <param name="previous">The previous curve.</param>
         /// <param name="point">The next point.</param>
-        public PolyBezierSegment(PolyBezierSegment previous, Point2D point)
+        public BezierSegmentX(BezierSegmentX previous, Point2D point)
             : this(previous, new[] { point })
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezierSegment"/> class as a quadratic bezier curve from the previous curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a quadratic bezier curve from the previous curve.
         /// </summary>
         /// <param name="previous">The previous curve.</param>
         /// <param name="handle">The quadratic curve handle.</param>
         /// <param name="point">The next point.</param>
-        public PolyBezierSegment(PolyBezierSegment previous, Point2D handle, Point2D point)
+        public BezierSegmentX(BezierSegmentX previous, Point2D handle, Point2D point)
             : this(previous, new[] { handle, point })
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezierSegment"/> class as a quadratic bezier curve from the previous curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a quadratic bezier curve from the previous curve.
         /// </summary>
         /// <param name="previous">The previous curve.</param>
         /// <param name="handle1">The first cubic curve handle.</param>
         /// <param name="handle2">The second cubic curve handle.</param>
         /// <param name="point">The next point.</param>
-        public PolyBezierSegment(PolyBezierSegment previous, Point2D handle1, Point2D handle2, Point2D point)
+        public BezierSegmentX(BezierSegmentX previous, Point2D handle1, Point2D handle2, Point2D point)
             : this(previous, new[] { handle1, handle2, point })
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezierSegment"/> class using a parameter array.
+        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class using a parameter array.
         /// </summary>
         /// <param name="previous"></param>
         /// <param name="points"></param>
-        public PolyBezierSegment(PolyBezierSegment previous, params Point2D[] points)
+        public BezierSegmentX(BezierSegmentX previous, params Point2D[] points)
             : base()
         {
             this.handles = points;
@@ -107,7 +107,7 @@ namespace Engine
         /// </summary>
         /// <param name="previous"></param>
         /// <param name="points"></param>
-        public PolyBezierSegment(PolyBezierSegment previous, IEnumerable<Point2D> points)
+        public BezierSegmentX(BezierSegmentX previous, IEnumerable<Point2D> points)
             : this(previous, points.ToArray())
         { }
 
@@ -145,10 +145,10 @@ namespace Engine
         /// Gets or sets a reference to the previous geometric item.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        public PolyBezierSegment Previous { get; set; }
+        public BezierSegmentX Previous { get; set; }
 
         /// <summary>
-        /// Gets or sets a reference to the end point of the previous <see cref="PolyBezierSegment"/> to use as the stating point.
+        /// Gets or sets a reference to the end point of the previous <see cref="BezierSegmentX"/> to use as the stating point.
         /// </summary>
         [XmlElement, SoapElement]
         public Point2D? Start
@@ -167,6 +167,23 @@ namespace Engine
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D[] Handles
+        {
+            get { return handles.Slice(0, handles.Length - 2); }
+            set
+            {
+                var temp = new[] { handles[handles.Length - 1] };
+                handles = value.Concat(temp).ToArray();
+                ClearCache();
+                OnPropertyChanged(nameof(Handles));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlArray]
+        [RefreshProperties(RefreshProperties.All)]
+        public Point2D[] Points
         {
             get { return handles.Slice(0, handles.Length - 2); }
             set
@@ -330,9 +347,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(PolyBezierSegment);
+            if (this == null) return nameof(BezierSegmentX);
             char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(PolyBezierSegment)}{{{string.Join(sep.ToString(), handles)}}}";
+            IFormattable formatable = $"{nameof(BezierSegmentX)}{{{string.Join(sep.ToString(), handles)}}}";
             return formatable.ToString(format, provider);
         }
 

@@ -112,7 +112,7 @@ namespace Engine
 
         #endregion
 
-        #region Interpolaters
+        #region Interpolators
 
         /// <summary>
         /// 

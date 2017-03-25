@@ -1,4 +1,4 @@
-﻿// <copyright file="PathExtensions.cs" company="Shkyrockett" >
+﻿// <copyright file="PolycurveExtensions.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -15,7 +15,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public static class PathExtensions
+    public static class PolycurveExtensions
     {
         /// <summary>
         /// 

@@ -133,7 +133,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this BezierSegment bezier, Point2D point)
+        public static double Distance(this BezierSegmentX bezier, Point2D point)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Engine
         /// <param name="bezier"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static double NearestT(this BezierSegment bezier, Point2D point)
+        public static double NearestT(this BezierSegmentX bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
@@ -323,7 +323,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this BezierSegment bezier)
+        public static double Length(this BezierSegmentX bezier)
         {
             switch (bezier.Degree)
             {
@@ -472,7 +472,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this PolycurveContour path)
-            => GeometryPathBounds(path);
+            => PolycurveContourBounds(path);
 
         #endregion
 
@@ -817,9 +817,9 @@ namespace Engine
             double lx3, double ly3,
             double x1, double y1)
         {
-            double A = ly2 - ly3;
-            double B = lx3 - lx2;
-            double C = (A * x1 + B * y1) - (A * lx2 + B * ly2);
+            var A = ly2 - ly3;
+            var B = lx3 - lx2;
+            var C = (A * x1 + B * y1) - (A * lx2 + B * ly2);
             return (C * C) / (A * A + B * B);
         }
 
@@ -887,13 +887,13 @@ namespace Engine
 
             // Vector A->B
             var diffAB = new Point2D(bX - aX, bY - aY);
-            double dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            var dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
 
             // The dot product of diffAP and diffAB
-            double dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+            var dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
 
             //  # The normalized "distance" from a to the closest point
-            double dist = dotABAP / dotAB;
+            var dist = dotABAP / dotAB;
 
             if (dist < 0)
                 return (aX, aY);
@@ -934,16 +934,16 @@ namespace Engine
                 a0 -= Tau;
 
             // 25 sample points in first iteration
-            double b0 = a0;
-            double b1 = a1;
-            double da = (b1 - b0) / 25.0;
+            var b0 = a0;
+            var b1 = a1;
+            var da = (b1 - b0) / 25.0;
 
             // No best solution yet
             double ll = -1;
-            double aa = a0;
+            var aa = a0;
 
             // More recursions means more accurate result
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 // sample arc a=<b0,b1> with step da
                 for (e = 1, a = b0; e != 0; a += da)
@@ -958,7 +958,7 @@ namespace Engine
                     x *= x;
                     y -= pY;
                     y *= y;
-                    double l = x + y;
+                    var l = x + y;
 
                     // Remember best solution
                     if ((ll < 0d) || (ll > l))
@@ -1103,20 +1103,20 @@ namespace Engine
             double bx, double by,
             double cx, double cy)
         {
-            double _ax = ax - 2d * bx + cx;
-            double _ay = ay - 2d * by + cy;
-            double _bx = 2d * bx - 2d * ax;
-            double _by = 2d * by - 2d * ay;
+            var _ax = ax - 2d * bx + cx;
+            var _ay = ay - 2d * by + cy;
+            var _bx = 2d * bx - 2d * ax;
+            var _by = 2d * by - 2d * ay;
 
-            double a = 4d * (_ax * _ax + _ay * _ay);
-            double b = 4d * (_ax * _bx + _ay * _by);
-            double c = _bx * _bx + _by * _by;
+            var a = 4d * (_ax * _ax + _ay * _ay);
+            var b = 4d * (_ax * _bx + _ay * _by);
+            var c = _bx * _bx + _by * _by;
 
-            double abc = 2d * Sqrt(a + b + c);
-            double a2 = Sqrt(a);
-            double a32 = 2d * a * a2;
-            double c2 = 2d * Sqrt(c);
-            double ba = b / a2;
+            var abc = 2d * Sqrt(a + b + c);
+            var a2 = Sqrt(a);
+            var a32 = 2d * a * a2;
+            var c2 = 2d * Sqrt(c);
+            var ba = b / a2;
 
             return (a32 * abc + a2 * b * (abc - c2) + (4d * c * a - b * b) * Log((2d * a2 + ba + abc) / (ba + c2))) / (4d * a32);
         }
@@ -1147,27 +1147,27 @@ namespace Engine
             var k3 = new Point2D(3d * (bx - ax), 3d * (by - ax));
             var k4 = new Point2D(ax, ay);
 
-            double q1 = 9d * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
-            double q2 = 12d * (k1.X * k2.X + k1.Y * k2.Y);
-            double q3 = 3d * (k1.X * k3.X + k1.Y * k3.Y) + 4d * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y)));
-            double q4 = 4d * (k2.X * k3.X + k2.Y * k3.Y);
-            double q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
+            var q1 = 9d * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
+            var q2 = 12d * (k1.X * k2.X + k1.Y * k2.Y);
+            var q3 = 3d * (k1.X * k3.X + k1.Y * k3.Y) + 4d * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y)));
+            var q4 = 4d * (k2.X * k3.X + k2.Y * k3.Y);
+            var q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
 
             // Approximation algorithm based on Simpson. 
-            double a = 0d;
-            double b = 1d;
-            int n_limit = 1024;
-            double TOLERANCE = 0.001d;
+            var a = 0d;
+            var b = 1d;
+            var n_limit = 1024;
+            var TOLERANCE = 0.001d;
 
-            int n = 1;
+            var n = 1;
 
-            double multiplier = (b - a) / 6d;
-            double endsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a) + CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, b);
-            double interval = (b - a) * 0.5d;
-            double asum = 0d;
-            double bsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a + interval);
-            double est1 = multiplier * (endsum + 2d * asum + 4d * bsum);
-            double est0 = 2d * est1;
+            var multiplier = (b - a) / 6d;
+            var endsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a) + CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, b);
+            var interval = (b - a) * 0.5d;
+            var asum = 0d;
+            var bsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a + interval);
+            var est1 = multiplier * (endsum + 2d * asum + 4d * bsum);
+            var est0 = 2d * est1;
 
             while (n < n_limit && (Abs(est1) > 0d && Abs((est1 - est0) / est1) > TOLERANCE))
             {
@@ -1177,11 +1177,11 @@ namespace Engine
                 asum += bsum;
                 bsum = 0d;
                 est0 = est1;
-                double interval_div_2n = interval / (2d * n);
+                var interval_div_2n = interval / (2d * n);
 
-                for (int i = 1; i < 2 * n; i += 2)
+                for (var i = 1; i < 2 * n; i += 2)
                 {
-                    double t = a + i * interval_div_2n;
+                    var t = a + i * interval_div_2n;
                     bsum += CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, t);
                 }
 
@@ -1212,7 +1212,7 @@ namespace Engine
             ref double q5,
             double t)
         {
-            double result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
+            var result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
             result = Sqrt(Abs(result));
             return result;
         }
@@ -1344,8 +1344,8 @@ namespace Engine
             double angle,
             double startAngle, double sweepAngle)
         {
-            double start = Maths.WrapAngle(angle + startAngle);
-            double end = Maths.WrapAngle(start + sweepAngle);
+            var start = Maths.WrapAngle(angle + startAngle);
+            var end = Maths.WrapAngle(start + sweepAngle);
 
             var bounds = new Rectangle2D(
                 new Point2D(cX + r * Cos(startAngle), cY + r * Sin(startAngle)),
@@ -1399,18 +1399,18 @@ namespace Engine
             double r1, double r2,
             double angle)
         {
-            double a = r1 * Cos(angle);
-            double b = r2 * Sin(angle);
-            double c = r1 * Sin(angle);
-            double d = r2 * Cos(angle);
+            var a = r1 * Cos(angle);
+            var b = r2 * Sin(angle);
+            var c = r1 * Sin(angle);
+            var d = r2 * Cos(angle);
 
             // Get the height and width.
-            double width = Sqrt((a * a) + (b * b)) * 2;
-            double height = Sqrt((c * c) + (d * d)) * 2;
+            var width = Sqrt((a * a) + (b * b)) * 2;
+            var height = Sqrt((c * c) + (d * d)) * 2;
 
             // Get the location point.
-            double x2 = cX - width * 0.5d;
-            double y2 = cY - height * 0.5d;
+            var x2 = cX - width * 0.5d;
+            var y2 = cY - height * 0.5d;
 
             // Return the bounding rectangle.
             return new Rectangle2D(x2, y2, width, height);
@@ -1442,8 +1442,8 @@ namespace Engine
             double startAngle, double sweepAngle)
         {
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
             // Find the angles of the Cartesian extremes.
             var angles = new double[4] {
@@ -1461,14 +1461,14 @@ namespace Engine
             Array.Sort(angles);
 
             // Get the start and end angles adjusted to polar coordinates.
-            double t0 = EllipsePolarAngle(startAngle, r1, r2);
-            double t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+            var t0 = EllipsePolarAngle(startAngle, r1, r2);
+            var t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
 
             // Interpolate the ratios of height and width of the chord.
-            double sinT0 = Sin(t0);
-            double cosT0 = Cos(t0);
-            double sinT1 = Sin(t1);
-            double cosT1 = Cos(t1);
+            var sinT0 = Sin(t0);
+            var cosT0 = Cos(t0);
+            var sinT1 = Sin(t1);
+            var cosT1 = Cos(t1);
 
             // Get the end points of the chord.
             var bounds = new Rectangle2D(
@@ -1482,8 +1482,8 @@ namespace Engine
                     cY + (r1 * cosT1 * sinT + r2 * sinT1 * cosT)));
 
             // Find the parent ellipse's horizontal and vertical radii extremes.
-            double halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
-            double halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
+            var halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
+            var halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
             if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
@@ -1538,13 +1538,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D PolygonBounds(IEnumerable<Point2D> polygon)
         {
-            List<Point2D> points = (polygon as List<Point2D>);
+            var points = (polygon as List<Point2D>);
             if (points?.Count < 1) return null;
 
-            double left = points[0].X;
-            double top = points[0].Y;
-            double right = points[0].X;
-            double bottom = points[0].Y;
+            var left = points[0].X;
+            var top = points[0].Y;
+            var right = points[0].X;
+            var bottom = points[0].Y;
 
             foreach (Point2D point in points)
             {
@@ -1565,10 +1565,10 @@ namespace Engine
         /// <returns></returns>
         public static Rectangle2D PolylineBounds(List<Point2D> points)
         {
-            double left = points[0].X;
-            double top = points[0].Y;
-            double right = points[0].X;
-            double bottom = points[0].Y;
+            var left = points[0].X;
+            var top = points[0].Y;
+            var right = points[0].X;
+            var bottom = points[0].Y;
 
             foreach (Point2D point in points)
             {
@@ -1643,7 +1643,7 @@ namespace Engine
 
                 if (t1 > 0 && t1 < 1)
                 {
-                    var x1 = Interpolaters.Cubic(ax, bx, cx, dx, t1);
+                    var x1 = Interpolators.Cubic(ax, bx, cx, dx, t1);
                     if (x1 < xlow) xlow = x1;
                     if (x1 > xhigh) xhigh = x1;
                 }
@@ -1653,7 +1653,7 @@ namespace Engine
 
                 if (t2 > 0 && t2 < 1)
                 {
-                    var x2 = Interpolaters.Cubic(ax, bx, cx, dx, t2);
+                    var x2 = Interpolators.Cubic(ax, bx, cx, dx, t2);
                     if (x2 < xlow) xlow = x2;
                     if (x2 > xhigh) xhigh = x2;
                 }
@@ -1675,7 +1675,7 @@ namespace Engine
 
                 if (t1 > 0 && t1 < 1)
                 {
-                    var y1 = Interpolaters.Cubic(ay, by, cy, dy, t1);
+                    var y1 = Interpolators.Cubic(ay, by, cy, dy, t1);
                     if (y1 < yl) yl = y1;
                     if (y1 > yh) yh = y1;
                 }
@@ -1684,7 +1684,7 @@ namespace Engine
 
                 if (t2 > 0 && t2 < 1)
                 {
-                    var y2 = Interpolaters.Cubic(ay, by, cy, dy, t2);
+                    var y2 = Interpolators.Cubic(ay, by, cy, dy, t2);
                     if (y2 < yl) yl = y2;
                     if (y2 > yh) yh = y2;
                 }
@@ -1725,12 +1725,12 @@ namespace Engine
         /// <returns>A <see cref="Rectangle2D"/> that represents the external bounds of the chain.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D GeometryPathBounds(PolycurveContour chain)
+        public static Rectangle2D PolycurveContourBounds(PolycurveContour chain)
         {
-            var start = chain.Items[0] as PathPoint;
-            Rectangle2D result = new Rectangle2D(start.Start.Value, start.End.Value);
+            var start = chain.Items[0] as PointSegment;
+            var result = new Rectangle2D(start.Start.Value, start.End.Value);
 
-            foreach (PathItem member in chain.Items)
+            foreach (CurveSegment member in chain.Items)
             {
                 result.UnionMutate(member.Bounds);
             }
@@ -1757,10 +1757,10 @@ namespace Engine
                 return null;
 
             // Fill with initial point.
-            double left = points[0].X;
-            double top = points[0].Y;
-            double right = points[0].X;
-            double bottom = points[0].Y;
+            var left = points[0].X;
+            var top = points[0].Y;
+            var right = points[0].X;
+            var bottom = points[0].Y;
 
             // Locate the extremes of the parametric shape.
             foreach (Point2D point in points)
@@ -1790,7 +1790,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(Point2D p1, Point2D p2, Point2D o)
         {
-            double det = (p1.X - o.X) * (p2.Y - o.Y) - (p2.X - o.X) * (p1.Y - o.Y);
+            var det = (p1.X - o.X) * (p2.Y - o.Y) - (p2.X - o.X) * (p1.Y - o.Y);
             return (det < 0 ? -1 : (det > 0 ? +1 : 0));
         }
 
@@ -1926,10 +1926,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygonArea(List<Point2D> polygon)
         {
-            int count = polygon.Count;
+            var count = polygon.Count;
             if (count < 3) return 0d;
 
-            double area = 0d;
+            var area = 0d;
             for (int i = 0, j = count - 1; i < count; ++i)
             {
                 area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y);
@@ -1999,8 +1999,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PerpendicularDistance(LineSegment segment, Point2D p)
         {
-            double area = Abs(segment.CrossProduct + segment.BX * p.Y + p.X * segment.A.Y - p.X * segment.B.Y - segment.A.X * p.Y);
-            double height = area / segment.Length;
+            var area = Abs(segment.CrossProduct + segment.BX * p.Y + p.X * segment.A.Y - p.X * segment.B.Y - segment.A.X * p.Y);
+            var height = area / segment.Length;
             return height;
         }
 
@@ -2086,20 +2086,20 @@ namespace Engine
         public static List<double> EllipseExtremeAngles(double rX, double rY, double angle)
         {
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
             // Calculate the radii of the angle of rotation.
-            double a = rX * cosT;
-            double b = rY * sinT;
-            double c = rX * sinT;
-            double d = rY * cosT;
+            var a = rX * cosT;
+            var b = rY * sinT;
+            var c = rX * sinT;
+            var d = rY * cosT;
 
             // Ellipse equation for an ellipse at origin.
-            double u1 = rX * Cos(Atan2(d, c));
-            double v1 = -(rY * Sin(Atan2(d, c)));
-            double u2 = rX * Cos(Atan2(-b, a));
-            double v2 = -(rY * Sin(Atan2(-b, a)));
+            var u1 = rX * Cos(Atan2(d, c));
+            var v1 = -(rY * Sin(Atan2(d, c)));
+            var u2 = rX * Cos(Atan2(-b, a));
+            var v2 = -(rY * Sin(Atan2(-b, a)));
 
             // Return the list of angles.
             return new List<double>
@@ -2134,10 +2134,10 @@ namespace Engine
         public static List<Point2D> CircleExtremePoints(double x, double y, double radius)
             => new List<Point2D>
             {
-                Interpolaters.Circle(x, y, radius, 0),
-                Interpolaters.Circle(x, y, radius, Right),
-                Interpolaters.Circle(x, y, radius, PI),
-                Interpolaters.Circle(x, y, radius, Pau)
+                Interpolators.Circle(x, y, radius, 0),
+                Interpolators.Circle(x, y, radius, Right),
+                Interpolators.Circle(x, y, radius, PI),
+                Interpolators.Circle(x, y, radius, Pau)
             };
 
         /// <summary>
@@ -2157,28 +2157,28 @@ namespace Engine
         public static List<Point2D> EllipseExtremePoints(double x, double y, double rX, double rY, double angle)
         {
             // Get the ellipse rotation transform.
-            double cosT = Cos(angle);
-            double sinT = Sin(angle);
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
             // Calculate the radii of the angle of rotation.
-            double a = rX * cosT;
-            double c = rX * sinT;
-            double d = rY * cosT;
-            double b = rY * sinT;
+            var a = rX * cosT;
+            var c = rX * sinT;
+            var d = rY * cosT;
+            var b = rY * sinT;
 
             // Find the angles of the Cartesian extremes.
-            double a1 = Atan2(-b, a);
-            double a2 = Atan2(-b, a) + PI;
-            double a3 = Atan2(d, c);
-            double a4 = Atan2(d, c) + PI;
+            var a1 = Atan2(-b, a);
+            var a2 = Atan2(-b, a) + PI;
+            var a3 = Atan2(d, c);
+            var a4 = Atan2(d, c) + PI;
 
             // Return the points of Cartesian extreme of the rotated ellipse.
             return new List<Point2D>
             {
-                Interpolaters.Ellipse(x, y, rX, rY, angle, a1),
-                Interpolaters.Ellipse(x, y, rX, rY, angle, a2),
-                Interpolaters.Ellipse(x, y, rX, rY, angle, a3),
-                Interpolaters.Ellipse(x, y, rX, rY, angle, a4)
+                Interpolators.Ellipse(x, y, rX, rY, angle, a1),
+                Interpolators.Ellipse(x, y, rX, rY, angle, a2),
+                Interpolators.Ellipse(x, y, rX, rY, angle, a3),
+                Interpolators.Ellipse(x, y, rX, rY, angle, a4)
             };
         }
 

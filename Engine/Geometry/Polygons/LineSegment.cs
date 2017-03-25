@@ -511,7 +511,7 @@ namespace Engine
         /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.Linear(A, B, t);
+            => Interpolators.Linear(A, B, t);
 
         #endregion
 

@@ -20,14 +20,15 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// Utility class about 2D Bezier curves
-    /// Aka a segment, or quadratic or cubic bezier curve.
-    /// Extensive Bezier explanation can be found at http://pomax.github.io/bezierinfo/
+    /// 
     /// </summary>
-    /// <remarks> https://github.com/superlloyd/Poly </remarks>
+    /// <remarks>
+    /// https://github.com/superlloyd/Poly
+    /// http://pomax.github.io/bezierinfo/
+    /// </remarks>
     [Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(QuadraticBezier))]
+    [DisplayName(nameof(BezierSegment))]
     [XmlType(TypeName = "bezier-Segment")]
     public class BezierSegment
         : Shape

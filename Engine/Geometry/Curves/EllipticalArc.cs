@@ -37,12 +37,12 @@ namespace Engine
         /// <summary>
         /// The center x-coordinate point of the <see cref="EllipticalArc"/>.
         /// </summary>
-        private double x;
+        private double cx;
 
         /// <summary>
         /// The center y-coordinate point of the <see cref="EllipticalArc"/>.
         /// </summary>
-        private double y;
+        private double cy;
 
         /// <summary>
         /// Major Radius of <see cref="Ellipse"/>.
@@ -86,28 +86,6 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
         /// </summary>
-        /// <param name="x">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
-        /// <param name="y">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rX">Major radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rY">Minor radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <remarks></remarks>
-        public EllipticalArc(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle)
-        {
-            this.x = x;
-            this.y = y;
-            this.rX = rX;
-            this.rY = rY;
-            this.angle = angle;
-            this.startAngle = startAngle;
-            this.sweepAngle = sweepAngle;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
-        /// </summary>
         /// <param name="center">Center Point of <see cref="EllipticalArc"/>.</param>
         /// <param name="rX">Major radius of <see cref="EllipticalArc"/>.</param>
         /// <param name="rY">Minor radius of <see cref="EllipticalArc"/>.</param>
@@ -116,15 +94,8 @@ namespace Engine
         /// <param name="sweepAngle"></param>
         /// <remarks></remarks>
         public EllipticalArc(Point2D center, double rX, double rY, double angle, double startAngle, double sweepAngle)
-        {
-            x = center.X;
-            y = center.Y;
-            this.rX = rX;
-            this.rY = rY;
-            this.angle = angle;
-            this.startAngle = startAngle;
-            this.sweepAngle = sweepAngle;
-        }
+            : this(center.X, center.Y, rX, rY, angle, startAngle, sweepAngle)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
@@ -165,6 +136,28 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
         /// </summary>
+        /// <param name="x">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
+        /// <param name="y">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
+        /// <param name="rX">Major radius of <see cref="EllipticalArc"/>.</param>
+        /// <param name="rY">Minor radius of <see cref="EllipticalArc"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <remarks></remarks>
+        public EllipticalArc(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle)
+        {
+            this.cx = x;
+            this.cy = y;
+            this.rX = rX;
+            this.rY = rY;
+            this.angle = angle;
+            this.startAngle = startAngle;
+            this.sweepAngle = sweepAngle;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// </summary>
         /// <param name="startX">The starting X-coordinate.</param>
         /// <param name="startY">The starting Y-coordinate.</param>
         /// <param name="rx">The first radius.</param>
@@ -189,24 +182,54 @@ namespace Engine
             bool largeArcFlag,
             bool sweepFlag,
             double endX, double endY)
+            : this(startX, startY, rx, ry, Cos(angle), Sin(angle), largeArcFlag, sweepFlag, endX, endY)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// </summary>
+        /// <param name="startX">The starting X-coordinate.</param>
+        /// <param name="startY">The starting Y-coordinate.</param>
+        /// <param name="rx">The first radius.</param>
+        /// <param name="ry">The second Radius.</param>
+        /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
+        /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
+        /// <param name="largeArcFlag">Flag used to toggle whether to choose the largest matching ellipse.</param>
+        /// <param name="sweepFlag">Flag used to toggle whether to choose the upper or lower elliptical solution. </param>
+        /// <param name="endX"></param>
+        /// <param name="endY"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Elliptical arc implementation based on the SVG specification notes
+        /// http://stackoverflow.com/questions/14399406/implementing-svg-arc-curves-in-python
+        /// https://github.com/blackears/svgSalamander
+        /// http://java.net/projects/svgsalamander/sources/svn/content/trunk/svg-core/src/main/java/com/kitfox/svg/pathcmd/Arc.java
+        /// http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+        /// </remarks>
+        public EllipticalArc(
+            double startX, double startY,
+            double rx, double ry,
+            double cosAngle, double sinAngle,
+            bool largeArcFlag,
+            bool sweepFlag,
+            double endX, double endY)
         {
+            // Find the angle of the sine and cosine values.
+            this.angle = Atan2(sinAngle, CosAngle);
+
             // Compute the half distance between the start and end points.
             var dx2 = (startX - endX) * OneHalf;
             var dy2 = (startY - endY) * OneHalf;
 
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
-
             // Step 1 : Compute (x1, y1).
-            var x1 = (cosT * dx2 + sinT * dy2);
-            var y1 = (-sinT * dx2 + cosT * dy2);
+            var x1 = (cosAngle * dx2 + sinAngle * dy2);
+            var y1 = (-sinAngle * dx2 + cosAngle * dy2);
 
             // Ensure radii are positive.
-            rx = Abs(rx);
-            ry = Abs(ry);
-            var Prx = rx * rx;
-            var Pry = ry * ry;
+            this.rX = Abs(rx);
+            this.rY = Abs(ry);
+            var Prx = rX * rX;
+            var Pry = rY * rY;
             var Px1 = x1 * x1;
             var Py1 = y1 * y1;
 
@@ -214,10 +237,10 @@ namespace Engine
             var radiiCheck = Px1 / Prx + Py1 / Pry;
             if (radiiCheck > 1)
             {
-                rx = Sqrt(radiiCheck) * rx;
-                ry = Sqrt(radiiCheck) * ry;
-                Prx = rx * rx;
-                Pry = ry * ry;
+                rX = Sqrt(radiiCheck) * rX;
+                rY = Sqrt(radiiCheck) * rY;
+                Prx = rX * rX;
+                Pry = rY * rY;
             }
 
             // Step 2 : Compute (cx1, cy1).
@@ -225,52 +248,40 @@ namespace Engine
             var sq = ((Prx * Pry) - (Prx * Py1) - (Pry * Px1)) / ((Prx * Py1) + (Pry * Px1));
             sq = (sq < 0) ? 0 : sq;
             var coef = (sign * Sqrt(sq));
-            var cx1 = coef * ((rx * y1) / ry);
-            var cy1 = coef * -((ry * x1) / rx);
+            var cx1 = coef * ((rX * y1) / rY);
+            var cy1 = coef * -((rY * x1) / rX);
 
-            // Step 3 : Compute (cx, cy) from (cx1, cy1).
+            // Find the center point of the Ellipse.
             var sx2 = (startX + endX) * OneHalf;
             var sy2 = (startY + endY) * OneHalf;
-            var cx = sx2 + (cosT * cx1 - sinT * cy1);
-            var cy = sy2 + (sinT * cx1 + cosT * cy1);
+            this.cx = sx2 + (cosAngle * cx1 - sinAngle * cy1);
+            this.cy = sy2 + (sinAngle * cx1 + cosAngle * cy1);
 
-            // Step 4 : Compute the angleStart (angle1) and the angleExtent (dangle).
-            var ux = (x1 - cx1) / rx;
-            var uy = (y1 - cy1) / ry;
-            var vx = (-x1 - cx1) / rx;
-            var vy = (-y1 - cy1) / ry;
+            // Compute the start angle and sweep angle vectors.
+            var ux = (x1 - cx1) / rX;
+            var uy = (y1 - cy1) / rY;
+            var vx = (-x1 - cx1) / rX;
+            var vy = (-y1 - cy1) / rY;
 
-            // Compute the angle start.
+            // Compute the start angle.
             var n = Sqrt((ux * ux) + (uy * uy));
             var p = ux; // (1 * ux) + (0 * uy)
             sign = (uy < 0) ? -1d : 1d;
-            var angleStart = sign * Acos(p / n);
+            this.startAngle = sign * Acos(p / n);
 
-            // Compute the angle extent.
+            // Compute the sweep angle.
             n = Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
             p = ux * vx + uy * vy;
             sign = (ux * vy - uy * vx < 0) ? -1d : 1d;
-            var angleExtent = sign * Acos(p / n);
+            this.sweepAngle = sign * Acos(p / n);
 
-            if (!sweepFlag && angleExtent > 0)
-            {
-                angleExtent -= Tau;
-            }
-            else if (sweepFlag && angleExtent < 0)
-            {
-                angleExtent += Tau;
-            }
-            angleExtent %= Tau;
-            angleStart %= Tau;
+            if (!sweepFlag && sweepAngle > 0)
+                sweepAngle -= Tau;
+            else if (sweepFlag && sweepAngle < 0)
+                sweepAngle += Tau;
 
-            // We can now build the resulting Arc2D in double precision.
-            this.x = cx;
-            this.y = cy;
-            this.rX = rx;
-            this.rY = ry;
-            this.angle = angle;
-            this.startAngle = angleStart;
-            this.sweepAngle = angleExtent;
+            sweepAngle %= Tau;
+            startAngle %= Tau;
         }
 
         #endregion
@@ -290,11 +301,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get { return new Point2D(x, y); }
+            get { return new Point2D(cx, cy); }
             set
             {
-                x = value.X;
-                y = value.Y;
+                cx = value.X;
+                cy = value.Y;
                 ClearCache();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
@@ -315,11 +326,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(x, y); }
+            get { return new Point2D(cx, cy); }
             set
             {
-                x = value.X;
-                y = value.Y;
+                cx = value.X;
+                cy = value.Y;
                 ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
@@ -334,7 +345,8 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 0));
+            //=> (Point2D)CachingProperty(() => (Point2D)Interpolators.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 0));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(cx, cy, rX, rY, CosAngle, SinAngle, PolarStartAngle));
 
         /// <summary>
         /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
@@ -344,7 +356,8 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolaters.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 1));
+            //=> (Point2D)CachingProperty(() => (Point2D)Interpolators.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 1));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(cx, cy, rX, rY, CosAngle, SinAngle, PolarEndAngle));
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the elliptical arc.
@@ -359,10 +372,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get { return x; }
+            get { return cx; }
             set
             {
-                x = value;
+                cx = value;
                 ClearCache();
                 OnPropertyChanged(nameof(X));
                 update?.Invoke();
@@ -381,10 +394,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get { return y; }
+            get { return cy; }
             set
             {
-                y = value;
+                cy = value;
                 ClearCache();
                 OnPropertyChanged(nameof(Y));
                 update?.Invoke();
@@ -532,6 +545,20 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets the Cosine of the angle of rotation.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double CosAngle
+            => (double)CachingProperty(() => Cos(angle));
+
+        /// <summary>
+        /// Gets the Sine of the angle of rotation.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        public double SinAngle
+            => (double)CachingProperty(() => Sin(angle));
+
+        /// <summary>
         /// Gets or sets the start angle of the elliptical arc.
         /// </summary>
         [XmlIgnore, SoapIgnore]
@@ -576,6 +603,14 @@ namespace Engine
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// Gets the Polar corrected start angle of the <see cref="Ellipse"/>.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [GeometryAngleRadians]
+        public double PolarStartAngle
+            => (double)CachingProperty(() => EllipsePolarAngle(startAngle, rX, rY));
 
         /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
@@ -670,6 +705,14 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
+        /// </summary>
+        [XmlIgnore, SoapIgnore]
+        [GeometryAngleRadians]
+        public double PolarEndAngle
+            => (double)CachingProperty(() => EllipsePolarAngle(startAngle + sweepAngle, rX, rY));
+
+        /// <summary>
         /// Gets the Focus Radius of the elliptical arc.
         /// </summary>
         [XmlIgnore, SoapIgnore]
@@ -742,7 +785,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public List<Point2D> ExtremePoints
-            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, rX, rY, angle));
+            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(cx, cy, rX, rY, angle));
 
         /// <summary>
         /// Gets the Bounding box of the elliptical arc.
@@ -755,7 +798,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(x, y, rX, rY, angle, startAngle, sweepAngle));
+            => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(cx, cy, rX, rY, angle, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the size and location of the elliptical arc, in double-point pixels, relative to the parent canvas.
@@ -770,7 +813,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D DrawingBounds
-            => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
+            => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, rX, rY));
 
         #endregion
 
@@ -818,15 +861,15 @@ namespace Engine
 
         #endregion
 
-        #region Interpolaters
+        #region Interpolators
 
         /// <summary>
-        /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
+        /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, t);
+            => Interpolators.EllipticalArc(cx, cy, rX, rY, CosAngle, SinAngle, startAngle, sweepAngle, t);
 
         #endregion
 

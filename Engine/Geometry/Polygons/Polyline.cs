@@ -280,7 +280,7 @@ namespace Engine
                 {
                     // Interpolate the position.
                     double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
-                    cursor = Interpolaters.Linear(points[i], points[i + 1], th);
+                    cursor = Interpolators.Linear(points[i], points[i + 1], th);
                     break;
                 }
             }

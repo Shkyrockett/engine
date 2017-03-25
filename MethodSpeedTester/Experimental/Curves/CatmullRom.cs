@@ -149,7 +149,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         public override Point2D Interpolate(double t)
-            => Interpolaters.CatmullRom(tangentA, positionA, positionB, TangentB, t);
+            => Interpolators.CatmullRom(tangentA, positionA, positionB, TangentB, t);
 
         /// <summary>
         /// 

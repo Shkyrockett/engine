@@ -121,14 +121,16 @@ namespace Editor
         {
 #pragma warning disable IDE0022 // Use expression body for methods
             /* Experimental Previews */
+            TestCases.ScanlineIntersections(vectorMap);
             TestCases.CommonIntersections(vectorMap);
             //TestCases.CurveFitting(vectorMap);
             //TestCases.EllipseToBeziers(vectorMap);
             //TestCases.WarpGeometry(vectorMap);
             //TestCases.ComplexPolygonClipping(vectorMap);
+            //TestCases.PolyClipping(vectorMap);
+            //TestCases.FMartinezSamplesForClipping(vectorMap);
             //TestCases.PathContourWArcLine(vectorMap);
             //TestCases.WindingOrder(vectorMap);
-            //TestCases.PolyClipping(vectorMap);
             //TestCases.Pathfinding(vectorMap);
             //TestCases.PlainOval(vectorMap);
             //TestCases.PolylineClicking(vectorMap);

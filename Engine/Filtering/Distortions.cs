@@ -504,12 +504,12 @@ namespace Engine
             {
                 for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
                 {
-                    result.Add(Interpolaters.Linear(contour[i - 1], contour[i], j));
+                    result.Add(Interpolators.Linear(contour[i - 1], contour[i], j));
                 }
             }
             for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
             {
-                result.Add(Interpolaters.Linear(contour[contour.Count - 1], contour[0], j));
+                result.Add(Interpolators.Linear(contour[contour.Count - 1], contour[0], j));
             }
 
             return result;

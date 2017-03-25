@@ -393,7 +393,7 @@ namespace Engine
 
         #endregion
 
-        #region Interpolaters
+        #region Interpolators
 
         /// <summary>
         /// Interpolates the circle.
@@ -402,7 +402,7 @@ namespace Engine
         /// <returns>Returns the interpolated point of the index value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
-            => Interpolaters.UnitCircle(x, y, radius, t);
+            => Interpolators.UnitCircle(x, y, radius, t);
 
         #endregion
 

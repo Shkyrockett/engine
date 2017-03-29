@@ -19,6 +19,8 @@ using static System.Math;
 using static Engine.Maths;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Engine
 {
@@ -110,7 +112,8 @@ namespace Engine
         /// <summary>
         /// M11
         /// </summary>
-        public double M0x0 {
+        public double M0x0
+        {
             get
             {
                 return m0x0;
@@ -125,7 +128,8 @@ namespace Engine
         /// <summary>
         /// M12
         /// </summary>
-        public double M0x1 {
+        public double M0x1
+        {
             get
             {
                 return m0x1;
@@ -140,7 +144,8 @@ namespace Engine
         /// <summary>
         /// M22
         /// </summary>
-        public double M1x0 {
+        public double M1x0
+        {
             get
             {
                 return m1x0;
@@ -155,7 +160,8 @@ namespace Engine
         /// <summary>
         /// M22
         /// </summary>
-        public double M1x1 {
+        public double M1x1
+        {
             get
             {
                 return m1x1;
@@ -655,6 +661,24 @@ namespace Engine
             IFormattable formatable = $"{nameof(Matrix2x2D)}{{{nameof(M0x0)}={m0x0}{sep}{nameof(M0x1)}={m0x1}{sep}{nameof(M1x0)}={m1x0}{sep}{nameof(M1x1)}={m1x1}}}";
             return formatable.ToString(format, provider);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator()
+            => new List<List<double>>
+            {
+                new List<double> { m0x0, m0x1 },
+                new List<double> { m1x0, m1x1 },
+            }.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
 
         #endregion
     }

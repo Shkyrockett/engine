@@ -60,7 +60,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Flip(Center, point, FlipHorizontal, FlipVertical);
+            => Distortions.Flip(point, Center, FlipHorizontal, FlipVertical);
 
         #endregion
     }

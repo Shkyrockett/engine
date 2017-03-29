@@ -8,8 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
-
 namespace Engine
 {
     /// <summary>
@@ -55,7 +53,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Pinch(Center, point, -Strength);
+            => Distortions.Pinch(point, Center, -Strength);
 
         #endregion
     }

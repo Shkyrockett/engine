@@ -175,6 +175,7 @@
     <Compile Include="Filtering\Interfaces\IFilter.cs" />
     <Compile Include="Filtering\Filters\SphereDistort.cs" />
     <Compile Include="_Preview\Generators\Generators.cs" />
+    <Compile Include="_Preview\Intersection\Intersections2.cs" />
     <Compile Include="_Preview\PolyBezier\BezierSegment.cs" />
     <Compile Include="_Preview\PolyBezier\BezierSegmentX.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierContour.cs" />

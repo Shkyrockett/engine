@@ -210,7 +210,7 @@ namespace Engine
         public static Polynomial operator +(double a, Polynomial b)
         {
             var res = new double[b.Count];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
                 res[i] = b[i];
             res[0] += a;
             return new Polynomial(res);
@@ -228,7 +228,7 @@ namespace Engine
         public static Polynomial operator +(Polynomial a, Polynomial b)
         {
             var res = new double[Max(a.Count, b.Count)];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
             {
                 double p = 0;
                 if (i < a.Count)
@@ -251,7 +251,7 @@ namespace Engine
         public static Polynomial operator -(Polynomial a)
         {
             var res = new double[a.Count];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
                 res[i] = -a[i];
             return new Polynomial(res);
         }
@@ -280,7 +280,7 @@ namespace Engine
         public static Polynomial operator -(double b, Polynomial a)
         {
             var res = new double[a.Count];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
                 res[i] = -a[i];
             res[0] += b;
             return new Polynomial(res);
@@ -298,7 +298,7 @@ namespace Engine
         public static Polynomial operator -(Polynomial a, Polynomial b)
         {
             var res = new double[Max(a.Count, b.Count)];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
             {
                 double p = 0;
                 if (i < a.Count) p += a[i];
@@ -332,7 +332,7 @@ namespace Engine
         public static Polynomial operator *(double m, Polynomial p)
         {
             var res = new double[p.Count];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
                 res[i] = m * p[i];
             return new Polynomial(res);
         }
@@ -370,7 +370,7 @@ namespace Engine
         public static Polynomial operator /(Polynomial p, double m)
         {
             var res = new double[p.Count];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
                 res[i] = p[i] / m;
             return new Polynomial(res);
         }
@@ -391,7 +391,7 @@ namespace Engine
 
             Polynomial[] buf = new Polynomial[dim];
 
-            for (int i = 0; i < dim; i++)
+            for (var i = 0; i < dim; i++)
                 buf[i] = Monomial(i);
 
             return buf;
@@ -427,10 +427,10 @@ namespace Engine
                 throw new ArgumentNullException("At least 2 different points must be given");
 
             var res = new Polynomial();
-            for (int i = 0; i < ys.Length; i++)
+            for (var i = 0; i < ys.Length; i++)
             {
                 var e = new Polynomial(1);
-                for (int j = 0; j < ys.Length; j++)
+                for (var j = 0; j < ys.Length; j++)
                 {
                     if (j == i)
                         continue;
@@ -450,7 +450,7 @@ namespace Engine
         {
             if (degree == 0) return new Polynomial(1);
             double[] coeffs = new double[degree + 1];
-            for (int i = 0; i < degree; i++)
+            for (var i = 0; i < degree; i++)
                 coeffs[i] = 0d;
             coeffs[degree] = 1d;
             return new Polynomial(coeffs);
@@ -636,26 +636,14 @@ namespace Engine
         /// https://github.com/superlloyd/Poly
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Normalize(double epsilon = Epsilon)
+        public Polynomial Derivate()
         {
-            int order = 0;
-            double high = 1;
-            for (int i = 0; i < Count; i++)
+            var res = new double[Max(1, Count - 1)];
+            for (var i = 1; i < Count; i++)
             {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    order = i;
-                    high = coefficients[i];
-                }
+                res[i - 1] = i * coefficients[i];
             }
-            var res = new double[order + 1];
-            for (int i = 0; i < res.Length; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    res[i] = coefficients[i] / high;
-                }
-            }
+
             return new Polynomial(res);
         }
 
@@ -667,14 +655,26 @@ namespace Engine
         /// https://github.com/superlloyd/Poly
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Derivate()
+        public Polynomial Normalize(double epsilon = Epsilon)
         {
-            var res = new double[Max(1, Count - 1)];
-            for (int i = 1; i < Count; i++)
+            var order = 0;
+            double high = 1;
+            for (var i = 0; i < Count; i++)
             {
-                res[i - 1] = i * coefficients[i];
+                if (Abs(coefficients[i]) > epsilon)
+                {
+                    order = i;
+                    high = coefficients[i];
+                }
             }
-
+            var res = new double[order + 1];
+            for (var i = 0; i < res.Length; i++)
+            {
+                if (Abs(coefficients[i]) > epsilon)
+                {
+                    res[i] = coefficients[i] / high;
+                }
+            }
             return new Polynomial(res);
         }
 
@@ -691,7 +691,7 @@ namespace Engine
         {
             var res = new double[Count + 1];
             res[0] = term0;
-            for (int i = 0; i < Count; i++)
+            for (var i = 0; i < Count; i++)
                 res[i + 1] = coefficients[i] / (i + 1);
             return new Polynomial(res);
         }
@@ -713,16 +713,16 @@ namespace Engine
             var res = new double[order * n + 1];
             var tmp = new double[order * n + 1];
             res[0] = 1;
-            for (int pow = 0; pow < n; pow++)
+            for (var pow = 0; pow < n; pow++)
             {
-                int porder = pow * order;
+                var porder = pow * order;
                 for (var i = 0; i <= order; i++)
                     for (var j = 0; j <= porder; j++)
                     {
                         var mul = Coefficients[i] * res[j];
                         tmp[i + j] += mul;
                     }
-                for (int i = 0; i <= porder + order; i++)
+                for (var i = 0; i <= porder + order; i++)
                 {
                     res[i] = tmp[i];
                     tmp[i] = 0;
@@ -737,16 +737,19 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Evaluate(double x)
         {
             if (Double.IsNaN(x)) throw new Exception($"{nameof(Evaluate)}: parameter must be a number");
 
-            var z = 0d;
+            var result = 0d;
             for (var i = Degree; i >= 0; i--)
-                z = z * x + coefficients[(int)i];
+                result = result * x + coefficients[(int)i];
 
-            return z;
+            return result;
         }
 
         /// <summary>
@@ -762,9 +765,9 @@ namespace Engine
         {
             if (Double.IsNaN(x)) throw new Exception($"{nameof(Evaluate)}: parameter must be a number");
 
-            double z = 0d;
-            double xcoef = 1d;
-            for (int i = 0; i < Count; i++)
+            var z = 0d;
+            var xcoef = 1d;
+            for (var i = 0; i < Count; i++)
             {
                 z += Coefficients[i] * xcoef;
                 xcoef *= x;
@@ -786,7 +789,7 @@ namespace Engine
         {
             Complex z = 0;
             Complex xcoef = 1;
-            for (int i = 0; i < Count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 z += Coefficients[i] * xcoef;
                 xcoef *= x;
@@ -810,6 +813,9 @@ namespace Engine
         /// <param name="max"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double? Bisection(double min, double max, double epsilon = Epsilon)
         {
@@ -847,6 +853,210 @@ namespace Engine
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// interpolate
+        /// </summary>
+        /// <param name="xs"></param>
+        /// <param name="ys"></param>
+        /// <param name="n"></param>
+        /// <param name="offset"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// Based on trapzd in "Numerical Recipes in C", page 139
+        /// </remarks>
+        public (double y, double dy) Interpolate(List<double> xs, List<double> ys, int n, int offset, double x)
+        {
+            if (double.IsNaN(n) || double.IsNaN(offset) || double.IsNaN(x))
+                throw new Exception($"{nameof(Interpolate)}: {nameof(n)}, {nameof(offset)}, and {nameof(x)} must be numbers");
+
+            var y = 0d;
+            var dy = 0d;
+            var c = new List<double>(n);
+            var d = new List<double>(n);
+            var ns = 0;
+            var result = (y: y, dy: dy);
+
+            var diff = Abs(x - xs[offset]);
+            for (var i = 0; i < n; i++)
+            {
+                var dift = Abs(x - xs[offset + i]);
+
+                if (dift < diff)
+                {
+                    ns = i;
+                    diff = dift;
+                }
+                c[i] = d[i] = ys[offset + i];
+            }
+            y = ys[offset + ns];
+            ns--;
+
+            for (var m = 1; m < n; m++)
+            {
+                for (var i = 0; i < n - m; i++)
+                {
+                    var ho = xs[offset + i] - x;
+                    var hp = xs[offset + i + m] - x;
+                    var w = c[i + 1] - d[i];
+                    var den = ho - hp;
+
+                    if (den == 0.0)
+                    {
+                        result = (y: 0, dy: 0);
+                        break;
+                    }
+
+                    den = w / den;
+                    d[i] = hp * den;
+                    c[i] = ho * den;
+                }
+                dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
+                y += dy;
+            }
+
+            return (y: y, dy: dy);
+        }
+
+        /// <summary>
+        /// trapezoid
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="n"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// Based on trapzd in "Numerical Recipes in C", page 137
+        /// </remarks>
+        public double Trapezoid(double min, double max, int n, double epsilon = Epsilon)
+        {
+            if (double.IsNaN(min) || double.IsNaN(max) || double.IsNaN(n))
+                throw new Exception($"{nameof(Trapezoid)}: parameters must be numbers.");
+
+            var range = max - min;
+
+            var s = 0d;
+
+            if (n == 1)
+            {
+                var minValue = Evaluate(min);
+                var maxValue = Evaluate(max);
+                s = 0.5d * range * (minValue + maxValue);
+            }
+            else
+            {
+                var it = 1 << (n - 2);
+                var delta = range / it;
+                var x = min + 0.5 * delta;
+                var sum = 0d;
+
+                for (var i = 0; i < it; i++)
+                {
+                    sum += Evaluate(x);
+                    x += delta;
+                }
+                s = 0.5d * (s + range * sum / it);
+            }
+
+            if (double.IsNaN(s))
+                throw new Exception($"{nameof(Trapezoid)}: {nameof(s)} is NaN");
+
+            return s;
+        }
+
+        /// <summary>
+        /// simpson
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// Based on trapzd in "Numerical Recipes in C", page 139
+        /// </remarks>
+        public double Simpson(double min, double max, double epsilon = Epsilon)
+        {
+            if (double.IsNaN(min) || double.IsNaN(max))
+                throw new Exception($"{nameof(Simpson)}: parameters must be numbers");
+
+            var range = max - min;
+            var st = 0.5 * range * (Evaluate(min) + Evaluate(max));
+            var t = st;
+            var s = 4.0 * st / 3.0;
+            var os = s;
+            var ost = st;
+
+            var it = 1;
+            for (var n = 2; n <= 20; n++)
+            {
+                var delta = range / it;
+                var x = min + 0.5 * delta;
+                var sum = 0d;
+
+                for (var i = 1; i <= it; i++)
+                {
+                    sum += Evaluate(x);
+                    x += delta;
+                }
+
+                t = 0.5 * (t + range * sum / it);
+                st = t;
+                s = (4.0 * st - ost) / 3.0;
+
+                if (Abs(s - os) < epsilon * Abs(os))
+                    break;
+
+                os = s;
+                ost = st;
+                it <<= 1;
+            }
+
+            return s;
+        }
+
+        /// <summary>
+        /// romberg
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// Based on trapzd in "Numerical Recipes in C", page 139
+        /// </remarks>
+        public double Romberg(double min, double max, double epsilon = Epsilon)
+        {
+            if (double.IsNaN(min) || double.IsNaN(max))
+                throw new Exception($"{nameof(Romberg)}: parameters must be numbers");
+
+            var MAX = 20;
+            var K = 3;
+
+            var s = new List<double>(MAX + 1);
+            var h = new List<double>(MAX + 1);
+            (double y, double dy) result = (y: 0, dy: 0);
+
+            h[0] = 1.0;
+            for (var j = 1; j <= MAX; j++)
+            {
+                s[j - 1] = Trapezoid(min, max, j);
+                if (j >= K)
+                {
+                    result = Interpolate(h, s, K, j - K, 0.0);
+                    if (Abs(result.dy) <= epsilon * result.y) break;
+                }
+                s[j] = s[j - 1];
+                h[j] = 0.25 * h[j - 1];
+            }
+
+            return result.y;
         }
 
         /// <summary>
@@ -898,6 +1108,7 @@ namespace Engine
                     // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
                     return new List<double>();
             }
+            // should try Newton's method and/or bisection
         }
 
         /// <summary>
@@ -912,7 +1123,7 @@ namespace Engine
             Complex x0 = 1;
             Complex xMul = 0.4 + 0.9 * Complex.ImaginaryOne;
             var R0 = new Complex[p.coefficients.Length - 1];
-            for (int i = 0; i < R0.Length; i++)
+            for (var i = 0; i < R0.Length; i++)
             {
                 R0[i] = x0;
                 x0 *= xMul;
@@ -922,7 +1133,7 @@ namespace Engine
             Func<int, Complex> divider = i =>
             {
                 Complex div = 1;
-                for (int j = 0; j < R0.Length; j++)
+                for (var j = 0; j < R0.Length; j++)
                 {
                     if (j == i) continue;
                     div *= R0[i] - R0[j];
@@ -931,21 +1142,21 @@ namespace Engine
             };
             Action step = () =>
             {
-                for (int i = 0; i < R0.Length; i++)
+                for (var i = 0; i < R0.Length; i++)
                 {
                     R1[i] = R0[i] - p.Compute(R0[i]) / divider(i);
                 }
             };
             Func<bool> closeEnough = () =>
             {
-                for (int i = 0; i < R0.Length; i++)
+                for (var i = 0; i < R0.Length; i++)
                 {
                     var c = R0[i] - R1[i];
                     if (Abs(c.Real) > epsilon || Abs(c.Imaginary) > epsilon) return false;
                 }
                 return true;
             };
-            bool close = false;
+            var close = false;
             do
             {
                 step();
@@ -985,16 +1196,19 @@ namespace Engine
                 {
                     root = Bisection(min, droots[0], epsilon);
                     if (root != null) roots.Add(root.Value);
-                    for (int i = 0; i <= droots.Count - 2; i++)
+                    // find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
+                    for (var i = 0; i <= droots.Count - 2; i++)
                     {
                         root = Bisection(droots[i], droots[i + 1], epsilon);
                         if (root != null) roots.Add(root.Value);
                     }
+                    // find root on [droots[count-1],xmax]
                     root = Bisection(droots[droots.Count - 1], max, epsilon);
                     if (root != null) roots.Add(root.Value);
                 }
                 else
                 {
+                    // polynomial is monotone on [min,max], has at most one root
                     root = Bisection(min, max, epsilon);
                     if (root != null) roots.Add(root.Value);
                 }
@@ -1041,6 +1255,7 @@ namespace Engine
                 }
                 else if (descriminant == 0)
                 {
+                    // really two roots with same value, but we only return one
                     results.Add(OneHalf * -b);
                 }
             }
@@ -1067,12 +1282,13 @@ namespace Engine
                 var offset = c2 * OneThird;
                 var discriminant = b * b * OneQuarter + a * a * a * OneTwentySeventh;
                 var halfB = OneHalf * b;
-                if (Abs(discriminant) <= epsilon)
+                var ZEROepsilon = ZeroErrorEstimate();
+                if (Abs(discriminant) <= ZEROepsilon)
                     discriminant = 0;
                 if (discriminant > 0)
                 {
                     var e = Sqrt(discriminant);
-                    double tmp = -halfB + e;
+                    var tmp = -halfB + e;
                     double root;
                     if (tmp >= 0)
                         root = Pow(tmp, OneThird);
@@ -1100,8 +1316,10 @@ namespace Engine
                     double tmp;
                     if (halfB >= 0)
                         tmp = -Pow(halfB, OneThird);
-                    else tmp = Pow(-halfB, OneThird);
+                    else
+                        tmp = Pow(-halfB, OneThird);
                     results.Add(2 * tmp - offset);
+                    // really should return next root twice, but we return only one
                     results.Add(-tmp - offset);
                 }
             }
@@ -1162,7 +1380,7 @@ namespace Engine
                     {
                         if (t2 < 0) t2 = 0;
                         t2 = 2d * Sqrt(t2);
-                        double t1 = 3 * c3 * c3 * OneQuarter - 2d * c2;
+                        var t1 = 3 * c3 * c3 * OneQuarter - 2d * c2;
                         if (t1 + t2 >= epsilon)
                         {
                             var d = Sqrt(t1 + t2);
@@ -1179,6 +1397,104 @@ namespace Engine
                 }
             }
 
+            return results;
+        }
+
+        /**
+            Calculates roots of quartic polynomial. <br/>
+            First, derivative roots are found, then used to split quartic polynomial 
+            into segments, each containing one root of quartic polynomial.
+            Segments are then passed to newton's method to find roots.
+
+            @returns {Array<Number>} roots
+        */
+        private List<double> QuarticRoots0(double epsilon = Epsilon)
+        {
+            var results = new List<double>();
+
+            var n = (int)Degree;
+            if (n == 4)
+            {
+
+                var poly = new Polynomial()
+                {
+                    coefficients = coefficients.Slice()
+                };
+                poly.Divide(poly.coefficients[n]);
+                var ERRF = 1e-15;
+                if (Abs(poly.coefficients[0]) < 10 * ERRF * Abs(poly.coefficients[3]))
+                    poly.coefficients[0] = 0;
+                var poly_d = poly.Derivate();
+                List<double> derrt = poly_d.Roots();
+                derrt.Sort((a, b) => (int)(a - b));
+                var dery = new List<double>();
+                var nr = derrt.Count - 1;
+                var i = 0;
+                var rb = Bounds();
+                var maxabsX = Max(Abs(rb.minX), Abs(rb.maxX));
+                var ZEROepsilon = ZeroErrorEstimate(maxabsX);
+
+                for (i = 0; i <= nr; i++)
+                {
+                    dery.Add(poly.Evaluate(derrt[i]));
+                }
+
+                for (i = 0; i <= nr; i++)
+                {
+                    if (Abs(dery[i]) < ZEROepsilon)
+                        dery[i] = 0;
+                }
+
+                i = 0;
+                var dx = Max(0.1 * (rb.maxX - rb.minX) / n, ERRF);
+                var guesses = new List<double>();
+                var minmax = new List<(double, double)>();
+                if (nr > -1)
+                {
+                    if (dery[0] != 0)
+                    {
+                        if (Sign(dery[0]) != Sign(poly.Evaluate(derrt[0] - dx) - dery[0]))
+                        {
+                            guesses.Add(derrt[0] - dx);
+                            minmax.Add((rb.minX, derrt[0]));
+                        }
+                    }
+                    else
+                    {
+                        results.AddRange(new[] { derrt[0], derrt[0] });
+                        i++;
+                    }
+
+                    for (; i < nr; i++)
+                    {
+                        if (dery[i + 1] == 0)
+                        {
+                            results.AddRange(new[] { derrt[i + 1], derrt[i + 1] });
+                            i++;
+                        }
+                        else if (Sign(dery[i]) != Sign(dery[i + 1]))
+                        {
+                            guesses.Add((derrt[i] + derrt[i + 1]) / 2);
+                            minmax.Add((derrt[i], derrt[i + 1]));
+                        }
+                    }
+                    if (dery[nr] != 0 && Sign(dery[nr]) != Sign(poly.Evaluate(derrt[nr] + dx) - dery[nr]))
+                    {
+                        guesses.Add(derrt[nr] + dx);
+                        minmax.Add((derrt[nr], rb.maxX));
+                    }
+                }
+
+                if (guesses.Count > 0)
+                {
+                    for (i = 0; i < guesses.Count; i++)
+                    {
+                        guesses[i] = Newton_secant_bisection(guesses[i], (x) => poly.Evaluate(x), (x) => poly_d.Evaluate(x), 32, minmax[i].Item1, minmax[i].Item2);
+                    }
+                }
+
+                results = results.Concat(guesses).ToList();
+            }
             return results;
         }
 
@@ -1257,6 +1573,151 @@ namespace Engine
         }
 
         /// <summary>
+        /// Newton's (Newton-Raphson) method for finding Real roots on univariate function. <br/>
+        /// When using bounds, algorithm falls back to secant if newton goes out of range.
+        /// Bisection is fall-back for secant when determined secant is not efficient enough.
+        /// </summary>
+        /// <param name="x0">Initial root guess</param>
+        /// <param name="f">Function which root we are trying to find</param>
+        /// <param name="df">Derivative of function f</param>
+        /// <param name="max_iterations">Maximum number of algorithm iterations</param>
+        /// <param name="min">Left bound value</param>
+        /// <param name="max">Right bound value</param>
+        /// <returns>root</returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// http://en.wikipedia.org/wiki/Newton%27s_method
+        /// http://en.wikipedia.org/wiki/Secant_method
+        /// http://en.wikipedia.org/wiki/Bisection_method
+        /// </remarks>
+        public double Newton_secant_bisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double? min = null, double? max = null)
+        {
+            var prev_dfx = 0d;
+            var dfx = 0d;
+            var prev_x_ef_correction = 0d;
+            var x_correction = 0d;
+            var y_atmin = 0d;
+            var y_atmax = 0d;
+            var x = x0;
+            var ACCURACY = 14;
+            var min_correction_factor = Pow(10, -ACCURACY);
+            var isBounded = (min != null && max != null);
+            if (isBounded)
+            {
+                if (min > max)
+                    throw new Exception("newton root finding: min must be greater than max");
+                y_atmin = f(min.Value);
+                y_atmax = f(max.Value);
+                if (Sign(y_atmin) == Sign(y_atmax))
+                    throw new Exception("newton root finding: y values of bounds must be of opposite sign");
+            }
+
+            bool isEnoughCorrection()
+            {
+                // stop if correction is too small
+                // or if correction is in simple loop
+                return (Abs(x_correction) <= min_correction_factor * Abs(x))
+                    || (prev_x_ef_correction == (x - x_correction) - x);
+            };
+
+            var i = 0;
+            //var stepMethod;
+            //var details = [];
+            for (i = 0; i < max_iterations; i++)
+            {
+                dfx = df(x);
+                if (dfx == 0)
+                {
+                    if (prev_dfx == 0)
+                    {
+                        // error
+                        throw new Exception("newton root finding: df(x) is zero");
+                        //return null;
+                    }
+                    else
+                    {
+                        // use previous derivation value
+                        dfx = prev_dfx;
+                    }
+                    // or move x a little?
+                    //dfx = df(x != 0 ? x + x * 1e-15 : 1e-15);
+                }
+                //stepMethod = 'newton';
+                prev_dfx = dfx;
+                var y = f(x);
+                x_correction = y / dfx;
+                var x_new = x - x_correction;
+                if (isEnoughCorrection())
+                {
+                    break;
+                }
+
+                if (isBounded)
+                {
+                    if (Sign(y) == Sign(y_atmax))
+                    {
+                        max = x;
+                        y_atmax = y;
+                    }
+                    else if (Sign(y) == Sign(y_atmin))
+                    {
+                        min = x;
+                        y_atmin = y;
+                    }
+                    else
+                    {
+                        x = x_new;
+                        //console.log("newton root finding: sign(y) not matched.");
+                        break;
+                    }
+
+                    if ((x_new < min) || (x_new > max))
+                    {
+                        if (Sign(y_atmin) == Sign(y_atmax))
+                        {
+                            break;
+                        }
+
+                        var RATIO_LIMIT = 50;
+                        var AIMED_BISECT_OFFSET = 0.25; // [0, 0.5)
+                        var dy = y_atmax - y_atmin;
+                        var dx = max - min;
+
+                        if (dy == 0)
+                        {
+                            //stepMethod = 'bisect';
+                            x_correction = x - (min.Value + dx.Value * 0.5);
+                        }
+                        else if (Math.Abs(dy / Math.Min(y_atmin, y_atmax)) > RATIO_LIMIT)
+                        {
+                            //stepMethod = 'aimed bisect';
+                            x_correction = x - (min.Value + dx.Value * (0.5 + (Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET)));
+                        }
+                        else
+                        {
+                            //stepMethod = 'secant'; 
+                            x_correction = x - (min.Value - y_atmin / dy * dx.Value);
+                        }
+                        x_new = x - x_correction;
+
+                        if (isEnoughCorrection())
+                        {
+                            break;
+                        }
+                    }
+                }
+                //details.push([stepMethod, i, x, x_new, x_correction, min, max, y]);
+                prev_x_ef_correction = x - x_new;
+                x = x_new;
+            }
+            //details.push([stepMethod, i, x, x_new, x_correction, min, max, y]);
+            //console.log(details.join('\r\n'));
+            //if (i == max_iterations)
+            //    console.log('newt: steps=' + ((i==max_iterations)? i:(i + 1)));
+            return x;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="coefficients"></param>
@@ -1264,8 +1725,8 @@ namespace Engine
         /// <returns></returns>
         public static Polynomial Trim(double[] coefficients, double epsilon = Epsilon)
         {
-            int order = 0;
-            for (int i = 0; i < coefficients.Length; i++)
+            var order = 0;
+            for (var i = 0; i < coefficients.Length; i++)
             {
                 if (Abs(coefficients[i]) > epsilon)
                 {
@@ -1273,7 +1734,7 @@ namespace Engine
                 }
             }
             var res = new double[order + 1];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
             {
                 if (Abs(coefficients[i]) > epsilon)
                 {
@@ -1293,8 +1754,8 @@ namespace Engine
         {
             if (coefficients == null)
                 return 0;
-            int order = 0;
-            for (int i = 0; i < coefficients.Length; i++)
+            var order = 0;
+            for (var i = 0; i < coefficients.Length; i++)
             {
                 if (Abs(coefficients[i]) > epsilon)
                 {
@@ -1316,8 +1777,8 @@ namespace Engine
         {
             if (coefficients == null)
                 return 0;
-            int order = 0;
-            for (int i = 0; i < coefficients.Length; i++)
+            var order = 0;
+            for (var i = 0; i < coefficients.Length; i++)
             {
                 if (Abs(coefficients[i]) > Epsilon)
                 {
@@ -1339,11 +1800,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double minY, double maxY) GetMinMax(double x0, double x1)
         {
-            var points = Derivate()
-                .Roots()
+            var points = Derivate().Roots()
                 .Where(t => t > x0 && t < x1)
                 .Concat(new[] { x0, x1 });
-            bool first = true;
+            var first = true;
             (double minY, double maxY) = (0, 0);
             foreach (var t in points)
             {
@@ -1362,6 +1822,171 @@ namespace Engine
                 }
             }
             return (minY, maxY);
+        }
+
+        /// <summary>
+        /// Estimate what is the maximum polynomial evaluation error value under which polynomial evaluation could be in fact 0.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double ZeroErrorEstimate()
+        {
+            var poly = this;
+            var ERRF = 1e-15;
+            var rb = poly.Bounds();
+            var maxabsX = Max(Math.Abs(rb.minX), Math.Abs(rb.maxX));
+            if (maxabsX < 0.001)
+            {
+                return 2 * Abs(poly.Evaluate(ERRF));
+            }
+            var n = poly.coefficients.Count() - 1;
+            var an = poly.coefficients[n];
+            var i = 0d;
+            return 10 * ERRF * poly.coefficients.Reduce((m, v) => (int)process(m, v, i++), 0);
+            double process(double m, double v, double itter)
+            {
+                var nm = v / an * Pow(maxabsX, itter);
+                return nm > m ? nm : m;
+            }
+        }
+
+        /// <summary>
+        /// Estimate what is the maximum polynomial evaluation error value under which polynomial evaluation could be in fact 0.
+        /// </summary>
+        /// <param name="maxabsX"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double ZeroErrorEstimate(double maxabsX)
+        {
+            var poly = this;
+            var ERRF = 1e-15;
+            if (maxabsX < 0.001)
+            {
+                return 2 * Abs(poly.Evaluate(ERRF));
+            }
+            var n = poly.coefficients.Count() - 1;
+            var an = poly.coefficients[n];
+            var i = 0d;
+            return 10 * ERRF * poly.coefficients.Reduce((m, v) => (int)process(m, v, i++), 0);
+            double process(double m, double v, double itter)
+            {
+                var nm = v / an * Pow(maxabsX, itter);
+                return nm > m ? nm : m;
+            }
+        }
+
+        /// <summary>
+        /// Calculates upper Real roots bounds. <br/>
+        /// Real roots are in interval [negX, posX]. Determined by Fujiwara method.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double negX, double posX) Bounds_UpperReal_Fujiwara()
+        {
+            var a = coefficients;
+            var n = a.Length - 1;
+            var an = a[n];
+            if (an != 1)
+            {
+                a = coefficients.Map((v) => v / an).ToArray();
+            }
+            var i = -1;
+            var b = a.Map((v) => { return (++i < n) ? Pow(Abs((i == 0) ? v / 2 : v), 1 / (n - i)) : v; });
+
+            //var coefSelectionFunc;
+            //var bi = 0;
+            (double max, double nearmax) find2Max(Func<int, bool> coefSelectionFunc, (double max, double nearmax) acc, double bi, int itter)
+            {
+                if (coefSelectionFunc(itter))
+                {
+                    if (acc.max < bi)
+                    {
+                        acc.nearmax = acc.max;
+                        acc.max = bi;
+                    }
+                    else if (acc.nearmax < bi)
+                    {
+                        acc.nearmax = bi;
+                    }
+                }
+                return acc;
+            };
+
+            var max_nearmax_pos = b.Reduce((bi, acc) => find2Max((itter) => coefSelectionFunc0(itter), acc, bi, i++), (max: 0d, nearmax: 0d));
+            bool coefSelectionFunc0(int itter) { return itter < n && a[itter] < 0; };
+
+            var max_nearmax_neg = b.Reduce((bi, acc) => find2Max((itter) => coefSelectionFunc1(itter), acc, bi, i++), (max: 0d, nearmax: 0d));
+            bool coefSelectionFunc1(int itter) { return itter < n && ((n % 2 == itter % 2) ? a[itter] < 0 : a[itter] > 0); };
+
+            return (negX: -2 * max_nearmax_neg.max, posX: 2 * max_nearmax_pos.max);
+        }
+
+        /// <summary>
+        /// Calculates lower Real roots bounds. <br/>
+        /// There are no Real roots in interval (negX, posX). Determined by Fujiwara method.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double negX, double posX) Bounds_LowerReal_Fujiwara()
+        {
+            var poly = new Polynomial()
+            {
+                coefficients = coefficients.Slice()
+            };
+            poly.coefficients.Reverse();
+            var res = poly.Bounds_UpperReal_Fujiwara();
+            res.negX = 1 / res.negX;
+            res.posX = 1 / res.posX;
+            return res;
+        }
+
+        /// <summary>
+        /// Calculates left and right Real roots bounds. <br/>
+        /// Real roots are in interval [minX, maxX]. Combines Fujiwara lower and upper bounds to get minimal interval.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double minX, double maxX) Bounds()
+        {
+            var urb = Bounds_UpperReal_Fujiwara();
+            var rb = (minX: urb.negX, maxX: urb.posX);
+            if (urb.negX == 0 && urb.posX == 0)
+                return rb;
+            if (urb.negX == 0)
+            {
+                rb.minX = Bounds_LowerReal_Fujiwara().posX;
+            }
+            else if (urb.posX == 0)
+            {
+                rb.maxX = Bounds_LowerReal_Fujiwara().negX;
+            }
+            if (rb.minX > rb.maxX)
+            {
+                //console.log('Polynomial.prototype.bounds: poly has no real roots? or floating point error?');
+                rb.minX = rb.maxX = 0;
+            }
+            return rb;
+            // TODO: if sure that there are no complex roots 
+            // (maybe by using Sturm's theorem) use:
+            //return this.bounds_Real_Laguerre();
         }
 
         #endregion
@@ -1410,8 +2035,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Trim(double epsilon = Epsilon)
         {
-            int order = 0;
-            for (int i = 0; i < Count; i++)
+            var order = 0;
+            for (var i = 0; i < Count; i++)
             {
                 if (Abs(coefficients[i]) > Epsilon)
                 {
@@ -1419,7 +2044,7 @@ namespace Engine
                 }
             }
             var res = new double[order + 1];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
             {
                 if (Abs(coefficients[i]) > Epsilon)
                 {
@@ -1444,8 +2069,8 @@ namespace Engine
         {
             var coefficients = new double[polynomial.Count];
             Array.Copy(polynomial.coefficients, coefficients, (int)polynomial.Degree);
-            int order = 0;
-            for (int i = 0; i < polynomial.Count; i++)
+            var order = 0;
+            for (var i = 0; i < polynomial.Count; i++)
             {
                 if (Abs(coefficients[i]) > Epsilon)
                 {
@@ -1453,7 +2078,7 @@ namespace Engine
                 }
             }
             var res = new double[order + 1];
-            for (int i = 0; i < res.Length; i++)
+            for (var i = 0; i < res.Length; i++)
             {
                 if (Abs(coefficients[i]) > Epsilon)
                 {
@@ -1499,7 +2124,7 @@ namespace Engine
         {
             if (b == null) return false;
             if (a.Coefficients.Length != b.Coefficients.Length) return false;
-            for (int i = 0; i < a.Coefficients.Length; i++)
+            for (var i = 0; i < a.Coefficients.Length; i++)
                 if (Abs(a.Coefficients[i] - b.Coefficients[i]) > Epsilon) return false;
             return true;
         }
@@ -1563,8 +2188,8 @@ namespace Engine
             var signs = new List<string>();
             for (var i = coefficients.Length - 1; i >= 0; i--)
             {
-                double value = coefficients[i];
-                string valueString = value.ToString();
+                var value = coefficients[i];
+                var valueString = value.ToString();
                 if (value != 0)
                 {
                     var sign = (value < 0) ? " - " : " + ";

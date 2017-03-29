@@ -74,7 +74,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Pinch(Center, point, Radius, -Strength);
+            => Distortions.Pinch(point, Center, Radius, -Strength);
 
         #endregion
     }

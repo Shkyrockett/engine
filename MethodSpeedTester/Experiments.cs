@@ -6527,6 +6527,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (bool, (double, double)?, bool, (double, double)?) FindEllipseSegmentIntersections(
             double cx, double cy,
             double rx, double ry,
@@ -6593,6 +6594,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://forums.codeguru.com/showthread.php?157823-How-to-get-ellipse-and-line-Intersection-points
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (bool, (double, double)?, bool, (double, double)?) EllipseLineSegment(
             double cX, double cY,
             double rX, double rY,
@@ -6762,12 +6764,11 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection UnrotatedEllipseLineSegmentIntersection(
             double centerX, double centerY,
-            double rx,
-            double ry,
+            double rx, double ry,
             double a1X, double a1Y,
             double a2X, double a2Y)
         {
-            Intersection result;
+            var result = new Intersection(IntersectionState.NoIntersection);
             var origin = new Vector2D(a1X, a1Y);
             var dir = new Vector2D(a1X, a1Y, a2X, a2Y);
             var diff = origin.Subtract(centerX, centerY);
@@ -6921,6 +6922,7 @@ namespace MethodSpeedTester
         /// <param name="line"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (bool, (double, double)?, bool, (double, double)?) Intersect(Ellipse ellipse, LineSegment line)
         {
             var slopeA = line.Slope();
@@ -6936,6 +6938,131 @@ namespace MethodSpeedTester
             var yB = ((slopeA * xB) + slopeB);
 
             return (true, (xA, yA), true, (xB, yB));
+        }
+
+        #endregion
+
+        #region Intersection of Elliptical Arc and Line Segment
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(
+            double cx, double cy,
+            double rx, double ry,
+            double startAngle, double sweepAngle,
+            double x0, double y0,
+            double x1, double y1)
+        {
+            // Initialize the resulting intersection structure.
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // Translate the line to put the ellipse centered at the origin.
+            var origin = new Vector2D(x0, y0);
+            var dir = new Vector2D(x0, y0, x1, y1);
+            var diff = origin.Subtract(cx, cy);
+            var mDir = new Vector2D(dir.I / (rx * rx), dir.J / (ry * ry));
+            var mDiff = new Vector2D(diff.I / (rx * rx), diff.J / (ry * ry));
+
+            // Calculate the quadratic parameters.
+            var a = dir.DotProduct(mDir);
+            var b = dir.DotProduct(mDiff);
+            var c = diff.DotProduct(mDiff) - 1d;
+
+            // Calculate the discriminant of the quadratic. The 4 is omitted.
+            var discriminant = b * b - a * c;
+
+            // Check whether line segment is outside of the ellipse.
+            if (discriminant < 0)
+            {
+                return new Intersection(IntersectionState.Outside);
+            }
+
+            // Find the start and end angles.
+            var sa = EllipsePolarAngle(startAngle, rx, ry);
+            var ea = EllipsePolarAngle(startAngle + sweepAngle, rx, ry);
+
+            // Get the ellipse rotation transform.
+            var cosT = Cos(0);
+            var sinT = Sin(0);
+
+            // Ellipse equation for an ellipse at origin for the chord end points.
+            var u1 = rx * Cos(sa);
+            var v1 = -(ry * Sin(sa));
+            var u2 = rx * Cos(ea);
+            var v2 = -(ry * Sin(ea));
+
+            // Find the points of the chord.
+            var sX = cx + (u1 * cosT + v1 * sinT);
+            var sY = cy + (u1 * sinT - v1 * cosT);
+            var eX = cx + (u2 * cosT + v2 * sinT);
+            var eY = cy + (u2 * sinT - v2 * cosT);
+
+            if (discriminant > 0)
+            {
+                // Two real possible solutions.
+                var root = Sqrt(discriminant);
+                var t1 = (-b - root) / a;
+                var t2 = (-b + root) / a;
+                if ((t1 < 0 || 1 < t1) && (t2 < 0 || 1 < t2))
+                {
+                    if ((t1 < 0 && t2 < 0) || (t1 > 1 && t2 > 1))
+                        result = new Intersection(IntersectionState.Outside);
+                    else
+                        result = new Intersection(IntersectionState.Inside);
+                }
+                else
+                {
+                    var p = Lerp(x0, y0, x1, y1, t1);
+                    // Find the determinant of the chord.
+                    var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
+
+                    // Check whether the point is on the side of the chord as the center.
+                    if (0 <= t1 && t1 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
+                        result.AppendPoint(p);
+
+                    p = Lerp(x0, y0, x1, y1, t2);
+                    // Find the determinant of the chord.
+                    determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
+                    if (0 <= t2 && t2 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
+                        result.AppendPoint(p);
+                }
+            }
+            else // discriminant == 0.
+            {
+                // One real possible solution. 
+                var t = -b / a;
+                if (t >= 0d && t <= 1d)
+                {
+                    var p = Lerp(x0, y0, x1, y1, t);
+
+                    // Find the determinant of the matrix representing the chord.
+                    var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
+
+                    // Add the point if it is on the sweep side of the chord.
+                    if (Sign(determinant) != Sign(sweepAngle))
+                        result.AppendPoint(Lerp(x0, y0, x1, y1, t));
+                }
+                else
+                    result = new Intersection(IntersectionState.Outside);
+            }
+
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
+            return result;
         }
 
         #endregion

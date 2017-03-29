@@ -19,6 +19,8 @@ using static System.Math;
 using static Engine.Maths;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Engine
 {
@@ -1168,6 +1170,26 @@ namespace Engine
             IFormattable formatable = $"{nameof(Matrix4x4D)}{{{nameof(M0x0)}={m0x0}{sep}{nameof(M0x1)}={m0x1}{sep}{nameof(M0x2)}={m0x2}{sep}{nameof(M0x3)}={m0x3}{sep}{nameof(M1x0)}={m1x0}{sep}{nameof(M1x1)}={m1x1}{sep}{nameof(M1x2)}={m1x2}{sep}{nameof(M1x3)}={m1x3}{sep}{nameof(M2x0)}={m2x0}{sep}{nameof(M2x1)}={m2x1}{sep}{nameof(M2x2)}={m2x2}{sep}{nameof(M2x3)}={m2x3}{sep}{nameof(M3x0)}={m3x0}{sep}{nameof(M3x1)}={m3x1}{sep}{nameof(M3x2)}={m3x2}{sep}{nameof(M3x3)}={m3x3}}}";
             return formatable.ToString(format, provider);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator()
+            => new List<List<double>>
+            {
+                new List<double> { m0x0, m0x1, m0x2, m0x3 },
+                new List<double> { m1x0, m1x1, m1x2, m1x3 },
+                new List<double> { m2x0, m2x1, m2x2, M2x3 },
+                new List<double> { m3x0, m3x1, m3x2, M3x3 },
+            }.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
 
         #endregion
     }

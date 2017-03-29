@@ -53,7 +53,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.TimeWarp(Center, point, Strength);
+            => Distortions.TimeWarp(point, Center, Strength);
 
         #endregion
     }

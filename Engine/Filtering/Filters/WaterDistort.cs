@@ -53,7 +53,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Water(Center, point, Strength);
+            => Distortions.Water(point, Center, Strength);
 
         #endregion
     }

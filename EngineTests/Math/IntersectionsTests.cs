@@ -298,7 +298,7 @@ namespace Engine.Tests
 
             foreach (var testCase in testCases.Keys)
             {
-                bool result = Intersections.PointLineSegmentIntersects(testCase.AX, testCase.AY, testCase.BX, testCase.BY, testCase.X, testCase.Y);
+                var result = Intersections.PointLineSegmentIntersects(testCase.AX, testCase.AY, testCase.BX, testCase.BY, testCase.X, testCase.Y);
                 Assert.AreEqual(testCases[testCase], result);
             }
         }
@@ -343,7 +343,7 @@ namespace Engine.Tests
 
             foreach (var testCase in testCases.Keys)
             {
-                var result = Intersections.LineLineIntersection(testCase.A1X, testCase.A1Y, testCase.B1X, testCase.B1Y, testCase.A2X, testCase.A2Y, testCase.B2X, testCase.B2Y);
+                var result = Intersections.Intersection(new Line(testCase.A1X, testCase.A1Y, testCase.B1X, testCase.B1Y), new Line(testCase.A2X, testCase.A2Y, testCase.B2X, testCase.B2Y));
                 Assert.AreEqual(testCases[testCase], result);
             }
         }

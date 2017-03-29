@@ -10,6 +10,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 
 namespace Engine
 {
@@ -20,6 +21,7 @@ namespace Engine
     /// <typeparam name="V"></typeparam>
     public interface IMatrix<M, V>
         : IFormattable,
+        IEnumerable<IEnumerable<double>>,
         IEquatable<M> where M : struct, IMatrix<M, V> where V : struct, IVector<V>
     {
     }

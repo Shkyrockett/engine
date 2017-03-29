@@ -353,7 +353,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
-            => contours.GetEnumerator();
+            => GetEnumerator();
 
         /// <summary>
         /// 

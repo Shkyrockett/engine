@@ -45,6 +45,7 @@ using static Engine.Maths;
 using static System.Math;
 using static Engine.Measurements;
 using System.Linq;
+using Engine._Preview;
 
 namespace Engine
 {
@@ -465,90 +466,132 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc e, Line s)
-            => LineUnrotatedEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, e.X, e.Y, e.RX, e.RY, e.StartAngle, e.SweepAngle);
+        public static Intersection Intersection(this Ellipse e, Line s, double epsilon = Epsilon)
+            => EllipseLineIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, epsilon);
+
+        /// <summary>
+        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="epsilon"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line s, Ellipse e, double epsilon = Epsilon)
+            => EllipseLineIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line s, EllipticalArc e)
-            => LineUnrotatedEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, e.X, e.Y, e.RX, e.RY, e.StartAngle, e.SweepAngle);
+        public static Intersection Intersection(this EllipticalArc e, Line s, double epsilon = Epsilon)
+            => EllipticalArcLineIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, epsilon);
+
+        /// <summary>
+        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="epsilon"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line s, EllipticalArc e, double epsilon = Epsilon)
+            => EllipticalArcLineIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc e, LineSegment s)
-            => UnrotatedEllipticalArcLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.StartAngle, e.SweepAngle, s.A.X, s.A.Y, s.B.X, s.B.Y);
+        public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
+            => EllipticalArcLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
+
+        /// <summary>
+        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="epsilon"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this LineSegment s, EllipticalArc e, double epsilon = Epsilon)
+            => EllipticalArcLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, LineSegment s)
-            => EllipseLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.Angle, s.A.X, s.A.Y, s.B.X, s.B.Y);
+        public static Intersection Intersection(this Ellipse e, LineSegment s, double epsilon = Epsilon)
+            => EllipseLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
         /// <param name="e"></param>
+        /// <param name="epsilon"></param>
         /// <param name="s"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Ellipse e)
-            => EllipseLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.Angle, s.A.X, s.A.Y, s.B.X, s.B.Y);
+        public static Intersection Intersection(this LineSegment s, Ellipse e, double epsilon = Epsilon)
+            => EllipseLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a rectangle.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="r"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Rectangle2D r)
-            => UnrotatedEllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, r.X, r.Y, r.Right, r.Bottom);
+        public static Intersection Intersection(this Ellipse e, Rectangle2D r, double epsilon = Epsilon)
+            => EllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the points of the intersection of an unrotated ellipse and a rectangle.
         /// </summary>
         /// <param name="r"></param>
         /// <param name="e"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D r, Ellipse e)
-            => UnrotatedEllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, r.X, r.Y, r.Right, r.Bottom);
+        public static Intersection Intersection(this Rectangle2D r, Ellipse e, double epsilon = Epsilon)
+            => EllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a polygon.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="p"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Contour p)
-            => UnrotatedEllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, p.Points);
+        public static Intersection Intersection(this Ellipse e, Contour p, double epsilon = Epsilon)
+            => EllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a polygon.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="e"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, Ellipse e)
-            => UnrotatedEllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, p.Points);
+        public static Intersection Intersection(this Contour p, Ellipse e, double epsilon = Epsilon)
+            => EllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and an unrotated Ellipse.
@@ -727,8 +770,40 @@ namespace Engine
         /// <param name="l"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this CubicBezier b, Line l)
+            //=> LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY);
+            => (b.AY == b.DY && b.BY == b.CY && l.Direction.J == 0)
+            // This is really silly. Why does one method work for all but the case where everything is horizontal, and the other only works when everything is horizontal?
+            ? LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY)
+            : LineCubicBezierIntersection1(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY);
+
+        /// <summary>
+        /// Find the intersection of a Line segment and a Cubic Bezier.
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, CubicBezier b)
+            //=> LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY);
+            => (b.AY == b.DY && b.BY == b.CY && l.Direction.J == 0)
+            // This is really silly. Why does one method work for all but the case where everything is horizontal, and the other only works when everything is horizontal?
+            ? LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY)
+            : LineCubicBezierIntersection1(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY);
+
+        /// <summary>
+        /// Find the intersection of a Cubic Bezier and a Line segment.
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="l"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, LineSegment l)
-            => CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, l.AX, l.AY, l.BX, l.BY);
+            //=> CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, l.AX, l.AY, l.BX, l.BY);
+            => (b.AY == b.DY && b.BY == b.CY && l.AY == l.BY)
+            // This is really silly. Why does one method work for all but the case where everything is horizontal, and the other only works when everything is horizontal?
+            ? CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, l.AX, l.AY, l.BX, l.BY)
+            : LineSegmentCubicBezierIntersection1(l.AX, l.AY, l.BX, l.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bezier.
@@ -738,7 +813,11 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment l, CubicBezier b)
-            => CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, l.AX, l.AY, l.BX, l.BY);
+            //=> CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, l.AX, l.AY, l.BX, l.BY);
+            => (b.AY == b.DY && b.BY == b.CY && l.AY == l.BY)
+            // This is really silly. Why does one method work for all but the case where everything is horizontal, and the other only works when everything is horizontal?
+            ? CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, l.AX, l.AY, l.BX, l.BY)
+            : LineSegmentCubicBezierIntersection1(l.AX, l.AY, l.BX, l.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Rectangle.
@@ -748,7 +827,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Rectangle2D r)
-            => CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, r.X, r.Y, r.Right, r.Bottom);
+            => CubicBezierRectangleIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, r.X, r.Y, r.Right, r.Bottom);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Cubic Bezier.
@@ -758,7 +837,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, CubicBezier b)
-            => CubicBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, r.X, r.Y, r.Right, r.Bottom);
+            => CubicBezierRectangleIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, r.X, r.Y, r.Right, r.Bottom);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Polygon Contour.
@@ -837,8 +916,31 @@ namespace Engine
         /// <param name="l"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this QuadraticBezier b, Line l)
+            //=> LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY);
+            => Intersections2.IntersectQuadraticBezierLine(b.A, b.B, b.C, l.Location, l.Location + l.Direction);
+
+        /// <summary>
+        /// Find the intersection of a Line segment and a Quadratic Bezier.
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, QuadraticBezier b)
+            //=> LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY);
+            => Intersections2.IntersectQuadraticBezierLine(b.A, b.B, b.C, l.Location, l.Location + l.Direction);
+
+        /// <summary>
+        /// Find the intersection of a Quadratic Bezier and a Line segment.
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="l"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, LineSegment l)
-            => QuadraticBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, l.AX, l.AY, l.BX, l.BY);
+            //=> QuadraticBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, l.AX, l.AY, l.BX, l.BY);
+            => Intersections2.IntersectQuadraticBezierLineSegment(b.A, b.B, b.C, l.A, l.B);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Quadratic Bezier.
@@ -848,7 +950,8 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment l, QuadraticBezier b)
-            => QuadraticBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, l.AX, l.AY, l.BX, l.BY);
+            //=> QuadraticBezierLineSegmentIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, l.AX, l.AY, l.BX, l.BY);
+            => Intersections2.IntersectQuadraticBezierLineSegment(b.A, b.B, b.C, l.A, l.B);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Rectangle.
@@ -1711,8 +1814,9 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+        public static Inclusion EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
+            // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
                 return Inclusion.Outside;
 
@@ -1743,11 +1847,11 @@ namespace Engine
             if (Sign(determinant) == Sign(sweepAngle))
                 return Inclusion.Outside;
 
-            // Translate points to origin.
+            // Translate point to origin.
             var u0 = pX - cX;
             var v0 = pY - cY;
 
-            // Apply the rotation transformation.
+            // Apply the rotation transformation to the point at the origin.
             var a = u0 * cosT + v0 * sinT;
             var b = u0 * sinT - v0 * cosT;
 
@@ -1757,7 +1861,7 @@ namespace Engine
                 + ((b * b) / (r2 * r2));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
@@ -1781,6 +1885,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
         {
+            // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
                 return Inclusion.Outside;
 
@@ -2570,94 +2675,440 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="rX"></param>
-        /// <param name="rY"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection LineUnrotatedEllipticalArcIntersection(
-            double a1X, double a1Y,
-            double a2X, double a2Y,
-            double cX, double cY,
-            double rX, double rY,
-            double startAngle, double sweepAngle)
+        private static Intersection EllipseLineIntersection(double cx, double cy, double rx, double ry, double angle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+            => EllipseLineIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), x0, y0, x1, y1, epsilon);
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipseLineIntersection(
+            double cx, double cy,
+            double rx, double ry,
+            double cosA, double sinA,
+            double x0, double y0,
+            double x1, double y1,
+            double epsilon = Epsilon)
         {
+            // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
-            var origin = new Vector2D(a1X, a1Y);
-            var dir = new Vector2D(a1X, a1Y, a2X, a2Y);
-            var diff = origin.Subtract(cX, cY);
-            var mDir = new Vector2D(dir.I / (rX * rX), dir.J / (rY * rY));
-            var mDiff = new Vector2D(diff.I / (rX * rX), diff.J / (rY * rY));
-            var a = dir.DotProduct(mDir);
-            var b = dir.DotProduct(mDiff);
-            var c = diff.DotProduct(mDiff) - 1.0;
-            var d = b * b - a * c;
 
-            // Find the start and end angles.
-            var sa = EllipsePolarAngle(startAngle, rX, rY);
-            var ea = EllipsePolarAngle(startAngle + sweepAngle, rX, rY);
+            // If the ellipse or line segment are empty, return no intersections.
+            if ((rx == 0d) || (ry == 0d) ||
+                ((x0 == x1) && (y0 == y1)))
+                return result;
 
-            // Get the ellipse rotation transform.
-            var cosT = Cos(0);
-            var sinT = Sin(0);
+            // Translate the line to put the ellipse centered at the origin.
+            var u1 = x0 - cx;
+            var v1 = y0 - cy;
+            var u2 = x1 - cx;
+            var v2 = y1 - cy;
 
-            // Ellipse equation for an ellipse at origin for the chord end points.
-            var u1 = rX * Cos(sa);
-            var v1 = -(rY * Sin(sa));
-            var u2 = rX * Cos(ea);
-            var v2 = -(rY * Sin(ea));
+            // Apply Rotation Transform to line at the origin.
+            var u1A = (0 + (u1 * cosA - v1 * -sinA));
+            var v1A = (0 + (u1 * -sinA + v1 * cosA));
+            var u2A = (0 + (u2 * cosA - v2 * -sinA));
+            var v2A = (0 + (u2 * -sinA + v2 * cosA));
 
-            // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            // Calculate the quadratic parameters.
+            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
+            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
+            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
 
-            if (d < 0)
+            // Calculate the discriminant.
+            var discriminant = b * b - 4d * a * c;
+
+            // Find solutions.
+            if ((a <= epsilon) || (discriminant < 0))
             {
-                result = new Intersection(IntersectionState.Outside);
+                // No real solutions.
+                result.State |= IntersectionState.Outside;
+                return result;
             }
-            else if (d > 0)
+            else if (discriminant == 0)
             {
-                var root = Sqrt(d);
-                var t1 = (-b - root) / a;
-                var t2 = (-b + root) / a;
-                var p = Lerp(a1X, a1Y, a2X, a2Y, t1);
-                // Find the determinant of the chord.
-                var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
+                // One real possible solution.
+                var t = 0.5d * -b / a;
 
-                // Check whether the point is on the side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle))
-                    result.AppendPoint(p);
+                // Add the point if it is between the end points of the line segment.
+                //if ((t >= 0d) && (t <= 1d))
+                {
+                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
+                }
 
-                p = Lerp(a1X, a1Y, a2X, a2Y, t2);
-                // Find the determinant of the chord.
-                determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
-                if (Sign(determinant) != Sign(sweepAngle))
-                    result.AppendPoint(p);
             }
-            else
+            else if (discriminant > 0)
             {
-                var t = -b / a;
-                var p = Lerp(a1X, a1Y, a2X, a2Y, t);
-                // Find the determinant of the chord.
-                var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
-                if (Sign(determinant) != Sign(sweepAngle))
-                    result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t));
+                // Two real possible solutions.
+                var t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
+                var t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+
+                // Add the points if they are between the end points of the line segment.
+                //if ((t1 >= 0d) && (t1 <= 1d))
+                {
+                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                }
+
+                //if ((t2 >= 0d) && (t2 <= 1d))
+                {
+                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+                }
             }
+
+            // Return the intersections.
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
             return result;
+        }
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipticalArcLineIntersection(double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+            => EllipseLineSegmentIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), x0, y0, x1, y1, epsilon);
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="sinA"></param>
+        /// <param name="cosA"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipticalArcLineIntersection(
+            double cx, double cy,
+            double rx, double ry,
+            double cosA, double sinA,
+            double startAngle, double sweepAngle,
+            double x0, double y0,
+            double x1, double y1,
+            double epsilon = Epsilon)
+        {
+            // Initialize the resulting intersection structure.
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // If the ellipse or line segment are empty, return no intersections.
+            if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
+                ((x0 == x1) && (y0 == y1)))
+                return result;
+
+            // Translate the line to put it at the ellipse centered at the origin.
+            var u0 = x0 - cx;
+            var v0 = y0 - cy;
+            var u1 = x1 - cx;
+            var v1 = y1 - cy;
+
+            // Apply the rotation transformation to line at the origin.
+            var u0A = u0 * cosA - v0 * -sinA;
+            var v0A = u0 * -sinA + v0 * cosA;
+            var u1A = u1 * cosA - v1 * -sinA;
+            var v1A = u1 * -sinA + v1 * cosA;
+
+            // Calculate the quadratic parameters.
+            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
+            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
+            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
+
+            // Calculate the discriminant of the quadratic.
+            var discriminant = b * b - 4d * a * c;
+
+            // Check whether line segment is outside of the ellipse.
+            if ((a <= epsilon) || (discriminant < 0))
+            {
+                // No real solutions.
+                result.State |= IntersectionState.Outside;
+                return result;
+            }
+
+            // Find the corrected start and end angles.
+            var sa = EllipsePolarAngle(startAngle, rx, ry);
+            var ea = EllipsePolarAngle(startAngle + sweepAngle, rx, ry);
+
+            // Ellipse equation for an ellipse at origin; for the chord end points.
+            var usa = rx * Cos(sa);
+            var vsa = -(ry * Sin(sa));
+            var uea = rx * Cos(ea);
+            var vea = -(ry * Sin(ea));
+
+            // Apply the rotation transformation to find the chord points.
+            var sx = cx + (usa * cosA + vsa * sinA);
+            var sy = cy + (usa * sinA - vsa * cosA);
+            var ex = cx + (uea * cosA + vea * sinA);
+            var ey = cy + (uea * sinA - vea * cosA);
+
+            if (discriminant == 0)
+            {
+                // One real possible solution.
+                var t = OneHalf * -b / a;
+
+                // Add the point if it is between the end points of the line segment.
+                //if (t >= 0d && t <= 1d)
+                {
+                    // Find the point.
+                    var p = new Point2D(u0 + (u1 - u0) * t + cx, v0 + (v1 - v0) * t + cy);
+
+                    // Find the determinant of the matrix representing the chord.
+                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+
+                    // Add the point if it is on the sweep side of the chord.
+                    if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                        result.AppendPoint(p);
+                }
+
+            }
+            else if (discriminant > 0)
+            {
+                // Two real possible solutions.
+                var root = Sqrt(discriminant);
+                var t1 = (OneHalf * (-b + root) / a);
+                var t2 = (OneHalf * (-b - root) / a);
+
+                // Add the points if they are between the end points of the line segment.
+                //if ((t1 >= 0d) && (t1 <= 1d))
+                {
+                    // Find the point.
+                    var p = new Point2D(u0 + (u1 - u0) * t1 + cx, v0 + (v1 - v0) * t1 + cy);
+
+                    // Find the determinant of the matrix representing the chord.
+                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+
+                    // Add the point if it is on the sweep side of the chord.
+                    if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                        result.AppendPoint(p);
+                }
+
+                //if ((t2 >= 0d) && (t2 <= 1d))
+                {
+                    // Find the point.
+                    var p = new Point2D(u0 + (u1 - u0) * t2 + cx, v0 + (v1 - v0) * t2 + cy);
+
+                    // Find the determinant of the matrix representing the chord.
+                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+
+                    // Add the point if it is on the sweep side of the chord.
+                    if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                        result.AppendPoint(p);
+                }
+            }
+
+            // Return the intersections.
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="l0x"></param>
+        /// <param name="l0y"></param>
+        /// <param name="l1x"></param>
+        /// <param name="l1y"></param>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <param name="p2x"></param>
+        /// <param name="p2y"></param>
+        /// <param name="p3x"></param>
+        /// <param name="p3y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// This method has an error where it does not return an intersection with a horizontal line and the end points of the curve share the same y value, as well as the handles sharing another y value.
+        /// Found at: https://www.particleincell.com/2013/cubic-line-intersection/
+        /// Based on code now found at: http://www.abecedarical.com/javascript/script_cubic.html
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection LineSegmentCubicBezierIntersection1(
+            double l0x, double l0y,
+            double l1x, double l1y,
+            double p0x, double p0y,
+            double p1x, double p1y,
+            double p2x, double p2y,
+            double p3x, double p3y)
+        {
+            // ToDo: Figure out why this can't handle intersection with horizontal lines.
+            var I = new Intersection(IntersectionState.NoIntersection);
+
+            var A = l1y - l0y;      //A=y2-y1
+            var B = l0x - l1x;      //B=x1-x2
+            var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
+
+            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+
+            var r = CubicRoots(
+                A * bx.A + B * by.A,    /*t^3*/
+                A * bx.B + B * by.B,    /*t^2*/
+                A * bx.C + B * by.C,    /*t*/
+                A * bx.D + B * by.D + C /*1*/
+                );
+
+            /*verify the roots are in bounds of the linear segment*/
+            for (var i = 0; i < 3; i++)
+            {
+                var t = r[i];
+
+                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
+                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
+
+                /*above is intersection point assuming infinitely long line segment,
+                  make sure we are also in bounds of the line*/
+                double m;
+                if ((l1x - l0x) != 0)           /*if not vertical line*/
+                    m = (x - l0x) / (l1x - l0x);
+                else
+                    m = (y - l0y) / (l1y - l0y);
+
+                /*in bounds?*/
+                if (t < 0 || t > 1d || m < 0 || m > 1d)
+                {
+                    x = 0;// -100;  /*move off screen*/
+                    y = 0;// -100;
+                }
+                else
+                {
+                    /*intersection point*/
+                    I.AppendPoint(new Point2D(x, y));
+                    I.State = IntersectionState.Intersection;
+                }
+            }
+            return I;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="l0x"></param>
+        /// <param name="l0y"></param>
+        /// <param name="l1x"></param>
+        /// <param name="l1y"></param>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <param name="p2x"></param>
+        /// <param name="p2y"></param>
+        /// <param name="p3x"></param>
+        /// <param name="p3y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// This method has an error where it does not return an intersection with a horizontal line and the end points of the curve share the same y value, as well as the handles sharing another y value.
+        /// Found at: https://www.particleincell.com/2013/cubic-line-intersection/
+        /// Based on code now found at: http://www.abecedarical.com/javascript/script_cubic.html
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection LineCubicBezierIntersection1(
+            double l0x, double l0y,
+            double l1x, double l1y,
+            double p0x, double p0y,
+            double p1x, double p1y,
+            double p2x, double p2y,
+            double p3x, double p3y)
+        {
+            // ToDo: Figure out why this can't handle intersection with horizontal lines.
+            var I = new Intersection(IntersectionState.NoIntersection);
+
+            var A = l1y - l0y;      //A=y2-y1
+            var B = l0x - l1x;      //B=x1-x2
+            var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
+
+            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+
+            var r = CubicRoots(
+                A * bx.A + B * by.A,    /*t^3*/
+                A * bx.B + B * by.B,    /*t^2*/
+                A * bx.C + B * by.C,    /*t*/
+                A * bx.D + B * by.D + C /*1*/
+                );
+
+            /*verify the roots are in bounds of the linear segment*/
+            for (var i = 0; i < 3; i++)
+            {
+                var t = r[i];
+
+                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
+                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
+
+                /*above is intersection point assuming infinitely long line segment,
+                  make sure we are also in bounds of the line*/
+                double m;
+                if ((l1x - l0x) != 0)           /*if not vertical line*/
+                    m = (x - l0x) / (l1x - l0x);
+                else
+                    m = (y - l0y) / (l1y - l0y);
+
+                ///*in bounds?*/
+                //if (t < 0 || t > 1d || m < 0 || m > 1d)
+                //{
+                //    x = 0;// -100;  /*move off screen*/
+                //    y = 0;// -100;
+                //}
+                //else
+                //{
+                /*intersection point*/
+                I.AppendPoint(new Point2D(x, y));
+                I.State = IntersectionState.Intersection;
+                //}
+            }
+            return I;
         }
 
         /// <summary>
@@ -2987,6 +3438,37 @@ namespace Engine
         /// <param name="a1Y"></param>
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection LineSegmentPolygonContourIntersection(
+            double a1X, double a1Y,
+            double a2X, double a2Y,
+            List<Point2D> points)
+        {
+            var intersections = new HashSet<Point2D>();
+            var length = points.Count;
+            for (var i = 0; i < length; i++)
+            {
+                var b1 = points[i];
+                var b2 = points[(i + 1) % length];
+                var inter = LineSegmentLineSegmentIntersection(a1X, a1Y, a2X, a2Y, b1.X, b1.Y, b2.X, b2.Y);
+                intersections.UnionWith(inter.Points);
+            }
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
         /// <param name="b2X"></param>
@@ -3013,37 +3495,6 @@ namespace Engine
             result.AppendPoints(inter2.Points);
             result.AppendPoints(inter3.Points);
             result.AppendPoints(inter4.Points);
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentPolygonContourIntersection(
-            double a1X, double a1Y,
-            double a2X, double a2Y,
-            List<Point2D> points)
-        {
-            var intersections = new HashSet<Point2D>();
-            var length = points.Count;
-            for (var i = 0; i < length; i++)
-            {
-                var b1 = points[i];
-                var b2 = points[(i + 1) % length];
-                var inter = LineSegmentLineSegmentIntersection(a1X, a1Y, a2X, a2Y, b1.X, b1.Y, b2.X, b2.Y);
-                intersections.UnionWith(inter.Points);
-            }
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
             return result;
@@ -3499,175 +3950,162 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection UnrotatedEllipseLineSegmentIntersection(
-            double centerX, double centerY,
-            double rx,
-            double ry,
-            double a1X, double a1Y,
-            double a2X, double a2Y)
-        {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var origin = new Vector2D(a1X, a1Y);
-            var dir = new Vector2D(a1X, a1Y, a2X, a2Y);
-            var diff = origin.Subtract(centerX, centerY);
-            var mDir = new Vector2D(dir.I / (rx * rx), dir.J / (ry * ry));
-            var mDiff = new Vector2D(diff.I / (rx * rx), diff.J / (ry * ry));
-            var a = dir.DotProduct(mDir);
-            var b = dir.DotProduct(mDiff);
-            var c = diff.DotProduct(mDiff) - 1.0;
-            var d = b * b - a * c;
-            if (d < 0)
-            {
-                result = new Intersection(IntersectionState.Outside);
-            }
-            else if (d > 0)
-            {
-                var root = Sqrt(d);
-                var t_a = (-b - root) / a;
-                var t_b = (-b + root) / a;
-                if ((t_a < 0 || 1 < t_a) && (t_b < 0 || 1 < t_b))
-                {
-                    if ((t_a < 0 && t_b < 0) || (t_a > 1 && t_b > 1))
-                        result = new Intersection(IntersectionState.Outside);
-                    else result = new Intersection(IntersectionState.Inside);
-                }
-                else
-                {
-                    result = new Intersection(IntersectionState.Intersection);
-                    if (0 <= t_a && t_a <= 1) result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_a));
-                    if (0 <= t_b && t_b <= 1) result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_b));
-                }
-            }
-            else
-            {
-                var t = -b / a; if (0 <= t && t <= 1)
-                {
-                    result = new Intersection(IntersectionState.Intersection);
-                    result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t));
-                }
-                else
-                {
-                    result = new Intersection(IntersectionState.Outside);
-                }
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="rX"></param>
-        /// <param name="rY"></param>
+        /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(
-            double cX, double cY,
-            double rX, double rY,
+        private static Intersection EllipticalArcLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+            => EllipseLineSegmentIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), x0, y0, x1, y1, epsilon);
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="sinA"></param>
+        /// <param name="cosA"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipticalArcLineSegmentIntersection(
+            double cx, double cy,
+            double rx, double ry,
+            double cosA, double sinA,
             double startAngle, double sweepAngle,
-            double a1X, double a1Y,
-            double a2X, double a2Y)
+            double x0, double y0,
+            double x1, double y1,
+            double epsilon = Epsilon)
         {
+            // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
-            var origin = new Vector2D(a1X, a1Y);
-            var dir = new Vector2D(a1X, a1Y, a2X, a2Y);
-            var diff = origin.Subtract(cX, cY);
-            var mDir = new Vector2D(dir.I / (rX * rX), dir.J / (rY * rY));
-            var mDiff = new Vector2D(diff.I / (rX * rX), diff.J / (rY * rY));
-            var a = dir.DotProduct(mDir);
-            var b = dir.DotProduct(mDiff);
-            var c = diff.DotProduct(mDiff) - 1.0;
-            var d = b * b - a * c;
 
-            // Find the start and end angles.
-            var sa = EllipsePolarAngle(startAngle, rX, rY);
-            var ea = EllipsePolarAngle(startAngle + sweepAngle, rX, rY);
+            // If the ellipse or line segment are empty, return no intersections.
+            if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
+                ((x0 == x1) && (y0 == y1)))
+                return result;
 
-            // Get the ellipse rotation transform.
-            var cosT = Cos(0);
-            var sinT = Sin(0);
+            // Translate the line to move it to the ellipse centered at the origin.
+            var u0 = x0 - cx;
+            var v0 = y0 - cy;
+            var u1 = x1 - cx;
+            var v1 = y1 - cy;
 
-            // Ellipse equation for an ellipse at origin for the chord end points.
-            var u1 = rX * Cos(sa);
-            var v1 = -(rY * Sin(sa));
-            var u2 = rX * Cos(ea);
-            var v2 = -(rY * Sin(ea));
+            // Apply Rotation Transform to line at the origin to align it with the unrotated ellipse.
+            var u0A = u0 * cosA - v0 * -sinA;
+            var v0A = u0 * -sinA + v0 * cosA;
+            var u1A = u1 * cosA - v1 * -sinA;
+            var v1A = u1 * -sinA + v1 * cosA;
 
-            // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            // Calculate the quadratic parameters.
+            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
+            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
+            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
 
-            if (d < 0)
+            // Calculate the discriminant of the quadratic.
+            var discriminant = b * b - 4d * a * c;
+
+            // Check whether line segment is outside of the ellipse.
+            if ((a <= epsilon) || (discriminant < 0))
             {
-                result = new Intersection(IntersectionState.Outside);
+                // No real solutions.
+                result.State |= IntersectionState.Outside;
+                return result;
             }
-            else if (d > 0)
-            {
-                var root = Sqrt(d);
-                var t1 = (-b - root) / a;
-                var t2 = (-b + root) / a;
-                if ((t1 < 0 || 1 < t1) && (t2 < 0 || 1 < t2))
-                {
-                    if ((t1 < 0 && t2 < 0) || (t1 > 1 && t2 > 1))
-                        result = new Intersection(IntersectionState.Outside);
-                    else
-                        result = new Intersection(IntersectionState.Inside);
-                }
-                else
-                {
-                    var p = Lerp(a1X, a1Y, a2X, a2Y, t1);
-                    // Find the determinant of the chord.
-                    var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
 
-                    // Check whether the point is on the side of the chord as the center.
-                    if (0 <= t1 && t1 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
+            // Find the corrected start and end angles.
+            var sa = EllipsePolarAngle(startAngle, rx, ry);
+            var ea = EllipsePolarAngle(startAngle + sweepAngle, rx, ry);
+
+            // Ellipse equation for an ellipse at origin.
+            var usa = rx * Cos(sa);
+            var vsa = -(ry * Sin(sa));
+            var uea = rx * Cos(ea);
+            var vea = -(ry * Sin(ea));
+
+            // Apply the rotation transformation to find the chord points.
+            var sx = cx + (usa * cosA + vsa * sinA);
+            var sy = cy + (usa * sinA - vsa * cosA);
+            var ex = cx + (uea * cosA + vea * sinA);
+            var ey = cy + (uea * sinA - vea * cosA);
+
+            if (discriminant == 0)
+            {
+                // One real possible solution.
+                var t = OneHalf * -b / a;
+
+                // Add the point if it is between the end points of the line segment.
+                if (t >= 0d && t <= 1d)
+                {
+                    // Find the point.
+                    var p = new Point2D(u0 + (u1 - u0) * t + cx, v0 + (v1 - v0) * t + cy);
+
+                    // Find the determinant of the matrix representing the chord.
+                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+
+                    // Add the point if it is on the sweep side of the chord.
+                    if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
                         result.AppendPoint(p);
+                }
+            }
+            else if (discriminant > 0)
+            {
+                // Two real possible solutions.
+                var root = Sqrt(discriminant);
+                var t1 = (OneHalf * (-b + root) / a);
+                var t2 = (OneHalf * (-b - root) / a);
 
-                    p = Lerp(a1X, a1Y, a2X, a2Y, t2);
-                    // Find the determinant of the chord.
-                    determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
-                    if (0 <= t2 && t2 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
+                // Add the points if they are between the end points of the line segment.
+                if ((t1 >= 0d) && (t1 == 1d))
+                {
+                    // Find the point.
+                    var p = new Point2D(u0 + (u1 - u0) * t1 + cx, v0 + (v1 - v0) * t1 + cy);
+
+                    // Find the determinant of the matrix representing the chord.
+                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+
+                    // Add the point if it is on the sweep side of the chord.
+                    if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                        result.AppendPoint(p);
+                }
+
+                if ((t2 >= 0d) && (t2 <= 1d))
+                {
+                    // Find the point.
+                    var p = new Point2D(u0 + (u1 - u0) * t2 + cx, v0 + (v1 - v0) * t2 + cy);
+
+                    // Find the determinant of the matrix representing the chord.
+                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+
+                    // Add the point if it is on the sweep side of the chord.
+                    if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
                         result.AppendPoint(p);
                 }
             }
-            else
-            {
-                var t = -b / a;
-                if (0 <= t && t <= 1)
-                {
-                    var p = Lerp(a1X, a1Y, a2X, a2Y, t);
-                    // Find the determinant of the chord.
-                    var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
-                    if (Sign(determinant) != Sign(sweepAngle))
-                        result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t));
-                }
-                else
-                    result = new Intersection(IntersectionState.Outside);
-            }
+
+            // Return the intersections.
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
             return result;
@@ -3687,6 +4125,25 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+            => EllipseLineSegmentIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), x0, y0, x1, y1, epsilon);
+
+        /// <summary>
+        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </remarks>
@@ -3694,21 +4151,18 @@ namespace Engine
         private static Intersection EllipseLineSegmentIntersection(
             double cx, double cy,
             double rx, double ry,
-            double angle,
+            double cosA, double sinA,
             double x0, double y0,
             double x1, double y1,
             double epsilon = Epsilon)
         {
+            // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
                 return result;
-
-            // Get the Sine and Cosine of the angle.
-            var sinA = Sin(angle);
-            var cosA = Cos(angle);
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x0 - cx;
@@ -3717,10 +4171,10 @@ namespace Engine
             var v2 = y1 - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = (0 + (u1 * cosA - v1 * sinA));
-            var v1A = (0 + (u1 * sinA + v1 * cosA));
-            var u2A = (0 + (u2 * cosA - v2 * sinA));
-            var v2A = (0 + (u2 * sinA + v2 * cosA));
+            var u1A = (0 + (u1 * cosA - v1 * -sinA));
+            var v1A = (0 + (u1 * -sinA + v1 * cosA));
+            var u2A = (0 + (u2 * cosA - v2 * -sinA));
+            var v2A = (0 + (u2 * -sinA + v2 * cosA));
 
             // Calculate the quadratic parameters.
             var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
@@ -3730,9 +4184,12 @@ namespace Engine
             // Calculate the discriminant.
             var discriminant = b * b - 4d * a * c;
 
+            // Find solutions.
             if ((a <= epsilon) || (discriminant < 0))
             {
                 // No real solutions.
+                result.State |= IntersectionState.Outside;
+                return result;
             }
             else if (discriminant == 0)
             {
@@ -3743,7 +4200,6 @@ namespace Engine
                 if ((t >= 0d) && (t <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
-                    result.State = IntersectionState.Intersection;
                 }
 
             }
@@ -3757,20 +4213,37 @@ namespace Engine
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                    result.State = IntersectionState.Intersection;
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
-                    result.State = IntersectionState.Intersection;
                 }
-
-                // ToDo: Figure out why the results are weird between 30 degrees and 5 degrees.
             }
 
+            // Return the intersections.
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
             return result;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipseRectangleIntersection(double cx, double cy, double rx, double ry, double angle, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+            => EllipseRectangleIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), r1X, r1Y, r2X, r2Y, epsilon);
 
         /// <summary>
         /// 
@@ -3779,33 +4252,36 @@ namespace Engine
         /// <param name="cY"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
         /// <param name="r1X"></param>
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection UnrotatedEllipseRectangleIntersection(
+        private static Intersection EllipseRectangleIntersection(
             double cX, double cY,
-            double rx,
-            double ry,
+            double rx, double ry,
+            double cosA, double sinA,
             double r1X, double r1Y,
-            double r2X, double r2Y)
+            double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MaxPoint(r1X, r1Y, r2X, r2Y);
             var topRight = new Point2D(max.X, min.Y);
             var bottomLeft = new Point2D(min.X, max.Y);
-            var inter1 = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, min.X, min.Y, topRight.X, topRight.Y);
-            var inter2 = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, topRight.X, topRight.Y, max.X, max.Y);
-            var inter3 = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, max.X, max.Y, bottomLeft.X, bottomLeft.Y);
-            var inter4 = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, bottomLeft.X, bottomLeft.Y, min.X, min.Y);
+
             var result = new Intersection(IntersectionState.NoIntersection);
-            result.AppendPoints(inter1.Points);
-            result.AppendPoints(inter2.Points);
-            result.AppendPoints(inter3.Points);
-            result.AppendPoints(inter4.Points);
+
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
             return result;
@@ -3814,29 +4290,52 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="points"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipsePolygonIntersection(double cx, double cy, double rx, double ry, double angle, List<Point2D> points, double epsilon = Epsilon)
+            => EllipsePolygonIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), points, epsilon);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="cX"></param>
         /// <param name="cY"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
         /// <param name="points"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection UnrotatedEllipsePolygonIntersection(
+        private static Intersection EllipsePolygonIntersection(
             double cX, double cY,
-            double rx,
-            double ry,
-            List<Point2D> points)
+            double rx, double ry,
+            double cosA, double sinA,
+            List<Point2D> points,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var length = points.Count;
-            for (var i = 0; i < length; i++)
+
+            // Loop through each line segment.
+            Point2D b1 = points[0];
+            for (var i = 1; i <= points.Count; ++i)
             {
-                var b1 = points[i];
-                var b2 = points[(i + 1) % length];
-                var inter = UnrotatedEllipseLineSegmentIntersection(cX, cY, rx, ry, b1.X, b1.Y, b2.X, b2.Y);
+                Point2D b2 = (i == points.Count ? points[0] : points[i]);
+
+                var inter = EllipseLineSegmentIntersection(cX, cY, rx, ry, cosA, sinA, b1.X, b1.Y, b2.X, b2.Y, epsilon);
                 result.AppendPoints(inter.Points);
             }
+
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
             return result;

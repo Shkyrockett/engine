@@ -51,9 +51,11 @@ namespace Engine
             {
                 case ScreenPoint t:
                     return new ScreenPoint(Process(t.Point));
-                case PointSet t:
+                case Line t:
                     return Process(t);
                 case LineSegment t:
+                    return Process(t);
+                case PointSet t:
                     return Process(t);
                 case Polygon t:
                     return Process(t);
@@ -71,21 +73,6 @@ namespace Engine
                     break;
             }
             return shape;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        public PointSet Process(PointSet points)
-        {
-            var results = new PointSet();
-            foreach (var point in points)
-            {
-                results.Add(Process(point));
-            }
-            return results;
         }
 
         /// <summary>
@@ -111,6 +98,34 @@ namespace Engine
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public Line Process(Line line)
+        {
+            // ToDo: Figure out how to handle the infiniteness of lines.
+            var location = Process(line.Location);
+            var result = new Line(location, Process(line.Location + line.Direction) - location);
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public PointSet Process(PointSet points)
+        {
+            var results = new PointSet();
+            foreach (var point in points)
+            {
+                results.Add(Process(point));
+            }
+            return results;
         }
 
         /// <summary>

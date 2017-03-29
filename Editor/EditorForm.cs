@@ -121,8 +121,10 @@ namespace Editor
         {
 #pragma warning disable IDE0022 // Use expression body for methods
             /* Experimental Previews */
-            TestCases.ScanlineIntersections(vectorMap);
-            TestCases.CommonIntersections(vectorMap);
+            //TestCases.EllipticalArcLineSegmentIntersectios(vectorMap);
+            TestCases.EllipticalArcLineIntersectios(vectorMap);
+            //TestCases.ScanlineIntersections(vectorMap);
+            //TestCases.CommonIntersections(vectorMap);
             //TestCases.CurveFitting(vectorMap);
             //TestCases.EllipseToBeziers(vectorMap);
             //TestCases.WarpGeometry(vectorMap);

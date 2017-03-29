@@ -66,9 +66,11 @@ namespace Engine
             {
                 case ScreenPoint t:
                     return new ScreenPoint(Process(t.Point));
-                case PointSet t:
+                case Line t:
                     return Process(t);
                 case LineSegment t:
+                    return Process(t);
+                case PointSet t:
                     return Process(t);
                 case Polygon t:
                     return Process(t);
@@ -91,16 +93,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="line"></param>
         /// <returns></returns>
-        public PointSet Process(PointSet points)
+        public Line Process(Line line)
         {
-            var results = new PointSet();
-            foreach (var point in points)
-            {
-                results.Add(Process(point));
-            }
-            return results;
+            var location = Process(line.Location);
+            var result = new Line(location, Process(line.Location + line.Direction) - location);
+            return result;
         }
 
         /// <summary>
@@ -112,6 +111,21 @@ namespace Engine
         {
             var result = new LineSegment(Process(line.A), Process(line.B));
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public PointSet Process(PointSet points)
+        {
+            var results = new PointSet();
+            foreach (var point in points)
+            {
+                results.Add(Process(point));
+            }
+            return results;
         }
 
         /// <summary>

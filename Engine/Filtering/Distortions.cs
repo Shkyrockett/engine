@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using static System.Math;
+using static Engine.Maths;
 
 namespace Engine
 {
@@ -47,13 +48,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="bHorz"></param>
         /// <param name="bVert"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Flip(Point2D fulcrum, Point2D point, bool bHorz, bool bVert)
+        public static Point2D Flip(Point2D point, Point2D fulcrum, bool bHorz, bool bVert)
         {
             var x = (bHorz) ? fulcrum.X - (point.X - fulcrum.X + 1) : point.X;
             var y = (bVert) ? fulcrum.Y - (point.Y - fulcrum.Y + 1) : point.Y;
@@ -81,16 +82,18 @@ namespace Engine
             => matrix.Transform(point);
 
         /// <summary>
-        /// 
+        /// Rotate a point about a center point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="center"></param>
-        /// <param name="xAxis"></param>
-        /// <param name="yAxis"></param>
+        /// <param name="point">The point to rotate.</param>
+        /// <param name="fulcrum">The center axis point.</param>
+        /// <param name="xAxis">The Sine and Cosine of the angle on the x-axis.</param>
+        /// <param name="yAxis">The Sine and Cosine of the angle on the y-axis.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Rotate(Point2D point, Point2D center, Point2D xAxis, Point2D yAxis)
-            => new Point2D(center.X - (point.X * xAxis.X + point.Y * xAxis.Y), center.Y - (point.X * yAxis.X + point.Y * yAxis.Y));
+        public static Point2D Rotate(Point2D point, Point2D fulcrum, Point2D xAxis, Point2D yAxis)
+            => new Point2D(
+                fulcrum.X + ((point.X - fulcrum.X) * xAxis.X + (point.Y - fulcrum.Y) * xAxis.Y),
+                fulcrum.Y + ((point.X - fulcrum.X) * yAxis.X + (point.Y - fulcrum.Y) * yAxis.Y));
 
         /// <summary>
         /// Rotate all the coordinates in-place around the center point (cx, cy) by angle theta.
@@ -118,12 +121,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Pinch(Point2D fulcrum, Point2D point, double strength = 0.5d)
+        public static Point2D Pinch(Point2D point, Point2D fulcrum, double strength = OneHalf)
         {
             if (fulcrum == point)
                 return point;
@@ -132,23 +135,23 @@ namespace Engine
             var distanceSquared = dx * dx + dy * dy;
             var sx = point.X;
             var sy = point.Y;
-            double distance = Math.Sqrt(distanceSquared);
-            if (strength < 0)
+            var distance = Sqrt(distanceSquared);
+            if (strength < 0d)
             {
-                double r = distance;
-                double a = Math.Atan2(dy, dx);
-                double rn = Math.Pow(r, strength) * distance;
-                double newX = rn * Math.Cos(a) + fulcrum.X;
-                double newY = rn * Math.Sin(a) + fulcrum.Y;
+                var r = distance;
+                var a = Atan2(dy, dx); // Might this be simplified by finding the unit of the vector?
+                var rn = Pow(r, strength) * distance;
+                var newX = rn * Cos(a) + fulcrum.X;
+                var newY = rn * Sin(a) + fulcrum.Y;
                 sx += (newX - point.X);
                 sy += (newY - point.Y);
             }
             else
             {
-                double dirX = dx / distance;
-                double dirY = dy / distance;
-                double alpha = distance;
-                double distortionFactor = distance * Math.Pow(1 - alpha, 1d / strength);
+                var dirX = dx / distance;
+                var dirY = dy / distance;
+                var alpha = distance;
+                var distortionFactor = distance * Pow(1d - alpha, 1d / strength);
                 sx -= distortionFactor * dirX;
                 sy -= distortionFactor * dirY;
             }
@@ -159,13 +162,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="radius"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Pinch(Point2D fulcrum, Point2D point, double radius, double strength = 0.5d)
+        public static Point2D Pinch(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
             if (fulcrum == point)
                 return point;
@@ -176,23 +179,23 @@ namespace Engine
             var sy = point.Y;
             if (distanceSquared < radius * radius)
             {
-                double distance = Math.Sqrt(distanceSquared);
-                if (strength < 0)
+                var distance = Sqrt(distanceSquared);
+                if (strength < 0d)
                 {
-                    double r = distance / radius;
-                    double a = Math.Atan2(dy, dx);
-                    double rn = Math.Pow(r, strength) * distance;
-                    double newX = rn * Math.Cos(a) + fulcrum.X;
-                    double newY = rn * Math.Sin(a) + fulcrum.Y;
+                    var r = distance / radius;
+                    var a = Atan2(dy, dx); // Might this be simplified by finding the unit of the vector?
+                    var rn = Pow(r, strength) * distance;
+                    var newX = rn * Cos(a) + fulcrum.X;
+                    var newY = rn * Sin(a) + fulcrum.Y;
                     sx += (newX - point.X);
                     sy += (newY - point.Y);
                 }
                 else
                 {
-                    double dirX = dx / distance;
-                    double dirY = dy / distance;
-                    double alpha = distance / radius;
-                    double distortionFactor = distance * Math.Pow(1 - alpha, 1d / strength);
+                    var dirX = dx / distance;
+                    var dirY = dy / distance;
+                    var alpha = distance / radius;
+                    var distortionFactor = distance * Pow(1d - alpha, 1d / strength);
                     sx -= distortionFactor * dirX;
                     sy -= distortionFactor * dirY;
                 }
@@ -204,13 +207,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="radius"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Pinch1(Point2D fulcrum, Point2D point, double radius, double strength = 0.5d)
+        public static Point2D Pinch1(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
             if (fulcrum == point)
                 return point;
@@ -221,12 +224,12 @@ namespace Engine
             var sy = point.Y;
             if (distanceSquared < radius * radius)
             {
-                double distance = Math.Sqrt(distanceSquared);
-                double r = distance / radius;
-                double a = Math.Atan2(dy, dx);
-                double rn = Math.Pow(r, strength) * distance;
-                double newX = rn * Math.Cos(a) + fulcrum.X;
-                double newY = rn * Math.Sin(a) + fulcrum.Y;
+                var distance = Sqrt(distanceSquared);
+                var r = distance / radius;
+                var a = Atan2(dy, dx); // Might this be simplified by finding the unit of the vector?
+                var rn = Pow(r, strength) * distance;
+                var newX = rn * Cos(a) + fulcrum.X;
+                var newY = rn * Sin(a) + fulcrum.Y;
                 sx += (newX - point.X);
                 sy += (newY - point.Y);
             }
@@ -237,13 +240,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="radius"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Pinch2(Point2D fulcrum, Point2D point, double radius, double strength = 0.5d)
+        public static Point2D Pinch2(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
             if (fulcrum == point)
                 return point;
@@ -254,11 +257,11 @@ namespace Engine
             var sy = point.Y;
             if (distanceSquared < radius * radius)
             {
-                double distance = Math.Sqrt(distanceSquared);
-                double dirX = dx / distance;
-                double dirY = dy / distance;
-                double alpha = distance / radius;
-                double distortionFactor = distance * Math.Pow(1 - alpha, 1d / strength);
+                var distance = Sqrt(distanceSquared);
+                var dirX = dx / distance;
+                var dirY = dy / distance;
+                var alpha = distance / radius;
+                var distortionFactor = distance * Pow(1d - alpha, 1d / strength);
                 sx -= distortionFactor * dirX;
                 sy -= distortionFactor * dirY;
             }
@@ -269,58 +272,58 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="degree"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Swirl(Point2D fulcrum, Point2D point, double degree = 0.05d)
+        public static Point2D Swirl(Point2D point, Point2D fulcrum, double degree = OneHalf)
         {
             if (fulcrum == point)
                 return point;
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
-            double theta = Math.Atan2((dY), (dX));
-            double radius = Math.Sqrt(dX * dX + dY * dY);
-            var newX = fulcrum.X + (radius * Math.Cos(theta + degree * radius));
-            var newY = fulcrum.Y + (radius * Math.Sin(theta + degree * radius));
+            var theta = Atan2((dY), (dX));
+            var radius = Sqrt(dX * dX + dY * dY);
+            var newX = fulcrum.X + (radius * Cos(theta + degree * radius));
+            var newY = fulcrum.Y + (radius * Sin(theta + degree * radius));
             return new Point2D(newX, newY);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D TimeWarp(Point2D fulcrum, Point2D point, double factor = 10d)
+        public static Point2D TimeWarp(Point2D point, Point2D fulcrum, double factor = 10d)
         {
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
-            var theta = Math.Atan2((dY), (dX));
-            var radius = Math.Sqrt(dX * dX + dY * dY);
-            double newRadius = Math.Sqrt(radius) * factor;
-            var newX = fulcrum.X + (newRadius * Math.Cos(theta));
-            var newY = fulcrum.Y + (newRadius * Math.Sin(theta));
+            var theta = Atan2((dY), (dX)); // Might this be simplified by finding the unit of the vector?
+            var radius = Sqrt(dX * dX + dY * dY);
+            var newRadius = Sqrt(radius) * factor;
+            var newX = fulcrum.X + (newRadius * Cos(theta));
+            var newY = fulcrum.Y + (newRadius * Sin(theta));
             return new Point2D(newX, newY);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fulcrum"></param>
         /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
         /// <param name="nWave"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Water(Point2D fulcrum, Point2D point, double nWave = 1)
+        public static Point2D Water(Point2D point, Point2D fulcrum, double nWave = 1)
         {
-            double xo = nWave * Math.Sin(2d * Math.PI * point.Y / 128d);
-            double yo = nWave * Math.Cos(2d * Math.PI * point.X / 128d);
-            double newX = (point.X + xo);
-            double newY = (point.Y + yo);
+            var xo = nWave * Sin(2d * PI * point.Y / 128d);
+            var yo = nWave * Cos(2d * PI * point.X / 128d);
+            var newX = (point.X + xo);
+            var newY = (point.Y + yo);
             return new Point2D(newX, newY);
         }
 
@@ -332,30 +335,32 @@ namespace Engine
         /// </summary>
         /// <param name="source">Source list of points.</param>
         /// <param name="distance">Distance between points on the new path.</param>
+        /// <param name="epsilon"></param>
         /// <returns>List of equally-spaced points on the path.</returns>
-        public static List<Point2D> Linearize(List<Point2D> source, double distance)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = Epsilon)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source), "List must not be null");
-            if (distance <= Maths.Epsilon)
-                throw new InvalidOperationException($"{nameof(distance)} {distance} must not be less than epsilon { Maths.Epsilon }.");
-            List<Point2D> dest = new List<Point2D>();
+            if (distance <= epsilon)
+                throw new InvalidOperationException($"{nameof(distance)} {distance} must not be less than epsilon { epsilon }.");
+            var dest = new List<Point2D>();
             if (source.Count < 1)
                 return dest;
 
             Point2D pp = source[0];
             dest.Add(pp);
             double cd = 0;
-            for (int ip = 1; ip < source.Count; ip++)
+            for (var ip = 1; ip < source.Count; ip++)
             {
                 Point2D p0 = source[ip - 1];
                 Point2D p1 = source[ip];
-                double td = Measurements.Distance(p0, p1);
+                var td = Measurements.Distance(p0, p1);
                 if (cd + td > distance)
                 {
-                    double pd = distance - cd;
+                    var pd = distance - cd;
                     dest.Add(Primitives.Lerp(p0, p1, pd / td));
-                    double rd = td - pd;
+                    var rd = td - pd;
                     while (rd > distance)
                     {
                         rd -= distance;
@@ -373,6 +378,7 @@ namespace Engine
                     cd += td;
                 }
             }
+
             // last point
             Point2D lp = source[source.Count - 1];
             if (!Primitives.EqualsOrClose(pp, lp))
@@ -393,18 +399,19 @@ namespace Engine
         /// The Wiki article: http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
         /// Based on:  http://www.codeproject.com/Articles/18936/A-Csharp-Implementation-of-Douglas-Peucker-Line-Ap
         /// </remarks>
-        public static List<Point2D> RamerDouglasPeukerReduce(List<Point2D> points, double error)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> RamerDouglasPeukerReduce(List<Point2D> points, double error = 4)
         {
             if (points == null)
                 throw new ArgumentNullException(nameof(points), "Must not be null.");
             points = RemoveDuplicates(points);
             if (points.Count < 3)
                 return new List<Point2D>(points);
-            var keepIndex = new List<int>(Math.Max(points.Count / 2, 16)) { 0, points.Count - 1 };
+            var keepIndex = new List<int>(Max(points.Count / 2, 16)) { 0, points.Count - 1 };
             RecursiveRamerDouglasPeukerReduce(points, error, 0, points.Count - 1, ref keepIndex);
             keepIndex.Sort();
-            List<Point2D> res = new List<Point2D>(keepIndex.Count);
-            foreach (int idx in keepIndex)
+            var res = new List<Point2D>(keepIndex.Count);
+            foreach (var idx in keepIndex)
                 res.Add(points[idx]);
             return res;
         }
@@ -417,20 +424,21 @@ namespace Engine
         /// <param name="first"></param>
         /// <param name="last"></param>
         /// <param name="keepIndex"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void RecursiveRamerDouglasPeukerReduce(List<Point2D> pts, double error, int first, int last, ref List<int> keepIndex)
         {
-            int nPts = last - first + 1;
+            var nPts = last - first + 1;
             if (nPts < 3)
                 return;
 
             var segment = new LineSegment(pts[first], pts[last]);
 
-            double maxDist = error;
-            int split = 0;
-            for (int i = first + 1; i < last - 1; i++)
+            var maxDist = error;
+            var split = 0;
+            for (var i = first + 1; i < last - 1; i++)
             {
                 Point2D p = pts[i];
-                double pDist = Measurements.PerpendicularDistance(segment, p);
+                var pDist = Measurements.PerpendicularDistance(segment, p);
                 if (!double.IsNaN(pDist) && pDist > maxDist)
                 {
                     maxDist = pDist;
@@ -453,6 +461,7 @@ namespace Engine
         /// </summary>
         /// <param name="points">Initial list of points.</param>
         /// <returns>Either points (if no duplicates were found), or a new list containing points with duplicates removed.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RemoveDuplicates(List<Point2D> points)
         {
             if (points.Count < 2)
@@ -460,9 +469,9 @@ namespace Engine
 
             // Common case -- no duplicates, so just return the source list
             Point2D prev = points[0];
-            int len = points.Count;
-            int nDup = 0;
-            for (int i = 1; i < len; i++)
+            var len = points.Count;
+            var nDup = 0;
+            for (var i = 1; i < len; i++)
             {
                 Point2D cur = points[i];
                 if (Primitives.EqualsOrClose(prev, cur))
@@ -476,10 +485,10 @@ namespace Engine
             else
             {
                 // Create a copy without them
-                List<Point2D> dst = new List<Point2D>(len - nDup);
+                var dst = new List<Point2D>(len - nDup);
                 prev = points[0];
                 dst.Add(prev);
-                for (int i = 1; i < len; i++)
+                for (var i = 1; i < len; i++)
                 {
                     Point2D cur = points[i];
                     if (!Primitives.EqualsOrClose(prev, cur))
@@ -497,10 +506,11 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Contour AddPointsToSides(Contour contour)
         {
             var result = new Contour();
-            for (int i = 1; i < contour.Count; i++)
+            for (var i = 1; i < contour.Count; i++)
             {
                 for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
                 {
@@ -518,58 +528,64 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="P"></param>
-        /// <param name="U"></param>
-        /// <param name="V"></param>
+        /// <param name="point"></param>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
         /// <returns></returns>
-        /// <remarks> https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography </remarks>
-        private static Point2D Bilinear(Point2D[] P, double U, double V)
+        /// <remarks>
+        /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Point2D Bilinear(Point2D[] point, double u, double v)
         {
-            Point2D R = new Point2D();
-            Point2D S = new Point2D();
-
             // Evaluate the bilinear transform
-            R.X = (1 - U) * P[0].X + U * P[1].X;
-            R.Y = (1 - U) * P[0].Y + U * P[1].Y;
-            S.X = (1 - U) * P[3].X + U * P[2].X;
-            S.Y = (1 - U) * P[3].Y + U * P[2].Y;
-            return new Point2D((1 - V) * R.X + V * S.X, (1 - V) * R.Y + V * S.Y);
+            var r = new Point2D(
+                (1 - u) * point[0].X + u * point[1].X,
+                (1 - u) * point[0].Y + u * point[1].Y);
+            var s = new Point2D(
+                (1 - u) * point[3].X + u * point[2].X,
+                (1 - u) * point[3].Y + u * point[2].Y);
+            return new Point2D((1 - v) * r.X + v * s.X, (1 - v) * r.Y + v * s.Y);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="P"></param>
-        /// <param name="C"></param>
-        /// <param name="U"></param>
-        /// <param name="V"></param>
+        /// <param name="points"></param>
+        /// <param name="c"></param>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
         /// <returns></returns>
-        /// <remarks> https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography </remarks>
-        private static Point2D Perspective(Point2D[] P, (double A, double B, double D, double E, double G, double H) C, double U, double V)
+        /// <remarks>
+        /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Point2D Perspective(Point2D[] points, (double a, double b, double d, double e, double g, double h) c, double u, double v)
         {
             // Evaluate the homographic transform
-            double T = C.G * U + C.H * V + 1;
-            return new Point2D((C.A * U + C.B * V) / T + P[0].X, (C.D * U + C.E * V) / T + P[0].Y);
+            var T = c.g * u + c.h * v + 1;
+            return new Point2D((c.a * u + c.b * v) / T + points[0].X, (c.d * u + c.e * v) / T + points[0].Y);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="P"></param>
+        /// <param name="points"></param>
         /// <returns></returns>
         /// <remarks> https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography </remarks>
-        private static (double A, double B, double D, double E, double G, double H) SolvePerspective(Point2D[] P)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static (double a, double b, double d, double e, double g, double h) SolvePerspective(Point2D[] points)
         {
             // Compute the transform coefficients
-            var t = (P[2].X - P[1].X) * (P[2].Y - P[3].Y) - (P[2].X - P[3].X) * (P[2].Y - P[1].Y);
+            var t = (points[2].X - points[1].X) * (points[2].Y - points[3].Y) - (points[2].X - points[3].X) * (points[2].Y - points[1].Y);
 
-            var g = ((P[2].X - P[0].X) * (P[2].Y - P[3].Y) - (P[2].X - P[3].X) * (P[2].Y - P[0].Y)) / t;
-            var h = ((P[2].X - P[1].X) * (P[2].Y - P[0].Y) - (P[2].X - P[0].X) * (P[2].Y - P[1].Y)) / t;
+            var g = ((points[2].X - points[0].X) * (points[2].Y - points[3].Y) - (points[2].X - points[3].X) * (points[2].Y - points[0].Y)) / t;
+            var h = ((points[2].X - points[1].X) * (points[2].Y - points[0].Y) - (points[2].X - points[0].X) * (points[2].Y - points[1].Y)) / t;
 
-            var a = g * (P[1].X - P[0].X);
-            var d = g * (P[1].Y - P[0].Y);
-            var b = h * (P[3].X - P[0].X);
-            var e = h * (P[3].Y - P[0].Y);
+            var a = g * (points[1].X - points[0].X);
+            var d = g * (points[1].Y - points[0].Y);
+            var b = h * (points[3].X - points[0].X);
+            var e = h * (points[3].Y - points[0].Y);
 
             g -= 1;
             h -= 1;

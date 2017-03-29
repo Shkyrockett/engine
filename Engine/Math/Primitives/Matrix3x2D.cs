@@ -18,6 +18,8 @@ using System.Runtime.InteropServices;
 using static System.Math;
 using static Engine.Maths;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Engine
 {
@@ -29,7 +31,7 @@ namespace Engine
     [ComVisible(true)]
     [TypeConverter(typeof(Matrix2DConverter))]
     public partial struct Matrix3x2D
-        : IEquatable<Matrix3x2D>, IFormattable
+        : IMatrix<Matrix3x2D, Vector2D>
     {
         #region Static Fields
 
@@ -55,22 +57,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        private double m0x0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double m0x1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private double m1x0;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private double m1x1;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double m1x2;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double m2x1;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double m2x2;
 
         /// <summary>
         /// 
@@ -113,10 +115,10 @@ namespace Engine
         /// </summary>
         public Matrix3x2D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
         {
-            this.m1x1 = m1x1;
-            this.m1x2 = m1x2;
-            this.m2x1 = m2x1;
-            this.m2x2 = m2x2;
+            this.m0x0 = m1x1;
+            this.m0x1 = m1x2;
+            this.m1x0 = m2x1;
+            this.m1x1 = m2x2;
             this.offsetX = offsetX;
             this.offsetY = offsetY;
             type = MatrixTypes.Unknown;
@@ -141,7 +143,7 @@ namespace Engine
                 if (type == MatrixTypes.Identity)
                     return 1.0f;
                 else
-                    return m1x1;
+                    return m0x0;
             }
             set
             {
@@ -154,7 +156,7 @@ namespace Engine
                 }
                 else
                 {
-                    m1x1 = value;
+                    m0x0 = value;
                     if (type != MatrixTypes.Unknown)
                         type |= MatrixTypes.Scaling;
                 }
@@ -170,7 +172,7 @@ namespace Engine
             {
                 if (type == MatrixTypes.Identity)
                     return 0;
-                return m1x2;
+                return m0x1;
             }
             set
             {
@@ -183,7 +185,7 @@ namespace Engine
                 }
                 else
                 {
-                    m1x2 = value;
+                    m0x1 = value;
                     type = MatrixTypes.Unknown;
                 }
             }
@@ -199,7 +201,7 @@ namespace Engine
                 if (type == MatrixTypes.Identity)
                     return 0;
                 else
-                    return m2x1;
+                    return m1x0;
             }
             set
             {
@@ -212,7 +214,7 @@ namespace Engine
                 }
                 else
                 {
-                    m2x1 = value;
+                    m1x0 = value;
                     type = MatrixTypes.Unknown;
                 }
             }
@@ -228,7 +230,7 @@ namespace Engine
                 if (type == MatrixTypes.Identity)
                     return 1.0f;
                 else
-                    return m2x2;
+                    return m1x1;
             }
             set
             {
@@ -241,7 +243,7 @@ namespace Engine
                 }
                 else
                 {
-                    m2x2 = value;
+                    m1x1 = value;
                     if (type != MatrixTypes.Unknown)
                         type |= MatrixTypes.Scaling;
                 }
@@ -334,10 +336,10 @@ namespace Engine
         public bool IsIdentity
             => (type == MatrixTypes.Identity
         || (
-            Abs(m1x1 - 1) < Epsilon
-            && Abs(m1x2) < Epsilon
-            && Abs(m2x1) < Epsilon
-            && Abs(m2x2 - 1) < Epsilon
+            Abs(m0x0 - 1) < Epsilon
+            && Abs(m0x1) < Epsilon
+            && Abs(m1x0) < Epsilon
+            && Abs(m1x1 - 1) < Epsilon
             && Abs(offsetX) < Epsilon
             && Abs(offsetY) < Epsilon));
 
@@ -489,10 +491,10 @@ namespace Engine
         internal static Matrix3x2D CreateRotationRadians(double angle, double centerX, double centerY)
         {
             var matrix = new Matrix3x2D();
-            double sin = Sin(angle);
-            double cos = Cos(angle);
-            double dx = ((centerX * (1.0 - cos)) + (centerY * sin));
-            double dy = ((centerY * (1.0 - cos)) - (centerX * sin));
+            var sin = Sin(angle);
+            var cos = Cos(angle);
+            var dx = ((centerX * (1.0 - cos)) + (centerY * sin));
+            var dy = ((centerY * (1.0 - cos)) - (centerX * sin));
 
             matrix.SetMatrix(cos, sin,
                               -sin, cos,
@@ -582,7 +584,7 @@ namespace Engine
             IFormatProvider formatProvider = CultureInfo.InvariantCulture;
             var tokenizer = new Tokenizer(source, formatProvider);
             Matrix3x2D value;
-            string firstToken = tokenizer.NextTokenRequired();
+            var firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
             if (firstToken == "Identity")
@@ -671,10 +673,10 @@ namespace Engine
             // Scaling
             if (0 != (matrixType & MatrixTypes.Scaling))
             {
-                rect.X *= matrix.m1x1;
-                rect.Y *= matrix.m2x2;
-                rect.Width *= matrix.m1x1;
-                rect.Height *= matrix.m2x2;
+                rect.X *= matrix.m0x0;
+                rect.Y *= matrix.m1x1;
+                rect.Width *= matrix.m0x0;
+                rect.Height *= matrix.m1x1;
 
                 // Ensure the width is always positive.  For example, if there was a reflection about the
                 // y axis followed by a translation into the visual area, the width could be negative.
@@ -763,14 +765,14 @@ namespace Engine
             if (type1 == MatrixTypes.Translation)
             {
                 // Save off the old offsets
-                double offsetX = matrix1.offsetX;
-                double offsetY = matrix1.offsetY;
+                var offsetX = matrix1.offsetX;
+                var offsetY = matrix1.offsetY;
 
                 // Copy the matrix
                 matrix1 = matrix2;
 
-                matrix1.offsetX = (float)(offsetX * matrix2.m1x1 + offsetY * matrix2.m2x1 + matrix2.offsetX);
-                matrix1.offsetY = (float)(offsetX * matrix2.m1x2 + offsetY * matrix2.m2x2 + matrix2.offsetY);
+                matrix1.offsetX = (float)(offsetX * matrix2.m0x0 + offsetY * matrix2.m1x0 + matrix2.offsetX);
+                matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
 
                 if (type2 == MatrixTypes.Unknown)
                     matrix1.type = MatrixTypes.Unknown;
@@ -785,19 +787,19 @@ namespace Engine
 
             // trans1._type |  trans2._type
             //  7  6  5  4   |  3  2  1  0
-            int combinedType = ((int)type1 << 4) | (int)type2;
+            var combinedType = ((int)type1 << 4) | (int)type2;
 
             switch (combinedType)
             {
                 case 34:  // S * S
                     // 2 multiplications
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
                     return;
 
                 case 35:  // S * S|T
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
                     matrix1.offsetX = matrix2.offsetX;
                     matrix1.offsetY = matrix2.offsetY;
 
@@ -806,17 +808,17 @@ namespace Engine
                     return;
 
                 case 50: // S|T * S
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
-                    matrix1.offsetX *= matrix2.m1x1;
-                    matrix1.offsetY *= matrix2.m2x2;
+                    matrix1.offsetX *= matrix2.m0x0;
+                    matrix1.offsetY *= matrix2.m1x1;
                     return;
 
                 case 51: // S|T * S|T
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
-                    matrix1.offsetX = matrix2.m1x1 * matrix1.offsetX + matrix2.offsetX;
-                    matrix1.offsetY = matrix2.m2x2 * matrix1.offsetY + matrix2.offsetY;
+                    matrix1.offsetX = matrix2.m0x0 * matrix1.offsetX + matrix2.offsetX;
+                    matrix1.offsetY = matrix2.m1x1 * matrix1.offsetY + matrix2.offsetY;
                     return;
                 case 36: // S * U
                 case 52: // S|T * U
@@ -824,14 +826,14 @@ namespace Engine
                 case 67: // U * S|T
                 case 68: // U * U
                     matrix1 = new Matrix3x2D(
-                        matrix1.m1x1 * matrix2.m1x1 + matrix1.m1x2 * matrix2.m2x1,
-                        matrix1.m1x1 * matrix2.m1x2 + matrix1.m1x2 * matrix2.m2x2,
+                        matrix1.m0x0 * matrix2.m0x0 + matrix1.m0x1 * matrix2.m1x0,
+                        matrix1.m0x0 * matrix2.m0x1 + matrix1.m0x1 * matrix2.m1x1,
 
-                        matrix1.m2x1 * matrix2.m1x1 + matrix1.m2x2 * matrix2.m2x1,
-                        matrix1.m2x1 * matrix2.m1x2 + matrix1.m2x2 * matrix2.m2x2,
+                        matrix1.m1x0 * matrix2.m0x0 + matrix1.m1x1 * matrix2.m1x0,
+                        matrix1.m1x0 * matrix2.m0x1 + matrix1.m1x1 * matrix2.m1x1,
 
-                        matrix1.offsetX * matrix2.m1x1 + matrix1.offsetY * matrix2.m2x1 + matrix2.offsetX,
-                        matrix1.offsetX * matrix2.m1x2 + matrix1.offsetY * matrix2.m2x2 + matrix2.offsetY);
+                        matrix1.offsetX * matrix2.m0x0 + matrix1.offsetY * matrix2.m1x0 + matrix2.offsetX,
+                        matrix1.offsetX * matrix2.m0x1 + matrix1.offsetY * matrix2.m1x1 + matrix2.offsetY);
                     return;
 #if DEBUG
                 default:
@@ -881,14 +883,14 @@ namespace Engine
             if (type1 == MatrixTypes.Translation)
             {
                 // Save off the old offsets
-                double offsetX = matrix1.offsetX;
-                double offsetY = matrix1.offsetY;
+                var offsetX = matrix1.offsetX;
+                var offsetY = matrix1.offsetY;
 
                 // Copy the matrix
                 matrix1 = matrix2;
 
-                matrix1.offsetX = (float)(offsetX * matrix2.m1x1 + offsetY * matrix2.m2x1 + matrix2.offsetX);
-                matrix1.offsetY = (float)(offsetX * matrix2.m1x2 + offsetY * matrix2.m2x2 + matrix2.offsetY);
+                matrix1.offsetX = (float)(offsetX * matrix2.m0x0 + offsetY * matrix2.m1x0 + matrix2.offsetX);
+                matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
 
                 if (type2 == MatrixTypes.Unknown)
                     matrix1.type = MatrixTypes.Unknown;
@@ -903,19 +905,19 @@ namespace Engine
 
             // trans1._type |  trans2._type
             //  7  6  5  4   |  3  2  1  0
-            int combinedType = ((int)type1 << 4) | (int)type2;
+            var combinedType = ((int)type1 << 4) | (int)type2;
 
             switch (combinedType)
             {
                 case 34:  // S * S
                     // 2 multiplications
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
                     return matrix1;
 
                 case 35:  // S * S|T
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
                     matrix1.offsetX = matrix2.offsetX;
                     matrix1.offsetY = matrix2.offsetY;
 
@@ -924,17 +926,17 @@ namespace Engine
                     return matrix1;
 
                 case 50: // S|T * S
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
-                    matrix1.offsetX *= matrix2.m1x1;
-                    matrix1.offsetY *= matrix2.m2x2;
+                    matrix1.offsetX *= matrix2.m0x0;
+                    matrix1.offsetY *= matrix2.m1x1;
                     return matrix1;
 
                 case 51: // S|T * S|T
+                    matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.m2x2 *= matrix2.m2x2;
-                    matrix1.offsetX = matrix2.m1x1 * matrix1.offsetX + matrix2.offsetX;
-                    matrix1.offsetY = matrix2.m2x2 * matrix1.offsetY + matrix2.offsetY;
+                    matrix1.offsetX = matrix2.m0x0 * matrix1.offsetX + matrix2.offsetX;
+                    matrix1.offsetY = matrix2.m1x1 * matrix1.offsetY + matrix2.offsetY;
                     return matrix1;
                 case 36: // S * U
                 case 52: // S|T * U
@@ -942,14 +944,14 @@ namespace Engine
                 case 67: // U * S|T
                 case 68: // U * U
                     matrix1 = new Matrix3x2D(
-                        matrix1.m1x1 * matrix2.m1x1 + matrix1.m1x2 * matrix2.m2x1,
-                        matrix1.m1x1 * matrix2.m1x2 + matrix1.m1x2 * matrix2.m2x2,
+                        matrix1.m0x0 * matrix2.m0x0 + matrix1.m0x1 * matrix2.m1x0,
+                        matrix1.m0x0 * matrix2.m0x1 + matrix1.m0x1 * matrix2.m1x1,
 
-                        matrix1.m2x1 * matrix2.m1x1 + matrix1.m2x2 * matrix2.m2x1,
-                        matrix1.m2x1 * matrix2.m1x2 + matrix1.m2x2 * matrix2.m2x2,
+                        matrix1.m1x0 * matrix2.m0x0 + matrix1.m1x1 * matrix2.m1x0,
+                        matrix1.m1x0 * matrix2.m0x1 + matrix1.m1x1 * matrix2.m1x1,
 
-                        matrix1.offsetX * matrix2.m1x1 + matrix1.offsetY * matrix2.m2x1 + matrix2.offsetX,
-                        matrix1.offsetX * matrix2.m1x2 + matrix1.offsetY * matrix2.m2x2 + matrix2.offsetY);
+                        matrix1.offsetX * matrix2.m0x0 + matrix1.offsetY * matrix2.m1x0 + matrix2.offsetX,
+                        matrix1.offsetX * matrix2.m0x1 + matrix1.offsetY * matrix2.m1x1 + matrix2.offsetY);
                     return matrix1;
 #if DEBUG
                 default:
@@ -986,8 +988,8 @@ namespace Engine
                 //       \   m11*tx+m21*ty+ox     m12*tx + m22*ty + oy    1 /
                 //
 
-                matrix.offsetX += matrix.m1x1 * offsetX + matrix.m2x1 * offsetY;
-                matrix.offsetY += matrix.m1x2 * offsetX + matrix.m2x2 * offsetY;
+                matrix.offsetX += matrix.m0x0 * offsetX + matrix.m1x0 * offsetY;
+                matrix.offsetY += matrix.m0x1 * offsetX + matrix.m1x1 * offsetY;
 
                 // It just gained a translate if was a scale transform. Identity transform is handled above.
                 Debug.Assert(matrix.type != MatrixTypes.Identity);
@@ -1178,7 +1180,7 @@ namespace Engine
         {
             if (vectors != null)
             {
-                for (int i = 0; i < vectors.Length; i++)
+                for (var i = 0; i < vectors.Length; i++)
                     MultiplyVector(ref vectors[i]);
             }
         }
@@ -1191,7 +1193,7 @@ namespace Engine
         {
             if (points != null)
             {
-                for (int i = 0; i < points.Length; i++)
+                for (var i = 0; i < points.Length; i++)
                     MultiplyPoint(ref points[i]);
             }
         }
@@ -1205,7 +1207,7 @@ namespace Engine
         /// </exception>
         public void Invert()
         {
-            double determinant = Determinant;
+            var determinant = Determinant;
 
             if (determinant.IsZero())
             {
@@ -1220,8 +1222,8 @@ namespace Engine
                     break;
                 case MatrixTypes.Scaling:
                     {
+                        m0x0 = 1.0f / m0x0;
                         m1x1 = 1.0f / m1x1;
-                        m2x2 = 1.0f / m2x2;
                     }
                     break;
                 case MatrixTypes.Translation:
@@ -1230,21 +1232,21 @@ namespace Engine
                     break;
                 case MatrixTypes.Scaling | MatrixTypes.Translation:
                     {
+                        m0x0 = 1.0f / m0x0;
                         m1x1 = 1.0f / m1x1;
-                        m2x2 = 1.0f / m2x2;
-                        offsetX = -offsetX * m1x1;
-                        offsetY = -offsetY * m2x2;
+                        offsetX = -offsetX * m0x0;
+                        offsetY = -offsetY * m1x1;
                     }
                     break;
                 default:
                     {
-                        double invdet = 1.0f / determinant;
-                        SetMatrix(m2x2 * invdet,
-                                  -m1x2 * invdet,
-                                  -m2x1 * invdet,
-                                  m1x1 * invdet,
-                                  (m2x1 * offsetY - offsetX * m2x2) * invdet,
-                                  (offsetX * m1x2 - m1x1 * offsetY) * invdet,
+                        var invdet = 1.0f / determinant;
+                        SetMatrix(m1x1 * invdet,
+                                  -m0x1 * invdet,
+                                  -m1x0 * invdet,
+                                  m0x0 * invdet,
+                                  (m1x0 * offsetY - offsetX * m1x1) * invdet,
+                                  (offsetX * m0x1 - m0x0 * offsetY) * invdet,
                                   MatrixTypes.Unknown);
                     }
                     break;
@@ -1263,15 +1265,15 @@ namespace Engine
                     return;
                 case MatrixTypes.Scaling:
                 case MatrixTypes.Scaling | MatrixTypes.Translation:
-                    x *= m1x1;
-                    y *= m2x2;
+                    x *= m0x0;
+                    y *= m1x1;
                     break;
                 default:
-                    double xadd = y * m2x1;
-                    double yadd = x * m1x2;
-                    x *= m1x1;
+                    var xadd = y * m1x0;
+                    var yadd = x * m0x1;
+                    x *= m0x0;
                     x += xadd;
-                    y *= m2x2;
+                    y *= m1x1;
                     y += yadd;
                     break;
             }
@@ -1289,15 +1291,15 @@ namespace Engine
                     return;
                 case MatrixTypes.Scaling:
                 case MatrixTypes.Scaling | MatrixTypes.Translation:
-                    vector.I *= m1x1;
-                    vector.J *= m2x2;
+                    vector.I *= m0x0;
+                    vector.J *= m1x1;
                     break;
                 default:
-                    double xadd = vector.J * m2x1;
-                    double yadd = vector.I * m1x2;
-                    vector.I *= m1x1;
+                    var xadd = vector.J * m1x0;
+                    var yadd = vector.I * m0x1;
+                    vector.I *= m0x0;
                     vector.I += xadd;
-                    vector.J *= m2x2;
+                    vector.J *= m1x1;
                     vector.J += yadd;
                     break;
             }
@@ -1317,21 +1319,21 @@ namespace Engine
                     y += offsetY;
                     return;
                 case MatrixTypes.Scaling:
-                    x *= m1x1;
-                    y *= m2x2;
+                    x *= m0x0;
+                    y *= m1x1;
                     return;
                 case MatrixTypes.Scaling | MatrixTypes.Translation:
-                    x *= m1x1;
+                    x *= m0x0;
                     x += offsetX;
-                    y *= m2x2;
+                    y *= m1x1;
                     y += offsetY;
                     break;
                 default:
-                    double xadd = y * m2x1 + offsetX;
-                    double yadd = x * m1x2 + offsetY;
-                    x *= m1x1;
+                    var xadd = y * m1x0 + offsetX;
+                    var yadd = x * m0x1 + offsetY;
+                    x *= m0x0;
                     x += xadd;
-                    y *= m2x2;
+                    y *= m1x1;
                     y += yadd;
                     break;
             }
@@ -1351,21 +1353,21 @@ namespace Engine
                     point.Y += offsetY;
                     return;
                 case MatrixTypes.Scaling:
-                    point.X *= m1x1;
-                    point.Y *= m2x2;
+                    point.X *= m0x0;
+                    point.Y *= m1x1;
                     return;
                 case MatrixTypes.Scaling | MatrixTypes.Translation:
-                    point.X *= m1x1;
+                    point.X *= m0x0;
                     point.X += offsetX;
-                    point.Y *= m2x2;
+                    point.Y *= m1x1;
                     point.Y += offsetY;
                     break;
                 default:
-                    double xadd = point.Y * m2x1 + offsetX;
-                    double yadd = point.X * m1x2 + offsetY;
-                    point.X *= m1x1;
+                    var xadd = point.Y * m1x0 + offsetX;
+                    var yadd = point.X * m0x1 + offsetY;
+                    point.X *= m0x0;
                     point.X += xadd;
-                    point.Y *= m2x2;
+                    point.Y *= m1x1;
                     point.Y += yadd;
                     break;
             }
@@ -1380,10 +1382,10 @@ namespace Engine
         ///</summary>
         private void SetMatrix(double m11, double m12, double m21, double m22, double offsetX, double offsetY, MatrixTypes type)
         {
-            m1x1 = m11;
-            m1x2 = m12;
-            m2x1 = m21;
-            m2x2 = m22;
+            m0x0 = m11;
+            m0x1 = m12;
+            m1x0 = m21;
+            m1x1 = m22;
             this.offsetX = offsetX;
             this.offsetY = offsetY;
             this.type = type;
@@ -1397,13 +1399,13 @@ namespace Engine
             type = 0;
 
             // Now classify our matrix.
-            if (!(Abs(m2x1) < Epsilon && Abs(m1x2) < Epsilon))
+            if (!(Abs(m1x0) < Epsilon && Abs(m0x1) < Epsilon))
             {
                 type = MatrixTypes.Unknown;
                 return;
             }
 
-            if (!(Abs(m1x1 - 1) < Epsilon && Abs(m2x2 - 1) < Epsilon))
+            if (!(Abs(m0x0 - 1) < Epsilon && Abs(m1x1 - 1) < Epsilon))
                 type = MatrixTypes.Scaling;
 
             if (!(Abs(offsetX) < Epsilon && Abs(offsetY) < Epsilon))
@@ -1463,9 +1465,9 @@ namespace Engine
                         return 1.0d;
                     case MatrixTypes.Scaling:
                     case MatrixTypes.Scaling | MatrixTypes.Translation:
-                        return (m1x1 * m2x2);
+                        return (m0x0 * m1x1);
                     default:
-                        return ((m1x1 * m2x2) - (m1x2 * m2x1));
+                        return ((m0x0 * m1x1) - (m0x1 * m1x0));
                 }
             }
         }
@@ -1541,10 +1543,28 @@ namespace Engine
 #pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
             if (IsIdentity) return "Identity";
             // Helper to get the numeric list separator for a given culture.
-            char sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Matrix3x2D)}{{{nameof(M11)}={m1x1}{sep}{nameof(M12)}={m1x2}{sep}{nameof(M21)}={m2x1}{sep}{nameof(M22)}={m2x2}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
+            var sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Matrix3x2D)}{{{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
             return formatable.ToString(format, provider);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator()
+            => new List<List<double>>
+            {
+                new List<double> { m0x0, m0x1, offsetX },
+                new List<double> { m1x0, m1x1, offsetY },
+            }.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
 
         #endregion
     }

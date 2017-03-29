@@ -72,6 +72,106 @@ namespace Editor
         #region Regression Tests
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void EllipticalArcLineSegmentIntersectios(VectorMap vectorMap)
+        {
+            var left = 50;
+            var top = 0;
+
+            var lineStepAngle = 15d.ToRadians();
+            var lineMinAngle = 0d.ToRadians();
+            var lineSweepAngle = 360d.ToRadians();
+            var whiskerLength = 20;
+            var skew = 0;
+
+            var xRadius = 100;
+            var yRadius = 50;
+            var ellipseAngle = -15d.ToRadians();
+            var startAngle = 90d.ToRadians();
+            var sweepAngle = -90d.ToRadians();
+
+            var ellipse = new Ellipse(left + Max(xRadius, yRadius), top + Max(xRadius, yRadius), xRadius, yRadius, ellipseAngle);
+            var ellipticalArc = new EllipticalArc(ellipse, startAngle, sweepAngle);
+            var ellipseItem = new GraphicItem(ellipticalArc, solidGreenStyle)
+            {
+                Name = "Ellipse"
+            };
+
+            vectorMap.Add(ellipseItem);
+
+            for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
+            {
+                var lineSegment = (LineSegment)Filters.RotateDistort(new LineSegment(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Point2D(ellipse.X + ellipse.MajorRadius + whiskerLength, ellipse.Y + skew)), ellipse.Center, angle);
+                var lineSegmentItem = new GraphicItem(lineSegment, solidGreenStyle)
+                {
+                    Name = "Line Segment."
+                };
+                var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, lineSegment).Points, 5d), handleStyle);
+
+                vectorMap.Add(lineSegmentItem);
+                vectorMap.Add(intersectionNodeItem);
+            }
+
+            var parametricPointTesterFigure = new ParametricPointTester(
+                (px, py) => Intersections.EllipticalArcContainsPoint(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.Angle, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, px, py),
+                ellipse.Bounds.X, ellipse.Bounds.Y, ellipse.Bounds.Right + 5, ellipse.Bounds.Bottom + 5, 5, 5);
+
+            vectorMap.Add(parametricPointTesterFigure);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void EllipticalArcLineIntersectios(VectorMap vectorMap)
+        {
+            var left = 50;
+            var top = 0;
+
+            var lineStepAngle = 15d.ToRadians();
+            var lineMinAngle = 0d.ToRadians();
+            var lineSweepAngle = 360d.ToRadians();
+            var whiskerLength = 20;
+            var skew = 0;
+
+            var xRadius = 100;
+            var yRadius = 50;
+            var ellipseAngle = -15d.ToRadians();
+            var startAngle = 90d.ToRadians();
+            var sweepAngle = -180d.ToRadians();
+
+            var ellipse = new Ellipse(left + Max(xRadius, yRadius), top + Max(xRadius, yRadius), xRadius, yRadius, ellipseAngle);
+            var ellipticalArc = new EllipticalArc(ellipse, startAngle, sweepAngle);
+            var ellipseItem = new GraphicItem(ellipticalArc, solidGreenStyle)
+            {
+                Name = "Ellipse"
+            };
+
+            vectorMap.Add(ellipseItem);
+
+            for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
+            {
+                var line = (Line)Filters.RotateDistort(new Line(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)), ellipse.Center, angle);
+                var lineItem = new GraphicItem(line, solidGreenStyle)
+                {
+                    Name = "Line Segment."
+                };
+                var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, line).Points, 5d), handleStyle);
+
+                vectorMap.Add(lineItem);
+                vectorMap.Add(intersectionNodeItem);
+            }
+
+            var parametricPointTesterFigure = new ParametricPointTester(
+                (px, py) => Intersections.EllipticalArcContainsPoint(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.Angle, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, px, py),
+                ellipse.Bounds.X, ellipse.Bounds.Y, ellipse.Bounds.Right + 5, ellipse.Bounds.Bottom + 5, 5, 5);
+
+            vectorMap.Add(parametricPointTesterFigure);
+        }
+
+        /// <summary>
         /// This is a regression test case for an error where the intersection of a horizontal line and a specific Quadratic Bezier might not end up with intersection points. 
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
@@ -118,8 +218,11 @@ namespace Editor
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void CubicBezierHorizontalLineIntersection(VectorMap vectorMap)
         {
+            var left = 0;
+            var top = 250;
+
             // Horizontal line segment.
-            var cubicSegment = new LineSegment(new Point2D(20, 70), new Point2D(150, 70));
+            var cubicSegment = new LineSegment(new Point2D(left + 20, top + 70), new Point2D(left + 150, top + 70));
             var cubicSegmentItem = new GraphicItem(cubicSegment, solidGreenStyle)
             {
                 Name = "Cubic Bézier Intersecting Line Segment."
@@ -128,7 +231,7 @@ namespace Editor
             var cubicSegmentNodeItem = new GraphicItem(new NodeRevealer(cubicSegment.Points, 5d), handleStyle);
 
             // Quadratic Bezier where end points are horizontal and the handles between share another y-axis.
-            var cubicBezier = new CubicBezier(new Point2D(50, 50), new Point2D(75, 100), new Point2D(125, 100), new Point2D(150, 50));
+            var cubicBezier = new CubicBezier(new Point2D(left + 50, top + 50), new Point2D(left + 75, top + 100), new Point2D(left + 125, top + 100), new Point2D(left + 150, top + 50));
             var cubicBezierItem = new GraphicItem(cubicBezier, solidGreenStyle)
             {
                 Name = "Cubic Bézier."
@@ -611,10 +714,10 @@ namespace Editor
         {
             var left = 100;
             var top = 0;
-            var scanPoint = new Point2D(-10, 200);
+            var scanPoint = new Point2D(-10, 175);
 
-            var figure = new PolycurveContour(new Point2D(left + 50d, top + 100d));
-            figure.AddLineSegment(new Point2D(left + 100, top + 100))
+            var polycurve = new PolycurveContour(new Point2D(left + 50d, top + 100d));
+            polycurve.AddLineSegment(new Point2D(left + 100, top + 100))
                 .AddArc(50d, 50d, 0d, false, false, new Point2D(left + 150d, top + 150d))
                 .AddLineSegment(new Point2D(left + 150, top + 200))
                 .AddArc(50d, 50d, 0d, false, true, new Point2D(left + 100d, top + 250d))
@@ -623,9 +726,12 @@ namespace Editor
                 .AddLineSegment(new Point2D(left, top + 150))
                 .AddArc(50d, 50d, 0d, true, true, new Point2D(left + 50d, top + 100d))
                 .Close();
-            var figureItem = new GraphicItem(figure, solidGreenStyle);
+            var polycurveItem = new GraphicItem(polycurve, solidGreenStyle)
+            {
+                Name = "Polycurve"
+            };
 
-            var line = new Line(left + scanPoint.X, top + scanPoint.Y, 1, 0);
+            var line = new Line(left + scanPoint.X, top + scanPoint.Y, 2, 0);
             var lineItem = new GraphicItem(line, solidGreenStyle)
             {
                 Name = "Line"
@@ -635,13 +741,12 @@ namespace Editor
                 Name = "Line Nodes"
             };
 
-
-            vectorMap.Add(figureItem);
+            vectorMap.Add(polycurveItem);
             vectorMap.Add(lineItem);
 
             var intersection = new Intersection();
 
-            foreach (var item in figure.Items)
+            foreach (var item in polycurve.Items)
             {
                 switch (item)
                 {
@@ -649,9 +754,9 @@ namespace Editor
                         intersection.AppendPoints(Intersections.Intersection(l.ToLineSegment(), line).Points);
                         break;
                     case ArcSegment a:
-                        var circle = a.ToEllipticalArc();
-                        intersection.AppendPoints(Intersections.Intersection(circle, line).Points);
-                        //vectorMap.Add(circle);
+                        var ellipticalArc = a.ToEllipticalArc();
+                        intersection.AppendPoints(Intersections.Intersection(ellipticalArc, line).Points);
+                        //vectorMap.Add(ellipticalArc);
                         break;
                     default:
                         break;
@@ -663,6 +768,41 @@ namespace Editor
                 Name = "Intersection Nodes"
             };
 
+            top += 105;
+            left += 200;
+
+            var lineSegment = new LineSegment(left + 100, top + 0, left + 25, top + 100);
+            var lineSegmentItem = new GraphicItem(lineSegment, solidGreenStyle)
+            {
+                Name = "Line Segment"
+            };
+
+            var bezier1 = new CubicBezier(left + 0, top + 50, left + 0, top + 100, left + 100, top + 100, left + 100, top + 50);
+            var bezier1Item = new GraphicItem(bezier1, solidGreenStyle)
+            {
+                Name = "Bezier"
+            };
+            var bezier1Intersect = new GraphicItem(new NodeRevealer(Intersections.Intersection(bezier1, line).Points, 5d), handleStyle)
+            {
+                Name = "Bezier Intersection"
+            };
+
+            var bezier2 = new CubicBezier(left + 0, top + 50, left + 0, top + 100, left + 100, top + 50, left + 100, top + 100);
+            var bezier2Item = new GraphicItem(bezier2, solidCyanStyle)
+            {
+                Name = "Bezier"
+            };
+            var bezier2Intersect = new GraphicItem(new NodeRevealer(Intersections.Intersection(bezier2, line).Points, 5d), handleStyle)
+            {
+                Name = "Bezier Intersection"
+            };
+
+            vectorMap.Add(bezier1Item);
+            vectorMap.Add(bezier2Item);
+            vectorMap.Add(lineSegmentItem);
+
+            vectorMap.Add(bezier1Intersect);
+            vectorMap.Add(bezier2Intersect);
             vectorMap.Add(intersectionLineCircleNodeItem);
             vectorMap.Add(lineDefNodeItem);
         }

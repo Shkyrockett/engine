@@ -19,6 +19,8 @@ using static System.Math;
 using static Engine.Maths;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Engine
 {
@@ -1008,6 +1010,25 @@ namespace Engine
             IFormattable formatable = $"{nameof(Matrix3x3D)}{{{nameof(M0x0)}={m0x0}{sep}{nameof(M0x1)}={m0x1}{sep}{nameof(M0x2)}={m0x2}{sep}{nameof(M1x0)}={m1x0}{sep}{nameof(M1x1)}={m1x1}{sep}{nameof(M1x2)}={m1x2}{sep}{nameof(M2x0)}={m2x0}{sep}{nameof(M2x1)}={m2x1}{sep}{nameof(M2x2)}={m2x2}}}";
             return formatable.ToString(format, provider);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator()
+            => new List<List<double>>
+            {
+                new List<double> { m0x0, m0x1, m0x2 },
+                new List<double> { m1x0, m1x1, m1x2 },
+                new List<double> { m2x0, m2x1, m2x2 },
+            }.GetEnumerator();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
 
         #endregion
     }

@@ -94,6 +94,15 @@ In some instances a numerical value is replaced with a symbolic representation t
 | ![][i] | Imaginary  |  Denotes an imaginary number. |
 | | | |
 
+#### Table of Common Angles
+
+| Angle | 0° | 30° | 45° | 60° | 90° |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| ![][sin squared theta] | 0/4 | 1/4 | 2/4 | 3/4 | 4/4 |
+| ![][cos squared theta] | 4/4 | 3/4 | 2/4 | 1/4 | 0/4 |
+| ![][tan squared theta] | 0/4 | 1/3 | 2/2 | 3/1 | 4/0 |
+|  |  |  |  |  |  |
+
 ### Exponent
 
 **Exponents** tell how many times a number or variable should be multiplied.
@@ -163,6 +172,7 @@ Below are tables of common operators.
 | ![][operators.sec.inline] | Secant |  |
 | ![][operators.cot.inline] | Cotangent |  |
 |  |  |  |
+
 
 ### Vector Functions
 
@@ -277,6 +287,57 @@ Quadratic equation is where the equation involves an exponent of 2.
 | ... | ... | ... |
 | ![][ellipse curvature] | curvature | The curvature of an ellipse. |
 |  |  |  |
+
+### Trigonometric Identities
+
+<svg width="111" height="66">
+  <g style="stroke-width:1;">
+    <g font-family="san-serif" font-size="14" style="fill:black;">
+        <text x="40" y="20" > c </text>
+        <text x="105" y="30" > a </text>
+        <text x="55" y="65" > b </text>
+        <text x="25" y="48" > θ </text>
+        <text x="88" y="20" > ɸ </text>
+    </g>
+    <g style="fill:transparent;stroke:black;">
+        <polygon points="100,0  0,50 100,50" />
+        <path d="M12 50 A 15 12 0 0 0 11 45" />
+        <path d="M100 10 A 15 12 0 0 1 90 5" />
+        <polyline points="95,50  95,45 100,45" />
+    </g>
+  </g>
+</svg>
+
+| Equation | Name | Description |
+|:---:|---|---|
+| ![][sin theta equals a over c] |  |  |
+| ![][cos theta equals b over c] |  |  |
+| ![][tan theta equals sin theta over cos theta equals a over b] |  |  |
+| ![][csc theta equals one over sin theta equals c over a] |  |  |
+| ![][sec theta equals one over cos theta equals c over b] |  |  |
+| ![][cot theta equals one over tan theta equals b over a] |  |  |
+| ![][sin negative theta equals negative sin theta] |  |  |
+| ![][cos negative theta equals negative cos theta] |  |  |
+| ![][tan negative theta equals negative tan theta] |  |  |
+| ![][csc negative theta equals negative csc theta] |  |  |
+| ![][sec negative theta equals negative sec theta] |  |  |
+| ![][cot negative theta equals negative cot theta] |  |  |
+| ![][sin squared theta plus cos squared theta equals one] |  |  |
+| ![][tan squared theta plus one equals sec squared theta] |  |  |
+| ![][cot squared theta plus one equals csc squared theta] |  |  |
+| ![][sin theta sub one plus or minus theta sub two equals sin theta sub one times cos theta sub two plus or minus cos theta sub one times sin theta sub two] |  |  |
+| ![][cos theta sub one plus or minus theta sub two equals cos theta sub one times cos theta sub two plus or minus sin theta sub one times sin theta sub two] |  |  |
+| ![][tan theta sub one plus or minus theta sub two equals theta sub one plus or minus theta sub two over one plus or minus theta sub one times theta sub two] |  |  |
+| ![][sin two theta equals two sin theta times cos theta] |  |  |
+| ![][cos two theta equals cos squared theta minus sin squared theta equals two cos squared theta minus one equals one minus two sin squared theta] |  |  |
+| ![][tan two theta equals two tan theta over one minus tan squared theta] |  |  |
+| ![][sin squared theta equals one half minus one half times cos two theta] |  |  |
+| ![][cos squared theta equals one half plus one half times cos two theta] |  |  |
+| ![][sin theta sub one minus sin theta sub two equals two sin theta sub one minus theta sub two over two times cos theta sub one plus theta sub two over two] |  |  |
+| ![][cos theta sub one minus cos theta sub two equals negative two sin theta sub one minus theta sub two over two times sin theta sub one plus theta sub two over two] |  |  |
+| ![][law of sines] | Law of Sines |  |
+| ![][law of cosines a] </br> ![][law of cosines b] </br> ![][law of cosines c] | Law of Cosines |  |
+| ![][law of tangents] | Law of Tangents |  |
 
 ## Physical Units
 
@@ -838,3 +899,101 @@ This one is for finding the squares of numbers ending with 5. e.g. ( 〖25〗^2=
 [ellipse curvature]: http://latex.codecogs.com/svg.latex?\\inline&space;k=\\frac{1}{a^{2}b^{2}}\\left&space;\(&space;\\frac{x^{2}}{a^{4}}&plus;\\frac{y^{2}}{b^{4}}&space;\\right&space;\)\^{-\\frac{3}{2}}
 [ellipse curvature.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;k=\\frac{1}{a^{2}b^{2}}\\left&space;\(&space;\\frac{x^{2}}{a^{4}}&plus;\\frac{y^{2}}{b^{4}}&space;\\right&space;\)\^{-\\frac{3}{2}}
 
+[sin theta equals a over c]: http://latex.codecogs.com/svg.latex?%5Csin%28%5Ctheta%29%20%3D%20%5Cfrac%7Ba%7D%7Bc%7D
+[sin theta equals a over c.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%28%5Ctheta%29%20%3D%20%5Cfrac%7Ba%7D%7Bc%7D]
+
+[cos theta equals b over c]: http://latex.codecogs.com/svg.latex?%5Ccos%28%5Ctheta%29%20%3D%20%5Cfrac%7Bb%7D%7Bc%7D
+[cos theta equals b over c.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccos%28%5Ctheta%29%20%3D%20%5Cfrac%7Bb%7D%7Bc%7D
+
+[tan theta equals sin theta over cos theta equals a over b]: http://latex.codecogs.com/svg.latex?%5Ctan%28%5Ctheta%29%3D%5Cfrac%7B%5Csin%28%5Ctheta%29%7D%7B%5Ccos%28%5Ctheta%29%7D%3D%5Cfrac%7Ba%7D%7Bb%7D
+[tan theta equals sin theta over cos theta equals a over b.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctan%28%5Ctheta%29%3D%5Cfrac%7B%5Csin%28%5Ctheta%29%7D%7B%5Ccos%28%5Ctheta%29%7D%3D%5Cfrac%7Ba%7D%7Bb%7D
+
+[csc theta equals one over sin theta equals c over a]: http://latex.codecogs.com/svg.latex?%5Ccsc%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B%5Csin%28%5Ctheta%29%7D%3D%5Cfrac%7Bc%7D%7Ba%7D
+[csc theta equals one over sin theta equals c over a.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccsc%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B%5Csin%28%5Ctheta%29%7D%3D%5Cfrac%7Bc%7D%7Ba%7D
+
+[sec theta equals one over cos theta equals c over b]: http://latex.codecogs.com/svg.latex?%5Csec%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B%5Ccos%28%5Ctheta%29%7D%3D%5Cfrac%7Bc%7D%7Bb%7D
+[sec theta equals one over cos theta equals c over b.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csec%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B%5Ccos%28%5Ctheta%29%7D%3D%5Cfrac%7Bc%7D%7Bb%7D
+
+[cot theta equals one over tan theta equals b over a]: http://latex.codecogs.com/svg.latex?%5Ccot%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7Btan%28%5Ctheta%29%7D%3D%5Cfrac%7Bb%7D%7Ba%7D
+[cot theta equals one over tan theta equals b over a.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccot%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7Btan%28%5Ctheta%29%7D%3D%5Cfrac%7Bb%7D%7Ba%7D
+
+[sin negative theta equals negative sin theta]: http://latex.codecogs.com/svg.latex?%5Csin%28-%5Ctheta%29%20%3D%20-%5Csin%28%5Ctheta%29
+[sin negative theta equals negative sin theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%28-%5Ctheta%29%20%3D%20-%5Csin%28%5Ctheta%29
+
+[cos negative theta equals negative cos theta]: http://latex.codecogs.com/svg.latex?%5Ccos%28-%5Ctheta%29%20%3D%20-%5Ccos%28%5Ctheta%29
+[cos negative theta equals negative cos theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccos%28-%5Ctheta%29%20%3D%20-%5Ccos%28%5Ctheta%29
+
+[tan negative theta equals negative tan theta]: http://latex.codecogs.com/svg.latex?%5Ctan%28-%5Ctheta%29%20%3D%20-%5Ctan%28%5Ctheta%29
+[tan negative theta equals negative tan theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctan%28-%5Ctheta%29%20%3D%20-%5Ctan%28%5Ctheta%29
+
+[csc negative theta equals negative csc theta]: http://latex.codecogs.com/svg.latex?%5Ccsc%28-%5Ctheta%29%20%3D%20-%5Ccsc%28%5Ctheta%29
+[csc negative theta equals negative csc theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccsc%28-%5Ctheta%29%20%3D%20-%5Ccsc%28%5Ctheta%29
+
+[sec negative theta equals negative sec theta]: http://latex.codecogs.com/svg.latex?%5Csec%28-%5Ctheta%29%20%3D%20-%5Csec%28%5Ctheta%29
+[sec negative theta equals negative sec theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csec%28-%5Ctheta%29%20%3D%20-%5Csec%28%5Ctheta%29
+
+[cot negative theta equals negative cot theta]: http://latex.codecogs.com/svg.latex?%5Ccot%28-%5Ctheta%29%20%3D%20-%5Ccot%28%5Ctheta%29
+[cot negative theta equals negative cot theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccot%28-%5Ctheta%29%20%3D%20-%5Ccot%28%5Ctheta%29
+
+[sin squared theta plus cos squared theta equals one]: http://latex.codecogs.com/svg.latex?%5Csin%5E%7B2%7D%28%5Ctheta%29&plus;%5Ccos%5E%7B2%7D%28%5Ctheta%29%20%3D%201
+[sin squared theta plus cos squared theta equals one.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%5E%7B2%7D%28%5Ctheta%29&plus;%5Ccos%5E%7B2%7D%28%5Ctheta%29%20%3D%201
+
+[tan squared theta plus one equals sec squared theta]: http://latex.codecogs.com/svg.latex?%5Ctan%5E%7B2%7D%28%5Ctheta%29&plus;1%3D%5Csec%5E%7B2%7D%28%5Ctheta%29
+[tan squared theta plus one equals sec squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctan%5E%7B2%7D%28%5Ctheta%29&plus;1%3D%5Csec%5E%7B2%7D%28%5Ctheta%29
+
+[cot squared theta plus one equals csc squared theta]: http://latex.codecogs.com/svg.latex?%5Ccot%5E%7B2%7D%28%5Ctheta%29&plus;1%3D%5Ccsc%5E%7B2%7D%28%5Ctheta%29
+[cot squared theta plus one equals csc squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccot%5E%7B2%7D%28%5Ctheta%29&plus;1%3D%5Ccsc%5E%7B2%7D%28%5Ctheta%29
+
+[sin theta sub one plus or minus theta sub two equals sin theta sub one times cos theta sub two plus or minus cos theta sub one times sin theta sub two]: http://latex.codecogs.com/svg.latex?%5Csin%28%5Ctheta_1%5Cpm%5Ctheta_2%29%3D%5Csin%28%5Ctheta_1%29%5Ccos%28%5Ctheta_2%29%5Cpm%5Ccos%28%5Ctheta_1%29%5Csin%28%5Ctheta_2%29
+[sin theta sub one plus or minus theta sub two equals sin theta sub one times cos theta sub two plus or minus cos theta sub one times sin theta sub two.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%28%5Ctheta_1%5Cpm%5Ctheta_2%29%3D%5Csin%28%5Ctheta_1%29%5Ccos%28%5Ctheta_2%29%5Cpm%5Ccos%28%5Ctheta_1%29%5Csin%28%5Ctheta_2%29
+
+[cos theta sub one plus or minus theta sub two equals cos theta sub one times cos theta sub two plus or minus sin theta sub one times sin theta sub two]: http://latex.codecogs.com/svg.latex?%5Ccos%28%5Ctheta_1%5Cpm%5Ctheta_2%29%3D%5Ccos%28%5Ctheta_1%29%5Ccos%28%5Ctheta_2%29%5Cpm%5Csin%28%5Ctheta_1%29%5Csin%28%5Ctheta_2%29
+[cos theta sub one plus or minus theta sub two equals cos theta sub one times cos theta sub two plus or minus sin theta sub one times sin theta sub two.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccos%28%5Ctheta_1%5Cpm%5Ctheta_2%29%3D%5Ccos%28%5Ctheta_1%29%5Ccos%28%5Ctheta_2%29%5Cpm%5Csin%28%5Ctheta_1%29%5Csin%28%5Ctheta_2%29
+
+[tan theta sub one plus or minus theta sub two equals theta sub one plus or minus theta sub two over one plus or minus theta sub one times theta sub two]: http://latex.codecogs.com/svg.latex?%5Ctan%28%5Ctheta_1%5Cpm%5Ctheta_2%29%3D%5Cfrac%7B%5Ctan%28%5Ctheta_1%29%5Cpm%5Ctan%28%5Ctheta_2%29%7D%7B1%5Cpm%5Ctan%28%5Ctheta_1%29%5Ctan%28%5Ctheta_2%29%7D
+[tan theta sub one plus or minus theta sub two equals theta sub one plus or minus theta sub two over one plus or minus theta sub one times theta sub two.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctan%28%5Ctheta_1%5Cpm%5Ctheta_2%29%3D%5Cfrac%7B%5Ctan%28%5Ctheta_1%29%5Cpm%5Ctan%28%5Ctheta_2%29%7D%7B1%5Cpm%5Ctan%28%5Ctheta_1%29%5Ctan%28%5Ctheta_2%29%7D
+
+[sin two theta equals two sin theta times cos theta]: http://latex.codecogs.com/svg.latex?%5Csin%282%5Ctheta%29%3D2%5Csin%28%5Ctheta%20%29%5Ccos%28%5Ctheta%20%29
+[sin two theta equals two sin theta times cos theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%282%5Ctheta%29%3D2%5Csin%28%5Ctheta%20%29%5Ccos%28%5Ctheta%20%29
+
+[cos two theta equals cos squared theta minus sin squared theta equals two cos squared theta minus one equals one minus two sin squared theta]: http://latex.codecogs.com/svg.latex?%5Ccos%282%5Ctheta%29%3D%5Ccos%5E%7B2%7D%28%5Ctheta%29-%5Csin%5E%7B2%7D%28%5Ctheta%29%3D2%5Ccos%5E%7B2%7D%28%5Ctheta%29-1%3D1-2%5Csin%5E%7B2%7D%28%5Ctheta%29
+[cos two theta equals cos squared theta minus sin squared theta equals two cos squared theta minus one equals one minus two sin squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccos%282%5Ctheta%29%3D%5Ccos%5E%7B2%7D%28%5Ctheta%29-%5Csin%5E%7B2%7D%28%5Ctheta%29%3D2%5Ccos%5E%7B2%7D%28%5Ctheta%29-1%3D1-2%5Csin%5E%7B2%7D%28%5Ctheta%29
+
+[tan two theta equals two tan theta over one minus tan squared theta]: http://latex.codecogs.com/svg.latex?%5Ctan%282%5Ctheta%29%3D%5Cfrac%7B2%5Ctan%28%5Ctheta%29%7D%7B1-%5Ctan%5E%7B2%7D%28%5Ctheta%29%7D
+[tan two theta equals two tan theta over one minus tan squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctan%282%5Ctheta%29%3D%5Cfrac%7B2%5Ctan%28%5Ctheta%29%7D%7B1-%5Ctan%5E%7B2%7D%28%5Ctheta%29%7D
+
+[sin squared theta equals one half minus one half times cos two theta]: http://latex.codecogs.com/svg.latex?%5Csin%5E2%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B2%7D-%5Cfrac%7B1%7D%7B2%7D%5Ccos%282%5Ctheta%29
+[sin squared theta equals one half minus one half times cos two theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%5E2%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B2%7D-%5Cfrac%7B1%7D%7B2%7D%5Ccos%282%5Ctheta%29
+
+[cos squared theta equals one half plus one half times cos two theta]: http://latex.codecogs.com/svg.latex?%5Ccos%5E2%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B2%7D&plus;%5Cfrac%7B1%7D%7B2%7D%5Ccos%282%5Ctheta%29
+[cos squared theta equals one half plus one half times cos two theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccos%5E2%28%5Ctheta%29%3D%5Cfrac%7B1%7D%7B2%7D&plus;%5Cfrac%7B1%7D%7B2%7D%5Ccos%282%5Ctheta%29
+
+[sin theta sub one minus sin theta sub two equals two sin theta sub one minus theta sub two over two times cos theta sub one plus theta sub two over two]: http://latex.codecogs.com/svg.latex?%5Csin%28%5Ctheta_1%29-%5Csin%28%5Ctheta_2%29%3D2%5Csin%28%5Cfrac%7B%5Ctheta_1-%5Ctheta_2%7D%7B2%7D%29%5Ccos%28%5Cfrac%7B%5Ctheta_1&plus;%5Ctheta_2%7D%7B2%7D%29
+[sin theta sub one minus sin theta sub two equals two sin theta sub one minus theta sub two over two times cos theta sub one plus theta sub two over two.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%28%5Ctheta_1%29-%5Csin%28%5Ctheta_2%29%3D2%5Csin%28%5Cfrac%7B%5Ctheta_1-%5Ctheta_2%7D%7B2%7D%29%5Ccos%28%5Cfrac%7B%5Ctheta_1&plus;%5Ctheta_2%7D%7B2%7D%29
+
+[cos theta sub one minus cos theta sub two equals negative two sin theta sub one minus theta sub two over two times sin theta sub one plus theta sub two over two]: http://latex.codecogs.com/svg.latex?%5Ccos%28%5Ctheta_1%29-%5Ccos%28%5Ctheta_2%29%3D-2%5Csin%28%5Cfrac%7B%5Ctheta_1-%5Ctheta_2%7D%7B2%7D%29%5Csin%28%5Cfrac%7B%5Ctheta_1&plus;%5Ctheta_2%7D%7B2%7D%29
+[cos theta sub one minus cos theta sub two equals negative two sin theta sub one minus theta sub two over two times sin theta sub one plus theta sub two over two.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccos%28%5Ctheta_1%29-%5Ccos%28%5Ctheta_2%29%3D-2%5Csin%28%5Cfrac%7B%5Ctheta_1-%5Ctheta_2%7D%7B2%7D%29%5Csin%28%5Cfrac%7B%5Ctheta_1&plus;%5Ctheta_2%7D%7B2%7D%29
+
+[law of sines]: http://latex.codecogs.com/svg.latex?%5Cfrac%7Ba%7D%7B%5Csin%28A%29%7D%3D%5Cfrac%7Bb%7D%7B%5Csin%28B%29%7D%3D%5Cfrac%7Bc%7D%7B%5Csin%28C%29%7D
+[law of sines.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Cfrac%7Ba%7D%7B%5Csin%28A%29%7D%3D%5Cfrac%7Bb%7D%7B%5Csin%28B%29%7D%3D%5Cfrac%7Bc%7D%7B%5Csin%28C%29%7D
+
+[law of cosines a]: http://latex.codecogs.com/svg.latex?a%5E%7B2%7D%3Db%5E%7B2%7D&plus;c%5E%7B2%7D-2bc%5Ccos%28A%29
+[law of cosines a.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20a%5E%7B2%7D%3Db%5E%7B2%7D&plus;c%5E%7B2%7D-2bc%5Ccos%28A%29
+
+[law of cosines b]: http://latex.codecogs.com/svg.latex?b%5E%7B2%7D%3Da%5E%7B2%7D&plus;c%5E%7B2%7D-2ac%5Ccos%28B%29
+[law of cosines b.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20b%5E%7B2%7D%3Da%5E%7B2%7D&plus;c%5E%7B2%7D-2ac%5Ccos%28B%29
+
+[law of cosines c]: http://latex.codecogs.com/svg.latex?c%5E%7B2%7D%3Da%5E%7B2%7D&plus;b%5E%7B2%7D-2ab%5Ccos%28C%29
+[law of cosines c.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20c%5E%7B2%7D%3Da%5E%7B2%7D&plus;b%5E%7B2%7D-2ab%5Ccos%28C%29
+
+[law of tangents]: http://latex.codecogs.com/svg.latex?%5Cfrac%7Ba-b%7D%7Ba&plus;%20b%7D%3D%20%5Cfrac%7B%5Ctan%28%5Cfrac%7BA-B%7D%7B2%7D%29%7D%7B%5Ctan%28%5Cfrac%7BA&plus;B%7D%7B2%7D%29%7D
+[law of tangents.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Cfrac%7Ba-b%7D%7Ba&plus;%20b%7D%3D%20%5Cfrac%7B%5Ctan%28%5Cfrac%7BA-B%7D%7B2%7D%29%7D%7B%5Ctan%28%5Cfrac%7BA&plus;B%7D%7B2%7D%29%7D
+
+[sin squared theta]: http://latex.codecogs.com/svg.latex?%5Csin%5E%7B2%7D%28%5Ctheta%29
+[sin squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Csin%5E%7B2%7D%28%5Ctheta%29
+
+[cos squared theta]: http://latex.codecogs.com/svg.latex?%5Ccos%5E%7B2%7D%28%5Ctheta%29
+[cos squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ccos%5E%7B2%7D%28%5Ctheta%29
+
+[tan squared theta]: http://latex.codecogs.com/svg.latex?%5Ctan%5E%7B2%7D%28%5Ctheta%29
+[tan squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctan%5E%7B2%7D%28%5Ctheta%29

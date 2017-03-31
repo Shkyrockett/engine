@@ -2328,7 +2328,7 @@ namespace Engine
         /// <param name="lBX"></param>
         /// <param name="lBY"></param>
         /// <returns></returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection PointLineSegmentIntersection(double pX, double pY, double lAX, double lAY, double lBX, double lBY)
             => (PointLineSegmentIntersects(pX, pY, lAX, lAY, lBX, lBY))
@@ -2469,7 +2469,7 @@ namespace Engine
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
         /// </remarks>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineQuadraticBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y)
         {
@@ -2495,10 +2495,12 @@ namespace Engine
             for (var i = 0; i < roots.Count; i++)
             {
                 var t = roots[i];
+
                 // Add intersection point.
-                result.AppendPoint(new Point2D(
-                    bx.A * t * t + bx.B * t + bx.C,
-                    by.A * t * t + by.B * t + by.C));
+                if (!(t < 0 || t > 1d))
+                    result.AppendPoint(new Point2D(
+                        bx.A * t * t + bx.B * t + bx.C,
+                        by.A * t * t + by.B * t + by.C));
             }
 
             // Return result.
@@ -2565,11 +2567,11 @@ namespace Engine
             {
                 var t = roots[i];
 
-                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
-                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
-
                 // Add intersection point.
-                result.AppendPoint(new Point2D(x, y));
+                if (!(t < 0 || t > 1d))
+                    result.AppendPoint(new Point2D(
+                        bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D,
+                        by.A * t * t * t + by.B * t * t + by.C * t + by.D));
             }
 
             if (result.Count > 0)

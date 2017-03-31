@@ -210,8 +210,8 @@ namespace Editor
         {
             var left = 0;
             var top = 50;
-            var lineAngle = (45d).ToRadians();
-            var curveAngle = (45d).ToRadians();
+            var lineAngle = (30d).ToRadians();
+            var curveAngle = (60d).ToRadians();
 
             // Horizontal line.
             var cubicLine1 = (Line)Filters.RotateDistort(new Line(left + 20, top + 70, 1, 0), new Point2D(left + 100, top + 72.5), lineAngle);

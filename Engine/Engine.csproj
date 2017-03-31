@@ -144,6 +144,7 @@
     <Compile Include="Geometry\Polygons\Contour.cs" />
     <Compile Include="Geometry\Polygons\Polygon.cs" />
     <Compile Include="Framework\JenkinsHash.cs" />
+    <Compile Include="Math\Maths.Algebraic.cs" />
     <Compile Include="Math\Primitives\Interfaces\IMatrix.cs" />
     <Compile Include="Math\Primitives\Interfaces\IVector.cs" />
     <Compile Include="Math\Primitives\Matrix3x2D.cs" />
@@ -175,7 +176,6 @@
     <Compile Include="Filtering\Interfaces\IFilter.cs" />
     <Compile Include="Filtering\Filters\SphereDistort.cs" />
     <Compile Include="_Preview\Generators\Generators.cs" />
-    <Compile Include="_Preview\Intersection\Intersections2.cs" />
     <Compile Include="_Preview\PolyBezier\BezierSegment.cs" />
     <Compile Include="_Preview\PolyBezier\BezierSegmentX.cs" />
     <Compile Include="_Preview\PolyBezier\PolyBezierContour.cs" />

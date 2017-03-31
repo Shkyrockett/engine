@@ -87,12 +87,12 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item?.Style;
 
             Brush backBrush = new SolidBrush(Color.FromArgb(128, Color.MediumPurple));
-            Pen forePen = new Pen(Color.FromArgb(128, Color.Purple));
+            var forePen = new Pen(Color.FromArgb(128, Color.Purple));
 
             g.FillPie(backBrush, shape.Bounds.ToRectangle(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
             g.DrawPie(forePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
 
-            int num = 1;
+            var num = 1;
 
             Pen tickBrush = Pens.Red;
             foreach (var angle in shape.TestAngles)
@@ -125,7 +125,7 @@ namespace Engine.Imaging
 
             foreach (var point in shape?.Points)
             {
-                Rectangle2D rect = new Rectangle2D(new Point2D(point.X - shape.Radius, point.Y - shape.Radius), new Size2D(2 * shape.Radius, 2 * shape.Radius));
+                var rect = new Rectangle2D(new Point2D(point.X - shape.Radius, point.Y - shape.Radius), new Size2D(2 * shape.Radius, 2 * shape.Radius));
                 g.FillEllipse(itemStyle.BackBrush, rect.ToRectangleF());
                 g.DrawEllipse(itemStyle.ForePen, rect.ToRectangleF());
             }

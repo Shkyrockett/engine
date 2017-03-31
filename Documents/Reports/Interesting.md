@@ -60,7 +60,7 @@ for (var i = 1; i <= points.Count; ++i)
 }
 ```
 
-The final method just works, and is likely the best optimization, so long as you don't care about the order of the segments.
+The final method just works, however is still a tad slow, so long as you don't care about the order of the segments.
 
 ```c#
 for (int i = points.Length - 1, j = 0; j < points.Length; i = j++)

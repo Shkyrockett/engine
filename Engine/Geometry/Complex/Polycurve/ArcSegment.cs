@@ -285,47 +285,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
-        {
-            get
-            {
-                //return (double)CachingProperty(() => startAngle(Start.Value, End.Value, Cos(Angle), Sin(Angle)));
-                return (double)CachingProperty(() => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y).StartAngle);
-
-                // ToDo: Figure out why the following inline method doesn't work correctly.
-                double startAngle(Point2D start, Point2D end, double cosT, double sinT)
-                {
-                    // Compute (x1, y1).
-                    var x1 = (cosT * (start.X - end.X) * OneHalf + sinT * (start.Y - end.Y) * OneHalf);
-                    var y1 = (-sinT * (start.X - end.X) * OneHalf + cosT * (start.Y - end.Y) * OneHalf);
-
-                    // Ensure radii are positive.
-                    RX = Abs(RX);
-                    RY = Abs(RY);
-
-                    // Check that radii are large enough.
-                    var radiiCheck = x1 * x1 / RX * RX + y1 * y1 / RY * RY;
-                    if (radiiCheck > 1)
-                    {
-                        RX = Sqrt(radiiCheck) * RX;
-                        RY = Sqrt(radiiCheck) * RY;
-                    }
-
-                    // Compute coefficient.
-                    var sq = ((RX * RX * RY * RY) - (RX * RX * y1 * y1) - (RY * RY * x1 * x1)) / ((RX * RX * y1 * y1) + (RY * RY * x1 * x1));
-                    sq = (sq < 0) ? 0 : sq;
-                    var coef = (((LargeArc == Sweep) ? -1d : 1d) * Sqrt(sq));
-
-                    // Compute the start angle vector.
-                    var ux = (x1 - coef * ((RX * y1) / RY)) / RX;
-                    var uy = (y1 - coef * -((RY * x1) / RX)) / RY;
-
-                    // Compute the start angle.
-                    var angleStart = ((uy < 0) ? -1d : 1d) * Acos(ux / Sqrt((ux * ux) + (uy * uy)));
-                    angleStart %= Tau;
-                    return angleStart;
-                }
-            }
-        }
+            => (double)CachingProperty(() => ToEllipticalArc().StartAngle);
 
         /// <summary>
         /// Gets the Polar corrected start angle of the <see cref="Ellipse"/>.
@@ -333,7 +293,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarStartAngle
-            => (double)CachingProperty(() => EllipsePolarAngle(StartAngle, rX, rY));
+            => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle, rX, rY));
 
         /// <summary>
         /// 
@@ -347,58 +307,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
-        {
-            get
-            {
-                //return (double)CachingProperty(() => sweepAngle(Start.Value, End.Value, Cos(Angle), Sin(Angle)));
-                return (double)CachingProperty(() => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y).SweepAngle);
-
-                // ToDo: Figure out why the following inline method does not work.
-                double sweepAngle(Point2D start, Point2D end, double cosT, double sinT)
-                {
-                    // Compute (x1, y1).
-                    var x1 = (cosT * (start.X - end.X) * OneHalf + sinT * (start.Y - end.Y) * OneHalf);
-                    var y1 = (-sinT * (start.X - end.X) * OneHalf + cosT * (start.Y - end.Y) * OneHalf);
-
-                    // Ensure radii are positive.
-                    RX = Abs(RX);
-                    RY = Abs(RY);
-
-                    // Check that radii are large enough.
-                    var radiiCheck = x1 * x1 / RX * RX + y1 * y1 / RY * RY;
-                    if (radiiCheck > 1)
-                    {
-                        RX = Sqrt(radiiCheck) * RX;
-                        RY = Sqrt(radiiCheck) * RY;
-                    }
-
-                    // Compute coefficient.
-                    var sq = ((RX * RX * RY * RY) - (RX * RX * y1 * y1) - (RY * RY * x1 * x1)) / ((RX * RX * y1 * y1) + (RY * RY * x1 * x1));
-                    sq = (sq < 0) ? 0 : sq;
-                    var coef = (((LargeArc == Sweep) ? -1d : 1d) * Sqrt(sq));
-
-                    // Compute the Start angle and the sweep angle vectors.
-                    var ux = (x1 - coef * ((RX * y1) / RY)) / RX;
-                    var uy = (y1 - coef * -((RY * x1) / RX)) / RY;
-                    var vx = (-x1 - coef * ((RX * y1) / RY)) / RX;
-                    var vy = (-y1 - coef * -((RY * x1) / RX)) / RY;
-
-                    // Compute the sweep angle.
-                    var angleSweep = ((ux * vy - uy * vx < 0) ? -1d : 1d) * Acos((ux * vx + uy * vy) / Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy)));
-
-                    if (!Sweep && angleSweep > 0)
-                    {
-                        angleSweep -= Tau;
-                    }
-                    else if (Sweep && angleSweep < 0)
-                    {
-                        angleSweep += Tau;
-                    }
-                    angleSweep %= Tau;
-                    return angleSweep;
-                }
-            }
-        }
+            => (double)CachingProperty(() => ToEllipticalArc().SweepAngle);
 
         /// <summary>
         /// 
@@ -420,7 +329,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarEndAngle
-            => (double)CachingProperty(() => EllipsePolarAngle(StartAngle + SweepAngle, rX, rY));
+            => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle + SweepAngle, rX, rY));
 
         /// <summary>
         /// 

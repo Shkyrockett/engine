@@ -231,7 +231,7 @@ namespace Engine
             double r1, double r2,
             double angle,
             double t)
-           => Ellipse(cX, cY, r1, r2, angle, EllipsePolarAngle(t, r1, r2));
+           => Ellipse(cX, cY, r1, r2, angle, EllipticalPolarAngle(t, r1, r2));
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction.
@@ -251,7 +251,7 @@ namespace Engine
             double r1, double r2,
             double cosAngle, double sinAngle,
             double t)
-           => Ellipse(cX, cY, r1, r2, cosAngle, sinAngle, EllipsePolarAngle(t, r1, r2));
+           => Ellipse(cX, cY, r1, r2, cosAngle, sinAngle, EllipticalPolarAngle(t, r1, r2));
 
         /// <summary>
         /// Interpolate a point on an Ellipse.

@@ -53,8 +53,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double Roll, double Pitch, double Yaw) QuaternionToEulerAngles(double x, double y, double z, double w)
         {
-            double halfPi = PI / 2;
-            double test = x * y + z * w;
+            var halfPi = PI / 2;
+            var test = x * y + z * w;
             (double Roll, double Pitch, double Yaw) quat = (0, 0, 0);
             if (test > 0.499d)
             { // singularitY at north pole
@@ -70,9 +70,9 @@ namespace Engine
             }
             else
             {
-                double sqX = x * x;
-                double sqY = y * y;
-                double sqZ = z * z;
+                var sqX = x * x;
+                var sqY = y * y;
+                var sqZ = z * z;
                 quat.Yaw = Atan2(2d * y * w - 2d * x * z, 1d - 2d * sqY - 2d * sqZ);
                 quat.Roll = Asin(2d * test);
                 quat.Pitch = Atan2(2d * x * w - 2d * y * z, 1d - 2d * sqX - 2d * sqZ);
@@ -103,7 +103,7 @@ namespace Engine
             //double value = angle % Tau;
             //double value = IEEERemainder(angle, Tau);
             // The active ingredient of the IEEERemainder method is extracted here.
-            double value = angle - (Tau * Math.Round(angle * InverseTau));
+            var value = angle - (Tau * Math.Round(angle * InverseTau));
             return value < 0 ? value + Tau : value;
         }
 
@@ -112,6 +112,8 @@ namespace Engine
         /// </summary>
         /// <param name="angle"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double NormalizeRadian(double angle)
         {
             var value = (angle + PI) % (Tau);
@@ -130,7 +132,7 @@ namespace Engine
         {
             if (double.IsNaN(angle))
                 return angle;
-            double value = angle % Tau;
+            var value = angle % Tau;
             return (value <= -PI) ? value + Tau : value - Tau;
         }
 
@@ -148,7 +150,7 @@ namespace Engine
             // The IEEERemainder method works better than the % modulus operator in this case, even if it is slower.
             //double value = IEEERemainder(angle, Tau);
             // The active ingredient of the IEEERemainder method is extracted here for performance reasons.
-            double value = angle - (Tau * Math.Round(angle * InverseTau));
+            var value = angle - (Tau * Math.Round(angle * InverseTau));
             return (value <= -PI) ? value + Tau : value - Tau;
         }
 
@@ -251,7 +253,7 @@ namespace Engine
             double x2, double y2)
         {
             // Find the angle of point a and point b.
-            double test = -Angle(x1, y1, x2, y2) % PI;
+            var test = -Angle(x1, y1, x2, y2) % PI;
             return test < 0 ? test += PI : test;
         }
 
@@ -302,10 +304,10 @@ namespace Engine
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipsePolarAngle(double angle, double rx, double ry)
+        public static double EllipticalPolarAngle(double angle, double rx, double ry)
         {
             // Wrap the angle between -2PI and 2PI.
-            double theta = angle % Tau;
+            var theta = angle % Tau;
 
             // Find the elliptical t that matches the circular angle.
             if (Math.Abs(theta) == Right || Math.Abs(theta) == Pau)
@@ -400,10 +402,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) RotatePoint2D(double x, double y, double cx, double cy, double angle)
         {
-            double deltaX = x - cx;
-            double deltaY = y - cy;
-            double angleCos = Cos(angle);
-            double angleSin = Sin(angle);
+            var deltaX = x - cx;
+            var deltaY = y - cy;
+            var angleCos = Cos(angle);
+            var angleSin = Sin(angle);
             return ((cx + (deltaX * angleCos - deltaY * angleSin)),
                     (cy + (deltaX * angleSin + deltaY * angleCos)));
         }

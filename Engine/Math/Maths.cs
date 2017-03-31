@@ -245,25 +245,6 @@ namespace Engine
             (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
             (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
-        /// </remarks>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
-            => (d - (3d * c) + (3d * b) - a,
-                (3d * c) - (6d * b) + (3d * a),
-                3d * (b - a),
-                a);
-
         #region Parsing.
 
         /// <summary>

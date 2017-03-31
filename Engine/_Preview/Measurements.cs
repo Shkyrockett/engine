@@ -1461,8 +1461,8 @@ namespace Engine
             Array.Sort(angles);
 
             // Get the start and end angles adjusted to polar coordinates.
-            var t0 = EllipsePolarAngle(startAngle, r1, r2);
-            var t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+            var t0 = EllipticalPolarAngle(startAngle, r1, r2);
+            var t1 = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
 
             // Interpolate the ratios of height and width of the chord.
             var sinT0 = Sin(t0);

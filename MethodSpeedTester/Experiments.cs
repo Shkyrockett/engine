@@ -852,8 +852,8 @@ namespace MethodSpeedTester
             Array.Sort(angles);
 
             // Get the start and end angles adjusted to polar coordinates.
-            var t0 = EllipsePolarAngle(startAngle, r1, r2);
-            var t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+            var t0 = EllipticalPolarAngle(startAngle, r1, r2);
+            var t1 = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
 
             // Interpolate the ratios of height and width of the chord.
             var sinT0 = Sin(t0);
@@ -930,8 +930,8 @@ namespace MethodSpeedTester
             Array.Sort(angles);
 
             // Get the start and end angles adjusted to polar coordinates.
-            var t0 = EllipsePolarAngle(startAngle, r1, r2);
-            var t1 = EllipsePolarAngle(startAngle + sweepAngle, r1, r2);
+            var t0 = EllipticalPolarAngle(startAngle, r1, r2);
+            var t1 = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
 
             // Interpolate the ratios of height and width of the chord.
             var sinT0 = Sin(t0);
@@ -6992,8 +6992,8 @@ namespace MethodSpeedTester
             }
 
             // Find the start and end angles.
-            var sa = EllipsePolarAngle(startAngle, rx, ry);
-            var ea = EllipsePolarAngle(startAngle + sweepAngle, rx, ry);
+            var sa = EllipticalPolarAngle(startAngle, rx, ry);
+            var ea = EllipticalPolarAngle(startAngle + sweepAngle, rx, ry);
 
             // Get the ellipse rotation transform.
             var cosT = Cos(0);
@@ -7763,90 +7763,85 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Intersection of a Line Segment and a Cubic Bezier
+        #region Intersection of a Line and a Quadratic Bezier
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
-        /// <param name="p3x"></param>
-        /// <param name="p3y"></param>
-        /// <param name="l0x"></param>
-        /// <param name="l0y"></param>
-        /// <param name="l1x"></param>
-        /// <param name="l1y"></param>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// This method has an error where it does not return an intersection with a horizontal line and the end points of the curve share the same y value, as well as the handles sharing another y value.
-        /// Found at: https://www.particleincell.com/2013/cubic-line-intersection/
-        /// Based on code now found at: http://www.abecedarical.com/javascript/script_cubic.html
-        /// </remarks>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierLineSegmentIntersection1(
-            double p0x, double p0y,
-            double p1x, double p1y,
-            double p2x, double p2y,
-            double p3x, double p3y,
-            double l0x, double l0y,
-            double l1x, double l1y)
+        private static Intersection LineQuadraticBezierIntersection(
+            double a1X, double a1Y,
+            double a2X, double a2Y,
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y)
         {
-            // ToDo: Figure out why this can't handle intersection with horizontal lines.
-            var I = new Intersection(IntersectionState.NoIntersection);
-
-            var A = l1y - l0y;      //A=y2-y1
-            var B = l0x - l1x;      //B=x1-x2
-            var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
-
-            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
-
-            var r = CubicRoots(
-                A * bx.A + B * by.A,    /*t^3*/
-                A * bx.B + B * by.B,    /*t^2*/
-                A * bx.C + B * by.C,    /*t*/
-                A * bx.D + B * by.D + C /*1*/
-                );
-
-            /*verify the roots are in bounds of the linear segment*/
-            for (var i = 0; i < 3; i++)
+            var min = MinPoint(a1X, a1Y, a2X, a2Y);
+            var max = MaxPoint(a1X, a1Y, a2X, a2Y);
+            var result = new Intersection(IntersectionState.NoIntersection);
+            var a = new Vector2D(p2X, p2Y).Scale(-2);
+            var c2 = new Vector2D(p1X, p1Y).Add(a.Add(new Vector2D(p3X, p3Y)));
+            a = new Vector2D(p1X, p1Y).Scale(-2);
+            var b = new Vector2D(p2X, p2Y).Scale(2);
+            var c1 = a.Add(b);
+            var c0 = new Point2D(p1X, p1Y);
+            var n = new Point2D(a1Y - a2Y, a2X - a1X);
+            var cl = a1X * a2Y - a2X * a1Y;
+            var roots = new Polynomial(
+                n.DotProduct(c0) + cl,
+                n.DotProduct(c1),
+                n.DotProduct(c2)).Roots();
+            for (var i = 0; i < roots.Count; i++)
             {
-                var t = r[i];
-
-                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
-                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
-
-                /*above is intersection point assuming infinitely long line segment,
-                  make sure we are also in bounds of the line*/
-                double m;
-                if ((l1x - l0x) != 0)           /*if not vertical line*/
-                    m = (x - l0x) / (l1x - l0x);
-                else
-                    m = (y - l0y) / (l1y - l0y);
-
-                /*in bounds?*/
-                if (t < 0 || t > 1d || m < 0 || m > 1d)
+                var t = roots[i];
+                if (0 <= t && t <= 1)
                 {
-                    x = 0;// -100;  /*move off screen*/
-                    y = 0;// -100;
-                }
-                else
-                {
-                    /*intersection point*/
-                    I.AppendPoint(new Point2D(x, y));
-                    I.State = IntersectionState.Intersection;
+                    Point2D p4 = Lerp(p1X, p1Y, p2X, p2Y, t);
+                    Point2D p5 = Lerp(p2X, p2Y, p3X, p3Y, t);
+                    Point2D p6 = Lerp(p4.X, p4.Y, p5.X, p5.Y, t);
+                    if (a1X == a2X)
+                    {
+                        result.AppendPoint(p6);
+                    }
+                    else if (a1Y == a2Y)
+                    {
+                        result.AppendPoint(p6);
+                    }
+                    else if (p6.GreaterThanOrEqual(min) && p6.LessThanOrEqual(max))
+                    {
+                        result.AppendPoint(p6);
+                    }
                 }
             }
-            return I;
+
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
+            return result;
         }
+
+        #endregion
+
+        #region Intersection of a Line and a Cubic Bezier
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
         /// <param name="p2X"></param>
@@ -7855,20 +7850,16 @@ namespace MethodSpeedTester
         /// <param name="p3Y"></param>
         /// <param name="p4X"></param>
         /// <param name="p4Y"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierLineSegmentIntersection(
+        private static Intersection LineCubicBezierIntersection0(
+            double a1X, double a1Y,
+            double a2X, double a2Y,
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
-            double p4X, double p4Y,
-            double a1X, double a1Y,
-            double a2X, double a2Y)
+            double p4X, double p4Y)
         {
             Vector2D a, b, c, d;
             Vector2D c3, c2, c1, c0;
@@ -7913,19 +7904,13 @@ namespace MethodSpeedTester
                     var p10 = Lerp(p8.X, p8.Y, p9.X, p9.Y, t);
                     if (a1X == a2X)
                     {
-                        if (min.Y <= p10.Y && p10.Y <= max.Y)
-                        {
-                            result.State = IntersectionState.Intersection;
-                            result.AppendPoint(p10);
-                        }
+                        result.State = IntersectionState.Intersection;
+                        result.AppendPoint(p10);
                     }
                     else if (a1Y == a2Y)
                     {
-                        if (min.X <= p10.X && p10.X <= max.X)
-                        {
-                            result.State = IntersectionState.Intersection;
-                            result.AppendPoint(p10);
-                        }
+                        result.State = IntersectionState.Intersection;
+                        result.AppendPoint(p10);
                     }
                     else if (p10.GreaterThanOrEqual(min) && p10.LessThanOrEqual(max))
                     {
@@ -7934,6 +7919,7 @@ namespace MethodSpeedTester
                     }
                 }
             }
+
             return result;
         }
 
@@ -8100,6 +8086,182 @@ namespace MethodSpeedTester
                     {
                         result.State = IntersectionState.Intersection;
                         result.AppendPoint(p6);
+                    }
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region Intersection of a Line Segment and a Cubic Bezier
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <param name="p2x"></param>
+        /// <param name="p2y"></param>
+        /// <param name="p3x"></param>
+        /// <param name="p3y"></param>
+        /// <param name="l0x"></param>
+        /// <param name="l0y"></param>
+        /// <param name="l1x"></param>
+        /// <param name="l1y"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// This method has an error where it does not return an intersection with a horizontal line and the end points of the curve share the same y value, as well as the handles sharing another y value.
+        /// Found at: https://www.particleincell.com/2013/cubic-line-intersection/
+        /// Based on code now found at: http://www.abecedarical.com/javascript/script_cubic.html
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CubicBezierLineSegmentIntersection1(
+            double p0x, double p0y,
+            double p1x, double p1y,
+            double p2x, double p2y,
+            double p3x, double p3y,
+            double l0x, double l0y,
+            double l1x, double l1y)
+        {
+            // ToDo: Figure out why this can't handle intersection with horizontal lines.
+            var I = new Intersection(IntersectionState.NoIntersection);
+
+            var A = l1y - l0y;      //A=y2-y1
+            var B = l0x - l1x;      //B=x1-x2
+            var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
+
+            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+
+            var r = CubicRoots(
+                A * bx.A + B * by.A,    // t^3
+                A * bx.B + B * by.B,    // t^2
+                A * bx.C + B * by.C,    // t^1
+                A * bx.D + B * by.D + C // 1
+                );
+
+            /*verify the roots are in bounds of the linear segment*/
+            for (var i = 0; i < 3; i++)
+            {
+                var t = r[i];
+
+                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
+                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
+
+                /*above is intersection point assuming infinitely long line segment,
+                  make sure we are also in bounds of the line*/
+                double m;
+                if ((l1x - l0x) != 0)           /*if not vertical line*/
+                    m = (x - l0x) / (l1x - l0x);
+                else
+                    m = (y - l0y) / (l1y - l0y);
+
+                /*in bounds?*/
+                if (t < 0 || t > 1d || m < 0 || m > 1d)
+                {
+                    x = 0;// -100;  /*move off screen*/
+                    y = 0;// -100;
+                }
+                else
+                {
+                    /*intersection point*/
+                    I.AppendPoint(new Point2D(x, y));
+                    I.State = IntersectionState.Intersection;
+                }
+            }
+            return I;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="p4X"></param>
+        /// <param name="p4Y"></param>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CubicBezierLineSegmentIntersection(
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y,
+            double p4X, double p4Y,
+            double a1X, double a1Y,
+            double a2X, double a2Y)
+        {
+            Vector2D a, b, c, d;
+            Vector2D c3, c2, c1, c0;
+            double cl;
+            Vector2D n;
+            var min = MinPoint(a1X, a1Y, a2X, a2Y);
+            var max = MaxPoint(a1X, a1Y, a2X, a2Y);
+            var result = new Intersection(IntersectionState.NoIntersection);
+            a = new Vector2D(p1X, p1Y).Scale(-1);
+            b = new Vector2D(p2X, p2Y).Scale(3);
+            c = new Vector2D(p3X, p3Y).Scale(-3);
+            d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
+            c3 = new Vector2D(d.I, d.J);
+            a = new Vector2D(p1X, p1Y).Scale(3);
+            b = new Vector2D(p2X, p2Y).Scale(-6);
+            c = new Vector2D(p3X, p3Y).Scale(3);
+            d = a.Add(b.Add(c));
+            c2 = new Vector2D(d.I, d.J);
+            a = new Vector2D(p1X, p1Y).Scale(-3);
+            b = new Vector2D(p2X, p2Y).Scale(3);
+            c = a.Add(b);
+            c1 = new Vector2D(c.I, c.J);
+            c0 = new Vector2D(p1X, p1Y);
+            n = new Vector2D(a1Y - a2Y, a2X - a1X);
+            cl = a1X * a2Y - a2X * a1Y;
+            var roots = new Polynomial(
+                n.DotProduct(c0) + cl,
+                n.DotProduct(c1),
+                n.DotProduct(c2),
+                n.DotProduct(c3)
+                ).Roots();
+            for (var i = 0; i < roots.Count; i++)
+            {
+                var t = roots[i];
+                if (0 <= t && t <= 1)
+                {
+                    var p5 = Lerp(p1X, p1Y, p2X, p2Y, t);
+                    var p6 = Lerp(p2X, p2Y, p3X, p3Y, t);
+                    var p7 = Lerp(p3X, p3Y, p4X, p4Y, t);
+                    var p8 = Lerp(p5.X, p5.Y, p6.X, p6.Y, t);
+                    var p9 = Lerp(p6.X, p6.Y, p7.X, p7.Y, t);
+                    var p10 = Lerp(p8.X, p8.Y, p9.X, p9.Y, t);
+                    if (a1X == a2X)
+                    {
+                        if (min.Y <= p10.Y && p10.Y <= max.Y)
+                        {
+                            result.State = IntersectionState.Intersection;
+                            result.AppendPoint(p10);
+                        }
+                    }
+                    else if (a1Y == a2Y)
+                    {
+                        if (min.X <= p10.X && p10.X <= max.X)
+                        {
+                            result.State = IntersectionState.Intersection;
+                            result.AppendPoint(p10);
+                        }
+                    }
+                    else if (p10.GreaterThanOrEqual(min) && p10.LessThanOrEqual(max))
+                    {
+                        result.State = IntersectionState.Intersection;
+                        result.AppendPoint(p10);
                     }
                 }
             }
@@ -12103,7 +12265,63 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Roots
+        #region Roots of a Linear Polynomial
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://pomax.github.io/bezierinfo
+        /// </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> LinearRoots(double a, double b)
+        {
+            if (a != b)
+                return new List<double> { a / (a - b) };
+            return new List<double>();
+        }
+
+        #endregion
+
+        #region Roots of a Quadratic Polynomial
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://pomax.github.io/bezierinfo
+        /// </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> QuadraticRoots(double a, double b, double c)
+        {
+            var d = a - 2 * b + c;
+            if (d != 0)
+            {
+                var m1 = -Sqrt(b * b - a * c);
+                var m2 = -a + b;
+                var v1 = -(m1 + m2) / d;
+                var v2 = -(-m1 + m2) / d;
+                return new List<double> { v1, v2 };
+            }
+            else if (b != c && d == 0)
+            {
+                return new List<double> { (2 * b - c) / (2 * (b - c)) };
+            }
+            return new List<double>();
+        }
+
+        #endregion
+
+        #region Roots of a Cubic Polynomial
 
         /// <summary>
         /// 
@@ -12175,50 +12393,241 @@ namespace MethodSpeedTester
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// http://pomax.github.io/bezierinfo
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> QuadraticRoots(double a, double b, double c)
+        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        private List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
         {
-            var d = a - 2 * b + c;
-            if (d != 0)
+            var results = new List<double>();
+            var c2 = b / a;
+            var c1 = c / a;
+            var c0 = d / a;
+
+            var Q = (3 * c1 - c2 * c2) * OneThird;
+            var R = (2 * c2 * c2 * c2 - 9 * c1 * c2 + 27 * c0) * OneTwentySeventh;
+
+            var offset = c2 * OneThird;
+            var discriminant = R * R * OneQuarter + Q * Q * Q * OneTwentySeventh;
+
+            var halfB = OneHalf * R;
+            //var ZEROepsilon = ZeroErrorEstimate();
+
+            if (Abs(discriminant) <= epsilon)//ZEROepsilon)
+                discriminant = 0;
+
+            if (discriminant > 0)
             {
-                var m1 = -Sqrt(b * b - a * c);
-                var m2 = -a + b;
-                var v1 = -(m1 + m2) / d;
-                var v2 = -(-m1 + m2) / d;
-                return new List<double> { v1, v2 };
+                var e = Sqrt(discriminant);
+                var tmp = -halfB + e;
+                double root;
+                if (tmp >= 0)
+                    root = Pow(tmp, OneThird);
+                else
+                    root = -Pow(-tmp, OneThird);
+                tmp = -halfB - e;
+                if (tmp >= 0)
+                    root += Pow(tmp, OneThird);
+                else
+                    root -= Pow(-tmp, OneThird);
+                results.Add(root - offset);
             }
-            else if (b != c && d == 0)
+            else if (discriminant < 0)
             {
-                return new List<double> { (2 * b - c) / (2 * (b - c)) };
+                var distance = Sqrt(-Q * OneThird);
+                var angle = Atan2(Sqrt(-discriminant), -halfB) * OneThird;
+                var cos = Cos(angle);
+                var sin = Sin(angle);
+                results.Add(2 * distance * cos - offset);
+                results.Add(-distance * (cos + Sqrt3 * sin) - offset);
+                results.Add(-distance * (cos - Sqrt3 * sin) - offset);
             }
-            return new List<double>();
+            else
+            {
+                double tmp;
+                if (halfB >= 0)
+                    tmp = -Pow(halfB, OneThird);
+                else
+                    tmp = Pow(-halfB, OneThird);
+                results.Add(2 * tmp - offset);
+                // really should return next root twice, but we return only one
+                results.Add(-tmp - offset);
+            }
+            return results;
         }
+
+        #endregion
+
+        #region Roots of a Quartic Polynomial
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// http://pomax.github.io/bezierinfo
-        /// </remarks>
-        [DebuggerStepThrough]
+        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> LinearRoots(double a, double b)
+        public static List<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
         {
-            if (a != b)
-                return new List<double> { a / (a - b) };
-            return new List<double>();
+            var results = new List<double>();
+            var A = b / a;
+            var B = c / a;
+            var C = d / a;
+            var D = e / a;
+            var resolveRoots = new Polynomial(1, -B, A * C - 4d * D, -A * A * D + 4 * B * D - C * C).CubicRoots();
+            var y = resolveRoots[0];
+            var discriminant = A * A * OneQuarter - B + y;
+            if (Math.Abs(discriminant) <= epsilon)
+                discriminant = 0d;
+            if (discriminant > 0)
+            {
+                var ee = Sqrt(discriminant);
+                var t1 = 3 * A * A * OneQuarter - ee * ee - 2 * B;
+                var t2 = (4 * A * B - 8 * C - A * A * A) / (4 * ee);
+                var plus = t1 + t2;
+                var minus = t1 - t2;
+                if (Math.Abs(plus) <= epsilon)
+                    plus = 0;
+                if (Math.Abs(minus) <= epsilon)
+                    minus = 0;
+                if (plus >= 0)
+                {
+                    var f = Sqrt(plus);
+                    results.Add(-A * OneQuarter + (ee + f) * OneHalf);
+                    results.Add(-A * OneQuarter + (ee - f) * OneHalf);
+                }
+                if (minus >= 0)
+                {
+                    var f = Sqrt(minus);
+                    results.Add(-A * OneQuarter + (f - ee) * OneHalf);
+                    results.Add(-A * OneQuarter - (f + ee) * OneHalf);
+                }
+            }
+            else if (discriminant < 0)
+            {
+            }
+            else
+            {
+                var t2 = y * y - 4 * D;
+                if (t2 >= -epsilon)
+                {
+                    if (t2 < 0) t2 = 0;
+                    t2 = 2d * Sqrt(t2);
+                    var t1 = 3 * A * A * OneQuarter - 2d * B;
+                    if (t1 + t2 >= epsilon)
+                    {
+                        var d0 = Sqrt(t1 + t2);
+                        results.Add(-A * OneQuarter + d0 * OneHalf);
+                        results.Add(-A * OneQuarter - d0 * OneHalf);
+                    }
+                    if (t1 - t2 >= epsilon)
+                    {
+                        var d1 = Sqrt(t1 - t2);
+                        results.Add(-A * OneQuarter + d1 * OneHalf);
+                        results.Add(-A * OneQuarter - d1 * OneHalf);
+                    }
+                }
+            }
+
+            return results;
         }
+
+        ///**
+        //    Calculates roots of quartic polynomial. <br/>
+        //    First, derivative roots are found, then used to split quartic polynomial 
+        //    into segments, each containing one root of quartic polynomial.
+        //    Segments are then passed to newton's method to find roots.
+
+        //    @returns {Array<Number>} roots
+        //*/
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //private List<double> QuarticRoots0(, double epsilon = Epsilon)
+        //{
+        //    var coefficients = new List<double>();
+        //    var results = new List<double>();
+
+        //    var n = (int)Degree;
+        //    if (n == 4)
+        //    {
+
+        //        var poly = new Polynomial()
+        //        {
+        //            coefficients = coefficients.Slice()
+        //        };
+        //        poly.Divide(poly.coefficients[n]);
+        //        var ERRF = 1e-15;
+        //        if (Abs(poly.coefficients[0]) < 10 * ERRF * Abs(poly.coefficients[3]))
+        //            poly.coefficients[0] = 0;
+        //        var poly_d = poly.Derivate();
+        //        List<double> derrt = poly_d.Roots();
+        //        derrt.Sort((a, b) => (int)(a - b));
+        //        var dery = new List<double>();
+        //        var nr = derrt.Count - 1;
+        //        var i = 0;
+        //        var rb = Bounds();
+        //        var maxabsX = Max(Abs(rb.minX), Abs(rb.maxX));
+        //        var ZEROepsilon = ZeroErrorEstimate(maxabsX);
+
+        //        for (i = 0; i <= nr; i++)
+        //        {
+        //            dery.Add(poly.Evaluate(derrt[i]));
+        //        }
+
+        //        for (i = 0; i <= nr; i++)
+        //        {
+        //            if (Abs(dery[i]) < ZEROepsilon)
+        //                dery[i] = 0;
+        //        }
+
+        //        i = 0;
+        //        var dx = Max(0.1 * (rb.maxX - rb.minX) / n, ERRF);
+        //        var guesses = new List<double>();
+        //        var minmax = new List<(double, double)>();
+        //        if (nr > -1)
+        //        {
+        //            if (dery[0] != 0)
+        //            {
+        //                if (Sign(dery[0]) != Sign(poly.Evaluate(derrt[0] - dx) - dery[0]))
+        //                {
+        //                    guesses.Add(derrt[0] - dx);
+        //                    minmax.Add((rb.minX, derrt[0]));
+        //                }
+        //            }
+        //            else
+        //            {
+        //                results.AddRange(new[] { derrt[0], derrt[0] });
+        //                i++;
+        //            }
+
+        //            for (; i < nr; i++)
+        //            {
+        //                if (dery[i + 1] == 0)
+        //                {
+        //                    results.AddRange(new[] { derrt[i + 1], derrt[i + 1] });
+        //                    i++;
+        //                }
+        //                else if (Sign(dery[i]) != Sign(dery[i + 1]))
+        //                {
+        //                    guesses.Add((derrt[i] + derrt[i + 1]) / 2);
+        //                    minmax.Add((derrt[i], derrt[i + 1]));
+        //                }
+        //            }
+        //            if (dery[nr] != 0 && Sign(dery[nr]) != Sign(poly.Evaluate(derrt[nr] + dx) - dery[nr]))
+        //            {
+        //                guesses.Add(derrt[nr] + dx);
+        //                minmax.Add((derrt[nr], rb.maxX));
+        //            }
+        //        }
+
+        //        if (guesses.Count > 0)
+        //        {
+        //            for (i = 0; i < guesses.Count; i++)
+        //            {
+        //                guesses[i] = Newton_secant_bisection(guesses[i], (x) => poly.Evaluate(x), (x) => poly_d.Evaluate(x), 32, minmax[i].Item1, minmax[i].Item2);
+        //            }
+        //        }
+
+        //        results = results.Concat(guesses).ToList();
+        //    }
+        //    return results;
+        //}
 
         #endregion
 

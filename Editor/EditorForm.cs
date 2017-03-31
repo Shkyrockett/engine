@@ -122,7 +122,7 @@ namespace Editor
 #pragma warning disable IDE0022 // Use expression body for methods
             /* Experimental Previews */
             //TestCases.EllipticalArcLineSegmentIntersectios(vectorMap);
-            TestCases.EllipticalArcLineIntersectios(vectorMap);
+            //TestCases.EllipticalArcLineIntersectios(vectorMap);
             //TestCases.ScanlineIntersections(vectorMap);
             //TestCases.CommonIntersections(vectorMap);
             //TestCases.CurveFitting(vectorMap);
@@ -145,6 +145,8 @@ namespace Editor
             //TestCases.GridTests(vectorMap, ForeColor, BackColor);
 
             /* Regression Test Cases */
+            TestCases.BezierLineIntersections(vectorMap);
+            //TestCases.BezierLineSegmentIntersections(vectorMap);
             //TestCases.QuadraticBezierHorizontalLineIntersection(vectorMap);
             //TestCases.CubicBezierHorizontalLineIntersection(vectorMap);
             //TestCases.SegmentIntersections(vectorMap,this);

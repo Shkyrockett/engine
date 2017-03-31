@@ -868,6 +868,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 139
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double y, double dy) Interpolate(List<double> xs, List<double> ys, int n, int offset, double x)
         {
             if (double.IsNaN(n) || double.IsNaN(offset) || double.IsNaN(x))
@@ -933,6 +934,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 137
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Trapezoid(double min, double max, int n, double epsilon = Epsilon)
         {
             if (double.IsNaN(min) || double.IsNaN(max) || double.IsNaN(n))
@@ -980,6 +982,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 139
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Simpson(double min, double max, double epsilon = Epsilon)
         {
             if (double.IsNaN(min) || double.IsNaN(max))
@@ -1031,6 +1034,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 139
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Romberg(double min, double max, double epsilon = Epsilon)
         {
             if (double.IsNaN(min) || double.IsNaN(max))
@@ -1063,6 +1067,7 @@ namespace Engine
         /// Will try to solve root analytically, and if it can will use numerical approach.
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
         {
             if (CanSolveRealRoots)
@@ -1077,6 +1082,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> Roots(double epsilon = Epsilon)
         {
             Simplify(epsilon);
@@ -1085,7 +1091,7 @@ namespace Engine
                 case PolynomialDegree.Constant:
                     return new List<double>();
                 case PolynomialDegree.Linear:
-                    return LinearRoot(epsilon);
+                    return LinearRoots(epsilon);
                 case PolynomialDegree.Quadratic:
                     return QuadraticRoots(epsilon);
                 case PolynomialDegree.Cubic:
@@ -1115,6 +1121,7 @@ namespace Engine
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Complex[] ComplexRoots(double epsilon = Epsilon)
         {
             var p = Normalize();
@@ -1179,6 +1186,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> RootsInInterval(double min, double max, double epsilon = Epsilon)
         {
             var roots = new List<double>();
@@ -1222,13 +1230,12 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
-        private List<double> LinearRoot(double epsilon = Epsilon)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private List<double> LinearRoots(double epsilon = Epsilon)
         {
-            var result = new List<double>();
-            var a = coefficients[1];
-            if (!(Abs(a) <= epsilon))
-                result.Add(-coefficients[0] / a);
-            return result;
+            if (Degree == PolynomialDegree.Linear)
+                return Maths.LinearRoots(coefficients[1], coefficients[0], epsilon);
+            return new List<double>();
         }
 
         /// <summary>
@@ -1236,31 +1243,12 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuadraticRoots(double epsilon = Epsilon)
         {
-            var results = new List<double>();
             if (Degree == PolynomialDegree.Quadratic)
-            {
-                var a = coefficients[2];
-                var b = coefficients[1] / a;
-                var c = coefficients[0] / a;
-                var descriminant = b * b - 4d * c;
-                if (Abs(descriminant) <= epsilon)
-                    descriminant = 0;
-                if (descriminant > 0)
-                {
-                    var e = Sqrt(descriminant);
-                    results.Add(OneHalf * (-b + e));
-                    results.Add(OneHalf * (-b - e));
-                }
-                else if (descriminant == 0)
-                {
-                    // really two roots with same value, but we only return one
-                    results.Add(OneHalf * -b);
-                }
-            }
-
-            return results;
+                return Maths.QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon);
+            return new List<double>();
         }
 
         /// <summary>
@@ -1268,62 +1256,12 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
-        private List<double> CubicRoots(double epsilon = Epsilon)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public List<double> CubicRoots(double epsilon = Epsilon)
         {
-            var results = new List<double>();
             if (Degree == PolynomialDegree.Cubic)
-            {
-                var c3 = coefficients[3];
-                var c2 = coefficients[2] / c3;
-                var c1 = coefficients[1] / c3;
-                var c0 = coefficients[0] / c3;
-                var a = (3 * c1 - c2 * c2) * OneThird;
-                var b = (2 * c2 * c2 * c2 - 9 * c1 * c2 + 27 * c0) * OneTwentySeventh;
-                var offset = c2 * OneThird;
-                var discriminant = b * b * OneQuarter + a * a * a * OneTwentySeventh;
-                var halfB = OneHalf * b;
-                var ZEROepsilon = ZeroErrorEstimate();
-                if (Abs(discriminant) <= ZEROepsilon)
-                    discriminant = 0;
-                if (discriminant > 0)
-                {
-                    var e = Sqrt(discriminant);
-                    var tmp = -halfB + e;
-                    double root;
-                    if (tmp >= 0)
-                        root = Pow(tmp, OneThird);
-                    else
-                        root = -Pow(-tmp, OneThird);
-                    tmp = -halfB - e;
-                    if (tmp >= 0)
-                        root += Pow(tmp, OneThird);
-                    else
-                        root -= Pow(-tmp, OneThird);
-                    results.Add(root - offset);
-                }
-                else if (discriminant < 0)
-                {
-                    var distance = Sqrt(-a * OneThird);
-                    var angle = Atan2(Sqrt(-discriminant), -halfB) * OneThird;
-                    var cos = Cos(angle);
-                    var sin = Sin(angle);
-                    results.Add(2 * distance * cos - offset);
-                    results.Add(-distance * (cos + Sqrt3 * sin) - offset);
-                    results.Add(-distance * (cos - Sqrt3 * sin) - offset);
-                }
-                else
-                {
-                    double tmp;
-                    if (halfB >= 0)
-                        tmp = -Pow(halfB, OneThird);
-                    else
-                        tmp = Pow(-halfB, OneThird);
-                    results.Add(2 * tmp - offset);
-                    // really should return next root twice, but we return only one
-                    results.Add(-tmp - offset);
-                }
-            }
-            return results;
+                return Maths.CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+            return new List<double>();
         }
 
         /// <summary>
@@ -1331,171 +1269,12 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuarticRoots(double epsilon = Epsilon)
         {
-            var results = new List<double>();
-            if (Degree == PolynomialDegree.Quartic)
-            {
-                var c4 = coefficients[4];
-                var c3 = coefficients[3] / c4;
-                var c2 = coefficients[2] / c4;
-                var c1 = coefficients[1] / c4;
-                var c0 = coefficients[0] / c4;
-                var resolveRoots = new Polynomial(1, -c2, c3 * c1 - 4d * c0, -c3 * c3 * c0 + 4 * c2 * c0 - c1 * c1).CubicRoots();
-                var y = resolveRoots[0];
-                var discriminant = c3 * c3 * OneQuarter - c2 + y;
-                if (Abs(discriminant) <= epsilon)
-                    discriminant = 0d;
-                if (discriminant > 0)
-                {
-                    var e = Sqrt(discriminant);
-                    var t1 = 3 * c3 * c3 * OneQuarter - e * e - 2 * c2;
-                    var t2 = (4 * c3 * c2 - 8 * c1 - c3 * c3 * c3) / (4 * e);
-                    var plus = t1 + t2;
-                    var minus = t1 - t2;
-                    if (Abs(plus) <= epsilon)
-                        plus = 0;
-                    if (Abs(minus) <= epsilon)
-                        minus = 0;
-                    if (plus >= 0)
-                    {
-                        var f = Sqrt(plus);
-                        results.Add(-c3 * OneQuarter + (e + f) * OneHalf);
-                        results.Add(-c3 * OneQuarter + (e - f) * OneHalf);
-                    }
-                    if (minus >= 0)
-                    {
-                        var f = Sqrt(minus);
-                        results.Add(-c3 * OneQuarter + (f - e) * OneHalf);
-                        results.Add(-c3 * OneQuarter - (f + e) * OneHalf);
-                    }
-                }
-                else if (discriminant < 0)
-                {
-                }
-                else
-                {
-                    var t2 = y * y - 4 * c0;
-                    if (t2 >= -epsilon)
-                    {
-                        if (t2 < 0) t2 = 0;
-                        t2 = 2d * Sqrt(t2);
-                        var t1 = 3 * c3 * c3 * OneQuarter - 2d * c2;
-                        if (t1 + t2 >= epsilon)
-                        {
-                            var d = Sqrt(t1 + t2);
-                            results.Add(-c3 * OneQuarter + d * OneHalf);
-                            results.Add(-c3 * OneQuarter - d * OneHalf);
-                        }
-                        if (t1 - t2 >= epsilon)
-                        {
-                            var d = Sqrt(t1 - t2);
-                            results.Add(-c3 * OneQuarter + d * OneHalf);
-                            results.Add(-c3 * OneQuarter - d * OneHalf);
-                        }
-                    }
-                }
-            }
-
-            return results;
-        }
-
-        /**
-            Calculates roots of quartic polynomial. <br/>
-            First, derivative roots are found, then used to split quartic polynomial 
-            into segments, each containing one root of quartic polynomial.
-            Segments are then passed to newton's method to find roots.
-
-            @returns {Array<Number>} roots
-        */
-        private List<double> QuarticRoots0(double epsilon = Epsilon)
-        {
-            var results = new List<double>();
-
-            var n = (int)Degree;
-            if (n == 4)
-            {
-
-                var poly = new Polynomial()
-                {
-                    coefficients = coefficients.Slice()
-                };
-                poly.Divide(poly.coefficients[n]);
-                var ERRF = 1e-15;
-                if (Abs(poly.coefficients[0]) < 10 * ERRF * Abs(poly.coefficients[3]))
-                    poly.coefficients[0] = 0;
-                var poly_d = poly.Derivate();
-                List<double> derrt = poly_d.Roots();
-                derrt.Sort((a, b) => (int)(a - b));
-                var dery = new List<double>();
-                var nr = derrt.Count - 1;
-                var i = 0;
-                var rb = Bounds();
-                var maxabsX = Max(Abs(rb.minX), Abs(rb.maxX));
-                var ZEROepsilon = ZeroErrorEstimate(maxabsX);
-
-                for (i = 0; i <= nr; i++)
-                {
-                    dery.Add(poly.Evaluate(derrt[i]));
-                }
-
-                for (i = 0; i <= nr; i++)
-                {
-                    if (Abs(dery[i]) < ZEROepsilon)
-                        dery[i] = 0;
-                }
-
-                i = 0;
-                var dx = Max(0.1 * (rb.maxX - rb.minX) / n, ERRF);
-                var guesses = new List<double>();
-                var minmax = new List<(double, double)>();
-                if (nr > -1)
-                {
-                    if (dery[0] != 0)
-                    {
-                        if (Sign(dery[0]) != Sign(poly.Evaluate(derrt[0] - dx) - dery[0]))
-                        {
-                            guesses.Add(derrt[0] - dx);
-                            minmax.Add((rb.minX, derrt[0]));
-                        }
-                    }
-                    else
-                    {
-                        results.AddRange(new[] { derrt[0], derrt[0] });
-                        i++;
-                    }
-
-                    for (; i < nr; i++)
-                    {
-                        if (dery[i + 1] == 0)
-                        {
-                            results.AddRange(new[] { derrt[i + 1], derrt[i + 1] });
-                            i++;
-                        }
-                        else if (Sign(dery[i]) != Sign(dery[i + 1]))
-                        {
-                            guesses.Add((derrt[i] + derrt[i + 1]) / 2);
-                            minmax.Add((derrt[i], derrt[i + 1]));
-                        }
-                    }
-                    if (dery[nr] != 0 && Sign(dery[nr]) != Sign(poly.Evaluate(derrt[nr] + dx) - dery[nr]))
-                    {
-                        guesses.Add(derrt[nr] + dx);
-                        minmax.Add((derrt[nr], rb.maxX));
-                    }
-                }
-
-                if (guesses.Count > 0)
-                {
-                    for (i = 0; i < guesses.Count; i++)
-                    {
-                        guesses[i] = Newton_secant_bisection(guesses[i], (x) => poly.Evaluate(x), (x) => poly_d.Evaluate(x), 32, minmax[i].Item1, minmax[i].Item2);
-                    }
-                }
-
-                results = results.Concat(guesses).ToList();
-            }
-            return results;
+            if (Degree == PolynomialDegree.Cubic)
+                return Maths.QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+            return new List<double>();
         }
 
         /// <summary>
@@ -1513,6 +1292,7 @@ namespace Engine
         ///     http://abecedarical.com/javascript/script_quintic.html
         ///     http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuinticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
@@ -1529,6 +1309,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> SexticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
@@ -1545,6 +1326,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> SepticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
@@ -1561,6 +1343,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> OcticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
@@ -1590,6 +1373,7 @@ namespace Engine
         /// http://en.wikipedia.org/wiki/Secant_method
         /// http://en.wikipedia.org/wiki/Bisection_method
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Newton_secant_bisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double? min = null, double? max = null)
         {
             var prev_dfx = 0d;
@@ -1723,6 +1507,7 @@ namespace Engine
         /// <param name="coefficients"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Trim(double[] coefficients, double epsilon = Epsilon)
         {
             var order = 0;
@@ -1750,6 +1535,7 @@ namespace Engine
         /// <param name="coefficients"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RealOrder(double[] coefficients, double epsilon = Epsilon)
         {
             if (coefficients == null)
@@ -2001,7 +1787,8 @@ namespace Engine
         {
             for (var i = (int)Degree; i >= 0; i--)
             {
-                if (Abs(coefficients[i]) <= epsilon)
+                var term = Abs(coefficients[i]);
+                if (term <= epsilon)
                     coefficients = coefficients.RemoveAt(i);
                 else break;
             }

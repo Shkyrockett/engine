@@ -70,6 +70,10 @@ namespace Engine
                     return Process(t);
                 case LineSegment t:
                     return Process(t);
+                case QuadraticBezier t:
+                    return Process(t);
+                case CubicBezier t:
+                    return Process(t);
                 case PointSet t:
                     return Process(t);
                 case Polygon t:
@@ -110,6 +114,28 @@ namespace Engine
         public LineSegment Process(LineSegment line)
         {
             var result = new LineSegment(Process(line.A), Process(line.B));
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <returns></returns>
+        public QuadraticBezier Process(QuadraticBezier bezier)
+        {
+            var result = new QuadraticBezier(Process(bezier.A), Process(bezier.B), Process(bezier.C));
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bezier"></param>
+        /// <returns></returns>
+        public CubicBezier Process(CubicBezier bezier)
+        {
+            var result = new CubicBezier(Process(bezier.A), Process(bezier.B), Process(bezier.C), Process(bezier.D));
             return result;
         }
 
@@ -231,8 +257,6 @@ namespace Engine
         /// <param name="rect"></param>
         /// <returns></returns>
         public Contour Process(Rectangle2D rect)
-        {
-            return new Contour() { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
-        }
+            => new Contour() { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
     }
 }

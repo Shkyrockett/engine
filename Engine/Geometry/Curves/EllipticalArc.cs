@@ -610,7 +610,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarStartAngle
-            => (double)CachingProperty(() => EllipsePolarAngle(startAngle, rX, rY));
+            => (double)CachingProperty(() => EllipticalPolarAngle(startAngle, rX, rY));
 
         /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
@@ -710,7 +710,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarEndAngle
-            => (double)CachingProperty(() => EllipsePolarAngle(startAngle + sweepAngle, rX, rY));
+            => (double)CachingProperty(() => EllipticalPolarAngle(startAngle + sweepAngle, rX, rY));
 
         /// <summary>
         /// Gets the Focus Radius of the elliptical arc.

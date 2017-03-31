@@ -2463,6 +2463,7 @@ namespace Engine
         /// <param name="p1y"></param>
         /// <param name="p2x"></param>
         /// <param name="p2y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -2471,7 +2472,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineQuadraticBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y)
+        private static Intersection LineQuadraticBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
         {
             // Initialize intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -2524,6 +2525,7 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="p3x"></param>
         /// <param name="p3y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -2532,7 +2534,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCubicBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y)
+        private static Intersection LineCubicBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -2546,10 +2548,10 @@ namespace Engine
             var by = BezierCoefficients(p0y, p1y, p2y, p3y);
 
             List<double> roots;
+
             // Fix for missing intersections for curves that can be reduced to lower degrees.
-            var determinant0 = (p3y - p0y) * (x2 - x1) - (p3x - p0x) * (y2 - y1);
-            var determinant1 = (p2y - p1y) * (x2 - x1) - (p2x - p1x) * (y2 - y1);
-            if (Abs(determinant0) < Epsilon && Abs(determinant1) < Epsilon)
+            var determinant = (x2 - x1) * (p3y - p2y + p1y - p0y) - (y2 - y1) * (p3x - p2x + p1x - p0x);
+            if (Abs(determinant) < epsilon)
                 roots = QuadraticRoots(
                     A * bx.B + B * by.B,    // t^2
                     A * bx.C + B * by.C,    // t^1
@@ -3281,10 +3283,9 @@ namespace Engine
             var by = BezierCoefficients(p0y, p1y, p2y, p3y);
 
             List<double> roots;
-            // Fix for missing intersections for curves that can be reduced to lower degrees.
-            var determinant0 = (p3y - p0y) * (x2 - x1) - (p3x - p0x) * (y2 - y1);
-            var determinant1 = (p2y - p1y) * (x2 - x1) - (p2x - p1x) * (y2 - y1);
-            if (Abs(determinant0) < epsilon && Abs(determinant1) < epsilon)
+            // Fix for missing intersections for curves that can be reduced to lower degrees due to parallel components.
+            var determinant = (x2 - x1) * (p3y - p2y + p1y - p0y) - (y2 - y1) * (p3x - p2x + p1x - p0x);
+            if (Abs(determinant) < epsilon)
                 roots = QuadraticRoots(
                     A * bx.B + B * by.B,    // t^2
                     A * bx.C + B * by.C,    // t^1

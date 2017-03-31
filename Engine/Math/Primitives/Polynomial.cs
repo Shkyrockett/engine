@@ -1099,8 +1099,8 @@ namespace Engine
                 case PolynomialDegree.Quartic:
                     return QuarticRoots(epsilon);
                 case PolynomialDegree.Quintic:
-                // ToDo: Uncomment when Quintic roots are implemented.
-                //return QuinticRoots(epsilon);
+                    // ToDo: Uncomment when Quintic roots are implemented.
+                    return QuinticRoots(epsilon);
                 case PolynomialDegree.Sextic:
                 // ToDo: Uncomment when Sextic roots are implemented.
                 //return SexticRoots(epsilon);
@@ -1229,7 +1229,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> LinearRoots(double epsilon = Epsilon)
         {
@@ -1242,7 +1241,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuadraticRoots(double epsilon = Epsilon)
         {
@@ -1255,7 +1253,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> CubicRoots(double epsilon = Epsilon)
         {
@@ -1268,7 +1265,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuarticRoots(double epsilon = Epsilon)
         {
@@ -1278,30 +1274,16 @@ namespace Engine
         }
 
         /// <summary>
-        /// ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
-        /// This method computes complex and real roots for any quintic polynomial.
-        /// It applies the Lin-Bairstow algorithm which iteratively solves for the 
-        /// roots starting from random guesses for a solution. 
-        /// The calculator is designed to solve for the roots of a quintic polynomial
-        /// with the form: x⁵ + ax⁴ + bx³ + cx² + dx + e = 0
-        /// ⁰¹²³⁴⁵⁶⁷⁸⁹
+        /// 
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
-        ///     http://abecedarical.com/javascript/script_quintic.html
-        ///     http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
-        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuinticRoots(double epsilon = Epsilon)
         {
-            var results = new List<double>();
             if (Degree == PolynomialDegree.Quintic)
-            {
-                // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
-            }
-
-            return results;
+                return Maths.QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+            return new List<double>();
         }
 
         /// <summary>

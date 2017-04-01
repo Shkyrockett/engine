@@ -397,7 +397,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Circle c)
-            => CircleLineSegmentIntersection(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
+            => LineSegmentCircleIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.X, c.Y, c.Radius);
 
         /// <summary>
         /// Find the intersection of a circle and a line segment.
@@ -407,7 +407,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, LineSegment s)
-            => CircleLineSegmentIntersection(c.X, c.Y, c.Radius, s.A.X, s.A.Y, s.B.X, s.B.Y);
+            => LineSegmentCircleIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.X, c.Y, c.Radius);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -512,7 +512,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
-            => EllipticalArcLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
+            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, e.X, s.B.X, s.B.Y, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
@@ -523,7 +523,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, EllipticalArc e, double epsilon = Epsilon)
-            => EllipticalArcLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
+            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, e.X, s.B.X, s.B.Y, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
@@ -534,7 +534,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, LineSegment s, double epsilon = Epsilon)
-            => EllipseLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
+            => LineSegmentEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
@@ -545,7 +545,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Ellipse e, double epsilon = Epsilon)
-            => EllipseLineSegmentIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
+            => LineSegmentEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a rectangle.
@@ -578,7 +578,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Contour p, double epsilon = Epsilon)
-            => EllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
+            => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a polygon.
@@ -589,7 +589,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Contour p, Ellipse e, double epsilon = Epsilon)
-            => EllipsePolygonIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
+            => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and an unrotated Ellipse.
@@ -719,7 +719,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Contour p, Rectangle2D l)
-            => PolygonRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom);
+            => PolygonContourRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Polygon contour.
@@ -729,7 +729,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D l, Contour p)
-            => PolygonRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom);
+            => PolygonContourRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom);
 
         /// <summary>
         /// Find the intersection of two Polygon contours.
@@ -739,7 +739,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Contour p0, Contour p1)
-            => PolygonPolygonIntersection(p0.Points, p1.Points);
+            => PolygonContourPolygonContourIntersection(p0.Points, p1.Points);
 
         /// <summary>
         /// Find the intersection of a Circle and a Rectangle.
@@ -959,7 +959,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Contour p)
-            => QuadraticBezierPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points);
+            => QuadraticBezierPolygonContourIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Quadratic Bezier.
@@ -969,7 +969,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Contour p, QuadraticBezier b)
-            => QuadraticBezierPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points);
+            => QuadraticBezierPolygonContourIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Circle.
@@ -2304,7 +2304,7 @@ namespace Engine
         #region Intersection Methods
 
         /// <summary>
-        /// 
+        /// Find the intersection point between two points.
         /// </summary>
         /// <param name="p0X"></param>
         /// <param name="p0Y"></param>
@@ -2319,7 +2319,7 @@ namespace Engine
             : new Intersection(IntersectionState.NoIntersection);
 
         /// <summary>
-        /// 
+        /// Find the intersection between a point and a line segment.
         /// </summary>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
@@ -2451,7 +2451,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line and a quadratic bezier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -2511,7 +2511,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line and a cubic bezier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -2582,7 +2582,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line and a polygon contour.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -2617,7 +2617,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line and a rectangle.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -2652,7 +2652,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line and a circle.
         /// </summary>
         /// <param name="lAX"></param>
         /// <param name="lAY"></param>
@@ -2721,7 +2721,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line and a circular arc.
         /// </summary>
         /// <param name="lAX"></param>
         /// <param name="lAY"></param>
@@ -2833,7 +2833,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection between a line and an ellipse.
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -2852,7 +2852,7 @@ namespace Engine
             => LineEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection between a line and an ellipse.
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -2934,7 +2934,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection between a line and an elliptical arc.
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -2952,10 +2952,10 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineEllipticalArcIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
-            => EllipseLineSegmentIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), x0, y0, x1, y1, epsilon);
+            => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection between a line and an elliptical arc.
         /// </summary>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
@@ -3079,7 +3079,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between two rays.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -3092,6 +3092,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection RayRayIntersection(
             double a1X, double a1Y,
@@ -3126,7 +3127,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection point between two line segments.
+        /// Find the intersection between two line segments.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -3139,6 +3140,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentLineSegmentIntersection(double x1, double y1, double x2, double y2, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
         {
@@ -3175,7 +3177,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and a quadratic bezier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -3194,6 +3196,7 @@ namespace Engine
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentQuadraticBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
         {
@@ -3246,7 +3249,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and a cubic bezier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -3267,6 +3270,7 @@ namespace Engine
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentCubicBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
         {
@@ -3328,7 +3332,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and a rectangle.
         /// </summary>
         /// <param name="lAX"></param>
         /// <param name="lAY"></param>
@@ -3341,6 +3345,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentRectangleIntersection(double lAX, double lAY, double lBX, double lBY, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
         {
@@ -3363,7 +3368,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and a polygon contour.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -3373,6 +3378,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentPolygonContourIntersection(double a1X, double a1Y, double a2X, double a2Y, List<Point2D> points, double epsilon = Epsilon)
         {
@@ -3398,123 +3404,21 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and a circle.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PolygonRectangleIntersection(List<Point2D> points, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
-        {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-
-            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
-            var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(min.X, min.Y, topRight.X, topRight.Y, points, epsilon).Points);
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(topRight.X, topRight.Y, max.X, max.Y, points, epsilon).Points);
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, points, epsilon).Points);
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, points, epsilon).Points);
-
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points1"></param>
-        /// <param name="points2"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PolygonPolygonIntersection(List<Point2D> points1, List<Point2D> points2, double epsilon = Epsilon)
-        {
-            var intersections = new HashSet<Point2D>();
-            var length = points1.Count;
-
-            // We shouldn't care about the ordering, we can start with the last segment for a slight performance boost.
-            Point2D a1 = points1[length - 1];
-            for (var i = 0; i < length; ++i)
-            {
-                Point2D a2 = points1[i];
-
-                intersections.UnionWith(LineSegmentPolygonContourIntersection(a1.X, a1.Y, a2.X, a2.Y, points2).Points);
-
-                a1 = a2;
-            }
-
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
-            if (result.Points.Count > 0)
-                result.State |= IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection RectangleRectangleIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
-        {
-            var min = MinPoint(a1X, a1Y, a2X, a2Y);
-            var max = MaxPoint(a1X, a1Y, a2X, a2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-
-            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
-            var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentRectangleIntersection(min.X, min.Y, topRight.X, topRight.Y, b1X, b1Y, b2X, b2Y).Points);
-            intersections.UnionWith(LineSegmentRectangleIntersection(topRight.X, topRight.Y, max.X, max.Y, b1X, b1Y, b2X, b2Y).Points);
-            intersections.UnionWith(LineSegmentRectangleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, b1X, b1Y, b2X, b2Y).Points);
-            intersections.UnionWith(LineSegmentRectangleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, b1X, b1Y, b2X, b2Y).Points);
-
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
         /// <param name="lAX"></param>
         /// <param name="lAY"></param>
         /// <param name="lBX"></param>
         /// <param name="lBY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleLineSegmentIntersection(
-            double cX, double cY,
-            double r,
-            double lAX, double lAY,
-            double lBX, double lBY,
-            double epsilon = Epsilon)
+        private static Intersection LineSegmentCircleIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double epsilon = Epsilon)
         {
             Intersection result;
 
@@ -3578,32 +3482,26 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and a circular arc.
         /// </summary>
+        /// <param name="lAX"></param>
+        /// <param name="lAY"></param>
+        /// <param name="lBX"></param>
+        /// <param name="lBY"></param>
         /// <param name="cX"></param>
         /// <param name="cY"></param>
         /// <param name="r"></param>
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircularArcLineSegmentIntersection(
-            double cX, double cY,
-            double r,
-            double angle,
-            double startAngle, double sweepAngle,
-            double lAX, double lAY,
-            double lBX, double lBY,
-            double epsilon = Epsilon)
+        private static Intersection LineSegmentCircularArcIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -3690,206 +3588,124 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and an ellipse.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleRectangleIntersection(
-            double cX, double cY,
-            double r,
-            double r1X, double r1Y,
-            double r2X, double r2Y)
-        {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MinPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-
-            var result = new Intersection(IntersectionState.NoIntersection);
-            result.AppendPoints(CircleLineSegmentIntersection(cX, cY, r, min.X, min.Y, topRight.X, topRight.Y).Points);
-            result.AppendPoints(CircleLineSegmentIntersection(cX, cY, r, topRight.X, topRight.Y, max.X, max.Y).Points);
-            result.AppendPoints(CircleLineSegmentIntersection(cX, cY, r, max.X, max.Y, bottomLeft.X, bottomLeft.Y).Points);
-            result.AppendPoints(CircleLineSegmentIntersection(cX, cY, r, bottomLeft.X, bottomLeft.Y, min.X, min.Y).Points);
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            else result.State = CircleLineSegmentIntersection(cX, cY, r, min.X, min.Y, topRight.X, topRight.Y).State;
-            return result;
-        }
+        private static Intersection LineSegmentEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double angle, double epsilon = Epsilon)
+            => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
-        /// 
+        /// Find the intersection between a line segment and an ellipse.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="points"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>
+        /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
+        /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CirclePolygonIntersection(
-            double cX, double cY,
-            double r,
-            List<Point2D> points)
+        private static Intersection LineSegmentEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var inter = new Intersection(IntersectionState.NoIntersection);
-            var length = points.Count;
-
-            // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D a1 = points[length - 1];
-            for (var i = 0; i < length; ++i)
-            {
-                Point2D a2 = points[i];
-
-                inter = CircleLineSegmentIntersection(cX, cY, r, a1.X, a1.Y, a2.X, a2.Y);
-                result.AppendPoints(inter.Points);
-
-                a1 = a2;
-            }
-
-            if (result.Points.Count > 0)
-                result.State |= IntersectionState.Intersection;
-            else
-                result.State = inter.State;
-            return result;
-        }
-
-        /// <summary>
-        /// Find intersection ff two circles.
-        /// </summary>
-        /// <param name="cx0"></param>
-        /// <param name="cy0"></param>
-        /// <param name="radius0"></param>
-        /// <param name="cx1"></param>
-        /// <param name="cy1"></param>
-        /// <param name="radius1"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleCircleIntersection1(
-            double cx0, double cy0,
-            double radius0,
-            double cx1, double cy1,
-            double radius1)
-        {
+            // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // If either of the circles are empty, return no intersections.
-            if ((radius0 == 0d) || (radius1 == 0d))
+            // If the ellipse or line segment are empty, return no intersections.
+            if ((rx == 0d) || (ry == 0d) ||
+                ((x0 == x1) && (y0 == y1)))
                 return result;
 
-            // Find the distance between the centers.
-            var dx = cx0 - cx1;
-            var dy = cy0 - cy1;
-            var dist = Sqrt(dx * dx + dy * dy);
+            // Translate the line to put the ellipse centered at the origin.
+            var u1 = x0 - cx;
+            var v1 = y0 - cy;
+            var u2 = x1 - cx;
+            var v2 = y1 - cy;
 
-            // See how many solutions there are.
-            if (dist > radius0 + radius1)
-            {
-                // No solutions, the circles are too far apart.
-                // This would be a good point to return a null Lotus.
-            }
-            else if (dist < Abs(radius0 - radius1))
-            {
-                // No solutions, one circle contains the other.
-                // This would be a good point to return a Lotus struct of th smaller of the circles.
-            }
-            else if ((Abs(dist) < Epsilon) && (Abs(radius0 - radius1) < Epsilon))
-            {
-                // No solutions, the circles coincide.
-                // This would be a good point to return a Lotus struct of one of the circles.
-            }
-            else
-            {
-                // Find a and h.
-                var a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
-                var h = Sqrt(radius0 * radius0 - a * a);
+            // Apply Rotation Transform to line at the origin.
+            var u1A = (0 + (u1 * cosA - v1 * -sinA));
+            var v1A = (0 + (u1 * -sinA + v1 * cosA));
+            var u2A = (0 + (u2 * cosA - v2 * -sinA));
+            var v2A = (0 + (u2 * -sinA + v2 * cosA));
 
-                // Find P2.
-                var cx2 = cx0 + a * (cx1 - cx0) / dist;
-                var cy2 = cy0 + a * (cy1 - cy0) / dist;
+            // Calculate the quadratic parameters.
+            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
+            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
+            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
 
-                // See if we have 1 or 2 solutions.
-                if (Abs(dist - radius0 + radius1) < Epsilon)
+            // Calculate the discriminant.
+            var discriminant = b * b - 4d * a * c;
+
+            // Find solutions.
+            if ((a <= epsilon) || (discriminant < 0))
+            {
+                // No real solutions.
+                result.State |= IntersectionState.Outside;
+                return result;
+            }
+            else if (discriminant == 0)
+            {
+                // One real possible solution.
+                var t = 0.5d * -b / a;
+
+                // Add the point if it is between the end points of the line segment.
+                if ((t >= 0d) && (t <= 1d))
                 {
-                    // Get the points P3.
-                    result = new Intersection(IntersectionState.Intersection);
-                    result.AppendPoint(new Point2D(
-                        (cx2 + h * (cy1 - cy0) / dist),
-                        (cy2 - h * (cx1 - cx0) / dist)));
+                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
                 }
-                else
+
+            }
+            else if (discriminant > 0)
+            {
+                // Two real possible solutions.
+                var t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
+                var t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+
+                // Add the points if they are between the end points of the line segment.
+                if ((t1 >= 0d) && (t1 <= 1d))
                 {
-                    // Get the points P3.
-                    result = new Intersection(IntersectionState.Intersection);
-                    result.AppendPoint(new Point2D(
-                    (cx2 + h * (cy1 - cy0) / dist),
-                    (cy2 - h * (cx1 - cx0) / dist)));
-                    result.AppendPoint(new Point2D(
-                    (cx2 - h * (cy1 - cy0) / dist),
-                    (cy2 + h * (cx1 - cx0) / dist)));
+                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                }
+
+                if ((t2 >= 0d) && (t2 <= 1d))
+                {
+                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
                 }
             }
 
+            // Return the intersections.
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
             return result;
         }
 
         /// <summary>
-        /// Find intersection ff two circles.
+        /// Find the intersection between a line segment and an elliptical arc.
         /// </summary>
-        /// <param name="c1X"></param>
-        /// <param name="c1Y"></param>
-        /// <param name="r1"></param>
-        /// <param name="c2X"></param>
-        /// <param name="c2Y"></param>
-        /// <param name="r2"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleCircleIntersection(
-            double c1X, double c1Y,
-            double r1,
-            double c2X, double c2Y,
-            double r2)
-        {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var r_max = r1 + r2;
-            var r_min = Abs(r1 - r2);
-            var c_dist = Distance(c1X, c1Y, c2X, c2Y);
-            if (c_dist > r_max)
-            {
-                result = new Intersection(IntersectionState.Outside);
-            }
-            else if (c_dist < r_min)
-            {
-                result = new Intersection(IntersectionState.Inside);
-            }
-            else
-            {
-                result = new Intersection(IntersectionState.Intersection);
-                var a = (r1 * r1 - r2 * r2 + c_dist * c_dist) / (2 * c_dist);
-                var h = Sqrt(r1 * r1 - a * a);
-                var p = Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
-                var b = h / c_dist;
-                result.AppendPoint(new Point2D(p.X - b * (c2Y - c1Y), p.Y + b * (c2X - c1X)));
-                result.AppendPoint(new Point2D(p.X + b * (c2Y - c1Y), p.Y - b * (c2X - c1X)));
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
-        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
         /// <param name="rx"></param>
@@ -3897,19 +3713,15 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipticalArcLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
-            => EllipseLineSegmentIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), x0, y0, x1, y1, epsilon);
+        private static Intersection LineSegmentEllipticalArcIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+            => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection between a line segment and an elliptical arc.
         /// </summary>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
@@ -3930,7 +3742,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipticalArcLineSegmentIntersection(double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+        private static Intersection LineSegmentEllipticalArcIntersection(double x0, double y0, double cx, double x1, double y1, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -4045,318 +3857,200 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection between two quadratic beziers.
         /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="angle"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
-            => EllipseLineSegmentIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), x0, y0, x1, y1, epsilon);
-
-        /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a line segment.
-        /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double cosA, double sinA, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
-        {
-            // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            // If the ellipse or line segment are empty, return no intersections.
-            if ((rx == 0d) || (ry == 0d) ||
-                ((x0 == x1) && (y0 == y1)))
-                return result;
-
-            // Translate the line to put the ellipse centered at the origin.
-            var u1 = x0 - cx;
-            var v1 = y0 - cy;
-            var u2 = x1 - cx;
-            var v2 = y1 - cy;
-
-            // Apply Rotation Transform to line at the origin.
-            var u1A = (0 + (u1 * cosA - v1 * -sinA));
-            var v1A = (0 + (u1 * -sinA + v1 * cosA));
-            var u2A = (0 + (u2 * cosA - v2 * -sinA));
-            var v2A = (0 + (u2 * -sinA + v2 * cosA));
-
-            // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
-
-            // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
-
-            // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
-            {
-                // No real solutions.
-                result.State |= IntersectionState.Outside;
-                return result;
-            }
-            else if (discriminant == 0)
-            {
-                // One real possible solution.
-                var t = 0.5d * -b / a;
-
-                // Add the point if it is between the end points of the line segment.
-                if ((t >= 0d) && (t <= 1d))
-                {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
-                }
-
-            }
-            else if (discriminant > 0)
-            {
-                // Two real possible solutions.
-                var t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
-                var t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
-
-                // Add the points if they are between the end points of the line segment.
-                if ((t1 >= 0d) && (t1 <= 1d))
-                {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                }
-
-                if ((t2 >= 0d) && (t2 <= 1d))
-                {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
-                }
-            }
-
-            // Return the intersections.
-            if (result.Count > 0)
-                result.State |= IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="angle"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseRectangleIntersection(double cx, double cy, double rx, double ry, double angle, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
-            => EllipseRectangleIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), r1X, r1Y, r2X, r2Y, epsilon);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseRectangleIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection QuadraticBezierQuadraticBezierIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-
+            Vector2D va, vb;
+            Vector2D c12, c11, c10;
+            Vector2D c22, c21, c20;
             var result = new Intersection(IntersectionState.NoIntersection);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="angle"></param>
-        /// <param name="points"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipsePolygonIntersection(double cx, double cy, double rx, double ry, double angle, List<Point2D> points, double epsilon = Epsilon)
-            => EllipsePolygonIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), points, epsilon);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="points"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipsePolygonIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, List<Point2D> points, double epsilon = Epsilon)
-        {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var inter = new Intersection(IntersectionState.NoIntersection);
-            var length = points.Count;
-
-            // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
-            for (var i = 0; i < points.Count; ++i)
+            va = new Vector2D(a2X, a2Y).Scale(-2);
+            c12 = new Vector2D(a1X, a1Y).Add(va.Add(new Vector2D(a3X, a3Y)));
+            va = new Vector2D(a1X, a1Y).Scale(-2);
+            vb = new Vector2D(a2X, a2Y).Scale(2);
+            c11 = va.Add(vb);
+            c10 = new Vector2D(a1X, a1Y);
+            va = new Vector2D(b2X, b2Y).Scale(-2);
+            c22 = new Vector2D(b1X, b1Y).Add(va.Add(new Vector2D(b3X, b3Y)));
+            va = new Vector2D(b1X, b1Y).Scale(-2);
+            vb = new Vector2D(b2X, b2Y).Scale(2);
+            c21 = va.Add(vb);
+            c20 = new Vector2D(b1X, b1Y);
+            var a = c12.I * c11.J - c11.I * c12.J;
+            var b = c22.I * c11.J - c11.I * c22.J;
+            var c = c21.I * c11.J - c11.I * c21.J;
+            var d = c11.I * (c10.J - c20.J) + c11.J * (-c10.I + c20.I);
+            var e = c22.I * c12.J - c12.I * c22.J;
+            var f = c21.I * c12.J - c12.I * c21.J;
+            var g = c12.I * (c10.J - c20.J) + c12.J * (-c10.I + c20.I);
+            var poly = new Polynomial(
+                a * d - g * g,
+                a * c - 2 * f * g,
+                a * b - f * f - 2 * e * g,
+                -2 * e * f,
+                -e * e);
+            var roots = poly.Roots();
+            for (var i = 0; i < roots.Count; i++)
             {
-                Point2D b2 = points[i];
-
-                inter = EllipseLineSegmentIntersection(cX, cY, rx, ry, cosA, sinA, b1.X, b1.Y, b2.X, b2.Y, epsilon);
-                result.AppendPoints(inter.Points);
-
-                b1 = b2;
-            }
-
-            if (result.Count > 0)
-                result.State |= IntersectionState.Intersection;
-            else
-                result.State = inter.State;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="c1X"></param>
-        /// <param name="c1Y"></param>
-        /// <param name="rx1"></param>
-        /// <param name="ry1"></param>
-        /// <param name="c2X"></param>
-        /// <param name="c2Y"></param>
-        /// <param name="rx2"></param>
-        /// <param name="ry2"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(
-            double c1X, double c1Y,
-            double rx1, double ry1,
-            double c2X, double c2Y,
-            double rx2, double ry2)
-        {
-            double[] a = new double[] { ry1 * ry1, 0, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2 * rx1 * rx1 * c1Y, ry1 * ry1 * c1X * c1X + rx1 * rx1 * c1Y * c1Y - rx1 * rx1 * ry1 * ry1 };
-            double[] b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
-            var yPoly = Bezout(a, b);
-            var yRoots = yPoly.Roots();
-            var epsilon = 1e-3;
-            var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
-            var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
-            var result = new Intersection(IntersectionState.NoIntersection);
-            for (var y = 0; y < yRoots.Count; y++)
-            {
-                var xPoly = new Polynomial(
-                    a[5] + yRoots[y] * (a[4] + yRoots[y] * a[2]),
-                    a[3] + yRoots[y] * a[1],
-                    a[0]
-                    );
-                var xRoots = xPoly.Roots();
-                for (var x = 0; x < xRoots.Count; x++)
+                var s = roots[i];
+                if (0 <= s && s <= 1)
                 {
-                    var test = (a[0] * xRoots[x] + a[1] * yRoots[y] + a[3]) * xRoots[x] + (a[2] * yRoots[y] + a[4]) * yRoots[y] + a[5];
-                    if (Abs(test) < norm0)
+                    var xRoots = new Polynomial(
+                        -c10.I + c20.I + s * c21.I + s * s * c22.I,
+                        -c11.I,
+                        -c12.I).Roots();
+                    var yRoots = new Polynomial(
+                        -c10.J + c20.J + s * c21.J + s * s * c22.J,
+                        -c11.J,
+                        -c12.J).Roots();
+                    if (xRoots.Count > 0 && yRoots.Count > 0)
                     {
-                        test = (b[0] * xRoots[x] + b[1] * yRoots[y] + b[3]) * xRoots[x] + (b[2] * yRoots[y] + b[4]) * yRoots[y] + b[5];
-                        if (Abs(test) < norm1)
+                        for (var j = 0; j < xRoots.Count; j++)
                         {
-                            result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
+                            var xRoot = xRoots[j];
+                            if (0 <= xRoot && xRoot <= 1)
+                            {
+                                for (var k = 0; k < yRoots.Count; k++)
+                                {
+                                    if (Abs(xRoot - yRoots[k]) < epsilon)
+                                    {
+                                        result.Points.Add((Point2D)c22.Scale(s * s).Add(c21.Scale(s).Add(c20)));
+                                        goto checkRoots;
+                                    }
+                                }
+                            }
                         }
+                        checkRoots:;
                     }
                 }
             }
 
             if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection; return result;
+                result.State = IntersectionState.Intersection;
+            return result;
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a quadratic bezier and a cubic bezier.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierRectangleIntersection(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double p4X, double p4Y,
-            double r1X, double r1Y,
-            double r2X, double r2Y)
+        private static Intersection QuadraticBezierCubicBezierIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-
+            Vector2D a, b, c, d;
+            Vector2D c12, c11, c10;
+            Vector2D c23, c22, c21, c20;
             var result = new Intersection(IntersectionState.NoIntersection);
-            result.AppendPoints(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, min.X, min.Y, topRight.X, topRight.Y).Points);
-            result.AppendPoints(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, topRight.X, topRight.Y, max.X, max.Y).Points);
-            result.AppendPoints(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y).Points);
-            result.AppendPoints(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y).Points);
+            a = new Vector2D(a2X, a2Y).Scale(-2);
+            c12 = new Vector2D(a1X, a1Y).Add(a.Add(new Vector2D(a3X, a3Y)));
+            a = new Vector2D(a1X, a1Y).Scale(-2);
+            b = new Vector2D(a2X, a2Y).Scale(2);
+            c11 = a.Add(b);
+            c10 = new Vector2D(a1X, a1Y);
+            a = new Vector2D(b1X, b1Y).Scale(-1);
+            b = new Vector2D(b2X, b2Y).Scale(3);
+            c = new Vector2D(b3X, b3Y).Scale(-3);
+            d = a.Add(b.Add(c.Add(new Vector2D(b4X, b4Y))));
+            c23 = new Vector2D(d.I, d.J);
+            a = new Vector2D(b1X, b1Y).Scale(3);
+            b = new Vector2D(b2X, b2Y).Scale(-6);
+            c = new Vector2D(b3X, b3Y).Scale(3);
+            d = a.Add(b.Add(c));
+            c22 = new Vector2D(d.I, d.J);
+            a = new Vector2D(b1X, b1Y).Scale(-3);
+            b = new Vector2D(b2X, b2Y).Scale(3);
+            c = a.Add(b);
+            c21 = new Vector2D(c.I, c.J);
+            c20 = new Vector2D(b1X, b1Y);
+            var c10x2 = c10.I * c10.I;
+            var c10y2 = c10.J * c10.J;
+            var c11x2 = c11.I * c11.I;
+            var c11y2 = c11.J * c11.J;
+            var c12x2 = c12.I * c12.I;
+            var c12y2 = c12.J * c12.J;
+            var c20x2 = c20.I * c20.I;
+            var c20y2 = c20.J * c20.J;
+            var c21x2 = c21.I * c21.I;
+            var c21y2 = c21.J * c21.J;
+            var c22x2 = c22.I * c22.I;
+            var c22y2 = c22.J * c22.J;
+            var c23x2 = c23.I * c23.I;
+            var c23y2 = c23.J * c23.J;
+            var poly = new Polynomial(
+                -2 * c10.I * c10.J * c12.I * c12.J - c10.I * c11.I * c11.J * c12.J - c10.J * c11.I * c11.J * c12.I + 2 * c10.I * c12.I * c20.J * c12.J + 2 * c10.J * c20.I * c12.I * c12.J + c11.I * c20.I * c11.J * c12.J + c11.I * c11.J * c12.I * c20.J - 2 * c20.I * c12.I * c20.J * c12.J - 2 * c10.I * c20.I * c12y2 + c10.I * c11y2 * c12.I + c10.J * c11x2 * c12.J - 2 * c10.J * c12x2 * c20.J - c20.I * c11y2 * c12.I - c11x2 * c20.J * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2,
+                2 * c10.I * c12.I * c12.J * c21.J + 2 * c10.J * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * c20.I * c12.I * c12.J * c21.J - 2 * c12.I * c20.J * c21.I * c12.J - 2 * c10.I * c21.I * c12y2 - 2 * c10.J * c12x2 * c21.J + 2 * c20.I * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * c20.J * c21.J,
+                2 * c10.I * c12.I * c12.J * c22.J + 2 * c10.J * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * c20.I * c12.I * c12.J * c22.J - 2 * c12.I * c20.J * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * c10.I * c12y2 * c22.I - 2 * c10.J * c12x2 * c22.J + 2 * c20.I * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * c20.J * c22.J + c21y2),
+                2 * c10.I * c12.I * c12.J * c23.J + 2 * c10.J * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * c20.I * c12.I * c12.J * c23.J - 2 * c12.I * c20.J * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * c10.I * c12y2 * c23.I - 2 * c10.J * c12x2 * c23.J + 2 * c20.I * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * c20.J * c23.J + 2 * c21.J * c22.J),
+                -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
+                -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
+                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J);
+            var roots = poly.RootsInInterval(0, 1);
+            for (var i = 0; i < roots.Count; i++)
+            {
+                var s = roots[i];
+                var xRoots = new Polynomial(
+                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
+                    c11.I,
+                    c12.I).Roots();
+                var yRoots = new Polynomial(
+                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
+                    c11.J,
+                    c12.J).Roots();
+                if (xRoots.Count > 0 && yRoots.Count > 0)
+                {
+                    for (var j = 0; j < xRoots.Count; j++)
+                    {
+                        var xRoot = xRoots[j];
+                        if (0 <= xRoot && xRoot <= 1)
+                        {
+                            for (var k = 0; k < yRoots.Count; k++)
+                            {
+                                if (Abs(xRoot - yRoots[k]) < epsilon)
+                                {
+                                    result.Points.Add((Point2D)c23.Scale(s * s * s).Add(c22.Scale(s * s).Add(c21.Scale(s).Add(c20))));
+                                    goto checkRoots;
+                                }
+                            }
+                        }
+                    }
+                    checkRoots:;
+                }
+            }
 
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
@@ -4364,7 +4058,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a quadratic bezier and a polygon contour.
         /// </summary>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
@@ -4372,20 +4066,16 @@ namespace Engine
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
         /// <param name="points"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierPolygonIntersection(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double p4X, double p4Y,
-            List<Point2D> points)
+        private static Intersection QuadraticBezierPolygonContourIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, List<Point2D> points, double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
@@ -4394,18 +4084,19 @@ namespace Engine
             {
                 Point2D a2 = points[i];
 
-                result.AppendPoints(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, a1.X, a1.Y, a2.X, a2.Y).Points);
+                intersections.UnionWith(LineSegmentQuadraticBezierIntersection(a1.X, a1.Y, a2.X, a2.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
 
                 a1 = a2;
             }
 
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
             return result;
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a quadratic bezier and a rectangle.
         /// </summary>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
@@ -4413,62 +4104,37 @@ namespace Engine
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
-        /// <param name="ecX"></param>
-        /// <param name="ecY"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierUnrotatedEllipseIntersection(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double p4X, double p4Y,
-            double ecX, double ecY,
-            double rx, double ry)
+        private static Intersection QuadraticBezierRectangleIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var a = new Vector2D(p1X, p1Y).Scale(-1);
-            var b = new Vector2D(p2X, p2Y).Scale(3);
-            var c = new Vector2D(p3X, p3Y).Scale(-3);
-            var d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
-            var c3 = new Vector2D(d.I, d.J);
-            a = new Vector2D(p1X, p1Y).Scale(3);
-            b = new Vector2D(p2X, p2Y).Scale(-6);
-            c = new Vector2D(p3X, p3Y).Scale(3);
-            d = a.Add(b.Add(c));
-            var c2 = new Vector2D(d.I, d.J);
-            a = new Vector2D(p1X, p1Y).Scale(-3);
-            b = new Vector2D(p2X, p2Y).Scale(3);
-            c = a.Add(b);
-            var c1 = new Vector2D(c.I, c.J);
-            var c0 = new Vector2D(p1X, p1Y);
-            var rxrx = rx * rx;
-            var ryry = ry * ry;
-            var poly = new Polynomial(
-                c0.I * c0.I * ryry - 2 * c0.J * ecY * rxrx - 2 * c0.I * ecX * ryry + c0.J * c0.J * rxrx + ecX * ecX * ryry + ecY * ecY * rxrx - rxrx * ryry,
-                2 * c1.I * ryry * (c0.I - ecX) + 2 * c1.J * rxrx * (c0.J - ecY),
-                2 * c2.I * ryry * (c0.I - ecX) + 2 * c2.J * rxrx * (c0.J - ecY) + c1.I * c1.I * ryry + c1.J * c1.J * rxrx,
-                2 * c3.I * ryry * (c0.I - ecX) + 2 * c3.J * rxrx * (c0.J - ecY) + 2 * (c2.I * c1.I * ryry + c2.J * c1.J * rxrx),
-                2 * (c3.I * c1.I * ryry + c3.J * c1.J * rxrx) + c2.I * c2.I * ryry + c2.J * c2.J * rxrx,
-                2 * (c3.I * c2.I * ryry + c3.J * c2.J * rxrx),
-                c3.I * c3.I * ryry + c3.J * c3.J * rxrx);
-            var roots = poly.RootsInInterval(0, 1);
-            for (var i = 0; i < roots.Count; i++)
-            {
-                var t = roots[i];
-                result.Points.Add((Point2D)c3.Scale(t * t * t).Add(c2.Scale(t * t).Add(c1.Scale(t).Add(c0))));
-            }
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            intersections.UnionWith(LineSegmentQuadraticBezierIntersection(min.X, min.Y, topRight.X, topRight.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierIntersection(topRight.X, topRight.Y, max.X, max.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
             return result;
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between two cubic beziers.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -4489,17 +4155,9 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierCubicBezierIntersection(
-            double a1X, double a1Y,
-            double a2X, double a2Y,
-            double a3X, double a3Y,
-            double a4X, double a4Y,
-            double b1X, double b1Y,
-            double b2X, double b2Y,
-            double b3X, double b3Y,
-            double b4X, double b4Y,
-            double epsilon = Epsilon)
+        private static Intersection CubicBezierCubicBezierIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var a = new Vector2D(a1X, a1Y).Scale(-1);
@@ -4612,7 +4270,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Finds the intersection between a cubic bezier and a polygon.
         /// </summary>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
@@ -4620,56 +4278,18 @@ namespace Engine
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
-        /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierRectangleIntersection(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double r1X, double r1Y,
-            double r2X, double r2Y)
-        {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-
-            var result = new Intersection(IntersectionState.NoIntersection);
-            result.AppendPoints(LineSegmentQuadraticBezierIntersection(min.X, min.Y, topRight.X, topRight.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y).Points);
-            result.AppendPoints(LineSegmentQuadraticBezierIntersection(topRight.X, topRight.Y, max.X, max.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y).Points);
-            result.AppendPoints(LineSegmentQuadraticBezierIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y).Points);
-            result.AppendPoints(LineSegmentQuadraticBezierIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y).Points);
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
+        /// <param name="p4X"></param>
+        /// <param name="p4Y"></param>
         /// <param name="points"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierPolygonIntersection(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            List<Point2D> points)
+        private static Intersection CubicBezierPolygonIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y, List<Point2D> points, double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
@@ -4678,18 +4298,464 @@ namespace Engine
             {
                 Point2D a2 = points[i];
 
-                result.AppendPoints(LineSegmentQuadraticBezierIntersection(a1.X, a1.Y, a2.X, a2.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y).Points);
+                intersections.UnionWith(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, a1.X, a1.Y, a2.X, a2.Y, epsilon).Points);
 
                 a1 = a2;
             }
 
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
             return result;
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a cubic bezier and a rectangle.
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="p4X"></param>
+        /// <param name="p4Y"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CubicBezierRectangleIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            intersections.UnionWith(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between two polygon contours.
+        /// </summary>
+        /// <param name="points1"></param>
+        /// <param name="points2"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection PolygonContourPolygonContourIntersection(List<Point2D> points1, List<Point2D> points2, double epsilon = Epsilon)
+        {
+            var intersections = new HashSet<Point2D>();
+            var length = points1.Count;
+
+            // We shouldn't care about the ordering, we can start with the last segment for a slight performance boost.
+            Point2D a1 = points1[length - 1];
+            for (var i = 0; i < length; ++i)
+            {
+                Point2D a2 = points1[i];
+
+                intersections.UnionWith(LineSegmentPolygonContourIntersection(a1.X, a1.Y, a2.X, a2.Y, points2, epsilon).Points);
+
+                a1 = a2;
+            }
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State |= IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a polygon and a rectangle.
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection PolygonContourRectangleIntersection(List<Point2D> points, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(min.X, min.Y, topRight.X, topRight.Y, points, epsilon).Points);
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(topRight.X, topRight.Y, max.X, max.Y, points, epsilon).Points);
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, points, epsilon).Points);
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, points, epsilon).Points);
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between two rectangles.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection RectangleRectangleIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
+        {
+            var min = MinPoint(a1X, a1Y, a2X, a2Y);
+            var max = MaxPoint(a1X, a1Y, a2X, a2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            intersections.UnionWith(LineSegmentRectangleIntersection(min.X, min.Y, topRight.X, topRight.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentRectangleIntersection(topRight.X, topRight.Y, max.X, max.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentRectangleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentRectangleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a circle and a polygon.
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r"></param>
+        /// <param name="points"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CirclePolygonIntersection(double cX, double cY, double r, List<Point2D> points, double epsilon = Epsilon)
+        {
+            var result = new Intersection(IntersectionState.NoIntersection);
+            var inter = new Intersection(IntersectionState.NoIntersection);
+            var length = points.Count;
+
+            // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
+            Point2D a1 = points[length - 1];
+            for (var i = 0; i < length; ++i)
+            {
+                Point2D a2 = points[i];
+
+                inter = LineSegmentCircleIntersection(a1.X, a1.Y, a2.X, a2.Y, cX, cY, r, epsilon);
+                result.AppendPoints(inter.Points);
+
+                a1 = a2;
+            }
+
+            if (result.Points.Count > 0)
+                result.State |= IntersectionState.Intersection;
+            else
+                result.State = inter.State;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a circle and a rectangle.
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CircleRectangleIntersection(double cX, double cY, double r, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MinPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            intersections.UnionWith(LineSegmentCircleIntersection(min.X, min.Y, topRight.X, topRight.Y, cX, cY, r, epsilon).Points);
+            intersections.UnionWith(LineSegmentCircleIntersection(topRight.X, topRight.Y, max.X, max.Y, cX, cY, r, epsilon).Points);
+            intersections.UnionWith(LineSegmentCircleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, cX, cY, r, epsilon).Points);
+            intersections.UnionWith(LineSegmentCircleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, cX, cY, r, epsilon).Points);
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            else result.State = LineSegmentCircleIntersection(min.X, min.Y, topRight.X, topRight.Y, cX, cY, r).State;
+            return result;
+        }
+
+        /// <summary>
+        /// Find intersection between two circles.
+        /// </summary>
+        /// <param name="cx0"></param>
+        /// <param name="cy0"></param>
+        /// <param name="radius0"></param>
+        /// <param name="cx1"></param>
+        /// <param name="cy1"></param>
+        /// <param name="radius1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CircleCircleIntersection1(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)
+        {
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // If either of the circles are empty, return no intersections.
+            if ((radius0 == 0d) || (radius1 == 0d))
+                return result;
+
+            // Find the distance between the centers.
+            var dx = cx0 - cx1;
+            var dy = cy0 - cy1;
+            var dist = Sqrt(dx * dx + dy * dy);
+
+            // See how many solutions there are.
+            if (dist > radius0 + radius1)
+            {
+                // No solutions, the circles are too far apart.
+                // This would be a good point to return a null Lotus.
+            }
+            else if (dist < Abs(radius0 - radius1))
+            {
+                // No solutions, one circle contains the other.
+                // This would be a good point to return a Lotus struct of th smaller of the circles.
+            }
+            else if ((Abs(dist) < epsilon) && (Abs(radius0 - radius1) < epsilon))
+            {
+                // No solutions, the circles coincide.
+                // This would be a good point to return a Lotus struct of one of the circles.
+            }
+            else
+            {
+                // Find a and h.
+                var a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
+                var h = Sqrt(radius0 * radius0 - a * a);
+
+                // Find P2.
+                var cx2 = cx0 + a * (cx1 - cx0) / dist;
+                var cy2 = cy0 + a * (cy1 - cy0) / dist;
+
+                // See if we have 1 or 2 solutions.
+                if (Abs(dist - radius0 + radius1) < epsilon)
+                {
+                    // Get the points P3.
+                    result = new Intersection(IntersectionState.Intersection);
+                    result.AppendPoint(new Point2D(
+                        (cx2 + h * (cy1 - cy0) / dist),
+                        (cy2 - h * (cx1 - cx0) / dist)));
+                }
+                else
+                {
+                    // Get the points P3.
+                    result = new Intersection(IntersectionState.Intersection);
+                    result.AppendPoint(new Point2D(
+                    (cx2 + h * (cy1 - cy0) / dist),
+                    (cy2 - h * (cx1 - cx0) / dist)));
+                    result.AppendPoint(new Point2D(
+                    (cx2 - h * (cy1 - cy0) / dist),
+                    (cy2 + h * (cx1 - cx0) / dist)));
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find intersection between two circles.
+        /// </summary>
+        /// <param name="c1X"></param>
+        /// <param name="c1Y"></param>
+        /// <param name="r1"></param>
+        /// <param name="c2X"></param>
+        /// <param name="c2Y"></param>
+        /// <param name="r2"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CircleCircleIntersection(double c1X, double c1Y, double r1, double c2X, double c2Y, double r2, double epsilon = Epsilon)
+        {
+            var result = new Intersection(IntersectionState.NoIntersection);
+            var r_max = r1 + r2;
+            var r_min = Abs(r1 - r2);
+            var c_dist = Distance(c1X, c1Y, c2X, c2Y);
+            if (c_dist > r_max)
+            {
+                result = new Intersection(IntersectionState.Outside);
+            }
+            else if (c_dist < r_min)
+            {
+                result = new Intersection(IntersectionState.Inside);
+            }
+            else
+            {
+                result = new Intersection(IntersectionState.Intersection);
+                var a = (r1 * r1 - r2 * r2 + c_dist * c_dist) / (2 * c_dist);
+                var h = Sqrt(r1 * r1 - a * a);
+                var p = Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
+                var b = h / c_dist;
+                result.AppendPoint(new Point2D(p.X - b * (c2Y - c1Y), p.Y + b * (c2X - c1X)));
+                result.AppendPoint(new Point2D(p.X + b * (c2Y - c1Y), p.Y - b * (c2X - c1X)));
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between an ellipse and a polygon contour.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="points"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipsePolygonContourIntersection(double cx, double cy, double rx, double ry, double angle, List<Point2D> points, double epsilon = Epsilon)
+            => EllipsePolygonContourIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), points, epsilon);
+
+        /// <summary>
+        /// Find the intersection between an ellipse and a polygon contour.
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="points"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipsePolygonContourIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, List<Point2D> points, double epsilon = Epsilon)
+        {
+            var result = new Intersection(IntersectionState.NoIntersection);
+            var inter = new Intersection(IntersectionState.NoIntersection);
+            var length = points.Count;
+
+            // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
+            Point2D b1 = points[length - 1];
+            for (var i = 0; i < points.Count; ++i)
+            {
+                Point2D b2 = points[i];
+
+                inter = LineSegmentEllipseIntersection(b1.X, b1.Y, b2.X, b2.Y, cX, cY, rx, ry, cosA, sinA, epsilon);
+                result.AppendPoints(inter.Points);
+
+                b1 = b2;
+            }
+
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
+            else
+                result.State = inter.State;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between an ellipse and a rectangle.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipseRectangleIntersection(double cx, double cy, double rx, double ry, double angle, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+            => EllipseRectangleIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), r1X, r1Y, r2X, r2Y, epsilon);
+
+        /// <summary>
+        /// Find the intersection between an ellipse and a rectangle.
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks> http://www.kevlindev.com/ </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection EllipseRectangleIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a quadratic bezier and an unrotated ellipse.
         /// </summary>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
@@ -4701,15 +4767,18 @@ namespace Engine
         /// <param name="ecY"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierUnrotatedEllipseIntersection(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
             double ecX, double ecY,
-            double rx, double ry)
+            double rx, double ry,
+            double epsilon = Epsilon)
         {
             Vector2D a, b;
             Vector2D c2, c1, c0;
@@ -4740,217 +4809,125 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a cubic bezier and an unrotated ellipse.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="b4X"></param>
-        /// <param name="b4Y"></param>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="p4X"></param>
+        /// <param name="p4Y"></param>
+        /// <param name="ecX"></param>
+        /// <param name="ecY"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierCubicBezierIntersection(
-            double a1X, double a1Y,
-            double a2X, double a2Y,
-            double a3X, double a3Y,
-            double b1X, double b1Y,
-            double b2X, double b2Y,
-            double b3X, double b3Y,
-            double b4X, double b4Y,
+        private static Intersection CubicBezierUnrotatedEllipseIntersection(
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double p3X, double p3Y,
+            double p4X, double p4Y,
+            double ecX, double ecY,
+            double rx, double ry,
             double epsilon = Epsilon)
         {
-            Vector2D a, b, c, d;
-            Vector2D c12, c11, c10;
-            Vector2D c23, c22, c21, c20;
             var result = new Intersection(IntersectionState.NoIntersection);
-            a = new Vector2D(a2X, a2Y).Scale(-2);
-            c12 = new Vector2D(a1X, a1Y).Add(a.Add(new Vector2D(a3X, a3Y)));
-            a = new Vector2D(a1X, a1Y).Scale(-2);
-            b = new Vector2D(a2X, a2Y).Scale(2);
-            c11 = a.Add(b);
-            c10 = new Vector2D(a1X, a1Y);
-            a = new Vector2D(b1X, b1Y).Scale(-1);
-            b = new Vector2D(b2X, b2Y).Scale(3);
-            c = new Vector2D(b3X, b3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add(new Vector2D(b4X, b4Y))));
-            c23 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y).Scale(3);
-            b = new Vector2D(b2X, b2Y).Scale(-6);
-            c = new Vector2D(b3X, b3Y).Scale(3);
+            var a = new Vector2D(p1X, p1Y).Scale(-1);
+            var b = new Vector2D(p2X, p2Y).Scale(3);
+            var c = new Vector2D(p3X, p3Y).Scale(-3);
+            var d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
+            var c3 = new Vector2D(d.I, d.J);
+            a = new Vector2D(p1X, p1Y).Scale(3);
+            b = new Vector2D(p2X, p2Y).Scale(-6);
+            c = new Vector2D(p3X, p3Y).Scale(3);
             d = a.Add(b.Add(c));
-            c22 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y).Scale(-3);
-            b = new Vector2D(b2X, b2Y).Scale(3);
+            var c2 = new Vector2D(d.I, d.J);
+            a = new Vector2D(p1X, p1Y).Scale(-3);
+            b = new Vector2D(p2X, p2Y).Scale(3);
             c = a.Add(b);
-            c21 = new Vector2D(c.I, c.J);
-            c20 = new Vector2D(b1X, b1Y);
-            var c10x2 = c10.I * c10.I;
-            var c10y2 = c10.J * c10.J;
-            var c11x2 = c11.I * c11.I;
-            var c11y2 = c11.J * c11.J;
-            var c12x2 = c12.I * c12.I;
-            var c12y2 = c12.J * c12.J;
-            var c20x2 = c20.I * c20.I;
-            var c20y2 = c20.J * c20.J;
-            var c21x2 = c21.I * c21.I;
-            var c21y2 = c21.J * c21.J;
-            var c22x2 = c22.I * c22.I;
-            var c22y2 = c22.J * c22.J;
-            var c23x2 = c23.I * c23.I;
-            var c23y2 = c23.J * c23.J;
+            var c1 = new Vector2D(c.I, c.J);
+            var c0 = new Vector2D(p1X, p1Y);
+            var rxrx = rx * rx;
+            var ryry = ry * ry;
             var poly = new Polynomial(
-                -2 * c10.I * c10.J * c12.I * c12.J - c10.I * c11.I * c11.J * c12.J - c10.J * c11.I * c11.J * c12.I + 2 * c10.I * c12.I * c20.J * c12.J + 2 * c10.J * c20.I * c12.I * c12.J + c11.I * c20.I * c11.J * c12.J + c11.I * c11.J * c12.I * c20.J - 2 * c20.I * c12.I * c20.J * c12.J - 2 * c10.I * c20.I * c12y2 + c10.I * c11y2 * c12.I + c10.J * c11x2 * c12.J - 2 * c10.J * c12x2 * c20.J - c20.I * c11y2 * c12.I - c11x2 * c20.J * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2,
-                2 * c10.I * c12.I * c12.J * c21.J + 2 * c10.J * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * c20.I * c12.I * c12.J * c21.J - 2 * c12.I * c20.J * c21.I * c12.J - 2 * c10.I * c21.I * c12y2 - 2 * c10.J * c12x2 * c21.J + 2 * c20.I * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * c20.J * c21.J,
-                2 * c10.I * c12.I * c12.J * c22.J + 2 * c10.J * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * c20.I * c12.I * c12.J * c22.J - 2 * c12.I * c20.J * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * c10.I * c12y2 * c22.I - 2 * c10.J * c12x2 * c22.J + 2 * c20.I * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * c20.J * c22.J + c21y2),
-                2 * c10.I * c12.I * c12.J * c23.J + 2 * c10.J * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * c20.I * c12.I * c12.J * c23.J - 2 * c12.I * c20.J * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * c10.I * c12y2 * c23.I - 2 * c10.J * c12x2 * c23.J + 2 * c20.I * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * c20.J * c23.J + 2 * c21.J * c22.J),
-                -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
-                -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
-                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J);
+                c0.I * c0.I * ryry - 2 * c0.J * ecY * rxrx - 2 * c0.I * ecX * ryry + c0.J * c0.J * rxrx + ecX * ecX * ryry + ecY * ecY * rxrx - rxrx * ryry,
+                2 * c1.I * ryry * (c0.I - ecX) + 2 * c1.J * rxrx * (c0.J - ecY),
+                2 * c2.I * ryry * (c0.I - ecX) + 2 * c2.J * rxrx * (c0.J - ecY) + c1.I * c1.I * ryry + c1.J * c1.J * rxrx,
+                2 * c3.I * ryry * (c0.I - ecX) + 2 * c3.J * rxrx * (c0.J - ecY) + 2 * (c2.I * c1.I * ryry + c2.J * c1.J * rxrx),
+                2 * (c3.I * c1.I * ryry + c3.J * c1.J * rxrx) + c2.I * c2.I * ryry + c2.J * c2.J * rxrx,
+                2 * (c3.I * c2.I * ryry + c3.J * c2.J * rxrx),
+                c3.I * c3.I * ryry + c3.J * c3.J * rxrx);
             var roots = poly.RootsInInterval(0, 1);
             for (var i = 0; i < roots.Count; i++)
             {
-                var s = roots[i];
-                var xRoots = new Polynomial(
-                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
-                    c11.I,
-                    c12.I).Roots();
-                var yRoots = new Polynomial(
-                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
-                    c11.J,
-                    c12.J).Roots();
-                if (xRoots.Count > 0 && yRoots.Count > 0)
-                {
-                    for (var j = 0; j < xRoots.Count; j++)
-                    {
-                        var xRoot = xRoots[j];
-                        if (0 <= xRoot && xRoot <= 1)
-                        {
-                            for (var k = 0; k < yRoots.Count; k++)
-                            {
-                                if (Abs(xRoot - yRoots[k]) < epsilon)
-                                {
-                                    result.Points.Add((Point2D)c23.Scale(s * s * s).Add(c22.Scale(s * s).Add(c21.Scale(s).Add(c20))));
-                                    goto checkRoots;
-                                }
-                            }
-                        }
-                    }
-                    checkRoots:;
-                }
+                var t = roots[i];
+                result.Points.Add((Point2D)c3.Scale(t * t * t).Add(c2.Scale(t * t).Add(c1.Scale(t).Add(c0))));
             }
-
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
             return result;
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between two unrotated ellipses.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
+        /// <param name="c1X"></param>
+        /// <param name="c1Y"></param>
+        /// <param name="rx1"></param>
+        /// <param name="ry1"></param>
+        /// <param name="c2X"></param>
+        /// <param name="c2Y"></param>
+        /// <param name="rx2"></param>
+        /// <param name="ry2"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks> http://www.kevlindev.com/ </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierQuadraticBezierIntersection(
-            double a1X, double a1Y,
-            double a2X, double a2Y,
-            double a3X, double a3Y,
-            double b1X, double b1Y,
-            double b2X, double b2Y,
-            double b3X, double b3Y,
+        private static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(
+            double c1X, double c1Y,
+            double rx1, double ry1,
+            double c2X, double c2Y,
+            double rx2, double ry2,
             double epsilon = Epsilon)
         {
-            Vector2D va, vb;
-            Vector2D c12, c11, c10;
-            Vector2D c22, c21, c20;
+            double[] a = new double[] { ry1 * ry1, 0, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2 * rx1 * rx1 * c1Y, ry1 * ry1 * c1X * c1X + rx1 * rx1 * c1Y * c1Y - rx1 * rx1 * ry1 * ry1 };
+            double[] b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
+            var yPoly = Bezout(a, b);
+            var yRoots = yPoly.Roots();
+            var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
+            var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
             var result = new Intersection(IntersectionState.NoIntersection);
-            va = new Vector2D(a2X, a2Y).Scale(-2);
-            c12 = new Vector2D(a1X, a1Y).Add(va.Add(new Vector2D(a3X, a3Y)));
-            va = new Vector2D(a1X, a1Y).Scale(-2);
-            vb = new Vector2D(a2X, a2Y).Scale(2);
-            c11 = va.Add(vb);
-            c10 = new Vector2D(a1X, a1Y);
-            va = new Vector2D(b2X, b2Y).Scale(-2);
-            c22 = new Vector2D(b1X, b1Y).Add(va.Add(new Vector2D(b3X, b3Y)));
-            va = new Vector2D(b1X, b1Y).Scale(-2);
-            vb = new Vector2D(b2X, b2Y).Scale(2);
-            c21 = va.Add(vb);
-            c20 = new Vector2D(b1X, b1Y);
-            var a = c12.I * c11.J - c11.I * c12.J;
-            var b = c22.I * c11.J - c11.I * c22.J;
-            var c = c21.I * c11.J - c11.I * c21.J;
-            var d = c11.I * (c10.J - c20.J) + c11.J * (-c10.I + c20.I);
-            var e = c22.I * c12.J - c12.I * c22.J;
-            var f = c21.I * c12.J - c12.I * c21.J;
-            var g = c12.I * (c10.J - c20.J) + c12.J * (-c10.I + c20.I);
-            var poly = new Polynomial(
-                a * d - g * g,
-                a * c - 2 * f * g,
-                a * b - f * f - 2 * e * g,
-                -2 * e * f,
-                -e * e);
-            var roots = poly.Roots();
-            for (var i = 0; i < roots.Count; i++)
+            for (var y = 0; y < yRoots.Count; y++)
             {
-                var s = roots[i];
-                if (0 <= s && s <= 1)
+                var xPoly = new Polynomial(
+                    a[5] + yRoots[y] * (a[4] + yRoots[y] * a[2]),
+                    a[3] + yRoots[y] * a[1],
+                    a[0]
+                    );
+                var xRoots = xPoly.Roots();
+                for (var x = 0; x < xRoots.Count; x++)
                 {
-                    var xRoots = new Polynomial(
-                        -c10.I + c20.I + s * c21.I + s * s * c22.I,
-                        -c11.I,
-                        -c12.I).Roots();
-                    var yRoots = new Polynomial(
-                        -c10.J + c20.J + s * c21.J + s * s * c22.J,
-                        -c11.J,
-                        -c12.J).Roots();
-                    if (xRoots.Count > 0 && yRoots.Count > 0)
+                    var test = (a[0] * xRoots[x] + a[1] * yRoots[y] + a[3]) * xRoots[x] + (a[2] * yRoots[y] + a[4]) * yRoots[y] + a[5];
+                    if (Abs(test) < norm0)
                     {
-                        for (var j = 0; j < xRoots.Count; j++)
+                        test = (b[0] * xRoots[x] + b[1] * yRoots[y] + b[3]) * xRoots[x] + (b[2] * yRoots[y] + b[4]) * yRoots[y] + b[5];
+                        if (Abs(test) < norm1)
                         {
-                            var xRoot = xRoots[j];
-                            if (0 <= xRoot && xRoot <= 1)
-                            {
-                                for (var k = 0; k < yRoots.Count; k++)
-                                {
-                                    if (Abs(xRoot - yRoots[k]) < epsilon)
-                                    {
-                                        result.Points.Add((Point2D)c22.Scale(s * s).Add(c21.Scale(s).Add(c20)));
-                                        goto checkRoots;
-                                    }
-                                }
-                            }
+                            result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
                         }
-                        checkRoots:;
                     }
                 }
             }
 
             if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
+                result.State = IntersectionState.Intersection; return result;
         }
 
         #endregion

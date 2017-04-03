@@ -123,7 +123,7 @@ namespace Editor
             /* Experimental Previews */
             //TestCases.EllipticalArcLineSegmentIntersectios(vectorMap);
             //TestCases.EllipticalArcLineIntersectios(vectorMap);
-            //TestCases.ScanlineIntersections(vectorMap);
+            TestCases.ScanlineIntersections(vectorMap);
             //TestCases.CommonIntersections(vectorMap);
             //TestCases.CurveFitting(vectorMap);
             //TestCases.EllipseToBeziers(vectorMap);
@@ -145,7 +145,7 @@ namespace Editor
             //TestCases.GridTests(vectorMap, ForeColor, BackColor);
 
             /* Regression Test Cases */
-            TestCases.BezierLineIntersections(vectorMap);
+            //TestCases.BezierLineIntersections(vectorMap);
             //TestCases.BezierLineSegmentIntersections(vectorMap);
             //TestCases.QuadraticBezierHorizontalLineIntersection(vectorMap);
             //TestCases.CubicBezierHorizontalLineIntersection(vectorMap);

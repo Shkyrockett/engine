@@ -1025,6 +1025,13 @@ namespace Editor
                 Name = "Polycurve"
             };
 
+
+            var parametricPointTesterFigure = new ParametricPointTester(
+                (px, py) => Intersections.PolycurveContourContainsPoint(polycurve, new Point2D(px, py)),
+                polycurve.Bounds.X, polycurve.Bounds.Y, polycurve.Bounds.Right + 5, polycurve.Bounds.Bottom + 5, 5, 5);
+            var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, handleStyle);
+
+
             var line = new Line(left + scanPoint.X, top + scanPoint.Y, 2, 0);
             var lineItem = new GraphicItem(line, solidGreenStyle)
             {
@@ -1040,21 +1047,12 @@ namespace Editor
 
             var intersection = new Intersection();
 
-            foreach (var item in polycurve.Items)
+            var intersects = new List<double>();
+
+            Intersections.ScanbeamPolycurveContour(ref intersects, line.Location.X, line.Location.Y, polycurve);
+            foreach (var x in intersects)
             {
-                switch (item)
-                {
-                    case LineCurveSegment l:
-                        intersection.AppendPoints(Intersections.Intersection(l.ToLineSegment(), line).Points);
-                        break;
-                    case ArcSegment a:
-                        var ellipticalArc = a.ToEllipticalArc();
-                        intersection.AppendPoints(Intersections.Intersection(ellipticalArc, line).Points);
-                        //vectorMap.Add(ellipticalArc);
-                        break;
-                    default:
-                        break;
-                }
+                intersection.AppendPoint(new Point2D(x, line.Location.Y));
             }
 
             var intersectionLineCircleNodeItem = new GraphicItem(new NodeRevealer(intersection.Points, 5d), handleStyle)
@@ -1099,6 +1097,7 @@ namespace Editor
             vectorMap.Add(bezier2Intersect);
             vectorMap.Add(intersectionLineCircleNodeItem);
             vectorMap.Add(lineDefNodeItem);
+            vectorMap.Add(parametricPointTesterFigureItem);
         }
 
         /// <summary>

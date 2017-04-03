@@ -61,6 +61,7 @@ namespace Engine
             // Polynomial discriminant
             var discriminant = A * A - 4d * B;
 
+            // ToDo: May need to switch from a hash set to a list for scanbeams.
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
@@ -110,6 +111,7 @@ namespace Engine
             // Polynomial discriminant
             var discriminant = R * R + Q * Q * Q;
 
+            // ToDo: May need to switch from a hash set to a list for scanbeams.
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
@@ -184,6 +186,7 @@ namespace Engine
             var y = resolveRoots[0];
             var discriminant = A * A * OneQuarter - B + y;
 
+            // ToDo: May need to switch from a hash set to a list for scanbeams.
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)

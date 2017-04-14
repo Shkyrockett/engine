@@ -123,7 +123,7 @@ namespace Editor
             /* Experimental Previews */
             //TestCases.EllipticalArcLineSegmentIntersectios(vectorMap);
             //TestCases.EllipticalArcLineIntersectios(vectorMap);
-            TestCases.ScanlineIntersections(vectorMap);
+            //TestCases.ScanlineIntersections(vectorMap);
             //TestCases.CommonIntersections(vectorMap);
             //TestCases.CurveFitting(vectorMap);
             //TestCases.EllipseToBeziers(vectorMap);
@@ -158,6 +158,8 @@ namespace Editor
             /* Interactive */
             //TestCases.ResizeRefreshBounds(vectorMap, CanvasPanel, out boundaryItem);
             //TestCases.Tweenning(vectorMap, this);
+            TestCases.KaraokeBall(vectorMap, this);
+            TestCases.Tweens(vectorMap);
 
             //TestCases.PlainTriangle(vectorMap);
             //TestCases.TrianglePointingRight(vectorMap);

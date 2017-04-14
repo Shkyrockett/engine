@@ -98,6 +98,279 @@ namespace Editor
             vectorMap.Add(ellipseTweenItem);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        /// <param name="form"></param>
+        public static void KaraokeBall(VectorMap vectorMap, EditorForm form)
+        {
+            var left = 100;
+            var top = 200;
+            var radius = 10;
+            double duration = 75;
+            double delay = 0;
+
+            var circle = new Circle(left + radius, top + radius, radius);
+            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+            vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease(Ease.ToAndFro((a) => Ease.Linear(a)));
+            vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease((a) => Ease.CubicInOut(a))
+                .OnUpdate(form.UpdateCallback);
+
+            vectorMap.Add(circleItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void Tweens(VectorMap vectorMap)
+        {
+            var left = 0;
+            var top = 0;
+            var width = 50;
+            var height = 50;
+
+            var style = azureTransparent;
+
+            left += width;
+            top += height;
+            var linear = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.Linear(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var linearItem = new GraphicItem(linear, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var quadraticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuadIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticInItem = new GraphicItem(quadraticIn, style);
+
+            left += width;
+            var quadraticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuadOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticOutItem = new GraphicItem(quadraticOut, style);
+
+            left += width;
+            var quadraticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuadInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticInOutItem = new GraphicItem(quadraticInOut, style);
+
+            left += width;
+            var quadraticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuadOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticOutInItem = new GraphicItem(quadraticOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var cubicIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CubicIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicInItem = new GraphicItem(cubicIn, style);
+
+            left += width;
+            var cubicOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CubicOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicOutItem = new GraphicItem(cubicOut, style);
+
+            left += width;
+            var cubicInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CubicInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicInOutItem = new GraphicItem(cubicInOut, style);
+
+            left += width;
+            var cubicOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CubicOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicOutInItem = new GraphicItem(cubicOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var quarticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuartIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticInItem = new GraphicItem(quarticIn, style);
+
+            left += width;
+            var quarticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuartOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticOutItem = new GraphicItem(quarticOut, style);
+
+            left += width;
+            var quarticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuartInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticInOutItem = new GraphicItem(quarticInOut, style);
+
+            left += width;
+            var quarticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuartOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticOutInItem = new GraphicItem(quarticOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var quinticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuintIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticInItem = new GraphicItem(quinticIn, style);
+
+            left += width;
+            var quinticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuintOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticOutItem = new GraphicItem(quinticOut, style);
+
+            left += width;
+            var quinticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuintInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticInOutItem = new GraphicItem(quinticInOut, style);
+
+            left += width;
+            var quinticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.QuintOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticOutInItem = new GraphicItem(quinticOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var expoIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ExpoIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var expoInItem = new GraphicItem(expoIn, style);
+
+            left += width;
+            var expoOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ExpoOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var expoOutItem = new GraphicItem(expoOut, style);
+
+            left += width;
+            var expoInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ExpoInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var expoInOutItem = new GraphicItem(expoInOut, style);
+
+            left += width;
+            var expoOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ExpoOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var expoOutInItem = new GraphicItem(expoOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var sineIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.SineIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var sineInItem = new GraphicItem(sineIn, style);
+
+            left += width;
+            var sineOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.SineOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var sineOutItem = new GraphicItem(sineOut, style);
+
+            left += width;
+            var sineInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.SineInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var sineInOutItem = new GraphicItem(sineInOut, style);
+
+            left += width;
+            var sineOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.SineOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var sineOutInItem = new GraphicItem(sineOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var circIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CircIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var circInItem = new GraphicItem(circIn, style);
+
+            left += width;
+            var circOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CircOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var circOutItem = new GraphicItem(circOut, style);
+
+            left += width;
+            var circInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CircInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var circInOutItem = new GraphicItem(circInOut, style);
+
+            left += width;
+            var circOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.CircOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var circOutInItem = new GraphicItem(circOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var elasticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ElasticIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticInItem = new GraphicItem(elasticIn, style);
+
+            left += width;
+            var elasticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ElasticOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticOutItem = new GraphicItem(elasticOut, style);
+
+            left += width;
+            var elasticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ElasticInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticInOutItem = new GraphicItem(elasticInOut, style);
+
+            left += width;
+            var elasticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ElasticOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticOutInItem = new GraphicItem(elasticOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var bounceIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BounceIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceInItem = new GraphicItem(bounceIn, style);
+
+            left += width;
+            var bounceOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BounceOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceOutItem = new GraphicItem(bounceOut, style);
+
+            left += width;
+            var bounceInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BounceInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceInOutItem = new GraphicItem(bounceInOut, style);
+
+            left += width;
+            var bounceOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BounceOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceOutInItem = new GraphicItem(bounceOutIn, style);
+            left = 0;
+            top += height;
+
+            left += width;
+            var backIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BackIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var backInItem = new GraphicItem(backIn, style);
+
+            left += width;
+            var backOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BackOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var backOutItem = new GraphicItem(backOut, style);
+
+            left += width;
+            var backInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BackInOut(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var backInOutItem = new GraphicItem(backInOut, style);
+
+            left += width;
+            var backOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.BackOutIn(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var backOutInItem = new GraphicItem(backOutIn, style);
+
+            vectorMap.Add(linearItem);
+
+            vectorMap.Add(quadraticInItem);
+            vectorMap.Add(quadraticOutItem);
+            vectorMap.Add(quadraticInOutItem);
+            vectorMap.Add(quadraticOutInItem);
+
+            vectorMap.Add(cubicInItem);
+            vectorMap.Add(cubicOutItem);
+            vectorMap.Add(cubicInOutItem);
+            vectorMap.Add(cubicOutInItem);
+
+            vectorMap.Add(quarticInItem);
+            vectorMap.Add(quarticOutItem);
+            vectorMap.Add(quarticInOutItem);
+            vectorMap.Add(quarticOutInItem);
+
+            vectorMap.Add(quinticInItem);
+            vectorMap.Add(quinticOutItem);
+            vectorMap.Add(quinticInOutItem);
+            vectorMap.Add(quinticOutInItem);
+
+            vectorMap.Add(expoInItem);
+            vectorMap.Add(expoOutItem);
+            vectorMap.Add(expoInOutItem);
+            vectorMap.Add(expoOutInItem);
+
+            vectorMap.Add(sineInItem);
+            vectorMap.Add(sineOutItem);
+            vectorMap.Add(sineInOutItem);
+            vectorMap.Add(sineOutInItem);
+
+            vectorMap.Add(circInItem);
+            vectorMap.Add(circOutItem);
+            vectorMap.Add(circInOutItem);
+            vectorMap.Add(circOutInItem);
+
+            vectorMap.Add(elasticInItem);
+            vectorMap.Add(elasticOutItem);
+            vectorMap.Add(elasticInOutItem);
+            vectorMap.Add(elasticOutInItem);
+
+            vectorMap.Add(bounceInItem);
+            vectorMap.Add(bounceOutItem);
+            vectorMap.Add(bounceInOutItem);
+            vectorMap.Add(bounceOutInItem);
+
+            vectorMap.Add(backInItem);
+            vectorMap.Add(backOutItem);
+            vectorMap.Add(backInOutItem);
+            vectorMap.Add(backOutInItem);
+        }
+
         #endregion
 
         #region Regression Tests

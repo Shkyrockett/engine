@@ -409,7 +409,7 @@ namespace Engine
         /// <param name="pY"></param>
         /// <returns></returns>
         public static Inclusion Contains(Func<double, double, double, double, double, double, double, Inclusion> function, double x, double y, double w, double h, double a, double pX, double pY)
-            => function.Invoke(x, y, w, h, a, pX, pY);
+            => (function != null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusion.Outside;
 
         /// <summary>
         /// 

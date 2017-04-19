@@ -113,8 +113,8 @@ namespace Editor
 
             var circle = new Circle(left + radius, top + radius, radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
-            vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease(Ease.ToAndFro((a) => Ease.Linear(a)));
-            vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease((a) => Ease.CubicInOut(a))
+            vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease((a) => Ease.Parabolic(a));
+            vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease((a) => Ease.Linear(a))
                 .OnUpdate(form.UpdateCallback);
 
             vectorMap.Add(circleItem);
@@ -137,6 +137,15 @@ namespace Editor
             top += height;
             var linear = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.Linear(t) * h), null, new Point2D(left, top), new Size2D(width, height));
             var linearItem = new GraphicItem(linear, style);
+
+            left += width;
+            var toAndFro = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.ToAndFro(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var toAndFroItem = new GraphicItem(toAndFro, style);
+
+            left += width;
+            var parabolic = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + Ease.Linear(t) * w, y + Ease.Parabolic(t) * h), null, new Point2D(left, top), new Size2D(width, height));
+            var parabolicItem = new GraphicItem(parabolic, style);
+
             left = 0;
             top += height;
 
@@ -319,6 +328,8 @@ namespace Editor
             var backOutInItem = new GraphicItem(backOutIn, style);
 
             vectorMap.Add(linearItem);
+            vectorMap.Add(toAndFroItem);
+            vectorMap.Add(parabolicItem);
 
             vectorMap.Add(quadraticInItem);
             vectorMap.Add(quadraticOutItem);

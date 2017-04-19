@@ -77,6 +77,15 @@ namespace Engine.Tweening
         public static double ToAndFro(double t)
             => t < 0.5d ? t * 2d : 1d + ((t - 0.5d) / 0.5d) * -1d;
 
+        /// <summary>
+        /// Parabolic to and fro method.
+        /// </summary>
+        /// <param name="t">Current time in seconds.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Parabolic(double t)
+            => -4 * t * t + 4 * t - 0;
+
         #endregion
 
         #region Linear Easing Methods

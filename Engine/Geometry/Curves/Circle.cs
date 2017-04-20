@@ -153,8 +153,8 @@ namespace Engine
             : base()
         {
             //  Calculate the slopes of the lines.
-            double slopeA = (PointA.Slope(PointB));
-            double slopeB = (PointC.Slope(PointB));
+            var slopeA = (PointA.Slope(PointB));
+            var slopeB = (PointC.Slope(PointB));
             var f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
@@ -430,7 +430,7 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Circle);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Circle)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Radius)}={radius.ToString(format, provider)}}}";
         }
 

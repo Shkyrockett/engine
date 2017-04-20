@@ -121,6 +121,7 @@ namespace Editor
         {
 #pragma warning disable IDE0022 // Use expression body for methods
             /* Experimental Previews */
+            TestCases.HeartCurve(vectorMap);
             //TestCases.EllipticalArcLineSegmentIntersectios(vectorMap);
             //TestCases.EllipticalArcLineIntersectios(vectorMap);
             //TestCases.ScanlineIntersections(vectorMap);
@@ -159,7 +160,7 @@ namespace Editor
             //TestCases.ResizeRefreshBounds(vectorMap, CanvasPanel, out boundaryItem);
             //TestCases.Tweenning(vectorMap, this);
             TestCases.KaraokeBall(vectorMap, this);
-            TestCases.Tweens(vectorMap);
+            //TestCases.Tweens(vectorMap);
 
             //TestCases.PlainTriangle(vectorMap);
             //TestCases.TrianglePointingRight(vectorMap);

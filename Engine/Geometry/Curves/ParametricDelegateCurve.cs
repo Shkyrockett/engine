@@ -111,11 +111,7 @@ namespace Engine
         [Browsable(false)]
         public Double X
         {
-            get
-            {
-                return x;
-            }
-
+            get { return x; }
             set
             {
                 x = value;
@@ -134,11 +130,7 @@ namespace Engine
         [Browsable(false)]
         public Double Y
         {
-            get
-            {
-                return y;
-            }
-
+            get { return y; }
             set
             {
                 y = value;
@@ -160,11 +152,7 @@ namespace Engine
         [Browsable(true)]
         public Point2D Location
         {
-            get
-            {
-                return new Point2D(x, y);
-            }
-
+            get { return new Point2D(x, y); }
             set
             {
                 x = value.X;
@@ -184,11 +172,7 @@ namespace Engine
         [Browsable(false)]
         public Double Width
         {
-            get
-            {
-                return h;
-            }
-
+            get { return h; }
             set
             {
                 h = value;
@@ -207,11 +191,7 @@ namespace Engine
         [Browsable(false)]
         public Double Height
         {
-            get
-            {
-                return v;
-            }
-
+            get { return v; }
             set
             {
                 v = value;
@@ -233,11 +213,7 @@ namespace Engine
         [Browsable(true)]
         public Size2D Scale
         {
-            get
-            {
-                return new Size2D(h, v);
-            }
-
+            get { return new Size2D(h, v); }
             set
             {
                 h = value.Width; v = value.Height;
@@ -260,11 +236,7 @@ namespace Engine
         [Browsable(true)]
         public double Rotation
         {
-            get
-            {
-                return r;
-            }
-
+            get { return r; }
             set
             {
                 r = value;
@@ -300,10 +272,10 @@ namespace Engine
                 if (points?.Count < 1)
                     return null;
 
-                double left = points[0].X;
-                double top = points[0].Y;
-                double right = points[0].X;
-                double bottom = points[0].Y;
+                var left = points[0].X;
+                var top = points[0].Y;
+                var right = points[0].X;
+                var bottom = points[0].Y;
 
                 foreach (Point2D point in points)
                 {
@@ -421,7 +393,7 @@ namespace Engine
         {
             if (this == null)
                 return nameof(ParametricDelegateCurve);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location},{nameof(Scale)}={Scale},{nameof(Precision)}={Precision}}}";
             return formatable.ToString(format, provider);
         }

@@ -9,6 +9,7 @@
 // <remarks> Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
 using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
@@ -1296,5 +1297,16 @@ namespace Engine.Tweening
             => (t < 0.5) ? BackOut(t * 2) : BackIn((t * 2) - 1);
 
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objA"></param>
+        /// <param name="objB"></param>
+        /// <returns></returns>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static new bool ReferenceEquals(object objA, object objB)
+            => object.ReferenceEquals(objA, objB);
     }
 }

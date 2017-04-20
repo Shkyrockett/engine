@@ -159,9 +159,15 @@ namespace Engine
         /// <param name="count">The number of points desired.</param>
         /// <returns></returns>
         public virtual List<Point2D> InterpolatePoints(int count = 100)
-            => new List<Point2D>(
+        {
+            var list = new List<Point2D>(
             from i in Enumerable.Range(0, count)
-            select Interpolate((1d / count) * i));
+            select Interpolate((1d / count) * i))
+            {
+                Interpolate(1)
+            };
+            return list;
+        }
 
         /// <summary>
         ///
@@ -171,7 +177,7 @@ namespace Engine
         public virtual List<Point2D> InterpolatePoints(Range range)
         {
             var points = new List<Point2D>();
-            foreach (double item in range)
+            foreach (var item in range)
                 points.Add(Interpolate(item));
             return points;
         }

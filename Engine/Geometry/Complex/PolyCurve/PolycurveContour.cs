@@ -39,6 +39,7 @@ namespace Engine
         List<CurveSegment> items;
 
         bool closed = false;
+        private CubicBezier[] cubicBezier;
 
         #endregion
 
@@ -88,6 +89,19 @@ namespace Engine
             : base()
         {
             Items = items;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curves"></param>
+        public PolycurveContour(CubicBezier[] curves)
+        {
+            Items = new List<CurveSegment> { new PointSegment(curves[0].A) };
+            foreach (var curve in curves)
+            {
+                AddCubicBezier(curve.B, curve.C, curve.D);
+            }
         }
 
         #endregion
@@ -340,9 +354,9 @@ namespace Engine
                     AddLineSegment(p.Point);
                     break;
                 case LineSegment p:
-                    if(p.A == Items[Items.Count - 1].End)
+                    if (p.A == Items[Items.Count - 1].End)
                         AddLineSegment(p.B);
-                    else if(p.B == Items[Items.Count - 1].End)
+                    else if (p.B == Items[Items.Count - 1].End)
                         AddLineSegment(p.A);
                     else
                     {
@@ -415,6 +429,20 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="curves"></param>
+        /// <returns></returns>
+        public PolycurveContour AddQuadraticBeziers(CubicBezier[] curves)
+        {
+            foreach (var curve in curves)
+            {
+                AddQuadraticBezier(curve.B, curve.C);
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="handle1"></param>
         /// <param name="handle2"></param>
         /// <param name="end"></param>
@@ -423,6 +451,20 @@ namespace Engine
         {
             var cubic = new CubicBezierSegment(Items[Items.Count - 1], handle1, handle2, end);
             Items.Add(cubic);
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curves"></param>
+        /// <returns></returns>
+        public PolycurveContour AddCubicBeziers(CubicBezier[] curves)
+        {
+            foreach (var curve in curves)
+            {
+                AddCubicBezier(curve.B, curve.C, curve.D);
+            }
             return this;
         }
 

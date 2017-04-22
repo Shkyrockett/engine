@@ -39,7 +39,7 @@ namespace Engine
         List<CurveSegment> items;
 
         bool closed = false;
-        private CubicBezier[] cubicBezier;
+        //private CubicBezier[] cubicBezier;
 
         #endregion
 

@@ -14,6 +14,9 @@ using System.Drawing;
 
 namespace MethodSpeedTester
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ListHelper
     {
         /// <summary>

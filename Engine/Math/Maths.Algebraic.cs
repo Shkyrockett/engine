@@ -272,7 +272,7 @@ namespace Engine
 
             var coeff = new List<double> { a, b, c, d, e, f };
 
-            var LIMIT = 50d;
+            //var LIMIT = 50d;
             var beta2 = 0d;
             var delta1 = 0d;
             var delta2 = 0d;

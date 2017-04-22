@@ -4,17 +4,25 @@ using System.Drawing;
 //using System.Runtime;
 //using System.Runtime.CompilerServices;
 
-public class PolyLoops
+namespace Engine
 {
-    public static void Test()
+    /// <summary>
+    /// 
+    /// </summary>
+    public class PolyLoops
     {
-        var watch = new Stopwatch();
-        var trials = 10000;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void Test()
+        {
+            var watch = new Stopwatch();
+            var trials = 10000;
 
-        int TotalRunningTime;
-        double AverageRunningTime;
+            int TotalRunningTime;
+            double AverageRunningTime;
 
-        var points = new PointF[]{
+            var points = new PointF[]{
             new PointF(1, 1),
             new PointF(2, 1),
             new PointF(3, 1),
@@ -42,170 +50,177 @@ public class PolyLoops
             new PointF(25, 1),
         };
 
-        float result = 0;
+            float result = 0;
 
-        //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-        //GC.WaitForPendingFinalizers();
-        //GCLatencyMode oldMode = GCSettings.LatencyMode;
-        //RuntimeHelpers.PrepareConstrainedRegions();
-        //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
-        watch.Reset();
-        watch.Start();
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            //GC.WaitForPendingFinalizers();
+            //GCLatencyMode oldMode = GCSettings.LatencyMode;
+            //RuntimeHelpers.PrepareConstrainedRegions();
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+            watch.Reset();
+            watch.Start();
 
-        for (var z = 0; z < trials; z++)
-            for (var i = 1; i < points.Length; i++)
-            {
-                result = ProcessSegment(points[i - 1], points[i]);
-            }
+            for (var z = 0; z < trials; z++)
+                for (var i = 1; i < points.Length; i++)
+                {
+                    result = ProcessSegment(points[i - 1], points[i]);
+                }
 
-        watch.Stop();
-        //GCSettings.LatencyMode = oldMode;
+            watch.Stop();
+            //GCSettings.LatencyMode = oldMode;
 
-        TotalRunningTime = (int)watch.ElapsedMilliseconds;
-        AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
+            TotalRunningTime = (int)watch.ElapsedMilliseconds;
+            AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
 
-        Console.WriteLine($"[for (var i = 1; i < points.Length; i++)]\n\rTotal running time:\t{TotalRunningTime}\n\rAverage running time:\t{AverageRunningTime}\n\r");
+            Console.WriteLine($"[for (var i = 1; i < points.Length; i++)]\n\rTotal running time:\t{TotalRunningTime}\n\rAverage running time:\t{AverageRunningTime}\n\r");
 
-        //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-        //GC.WaitForPendingFinalizers();
-        //oldMode = GCSettings.LatencyMode;
-        //RuntimeHelpers.PrepareConstrainedRegions();
-        //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
-        watch.Reset();
-        watch.Start();
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            //GC.WaitForPendingFinalizers();
+            //oldMode = GCSettings.LatencyMode;
+            //RuntimeHelpers.PrepareConstrainedRegions();
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+            watch.Reset();
+            watch.Start();
 
-        for (var z = 0; z < trials; z++)
-            for (var i = 0; i < points.Length; i++)
-            {
-                result = ProcessSegment(points[i], points[(i + 1) % points.Length]);
-            }
-
-        watch.Stop();
-        //GCSettings.LatencyMode = oldMode;
-
-        TotalRunningTime = (int)watch.ElapsedMilliseconds;
-        AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
-
-        Console.WriteLine($"[result = ProcessSegment(points[i], points[(i + 1) % points.Length]);])]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
-
-        //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-        //GC.WaitForPendingFinalizers();
-        //oldMode = GCSettings.LatencyMode;
-        //RuntimeHelpers.PrepareConstrainedRegions();
-        //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
-        watch.Reset();
-        watch.Start();
-
-        for (var z = 0; z < trials; z++)
-            for (var i = 0; i < points.Length; i++)
-            {
-                result = (i < points.Length - 1) ? ProcessSegment(points[i], points[i + 1]) : ProcessSegment(points[i], points[(i + 1) % points.Length]);
-            }
-
-        watch.Stop();
-        //GCSettings.LatencyMode = oldMode;
-
-        TotalRunningTime = (int)watch.ElapsedMilliseconds;
-        AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
-
-        Console.WriteLine($"[result = (i < points.Length - 1) ? ProcessSegment(points[i], points[i + 1]) : ProcessSegment(points[i], points[(i + 1) % points.Length]);]]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
-
-        //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-        //GC.WaitForPendingFinalizers();
-        //oldMode = GCSettings.LatencyMode;
-        //RuntimeHelpers.PrepareConstrainedRegions();
-        //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
-        watch.Reset();
-        watch.Start();
-
-        for (var z = 0; z < trials; z++)
-            for (var i = 0; i < points.Length; i++)
-            {
-                if (i < points.Length - 1)
-                    result = ProcessSegment(points[i], points[i + 1]);
-                else
+            for (var z = 0; z < trials; z++)
+                for (var i = 0; i < points.Length; i++)
+                {
                     result = ProcessSegment(points[i], points[(i + 1) % points.Length]);
-            }
+                }
 
-        watch.Stop();
-        //GCSettings.LatencyMode = oldMode;
+            watch.Stop();
+            //GCSettings.LatencyMode = oldMode;
 
-        TotalRunningTime = (int)watch.ElapsedMilliseconds;
-        AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
+            TotalRunningTime = (int)watch.ElapsedMilliseconds;
+            AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
 
-        Console.WriteLine($"[if (i < points.Length - 1)]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
+            Console.WriteLine($"[result = ProcessSegment(points[i], points[(i + 1) % points.Length]);])]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
 
-        //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-        //GC.WaitForPendingFinalizers();
-        //oldMode = GCSettings.LatencyMode;
-        //RuntimeHelpers.PrepareConstrainedRegions();
-        //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
-        watch.Reset();
-        watch.Start();
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            //GC.WaitForPendingFinalizers();
+            //oldMode = GCSettings.LatencyMode;
+            //RuntimeHelpers.PrepareConstrainedRegions();
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+            watch.Reset();
+            watch.Start();
 
-        for (var z = 0; z < trials; z++)
-            for (var i = 0; i < points.Length - 1; i++)
-            {
-                result = ProcessSegment(points[i], points[i + 1]);
-            }
-        result = ProcessSegment(points[points.Length - 1], points[0]);
+            for (var z = 0; z < trials; z++)
+                for (var i = 0; i < points.Length; i++)
+                {
+                    result = (i < points.Length - 1) ? ProcessSegment(points[i], points[i + 1]) : ProcessSegment(points[i], points[(i + 1) % points.Length]);
+                }
 
-        watch.Stop();
-        //GCSettings.LatencyMode = oldMode;
+            watch.Stop();
+            //GCSettings.LatencyMode = oldMode;
 
-        TotalRunningTime = (int)watch.ElapsedMilliseconds;
-        AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
+            TotalRunningTime = (int)watch.ElapsedMilliseconds;
+            AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
 
-        Console.WriteLine($"[for (var i = 0; i < points.Length - 1; i++)], points[0])]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
+            Console.WriteLine($"[result = (i < points.Length - 1) ? ProcessSegment(points[i], points[i + 1]) : ProcessSegment(points[i], points[(i + 1) % points.Length]);]]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
 
-        //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-        //GC.WaitForPendingFinalizers();
-        //oldMode = GCSettings.LatencyMode;
-        //RuntimeHelpers.PrepareConstrainedRegions();
-        //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
-        watch.Reset();
-        watch.Start();
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            //GC.WaitForPendingFinalizers();
+            //oldMode = GCSettings.LatencyMode;
+            //RuntimeHelpers.PrepareConstrainedRegions();
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+            watch.Reset();
+            watch.Start();
 
-        for (var z = 0; z < trials; z++)
-            for (var i = 1; i < points.Length; i++)
-            {
-                result = ProcessSegment(points[i - 1], points[i]);
-            }
-        result = ProcessSegment(points[points.Length - 1], points[0]);
+            for (var z = 0; z < trials; z++)
+                for (var i = 0; i < points.Length; i++)
+                {
+                    if (i < points.Length - 1)
+                        result = ProcessSegment(points[i], points[i + 1]);
+                    else
+                        result = ProcessSegment(points[i], points[(i + 1) % points.Length]);
+                }
 
-        watch.Stop();
-        //GCSettings.LatencyMode = oldMode;
+            watch.Stop();
+            //GCSettings.LatencyMode = oldMode;
 
-        TotalRunningTime = (int)watch.ElapsedMilliseconds;
-        AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
+            TotalRunningTime = (int)watch.ElapsedMilliseconds;
+            AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
 
-        Console.WriteLine($"[for (var i = 1; i < points.Length; i++)], points[0])]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
+            Console.WriteLine($"[if (i < points.Length - 1)]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
 
-        //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-        //GC.WaitForPendingFinalizers();
-        //oldMode = GCSettings.LatencyMode;
-        //RuntimeHelpers.PrepareConstrainedRegions();
-        //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
-        watch.Reset();
-        watch.Start();
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            //GC.WaitForPendingFinalizers();
+            //oldMode = GCSettings.LatencyMode;
+            //RuntimeHelpers.PrepareConstrainedRegions();
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+            watch.Reset();
+            watch.Start();
 
-        for (var z = 0; z < trials; z++)
-            for (int i = points.Length - 1, j = 0; j < points.Length; i = j++)
-            {
-                result = ProcessSegment(points[i], points[j]);
-            }
+            for (var z = 0; z < trials; z++)
+                for (var i = 0; i < points.Length - 1; i++)
+                {
+                    result = ProcessSegment(points[i], points[i + 1]);
+                }
+            result = ProcessSegment(points[points.Length - 1], points[0]);
 
-        watch.Stop();
-        //GCSettings.LatencyMode = oldMode;
+            watch.Stop();
+            //GCSettings.LatencyMode = oldMode;
 
-        TotalRunningTime = (int)watch.ElapsedMilliseconds;
-        AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
+            TotalRunningTime = (int)watch.ElapsedMilliseconds;
+            AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
 
-        Console.WriteLine($"[for (int i = points.Length - 1, j = 0; j < points.Length; i = j++)]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
-    }
+            Console.WriteLine($"[for (var i = 0; i < points.Length - 1; i++)], points[0])]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
 
-    public static float ProcessSegment(PointF a, PointF b)
-    {
-        return a.X * b.X - a.Y * b.Y;
-    }
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            //GC.WaitForPendingFinalizers();
+            //oldMode = GCSettings.LatencyMode;
+            //RuntimeHelpers.PrepareConstrainedRegions();
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+            watch.Reset();
+            watch.Start();
+
+            for (var z = 0; z < trials; z++)
+                for (var i = 1; i < points.Length; i++)
+                {
+                    result = ProcessSegment(points[i - 1], points[i]);
+                }
+            result = ProcessSegment(points[points.Length - 1], points[0]);
+
+            watch.Stop();
+            //GCSettings.LatencyMode = oldMode;
+
+            TotalRunningTime = (int)watch.ElapsedMilliseconds;
+            AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
+
+            Console.WriteLine($"[for (var i = 1; i < points.Length; i++)], points[0])]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
+
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            //GC.WaitForPendingFinalizers();
+            //oldMode = GCSettings.LatencyMode;
+            //RuntimeHelpers.PrepareConstrainedRegions();
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+            watch.Reset();
+            watch.Start();
+
+            for (var z = 0; z < trials; z++)
+                for (int i = points.Length - 1, j = 0; j < points.Length; i = j++)
+                {
+                    result = ProcessSegment(points[i], points[j]);
+                }
+
+            watch.Stop();
+            //GCSettings.LatencyMode = oldMode;
+
+            TotalRunningTime = (int)watch.ElapsedMilliseconds;
+            AverageRunningTime = (double)TotalRunningTime / (trials * points.Length);
+
+            Console.WriteLine($"[for (int i = points.Length - 1, j = 0; j < points.Length; i = j++)]\n\rTotal running time:\t{TotalRunningTime}ms.\n\rAverage running time:\t{AverageRunningTime}\n\r");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static float ProcessSegment(PointF a, PointF b)
+        {
+            return a.X * b.X - a.Y * b.Y;
+        }
+    } 
 }

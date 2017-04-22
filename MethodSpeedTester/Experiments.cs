@@ -1673,9 +1673,17 @@ namespace MethodSpeedTester
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
         /// <param name="x1">The first position in the interpolation.</param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
         /// <param name="x2">The second position in the interpolation.</param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
         /// <param name="x3">The third position in the interpolation.</param>
+        /// <param name="y3"></param>
+        /// <param name="z3"></param>
         /// <param name="x4">The fourth position in the interpolation.</param>
+        /// <param name="y4"></param>
+        /// <param name="z4"></param>
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
@@ -2205,8 +2213,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="x1">First Point X component.</param>
         /// <param name="y1">First Point Y component.</param>
+        /// <param name="z1"></param>
         /// <param name="x2">Second Point X component.</param>
         /// <param name="y2">Second Point Y component.</param>
+        /// <param name="z2"></param>
         /// <returns>the cross product AB · BC.</returns>
         /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
         [DebuggerStepThrough]
@@ -7383,7 +7393,6 @@ namespace MethodSpeedTester
         /// <param name="B1"></param>
         /// <param name="A2"></param>
         /// <param name="B2"></param>
-        /// <param name="intersect"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         private static (bool, (double X, double Y)?) FindIntersection(
@@ -7424,8 +7433,6 @@ namespace MethodSpeedTester
         /// <param name="Cy"></param>
         /// <param name="Dx"></param>
         /// <param name="Dy"></param>
-        /// <param name="X"></param>
-        /// <param name="Y"></param>
         /// <returns></returns>
         /// <remarks>
         /// http://alienryderflex.com/intersect/
@@ -7540,10 +7547,14 @@ namespace MethodSpeedTester
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b1"></param>
-        /// <param name="b2"></param>
+        /// <param name="Ax"></param>
+        /// <param name="Ay"></param>
+        /// <param name="Bx"></param>
+        /// <param name="By"></param>
+        /// <param name="Cx"></param>
+        /// <param name="Cy"></param>
+        /// <param name="Dx"></param>
+        /// <param name="Dy"></param>
         /// <returns></returns>
         /// <remarks>
         /// https://github.com/thelonious/kld-intersections
@@ -8543,8 +8554,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
+        /// <param name="z1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
+        /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -8562,8 +8575,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
+        /// <param name="z1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
+        /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
@@ -8583,8 +8598,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
+        /// <param name="z1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
+        /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
@@ -8604,8 +8621,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
+        /// <param name="z1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
+        /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -9455,9 +9474,7 @@ namespace MethodSpeedTester
         /// <summary>
         /// 
         /// </summary>
-        /// <param name=""></param>
         /// <param name="a"></param>
-        /// <param name=""></param>
         /// <param name="b"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
@@ -9479,7 +9496,9 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe3(int a, int b)
         {
@@ -9494,7 +9513,9 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe4(int a, int b)
             => a < 0 != b < 0 || (a < 0
@@ -9507,7 +9528,9 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1&lq=1</remarks>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe5(int a, int b)
         {
@@ -9523,7 +9546,9 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        /// <remarks>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe6(int a, int b)
         {
@@ -9764,11 +9789,13 @@ namespace MethodSpeedTester
 
         #region Perimeter Polygon of a Polygon
 
-        //  Determine the radian angle of the specified point (as it relates to the
-        //  origin).
-        //
-        //  Warning:  Do not pass zero in both parameters, as this will cause a division-
-        //            by-zero.
+        /// <summary>
+        /// Determine the radian angle of the specified point (as it relates to the origin).
+        /// Warning: Do not pass zero in both parameters, as this will cause a division-by-zero.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public static double AngleOf(double x, double y)
         {
             var dist = Sqrt(x * x + y * y);
@@ -10479,8 +10506,6 @@ namespace MethodSpeedTester
         ///
         /// </summary>
         /// <param name="polygon">coordinates of corners</param>
-        ///// <param name="constant">storage for pre-calculated constants (same size as polyX)</param>
-        ///// <param name="multiple">storage for pre-calculated multipliers (same size as polyX)</param>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (List<double>, List<double>)? PrecalcPointInPolygonContourPatrickMullenValues(
@@ -11261,8 +11286,7 @@ namespace MethodSpeedTester
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Contour"/>.
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
-        /// <param name="pX">The x-coordinate of the test point.</param>
-        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="p">The coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
@@ -11592,9 +11616,12 @@ namespace MethodSpeedTester
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="segmentA"></param>
-        /// <param name="segmentB"></param>
+        /// <param name="segmentAX"></param>
+        /// <param name="segmentAY"></param>
+        /// <param name="segmentBX"></param>
+        /// <param name="segmentBY"></param>
+        /// <param name="pointX"></param>
+        /// <param name="pointY"></param>
         /// <returns></returns>
         /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
         public static bool PointLineSegment(
@@ -11658,7 +11685,8 @@ namespace MethodSpeedTester
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon) => (Abs(x2 - x1) <= epsilon) && (Abs(y2 - y1) <= epsilon);
+        public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)
+            => (Abs(x2 - x1) <= epsilon) && (Abs(y2 - y1) <= epsilon);
 
         /// <summary>
         /// Compares two points for fuzzy equality.  This function
@@ -11667,6 +11695,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='point1'>The first point to compare</param>
         /// <param name='point2'>The second point to compare</param>
+        /// <param name="epsilon"></param>
         /// <returns>Whether or not the two points are equal</returns>
         public static bool AreClose(Point2D point1, Point2D point2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(point1.X, point2.X, epsilon)
@@ -11679,8 +11708,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='size1'>The first size to compare</param>
         /// <param name='size2'>The second size to compare</param>
+        /// <param name="epsilon"></param>
         /// <returns>Whether or not the two Size instances are equal</returns>
-        public static bool AreClose(Size2D size1, Size2D size2, double epsilon = DoubleEpsilon) => Maths.AreClose(size1.Width, size2.Width, epsilon)
+        public static bool AreClose(Size2D size1, Size2D size2, double epsilon = DoubleEpsilon)
+            => Maths.AreClose(size1.Width, size2.Width, epsilon)
             && Maths.AreClose(size1.Height, size2.Height, epsilon);
 
         /// <summary>
@@ -11690,8 +11721,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='vector1'>The first Vector to compare</param>
         /// <param name='vector2'>The second Vector to compare</param>
+        /// <param name="epsilon"></param>
         /// <returns>Whether or not the two Vector instances are equal</returns>
-        public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = DoubleEpsilon) => Maths.AreClose(vector1.I, vector2.I, epsilon)
+        public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = DoubleEpsilon)
+            => Maths.AreClose(vector1.I, vector2.I, epsilon)
             && Maths.AreClose(vector1.J, vector2.J, epsilon);
 
         #endregion
@@ -12157,6 +12190,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='rect1'>The first rectangle to compare</param>
         /// <param name='rect2'>The second rectangle to compare</param>
+        /// <param name="epsilon"></param>
         /// <returns>Whether or not the two rectangles are equal</returns>
         public static bool AreClose(Rectangle2D rect1, Rectangle2D rect2, double epsilon = DoubleEpsilon)
         {
@@ -12529,7 +12563,7 @@ namespace MethodSpeedTester
             return results;
         }
 
-        ///**
+        //**
         //    Calculates roots of quartic polynomial. <br/>
         //    First, derivative roots are found, then used to split quartic polynomial 
         //    into segments, each containing one root of quartic polynomial.
@@ -12897,22 +12931,44 @@ namespace MethodSpeedTester
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private static Dictionary<double, (double, double)?> sinCosTable = new Dictionary<double, (double, double)?>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static double ClearSinCosTable()
         {
             sinCosTable.Clear();
             return 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
         public static (double, double) SinCos0(double radian)
             // lookup, if not exists add to table and return the result.
             => sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
         public static (double, double) SinCos1(double radian)
             // lookup and replace with same value, or add if not exists.
             => (sinCosTable[radian] = sinCosTable.GetValueOrDefault(radian) ?? (Sin(radian), Cos(radian))).Value;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
         private static (double, double) SinCos2(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
@@ -12920,6 +12976,11 @@ namespace MethodSpeedTester
             return sinCosTable[radian].Value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
         private static (double, double) SinCos3(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
@@ -12932,6 +12993,11 @@ namespace MethodSpeedTester
             return sinCosTable[radian].Value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radian"></param>
+        /// <returns></returns>
         private static (double, double) SinCos4(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
@@ -13210,9 +13276,6 @@ namespace MethodSpeedTester
         /// by www.Abstractvb.com, Date: 3/9/2001 9:26:43 PM, 20010922
         /// </summary>
         /// <param name="lColor"></param>
-        /// <param name="lRed"></param>
-        /// <param name="lGreen"></param>
-        /// <param name="lBlue"></param>
         public (int lRed, int lGreen, int lBlue) SplitRGB01(int lColor)
         {
             lColor = lColor & 0xFFFFFF;

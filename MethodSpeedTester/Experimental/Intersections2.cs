@@ -978,11 +978,10 @@ namespace Engine._Preview
                 AB * BC - AC * AC);
         }
 
-        /**
-            intended for removal of multiple "identical" root copies, when roots are in interval [0,1]
-
-            @param {Array<Number>} roots - will be modified, almost identical root copies will be removed
-        */
+        /// <summary>
+        /// intended for removal of multiple "identical" root copies, when roots are in interval [0,1]
+        /// </summary>
+        /// <param name="roots">will be modified, almost identical root copies will be removed</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RemoveMultipleRootsIn01(List<double> roots)
         {

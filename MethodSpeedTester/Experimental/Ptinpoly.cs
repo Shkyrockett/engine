@@ -152,9 +152,9 @@ namespace MethodSpeedTester
         //    return( inside_flag ) ;
         //}
 
-        ///* ======= Angle summation algorithm ======================================= */
+        //* ======= Angle summation algorithm ======================================= */
 
-        ///* Sum angles made by (vtxN to test point to vtxN+1), check if in proper
+        //* Sum angles made by (vtxN to test point to vtxN+1), check if in proper
         // * range to be inside.	VERY SLOW, included for tutorial reasons (i.e.
         // * to show why one should never use this algorithm).
         // *
@@ -170,7 +170,7 @@ namespace MethodSpeedTester
         //register int j;
         //int inside_flag;
 
-        ///* sum the angles and see if answer mod 2*PI > PI */
+        //* sum the angles and see if answer mod 2*PI > PI */
         //vtx0 = pgon[numverts - 1] ;
         //    vec0[X] = vtx0[X] - point[X] ;
         //    vec0[Y] = vtx0[Y] - point[Y] ;
@@ -224,9 +224,9 @@ namespace MethodSpeedTester
         //    return( inside_flag ) ;
         //}
 
-        ///* ======= Weiler algorithm ============================================ */
+        //* ======= Weiler algorithm ============================================ */
 
-        ///* Track quadrant movements using Weiler's algorithm (elsewhere in Graphics
+        //* Track quadrant movements using Weiler's algorithm (elsewhere in Graphics
         // * Gems IV).  Algorithm has been optimized for testing purposes, but the
         // * crossings algorithm is still faster.	 Included to provide timings.
         // *
@@ -310,9 +310,9 @@ namespace MethodSpeedTester
         //#undef	QUADRANT
         //#undef	Y_INTERCEPT
 
-        ///* ======= Triangle half-plane algorithm ================================== */
+        //* ======= Triangle half-plane algorithm ================================== */
 
-        ///* Split the polygon into a fan of triangles and for each triangle test if
+        //* Split the polygon into a fan of triangles and for each triangle test if
         // * the point is inside of the three half-planes formed by the triangle's edges.
         // *
         // * Call setup with 2D polygon _pgon_ with _numverts_ number of vertices,
@@ -324,7 +324,7 @@ namespace MethodSpeedTester
         // * SORT and CONVEX can be defined for this test.
         // */
 
-        ///* split polygons along set of x axes - call preprocess once */
+        //* split polygons along set of x axes - call preprocess once */
         //pPlaneSet PlaneSetup(pgon, numverts )
         //double pgon[][2] ;
         //int numverts;
@@ -485,7 +485,7 @@ namespace MethodSpeedTester
         //#endif
         //#endif
 
-        ///* check point for inside of three "planes" formed by triangle edges */
+        //* check point for inside of three "planes" formed by triangle edges */
         //int PlaneTest(p_plane_set, numverts, point )
         //pPlaneSet p_plane_set;
         //int numverts;
@@ -571,9 +571,9 @@ namespace MethodSpeedTester
         //    free(p_plane_set );
         //}
 
-        ///* ======= Barycentric algorithm ========================================== */
+        //* ======= Barycentric algorithm ========================================== */
 
-        ///* Split the polygon into a fan of triangles and for each triangle test if
+        //* Split the polygon into a fan of triangles and for each triangle test if
         // * the point has barycentric coordinates which are inside the triangle.
         // * Similar to Badouel's code in Graphics Gems, with a little more efficient
         // * coding.
@@ -665,9 +665,9 @@ namespace MethodSpeedTester
         //    return( inside_flag ) ;
         //}
 
-        ///* ======= Barycentric precompute (Spackman) algorithm ===================== */
+        //* ======= Barycentric precompute (Spackman) algorithm ===================== */
 
-        ///* Split the polygon into a fan of triangles and for each triangle test if
+        //* Split the polygon into a fan of triangles and for each triangle test if
         // * the point has barycentric coordinates which are inside the triangle.
         // * Use Spackman's normalization method to precompute various parameters.
         // *
@@ -779,7 +779,7 @@ namespace MethodSpeedTester
         //    return( pss_return ) ;
         //}
 
-        ///* barycentric, a la Gems I and Spackman's normalization precompute */
+        //* barycentric, a la Gems I and Spackman's normalization precompute */
         //int SpackmanTest(anchor, p_spackman_set, numrec, point )
         //double anchor[2];
         //pSpackmanSet p_spackman_set;
@@ -859,9 +859,9 @@ namespace MethodSpeedTester
         //    free(p_spackman_set );
         //}
 
-        ///* ======= Trapezoid (bin) algorithm ======================================= */
+        //* ======= Trapezoid (bin) algorithm ======================================= */
 
-        ///* Split polygons along set of y bins and sorts the edge fragments.  Testing
+        //* Split polygons along set of y bins and sorts the edge fragments.  Testing
         // * is done against these fragments.
         // *
         // * Call setup with 2D polygon _pgon_ with _numverts_ number of vertices, the
@@ -1059,7 +1059,7 @@ namespace MethodSpeedTester
         //    p_trap_set->trapz[j].edge_set[count]->maxx = vx1 ;
         //}
 
-        ///* used by qsort to sort */
+        //* used by qsort to sort */
         //int CompareEdges(u, v )
         //pEdge* u, * v;
         //{
@@ -1174,9 +1174,9 @@ namespace MethodSpeedTester
         //    free(p_trap_set->trapz );
         //}
 
-        ///* ======= Grid algorithm ================================================= */
+        //* ======= Grid algorithm ================================================= */
 
-        ///* Impose a grid upon the polygon and test only the local edges against the
+        //* Impose a grid upon the polygon and test only the local edges against the
         // * point.
         // *
         // * Call setup with 2D polygon _pgon_ with _numverts_ number of vertices,
@@ -1186,7 +1186,7 @@ namespace MethodSpeedTester
         // * Call cleanup with pointer to grid structure to free space.
         // */
 
-        ///* Strategy for setup:
+        //* Strategy for setup:
         // *   Get bounds of polygon, allocate grid.
         // *   "Walk" each edge of the polygon and note which edges have been crossed
         // *     and what cells are entered (points on a grid edge are always considered
@@ -1250,7 +1250,7 @@ namespace MethodSpeedTester
         //p_gs->miny -= EPSILON* gydiff;
         //p_gs->maxy += EPSILON* gydiff;
 
-        ///* avoid roundoff problems near corners by not getting too close to them */
+        //* avoid roundoff problems near corners by not getting too close to them */
         //eps = 1e-9 * ( gxdiff + gydiff ) ;
 
         //    /* use the new bounds to compute cell widths */
@@ -1579,7 +1579,7 @@ namespace MethodSpeedTester
         //    return( TRUE ) ;
         //}
 
-        ///* Test point against grid and edges in the cell (if any).  Algorithm:
+        //* Test point against grid and edges in the cell (if any).  Algorithm:
         // *    Check bounding box; if outside then return.
         // *    Check cell point is inside; if simple inside or outside then return.
         // *    Find which edge or corner is considered to be the best for testing and
@@ -1805,9 +1805,9 @@ namespace MethodSpeedTester
         //    free(p_gs->gc );
         //}
 
-        ///* ======= Exterior (convex only) algorithm =============================== */
+        //* ======= Exterior (convex only) algorithm =============================== */
 
-        ///* Test the edges of the convex polygon against the point.  If the point is
+        //* Test the edges of the convex polygon against the point.  If the point is
         // * outside any edge, the point is outside the polygon.
         // *
         // * Call setup with 2D polygon _pgon_ with _numverts_ number of vertices,
@@ -1821,7 +1821,7 @@ namespace MethodSpeedTester
         // */
 
         //#ifdef	CONVEX
-        ///* make exterior plane set */
+        //* make exterior plane set */
         //pPlaneSet ExteriorSetup(pgon, numverts )
         //double pgon[][2] ;
         //int numverts;
@@ -1837,7 +1837,7 @@ namespace MethodSpeedTester
         //	    (pPlaneSet)malloc(numverts* sizeof( PlaneSet )) ;
         //    MALLOC_CHECK(pps );
 
-        ///* take cross product of vertex to find handedness */
+        //* take cross product of vertex to find handedness */
         //flip_edge = (pgon[0][X] - pgon[1][X]) * (pgon[1][Y] - pgon[2][Y] ) >
         //		(pgon[0][Y] - pgon[1][Y]) * (pgon[1][X] - pgon[2][X] ) ;
 
@@ -1886,8 +1886,8 @@ namespace MethodSpeedTester
         //    return( pps_return ) ;
         //}
 
-        ///* Check point for outside of all planes */
-        ///* note that we don't need "pgon", since it's been processed into
+        //* Check point for outside of all planes */
+        //* note that we don't need "pgon", since it's been processed into
         // * its corresponding PlaneSet.
         // */
         //int ExteriorTest(p_ext_set, numverts, point )
@@ -1921,9 +1921,9 @@ namespace MethodSpeedTester
         //}
         //#endif
 
-        ///* ======= Inclusion (convex only) algorithm ============================== */
+        //* ======= Inclusion (convex only) algorithm ============================== */
 
-        ///* Create an efficiency structure (see Preparata) for the convex polygon which
+        //* Create an efficiency structure (see Preparata) for the convex polygon which
         // * allows binary searching to find which edge to test the point against.  This
         // * algorithm is O(log n).
         // *
@@ -1937,7 +1937,7 @@ namespace MethodSpeedTester
         // */
 
         //#ifdef	CONVEX
-        ///* make inclusion wedge set */
+        //* make inclusion wedge set */
         //pInclusionAnchor InclusionSetup(pgon, numverts )
         //double pgon[][2] ;
         //int numverts;
@@ -1947,7 +1947,7 @@ namespace MethodSpeedTester
         //pInclusionAnchor pia;
         //pInclusionSet pis;
 
-        ///* double the first edge to avoid needing modulo during test search */
+        //* double the first edge to avoid needing modulo during test search */
         //pia = (pInclusionAnchor)malloc( sizeof( InclusionAnchor )) ;
         //    MALLOC_CHECK(pia );
         //pis = pia->pis =
@@ -2020,7 +2020,7 @@ namespace MethodSpeedTester
         //    return( pia ) ;
         //}
 
-        ///* Find wedge point is in by binary search, then test wedge */
+        //* Find wedge point is in by binary search, then test wedge */
         //int InclusionTest(pia, point )
         //pInclusionAnchor pia;
         //double point[2];
@@ -2077,9 +2077,9 @@ namespace MethodSpeedTester
         //}
         //#endif
 
-        ///* ======= Crossings Multiply algorithm =================================== */
+        //* ======= Crossings Multiply algorithm =================================== */
 
-        ///*
+        //*
         // * This version is usually somewhat faster than the original published in
         // * Graphics Gems IV; by turning the division for testing the X axis crossing
         // * into a tricky multiplication test this part of the test became faster,
@@ -2102,7 +2102,7 @@ namespace MethodSpeedTester
         // *
         // */
 
-        ///* Shoot a test ray along +X axis.  The strategy is to compare vertex Y values
+        //* Shoot a test ray along +X axis.  The strategy is to compare vertex Y values
         // * to the testing point's Y and quickly discard edges which are entirely to one
         // * side of the test ray.  Note that CONVEX and WINDING code can be added as
         // * for the CrossingsTest() code; it is left out here for clarity.

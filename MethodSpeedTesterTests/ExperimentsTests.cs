@@ -29,7 +29,7 @@ namespace MethodSpeedTester.Tests
             (bool, (double X, double Y) ?) value = (false, null);
 
             // Check diagonal crossing lines.
-            for (int i = 0; i < 1000000; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 value = Experiments.Intersection0(sement1.Item1, sement1.Item2, sement1.Item3, sement1.Item4, sement2.Item1, sement2.Item2, sement2.Item3, sement2.Item4);
             }
@@ -76,7 +76,7 @@ namespace MethodSpeedTester.Tests
             (bool, (double X, double Y) ?) value = (false, null);
 
             // Check diagonal crossing lines.
-            for (int i = 0; i < 1000000; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 value = Experiments.Intersection1(sement1.Item1, sement1.Item2, sement1.Item3, sement1.Item4, sement2.Item1, sement2.Item2, sement2.Item3, sement2.Item4);
             }
@@ -123,7 +123,7 @@ namespace MethodSpeedTester.Tests
             (bool, (double X, double Y) ?) value = (false, null);
 
             // Check diagonal crossing lines.
-            for (int i = 0; i < 1000000; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 value = Experiments.Intersection2(sement1.Item1, sement1.Item2, sement1.Item3, sement1.Item4, sement2.Item1, sement2.Item2, sement2.Item3, sement2.Item4);
             }
@@ -170,7 +170,7 @@ namespace MethodSpeedTester.Tests
             (bool, (double X, double Y) ?) value = (false, null);
 
             // Check diagonal crossing lines.
-            for (int i = 0; i < 1000000; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 value = Experiments.Intersection3(sement1.Item1, sement1.Item2, sement1.Item3, sement1.Item4, sement2.Item1, sement2.Item2, sement2.Item3, sement2.Item4);
             }
@@ -217,7 +217,7 @@ namespace MethodSpeedTester.Tests
             (bool, (double X, double Y) ?) value = (false, null);
 
             // Check diagonal crossing lines.
-            for (int i = 0; i < 1000000; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 value = Experiments.Intersection4(sement1.Item1, sement1.Item2, sement1.Item3, sement1.Item4, sement2.Item1, sement2.Item2, sement2.Item3, sement2.Item4);
             }
@@ -264,7 +264,7 @@ namespace MethodSpeedTester.Tests
             (bool, (double X, double Y) ?) value = (false, null);
 
             // Check diagonal crossing lines.
-            for (int i = 0; i < 1000000; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 value = Experiments.Intersection5(sement1.Item1, sement1.Item2, sement1.Item3, sement1.Item4, sement2.Item1, sement2.Item2, sement2.Item3, sement2.Item4);
             }

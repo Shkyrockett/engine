@@ -71,16 +71,16 @@ namespace Engine
         /// </summary>
         protected Vector2D GetLeftTangent(int last)
         {
-            double totalLen = arclen[arclen.Count - 1];
+            var totalLen = arclen[arclen.Count - 1];
             var p0 = points[0];
             var tanL = Primitives.Normalize(points[1] - p0);
             var total = tanL;
-            double weightTotal = 1;
+            var weightTotal = 1d;
             last = Math.Min(EndTangentNPoints, last - 1);
-            for (int i = 2; i <= last; i++)
+            for (var i = 2; i <= last; i++)
             {
-                double ti = 1 - (arclen[i] / totalLen);
-                double weight = ti * ti * ti;
+                var ti = 1 - (arclen[i] / totalLen);
+                var weight = ti * ti * ti;
                 var v = Primitives.Normalize(points[i] - p0);
                 total += v * weight;
                 weightTotal += weight;
@@ -96,16 +96,16 @@ namespace Engine
         /// </summary>
         protected Vector2D GetRightTangent(int first)
         {
-            double totalLen = arclen[arclen.Count - 1];
+            var totalLen = arclen[arclen.Count - 1];
             Point2D p3 = points[points.Count - 1];
             var tanR = (points[points.Count - 2] - p3).Normalize();
             var total = tanR;
             double weightTotal = 1;
             first = Math.Max(points.Count - (EndTangentNPoints + 1), first + 1);
-            for (int i = points.Count - 3; i >= first; i--)
+            for (var i = points.Count - 3; i >= first; i--)
             {
-                double t = arclen[i] / totalLen;
-                double weight = t * t * t;
+                var t = arclen[i] / totalLen;
+                var weight = t * t * t;
                 var v = (points[i] - p3).Normalize();
                 total += v * weight;
                 weightTotal += weight;
@@ -122,18 +122,18 @@ namespace Engine
         {
             // because we want to maintain C1 continuity on the spline, the tangents on either side must be inverses of one another
             Debug.Assert(first < split && split < last);
-            double splitLen = arclen[split];
+            var splitLen = arclen[split];
             Point2D pSplit = points[split];
 
             // left side
-            double firstLen = arclen[first];
-            double partLen = splitLen - firstLen;
-            Vector2D total = default(Vector2D);
+            var firstLen = arclen[first];
+            var partLen = splitLen - firstLen;
+            var total = default(Vector2D);
             double weightTotal = 0;
-            for (int i = Math.Max(first, split - MidTangentNPoints); i < split; i++)
+            for (var i = Math.Max(first, split - MidTangentNPoints); i < split; i++)
             {
-                double t = (arclen[i] - firstLen) / partLen;
-                double weight = t * t * t;
+                var t = (arclen[i] - firstLen) / partLen;
+                var weight = t * t * t;
                 var v = (points[i] - pSplit).Normalize();
                 total += v * weight;
                 weightTotal += weight;
@@ -144,13 +144,13 @@ namespace Engine
 
             // right side
             partLen = arclen[last] - splitLen;
-            int rMax = Math.Min(last, split + MidTangentNPoints);
+            var rMax = Math.Min(last, split + MidTangentNPoints);
             total = default(Vector2D);
             weightTotal = 0;
-            for (int i = split + 1; i <= rMax; i++)
+            for (var i = split + 1; i <= rMax; i++)
             {
-                double ti = 1 - ((arclen[i] - splitLen) / partLen);
-                double weight = ti * ti * ti;
+                var ti = 1 - ((arclen[i] - splitLen) / partLen);
+                var weight = ti * ti * ti;
                 var v = (pSplit - points[i]).Normalize();
                 total += v * weight;
                 weightTotal += weight;
@@ -194,7 +194,7 @@ namespace Engine
         /// a curve that somewhat fits the points; it's just outside error tolerance.</returns>
         protected bool FitCurve(int first, int last, Vector2D tanL, Vector2D tanR, out CubicBezier curve, out int split)
         {
-            int nPts = last - first + 1;
+            var nPts = last - first + 1;
             if (nPts < 2)
             {
                 throw new InvalidOperationException("INTERNAL ERROR: Should always have at least 2 points here");
@@ -204,7 +204,7 @@ namespace Engine
                 // if we only have 2 points left, estimate the curve using Wu/Barsky
                 Point2D p0 = points[first];
                 Point2D p3 = points[last];
-                double alpha = Measurements.Distance(p0, p3) / 3;
+                var alpha = Measurements.Distance(p0, p3) / 3;
                 var p1 = (tanL * alpha) + p0;
                 var p2 = (tanR * alpha) + p3;
                 curve = new CubicBezier(p0, (Point2D)p1, (Point2D)p2, p3);
@@ -216,11 +216,11 @@ namespace Engine
                 split = 0;
                 ArcLengthParamaterize(first, last); // initially start u with a simple chord-length parameterization
                 curve = default(CubicBezier);
-                for (int i = 0; i < MaxItterations + 1; i++)
+                for (var i = 0; i < MaxItterations + 1; i++)
                 {
                     if (i != 0) Reparameterize(first, last, curve);                                  // use newton's method to find better parameters (except on first run, since we don't have a curve yet)
                     curve = GenerateCubicBezier(first, last, tanL, tanR);                                // generate the curve itself
-                    double error = FindMaxSquaredError(first, last, curve, out split);               // calculate error and get split point (point of max error)
+                    var error = FindMaxSquaredError(first, last, curve, out split);               // calculate error and get split point (point of max error)
                     if (error < squaredError) return true;                                         // if we're within error tolerance, awesome!
                 }
                 return false;
@@ -232,12 +232,12 @@ namespace Engine
         /// </summary>
         protected void InitializeArcLengths()
         {
-            int count = points.Count;
+            var count = points.Count;
             Debug.Assert(arclen.Count == 0);
             arclen.Add(0);
             double clen = 0;
             Point2D pp = points[0];
-            for (int i = 1; i < count; i++)
+            for (var i = 1; i < count; i++)
             {
                 Point2D np = points[i];
                 clen += Measurements.Distance(pp, np);
@@ -252,11 +252,11 @@ namespace Engine
         protected void ArcLengthParamaterize(int first, int last)
         {
             u.Clear();
-            double diff = arclen[last] - arclen[first];
-            double start = arclen[first];
-            int nPts = last - first;
+            var diff = arclen[last] - arclen[first];
+            var start = arclen[first];
+            var nPts = last - first;
             u.Add(0);
-            for (int i = 1; i < nPts; i++)
+            for (var i = 1; i < nPts; i++)
                 u.Add((arclen[first + i] - start) / diff);
             u.Add(1);
         }
@@ -267,18 +267,18 @@ namespace Engine
         /// </summary>
         protected CubicBezier GenerateCubicBezier(int first, int last, Vector2D tanL, Vector2D tanR)
         {
-            int nPts = last - first + 1;
+            var nPts = last - first + 1;
             Point2D p0 = points[first], p3 = points[last]; // first and last points of curve are actual points on data
             double c00 = 0, c01 = 0, c11 = 0, x0 = 0, x1 = 0; // matrix members -- both C[0,1] and C[1,0] are the same, stored in c01
-            for (int i = 1; i < nPts; i++)
+            for (var i = 1; i < nPts; i++)
             {
                 // Calculate cubic bezier multipliers
-                double t = u[i];
-                double ti = 1 - t;
-                double t0 = ti * ti * ti;
-                double t1 = 3 * ti * ti * t;
-                double t2 = 3 * ti * t * t;
-                double t3 = t * t * t;
+                var t = u[i];
+                var ti = 1 - t;
+                var t0 = ti * ti * ti;
+                var t1 = 3 * ti * ti * t;
+                var t2 = 3 * ti * t * t;
+                var t3 = t * t * t;
 
                 // For X matrix; moving this up here since profiling shows it's better up here (maybe a0/a1 not in registers vs only v not in regs)
                 var s = (p0 * t0) + (p0 * t1) + (p3 * t2) + (p3 * t3); // NOTE: this would be Q(t) if p1=p0 and p2=p3
@@ -297,18 +297,18 @@ namespace Engine
             }
 
             // determinants of X and C matrices
-            double det_C0_C1 = c00 * c11 - c01 * c01;
-            double det_C0_X = c00 * x1 - c01 * x0;
-            double det_X_C1 = x0 * c11 - x1 * c01;
-            double alphaL = det_X_C1 / det_C0_C1;
-            double alphaR = det_C0_X / det_C0_C1;
+            var det_C0_C1 = c00 * c11 - c01 * c01;
+            var det_C0_X = c00 * x1 - c01 * x0;
+            var det_X_C1 = x0 * c11 - x1 * c01;
+            var alphaL = det_X_C1 / det_C0_C1;
+            var alphaR = det_C0_X / det_C0_C1;
 
             // if alpha is negative, zero, or very small (or we can't trust it since C matrix is small), fall back to Wu/Barsky heuristic
-            double linDist = Measurements.Distance(p0, p3);
-            double epsilon2 = Maths.Epsilon * linDist;
+            var linDist = Measurements.Distance(p0, p3);
+            var epsilon2 = Maths.Epsilon * linDist;
             if (Math.Abs(det_C0_C1) < Maths.Epsilon || alphaL < epsilon2 || alphaR < epsilon2)
             {
-                double alpha = linDist / 3;
+                var alpha = linDist / 3;
                 var p1 = (tanL * alpha) + p0;
                 var p2 = (tanR * alpha) + p3;
                 return new CubicBezier(p0, p1, p2, p3);
@@ -326,12 +326,12 @@ namespace Engine
         /// </summary>
         protected void Reparameterize(int first, int last, CubicBezier curve)
         {
-            int nPts = last - first;
-            for (int i = 1; i < nPts; i++)
+            var nPts = last - first;
+            for (var i = 1; i < nPts; i++)
             {
                 Point2D p = points[first + i];
-                double t = u[i];
-                double ti = 1 - t;
+                var t = u[i];
+                var ti = 1 - t;
 
                 // Control vertices for Q'
                 var qp0 = (curve.B - curve.A) * 3;
@@ -348,9 +348,9 @@ namespace Engine
                 var p2 = (ti * qpp0) + (t * qpp1);
 
                 // these are the actual fitting calculations using http://en.wikipedia.org/wiki/Newton%27s_method
-                double num = ((p0.X - p.X) * p1.I) + ((p0.Y - p.Y) * p1.J);
-                double den = (p1.I * p1.I) + (p1.J * p1.J) + ((p0.X - p.X) * p2.I) + ((p0.Y - p.Y) * p2.J);
-                double newU = t - num / den;
+                var num = ((p0.X - p.X) * p1.I) + ((p0.Y - p.Y) * p1.J);
+                var den = (p1.I * p1.I) + (p1.J * p1.J) + ((p0.X - p.X) * p2.I) + ((p0.Y - p.Y) * p2.J);
+                var newU = t - num / den;
                 if (Math.Abs(den) > Maths.Epsilon && newU >= 0 && newU <= 1)
                     u[i] = newU;
             }
@@ -361,14 +361,14 @@ namespace Engine
         /// </summary>
         protected double FindMaxSquaredError(int first, int last, CubicBezier curve, out int split)
         {
-            int s = (last - first + 1) / 2;
-            int nPts = last - first + 1;
+            var s = (last - first + 1) / 2;
+            var nPts = last - first + 1;
             double max = 0;
-            for (int i = 1; i < nPts; i++)
+            for (var i = 1; i < nPts; i++)
             {
                 Point2D v0 = points[first + i];
                 Point2D v1 = curve.Sample(u[i]);
-                double d = Measurements.SquareDistance(v0, v1);
+                var d = Measurements.SquareDistance(v0, v1);
                 if (d > max)
                 {
                     max = d;

@@ -28,7 +28,9 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="note"></param>
+        /// <param name="pressure"></param>
+        /// <param name="status"></param>
         public PolyphonicPressure(byte note, byte pressure, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -50,6 +52,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static PolyphonicPressure Read(MidiBinaryReader reader, EventStatus status)
             => new PolyphonicPressure(reader.ReadByte(), reader.ReadByte(), status);

@@ -14,9 +14,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Xml.Serialization;
 using Engine._Preview;
+//using System.Runtime.Serialization;
+using System.Xml.Serialization;
+//using Engine._Preview;
 
 namespace Engine
 {
@@ -198,7 +199,7 @@ namespace Engine
         [Description("The first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
             get { return new Point2D(ax, ay); }
@@ -217,7 +218,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("ax")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -239,7 +240,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the first Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("ay")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -265,7 +266,7 @@ namespace Engine
         [Description("The second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
             get { return new Point2D(bx, by); }
@@ -284,7 +285,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("bx")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -306,7 +307,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("by")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -332,7 +333,7 @@ namespace Engine
         [Description("The third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         public Point2D C
         {
             get { return new Point2D(cx, cy); }
@@ -351,7 +352,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("cx")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -373,7 +374,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the third Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("cy")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -397,7 +398,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         public Point2D D
         {
             get { return new Point2D(dx, dy); }
@@ -416,7 +417,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("dx")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the fourth Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -438,7 +439,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the fourth Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("dy")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the fourth Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -476,7 +477,7 @@ namespace Engine
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         [XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
@@ -540,49 +541,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CubicBezier)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CubicBezier)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CubicBezier)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CubicBezier)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CubicBezier)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CubicBezier)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CubicBezier)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CubicBezier)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         /// <summary>
         /// Samples the bezier curve at the given t value.
@@ -593,11 +594,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Sample(double t)
         {
-            double ti = 1 - t;
-            double t0 = ti * ti * ti;
-            double t1 = 3 * ti * ti * t;
-            double t2 = 3 * ti * t * t;
-            double t3 = t * t * t;
+            var ti = 1 - t;
+            var t0 = ti * ti * ti;
+            var t1 = 3 * ti * ti * t;
+            var t2 = 3 * ti * t * t;
+            var t3 = t * t * t;
             return (Point2D)((t0 * A) + (t1 * B) + (t2 * C) + (t3 * D));
         }
 
@@ -610,10 +611,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Derivative(double t)
         {
-            double ti = 1 - t;
-            double tp0 = 3 * ti * ti;
-            double tp1 = 6 * t * ti;
-            double tp2 = 3 * t * t;
+            var ti = 1 - t;
+            var tp0 = 3 * ti * ti;
+            var tp1 = 6 * t * ti;
+            var tp2 = 3 * t * t;
             return (tp0 * (B - A)) + (tp1 * (C - B)) + (tp2 * (D - C));
         }
 
@@ -671,7 +672,7 @@ namespace Engine
         /// <remarks> https://github.com/burningmime/curves </remarks>
         public override int GetHashCode()
         {
-            JenkinsHash hash = new JenkinsHash();
+            var hash = new JenkinsHash();
             hash.Mixin(ax.GetHashCode());
             hash.Mixin(ay.GetHashCode());
             hash.Mixin(bx.GetHashCode());
@@ -697,7 +698,7 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(CubicBezier);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(CubicBezier)}={{{nameof(A)}={A}{sep}{nameof(B)}={B}{sep}{nameof(C)}={C}{sep}{nameof(D)}={D}}}";
             return formatable.ToString(format, provider);
         }

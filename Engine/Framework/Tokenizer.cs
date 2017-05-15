@@ -71,9 +71,9 @@ namespace Engine
         /// </summary>
         /// <param name="str"> The string which will be tokenized. </param>
         /// <param name="formatProvider"> The IFormatProvider which controls this tokenization. </param>
-        internal Tokenizer(string str, IFormatProvider formatProvider)
+        public Tokenizer(string str, IFormatProvider formatProvider)
         {
-            char numberSeparator = GetNumericListSeparator(formatProvider);
+            var numberSeparator = GetNumericListSeparator(formatProvider);
 
             Initialize(str, '\'', numberSeparator);
         }
@@ -85,7 +85,7 @@ namespace Engine
         /// <param name="str"> The string to tokenize. </param>
         /// <param name="quoteChar"> The quote char. </param>
         /// <param name="separator"> The list separator. </param>
-        internal Tokenizer(string str, char quoteChar, char separator)
+        public Tokenizer(string str, char quoteChar, char separator)
         {
             Initialize(str, quoteChar, separator);
         }
@@ -93,7 +93,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        internal bool FoundSeparator
+        public bool FoundSeparator
             => foundSeparator;
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        internal string GetCurrentToken()
+        public string GetCurrentToken()
         {
             // if no current token, return null
             if (currentTokenIndex < 0)
@@ -139,12 +139,12 @@ namespace Engine
         /// <summary>
         /// Throws an exception if there is any non-whitespace left unparsed.
         /// </summary>
-        internal void LastTokenRequired()
+        public void LastTokenRequired()
         {
             if (charIndex != strLen)
             {
                 //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperExtraDataEncountered, _charIndex, _str));
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
             }
         }
 
@@ -152,19 +152,19 @@ namespace Engine
         /// Advances to the NextToken
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
-        internal bool NextToken()
+        public bool NextToken()
             => NextToken(false);
 
         /// <summary>
         /// Advances to the NextToken, throwing an exception if not present
         /// </summary>
         /// <returns>The next token found</returns>
-        internal string NextTokenRequired()
+        public string NextTokenRequired()
         {
             if (!NextToken(false))
             {
                 //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperPrematureStringTermination, _str));
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
             }
 
             return GetCurrentToken();
@@ -174,12 +174,12 @@ namespace Engine
         /// Advances to the NextToken, throwing an exception if not present
         /// </summary>
         /// <returns>The next token found</returns>
-        internal string NextTokenRequired(bool allowQuotedToken)
+        public string NextTokenRequired(bool allowQuotedToken)
         {
             if (!NextToken(allowQuotedToken))
             {
                 //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperPrematureStringTermination, _str));
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
             }
 
             return GetCurrentToken();
@@ -190,7 +190,7 @@ namespace Engine
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
         // use the currently-set separator character.
-        internal bool NextToken(bool allowQuotedToken)
+        public bool NextToken(bool allowQuotedToken)
             => NextToken(allowQuotedToken, argSeparator);
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Engine
         /// which overrides the one previously set.
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
-        internal bool NextToken(bool allowQuotedToken, char separator)
+        public bool NextToken(bool allowQuotedToken, char separator)
         {
             currentTokenIndex = -1; // reset the currentTokenIndex
             foundSeparator = false; // reset
@@ -207,12 +207,12 @@ namespace Engine
             if (charIndex >= strLen)
                 return false;
 
-            char currentChar = str[charIndex];
+            var currentChar = str[charIndex];
 
             Debug.Assert(!char.IsWhiteSpace(currentChar), "Token started on Whitespace");
 
             // setup the quoteCount
-            int quoteCount = 0;
+            var quoteCount = 0;
 
             // If we are allowing a quoted token and this token begins with a quote,
             // set up the quote count and skip the initial quote
@@ -223,8 +223,8 @@ namespace Engine
                 ++charIndex; // move to next character
             }
 
-            int newTokenIndex = charIndex;
-            int newTokenLength = 0;
+            var newTokenIndex = charIndex;
+            var newTokenLength = 0;
 
             // loop until hit end of string or hit a , or whitespace
             // if at end of string just return false.
@@ -265,7 +265,7 @@ namespace Engine
             if (quoteCount > 0)
             {
                 //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperMissingEndQuote, _str));
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
             }
 
             ScanToNextToken(separator); // move so at the start of the nextToken for next call
@@ -277,7 +277,7 @@ namespace Engine
             if (currentTokenLength < 1)
             {
                 //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperEmptyToken, _charIndex, _str));
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
             }
 
             return true;
@@ -292,7 +292,7 @@ namespace Engine
             // if already at end of the string don't bother
             if (charIndex < strLen)
             {
-                char currentChar = str[charIndex];
+                var currentChar = str[charIndex];
 
                 // check that the currentChar is a space or the separator.  If not
                 // we have an error. this can happen in the quote case
@@ -301,13 +301,13 @@ namespace Engine
                     && !char.IsWhiteSpace(currentChar))
                 {
                     //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperExtraDataEncountered, _charIndex, _str));
-                    throw new System.InvalidOperationException();
+                    throw new InvalidOperationException();
                 }
 
                 // loop until hit a character that isn't
                 // an argument separator or whitespace.
                 // !!!ToDo: if more than one argSet throw an exception
-                int argSepCount = 0;
+                var argSepCount = 0;
                 while (charIndex < strLen)
                 {
                     currentChar = str[charIndex];
@@ -321,7 +321,7 @@ namespace Engine
                         if (argSepCount > 1)
                         {
                             //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperEmptyToken, _charIndex, _str));
-                            throw new System.InvalidOperationException();
+                            throw new InvalidOperationException();
                         }
                     }
                     else if (char.IsWhiteSpace(currentChar))
@@ -341,7 +341,7 @@ namespace Engine
                 if (argSepCount > 0 && charIndex >= strLen)
                 {
                     //throw new System.InvalidOperationException(SR.Get(SRID.TokenizerHelperEmptyToken, _charIndex, _str));
-                    throw new System.InvalidOperationException();
+                    throw new InvalidOperationException();
                 }
             }
         }
@@ -354,12 +354,12 @@ namespace Engine
         /// <returns></returns>
         public static char GetNumericListSeparator(IFormatProvider provider)
         {
-            char numericSeparator = ',';
+            var numericSeparator = ',';
 
             // Get the NumberFormatInfo out of the provider, if possible
             // If the IFormatProvider doesn't not contain a NumberFormatInfo, then
             // this method returns the current culture's NumberFormatInfo.
-            NumberFormatInfo numberFormat = NumberFormatInfo.GetInstance(provider);
+            var numberFormat = NumberFormatInfo.GetInstance(provider);
 
             Debug.Assert(null != numberFormat);
 

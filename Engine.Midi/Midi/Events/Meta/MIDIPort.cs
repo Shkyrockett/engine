@@ -26,7 +26,8 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="port"></param>
+        /// <param name="status"></param>
         public MIDIPort(byte port, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -42,6 +43,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static MIDIPort Read(MidiBinaryReader reader, EventStatus status)
             => new MIDIPort(reader.ReadByte(), status);

@@ -26,7 +26,7 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="channel"></param>
         /// <param name="status"></param>
         public MIDIChannel(byte channel, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)

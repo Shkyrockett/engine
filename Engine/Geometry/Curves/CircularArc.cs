@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -123,8 +123,8 @@ namespace Engine
         {
             // ToDo: calculate the angles of the start and end points from the center to fill them in.
             // Calculate the slopes of the lines.
-            double slopeA = (PointA.Slope(PointB));
-            double slopeB = (PointC.Slope(PointB));
+            var slopeA = (PointA.Slope(PointB));
+            var slopeB = (PointC.Slope(PointB));
             var f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
@@ -144,12 +144,12 @@ namespace Engine
         /// Gets or sets the location of the center point of the circular arc.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The location of the center point of the circular arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
@@ -172,7 +172,7 @@ namespace Engine
         [Description("The center location of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -191,7 +191,7 @@ namespace Engine
         /// Gets the point on the circular arc circumference coincident to the starting angle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
@@ -201,7 +201,7 @@ namespace Engine
         /// Gets the point on the circular arc circumference coincident to the ending angle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
@@ -276,7 +276,7 @@ namespace Engine
         [Category("Clipping")]
         [Description("The start angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [TypeConverter(typeof(AngleConverter))]
+        //[TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
@@ -294,7 +294,7 @@ namespace Engine
         /// Gets or sets the start angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Start")]
-        [GeometryAngleDegrees]
+        [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
         [Description("The start angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -320,7 +320,7 @@ namespace Engine
         [Category("Clipping")]
         [Description("The sweep angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [TypeConverter(typeof(AngleConverter))]
+        //[TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
         {
@@ -338,7 +338,7 @@ namespace Engine
         /// Gets or sets the sweep angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Sweep")]
-        [GeometryAngleDegrees]
+        [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
         [Description("The sweep angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -364,7 +364,7 @@ namespace Engine
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [TypeConverter(typeof(AngleConverter))]
+        //[TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
@@ -383,7 +383,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [GeometryAngleDegrees]
+        [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -432,7 +432,7 @@ namespace Engine
         /// Gets the angles of the extreme points of the circle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -444,7 +444,7 @@ namespace Engine
         /// Get the points of the Cartesian extremes of the circle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -472,49 +472,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularArc)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularArc)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularArc)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularArc)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularArc)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularArc)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularArc)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularArc)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Interpolators
 
@@ -553,7 +553,7 @@ namespace Engine
         {
             if (this == null)
                 return nameof(CircularArc);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(CircularArc)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}{sep}{nameof(StartAngle)}={startAngle}{sep}{nameof(EndAngle)}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }

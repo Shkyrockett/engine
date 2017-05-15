@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -123,8 +123,8 @@ namespace Engine
         {
             // ToDo: calculate the angles of the start and end points from the center to fill them in.
             // Calculate the slopes of the lines.
-            double slopeA = (PointA.Slope(PointB));
-            double slopeB = (PointC.Slope(PointB));
+            var slopeA = (PointA.Slope(PointB));
+            var slopeB = (PointC.Slope(PointB));
             var f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
                 ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
 
@@ -144,12 +144,12 @@ namespace Engine
         /// Gets or sets the location of the center point of the circular segment.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The location of the center point of the circular segment.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
@@ -171,7 +171,7 @@ namespace Engine
         [Description("The center location of the Chord.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [XmlIgnore, SoapIgnore]
         public Point2D Center
@@ -191,7 +191,7 @@ namespace Engine
         /// Gets the point on the circular arc circumference coincident to the starting angle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
@@ -201,7 +201,7 @@ namespace Engine
         /// Gets the point on the circular arc circumference coincident to the ending angle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
@@ -291,7 +291,7 @@ namespace Engine
         /// Gets or sets the start angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Start")]
-        [GeometryAngleDegrees]
+        [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
         [Description("The start angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -332,7 +332,7 @@ namespace Engine
         /// Gets or sets the sweep angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Sweep")]
-        [GeometryAngleDegrees]
+        [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
         [Description("The sweep angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -371,7 +371,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [GeometryAngleDegrees]
+        [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -439,7 +439,7 @@ namespace Engine
                 Rectangle2D boundings()
                 {
                     var bounds = new Rectangle2D(StartPoint, EndPoint);
-                    double angleEnd = endAngle;
+                    var angleEnd = endAngle;
                     // check that angle2 > angle1
                     if (angleEnd < startAngle) angleEnd += 2 * PI;
                     if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = x + radius;
@@ -462,49 +462,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularSegment)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularSegment)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularSegment)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularSegment)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularSegment)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularSegment)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(CircularSegment)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(CircularSegment)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Interpolators
 
@@ -516,7 +516,7 @@ namespace Engine
         public override Point2D Interpolate(double t)
         {
             // ToDo: Add the 
-            double theta = startAngle + SweepAngle * t;
+            var theta = startAngle + SweepAngle * t;
             return new Point2D(
                 x + (Sin(theta) * radius),
                 y + (Cos(theta) * radius));
@@ -556,7 +556,7 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(CircularSegment);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(CircularSegment)}{{{nameof(Center)}={Center},{nameof(Radius)}={radius},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
             return formatable.ToString(format, provider);
         }

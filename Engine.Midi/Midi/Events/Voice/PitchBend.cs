@@ -31,8 +31,7 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="least"></param>
-        /// <param name="most"></param>
+        /// <param name="bend"></param>
         /// <param name="status"></param>
         public PitchBend(short bend, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
@@ -49,6 +48,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static PitchBend Read(MidiBinaryReader reader, EventStatus status)
             => new PitchBend(reader.ReadNetworkInt14(), status);

@@ -16,7 +16,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -106,7 +106,7 @@ namespace Engine
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
             get { return (points as List<Point2D>)[index]; }
@@ -181,7 +181,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => (points != null) ? (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points)) : null;
 
@@ -215,49 +215,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Contour)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Contour)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Contour)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Contour)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Contour)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Contour)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Contour)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Contour)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Mutators
 
@@ -302,8 +302,8 @@ namespace Engine
         /// <returns></returns>
         public static Contour Translate(Contour path, Point2D delta)
         {
-            List<Point2D> outPath = new List<Point2D>(path.points.Count);
-            for (int i = 0; i < path.points.Count; i++)
+            var outPath = new List<Point2D>(path.points.Count);
+            for (var i = 0; i < path.points.Count; i++)
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
             return new Contour(outPath);
         }
@@ -327,23 +327,23 @@ namespace Engine
             double accumulatedLength = 0;
 
             // Build up the weights map.
-            for (int i = 1; i < points.Count + 1; i++)
+            for (var i = 1; i < points.Count + 1; i++)
             {
-                double curentLength = Measurements.Distance(cursor, (i == points.Count) ? points[0] : points[i]);
+                var curentLength = Measurements.Distance(cursor, (i == points.Count) ? points[0] : points[i]);
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
                 cursor = (i == points.Count) ? points[0] : points[i];
             }
 
-            double accumulatedLengthT = accumulatedLength * t;
+            var accumulatedLengthT = accumulatedLength * t;
 
             // Find the segment.
-            for (int i = points.Count - 1; i >= 0; i--)
+            for (var i = points.Count - 1; i >= 0; i--)
             {
                 if (weights[i].accumulated <= accumulatedLengthT)
                 {
                     // Interpolate the position.
-                    double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
+                    var th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
                     cursor = Interpolators.Linear(points[i], (i == points.Count - 1) ? points[0] : points[i + 1], th);
                     break;
                 }
@@ -424,7 +424,7 @@ namespace Engine
         public static List<Point2D> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // Discard whitespace and comma but keep the - minus sign.
-            string separators = $@"[\s{Tokenizer.GetNumericListSeparator(provider)}]|(?=-)";
+            var separators = $@"[\s{Tokenizer.GetNumericListSeparator(provider)}]|(?=-)";
 
             var poly = new List<Point2D>();
 
@@ -433,7 +433,7 @@ namespace Engine
 
             if (list.Length % 2 != 0) throw new Exception("Polygon definitions must be in sets of two numbers.");
 
-            for (int i = 0; i < list.Length - 1; i = i = 2)
+            for (var i = 0; i < list.Length - 1; i = i = 2)
             {
                 poly.Add(new Point2D(list[i], list[i + 1]));
             }
@@ -456,9 +456,9 @@ namespace Engine
         /// <returns></returns>
         private String ToPathDefString(string format, IFormatProvider provider)
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
 
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
 
             foreach (var item in points)
             {
@@ -488,7 +488,7 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Contour);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Contour)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }

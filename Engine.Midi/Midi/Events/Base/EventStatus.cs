@@ -15,6 +15,7 @@ namespace Engine.Midi
     /// <summary>
     /// 
     /// </summary>
+    [Expandable]
     public class EventStatus
         : IMidiElement
     {
@@ -60,7 +61,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
-        /// <param name="previous"></param>
+        /// <param name="deltaTime"></param>
         /// <returns></returns>
         internal static EventStatus Read(MidiBinaryReader reader, uint deltaTime)
         {
@@ -78,11 +79,13 @@ namespace Engine.Midi
                 cursor = reader.ReadByte();
                 status |= cursor << 8;
 
-                if (cursor >= 0x0F)
-                {
-                    cursor = reader.ReadByte();
-                    status |= cursor << 16;
-                }
+                //// This next extra shift was a dumb attempt to try to be clever. Turns out messages are at most two bytes.
+                //// Though this might be useful in SysEx? But likely not.
+                //if (cursor >= 0x0F)
+                //{
+                //    cursor = reader.ReadByte();
+                //    status |= cursor << 16;
+                //}
             }
 
             return new EventStatus(deltaTime, (MidiStatusMessages)status, channel);

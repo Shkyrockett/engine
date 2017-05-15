@@ -43,6 +43,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static SongSelect Read(MidiBinaryReader reader, EventStatus status)
             => new SongSelect(reader.ReadByte(), status);

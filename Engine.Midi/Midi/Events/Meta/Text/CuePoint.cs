@@ -36,7 +36,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
-        /// <param name="status"
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static CuePoint Read(MidiBinaryReader reader, EventStatus status)
             => new CuePoint(reader.ReadASCIIString(), status);

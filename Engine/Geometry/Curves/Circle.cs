@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -174,7 +174,7 @@ namespace Engine
         /// Gets or sets the radius of the circle.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [DisplayName(nameof(Radius))]
+        //[DisplayName(nameof(Radius))]
         [Category("Elements")]
         [Description("The radius of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -196,12 +196,12 @@ namespace Engine
         /// Gets or sets the center point of the circle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Center))]
+        //[DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The center location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -220,7 +220,7 @@ namespace Engine
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [DisplayName(nameof(X))]
+        //[DisplayName(nameof(X))]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -242,7 +242,7 @@ namespace Engine
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [DisplayName(nameof(Y))]
+        //[DisplayName(nameof(Y))]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -265,7 +265,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Circumference))]
+        //[DisplayName(nameof(Circumference))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public double Circumference
@@ -275,7 +275,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Circumference))]
+        //[DisplayName(nameof(Circumference))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public override double Perimeter
@@ -285,7 +285,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Area))]
+        //[DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the circle.")]
         public override double Area
@@ -304,7 +304,7 @@ namespace Engine
         /// Gets the angles of the extreme points of the circle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Circle) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -316,7 +316,7 @@ namespace Engine
         /// Get the points of the Cartesian extremes of the circle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Circle) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -328,12 +328,12 @@ namespace Engine
         /// Gets or sets the rectangular boundaries of the circle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [DisplayName(nameof(Bounds))]
+        //[DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get { return Measurements.CircleBounds(x, y, radius); }
@@ -349,49 +349,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Circle)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Circle)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Circle)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Circle)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Circle)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Circle)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Circle)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Circle)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Interpolators
 

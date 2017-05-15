@@ -28,7 +28,8 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="len"></param>
+        /// <param name="status"></param>
         public EndOfTrack(byte len, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -40,6 +41,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static EndOfTrack Read(MidiBinaryReader reader, EventStatus status)
             => new EndOfTrack(reader.Position == reader.Length ? (byte)0 : reader.ReadByte(), status);

@@ -12,9 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
+//using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -175,18 +175,14 @@ namespace Engine
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [Browsable(true)]
-        [DisplayName(nameof(X))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(X))]
         [Category("Elements")]
         [Description("The x coordinate location of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
         public double X
         {
-            get
-            {
-                return x;
-            }
-
+            get { return x; }
             set
             {
                 x = value;
@@ -199,18 +195,14 @@ namespace Engine
         /// Gets or sets the Y coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [Browsable(true)]
-        [DisplayName(nameof(Y))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Y))]
         [Category("Elements")]
         [Description("The y coordinate location of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
         public double Y
         {
-            get
-            {
-                return y;
-            }
-
+            get { return y; }
             set
             {
                 y = value;
@@ -223,18 +215,14 @@ namespace Engine
         /// Gets or sets the height of the rectangle.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [Browsable(true)]
-        [DisplayName(nameof(Height))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Height))]
         [Category("Elements")]
         [Description("The height of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
         public double Height
         {
-            get
-            {
-                return height;
-            }
-
+            get { return height; }
             set
             {
                 height = value;
@@ -247,18 +235,14 @@ namespace Engine
         /// Gets or sets the width of the rectangle.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [Browsable(true)]
-        [DisplayName(nameof(Width))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Width))]
         [Category("Elements")]
         [Description("The width of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
         public double Width
         {
-            get
-            {
-                return width;
-            }
-
+            get { return width; }
             set
             {
                 width = value;
@@ -272,18 +256,14 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [DisplayName(nameof(Aspect))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Aspect))]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the height and width of the " + nameof(RotatedRectangle2D) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get
-            {
-                return height / width;
-            }
-
+            get { return height / width; }
             set
             {
                 height = width * value;
@@ -297,8 +277,8 @@ namespace Engine
         /// Gets or sets the angle the rectangle should be rotated.
         /// </summary>
         [XmlAttribute, SoapAttribute]
-        [Browsable(true)]
-        [DisplayName(nameof(Aspect))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Aspect))]
         [Category("Properties")]
         [Description("The " + nameof(Angle) + " of rotation of the " + nameof(RotatedRectangle2D) + ".")]
         [GeometryAngleRadians]
@@ -307,11 +287,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
-            get
-            {
-                return angle;
-            }
-
+            get { return angle; }
             set
             {
                 angle = value;
@@ -325,20 +301,16 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Center))]
+        //[DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The center location of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get
-            {
-                return new Point2D(X, Y);
-            }
-
+            get { return new Point2D(X, Y); }
             set
             {
                 x = value.X;
@@ -353,20 +325,16 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Size))]
+        //[DisplayName(nameof(Size))]
         [Category("Elements")]
         [Description("The height and width of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Size2DConverter))]
+        //[TypeConverter(typeof(Size2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
-            get
-            {
-                return new Size2D(width, height);
-            }
-
+            get { return new Size2D(width, height); }
             set
             {
                 width = value.Width;
@@ -388,8 +356,8 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(HasArea))]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(HasArea))]
         [Category("Elements")]
         [Description("A value indicating whether or not the rectangle has height or width.")]
         public bool HasArea
@@ -399,9 +367,9 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Area))]
+        //[Browsable(true)]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(Area))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
@@ -413,9 +381,9 @@ namespace Engine
         /// Gets the length of the perimeter of the rectangle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Perimeter))]
+        //[Browsable(true)]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(Perimeter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
@@ -428,11 +396,11 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Bounds))]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(Bounds))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("bounding box of the rectangle.")]
@@ -639,49 +607,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(RotatedRectangle2D)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(RotatedRectangle2D)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(RotatedRectangle2D)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(RotatedRectangle2D)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Mutators
 
@@ -879,7 +847,7 @@ namespace Engine
             if (this == null)
                 return nameof(RotatedRectangle2D);
             //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x},{nameof(Y)}={y},{nameof(Width)}={width},{nameof(Height)}={height},{nameof(Angle)}={angle}}}";
             return formatable.ToString(format, provider);
         }

@@ -32,7 +32,7 @@ namespace Engine
         {
             unchecked
             {
-                int num = current;
+                var num = current;
                 if (num == 0)
                     num = 0x7e53a269;
                 else
@@ -53,7 +53,7 @@ namespace Engine
         {
             unchecked
             {
-                int num = current;
+                var num = current;
                 num += (num << 3);
                 num ^= (num >> 11);
                 num += (num << 15);

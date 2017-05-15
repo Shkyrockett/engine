@@ -17,7 +17,7 @@ using System.IO;
 namespace Engine.Midi
 {
     /// <summary>
-    /// 
+    /// File Chunk class.
     /// </summary>
     public class Chunk
     {
@@ -42,22 +42,22 @@ namespace Engine.Midi
         }
 
         /// <summary>
-        /// The chunk ID.
+        /// Gets or sets the chunk ID.
         /// </summary>
         public string Id { get; set; }
 
         /// <summary>
-        /// The Chunk Length
+        /// Gets or sets the Chunk Length.
         /// </summary>
         public int Length { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the chunk sub stream.
         /// </summary>
         internal Stream SubStream { get; set; }
 
         /// <summary>
-        /// 
+        /// Read a file from a reader.
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
@@ -81,7 +81,7 @@ namespace Engine.Midi
         }
 
         /// <summary>
-        /// 
+        /// Validate a chunk.
         /// </summary>
         /// <param name="chunk"></param>
         /// <returns></returns>

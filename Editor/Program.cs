@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Engine.Winforms;
+using Engine.WindowsForms;
 using System;
 using System.Windows.Forms;
 
@@ -26,6 +26,7 @@ namespace Editor
         private static void Main()
         {
             WinformsReflection.Tickle();
+			
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new EditorForm());

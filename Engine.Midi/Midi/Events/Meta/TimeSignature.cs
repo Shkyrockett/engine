@@ -26,7 +26,11 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="numerator"></param>
+        /// <param name="denominator"></param>
+        /// <param name="clocks"></param>
+        /// <param name="beats"></param>
+        /// <param name="status"></param>
         public TimeSignature(byte numerator, byte denominator, byte clocks, byte beats, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -60,6 +64,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static TimeSignature Read(MidiBinaryReader reader, EventStatus status)
             => new TimeSignature(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), status);

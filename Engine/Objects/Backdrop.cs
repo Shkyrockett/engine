@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Drawing;
+//using System.Drawing;
 
 namespace Engine
 {
@@ -22,9 +22,9 @@ namespace Engine
         /// </summary>
         public string Name;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Bitmap image;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public Bitmap image;
     }
 }

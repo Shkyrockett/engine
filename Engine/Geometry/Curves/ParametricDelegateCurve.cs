@@ -91,14 +91,14 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         public Func<double, double, double, double, double, double, Point2D> Interpolater { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         public Func<double, double, double, double, double, double, double, Inclusion> PointIntersector { get; set; }
 
         /// <summary>
@@ -147,9 +147,9 @@ namespace Engine
         [Description("The " + nameof(Location) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [Browsable(true)]
+        //[Browsable(true)]
         public Point2D Location
         {
             get { return new Point2D(x, y); }
@@ -208,9 +208,9 @@ namespace Engine
         [Description("The " + nameof(Scale) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Size2DConverter))]
+        //[TypeConverter(typeof(Size2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [Browsable(true)]
+        //[Browsable(true)]
         public Size2D Scale
         {
             get { return new Size2D(h, v); }
@@ -231,9 +231,9 @@ namespace Engine
         [Description("The " + nameof(Rotation) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(AngleConverter))]
+        //[TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [Browsable(true)]
+        //[Browsable(true)]
         public double Rotation
         {
             get { return r; }
@@ -254,7 +254,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        [Browsable(true)]
+        //[Browsable(true)]
         public double Precision { get; set; }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get
@@ -292,49 +292,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(ParametricDelegateCurve)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    //Debug.WriteLine($"{nameof(ParametricDelegateCurve)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(ParametricDelegateCurve)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    //Debug.WriteLine($"{nameof(ParametricDelegateCurve)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(ParametricDelegateCurve)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    //Debug.WriteLine($"{nameof(ParametricDelegateCurve)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(ParametricDelegateCurve)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    //Debug.WriteLine($"{nameof(ParametricDelegateCurve)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Methods
 

@@ -10,7 +10,6 @@
 // <references>
 // </references>
 
-using System;
 using System.Collections.Generic;
 
 namespace Engine.Midi
@@ -67,6 +66,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="chunk"></param>
         /// <returns></returns>
         internal static MidiTrack Read(MidiBinaryReader reader, Chunk chunk)
         {
@@ -82,7 +82,7 @@ namespace Engine.Midi
                 var deltaTime = (uint)reader.Read7BitEncodedInt();
                 var test = reader.PeekByte();
                 if (test == 0)
-                    break;// throw new System.Exception("Invalid file.");
+                    break; // throw new System.Exception("Invalid file.");
                 if ((test & 0x80) != 0)
                     status = EventStatus.Read(reader, deltaTime);
                 else

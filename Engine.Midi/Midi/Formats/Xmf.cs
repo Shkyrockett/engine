@@ -27,22 +27,22 @@ namespace Engine.Midi
         public string ID { get; } = "Xmf??";
 
         /// <summary>
-        /// Gets or sets the 
+        /// Gets or sets the size of the data.
         /// </summary>
         public uint DataSize { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the content ID.
         /// </summary>
         public string ContentID { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the contents of the XMF file.
         /// </summary>
         public List<IMediaContainer> Contents { get; set; }
 
         /// <summary>
-        /// 
+        /// Loads an Xmf file from a filename.
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>

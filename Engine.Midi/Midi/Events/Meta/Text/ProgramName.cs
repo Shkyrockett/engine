@@ -27,6 +27,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="text"></param>
+        /// <param name="status"></param>
         public ProgramName(string text, EventStatus status)
             : base(text, status)
         { }
@@ -35,6 +36,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static ProgramName Read(MidiBinaryReader reader, EventStatus status)
             => new ProgramName(reader.ReadASCIIString(), status);

@@ -25,6 +25,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="text"></param>
+        /// <param name="status"></param>
         public BaseTextEvent(string text, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {

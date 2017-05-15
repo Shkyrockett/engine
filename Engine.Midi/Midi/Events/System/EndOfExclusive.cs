@@ -27,7 +27,7 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="status"></param>
         public EndOfExclusive(EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         { }
@@ -36,6 +36,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static EndOfExclusive Read(MidiBinaryReader reader, EventStatus status)
             => new EndOfExclusive(status);

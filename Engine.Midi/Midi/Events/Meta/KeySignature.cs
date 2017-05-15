@@ -36,7 +36,9 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="keySignature"></param>
+        /// <param name="tonality"></param>
+        /// <param name="status"></param>
         public KeySignature(MidiKeySignatures keySignature, MidiTonality tonality, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -58,6 +60,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static KeySignature Read(MidiBinaryReader reader, EventStatus status)
             => new KeySignature((MidiKeySignatures)reader.ReadByte(), (MidiTonality)reader.ReadByte(), status);

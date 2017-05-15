@@ -11,7 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -79,7 +79,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         public Point2D Location
         {
             get { return new Point2D(x, y); }
@@ -96,7 +96,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("x")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -115,7 +115,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("y")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -134,7 +134,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         public Size2D Size
         {
             get { return new Size2D(h, v); }
@@ -151,7 +151,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("h")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -170,7 +170,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("v")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -189,55 +189,55 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         public override Rectangle2D Bounds
             => new Rectangle2D(x, y, h, v);
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Oval)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Oval)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Oval)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Oval)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Oval)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Oval)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Oval)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Oval)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Methods
 
@@ -255,7 +255,7 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Oval);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Oval)}{{{nameof(Location)}={Location}{sep}{nameof(Size)}={Size}}}";
             return formatable.ToString(format, provider);
         }

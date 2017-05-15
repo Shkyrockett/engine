@@ -31,7 +31,9 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="controller"></param>
+        /// <param name="value"></param>
+        /// <param name="status"></param>
         public ControllerChange(byte controller, byte value, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -53,6 +55,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static ControllerChange Read(MidiBinaryReader reader, EventStatus status)
             => new ControllerChange(reader.ReadByte(), reader.ReadByte(), status);

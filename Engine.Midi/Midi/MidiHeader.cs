@@ -60,19 +60,18 @@ namespace Engine.Midi
         /// Read the header from the stream.
         /// </summary>
         /// <param name="reader">The binary reader for the file.</param>
+        /// <param name="chunk"></param>
         /// <returns></returns>
         internal static MidiHeader Read(MidiBinaryReader reader, Chunk chunk)
         {
             //string id = reader.ReadASCIIBytes(4);
             if (string.IsNullOrWhiteSpace(chunk.Id)) return null;
 
-            var header = new MidiHeader()
-            {
-                HeaderSize = chunk.Length, //reader.ReadNetworkInt32(),
-                MidiFileFormat = (MidiFileTrackFormats)reader.ReadNetworkInt16(),
-                TrackCount = reader.ReadNetworkUInt16(),
-                DeltaTime = DeltaTime.Read(reader)
-            };
+            var header = new MidiHeader();
+            header.HeaderSize = chunk.Length; //reader.ReadNetworkInt32(),
+            header.MidiFileFormat = (MidiFileTrackFormats)reader.ReadNetworkInt16();
+            header.TrackCount = (ushort)reader.ReadNetworkInt16();
+            header.DeltaTime = DeltaTime.Read(reader);
 
             if (chunk.Id != header.ID) return null;
 

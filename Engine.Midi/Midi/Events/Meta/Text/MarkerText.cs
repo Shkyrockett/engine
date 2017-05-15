@@ -27,6 +27,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="text"></param>
+        /// <param name="status"></param>
         public MarkerText(string text, EventStatus status)
             : base(text, status)
         { }
@@ -35,6 +36,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static MarkerText Read(MidiBinaryReader reader, EventStatus status)
             => new MarkerText(reader.ReadASCIIString(), status);

@@ -28,7 +28,9 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="note"></param>
         /// <param name="velocity"></param>
+        /// <param name="status"></param>
         public NoteOff(byte note, byte velocity, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -51,6 +53,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static NoteOff Read(MidiBinaryReader reader, EventStatus status)
             => new NoteOff(reader.ReadByte(), reader.ReadByte(), status);

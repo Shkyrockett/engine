@@ -128,11 +128,11 @@ namespace Engine
             {
                 end = source.Length + end;
             }
-            int len = end - start;
+            var len = end - start;
 
             // Return new array.
             T[] res = new T[len];
-            for (int i = 0; i < len; i++)
+            for (var i = 0; i < len; i++)
             {
                 res[i] = source[i + start];
             }
@@ -151,7 +151,7 @@ namespace Engine
         {
             // Return new array.
             T[] res = new T[source.Length];
-            for (int i = 0; i < source.Length; i++)
+            for (var i = 0; i < source.Length; i++)
             {
                 res[i] = source[i];
             }
@@ -206,9 +206,41 @@ namespace Engine
         /// <remarks> http://stackoverflow.com/q/9325627 </remarks>
         public static List<T> Splice<T>(this List<T> Source, int Start, int Size)
         {
-            List<T> retVal = Source.Skip(Start).Take(Size).ToList<T>();
+            var retVal = Source.Skip(Start).Take(Size).ToList<T>();
             Source.RemoveRange(Start, Size);
             return retVal;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="inputList"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// http://www.vcskicks.com/randomize_array.php
+        /// </remarks>
+        public static List<T> Shuffle<T>(this List<T> inputList)
+        {
+            var randomList = new List<T>();
+
+            var r = new Random();
+            var randomIndex = 0;
+
+            while (inputList.Count > 0)
+            {
+                //Choose a random object in the list
+                randomIndex = r.Next(0, inputList.Count);
+
+                //add it to the new, random list
+                randomList.Add(inputList[randomIndex]);
+
+                //remove to avoid duplicates
+                inputList.RemoveAt(randomIndex);
+            }
+
+            //return the new random list
+            return randomList;
         }
     }
 }

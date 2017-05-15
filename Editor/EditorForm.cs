@@ -11,9 +11,10 @@
 using Engine;
 using Engine.File.Palettes;
 using Engine.Imaging;
+using Engine.Colorspace;
 using Engine.Tools;
 using Engine.Tweening;
-using Engine.Winforms;
+using Engine.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -58,10 +59,10 @@ namespace Editor
         /// </summary>
         private string vectorFilename = String.Empty;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        XmlSerializer vectorMapSserializer = new XmlSerializer(typeof(VectorMap));
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //XmlSerializer vectorMapSserializer = new XmlSerializer(typeof(VectorMap));
 
         /// <summary>
         /// 
@@ -106,10 +107,6 @@ namespace Editor
                 comboBox1.SelectedItem = typeof(SolidBrush);
 
             //propertyGrid1.SelectedObject = toolStack;
-
-            var val = (0, 3, new Point2D());
-
-            propertyGrid1.SelectedObject = val;
         }
 
         #endregion
@@ -121,9 +118,9 @@ namespace Editor
         {
 #pragma warning disable IDE0022 // Use expression body for methods
             /* Experimental Previews */
-            //TestCases.HeartCurve(vectorMap);
-            //TestCases.EllipticalArcLineSegmentIntersectios(vectorMap);
-            //TestCases.EllipticalArcLineIntersectios(vectorMap);
+            TestCases.HeartCurve(vectorMap);
+            //TestCases.EllipticalArcLineSegmentIntersections(vectorMap);
+            //TestCases.EllipticalArcLineIntersections(vectorMap);
             //TestCases.ScanlineIntersections(vectorMap);
             //TestCases.CommonIntersections(vectorMap);
             //TestCases.CurveFitting(vectorMap);
@@ -132,13 +129,13 @@ namespace Editor
             //TestCases.ComplexPolygonClipping(vectorMap);
             //TestCases.PolyClipping(vectorMap);
             //TestCases.FMartinezSamplesForClipping(vectorMap);
+            //TestCases.SutherlandHodgman(vectorMap);
             //TestCases.PathContourWArcLine(vectorMap);
             //TestCases.WindingOrder(vectorMap);
             //TestCases.Pathfinding(vectorMap);
             //TestCases.PlainOval(vectorMap);
             //TestCases.PolylineClicking(vectorMap);
             //TestCases.TextRendering(vectorMap, this);
-            //TestCases.SutherlandHodgman(vectorMap);
             //TestCases.ParametricEllipseBounds(vectorMap);
             //TestCases.ParametricEllipseArc(vectorMap);
             //TestCases.ParametricTesting(vectorMap);
@@ -150,7 +147,7 @@ namespace Editor
             //TestCases.BezierLineSegmentIntersections(vectorMap);
             //TestCases.QuadraticBezierHorizontalLineIntersection(vectorMap);
             //TestCases.CubicBezierHorizontalLineIntersection(vectorMap);
-            //TestCases.SegmentIntersections(vectorMap,this);
+            //TestCases.SegmentIntersections(vectorMap, this);
             //TestCases.IntersectionsTests(vectorMap);
             //TestCases.CircularArcBounds(vectorMap);
             //TestCases.EllipseBound(vectorMap);
@@ -159,10 +156,9 @@ namespace Editor
             /* Interactive */
             //TestCases.ResizeRefreshBounds(vectorMap, CanvasPanel, out boundaryItem);
             //TestCases.Tweenning(vectorMap, this);
-            TestCases.KaraokeBall(vectorMap, this);
-            TestCases.Tweens(vectorMap);
+            //TestCases.KaraokeBall(vectorMap, this);
+            //TestCases.Tweens(vectorMap);
 
-            //TestCases.PlainTriangle(vectorMap);
             //TestCases.TrianglePointingRight(vectorMap);
             //TestCases.PaperPlaneTriangles(vectorMap);
             //TestCases.PlainCircle(vectorMap);
@@ -184,7 +180,7 @@ namespace Editor
         {
             SetStyle(ControlStyles.ResizeRedraw, true);
 
-            paletteToolStripItem1.PaletteControl.Palette = new Palette(new Color[] { Color.Black, Color.White, Color.Red, Color.Green, Color.Blue });
+            paletteToolStripItem1.PaletteControl.Palette = new Palette(new ARGB[] { Color.Black.ToARGB(), Color.White.ToARGB(), Color.Red.ToARGB(), Color.Green.ToARGB(), Color.Blue.ToARGB() });
 
             vectorMap.Tweener = tweener;
             toolStack = new ToolStack(vectorMap);
@@ -198,7 +194,7 @@ namespace Editor
             BuildMap();
 
             listBox1.DataSource = vectorMap.Items;
-            //listBox1.ValueMember = "Name";
+            listBox1.ValueMember = "Name";
         }
 
         /// <summary>
@@ -433,7 +429,7 @@ namespace Editor
             {
                 case DialogResult.Yes:
                 case DialogResult.OK:
-                    vectorMap = LoadFile(openFileDialog1.FileName) as VectorMap;
+                    //vectorMap = LoadFile(openFileDialog1.FileName) as VectorMap;
                     break;
                 case DialogResult.None:
                 case DialogResult.Cancel:
@@ -459,7 +455,7 @@ namespace Editor
             }
             else
             {
-                Serialize(saveFileDialog1.FileName, vectorMap);
+                //Serialize(saveFileDialog1.FileName, vectorMap);
             }
         }
 
@@ -487,7 +483,7 @@ namespace Editor
             {
                 case DialogResult.Yes:
                 case DialogResult.OK:
-                    Serialize(saveFileDialog1.FileName, vectorMap);
+                    //Serialize(saveFileDialog1.FileName, vectorMap);
                     break;
                 case DialogResult.None:
                 case DialogResult.No:
@@ -500,39 +496,39 @@ namespace Editor
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <returns></returns>
-        private object LoadFile(string filename)
-        {
-            using (TextReader reader = new StreamReader(filename))
-            {
-                return vectorMapSserializer.Deserialize(reader);
-            }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="filename"></param>
+        ///// <returns></returns>
+        //private object LoadFile(string filename)
+        //{
+        //    using (TextReader reader = new StreamReader(filename))
+        //    {
+        //        return vectorMapSserializer.Deserialize(reader);
+        //    }
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="item"></param>
-        private void Serialize(string filename, VectorMap item)
-        {
-            using (TextWriter tw = new StreamWriter(filename))
-            {
-                Serialize(tw, item);
-            }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="filename"></param>
+        ///// <param name="item"></param>
+        //private void Serialize(string filename, VectorMap item)
+        //{
+        //    using (TextWriter tw = new StreamWriter(filename))
+        //    {
+        //        Serialize(tw, item);
+        //    }
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="item"></param>
-        private void Serialize(TextWriter writer, VectorMap item)
-            => vectorMapSserializer.Serialize(writer, item);
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="writer"></param>
+        ///// <param name="item"></param>
+        //private void Serialize(TextWriter writer, VectorMap item)
+        //    => vectorMapSserializer.Serialize(writer, item);
 
         /// <summary>
         /// Tweening update callback.

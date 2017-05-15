@@ -37,7 +37,8 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="exclusive"></param>
+        /// <param name="status"></param>
         public SystemExclusive(byte[] exclusive, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {

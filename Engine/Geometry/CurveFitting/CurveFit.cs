@@ -88,7 +88,7 @@ namespace Engine
                 instance.squaredError = maxError * maxError;
 
                 // Find tangents at ends
-                int last = points.Count - 1;
+                var last = points.Count - 1;
                 var tanL = instance.GetLeftTangent(last);
                 var tanR = instance.GetRightTangent(0);
 

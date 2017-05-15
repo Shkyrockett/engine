@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -114,7 +114,7 @@ namespace Engine
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
             get { return points[index]; }
@@ -160,7 +160,7 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.PolylineBounds(points));
 
@@ -170,55 +170,55 @@ namespace Engine
         [XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         public int Count
             => points.Count;
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Polyline)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Polyline)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Polyline)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Polyline)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Polyline)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Polyline)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Polyline)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Polyline)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Mutators
 
@@ -263,23 +263,23 @@ namespace Engine
             double accumulatedLength = 0;
 
             // Build up the weights map.
-            for (int i = 1; i < points.Count; i++)
+            for (var i = 1; i < points.Count; i++)
             {
-                double curentLength = Measurements.Distance(cursor, points[i]);
+                var curentLength = Measurements.Distance(cursor, points[i]);
                 accumulatedLength += curentLength;
                 weights[i] = (curentLength, accumulatedLength);
                 cursor = points[i];
             }
 
-            double accumulatedLengthT = accumulatedLength * t;
+            var accumulatedLengthT = accumulatedLength * t;
 
             // Find the segment.
-            for (int i = points.Count - 1; i >= 0; i--)
+            for (var i = points.Count - 1; i >= 0; i--)
             {
                 if (weights[i].accumulated <= accumulatedLengthT)
                 {
                     // Interpolate the position.
-                    double th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
+                    var th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
                     cursor = Interpolators.Linear(points[i], points[i + 1], th);
                     break;
                 }
@@ -304,8 +304,8 @@ namespace Engine
         /// <returns></returns>
         public static Polyline Translate(Polyline path, Point2D delta)
         {
-            List<Point2D> outPath = new List<Point2D>(path.points.Count);
-            for (int i = 0; i < path.points.Count; i++)
+            var outPath = new List<Point2D>(path.points.Count);
+            for (var i = 0; i < path.points.Count; i++)
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
             return new Polyline(outPath);
         }
@@ -362,7 +362,7 @@ namespace Engine
         {
             if (this == null)
                 return nameof(Polyline);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polyline)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }

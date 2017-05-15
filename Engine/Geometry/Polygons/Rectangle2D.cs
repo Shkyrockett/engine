@@ -12,9 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
+//using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -169,8 +169,8 @@ namespace Engine
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute("x")]
-        [Browsable(true)]
-        [DisplayName(nameof(X))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(X))]
         [Category("Elements")]
         [Description("The x coordinate location of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -190,8 +190,8 @@ namespace Engine
         /// Gets or sets the Y coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute("y")]
-        [Browsable(true)]
-        [DisplayName(nameof(Y))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Y))]
         [Category("Elements")]
         [Description("The y coordinate location of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -211,8 +211,8 @@ namespace Engine
         /// Gets or sets the height of the rectangle.
         /// </summary>
         [XmlAttribute("v")]
-        [Browsable(true)]
-        [DisplayName(nameof(Height))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Height))]
         [Category("Elements")]
         [Description("The height of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -232,8 +232,8 @@ namespace Engine
         /// Gets or sets the width of the rectangle.
         /// </summary>
         [XmlAttribute("h")]
-        [Browsable(true)]
-        [DisplayName(nameof(Width))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Width))]
         [Category("Elements")]
         [Description("The width of the rectangle.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -254,8 +254,8 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [DisplayName(nameof(Aspect))]
+        //[Browsable(true)]
+        //[DisplayName(nameof(Aspect))]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the height and width of the " + nameof(RotatedRectangle2D) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -277,12 +277,12 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Location))]
+        //[DisplayName(nameof(Location))]
         [Category("Elements")]
         [Description("The top left location of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
@@ -302,12 +302,12 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Center))]
+        //[DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The center location of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -327,12 +327,12 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Size))]
+        //[DisplayName(nameof(Size))]
         [Category("Elements")]
         [Description("The height and width of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(Size2DConverter))]
+        //[TypeConverter(typeof(Size2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Size
         {
@@ -352,7 +352,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(TopLeft))]
+        //[DisplayName(nameof(TopLeft))]
         [Category("Elements")]
         [Description("The top left location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -375,7 +375,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(TopRight))]
+        //[DisplayName(nameof(TopRight))]
         [Category("Elements")]
         [Description("The top right location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -398,7 +398,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(BottomLeft))]
+        //[DisplayName(nameof(BottomLeft))]
         [Category("Elements")]
         [Description("The bottom left location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -421,7 +421,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(BottomRight))]
+        //[DisplayName(nameof(BottomRight))]
         [Category("Elements")]
         [Description("The bottom right location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -444,7 +444,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Left))]
+        //[DisplayName(nameof(Left))]
         [Category("Elements")]
         [Description("The left location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -467,7 +467,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Top))]
+        //[DisplayName(nameof(Top))]
         [Category("Elements")]
         [Description("The top location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -490,7 +490,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Right))]
+        //[DisplayName(nameof(Right))]
         [Category("Elements")]
         [Description("The right location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -512,7 +512,7 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [DisplayName(nameof(Bottom))]
+        //[DisplayName(nameof(Bottom))]
         [Category("Elements")]
         [Description("The bottom location of the rectangle.")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -534,8 +534,8 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(IsEmpty))]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(IsEmpty))]
         [Category("Elements")]
         [Description("A value indicating whether or not the rectangle has height or width.")]
         public bool IsEmpty
@@ -546,8 +546,8 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(HasArea))]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(HasArea))]
         [Category("Elements")]
         [Description("A value indicating whether or not the rectangle has height or width.")]
         public bool HasArea
@@ -557,9 +557,9 @@ namespace Engine
         ///
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Area))]
+        //[Browsable(true)]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(Area))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
@@ -571,9 +571,9 @@ namespace Engine
         /// Gets the length of the perimeter of the rectangle.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Perimeter))]
+        //[Browsable(true)]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(Perimeter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
@@ -586,11 +586,11 @@ namespace Engine
         /// </summary>
         [XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Bounds))]
+        //[ReadOnly(true)]
+        //[DisplayName(nameof(Bounds))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("bounding box of the rectangle.")]
@@ -678,10 +678,10 @@ namespace Engine
         /// <returns></returns>
         public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
         {
-            double left = Min(a.X, b.X);
-            double top = Min(a.Y, b.Y);
-            double x2 = Max(a.X + a.Width, b.X + b.Width);
-            double y2 = Max(a.Y + a.Height, b.Y + b.Height);
+            var left = Min(a.X, b.X);
+            var top = Min(a.Y, b.Y);
+            var x2 = Max(a.X + a.Width, b.X + b.Width);
+            var y2 = Max(a.Y + a.Height, b.Y + b.Height);
 
             return new Rectangle2D(left, top, x2 - left, y2 - top);
         }
@@ -703,10 +703,10 @@ namespace Engine
         /// <returns></returns>
         public static Rectangle2D Intersect(Rectangle2D a, Rectangle2D b)
         {
-            double x1 = Max(a.X, b.X);
-            double x2 = Min(a.X + a.Width, b.X + b.Width);
-            double y1 = Max(a.Y, b.Y);
-            double y2 = Min(a.Y + a.Height, b.Y + b.Height);
+            var x1 = Max(a.X, b.X);
+            var x2 = Min(a.X + a.Width, b.X + b.Width);
+            var y1 = Max(a.Y, b.Y);
+            var y2 = Min(a.Y + a.Height, b.Y + b.Height);
 
             if (x2 >= x1 && y2 >= y1)
                 return new Rectangle2D(x1, y1, x2 - x1, y2 - y1);
@@ -748,15 +748,15 @@ namespace Engine
             return r;
         }
 
-        /// <summary>
-        /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
-        /// If this is Empty, this method is illegal.
-        /// </summary>
-        public static Rectangle2D Inflate(Rectangle2D rect, Size size)
-        {
-            rect.Inflate(size.Width, size.Height);
-            return rect;
-        }
+        ///// <summary>
+        ///// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
+        ///// If this is Empty, this method is illegal.
+        ///// </summary>
+        //public static Rectangle2D Inflate(Rectangle2D rect, Size size)
+        //{
+        //    rect.Inflate(size.Width, size.Height);
+        //    return rect;
+        //}
 
         /// <summary>
         /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
@@ -785,49 +785,49 @@ namespace Engine
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Rectangle2D)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Rectangle2D)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Rectangle2D)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Rectangle2D)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Rectangle2D)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Rectangle2D)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Rectangle2D)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Rectangle2D)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Mutators
 
@@ -838,8 +838,8 @@ namespace Engine
         /// <returns></returns>
         public void UnionMutate(Rectangle2D rect)
         {
-            double left = Min(Left, rect.Left);
-            double top = Min(Top, rect.Top);
+            var left = Min(Left, rect.Left);
+            var top = Min(Top, rect.Top);
 
             // We need this check so that the math does not result in NaN
             if ((double.IsPositiveInfinity(rect.Width)) || (double.IsPositiveInfinity(Width)))
@@ -849,7 +849,7 @@ namespace Engine
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                double maxRight = Max(Right, rect.Right);
+                var maxRight = Max(Right, rect.Right);
                 width = Max(maxRight - left, 0);
             }
 
@@ -861,7 +861,7 @@ namespace Engine
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                double maxBottom = Max(Bottom, rect.Bottom);
+                var maxBottom = Max(Bottom, rect.Bottom);
                 height = Max(maxBottom - top, 0);
             }
 
@@ -877,10 +877,10 @@ namespace Engine
         /// <returns></returns>
         public Rectangle2D Union(Rectangle2D rect)
         {
-            double left = Min(Left, rect.Left);
-            double top = Min(Top, rect.Top);
-            double width = this.width;
-            double height = this.width;
+            var left = Min(Left, rect.Left);
+            var top = Min(Top, rect.Top);
+            var width = this.width;
+            var height = this.width;
 
             // We need this check so that the math does not result in NaN
             if ((double.IsPositiveInfinity(rect.Width)) || (double.IsPositiveInfinity(Width)))
@@ -890,7 +890,7 @@ namespace Engine
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                double maxRight = Max(Right, rect.Right);
+                var maxRight = Max(Right, rect.Right);
                 width = Max(maxRight - left, 0);
             }
 
@@ -902,7 +902,7 @@ namespace Engine
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                double maxBottom = Max(Bottom, rect.Bottom);
+                var maxBottom = Max(Bottom, rect.Bottom);
                 height = Max(maxBottom - top, 0);
             }
 
@@ -1071,7 +1071,7 @@ namespace Engine
             if (this == null)
                 return nameof(Rectangle2D);
             //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Rectangle2D)}{{{nameof(X)}={x},{nameof(Y)}={y},{nameof(Width)}={width},{nameof(Height)}={height}}}";
             return formatable.ToString(format, provider);
         }

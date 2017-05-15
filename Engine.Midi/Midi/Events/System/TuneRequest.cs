@@ -27,7 +27,7 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="status"></param>
         public TuneRequest(EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         { }
@@ -36,6 +36,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static TuneRequest Read(MidiBinaryReader reader, EventStatus status)
             => new TuneRequest(status);

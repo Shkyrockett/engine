@@ -13,7 +13,7 @@ using Engine._Preview;
 using Engine.Imaging;
 using Engine.Physics;
 using Engine.Tweening;
-using Engine.Winforms;
+using Engine.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -108,8 +108,8 @@ namespace Editor
             var left = 100;
             var top = 200;
             var radius = 10;
-            double duration = 75;
-            double delay = 0;
+            var duration = 75d;
+            var delay = 0d;
 
             var circle = new Circle(left + radius, top + radius, radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
@@ -1607,7 +1607,7 @@ namespace Editor
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void CurveFitting(VectorMap vectorMap)
         {
-            var points = new Contour() { (50, 50), (100, 75), (150, 75), (200, 75) };
+            var points = new Contour() { new Point2D(50, 50), new Point2D(100, 75), new Point2D(150, 75), new Point2D(200, 75) };
             var curves = CurveFit.Fit(points.Points, 8);
             foreach (var curve in curves)
             {
@@ -1627,7 +1627,7 @@ namespace Editor
                 Name = "Rectangle"
             };
 
-            var triangle = new Contour() { (300, 100), (250, 200), (350, 200) };
+            var triangle = new Contour() { new Point2D(300, 100), new Point2D(250, 200), new Point2D(350, 200) };
             var triangleItem = new GraphicItem(triangle, solidPurpleStyle)
             {
                 Name = "Triangle"
@@ -1693,7 +1693,7 @@ namespace Editor
         public static void ComplexPolygonClipping(VectorMap vectorMap)
         {
             var left = 25;
-            var top = 300;
+            var top = 200;
             var radius = 100;
             var delta = radius / 2d;
             var poly1 = new Polygon() {
@@ -1739,9 +1739,9 @@ namespace Editor
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PolyClipping(VectorMap vectorMap)
         {
-            var PolygonTriangleA = new Contour(new List<Point2D> { (300, 0), (600, 450), (0, 450) });
+            var PolygonTriangleA = new Contour(new List<Point2D> { new Point2D(300, 0), new Point2D(600, 450), new Point2D(0, 450) });
 
-            var PolygonTriangleB = new Contour(new List<Point2D> { (0, 150), (600, 150), (300, 600) });
+            var PolygonTriangleB = new Contour(new List<Point2D> { new Point2D(0, 150), new Point2D(600, 150), new Point2D(300, 600) });
 
             var polyOne = new Polygon() { PolygonTriangleA };
             var polyOneItem = new GraphicItem(polyOne, paperLikeStyle);
@@ -1801,8 +1801,8 @@ namespace Editor
             //var polygonwithholesItem = new GraphicItem(polygonwithholes, intersectionGreen);
             //vectorMap.Add(polygonwithholesItem);
 
-            location = (0, 25);
-            factors = (300, 300);
+            location = new Vector2D(0, 25);
+            factors = new Size2D(300, 300);
             var rectangle1 = filter.Process(new Polygon
             {
                 new Contour { new Point2D(0.5, 0), new Point2D(1, 0), new Point2D(1, 1), new Point2D(0.5, 1) },
@@ -2284,14 +2284,14 @@ namespace Editor
             var top = 25;
             var poly = new Contour()
             {
-                (left + 50, top),
-                (left + 100, top + 50),
-                (left, top + 100),
-                (left + 100, top + 200),
-                (left + 50, top + 50),
-                (left + 100, top + 100),
-                (left + 50, top + 200),
-                (left, top + 50),
+                new Point2D(left + 50, top),
+                new Point2D(left + 100, top + 50),
+                new Point2D(left, top + 100),
+                new Point2D(left + 100, top + 200),
+                new Point2D(left + 50, top + 50),
+                new Point2D(left + 100, top + 100),
+                new Point2D(left + 50, top + 200),
+                new Point2D(left, top + 50),
             };
             var polyItem = new GraphicItem(poly, solidCyanStyle)
             {
@@ -2397,34 +2397,34 @@ namespace Editor
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void RotatedRectangle(VectorMap vectorMap)
         {
-            //double cent = 1d;
+            //var cent = 1d;
 
             //Shape rectangle2 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 20d.ToRadians());
-            //GraphicItem rectangle2Item = new GraphicItem(rectangle2, styles[9]);
+            //var rectangle2Item = new GraphicItem(rectangle2, styles[9]);
             //vectorMap.Add(rectangle2Item);
 
             //Shape rectangle3 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 45d.ToRadians());
-            //GraphicItem rectangle3Item = new GraphicItem(rectangle3, styles[9]);
+            //var rectangle3Item = new GraphicItem(rectangle3, styles[9]);
             //vectorMap.Add(rectangle3Item);
 
             //Shape rectangle4 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 60d.ToRadians());
-            //GraphicItem rectangle4Item = new GraphicItem(rectangle4, styles[9]);
+            //var rectangle4Item = new GraphicItem(rectangle4, styles[9]);
             //vectorMap.Add(rectangle4Item);
 
             //Shape rectangle5 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 90d.ToRadians());
-            //GraphicItem rectangle5Item = new GraphicItem(rectangle5, styles[9]);
+            //var rectangle5Item = new GraphicItem(rectangle5, styles[9]);
             //vectorMap.Add(rectangle5Item);
 
             //Shape rectangle6 = Experimental.RotatedRectangleBounds(rectangle1, rectangle1.Center() * cent, 20d.ToRadians());
-            //GraphicItem rectangle6Item = new GraphicItem(rectangle6, styles[9]);
+            //var rectangle6Item = new GraphicItem(rectangle6, styles[9]);
             //vectorMap.Add(rectangle6Item);
 
             //Shape rectangle7 = Experimental.RotatedRectangleBounds(rectangle1, rectangle1.Center() * cent, 45d.ToRadians());
-            //GraphicItem rectangle7Item = new GraphicItem(rectangle7, styles[9]);
+            //var rectangle7Item = new GraphicItem(rectangle7, styles[9]);
             //vectorMap.Add(rectangle7Item);
 
             //Shape rectangle8 = Experimental.RotatedRectangleBounds(rectangle1, rectangle1.Center() * cent, 60d.ToRadians());
-            //GraphicItem rectangle8Item = new GraphicItem(rectangle8, styles[9]);
+            //var rectangle8Item = new GraphicItem(rectangle8, styles[9]);
             //vectorMap.Add(rectangle8Item);
         }
 

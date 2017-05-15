@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -123,7 +123,7 @@ namespace Engine
         ///
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         public Point2D Location
         {
             get { return new Point2D(x - rX, y - rY); }
@@ -142,12 +142,12 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
+        //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -167,7 +167,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("x")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -189,7 +189,7 @@ namespace Engine
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
         [XmlAttribute("y")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -212,7 +212,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("rx")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The first radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -233,7 +233,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("ry")]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The second radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -254,7 +254,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the " + nameof(Ellipse) + ".")]
         public double MajorRadius
@@ -265,7 +265,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Elements")]
         [Description("The smaller radius of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -277,7 +277,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the " + nameof(Ellipse) + ".")]
         [RefreshProperties(RefreshProperties.All)]
@@ -299,13 +299,13 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [GeometryAngleRadians]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [TypeConverter(typeof(AngleConverter))]
+        //[TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
@@ -325,7 +325,7 @@ namespace Engine
         /// <remarks></remarks>
         [XmlAttribute("angle")]
         [Browsable(false)]
-        [GeometryAngleDegrees]
+        [GeometryAngleDegreesAttribute]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + " in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -361,7 +361,7 @@ namespace Engine
         /// Gets the Focus Radius of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the " + nameof(Ellipse) + ".")]
         public double FocusRadius
@@ -371,7 +371,7 @@ namespace Engine
         /// Gets the <see cref="Eccentricity"/> of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
         public double Eccentricity
@@ -382,7 +382,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
         public override double Perimeter
@@ -392,7 +392,7 @@ namespace Engine
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the " + nameof(Ellipse) + ".")]
         public override double Area
@@ -414,7 +414,7 @@ namespace Engine
         /// Gets the angles of the extreme points of the rotated ellipse.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -430,7 +430,7 @@ namespace Engine
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -442,12 +442,12 @@ namespace Engine
         /// Gets an sets the Bounding box of the <see cref="Ellipse"/>.
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The rectangular bounds of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get { return Measurements.EllipseBounds(x, y, rX, rY, angle); }
@@ -480,60 +480,60 @@ namespace Engine
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
         [XmlIgnore, SoapIgnore]
-        [Browsable(true)]
+        //[Browsable(true)]
         [Category("Properties")]
         [Description("The unrotated rectangular bounds of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
+        //[TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
             => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
 
         #endregion
 
-        #region Serialization
+        //#region Serialization
 
-        /// <summary>
-        /// Sends an event indicating that this value went into the data file during serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerializing()]
-        private void OnSerializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Ellipse)} is being serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value went into the data file during serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerializing()]
+        //private void OnSerializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Ellipse)} is being serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was reset after serialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnSerialized()]
-        private void OnSerialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Ellipse)} has been serialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was reset after serialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnSerialized()]
+        //private void OnSerialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Ellipse)} has been serialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set during deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserializing()]
-        private void OnDeserializing(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Ellipse)} is being deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set during deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserializing()]
+        //private void OnDeserializing(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Ellipse)} is being deserialized.");
+        //}
 
-        /// <summary>
-        /// Sends an event indicating that this value was set after deserialization.
-        /// </summary>
-        /// <param name="context"></param>
-        [OnDeserialized()]
-        private void OnDeserialized(StreamingContext context)
-        {
-            Debug.WriteLine($"{nameof(Ellipse)} has been deserialized.");
-        }
+        ///// <summary>
+        ///// Sends an event indicating that this value was set after deserialization.
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[OnDeserialized()]
+        //private void OnDeserialized(StreamingContext context)
+        //{
+        //    Debug.WriteLine($"{nameof(Ellipse)} has been deserialized.");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Interpolators
 

@@ -29,7 +29,7 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="beats"></param>
         /// <param name="status"></param>
         public SongPosition(short beats, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)

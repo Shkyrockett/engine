@@ -26,7 +26,8 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="unknown"></param>
+        /// <param name="value"></param>
+        /// <param name="status"></param>
         public Tempo(int value, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -42,6 +43,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static Tempo Read(MidiBinaryReader reader, EventStatus status)
             => new Tempo(reader.ReadNetworkInt24(), status);

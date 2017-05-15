@@ -18,6 +18,7 @@ namespace Engine.Midi
     /// <summary>
     /// Standard Midi File media container.
     /// </summary>
+    [Expandable]
     [DisplayName("Midi File")]
     public class Midi
         : IMediaContainer
@@ -39,6 +40,7 @@ namespace Engine.Midi
         /// <summary>
         /// Gets or sets the Midi file tracks.
         /// </summary>
+        [ExpandableList]
         public List<MidiTrack> Tracks { get; set; }
 
         /// <summary>

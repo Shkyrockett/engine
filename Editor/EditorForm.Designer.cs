@@ -19,7 +19,7 @@ namespace Editor
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private Engine.Winforms.CanvasPanel CanvasPanel;
+        private Engine.WindowsForms.CanvasPanel CanvasPanel;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxTools;
@@ -42,13 +42,13 @@ namespace Editor
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton2;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private Engine.Winforms.TreeViewToolStripItem treeViewToolStripItem1;
+        private Engine.WindowsForms.TreeViewToolStripItem treeViewToolStripItem1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStrip toolStrip3;
-        private Engine.Winforms.TreeViewToolStripItem treeViewToolStripItem2;
-        private Engine.Winforms.PaletteToolStripItem paletteToolStripItem1;
+        private Engine.WindowsForms.TreeViewToolStripItem treeViewToolStripItem2;
+        private Engine.WindowsForms.PaletteToolStripItem paletteToolStripItem1;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripButton toolStripButtonAdd;
@@ -87,7 +87,7 @@ namespace Editor
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
-            this.CanvasPanel = new Engine.Winforms.CanvasPanel();
+            this.CanvasPanel = new Engine.WindowsForms.CanvasPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -95,7 +95,7 @@ namespace Editor
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
-            this.treeViewToolStripItem1 = new Engine.Winforms.TreeViewToolStripItem();
+            this.treeViewToolStripItem1 = new Engine.WindowsForms.TreeViewToolStripItem();
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBoxFiles = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -110,8 +110,8 @@ namespace Editor
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.treeViewToolStripItem2 = new Engine.Winforms.TreeViewToolStripItem();
-            this.paletteToolStripItem1 = new Engine.Winforms.PaletteToolStripItem();
+            this.treeViewToolStripItem2 = new Engine.WindowsForms.TreeViewToolStripItem();
+            this.paletteToolStripItem1 = new Engine.WindowsForms.PaletteToolStripItem();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();

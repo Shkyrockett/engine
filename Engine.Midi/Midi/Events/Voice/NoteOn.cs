@@ -52,6 +52,7 @@ namespace Engine.Midi
         /// 
         /// </summary>
         /// <param name="reader"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
         internal static NoteOn Read(MidiBinaryReader reader, EventStatus status)
             => new NoteOn(reader.ReadByte(), reader.ReadByte(), status);

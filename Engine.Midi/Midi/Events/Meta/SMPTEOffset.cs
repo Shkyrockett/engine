@@ -31,6 +31,7 @@ namespace Engine.Midi
         /// <param name="seconds"></param>
         /// <param name="frames"></param>
         /// <param name="fractionalFrames"></param>
+        /// <param name="status"></param>
         public SMPTEOffset(byte hours, byte minutes, byte seconds, byte frames, byte fractionalFrames, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {

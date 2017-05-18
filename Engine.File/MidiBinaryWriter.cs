@@ -92,7 +92,10 @@ namespace Engine.Midi
         /// <exception cref="IOException">The stream is closed.</exception>
         public void WriteNetwork(short value)
         {
-            Write(IPAddress.HostToNetworkOrder(value));
+            //Write(IPAddress.HostToNetworkOrder(value));
+            var uvalue = (ushort)value;
+            Write((byte)(uvalue >> 8));
+            Write((byte)(uvalue & 0xFF));
         }
 
         /// <summary>
@@ -105,7 +108,10 @@ namespace Engine.Midi
         /// <exception cref="IOException">The stream is closed.</exception>
         public void WriteNetwork(ushort value)
         {
-            Write(IPAddress.HostToNetworkOrder((short)value));
+            //Write(IPAddress.HostToNetworkOrder((short)value));
+            var uvalue = value;
+            Write((byte)(uvalue >> 8));
+            Write((byte)(uvalue & 0xFF));
         }
 
         /// <summary>
@@ -115,9 +121,13 @@ namespace Engine.Midi
         /// <remarks>http://stackoverflow.com/questions/4918525/converting-int32-to-24-bit-signed-integer</remarks>
         public void WriteNetworkInt24(int value)
         {
-            var v = BitConverter.IsLittleEndian ? IPAddress.HostToNetworkOrder(value) : value;
-            byte[] buffer = BitConverter.GetBytes(v);
-            Write(buffer, 0, 3);
+            //var v = BitConverter.IsLittleEndian ? IPAddress.HostToNetworkOrder(value) : value;
+            //byte[] buffer = BitConverter.GetBytes(v);
+            //Write(buffer, 0, 3);
+            var uvalue = (uint)value;
+            Write((byte)(uvalue >> 16));
+            Write((byte)((uvalue >> 8) & 0xFF));
+            Write((byte)(uvalue & 0xFF));
         }
 
         /// <summary>
@@ -130,7 +140,12 @@ namespace Engine.Midi
         /// <exception cref="IOException">The stream is closed.</exception>
         public void WriteNetwork(int value)
         {
-            Write(IPAddress.HostToNetworkOrder(value));
+            //Write(IPAddress.HostToNetworkOrder(value));
+            var uvalue = (uint)value;
+            Write((byte)(uvalue >> 24));
+            Write((byte)((uvalue >> 16) & 0xFF));
+            Write((byte)((uvalue >> 8) & 0xFF));
+            Write((byte)(uvalue & 0xFF));
         }
 
         /// <summary>
@@ -143,7 +158,12 @@ namespace Engine.Midi
         /// <exception cref="IOException">The stream is closed.</exception>
         public void WriteNetwork(uint value)
         {
-            Write(IPAddress.HostToNetworkOrder((int)value));
+            //Write(IPAddress.HostToNetworkOrder((int)value));
+            var uvalue = value;
+            Write((byte)(uvalue >> 24));
+            Write((byte)((uvalue >> 16) & 0xFF));
+            Write((byte)((uvalue >> 8) & 0xFF));
+            Write((byte)(uvalue & 0xFF));
         }
 
         /// <summary>
@@ -156,7 +176,16 @@ namespace Engine.Midi
         /// <exception cref="IOException">The stream is closed.</exception>
         public void WriteNetwork(long value)
         {
-            Write(IPAddress.HostToNetworkOrder(value));
+            //Write(IPAddress.HostToNetworkOrder(value));
+            var uvalue = (ulong)value;
+            Write((byte)(uvalue >> 56));
+            Write((byte)(uvalue >> 48) & 0xFF);
+            Write((byte)(uvalue >> 40) & 0xFF);
+            Write((byte)(uvalue >> 32) & 0xFF);
+            Write((byte)(uvalue >> 24) & 0xFF);
+            Write((byte)((uvalue >> 16) & 0xFF));
+            Write((byte)((uvalue >> 8) & 0xFF));
+            Write((byte)(uvalue & 0xFF));
         }
 
         /// <summary>
@@ -169,7 +198,16 @@ namespace Engine.Midi
         /// <exception cref="IOException">The stream is closed.</exception>
         public void WriteNetwork(ulong value)
         {
-            Write(IPAddress.HostToNetworkOrder((long)value));
+            //Write(IPAddress.HostToNetworkOrder((long)value));
+            var uvalue = value;
+            Write((byte)(uvalue >> 56));
+            Write((byte)(uvalue >> 48) & 0xFF);
+            Write((byte)(uvalue >> 40) & 0xFF);
+            Write((byte)(uvalue >> 32) & 0xFF);
+            Write((byte)(uvalue >> 24) & 0xFF);
+            Write((byte)((uvalue >> 16) & 0xFF));
+            Write((byte)((uvalue >> 8) & 0xFF));
+            Write((byte)(uvalue & 0xFF));
         }
 
         /// <summary>

@@ -238,7 +238,7 @@ namespace Engine.Midi
         /// <remarks>
         /// FF 03 len text
         /// </remarks>
-        TrackName = MidiStatus.Meta | MidiMetaEvents.TrackName << 8,
+        TrackName = MidiStatus.Meta | MidiMetaEvents.SequenceOrTrackName << 8,
 
         /// <summary>
         /// Track instrument name.
@@ -246,7 +246,7 @@ namespace Engine.Midi
         /// <remarks>
         /// FF 04 len text
         /// </remarks>
-        Instrument = MidiStatus.Meta | MidiMetaEvents.Instrument << 8,
+        Instrument = MidiStatus.Meta | MidiMetaEvents.InstrumentName << 8,
 
         /// <summary>
         /// Lyric Text.

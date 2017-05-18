@@ -22,66 +22,66 @@ namespace Engine.Midi
         /// <summary>
         /// Bank Select.
         /// </summary>
-        BankSelect = 0x00,
+        BankSelectCoarse = 0x00,
 
         /// <summary>
         /// Modulation Wheel or Lever.
         /// </summary>
-        Modulation = 0x01,
+        ModulationCoarse = 0x01,
 
         /// <summary>
         /// Breath Controller.
         /// </summary>
-        BreathController = 0x02,
+        BreathControllerCoarse = 0x02,
 
         // Undefined 0x03.
 
         /// <summary>
         /// Foot Controller.
         /// </summary>
-        FootController = 0x04,
+        FootControllerCoarse = 0x04,
 
         /// <summary>
         /// Portamento Time.
         /// </summary>
-        PortamentoTime = 0x05,
+        PortamentoTimeCoarse = 0x05,
 
         /// <summary>
         /// Data Entry MSB.
         /// </summary>
-        DataEntry = 0x06,
+        DataEntryCoarse = 0x06,
 
         /// <summary>
         /// Channel Volume (formerly Main Volume).
         /// </summary>
-        ChannelVolume = 0x07,
+        ChannelVolumeCoarse = 0x07,
 
         /// <summary>
         /// Balance controller.
         /// </summary>
-        Balance = 0x08,
+        BalanceCoarse = 0x08,
 
         // Undefined 0x09.
 
         /// <summary>
         /// Pan controller.
         /// </summary>
-        Pan = 0x0A,
+        PanCoarse = 0x0A,
 
         /// <summary>
         /// Expression Controller.
         /// </summary>
-        ExpressionController = 0x0B,
+        ExpressionControllerCoarse = 0x0B,
 
         /// <summary>
         /// Effect Control 1.
         /// </summary>
-        EffectControl1 = 0x0C,
+        EffectControl1Coarse = 0x0C,
 
         /// <summary>
         /// Effect Control 2.
         /// </summary>
-        EffectControl2 = 0x0D,
+        EffectControl2Coarse = 0x0D,
 
         // Undefined 0x0E.
         // Undefined 0x0F.
@@ -89,22 +89,22 @@ namespace Engine.Midi
         /// <summary>
         /// General Purpose Controller 1.
         /// </summary>
-        GeneralPurposeController1 = 0x10,
+        GeneralPurposeSliderController1 = 0x10,
 
         /// <summary>
         /// General Purpose Controller 2.
         /// </summary>
-        GeneralPurposeController2 = 0x11,
+        GeneralPurposeSliderController2 = 0x11,
 
         /// <summary>
         /// General Purpose Controller 3.
         /// </summary>
-        GeneralPurposeController3 = 0x12,
+        GeneralPurposeSliderController3 = 0x12,
 
         /// <summary>
         /// General Purpose Controller 4.
         /// </summary>
-        GeneralPurposeController4 = 0x13,
+        GeneralPurposeSliderController4 = 0x13,
 
         // Undefined 0x14.
         // Undefined 0x15.
@@ -122,17 +122,17 @@ namespace Engine.Midi
         /// <summary>
         /// LSB For Control 0 Bank Select.
         /// </summary>
-        LSBForControl0 = 0x20,
+        BankSelectFine = 0x20,
 
         /// <summary>
         /// LSB For Control 1 Modulation Wheel or Lever.
         /// </summary>
-        LSBForControl1 = 0x21,
+        ModulationFine = 0x21,
 
         /// <summary>
         /// LSB For Control 2 Breath Controller.
         /// </summary>
-        LSBForControl2 = 0x22,
+        BreathControllerFine = 0x22,
 
         /// <summary>
         /// LSB For Control 3 Undefined.
@@ -142,27 +142,27 @@ namespace Engine.Midi
         /// <summary>
         /// LSB For Control 4 Foot Controller.
         /// </summary>
-        LSBForControl4 = 0x24,
+        FootControllerFine = 0x24,
 
         /// <summary>
         /// LSB For Control 5 Portamento Time.
         /// </summary>
-        LSBForControl5 = 0x25,
+        PortamentoTimeFine = 0x25,
 
         /// <summary>
         /// LSB For Control 6 LSB For Control 6 Data Entry.
         /// </summary>
-        LSBForControl6 = 0x26,
+        DataEntryFine = 0x26,
 
         /// <summary>
         /// LSB For Control 7 Channel Volume, formerly Main Volume.
         /// </summary>
-        LSBForControl7 = 0x27,
+        VolumeFine = 0x27,
 
         /// <summary>
         /// LSB For Control 8 Balance.
         /// </summary>
-        LSBForControl8 = 0x28,
+        BalanceFine = 0x28,
 
         /// <summary>
         /// LSB For Control 9 Undefined.
@@ -172,22 +172,22 @@ namespace Engine.Midi
         /// <summary>
         /// LSB For Control 10 Pan.
         /// </summary>
-        LSBForControl10 = 0x2A,
+        PanFine = 0x2A,
 
         /// <summary>
         /// LSB For Control 11 Expression Controller.
         /// </summary>
-        LSBForControl11 = 0x2B,
+        ExpressionControllerFine = 0x2B,
 
         /// <summary>
         /// LSB For Control 12 Effect control 1.
         /// </summary>
-        LSBForControl12 = 0x2C,
+        EffectControl1Fine = 0x2C,
 
         /// <summary>
         /// LSB For Control 13 Effect control 2.
         /// </summary>
-        LSBForControl13 = 0x2D,
+        EffectControl2Fine = 0x2D,
 
         /// <summary>
         /// LSB For Control 14 Undefined.
@@ -292,7 +292,7 @@ namespace Engine.Midi
         /// <summary>
         /// Sostenuto On/Off.
         /// </summary>
-        Sostenuto = 0x42,
+        SostenutoPedal = 0x42,
 
         /// <summary>
         /// Soft Pedal On/Off.
@@ -302,37 +302,37 @@ namespace Engine.Midi
         /// <summary>
         /// Legato Footswitch.
         /// </summary>
-        LegatoFootswitch = 0x44,
+        LegatoPedal = 0x44,
 
         /// <summary>
         /// Hold 2.
         /// </summary>
-        Hold2 = 0x45,
+        Hold2Pedal = 0x45,
 
         /// <summary>
         /// Sound Controller 1 default: Sound Variation.
         /// </summary>
-        SoundController1 = 0x46,
+        SoundVariationController = 0x46,
 
         /// <summary>
         /// Sound Controller 2 default: Timbre/Harmonic Intens.
         /// </summary>
-        SoundController2 = 0x47,
+        SoundTimbreController = 0x47,
 
         /// <summary>
         /// default: Release Time.
         /// </summary>
-        SoundController3 = 0x48,
+        SoundReleaseTimeController = 0x48,
 
         /// <summary>
         /// Sound Controller 4 default: Attack Time.
         /// </summary>
-        SoundController4 = 0x49,
+        SoundAttackTimeController = 0x49,
 
         /// <summary>
         /// Sound Controller 5 default: Brightness.
         /// </summary>
-        SoundController5 = 0x4A,
+        SoundBrightnessController = 0x4A,
 
         /// <summary>
         /// Sound Controller 6 default: Decay Time - see MMA RP-021.
@@ -397,59 +397,59 @@ namespace Engine.Midi
         // Undefined 0x5A.
 
         /// <summary>
-        /// Effects Depth  1default: Reverb Send Level. - see MMA RP-023 formerly External Effects Depth.
+        /// Effects Depth level 1 default: Reverb Send Level. - see MMA RP-023 formerly External Effects Depth.
         /// </summary>
-        Effects1Depth = 0x5B,
+        EffectsLevel = 0x5B,
 
         /// <summary>
         /// Effects Depth 2 formerly Tremolo Depth.
         /// </summary>
-        Effects2Depth = 0x5C,
+        TremuloLevel = 0x5C,
 
         /// <summary>
         /// Effects Depth 3 default: Chorus Send Level. - see MMA RP-023 formerly Chorus Depth.
         /// </summary>
-        Effects3Depth = 0x5D,
+        ChorusLevel = 0x5D,
 
         /// <summary>
         /// Effects Depth 4 formerly Celeste Detune Depth.
         /// </summary>
-        Effects4Depth = 0x5E,
+        CelesteLevel = 0x5E,
 
         /// <summary>
         /// Effects Depth 5 formerly Phaser Depth.
         /// </summary>
-        Effects5Depth = 0x5F,
+        PhaseLevel = 0x5F,
 
         /// <summary>
         /// Data Entry +1 see MMA RP-018.
         /// </summary>
-        DataIncrement = 0x60,
+        DataButtonIncrement = 0x60,
 
         /// <summary>
         /// Data Entry -1 see MMA RP-018.
         /// </summary>
-        DataDecrement = 0x61,
+        DataButtonDecrement = 0x61,
 
         /// <summary>
         /// Non Registered Parameter LSB.
         /// </summary>
-        NonRegisteredParameterLSB = 0x62,
+        NonRegisteredParameterFine = 0x62,
 
         /// <summary>
         /// Non Registered Parameter MSB.
         /// </summary>
-        NonRegisteredParameterMSB = 0x63,
+        NonRegisteredParameterCourse = 0x63,
 
         /// <summary>
         /// Registered Parameter LSB.
         /// </summary>
-        RegisteredParameterLSB = 0x64,
+        RegisteredParameterFine = 0x64,
 
         /// <summary>
         /// Registered Parameter MSB.
         /// </summary>
-        RegisteredParameterMSB = 0x65,
+        RegisteredParameterCourse = 0x65,
 
         // Undefined 0x66 - 0x77.
 
@@ -494,10 +494,5 @@ namespace Engine.Midi
         /// Mono mode off + all notes off.
         /// </summary>
         PolyModeOn = 0x7F,
-
-        /// <summary>
-        /// Unknown controller.
-        /// </summary>
-        Unknown
     }
 }

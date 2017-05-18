@@ -84,19 +84,7 @@ namespace Engine.Midi
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public short ReadNetworkInt14()
-        {
-            // Save the first byte to add in later.
-            short stack = ReadByte();
-
-            // Add the second byte to the buffer.
-            short buffer = ReadByte();
-
-            // Shift the buffer seven bits to make room for the first byte.
-            buffer <<= 7;
-
-            // Bitwise OR back in the first byte and return the results.
-            return buffer |= stack;
-        }
+            => (short)(ReadByte() << 7 | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte unsigned 14-bit integer from the current stream using Big-endian
@@ -109,19 +97,7 @@ namespace Engine.Midi
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ushort ReadNetworkUInt14()
-        {
-            // Save the first byte to add.
-            ushort First = ReadByte();
-
-            // Add the second byte to the buffer.
-            ushort buffer = ReadByte();
-
-            // Shift the buffer to make room for the first byte.
-            buffer <<= 7;
-
-            // Or in and return the first byte.
-            return buffer |= First;
-        }
+            => (ushort)(ReadByte() << 7 | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte signed integer from the current stream using Big-endian
@@ -131,12 +107,11 @@ namespace Engine.Midi
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        // Read a 16 bit integer and change it to Big-endian.
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public short ReadNetworkInt16()
-            // ToDo: Re-implement similar to ReadNetworkInt14 for speed.
-            => IPAddress.NetworkToHostOrder(ReadInt16());
+            //=> IPAddress.NetworkToHostOrder(ReadInt16());
+            => (short)((ReadByte() << 8) | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte unsigned integer from the current stream using big-endian
@@ -149,8 +124,8 @@ namespace Engine.Midi
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ushort ReadNetworkUInt16()
-            // ToDo: Re-implement similar to ReadNetworkInt14 for speed.
-            => (IPAddress.NetworkToHostOrder(ReadUInt16()));
+            //=> (IPAddress.NetworkToHostOrder(ReadUInt16()));
+            => (ushort)((ReadByte() << 8) | ReadByte());
 
         /// <summary>
         /// Reads a 3-byte signed integer from the current stream using big-endian
@@ -163,29 +138,17 @@ namespace Engine.Midi
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int ReadNetworkInt24()
-        {
-            var value = 0;
-            for (var i = 0; i < 3; i++)
-            {
-                value <<= 8;
-                value |= ReadByte();
-            }
+            //{
+            //    var value = 0;
+            //    for (var i = 0; i < 3; i++)
+            //    {
+            //        value <<= 8;
+            //        value |= ReadByte();
+            //    }
 
-            return value;
-        }
-
-        /// <summary>
-        /// Reads a 4-byte signed integer from the current stream using big-endian
-        /// encoding, and advances the current position of the stream by four bytes.
-        /// </summary>
-        /// <returns>A 4-byte signed integer read from the current stream.</returns>
-        /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
-        /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
-        /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int ReadNetworkInt32()
-            => IPAddress.NetworkToHostOrder(ReadInt32());
+            //    return value;
+            //}
+            => ((((ReadByte() << 16) | (ReadByte() << 8) | ReadByte()) << 12) >> 12);
 
         /// <summary>
         /// Reads a 4-byte unsigned integer from the current stream using big-endian
@@ -198,7 +161,22 @@ namespace Engine.Midi
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public uint ReadNetworkUInt32()
-            => (uint)IPAddress.NetworkToHostOrder(ReadInt32());
+            //=> (uint)IPAddress.NetworkToHostOrder(ReadInt32());
+            => ((uint)ReadByte() << 24) | ((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte();
+
+        /// <summary>
+        /// Reads a 4-byte signed integer from the current stream using big-endian
+        /// encoding, and advances the current position of the stream by four bytes.
+        /// </summary>
+        /// <returns>A 4-byte signed integer read from the current stream.</returns>
+        /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
+        /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
+        /// <exception cref="IOException">An I/O error has occurred.</exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int ReadNetworkInt32()
+            //=> IPAddress.NetworkToHostOrder(ReadInt32());
+            => (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte();
 
         /// <summary>
         /// Reads an 8-byte signed integer from the current stream using big-endian
@@ -211,7 +189,8 @@ namespace Engine.Midi
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long ReadNetworkInt64()
-            => IPAddress.NetworkToHostOrder(ReadInt64());
+            //=> IPAddress.NetworkToHostOrder(ReadInt64());
+            => ((long)ReadByte() << 56) | ((long)ReadByte() << 48) | ((long)ReadByte() << 40) | ((long)ReadByte() << 32) | ((long)ReadByte() << 24) | ((long)ReadByte() << 16) | ((long)ReadByte() << 8) | (long)ReadByte();
 
         /// <summary>
         /// Reads an 8-byte unsigned integer from the current stream using big-endian
@@ -224,7 +203,8 @@ namespace Engine.Midi
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ulong ReadNetworkUInt64()
-            => (ulong)IPAddress.NetworkToHostOrder(ReadInt64());
+            //=> (ulong)IPAddress.NetworkToHostOrder(ReadInt64());
+            => ((ulong)ReadByte() << 56) | ((ulong)ReadByte() << 48) | ((ulong)ReadByte() << 40) | ((ulong)ReadByte() << 32) | ((ulong)ReadByte() << 24) | ((ulong)ReadByte() << 16) | ((ulong)ReadByte() << 8) | (ulong)ReadByte();
 
         /// <summary>
         /// Reads in a 32-bit integer in compressed format.

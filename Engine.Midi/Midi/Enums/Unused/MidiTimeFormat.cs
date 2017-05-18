@@ -20,11 +20,11 @@ namespace Engine.Midi
         /// <summary>
         /// Time is based on Ticks per beat.
         /// </summary>
-        TicksPerBeat,
+        TicksPerBeat = 0,
 
         /// <summary>
         /// Time is based on Frames per second.
         /// </summary>
-        FamesPerSecond
+        FamesPerSecond = 1
     }
 }

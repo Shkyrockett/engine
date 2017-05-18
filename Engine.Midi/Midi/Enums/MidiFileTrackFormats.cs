@@ -16,7 +16,7 @@ namespace Engine.Midi
     /// Midi file Track format.
     /// </summary>
     public enum MidiFileTrackFormats
-        : short // (2 bytes)
+        : ushort // (2 bytes)
     {
         /// <summary>
         /// Single track Midi file.

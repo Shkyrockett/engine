@@ -63,7 +63,7 @@ namespace Engine.Midi
         /// <remarks>
         /// FF 03 len text
         /// </remarks>
-        TrackName = 0x03,
+        SequenceOrTrackName = 0x03,
 
         /// <summary>
         /// Track instrument name.
@@ -71,7 +71,7 @@ namespace Engine.Midi
         /// <remarks>
         /// FF 04 len text
         /// </remarks>
-        Instrument = 0x04,
+        InstrumentName = 0x04,
 
         /// <summary>
         /// Lyric Text.
@@ -185,10 +185,5 @@ namespace Engine.Midi
         /// Running status does not apply to and may not be used for these messages.
         /// </remarks>
         SequencerSpecific = 0x7F,
-
-        /// <summary>
-        /// Unknown event.
-        /// </summary>
-        Unknown
     }
 }

@@ -17,7 +17,9 @@
 // </references>
 
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Engine.Midi
 {
@@ -277,6 +279,8 @@ namespace Engine.Midi
         /// <summary>
         /// 
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CheckDisposed()
         {
             if (baseStream == null) throw new ObjectDisposedException(GetType().Name);

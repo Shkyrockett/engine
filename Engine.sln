@@ -53,6 +53,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Editors", "Editors", "{E5C5A8D1-264E-44E6-81C6-E5441A394249}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTests", "EngineTests\EngineTests.csproj", "{C46FF65A-1EDC-4083-99C2-E9717A825D9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,18 @@ Global
 		{950FB6D1-3C3B-452E-9B61-3077CABE40D6}.Release|x64.Build.0 = Release|Any CPU
 		{950FB6D1-3C3B-452E-9B61-3077CABE40D6}.Release|x86.ActiveCfg = Release|Any CPU
 		{950FB6D1-3C3B-452E-9B61-3077CABE40D6}.Release|x86.Build.0 = Release|Any CPU
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Debug|x64.ActiveCfg = Debug|x64
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Debug|x64.Build.0 = Debug|x64
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Debug|x86.ActiveCfg = Debug|x86
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Debug|x86.Build.0 = Debug|x86
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|x64.ActiveCfg = Release|x64
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|x64.Build.0 = Release|x64
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|x86.ActiveCfg = Release|x86
+		{C46FF65A-1EDC-4083-99C2-E9717A825D9E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

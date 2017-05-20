@@ -1153,19 +1153,19 @@ namespace Engine.WindowsForms
         public const int KEYEVENTF_KEYUP = 0x0002;
 
         [DllImport("user32.dll", EntryPoint = "mouse_event", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern void Mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
+        internal static extern void Mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
 
         [DllImport("user32.dll", EntryPoint = "keybd_event", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern void Keybd_event(byte vk, byte scan, int flags, IntPtr extrainfo);
+        internal static extern void Keybd_event(byte vk, byte scan, int flags, IntPtr extrainfo);
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         //use dll method for vertical scroll and works fine
-        public static void VScrollWheel(int steps) => Mouse_event(MouseEventF_Wheel, 0, 0, (uint)steps, UIntPtr.Zero);
+        internal static void VScrollWheel(int steps) => Mouse_event(MouseEventF_Wheel, 0, 0, (uint)steps, UIntPtr.Zero);
 
         //use dll method for horizontal scroll and no response
-        public static void HScrollWheel(int steps) => Mouse_event(MouseEventF_HWheel, 0, 0, (uint)steps, UIntPtr.Zero);
+        internal static void HScrollWheel(int steps) => Mouse_event(MouseEventF_HWheel, 0, 0, (uint)steps, UIntPtr.Zero);
 
         public static int SignedHIWORD(this int n) => (short)((n >> 0x10) & 0xffff);
 

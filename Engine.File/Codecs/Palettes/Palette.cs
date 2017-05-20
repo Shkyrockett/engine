@@ -305,7 +305,7 @@ namespace Engine.File.Palettes
             using (var binaryReader = new BinaryReader(stream))
             //using (StreamReader streamReader = new StreamReader(stream))
             {
-                var mimeVersion = FileEx.NetworkToHostOrder(binaryReader.ReadUInt16());
+                var mimeVersion = FileExtended.NetworkToHostOrder(binaryReader.ReadUInt16());
                 ushort colorCount = 0;
                 var name = string.Empty;
                 if (mimeVersion == 0xccbc)

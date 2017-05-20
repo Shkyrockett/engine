@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Engine.Midi;
+using Engine.File;
 
 namespace EventEditorMidi
 {
@@ -41,7 +41,7 @@ namespace EventEditorMidi
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            musicFiles.Midi = new List<Engine.Midi.MediaFile> {
+            musicFiles.Midi = new List<Engine.File.MediaFile> {
                 new MediaFile(
                 new Midi()
                 {

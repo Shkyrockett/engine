@@ -1,0 +1,160 @@
+﻿// <copyright file="BinaryWriterExtendedTests.cs" company="Shkyrockett" >
+//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
+
+using Engine.File;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.IO;
+
+namespace EngineTests
+{
+    /// <summary>
+    /// Tests the functionality of the <see cref="BinaryWriterExtended"/> class.
+    /// </summary>
+    [TestClass]
+    public class BinaryWriterExtendedTests
+    {
+        /// <summary>
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        [ClassInitialize]
+        public static void ClassInit(TestContext context)
+        {
+            //MessageBox.Show("ClassInit " + context.TestName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+            //MessageBox.Show("TestMethodInit");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestCleanup]
+        public void Cleanup()
+        {
+            //MessageBox.Show("TestMethodCleanup");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            //MessageBox.Show("ClassCleanup");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine.File", "BinaryWriterExtended")]
+        public void WriteNetworkUInt14Test()
+        {
+            var intValues = new List<ushort> {
+                0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
+                0x3E8, 0x2710 };
+
+            using (var stream = new MemoryStream())
+            {
+                var writer = new BinaryWriterExtended(stream);
+                foreach (var value in intValues)
+                {
+                    writer.WriteNetworkUInt14(value);
+                }
+
+                stream.Position = 0;
+
+                var reader = new BinaryReaderExtended(stream);
+                foreach (var value in intValues)
+                {
+                    Assert.AreEqual(value, reader.ReadNetworkUInt14());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine.File", "BinaryWriterExtended")]
+        public void WriteNetworkInt14Test()
+        {
+            var intValues = new List<short> {
+                0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
+                0x3E8, 0x2710 };
+
+            using (var stream = new MemoryStream())
+            {
+                var writer = new BinaryWriterExtended(stream);
+                foreach (var value in intValues)
+                {
+                    writer.WriteNetworkInt14(value);
+                }
+
+                stream.Position = 0;
+
+                var reader = new BinaryReaderExtended(stream);
+                foreach (var value in intValues)
+                {
+                    Assert.AreEqual(value, reader.ReadNetworkInt14());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine.File", "BinaryWriterExtended")]
+        public void Write7BitEncodedIntTest()
+        {
+            var intValues = new List<int> {
+                0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
+                0x3E8, 0x2710, 0x186A0, -0xF4240 };
+
+            using (var stream = new MemoryStream())
+            {
+                var writer = new BinaryWriterExtended(stream);
+                foreach (var value in intValues)
+                {
+                    writer.Write7BitEncodedInt(value);
+                }
+
+                stream.Position = 0;
+
+                var reader = new BinaryReaderExtended(stream);
+                foreach (var value in intValues)
+                {
+                    Assert.AreEqual(value, reader.Read7BitEncodedInt());
+                }
+            }
+        }
+    }
+}

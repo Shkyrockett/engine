@@ -88,6 +88,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experimental\BinaryReaderObsolete.cs" />
+    <Compile Include="Experimental\BinaryWriterObsolete.cs" />
     <Compile Include="Experimental\BoundingRectPolygon.cs" />
     <Compile Include="Experimental\Curves\Bezier\BezierFragment.cs" />
     <Compile Include="Experimental\Curves\Bezier\BBox.cs" />

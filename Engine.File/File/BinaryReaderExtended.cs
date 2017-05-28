@@ -120,7 +120,6 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public short ReadNetworkInt16()
-            //=> IPAddress.NetworkToHostOrder(ReadInt16());
             => (short)((ReadByte() << 8) | ReadByte());
 
         /// <summary>
@@ -134,7 +133,6 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ushort ReadNetworkUInt16()
-            //=> (IPAddress.NetworkToHostOrder(ReadUInt16()));
             => (ushort)((ReadByte() << 8) | ReadByte());
 
         /// <summary>
@@ -174,7 +172,6 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public uint ReadNetworkUInt32()
-            //=> (uint)IPAddress.NetworkToHostOrder(ReadInt32());
             => ((uint)ReadByte() << 24) | ((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte();
 
         /// <summary>
@@ -188,7 +185,6 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int ReadNetworkInt32()
-            //=> IPAddress.NetworkToHostOrder(ReadInt32());
             => (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte();
 
         /// <summary>
@@ -202,7 +198,6 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long ReadNetworkInt64()
-            //=> IPAddress.NetworkToHostOrder(ReadInt64());
             => ((long)ReadByte() << 56) | ((long)ReadByte() << 48) | ((long)ReadByte() << 40) | ((long)ReadByte() << 32) | ((long)ReadByte() << 24) | ((long)ReadByte() << 16) | ((long)ReadByte() << 8) | (long)ReadByte();
 
         /// <summary>
@@ -216,7 +211,6 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ulong ReadNetworkUInt64()
-            //=> (ulong)IPAddress.NetworkToHostOrder(ReadInt64());
             => ((ulong)ReadByte() << 56) | ((ulong)ReadByte() << 48) | ((ulong)ReadByte() << 40) | ((ulong)ReadByte() << 32) | ((ulong)ReadByte() << 24) | ((ulong)ReadByte() << 16) | ((ulong)ReadByte() << 8) | (ulong)ReadByte();
 
         /// <summary>
@@ -231,6 +225,26 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public new int Read7BitEncodedInt()
             => base.Read7BitEncodedInt();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int ReadVariableLengthInt()
+        {
+            var value = 0;
+            int next;
+            do
+            {
+                next = ReadByte();
+                value = value << 0x07;
+                value = value | (next & 0x7F);
+            } while ((next & 0x80) == 0x80);
+            return value;
+        }
 
         /// <summary>
         /// Reads the variable byte integer length from the current stream and that number of
@@ -252,7 +266,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ReadVariableLengthBytes()
         {
-            var length = Read7BitEncodedInt();
+            var length = ReadVariableLengthInt();
             return ReadBytes(length);
         }
 
@@ -267,7 +281,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ReadUTF8String()
         {
-            var length = Read7BitEncodedInt(); // ReadVarInt();
+            var length = ReadVariableLengthInt();
             return ReadUTF8Bytes(length);
         }
 
@@ -300,7 +314,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ReadASCIIString()
         {
-            var length = Read7BitEncodedInt();
+            var length = ReadVariableLengthInt();
             return ReadASCIIBytes(length);
         }
 

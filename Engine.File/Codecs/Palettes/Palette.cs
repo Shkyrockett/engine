@@ -204,7 +204,8 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="index">Index to insert the palette entry color.</param>
         /// <param name="item">List of palette entry colors to add to the list.</param>
-        public void InsertRange(int index, IEnumerable<ARGB> item) => Colors.InsertRange(index, item);
+        public void InsertRange(int index, IEnumerable<ARGB> item)
+            => Colors.InsertRange(index, item);
 
         /// <summary>
         /// Clears all palette entries from the list of colors.
@@ -216,52 +217,60 @@ namespace Engine.File.Palettes
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator GetEnumerator() => (IEnumerator)Colors;
+        public IEnumerator GetEnumerator()
+            => (IEnumerator)Colors;
 
         /// <summary>
         /// Remove the first instance of a specified color entry in the palette.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was removed.</returns>
-        public bool RemoveFirstInstance(ARGB item) => Colors.Remove(Colors[Colors.IndexOf(item)]);
+        public bool RemoveFirstInstance(ARGB item)
+            => Colors.Remove(Colors[Colors.IndexOf(item)]);
 
         /// <summary>
         /// Remove the last instance of a specified color entry in the palette.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was removed.</returns>
-        public bool RemoveLastInstance(ARGB item) => Colors.Remove(Colors[Colors.LastIndexOf(item)]);
+        public bool RemoveLastInstance(ARGB item)
+            => Colors.Remove(Colors[Colors.LastIndexOf(item)]);
 
         /// <summary>
         /// Determines whether the specified palette item is in the palette list of colors.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was found in the list.</returns>
-        public bool Contains(ARGB item) => Colors.Contains(item);
+        public bool Contains(ARGB item)
+            => Colors.Contains(item);
 
         /// <summary>
         /// Searches for a the specific color in the palette and returns its index if found.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>The first index of the color in the palette.</returns>
-        public int IndexOf(ARGB item) => Colors.IndexOf(item);
+        public int IndexOf(ARGB item)
+            => Colors.IndexOf(item);
 
         /// <summary>
         /// Returns the last index of a given color in the palette.
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>Returns the index of the last instance of the given color.</returns>
-        public int LastIndexOf(ARGB item) => Colors.LastIndexOf(item);
+        public int LastIndexOf(ARGB item)
+            => Colors.LastIndexOf(item);
 
         /// <summary>
         /// Reverses the order of the colors in the colors in the palette.
         /// </summary>
-        public void Reverse() => Colors.Reverse();
+        public void Reverse()
+            => Colors.Reverse();
 
         /// <summary>
         /// Sorts the colors in the palette by the default sorting order.
         /// </summary>
-        public void Sort() => Colors.Sort();
+        public void Sort()
+            => Colors.Sort();
 
         /// <summary>
         /// 

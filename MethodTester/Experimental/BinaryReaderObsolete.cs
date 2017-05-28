@@ -85,6 +85,24 @@ namespace Engine.File
         #region Methods
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        private static int ReadVariableLength(BinaryReaderExtended reader)
+        {
+            var value = 0;
+            int next;
+            do
+            {
+                next = reader.ReadByte();
+                value = value << 7;
+                value = value | (next & 0x7F);
+            } while ((next & 0x80) == 0x80);
+            return value;
+        }
+
+        /// <summary>
         /// Utility function that can read a variable length integer from a binary stream
         /// </summary>
         /// <returns>The integer read</returns>

@@ -41,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{C4AD
 		Documents\Reports\LineIntersectionBool.md = Documents\Reports\LineIntersectionBool.md
 		Documents\Reports\LineIntersectionPoint.md = Documents\Reports\LineIntersectionPoint.md
 		Documents\Reports\Modulus.md = Documents\Reports\Modulus.md
+		OrderOfExpense.md = OrderOfExpense.md
 		Documents\Reports\Template.md = Documents\Reports\Template.md
 		Documents\Reports\WrapAngle.md = Documents\Reports\WrapAngle.md
 	EndProjectSection

@@ -275,7 +275,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Circumference))]
+        //[DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public override double Perimeter

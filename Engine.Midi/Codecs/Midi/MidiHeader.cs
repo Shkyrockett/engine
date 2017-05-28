@@ -67,12 +67,13 @@ namespace Engine.File
             //string id = reader.ReadASCIIBytes(4);
             if (string.IsNullOrWhiteSpace(chunk.Id)) return null;
 
-            var header = new MidiHeader();
-            header.HeaderSize = chunk.Length; //reader.ReadNetworkInt32(),
-            header.MidiFileFormat = (MidiFileTrackFormats)reader.ReadNetworkInt16();
-            header.TrackCount = (ushort)reader.ReadNetworkInt16();
-            header.DeltaTime = DeltaTime.Read(reader);
-
+            var header = new MidiHeader
+            {
+                HeaderSize = chunk.Length, //reader.ReadNetworkInt32(),
+                MidiFileFormat = (MidiFileTrackFormats)reader.ReadNetworkInt16(),
+                TrackCount = (ushort)reader.ReadNetworkInt16(),
+                DeltaTime = DeltaTime.Read(reader)
+            };
             if (chunk.Id != header.ID) return null;
 
             return header;

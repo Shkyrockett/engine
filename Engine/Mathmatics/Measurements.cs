@@ -571,7 +571,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this (double X, double Y) p1, (double X, double Y) p2)
-            => Measurements.Distance(p1.X, p1.Y, p2.X, p2.Y);
+            => Distance(p1.X, p1.Y, p2.X, p2.Y);
 
         /// <summary>
         /// Distance between two points.
@@ -2155,16 +2155,29 @@ namespace Engine
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> EllipseExtremePoints(double x, double y, double rX, double rY, double angle)
-        {
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
+            => EllipseExtremePoints(x, y, rX, rY, Cos(angle), Sin(angle));
 
+        /// <summary>
+        /// Get the points of the Cartesian extremes of a rotated ellipse.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> EllipseExtremePoints(double x, double y, double rX, double rY, double cosAngle, double sinAngle)
+        {
             // Calculate the radii of the angle of rotation.
-            var a = rX * cosT;
-            var c = rX * sinT;
-            var d = rY * cosT;
-            var b = rY * sinT;
+            var a = rX * cosAngle;
+            var b = rY * sinAngle;
+            var c = rX * sinAngle;
+            var d = rY * cosAngle;
 
             // Find the angles of the Cartesian extremes.
             var a1 = Atan2(-b, a);
@@ -2175,10 +2188,23 @@ namespace Engine
             // Return the points of Cartesian extreme of the rotated ellipse.
             return new List<Point2D>
             {
-                Interpolators.Ellipse(x, y, rX, rY, angle, a1),
-                Interpolators.Ellipse(x, y, rX, rY, angle, a2),
-                Interpolators.Ellipse(x, y, rX, rY, angle, a3),
-                Interpolators.Ellipse(x, y, rX, rY, angle, a4)
+                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a1),
+                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a2),
+                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a3),
+                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a4)
+            };
+
+            // ToDo: Replace the previous two sections with this return and profile to see if there is a performance improvement, and check for accuracy.
+            return new List<Point2D>
+            {
+                new Point2D(x + Sqrt(b * b + a * a),
+                            y + (a * a - b * b) / Sqrt(b * b + a * a)),
+                new Point2D(x - Sqrt(b * b + a * a),
+                            y - (b * b - a * a) / Sqrt(b * b + a * a)),
+                new Point2D(x + (d * a - b * c) / Sqrt(c * c + d * d),
+                            y + (rX * rY) / Sqrt(c * c + d * d)),
+                new Point2D(x - (d * a - b * c) / Sqrt(c * c + d * d),
+                            y - (rX * rY) / Sqrt(c * c + d * d)),
             };
         }
 

@@ -23,7 +23,7 @@ namespace Engine
     /// <remarks>
     ///  Class based on information found at: <seealso href="http://paulbourke.net/geometry/bow2d/"/>. <br />
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Bow))]
     public class Bow

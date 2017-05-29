@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -23,7 +23,7 @@ namespace Engine
     /// <summary>
     ///
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polyline))]
     [XmlType(TypeName = "polyline", Namespace = "http://www.w3.org/2000/svg")]
@@ -114,7 +114,7 @@ namespace Engine
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
             get { return points[index]; }
@@ -148,7 +148,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
@@ -157,20 +157,20 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.PolylineBounds(points));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public int Count
             => points.Count;
 

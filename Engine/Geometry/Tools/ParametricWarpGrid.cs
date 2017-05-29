@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -19,7 +20,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     public class ParametricWarpGrid
         : Shape
     {
@@ -90,57 +91,57 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[Browsable(true)]
-        [XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Func<Point2D, Point2D> Filter { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[Browsable(true)]
-        //[XmlElement, SoapElement]
+        [Browsable(true)]
+        //[DataMember, XmlElement, SoapElement]
         public Rectangle2D Path { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double MinX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double MinY { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double MaxX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double MaxY { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double StepX { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double StepY { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
         {
             get { return Rectangle2D.FromLTRB(MinX, MinY, MaxX, MaxY); }

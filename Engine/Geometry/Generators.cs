@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// 
@@ -32,6 +32,8 @@ namespace Engine._Preview
         /// <param name="count"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Contour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -Right)
         {
@@ -76,6 +78,8 @@ namespace Engine._Preview
         /// <param name="alpha"></param>
         /// <param name="beta"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         public static List<Point2D> HeartCurve(double x, double y, double radius, double alpha, double beta)
         {
             // its increment [radian] of a Cardioid before the conversion plotting interval of the phase angle "t" before conversion
@@ -126,6 +130,8 @@ namespace Engine._Preview
         /// <param name="y"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         public static PolycurveContour HeartCurve(double x, double y, double radius)
         {
             // ToDo: Optimize algorithm to calculate minimum points for minimum curves.

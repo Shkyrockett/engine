@@ -111,7 +111,7 @@ namespace Engine
         /// <param name="center"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
-        public static Shape BulgeDistort(this Shape shape, Point2D center, double strength = 0.5)
+        public static Shape BulgeDistort(this Shape shape, Point2D center, double strength = 0.5d)
         {
             var filter = new BulgeDistort(center, strength);
             return filter.Process(shape);
@@ -124,7 +124,7 @@ namespace Engine
         /// <param name="rect"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
-        public static Shape SphereDistort(this Shape shape, Rectangle2D rect, double strength = 0.5)
+        public static Shape SphereDistort(this Shape shape, Rectangle2D rect, double strength = 0.5d)
         {
             var filter = new SphereDistort(rect, strength);
             return filter.Process(shape);
@@ -138,7 +138,7 @@ namespace Engine
         /// <param name="radius"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
-        public static Shape SphereDistort(this Shape shape, Point2D center, double radius, double strength = 0.5)
+        public static Shape SphereDistort(this Shape shape, Point2D center, double radius, double strength = 0.5d)
         {
             var filter = new SphereDistort(center, radius, strength);
             return filter.Process(shape);
@@ -151,7 +151,7 @@ namespace Engine
         /// <param name="center"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
-        public static Shape SwirlDistort(this Shape shape, Point2D center, double strength = 0.008)
+        public static Shape SwirlDistort(this Shape shape, Point2D center, double strength = 0.008d)
         {
             var filter = new SwirlDistort(center, strength);
             return filter.Process(shape);
@@ -164,7 +164,7 @@ namespace Engine
         /// <param name="center"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
-        public static Shape TimeWarpDistort(this Shape shape, Point2D center, double strength = 10)
+        public static Shape TimeWarpDistort(this Shape shape, Point2D center, double strength = 10d)
         {
             var filter = new TimeWarpDistort(center, strength);
             return filter.Process(shape);
@@ -177,7 +177,7 @@ namespace Engine
         /// <param name="center"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
-        public static Shape WaterDistort(this Shape shape, Point2D center, double strength = 8)
+        public static Shape WaterDistort(this Shape shape, Point2D center, double strength = 8d)
         {
             var filter = new WaterDistort(center, strength);
             return filter.Process(shape);

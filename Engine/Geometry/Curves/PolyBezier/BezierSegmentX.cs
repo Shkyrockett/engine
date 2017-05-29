@@ -15,7 +15,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
@@ -25,7 +25,7 @@ namespace Engine
     /// Extensive Bezier explanation can be found at http://pomax.github.io/bezierinfo/
     /// </summary>
     /// <remarks> https://github.com/superlloyd/Poly </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(BezierSegmentX))]
     [XmlType(TypeName = "bezier-Segment")]
@@ -144,13 +144,13 @@ namespace Engine
         /// <summary>
         /// Gets or sets a reference to the previous geometric item.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public BezierSegmentX Previous { get; set; }
 
         /// <summary>
         /// Gets or sets a reference to the end point of the previous <see cref="BezierSegmentX"/> to use as the stating point.
         /// </summary>
-        //[XmlElement, SoapElement]
+        [DataMember, XmlElement, SoapElement]
         public Point2D? Start
         {
             get { return Previous.End; }
@@ -198,7 +198,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D? NextToEnd
         {
             get { return (handles.Length >= 2) ? handles[handles.Length - 2] : Start; }
@@ -212,7 +212,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D? End
         {
             get { return handles[handles.Length - 1]; }
@@ -223,10 +223,10 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get
@@ -245,14 +245,14 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
             => 0;
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
             get
@@ -266,7 +266,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
         {
             get
@@ -280,7 +280,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => (PolynomialDegree)(Handles.Length);
 

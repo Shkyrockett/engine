@@ -213,7 +213,10 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Crt(double value)
@@ -301,7 +304,10 @@ namespace Engine
         /// <param name="lineOfSightJ2"></param>
         /// <param name="lineOfSightK2"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBackFace(

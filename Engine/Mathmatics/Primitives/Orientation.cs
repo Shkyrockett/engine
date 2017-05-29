@@ -15,13 +15,14 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using System.Xml.Serialization;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [DataContract, Serializable]
     public struct Orientation
         : IVector<Vector3D>
     {
@@ -56,19 +57,19 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Roll { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Pitch { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Yaw { get; set; }
 
         #endregion

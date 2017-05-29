@@ -17,16 +17,16 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Size2D>))]
+    [TypeConverter(typeof(StructConverter<Size2D>))]
     public struct Size2D
         : IVector<Size2D>
     {
@@ -96,20 +96,20 @@ namespace Engine
         /// Width component of a <see cref="Size2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Width { get; set; }
 
         /// <summary>
         /// Height component of a <see cref="Size2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Height { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(Width) < Epsilon

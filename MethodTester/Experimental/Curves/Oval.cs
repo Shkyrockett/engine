@@ -10,8 +10,7 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -19,7 +18,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Oval))]
     [XmlType(TypeName = "oval")]
@@ -78,8 +77,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         public Point2D Location
         {
             get { return new Point2D(x, y); }
@@ -88,7 +87,6 @@ namespace Engine
                 x = value.X;
                 y = value.Y;
                 OnPropertyChanged(nameof(Location));
-                update?.Invoke();
             }
         }
 
@@ -96,7 +94,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("x")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -107,7 +105,6 @@ namespace Engine
             {
                 x = value;
                 OnPropertyChanged(nameof(X));
-                update?.Invoke();
             }
         }
 
@@ -115,7 +112,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("y")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -126,15 +123,14 @@ namespace Engine
             {
                 y = value;
                 OnPropertyChanged(nameof(Y));
-                update?.Invoke();
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         public Size2D Size
         {
             get { return new Size2D(h, v); }
@@ -143,7 +139,6 @@ namespace Engine
                 h = value.Width;
                 v = value.Height;
                 OnPropertyChanged(nameof(Size));
-                update?.Invoke();
             }
         }
 
@@ -151,7 +146,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("h")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -162,7 +157,6 @@ namespace Engine
             {
                 h = value;
                 OnPropertyChanged(nameof(Width));
-                update?.Invoke();
             }
         }
 
@@ -170,7 +164,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlAttribute("v")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -181,15 +175,14 @@ namespace Engine
             {
                 v = value;
                 OnPropertyChanged(nameof(Height));
-                update?.Invoke();
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         public override Rectangle2D Bounds
             => new Rectangle2D(x, y, h, v);
 

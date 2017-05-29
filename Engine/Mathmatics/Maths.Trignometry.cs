@@ -203,7 +203,10 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
@@ -228,7 +231,10 @@ namespace Engine
         /// Note that the value is the opposite of what you might
         /// expect because Y coordinates increase downward.
         /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleVector(
@@ -265,7 +271,10 @@ namespace Engine
         /// <param name="vX"></param>
         /// <param name="vY"></param>
         /// <returns></returns>
-        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://james-ramsden.com/angle-between-two-vectors/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
@@ -283,7 +292,10 @@ namespace Engine
         /// <param name="vY"></param>
         /// <param name="vZ"></param>
         /// <returns></returns>
-        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://james-ramsden.com/angle-between-two-vectors/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AngleBetween(
@@ -298,10 +310,10 @@ namespace Engine
         /// <param name="rx">The first radius of the ellipse.</param>
         /// <param name="ry">The second radius of the ellipse.</param>
         /// <returns></returns>
-        /// <remarks>
-        /// Based on the answer by flup at:
-        /// http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
-        /// </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based on the answer by flup at: http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipticalPolarAngle(double angle, double rx, double ry)
@@ -328,10 +340,11 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://mathworld.wolfram.com/Ellipse-LineIntersection.html
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SubtendedToParametric(double subtended, double a, double b)
@@ -516,7 +529,10 @@ namespace Engine
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Abs(double i, double j, double k)
@@ -530,6 +546,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
@@ -542,6 +560,8 @@ namespace Engine
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
@@ -554,6 +574,8 @@ namespace Engine
         /// <param name="Value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
@@ -566,6 +588,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSine(double value)
@@ -586,6 +610,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosine(double value)
@@ -606,6 +632,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSecant(double value)
@@ -626,6 +654,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosecant(double value)
@@ -646,6 +676,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>Arc-co-tan(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCotangent(double value)
@@ -657,6 +689,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HSin(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSine(double value)
@@ -668,6 +702,9 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCos(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosine(double value)
             => ((Exp(value) + Exp((value * -1))) * 0.5d);
@@ -678,6 +715,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HTan(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicTangent(double value)
@@ -689,6 +728,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HSec(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSecant(double value)
@@ -700,6 +741,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCosec(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosecant(double value)
@@ -711,6 +754,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HCotan(X) </remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCotangent(double value)
@@ -722,6 +767,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArcsin(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSine(double value)
@@ -733,6 +780,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccos(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosine(double value)
@@ -744,6 +793,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArctan(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicTangent(double value)
@@ -755,6 +806,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArcsec(X) </remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSecant(double value)
@@ -766,6 +819,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccosec(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosecant(double value)
@@ -777,6 +832,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         /// <remarks>HArccotan(X)</remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCotangent(double value)
@@ -792,6 +849,8 @@ namespace Engine
         /// LogN(X)
         /// Return Log(Value) / Log(NumberBase)
         /// </remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)

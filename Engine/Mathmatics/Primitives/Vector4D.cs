@@ -17,16 +17,16 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// Represents a vector in 4D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Vector4D>))]
+    [TypeConverter(typeof(StructConverter<Vector4D>))]
     public struct Vector4D
         : IVector<Vector4D>
     {
@@ -134,34 +134,34 @@ namespace Engine
         /// First Point of a 4D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 4D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Third Component of a 4D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double K { get; set; }
 
         /// <summary>
         /// Fourth Component of a 4D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double L { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Vector4D"/> is empty.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(I) < Epsilon
@@ -172,10 +172,26 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Magnitude
-            => Sqrt(I * I + J * J + K * K + L * L);
+            => Measurements.VectorMagnitude(I, J, K, L);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double Length
+            => Measurements.VectorMagnitude(I, J, K, L);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double LengthSquared
+            => Measurements.VectorMagnitudeSquared(I, J, K, L);
 
         #endregion
 

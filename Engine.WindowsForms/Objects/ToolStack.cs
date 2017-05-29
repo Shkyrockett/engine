@@ -152,7 +152,7 @@ namespace Engine.Tools
         /// </summary>
         //[Category("Location")]
         //[Description("The location of the mouse cursor.")]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         //[RefreshProperties(RefreshProperties.All)]
         public Point2D MouseLocation
         {

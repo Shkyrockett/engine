@@ -22,7 +22,7 @@ namespace Engine
     /// <remarks>
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName("CatmullRom Spline")]
     public class CatmullRom
@@ -77,7 +77,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public Point2D TangentA
         {
             get { return tangentA; }
@@ -90,7 +90,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public Point2D PositionA
         {
             get { return positionA; }
@@ -103,7 +103,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public Point2D PositionB
         {
             get { return positionB; }
@@ -116,7 +116,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public Point2D TangentB
         {
             get { return tangentB; }

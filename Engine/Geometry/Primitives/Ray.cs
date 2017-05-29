@@ -12,7 +12,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -20,9 +20,9 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
-    //[DisplayName("Ray")]
+    [DisplayName("Ray")]
     public class Ray
         : Shape
     {
@@ -85,7 +85,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement, SoapElement]
+        [DataMember, XmlElement, SoapElement]
         public Point2D Location
         {
             get { return location; }
@@ -101,7 +101,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement, SoapElement]
+        [DataMember, XmlElement, SoapElement]
         public Vector2D Direction
         {
             get { return direction; }

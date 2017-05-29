@@ -1,4 +1,4 @@
-﻿namespace Engine._Preview
+﻿namespace Engine
 {
     /// <summary>
     /// The Segment class is used to represent an edge of a polygon.

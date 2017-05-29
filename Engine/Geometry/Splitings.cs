@@ -11,8 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Engine.Maths;
 
 namespace Engine
@@ -447,10 +445,11 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         /// <param name="t"></param>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/#decasteljau
         /// https://github.com/superlloyd/Poly
-        /// </remarks>
+        /// </acknowledgment>
         public static BezierSegment[] SplitBezier(IEnumerable<Point2D> points, double t)
         {
             if (t < 0 || t > 1) throw new ArgumentOutOfRangeException();

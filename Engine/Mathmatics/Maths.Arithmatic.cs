@@ -676,7 +676,7 @@ namespace Engine
 
         #endregion
 
-        #region Multiplecation
+        #region Multiplication
 
         /// <summary>
         /// Inflates a vector by a given factor.
@@ -684,7 +684,7 @@ namespace Engine
         /// <param name="i">The x value to inflate.</param>
         /// <param name="j">The y value to inflate.</param>
         /// <param name="factor">The factor to inflate the vector.</param>
-        /// <returns>Returns a tupple with the values inflated by the factor provided.</returns>
+        /// <returns>Returns a tuple with the values inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Scale2D(double i, double j, double factor)
@@ -697,7 +697,7 @@ namespace Engine
         /// <param name="j">The y value to inflate.</param>
         /// <param name="k">The z value to inflate.</param>
         /// <param name="factor">The factor to inflate the vector.</param>
-        /// <returns>Returns a tupple with the values inflated by the factor provided.</returns>
+        /// <returns>Returns a tuple with the values inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Scale3D(double i, double j, double k, double factor)
@@ -1353,9 +1353,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(sbyte a, sbyte b)
@@ -1372,9 +1373,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(byte a, byte b)
@@ -1390,9 +1392,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(short a, short b)
@@ -1409,9 +1412,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ushort a, ushort b)
@@ -1427,9 +1431,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(int a, int b)
@@ -1446,9 +1451,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(uint a, uint b)
@@ -1464,9 +1470,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(long a, long b)
@@ -1483,9 +1490,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(ulong a, ulong b)
@@ -1501,9 +1509,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(float a, float b)
@@ -1520,9 +1529,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(double a, double b)
@@ -1539,9 +1549,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe(decimal a, decimal b)
@@ -1558,7 +1569,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(int a, int b)
@@ -1574,7 +1588,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(uint a, uint b)
@@ -1590,7 +1607,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(long a, long b)
@@ -1606,7 +1626,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(ulong a, ulong b)
@@ -1807,9 +1830,10 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double x, double y, double z)
@@ -1823,9 +1847,10 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double w, double x, double y, double z)
@@ -1851,9 +1876,10 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double x, double y, double z)
@@ -1867,9 +1893,10 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double w, double x, double y, double z)
@@ -1911,9 +1938,10 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="precision"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Approximately(double a, double b, double precision = Epsilon)
@@ -1950,6 +1978,8 @@ namespace Engine
         /// <param name="value2"> The second double to compare. </param>
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(this float value1, float value2, float epsilon = FloatEpsilon)
@@ -1980,6 +2010,8 @@ namespace Engine
         /// <param name="value2"> The second double to compare. </param>
         /// <param name="epsilon"></param>
         /// <remarks></remarks>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AreClose(this double value1, double value2, double epsilon = Epsilon)
@@ -2004,11 +2036,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the LessThan comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this float value1, float value2)
@@ -2025,11 +2059,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the LessThan comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this double value1, double value2)
@@ -2046,11 +2082,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the GreaterThan comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this float value1, float value2)
@@ -2067,11 +2105,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the GreaterThan comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this double value1, double value2)
@@ -2088,11 +2128,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the LessThanOrClose comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this float value1, float value2)
@@ -2109,11 +2151,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the LessThanOrClose comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrClose(this double value1, double value2)
@@ -2130,11 +2174,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the GreaterThanOrClose comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this float value1, float value2)
@@ -2151,11 +2197,13 @@ namespace Engine
         /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
+        /// <param name="value1"> The first double to compare. </param>
+        /// <param name="value2"> The second double to compare. </param>
         /// <returns>
         /// bool - the result of the GreaterThanOrClose comparison.
         /// </returns>
-        /// <param name="value1"> The first double to compare. </param>
-        /// <param name="value2"> The second double to compare. </param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrClose(this double value1, double value2)
@@ -2167,6 +2215,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearZero(double value, double epsilon = NearZeroEpsilon)
@@ -2176,11 +2226,13 @@ namespace Engine
         /// IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
         /// but this is faster.
         /// </summary>
+        /// <param name="value"> The double to compare to 0. </param>
+        /// <param name="epsilon"></param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
-        /// <param name="value"> The double to compare to 0. </param>
-        /// <param name="epsilon"></param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsZero(this float value, float epsilon = FloatEpsilon)
@@ -2190,11 +2242,13 @@ namespace Engine
         /// IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
         /// but this is faster.
         /// </summary>
+        /// <param name="value"> The double to compare to 0. </param>
+        /// <param name="epsilon"></param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
-        /// <param name="value"> The double to compare to 0. </param>
-        /// <param name="epsilon"></param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsZero(this double value, double epsilon = Epsilon)
@@ -2204,11 +2258,13 @@ namespace Engine
         /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
         /// but this is faster.
         /// </summary>
+        /// <param name="value"> The double to compare to 1. </param>
+        /// <param name="epsilon"></param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
-        /// <param name="value"> The double to compare to 1. </param>
-        /// <param name="epsilon"></param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOne(this float value, float epsilon = FloatEpsilon)
@@ -2218,11 +2274,13 @@ namespace Engine
         /// IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
         /// but this is faster.
         /// </summary>
+        /// <param name="value"> The double to compare to 1. </param>
+        /// <param name="epsilon"></param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
-        /// <param name="value"> The double to compare to 1. </param>
-        /// <param name="epsilon"></param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOne(this double value, double epsilon = Epsilon)
@@ -2233,6 +2291,8 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this float val)
@@ -2243,6 +2303,8 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this double val)

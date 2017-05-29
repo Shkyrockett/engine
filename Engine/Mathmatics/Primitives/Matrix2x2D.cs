@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 using static System.Math;
 using static Engine.Maths;
 using System.Xml.Serialization;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,9 +27,9 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Matrix2x2D>))]
+    [TypeConverter(typeof(StructConverter<Matrix2x2D>))]
     public partial struct Matrix2x2D
         : IMatrix<Matrix2x2D, Vector2D>
     {
@@ -132,7 +132,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector2D Cx
         {
             get { return new Vector2D(m0x0, m1x0); }
@@ -146,7 +146,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector2D Cy
         {
             get { return new Vector2D(m0x1, m1x1); }
@@ -160,7 +160,7 @@ namespace Engine
         /// <summary>
         /// The X Row or row zero.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the Matrix2x2")]
         public Vector2D Rx
         {
@@ -175,7 +175,7 @@ namespace Engine
         /// <summary>
         /// The Y Row or row one.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the Matrix2x2")]
         public Vector2D Ry
         {
@@ -190,7 +190,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant
             => Determinant(m0x0, m0x1, m1x0, m1x1);
 
@@ -198,35 +198,35 @@ namespace Engine
         /// Swap the rows of the matrix with the columns.
         /// </summary>
         /// <returns>A transposed Matrix.</returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Transposed
             => Primitives.Transpose(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Inverted
             => Primitives.Invert(this);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
             => (Abs(m0x0 - 1) < Epsilon
                 && Abs(m0x1) < Epsilon

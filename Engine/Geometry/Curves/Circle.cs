@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -22,7 +22,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Circle))]
     [XmlType(TypeName = "circle", Namespace = "shape")]
@@ -173,7 +173,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the radius of the circle.
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         //[DisplayName(nameof(Radius))]
         [Category("Elements")]
         [Description("The radius of the circle.")]
@@ -195,13 +195,13 @@ namespace Engine
         /// <summary>
         /// Gets or sets the center point of the circle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The center location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -219,7 +219,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         //[DisplayName(nameof(X))]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
@@ -241,7 +241,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         //[DisplayName(nameof(Y))]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
@@ -264,7 +264,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Circumference))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
@@ -274,7 +274,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
@@ -284,7 +284,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the circle.")]
@@ -303,8 +303,8 @@ namespace Engine
         /// <summary>
         /// Gets the angles of the extreme points of the circle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Circle) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -315,8 +315,8 @@ namespace Engine
         /// <summary>
         /// Get the points of the Cartesian extremes of the circle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Circle) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -327,13 +327,13 @@ namespace Engine
         /// <summary>
         /// Gets or sets the rectangular boundaries of the circle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get { return Measurements.CircleBounds(x, y, radius); }

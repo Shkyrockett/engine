@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -21,7 +21,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(CircularSegment))]
     public class CircularSegment
@@ -143,13 +143,13 @@ namespace Engine
         /// <summary>
         /// Gets or sets the location of the center point of the circular segment.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The location of the center point of the circular segment.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
@@ -171,9 +171,9 @@ namespace Engine
         [Description("The center location of the Chord.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D Center
         {
             get { return new Point2D(x, y); }
@@ -190,8 +190,8 @@ namespace Engine
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the starting angle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
@@ -200,8 +200,8 @@ namespace Engine
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the ending angle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
@@ -215,7 +215,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double X
         {
             get { return x; }
@@ -236,7 +236,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Y
         {
             get { return y; }
@@ -255,7 +255,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("The radius of the Chord.")]
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Radius
         {
             get { return radius; }
@@ -369,7 +369,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the Arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [GeometryAngleDegreesAttribute]
         [Category("Clipping")]

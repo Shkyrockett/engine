@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -18,7 +19,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     public class AngleVisualizerTester
         : Shape
     {
@@ -93,7 +94,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [Category("Properties")]
         [Description("The center x coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -103,7 +104,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [Category("Properties")]
         [Description("The center y coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -113,7 +114,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [Category("Properties")]
         [Description("The radius of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -123,7 +124,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The test angle of the Arc.")]
@@ -134,7 +135,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The start angle of the Arc.")]
@@ -145,7 +146,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The sweep angle of the Arc.")]
@@ -156,7 +157,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Properties")]
         [Description("The end angle of the Arc.")]
@@ -171,7 +172,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The center location of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -190,7 +191,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -209,7 +210,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The point on the arc at the test angle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

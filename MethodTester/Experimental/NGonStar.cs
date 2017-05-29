@@ -16,7 +16,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName("NGonStar")]
     public class NGonStar

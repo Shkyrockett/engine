@@ -58,14 +58,13 @@ namespace Engine
             => Circle(cX, cY, r, (startAngle + (sweepAngle * t)));
 
         /// <summary>
-        /// Interpolate a point on a circle.
+        /// Interpolate a point on a circle, converting from unit iteration, to Pi radians.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
-        // Convert from unit iteration, to Pi radians.
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) UnitCircle(
@@ -75,14 +74,13 @@ namespace Engine
             => Circle(cX, cY, r, Tau * t);
 
         /// <summary>
-        /// Interpolate a point on a circle.
+        /// Interpolate a point on a circle, applying translation to equation of circle at origin.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
-        // Apply translation to equation of circle at origin.
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Circle(
@@ -285,9 +283,10 @@ namespace Engine
         /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Ellipse(
@@ -309,9 +308,10 @@ namespace Engine
         /// <param name="cosTheta">Theta cosine of interpolation.</param>
         /// <param name="sinTheta">Theta sine of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Ellipse(
@@ -343,7 +343,10 @@ namespace Engine
         /// <param name="v4">The fourth position in the interpolation.</param>
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
-        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.mvps.org/directx/articles/catmull/
+        /// </acknowledgment>
         public static double CatmullRom(
             double v1,
             double v2,
@@ -380,8 +383,10 @@ namespace Engine
         /// </returns>
         /// <remarks>
         /// Points calculated exist on the spline between points two and three.
-        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </remarks>
+        /// <acknowledgment>
+        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) CatmullRom(
             double t0X, double t0Y,
@@ -420,7 +425,10 @@ namespace Engine
         /// <param name="z4">The fourth position in the interpolation.</param>
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
-        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.mvps.org/directx/articles/catmull/
+        /// </acknowledgment>
         public static (double X, double Y, double Z) CatmullRom(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -446,6 +454,7 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
         /// </summary>
         /// <param name="positionA"></param>
         /// <param name="tangentA"></param>
@@ -453,9 +462,10 @@ namespace Engine
         /// <param name="tangentB"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CatmullRom(
             Point2D tangentA,
@@ -489,7 +499,10 @@ namespace Engine
         /// <param name="v2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosine(
             double v1,
@@ -509,7 +522,10 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Cosine(
             double x1, double y1,
@@ -534,7 +550,10 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Cosine(
             double x1, double y1, double z1,
@@ -561,7 +580,10 @@ namespace Engine
         /// <param name="v3"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cubic(
             double v0,
@@ -594,7 +616,10 @@ namespace Engine
         /// <param name="y3"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Cubic(
             double x0, double y0,
@@ -634,7 +659,10 @@ namespace Engine
         /// <param name="z3"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Cubic(
             double x0, double y0, double z0,
@@ -675,8 +703,8 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <history>
-        /// </history>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicBezier(
             double v0,
@@ -706,8 +734,8 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <history>
-        /// </history>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) CubicBezier(
             double x0, double y0,
@@ -744,8 +772,8 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <history>
-        /// </history>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) CubicBezier(
             double x0, double y0, double z0,
@@ -772,6 +800,8 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CubicBSpline(List<Point2D> points, double t)
         {
@@ -834,7 +864,10 @@ namespace Engine
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Hermite(
@@ -876,9 +909,10 @@ namespace Engine
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Hermite(
@@ -932,7 +966,10 @@ namespace Engine
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Hermite(
@@ -1062,6 +1099,8 @@ namespace Engine
         /// <param name="v2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezier(
@@ -1088,6 +1127,8 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) QuadraticBezier(
@@ -1120,6 +1161,8 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) QuadraticBezier(
@@ -1145,6 +1188,8 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         public static Point2D[] QuadraticBezierToCubicBezier(Point2D a, Point2D b, Point2D c)
             => new Point2D[]
             {
@@ -1165,9 +1210,10 @@ namespace Engine
         /// <param name="v2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sine(
@@ -1188,7 +1234,10 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Sine(
@@ -1213,7 +1262,10 @@ namespace Engine
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Sine(

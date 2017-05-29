@@ -11,13 +11,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Engine._Preview;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
-//using Engine._Preview;
 
 namespace Engine
 {
@@ -29,7 +26,7 @@ namespace Engine
     /// http://paulbourke.net/geometry/bezier/index.html
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(CubicBezier))]
     [XmlType(TypeName = "bezier-Cubic")]
@@ -185,7 +182,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public List<Point2D> Points
@@ -194,12 +191,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
             get { return new Point2D(ax, ay); }
@@ -218,7 +215,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("ax")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -240,7 +237,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the first Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("ay")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -261,12 +258,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
             get { return new Point2D(bx, by); }
@@ -285,7 +282,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("bx")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -307,7 +304,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("by")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -328,12 +325,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D C
         {
             get { return new Point2D(cx, cy); }
@@ -352,7 +349,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("cx")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -374,7 +371,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the third Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("cy")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -395,10 +392,10 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D D
         {
             get { return new Point2D(dx, dy); }
@@ -417,7 +414,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("dx")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the fourth Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -439,7 +436,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the fourth Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("dy")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the fourth Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -461,14 +458,14 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
             => (double)CachingProperty(() => Measurements.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Perimeter
             => Length;
 
@@ -477,15 +474,15 @@ namespace Engine
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
-        [XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
             get
@@ -499,7 +496,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
         {
             get
@@ -513,7 +510,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => PolynomialDegree.Cubic;
 
@@ -590,7 +587,10 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>Sampled point.</returns>
-        /// <remarks> https://github.com/burningmime/curves </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/burningmime/curves
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Sample(double t)
         {
@@ -607,7 +607,10 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>First derivative of curve at sampled point.</returns>
-        /// <remarks> https://github.com/burningmime/curves </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/burningmime/curves
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Derivative(double t)
         {
@@ -633,7 +636,10 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>Direction the curve is going at that point.</returns>
-        /// <remarks> https://github.com/burningmime/curves </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/burningmime/curves
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Tangent(double t)
             => Primitives.Normalize(Derivative(t));
@@ -669,7 +675,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> https://github.com/burningmime/curves </remarks>
+        /// <remarks>https://github.com/burningmime/curves</remarks>
         public override int GetHashCode()
         {
             var hash = new JenkinsHash();

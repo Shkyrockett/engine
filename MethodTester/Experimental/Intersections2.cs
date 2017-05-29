@@ -32,7 +32,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// 
@@ -953,7 +953,7 @@ namespace Engine._Preview
         /// <param name="e1"></param>
         /// <param name="e2"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezout(double[] e1, double[] e2)
         {

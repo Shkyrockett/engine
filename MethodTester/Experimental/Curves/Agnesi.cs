@@ -27,7 +27,7 @@ namespace Engine
     /// Agnesi curves were studied in 1748 by Maria Gaetana Agnesi and earlier by Fermat around 1666 and 
     /// Grandi in 1703. Agnesi called the curve "versiera". 
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Agnesi))]
     public class Agnesi

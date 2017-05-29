@@ -6,7 +6,7 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> https://github.com/burningmime/curves </remarks>
+// <remarks>https://github.com/burningmime/curves</remarks>
 
 using System;
 using System.Collections.Generic;
@@ -15,12 +15,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polyline))]
     public class Spline

@@ -363,35 +363,35 @@ namespace Engine.Imaging
             g.ResetTransform();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        public static void Render(this Oval shape, Graphics g, GraphicItem item, ShapeStyle style = null)
-        {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            // Determine the orientation.
-            var radius = (shape.Size.Height > shape.Size.Width) ? shape.Size.Width / 2 : shape.Size.Height / 2;
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="shape"></param>
+        ///// <param name="g"></param>
+        ///// <param name="item"></param>
+        ///// <param name="style"></param>
+        //public static void Render(this Oval shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //{
+        //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+        //    // Determine the orientation.
+        //    var radius = (shape.Size.Height > shape.Size.Width) ? shape.Size.Width / 2 : shape.Size.Height / 2;
 
-            // Start the Path object.
-            var path = new GraphicsPath();
+        //    // Start the Path object.
+        //    var path = new GraphicsPath();
 
-            //  prepare the curves.
-            path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 270, 90);
-            path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 0, 90);
-            path.AddArc((float)shape.Location.X, (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 90, 90);
-            path.AddArc((float)shape.Location.X, (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 180, 90);
+        //    //  prepare the curves.
+        //    path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 270, 90);
+        //    path.AddArc((float)(shape.Location.X + (shape.Size.Width - (radius * 2))), (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 0, 90);
+        //    path.AddArc((float)shape.Location.X, (float)(shape.Location.Y + (shape.Size.Height - (radius * 2))), (float)(radius * 2), (float)(radius * 2), 90, 90);
+        //    path.AddArc((float)shape.Location.X, (float)shape.Location.Y, (float)(radius * 2), (float)(radius * 2), 180, 90);
 
-            // Close the path.
-            path.CloseFigure();
+        //    // Close the path.
+        //    path.CloseFigure();
 
-            //  Draw the path.
-            g.FillPath(itemStyle.BackBrush, path);
-            g.DrawPath(itemStyle.ForePen, path);
-        }
+        //    //  Draw the path.
+        //    g.FillPath(itemStyle.BackBrush, path);
+        //    g.DrawPath(itemStyle.ForePen, path);
+        //}
 
         /// <summary>
         ///

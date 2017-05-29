@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -18,7 +19,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     public class CardinalSegment
          : CurveSegment
     {
@@ -49,7 +50,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public List<Point2D> Nodes
         {
             get
@@ -75,19 +76,19 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd { get { return Nodes[Nodes.Count - 1]; } set { Nodes[Nodes.Count - 1] = value.Value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement]
+        [DataMember, XmlElement, SoapElement]
         public override Point2D? End { get { return CentralPoints[CentralPoints.Count - 1]; } set { CentralPoints[CentralPoints.Count - 1] = value.Value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override List<Point2D> Grips
         {
             get
@@ -102,10 +103,10 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => Measurements.PolygonBounds(Nodes);
 

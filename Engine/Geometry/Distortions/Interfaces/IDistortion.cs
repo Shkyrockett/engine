@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks> https://github.com/benmorris44/EnvelopeDistortion </remarks>
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// 

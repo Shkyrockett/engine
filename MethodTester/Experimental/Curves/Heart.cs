@@ -16,7 +16,7 @@ namespace Engine
     /// <summary>
     /// http://csharphelper.com/blog/2016/02/draw-parametric-heart-shaped-curve-c/
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName(nameof(Heart))]
     public class Heart

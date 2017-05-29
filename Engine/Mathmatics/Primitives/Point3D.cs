@@ -17,16 +17,16 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     ///
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Point3D>))]
+    [TypeConverter(typeof(StructConverter<Point3D>))]
     public struct Point3D
         : IVector<Point3D>
     {
@@ -104,27 +104,27 @@ namespace Engine
         /// X component of a <see cref="Point3D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="Point3D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
         /// <summary>
         /// Z component of a <see cref="Point3D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Z { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point3D"/> is empty.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(X) < Epsilon

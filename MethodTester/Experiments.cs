@@ -5423,7 +5423,7 @@ namespace MethodSpeedTester
         /// <param name="lBY"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CircleLineSegmentIntersection(
             double cX, double cY,
@@ -6770,7 +6770,7 @@ namespace MethodSpeedTester
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection UnrotatedEllipseLineSegmentIntersection(
             double centerX, double centerY,
@@ -6968,7 +6968,7 @@ namespace MethodSpeedTester
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(
             double cx, double cy,
@@ -7677,7 +7677,7 @@ namespace MethodSpeedTester
         /// <param name="b2X"></param>
         /// <param name="b2Y"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineLineSegmentIntersection1(
                 double a1X, double a1Y,
@@ -7790,7 +7790,7 @@ namespace MethodSpeedTester
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineQuadraticBezierIntersection(
             double a1X, double a1Y,
@@ -7862,7 +7862,7 @@ namespace MethodSpeedTester
         /// <param name="p4X"></param>
         /// <param name="p4Y"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineCubicBezierIntersection0(
             double a1X, double a1Y,
@@ -8045,7 +8045,7 @@ namespace MethodSpeedTester
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierLineSegmentIntersection(
             double p1X, double p1Y,
@@ -8202,7 +8202,7 @@ namespace MethodSpeedTester
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierLineSegmentIntersection(
             double p1X, double p1Y,
@@ -12428,7 +12428,7 @@ namespace MethodSpeedTester
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
         private List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
         {
             var results = new List<double>();
@@ -12496,7 +12496,7 @@ namespace MethodSpeedTester
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
         {

@@ -18,16 +18,16 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// Represents a vector in 2D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Vector2D>))]
+    [TypeConverter(typeof(StructConverter<Vector2D>))]
     public struct Vector2D
         : IVector<Vector2D>
     {
@@ -97,7 +97,7 @@ namespace Engine
         /// <remarks></remarks>
         public Vector2D(double aI, double aJ, double bI, double bJ)
             : this(new Point2D(aI, aJ), new Point2D(bI, bJ))
-        {        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -107,7 +107,7 @@ namespace Engine
         /// <remarks></remarks>
         public Vector2D(Point2D a, Point2D b)
             : this(a.Delta(b).Unit())
-        {        }
+        { }
 
         #endregion
 
@@ -117,20 +117,20 @@ namespace Engine
         /// First Point of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 2D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Vector2D"/> is empty.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(I) < Epsilon
@@ -139,26 +139,26 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Magnitude
-            => Sqrt(I * I + J * J);
+            => Measurements.VectorMagnitude(I, J);
 
         /// <summary>
         /// Length Property - the length of this Vector
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Length
-            => Sqrt(I * I + J * J);
+            => Measurements.VectorMagnitude(I, J);
 
         /// <summary>
         /// LengthSquared Property - the squared length of this Vector
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double LengthSquared
-            => I * I + J * J;
+            => Measurements.VectorMagnitudeSquared(I, J);
 
         #endregion
 
@@ -544,10 +544,10 @@ namespace Engine
         /// </returns>
         public string ConvertToString(string format, IFormatProvider provider)
         {
-//            // If the object hasn't been initialized yet, for example reading from reflection, return its name.
-//#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-//            if (this == null) return nameof(Vector2D);
-//#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
+            //            // If the object hasn't been initialized yet, for example reading from reflection, return its name.
+            //#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
+            //            if (this == null) return nameof(Vector2D);
+            //#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
 
             // Capture the culture's list separator character.
             var sep = Tokenizer.GetNumericListSeparator(provider);

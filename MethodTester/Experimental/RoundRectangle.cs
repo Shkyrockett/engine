@@ -18,7 +18,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName(nameof(RoundRectangle))]
     public class RoundRectangle

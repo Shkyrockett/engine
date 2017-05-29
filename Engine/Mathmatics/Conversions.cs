@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// 
@@ -47,10 +47,11 @@ namespace Engine._Preview
         /// </summary>
         /// <param name="ellipse"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<CubicBezier> ToCubicBeziers(this EllipticalArc ellipse)
             => EllipticalArcToCubicBeziers(ellipse.X, ellipse.Y, ellipse.RX, ellipse.RY, ellipse.StartAngle, ellipse.SweepAngle);
@@ -124,10 +125,11 @@ namespace Engine._Preview
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<CubicBezier> EllipticalArcToCubicBeziers(
             double cx, double cy,
@@ -268,9 +270,10 @@ namespace Engine._Preview
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// https://github.com/ariutta/catmullrom2bezier/blob/master/catmullrom2bezier.js
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<CubicBezier> CatmullRomToBezier(
             Point2D[] points)

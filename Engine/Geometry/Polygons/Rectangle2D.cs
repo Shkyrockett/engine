@@ -14,7 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 //using System.Drawing;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -23,7 +23,7 @@ namespace Engine
     /// <summary>
     ///
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Rectangle2D))]
     [XmlType(TypeName = "rect", Namespace = "http://www.w3.org/2000/svg")]
@@ -169,7 +169,7 @@ namespace Engine
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute("x")]
-        //[Browsable(true)]
+        [Browsable(true)]
         //[DisplayName(nameof(X))]
         [Category("Elements")]
         [Description("The x coordinate location of the rectangle.")]
@@ -190,7 +190,7 @@ namespace Engine
         /// Gets or sets the Y coordinate location of the rectangle.
         /// </summary>
         [XmlAttribute("y")]
-        //[Browsable(true)]
+        [Browsable(true)]
         //[DisplayName(nameof(Y))]
         [Category("Elements")]
         [Description("The y coordinate location of the rectangle.")]
@@ -211,7 +211,7 @@ namespace Engine
         /// Gets or sets the height of the rectangle.
         /// </summary>
         [XmlAttribute("v")]
-        //[Browsable(true)]
+        [Browsable(true)]
         //[DisplayName(nameof(Height))]
         [Category("Elements")]
         [Description("The height of the rectangle.")]
@@ -232,7 +232,7 @@ namespace Engine
         /// Gets or sets the width of the rectangle.
         /// </summary>
         [XmlAttribute("h")]
-        //[Browsable(true)]
+        [Browsable(true)]
         //[DisplayName(nameof(Width))]
         [Category("Elements")]
         [Description("The width of the rectangle.")]
@@ -253,8 +253,8 @@ namespace Engine
         /// Gets or sets the Aspect ratio of the rectangle.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         //[DisplayName(nameof(Aspect))]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the height and width of the " + nameof(RotatedRectangle2D) + ".")]
@@ -275,14 +275,14 @@ namespace Engine
         /// <summary>
         /// Gets or sets the angle the rectangle should be rotated.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(Location))]
         [Category("Elements")]
         [Description("The top left location of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
@@ -300,14 +300,14 @@ namespace Engine
         /// <summary>
         /// Gets or sets the center point X and Y coordinates of the rectangle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The center location of the rectangle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -325,7 +325,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the height and width of the rectangle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(Size))]
         [Category("Elements")]
@@ -350,7 +350,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(TopLeft))]
         [Category("Elements")]
@@ -373,7 +373,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(TopRight))]
         [Category("Elements")]
@@ -396,7 +396,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(BottomLeft))]
         [Category("Elements")]
@@ -419,7 +419,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(BottomRight))]
         [Category("Elements")]
@@ -442,7 +442,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(Left))]
         [Category("Elements")]
@@ -465,7 +465,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(Top))]
         [Category("Elements")]
@@ -488,7 +488,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(Right))]
         [Category("Elements")]
@@ -510,7 +510,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[DisplayName(nameof(Bottom))]
         [Category("Elements")]
@@ -532,7 +532,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[ReadOnly(true)]
         //[DisplayName(nameof(IsEmpty))]
@@ -544,7 +544,7 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether the Rectangle2D has area.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[ReadOnly(true)]
         //[DisplayName(nameof(HasArea))]
@@ -556,8 +556,8 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         //[ReadOnly(true)]
         //[DisplayName(nameof(Area))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -570,8 +570,8 @@ namespace Engine
         /// <summary>
         /// Gets the length of the perimeter of the rectangle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         //[ReadOnly(true)]
         //[DisplayName(nameof(Perimeter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -584,13 +584,13 @@ namespace Engine
         /// <summary>
         /// Gets the bounding box of the rectangle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         //[ReadOnly(true)]
         //[DisplayName(nameof(Bounds))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("bounding box of the rectangle.")]

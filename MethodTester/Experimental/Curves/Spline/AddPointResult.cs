@@ -6,11 +6,11 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> https://github.com/burningmime/curves </remarks>
+// <remarks>https://github.com/burningmime/curves</remarks>
 
 using System;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// Changes made to the CurveBuilder.curves list after a call to <see cref="CurveBuilder.AddPoint"/>.

@@ -97,9 +97,10 @@ namespace Engine
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) ComplexProduct(
@@ -161,7 +162,10 @@ namespace Engine
         /// <returns>
         /// Return the cross product AB x BC.
         /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProductVector(
@@ -246,10 +250,10 @@ namespace Engine
         /// <returns>
         /// Return the dot product AB · BC.
         /// </returns>
-        /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProductVector(
@@ -477,7 +481,10 @@ namespace Engine
         /// <param name="k2">The z component of the second Point.</param>
         /// <param name="l2"></param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.fundza.com/vectors/normalize/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z, double W) Normalize4D(
@@ -523,7 +530,10 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Projection(
@@ -545,7 +555,10 @@ namespace Engine
         /// <param name="y2"></param>
         /// <param name="z2"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Rejection(
@@ -567,7 +580,10 @@ namespace Engine
         /// <param name="j2"></param>
         /// <param name="k2"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Reflection(
@@ -594,7 +610,10 @@ namespace Engine
         /// <param name="z1"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double rad)
@@ -612,7 +631,10 @@ namespace Engine
         /// <param name="z1"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Pitch(double x1, double y1, double z1, double rad)
@@ -626,7 +648,10 @@ namespace Engine
         /// <param name="z1"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double rad)
@@ -644,7 +669,10 @@ namespace Engine
         /// <param name="z1"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Yaw(double x1, double y1, double z1, double rad)
@@ -658,7 +686,10 @@ namespace Engine
         /// <param name="z1"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double rad)
@@ -676,7 +707,10 @@ namespace Engine
         /// <param name="z1"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Roll(double x1, double y1, double z1, double rad)
@@ -692,7 +726,10 @@ namespace Engine
         /// <param name="zOff"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
@@ -712,7 +749,10 @@ namespace Engine
         /// <param name="zOff"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
@@ -732,7 +772,10 @@ namespace Engine
         /// <param name="yOff"></param>
         /// <param name="rad"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
@@ -748,7 +791,10 @@ namespace Engine
         /// <param name="i1"></param>
         /// <param name="j1"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1)
@@ -761,7 +807,10 @@ namespace Engine
         /// <param name="j1"></param>
         /// <param name="k1"></param>
         /// <returns></returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i1, double j1, double k1)

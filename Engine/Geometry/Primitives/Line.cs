@@ -12,7 +12,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -22,9 +22,9 @@ namespace Engine
     /// </summary>
     /// <structure>Engine.Geometry.Line2D</structure>
     /// <remarks></remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
-    //[DisplayName("Line")]
+    [DisplayName("Line")]
     [XmlType(TypeName = "line", Namespace = "http://www.w3.org/2000/svg")]
     public class Line
         : Shape
@@ -103,7 +103,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement, SoapElement]
+        [DataMember, XmlElement, SoapElement]
         public Point2D Location
         {
             get { return location; }
@@ -119,7 +119,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement, SoapElement]
+        [DataMember, XmlElement, SoapElement]
         public Vector2D Direction
         {
             get { return direction; }
@@ -135,7 +135,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement, SoapElement]
+        [DataMember, XmlElement, SoapElement]
         public override Rectangle2D Bounds
             => new Rectangle2D(location, location + direction);
 

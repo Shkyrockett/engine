@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -21,6 +22,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
+    [DataContract, Serializable]
     public struct LineCapStyle
         : IFormattable
     {
@@ -104,7 +106,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolycurveContour CapPath { get { return capPath; } set { capPath = value; } }
 
         /// <summary>

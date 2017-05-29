@@ -16,7 +16,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -27,7 +27,7 @@ namespace Engine
     /// A path shape item constructed with various sub shapes.
     /// Based roughly on the SVG Path.
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [DisplayName("PolyCurve Contour")]
     //[TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "path", Namespace = "http://www.w3.org/2000/svg")]
@@ -135,7 +135,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
         //[TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -174,14 +174,14 @@ namespace Engine
         /// <summary>
         /// Gets a listing of all end nodes from the Figure.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public List<Point2D> Nodes
             => Items.Select(item => item.End.Value).ToList();
 
         /// <summary>
         /// Gets a listing of all end grips from the Figure.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public List<Point2D> Grips
         {
             get
@@ -198,7 +198,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
         public bool Closed
         {
@@ -209,7 +209,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.PolycurveContourBounds(this));
 
@@ -218,14 +218,14 @@ namespace Engine
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Perimeter
             => (double)CachingProperty(() => Items.Sum(p => p.Length));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count => items.Count;
 
         #endregion

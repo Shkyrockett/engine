@@ -78,6 +78,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -143,6 +144,7 @@
     <Compile Include="Experimental\NonIntStar.cs" />
     <Compile Include="Experimental\Curves\Parabola.cs" />
     <Compile Include="Experimental\Curves\Bezier\PolyBezier2.cs" />
+    <Compile Include="Experimental\Curves\Oval.cs" />
     <Compile Include="Experimental\Polygon2D.cs" />
     <Compile Include="Experimental\PolyPath.cs" />
     <Compile Include="Experimental\RoundedRectangle2.cs" />
@@ -156,29 +158,21 @@
     <Compile Include="Experimental\Curves\Bezier\Pair.cs" />
     <Compile Include="Experimental\Curves\Bezier\PairComparer.cs" />
     <Compile Include="Experimental\polyloops.cs" />
-    <Compile Include="RectanglePointTester.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="RectanglePointTester.cs" />
     <Compile Include="RectanglePointTester.Designer.cs">
       <DependentUpon>RectanglePointTester.cs</DependentUpon>
     </Compile>
     <Compile Include="Experiments.cs" />
-    <Compile Include="FormSpeedTester.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FormSpeedTester.cs" />
     <Compile Include="FormSpeedTester.Designer.cs">
       <DependentUpon>FormSpeedTester.cs</DependentUpon>
     </Compile>
     <Compile Include="Framework\ListHelper.cs" />
-    <Compile Include="CirclePointTester.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="CirclePointTester.cs" />
     <Compile Include="CirclePointTester.Designer.cs">
       <DependentUpon>CirclePointTester.cs</DependentUpon>
     </Compile>
-    <Compile Include="PolygonPointTester.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="PolygonPointTester.cs" />
     <Compile Include="PolygonPointTester.Designer.cs">
       <DependentUpon>PolygonPointTester.cs</DependentUpon>
     </Compile>

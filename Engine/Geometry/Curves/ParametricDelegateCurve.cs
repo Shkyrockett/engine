@@ -21,7 +21,7 @@ namespace Engine
     /// Parametric Delegate Curve.
     /// </summary>
     /// <remarks></remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(ParametricDelegateCurve))]
     public class ParametricDelegateCurve
@@ -90,21 +90,21 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         public Func<double, double, double, double, double, double, Point2D> Interpolater { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         public Func<double, double, double, double, double, double, double, Inclusion> PointIntersector { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -123,7 +123,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -142,14 +142,14 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Adjustments")]
         [Description("The " + nameof(Location) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        //[Browsable(true)]
+        [Browsable(true)]
         public Point2D Location
         {
             get { return new Point2D(x, y); }
@@ -165,7 +165,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -184,7 +184,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -203,14 +203,14 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Adjustments")]
         [Description("The " + nameof(Scale) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         //[TypeConverter(typeof(Size2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        //[Browsable(true)]
+        [Browsable(true)]
         public Size2D Scale
         {
             get { return new Size2D(h, v); }
@@ -225,15 +225,15 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
         [Category("Adjustments")]
         [Description("The " + nameof(Rotation) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(AngleConverter))]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        //[Browsable(true)]
+        [Browsable(true)]
         public double Rotation
         {
             get { return r; }
@@ -248,22 +248,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         [Category("Adjustments")]
         [Description("The " + nameof(Precision) + " of the " + nameof(ParametricDelegateCurve) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        //[Browsable(true)]
+        [Browsable(true)]
         public double Precision { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
         {
             get

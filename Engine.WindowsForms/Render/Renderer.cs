@@ -96,9 +96,9 @@ namespace Engine.Imaging
                 case Polycurve t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
-                case Oval t:
-                    t.Render(g, item, style as ShapeStyle);
-                    break;
+                //case Oval t:
+                //    t.Render(g, item, style as ShapeStyle);
+                //    break;
                 case Rectangle2D t:
                     t.Render(g, item, style as ShapeStyle);
                     break;

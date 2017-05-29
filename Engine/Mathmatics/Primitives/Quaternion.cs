@@ -15,7 +15,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
@@ -25,10 +25,9 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    //[DataContract]
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<QuaternionD>))]
+    [TypeConverter(typeof(StructConverter<QuaternionD>))]
     public struct QuaternionD
         : IEquatable<QuaternionD>, IFormattable
     {
@@ -115,44 +114,54 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the X value of this Quaternion. 
         /// </summary>
-        //[DataMember]
-        [XmlAttribute, SoapAttribute]
-        public double X {            get            {                return x;            }            set            {                x = value;            }        }
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double X { get { return x; } set { x = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the Y value of this Quaternion. 
         /// </summary>
-        //[DataMember]
-        [XmlAttribute, SoapAttribute]
-        public double Y {            get            {                return y;            }            set            {                y = value;            }        }
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Y { get { return y; } set { y = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the Z value of this Quaternion. 
         /// </summary>
-        //[DataMember]
-        [XmlAttribute, SoapAttribute]
-        public double Z {            get            {                return z;            }            set            {                z = value;            }        }
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Z { get { return z; } set { z = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the W value of this Quaternion. 
         /// </summary>
-        //[DataMember]
-        [XmlAttribute, SoapAttribute]
-        public double W {            get            {                return w;            }            set            {                w = value;            }        }
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double W { get { return w; } set { w = value; } }
 
         /// <summary>
-        /// Squared 'length' of this quaternion.
+        /// Gets the squared 'length' of this quaternion.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Normal
-            => X * X + Y * Y + Z * Z + W * W;
+            => Measurements.QuaternionNormal( X, Y, Z, W);
+
+        /// <summary>
+        /// Gets the squared 'length' of this quaternion.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public double LengthSquared
+            => Measurements.QuaternionNormal( X, Y, Z, W);
+
+        /// <summary>
+        /// Gets the 'length' of this quaternion.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public double Length
+            => Measurements.QuaternionMagnitude( X, Y, Z, W);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Pitch
         {
             set
@@ -173,7 +182,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Yaw
         {
             set
@@ -193,7 +202,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Roll
         {
             set
@@ -213,7 +222,7 @@ namespace Engine
         /// <summary>
         /// Local X-aXis portion of this rotation.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D XAxis
         {
             get
@@ -234,7 +243,7 @@ namespace Engine
         /// <summary>
         /// Local Y-aXis portion of this rotation.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D YAxis
         {
             get
@@ -255,7 +264,7 @@ namespace Engine
         /// <summary>
         /// Local Z-aXis portion of this rotation.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D ZAxis
         {
             get

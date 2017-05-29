@@ -11,8 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-//using System.Diagnostics;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
@@ -25,7 +24,7 @@ namespace Engine
     /// <remarks>
     /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName("Elliptical Arc")]
     [XmlType(TypeName = "arc-Elliptical")]
@@ -291,13 +290,13 @@ namespace Engine
         /// <summary>
         /// Gets or sets the location of the center point of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The location of the center point of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
@@ -316,13 +315,13 @@ namespace Engine
         /// Gets or sets the Center Point of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(EllipticalArc) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -340,8 +339,8 @@ namespace Engine
         /// <summary>
         /// Gets the point on the Elliptical arc circumference coincident to the starting angle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
@@ -351,8 +350,8 @@ namespace Engine
         /// <summary>
         /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
@@ -364,7 +363,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("x")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -386,7 +385,7 @@ namespace Engine
         /// Gets or sets the Y coordinate location of the center of the elliptical arc.
         /// </summary>
         [XmlAttribute("y")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -409,7 +408,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("rx")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The first radius of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -432,7 +431,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("ry")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The second radius of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -454,8 +453,8 @@ namespace Engine
         /// Gets the Major radius of elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the elliptical arc.")]
         public double MajorRadius
@@ -465,8 +464,8 @@ namespace Engine
         /// Gets the Minor radius of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The smaller radius of the elliptical arc.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -477,8 +476,8 @@ namespace Engine
         /// Gets or sets the Aspect ratio of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the major and minor axis of the elliptical arc.")]
         [RefreshProperties(RefreshProperties.All)]
@@ -499,14 +498,14 @@ namespace Engine
         /// Gets or sets the Angle of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(AngleConverter))]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
@@ -547,22 +546,22 @@ namespace Engine
         /// <summary>
         /// Gets the Cosine of the angle of rotation.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double CosAngle
             => (double)CachingProperty(() => Cos(angle));
 
         /// <summary>
         /// Gets the Sine of the angle of rotation.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double SinAngle
             => (double)CachingProperty(() => Sin(angle));
 
         /// <summary>
         /// Gets or sets the start angle of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The start angle of the elliptical arc.")]
@@ -607,7 +606,7 @@ namespace Engine
         /// <summary>
         /// Gets the Polar corrected start angle of the <see cref="Ellipse"/>.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarStartAngle
             => (double)CachingProperty(() => EllipticalPolarAngle(startAngle, rX, rY));
@@ -615,8 +614,8 @@ namespace Engine
         /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The sweep angle of the elliptical arc.")]
@@ -661,8 +660,8 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The end angle of the elliptical arc.")]
@@ -684,7 +683,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc in Degrees.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
@@ -707,7 +706,7 @@ namespace Engine
         /// <summary>
         /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarEndAngle
             => (double)CachingProperty(() => EllipticalPolarAngle(startAngle + sweepAngle, rX, rY));
@@ -715,8 +714,8 @@ namespace Engine
         /// <summary>
         /// Gets the Focus Radius of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the elliptical arc.")]
         public double FocusRadius
@@ -725,8 +724,8 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the elliptical arc.")]
         public double Eccentricity
@@ -736,7 +735,7 @@ namespace Engine
         /// Gets the arc length of the elliptical arc.
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The arc length of the elliptical arc.")]
         public double ArcLength
@@ -746,8 +745,8 @@ namespace Engine
         /// Gets the <see cref="Perimeter"/> of the elliptical arc.
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
         public override double Perimeter
@@ -756,8 +755,8 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Area"/> of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the elliptical arc.")]
         public override double Area
@@ -766,8 +765,8 @@ namespace Engine
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -778,8 +777,8 @@ namespace Engine
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -790,13 +789,13 @@ namespace Engine
         /// <summary>
         /// Gets the Bounding box of the elliptical arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The rectangular bounds of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(cx, cy, rX, rY, angle, startAngle, sweepAngle));
 
@@ -805,13 +804,13 @@ namespace Engine
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The unrotated rectangular bounds of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D DrawingBounds
             => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, rX, rY));
 

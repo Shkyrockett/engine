@@ -15,14 +15,14 @@ using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     public class AccumulatorPoint2D
         : IFormattable
     {
@@ -70,34 +70,34 @@ namespace Engine
         /// X component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double TotalDistance { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Previous { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(X) < Epsilon

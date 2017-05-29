@@ -18,7 +18,7 @@ namespace Engine
     /// </summary>
     /// <structure>Engine.Geometry.Intersection</structure>
     /// <remarks></remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Intersectionx))]
     public class Intersectionx

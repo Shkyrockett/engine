@@ -20,7 +20,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    //[Serializable]
+    //[DataContract, Serializable]
     public class VectorMap
         : ICollection<GraphicItem>
     {
@@ -80,25 +80,25 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlAttribute, SoapAttribute]
+        //[DataMember, XmlAttribute, SoapAttribute]
         public double Zoom { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlAttribute, SoapAttribute]
+        //[DataMember, XmlAttribute, SoapAttribute]
         public Point2D Pan { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D VisibleBounds { get; set; }
 
         /// <summary>
@@ -116,19 +116,19 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         public List<GraphicItem> SelectedItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         public List<GraphicItem> RubberbandItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => Items.Count;
 

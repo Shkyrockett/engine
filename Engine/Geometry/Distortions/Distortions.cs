@@ -125,6 +125,8 @@ namespace Engine
         /// <param name="fulcrum"></param>
         /// <param name="strength"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch(Point2D point, Point2D fulcrum, double strength = OneHalf)
         {
@@ -276,6 +278,8 @@ namespace Engine
         /// <param name="fulcrum"></param>
         /// <param name="degree"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Swirl(Point2D point, Point2D fulcrum, double degree = OneHalf)
         {
@@ -297,6 +301,8 @@ namespace Engine
         /// <param name="fulcrum"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D TimeWarp(Point2D point, Point2D fulcrum, double factor = 10d)
         {
@@ -317,6 +323,8 @@ namespace Engine
         /// <param name="fulcrum"></param>
         /// <param name="nWave"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Water(Point2D point, Point2D fulcrum, double nWave = 1)
         {
@@ -337,6 +345,8 @@ namespace Engine
         /// <param name="distance">Distance between points on the new path.</param>
         /// <param name="epsilon"></param>
         /// <returns>List of equally-spaced points on the path.</returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = Epsilon)
         {
@@ -395,10 +405,12 @@ namespace Engine
         /// <param name="error">Maximum distance of a point to a line. Low values (~2-4) work well for mouse/touchscreen data.</param>
         /// <returns>A new list containing only the points needed to approximate the curve.</returns>
         /// <remarks>
+        /// </remarks>
+        /// <acknowledgment>
         /// The image says it better than I could ever describe: http://upload.wikimedia.org/wikipedia/commons/3/30/Douglas-Peucker_animated.gif
         /// The Wiki article: http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
         /// Based on:  http://www.codeproject.com/Articles/18936/A-Csharp-Implementation-of-Douglas-Peucker-Line-Ap
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RamerDouglasPeukerReduce(List<Point2D> points, double error = 4)
         {
@@ -424,6 +436,8 @@ namespace Engine
         /// <param name="first"></param>
         /// <param name="last"></param>
         /// <param name="keepIndex"></param>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void RecursiveRamerDouglasPeukerReduce(List<Point2D> pts, double error, int first, int last, ref List<int> keepIndex)
         {
@@ -461,6 +475,8 @@ namespace Engine
         /// </summary>
         /// <param name="points">Initial list of points.</param>
         /// <returns>Either points (if no duplicates were found), or a new list containing points with duplicates removed.</returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RemoveDuplicates(List<Point2D> points)
         {
@@ -506,6 +522,8 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Contour AddPointsToSides(Contour contour)
         {
@@ -532,9 +550,10 @@ namespace Engine
         /// <param name="u"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Point2D Bilinear(Point2D[] point, double u, double v)
         {
@@ -556,9 +575,10 @@ namespace Engine
         /// <param name="u"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Point2D Perspective(Point2D[] points, (double a, double b, double d, double e, double g, double h) c, double u, double v)
         {
@@ -572,7 +592,10 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        /// <remarks> https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double a, double b, double d, double e, double g, double h) SolvePerspective(Point2D[] points)
         {

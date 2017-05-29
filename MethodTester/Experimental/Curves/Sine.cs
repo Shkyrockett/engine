@@ -16,7 +16,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName(nameof(Sine))]
     public class Sine

@@ -6,9 +6,9 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> https://github.com/burningmime/curves </remarks>
+// <remarks>https://github.com/burningmime/curves</remarks>
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// Point at which to sample the spline.

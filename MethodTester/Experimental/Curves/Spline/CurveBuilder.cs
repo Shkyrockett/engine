@@ -6,7 +6,7 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> https://github.com/burningmime/curves </remarks>
+// <remarks>https://github.com/burningmime/curves</remarks>
 
 using System;
 using System.Collections;
@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// This is a version of <see cref="CurveFit"/> that works on partial curves so that a spline can be built in "real-time"

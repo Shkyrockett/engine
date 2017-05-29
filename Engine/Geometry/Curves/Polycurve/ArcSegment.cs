@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
@@ -20,7 +21,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     public class ArcSegment
         : CurveSegment
     {
@@ -110,8 +111,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement]
-        //[Browsable(true)]
+        [DataMember, XmlElement, SoapElement]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
         public override Point2D? Start
@@ -127,13 +128,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(EllipticalArc) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -177,7 +178,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("rx")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The first radius of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -198,7 +199,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("ry")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The second radius of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -218,14 +219,14 @@ namespace Engine
         /// Gets or sets the Angle of the elliptical arc.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(AngleConverter))]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double Angle
         {
@@ -262,22 +263,22 @@ namespace Engine
         /// <summary>
         /// Gets the Cosine of the angle of rotation.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double CosAngle
             => (double)CachingProperty(() => Cos(angle));
 
         /// <summary>
         /// Gets the Sine of the angle of rotation.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double SinAngle
             => (double)CachingProperty(() => Sin(angle));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The start angle of the elliptical arc.")]
@@ -290,7 +291,7 @@ namespace Engine
         /// <summary>
         /// Gets the Polar corrected start angle of the <see cref="Ellipse"/>.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarStartAngle
             => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle, rX, rY));
@@ -298,8 +299,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The sweep angle of the elliptical arc.")]
@@ -312,8 +313,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The end angle of the elliptical arc.")]
@@ -326,7 +327,7 @@ namespace Engine
         /// <summary>
         /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         public double PolarEndAngle
             => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle + SweepAngle, rX, rY));
@@ -334,7 +335,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public bool LargeArc
         {
             get { return largeArc; }
@@ -348,7 +349,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public bool Sweep
         {
             get { return sweep; }
@@ -362,7 +363,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd
         {
             get { return Start; }
@@ -376,7 +377,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement]
+        [DataMember, XmlElement, SoapElement]
         public override Point2D? End
         {
             get { return end; }
@@ -390,15 +391,15 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override List<Point2D> Grips
             => new List<Point2D> { Start.Value, End.Value };
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public override Rectangle2D Bounds
@@ -407,7 +408,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
             => (double)CachingProperty(() => ToEllipticalArc().Perimeter);
 

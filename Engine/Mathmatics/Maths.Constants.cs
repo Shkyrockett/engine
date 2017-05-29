@@ -154,6 +154,9 @@ namespace Engine
         /// Three quarter tau, or one and a half pi are just too long and awkward.
         /// Randal Munro's joke "compromise" works well enough for a name: http://xkcd.com/1292/
         /// </remarks>
+        /// <acknowledgment>
+        /// Randal Munro http://xkcd.com/1292/ 
+        /// </acknowledgment>
         public const double Pau = 1.5d * PI; // 4.7123889803846898576939650749193d;
 
         /// <summary>
@@ -615,7 +618,10 @@ namespace Engine
         /// <summary>
         /// Gauss abscissa table
         /// </summary>
-        /// <remarks>https://code.google.com/archive/p/degrafa/source/default/source</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://code.google.com/archive/p/degrafa/source/default/source
+        /// </acknowledgment>
         public static List<double> abscissa = new List<double>
             {
                 // N=2
@@ -665,7 +671,10 @@ namespace Engine
         /// <summary>
         /// Gauss weight table
         /// </summary>
-        /// <remarks>https://code.google.com/archive/p/degrafa/source/default/source</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://code.google.com/archive/p/degrafa/source/default/source
+        /// </acknowledgment>
         public static List<double> weight = new List<double>
             {
                 // N=2

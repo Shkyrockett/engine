@@ -17,16 +17,16 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// Represents a vector in 3D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Vector3D>))]
+    [TypeConverter(typeof(StructConverter<Vector3D>))]
     public struct Vector3D
         : IVector<Vector3D>
     {
@@ -125,27 +125,27 @@ namespace Engine
         /// First Point of a 3D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 3D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Third Component of a 3D Vector
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double K { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Vector3D"/> is empty.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(I) < Epsilon
@@ -155,10 +155,26 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Magnitude
-            => Sqrt(I * I + J * J + K * K);
+            => Measurements.VectorMagnitude(I, J, K);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double Length
+            => Measurements.VectorMagnitude(I, J, K);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double LengthSquared
+            => Measurements.VectorMagnitudeSquared(I, J, K);
 
         #endregion
 

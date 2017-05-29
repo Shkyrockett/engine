@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -20,7 +20,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(CircularArc))]
     [XmlType(TypeName = "arc-Circular")]
@@ -143,13 +143,13 @@ namespace Engine
         /// <summary>
         /// Gets or sets the location of the center point of the circular arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The location of the center point of the circular arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
@@ -167,12 +167,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the center of the Arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Elements")]
         [Description("The center location of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
@@ -190,8 +190,8 @@ namespace Engine
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the starting angle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
@@ -200,8 +200,8 @@ namespace Engine
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the ending angle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
@@ -271,12 +271,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the start angle of the Arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The start angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        //[TypeConverter(typeof(AngleConverter))]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngle
         {
@@ -315,12 +315,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the sweep angle of the Arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The sweep angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        //[TypeConverter(typeof(AngleConverter))]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngle
         {
@@ -359,12 +359,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the Arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        //[TypeConverter(typeof(AngleConverter))]
+        [TypeConverter(typeof(AngleConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngle
         {
@@ -381,7 +381,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the end angle of the Arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         [GeometryAngleDegreesAttribute]
         [Category("Clipping")]
@@ -404,7 +404,7 @@ namespace Engine
         /// Gets the arc length of the circular arc.
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The arc length of the circular arc.")]
         public double ArcLength
@@ -413,7 +413,7 @@ namespace Engine
         /// <summary>
         /// Gets the length of the perimeter of the circular arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The length of the perimeter of the circular arc.")]
         public override double Perimeter
@@ -422,7 +422,7 @@ namespace Engine
         /// <summary>
         /// Gets the area of the circular sector contained by the arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The area of the circular sector contained by the arc.")]
         public override double Area
@@ -431,8 +431,8 @@ namespace Engine
         /// <summary>
         /// Gets the angles of the extreme points of the circle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -443,8 +443,8 @@ namespace Engine
         /// <summary>
         /// Get the points of the Cartesian extremes of the circle.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
-        //[Browsable(true)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
         [Category("Properties")]
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -455,7 +455,7 @@ namespace Engine
         /// <summary>
         /// Gets the axis aligned bounding box of the circular arc.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The axis aligned bounding box of the circular arc.")]
         public override Rectangle2D Bounds
@@ -464,7 +464,7 @@ namespace Engine
         /// <summary>
         /// Gets the axis aligned bounding box of the complete circle that the arc is a segment of.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The axis aligned bounding box of the complete circle that the arc is a segment of.")]
         public Rectangle2D DrawingBounds

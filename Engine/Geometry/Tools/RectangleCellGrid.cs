@@ -12,7 +12,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 //using System.Drawing;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -21,7 +21,7 @@ namespace Engine
     /// <summary>
     /// <see cref="RectangleCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     //[DisplayName(nameof(RectangleCellGrid))]
     public class RectangleCellGrid
@@ -122,7 +122,7 @@ namespace Engine
         /// </summary>
         /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
         /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int this[Point2D location]
         {
             get
@@ -144,7 +144,7 @@ namespace Engine
         /// </summary>
         /// <param name="index">The index of a cell in the grid.</param>
         /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D this[int index]
         {
             get
@@ -162,7 +162,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public new Rectangle2D Bounds
         {
             get { return new Rectangle2D(x, y, h, v); }
@@ -181,7 +181,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public int X
         {
             get { return x; }
@@ -197,7 +197,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public int Y
         {
             get { return y; }
@@ -213,7 +213,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public int Width
         {
             get { return h; }
@@ -229,7 +229,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public int Height
         {
             get { return v; }
@@ -245,7 +245,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the number of cells the grid is to contain.
         /// </summary>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public int Count
         {
             get { return count; }
@@ -261,35 +261,35 @@ namespace Engine
         /// <summary>
         /// Gets the calculated optimum cell scale.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int CellScale
             => (int)CachingProperty(() => Min(h / Columns, v / Rows));
 
         /// <summary>
         /// Gets the calculated optimum <see cref="Size"/> height and width of any cell in the grid.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Size2D CellSize
             => (Size2D)CachingProperty(() => new Size2D(CellScale, CellScale));
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle"/> of the grid. 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D InnerBounds
             => (Rectangle2D)CachingProperty(() => new Rectangle2D(new Point2D(x, y), new Size2D(Columns * CellSize.Width, Rows * CellSize.Height)));
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Columns
             => (int)CachingProperty(() => (int)Ceiling(Sqrt((h * count) / v)));
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Rows
             => (int)CachingProperty(() => (int)Ceiling((double)count / Columns));
 

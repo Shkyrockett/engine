@@ -17,7 +17,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using static System.Math;
 using static Engine.Maths;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -27,9 +27,9 @@ namespace Engine
     /// 
     /// </summary>
     /// <remarks>http://referencesource.microsoft.com</remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(Matrix2DConverter))]
+    [TypeConverter(typeof(Matrix2DConverter))]
     public partial struct Matrix3x2D
         : IMatrix<Matrix3x2D, Vector2D>
     {

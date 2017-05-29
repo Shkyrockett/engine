@@ -17,7 +17,7 @@ namespace Engine
     /// http://csharphelper.com/blog/2015/08/animate-gears-with-unequal-sizes-in-c/
     /// http://csharphelper.com/blog/2015/08/draw-gears-in-c/
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName(nameof(Gear))]
     public class Gear

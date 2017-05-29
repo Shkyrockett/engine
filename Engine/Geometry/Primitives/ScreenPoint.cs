@@ -12,7 +12,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -20,6 +20,9 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
+    [DataContract, Serializable]
+    [GraphicsObject]
+    [DisplayName("Point")]
     public class ScreenPoint
         : Shape
     {
@@ -80,7 +83,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlAnyAttribute, SoapAttribute]
+        [DataMember, XmlAnyAttribute, SoapElement]
         public double X
         {
             get { return point.X; }
@@ -95,7 +98,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlAnyAttribute, SoapAttribute]
+        [DataMember, XmlAnyAttribute, SoapElement]
         public double Y
         {
             get { return point.Y; }
@@ -110,7 +113,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Point2D Point
@@ -127,7 +130,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
@@ -136,17 +139,17 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => new Rectangle2D(point, point));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Area

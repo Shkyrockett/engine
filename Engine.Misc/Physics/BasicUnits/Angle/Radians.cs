@@ -20,7 +20,7 @@ namespace Engine.Physics
     /// <summary>
     ///
     /// </summary>
-    //[Serializable]
+    //[DataContract, Serializable]
     //[DisplayName(nameof(Radians))]
     public struct Radians
         : IDirection, IFormattable

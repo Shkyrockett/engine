@@ -15,6 +15,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -24,6 +25,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
+    [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct LineDashStyle
         : IFormattable
@@ -90,13 +92,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         internal DashStyle DashStyle { get { return dashStyle; } set { dashStyle = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public float[] DashPattern
         {
             get { return dashPattern; }

@@ -25,7 +25,10 @@ namespace Engine
         /// <param name="m2x1"></param>
         /// <param name="m2x2"></param>
         /// <returns></returns>
-        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double m1x1, double m1x2,
@@ -46,7 +49,10 @@ namespace Engine
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
-        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c,
@@ -77,7 +83,10 @@ namespace Engine
         /// <param name="o"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(
             double a, double b, double c, double d,
@@ -218,7 +227,10 @@ namespace Engine
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
-        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c,
@@ -249,7 +261,10 @@ namespace Engine
         /// <param name="o"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        /// <remarks>https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseDeterminant(
             double a, double b, double c, double d,

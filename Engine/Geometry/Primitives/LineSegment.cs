@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 //using System.Diagnostics;
 using System.Linq;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 
@@ -24,7 +24,7 @@ namespace Engine
     /// </summary>
     /// <structure>Engine.Geometry.Segment2D</structure>
     /// <remarks></remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(LineSegment))]
     [XmlType(TypeName = "line-segment")]
@@ -157,7 +157,7 @@ namespace Engine
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
             get { return (Points as List<Point2D>)[index]; }
@@ -177,7 +177,7 @@ namespace Engine
         /// Get or sets an array of points representing a line segment.
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public List<Point2D> Points
         {
             get { return new List<Point2D> { A, B }; }
@@ -194,12 +194,12 @@ namespace Engine
         /// First Point of a line segment
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The first Point of a line segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D A
         {
             get { return new Point2D(aX, aY); }
@@ -217,7 +217,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("ax")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the first Point of a line segment.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -239,7 +239,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the first Point of a line segment.
         /// </summary>
         [XmlAttribute("ay")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the first Point of a line segment.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -261,12 +261,12 @@ namespace Engine
         /// Ending Point of a Line Segment
         /// </summary>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The ending Point of a Line Segment")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Point2DConverter))]
+        [TypeConverter(typeof(Point2DConverter))]
         public Point2D B
         {
             get { return new Point2D(bX, bY); }
@@ -285,7 +285,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("bx")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The X coordinate of the second Point of a line segment.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -307,7 +307,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the second Point of a line segment.
         /// </summary>
         [XmlAttribute("by")]
-        //[Browsable(true)]
+        [Browsable(true)]
         [Category("Elements")]
         [Description("The y coordinate of the second Point of a line segment.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -330,52 +330,52 @@ namespace Engine
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         /// <remarks></remarks>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
             => (double)CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double LengthSquared
             => (double)CachingProperty(() => Measurements.SquareDistance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double DotProduct
             => (double)CachingProperty(() => Maths.DotProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// "a.X * b.Y - b.X * a.Y" This would be the Z-component of (⟪a.X, a.Y, 0⟫ ⨯ ⟪b.X, b.Y, 0⟫) in 3-space.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double CrossProduct
             => (double)CachingProperty(() => Maths.CrossProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double ComplexProduct
             => (double)CachingProperty(() => Maths.ComplexProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
             get
@@ -389,7 +389,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
         {
             get
@@ -403,21 +403,21 @@ namespace Engine
         /// <summary>
         /// Return the point of the segment with lexicographically smallest coordinate.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D Min
             => (aX < bX) || (aX == bX && aY < bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
 
         /// <summary>
         /// Return the point of the segment with lexicographically largest coordinate.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D Max
             => (aX > bX) || (aX == bX && aY > bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => PolynomialDegree.Linear;
 
@@ -425,7 +425,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool Degenerate
             => aX == bX && aY == bY;
 
@@ -433,7 +433,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsHorizontal
             => aY == bY;
 
@@ -441,7 +441,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsVertical
             => aX == bX;
 

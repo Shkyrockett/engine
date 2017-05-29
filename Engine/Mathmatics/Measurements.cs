@@ -15,7 +15,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
-using Engine._Preview;
+using Engine;
 
 namespace Engine
 {
@@ -27,135 +27,190 @@ namespace Engine
         #region Distance Extension Method Overloads
 
         /// <summary>
-        /// 
+        /// Distance between two tuple points.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="p1">First point.</param>
+        /// <param name="p2">Second point.</param>
+        /// <returns>The distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Point2D point1, Point2D point2)
-            => Distance(point1.X, point1.Y, point2.X, point2.Y);
+        public static double Distance(this (double X, double Y) p1, (double X, double Y) p2)
+            => Distance(p1.X, p1.Y, p2.X, p2.Y);
 
         /// <summary>
-        /// 
+        /// Finds the distance between two points in 2-dimensional euclidean space.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="pointA">The first point</param>
+        /// <param name="pointB">The second Point</param>
+        /// <returns>Returns the length of the distance between the two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Vector2D point1, Vector2D point2)
-            => Distance(point1.I, point1.J, point2.I, point2.J);
+        public static double Distance(this Point2D pointA, Point2D pointB)
+            => Distance(pointA.X, pointA.Y, pointB.X, pointB.Y);
 
         /// <summary>
-        /// 
+        /// Finds the distance between two 2-dimensional vectors.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="vectorA">The first vector.</param>
+        /// <param name="vectorB">The second vector.</param>
+        /// <returns>Returns the length of the distance between the two vectors.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Point3D point1, Point3D point2)
-            => Distance(point1.X, point1.Y, point1.Z, point2.X, point2.Y, point2.Z);
+        public static double Distance(this Vector2D vectorA, Vector2D vectorB)
+            => Distance(vectorA.I, vectorA.J, vectorB.I, vectorB.J);
 
         /// <summary>
-        /// 
+        /// Finds the distance between two points in 3-dimensional euclidean space.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="pointA">The first point.</param>
+        /// <param name="pointB">The second point.</param>
+        /// <returns>Returns the length of the distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this Vector3D point1, Vector3D point2)
-            => Distance(point1.I, point1.J, point1.K, point2.I, point2.J, point2.K);
+        public static double Distance(this Point3D pointA, Point3D pointB)
+            => Distance(pointA.X, pointA.Y, pointA.Z, pointB.X, pointB.Y, pointB.Z);
 
         /// <summary>
-        /// 
+        /// Finds the distance between two 3-dimensional vectors.
         /// </summary>
-        /// <param name="segment"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="vectorA">The first vector.</param>
+        /// <param name="vectorB">The second vector.</param>
+        /// <returns>Returns the length of the distance between two vectors.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Vector3D vectorA, Vector3D vectorB)
+            => Distance(vectorA.I, vectorA.J, vectorA.K, vectorB.I, vectorB.J, vectorB.K);
+
+        /// <summary>
+        /// Finds the distance between a line segment and a point, but only if the point is in the space perpendicular to the line segment.
+        /// </summary>
+        /// <param name="segment">The line segment.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the length of the shortest distance from the point to the line segment, or <see cref="null"/> if the point is not within the area of perpendicularity to the line segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double? ConstrainedDistance(this LineSegment segment, Point2D point)
             => ConstrainedDistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the distance between a line segment and a point, but only if the point is in the space perpendicular to the line segment.
         /// </summary>
-        /// <param name="segment"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="segment">The line segment.</param>
+        /// <returns>Returns the length of the shortest distance from the point to the line segment, or <see cref="null"/> if the point is not within the area of perpendicularity to the line segment.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double? ConstrainedDistance(this Point2D point, LineSegment segment)
+            => ConstrainedDistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+
+        /// <summary>
+        /// Finds the shortest distance between a line segment and a point.
+        /// </summary>
+        /// <param name="segment">The line segment.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the length of the shortest between a line segment an a point.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this LineSegment segment, Point2D point)
             => DistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the shortest distance between a line segment and a point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="segment"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="segment">The line segment.</param>
+        /// <returns>Returns the length of the shortest between a line segment an a point.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Point2D point, LineSegment segment)
             => DistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the shortest distance between an infinite line and a point.
         /// </summary>
-        /// <param name="line"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="line">The line.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the length of the distance between a point and a line.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Line line, Point2D point)
             => DistanceLinePoint(line.Location.X, line.Location.Y, line.Direction.I, line.Direction.J, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the shortest distance between an infinite line and a point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="line"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="line">The line.</param>
+        /// <returns>Returns the length of the distance between a point and a line.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Point2D point, Line line)
             => DistanceLinePoint(line.Location.X, line.Location.Y, line.Direction.I, line.Direction.J, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the shortest distance between a point and a Bezier segment.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Bezier segment.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the length of the distance between a point and a Bezier segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this BezierSegmentX bezier, Point2D point)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// 
+        /// Finds the shortest distance between a point and a Bezier segment.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="bezier">The Bezier segment.</param>
+        /// <returns>Returns the length of the distance between a point and a Bezier segment.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Point2D point, BezierSegmentX bezier)
+            => DistanceTo(bezier.CurveX, bezier.CurveY, point);
+
+        /// <summary>
+        /// Finds the shortest distance between a point and a Quadratic Bezier curve.
+        /// </summary>
+        /// <param name="bezier">The Quadratic Bezier curve.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the length of the shortest distance between a point and a Quadratic Bezier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this QuadraticBezier bezier, Point2D point)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// 
+        /// Finds the shortest distance between a point and a Quadratic Bezier curve.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="bezier">The Quadratic Bezier curve.</param>
+        /// <returns>Returns the length of the shortest distance between a point and a Quadratic Bezier curve.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Point2D point, QuadraticBezier bezier)
+            => DistanceTo(bezier.CurveX, bezier.CurveY, point);
+
+        /// <summary>
+        /// Finds the shortest distance between a point and a Cubic Bezier curve.
+        /// </summary>
+        /// <param name="bezier">The Cubic Bezier curve.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the length of the shortest distance between a point and a Cubic Bezier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this CubicBezier bezier, Point2D point)
+            => DistanceTo(bezier.CurveX, bezier.CurveY, point);
+
+        /// <summary>
+        /// Finds the shortest distance between a point and a Cubic Bezier curve.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="bezier">The Cubic Bezier curve.</param>
+        /// <returns>Returns the length of the shortest distance between a point and a Cubic Bezier curve.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(this Point2D point, CubicBezier bezier)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         #endregion
@@ -163,91 +218,91 @@ namespace Engine
         #region SquareDistance Extension Method Overloads
 
         /// <summary>
-        /// 
+        /// Finds the square distance between two points.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="pointA">The first point.</param>
+        /// <param name="pointB">The second point.</param>
+        /// <returns>Returns the squared distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(this Point2D point1, Point2D point2)
-            => SquareDistance(point1.X, point1.Y, point2.X, point2.Y);
+        public static double SquareDistance(this Point2D pointA, Point2D pointB)
+            => SquareDistance(pointA.X, pointA.Y, pointB.X, pointB.Y);
 
         /// <summary>
-        /// 
+        /// Finds the square distance between two vectors.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="vectorA">The first vector.</param>
+        /// <param name="vectorB">The second vector.</param>
+        /// <returns>Returns the squared distance between two vectors.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(this Vector2D point1, Vector2D point2)
-            => SquareDistance(point1.I, point1.J, point2.I, point2.J);
+        public static double SquareDistance(this Vector2D vectorA, Vector2D vectorB)
+            => SquareDistance(vectorA.I, vectorA.J, vectorB.I, vectorB.J);
 
         #endregion
 
         #region Nearest Extension Method Overloads
 
         /// <summary>
-        /// 
+        /// Finds the nearest point on a point. A redundant method that always returns the first point.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public static (double X, double Y) NearestPoint(this Point2D p, Point2D point)
-            => (p.X, p.Y);
+        /// <param name="pointA">The first point.</param>
+        /// <param name="pointB">The second point.</param>
+        /// <returns>Returns the values of the first point.</returns>
+        public static (double X, double Y) NearestPoint(this Point2D pointA, Point2D pointB)
+            => (pointA.X, pointA.Y);
 
         /// <summary>
-        /// 
+        /// Finds the perpendicular nearest point on a line segment.
         /// </summary>
-        /// <param name="seg"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public static (double X, double Y) NearestPoint(this LineSegment seg, Point2D point)
-            => NearestPointOnLineSegment(seg.AX, seg.AY, seg.BX, seg.BY, point.X, point.Y);
+        /// <param name="segment">The line segment.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the nearest point on the line segment perpendicular to a point.</returns>
+        public static (double X, double Y) NearestPoint(this LineSegment segment, Point2D point)
+            => NearestPointOnLineSegment(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the perpendicular nearest point on a line segment.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="seg"></param>
-        /// <returns></returns>
-        public static (double X, double Y) NearestPoint(this Point2D point, LineSegment seg)
-            => NearestPointOnLineSegment(seg.AX, seg.AY, seg.BX, seg.BY, point.X, point.Y);
+        /// <param name="point">The point.</param>
+        /// <param name="segment">The line segment.</param>
+        /// <returns>Returns the nearest point on the line segment perpendicular to a point.</returns>
+        public static (double X, double Y) NearestPoint(this Point2D point, LineSegment segment)
+            => NearestPointOnLineSegment(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the nearest point on an elliptical arc.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public static (double X, double Y) NearestPoint(this EllipticalArc e, Point2D point)
-            => NearestPointOnEllipticalArc(e.X, e.Y, e.RX, e.RY, e.StartAngle, e.SweepAngle, point.X, point.Y);
+        /// <param name="ellipticalArc">The Elliptical Arc.</param>
+        /// <param name="point">The Point.</param>
+        /// <returns>Returns the nearest point on an elliptical arc to a point.</returns>
+        public static (double X, double Y) NearestPoint(this EllipticalArc ellipticalArc, Point2D point)
+            => NearestPointOnEllipticalArc(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// Finds the nearest t parameter on a Bezier curve segment to a point.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Bezier curve.</param>
+        /// <param name="point">The Point.</param>
+        /// <returns>Returns the t parameter that represents the nearest point on a Bezier curve segment.</returns>
         public static double NearestT(this BezierSegmentX bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// 
+        /// Finds the nearest t parameter on a Quadratic Bezier curve segment to a point.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Quadratic Bezier curve.</param>
+        /// <param name="point">The Point.</param>
+        /// <returns>Returns the t parameter that represents the nearest point on a Quadratic Bezier curve segment.</returns>
         public static double NearestT(this QuadraticBezier bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// 
+        /// Finds the nearest t parameter on a Cubic Bezier curve segment to a point.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Cubic Bezier curve.</param>
+        /// <param name="point">The Point.</param>
+        /// <returns>Returns the t parameter that represents the nearest point on a Cubic Bezier curve segment.</returns>
         public static double NearestT(this CubicBezier bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
 
@@ -256,14 +311,54 @@ namespace Engine
         #region Length Extension Method Overloads
 
         /// <summary>
-        /// 
+        /// Finds the length of a point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point</param>
+        /// <returns>Returns 0.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this ScreenPoint point)
             => 0;
+
+        /// <summary>
+        /// Finds the length or magnitude of a 2-dimensional vector.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns>Returns the length of a vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Vector2D vector)
+            => VectorMagnitude(vector.I, vector.J);
+
+        /// <summary>
+        /// Finds the length or magnitude of a 3-dimensional vector.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns>Returns the length of a vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Vector3D vector)
+            => VectorMagnitude(vector.I, vector.J, vector.K);
+
+        /// <summary>
+        /// Finds the length or magnitude of a 4-dimensional vector.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns>Returns the length of a vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this Vector4D vector)
+            => VectorMagnitude(vector.I, vector.J, vector.K, vector.L);
+
+        /// <summary>
+        /// Finds the length of a Quaternion.
+        /// </summary>
+        /// <param name="quaternion">The Quaternion.</param>
+        /// <returns>Returns the length of the Quaternion.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(this QuaternionD quaternion)
+            => QuaternionMagnitude(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
         /// <summary>
         /// Finds the length of a line segment.
@@ -277,50 +372,50 @@ namespace Engine
             => Distance(segment.AX, segment.AY, segment.BX, segment.BY);
 
         /// <summary>
-        /// 
+        /// Finds the length of a circular arc.
         /// </summary>
-        /// <param name="arc"></param>
-        /// <returns></returns>
+        /// <param name="arc">The arc.</param>
+        /// <returns>Returns the arc length of a circular arc.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this CircularArc arc)
             => ArcLength(arc.Radius, arc.SweepAngle);
 
         /// <summary>
-        /// 
+        /// Finds the length of the circumference of a circle.
         /// </summary>
-        /// <param name="circle"></param>
-        /// <returns></returns>
+        /// <param name="circle">The circle.</param>
+        /// <returns>Returns the distance around the circumference of a circle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this Circle circle)
             => CircleCircumference(circle.Radius);
 
         /// <summary>
-        /// 
+        /// Finds the length of an elliptical arc segment.
         /// </summary>
-        /// <param name="ellipse"></param>
-        /// <returns></returns>
+        /// <param name="ellipticalArc">The Elliptical Arc.</param>
+        /// <returns>Returns the arc length of the elliptical arc segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this EllipticalArc ellipse)
-            => EllipticalArcPerimeter(ellipse.StartPoint.X, ellipse.StartPoint.Y, ellipse.EndPoint.X, ellipse.EndPoint.Y, ellipse.StartAngle, ellipse.EndAngle);
+        public static double Length(this EllipticalArc ellipticalArc)
+            => EllipticalArcLength(ellipticalArc.StartPoint.X, ellipticalArc.StartPoint.Y, ellipticalArc.EndPoint.X, ellipticalArc.EndPoint.Y, ellipticalArc.StartAngle, ellipticalArc.EndAngle);
 
         /// <summary>
-        /// 
+        /// Finds the approximate length of the perimeter of an elliptical arc.
         /// </summary>
-        /// <param name="ellipse"></param>
-        /// <returns></returns>
+        /// <param name="ellipse">The ellipse.</param>
+        /// <returns>Returns the length of the circumference of the perimeter of the ellipse.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this Ellipse ellipse)
             => EllipsePerimeter(ellipse.RX, ellipse.RY);
 
         /// <summary>
-        /// 
+        /// Finds the approximate length of a Bezier segment.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Bezier segment.</param>
+        /// <returns>Returns the approximate length of the Bezier segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this BezierSegmentX bezier)
@@ -341,134 +436,202 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Finds the approximate length of a Quadratic curve.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Quadratic Bezier curve.</param>
+        /// <returns>Returns the approximate length of a Quadratic Bezier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this QuadraticBezier bezier)
             => QuadraticBezierArcLengthByIntegral(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY);
 
         /// <summary>
-        /// 
+        /// Finds the approximate length of a Cubic Bezier curve.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Cubic Bezier curve.</param>
+        /// <returns>Returns the approximate length of a Cubic Bezier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this CubicBezier bezier)
             => CubicBezierArcLength(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY, bezier.DX, bezier.DY);
 
+        #endregion
+
+        #region Length Squared Extension Method Overloads
+
         /// <summary>
-        /// 
+        /// Finds the square length or magnitude of a 2-dimensional vector.
         /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
+        /// <param name="vector">The vector.</param>
+        /// <returns>Returns the square length of a vector.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this QuaternionD quaternion)
-            => Sqrt(LengthSquared(quaternion));
+        public static double LengthSquared(this Vector2D vector)
+            => VectorMagnitudeSquared(vector.I, vector.J);
+
+        /// <summary>
+        /// Finds the square length or magnitude of a 3-dimensional vector.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns>Returns the square length of a vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double LengthSquared(this Vector3D vector)
+            => VectorMagnitudeSquared(vector.I, vector.J, vector.K);
+
+        /// <summary>
+        /// Finds the square length or magnitude of a 4-dimensional vector.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns>Returns the square length of a vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double LengthSquared(this Vector4D vector)
+            => VectorMagnitudeSquared(vector.I, vector.J, vector.K, vector.L);
+
+        /// <summary>
+        /// Finds the square distance of the length of a Quaternion.
+        /// </summary>
+        /// <param name="quaternion">The Quaternion.</param>
+        /// <returns>Returns the length of a Quaternion.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double LengthSquared(this QuaternionD quaternion)
+            => QuaternionNormal(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
+
+        /// <summary>
+        /// Finds the square length of a line segment.
+        /// </summary>
+        /// <param name="segment">The line segment.</param>
+        /// <returns>Returns the square length of the distance between two points of a line segment.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double LengthSquared(this LineSegment segment)
+            => SquareDistance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
 
         #endregion
 
         #region Bounds Extension Method Overloads
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a line segment.
         /// </summary>
-        /// <param name="segment"></param>
-        /// <returns></returns>
+        /// <param name="segment">The line segment.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the line segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this LineSegment segment)
             => LineSegmentBounds(segment.A, segment.B);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a circle.
         /// </summary>
-        /// <param name="circle"></param>
-        /// <returns></returns>
+        /// <param name="circle">The circle.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the circle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this Circle circle)
             => CircleBounds(circle.X, circle.Y, circle.Radius);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a circular arc.
         /// </summary>
-        /// <param name="arc"></param>
-        /// <returns></returns>
+        /// <param name="arc">The circular arc.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the circular arc.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this CircularArc arc)
             => CircularArcBounds(arc.X, arc.Y, arc.Radius, 0, arc.StartAngle, arc.SweepAngle);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses an ellipse.
         /// </summary>
-        /// <param name="ellipse"></param>
-        /// <returns></returns>
+        /// <param name="ellipse">The Ellipse.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the ellipse.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this Ellipse ellipse)
             => EllipseBounds(ellipse.X, ellipse.Y, ellipse.RX, ellipse.RY, ellipse.Angle);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses an elliptical arc.
         /// </summary>
-        /// <param name="arc"></param>
-        /// <returns></returns>
+        /// <param name="arc">The elliptical arc.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the elliptical arc.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this EllipticalArc arc)
             => EllipticalArcBounds(arc.X, arc.Y, arc.RX, arc.RY, arc.Angle, arc.StartAngle, arc.SweepAngle);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a polygon contour.
         /// </summary>
-        /// <param name="poly"></param>
-        /// <returns></returns>
+        /// <param name="contour">The polygon contour.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Bounds(this Contour poly)
-            => PolygonBounds(poly.Points);
+        public static Rectangle2D Bounds(this Contour contour)
+            => PolygonBounds(contour.Points);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a polyline.
         /// </summary>
-        /// <param name="poly"></param>
-        /// <returns></returns>
+        /// <param name="polyline">The Polyline.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the polyline.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Bounds(this Polyline poly)
-            => PolygonBounds(poly.Points);
+        public static Rectangle2D Bounds(this Polyline polyline)
+            => PolygonBounds(polyline.Points);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Bezier curve segment.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Bezier curve segment.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Bezier curve segment.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D Bounds(this BezierSegmentX bezier)
+        {
+            switch (bezier.Degree)
+            {
+                case PolynomialDegree.Constant:
+                    return Rectangle2D.Empty;
+                case PolynomialDegree.Linear:
+                    return LineSegmentBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y);
+                case PolynomialDegree.Quadratic:
+                    return QuadraticBezierBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y, bezier[2].X, bezier[2].Y);
+                case PolynomialDegree.Cubic:
+                    return CubicBezierBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y, bezier[2].X, bezier[2].Y, bezier[3].X, bezier[3].Y);
+                default:
+                    return Rectangle2D.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Quadratic Bezier curve.
+        /// </summary>
+        /// <param name="bezier">The Quadratic Bezier curve.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Quadratic Bezier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this QuadraticBezier bezier)
             => QuadraticBezierBounds(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Cubic Bezier curve.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The Cubic Bezier curve.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Cubic Bezier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this CubicBezier bezier)
             => CubicBezierBounds(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY, bezier.DX, bezier.DY);
 
         /// <summary>
-        /// 
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Polycurve contour path.
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">The polycurve contour path.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Polycurve contour path.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this PolycurveContour path)
@@ -479,80 +642,80 @@ namespace Engine
         #region Area Extension Method Overloads
 
         /// <summary>
-        /// 
+        /// Finds the area of a triangle.
         /// </summary>
-        /// <param name="triangle"></param>
-        /// <returns></returns>
+        /// <param name="triangle">The triangle.</param>
+        /// <returns>Returns the area of the triangle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Area(this Triangle triangle)
             => Abs(SignedTriangleArea(triangle.A.X, triangle.A.Y, triangle.B.X, triangle.B.Y, triangle.C.X, triangle.C.Y));
 
         /// <summary>
-        /// 
+        /// Finds the area of a rectangle.
         /// </summary>
-        /// <param name="rectangle"></param>
-        /// <returns></returns>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>Returns the area of the rectangle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Area(this Rectangle2D rectangle)
             => (rectangle.Height == rectangle.Width) ? SquareArea(rectangle.Width) : RectangleArea(rectangle.Width, rectangle.Height);
 
         /// <summary>
-        /// 
+        /// Finds the area of a polyline.
         /// </summary>
-        /// <param name="poly"></param>
-        /// <returns></returns>
+        /// <param name="polyline">The Polyline.</param>
+        /// <returns>Returns the area of the polyline.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Area(this Polyline poly)
-            => Abs(SignedPolygonArea(poly.Points));
+        public static double Area(this Polyline polyline)
+            => Abs(SignedPolygonArea(polyline.Points));
 
         /// <summary>
-        /// 
+        /// Finds the area of a polygon contour.
         /// </summary>
-        /// <param name="poly"></param>
-        /// <returns></returns>
+        /// <param name="contour">The polygon contour.</param>
+        /// <returns>Returns the area of the polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Area(this Contour poly)
-            => Abs(SignedPolygonArea(poly.Points));
+        public static double Area(this Contour contour)
+            => Abs(SignedPolygonArea(contour.Points));
 
         /// <summary>
-        /// 
+        /// Finds the area of a circular arc.
         /// </summary>
-        /// <param name="arc"></param>
-        /// <returns></returns>
+        /// <param name="arc">The circular arc.</param>
+        /// <returns>Returns the area of a circular arc.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Area(this CircularArc arc)
             => CircularArcSectorArea(arc.Radius, arc.SweepAngle);
 
         /// <summary>
-        /// 
+        /// Finds the area of a circle.
         /// </summary>
-        /// <param name="circle"></param>
-        /// <returns></returns>
+        /// <param name="circle">The circle.</param>
+        /// <returns>Returns the area of the circle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Area(this Circle circle)
             => CircleArea(circle.Radius);
 
         /// <summary>
-        /// 
+        /// Finds the area of an elliptical arc.
         /// </summary>
-        /// <param name="arc"></param>
-        /// <returns></returns>
+        /// <param name="arc">The elliptical arc.</param>
+        /// <returns>Returns the area of a circular arc.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Area(this EllipticalArc arc)
             => EllipticalArcSectorArea(arc.RX, arc.RY, arc.StartAngle, arc.SweepAngle);
 
         /// <summary>
-        /// 
+        /// Finds the area of an ellipse.
         /// </summary>
-        /// <param name="ellipse"></param>
-        /// <returns></returns>
+        /// <param name="ellipse">The ellipse.</param>
+        /// <returns>Returns the area of the ellipse.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Area(this Ellipse ellipse)
@@ -563,24 +726,13 @@ namespace Engine
         #region Distance Methods
 
         /// <summary>
-        /// Distance between two tuple points.
-        /// </summary>
-        /// <param name="p1">First point.</param>
-        /// <param name="p2">Second point.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(this (double X, double Y) p1, (double X, double Y) p2)
-            => Distance(p1.X, p1.Y, p2.X, p2.Y);
-
-        /// <summary>
-        /// Distance between two points.
+        /// Calculates the distance between two points in 2-dimensional euclidean space.
         /// </summary>
         /// <param name="x1">First X component.</param>
         /// <param name="y1">First Y component.</param>
         /// <param name="x2">Second X component.</param>
         /// <param name="y2">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
+        /// <returns>Returns the distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(
@@ -589,7 +741,7 @@ namespace Engine
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 
         /// <summary>
-        /// Distance between two points.
+        /// Calculates the distance between two points in 3-dimensional euclidean space.
         /// </summary>
         /// <param name="x1">First X component.</param>
         /// <param name="y1">First Y component.</param>
@@ -597,7 +749,7 @@ namespace Engine
         /// <param name="x2">Second X component.</param>
         /// <param name="y2">Second Y component.</param>
         /// <param name="z2">Second Z component.</param>
-        /// <returns>The distance between two points.</returns>
+        /// <returns>Returns the distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(
@@ -606,7 +758,7 @@ namespace Engine
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
 
         /// <summary>
-        /// Distance between two points.
+        /// Calculates the distance between two points in 4-dimensional space.
         /// </summary>
         /// <param name="x1">First X component.</param>
         /// <param name="y1">First Y component.</param>
@@ -616,7 +768,7 @@ namespace Engine
         /// <param name="y2">Second Y component.</param>
         /// <param name="z2">Second Z component.</param>
         /// <param name="w2">Second W component.</param>
-        /// <returns>The distance between two points.</returns>
+        /// <returns>Returns the distance between two points.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(
@@ -625,15 +777,15 @@ namespace Engine
             => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1) + (w2 - w1) * (w2 - w1));
 
         /// <summary>
-        /// 
+        /// Calculates the distance between a point and a line segment, constrained to the area perpendicular to the line segment.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="aX">The x-component of the first point of the line segment.</param>
+        /// <param name="aY">The y-component of the first point of the line segment.</param>
+        /// <param name="bX">The x-component of the second point of the line segment.</param>
+        /// <param name="bY">The y-component of the second point of the line segment.</param>
+        /// <param name="pX">The x-component of the point.</param>
+        /// <param name="pY">The y-component of the point.</param>
+        /// <returns>Returns the distance to the line segment or null if the point is not in the area of perpendicularity.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double? ConstrainedDistanceLineSegmentPoint(
@@ -666,19 +818,20 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Calculates the distance between a point and a line.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
-        /// <remarks>
+        /// <param name="aX">The x-component of the first point on the line.</param>
+        /// <param name="aY">The y-component of the first point on the line.</param>
+        /// <param name="bX">The x-component of the second point on the line.</param>
+        /// <param name="bY">The y-component of the second point on the line.</param>
+        /// <param name="pX">The x-component of the point.</param>
+        /// <param name="pY">The y-component of the point.</param>
+        /// <returns>Returns the shortest distance to the line from the point.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// From answer at: http://stackoverflow.com/a/2255848
         /// formula here: http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DistanceLinePoint(
@@ -702,15 +855,15 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Calculates the distance between a point and a line segment.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="aX">The x-component of the first point of the line segment.</param>
+        /// <param name="aY">The y-component of the first point of the line segment.</param>
+        /// <param name="bX">The x-component of the second point of the line segment.</param>
+        /// <param name="bY">The y-component of the second point of the line segment.</param>
+        /// <param name="pX">The x-component of the point.</param>
+        /// <param name="pY">The y-component of the point.</param>
+        /// <returns>Returns the distance between the line segment and the point.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DistanceLineSegmentPoint(
@@ -747,16 +900,65 @@ namespace Engine
 
         #endregion
 
-        #region SquareDistance Methods
+        #region Square Distance Methods
 
         /// <summary>
-        /// The square of the distance between two points.
+        /// Calculates the Magnitude or squared length of a vector.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <returns>Returns the squared magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j)
+            => i * i + j * j;
+
+        /// <summary>
+        /// Calculates the Magnitude or squared length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <param name="k">The k parameter.</param>
+        /// <returns>Returns the squared magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j, double k)
+            => i * i + j * j + k * k;
+
+        /// <summary>
+        /// Calculates the Magnitude or squared length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <param name="k">The k parameter.</param>
+        /// <param name="l">The l parameter.</param>
+        /// <returns>Returns the squared magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j, double k, double l)
+            => i * i + j * j + k * k + l * l;
+
+        /// <summary>
+        /// Calculates the normal or squared length of a Quaternion.
+        /// </summary>
+        /// <param name="x">The x component of the Quaternion.</param>
+        /// <param name="y">The y component of the Quaternion.</param>
+        /// <param name="z">The z component of the Quaternion.</param>
+        /// <param name="w">The w component of the Quaternion.</param>
+        /// <returns>Returns the normal of the Quaternion.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double QuaternionNormal(double x, double y, double z, double w)
+            => ((((x * x) + (y * y)) + (z * z)) + (w * w));
+
+        /// <summary>
+        /// Calculates the square of the distance between two 2-dimensional euclidean points.
+        /// </summary>
+        /// <param name="x1">The x component of the first point.</param>
+        /// <param name="y1">The y component of the first point.</param>
+        /// <param name="x2">The x component of the second point.</param>
+        /// <param name="y2">The y component of the second point.</param>
+        /// <returns>Returns the squared length of the distance between two points</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(
@@ -765,15 +967,15 @@ namespace Engine
             => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
 
         /// <summary>
-        /// The square of the distance between two points.
+        /// Calculates the square of the distance between two 3-dimensional euclidean points.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x component of the first point.</param>
+        /// <param name="y1">The y component of the first point.</param>
+        /// <param name="z1">The z component of the first point.</param>
+        /// <param name="x2">The x component of the second point.</param>
+        /// <param name="y2">The y component of the second point.</param>
+        /// <param name="z2">The z component of the second point.</param>
+        /// <returns>Returns the squared length of the distance between two points</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(
@@ -782,17 +984,17 @@ namespace Engine
             => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1);
 
         /// <summary>
-        /// The square of the distance between two points.
+        /// Calculates the square of the distance between two 4-dimensional points.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="w1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="w2"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x component of the first point.</param>
+        /// <param name="y1">The y component of the first point.</param>
+        /// <param name="z1">The z component of the first point.</param>
+        /// <param name="w1">The w component of the first point.</param>
+        /// <param name="x2">The x component of the second point.</param>
+        /// <param name="y2">The y component of the second point.</param>
+        /// <param name="z2">The z component of the second point.</param>
+        /// <param name="w2">The w component of the second point.</param>
+        /// <returns>Returns the squared length of the distance between two points</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(
@@ -801,7 +1003,7 @@ namespace Engine
             => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1) + (w2 - z1) * (w2 - w1);
 
         /// <summary>
-        /// Find the square of the distance of a point from a line.
+        /// Calculates the square of the distance of a point from a line.
         /// </summary>
         /// <param name="lx2">The x component of the first point on the line.</param>
         /// <param name="ly2">The y component of the first point on the line.</param>
@@ -828,15 +1030,15 @@ namespace Engine
         #region Nearest Methods
 
         /// <summary>
-        /// 
+        /// Finds the nearest point on a line segment to a point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="aX">The x component of the first point on the line segment.</param>
+        /// <param name="aY">The y component of the first point on the line segment.</param>
+        /// <param name="bX">The x component of the second point on the line segment.</param>
+        /// <param name="bY">The y component of the second point on the line segment.</param>
+        /// <param name="pX">The x component of the point.</param>
+        /// <param name="pY">The y component of the point.</param>
+        /// <returns>Returns the nearest point on a line segment to a point.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) NearestPointOnLineSegment2(
@@ -865,16 +1067,19 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Finds the nearest point on a line segment to a point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
+        /// <param name="aX">The x component of the first point on the line segment.</param>
+        /// <param name="aY">The y component of the first point on the line segment.</param>
+        /// <param name="bX">The x component of the second point on the line segment.</param>
+        /// <param name="bY">The y component of the second point on the line segment.</param>
+        /// <param name="pX">The x component of the point.</param>
+        /// <param name="pY">The y component of the point.</param>
+        /// <returns>Returns the nearest point on a line segment to a point.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double X, double Y) NearestPointOnLineSegment(
@@ -904,20 +1109,21 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Finds the nearest point on an elliptical arc to a point.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="rX"></param>
-        /// <param name="rY"></param>
-        /// <param name="a0"></param>
-        /// <param name="a1"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
-        /// <remarks>
+        /// <param name="cX">The x-component of the center point of the ellipse.</param>
+        /// <param name="cY">The y-component of the center point of the ellipse.</param>
+        /// <param name="rX">The x radius of the ellipse.</param>
+        /// <param name="rY">The y radius of the ellipse.</param>
+        /// <param name="a0">The starting angle of the elliptical arc.</param>
+        /// <param name="a1">The ending angle of the elliptical arc.</param>
+        /// <param name="pX">The x-component of the point.</param>
+        /// <param name="pY">The y-component of the point.</param>
+        /// <returns>The nearest point on the elliptical arc to a point.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/36260793/algorithm-for-shortest-distance-from-a-point-to-an-elliptic-arc?rq=1
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) NearestPointOnEllipticalArc(
@@ -981,20 +1187,43 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Finds the nearest point on a Cubic Bezier curve.
         /// </summary>
-        /// <param name="p0X"></param>
-        /// <param name="p0Y"></param>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="p0X">The x-component of the starting point of the curve.</param>
+        /// <param name="p0Y">The y-component of the starting point of the curve.</param>
+        /// <param name="p1X">The x-component of the handle of the curve.</param>
+        /// <param name="p1Y">The y-component of the handle of the curve.</param>
+        /// <param name="p2X">The x-component of the ending point of the curve.</param>
+        /// <param name="p2Y">The y-component of the ending point of the curve.</param>
+        /// <param name="pX">The x-component of the point.</param>
+        /// <param name="pY">The y-component of the point.</param>
+        /// <returns>Returns the nearest point on the Quadratic Bezier curve to a point.</returns>
         //[DebuggerStepThrough]
+        [Obsolete(message: "Not yet implemented.")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static (double X, double Y)? NearestPointOnQuadraticBezier(
+            double p0Y, double p0X,
+            double p1X, double p1Y,
+            double p2X, double p2Y,
+            double pX, double pY)
+            => null;
+
+        /// <summary>
+        /// Finds the nearest point on a Cubic Bezier curve.
+        /// </summary>
+        /// <param name="p0X">The x-component of the starting point of the curve.</param>
+        /// <param name="p0Y">The y-component of the starting point of the curve.</param>
+        /// <param name="p1X">The x-component of the first handle of the curve.</param>
+        /// <param name="p1Y">The y-component of the first handle of the curve.</param>
+        /// <param name="p2X">The x-component of the second handle of the curve.</param>
+        /// <param name="p2Y">The y-component of the second handle of the curve.</param>
+        /// <param name="p3X">The x-component of the ending point of the curve.</param>
+        /// <param name="p3Y">The y-component of the ending point of the curve.</param>
+        /// <param name="pX">The x-component of the point.</param>
+        /// <param name="pY">The y-component of the point.</param>
+        /// <returns>Returns the nearest point on the Cubic Bezier curve to a point.</returns>
+        //[DebuggerStepThrough]
+        [Obsolete(message: "Not yet implemented.")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double X, double Y)? NearestPointOnCubicBezier(
             double p0X, double p0Y,
@@ -1004,87 +1233,119 @@ namespace Engine
             double pX, double pY)
             => null;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p0Y"></param>
-        /// <param name="p0X"></param>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y)? NearestPointOnQuadraticBezier(
-            double p0Y, double p0X,
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double pX, double pY)
-            => null;
-
         #endregion
 
         #region Length Methods
 
         /// <summary>
-        /// 
+        /// Calculates the magnitude or length of a vector.
         /// </summary>
-        /// <param name="r"></param>
-        /// <param name="sweepAngle"></param>
-        /// <returns></returns>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <returns>Returns the magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j)
+            => Sqrt(i * i + j * j);
+
+        /// <summary>
+        /// Calculates the magnitude or length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <param name="k">The k parameter of the vector.</param>
+        /// <returns>Returns the magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j, double k)
+            => Sqrt(i * i + j * j + k * k);
+
+        /// <summary>
+        /// Calculates the magnitude or length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <param name="k">The k parameter of the vector.</param>
+        /// <param name="l">The l parameter of the vector.</param>
+        /// <returns>Returns the magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j, double k, double l)
+            => Sqrt(i * i + j * j + k * k + l * l);
+
+        /// <summary>
+        /// Calculates the length or magnitude of a Quaternion.
+        /// </summary>
+        /// <param name="x">The x component of the Quaternion.</param>
+        /// <param name="y">The y component of the Quaternion.</param>
+        /// <param name="z">The z component of the Quaternion.</param>
+        /// <param name="w">The w component of the Quaternion.</param>
+        /// <returns>Returns the magnitude of the Quaternion.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double QuaternionMagnitude(double x, double y, double z, double w)
+            => Sqrt((((x * x) + (y * y)) + (z * z)) + (w * w));
+
+        /// <summary>
+        /// Calculates the arc length of a circular arc.
+        /// </summary>
+        /// <param name="r">The radius of the arc.</param>
+        /// <param name="sweepAngle">The sweep angle of the arc.</param>
+        /// <returns>Returns the arc length of the circular arc.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ArcLength(double r, double sweepAngle)
             => 2d * PI * r * -sweepAngle;
 
         /// <summary>
-        /// 
+        /// Calculates the length of the circumference of a circle.
         /// </summary>
-        /// <param name="r"></param>
-        /// <returns></returns>
+        /// <param name="r">The radius of the circle.</param>
+        /// <returns>Returns the length of the circumference of the circle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircleCircumference(double r)
             => 2d * r * PI;
 
         /// <summary>
-        /// 
+        /// Calculates the length of the perimeter of an ellipse.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks>
+        /// <param name="a">The a parameter, or x radius of the ellipse.</param>
+        /// <param name="b">The b parameter, or y radius of the ellipse.</param>
+        /// <returns>Returns the length of the perimeter of the ellipse.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipsePerimeter(double a, double b)
             => 4d * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
 
         /// <summary>
-        /// 
+        /// Calculates the arc length of an elliptical arc.
         /// </summary>
-        /// <param name="startX"></param>
-        /// <param name="startY"></param>
-        /// <param name="endX"></param>
-        /// <param name="endY"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="endAngle">Sweep Angle.</param>
-        /// <returns></returns>
-        /// <remarks>
+        /// <param name="startX">The x component of the start point of the elliptical arc.</param>
+        /// <param name="startY">The y component of the start point of the elliptical arc.</param>
+        /// <param name="endX">The x component of the end point of the elliptical arc.</param>
+        /// <param name="endY">The y component of the end point of the elliptical arc.</param>
+        /// <param name="startAngle">The start angle of the elliptical arc.</param>
+        /// <param name="endAngle">The end angle of the elliptical arc.</param>
+        /// <returns>Returns the arc length of the elliptical arc.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.iosrjournals.org/iosr-jm/papers/Vol3-issue2/B0320813.pdf
         /// http://mathforum.org/kb/servlet/JiveServlet/download/130-2391290-7852023-766514/PERIMETER%20OF%20THE%20ELLIPTICAL%20ARC%20A%20GEOMETRIC%20METHOD.pdf
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipticalArcPerimeter(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
+        public static double EllipticalArcLength(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
             => (/*ChordLength*/(Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY)))
             / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle))))
             * (startAngle - endAngle);
 
         /// <summary>
-        /// Closed-form solution to elliptic integral for arc length.
+        /// Calculates the closed-form solution to elliptic integral for arc length.
         /// </summary>
         /// <param name="ax">The starting x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="ay">The starting y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
@@ -1092,10 +1353,11 @@ namespace Engine
         /// <param name="by">The middle y-coordinate for the tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="cx">The closing x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="cy">The closing y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <returns></returns>
-        /// <remarks>
+        /// <returns>Returns the arc length of the Quadratic Bezier curve.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezierArcLengthByIntegral(
@@ -1122,18 +1384,21 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Calculates the arc length of a Cubic Bezier curve.
         /// </summary>
-        /// <param name="ax"></param>
-        /// <param name="ay"></param>
-        /// <param name="bx"></param>
-        /// <param name="by"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="dx"></param>
-        /// <param name="dy"></param>
-        /// <returns></returns>
-        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
+        /// <param name="ax">The starting x-coordinate for the <see cref="CubicBezier"/> curve.</param>
+        /// <param name="ay">The starting y-coordinate for the <see cref="CubicBezier"/> curve.</param>
+        /// <param name="bx">The first x-coordinate for the tangent control node for the <see cref="CubicBezier"/> curve.</param>
+        /// <param name="by">The first y-coordinate for the tangent control node for the <see cref="CubicBezier"/> curve.</param>
+        /// <param name="cx">The second x-coordinate for the tangent control node for the <see cref="CubicBezier"/> curve.</param>
+        /// <param name="cy">The second y-coordinate for the tangent control node for the <see cref="CubicBezier"/> curve.</param>
+        /// <param name="dx">The closing x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <param name="dy">The closing y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
+        /// <returns>Returns the arc length of the Cubic bezier curve.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://steve.hollasch.net/cgindex/curves/cbezarclen.html
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicBezierArcLength(
@@ -1192,16 +1457,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// Bezier Arc Length Function
+        /// Calculates the Bezier Arc Length.
         /// </summary>
-        /// <param name="t"></param>
+        /// <param name="t">The t parameter.</param>
         /// <param name="q1"></param>
         /// <param name="q2"></param>
         /// <param name="q3"></param>
         /// <param name="q4"></param>
         /// <param name="q5"></param>
         /// <returns></returns>
-        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://steve.hollasch.net/cgindex/curves/cbezarclen.html
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double CubicBezierArcLengthHelper(
@@ -1218,47 +1486,34 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Calculates the perimeter of a polygon contour.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// <param name="points">The points of the polygon contour.</param>
+        /// <returns>Returns the length of the perimeter of the polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this Point2D[] points)
+        public static double PolygonContourPerimeter(this Point2D[] points)
             => points.Length > 0d ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Length - 1]) : 0d;
 
         /// <summary>
-        /// 
+        /// Calculates the perimeter of a polygon contour.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="points">The points of the polygon contour.</param>
+        /// <returns>Returns the length of the perimeter of the polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this IEnumerable<Point2D> polygon)
-            => PolygonPerimeter(polygon as List<Point2D>);
+        public static double PolygonContourPerimeter(this IEnumerable<Point2D> points)
+            => PolygonContourPerimeter(points as List<Point2D>);
 
         /// <summary>
-        /// 
+        /// Calculates the perimeter of a polygon contour.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// <param name="points">The points of the polygon contour.</param>
+        /// <returns>Returns the length of the perimeter of the polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonPerimeter(this List<Point2D> points)
+        public static double PolygonContourPerimeter(this List<Point2D> points)
             => points.Count > 0d ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0d;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LengthSquared(this QuaternionD quaternion)
-            => ((((quaternion.X * quaternion.X)
-            + (quaternion.Y * quaternion.Y))
-            + (quaternion.Z * quaternion.Z))
-            + (quaternion.W * quaternion.W));
 
         #endregion
 
@@ -1334,8 +1589,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <returns>The close bounding box of a circular arc.</returns>
-        /// <returns>A Rectangle large enough to closely fit the circular arc inside.</returns>
+        /// <returns>A Rectangle large enough to closely fit the circular arc inside. The close bounding box of a circular arc.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D CircularArcBounds(
@@ -1387,11 +1641,12 @@ namespace Engine
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <returns>A Rectangle that is the size and location to envelop a rotated ellipse.</returns>
-        /// <remarks>
+        /// <returns>Returns a Rectangle that is the size and location to envelop a rotated ellipse.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipseBounds(
@@ -1427,12 +1682,13 @@ namespace Engine
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
         /// <returns>The close bounding box of a rotated elliptical arc.</returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Helpful hints on how this might be implemented came from:
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
         /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
         /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipticalArcBounds(
@@ -1611,11 +1867,13 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>
         /// This method has an error where if the end nodes are horizontal to each other, while the handles are also horizontal to each other the bounds are not correctly calculated.
+        /// </remarks>
+        /// <acknowledgment>
         /// Method created using the following resources.
         /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
         /// http://nishiohirokazu.blogspot.com/2009/06/how-to-calculate-bezier-curves-bounding.html
         /// http://jsfiddle.net/SalixAlba/QQnvm/4/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D CubicBezierBounds(
@@ -1703,10 +1961,11 @@ namespace Engine
         /// <param name="cx"></param>
         /// <param name="cy"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
         /// http://jsfiddle.net/SalixAlba/QQnvm/4/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D QuadraticBezierBounds(
@@ -1842,7 +2101,10 @@ namespace Engine
         /// Positive number if point is left, negative if point is right, 
         /// and 0 if points are collinear.
         /// </returns>
-        /// <remarks>From FarSeer Physics Engine.</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// From FarSeer Physics Engine. https://github.com/VelcroPhysics/VelcroPhysics
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)
@@ -1888,9 +2150,10 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://math.stackexchange.com/questions/114371/deriving-the-area-of-a-sector-of-an-ellipse?rq=1
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipticalArcSectorArea(double rX, double rY, double startAngle, double sweepAngle)
@@ -1956,7 +2219,10 @@ namespace Engine
         /// <summary>
         /// Finds the <see cref="Eccentricity"/> of the elliptical arc or rectangle.
         /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://en.wikipedia.org/wiki/Ellipse
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Eccentricity(double rX, double rY)
             => Sqrt(1 - ((rX / rY) * (rX / rY)));
@@ -1964,7 +2230,10 @@ namespace Engine
         /// <summary>
         /// Gets the Focus Radius of an <see cref="Ellipse"/>.
         /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Ellipse</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://en.wikipedia.org/wiki/Ellipse
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipseFocusRadius(double rX, double rY)
             => Sqrt((rX * rX) - (rY * rY));
@@ -1990,12 +2259,16 @@ namespace Engine
         }
 
         /// <summary>
-        /// Finds the shortest distance between a point and a line. See: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+        /// Finds the shortest distance between a point and a line.
         /// </summary>
         /// <param name="segment">The line segment.</param>
         /// <param name="p">The point to test.</param>
         /// <returns>The perpendicular distance to the line.</returns>
-        /// <remarks> Based on: https://github.com/burningmime/curves </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based on: https://github.com/burningmime/curves
+        /// See: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PerpendicularDistance(LineSegment segment, Point2D p)
         {
@@ -2078,10 +2351,11 @@ namespace Engine
         /// <param name="rY"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> EllipseExtremeAngles(double rX, double rY, double angle)
         {
@@ -2126,10 +2400,11 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> CircleExtremePoints(double x, double y, double radius)
             => new List<Point2D>
@@ -2149,10 +2424,11 @@ namespace Engine
         /// <param name="rY"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> EllipseExtremePoints(double x, double y, double rX, double rY, double angle)
             => EllipseExtremePoints(x, y, rX, rY, Cos(angle), Sin(angle));
@@ -2166,10 +2442,11 @@ namespace Engine
         /// <param name="rY"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> EllipseExtremePoints(double x, double y, double rX, double rY, double cosAngle, double sinAngle)
         {

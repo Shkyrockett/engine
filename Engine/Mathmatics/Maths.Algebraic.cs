@@ -34,7 +34,10 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/geometry/2D/intersections/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> LinearRoots(double a, double b, double epsilon = Epsilon)
@@ -49,7 +52,10 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/geometry/2D/intersections/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuadraticRoots(double a, double b, double c, double epsilon = Epsilon)
@@ -91,9 +97,10 @@ namespace Engine
         /// <param name="d">1</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
@@ -156,6 +163,9 @@ namespace Engine
         }
 
         /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
         /// ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
         /// This method computes complex and real roots for any quintic polynomial.
         /// It applies the Lin-Bairstow algorithm which iteratively solves for the 
@@ -163,12 +173,11 @@ namespace Engine
         /// The calculator is designed to solve for the roots of a quintic polynomial
         /// with the form: x⁵ + ax⁴ + bx³ + cx² + dx + e = 0
         /// ⁰¹²³⁴⁵⁶⁷⁸⁹
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>
+        /// </remarks>
+        /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// http://abecedarical.com/javascript/script_quartic.html
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
@@ -254,11 +263,12 @@ namespace Engine
         /// <param name="f"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// This is a Copy and paste port of the method found at:
         /// http://abecedarical.com/javascript/script_quintic.html
         /// There has been little attempt to fix it up and get it working correctly.
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
@@ -406,9 +416,10 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://fontforge.github.io/bezier.html
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) BezierCoefficients(double a, double b)
@@ -423,8 +434,10 @@ namespace Engine
         /// <param name="c"></param>
         /// <returns></returns>
         /// <remarks>
-        /// http://fontforge.github.io/bezier.html
         /// </remarks>
+        /// <acknowledgment>
+        /// http://fontforge.github.io/bezier.html
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) BezierCoefficients(double a, double b, double c)
@@ -440,10 +453,11 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// http://fontforge.github.io/bezier.html
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)

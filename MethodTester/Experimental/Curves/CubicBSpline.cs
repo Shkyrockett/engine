@@ -17,7 +17,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName("Cubic B Spline")]
     public class CubicBSpline

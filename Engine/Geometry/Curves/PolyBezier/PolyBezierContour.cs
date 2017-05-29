@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -24,7 +24,7 @@ namespace Engine
     /// A path shape item constructed with various BezierCurves.
     /// Based roughly on the SVG Path.
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [DisplayName("PolyBezier")]
     //[TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "polybeziercontour", Namespace = "http://www.w3.org/2000/svg")]
@@ -99,7 +99,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
         [TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -138,14 +138,14 @@ namespace Engine
         /// <summary>
         /// Gets a listing of all end nodes from the Figure.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public List<Point2D> Nodes
             => Items.Select(item => item.End.Value).ToList();
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
         public bool Closed
         {
@@ -156,7 +156,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
         {
             get
@@ -178,7 +178,7 @@ namespace Engine
         ///// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         //[EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         //public override double Perimeter
         //    => (double)CachingProperty(() => Items.Sum(p => p.Length));
 

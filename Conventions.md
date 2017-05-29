@@ -79,16 +79,16 @@ Code files should start with an XML copyright header like the following, to indi
 
 ### Attribution
 
-Methods found online should be attributed to their original source in a remarks section of the method's xml header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author. 
+Methods found online should be attributed to their original source in an acknowledgment section of the method's xml header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author. 
 
 ```c#
         /// <summary>
         /// 
         /// </summary>
         /// <param name="blah"></param>
-        /// <remarks>
+        /// <acknowledgment>
         ///     This method was found at: https://example.com/blah/
-        /// </remarks>
+        /// </acknowledgment>
         public static void DoSomething(bool blah)
         {
             Something done here...

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -18,7 +19,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     public class CubicBezierSegment
          : CurveSegment
     {
@@ -83,47 +84,47 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement]
+        [DataMember, XmlElement, SoapElement]
         public Point2D Handle1 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement]
+        [DataMember, XmlElement, SoapElement]
         public Point2D? Handle2 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd { get { return Handle2; } set { Handle2 = value; } }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlElement]
+        [DataMember, XmlElement, SoapElement]
         public override Point2D? End { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override List<Point2D> Grips
             => new List<Point2D> { Start.Value, Handle1, Handle2.Value, End.Value };
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => Measurements.CubicBezierBounds(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y);
 
@@ -131,7 +132,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
             => (double)CachingProperty(() => Measurements.CubicBezierArcLength(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y));
 

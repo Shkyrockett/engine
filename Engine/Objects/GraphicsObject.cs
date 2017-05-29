@@ -15,7 +15,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -73,7 +73,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the shape.")]
@@ -82,7 +82,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The perimeter length of the shape.")]
@@ -91,7 +91,7 @@ namespace Engine
         /// <summary>
         /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The bounding box of the shape.")]

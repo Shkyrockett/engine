@@ -128,14 +128,14 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [NotifyParentProperty(true)]
         public Pen ForePen { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [NotifyParentProperty(true)]
         public Brush ForeBrush
         {
@@ -146,14 +146,14 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [NotifyParentProperty(true)]
         public Pen BackPen { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[XmlIgnore, SoapIgnore]
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [NotifyParentProperty(true)]
         public Brush BackBrush
         {

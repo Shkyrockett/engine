@@ -9,7 +9,7 @@
 // <remarks></remarks>
 
 using Engine;
-using Engine._Preview;
+using Engine;
 using Engine.Imaging;
 using Engine.Physics;
 using Engine.Tweening;
@@ -2813,19 +2813,19 @@ namespace Editor
             vectorMap.Add(squareItem);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="vectorMap">The Map to draw on.</param>
-        public static void PlainOval(VectorMap vectorMap)
-        {
-            var OvalVertical = new Oval(new Point2D(200, 200), new Size2D(100, 200));
-            var ovalVerticalItem = new GraphicItem(OvalVertical, solidPurpleStyle)
-            {
-                Name = "Vertical Oval."
-            };
-            vectorMap.Add(ovalVerticalItem);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="vectorMap">The Map to draw on.</param>
+        //public static void PlainOval(VectorMap vectorMap)
+        //{
+        //    var OvalVertical = new Oval(new Point2D(200, 200), new Size2D(100, 200));
+        //    var ovalVerticalItem = new GraphicItem(OvalVertical, solidPurpleStyle)
+        //    {
+        //        Name = "Vertical Oval."
+        //    };
+        //    vectorMap.Add(ovalVerticalItem);
+        //}
 
         /// <summary>
         /// 

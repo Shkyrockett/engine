@@ -6,7 +6,7 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> Adapted from: https://github.com/burningmime/curves </remarks>
+// <remarks> Adapted from:https://github.com/burningmime/curves</remarks>
 
 using System.Runtime.CompilerServices;
 

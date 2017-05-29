@@ -23,7 +23,7 @@ namespace Engine
     /// <remarks>
     /// Class based on information found at: <seealso href="http://csharphelper.com/blog/2014/11/draw-a-colored-butterfly-curve-in-c/"/>. <br />
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Butterfly))]
     public class Butterfly

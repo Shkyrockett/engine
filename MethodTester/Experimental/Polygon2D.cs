@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// A complex polygon is represented by many contours (i.e. simple polygons).

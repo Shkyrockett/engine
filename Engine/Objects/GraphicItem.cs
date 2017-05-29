@@ -8,7 +8,9 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -16,6 +18,7 @@ namespace Engine
     /// <summary>
     /// Represents an object that can be displayed on screen.
     /// </summary>
+    [DataContract, Serializable]
     public class GraphicItem
     {
         #region Constructors
@@ -46,7 +49,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        //[XmlElement]
+        [DataMember, XmlElement, SoapElement]
         //[DisplayName(nameof(Name))]
         [Category("Properties")]
         [Description("The name of the item.")]
@@ -55,50 +58,50 @@ namespace Engine
         /// <summary>
         /// The item that gets displayed on screen.
         /// </summary>
-        //[Browsable(true)]
-        //[XmlElement(typeof(Circle))]
-        //[XmlElement(typeof(CircularArc))]
-        //[XmlElement(typeof(CircularSegment))]
-        //[XmlElement(typeof(Ellipse))]
-        //[XmlElement(typeof(EllipticalArc))]
-        //[XmlElement(typeof(BezierSegment))]
-        //[XmlElement(typeof(CubicBezier))]
-        //[XmlElement(typeof(QuadraticBezier))]
-        //[XmlElement(typeof(Line))]
-        //[XmlElement(typeof(Ray))]
-        //[XmlElement(typeof(LineSegment))]
-        //[XmlElement(typeof(Triangle))]
-        //[XmlElement(typeof(Contour))]
-        //[XmlElement(typeof(Polygon))]
-        //[XmlElement(typeof(Polyline))]
-        //[XmlElement(typeof(PolylineSet))]
-        //[XmlElement(typeof(Polycurve))]
-        //[XmlElement(typeof(PolycurveContour))]
-        //[XmlElement(typeof(Rectangle2D))]
-        //[XmlElement(typeof(RectangleCellGrid))]
-        //[XmlElement(typeof(RectangleDCellGrid))]
-        //[XmlElement(typeof(RotatedRectangle2D))]
+        [Browsable(true)]
+        [XmlElement(typeof(Circle))]
+        [XmlElement(typeof(CircularArc))]
+        [XmlElement(typeof(CircularSegment))]
+        [XmlElement(typeof(Ellipse))]
+        [XmlElement(typeof(EllipticalArc))]
+        [XmlElement(typeof(BezierSegment))]
+        [XmlElement(typeof(CubicBezier))]
+        [XmlElement(typeof(QuadraticBezier))]
+        [XmlElement(typeof(Line))]
+        [XmlElement(typeof(Ray))]
+        [XmlElement(typeof(LineSegment))]
+        [XmlElement(typeof(Triangle))]
+        [XmlElement(typeof(Contour))]
+        [XmlElement(typeof(Polygon))]
+        [XmlElement(typeof(Polyline))]
+        [XmlElement(typeof(PolylineSet))]
+        [XmlElement(typeof(Polycurve))]
+        [XmlElement(typeof(PolycurveContour))]
+        [XmlElement(typeof(Rectangle2D))]
+        [XmlElement(typeof(RectangleCellGrid))]
+        [XmlElement(typeof(RectangleDCellGrid))]
+        [XmlElement(typeof(RotatedRectangle2D))]
         //[XmlElement(typeof(Oval))]
-        //[XmlElement(typeof(SquareCellGrid))]
-        //[XmlElement(typeof(SquareDCellGrid))]
-        //[XmlElement(typeof(AngleVisualizerTester))]
-        //[XmlElement(typeof(NodeRevealer))]
-        //[XmlElement(typeof(ParametricDelegateCurve))]
-        //[XmlElement(typeof(ParametricPointTester))]
-        //[XmlElement(typeof(ParametricWarpGrid))]
+        [XmlElement(typeof(SquareCellGrid))]
+        [XmlElement(typeof(SquareDCellGrid))]
+        [XmlElement(typeof(AngleVisualizerTester))]
+        [XmlElement(typeof(NodeRevealer))]
+        [XmlElement(typeof(ParametricDelegateCurve))]
+        [XmlElement(typeof(ParametricPointTester))]
+        [XmlElement(typeof(ParametricWarpGrid))]
         //[DisplayName(nameof(Item))]
         [Category("Properties")]
         [Description("The item.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        //[NotifyParentProperty(true)]
+        [NotifyParentProperty(true)]
         public GraphicsObject Item { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Style))]
         [Category("Properties")]
         [Description("The style of the item.")]
@@ -107,7 +110,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         //[DisplayName(nameof(Metadata))]
         [Category("Properties")]
         [Description("The meta-data of the item.")]

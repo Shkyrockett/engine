@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 using static System.Math;
 using static Engine.Maths;
 using System.Xml.Serialization;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,9 +27,9 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Matrix3x3D>))]
+    [TypeConverter(typeof(StructConverter<Matrix3x3D>))]
     public partial struct Matrix3x3D
         : IMatrix<Matrix3x3D, Vector3D>
     {
@@ -206,7 +206,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D Cx
         {
             get { return new Vector3D(m0x0, m1x0, m2x0); }
@@ -221,7 +221,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D Cy
         {
             get { return new Vector3D(m0x1, m1x1, m2x1); }
@@ -236,7 +236,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D Cz
         {
             get { return new Vector3D(m0x2, m1x2, m2x2); }
@@ -251,7 +251,7 @@ namespace Engine
         /// <summary>
         /// The X Row or row zero.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the " + nameof(Matrix3x3D))]
         public Vector3D Rx
         {
@@ -267,7 +267,7 @@ namespace Engine
         /// <summary>
         /// The Y Row or row one.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix3x3D))]
         public Vector3D Ry
         {
@@ -283,7 +283,7 @@ namespace Engine
         /// <summary>
         /// The Z Row or row one.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix3x3D))]
         public Vector3D Rz
         {
@@ -299,7 +299,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant
             => Determinant(m0x0, m0x1, M0x2, m1x0, m1x1, m1x2, m2x0, m2x1, m2x2);
 
@@ -307,35 +307,35 @@ namespace Engine
         /// Swap the rows of the matrix with the columns.
         /// </summary>
         /// <returns>A transposed Matrix.</returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Transposed
             => Primitives.Transpose(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Inverted
             => Primitives.Invert(this);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
             => (Abs(m0x0 - 1) < Epsilon
                 && Abs(m0x1) < Epsilon

@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Maths;
 using static System.Math;
@@ -24,9 +24,9 @@ namespace Engine
     /// <summary>
     ///
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     [ComVisible(true)]
-    //[TypeConverter(typeof(StructConverter<Point2D>))]
+    [TypeConverter(typeof(StructConverter<Point2D>))]
     public struct Point2D
         : IVector<Point2D>
     {
@@ -112,20 +112,20 @@ namespace Engine
         /// X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="Point2D"/> coordinate.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
             => Abs(X) < Epsilon

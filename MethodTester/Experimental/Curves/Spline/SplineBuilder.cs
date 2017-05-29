@@ -6,12 +6,12 @@
 //     Licensed under the Zlib License. See https://opensource.org/licenses/Zlib for full license information.
 // </license>
 // <summary></summary>
-// <remarks> https://github.com/burningmime/curves </remarks>
+// <remarks>https://github.com/burningmime/curves</remarks>
 
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace Engine._Preview
+namespace Engine
 {
     /// <summary>
     /// Wraps a <see cref="CurveBuilder"/> and <see cref="Spline"/> together. Allows you to add data points as they come in and

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -19,14 +20,14 @@ namespace Engine
     /// <summary>
     /// An abstract class representing a piece of a geometric figure.
     /// </summary>
-    [Serializable]
-    //[XmlInclude(typeof(ArcSegment))]
-    //[XmlInclude(typeof(CardinalSegment))]
-    //[XmlInclude(typeof(CubicBezierSegment))]
-    //[XmlInclude(typeof(LineCurveSegment))]
-    //[XmlInclude(typeof(PointSegment))]
-    //[XmlInclude(typeof(QuadraticBezierSegment))]
-    //[TypeConverter(typeof(ExpandableObjectConverter))]
+    [DataContract, Serializable]
+    [XmlInclude(typeof(ArcSegment))]
+    [XmlInclude(typeof(CardinalSegment))]
+    [XmlInclude(typeof(CubicBezierSegment))]
+    [XmlInclude(typeof(LineCurveSegment))]
+    [XmlInclude(typeof(PointSegment))]
+    [XmlInclude(typeof(QuadraticBezierSegment))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class CurveSegment
     {
         #region Fields
@@ -55,58 +56,58 @@ namespace Engine
         /// Gets or sets the flag indicating whether the item's position should be 
         /// calculated relative to the last item, or from Origin. 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool Relitive { get; set; }
 
         /// <summary>
         /// Gets or sets a reference to the previous geometric item.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public CurveSegment Previous { get; set; }
 
         /// <summary>
         /// Gets or sets a reference to the next geometric item.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public CurveSegment Next { get; set; }
 
         /// <summary>
         /// Gets or sets the starting coordinates for the item.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public abstract Point2D? Start { get; set; }
 
         /// <summary>
         /// Gets or sets the next to last point of the item.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public abstract Point2D? NextToEnd { get; set; }
 
         /// <summary>
         /// Gets or sets the ending coordinates for the item.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public abstract Point2D? End { get; set; }
 
         /// <summary>
         /// Gets or sets the grips used for this path segment.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public abstract List<Point2D> Grips { get; }
 
         /// <summary>
         /// Gets the bounding rectangle of this segment of the shape.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         public abstract Rectangle2D Bounds { get; }
 
         /// <summary>
         /// Gets the length of the Path segment.
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public abstract double Length { get; }
 
         /// <summary>
@@ -130,7 +131,10 @@ namespace Engine
         /// <param name="property"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html
+        /// </acknowledgment>
         protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {
             if (!propertyCache.ContainsKey(name))

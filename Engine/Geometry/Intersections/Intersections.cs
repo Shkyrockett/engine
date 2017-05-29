@@ -61,9 +61,10 @@ namespace Engine
         /// <param name="m"></param>
         /// <param name="M"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Between(double v, double m, double M)
@@ -76,9 +77,10 @@ namespace Engine
         /// <param name="startAngle">The starting angle.</param>
         /// <param name="sweepAngle">The amount of angle to offset from the start angle.</param>
         /// <returns>A Boolean value indicating whether an angle is between two others.</returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.xarg.org/2010/06/is-an-angle-between-two-other-angles/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Within(double angle, double startAngle, double sweepAngle)
@@ -1439,12 +1441,13 @@ namespace Engine
         /// <param name="i2">The end vector horizontal component.</param>
         /// <param name="j2">The end vector vertical component.</param>
         /// <returns>A boolean value representing whether the reference vector is contained within the start and end vectors.</returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
         /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
         /// http://gamedev.stackexchange.com/questions/22392/what-is-a-good-way-to-determine-if-a-vector-is-between-two-other-vectors-in-2d
         /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool VectorBetweenVectorVector(double i0, double j0, double i1, double j1, double i2, double j2)
@@ -1522,11 +1525,12 @@ namespace Engine
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
         /// </returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Adapted from Clipper library: http://www.angusj.com/delphi/clipper.php
         /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
         /// http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PolygonContourContainsPoint(List<Point2D> points, double pX, double pY, double epsilon = Epsilon)
@@ -1890,9 +1894,10 @@ namespace Engine
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion CircleContainsPoint(double x, double y, double r, double pX, double pY)
@@ -1924,9 +1929,10 @@ namespace Engine
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipseContainsPoint(double cX, double cY, double r1, double r2, double angle, double pX, double pY)
@@ -1965,9 +1971,10 @@ namespace Engine
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion CircularArcSectorContainsPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY)
@@ -2019,9 +2026,10 @@ namespace Engine
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
@@ -2088,9 +2096,10 @@ namespace Engine
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
@@ -2163,10 +2172,11 @@ namespace Engine
         /// <param name="end"></param>
         /// <param name="polygons"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PolygonSetContainsPoints(this Polygon polygons, Point2D start, Point2D end)
@@ -2490,7 +2500,10 @@ namespace Engine
         /// <param name="radius1"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool CircleCircleIntersects(
@@ -2610,7 +2623,10 @@ namespace Engine
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon"></param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineLineIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double epsilon = Epsilon)
@@ -2655,7 +2671,10 @@ namespace Engine
         /// <param name="s1Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineLineSegmentIntersection(double l0X, double l0Y, double l1X, double l1Y, double s0X, double s0Y, double s1X, double s1Y, double epsilon = Epsilon)
@@ -2727,11 +2746,12 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineQuadraticBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
@@ -2789,11 +2809,12 @@ namespace Engine
         /// <param name="p3y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineCubicBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
@@ -2853,7 +2874,10 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LinePolygonContourIntersection(double a1X, double a1Y, double a2X, double a2Y, List<Point2D> points, double epsilon = Epsilon)
@@ -2892,7 +2916,10 @@ namespace Engine
         /// <param name="r2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineRectangleIntersection(double a1X, double a1Y, double a2X, double a2Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -2927,9 +2954,10 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineCircleIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double epsilon = Epsilon)
@@ -2999,9 +3027,10 @@ namespace Engine
         /// <param name="sweepAngle"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineCircularArcIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
@@ -3130,9 +3159,10 @@ namespace Engine
         /// <param name="sinA"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
@@ -3235,9 +3265,10 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineEllipticalArcIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
@@ -3355,7 +3386,10 @@ namespace Engine
         /// <param name="b2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection RayRayIntersection(
@@ -3403,7 +3437,10 @@ namespace Engine
         /// <param name="b2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentLineSegmentIntersection(double x1, double y1, double x2, double y2, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
@@ -3455,11 +3492,12 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentQuadraticBezierSegmentIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
@@ -3529,11 +3567,12 @@ namespace Engine
         /// <param name="p3y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentCubicBezierSegmentIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
@@ -3608,7 +3647,10 @@ namespace Engine
         /// <param name="r2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentRectangleIntersection(double lAX, double lAY, double lBX, double lBY, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -3641,7 +3683,10 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentPolygonContourIntersection(double a1X, double a1Y, double a2X, double a2Y, List<Point2D> points, double epsilon = Epsilon)
@@ -3680,7 +3725,10 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentCircleIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double angle, double epsilon = Epsilon)
@@ -3761,9 +3809,10 @@ namespace Engine
         /// <param name="sweepAngle"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentCircularArcIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
@@ -3886,9 +3935,10 @@ namespace Engine
         /// <param name="sinA"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
@@ -4002,9 +4052,10 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineSegmentEllipticalArcIntersection(double x0, double y0, double cx, double x1, double y1, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
@@ -4138,7 +4189,10 @@ namespace Engine
         /// <param name="b3Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
@@ -4232,7 +4286,10 @@ namespace Engine
         /// <param name="b4Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
@@ -4334,7 +4391,10 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierSegmentPolygonContourIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, List<Point2D> points, double epsilon = Epsilon)
@@ -4375,7 +4435,10 @@ namespace Engine
         /// <param name="r2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierSegmentRectangleIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -4419,7 +4482,10 @@ namespace Engine
         /// <param name="b4Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
@@ -4548,7 +4614,10 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierSegmentPolygonIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y, List<Point2D> points, double epsilon = Epsilon)
@@ -4591,7 +4660,10 @@ namespace Engine
         /// <param name="r2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierSegmentRectangleIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -4621,7 +4693,10 @@ namespace Engine
         /// <param name="points2"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection PolygonContourPolygonContourIntersection(List<Point2D> points1, List<Point2D> points2, double epsilon = Epsilon)
@@ -4656,7 +4731,10 @@ namespace Engine
         /// <param name="r2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection PolygonContourRectangleIntersection(List<Point2D> points, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -4692,7 +4770,10 @@ namespace Engine
         /// <param name="b2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection RectangleRectangleIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
@@ -4725,7 +4806,10 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CirclePolygonIntersection(double cX, double cY, double r, List<Point2D> points, double angle, double epsilon = Epsilon)
@@ -4766,7 +4850,10 @@ namespace Engine
         /// <param name="r2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CircleRectangleIntersection(double cX, double cY, double r, double angle, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -4801,7 +4888,10 @@ namespace Engine
         /// <param name="radius1"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CircleCircleIntersection1(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)
@@ -4879,7 +4969,10 @@ namespace Engine
         /// <param name="r2"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CircleCircleIntersection(double c1X, double c1Y, double r1, double c2X, double c2Y, double r2, double epsilon = Epsilon)
@@ -4936,7 +5029,10 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CirclePolygonContourIntersection(double cX, double cY, double radius, double angle, List<Point2D> points, double epsilon = Epsilon)
@@ -4976,7 +5072,10 @@ namespace Engine
         /// <param name="points"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection EllipsePolygonContourIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, List<Point2D> points, double epsilon = Epsilon)
@@ -5038,7 +5137,10 @@ namespace Engine
         /// <param name="r2Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection EllipseRectangleIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -5074,7 +5176,10 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
@@ -5130,7 +5235,10 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
@@ -5192,7 +5300,10 @@ namespace Engine
         /// <param name="ry2"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(
@@ -6507,7 +6618,7 @@ namespace Engine
 
         #endregion
 
-        #region Scan-beam to left Increment Methods
+        #region Scan-beam to right Increment Methods
 
         /// <summary>
         /// 
@@ -7172,7 +7283,10 @@ namespace Engine
         /// <param name="e1"></param>
         /// <param name="e2"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/ </remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezout(double[] e1, double[] e2)
         {

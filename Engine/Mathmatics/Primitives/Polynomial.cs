@@ -19,14 +19,14 @@ using System.Collections.Generic;
 using static System.Math;
 using static Engine.Maths;
 using System.Numerics;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [DataContract, Serializable]
     public class Polynomial
     {
         /// <summary>
@@ -1081,7 +1081,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> Roots(double epsilon = Epsilon)
         {
@@ -1185,7 +1185,7 @@ namespace Engine
         /// <param name="max"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks> http://www.kevlindev.com/geometry/2D/intersections/ </remarks>
+        /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> RootsInInterval(double min, double max, double epsilon = Epsilon)
         {

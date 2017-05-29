@@ -21,7 +21,7 @@ namespace Engine
     /// http://pomax.github.io/bezierinfo/
     /// http://stackoverflow.com/questions/8557098/cubic-hermite-spline-behaving-strangely
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName("Hermite Curve")]
     public class Hermite

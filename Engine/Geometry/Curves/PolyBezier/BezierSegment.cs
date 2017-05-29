@@ -15,7 +15,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-//using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
@@ -26,7 +26,7 @@ namespace Engine
     /// https://github.com/superlloyd/Poly
     /// http://pomax.github.io/bezierinfo/
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     //[DisplayName(nameof(BezierSegment))]
     [XmlType(TypeName = "bezier-Segment")]
@@ -118,14 +118,14 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
             get
@@ -139,7 +139,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
         {
             get
@@ -153,7 +153,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => (PolynomialDegree)(Points.Length - 1);
 

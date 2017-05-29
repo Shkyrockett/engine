@@ -23,7 +23,7 @@ namespace Engine
     /// Bicorn Curve, also known as the "cocked hat", it was first documented by Sylvester around 
     /// 1864 and Cayley in 1867. 
     /// </remarks>
-    [Serializable]
+    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Bicorn))]
     public class Bicorn

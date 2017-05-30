@@ -9,9 +9,7 @@
 // <remarks></remarks>
 
 using Engine;
-using Engine;
 using Engine.Imaging;
-using Engine.Physics;
 using Engine.Tweening;
 using Engine.WindowsForms;
 using System;
@@ -25,10 +23,73 @@ using static Engine.Maths;
 namespace Editor
 {
     /// <summary>
-    /// 
+    /// Test cases for rendering graphical objects.
     /// </summary>
     public static class TestCases
     {
+        /// <summary>
+        /// Test Execution method. Uncomment the tests to run.
+        /// </summary>
+        /// <param name="form">The form running the tests.</param>
+        /// <param name="vectorMap">The vector map to add the graphical items to.</param>
+        /// <param name="canvasPanel">The canvas panel to draw to.</param>
+        /// <param name="boundaryItem">A reference to the boundary item graphics object for one of the tests.</param>
+        public static void Tests(EditorForm form, VectorMap vectorMap, CanvasPanel canvasPanel, out GraphicItem boundaryItem)
+        {
+            var foreColor = form.ForeColor;
+            var backColor = form.BackColor;
+            boundaryItem = new GraphicItem();
+
+            /* Experimental Previews */
+            //HeartCurve(vectorMap);
+            //EllipticalArcLineSegmentIntersections(vectorMap);
+            //EllipticalArcLineIntersections(vectorMap);
+            //ScanlineIntersections(vectorMap);
+            //CommonIntersections(vectorMap);
+            //CurveFitting(vectorMap);
+            //EllipseToBeziers(vectorMap);
+            WarpGeometry(vectorMap);
+            //ComplexPolygonClipping(vectorMap);
+            //PolyClipping(vectorMap);
+            //FMartinezSamplesForClipping(vectorMap);
+            //SutherlandHodgman(vectorMap);
+            //PathContourWArcLine(vectorMap);
+            //WindingOrder(vectorMap);
+            //Pathfinding(vectorMap);
+            //PolylineClicking(vectorMap);
+            //TextRendering(vectorMap, form);
+            //ParametricEllipseBounds(vectorMap);
+            //ParametricEllipseArc(vectorMap);
+            //ParametricTesting(vectorMap);
+            //ParametricTesting2(vectorMap);
+            //GridTests(vectorMap, foreColor, backColor);
+
+            /* Regression Test Cases */
+            //BezierLineIntersections(vectorMap);
+            //BezierLineSegmentIntersections(vectorMap);
+            //QuadraticBezierHorizontalLineIntersection(vectorMap);
+            //CubicBezierHorizontalLineIntersection(vectorMap);
+            //SegmentIntersections(vectorMap, form);
+            //IntersectionsTests(vectorMap);
+            //CircularArcBounds(vectorMap);
+            //EllipseBound(vectorMap);
+            //EllipticalArcBounds(vectorMap);
+
+            /* Interactive */
+            //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
+            //Tweenning(vectorMap, form);
+            //KaraokeBall(vectorMap, form);
+            //Tweens(vectorMap);
+
+            //TrianglePointingRight(vectorMap);
+            //PaperPlaneTriangles(vectorMap);
+            //PlainCircle(vectorMap);
+            //PlainSquare(vectorMap);
+            //CircleBounds(vectorMap);
+            //QuadraticLength(vectorMap);
+            //CubicBezierLength(vectorMap);
+        }
+
         #region Styles
 
         private static ShapeStyle selectionStyle = new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard, Color.Pink, Color.Transparent), new Pen(Brushes.Transparent));
@@ -1621,13 +1682,17 @@ namespace Editor
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void WarpGeometry(VectorMap vectorMap)
         {
-            var rect1 = new Rectangle2D(200, 100, 200, 100);
+            var Top = 200d;
+            var Left = 200d;
+            var angle = 60d.ToRadians();
+
+            var rect1 = new Rectangle2D(Left, Top, 200, 100);
             var rect1Item = new GraphicItem(rect1, solidGreenStyle)
             {
                 Name = "Rectangle"
             };
 
-            var triangle = new Contour() { new Point2D(300, 100), new Point2D(250, 200), new Point2D(350, 200) };
+            var triangle = new Contour() { new Point2D(Left + 100, Top), new Point2D(Left + 50, Top + 100), new Point2D(Left + 150, Top + 100) };
             var triangleItem = new GraphicItem(triangle, solidPurpleStyle)
             {
                 Name = "Triangle"
@@ -1636,7 +1701,6 @@ namespace Editor
             //var scaleDistort = new ScaleDistort(new Size2D(2, 2));
             //var translateDistort = new TranslateDistort(new Vector2D(-rect1.Center.X, -rect1.Center.Y));
 
-            var angle = 60d.ToRadians();
             var xAxis = new Point2D(Math.Cos(angle), Math.Sin(angle));
             var yAxis = new Point2D(-Math.Sin(angle), Math.Cos(angle));
 
@@ -1649,7 +1713,6 @@ namespace Editor
             var matrixTest = new MatrixDistort(matrix);
 
             var test = new ParametricPreservingDistort(
-                (a) => Distortions.Translate(a, new Vector2D(-rect1.Center.X, -rect1.Center.Y)),
                 (a) => Distortions.Rotate(a, rect1.Center, xAxis, yAxis),
                 (a) => Distortions.Scale(a, new Size2D(2, 2)),
                 (a) => Distortions.Translate(a, new Vector2D(-rect1.Center.X, -rect1.Center.Y))
@@ -1682,8 +1745,8 @@ namespace Editor
             vectorMap.Add(curvedTriangleItem);
             vectorMap.Add(triangleItem);
             vectorMap.Add(warpGridItem);
-            //vectorMap.Add(curvedRectangleNodeItem);
-            //vectorMap.Add(curvedTriangleNodeItem);
+            vectorMap.Add(curvedRectangleNodeItem);
+            vectorMap.Add(curvedTriangleNodeItem);
         }
 
         /// <summary>

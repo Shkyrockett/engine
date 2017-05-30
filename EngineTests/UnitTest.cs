@@ -18,11 +18,26 @@ namespace EngineTests
     [TestClass]
     public class UnitTest
     {
+        #region Constants
+
+        /// <summary>
+        /// A value indicating the amount of difference a test may have in the return value.
+        /// </summary>
+        private const double TestEpsilon = 0.0000000000001d;
+
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
+
+        #endregion
+
+        #region Assembly Housekeeping
 
         /// <summary>
         /// 
@@ -33,6 +48,19 @@ namespace EngineTests
         {
             //MessageBox.Show("AssemblyInit " + context.TestName);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [AssemblyCleanup]
+        public static void AssemblyCleanup()
+        {
+            //MessageBox.Show("AssemblyCleanup");
+        }
+
+        #endregion
+
+        #region Class housekeeping
 
         /// <summary>
         /// 
@@ -71,14 +99,7 @@ namespace EngineTests
             //MessageBox.Show("ClassCleanup");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [AssemblyCleanup]
-        public static void AssemblyCleanup()
-        {
-            //MessageBox.Show("AssemblyCleanup");
-        }
+        #endregion
 
         ///// <summary>
         ///// A Garbage test of dividing by 0.

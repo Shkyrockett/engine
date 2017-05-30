@@ -1094,11 +1094,11 @@ namespace Engine
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v0">The first parameter.</param>
+        /// <param name="v1">The second parameter.</param>
+        /// <param name="v2">The third parameter.</param>
+        /// <param name="t">The time parameter.</param>
+        /// <returns>Returns a value interpolated from a Quadratic Bezier.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         [DebuggerStepThrough]
@@ -1119,14 +1119,14 @@ namespace Engine
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x-component of the first parameter.</param>
+        /// <param name="y0">The y-component of the first parameter.</param>
+        /// <param name="x1">The x-component of the second parameter.</param>
+        /// <param name="y1">The y-component of the second parameter.</param>
+        /// <param name="x2">The x-component of the third parameter.</param>
+        /// <param name="y2">The y component of the third parameter.</param>
+        /// <param name="t">The time parameter.</param>
+        /// <returns>Returns a point at t position of a Quadratic Bezier curve.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         [DebuggerStepThrough]
@@ -1150,17 +1150,17 @@ namespace Engine
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x-component of the first point on a Bezier curve.</param>
+        /// <param name="y0">The y-component of the first point on a Bezier curve.</param>
+        /// <param name="z0">The z-component of the first point on a Bezier curve.</param>
+        /// <param name="x1">The x-component of the handle point of the Bezier curve.</param>
+        /// <param name="y1">The y-component of the handle point of the Bezier curve.</param>
+        /// <param name="z1">The z-component of the handle point of the Bezier curve.</param>
+        /// <param name="x2">The x-component of the last point on the Bezier curve.</param>
+        /// <param name="y2">The y-component of the last point on the Bezier curve.</param>
+        /// <param name="z2">The z-component of the last point on the Bezier curve.</param>
+        /// <param name="t">The time parameter of the Bezier curve.</param>
+        /// <returns>Returns a point on the Bezier curve.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         [DebuggerStepThrough]
@@ -1181,35 +1181,17 @@ namespace Engine
                 (z0 * mu12 + 2d * z1 * mu1 * t + z2 * mu2));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
-        public static Point2D[] QuadraticBezierToCubicBezier(Point2D a, Point2D b, Point2D c)
-            => new Point2D[]
-            {
-                a,
-                new Point2D(a.X + TwoThirds * (b.X - a.X), a.Y + TwoThirds * (b.Y - a.Y)),
-                new Point2D(c.X + TwoThirds * (b.X - c.X), c.Y + TwoThirds * (b.Y - c.Y)),
-                c
-            };
-
         #endregion
 
         #region Sine Interpolation
 
         /// <summary>
-        ///
+        /// Interpolate a sine wave.
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v1">The first parameter.</param>
+        /// <param name="v2">The second Parameter.</param>
+        /// <param name="t">The time parameter.</param>
+        /// <returns>Returns a value of a Sine wave at t.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -1226,14 +1208,14 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Interpolates a sine wave in 2 dimensions.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x1">The first x component.</param>
+        /// <param name="y1">The first y-component.</param>
+        /// <param name="x2">The second x-component.</param>
+        /// <param name="y2">The second y-component.</param>
+        /// <param name="t">The t parameter.</param>
+        /// <returns>Returns a point interpolated of a Sine wave.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -1252,16 +1234,16 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Interpolates a Sine wave at t parameter.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x-component of the first parameter.</param>
+        /// <param name="y1">The y-component of the first parameter.</param>
+        /// <param name="z1">The z-component of the first parameter.</param>
+        /// <param name="x2">The x-component of the second parameter.</param>
+        /// <param name="y2">The y-component of the second parameter.</param>
+        /// <param name="z2">The z-component of the second parameter.</param>
+        /// <param name="t">The time parameter.</param>
+        /// <returns>Returns a point in 2 dimensional space interpolated from a sine wave.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -1285,16 +1267,16 @@ namespace Engine
         #region Rectangle
 
         /// <summary>
-        ///
+        /// Rotates the points of the corners of a rectangle about the fulcrum point.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        /// <param name="fulcrumX"></param>
-        /// <param name="fulcrumY"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="x">The x-component of the top left corner of the rectangle.</param>
+        /// <param name="y">The y-component of the top left corner of the rectangle.</param>
+        /// <param name="height">The height of the rectangle.</param>
+        /// <param name="width">The width of the rectangle.</param>
+        /// <param name="fulcrumX">The x-component of the rotation fulcrum point.</param>
+        /// <param name="fulcrumY">The x-component of the rotation fulcrum point.</param>
+        /// <param name="angle">The angle to rotate the points.</param>
+        /// <returns>Returns a list of points from the rectangle, rotated about the fulcrum.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RotatedRectangle(
@@ -1302,12 +1284,32 @@ namespace Engine
             double width, double height,
             double fulcrumX, double fulcrumY,
             double angle)
+            => RotatedRectangle(x, y, width, height, fulcrumX, fulcrumY, Cos(angle), Sin(angle));
+
+        /// <summary>
+        /// Rotates the points of the corners of a rectangle about the fulcrum point.
+        /// </summary>
+        /// <param name="x">The x-component of the top left corner of the rectangle.</param>
+        /// <param name="y">The y-component of the top left corner of the rectangle.</param>
+        /// <param name="height">The height of the rectangle.</param>
+        /// <param name="width">The width of the rectangle.</param>
+        /// <param name="fulcrumX">The x-component of the rotation fulcrum point.</param>
+        /// <param name="fulcrumY">The x-component of the rotation fulcrum point.</param>
+        /// <param name="angle">The angle to rotate the points.</param>
+        /// <returns>Returns a list of points from the rectangle, rotated about the fulcrum.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> RotatedRectangle(
+            double x, double y,
+            double width, double height,
+            double fulcrumX, double fulcrumY,
+            double cosAngle, double sinAngle)
         {
             // ToDo: Figure out how to properly include the location point.
             var points = new List<Point2D>();
 
-            var xaxis = new Point2D(Cos(angle), Sin(angle));
-            var yaxis = new Point2D(-Sin(angle), Cos(angle));
+            var xaxis = new Point2D(cosAngle, sinAngle);
+            var yaxis = new Point2D(-sinAngle, cosAngle);
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(

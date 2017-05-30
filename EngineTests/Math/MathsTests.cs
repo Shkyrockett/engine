@@ -20,16 +20,26 @@ namespace Engine.Tests
     [TestClass()]
     public class MathsTests
     {
+        #region Constants
+
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
         private const double TestEpsilon = 0.0000000000001d;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
+
+        #endregion
+
+        #region Housekeeping
 
         /// <summary>
         /// 
@@ -68,6 +78,8 @@ namespace Engine.Tests
             //MessageBox.Show("ClassCleanup");
         }
 
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -75,6 +87,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathsTests")]
+        [Ignore]
         public void IsAdditionSafeTest()
         {
             //// A listing of expected results for specific values.
@@ -455,6 +468,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathsTests")]
+        [Ignore]
         public void IsSubtractionSafeTest()
         {
             //// A listing of expected results for specific values.

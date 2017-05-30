@@ -111,64 +111,6 @@ namespace Editor
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void BuildMap()
-        {
-#pragma warning disable IDE0022 // Use expression body for methods
-            /* Experimental Previews */
-            TestCases.HeartCurve(vectorMap);
-            //TestCases.EllipticalArcLineSegmentIntersections(vectorMap);
-            //TestCases.EllipticalArcLineIntersections(vectorMap);
-            //TestCases.ScanlineIntersections(vectorMap);
-            //TestCases.CommonIntersections(vectorMap);
-            //TestCases.CurveFitting(vectorMap);
-            //TestCases.EllipseToBeziers(vectorMap);
-            //TestCases.WarpGeometry(vectorMap);
-            //TestCases.ComplexPolygonClipping(vectorMap);
-            //TestCases.PolyClipping(vectorMap);
-            //TestCases.FMartinezSamplesForClipping(vectorMap);
-            //TestCases.SutherlandHodgman(vectorMap);
-            //TestCases.PathContourWArcLine(vectorMap);
-            //TestCases.WindingOrder(vectorMap);
-            //TestCases.Pathfinding(vectorMap);
-            //TestCases.PlainOval(vectorMap);
-            //TestCases.PolylineClicking(vectorMap);
-            //TestCases.TextRendering(vectorMap, this);
-            //TestCases.ParametricEllipseBounds(vectorMap);
-            //TestCases.ParametricEllipseArc(vectorMap);
-            //TestCases.ParametricTesting(vectorMap);
-            //TestCases.ParametricTesting2(vectorMap);
-            //TestCases.GridTests(vectorMap, ForeColor, BackColor);
-
-            /* Regression Test Cases */
-            //TestCases.BezierLineIntersections(vectorMap);
-            //TestCases.BezierLineSegmentIntersections(vectorMap);
-            //TestCases.QuadraticBezierHorizontalLineIntersection(vectorMap);
-            //TestCases.CubicBezierHorizontalLineIntersection(vectorMap);
-            //TestCases.SegmentIntersections(vectorMap, this);
-            //TestCases.IntersectionsTests(vectorMap);
-            //TestCases.CircularArcBounds(vectorMap);
-            //TestCases.EllipseBound(vectorMap);
-            //TestCases.EllipticalArcBounds(vectorMap);
-
-            /* Interactive */
-            //TestCases.ResizeRefreshBounds(vectorMap, CanvasPanel, out boundaryItem);
-            //TestCases.Tweenning(vectorMap, this);
-            //TestCases.KaraokeBall(vectorMap, this);
-            //TestCases.Tweens(vectorMap);
-
-            //TestCases.TrianglePointingRight(vectorMap);
-            //TestCases.PaperPlaneTriangles(vectorMap);
-            //TestCases.PlainCircle(vectorMap);
-            //TestCases.PlainSquare(vectorMap);
-            //TestCases.CircleBounds(vectorMap);
-            //TestCases.QuadraticLength(vectorMap);
-            //TestCases.CubicBezierLength(vectorMap);
-#pragma warning restore IDE0022 // Use expression body for methods
-        }
-
         #region Events
 
         /// <summary>
@@ -470,6 +412,12 @@ namespace Editor
         #endregion
 
         #region Helpers
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void BuildMap()
+            => TestCases.Tests(this, vectorMap, CanvasPanel, out boundaryItem);
 
         /// <summary>
         /// 

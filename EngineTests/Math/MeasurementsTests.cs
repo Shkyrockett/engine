@@ -1,4 +1,4 @@
-﻿// <copyright file="AreasTests.cs" company="Shkyrockett" >
+﻿// <copyright file="MeasurementsTests.cs" company="Shkyrockett" >
 //     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -9,18 +9,21 @@
 // <remarks></remarks>
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace Engine.Tests
 {
     /// <summary>
-    /// A set of unit test cases designed to test the areas of various shapes.
+    /// A set of unit test cases designed to test the measurements of various shapes.
     /// </summary>
     [TestClass()]
-    public class AreasTests
+    public class MeasurementsTests
     {
+        #region Constants
+
         /// <summary>
-        /// A value indicating the amount of diference a test may have in the return value.
+        /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
         private const double TestEpsilon = 0.0000000000001d;
 
@@ -29,11 +32,19 @@ namespace Engine.Tests
         ///// </summary>
         //private static List<(string description, List<Point2D> polygon)> polygons = new List<(string, List<Point2D>)>();
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
+
+        #endregion
+
+        #region Housekeeping
 
         /// <summary>
         /// 
@@ -130,15 +141,17 @@ namespace Engine.Tests
             //MessageBox.Show("ClassCleanup");
         }
 
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "AreasTests")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [Ignore]
-        public void ArcTest()
+        public void ArcAreaTest()
         {
             //var results = new Dictionary<(double radius, double sweepAngle), double>
             //{
@@ -188,8 +201,9 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "AreasTests")]
-        public void CircleTest()
+        [TestProperty("Engine", "MeasurementsTests")]
+        [Ignore]
+        public void CircleAreaTest()
         {
             // A listing of expected results for specific integer values.
             var results = new Dictionary<double, double>
@@ -218,8 +232,9 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "AreasTests")]
-        public void EllipseTest()
+        [TestProperty("Engine", "MeasurementsTests")]
+        [Ignore]
+        public void EllipseAreaTest()
         {
             //// A listing of expected results for specific integer values.
             //var results = new Dictionary<(double r1, double r2), double>
@@ -247,8 +262,9 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "AreasTests")]
-        public void RectangleTest()
+        [TestProperty("Engine", "MeasurementsTests")]
+        [Ignore]
+        public void RectangleAreaTest()
         {
             //// A listing of expected results for specific integer values.
             //var results = new Dictionary<(double w, double h), double>
@@ -276,8 +292,9 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "AreasTests")]
-        public void SquareTest()
+        [TestProperty("Engine", "MeasurementsTests")]
+        [Ignore]
+        public void SquareAreaTest()
         {
             // A listing of expected results for specific values.
             var results = new Dictionary<double, double>
@@ -306,9 +323,9 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "AreasTests")]
-        //[Ignore]
-        public void PolygonTest()
+        [TestProperty("Engine", "MeasurementsTests")]
+        [Ignore]
+        public void PolygonAreaTest()
         {
             //// A listing of expected results for specific polygons.
             //var results = new List<double>
@@ -342,8 +359,9 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "AreasTests")]
-        public void SignedPolygonTest()
+        [TestProperty("Engine", "MeasurementsTests")]
+        [Ignore]
+        public void SignedPolygonAreaTest()
         {
             //// A listing of expected results for specific polygons.
             //var results = new List<double>
@@ -370,5 +388,93 @@ namespace Engine.Tests
             //    Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);
             //}
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void CircularArcTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void EllipseTest1()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void EllipticalArcTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void RotatedRectangleTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void BoundsTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void ArcLengthTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void CircleCircumferenceTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void CubicBezierArcLengthTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void EllipsePerimeterTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void QuadraticBezierArcLengthByIntegralTest()
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Ignore]
+        public void PolygonPerimeterTest()
+            => throw new NotImplementedException();
     }
 }

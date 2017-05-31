@@ -35,10 +35,11 @@ namespace Engine.Colorspace
         /// Initializes a new instance of the <see cref="AHSI"/> class.
         /// </summary>
         /// <param name="color"></param>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
-        /// </remarks>
+        /// </acknowledgment>
         public AHSI(ARGB color)
         {
             double r = color.Red;
@@ -124,10 +125,11 @@ namespace Engine.Colorspace
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
-        /// </remarks>
+        /// </acknowledgment>
         public ARGB ToColor()
         {
             var R = 0d;

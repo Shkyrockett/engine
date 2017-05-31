@@ -41,9 +41,11 @@ namespace Engine.Colorspace
         /// Cyan    = (1-Red-Black)/(1-Black)
         /// Magenta = (1-Green-Black)/(1-Black)
         /// Yellow  = (1-Blue-Black)/(1-Black)
+        /// </remarks>
+        /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
-        /// </remarks>
+        /// </acknowledgment>
         public ACYMK(ARGB color)
         {
             var red = 1d - (color.Red / 255d);
@@ -126,9 +128,11 @@ namespace Engine.Colorspace
         /// Red   = 1-minimum(1,Cyan*(1-Black)+Black)
         /// Green = 1-minimum(1,Magenta*(1-Black)+Black)
         /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)
+        /// </remarks>
+        /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
-        /// </remarks>
+        /// </acknowledgment>
         public ARGB ToARGB()
         {
             var C = Cyan / 255d;

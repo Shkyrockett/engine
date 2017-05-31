@@ -39,9 +39,10 @@ namespace Engine.Colorspace
         ///
         /// </summary>
         /// <param name="color"></param>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
-        /// </remarks>
+        /// </acknowledgment>
         public YIQ(ARGB color)
         {
             double r = color.Red;
@@ -102,9 +103,10 @@ namespace Engine.Colorspace
         /// <param name="i"></param>
         /// <param name="q"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
-        /// </remarks>
+        /// </acknowledgment>
         public ARGB ToColor(byte a, double y, double i, double q)
         {
             var r = (byte)(y + 0.9563 * i + 0.6210 * q);

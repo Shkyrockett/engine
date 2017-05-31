@@ -36,10 +36,12 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="color"></param>
         /// <remarks>
-        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
         /// </remarks>
+        /// <acknowledgment>
+        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
+        /// </acknowledgment>
         public AHSV(ARGB color)
         {
             var red = 1.0 - (color.Red / 255.0);
@@ -135,10 +137,12 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns></returns>
         /// <remarks>
-        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
         /// </remarks>
+        /// <acknowledgment>
+        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
+        /// </acknowledgment>
         public ARGB ToColor()
         {
             double r;

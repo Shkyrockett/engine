@@ -227,7 +227,6 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// http://www.geekymonkey.com/Programming/CSharp/RGB2HSL_HSL2RGB.htm
         /// Given H,S,L in range of 0-1
         /// Returns a Color (RGB class) in range of 0-255
         /// </summary>
@@ -236,6 +235,9 @@ namespace Engine.Colorspace
         /// <param name="saturation">Saturation value.</param>
         /// <param name="luminance">Luminance value.</param>
         /// <returns>An ARGB color structure.</returns>
+        /// <acknowledgment>
+        /// http://www.geekymonkey.com/Programming/CSharp/RGB2HSL_HSL2RGB.htm
+        /// </acknowledgment>
         public static ARGB HSL2RGB(byte alpha, double hue, double saturation, double luminance)
         {
             // default to gray
@@ -350,10 +352,11 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
-        /// </remarks>
+        /// </acknowledgment>
         public static ACYMK RGB2CMYK(this ARGB color)
         {
             double R = color.Red;
@@ -396,10 +399,11 @@ namespace Engine.Colorspace
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
-        /// </remarks>
+        /// </acknowledgment>
         public static ACYMK RGB2CMYK(byte alpha, byte red, byte green, byte blue)
         {
             double R = red;
@@ -442,10 +446,11 @@ namespace Engine.Colorspace
         /// <param name="magenta"></param>
         /// <param name="black"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
-        /// </remarks>
+        /// </acknowledgment>
         public static ARGB CMYK2RGB(byte alpha, byte cyan, byte yellow, byte magenta, byte black)
         {
             double R, G, B;
@@ -473,12 +478,15 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
+        /// 
         /// </summary>
         /// <param name="color"></param>
         /// <param name="hue"></param>
         /// <param name="saturation"></param>
         /// <param name="value"></param>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
+        /// </acknowledgment>
         public static void ColorToHSV(this ARGB color, out double hue, out double saturation, out double value)
         {
             int max = Max(color.Red, Max(color.Green, color.Blue));
@@ -490,12 +498,15 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
+        /// 
         /// </summary>
         /// <param name="hue"></param>
         /// <param name="saturation"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
+        /// </acknowledgment>
         public static ARGB ColorFromHSV(double hue, double saturation, double value)
         {
             var hi = Convert.ToInt32(Floor(hue / 60)) % 6;
@@ -522,11 +533,13 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
         /// </summary>
         /// <param name="color"></param>
+        /// <acknowledgment>
+        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
+        /// </acknowledgment>
         public static AHSV? ARGBtoAHSV(ARGB color)
         {
             var red = 1.0 - (color.Red / 255.0);
@@ -566,7 +579,6 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
         /// </summary>
@@ -575,6 +587,9 @@ namespace Engine.Colorspace
         /// <param name="s"></param>
         /// <param name="v"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
+        /// </acknowledgment>
         public static ARGB AHSVtoRGB(byte a, double h, double s, double v)
         {
             double r;
@@ -650,9 +665,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="color"></param>
         /// <returns>RGB color-space converted vector.</returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
-        /// </remarks>
+        /// </acknowledgment>
         public static ARGB Hsi2rgb(AHSI color)
         {
             var H = color.Hue;
@@ -691,14 +707,17 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
-        /// https://github.com/dystopiancode/colorspace-conversions
+        /// 
         /// </summary>
         /// <param name="a"></param>
         /// <param name="r"></param>
         /// <param name="g"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
+        /// https://github.com/dystopiancode/colorspace-conversions
+        /// </acknowledgment>
         public static AHSI Hsi_CreateFromRgbF(byte a, double r, double g, double b)
         {
             var m = Min(r, g);
@@ -731,11 +750,13 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
-        /// https://github.com/dystopiancode/colorspace-conversions
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
+        /// https://github.com/dystopiancode/colorspace-conversions
+        /// </acknowledgment>
         public static ARGB RgbF_CreateFromHsi(AHSI color)
         {
             double R = 0;

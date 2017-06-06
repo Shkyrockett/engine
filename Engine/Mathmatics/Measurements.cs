@@ -1651,7 +1651,7 @@ namespace Engine
             double cX, double cY,
             double r1, double r2,
             double angle)
-            => EllipseBounds(cX,cY,r1,r2,Cos(angle),Sin(angle));
+            => EllipseBounds(cX, cY, r1, r2, Cos(angle), Sin(angle));
 
         /// <summary>
         /// Calculates the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated ellipse.
@@ -2488,32 +2488,34 @@ namespace Engine
             var c = rX * sinAngle;
             var d = rY * cosAngle;
 
-            // Find the angles of the Cartesian extremes.
-            var a1 = Atan2(-b, a);
-            var a2 = Atan2(-b, a) + PI;
-            var a3 = Atan2(d, c);
-            var a4 = Atan2(d, c) + PI;
+            //// Find the angles of the Cartesian extremes.
+            //var a1 = Atan2(-b, a);
+            //var a2 = Atan2(-b, a) + PI;
+            //var a3 = Atan2(d, c);
+            //var a4 = Atan2(d, c) + PI;
 
-            // Return the points of Cartesian extreme of the rotated ellipse.
-            return new List<Point2D>
-            {
-                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a1),
-                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a2),
-                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a3),
-                Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a4)
-            };
+            //// Return the points of Cartesian extreme of the rotated ellipse.
+            //return new List<Point2D>
+            //{
+            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a1),
+            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a2),
+            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a3),
+            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a4)
+            //};
 
             // ToDo: Replace the previous two sections with this return and profile to see if there is a performance improvement, and check for accuracy.
+            var hypotonuseAB = Sqrt(a * a + b * b);
+            var hypotonuseCD = Sqrt(c * c + d * d);
             return new List<Point2D>
             {
-                new Point2D(x + Sqrt(b * b + a * a),
-                            y + (a * a - b * b) / Sqrt(b * b + a * a)),
-                new Point2D(x - Sqrt(b * b + a * a),
-                            y - (b * b - a * a) / Sqrt(b * b + a * a)),
-                new Point2D(x + (d * a - b * c) / Sqrt(c * c + d * d),
-                            y + (rX * rY) / Sqrt(c * c + d * d)),
-                new Point2D(x - (d * a - b * c) / Sqrt(c * c + d * d),
-                            y - (rX * rY) / Sqrt(c * c + d * d)),
+                new Point2D(x +                   hypotonuseAB,
+                            y + (a * a - b * b) / hypotonuseAB),
+                new Point2D(x -                   hypotonuseAB,
+                            y - (a * a - b * b) / hypotonuseAB),
+                new Point2D(x + (d * a - b * c) / hypotonuseCD,
+                            y + (rX * rY)       / hypotonuseCD),
+                new Point2D(x - (d * a - b * c) / hypotonuseCD,
+                            y - (rX * rY)       / hypotonuseCD),
             };
         }
 

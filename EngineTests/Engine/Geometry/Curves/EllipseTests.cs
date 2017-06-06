@@ -19,11 +19,17 @@ namespace Engine.Tests
     [TestClass]
     public class EllipseTests
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
+
+        #endregion
+
+        #region Housekeeping
 
         /// <summary>
         /// 
@@ -54,15 +60,21 @@ namespace Engine.Tests
         public static void ClassCleanup()
         { }
 
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "EllipseTests")]
+        [DeploymentItem("Engine.dll")]
         public void PerimeterTest()
         {
             // Test a perfect circle.
             var ellipse = new Ellipse(new Point2D(), 100, 100, 0);
-            double value = ellipse.Perimeter;
+            var value = ellipse.Perimeter;
             Assert.AreEqual((2 * Math.PI * ellipse.MajorRadius).ToString(), value.ToString());
 
             // Test a flat line.
@@ -75,16 +87,30 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "EllipseTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InterpolateTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "EllipseTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InterpolatePointsTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
     }
 }

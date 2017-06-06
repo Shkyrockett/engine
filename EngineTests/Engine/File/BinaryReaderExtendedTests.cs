@@ -79,6 +79,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt14Test()
         {
             var intValues = new List<ushort> {
@@ -111,6 +113,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt14Test()
         {
             var intValues = new List<short> {
@@ -143,6 +147,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt16Test()
         {
             var intValues = new List<ushort> {
@@ -174,6 +180,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt16Test()
         {
             var intValues = new List<short> {
@@ -205,6 +213,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt24Test()
         {
             var intValues = new List<ushort> {
@@ -236,6 +246,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt24Test()
         {
             var intValues = new List<short> {
@@ -267,6 +279,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt32Test()
         {
             var intValues = new List<uint> {
@@ -299,6 +313,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt32Test()
         {
             var intValues = new List<int> {
@@ -331,6 +347,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt64Test()
         {
             var intValues = new List<ulong> {
@@ -363,6 +381,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt64Test()
         {
             var intValues = new List<long> {
@@ -395,6 +415,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void Read7BitEncodedIntTest()
         {
             var intValues = new List<int> {
@@ -426,6 +448,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadUTF8StringTest()
         {
             var fox = "The quick brown fox jumps over the lazy dog.";
@@ -448,6 +472,8 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("Engine.File.dll")]
         public void ReadASCIIStringTest()
         {
             var fox = "The quick brown fox jumps over the lazy dog.";

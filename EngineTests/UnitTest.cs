@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EngineTests
@@ -101,25 +102,40 @@ namespace EngineTests
 
         #endregion
 
-        ///// <summary>
-        ///// A Garbage test of dividing by 0.
-        ///// </summary>
-        //[TestMethod()]
-        //[ExpectedException(typeof(DivideByZeroException))]
-        ////[ExpectedException(typeof(ArgumentOutOfRangeException))]
-        //public void DivideMethodTest()
-        //{
-        //    int x = 0;
-        //    int value = 1 / x;
-        //    Assert.Fail("No exception was thrown.");
-        //}
+        /// <summary>
+        /// An example exception test involving dividing by 0.
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Null")]
+        [TestProperty("Null", "Null")]
+        [DeploymentItem("Engine.dll")]
+        [ExpectedException(typeof(DivideByZeroException))]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Ignore]
+        public void DivideMethodTest()
+        {
+            var x = 0;
+            var value = 1 / x;
+            Assert.Fail("No exception was thrown.");
+        }
 
+        /// <summary>
+        /// An example test to show test structure.
+        /// </summary>
         [TestMethod]
+        [Priority(0)]
+        [Owner("Null")]
+        [TestProperty("Null", "Null")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
         public void TestMethod1()
         {
             //
             // TODO: Add test logic here
             //
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
     }
 }

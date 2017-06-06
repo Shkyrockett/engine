@@ -71,12 +71,12 @@ namespace Engine
         /// <returns>A rectangle that bounds all of the points in the array.</returns>
         public static RectangleF GetBoundsF(this PointF[] points)
         {
-            float left = points[0].X;
-            float right = points[0].X;
-            float top = points[0].Y;
-            float bottom = points[0].Y;
+            var left = points[0].X;
+            var right = points[0].X;
+            var top = points[0].Y;
+            var bottom = points[0].Y;
 
-            for (int i = 1; i < points.Length; i++)
+            for (var i = 1; i < points.Length; i++)
             {
                 if (points[i].X < left)
                     left = points[i].X;
@@ -130,8 +130,8 @@ namespace Engine
         /// <returns></returns>
         public static RectangleF RotatedOffsetBounds(this RectangleF rectangle, double angle)
         {
-            double cosAngle = Abs(Cos(angle));
-            double sinAngle = Abs(Sin(angle));
+            var cosAngle = Abs(Cos(angle));
+            var sinAngle = Abs(Sin(angle));
 
             return new RectangleF(rectangle.Location, new SizeF(
                 (int)((cosAngle * rectangle.Width) + (sinAngle * rectangle.Height)),

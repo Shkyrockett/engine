@@ -411,8 +411,8 @@ namespace Engine.Imaging
                     path.AddLine(shape.Points[0].ToPointF(), shape.Points[1].ToPointF());
                     break;
                 case 3:
-                    Point2D[] cubic = Interpolators.QuadraticBezierToCubicBezier(shape.Points[0], shape.Points[1], shape.Points[2]);
-                    path.AddBezier(cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
+                    var cubic = Conversions.QuadraticBezierToCubicBezier(shape.Points[0], shape.Points[1], shape.Points[2]);
+                    path.AddBezier(cubic.A.ToPointF(), cubic.B.ToPointF(), cubic.C.ToPointF(), cubic.D.ToPointF());
                     break;
                 case 4:
                     path.AddBezier(shape.Points[0].ToPointF(), shape.Points[1].ToPointF(), shape.Points[2].ToPointF(), shape.Points[3].ToPointF());
@@ -453,11 +453,11 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
 
-            Point2D[] cubic = Interpolators.QuadraticBezierToCubicBezier(shape.A, shape.B, shape.C);
-            path.AddBezier(cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
+            var cubic = Conversions.QuadraticBezierToCubicBezier(shape.A, shape.B, shape.C);
+            path.AddBezier(cubic.A.ToPointF(), cubic.B.ToPointF(), cubic.C.ToPointF(), cubic.D.ToPointF());
 
             g.FillPath((itemStyle).BackBrush, path);
-            g.DrawBezier((itemStyle).ForePen, cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());
+            g.DrawBezier((itemStyle).ForePen, cubic.A.ToPointF(), cubic.B.ToPointF(), cubic.C.ToPointF(), cubic.D.ToPointF());
         }
     }
 }

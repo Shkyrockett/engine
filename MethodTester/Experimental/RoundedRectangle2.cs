@@ -9,9 +9,9 @@
 // <remarks></remarks>
 
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 
 namespace Engine
@@ -63,12 +63,12 @@ namespace Engine
         /// <returns></returns>
         public static GraphicsPath Create(Point2D location, Size2D size, double radius, RectangleCorners corners)
         {
-            double xw = location.X + size.Width;
-            double yh = location.Y + size.Height;
+            var xw = location.X + size.Width;
+            var yh = location.Y + size.Height;
             var xwr = xw - radius;
             var yhr = yh - radius;
-            double xr = location.X + radius;
-            double yr = location.Y + radius;
+            var xr = location.X + radius;
+            var yr = location.Y + radius;
             var r2 = radius * 2;
             var xwr2 = xw - r2;
             var yhr2 = yh - r2;

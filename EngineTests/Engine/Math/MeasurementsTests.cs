@@ -150,6 +150,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ArcAreaTest()
         {
@@ -193,6 +194,8 @@ namespace Engine.Tests
             //    var area = Measurements.CircularArcSectorArea(arc.radius, arc.sweepAngle.ToRadians());
             //    Assert.AreEqual(results[(arc)], area, TestEpsilon);
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -202,6 +205,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CircleAreaTest()
         {
@@ -233,6 +237,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void EllipseAreaTest()
         {
@@ -254,6 +259,8 @@ namespace Engine.Tests
             //    // Check for a correct result.
             //    Assert.AreEqual(results[(radii)], area, TestEpsilon);
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -263,6 +270,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void RectangleAreaTest()
         {
@@ -284,6 +292,8 @@ namespace Engine.Tests
             //    // Check for a correct result.
             //    Assert.AreEqual(results[size], area, TestEpsilon);
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -293,6 +303,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void SquareAreaTest()
         {
@@ -324,6 +335,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void PolygonAreaTest()
         {
@@ -351,6 +363,8 @@ namespace Engine.Tests
             //    // Check for a correct result.
             //    Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -360,6 +374,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void SignedPolygonAreaTest()
         {
@@ -387,94 +402,140 @@ namespace Engine.Tests
             //    // Check for a correct result.
             //    Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CircularArcTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void EllipseTest1()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void EllipticalArcTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void RotatedRectangleTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void BoundsTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ArcLengthTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CircleCircumferenceTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CubicBezierArcLengthTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void EllipsePerimeterTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierArcLengthByIntegralTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void PolygonPerimeterTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
     }
 }

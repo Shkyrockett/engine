@@ -31,7 +31,7 @@ namespace Engine.Colorspace
                 Luminance = brightness
             };
 
-            return ToRGB(hsl);
+            return ToARGB(hsl);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Engine.Colorspace
         {
             var hsl = new AHSL(color);
             hsl.Luminance *= brightness;
-            return ToRGB(hsl);
+            return ToARGB(hsl);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Engine.Colorspace
                 Saturation = Saturation
             };
 
-            return ToRGB(hsl);
+            return ToARGB(hsl);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Engine.Colorspace
         {
             var hsl = new AHSL(color);
             hsl.Saturation *= Saturation;
-            return ToRGB(hsl);
+            return ToARGB(hsl);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Engine.Colorspace
                 Hue = Hue
             };
 
-            return ToRGB(hsl);
+            return ToARGB(hsl);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Engine.Colorspace
         {
             var hsl = new AHSL(color);
             hsl.Hue *= Hue;
-            return ToRGB(hsl);
+            return ToARGB(hsl);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Engine.Colorspace
         /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
         /// <param name="hsl">The HSL value</param>
         /// <returns>A Color structure containing the equivalent RGB values</returns>
-        public static ARGB ToRGB(this HSL hsl)
+        public static ARGB ToARGB(this HSL hsl)
         {
             double red = 0;
             double green = 0;
@@ -177,7 +177,7 @@ namespace Engine.Colorspace
         /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
         /// <param name="hsl">The HSL value</param>
         /// <returns>A Color structure containing the equivalent RGB values</returns>
-        public static ARGB ToRGB(this AHSL hsl)
+        public static ARGB ToARGB(this AHSL hsl)
         {
             double red = 0;
             double green = 0;
@@ -238,7 +238,7 @@ namespace Engine.Colorspace
         /// <acknowledgment>
         /// http://www.geekymonkey.com/Programming/CSharp/RGB2HSL_HSL2RGB.htm
         /// </acknowledgment>
-        public static ARGB HSL2RGB(byte alpha, double hue, double saturation, double luminance)
+        public static ARGB AHSLToARGB(byte alpha, double hue, double saturation, double luminance)
         {
             // default to gray
             var red = luminance;
@@ -306,7 +306,7 @@ namespace Engine.Colorspace
         /// <param name="hue">Hue value out.</param>
         /// <param name="saturation">Saturation value out.</param>
         /// <param name="luminance">Luminance value out.</param>
-        public static void RGB2HSL(ARGB rgb, out byte alpha, out double hue, out double saturation, out double luminance)
+        public static void ARGBToAHSL(ARGB rgb, out byte alpha, out double hue, out double saturation, out double luminance)
         {
             alpha = rgb.Alpha;
             var red = rgb.Red / 255.0;

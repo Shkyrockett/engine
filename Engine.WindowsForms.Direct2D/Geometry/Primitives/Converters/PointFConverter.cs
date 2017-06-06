@@ -56,18 +56,18 @@ namespace Engine
             if (str == null)
                 return base.ConvertFrom(context, culture, value);
 
-            string str2 = str.Trim();
+            var str2 = str.Trim();
             if (str2.Length == 0)
                 return null;
 
             if (culture == null)
                 culture = CultureInfo.CurrentCulture;
 
-            char ch = culture.TextInfo.ListSeparator[0];
+            var ch = culture.TextInfo.ListSeparator[0];
             string[] strArray = str2.Split(new char[] { ch });
             var numArray = new float[strArray.Length];
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
-            for (int i = 0; i < numArray.Length; i++)
+            for (var i = 0; i < numArray.Length; i++)
                 numArray[i] = (float)converter.ConvertFromString(context, culture, strArray[i]);
 
             if (numArray.Length != 2)
@@ -92,10 +92,10 @@ namespace Engine
                     if (culture == null)
                         culture = CultureInfo.CurrentCulture;
 
-                    string separator = culture.TextInfo.ListSeparator + " ";
+                    var separator = culture.TextInfo.ListSeparator + " ";
                     TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
                     var strArray = new string[2];
-                    int num = 0;
+                    var num = 0;
                     strArray[num++] = converter.ConvertToString(context, culture, point.X);
                     strArray[num++] = converter.ConvertToString(context, culture, point.Y);
                     return string.Join(separator, strArray);

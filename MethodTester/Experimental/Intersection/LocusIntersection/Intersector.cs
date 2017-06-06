@@ -57,8 +57,8 @@ namespace Engine
         /// </remarks>
         private static Point2D[] OneD_Intersection(Point2D a1, Point2D a2, Point2D b1, Point2D b2)
         {
-            double denomX = a2.X - a1.X;
-            double denomY = a2.Y - a1.Y;
+            var denomX = a2.X - a1.X;
+            var denomY = a2.Y - a1.Y;
 
             // double ua1 = 0d; // by definition
             // double ua2 = 1d; // by definition
@@ -70,8 +70,8 @@ namespace Engine
             double[] interval = OverlapIntervals(ub.Item1, ub.Item2);
             foreach (var f in interval)
             {
-                double x = a2.X * f + a1.X * (1d - f);
-                double y = a2.Y * f + a1.Y * (1d - f);
+                var x = a2.X * f + a1.X * (1d - f);
+                var y = a2.Y * f + a1.Y * (1d - f);
                 var p = new Point2D(x, y);
                 ret.Add(p);
             }
@@ -114,9 +114,9 @@ namespace Engine
             }
 
             // At this point we know both a and b are actual segments
-            double ua_t = (b2.X - b1.X) * (a1.Y - b1.Y) - (b2.Y - b1.Y) * (a1.X - b1.X);
-            double ub_t = (a2.X - a1.X) * (a1.Y - b1.Y) - (a2.Y - a1.Y) * (a1.X - b1.X);
-            double u_b = (b2.Y - b1.Y) * (a2.X - a1.X) - (b2.X - b1.X) * (a2.Y - a1.Y);
+            var ua_t = (b2.X - b1.X) * (a1.Y - b1.Y) - (b2.Y - b1.Y) * (a1.X - b1.X);
+            var ub_t = (a2.X - a1.X) * (a1.Y - b1.Y) - (a2.Y - a1.Y) * (a1.X - b1.X);
+            var u_b = (b2.Y - b1.Y) * (a2.X - a1.X) - (b2.X - b1.X) * (a2.Y - a1.Y);
 
             // Infinite lines intersect somewhere
             if (!(-Maths.Epsilon < u_b && u_b < Maths.Epsilon))   // e.g. u_b != 0.0

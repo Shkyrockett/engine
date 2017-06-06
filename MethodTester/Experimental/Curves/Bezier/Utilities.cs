@@ -116,7 +116,7 @@ namespace Engine
         public static double Arcfn(double t, DerivitiveMethod2D derivativeFn)
         {
             Point2D d = derivativeFn(t);
-            double l = d.X * d.X + d.Y * d.Y;
+            var l = d.X * d.X + d.Y * d.Y;
             return Sqrt(l);
         }
 
@@ -129,7 +129,7 @@ namespace Engine
         public static double Arcfn(double t, DerivitiveMethod3D derivativeFn)
         {
             Point3D d = derivativeFn(t);
-            double l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
+            var l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
             return Sqrt(l);
         }
 
@@ -185,10 +185,10 @@ namespace Engine
         /// <returns></returns>
         public static double Angle(Point3D o, Point3D v1, Point3D v2)
         {
-            double dx1 = v1.X - o.X;
-            double dy1 = v1.Y - o.Y;
-            double dx2 = v2.X - o.X;
-            double dy2 = v2.Y - o.Y;
+            var dx1 = v1.X - o.X;
+            var dy1 = v1.Y - o.Y;
+            var dx2 = v2.X - o.X;
+            var dy2 = v2.Y - o.Y;
             var cross = dx1 * dy2 - dy1 * dx2;
             var m1 = Sqrt(dx1 * dx1 + dy1 * dy1);
             var m2 = Sqrt(dx2 * dx2 + dy2 * dy2);
@@ -212,7 +212,7 @@ namespace Engine
             double mpos = 0;
             for (var i = 0; i < lookUpTable.Count; i++)
             {
-                double d = Measurements.Distance(point, lookUpTable[i]);
+                var d = Measurements.Distance(point, lookUpTable[i]);
                 if (d < mdist)
                 {
                     mdist = d;
@@ -320,10 +320,10 @@ namespace Engine
         /// <returns></returns>
         public static Bezier MakeLine(Point3D p1, Point3D p2)
         {
-            double x1 = p1.X;
-            double y1 = p1.Y;
-            double x2 = p2.X;
-            double y2 = p2.Y;
+            var x1 = p1.X;
+            var y1 = p1.Y;
+            var x2 = p2.X;
+            var y2 = p2.Y;
             var dx = (x2 - x1) / 3;
             var dy = (y2 - y1) / 3;
             return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + 2 * dx, y1 + 2 * dy, x2, y2);
@@ -486,9 +486,9 @@ namespace Engine
         /// </remarks>
         public static List<Point3D> Align(List<Point3D> points, Line1 line)
         {
-            double tx = line.P1.X;
-            double ty = line.P1.Y;
-            double a = -Atan2(line.P2.Y - ty, line.P2.X - tx);
+            var tx = line.P1.X;
+            var ty = line.P1.Y;
+            var a = -Atan2(line.P2.Y - ty, line.P2.X - tx);
             var results = new List<Point3D>();
             foreach (Point3D v in points)
                 results.Add(new Point3D((v.X - tx) * Cos(a) - (v.Y - ty) * Sin(a), (v.X - tx) * Sin(a) + (v.Y - ty) * Cos(a), 0));
@@ -656,10 +656,10 @@ namespace Engine
         public static List<double> Inflections(List<Point3D> points)
         {
             List<Point3D> p = Align(points, new Line1(p1: points[0], p2: points[3]));
-            double a = p[2].X * p[1].Y;
-            double b = p[3].X * p[1].Y;
-            double c = p[1].X * p[2].Y;
-            double d = p[3].X * p[2].Y;
+            var a = p[2].X * p[1].Y;
+            var b = p[3].X * p[1].Y;
+            var c = p[1].X * p[2].Y;
+            var d = p[3].X * p[2].Y;
             var v1 = 18 * (-3 * a + 2 * b + 3 * c - d);
             var v2 = 18 * (3 * a - b - 3 * c);
             var v3 = 18 * (c - a);
@@ -782,19 +782,19 @@ namespace Engine
         /// <returns></returns>
         public static Arc1 Getccenter(Point3D p1, Point3D p2, Point3D p3)
         {
-            double dx1 = (p2.X - p1.X);
-            double dy1 = (p2.Y - p1.Y);
-            double dx2 = (p3.X - p2.X);
-            double dy2 = (p3.Y - p2.Y);
-            double dx1p = dx1 * Cos(Quart) - dy1 * Sin(Quart);
-            double dy1p = dx1 * Sin(Quart) + dy1 * Cos(Quart);
-            double dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
-            double dy2p = dx2 * Sin(Quart) + dy2 * Cos(Quart);
+            var dx1 = (p2.X - p1.X);
+            var dy1 = (p2.Y - p1.Y);
+            var dx2 = (p3.X - p2.X);
+            var dy2 = (p3.Y - p2.Y);
+            var dx1p = dx1 * Cos(Quart) - dy1 * Sin(Quart);
+            var dy1p = dx1 * Sin(Quart) + dy1 * Cos(Quart);
+            var dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
+            var dy2p = dx2 * Sin(Quart) + dy2 * Cos(Quart);
             // chord midpoints
-            double mx1 = (p1.X + p2.X) * 0.5d;
-            double my1 = (p1.Y + p2.Y) * 0.5d;
-            double mx2 = (p2.X + p3.X) * 0.5d;
-            double my2 = (p2.Y + p3.Y) * 0.5d;
+            var mx1 = (p1.X + p2.X) * 0.5d;
+            var my1 = (p1.Y + p2.Y) * 0.5d;
+            var mx2 = (p2.X + p3.X) * 0.5d;
+            var my2 = (p2.Y + p3.Y) * 0.5d;
             // midpoint offsets
             var mx1n = mx1 + dx1p;
             var my1n = my1 + dy1p;
@@ -802,7 +802,7 @@ namespace Engine
             var my2n = my2 + dy2p;
             // intersection of these lines:
             Point3D? arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
-            double r = Measurements.Distance(arcCenter.Value, p1);
+            var r = Measurements.Distance(arcCenter.Value, p1);
             // arc start/end values, over mid point:
             var s = Atan2(p1.Y - arcCenter.Value.Y, p1.X - arcCenter.Value.X);
             var m = Atan2(p2.Y - arcCenter.Value.Y, p2.X - arcCenter.Value.X);

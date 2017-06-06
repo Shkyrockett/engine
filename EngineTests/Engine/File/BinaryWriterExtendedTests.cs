@@ -21,11 +21,17 @@ namespace EngineTests
     [TestClass]
     public class BinaryWriterExtendedTests
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
+
+        #endregion
+
+        #region Housekeeping
 
         /// <summary>
         /// 
@@ -64,6 +70,8 @@ namespace EngineTests
             //MessageBox.Show("ClassCleanup");
         }
 
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -71,6 +79,7 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryWriterExtended")]
+        [DeploymentItem("Engine.File.dll")]
         public void WriteNetworkUInt14Test()
         {
             var intValues = new List<ushort> {
@@ -102,6 +111,7 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryWriterExtended")]
+        [DeploymentItem("Engine.File.dll")]
         public void WriteNetworkInt14Test()
         {
             var intValues = new List<short> {
@@ -133,6 +143,7 @@ namespace EngineTests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine.File", "BinaryWriterExtended")]
+        [DeploymentItem("Engine.File.dll")]
         public void Write7BitEncodedIntTest()
         {
             var intValues = new List<int> {

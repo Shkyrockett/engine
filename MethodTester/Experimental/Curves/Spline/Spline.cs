@@ -11,9 +11,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
@@ -250,7 +250,7 @@ namespace Engine
                 var idx = (iCurve * nSamples) + iPoint;
                 var t = (iPoint + 1) / (double)nSamples;
                 Point2D np = curve.Sample(t);
-                double d = Measurements.Distance(np, pp);
+                var d = Measurements.Distance(np, pp);
                 clen += d;
                 arclen[idx] = clen;
                 pp = np;

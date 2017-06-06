@@ -292,10 +292,10 @@ namespace Engine
             (Point3D, Point3D, Point3D) abc = GetABC(3, S, B, E, t);
             if (d1 == 0) d1 = Measurements.Distance(B, abc.Item3); var d2 = d1 * (1 - t) / t;
 
-            double selen = Measurements.Distance(S, E);
-            double lx = (E.X - S.X) / selen;
-            double ly = (E.Y - S.Y) / selen;
-            double lz = (E.Z - S.Z) / selen;
+            var selen = Measurements.Distance(S, E);
+            var lx = (E.X - S.X) / selen;
+            var ly = (E.Y - S.Y) / selen;
+            var lz = (E.Z - S.Z) / selen;
             var bx1 = d1 * lx;
             var by1 = d1 * ly;
             var bz1 = d1 * lz;
@@ -885,7 +885,7 @@ namespace Engine
             }
             Point3D n1 = Normal(0);
             Point3D n2 = Normal(1);
-            double s = n1.X * n2.X + n1.Y * n2.Y + n1.Z * n2.Z;
+            var s = n1.X * n2.X + n1.Y * n2.Y + n1.Z * n2.Z;
             var angle = Abs(Acos(s));
             return angle < PI / 3;
         }
@@ -1225,10 +1225,10 @@ namespace Engine
         /// <returns></returns>
         public List<bool> LineIntersects(Line1 line)
         {
-            double mx = Min(line.P1.X, line.P2.X);
-            double my = Min(line.P1.Y, line.P2.Y);
-            double MX = Max(line.P1.X, line.P2.X);
-            double MY = Max(line.P1.Y, line.P2.Y);
+            var mx = Min(line.P1.X, line.P2.X);
+            var my = Min(line.P1.Y, line.P2.Y);
+            var MX = Max(line.P1.X, line.P2.X);
+            var MY = Max(line.P1.Y, line.P2.Y);
             var self = this;
 
             return new List<bool>(
@@ -1323,9 +1323,9 @@ namespace Engine
             var q = (e - s) / 4;
             Point3D c1 = Get(s + q);
             Point3D c2 = Get(e - q);
-            double reff = Measurements.Distance(pc.Center, np1);
-            double d1 = Measurements.Distance(pc.Center, c1);
-            double d2 = Measurements.Distance(pc.Center, c2);
+            var reff = Measurements.Distance(pc.Center, np1);
+            var d1 = Measurements.Distance(pc.Center, c1);
+            var d2 = Measurements.Distance(pc.Center, c2);
             return Abs(d1 - reff) + Abs(d2 - reff);
         }
 
@@ -1446,10 +1446,10 @@ namespace Engine
             // ends up lying on the line we're trying to use as root-intersect.
             List<Point3D> aligned = Align(new List<Point3D> { p1, p2, p3, p4 }, line);
             // rewrite from [a(1-t)^3 + 3bt(1-t)^2 + 3c(1-t)t^2 + dt^3] form...
-            double pa = aligned[0].Y;
-            double pb = aligned[1].Y;
-            double pc = aligned[2].Y;
-            double pd = aligned[3].Y;
+            var pa = aligned[0].Y;
+            var pb = aligned[1].Y;
+            var pc = aligned[2].Y;
+            var pd = aligned[3].Y;
             // ...to [t^3 + at^2 + bt + c] form:
             var d = (-pa + 3 * pb - 3 * pc + pd);
             var a = (3 * pa - 6 * pb + 3 * pc) / d;

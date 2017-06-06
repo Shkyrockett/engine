@@ -22,6 +22,10 @@ namespace Engine.Tests
         /// 
         /// </summary>
         [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "QuadraticBezierTests")]
+        [DeploymentItem("Engine.dll")]
         public void ToStringTest()
         {
             var bezier = new CubicBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150), new Point2D(44, 66));

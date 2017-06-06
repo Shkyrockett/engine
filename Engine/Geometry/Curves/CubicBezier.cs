@@ -94,15 +94,15 @@ namespace Engine
         /// <param name="c"></param>
         public CubicBezier(Point2D a, Point2D b, Point2D c)
         {
-            var nodes = Interpolators.QuadraticBezierToCubicBezier(a, b, c);
-            ax = nodes[0].X;
-            ay = nodes[0].Y;
-            bx = nodes[1].X;
-            by = nodes[1].Y;
-            cx = nodes[2].X;
-            cy = nodes[2].Y;
-            dx = nodes[3].X;
-            dy = nodes[3].Y;
+            var nodes = Conversions.QuadraticBezierToCubicBezier(a, b, c);
+            ax = nodes.A.X;
+            ay = nodes.A.Y;
+            bx = nodes.B.X;
+            by = nodes.B.Y;
+            cx = nodes.C.X;
+            cy = nodes.C.Y;
+            dx = nodes.D.X;
+            dy = nodes.D.Y;
         }
 
         /// <summary>

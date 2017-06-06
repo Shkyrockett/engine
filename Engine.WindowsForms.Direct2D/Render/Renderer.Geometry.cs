@@ -163,7 +163,7 @@ namespace Engine.Imaging
         public static void Render(this CircularArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
             path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
             g.FillPath((itemStyle).BackBrush, path);
             g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
@@ -197,7 +197,7 @@ namespace Engine.Imaging
         public static void Render(this EllipticalArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
             path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
             var mat = new Matrix();
             mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
@@ -247,7 +247,7 @@ namespace Engine.Imaging
         public static void Render(this BezierSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
 
             switch (shape.Points.Length)
             {
@@ -279,7 +279,7 @@ namespace Engine.Imaging
         public static void Render(this CubicBezier shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
             path.AddBezier(shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
             g.FillPath((itemStyle).BackBrush, path);
             g.DrawBezier((itemStyle).ForePen, shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
@@ -295,7 +295,7 @@ namespace Engine.Imaging
         public static void Render(this QuadraticBezier shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
 
             Point2D[] cubic = Interpolators.QuadraticBezierToCubicBezier(shape.A, shape.B, shape.C);
             path.AddBezier(cubic[0].ToPointF(), cubic[1].ToPointF(), cubic[2].ToPointF(), cubic[3].ToPointF());

@@ -93,7 +93,7 @@ namespace Engine.Direct2D
         /// </remarks>
         public static Size2D MeasureString(string text, Font font, int width = int.MaxValue)
         {
-            Size2D result = new Size2D();
+            var result = new Size2D();
             //using (var image = new Bitmap(1, 1))
             //{
             //    using (var g = Graphics.FromImage(image))
@@ -118,7 +118,7 @@ namespace Engine.Direct2D
         /// </remarks>
         public static Size2D MeasureStringClose(string text, Font font, int width = int.MaxValue)
         {
-            Size2D result = new Size2D();
+            var result = new Size2D();
             //using (var image = new Bitmap(1, 1))
             //{
             //    using (var g = Graphics.FromImage(image))

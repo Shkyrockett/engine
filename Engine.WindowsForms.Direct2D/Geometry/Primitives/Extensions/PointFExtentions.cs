@@ -439,8 +439,8 @@ namespace Engine
             double deltaX = point.X - axis.X;
             double deltaY = point.Y - axis.Y;
 
-            double angleCos = Cos(angle);
-            double angleSin = Sin(angle);
+            var angleCos = Cos(angle);
+            var angleSin = Sin(angle);
 
             return new PointF(
                 (float)(axis.X + (deltaX * angleCos - deltaY * angleSin)),
@@ -455,7 +455,7 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this PointF[] points, double angle)
         {
-            for (int i = 0; i < points.Length; i++)
+            for (var i = 0; i < points.Length; i++)
                 points[i] = RotatePoint(points[i], angle);
         }
 
@@ -467,7 +467,7 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this PointF[] points, PointF fulcrum, double angle)
         {
-            for (int i = 0; i < points.Length; i++)
+            for (var i = 0; i < points.Length; i++)
                 points[i] = RotatePoint(points[i], fulcrum, angle);
         }
 

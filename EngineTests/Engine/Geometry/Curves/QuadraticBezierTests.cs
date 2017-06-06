@@ -19,11 +19,17 @@ namespace Engine.Tests
     [TestClass]
     public class QuadraticBezierTests
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
+
+        #endregion
+
+        #region Housekeeping
 
         /// <summary>
         /// 
@@ -54,6 +60,8 @@ namespace Engine.Tests
         public static void ClassCleanup()
         { }
 
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -61,10 +69,11 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "QuadraticBezierTests")]
+        [DeploymentItem("Engine.dll")]
         public void QuadraticBezierLengthTest()
         {
             var bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            double value = bezier.Length;
+            var value = bezier.Length;
             Assert.AreEqual(161.735239810224d.ToString(), value.ToString());
         }
 
@@ -75,11 +84,15 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "QuadraticBezierTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
         public void QuadraticBezierArcLengthByIntegralTest()
         {
             //QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             //double value = bezier.QuadraticBezierArcLengthByIntegral();
             //Assert.AreEqual(161.735239810224d.ToString(), value.ToString());
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -89,11 +102,15 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "QuadraticBezierTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
         public void QuadraticBezierArcLengthBySegmentsTest()
         {
             //QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             //double value = bezier.QuadraticBezierArcLengthBySegments();
             //Assert.AreEqual(160.211711355793d.ToString(), value.ToString());
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -103,11 +120,15 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "QuadraticBezierTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
         public void QuadraticBezierApproxArcLengthTest()
         {
             //QuadraticBezier bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             //double value = bezier.QuadraticBezierApproxArcLength();
             //Assert.AreEqual(159.821919863669d.ToString(), value.ToString());
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -117,6 +138,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "QuadraticBezierTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierInterpolateTest()
         {
@@ -132,8 +154,12 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "QuadraticBezierTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierInterpolatePointsTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
     }
 }

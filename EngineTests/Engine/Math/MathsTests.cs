@@ -10,7 +10,6 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 
 namespace Engine.Tests
 {
@@ -80,6 +79,8 @@ namespace Engine.Tests
 
         #endregion
 
+        #region Arithmetic Safety Tests
+
         /// <summary>
         /// 
         /// </summary>
@@ -87,6 +88,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void IsAdditionSafeTest()
         {
@@ -448,6 +450,8 @@ namespace Engine.Tests
 
             //    Assert.AreEqual(decimalTestCases[value], result, $"decimalTestCases({value.a}, {value.b})");
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -457,9 +461,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void IsMultiplicationSafeTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -468,6 +476,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "MathsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void IsSubtractionSafeTest()
         {
@@ -831,6 +840,481 @@ namespace Engine.Tests
 
             //    Assert.AreEqual(decimalTestCases[value], result, $"decimalTestCases({value.a}, {value.b})");
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// A Test for converting Radians to Degrees.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MathExtensions")]
+        [DeploymentItem("Engine.dll")]
+        public void ToRadiansTest()
+        {
+            double value = 0;
+            value = Maths.ToRadians(0);
+            Assert.AreEqual(0, value);
+            value = Maths.ToRadians(30);
+            Assert.AreEqual(30 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(45);
+            Assert.AreEqual(45 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(60);
+            Assert.AreEqual(60 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(90);
+            Assert.AreEqual(90 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(120);
+            Assert.AreEqual(120 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(135);
+            Assert.AreEqual(135 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(150);
+            Assert.AreEqual(150 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(180);
+            Assert.AreEqual(180 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(210);
+            Assert.AreEqual(210 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(225);
+            Assert.AreEqual(225 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(240);
+            Assert.AreEqual(240 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(270);
+            Assert.AreEqual(270 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(300);
+            Assert.AreEqual(300 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(315);
+            Assert.AreEqual(315 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(330);
+            Assert.AreEqual(330 * (Math.PI / 180f), value);
+            value = Maths.ToRadians(360);
+            Assert.AreEqual(360 * (Math.PI / 180f), value);
+        }
+
+        /// <summary>
+        /// A Test for converting Degrees to Radians.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MathExtensions")]
+        [DeploymentItem("Engine.dll")]
+        public void ToDegreesTest()
+        {
+            double value = 0;
+            value = Maths.ToDegrees(0);
+            Assert.AreEqual(0, value);
+            value = Maths.ToDegrees(30);
+            Assert.AreEqual(30 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(45);
+            Assert.AreEqual(45 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(60);
+            Assert.AreEqual(60 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(90);
+            Assert.AreEqual(90 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(120);
+            Assert.AreEqual(120 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(135);
+            Assert.AreEqual(135 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(150);
+            Assert.AreEqual(150 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(180);
+            Assert.AreEqual(180 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(210);
+            Assert.AreEqual(210 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(225);
+            Assert.AreEqual(225 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(240);
+            Assert.AreEqual(240 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(270);
+            Assert.AreEqual(270 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(300);
+            Assert.AreEqual(300 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(315);
+            Assert.AreEqual(315 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(330);
+            Assert.AreEqual(330 * (180f / Math.PI), value);
+            value = Maths.ToDegrees(360);
+            Assert.AreEqual(360 * (180f / Math.PI), value);
+        }
+
+        /// <summary>
+        /// A Test for rounding a number to an arbitrary value.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MathExtensions")]
+        [DeploymentItem("Engine.dll")]
+        public void RoundToMultipleTest()
+        {
+            double value = 0;
+            value = Maths.RoundToMultiple(3.5, 1.5);
+            Assert.AreEqual(3, value);
+        }
+
+        /// <summary>
+        /// A Test for retrieving the modulo of an arbitrary value, the same way Excel does.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MathExtensions")]
+        [DeploymentItem("Engine.dll")]
+        public void ModuloTest()
+        {
+            double value = 0;
+            value = Maths.Modulo(3.5, 1.5);
+            Assert.AreEqual(0.5d, value);
+        }
+
+        /// <summary>
+        /// A Test for finding the average value from a list of numbers.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MathExtensions")]
+        [DeploymentItem("Engine.dll")]
+        public void AverageTest()
+        {
+            double value = 0;
+            var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            value = Maths.Average(array);
+            Assert.AreEqual(4.5, value);
+        }
+
+        /// <summary>
+        /// A Test for finding the sum value from a list of numbers.
+        /// </summary>
+        [TestMethod]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MathExtensions")]
+        [DeploymentItem("Engine.dll")]
+        public void SumTest()
+        {
+            double value = 0;
+            var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            value = Maths.Sum(array);
+            Assert.AreEqual(45, value);
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void RandomTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void Atan2Test()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void SecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void CosecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void CotangentTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseSineTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseCosineTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseSecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseCosecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseCotangentTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void HyperbolicSineTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void HyperbolicCosineTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void HyperbolicTangentTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void HyperbolicSecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void HyperbolicCosecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void HyperbolicCotangentTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseHyperbolicSineTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseHyperbolicCosineTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseHyperbolicTangentTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseHyperbolicSecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseHyperbolicCosecantTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void InverseHyperbolicCotangentTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void LogarithmTobaseNTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void ToFloatTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void LessThanTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void GreaterThanTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void LessThanOrCloseTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void GreaterThanOrCloseTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void IsOneTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void IsZeroTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void IsBetweenZeroAndOneTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void FloatToIntTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void DoubleToIntTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void HIWORDTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void LOWORDTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
     }
 }

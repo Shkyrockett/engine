@@ -104,10 +104,10 @@ namespace Engine
         /// <returns><see cref="AddPointResult"/> for info about this.</returns>
         public AddPointResult AddPoint(Point2D p)
         {
-            int count = points.Count;
+            var count = points.Count;
             if (count != 0)
             {
-                double td = Measurements.Distance((Point2D)prev, p);
+                var td = Measurements.Distance((Point2D)prev, p);
                 var md = linDist;
                 if (td > md)
                 {
@@ -145,7 +145,7 @@ namespace Engine
         /// <returns></returns>
         private AddPointResult AddInternal(Point2D np)
         {
-            int last = points.Count;
+            var last = points.Count;
             Debug.Assert(last != 0); // should always have one point at least
             base.points.Add(np);
             arclen.Add(totalLength = totalLength + linDist);

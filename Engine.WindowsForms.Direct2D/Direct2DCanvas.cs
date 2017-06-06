@@ -209,14 +209,14 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         private void CreateDxTarget(int width, int height)
         {
-            RenderTargetProperties targetProperties = new RenderTargetProperties(
+            var targetProperties = new RenderTargetProperties(
                 RenderTargetType.Default,
                 new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
                 0, 0,
                 RenderTargetUsage.None,
                 FeatureLevel.Level_10);
 
-            HwndRenderTargetProperties windowProperties = new HwndRenderTargetProperties()
+            var windowProperties = new HwndRenderTargetProperties()
             {
                 Hwnd = Handle,
                 PixelSize = new Size2(width, height),

@@ -10,6 +10,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace Engine.Tests
 {
@@ -79,6 +80,8 @@ namespace Engine.Tests
 
         #endregion
 
+        #region Contains Tests
+
         /// <summary>
         /// 
         /// </summary>
@@ -86,9 +89,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -97,9 +104,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest1()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -108,9 +119,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest2()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -119,20 +134,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
-        [Ignore]
-        public void CirclePointTest()
-            => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest3()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -141,20 +149,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
-        [Ignore]
-        public void CircularArcSectorPointTest()
-            => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest4()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -163,20 +164,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
-        [Ignore]
-        public void EllipticSectorPointTest()
-            => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest5()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -185,20 +179,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
-        [Ignore]
-        public void EllipsePointTest()
-            => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest6()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -207,20 +194,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
-        [Ignore]
-        public void RectanglePointTest()
-            => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest7()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -229,20 +209,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
-        [Ignore]
-        public void PolygonPointTest()
-            => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest8()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -251,20 +224,13 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
-        [Ignore]
-        public void PolygonSetPointTest()
-            => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest9()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -273,9 +239,15 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ContainsTest10()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        #endregion
 
         /// <summary>
         /// 
@@ -284,9 +256,123 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void CircleContainsPointTest()
+        {
+            //var testCases = new Dictionary<(Circle, Point2D), Inclusion>();
+
+            var circle = new Circle(0, 0, 5);
+            var point = new Point2D(1, 1);
+            var result = Intersections.CircleContainsPoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
+            var expected = Inclusion.Inside;
+
+            Assert.AreEqual(expected, result, $"expected({result},{expected})");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void CircularArcSectorPointTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void EllipticSectorPointTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void EllipsePointTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void RectanglePointTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void PolygonPointTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void PolygonSetPointTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void RectangleRectangleTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 
@@ -295,6 +381,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         public void PointLineSegmentTest()
         {
             //// A listing of expected results for specific values.
@@ -312,6 +399,8 @@ namespace Engine.Tests
             //    var result = Intersections.PointLineSegmentIntersects(testCase.AX, testCase.AY, testCase.BX, testCase.BY, testCase.X, testCase.Y);
             //    Assert.AreEqual(testCases[testCase], result);
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -321,6 +410,7 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         public void LineLineTest()
         {
             //// A listing of expected results for specific values.
@@ -357,6 +447,8 @@ namespace Engine.Tests
             //    var result = Intersections.Intersection(new Line(testCase.A1X, testCase.A1Y, testCase.B1X, testCase.B1Y), new Line(testCase.A2X, testCase.A2Y, testCase.B2X, testCase.B2Y));
             //    Assert.AreEqual(testCases[testCase], result);
             //}
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -366,8 +458,12 @@ namespace Engine.Tests
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
         [Ignore]
         public void PolygonPolygonTest()
-            => throw new NotImplementedException();
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
     }
 }

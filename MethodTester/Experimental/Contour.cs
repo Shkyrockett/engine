@@ -103,7 +103,7 @@ namespace Engine
                     if (p.X < Math.Max(curr.X, next.X) && next.Y != curr.Y)
                     {
                         // Find where the line intersects...
-                        double xInt = (p.Y - curr.Y) * (next.X - curr.X) / (next.Y - curr.Y) + curr.X;
+                        var xInt = (p.Y - curr.Y) * (next.X - curr.X) / (next.Y - curr.Y) + curr.X;
                         if (curr.X == next.X || p.X <= xInt)
                             intersections++;
                     }

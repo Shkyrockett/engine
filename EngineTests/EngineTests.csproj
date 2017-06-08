@@ -95,6 +95,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Commons.cs" />
     <Compile Include="Engine\File\BinaryReaderExtendedTests.cs" />
     <Compile Include="Engine\File\BinaryWriterExtendedTests.cs" />
     <Compile Include="Engine\Geometry\ExperimentalTests.cs" />

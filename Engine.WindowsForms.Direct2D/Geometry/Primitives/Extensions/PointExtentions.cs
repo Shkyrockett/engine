@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using static System.Math;
+using Engine;
 
 namespace Engine
 {
@@ -194,7 +195,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Point value1, Point value2)
-            => value2.Subtract(value1);
+            => value2.Delta(value1);
 
         /// <summary>
         /// Distance between two points.

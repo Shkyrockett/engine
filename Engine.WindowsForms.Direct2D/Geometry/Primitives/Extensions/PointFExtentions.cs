@@ -373,7 +373,7 @@ namespace Engine
                 value.CrossProduct(point),
                 axis.DotProduct(SegmentVectorDelta)
                 );
-            double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
+            var QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
             return new PointF(
                 (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
                 (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
@@ -394,7 +394,7 @@ namespace Engine
                 segment.B.CrossProduct(segment.A),
                 axis.DotProduct(SegmentVectorDelta)
                 );
-            double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
+            var QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
             return new PointF(
                 (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
                 (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
@@ -562,7 +562,7 @@ namespace Engine
         /// <param name="value">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         public static Vector2D Subtract(this PointF point, Point value)
-            => new PointF(point.X - value.X, point.Y - value.Y);
+            => new Vector2D(point.X - value.X, point.Y - value.Y);
 
         /// <summary>
         /// Subtracts a <see cref="PointF"/> by a value.
@@ -571,7 +571,7 @@ namespace Engine
         /// <param name="value">The factor to inflate the <see cref="PointF"/>.</param>
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         public static Vector2D Subtract(this PointF point, PointF value)
-            => new PointF(point.X - value.X, point.Y - value.Y);
+            => new Vector2D(point.X - value.X, point.Y - value.Y);
 
         /// <summary>
         /// Subtract Points

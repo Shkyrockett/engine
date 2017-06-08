@@ -73,16 +73,16 @@ namespace Engine
         /// </summary>
         /// <param name="x">Center Point x coordinate of <see cref="Ellipse"/>.</param>
         /// <param name="y">Center Point x coordinate of <see cref="Ellipse"/>.</param>
-        /// <param name="r1">Major radius of <see cref="Ellipse"/>.</param>
-        /// <param name="r2">Minor radius of <see cref="Ellipse"/>.</param>
+        /// <param name="rX">Major radius of <see cref="Ellipse"/>.</param>
+        /// <param name="rY">Minor radius of <see cref="Ellipse"/>.</param>
         /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         /// <remarks></remarks>
-        public Ellipse(double x, double y, double r1, double r2, double angle)
+        public Ellipse(double x, double y, double rX, double rY, double angle = 0)
         {
             this.x = x;
             this.y = y;
-            this.rX = r1;
-            this.rY = r2;
+            this.rX = rX;
+            this.rY = rY;
             this.angle = angle;
         }
 
@@ -94,7 +94,7 @@ namespace Engine
         /// <param name="b">Minor radius of <see cref="Ellipse"/>.</param>
         /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         /// <remarks></remarks>
-        public Ellipse(Point2D center, double a, double b, double angle)
+        public Ellipse(Point2D center, double a, double b, double angle = 0)
         {
             x = center.X;
             y = center.Y;
@@ -110,7 +110,7 @@ namespace Engine
         /// <param name="size">Major and Minor radii of <see cref="Ellipse"/>.</param>
         /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         /// <remarks></remarks>
-        public Ellipse(Point2D center, Size2D size, double angle)
+        public Ellipse(Point2D center, Size2D size, double angle = 0)
             : this(center, size.Width, size.Height, angle)
         { }
 

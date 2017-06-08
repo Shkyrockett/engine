@@ -42,13 +42,13 @@ namespace Editor
 
             /* Experimental Previews */
             //HeartCurve(vectorMap);
-            //EllipticalArcLineSegmentIntersections(vectorMap);
+            EllipticalArcLineSegmentIntersections(vectorMap);
             //EllipticalArcLineIntersections(vectorMap);
             //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
-            WarpGeometry(vectorMap);
+            //WarpGeometry(vectorMap);
             //ComplexPolygonClipping(vectorMap);
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);

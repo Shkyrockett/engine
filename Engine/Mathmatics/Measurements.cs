@@ -2207,6 +2207,16 @@ namespace Engine
         /// <returns>Returns the signed area of a polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double PolygonArea(List<Point2D> contour)
+            => Abs(SignedPolygonArea(contour));
+
+        /// <summary>
+        /// Calculates the signed area of a polygon.
+        /// </summary>
+        /// <param name="contour">The points of the polygon contour.</param>
+        /// <returns>Returns the signed area of a polygon contour.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygonArea(List<Point2D> contour)
         {
             var count = contour.Count;

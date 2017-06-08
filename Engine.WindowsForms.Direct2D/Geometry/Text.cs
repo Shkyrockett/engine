@@ -170,7 +170,7 @@ namespace Engine.Direct2D
         {
             if (this == null)
                 return nameof(Text2D);
-            char sep = Engine.Tokenizer.GetNumericListSeparator(provider);
+            var sep = Engine.Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Text2D)}{{{nameof(Text)}=\"{Text}\",{nameof(Font)}={Font},{nameof(Location)}={Location},{nameof(Limits)}={Limits}}}";
             return formatable.ToString(format, provider);
         }

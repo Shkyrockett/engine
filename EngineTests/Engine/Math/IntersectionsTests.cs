@@ -259,14 +259,56 @@ namespace Engine.Tests
         [DeploymentItem("Engine.dll")]
         public void CircleContainsPointTest()
         {
-            //var testCases = new Dictionary<(Circle, Point2D), Inclusion>();
+            var testCases = new Dictionary<(Circle circle, Point2D point), Inclusion>
+            {
+                { (new Circle(0, 0, 5), new Point2D(1, 1)), Inclusion.Inside },
+                { (new Circle(0, 0, 5), new Point2D(0, 0)), Inclusion.Inside },
+                { (new Circle(0, 0, 5), new Point2D(5, 5)), Inclusion.Outside },
+                { (new Circle(0, 0, 5), new Point2D(5, -5)), Inclusion.Outside },
+                { (new Circle(0, 0, 5), new Point2D(-5, -5)), Inclusion.Outside },
+                { (new Circle(0, 0, 5), new Point2D(-5, 5)), Inclusion.Outside },
+                { (new Circle(0, 0, 5), new Point2D(0, 5)), Inclusion.Boundary },
+                { (new Circle(0, 0, 5), new Point2D(0, -5)), Inclusion.Boundary },
+            };
 
-            var circle = new Circle(0, 0, 5);
-            var point = new Point2D(1, 1);
-            var result = Intersections.CircleContainsPoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
-            var expected = Inclusion.Inside;
+            foreach (var test in testCases.Keys)
+            {
+                var result = Intersections.CircleContainsPoint(test.circle.X, test.circle.Y, test.circle.Radius, test.point.X, test.point.Y);
+                var expected = testCases[test];
 
-            Assert.AreEqual(expected, result, $"expected({result},{expected})");
+                Assert.AreEqual(expected, result, $"Test case: {test}, Expected: {result}, Actual {result}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void EllipsePointTest()
+        {
+            var testCases = new Dictionary<(Ellipse ellipse, Point2D point), Inclusion>
+            {
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(1, 1)), Inclusion.Inside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 0)), Inclusion.Inside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, 5)), Inclusion.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, -5)), Inclusion.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, -5)), Inclusion.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, 5)), Inclusion.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 5)), Inclusion.Boundary },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, -5)), Inclusion.Boundary },
+            };
+
+            foreach (var test in testCases.Keys)
+            {
+                var result = Intersections.EllipseContainsPoint(test.ellipse.X, test.ellipse.Y, test.ellipse.RX, test.ellipse.RY, test.ellipse.Angle, test.point.X, test.point.Y);
+                var expected = testCases[test];
+
+                Assert.AreEqual(expected, result, $"Test case: {test}, Expected: {result}, Actual {result}");
+            }
         }
 
         /// <summary>
@@ -294,21 +336,6 @@ namespace Engine.Tests
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void EllipticSectorPointTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void EllipsePointTest()
         {
             Assert.Inconclusive("ToDo: Implement code to verify target.");
             throw new NotImplementedException();

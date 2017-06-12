@@ -1,5 +1,5 @@
 ﻿// <copyright file="PointExtentions.cs" company="Shkyrockett" >
-//     Copyright (c) 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,7 +13,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using Engine;
 
 namespace Engine
 {

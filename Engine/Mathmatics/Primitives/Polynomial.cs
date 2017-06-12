@@ -1,5 +1,5 @@
 ﻿// <copyright file="Polynomial.cs" company="Shkyrockett" >
-//     Copyright (c) 2014 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2014 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

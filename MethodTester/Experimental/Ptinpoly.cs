@@ -1,5 +1,5 @@
 ﻿// <copyright file="Ptinpoly.cs" company="3D/Eye" >
-//     Copyright (c)  3D/Eye Inc. All rights reserved.
+//     Copyright ©  3D/Eye Inc. All rights reserved.
 // </copyright>
 // <author id="erich@eye.com">Eric Haines</author>
 // <license>

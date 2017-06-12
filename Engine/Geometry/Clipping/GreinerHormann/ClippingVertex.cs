@@ -1,5 +1,5 @@
 ﻿// <copyright file="ClippingVertex.cs" >
-//     Copyright (c) 2015 - 2017 w8r. All rights reserved.
+//     Copyright © 2015 - 2017 w8r. All rights reserved.
 // </copyright>
 // <author id="w8r">Alexander Milevski</author>
 // <license>

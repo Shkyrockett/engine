@@ -1,5 +1,5 @@
 ﻿// <copyright file="Program.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,9 +9,6 @@
 // <remarks></remarks>
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using EventEditorMidi;
 using Engine;

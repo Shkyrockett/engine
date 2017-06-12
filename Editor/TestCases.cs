@@ -1,5 +1,5 @@
 ﻿// <copyright file="TestCases.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -42,7 +42,7 @@ namespace Editor
 
             /* Experimental Previews */
             //HeartCurve(vectorMap);
-            EllipticalArcLineSegmentIntersections(vectorMap);
+            //EllipticalArcLineSegmentIntersections(vectorMap);
             //EllipticalArcLineIntersections(vectorMap);
             //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
@@ -65,6 +65,7 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
+            IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
@@ -447,6 +448,36 @@ namespace Editor
         #endregion
 
         #region Regression Tests
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void IntersectionsQuadraticBezierQuadraticBezier(VectorMap vectorMap)
+        {
+            var top = 100;
+            var left = 100;
+
+            var quadratic1 = new QuadraticBezier(left , top , left + 100, top + 100, left + 200, top);
+            var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+            {
+                Name = "Quadratic Bezier 1"
+            };
+
+            top -= 50;
+
+            var quadratic2 = new QuadraticBezier(left , top + 100, left + 100, top , left + 200, top + 100);
+            var quadratic2Item = new GraphicItem(quadratic2, intersectionRed)
+            {
+                Name = "Quadratic Bezier 2"
+            };
+
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle);
+
+            vectorMap.Add(quadratic1Item);
+            vectorMap.Add(quadratic2Item);
+            vectorMap.Add(intersectionNodeItem);
+        }
 
         /// <summary>
         /// 

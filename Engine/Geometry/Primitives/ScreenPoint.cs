@@ -1,5 +1,5 @@
 ﻿// <copyright file="ScreenPoint.cs" company="Shkyrockett" >
-//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

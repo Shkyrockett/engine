@@ -1,5 +1,5 @@
 ﻿// <copyright file="EdgeContributions.cs" >
-//     Copyright (c) 2012 Francisco Martínez del Río. All rights reserved.
+//     Copyright © 2012 Francisco Martínez del Río. All rights reserved.
 // </copyright>
 // <author id="fmartin@ujaen.es">Francisco Martínez del Río</author>
 // <license>

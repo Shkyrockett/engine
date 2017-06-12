@@ -1,5 +1,5 @@
 ﻿// <copyright file="Maths.Algebraic.cs" company="Shkyrockett" >
-//    Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//    Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -10,7 +10,7 @@
 
 // <copyright company="kevlindev" >
 //     Many of the Roots methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/. 
-//     Copyright (c) 2000 - 2003 Kevin Lindsey. All rights reserved.
+//     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
 // </copyright>
 // <author id="thelonious">Kevin Lindsey</author>
 // <license>

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Measurements.cs" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -17,7 +17,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
-using Engine;
 
 namespace Engine
 {

@@ -1,5 +1,5 @@
 ﻿// <copyright file="WinformsReflection.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -12,7 +12,6 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing.Design;
-using Engine;
 using static Engine.EngineReflection;
 
 namespace Engine.WindowsForms

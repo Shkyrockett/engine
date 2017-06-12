@@ -68,7 +68,7 @@ Code files should start with an XML copyright header like the following, to indi
 
 ```c#
 // <copyright file="Filenme.cs" >
-//     Copyright (c) Year Copyright holder. All rights reserved.
+//     Copyright © Year Copyright holder. All rights reserved.
 // </copyright>
 // <author id="username">Author</author>
 // <license>

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.cs" >
-//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -8,7 +8,7 @@
 
 // <copyright company="kevlindev" >
 //     The original implementation was based on methods found on Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/. 
-//     Copyright (c) 2000 - 2003 Kevin Lindsey. All rights reserved.
+//     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
 // </copyright>
 // <author id="thelonious">Kevin Lindsey</author>
 // <license>

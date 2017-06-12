@@ -1,5 +1,5 @@
 ﻿// <copyright file="QuadraticBezier.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -143,7 +142,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("ax")]
-        [Browsable(true)]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The X coordinate of the first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -165,7 +164,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the first Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("ay")]
-        [Browsable(true)]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The y coordinate of the first Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -208,7 +207,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("bx")]
-        [Browsable(true)]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The X coordinate of the second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -230,7 +229,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("by")]
-        [Browsable(true)]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The y coordinate of the second Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -273,7 +272,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute("cx")]
-        [Browsable(true)]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The X coordinate of the third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -295,7 +294,7 @@ namespace Engine
         /// Gets or sets the Y coordinate of the third Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute("cy")]
-        [Browsable(true)]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The y coordinate of the third Point of a Cubic Bezier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -331,6 +330,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [ReadOnly(true)] 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]

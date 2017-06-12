@@ -3,10 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <Copyright>Copyright © 2013 - 2017 Shkyrockett</Copyright>
+    <Version>0.0.0</Version>
+    <Authors>Shkyrockett</Authors>
+    <Company>Shkyrockett</Company>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.10.7" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.10.8" />
   </ItemGroup>
 
   <ItemGroup>

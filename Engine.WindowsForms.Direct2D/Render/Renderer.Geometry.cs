@@ -1,5 +1,5 @@
 ﻿// <copyright file="Renderer.Geometry.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -8,10 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace Engine.Imaging
 {

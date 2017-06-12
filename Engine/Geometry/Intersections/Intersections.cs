@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.cs" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -8,7 +8,7 @@
 
 // <copyright company="kevlindev" >
 //     Many of the Intersections methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/. 
-//     Copyright (c) 2000 - 2003 Kevin Lindsey. All rights reserved.
+//     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
 // </copyright>
 // <author id="thelonious">Kevin Lindsey</author>
 // <license>
@@ -17,7 +17,7 @@
 
 // <copyright company="angusj" >
 //     The Point in Polygon method is from the Clipper Library.
-//     Copyright (c) 2010-2014 Angus Johnson. All rights reserved.
+//     Copyright © 2010 - 2014 Angus Johnson. All rights reserved.
 // </copyright>
 // <author id="angusj">Angus Johnson</author>
 // <license id="Boost">
@@ -26,7 +26,7 @@
 
 // <copyright company="vb-helper" >
 //     Some of the methods came from Rod Stephens excellent blogs vb-helper(http://vb-helper.com), and csharphelper (http://csharphelper.com), as well as from his books.
-//     Copyright (c) Rod Stephens.
+//     Copyright © Rod Stephens.
 // </copyright>
 // <author id="RodStephens">Rod Stephens</author>
 // <license id="No Restrictions">
@@ -3392,32 +3392,29 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection RayRayIntersection(
-            double a1X, double a1Y,
-            double a2X, double a2Y,
-            double b1X, double b1Y,
-            double b2X, double b2Y,
-            double epsilon = Epsilon)
+        private static Intersection RayRayIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
         {
-            Intersection result;
             var ua_t = (b2X - b1X) * (a1Y - b1Y) - (b2Y - b1Y) * (a1X - b1X);
             var ub_t = (a2X - a1X) * (a1Y - b1Y) - (a2Y - a1Y) * (a1X - b1X);
             var u_b = (b2Y - b1Y) * (a2X - a1X) - (b2X - b1X) * (a2Y - a1Y);
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+
             if (u_b != 0)
             {
                 var ua = ua_t / u_b;
-                result = new Intersection(IntersectionState.Intersection);
+                result.State = IntersectionState.Intersection;
                 result.AppendPoint(new Point2D(a1X + ua * (a2X - a1X), a1Y + ua * (a2Y - a1Y)));
             }
             else
             {
                 if (ua_t == 0 || ub_t == 0)
                 {
-                    result = new Intersection(IntersectionState.Coincident);
+                    result.State |= IntersectionState.Coincident;
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Parallel);
+                    result.State |= IntersectionState.Parallel;
                 }
             }
 
@@ -4195,24 +4192,21 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
         {
-            Vector2D va, vb;
-            Vector2D c12, c11, c10;
-            Vector2D c22, c21, c20;
-            var result = new Intersection(IntersectionState.NoIntersection);
-            va = new Vector2D(a2X, a2Y).Scale(-2);
-            c12 = new Vector2D(a1X, a1Y).Add(va.Add(new Vector2D(a3X, a3Y)));
-            va = new Vector2D(a1X, a1Y).Scale(-2);
-            vb = new Vector2D(a2X, a2Y).Scale(2);
-            c11 = va.Add(vb);
-            c10 = new Vector2D(a1X, a1Y);
-            va = new Vector2D(b2X, b2Y).Scale(-2);
-            c22 = new Vector2D(b1X, b1Y).Add(va.Add(new Vector2D(b3X, b3Y)));
-            va = new Vector2D(b1X, b1Y).Scale(-2);
-            vb = new Vector2D(b2X, b2Y).Scale(2);
-            c21 = va.Add(vb);
-            c20 = new Vector2D(b1X, b1Y);
+            var va = new Vector2D(a2X, a2Y) * -2;
+            var c12 = new Vector2D(a1X, a1Y) + va + new Vector2D(a3X, a3Y);
+            va = new Vector2D(a1X, a1Y) * -2;
+            var vb = new Vector2D(a2X, a2Y) * 2;
+            var c11 = va + vb;
+            var c10 = new Vector2D(a1X, a1Y);
+            va = new Vector2D(b2X, b2Y) * -2;
+            var c22 = new Vector2D(b1X, b1Y) + va + new Vector2D(b3X, b3Y);
+            va = new Vector2D(b1X, b1Y) * -2;
+            vb = new Vector2D(b2X, b2Y) * 2;
+            var c21 = va + vb;
+            var c20 = new Vector2D(b1X, b1Y);
+
             var a = c12.I * c11.J - c11.I * c12.J;
             var b = c22.I * c11.J - c11.I * c22.J;
             var c = c21.I * c11.J - c11.I * c21.J;
@@ -4220,13 +4214,16 @@ namespace Engine
             var e = c22.I * c12.J - c12.I * c22.J;
             var f = c21.I * c12.J - c12.I * c21.J;
             var g = c12.I * (c10.J - c20.J) + c12.J * (-c10.I + c20.I);
-            var poly = new Polynomial(
+
+            var roots = new Polynomial(
                 a * d - g * g,
                 a * c - 2 * f * g,
                 a * b - f * f - 2 * e * g,
                 -2 * e * f,
-                -e * e);
-            var roots = poly.Roots();
+                -e * e).Roots();
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+
             for (var i = 0; i < roots.Count; i++)
             {
                 var s = roots[i];
@@ -4251,7 +4248,7 @@ namespace Engine
                                 {
                                     if (Abs(xRoot - yRoots[k]) < epsilon)
                                     {
-                                        result.Points.Add((Point2D)c22.Scale(s * s).Add(c21.Scale(s).Add(c20)));
+                                        result.Points.Add((Point2D)c22 * s * s + (c21 * s + c20));
                                         goto checkRoots;
                                     }
                                 }
@@ -4294,31 +4291,28 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
-            Vector2D a, b, c, d;
-            Vector2D c12, c11, c10;
-            Vector2D c23, c22, c21, c20;
-            var result = new Intersection(IntersectionState.NoIntersection);
-            a = new Vector2D(a2X, a2Y).Scale(-2);
-            c12 = new Vector2D(a1X, a1Y).Add(a.Add(new Vector2D(a3X, a3Y)));
-            a = new Vector2D(a1X, a1Y).Scale(-2);
-            b = new Vector2D(a2X, a2Y).Scale(2);
-            c11 = a.Add(b);
-            c10 = new Vector2D(a1X, a1Y);
-            a = new Vector2D(b1X, b1Y).Scale(-1);
-            b = new Vector2D(b2X, b2Y).Scale(3);
-            c = new Vector2D(b3X, b3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add(new Vector2D(b4X, b4Y))));
-            c23 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y).Scale(3);
-            b = new Vector2D(b2X, b2Y).Scale(-6);
-            c = new Vector2D(b3X, b3Y).Scale(3);
-            d = a.Add(b.Add(c));
-            c22 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y).Scale(-3);
-            b = new Vector2D(b2X, b2Y).Scale(3);
-            c = a.Add(b);
-            c21 = new Vector2D(c.I, c.J);
-            c20 = new Vector2D(b1X, b1Y);
+            var a = new Vector2D(a2X, a2Y) * -2;
+            var c12 = new Vector2D(a1X, a1Y) + a + new Vector2D(a3X, a3Y);
+            a = new Vector2D(a1X, a1Y) * -2;
+            var b = new Vector2D(a2X, a2Y) * 2;
+            var c11 = a + b;
+            var c10 = new Vector2D(a1X, a1Y);
+            a = new Vector2D(b1X, b1Y) * -1;
+            b = new Vector2D(b2X, b2Y) * 3;
+            var c = new Vector2D(b3X, b3Y) * -3;
+            var d = a + b + c + new Vector2D(b4X, b4Y);
+            var c23 = new Vector2D(d.I, d.J);
+            a = new Vector2D(b1X, b1Y) * 3;
+            b = new Vector2D(b2X, b2Y) * -6;
+            c = new Vector2D(b3X, b3Y) * 3;
+            d = a + b + c;
+            var c22 = new Vector2D(d.I, d.J);
+            a = new Vector2D(b1X, b1Y) * -3;
+            b = new Vector2D(b2X, b2Y) * 3;
+            c = a + b;
+            var c21 = new Vector2D(c.I, c.J);
+            var c20 = new Vector2D(b1X, b1Y);
+
             var c10x2 = c10.I * c10.I;
             var c10y2 = c10.J * c10.J;
             var c11x2 = c11.I * c11.I;
@@ -4333,15 +4327,18 @@ namespace Engine
             var c22y2 = c22.J * c22.J;
             var c23x2 = c23.I * c23.I;
             var c23y2 = c23.J * c23.J;
-            var poly = new Polynomial(
+
+            var roots = new Polynomial(
                 -2 * c10.I * c10.J * c12.I * c12.J - c10.I * c11.I * c11.J * c12.J - c10.J * c11.I * c11.J * c12.I + 2 * c10.I * c12.I * c20.J * c12.J + 2 * c10.J * c20.I * c12.I * c12.J + c11.I * c20.I * c11.J * c12.J + c11.I * c11.J * c12.I * c20.J - 2 * c20.I * c12.I * c20.J * c12.J - 2 * c10.I * c20.I * c12y2 + c10.I * c11y2 * c12.I + c10.J * c11x2 * c12.J - 2 * c10.J * c12x2 * c20.J - c20.I * c11y2 * c12.I - c11x2 * c20.J * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2,
                 2 * c10.I * c12.I * c12.J * c21.J + 2 * c10.J * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * c20.I * c12.I * c12.J * c21.J - 2 * c12.I * c20.J * c21.I * c12.J - 2 * c10.I * c21.I * c12y2 - 2 * c10.J * c12x2 * c21.J + 2 * c20.I * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * c20.J * c21.J,
                 2 * c10.I * c12.I * c12.J * c22.J + 2 * c10.J * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * c20.I * c12.I * c12.J * c22.J - 2 * c12.I * c20.J * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * c10.I * c12y2 * c22.I - 2 * c10.J * c12x2 * c22.J + 2 * c20.I * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * c20.J * c22.J + c21y2),
                 2 * c10.I * c12.I * c12.J * c23.J + 2 * c10.J * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * c20.I * c12.I * c12.J * c23.J - 2 * c12.I * c20.J * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * c10.I * c12y2 * c23.I - 2 * c10.J * c12x2 * c23.J + 2 * c20.I * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * c20.J * c23.J + 2 * c21.J * c22.J),
                 -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
                 -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
-                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J);
-            var roots = poly.RootsInInterval(0, 1);
+                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J).RootsInInterval(0, 1);
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+
             for (var i = 0; i < roots.Count; i++)
             {
                 var s = roots[i];
@@ -4364,7 +4361,7 @@ namespace Engine
                             {
                                 if (Abs(xRoot - yRoots[k]) < epsilon)
                                 {
-                                    result.Points.Add((Point2D)c23.Scale(s * s * s).Add(c22.Scale(s * s).Add(c21.Scale(s).Add(c20))));
+                                    result.Points.Add((Point2D)c23 * s * s * s + (c22 * s * s + (c21 * s + c20)));
                                     goto checkRoots;
                                 }
                             }
@@ -4490,37 +4487,37 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var a = new Vector2D(a1X, a1Y).Scale(-1);
-            var b = new Vector2D(a2X, a2Y).Scale(3);
-            var c = new Vector2D(a3X, a3Y).Scale(-3);
-            var d = a.Add(b.Add(c.Add(new Vector2D(a4X, a4Y))));
+            var a = new Vector2D(a1X, a1Y) * -1;
+            var b = new Vector2D(a2X, a2Y) * 3;
+            var c = new Vector2D(a3X, a3Y) * -3;
+            var d = a + b + c + new Vector2D(a4X, a4Y);
             var c13 = new Vector2D(d.I, d.J);
-            a = new Vector2D(a1X, a1Y).Scale(3);
-            b = new Vector2D(a2X, a2Y).Scale(-6);
-            c = new Vector2D(a3X, a3Y).Scale(3);
-            d = a.Add(b.Add(c));
+            a = new Vector2D(a1X, a1Y) * 3;
+            b = new Vector2D(a2X, a2Y) * -6;
+            c = new Vector2D(a3X, a3Y) * 3;
+            d = a + b + c;
             var c12 = new Vector2D(d.I, d.J);
-            a = new Vector2D(a1X, a1Y).Scale(-3);
-            b = new Vector2D(a2X, a2Y).Scale(3);
-            c = a.Add(b);
+            a = new Vector2D(a1X, a1Y) * -3;
+            b = new Vector2D(a2X, a2Y) * 3;
+            c = a + b;
             var c11 = new Vector2D(c.I, c.J);
             var c10 = new Vector2D(a1X, a1Y);
-            a = new Vector2D(b1X, b1Y).Scale(-1);
-            b = new Vector2D(b2X, b2Y).Scale(3);
-            c = new Vector2D(b3X, b3Y).Scale(-3);
-            d = a.Add(b.Add(c.Add(new Vector2D(b4X, b4Y))));
+            a = new Vector2D(b1X, b1Y) * -1;
+            b = new Vector2D(b2X, b2Y) * 3;
+            c = new Vector2D(b3X, b3Y) * -3;
+            d = a + b + c + new Vector2D(b4X, b4Y);
             var c23 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y).Scale(3);
-            b = new Vector2D(b2X, b2Y).Scale(-6);
-            c = new Vector2D(b3X, b3Y).Scale(3);
-            d = a.Add(b.Add(c));
+            a = new Vector2D(b1X, b1Y) * 3;
+            b = new Vector2D(b2X, b2Y) * -6;
+            c = new Vector2D(b3X, b3Y) * 3;
+            d = a + b + c;
             var c22 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y).Scale(-3);
-            b = new Vector2D(b2X, b2Y).Scale(3);
-            c = a.Add(b);
+            a = new Vector2D(b1X, b1Y) * -3;
+            b = new Vector2D(b2X, b2Y) * 3;
+            c = a + b;
             var c21 = new Vector2D(c.I, c.J);
             var c20 = new Vector2D(b1X, b1Y);
+
             var c10x2 = c10.I * c10.I;
             var c10x3 = c10.I * c10.I * c10.I;
             var c10y2 = c10.J * c10.J;
@@ -4551,6 +4548,7 @@ namespace Engine
             var c23x3 = c23.I * c23.I * c23.I;
             var c23y2 = c23.J * c23.J;
             var c23y3 = c23.J * c23.J * c23.J;
+
             var poly = new Polynomial(
                 c10.I * c10.J * c11.I * c12.J * c13.I * c13.J - c10.I * c10.J * c11.J * c12.I * c13.I * c13.J + c10.I * c11.I * c11.J * c12.I * c12.J * c13.J - c10.J * c11.I * c11.J * c12.I * c12.J * c13.I - c10.I * c11.I * c20.J * c12.J * c13.I * c13.J + 6 * c10.I * c20.I * c11.J * c12.J * c13.I * c13.J + c10.I * c11.J * c12.I * c20.J * c13.I * c13.J - c10.J * c11.I * c20.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c20.J * c13.I * c13.J + c10.J * c20.I * c11.J * c12.I * c13.I * c13.J - c11.I * c20.I * c11.J * c12.I * c12.J * c13.J + c11.I * c11.J * c12.I * c20.J * c12.J * c13.I + c11.I * c20.I * c20.J * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c20.J * c13.I * c13.J - 2 * c10.I * c20.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c20.J * c13.J - 3 * c10.I * c10.J * c11.I * c12.I * c13y2 - 6 * c10.I * c10.J * c20.I * c13.I * c13y2 + 3 * c10.I * c10.J * c11.J * c12.J * c13x2 - 2 * c10.I * c10.J * c12.I * c12y2 * c13.I - 2 * c10.I * c11.I * c20.I * c12.J * c13y2 - c10.I * c11.I * c11.J * c12y2 * c13.I + 3 * c10.I * c11.I * c12.I * c20.J * c13y2 - 4 * c10.I * c20.I * c11.J * c12.I * c13y2 + 3 * c10.J * c11.I * c20.I * c12.I * c13y2 + 6 * c10.I * c10.J * c20.J * c13x2 * c13.J + 2 * c10.I * c10.J * c12x2 * c12.J * c13.J + 2 * c10.I * c11.I * c11y2 * c13.I * c13.J + 2 * c10.I * c20.I * c12.I * c12y2 * c13.J + 6 * c10.I * c20.I * c20.J * c13.I * c13y2 - 3 * c10.I * c11.J * c20.J * c12.J * c13x2 + 2 * c10.I * c12.I * c20.J * c12y2 * c13.I + c10.I * c11y2 * c12.I * c12.J * c13.I + c10.J * c11.I * c11.J * c12x2 * c13.J + 4 * c10.J * c11.I * c20.J * c12.J * c13x2 - 3 * c10.J * c20.I * c11.J * c12.J * c13x2 + 2 * c10.J * c20.I * c12.I * c12y2 * c13.I + 2 * c10.J * c11.J * c12.I * c20.J * c13x2 + c11.I * c20.I * c11.J * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c20.J * c13y2 - 2 * c10.I * c12x2 * c20.J * c12.J * c13.J - 6 * c10.J * c20.I * c20.J * c13x2 * c13.J - 2 * c10.J * c20.I * c12x2 * c12.J * c13.J - 2 * c10.J * c11x2 * c11.J * c13.I * c13.J - c10.J * c11x2 * c12.I * c12.J * c13.J - 2 * c10.J * c12x2 * c20.J * c12.J * c13.I - 2 * c11.I * c20.I * c11y2 * c13.I * c13.J - c11.I * c11.J * c12x2 * c20.J * c13.J + 3 * c20.I * c11.J * c20.J * c12.J * c13x2 - 2 * c20.I * c12.I * c20.J * c12y2 * c13.I - c20.I * c11y2 * c12.I * c12.J * c13.I + 3 * c10y2 * c11.I * c12.I * c13.I * c13.J + 3 * c11.I * c12.I * c20y2 * c13.I * c13.J + 2 * c20.I * c12x2 * c20.J * c12.J * c13.J - 3 * c10x2 * c11.J * c12.J * c13.I * c13.J + 2 * c11x2 * c11.J * c20.J * c13.I * c13.J + c11x2 * c12.I * c20.J * c12.J * c13.J - 3 * c20x2 * c11.J * c12.J * c13.I * c13.J - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * c10.I * c20x2 * c13y3 - c10.I * c11y3 * c13x2 + 3 * c10x2 * c20.I * c13y3 + c10.J * c11x3 * c13y2 + 3 * c10.J * c20y2 * c13x3 + c20.I * c11y3 * c13x2 + c10x2 * c12y3 * c13.I - 3 * c10y2 * c20.J * c13x3 - c10y2 * c12x3 * c13.J + c20x2 * c12y3 * c13.I - c11x3 * c20.J * c13y2 - c12x3 * c20y2 * c13.J - c10.I * c11x2 * c11.J * c13y2 + c10.J * c11.I * c11y2 * c13x2 - 3 * c10.I * c10y2 * c13x2 * c13.J - c10.I * c11y2 * c12x2 * c13.J + c10.J * c11x2 * c12y2 * c13.I - c11.I * c11y2 * c20.J * c13x2 + 3 * c10x2 * c10.J * c13.I * c13y2 + c10x2 * c11.I * c12.J * c13y2 + 2 * c10x2 * c11.J * c12.I * c13y2 - 2 * c10y2 * c11.I * c12.J * c13x2 - c10y2 * c11.J * c12.I * c13x2 + c11x2 * c20.I * c11.J * c13y2 - 3 * c10.I * c20y2 * c13x2 * c13.J + 3 * c10.J * c20x2 * c13.I * c13y2 + c11.I * c20x2 * c12.J * c13y2 - 2 * c11.I * c20y2 * c12.J * c13x2 + c20.I * c11y2 * c12x2 * c13.J - c11.J * c12.I * c20y2 * c13x2 - c10x2 * c12.I * c12y2 * c13.J - 3 * c10x2 * c20.J * c13.I * c13y2 + 3 * c10y2 * c20.I * c13x2 * c13.J + c10y2 * c12x2 * c12.J * c13.I - c11x2 * c20.J * c12y2 * c13.I + 2 * c20x2 * c11.J * c12.I * c13y2 + 3 * c20.I * c20y2 * c13x2 * c13.J - c20x2 * c12.I * c12y2 * c13.J - 3 * c20x2 * c20.J * c13.I * c13y2 + c12x2 * c20y2 * c12.J * c13.I,
                 -c10.I * c11.I * c12.J * c13.I * c21.J * c13.J + c10.I * c11.J * c12.I * c13.I * c21.J * c13.J + 6 * c10.I * c11.J * c21.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c13.I * c21.J * c13.J - c10.J * c11.I * c21.I * c12.J * c13.I * c13.J + c10.J * c11.J * c12.I * c21.I * c13.I * c13.J - c11.I * c11.J * c12.I * c21.I * c12.J * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c21.J + c11.I * c20.I * c12.J * c13.I * c21.J * c13.J + 6 * c11.I * c12.I * c20.J * c13.I * c21.J * c13.J + c11.I * c20.J * c21.I * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c13.I * c21.J * c13.J - 6 * c20.I * c11.J * c21.I * c12.J * c13.I * c13.J - c11.J * c12.I * c20.J * c21.I * c13.I * c13.J - 6 * c10.I * c20.I * c21.I * c13y3 - 2 * c10.I * c21.I * c12y3 * c13.I + 6 * c10.J * c20.J * c13x3 * c21.J + 2 * c20.I * c21.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c21.J * c13.J - 2 * c12x3 * c20.J * c21.J * c13.J - 6 * c10.I * c10.J * c21.I * c13.I * c13y2 + 3 * c10.I * c11.I * c12.I * c21.J * c13y2 - 2 * c10.I * c11.I * c21.I * c12.J * c13y2 - 4 * c10.I * c11.J * c12.I * c21.I * c13y2 + 3 * c10.J * c11.I * c12.I * c21.I * c13y2 + 6 * c10.I * c10.J * c13x2 * c21.J * c13.J + 6 * c10.I * c20.I * c13.I * c21.J * c13y2 - 3 * c10.I * c11.J * c12.J * c13x2 * c21.J + 2 * c10.I * c12.I * c21.I * c12y2 * c13.J + 2 * c10.I * c12.I * c12y2 * c13.I * c21.J + 6 * c10.I * c20.J * c21.I * c13.I * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c21.J + 6 * c10.J * c20.I * c21.I * c13.I * c13y2 + 2 * c10.J * c11.J * c12.I * c13x2 * c21.J - 3 * c10.J * c11.J * c21.I * c12.J * c13x2 + 2 * c10.J * c12.I * c21.I * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c21.J * c13y2 + 2 * c11.I * c20.I * c21.I * c12.J * c13y2 + c11.I * c11.J * c21.I * c12y2 * c13.I - 3 * c11.I * c12.I * c20.J * c21.I * c13y2 + 4 * c20.I * c11.J * c12.I * c21.I * c13y2 - 6 * c10.I * c20.J * c13x2 * c21.J * c13.J - 2 * c10.I * c12x2 * c12.J * c21.J * c13.J - 6 * c10.J * c20.I * c13x2 * c21.J * c13.J - 6 * c10.J * c20.J * c21.I * c13x2 * c13.J - 2 * c10.J * c12x2 * c21.I * c12.J * c13.J - 2 * c10.J * c12x2 * c12.J * c13.I * c21.J - c11.I * c11.J * c12x2 * c21.J * c13.J - 4 * c11.I * c20.J * c12.J * c13x2 * c21.J - 2 * c11.I * c11y2 * c21.I * c13.I * c13.J + 3 * c20.I * c11.J * c12.J * c13x2 * c21.J - 2 * c20.I * c12.I * c21.I * c12y2 * c13.J - 2 * c20.I * c12.I * c12y2 * c13.I * c21.J - 6 * c20.I * c20.J * c21.I * c13.I * c13y2 - 2 * c11.J * c12.I * c20.J * c13x2 * c21.J + 3 * c11.J * c20.J * c21.I * c12.J * c13x2 - 2 * c12.I * c20.J * c21.I * c12y2 * c13.I - c11y2 * c12.I * c21.I * c12.J * c13.I + 6 * c20.I * c20.J * c13x2 * c21.J * c13.J + 2 * c20.I * c12x2 * c12.J * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c21.J * c13.J + c11x2 * c12.I * c12.J * c21.J * c13.J + 2 * c12x2 * c20.J * c21.I * c12.J * c13.J + 2 * c12x2 * c20.J * c12.J * c13.I * c21.J + 3 * c10x2 * c21.I * c13y3 - 3 * c10y2 * c13x3 * c21.J + 3 * c20x2 * c21.I * c13y3 + c11y3 * c21.I * c13x2 - c11x3 * c21.J * c13y2 - 3 * c20y2 * c13x3 * c21.J - c11.I * c11y2 * c13x2 * c21.J + c11x2 * c11.J * c21.I * c13y2 - 3 * c10x2 * c13.I * c21.J * c13y2 + 3 * c10y2 * c21.I * c13x2 * c13.J - c11x2 * c12y2 * c13.I * c21.J + c11y2 * c12x2 * c21.I * c13.J - 3 * c20x2 * c13.I * c21.J * c13y2 + 3 * c20y2 * c21.I * c13x2 * c13.J,
@@ -4563,6 +4561,9 @@ namespace Engine
                 -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
                 -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2);
             var roots = poly.RootsInInterval(0, 1);
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+
             for (var i = 0; i < roots.Count; i++)
             {
                 var s = roots[i];
@@ -4587,7 +4588,7 @@ namespace Engine
                             {
                                 if (Abs(xRoot - yRoots[k]) < epsilon)
                                 {
-                                    result.Points.Add((Point2D)c23.Scale(s * s * s).Add(c22.Scale(s * s).Add(c21.Scale(s).Add(c20))));
+                                    result.Points.Add((Point2D)c23 * (s * s * s) + (c22 * s * s + (c21 * s + c20)));
                                     goto checkRoots;
                                 }
                             }
@@ -4596,6 +4597,7 @@ namespace Engine
                     checkRoots:;
                 }
             }
+
             if (result.Points.Count > 0) result.State = IntersectionState.Intersection;
             return result;
         }
@@ -4981,6 +4983,7 @@ namespace Engine
             var r_max = r1 + r2;
             var r_min = Abs(r1 - r2);
             var c_dist = Distance(c1X, c1Y, c2X, c2Y);
+
             if (c_dist > r_max)
             {
                 result = new Intersection(IntersectionState.Outside);
@@ -5190,29 +5193,32 @@ namespace Engine
             double rx, double ry,
             double epsilon = Epsilon)
         {
-            Vector2D a, b;
-            Vector2D c2, c1, c0;
-            var result = new Intersection(IntersectionState.NoIntersection);
-            a = new Vector2D(p2X, p2Y).Scale(-2);
-            c2 = new Vector2D(p1X, p1Y).Add(a.Add(new Vector2D(p3X, p3Y)));
-            a = new Vector2D(p1X, p1Y).Scale(-2);
-            b = new Vector2D(p2X, p2Y).Scale(2);
-            c1 = a.Add(b);
-            c0 = new Vector2D(p1X, p1Y);
+            var a = new Vector2D(p2X, p2Y) * -2;
+            var c2 = new Vector2D(p1X, p1Y) + a + new Vector2D(p3X, p3Y);
+            a = new Vector2D(p1X, p1Y) * -2;
+            var b = new Vector2D(p2X, p2Y) * 2;
+            var c1 = a + b;
+            var c0 = new Vector2D(p1X, p1Y);
+
             var rxrx = rx * rx;
             var ryry = ry * ry;
+
             var roots = new Polynomial(
                 ryry * (c0.I * c0.I + ecY * ecY) + rxrx * (c0.J * c0.J + ecY * ecY) - 2 * (ryry * ecX * c0.I + rxrx * ecY * c0.J) - rxrx * ryry,
                 2 * (ryry * c1.I * (c0.I - ecX) + rxrx * c1.J * (c0.J - ecY)),
                 ryry * (2 * c2.I * c0.I + c1.I * c1.I) + rxrx * (2 * c2.J * c0.J + c1.J * c1.J) - 2 * (ryry * ecX * c2.I + rxrx * ecY * c2.J),
                 2 * (ryry * c2.I * c1.I + rxrx * c2.J * c1.J),
                 ryry * c2.I * c2.I + rxrx * c2.J * c2.J).Roots();
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+
             for (var i = 0; i < roots.Count; i++)
             {
                 var t = roots[i];
                 if (0 <= t && t <= 1)
-                    result.Points.Add((Point2D)c2.Scale(t * t).Add(c1.Scale(t).Add(c0)));
+                    result.Points.Add((Point2D)c2 * t * t + (c1 * t + c0));
             }
+
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
             return result;
@@ -5250,38 +5256,42 @@ namespace Engine
             double rx, double ry,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var a = new Vector2D(p1X, p1Y).Scale(-1);
-            var b = new Vector2D(p2X, p2Y).Scale(3);
-            var c = new Vector2D(p3X, p3Y).Scale(-3);
-            var d = a.Add(b.Add(c.Add(new Vector2D(p4X, p4Y))));
+            var a = new Vector2D(p1X, p1Y) * -1;
+            var b = new Vector2D(p2X, p2Y) * 3;
+            var c = new Vector2D(p3X, p3Y) * -3;
+            var d = a + b + c + new Vector2D(p4X, p4Y);
             var c3 = new Vector2D(d.I, d.J);
-            a = new Vector2D(p1X, p1Y).Scale(3);
-            b = new Vector2D(p2X, p2Y).Scale(-6);
-            c = new Vector2D(p3X, p3Y).Scale(3);
-            d = a.Add(b.Add(c));
+            a = new Vector2D(p1X, p1Y) * 3;
+            b = new Vector2D(p2X, p2Y) * -6;
+            c = new Vector2D(p3X, p3Y) * 3;
+            d = a + b + c;
             var c2 = new Vector2D(d.I, d.J);
-            a = new Vector2D(p1X, p1Y).Scale(-3);
-            b = new Vector2D(p2X, p2Y).Scale(3);
-            c = a.Add(b);
+            a = new Vector2D(p1X, p1Y) * -3;
+            b = new Vector2D(p2X, p2Y) * 3;
+            c = a + b;
             var c1 = new Vector2D(c.I, c.J);
             var c0 = new Vector2D(p1X, p1Y);
+
             var rxrx = rx * rx;
             var ryry = ry * ry;
-            var poly = new Polynomial(
+
+            var roots = new Polynomial(
                 c0.I * c0.I * ryry - 2 * c0.J * ecY * rxrx - 2 * c0.I * ecX * ryry + c0.J * c0.J * rxrx + ecX * ecX * ryry + ecY * ecY * rxrx - rxrx * ryry,
                 2 * c1.I * ryry * (c0.I - ecX) + 2 * c1.J * rxrx * (c0.J - ecY),
                 2 * c2.I * ryry * (c0.I - ecX) + 2 * c2.J * rxrx * (c0.J - ecY) + c1.I * c1.I * ryry + c1.J * c1.J * rxrx,
                 2 * c3.I * ryry * (c0.I - ecX) + 2 * c3.J * rxrx * (c0.J - ecY) + 2 * (c2.I * c1.I * ryry + c2.J * c1.J * rxrx),
                 2 * (c3.I * c1.I * ryry + c3.J * c1.J * rxrx) + c2.I * c2.I * ryry + c2.J * c2.J * rxrx,
                 2 * (c3.I * c2.I * ryry + c3.J * c2.J * rxrx),
-                c3.I * c3.I * ryry + c3.J * c3.J * rxrx);
-            var roots = poly.RootsInInterval(0, 1);
+                c3.I * c3.I * ryry + c3.J * c3.J * rxrx).RootsInInterval(0, 1);
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+
             for (var i = 0; i < roots.Count; i++)
             {
                 var t = roots[i];
-                result.Points.Add((Point2D)c3.Scale(t * t * t).Add(c2.Scale(t * t).Add(c1.Scale(t).Add(c0))));
+                result.Points.Add((Point2D)c3 * t * t * t + (c2 * t * t + (c1 * t + c0)));
             }
+
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
             return result;
@@ -5315,11 +5325,15 @@ namespace Engine
         {
             double[] a = new double[] { ry1 * ry1, 0, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2 * rx1 * rx1 * c1Y, ry1 * ry1 * c1X * c1X + rx1 * rx1 * c1Y * c1Y - rx1 * rx1 * ry1 * ry1 };
             double[] b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
+
             var yPoly = Bezout(a, b);
             var yRoots = yPoly.Roots();
+
             var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
             var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
+
             var result = new Intersection(IntersectionState.NoIntersection);
+
             for (var y = 0; y < yRoots.Count; y++)
             {
                 var xPoly = new Polynomial(

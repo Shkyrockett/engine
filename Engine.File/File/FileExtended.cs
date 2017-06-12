@@ -1,5 +1,5 @@
 ﻿// <copyright file="FileEx.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -10,7 +10,6 @@
 
 using System.Diagnostics;
 using System.IO;
-using System.Runtime;
 using System.Runtime.CompilerServices;
 using System.Text;
 using static System.Math;

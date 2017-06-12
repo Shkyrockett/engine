@@ -1,5 +1,5 @@
 ﻿// <copyright file="SplineBuilder.cs" >
-//     Copyright (c) 2015 burningmime. All rights reserved.
+//     Copyright © 2015 burningmime. All rights reserved.
 // </copyright>
 // <author id="burningmime">burningmime</author>
 // <license>

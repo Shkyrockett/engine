@@ -1,5 +1,5 @@
 ﻿// <copyright file="Vector2DConverter.cs" company="" >
-//     Copyright (c) 2005-2007 Jonathan Mark Porter.
+//     Copyright © 2005-2007 Jonathan Mark Porter.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

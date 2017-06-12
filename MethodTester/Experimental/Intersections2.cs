@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (c) 2013, Kevin Lindsey
+    Copyright © 2013, Kevin Lindsey
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without modification,

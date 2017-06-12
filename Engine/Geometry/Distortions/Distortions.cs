@@ -1,5 +1,5 @@
 ﻿// <copyright file="Filter.cs" company="Shkyrockett" >
-//     Copyright (c) 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,7 +9,7 @@
 // <remarks></remarks>
 
 // <copyright file="CurvePreprocess.cs" >
-//     Copyright (c) 2015 burningmime. All rights reserved.
+//     Copyright © 2015 burningmime. All rights reserved.
 // </copyright>
 // <author id="burningmime">burningmime</author>
 // <license>

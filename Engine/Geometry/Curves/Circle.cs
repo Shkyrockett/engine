@@ -1,5 +1,5 @@
 ﻿// <copyright file="Circle.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -220,7 +219,7 @@ namespace Engine
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        //[DisplayName(nameof(X))]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -242,7 +241,7 @@ namespace Engine
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        //[DisplayName(nameof(Y))]
+        [Browsable(false)]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -265,7 +264,6 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Circumference))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public double Circumference
@@ -275,7 +273,6 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The distance around the circle.")]
         public override double Perimeter
@@ -285,7 +282,6 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the circle.")]
         public override double Area
@@ -328,7 +324,7 @@ namespace Engine
         /// Gets or sets the rectangular boundaries of the circle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Bounds))]
+        [ReadOnly(true)]
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]

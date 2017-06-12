@@ -1,5 +1,5 @@
 ﻿// <copyright file="PointChain.cs" >
-//     Copyright (c) 2011 Mahir Iqbal. All rights reserved.
+//     Copyright © 2011 Mahir Iqbal. All rights reserved.
 // </copyright>
 // <author id="akavel">Mahir Iqbal</author>
 // <license>

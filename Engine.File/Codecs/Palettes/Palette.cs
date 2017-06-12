@@ -1,5 +1,5 @@
 ﻿// <copyright file="Palette.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,11 +11,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using Engine;
 using Engine.Colorspace;
 
 namespace Engine.File.Palettes

@@ -1,5 +1,5 @@
 ﻿// <copyright file="DistortionService.cs" >
-//    Copyright (c) 2017 Ben Morris. All rights reserved.
+//    Copyright © 2017 Ben Morris. All rights reserved.
 // </copyright>
 // <author id="benmorris44">Ben Morris</author>
 // <license>

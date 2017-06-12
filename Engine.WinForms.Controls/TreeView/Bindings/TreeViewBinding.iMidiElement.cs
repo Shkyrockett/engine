@@ -1,12 +1,12 @@
 ﻿// <copyright file="TreeViewBinding.iMidiElement.cs" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="Shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <copyright file="TreeViewBinding.iMidiElement.cs" >
-//     Copyright (c) 2017 Martin Schreiber. All rights reserved.
+//     Copyright © 2017 Martin Schreiber. All rights reserved.
 // </copyright>
 // <author id="gruemscheli">Martin Schreiber</author>
 // <license>

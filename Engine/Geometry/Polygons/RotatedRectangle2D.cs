@@ -1,5 +1,5 @@
 ﻿// <copyright file="RotatedRectangle2D.cs" company="Shkyrockett" >
-//     Copyright (c) 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 //using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;

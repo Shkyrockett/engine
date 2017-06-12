@@ -1,5 +1,5 @@
 ﻿// <copyright file="Vector2D.cs" company="Shkyrockett" >
-//     Copyright (c) 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,7 +11,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-//using System.Drawing;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -300,7 +299,7 @@ namespace Engine
             => !Equals(a, b);
 
         /// <summary>
-        /// Tupple to <see cref="Vector2D"/>.
+        /// Tuple to <see cref="Vector2D"/>.
         /// </summary>
         /// <param name="tuple"></param>
         /// <returns></returns>

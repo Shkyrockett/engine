@@ -1,5 +1,5 @@
 ﻿// <copyright file="Ease.cs" >
-//     Copyright (c) 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>

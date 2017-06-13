@@ -2770,10 +2770,9 @@ namespace Engine
 
             List<double> roots;
             roots = QuadraticRoots(
-                A * bx.A + B * by.A,    // t^2
-                A * bx.B + B * by.B,    // t^1
-                A * bx.C + B * by.C + C // 1
-                );
+                /* t^2 */ A * bx.A + B * by.A,
+                /* t^1 */ A * bx.B + B * by.B,
+                /* 1 */ A * bx.C + B * by.C + C);
 
             for (var i = 0; i < roots.Count; i++)
             {
@@ -4188,68 +4187,65 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
-        /// http://www.kevlindev.com/
+        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
         {
-            var va = new Vector2D(a2X, a2Y) * -2;
-            var c12 = new Vector2D(a1X, a1Y) + va + new Vector2D(a3X, a3Y);
-            va = new Vector2D(a1X, a1Y) * -2;
-            var vb = new Vector2D(a2X, a2Y) * 2;
-            var c11 = va + vb;
-            var c10 = new Vector2D(a1X, a1Y);
-            va = new Vector2D(b2X, b2Y) * -2;
-            var c22 = new Vector2D(b1X, b1Y) + va + new Vector2D(b3X, b3Y);
-            va = new Vector2D(b1X, b1Y) * -2;
-            vb = new Vector2D(b2X, b2Y) * 2;
-            var c21 = va + vb;
-            var c20 = new Vector2D(b1X, b1Y);
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // Todo: Break early if the AABB bounding box of the curve does not intersect.
+
+            // ToDo: Figure out if the following can be broken out of the vector structs.
+            var c12 = new Vector2D(a1X - (a2X * 2) + a3X, a1Y - (a2Y * 2) + a3Y);
+            var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
+            var c22 = new Vector2D(b1X - (b2X * 2) + b3X, b1Y - (b2Y * 2) + b3Y);
+            var c21 = new Vector2D(2 * (b2X - b1X), 2 * (b2Y - b1Y));
 
             var a = c12.I * c11.J - c11.I * c12.J;
             var b = c22.I * c11.J - c11.I * c22.J;
             var c = c21.I * c11.J - c11.I * c21.J;
-            var d = c11.I * (c10.J - c20.J) + c11.J * (-c10.I + c20.I);
+            var d = c11.I * (a1Y - b1Y) + c11.J * (b1X - a1X);
             var e = c22.I * c12.J - c12.I * c22.J;
             var f = c21.I * c12.J - c12.I * c21.J;
-            var g = c12.I * (c10.J - c20.J) + c12.J * (-c10.I + c20.I);
+            var g = c12.I * (a1Y - b1Y) + c12.J * (b1X - a1X);
 
             var roots = new Polynomial(
-                a * d - g * g,
-                a * c - 2 * f * g,
-                a * b - f * f - 2 * e * g,
-                -2 * e * f,
-                -e * e).Roots();
+                /* t^4 */ a * d - g * g,
+                /* t^3 */ a * c - 2 * f * g,
+                /* t^2 */ a * b - f * f - 2 * e * g,
+                /* t^1 */ -2 * e * f,
+                /* C */ -e * e).Roots();
 
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var s = roots[i];
+                var point = new Point2D(c22.I * s * s + c21.I * s + b1X, c22.J * s * s + c21.J * s + b1Y);
                 if (0 <= s && s <= 1)
                 {
                     var xRoots = new Polynomial(
-                        -c10.I + c20.I + s * c21.I + s * s * c22.I,
-                        -c11.I,
-                        -c12.I).Roots();
+                        /* t^2 */ -a1X + point.X,
+                        /* t^1 */ -c11.I,
+                        /* C */ -c12.I).Roots();
                     var yRoots = new Polynomial(
-                        -c10.J + c20.J + s * c21.J + s * s * c22.J,
-                        -c11.J,
-                        -c12.J).Roots();
+                        /* t^2 */ -a1Y + point.Y,
+                        /* t^1 */ -c11.J,
+                        /* C */ -c12.J).Roots();
+
                     if (xRoots.Count > 0 && yRoots.Count > 0)
                     {
-                        for (var j = 0; j < xRoots.Count; j++)
+                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
+                        foreach (var xRoot in xRoots)
                         {
-                            var xRoot = xRoots[j];
-                            if (0 <= xRoot && xRoot <= 1)
+                            if (xRoot >= 0 && xRoot <= 1)
                             {
-                                for (var k = 0; k < yRoots.Count; k++)
+                                foreach (var yRoot in yRoots)
                                 {
-                                    if (Abs(xRoot - yRoots[k]) < epsilon)
+                                    var t = xRoot - yRoot;
+                                    if ((t >= 0 ? t : -t) < epsilon)
                                     {
-                                        result.Points.Add((Point2D)c22 * s * s + (c21 * s + c20));
-                                        goto checkRoots;
+                                        result.Points.Add(point);
+                                        goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
                                     }
                                 }
                             }

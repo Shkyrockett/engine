@@ -8286,13 +8286,13 @@ namespace MethodSpeedTester
         /// Set of tests to run testing methods that calculate the Intersection of two Quadratic Bezier curves.
         /// </summary>
         /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(IsValidTests))]
+        [System.ComponentModel.DisplayName(nameof(IntersectionQuadraticBezierQuadraticBezier))]
         public static List<SpeedTester> IntersectionQuadraticBezierQuadraticBezier()
             => new List<SpeedTester> {
-                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5),
-                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5)"),
-                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5),
-                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection2)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5)"),
+                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
+                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
+                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
+                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection2)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
             };
 
 
@@ -8474,6 +8474,294 @@ namespace MethodSpeedTester
                         }
                         checkRoots:;
                     }
+                }
+            }
+
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        #endregion
+
+        #region Intersection of a Cubic Bezier and a Cubic Bezier
+
+        /// <summary>
+        /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bezier curves.
+        /// </summary>
+        /// <returns></returns>
+        [System.ComponentModel.DisplayName(nameof(IntersectionCubicBezierCubicBezier))]
+        public static List<SpeedTester> IntersectionCubicBezierCubicBezier()
+            => new List<SpeedTester> {
+                new SpeedTester(() => CubicBezierSegmentCubicBezierSegmentIntersection(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon),
+                $"{nameof(Experiments.CubicBezierSegmentCubicBezierSegmentIntersection)}(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon)"),
+                new SpeedTester(() => CubicBezierSegmentCubicBezierSegmentIntersection2(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon),
+                $"{nameof(Experiments.CubicBezierSegmentCubicBezierSegmentIntersection2)}(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon)"),
+            };
+
+        /// <summary>
+        /// Find the intersection between two cubic beziers.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="a4X"></param>
+        /// <param name="a4Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
+        {
+            var a = new Vector2D(a1X, a1Y) * -1;
+            var b = new Vector2D(a2X, a2Y) * 3;
+            var c = new Vector2D(a3X, a3Y) * -3;
+            var d = a + b + c + new Vector2D(a4X, a4Y);
+            var c13 = new Vector2D(d.I, d.J);
+            a = new Vector2D(a1X, a1Y) * 3;
+            b = new Vector2D(a2X, a2Y) * -6;
+            c = new Vector2D(a3X, a3Y) * 3;
+            d = a + b + c;
+            var c12 = new Vector2D(d.I, d.J);
+            a = new Vector2D(a1X, a1Y) * -3;
+            b = new Vector2D(a2X, a2Y) * 3;
+            c = a + b;
+            var c11 = new Vector2D(c.I, c.J);
+            var c10 = new Vector2D(a1X, a1Y);
+            a = new Vector2D(b1X, b1Y) * -1;
+            b = new Vector2D(b2X, b2Y) * 3;
+            c = new Vector2D(b3X, b3Y) * -3;
+            d = a + b + c + new Vector2D(b4X, b4Y);
+            var c23 = new Vector2D(d.I, d.J);
+            a = new Vector2D(b1X, b1Y) * 3;
+            b = new Vector2D(b2X, b2Y) * -6;
+            c = new Vector2D(b3X, b3Y) * 3;
+            d = a + b + c;
+            var c22 = new Vector2D(d.I, d.J);
+            a = new Vector2D(b1X, b1Y) * -3;
+            b = new Vector2D(b2X, b2Y) * 3;
+            c = a + b;
+            var c21 = new Vector2D(c.I, c.J);
+            var c20 = new Vector2D(b1X, b1Y);
+
+            var c10x2 = c10.I * c10.I;
+            var c10x3 = c10.I * c10.I * c10.I;
+            var c10y2 = c10.J * c10.J;
+            var c10y3 = c10.J * c10.J * c10.J;
+            var c11x2 = c11.I * c11.I;
+            var c11x3 = c11.I * c11.I * c11.I;
+            var c11y2 = c11.J * c11.J;
+            var c11y3 = c11.J * c11.J * c11.J;
+            var c12x2 = c12.I * c12.I;
+            var c12x3 = c12.I * c12.I * c12.I;
+            var c12y2 = c12.J * c12.J;
+            var c12y3 = c12.J * c12.J * c12.J;
+            var c13x2 = c13.I * c13.I;
+            var c13x3 = c13.I * c13.I * c13.I;
+            var c13y2 = c13.J * c13.J;
+            var c13y3 = c13.J * c13.J * c13.J;
+            var c20x2 = c20.I * c20.I;
+            var c20x3 = c20.I * c20.I * c20.I;
+            var c20y2 = c20.J * c20.J;
+            var c20y3 = c20.J * c20.J * c20.J;
+            var c21x2 = c21.I * c21.I;
+            var c21x3 = c21.I * c21.I * c21.I;
+            var c21y2 = c21.J * c21.J;
+            var c22x2 = c22.I * c22.I;
+            var c22x3 = c22.I * c22.I * c22.I;
+            var c22y2 = c22.J * c22.J;
+            var c23x2 = c23.I * c23.I;
+            var c23x3 = c23.I * c23.I * c23.I;
+            var c23y2 = c23.J * c23.J;
+            var c23y3 = c23.J * c23.J * c23.J;
+
+            var poly = new Polynomial(
+                c10.I * c10.J * c11.I * c12.J * c13.I * c13.J - c10.I * c10.J * c11.J * c12.I * c13.I * c13.J + c10.I * c11.I * c11.J * c12.I * c12.J * c13.J - c10.J * c11.I * c11.J * c12.I * c12.J * c13.I - c10.I * c11.I * c20.J * c12.J * c13.I * c13.J + 6 * c10.I * c20.I * c11.J * c12.J * c13.I * c13.J + c10.I * c11.J * c12.I * c20.J * c13.I * c13.J - c10.J * c11.I * c20.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c20.J * c13.I * c13.J + c10.J * c20.I * c11.J * c12.I * c13.I * c13.J - c11.I * c20.I * c11.J * c12.I * c12.J * c13.J + c11.I * c11.J * c12.I * c20.J * c12.J * c13.I + c11.I * c20.I * c20.J * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c20.J * c13.I * c13.J - 2 * c10.I * c20.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c20.J * c13.J - 3 * c10.I * c10.J * c11.I * c12.I * c13y2 - 6 * c10.I * c10.J * c20.I * c13.I * c13y2 + 3 * c10.I * c10.J * c11.J * c12.J * c13x2 - 2 * c10.I * c10.J * c12.I * c12y2 * c13.I - 2 * c10.I * c11.I * c20.I * c12.J * c13y2 - c10.I * c11.I * c11.J * c12y2 * c13.I + 3 * c10.I * c11.I * c12.I * c20.J * c13y2 - 4 * c10.I * c20.I * c11.J * c12.I * c13y2 + 3 * c10.J * c11.I * c20.I * c12.I * c13y2 + 6 * c10.I * c10.J * c20.J * c13x2 * c13.J + 2 * c10.I * c10.J * c12x2 * c12.J * c13.J + 2 * c10.I * c11.I * c11y2 * c13.I * c13.J + 2 * c10.I * c20.I * c12.I * c12y2 * c13.J + 6 * c10.I * c20.I * c20.J * c13.I * c13y2 - 3 * c10.I * c11.J * c20.J * c12.J * c13x2 + 2 * c10.I * c12.I * c20.J * c12y2 * c13.I + c10.I * c11y2 * c12.I * c12.J * c13.I + c10.J * c11.I * c11.J * c12x2 * c13.J + 4 * c10.J * c11.I * c20.J * c12.J * c13x2 - 3 * c10.J * c20.I * c11.J * c12.J * c13x2 + 2 * c10.J * c20.I * c12.I * c12y2 * c13.I + 2 * c10.J * c11.J * c12.I * c20.J * c13x2 + c11.I * c20.I * c11.J * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c20.J * c13y2 - 2 * c10.I * c12x2 * c20.J * c12.J * c13.J - 6 * c10.J * c20.I * c20.J * c13x2 * c13.J - 2 * c10.J * c20.I * c12x2 * c12.J * c13.J - 2 * c10.J * c11x2 * c11.J * c13.I * c13.J - c10.J * c11x2 * c12.I * c12.J * c13.J - 2 * c10.J * c12x2 * c20.J * c12.J * c13.I - 2 * c11.I * c20.I * c11y2 * c13.I * c13.J - c11.I * c11.J * c12x2 * c20.J * c13.J + 3 * c20.I * c11.J * c20.J * c12.J * c13x2 - 2 * c20.I * c12.I * c20.J * c12y2 * c13.I - c20.I * c11y2 * c12.I * c12.J * c13.I + 3 * c10y2 * c11.I * c12.I * c13.I * c13.J + 3 * c11.I * c12.I * c20y2 * c13.I * c13.J + 2 * c20.I * c12x2 * c20.J * c12.J * c13.J - 3 * c10x2 * c11.J * c12.J * c13.I * c13.J + 2 * c11x2 * c11.J * c20.J * c13.I * c13.J + c11x2 * c12.I * c20.J * c12.J * c13.J - 3 * c20x2 * c11.J * c12.J * c13.I * c13.J - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * c10.I * c20x2 * c13y3 - c10.I * c11y3 * c13x2 + 3 * c10x2 * c20.I * c13y3 + c10.J * c11x3 * c13y2 + 3 * c10.J * c20y2 * c13x3 + c20.I * c11y3 * c13x2 + c10x2 * c12y3 * c13.I - 3 * c10y2 * c20.J * c13x3 - c10y2 * c12x3 * c13.J + c20x2 * c12y3 * c13.I - c11x3 * c20.J * c13y2 - c12x3 * c20y2 * c13.J - c10.I * c11x2 * c11.J * c13y2 + c10.J * c11.I * c11y2 * c13x2 - 3 * c10.I * c10y2 * c13x2 * c13.J - c10.I * c11y2 * c12x2 * c13.J + c10.J * c11x2 * c12y2 * c13.I - c11.I * c11y2 * c20.J * c13x2 + 3 * c10x2 * c10.J * c13.I * c13y2 + c10x2 * c11.I * c12.J * c13y2 + 2 * c10x2 * c11.J * c12.I * c13y2 - 2 * c10y2 * c11.I * c12.J * c13x2 - c10y2 * c11.J * c12.I * c13x2 + c11x2 * c20.I * c11.J * c13y2 - 3 * c10.I * c20y2 * c13x2 * c13.J + 3 * c10.J * c20x2 * c13.I * c13y2 + c11.I * c20x2 * c12.J * c13y2 - 2 * c11.I * c20y2 * c12.J * c13x2 + c20.I * c11y2 * c12x2 * c13.J - c11.J * c12.I * c20y2 * c13x2 - c10x2 * c12.I * c12y2 * c13.J - 3 * c10x2 * c20.J * c13.I * c13y2 + 3 * c10y2 * c20.I * c13x2 * c13.J + c10y2 * c12x2 * c12.J * c13.I - c11x2 * c20.J * c12y2 * c13.I + 2 * c20x2 * c11.J * c12.I * c13y2 + 3 * c20.I * c20y2 * c13x2 * c13.J - c20x2 * c12.I * c12y2 * c13.J - 3 * c20x2 * c20.J * c13.I * c13y2 + c12x2 * c20y2 * c12.J * c13.I,
+                -c10.I * c11.I * c12.J * c13.I * c21.J * c13.J + c10.I * c11.J * c12.I * c13.I * c21.J * c13.J + 6 * c10.I * c11.J * c21.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c13.I * c21.J * c13.J - c10.J * c11.I * c21.I * c12.J * c13.I * c13.J + c10.J * c11.J * c12.I * c21.I * c13.I * c13.J - c11.I * c11.J * c12.I * c21.I * c12.J * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c21.J + c11.I * c20.I * c12.J * c13.I * c21.J * c13.J + 6 * c11.I * c12.I * c20.J * c13.I * c21.J * c13.J + c11.I * c20.J * c21.I * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c13.I * c21.J * c13.J - 6 * c20.I * c11.J * c21.I * c12.J * c13.I * c13.J - c11.J * c12.I * c20.J * c21.I * c13.I * c13.J - 6 * c10.I * c20.I * c21.I * c13y3 - 2 * c10.I * c21.I * c12y3 * c13.I + 6 * c10.J * c20.J * c13x3 * c21.J + 2 * c20.I * c21.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c21.J * c13.J - 2 * c12x3 * c20.J * c21.J * c13.J - 6 * c10.I * c10.J * c21.I * c13.I * c13y2 + 3 * c10.I * c11.I * c12.I * c21.J * c13y2 - 2 * c10.I * c11.I * c21.I * c12.J * c13y2 - 4 * c10.I * c11.J * c12.I * c21.I * c13y2 + 3 * c10.J * c11.I * c12.I * c21.I * c13y2 + 6 * c10.I * c10.J * c13x2 * c21.J * c13.J + 6 * c10.I * c20.I * c13.I * c21.J * c13y2 - 3 * c10.I * c11.J * c12.J * c13x2 * c21.J + 2 * c10.I * c12.I * c21.I * c12y2 * c13.J + 2 * c10.I * c12.I * c12y2 * c13.I * c21.J + 6 * c10.I * c20.J * c21.I * c13.I * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c21.J + 6 * c10.J * c20.I * c21.I * c13.I * c13y2 + 2 * c10.J * c11.J * c12.I * c13x2 * c21.J - 3 * c10.J * c11.J * c21.I * c12.J * c13x2 + 2 * c10.J * c12.I * c21.I * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c21.J * c13y2 + 2 * c11.I * c20.I * c21.I * c12.J * c13y2 + c11.I * c11.J * c21.I * c12y2 * c13.I - 3 * c11.I * c12.I * c20.J * c21.I * c13y2 + 4 * c20.I * c11.J * c12.I * c21.I * c13y2 - 6 * c10.I * c20.J * c13x2 * c21.J * c13.J - 2 * c10.I * c12x2 * c12.J * c21.J * c13.J - 6 * c10.J * c20.I * c13x2 * c21.J * c13.J - 6 * c10.J * c20.J * c21.I * c13x2 * c13.J - 2 * c10.J * c12x2 * c21.I * c12.J * c13.J - 2 * c10.J * c12x2 * c12.J * c13.I * c21.J - c11.I * c11.J * c12x2 * c21.J * c13.J - 4 * c11.I * c20.J * c12.J * c13x2 * c21.J - 2 * c11.I * c11y2 * c21.I * c13.I * c13.J + 3 * c20.I * c11.J * c12.J * c13x2 * c21.J - 2 * c20.I * c12.I * c21.I * c12y2 * c13.J - 2 * c20.I * c12.I * c12y2 * c13.I * c21.J - 6 * c20.I * c20.J * c21.I * c13.I * c13y2 - 2 * c11.J * c12.I * c20.J * c13x2 * c21.J + 3 * c11.J * c20.J * c21.I * c12.J * c13x2 - 2 * c12.I * c20.J * c21.I * c12y2 * c13.I - c11y2 * c12.I * c21.I * c12.J * c13.I + 6 * c20.I * c20.J * c13x2 * c21.J * c13.J + 2 * c20.I * c12x2 * c12.J * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c21.J * c13.J + c11x2 * c12.I * c12.J * c21.J * c13.J + 2 * c12x2 * c20.J * c21.I * c12.J * c13.J + 2 * c12x2 * c20.J * c12.J * c13.I * c21.J + 3 * c10x2 * c21.I * c13y3 - 3 * c10y2 * c13x3 * c21.J + 3 * c20x2 * c21.I * c13y3 + c11y3 * c21.I * c13x2 - c11x3 * c21.J * c13y2 - 3 * c20y2 * c13x3 * c21.J - c11.I * c11y2 * c13x2 * c21.J + c11x2 * c11.J * c21.I * c13y2 - 3 * c10x2 * c13.I * c21.J * c13y2 + 3 * c10y2 * c21.I * c13x2 * c13.J - c11x2 * c12y2 * c13.I * c21.J + c11y2 * c12x2 * c21.I * c13.J - 3 * c20x2 * c13.I * c21.J * c13y2 + 3 * c20y2 * c21.I * c13x2 * c13.J,
+                -c10.I * c11.I * c12.J * c13.I * c13.J * c22.J + c10.I * c11.J * c12.I * c13.I * c13.J * c22.J + 6 * c10.I * c11.J * c12.J * c13.I * c22.I * c13.J - 6 * c10.J * c11.I * c12.I * c13.I * c13.J * c22.J - c10.J * c11.I * c12.J * c13.I * c22.I * c13.J + c10.J * c11.J * c12.I * c13.I * c22.I * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c22.J - c11.I * c11.J * c12.I * c12.J * c22.I * c13.J + c11.I * c20.I * c12.J * c13.I * c13.J * c22.J + c11.I * c20.J * c12.J * c13.I * c22.I * c13.J + c11.I * c21.I * c12.J * c13.I * c21.J * c13.J - c20.I * c11.J * c12.I * c13.I * c13.J * c22.J - 6 * c20.I * c11.J * c12.J * c13.I * c22.I * c13.J - c11.J * c12.I * c20.J * c13.I * c22.I * c13.J - c11.J * c12.I * c21.I * c13.I * c21.J * c13.J - 6 * c10.I * c20.I * c22.I * c13y3 - 2 * c10.I * c12y3 * c13.I * c22.I + 2 * c20.I * c12y3 * c13.I * c22.I + 2 * c10.J * c12x3 * c13.J * c22.J - 6 * c10.I * c10.J * c13.I * c22.I * c13y2 + 3 * c10.I * c11.I * c12.I * c13y2 * c22.J - 2 * c10.I * c11.I * c12.J * c22.I * c13y2 - 4 * c10.I * c11.J * c12.I * c22.I * c13y2 + 3 * c10.J * c11.I * c12.I * c22.I * c13y2 + 6 * c10.I * c10.J * c13x2 * c13.J * c22.J + 6 * c10.I * c20.I * c13.I * c13y2 * c22.J - 3 * c10.I * c11.J * c12.J * c13x2 * c22.J + 2 * c10.I * c12.I * c12y2 * c13.I * c22.J + 2 * c10.I * c12.I * c12y2 * c22.I * c13.J + 6 * c10.I * c20.J * c13.I * c22.I * c13y2 + 6 * c10.I * c21.I * c13.I * c21.J * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c22.J + 6 * c10.J * c20.I * c13.I * c22.I * c13y2 + 2 * c10.J * c11.J * c12.I * c13x2 * c22.J - 3 * c10.J * c11.J * c12.J * c13x2 * c22.I + 2 * c10.J * c12.I * c12y2 * c13.I * c22.I - 3 * c11.I * c20.I * c12.I * c13y2 * c22.J + 2 * c11.I * c20.I * c12.J * c22.I * c13y2 + c11.I * c11.J * c12y2 * c13.I * c22.I - 3 * c11.I * c12.I * c20.J * c22.I * c13y2 - 3 * c11.I * c12.I * c21.I * c21.J * c13y2 + 4 * c20.I * c11.J * c12.I * c22.I * c13y2 - 2 * c10.I * c12x2 * c12.J * c13.J * c22.J - 6 * c10.J * c20.I * c13x2 * c13.J * c22.J - 6 * c10.J * c20.J * c13x2 * c22.I * c13.J - 6 * c10.J * c21.I * c13x2 * c21.J * c13.J - 2 * c10.J * c12x2 * c12.J * c13.I * c22.J - 2 * c10.J * c12x2 * c12.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c22.J - 2 * c11.I * c11y2 * c13.I * c22.I * c13.J + 3 * c20.I * c11.J * c12.J * c13x2 * c22.J - 2 * c20.I * c12.I * c12y2 * c13.I * c22.J - 2 * c20.I * c12.I * c12y2 * c22.I * c13.J - 6 * c20.I * c20.J * c13.I * c22.I * c13y2 - 6 * c20.I * c21.I * c13.I * c21.J * c13y2 + 3 * c11.J * c20.J * c12.J * c13x2 * c22.I + 3 * c11.J * c21.I * c12.J * c13x2 * c21.J - 2 * c12.I * c20.J * c12y2 * c13.I * c22.I - 2 * c12.I * c21.I * c12y2 * c13.I * c21.J - c11y2 * c12.I * c12.J * c13.I * c22.I + 2 * c20.I * c12x2 * c12.J * c13.J * c22.J - 3 * c11.J * c21x2 * c12.J * c13.I * c13.J + 6 * c20.J * c21.I * c13x2 * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c22.J + c11x2 * c12.I * c12.J * c13.J * c22.J + 2 * c12x2 * c20.J * c12.J * c22.I * c13.J + 2 * c12x2 * c21.I * c12.J * c21.J * c13.J - 3 * c10.I * c21x2 * c13y3 + 3 * c20.I * c21x2 * c13y3 + 3 * c10x2 * c22.I * c13y3 - 3 * c10y2 * c13x3 * c22.J + 3 * c20x2 * c22.I * c13y3 + c21x2 * c12y3 * c13.I + c11y3 * c13x2 * c22.I - c11x3 * c13y2 * c22.J + 3 * c10.J * c21x2 * c13.I * c13y2 - c11.I * c11y2 * c13x2 * c22.J + c11.I * c21x2 * c12.J * c13y2 + 2 * c11.J * c12.I * c21x2 * c13y2 + c11x2 * c11.J * c22.I * c13y2 - c12.I * c21x2 * c12y2 * c13.J - 3 * c20.J * c21x2 * c13.I * c13y2 - 3 * c10x2 * c13.I * c13y2 * c22.J + 3 * c10y2 * c13x2 * c22.I * c13.J - c11x2 * c12y2 * c13.I * c22.J + c11y2 * c12x2 * c22.I * c13.J - 3 * c20x2 * c13.I * c13y2 * c22.J + 3 * c20y2 * c13x2 * c22.I * c13.J + c12x2 * c12.J * c13.I * (2 * c20.J * c22.J + c21y2) + c11.I * c12.I * c13.I * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c12x3 * c13.J * (-2 * c20.J * c22.J - c21y2) + c10.J * c13x3 * (6 * c20.J * c22.J + 3 * c21y2) + c11.J * c12.I * c13x2 * (-2 * c20.J * c22.J - c21y2) + c11.I * c12.J * c13x2 * (-4 * c20.J * c22.J - 2 * c21y2) + c10.I * c13x2 * c13.J * (-6 * c20.J * c22.J - 3 * c21y2) + c20.I * c13x2 * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c13x3 * (-2 * c20.J * c21y2 - c20y2 * c22.J - c20.J * (2 * c20.J * c22.J + c21y2)),
+                -c10.I * c11.I * c12.J * c13.I * c13.J * c23.J + c10.I * c11.J * c12.I * c13.I * c13.J * c23.J + 6 * c10.I * c11.J * c12.J * c13.I * c13.J * c23.I - 6 * c10.J * c11.I * c12.I * c13.I * c13.J * c23.J - c10.J * c11.I * c12.J * c13.I * c13.J * c23.I + c10.J * c11.J * c12.I * c13.I * c13.J * c23.I + c11.I * c11.J * c12.I * c12.J * c13.I * c23.J - c11.I * c11.J * c12.I * c12.J * c13.J * c23.I + c11.I * c20.I * c12.J * c13.I * c13.J * c23.J + c11.I * c20.J * c12.J * c13.I * c13.J * c23.I + c11.I * c21.I * c12.J * c13.I * c13.J * c22.J + c11.I * c12.J * c13.I * c21.J * c22.I * c13.J - c20.I * c11.J * c12.I * c13.I * c13.J * c23.J - 6 * c20.I * c11.J * c12.J * c13.I * c13.J * c23.I - c11.J * c12.I * c20.J * c13.I * c13.J * c23.I - c11.J * c12.I * c21.I * c13.I * c13.J * c22.J - c11.J * c12.I * c13.I * c21.J * c22.I * c13.J - 6 * c11.J * c21.I * c12.J * c13.I * c22.I * c13.J - 6 * c10.I * c20.I * c13y3 * c23.I - 6 * c10.I * c21.I * c22.I * c13y3 - 2 * c10.I * c12y3 * c13.I * c23.I + 6 * c20.I * c21.I * c22.I * c13y3 + 2 * c20.I * c12y3 * c13.I * c23.I + 2 * c21.I * c12y3 * c13.I * c22.I + 2 * c10.J * c12x3 * c13.J * c23.J - 6 * c10.I * c10.J * c13.I * c13y2 * c23.I + 3 * c10.I * c11.I * c12.I * c13y2 * c23.J - 2 * c10.I * c11.I * c12.J * c13y2 * c23.I - 4 * c10.I * c11.J * c12.I * c13y2 * c23.I + 3 * c10.J * c11.I * c12.I * c13y2 * c23.I + 6 * c10.I * c10.J * c13x2 * c13.J * c23.J + 6 * c10.I * c20.I * c13.I * c13y2 * c23.J - 3 * c10.I * c11.J * c12.J * c13x2 * c23.J + 2 * c10.I * c12.I * c12y2 * c13.I * c23.J + 2 * c10.I * c12.I * c12y2 * c13.J * c23.I + 6 * c10.I * c20.J * c13.I * c13y2 * c23.I + 6 * c10.I * c21.I * c13.I * c13y2 * c22.J + 6 * c10.I * c13.I * c21.J * c22.I * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c23.J + 6 * c10.J * c20.I * c13.I * c13y2 * c23.I + 2 * c10.J * c11.J * c12.I * c13x2 * c23.J - 3 * c10.J * c11.J * c12.J * c13x2 * c23.I + 2 * c10.J * c12.I * c12y2 * c13.I * c23.I + 6 * c10.J * c21.I * c13.I * c22.I * c13y2 - 3 * c11.I * c20.I * c12.I * c13y2 * c23.J + 2 * c11.I * c20.I * c12.J * c13y2 * c23.I + c11.I * c11.J * c12y2 * c13.I * c23.I - 3 * c11.I * c12.I * c20.J * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c22.J - 3 * c11.I * c12.I * c21.J * c22.I * c13y2 + 2 * c11.I * c21.I * c12.J * c22.I * c13y2 + 4 * c20.I * c11.J * c12.I * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c22.I * c13y2 - 2 * c10.I * c12x2 * c12.J * c13.J * c23.J - 6 * c10.J * c20.I * c13x2 * c13.J * c23.J - 6 * c10.J * c20.J * c13x2 * c13.J * c23.I - 6 * c10.J * c21.I * c13x2 * c13.J * c22.J - 2 * c10.J * c12x2 * c12.J * c13.I * c23.J - 2 * c10.J * c12x2 * c12.J * c13.J * c23.I - 6 * c10.J * c13x2 * c21.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c23.J - 2 * c11.I * c11y2 * c13.I * c13.J * c23.I + 3 * c20.I * c11.J * c12.J * c13x2 * c23.J - 2 * c20.I * c12.I * c12y2 * c13.I * c23.J - 2 * c20.I * c12.I * c12y2 * c13.J * c23.I - 6 * c20.I * c20.J * c13.I * c13y2 * c23.I - 6 * c20.I * c21.I * c13.I * c13y2 * c22.J - 6 * c20.I * c13.I * c21.J * c22.I * c13y2 + 3 * c11.J * c20.J * c12.J * c13x2 * c23.I + 3 * c11.J * c21.I * c12.J * c13x2 * c22.J + 3 * c11.J * c12.J * c13x2 * c21.J * c22.I - 2 * c12.I * c20.J * c12y2 * c13.I * c23.I - 2 * c12.I * c21.I * c12y2 * c13.I * c22.J - 2 * c12.I * c21.I * c12y2 * c22.I * c13.J - 2 * c12.I * c12y2 * c13.I * c21.J * c22.I - 6 * c20.J * c21.I * c13.I * c22.I * c13y2 - c11y2 * c12.I * c12.J * c13.I * c23.I + 2 * c20.I * c12x2 * c12.J * c13.J * c23.J + 6 * c20.J * c13x2 * c21.J * c22.I * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c23.J + c11x2 * c12.I * c12.J * c13.J * c23.J + 2 * c12x2 * c20.J * c12.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c22.J + 2 * c12x2 * c12.J * c21.J * c22.I * c13.J + c21x3 * c13y3 + 3 * c10x2 * c13y3 * c23.I - 3 * c10y2 * c13x3 * c23.J + 3 * c20x2 * c13y3 * c23.I + c11y3 * c13x2 * c23.I - c11x3 * c13y2 * c23.J - c11.I * c11y2 * c13x2 * c23.J + c11x2 * c11.J * c13y2 * c23.I - 3 * c10x2 * c13.I * c13y2 * c23.J + 3 * c10y2 * c13x2 * c13.J * c23.I - c11x2 * c12y2 * c13.I * c23.J + c11y2 * c12x2 * c13.J * c23.I - 3 * c21x2 * c13.I * c21.J * c13y2 - 3 * c20x2 * c13.I * c13y2 * c23.J + 3 * c20y2 * c13x2 * c13.J * c23.I + c11.I * c12.I * c13.I * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * c20.J * c23.J - 2 * c21.J * c22.J) + c10.J * c13x3 * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c11.J * c12.I * c13x2 * (-2 * c20.J * c23.J - 2 * c21.J * c22.J) + c12x2 * c12.J * c13.I * (2 * c20.J * c23.J + 2 * c21.J * c22.J) + c11.I * c12.J * c13x2 * (-4 * c20.J * c23.J - 4 * c21.J * c22.J) + c10.I * c13x2 * c13.J * (-6 * c20.J * c23.J - 6 * c21.J * c22.J) + c20.I * c13x2 * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c21.I * c13x2 * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c13x3 * (-2 * c20.J * c21.J * c22.J - c20y2 * c23.J - c21.J * (2 * c20.J * c22.J + c21y2) - c20.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
+                c11.I * c21.I * c12.J * c13.I * c13.J * c23.J + c11.I * c12.J * c13.I * c21.J * c13.J * c23.I + c11.I * c12.J * c13.I * c22.I * c13.J * c22.J - c11.J * c12.I * c21.I * c13.I * c13.J * c23.J - c11.J * c12.I * c13.I * c21.J * c13.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c22.J - 6 * c11.J * c21.I * c12.J * c13.I * c13.J * c23.I - 6 * c10.I * c21.I * c13y3 * c23.I + 6 * c20.I * c21.I * c13y3 * c23.I + 2 * c21.I * c12y3 * c13.I * c23.I + 6 * c10.I * c21.I * c13.I * c13y2 * c23.J + 6 * c10.I * c13.I * c21.J * c13y2 * c23.I + 6 * c10.I * c13.I * c22.I * c13y2 * c22.J + 6 * c10.J * c21.I * c13.I * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c23.J - 3 * c11.I * c12.I * c21.J * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c22.J + 2 * c11.I * c21.I * c12.J * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c13y2 * c23.I - 6 * c10.J * c21.I * c13x2 * c13.J * c23.J - 6 * c10.J * c13x2 * c21.J * c13.J * c23.I - 6 * c10.J * c13x2 * c22.I * c13.J * c22.J - 6 * c20.I * c21.I * c13.I * c13y2 * c23.J - 6 * c20.I * c13.I * c21.J * c13y2 * c23.I - 6 * c20.I * c13.I * c22.I * c13y2 * c22.J + 3 * c11.J * c21.I * c12.J * c13x2 * c23.J - 3 * c11.J * c12.J * c13.I * c22x2 * c13.J + 3 * c11.J * c12.J * c13x2 * c21.J * c23.I + 3 * c11.J * c12.J * c13x2 * c22.I * c22.J - 2 * c12.I * c21.I * c12y2 * c13.I * c23.J - 2 * c12.I * c21.I * c12y2 * c13.J * c23.I - 2 * c12.I * c12y2 * c13.I * c21.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c22.J - 6 * c20.J * c21.I * c13.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c22.I * c13y2 + 6 * c20.J * c13x2 * c21.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c23.J + 2 * c12x2 * c12.J * c21.J * c13.J * c23.I + 2 * c12x2 * c12.J * c22.I * c13.J * c22.J - 3 * c10.I * c22x2 * c13y3 + 3 * c20.I * c22x2 * c13y3 + 3 * c21x2 * c22.I * c13y3 + c12y3 * c13.I * c22x2 + 3 * c10.J * c13.I * c22x2 * c13y2 + c11.I * c12.J * c22x2 * c13y2 + 2 * c11.J * c12.I * c22x2 * c13y2 - c12.I * c12y2 * c22x2 * c13.J - 3 * c20.J * c13.I * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c22.J + c12x2 * c12.J * c13.I * (2 * c21.J * c23.J + c22y2) + c11.I * c12.I * c13.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c21.I * c13x2 * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * c21.J * c23.J - c22y2) + c10.J * c13x3 * (6 * c21.J * c23.J + 3 * c22y2) + c11.J * c12.I * c13x2 * (-2 * c21.J * c23.J - c22y2) + c11.I * c12.J * c13x2 * (-4 * c21.J * c23.J - 2 * c22y2) + c10.I * c13x2 * c13.J * (-6 * c21.J * c23.J - 3 * c22y2) + c13x2 * c22.I * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c20.I * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c20.J * c21.J * c23.J - c22.J * (2 * c20.J * c22.J + c21y2) - c20.J * (2 * c21.J * c23.J + c22y2) - c21.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
+                6 * c11.I * c12.I * c13.I * c13.J * c22.J * c23.J + c11.I * c12.J * c13.I * c22.I * c13.J * c23.J + c11.I * c12.J * c13.I * c13.J * c22.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c23.J - c11.J * c12.I * c13.I * c13.J * c22.J * c23.I - 6 * c11.J * c12.J * c13.I * c22.I * c13.J * c23.I - 6 * c10.I * c22.I * c13y3 * c23.I + 6 * c20.I * c22.I * c13y3 * c23.I + 6 * c10.J * c13x3 * c22.J * c23.J + 2 * c12y3 * c13.I * c22.I * c23.I - 2 * c12x3 * c13.J * c22.J * c23.J + 6 * c10.I * c13.I * c22.I * c13y2 * c23.J + 6 * c10.I * c13.I * c13y2 * c22.J * c23.I + 6 * c10.J * c13.I * c22.I * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c23.J - 3 * c11.I * c12.I * c13y2 * c22.J * c23.I + 2 * c11.I * c12.J * c22.I * c13y2 * c23.I + 4 * c11.J * c12.I * c22.I * c13y2 * c23.I - 6 * c10.I * c13x2 * c13.J * c22.J * c23.J - 6 * c10.J * c13x2 * c22.I * c13.J * c23.J - 6 * c10.J * c13x2 * c13.J * c22.J * c23.I - 4 * c11.I * c12.J * c13x2 * c22.J * c23.J - 6 * c20.I * c13.I * c22.I * c13y2 * c23.J - 6 * c20.I * c13.I * c13y2 * c22.J * c23.I - 2 * c11.J * c12.I * c13x2 * c22.J * c23.J + 3 * c11.J * c12.J * c13x2 * c22.I * c23.J + 3 * c11.J * c12.J * c13x2 * c22.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c23.J - 2 * c12.I * c12y2 * c13.I * c22.J * c23.I - 2 * c12.I * c12y2 * c22.I * c13.J * c23.I - 6 * c20.J * c13.I * c22.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c13y2 * c23.I - 6 * c21.I * c13.I * c22.I * c13y2 * c22.J + 6 * c20.I * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.I * c22.J * c23.J + 2 * c12x2 * c12.J * c22.I * c13.J * c23.J + 2 * c12x2 * c12.J * c13.J * c22.J * c23.I + 3 * c21.I * c22x2 * c13y3 + 3 * c21x2 * c13y3 * c23.I - 3 * c13.I * c21.J * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c23.J + c13x2 * c22.I * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c13x2 * c13.J * c23.I * (6 * c20.J * c22.J + 3 * c21y2) + c21.I * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c20.J * c22.J * c23.J - c23.J * (2 * c20.J * c22.J + c21y2) - c21.J * (2 * c21.J * c23.J + c22y2) - c22.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
+                c11.I * c12.J * c13.I * c13.J * c23.I * c23.J - c11.J * c12.I * c13.I * c13.J * c23.I * c23.J + 6 * c21.I * c22.I * c13y3 * c23.I + 3 * c11.I * c12.I * c13.I * c13.J * c23y2 + 6 * c10.I * c13.I * c13y2 * c23.I * c23.J - 3 * c11.I * c12.I * c13y2 * c23.I * c23.J - 3 * c11.J * c12.J * c13.I * c13.J * c23x2 - 6 * c10.J * c13x2 * c13.J * c23.I * c23.J - 6 * c20.I * c13.I * c13y2 * c23.I * c23.J + 3 * c11.J * c12.J * c13x2 * c23.I * c23.J - 2 * c12.I * c12y2 * c13.I * c23.I * c23.J - 6 * c21.I * c13.I * c22.I * c13y2 * c23.J - 6 * c21.I * c13.I * c13y2 * c22.J * c23.I - 6 * c13.I * c21.J * c22.I * c13y2 * c23.I + 6 * c21.I * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.J * c23.I * c23.J + c22x3 * c13y3 - 3 * c10.I * c13y3 * c23x2 + 3 * c10.J * c13x3 * c23y2 + 3 * c20.I * c13y3 * c23x2 + c12y3 * c13.I * c23x2 - c12x3 * c13.J * c23y2 - 3 * c10.I * c13x2 * c13.J * c23y2 + 3 * c10.J * c13.I * c13y2 * c23x2 - 2 * c11.I * c12.J * c13x2 * c23y2 + c11.I * c12.J * c13y2 * c23x2 - c11.J * c12.I * c13x2 * c23y2 + 2 * c11.J * c12.I * c13y2 * c23x2 + 3 * c20.I * c13x2 * c13.J * c23y2 - c12.I * c12y2 * c13.J * c23x2 - 3 * c20.J * c13.I * c13y2 * c23x2 + c12x2 * c12.J * c13.I * c23y2 - 3 * c13.I * c22x2 * c13y2 * c22.J + c13x2 * c13.J * c23.I * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c13x2 * c22.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c21.J * c22.J * c23.J - c20.J * c23y2 - c22.J * (2 * c21.J * c23.J + c22y2) - c23.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
+                -6 * c21.I * c13.I * c13y2 * c23.I * c23.J - 6 * c13.I * c22.I * c13y2 * c22.J * c23.I + 6 * c13x2 * c22.I * c13.J * c22.J * c23.J + 3 * c21.I * c13y3 * c23x2 + 3 * c22x2 * c13y3 * c23.I + 3 * c21.I * c13x2 * c13.J * c23y2 - 3 * c13.I * c21.J * c13y2 * c23x2 - 3 * c13.I * c22x2 * c13y2 * c23.J + c13x2 * c13.J * c23.I * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-c21.J * c23y2 - 2 * c22y2 * c23.J - c23.J * (2 * c21.J * c23.J + c22y2)),
+                -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
+                -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2);
+            var roots = poly.RootsInInterval(0, 1);
+
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            for (var i = 0; i < roots.Count; i++)
+            {
+                var s = roots[i];
+                var xRoots = new Polynomial(
+                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
+                    c11.I,
+                    c12.I,
+                    c13.I).Roots();
+                var yRoots = new Polynomial(
+                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
+                    c11.J,
+                    c12.J,
+                    c13.J).Roots();
+                if (xRoots.Count > 0 && yRoots.Count > 0)
+                {
+                    for (var j = 0; j < xRoots.Count; j++)
+                    {
+                        var xRoot = xRoots[j];
+                        if (0 <= xRoot && xRoot <= 1)
+                        {
+                            for (var k = 0; k < yRoots.Count; k++)
+                            {
+                                if (Abs(xRoot - yRoots[k]) < epsilon)
+                                {
+                                    result.Points.Add((Point2D)c23 * (s * s * s) + (c22 * s * s + (c21 * s + c20)));
+                                    goto checkRoots;
+                                }
+                            }
+                        }
+                    }
+                    checkRoots:;
+                }
+            }
+
+            if (result.Points.Count > 0) result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between two cubic beziers.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="a4X"></param>
+        /// <param name="a4Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection2(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
+        {
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // Todo: Break early if the AABB bounding box of the curve does not intersect.
+
+            var c13 = new Vector2D(a4X - a3X * 3 + a2X * 3 - a1X, a4Y - a3Y * 3 + a2Y * 3 - a1Y);
+            var c12 = new Vector2D(a3X * 3 - a2X * 6 + a1X * 3, a3Y * 3 - a2Y * 6 + a1Y * 3);
+            var c11 = new Vector2D(a2X * 3 - a1X * 3, a2Y * 3 - a1Y * 3);
+            var c23 = new Vector2D(b4X - b3X * 3 + b2X * 3 - b1X * 1, b4Y - b3Y * 3 + b2Y * 3 - b1Y * 1);
+            var c22 = new Vector2D(b3X * 3 - b2X * 6 + b1X * 3, b3Y * 3 - b2Y * 6 + b1Y * 3);
+            var c21 = new Vector2D(b2X * 3 - b1X * 3, b2Y * 3 - b1Y * 3);
+
+            var c10x2 = a1X * a1X;
+            var c10x3 = a1X * a1X * a1X;
+            var c10y2 = a1Y * a1Y;
+            var c10y3 = a1Y * a1Y * a1Y;
+            var c11x2 = c11.I * c11.I;
+            var c11x3 = c11.I * c11.I * c11.I;
+            var c11y2 = c11.J * c11.J;
+            var c11y3 = c11.J * c11.J * c11.J;
+            var c12x2 = c12.I * c12.I;
+            var c12x3 = c12.I * c12.I * c12.I;
+            var c12y2 = c12.J * c12.J;
+            var c12y3 = c12.J * c12.J * c12.J;
+            var c13x2 = c13.I * c13.I;
+            var c13x3 = c13.I * c13.I * c13.I;
+            var c13y2 = c13.J * c13.J;
+            var c13y3 = c13.J * c13.J * c13.J;
+            var c20x2 = b1X * b1X;
+            var c20x3 = b1X * b1X * b1X;
+            var c20y2 = b1Y * b1Y;
+            var c20y3 = b1Y * b1Y * b1Y;
+            var c21x2 = c21.I * c21.I;
+            var c21x3 = c21.I * c21.I * c21.I;
+            var c21y2 = c21.J * c21.J;
+            var c22x2 = c22.I * c22.I;
+            var c22x3 = c22.I * c22.I * c22.I;
+            var c22y2 = c22.J * c22.J;
+            var c23x2 = c23.I * c23.I;
+            var c23x3 = c23.I * c23.I * c23.I;
+            var c23y2 = c23.J * c23.J;
+            var c23y3 = c23.J * c23.J * c23.J;
+
+            var poly = new Polynomial(
+                /* t^9 */ a1X * a1Y * c11.I * c12.J * c13.I * c13.J - a1X * a1Y * c11.J * c12.I * c13.I * c13.J + a1X * c11.I * c11.J * c12.I * c12.J * c13.J - a1Y * c11.I * c11.J * c12.I * c12.J * c13.I - a1X * c11.I * b1Y * c12.J * c13.I * c13.J + 6 * a1X * b1X * c11.J * c12.J * c13.I * c13.J + a1X * c11.J * c12.I * b1Y * c13.I * c13.J - a1Y * c11.I * b1X * c12.J * c13.I * c13.J - 6 * a1Y * c11.I * c12.I * b1Y * c13.I * c13.J + a1Y * b1X * c11.J * c12.I * c13.I * c13.J - c11.I * b1X * c11.J * c12.I * c12.J * c13.J + c11.I * c11.J * c12.I * b1Y * c12.J * c13.I + c11.I * b1X * b1Y * c12.J * c13.I * c13.J - b1X * c11.J * c12.I * b1Y * c13.I * c13.J - 2 * a1X * b1X * c12y3 * c13.I + 2 * a1Y * c12x3 * b1Y * c13.J - 3 * a1X * a1Y * c11.I * c12.I * c13y2 - 6 * a1X * a1Y * b1X * c13.I * c13y2 + 3 * a1X * a1Y * c11.J * c12.J * c13x2 - 2 * a1X * a1Y * c12.I * c12y2 * c13.I - 2 * a1X * c11.I * b1X * c12.J * c13y2 - a1X * c11.I * c11.J * c12y2 * c13.I + 3 * a1X * c11.I * c12.I * b1Y * c13y2 - 4 * a1X * b1X * c11.J * c12.I * c13y2 + 3 * a1Y * c11.I * b1X * c12.I * c13y2 + 6 * a1X * a1Y * b1Y * c13x2 * c13.J + 2 * a1X * a1Y * c12x2 * c12.J * c13.J + 2 * a1X * c11.I * c11y2 * c13.I * c13.J + 2 * a1X * b1X * c12.I * c12y2 * c13.J + 6 * a1X * b1X * b1Y * c13.I * c13y2 - 3 * a1X * c11.J * b1Y * c12.J * c13x2 + 2 * a1X * c12.I * b1Y * c12y2 * c13.I + a1X * c11y2 * c12.I * c12.J * c13.I + a1Y * c11.I * c11.J * c12x2 * c13.J + 4 * a1Y * c11.I * b1Y * c12.J * c13x2 - 3 * a1Y * b1X * c11.J * c12.J * c13x2 + 2 * a1Y * b1X * c12.I * c12y2 * c13.I + 2 * a1Y * c11.J * c12.I * b1Y * c13x2 + c11.I * b1X * c11.J * c12y2 * c13.I - 3 * c11.I * b1X * c12.I * b1Y * c13y2 - 2 * a1X * c12x2 * b1Y * c12.J * c13.J - 6 * a1Y * b1X * b1Y * c13x2 * c13.J - 2 * a1Y * b1X * c12x2 * c12.J * c13.J - 2 * a1Y * c11x2 * c11.J * c13.I * c13.J - a1Y * c11x2 * c12.I * c12.J * c13.J - 2 * a1Y * c12x2 * b1Y * c12.J * c13.I - 2 * c11.I * b1X * c11y2 * c13.I * c13.J - c11.I * c11.J * c12x2 * b1Y * c13.J + 3 * b1X * c11.J * b1Y * c12.J * c13x2 - 2 * b1X * c12.I * b1Y * c12y2 * c13.I - b1X * c11y2 * c12.I * c12.J * c13.I + 3 * c10y2 * c11.I * c12.I * c13.I * c13.J + 3 * c11.I * c12.I * c20y2 * c13.I * c13.J + 2 * b1X * c12x2 * b1Y * c12.J * c13.J - 3 * c10x2 * c11.J * c12.J * c13.I * c13.J + 2 * c11x2 * c11.J * b1Y * c13.I * c13.J + c11x2 * c12.I * b1Y * c12.J * c13.J - 3 * c20x2 * c11.J * c12.J * c13.I * c13.J - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * a1X * c20x2 * c13y3 - a1X * c11y3 * c13x2 + 3 * c10x2 * b1X * c13y3 + a1Y * c11x3 * c13y2 + 3 * a1Y * c20y2 * c13x3 + b1X * c11y3 * c13x2 + c10x2 * c12y3 * c13.I - 3 * c10y2 * b1Y * c13x3 - c10y2 * c12x3 * c13.J + c20x2 * c12y3 * c13.I - c11x3 * b1Y * c13y2 - c12x3 * c20y2 * c13.J - a1X * c11x2 * c11.J * c13y2 + a1Y * c11.I * c11y2 * c13x2 - 3 * a1X * c10y2 * c13x2 * c13.J - a1X * c11y2 * c12x2 * c13.J + a1Y * c11x2 * c12y2 * c13.I - c11.I * c11y2 * b1Y * c13x2 + 3 * c10x2 * a1Y * c13.I * c13y2 + c10x2 * c11.I * c12.J * c13y2 + 2 * c10x2 * c11.J * c12.I * c13y2 - 2 * c10y2 * c11.I * c12.J * c13x2 - c10y2 * c11.J * c12.I * c13x2 + c11x2 * b1X * c11.J * c13y2 - 3 * a1X * c20y2 * c13x2 * c13.J + 3 * a1Y * c20x2 * c13.I * c13y2 + c11.I * c20x2 * c12.J * c13y2 - 2 * c11.I * c20y2 * c12.J * c13x2 + b1X * c11y2 * c12x2 * c13.J - c11.J * c12.I * c20y2 * c13x2 - c10x2 * c12.I * c12y2 * c13.J - 3 * c10x2 * b1Y * c13.I * c13y2 + 3 * c10y2 * b1X * c13x2 * c13.J + c10y2 * c12x2 * c12.J * c13.I - c11x2 * b1Y * c12y2 * c13.I + 2 * c20x2 * c11.J * c12.I * c13y2 + 3 * b1X * c20y2 * c13x2 * c13.J - c20x2 * c12.I * c12y2 * c13.J - 3 * c20x2 * b1Y * c13.I * c13y2 + c12x2 * c20y2 * c12.J * c13.I,
+                /* t^8 */ -a1X * c11.I * c12.J * c13.I * c21.J * c13.J + a1X * c11.J * c12.I * c13.I * c21.J * c13.J + 6 * a1X * c11.J * c21.I * c12.J * c13.I * c13.J - 6 * a1Y * c11.I * c12.I * c13.I * c21.J * c13.J - a1Y * c11.I * c21.I * c12.J * c13.I * c13.J + a1Y * c11.J * c12.I * c21.I * c13.I * c13.J - c11.I * c11.J * c12.I * c21.I * c12.J * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c21.J + c11.I * b1X * c12.J * c13.I * c21.J * c13.J + 6 * c11.I * c12.I * b1Y * c13.I * c21.J * c13.J + c11.I * b1Y * c21.I * c12.J * c13.I * c13.J - b1X * c11.J * c12.I * c13.I * c21.J * c13.J - 6 * b1X * c11.J * c21.I * c12.J * c13.I * c13.J - c11.J * c12.I * b1Y * c21.I * c13.I * c13.J - 6 * a1X * b1X * c21.I * c13y3 - 2 * a1X * c21.I * c12y3 * c13.I + 6 * a1Y * b1Y * c13x3 * c21.J + 2 * b1X * c21.I * c12y3 * c13.I + 2 * a1Y * c12x3 * c21.J * c13.J - 2 * c12x3 * b1Y * c21.J * c13.J - 6 * a1X * a1Y * c21.I * c13.I * c13y2 + 3 * a1X * c11.I * c12.I * c21.J * c13y2 - 2 * a1X * c11.I * c21.I * c12.J * c13y2 - 4 * a1X * c11.J * c12.I * c21.I * c13y2 + 3 * a1Y * c11.I * c12.I * c21.I * c13y2 + 6 * a1X * a1Y * c13x2 * c21.J * c13.J + 6 * a1X * b1X * c13.I * c21.J * c13y2 - 3 * a1X * c11.J * c12.J * c13x2 * c21.J + 2 * a1X * c12.I * c21.I * c12y2 * c13.J + 2 * a1X * c12.I * c12y2 * c13.I * c21.J + 6 * a1X * b1Y * c21.I * c13.I * c13y2 + 4 * a1Y * c11.I * c12.J * c13x2 * c21.J + 6 * a1Y * b1X * c21.I * c13.I * c13y2 + 2 * a1Y * c11.J * c12.I * c13x2 * c21.J - 3 * a1Y * c11.J * c21.I * c12.J * c13x2 + 2 * a1Y * c12.I * c21.I * c12y2 * c13.I - 3 * c11.I * b1X * c12.I * c21.J * c13y2 + 2 * c11.I * b1X * c21.I * c12.J * c13y2 + c11.I * c11.J * c21.I * c12y2 * c13.I - 3 * c11.I * c12.I * b1Y * c21.I * c13y2 + 4 * b1X * c11.J * c12.I * c21.I * c13y2 - 6 * a1X * b1Y * c13x2 * c21.J * c13.J - 2 * a1X * c12x2 * c12.J * c21.J * c13.J - 6 * a1Y * b1X * c13x2 * c21.J * c13.J - 6 * a1Y * b1Y * c21.I * c13x2 * c13.J - 2 * a1Y * c12x2 * c21.I * c12.J * c13.J - 2 * a1Y * c12x2 * c12.J * c13.I * c21.J - c11.I * c11.J * c12x2 * c21.J * c13.J - 4 * c11.I * b1Y * c12.J * c13x2 * c21.J - 2 * c11.I * c11y2 * c21.I * c13.I * c13.J + 3 * b1X * c11.J * c12.J * c13x2 * c21.J - 2 * b1X * c12.I * c21.I * c12y2 * c13.J - 2 * b1X * c12.I * c12y2 * c13.I * c21.J - 6 * b1X * b1Y * c21.I * c13.I * c13y2 - 2 * c11.J * c12.I * b1Y * c13x2 * c21.J + 3 * c11.J * b1Y * c21.I * c12.J * c13x2 - 2 * c12.I * b1Y * c21.I * c12y2 * c13.I - c11y2 * c12.I * c21.I * c12.J * c13.I + 6 * b1X * b1Y * c13x2 * c21.J * c13.J + 2 * b1X * c12x2 * c12.J * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c21.J * c13.J + c11x2 * c12.I * c12.J * c21.J * c13.J + 2 * c12x2 * b1Y * c21.I * c12.J * c13.J + 2 * c12x2 * b1Y * c12.J * c13.I * c21.J + 3 * c10x2 * c21.I * c13y3 - 3 * c10y2 * c13x3 * c21.J + 3 * c20x2 * c21.I * c13y3 + c11y3 * c21.I * c13x2 - c11x3 * c21.J * c13y2 - 3 * c20y2 * c13x3 * c21.J - c11.I * c11y2 * c13x2 * c21.J + c11x2 * c11.J * c21.I * c13y2 - 3 * c10x2 * c13.I * c21.J * c13y2 + 3 * c10y2 * c21.I * c13x2 * c13.J - c11x2 * c12y2 * c13.I * c21.J + c11y2 * c12x2 * c21.I * c13.J - 3 * c20x2 * c13.I * c21.J * c13y2 + 3 * c20y2 * c21.I * c13x2 * c13.J,
+                /* t^7 */ -a1X * c11.I * c12.J * c13.I * c13.J * c22.J + a1X * c11.J * c12.I * c13.I * c13.J * c22.J + 6 * a1X * c11.J * c12.J * c13.I * c22.I * c13.J - 6 * a1Y * c11.I * c12.I * c13.I * c13.J * c22.J - a1Y * c11.I * c12.J * c13.I * c22.I * c13.J + a1Y * c11.J * c12.I * c13.I * c22.I * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c22.J - c11.I * c11.J * c12.I * c12.J * c22.I * c13.J + c11.I * b1X * c12.J * c13.I * c13.J * c22.J + c11.I * b1Y * c12.J * c13.I * c22.I * c13.J + c11.I * c21.I * c12.J * c13.I * c21.J * c13.J - b1X * c11.J * c12.I * c13.I * c13.J * c22.J - 6 * b1X * c11.J * c12.J * c13.I * c22.I * c13.J - c11.J * c12.I * b1Y * c13.I * c22.I * c13.J - c11.J * c12.I * c21.I * c13.I * c21.J * c13.J - 6 * a1X * b1X * c22.I * c13y3 - 2 * a1X * c12y3 * c13.I * c22.I + 2 * b1X * c12y3 * c13.I * c22.I + 2 * a1Y * c12x3 * c13.J * c22.J - 6 * a1X * a1Y * c13.I * c22.I * c13y2 + 3 * a1X * c11.I * c12.I * c13y2 * c22.J - 2 * a1X * c11.I * c12.J * c22.I * c13y2 - 4 * a1X * c11.J * c12.I * c22.I * c13y2 + 3 * a1Y * c11.I * c12.I * c22.I * c13y2 + 6 * a1X * a1Y * c13x2 * c13.J * c22.J + 6 * a1X * b1X * c13.I * c13y2 * c22.J - 3 * a1X * c11.J * c12.J * c13x2 * c22.J + 2 * a1X * c12.I * c12y2 * c13.I * c22.J + 2 * a1X * c12.I * c12y2 * c22.I * c13.J + 6 * a1X * b1Y * c13.I * c22.I * c13y2 + 6 * a1X * c21.I * c13.I * c21.J * c13y2 + 4 * a1Y * c11.I * c12.J * c13x2 * c22.J + 6 * a1Y * b1X * c13.I * c22.I * c13y2 + 2 * a1Y * c11.J * c12.I * c13x2 * c22.J - 3 * a1Y * c11.J * c12.J * c13x2 * c22.I + 2 * a1Y * c12.I * c12y2 * c13.I * c22.I - 3 * c11.I * b1X * c12.I * c13y2 * c22.J + 2 * c11.I * b1X * c12.J * c22.I * c13y2 + c11.I * c11.J * c12y2 * c13.I * c22.I - 3 * c11.I * c12.I * b1Y * c22.I * c13y2 - 3 * c11.I * c12.I * c21.I * c21.J * c13y2 + 4 * b1X * c11.J * c12.I * c22.I * c13y2 - 2 * a1X * c12x2 * c12.J * c13.J * c22.J - 6 * a1Y * b1X * c13x2 * c13.J * c22.J - 6 * a1Y * b1Y * c13x2 * c22.I * c13.J - 6 * a1Y * c21.I * c13x2 * c21.J * c13.J - 2 * a1Y * c12x2 * c12.J * c13.I * c22.J - 2 * a1Y * c12x2 * c12.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c22.J - 2 * c11.I * c11y2 * c13.I * c22.I * c13.J + 3 * b1X * c11.J * c12.J * c13x2 * c22.J - 2 * b1X * c12.I * c12y2 * c13.I * c22.J - 2 * b1X * c12.I * c12y2 * c22.I * c13.J - 6 * b1X * b1Y * c13.I * c22.I * c13y2 - 6 * b1X * c21.I * c13.I * c21.J * c13y2 + 3 * c11.J * b1Y * c12.J * c13x2 * c22.I + 3 * c11.J * c21.I * c12.J * c13x2 * c21.J - 2 * c12.I * b1Y * c12y2 * c13.I * c22.I - 2 * c12.I * c21.I * c12y2 * c13.I * c21.J - c11y2 * c12.I * c12.J * c13.I * c22.I + 2 * b1X * c12x2 * c12.J * c13.J * c22.J - 3 * c11.J * c21x2 * c12.J * c13.I * c13.J + 6 * b1Y * c21.I * c13x2 * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c22.J + c11x2 * c12.I * c12.J * c13.J * c22.J + 2 * c12x2 * b1Y * c12.J * c22.I * c13.J + 2 * c12x2 * c21.I * c12.J * c21.J * c13.J - 3 * a1X * c21x2 * c13y3 + 3 * b1X * c21x2 * c13y3 + 3 * c10x2 * c22.I * c13y3 - 3 * c10y2 * c13x3 * c22.J + 3 * c20x2 * c22.I * c13y3 + c21x2 * c12y3 * c13.I + c11y3 * c13x2 * c22.I - c11x3 * c13y2 * c22.J + 3 * a1Y * c21x2 * c13.I * c13y2 - c11.I * c11y2 * c13x2 * c22.J + c11.I * c21x2 * c12.J * c13y2 + 2 * c11.J * c12.I * c21x2 * c13y2 + c11x2 * c11.J * c22.I * c13y2 - c12.I * c21x2 * c12y2 * c13.J - 3 * b1Y * c21x2 * c13.I * c13y2 - 3 * c10x2 * c13.I * c13y2 * c22.J + 3 * c10y2 * c13x2 * c22.I * c13.J - c11x2 * c12y2 * c13.I * c22.J + c11y2 * c12x2 * c22.I * c13.J - 3 * c20x2 * c13.I * c13y2 * c22.J + 3 * c20y2 * c13x2 * c22.I * c13.J + c12x2 * c12.J * c13.I * (2 * b1Y * c22.J + c21y2) + c11.I * c12.I * c13.I * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + c12x3 * c13.J * (-2 * b1Y * c22.J - c21y2) + a1Y * c13x3 * (6 * b1Y * c22.J + 3 * c21y2) + c11.J * c12.I * c13x2 * (-2 * b1Y * c22.J - c21y2) + c11.I * c12.J * c13x2 * (-4 * b1Y * c22.J - 2 * c21y2) + a1X * c13x2 * c13.J * (-6 * b1Y * c22.J - 3 * c21y2) + b1X * c13x2 * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + c13x3 * (-2 * b1Y * c21y2 - c20y2 * c22.J - b1Y * (2 * b1Y * c22.J + c21y2)),
+                /* t^6 */ -a1X * c11.I * c12.J * c13.I * c13.J * c23.J + a1X * c11.J * c12.I * c13.I * c13.J * c23.J + 6 * a1X * c11.J * c12.J * c13.I * c13.J * c23.I - 6 * a1Y * c11.I * c12.I * c13.I * c13.J * c23.J - a1Y * c11.I * c12.J * c13.I * c13.J * c23.I + a1Y * c11.J * c12.I * c13.I * c13.J * c23.I + c11.I * c11.J * c12.I * c12.J * c13.I * c23.J - c11.I * c11.J * c12.I * c12.J * c13.J * c23.I + c11.I * b1X * c12.J * c13.I * c13.J * c23.J + c11.I * b1Y * c12.J * c13.I * c13.J * c23.I + c11.I * c21.I * c12.J * c13.I * c13.J * c22.J + c11.I * c12.J * c13.I * c21.J * c22.I * c13.J - b1X * c11.J * c12.I * c13.I * c13.J * c23.J - 6 * b1X * c11.J * c12.J * c13.I * c13.J * c23.I - c11.J * c12.I * b1Y * c13.I * c13.J * c23.I - c11.J * c12.I * c21.I * c13.I * c13.J * c22.J - c11.J * c12.I * c13.I * c21.J * c22.I * c13.J - 6 * c11.J * c21.I * c12.J * c13.I * c22.I * c13.J - 6 * a1X * b1X * c13y3 * c23.I - 6 * a1X * c21.I * c22.I * c13y3 - 2 * a1X * c12y3 * c13.I * c23.I + 6 * b1X * c21.I * c22.I * c13y3 + 2 * b1X * c12y3 * c13.I * c23.I + 2 * c21.I * c12y3 * c13.I * c22.I + 2 * a1Y * c12x3 * c13.J * c23.J - 6 * a1X * a1Y * c13.I * c13y2 * c23.I + 3 * a1X * c11.I * c12.I * c13y2 * c23.J - 2 * a1X * c11.I * c12.J * c13y2 * c23.I - 4 * a1X * c11.J * c12.I * c13y2 * c23.I + 3 * a1Y * c11.I * c12.I * c13y2 * c23.I + 6 * a1X * a1Y * c13x2 * c13.J * c23.J + 6 * a1X * b1X * c13.I * c13y2 * c23.J - 3 * a1X * c11.J * c12.J * c13x2 * c23.J + 2 * a1X * c12.I * c12y2 * c13.I * c23.J + 2 * a1X * c12.I * c12y2 * c13.J * c23.I + 6 * a1X * b1Y * c13.I * c13y2 * c23.I + 6 * a1X * c21.I * c13.I * c13y2 * c22.J + 6 * a1X * c13.I * c21.J * c22.I * c13y2 + 4 * a1Y * c11.I * c12.J * c13x2 * c23.J + 6 * a1Y * b1X * c13.I * c13y2 * c23.I + 2 * a1Y * c11.J * c12.I * c13x2 * c23.J - 3 * a1Y * c11.J * c12.J * c13x2 * c23.I + 2 * a1Y * c12.I * c12y2 * c13.I * c23.I + 6 * a1Y * c21.I * c13.I * c22.I * c13y2 - 3 * c11.I * b1X * c12.I * c13y2 * c23.J + 2 * c11.I * b1X * c12.J * c13y2 * c23.I + c11.I * c11.J * c12y2 * c13.I * c23.I - 3 * c11.I * c12.I * b1Y * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c22.J - 3 * c11.I * c12.I * c21.J * c22.I * c13y2 + 2 * c11.I * c21.I * c12.J * c22.I * c13y2 + 4 * b1X * c11.J * c12.I * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c22.I * c13y2 - 2 * a1X * c12x2 * c12.J * c13.J * c23.J - 6 * a1Y * b1X * c13x2 * c13.J * c23.J - 6 * a1Y * b1Y * c13x2 * c13.J * c23.I - 6 * a1Y * c21.I * c13x2 * c13.J * c22.J - 2 * a1Y * c12x2 * c12.J * c13.I * c23.J - 2 * a1Y * c12x2 * c12.J * c13.J * c23.I - 6 * a1Y * c13x2 * c21.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c23.J - 2 * c11.I * c11y2 * c13.I * c13.J * c23.I + 3 * b1X * c11.J * c12.J * c13x2 * c23.J - 2 * b1X * c12.I * c12y2 * c13.I * c23.J - 2 * b1X * c12.I * c12y2 * c13.J * c23.I - 6 * b1X * b1Y * c13.I * c13y2 * c23.I - 6 * b1X * c21.I * c13.I * c13y2 * c22.J - 6 * b1X * c13.I * c21.J * c22.I * c13y2 + 3 * c11.J * b1Y * c12.J * c13x2 * c23.I + 3 * c11.J * c21.I * c12.J * c13x2 * c22.J + 3 * c11.J * c12.J * c13x2 * c21.J * c22.I - 2 * c12.I * b1Y * c12y2 * c13.I * c23.I - 2 * c12.I * c21.I * c12y2 * c13.I * c22.J - 2 * c12.I * c21.I * c12y2 * c22.I * c13.J - 2 * c12.I * c12y2 * c13.I * c21.J * c22.I - 6 * b1Y * c21.I * c13.I * c22.I * c13y2 - c11y2 * c12.I * c12.J * c13.I * c23.I + 2 * b1X * c12x2 * c12.J * c13.J * c23.J + 6 * b1Y * c13x2 * c21.J * c22.I * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c23.J + c11x2 * c12.I * c12.J * c13.J * c23.J + 2 * c12x2 * b1Y * c12.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c22.J + 2 * c12x2 * c12.J * c21.J * c22.I * c13.J + c21x3 * c13y3 + 3 * c10x2 * c13y3 * c23.I - 3 * c10y2 * c13x3 * c23.J + 3 * c20x2 * c13y3 * c23.I + c11y3 * c13x2 * c23.I - c11x3 * c13y2 * c23.J - c11.I * c11y2 * c13x2 * c23.J + c11x2 * c11.J * c13y2 * c23.I - 3 * c10x2 * c13.I * c13y2 * c23.J + 3 * c10y2 * c13x2 * c13.J * c23.I - c11x2 * c12y2 * c13.I * c23.J + c11y2 * c12x2 * c13.J * c23.I - 3 * c21x2 * c13.I * c21.J * c13y2 - 3 * c20x2 * c13.I * c13y2 * c23.J + 3 * c20y2 * c13x2 * c13.J * c23.I + c11.I * c12.I * c13.I * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * b1Y * c23.J - 2 * c21.J * c22.J) + a1Y * c13x3 * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c11.J * c12.I * c13x2 * (-2 * b1Y * c23.J - 2 * c21.J * c22.J) + c12x2 * c12.J * c13.I * (2 * b1Y * c23.J + 2 * c21.J * c22.J) + c11.I * c12.J * c13x2 * (-4 * b1Y * c23.J - 4 * c21.J * c22.J) + a1X * c13x2 * c13.J * (-6 * b1Y * c23.J - 6 * c21.J * c22.J) + b1X * c13x2 * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c21.I * c13x2 * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + c13x3 * (-2 * b1Y * c21.J * c22.J - c20y2 * c23.J - c21.J * (2 * b1Y * c22.J + c21y2) - b1Y * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
+                /* t^5 */ c11.I * c21.I * c12.J * c13.I * c13.J * c23.J + c11.I * c12.J * c13.I * c21.J * c13.J * c23.I + c11.I * c12.J * c13.I * c22.I * c13.J * c22.J - c11.J * c12.I * c21.I * c13.I * c13.J * c23.J - c11.J * c12.I * c13.I * c21.J * c13.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c22.J - 6 * c11.J * c21.I * c12.J * c13.I * c13.J * c23.I - 6 * a1X * c21.I * c13y3 * c23.I + 6 * b1X * c21.I * c13y3 * c23.I + 2 * c21.I * c12y3 * c13.I * c23.I + 6 * a1X * c21.I * c13.I * c13y2 * c23.J + 6 * a1X * c13.I * c21.J * c13y2 * c23.I + 6 * a1X * c13.I * c22.I * c13y2 * c22.J + 6 * a1Y * c21.I * c13.I * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c23.J - 3 * c11.I * c12.I * c21.J * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c22.J + 2 * c11.I * c21.I * c12.J * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c13y2 * c23.I - 6 * a1Y * c21.I * c13x2 * c13.J * c23.J - 6 * a1Y * c13x2 * c21.J * c13.J * c23.I - 6 * a1Y * c13x2 * c22.I * c13.J * c22.J - 6 * b1X * c21.I * c13.I * c13y2 * c23.J - 6 * b1X * c13.I * c21.J * c13y2 * c23.I - 6 * b1X * c13.I * c22.I * c13y2 * c22.J + 3 * c11.J * c21.I * c12.J * c13x2 * c23.J - 3 * c11.J * c12.J * c13.I * c22x2 * c13.J + 3 * c11.J * c12.J * c13x2 * c21.J * c23.I + 3 * c11.J * c12.J * c13x2 * c22.I * c22.J - 2 * c12.I * c21.I * c12y2 * c13.I * c23.J - 2 * c12.I * c21.I * c12y2 * c13.J * c23.I - 2 * c12.I * c12y2 * c13.I * c21.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c22.J - 6 * b1Y * c21.I * c13.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c22.I * c13y2 + 6 * b1Y * c13x2 * c21.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c23.J + 2 * c12x2 * c12.J * c21.J * c13.J * c23.I + 2 * c12x2 * c12.J * c22.I * c13.J * c22.J - 3 * a1X * c22x2 * c13y3 + 3 * b1X * c22x2 * c13y3 + 3 * c21x2 * c22.I * c13y3 + c12y3 * c13.I * c22x2 + 3 * a1Y * c13.I * c22x2 * c13y2 + c11.I * c12.J * c22x2 * c13y2 + 2 * c11.J * c12.I * c22x2 * c13y2 - c12.I * c12y2 * c22x2 * c13.J - 3 * b1Y * c13.I * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c22.J + c12x2 * c12.J * c13.I * (2 * c21.J * c23.J + c22y2) + c11.I * c12.I * c13.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c21.I * c13x2 * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * c21.J * c23.J - c22y2) + a1Y * c13x3 * (6 * c21.J * c23.J + 3 * c22y2) + c11.J * c12.I * c13x2 * (-2 * c21.J * c23.J - c22y2) + c11.I * c12.J * c13x2 * (-4 * c21.J * c23.J - 2 * c22y2) + a1X * c13x2 * c13.J * (-6 * c21.J * c23.J - 3 * c22y2) + c13x2 * c22.I * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + b1X * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * b1Y * c21.J * c23.J - c22.J * (2 * b1Y * c22.J + c21y2) - b1Y * (2 * c21.J * c23.J + c22y2) - c21.J * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
+                /* t^4 */ 6 * c11.I * c12.I * c13.I * c13.J * c22.J * c23.J + c11.I * c12.J * c13.I * c22.I * c13.J * c23.J + c11.I * c12.J * c13.I * c13.J * c22.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c23.J - c11.J * c12.I * c13.I * c13.J * c22.J * c23.I - 6 * c11.J * c12.J * c13.I * c22.I * c13.J * c23.I - 6 * a1X * c22.I * c13y3 * c23.I + 6 * b1X * c22.I * c13y3 * c23.I + 6 * a1Y * c13x3 * c22.J * c23.J + 2 * c12y3 * c13.I * c22.I * c23.I - 2 * c12x3 * c13.J * c22.J * c23.J + 6 * a1X * c13.I * c22.I * c13y2 * c23.J + 6 * a1X * c13.I * c13y2 * c22.J * c23.I + 6 * a1Y * c13.I * c22.I * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c23.J - 3 * c11.I * c12.I * c13y2 * c22.J * c23.I + 2 * c11.I * c12.J * c22.I * c13y2 * c23.I + 4 * c11.J * c12.I * c22.I * c13y2 * c23.I - 6 * a1X * c13x2 * c13.J * c22.J * c23.J - 6 * a1Y * c13x2 * c22.I * c13.J * c23.J - 6 * a1Y * c13x2 * c13.J * c22.J * c23.I - 4 * c11.I * c12.J * c13x2 * c22.J * c23.J - 6 * b1X * c13.I * c22.I * c13y2 * c23.J - 6 * b1X * c13.I * c13y2 * c22.J * c23.I - 2 * c11.J * c12.I * c13x2 * c22.J * c23.J + 3 * c11.J * c12.J * c13x2 * c22.I * c23.J + 3 * c11.J * c12.J * c13x2 * c22.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c23.J - 2 * c12.I * c12y2 * c13.I * c22.J * c23.I - 2 * c12.I * c12y2 * c22.I * c13.J * c23.I - 6 * b1Y * c13.I * c22.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c13y2 * c23.I - 6 * c21.I * c13.I * c22.I * c13y2 * c22.J + 6 * b1X * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.I * c22.J * c23.J + 2 * c12x2 * c12.J * c22.I * c13.J * c23.J + 2 * c12x2 * c12.J * c13.J * c22.J * c23.I + 3 * c21.I * c22x2 * c13y3 + 3 * c21x2 * c13y3 * c23.I - 3 * c13.I * c21.J * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c23.J + c13x2 * c22.I * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c13x2 * c13.J * c23.I * (6 * b1Y * c22.J + 3 * c21y2) + c21.I * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * b1Y * c22.J * c23.J - c23.J * (2 * b1Y * c22.J + c21y2) - c21.J * (2 * c21.J * c23.J + c22y2) - c22.J * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
+                /* t^3 */ c11.I * c12.J * c13.I * c13.J * c23.I * c23.J - c11.J * c12.I * c13.I * c13.J * c23.I * c23.J + 6 * c21.I * c22.I * c13y3 * c23.I + 3 * c11.I * c12.I * c13.I * c13.J * c23y2 + 6 * a1X * c13.I * c13y2 * c23.I * c23.J - 3 * c11.I * c12.I * c13y2 * c23.I * c23.J - 3 * c11.J * c12.J * c13.I * c13.J * c23x2 - 6 * a1Y * c13x2 * c13.J * c23.I * c23.J - 6 * b1X * c13.I * c13y2 * c23.I * c23.J + 3 * c11.J * c12.J * c13x2 * c23.I * c23.J - 2 * c12.I * c12y2 * c13.I * c23.I * c23.J - 6 * c21.I * c13.I * c22.I * c13y2 * c23.J - 6 * c21.I * c13.I * c13y2 * c22.J * c23.I - 6 * c13.I * c21.J * c22.I * c13y2 * c23.I + 6 * c21.I * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.J * c23.I * c23.J + c22x3 * c13y3 - 3 * a1X * c13y3 * c23x2 + 3 * a1Y * c13x3 * c23y2 + 3 * b1X * c13y3 * c23x2 + c12y3 * c13.I * c23x2 - c12x3 * c13.J * c23y2 - 3 * a1X * c13x2 * c13.J * c23y2 + 3 * a1Y * c13.I * c13y2 * c23x2 - 2 * c11.I * c12.J * c13x2 * c23y2 + c11.I * c12.J * c13y2 * c23x2 - c11.J * c12.I * c13x2 * c23y2 + 2 * c11.J * c12.I * c13y2 * c23x2 + 3 * b1X * c13x2 * c13.J * c23y2 - c12.I * c12y2 * c13.J * c23x2 - 3 * b1Y * c13.I * c13y2 * c23x2 + c12x2 * c12.J * c13.I * c23y2 - 3 * c13.I * c22x2 * c13y2 * c22.J + c13x2 * c13.J * c23.I * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c13x2 * c22.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c21.J * c22.J * c23.J - b1Y * c23y2 - c22.J * (2 * c21.J * c23.J + c22y2) - c23.J * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
+                /* t^2 */ -6 * c21.I * c13.I * c13y2 * c23.I * c23.J - 6 * c13.I * c22.I * c13y2 * c22.J * c23.I + 6 * c13x2 * c22.I * c13.J * c22.J * c23.J + 3 * c21.I * c13y3 * c23x2 + 3 * c22x2 * c13y3 * c23.I + 3 * c21.I * c13x2 * c13.J * c23y2 - 3 * c13.I * c21.J * c13y2 * c23x2 - 3 * c13.I * c22x2 * c13y2 * c23.J + c13x2 * c13.J * c23.I * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-c21.J * c23y2 - 2 * c22y2 * c23.J - c23.J * (2 * c21.J * c23.J + c22y2)),
+                /* t^1 */ -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
+                /* c */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2);
+            var roots = poly.RootsInInterval(0, 1);
+
+            foreach (var s in roots)
+            {
+                var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
+                var xRoots = new Polynomial(
+                    /* t^3 */ a1X - point.X,
+                    /* t^2 */ c11.I,
+                    /* t^1 */ c12.I,
+                    /* c */ c13.I).Roots();
+                var yRoots = new Polynomial(
+                    /* t^3 */ a1Y - point.Y,
+                    /* t^2 */ c11.J,
+                    /* t^1 */ c12.J,
+                    /* c */ c13.J).Roots();
+                if (xRoots.Count > 0 && yRoots.Count > 0)
+                {
+                    // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
+                    foreach (var xRoot in xRoots)
+                    {
+                        if (0 <= xRoot && xRoot <= 1)
+                        {
+                            foreach (var yRoot in yRoots)
+                            {
+                                if (Abs(xRoot - yRoot) < epsilon)
+                                {
+                                    result.Points.Add(point);
+                                    goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
+                                }
+                            }
+                        }
+                    }
+                    checkRoots:;
                 }
             }
 

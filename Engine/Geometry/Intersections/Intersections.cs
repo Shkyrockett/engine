@@ -542,7 +542,7 @@ namespace Engine
                         case PolynomialDegree.Quadratic:
                             return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, epsilon);
                         case PolynomialDegree.Cubic:
-                            return QuadraticBezierCubicBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b1[3].X, b1[3].Y, epsilon);
+                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b1[3].X, b1[3].Y, epsilon);
                         default:
                             return new Intersection(IntersectionState.NoIntersection);
                     }
@@ -552,7 +552,7 @@ namespace Engine
                         case PolynomialDegree.Linear:
                             return LineSegmentCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
                         case PolynomialDegree.Quadratic:
-                            return QuadraticBezierCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
+                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
                         case PolynomialDegree.Cubic:
                             return CubicBezierSegmentCubicBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b1[3].X, b1[3].Y, epsilon);
                         default:
@@ -605,7 +605,7 @@ namespace Engine
                 case PolynomialDegree.Quadratic:
                     return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, epsilon);
                 case PolynomialDegree.Cubic:
-                    return QuadraticBezierCubicBezierSegmentIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
+                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
                 default:
                     return new Intersection(IntersectionState.NoIntersection);
             }
@@ -627,7 +627,7 @@ namespace Engine
                 case PolynomialDegree.Linear:
                     return LineSegmentCubicBezierSegmentIntersection(c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, b[0].X, b[0].Y, b[1].X, b[1].Y, epsilon);
                 case PolynomialDegree.Quadratic:
-                    return QuadraticBezierCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, epsilon);
+                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, epsilon);
                 case PolynomialDegree.Cubic:
                     return CubicBezierSegmentCubicBezierSegmentIntersection(c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, b[3].X, b[3].Y, epsilon);
                 default:
@@ -837,7 +837,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b0, CubicBezier b1, double epsilon = Epsilon)
-            => QuadraticBezierCubicBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b1.DX, b1.DY, epsilon);
+            => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b1.DX, b1.DY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Circle.
@@ -933,7 +933,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b1, QuadraticBezier b0, double epsilon = Epsilon)
-            => QuadraticBezierCubicBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b1.DX, b1.DY, epsilon);
+            => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b1.DX, b1.DY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Cubic Beziers.
@@ -4281,42 +4281,30 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
-        /// http://www.kevlindev.com/
+        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
+        private static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
-            var a = new Vector2D(a2X, a2Y) * -2;
-            var c12 = new Vector2D(a1X, a1Y) + a + new Vector2D(a3X, a3Y);
-            a = new Vector2D(a1X, a1Y) * -2;
-            var b = new Vector2D(a2X, a2Y) * 2;
-            var c11 = a + b;
-            var c10 = new Vector2D(a1X, a1Y);
-            a = new Vector2D(b1X, b1Y) * -1;
-            b = new Vector2D(b2X, b2Y) * 3;
-            var c = new Vector2D(b3X, b3Y) * -3;
-            var d = a + b + c + new Vector2D(b4X, b4Y);
-            var c23 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y) * 3;
-            b = new Vector2D(b2X, b2Y) * -6;
-            c = new Vector2D(b3X, b3Y) * 3;
-            d = a + b + c;
-            var c22 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y) * -3;
-            b = new Vector2D(b2X, b2Y) * 3;
-            c = a + b;
-            var c21 = new Vector2D(c.I, c.J);
-            var c20 = new Vector2D(b1X, b1Y);
+            var result = new Intersection(IntersectionState.NoIntersection);
 
-            var c10x2 = c10.I * c10.I;
-            var c10y2 = c10.J * c10.J;
+            // ToDo: Break early if the AABB bounding box of the curve does not intersect.
+
+            var c12 = new Vector2D(a1X - a2X * 2 + a3X, a1Y - a2Y * 2 + a3Y);
+            var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
+            var c23 = new Vector2D(b4X - b3X * 3 + b2X * 3 - b1X * 1, b4Y - b3Y * 3 + b2Y * 3 - b1Y * 1);
+            var c22 = new Vector2D(3 * (b3X - b2X * 2 + b1X), 3 * (b3Y - b2Y * 2 + b1Y));
+            var c21 = new Vector2D(3 * (b2X - b1X), 3 * (b2Y - b1Y));
+
+            var c10x2 = a1X * a1X;
+            var c10y2 = a1Y * a1Y;
             var c11x2 = c11.I * c11.I;
             var c11y2 = c11.J * c11.J;
             var c12x2 = c12.I * c12.I;
             var c12y2 = c12.J * c12.J;
-            var c20x2 = c20.I * c20.I;
-            var c20y2 = c20.J * c20.J;
+            var c20x2 = b1X * b1X;
+            var c20y2 = b1Y * b1Y;
             var c21x2 = c21.I * c21.I;
             var c21y2 = c21.J * c21.J;
             var c22x2 = c22.I * c22.I;
@@ -4325,39 +4313,37 @@ namespace Engine
             var c23y2 = c23.J * c23.J;
 
             var roots = new Polynomial(
-                -2 * c10.I * c10.J * c12.I * c12.J - c10.I * c11.I * c11.J * c12.J - c10.J * c11.I * c11.J * c12.I + 2 * c10.I * c12.I * c20.J * c12.J + 2 * c10.J * c20.I * c12.I * c12.J + c11.I * c20.I * c11.J * c12.J + c11.I * c11.J * c12.I * c20.J - 2 * c20.I * c12.I * c20.J * c12.J - 2 * c10.I * c20.I * c12y2 + c10.I * c11y2 * c12.I + c10.J * c11x2 * c12.J - 2 * c10.J * c12x2 * c20.J - c20.I * c11y2 * c12.I - c11x2 * c20.J * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2,
-                2 * c10.I * c12.I * c12.J * c21.J + 2 * c10.J * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * c20.I * c12.I * c12.J * c21.J - 2 * c12.I * c20.J * c21.I * c12.J - 2 * c10.I * c21.I * c12y2 - 2 * c10.J * c12x2 * c21.J + 2 * c20.I * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * c20.J * c21.J,
-                2 * c10.I * c12.I * c12.J * c22.J + 2 * c10.J * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * c20.I * c12.I * c12.J * c22.J - 2 * c12.I * c20.J * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * c10.I * c12y2 * c22.I - 2 * c10.J * c12x2 * c22.J + 2 * c20.I * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * c20.J * c22.J + c21y2),
-                2 * c10.I * c12.I * c12.J * c23.J + 2 * c10.J * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * c20.I * c12.I * c12.J * c23.J - 2 * c12.I * c20.J * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * c10.I * c12y2 * c23.I - 2 * c10.J * c12x2 * c23.J + 2 * c20.I * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * c20.J * c23.J + 2 * c21.J * c22.J),
-                -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
-                -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
-                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J).RootsInInterval(0, 1);
+                /* t^6 */ -2 * a1X * a1Y * c12.I * c12.J - a1X * c11.I * c11.J * c12.J - a1Y * c11.I * c11.J * c12.I + 2 * a1X * c12.I * b1Y * c12.J + 2 * a1Y * b1X * c12.I * c12.J + c11.I * b1X * c11.J * c12.J + c11.I * c11.J * c12.I * b1Y - 2 * b1X * c12.I * b1Y * c12.J - 2 * a1X * b1X * c12y2 + a1X * c11y2 * c12.I + a1Y * c11x2 * c12.J - 2 * a1Y * c12x2 * b1Y - b1X * c11y2 * c12.I - c11x2 * b1Y * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2,
+                /* t^5 */ 2 * a1X * c12.I * c12.J * c21.J + 2 * a1Y * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * b1X * c12.I * c12.J * c21.J - 2 * c12.I * b1Y * c21.I * c12.J - 2 * a1X * c21.I * c12y2 - 2 * a1Y * c12x2 * c21.J + 2 * b1X * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * b1Y * c21.J,
+                /* t^4 */ 2 * a1X * c12.I * c12.J * c22.J + 2 * a1Y * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * b1X * c12.I * c12.J * c22.J - 2 * c12.I * b1Y * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * a1X * c12y2 * c22.I - 2 * a1Y * c12x2 * c22.J + 2 * b1X * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * b1Y * c22.J + c21y2),
+                /* t^3 */ 2 * a1X * c12.I * c12.J * c23.J + 2 * a1Y * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * b1X * c12.I * c12.J * c23.J - 2 * c12.I * b1Y * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * a1X * c12y2 * c23.I - 2 * a1Y * c12x2 * c23.J + 2 * b1X * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * b1Y * c23.J + 2 * c21.J * c22.J),
+                /* t^2 */ -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
+                /* t^1 */ -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
+                /* c */ -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J).RootsInInterval(0, 1);
 
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var s = roots[i];
+                var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
                 var xRoots = new Polynomial(
-                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
-                    c11.I,
-                    c12.I).Roots();
+                    /* t^2 */ a1X - point.X,
+                    /* t^1 */ c11.I,
+                    /* c */ c12.I).Roots();
                 var yRoots = new Polynomial(
-                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
-                    c11.J,
-                    c12.J).Roots();
+                    /* t^2 */ a1Y - point.Y,
+                    /* t^1 */ c11.J,
+                    /* c */ c12.J).Roots();
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
-                    for (var j = 0; j < xRoots.Count; j++)
+                    foreach (var xRoot in xRoots)
                     {
-                        var xRoot = xRoots[j];
                         if (0 <= xRoot && xRoot <= 1)
                         {
-                            for (var k = 0; k < yRoots.Count; k++)
+                            foreach (var yRoot in yRoots)
                             {
-                                if (Abs(xRoot - yRoots[k]) < epsilon)
+                                var t = xRoot - yRoot;
+                                if ((t >= 0 ? t : -t) < epsilon)
                                 {
-                                    result.Points.Add((Point2D)c23 * s * s * s + (c22 * s * s + (c21 * s + c20)));
+                                    result.Points.Add(point);
                                     goto checkRoots;
                                 }
                             }
@@ -4488,11 +4474,11 @@ namespace Engine
             // Todo: Break early if the AABB bounding box of the curve does not intersect.
 
             var c13 = new Vector2D(a4X - a3X * 3 + a2X * 3 - a1X, a4Y - a3Y * 3 + a2Y * 3 - a1Y);
-            var c12 = new Vector2D(a3X * 3 - a2X * 6 + a1X * 3, a3Y * 3 - a2Y * 6 + a1Y * 3);
-            var c11 = new Vector2D(a2X * 3 - a1X * 3, a2Y * 3 - a1Y * 3);
+            var c12 = new Vector2D(3 * (a3X - a2X * 2 + a1X), 3 * (a3Y - a2Y * 2 + a1Y));
+            var c11 = new Vector2D(3 * (a2X - a1X), 3 * (a2Y - a1Y));
             var c23 = new Vector2D(b4X - b3X * 3 + b2X * 3 - b1X * 1, b4Y - b3Y * 3 + b2Y * 3 - b1Y * 1);
-            var c22 = new Vector2D(b3X * 3 - b2X * 6 + b1X * 3, b3Y * 3 - b2Y * 6 + b1Y * 3);
-            var c21 = new Vector2D(b2X * 3 - b1X * 3, b2Y * 3 - b1Y * 3);
+            var c22 = new Vector2D(3 * (b3X - b2X * 2 + b1X), 3 * (b3Y - b2Y * 2 + b1Y));
+            var c21 = new Vector2D(3 * (b2X - b1X), 3 * (b2Y - b1Y));
 
             var c10x2 = a1X * a1X;
             var c10x3 = a1X * a1X * a1X;
@@ -4560,7 +4546,8 @@ namespace Engine
                         {
                             foreach (var yRoot in yRoots)
                             {
-                                if (Abs(xRoot - yRoot) < epsilon)
+                                var t = xRoot - yRoot;
+                                if ((t >= 0 ? t : -t) < epsilon)
                                 {
                                     result.Points.Add(point);
                                     goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.

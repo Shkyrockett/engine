@@ -57,7 +57,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="tuple"></param>
         /// <remarks></remarks>
@@ -67,7 +67,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
         public Vector2D(Vector2D vector2D)
@@ -75,7 +75,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="i">The <see cref="I"/> component of the <see cref="Vector2D"/> class.</param>
         /// <param name="j">The <see cref="J"/> component of the <see cref="Vector2D"/> class.</param>
@@ -87,7 +87,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="aI"></param>
         /// <param name="aJ"></param>
@@ -99,7 +99,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>

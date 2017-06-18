@@ -1,4 +1,4 @@
-﻿// <copyright file="LineJoins.cs" company="Shkyrockett" >
+﻿// <copyright file="Progressivity.cs" company="Shkyrockett" >
 //     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,32 +8,25 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum LineJoins
-        : byte
+    [Flags]
+    public enum Progressivity
+        : sbyte
     {
         /// <summary>
         /// 
         /// </summary>
-        Miter = 0,
+        Forward = 1,
 
         /// <summary>
         /// 
         /// </summary>
-        Bevel = 1,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Round = 2,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Square = 3
+        Backward = 2,
     }
 }

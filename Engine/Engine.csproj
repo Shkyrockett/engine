@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,6 +11,10 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.10.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Geometry\Clipping\Vatti\" />
   </ItemGroup>
 
 </Project>

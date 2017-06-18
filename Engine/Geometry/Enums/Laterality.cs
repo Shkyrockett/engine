@@ -17,7 +17,7 @@ namespace Engine
     /// </summary>
     [Flags]
     public enum Laterality
-        : byte
+        : sbyte
     {
         /// <summary>
         /// Left.

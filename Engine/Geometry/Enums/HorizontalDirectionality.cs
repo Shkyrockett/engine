@@ -1,5 +1,5 @@
-﻿// <copyright file="LineJoins.cs" company="Shkyrockett" >
-//     Copyright © 2017 Shkyrockett. All rights reserved.
+﻿// <copyright file="Directionality.cs" company="Shkyrockett" >
+//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,29 +11,19 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// Text reading direction.
     /// </summary>
-    public enum LineJoins
+    public enum HorizontalDirectionality
         : byte
     {
         /// <summary>
-        /// 
+        /// Right to left reading direction.
         /// </summary>
-        Miter = 0,
+        RightToLeft,
 
         /// <summary>
-        /// 
+        /// Left to right reading direction.
         /// </summary>
-        Bevel = 1,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Round = 2,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Square = 3
+        LeftToRight
     }
 }

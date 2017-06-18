@@ -17,23 +17,28 @@ namespace Engine
         : byte
     {
         /// <summary>
+        /// No Intersection.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Locate the geometry that is the intersection of the two polygons.
         /// </summary>
-        Intersection = 0,
+        Intersection = 1,
 
         /// <summary>
         /// Locate the geometry of one polygon that does not overlap the other.
         /// </summary>
-        Difference = 1,
+        Difference = 2,
 
         /// <summary>
         /// Combine geometry.
         /// </summary>
-        Union = 2,
+        Union = 3,
 
         /// <summary>
         /// Locate the geometry that does not overlap.
         /// </summary>
-        Xor = 3
+        Xor = 4
     }
 }

@@ -455,10 +455,10 @@ namespace Editor
         /// <param name="vectorMap"></param>
         public static void IntersectionsQuadraticBezierQuadraticBezier(VectorMap vectorMap)
         {
-            var top = 100;
-            var left = 100;
+            var top = 10;
+            var left = 10;
 
-            var quadratic1 = new QuadraticBezier(left , top , left + 100, top + 100, left + 200, top);
+            var quadratic1 = (QuadraticBezier)new QuadraticBezier(left , top , left + 10, top + 10, left + 20, top).ScaleDistort(new Size2D(10,10));
             var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
             {
                 Name = "Quadratic Bezier 1"

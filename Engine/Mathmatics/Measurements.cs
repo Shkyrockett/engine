@@ -1020,10 +1020,10 @@ namespace Engine
             double lx3, double ly3,
             double x1, double y1)
         {
-            var A = ly2 - ly3;
-            var B = lx3 - lx2;
-            var C = (A * x1 + B * y1) - (A * lx2 + B * ly2);
-            return (C * C) / (A * A + B * B);
+            var a = ly2 - ly3;
+            var b = lx3 - lx2;
+            var c = (a * x1 + b * y1) - (a * lx2 + b * ly2);
+            return (c * c) / (a * a + b * b);
         }
 
         #endregion

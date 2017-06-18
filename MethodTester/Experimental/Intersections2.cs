@@ -138,7 +138,6 @@ namespace Engine
                     {
                         var TOLERANCE = 1e-4;
 
-                        checkRoots:
                         for (var j = 0; j < xRoots.Count; j++)
                         {
                             var xRoot = xRoots[j];
@@ -155,6 +154,7 @@ namespace Engine
                                 }
                             }
                         }
+                        checkRoots:;
                     }
                 }
             }
@@ -255,7 +255,6 @@ namespace Engine
                 {
                     var TOLERANCE = 1e-4;
 
-                    checkRoots:
                     for (var j = 0; j < xRoots.Count; j++)
                     {
                         var xRoot = xRoots[j];
@@ -273,6 +272,7 @@ namespace Engine
                             }
                         }
                     }
+                    checkRoots:;
                 }
             }
 
@@ -624,7 +624,6 @@ namespace Engine
                 {
                     var TOLERANCE = 1e-4;
 
-                    checkRoots:
                     for (var j = 0; j < xRoots.Count; j++)
                     {
                         var xRoot = xRoots[j];
@@ -642,6 +641,7 @@ namespace Engine
                             }
                         }
                     }
+                    checkRoots:;
                 }
             }
 

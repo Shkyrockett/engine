@@ -538,8 +538,6 @@ namespace Engine
         public static double Abs(double i, double j, double k)
             => Magnitude(i, j, k);
 
-        // Derived equivalent Math Functions The following is a list of non-intrinsic math functions that can be derived from the intrinsic math functions:
-
         /// <summary>
         /// Derived math functions equivalent Secant
         /// </summary>
@@ -547,12 +545,15 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => ((Math.Abs(value % PI - Right) > Epsilon)
-            && (Math.Abs(value % PI - -Right) > Epsilon)) ? (1 / Cos(value)) : 0;
+            => (value % PI == Right)
+            && (value % PI == -Right)
+            ? (1 / Cos(value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -561,12 +562,15 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-            => ((Math.Abs(Value % PI) > Epsilon)
-            && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Sin(Value)) : 0;
+            => (Value % PI == 0)
+            && (Value % PI == PI)
+            ? (1 / Sin(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -575,12 +579,15 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-            => ((Math.Abs(Value % PI) > Epsilon)
-            && (Math.Abs(Value % PI - PI) > Epsilon)) ? (1 / Tan(Value)) : 0;
+            => (Value % PI == 0)
+            && (Value % PI == PI)
+            ? (1 / Tan(Value)) : 0;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -589,6 +596,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -611,6 +620,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -633,6 +644,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -655,6 +668,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -677,6 +692,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>Arc-co-tan(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -690,6 +707,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HSin(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -703,6 +722,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HCos(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -716,6 +737,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HTan(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -729,6 +752,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HSec(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -742,6 +767,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HCosec(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -755,6 +782,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HCotan(X) </remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -768,6 +797,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HArcsin(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -781,6 +812,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HArccos(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -794,6 +827,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HArctan(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -807,6 +842,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HArcsec(X) </remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -820,6 +857,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HArccosec(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -833,6 +872,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks>HArccotan(X)</remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -850,11 +891,13 @@ namespace Engine
         /// Return Log(Value) / Log(NumberBase)
         /// </remarks>
         /// <acknowledgment>
+        /// Translated from old Microsoft VB code examples that I have since lost.
+        /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
-            => (Math.Abs(numberBase - 1) > Epsilon) ? (Log(value) / Log(numberBase)) : 0;
+            => (numberBase == 1) ? (Log(value) / Log(numberBase)) : 0;
 
         #endregion
     }

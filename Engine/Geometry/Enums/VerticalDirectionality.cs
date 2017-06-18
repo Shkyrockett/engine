@@ -13,17 +13,17 @@ namespace Engine
     /// <summary>
     /// Text reading direction.
     /// </summary>
-    public enum Directionality
+    public enum VerticalDirectionality
         : byte
     {
         /// <summary>
         /// Right to left reading direction.
         /// </summary>
-        RightToLeft,
+        TopToBottom,
 
         /// <summary>
         /// Left to right reading direction.
         /// </summary>
-        LeftToRight
+        BottomToTop
     }
 }

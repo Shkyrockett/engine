@@ -58,40 +58,46 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <typeparam name="T"></typeparam>
         /// <param name="shape"></param>
         /// <returns></returns>
-        public Shape Process(Shape shape)
+        public T Process<S, T>(S shape)
+            where S : Shape
+            where T : Shape
         {
             switch (shape)
             {
                 case ScreenPoint t:
-                    return new ScreenPoint(Process(t.Point));
+                    return new ScreenPoint(Process(t.Point)) as T;
                 case Line t:
-                    return Process(t);
+                    return Process(t) as T;
                 case LineSegment t:
-                    return Process(t);
+                    return Process(t) as T;
                 case QuadraticBezier t:
-                    return Process(t);
+                    return Process(t) as T;
                 case CubicBezier t:
-                    return Process(t);
+                    return Process(t) as T;
                 case PointSet t:
-                    return Process(t);
+                    return Process(t) as T;
                 case Polygon t:
-                    return Process(t);
+                    return Process(t) as T;
                 case Contour t:
-                    return Process(t);
+                    return Process(t) as T;
                 case PolylineSet t:
-                    return Process(t);
+                    return Process(t) as T;
                 case Polyline t:
-                    return Process(t);
+                    return Process(t) as T;
                 case PolycurveContour t:
-                    return Process(t);
+                    return Process(t) as T;
                 case Rectangle2D t:
-                    return Process(t);
+                    return Process(t) as T;
                 default:
                     break;
             }
-            return shape;
+
+            // Shape not supported.
+            return shape as T;
         }
 
         /// <summary>

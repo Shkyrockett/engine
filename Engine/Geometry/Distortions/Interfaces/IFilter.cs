@@ -25,7 +25,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="S">Shape type.</typeparam>
+        /// <typeparam name="T">Return type.</typeparam>
+        /// <param name="shape"></param>
         /// <returns></returns>
-        Shape Process(Shape shape);
+        T Process<S, T>(S shape)
+            where S : Shape
+            where T : Shape;
     }
 }

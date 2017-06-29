@@ -6,7 +6,7 @@
 //     This code is public domain.
 // </license>
 // <summary></summary>
-// <remarks></remarks>
+// <remarks> http://www4.ujaen.es/~fmartin/bool_op.html </remarks>
 
 namespace Engine
 {

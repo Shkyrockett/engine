@@ -70,7 +70,7 @@ namespace Engine
                 return 0;
             if (e1.Point.X > e2.Point.X) // Different x-coordinate
                 return 1;
-            if (e2.Point.X > e1.Point.X) // Different x-coordinate
+            if (e1.Point.X < e2.Point.X) // Different x-coordinate
                 return -1;
             if (e1.Point.Y != e2.Point.Y) // Different points, but same x-coordinate. The event with lower y-coordinate is processed first
                 return (e1.Point.Y > e2.Point.Y) ? 1 : -1;
@@ -97,12 +97,12 @@ namespace Engine
                 return 0;
             if (e1.Point.X > e2.Point.X) // Different x-coordinate
                 return -1;
-            if (e2.Point.X > e1.Point.X) // Different x-coordinate
+            if (e1.Point.X < e2.Point.X) // Different x-coordinate
                 return 1;
             if (e1.Point != e2.Point) // Different points, but same x-coordinate. The event with lower y-coordinate is processed first
                 return (e1.Point.Y > e2.Point.Y) ? -1 : 1;
-            if (e1.IsLeft != e2.IsLeft) // Same point, but one is a left endpoint and the other a right endpoint. The right endpoint is processed first
-                return (e1.IsLeft) ? -1 : 1;
+            if (e1.IsLeft != e2.IsLeft) // Same point, but one is a right endpoint and the other a left endpoint. The left endpoint is processed first
+                return e1.IsLeft ? -1 : 1;
             // Same point, both events are left endpoints or both are right endpoints. The event associate to the bottom segment is processed first
             if (SignedTriangleArea(e1.Point, e1.OtherEvent.Point, e2.OtherEvent.Point) != 0) // not collinear
                 return e1.IsAbove(e2.OtherEvent.Point) ? -1 : 1;

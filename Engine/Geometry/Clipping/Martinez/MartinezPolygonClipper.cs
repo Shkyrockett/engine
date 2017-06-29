@@ -65,27 +65,49 @@ namespace Engine
         {
             var result = new Polygon();
 
+            // Test 1 for trivial result case
             if (subject.Contours.Count * clipping.Contours.Count == 0)
             {
-                if (operation == ClipingOperations.Difference)
-                    result = subject;
-                else if (operation == ClipingOperations.Union)
-                    result = (subject.Contours.Count == 0) ? clipping : subject;
+                // At least one of the polygons is empty
+                switch (operation)
+                {
+                    case ClipingOperations.Difference:
+                        result = subject;
+                        break;
+                    case ClipingOperations.Union:
+                    case ClipingOperations.Xor:
+                        result = (subject.Contours.Count == 0) ? clipping : subject;
+                        break;
+                    default:
+                        break;
+                }
+
                 return result;
             }
 
             Rectangle2D subjectBB = subject.Bounds;
             Rectangle2D clippingBB = clipping.Bounds;
 
+            // Test 2 for trivial result case
             if (!subjectBB.IntersectsWith(clippingBB))
             {
-                if (operation == ClipingOperations.Difference)
-                    result = subject;
-                if (operation == ClipingOperations.Union)
+                // the bounding boxes do not overlap
+                switch (operation)
                 {
-                    result = subject;
-                    foreach (var c in clipping.Contours)
-                        result.Add(c);
+                    case ClipingOperations.Difference:
+                        result = subject;
+                        break;
+                    case ClipingOperations.Union:
+                    case ClipingOperations.Xor:
+                        result = subject;
+                        foreach (var c in clipping.Contours)
+                        {
+                            result.Add(c);
+                        }
+
+                        break;
+                    default:
+                        break;
                 }
 
                 return result;
@@ -93,11 +115,20 @@ namespace Engine
 
             // Add each segment to the eventQueue, sorted from left to right.
             foreach (var sCont in subject.Contours)
+            {
                 for (var pParse1 = 0; pParse1 < sCont.Points.Count; pParse1++)
+                {
                     ProcessSegment(sCont.Segment(pParse1), PolygonRelations.Subject);
+                }
+            }
+
             foreach (var cCont in clipping.Contours)
+            {
                 for (var pParse2 = 0; pParse2 < cCont.Points.Count; pParse2++)
+                {
                     ProcessSegment(cCont.Segment(pParse2), PolygonRelations.Clipping);
+                }
+            }
 
             var connector = new Connector();
 
@@ -108,15 +139,13 @@ namespace Engine
             SweepEvent e;
             var minMaxX = Math.Min(subjectBB.Right, clippingBB.Right);
 
-            SweepEvent prev, next;
+            SweepEvent prev= null, next = null;
 
             while (!eventQueue.IsEmpty)
             {
-                prev = null;
-                next = null;
-
                 e = eventQueue.Dequeue();
 
+                // Optimization 2
                 if ((operation == ClipingOperations.Intersection && (e.Point.X > minMaxX)) || (operation == ClipingOperations.Difference && e.Point.X > subjectBB.Right))
                     return connector.ToPolygon();
 
@@ -396,7 +425,7 @@ namespace Engine
             {
                 sortedEvents.Add(null); // WTF
             }
-            else if (SweepEventComp(e1, e2)>0)
+            else if (SweepEventComp(e1, e2) > 0)
             {
                 sortedEvents.Add(e2);
                 sortedEvents.Add(e1);
@@ -411,7 +440,7 @@ namespace Engine
             {
                 sortedEvents.Add(null);
             }
-            else if (SweepEventComp(e1.OtherEvent, e2.OtherEvent)>0)
+            else if (SweepEventComp(e1.OtherEvent, e2.OtherEvent) > 0)
             {
                 sortedEvents.Add(e2.OtherEvent);
                 sortedEvents.Add(e1.OtherEvent);
@@ -467,20 +496,20 @@ namespace Engine
         /// <param name="p"></param>
         private void DivideSegment(SweepEvent e, Point2D p)
         {
-            var r = new SweepEvent(false, p, e, e.BelongsTo, e.Contribution);
-            var l = new SweepEvent(true, p, e.OtherEvent, e.BelongsTo, e.OtherEvent.Contribution);
+            var left = new SweepEvent(true, p, e.OtherEvent, e.BelongsTo, e.OtherEvent.Contribution);
+            var right = new SweepEvent(false, p, e, e.BelongsTo, e.Contribution);
 
-            if (SweepEventComp(l, e.OtherEvent)>0)
+            if (SweepEventComp(left, e.OtherEvent) > 0)
             {
                 e.OtherEvent.IsLeft = true;
                 e.IsLeft = false;
             }
 
-            e.OtherEvent.OtherEvent = l;
-            e.OtherEvent = r;
+            e.OtherEvent.OtherEvent = left;
+            e.OtherEvent = right;
 
-            eventQueue.Enqueue(l);
-            eventQueue.Enqueue(r);
+            eventQueue.Enqueue(left);
+            eventQueue.Enqueue(right);
         }
 
         /// <summary>
@@ -520,5 +549,7 @@ namespace Engine
             eventQueue.Enqueue(e1);
             eventQueue.Enqueue(e2);
         }
+
+
     }
 }

@@ -49,7 +49,7 @@ namespace Editor
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
             //WarpGeometry(vectorMap);
-            //ComplexPolygonClipping(vectorMap);
+            ComplexPolygonClipping(vectorMap);
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);
             //SutherlandHodgman(vectorMap);
@@ -65,7 +65,7 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
-            IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);

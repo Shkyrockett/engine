@@ -35,14 +35,14 @@ namespace Engine
         private Point2D point;
 
         /// <summary>
-        /// Polygon to which the associated segment belongs to
-        /// </summary>
-        private PolygonRelations belongsTo;
-
-        /// <summary>
         /// event associated to the other endpoint of the edge
         /// </summary>
         private SweepEvent otherEvent;
+
+        /// <summary>
+        /// Polygon to which the associated segment belongs to
+        /// </summary>
+        private PolygonRelations belongsTo;
 
         /// <summary>
         /// 
@@ -89,7 +89,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private uint contourId;
+        private int contourId;
 
         #endregion
 
@@ -196,7 +196,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public uint ContourId { get { return contourId; } set { contourId = value; } }
+        public int ContourId { get { return contourId; } set { contourId = value; } }
 
         #endregion
 

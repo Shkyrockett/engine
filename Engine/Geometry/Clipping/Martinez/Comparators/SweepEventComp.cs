@@ -6,7 +6,7 @@
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
-// <remarks></remarks>
+// <remarks> http://www4.ujaen.es/~fmartin/bool_op.html </remarks>
 
 using System.Collections.Generic;
 

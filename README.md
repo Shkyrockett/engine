@@ -9,7 +9,9 @@ Because this is a playground, APIs get refactored frequently and files get moved
 ## Acknowledgments
 
 - Many of the geometry methods are inspired by samples from [C# Helper](http://csharphelper.com/) written by Rod Stephens.
-- A portion of code for Bézier curves has been ported from the awesome information found on [A Primer on Bézier Curves](https://pomax.github.io/bezierinfo/) by Pomax.
-- Polygon path finding based on [code](http://alienryderflex.com/shortest_path/) posted by Darel Rex Finley.
+- A portion of code for Bézier curves has been ported from the awesome information found on [A Primer on Bézier Curves](https://pomax.github.io/bezierinfo/) by Mike Kamermans (Pomax).
+- Many of the Intersection methods have been ported or adapted from methods found at [kld-intersections](https://github.com/thelonious/kld-intersections) posted by Kevin Lindsey (thelonious).
+- Many of the Intersection methods have also been adapted along the lines of code found at [the particleincell blog](https://www.particleincell.com/2013/cubic-line-intersection/) posted by Dr. Lubos Brieda.
+- Polygon path finding based on [shortest path code](http://alienryderflex.com/shortest_path/) posted by Darel Rex Finley.
 - Tweener code based on [Glide](https://bitbucket.org/jacobalbano/glide) by Jacob Albano.
-- Pieces of the [Clipper](http://angusj.com/delphi/clipper.php) library by Angus Johnson have been used.
+- Pieces of the [Clipper](http://angusj.com/delphi/clipper.php) library by Angus Johnson have been adapted.

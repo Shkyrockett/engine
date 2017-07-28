@@ -2291,7 +2291,10 @@ namespace Engine
         /// <param name="segmentBX"></param>
         /// <param name="segmentBY"></param>
         /// <returns></returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointLineSegmentIntersects(
@@ -2317,7 +2320,10 @@ namespace Engine
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon"></param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LineSegmentLineSegmentIntersects(
@@ -2395,7 +2401,10 @@ namespace Engine
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon"></param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LineLineSegmentIntersects(
@@ -2744,7 +2753,7 @@ namespace Engine
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
-        /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
+        /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459 (https://web.archive.org/web/20111206104736/http://www.blitzbasic.com/Community/posts.php?topic=64459)
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2806,7 +2815,7 @@ namespace Engine
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
-        /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
+        /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459 (https://web.archive.org/web/20111206104736/http://www.blitzbasic.com/Community/posts.php?topic=64459)
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

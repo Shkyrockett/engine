@@ -1,4 +1,4 @@
-﻿# Mathmatical Primer
+﻿# Mathematical Primer
 
 ## Formula
 
@@ -34,7 +34,8 @@ A **Polynomial** is a general term for the sets of expressions set up with terms
 | Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
 | Binomial | ![][binomial] | A Binomial is a polynomial that consists of two terms. |
 | Trinomial | ![][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
-|  |  |  |
+| Quadranomial |  | A Quadranomial is a polynomial that consists of four sets of terms. |
+| Pentanomial |  | A Pentanomial is a polynomial that consists of five sets of terms. |
 
 ### Term
 
@@ -75,7 +76,7 @@ A **coefficient** is the number used to multiply a variable. The coefficient is 
 | ![][theta] | theta |  The angle between two vectors |
 |  |  |  |
 
-#### Vectors Matricies 
+#### Vectors Matrices 
 
 | Representations | Name | Description |
 |:---:|---|---|
@@ -90,8 +91,9 @@ In some instances a numerical value is replaced with a symbolic representation t
 
 | Constant | Value | Notes|
 |:---:|---|---|
-| ![][pi.inline] | ≈3.1415926… | Pi is the ratio of the circumference of a circle to it's radius. |
-| ![][i] | Imaginary  |  Denotes an imaginary number. |
+| ![][pi.inline] | ≈3.1415926535897932384626433832795… | Pi is the irrational constant that represents the ratio of the circumference of a circle to it's radius. |
+| ![][tau.inline] | ≈6.283185307179586476925286766559... | Tau is a proposed irrational constant intended to represent the ratio of the circumference of a circle to it's diameter. Or 2Pi. |
+| ![][i] | Imaginary  | Denotes that a number should be considered imaginary as opposed to a real number. |
 | | | |
 
 #### Table of Common Angles
@@ -197,7 +199,7 @@ Below are tables of common operators.
 | 3 | ![][operators.add.inline], ![][operators.subtract.inline] | Addition Subtraction | All Addition and Subtraction is then done from left to right.  |
 |  |  |  |  |
 
-#### Operators and Order of Precidence
+#### Operators and Order of Precedence
 
 There are a few quirks on the order of precedence of operations.
 
@@ -207,7 +209,7 @@ When a negated bracketed set of terms is simplified, the addition, and subtracti
 
 For example: ![][x=1-(3-4).inline] becomes ![][x=1-3+4.inline]  
 
-##### Multiplecation Division
+##### Multiplication Division
 
 A negative times a negative is always a positive.
 A positive times a negative is a negative.
@@ -338,6 +340,33 @@ Quadratic equation is where the equation involves an exponent of 2.
 | ![][law of sines] | Law of Sines |  |
 | ![][law of cosines a] </br> ![][law of cosines b] </br> ![][law of cosines c] | Law of Cosines |  |
 | ![][law of tangents] | Law of Tangents |  |
+
+## Bézier Matrix Forms
+
+| Name | Equation |
+|---|---|
+| Linear Bézier Curve | ![linear bezier matrix][] |
+| Quadratic Bézier Curve | ![quadratic bezier matrix][] |
+| Cubic Bézier Curve | ![cubic bezier matrix][] |
+| Quartic Bézier Curve | ![quartic bezier matrix][] |
+| Quintic Bézier Curve | ![quintic bezier matrix][] |
+
+## Polynomial Degrees
+
+| Name | Value |
+|---|---|
+| Constant | 0 |
+| Linear | 1 |
+| Quadratic | 2 |
+| Cubic | 3 |
+| Quartic | 4 |
+| Quintic | 5 |
+| Sextic | 6 |
+| Septic | 7 |
+| Octic | 8 |
+| Nonic | 9 |
+| Decic | 10 |
+| Hectic | 100 |
 
 ## Physical Units
 
@@ -549,10 +578,10 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Days | 24 Hours |
 | Days (sidereal) |  |
 | Decades | 10 Years |
-| Decaseconds |  |
-| Deciseconds |  |
-| Femtoseconds |  |
-| Fortnights |  |
+| Decaseconds | Ten seconds |
+| Deciseconds | Tenth of seconds |
+| Femtoseconds | Quadrillionth of a second |
+| Fortnights | Two weeks |
 | Gigaseconds |  |
 | Hectoseconds |  |
 | Heleks |  |
@@ -562,9 +591,9 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Jiffies (alternative) |  |
 | Ke |  |
 | Ke (traditional) |  |
-| Kiloseconds |  |
+| Kiloseconds | thousand seconds |
 | Lustres |  |
-| Megaseconds |  |
+| Megaseconds | million seconds |
 | Metonic Cycles |  |
 | Microfortnights |  |
 | Microseconds |  |
@@ -594,9 +623,9 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Years (tropical) |  |
 |  |  |
 
-## Mathmatical Tricks
+## Mathematical Tricks
 
-### Multiplecation Tricks
+### Multiplication Tricks
 
 Multiplying single digit numbers by 11 can be fun, since all you have to do is put the same number next to it. But the two digit numbers look intimidating, such as ![][12x11.inline]. However, there is this little trick: 
  >Split the two digits up ![][Split 12.inline]. Add them together ![][1+2.inline] place the sum in the middle and push them together ![][Join 1 and 2.inline]. And there you have it.
@@ -765,34 +794,37 @@ This one is for finding the squares of numbers ending with 5. e.g. ( 〖25〗^2=
 [w vector right.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\overrightarrow{w}
 
 [i]: http://latex.codecogs.com/svg.latex?i
-[i.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;i
+[i.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;i
 
 [j]: http://latex.codecogs.com/svg.latex?j
-[j.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;j
+[j.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;j
 
 [k]: http://latex.codecogs.com/svg.latex?k
-[k.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;k
+[k.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;k
 
 [x]: http://latex.codecogs.com/svg.latex?x
-[x.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;x
+[x.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;x
 
 [y]: http://latex.codecogs.com/svg.latex?y
-[y.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;y
+[y.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;y
 
 [z]: http://latex.codecogs.com/svg.latex?z
-[z.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;z
+[z.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;z
 
 [A]: http://latex.codecogs.com/svg.latex?A
-[A.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;A
+[A.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;A
 
-[theta]: http://latex.codecogs.com/svg.latex?\\Theta
-[theta.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\Theta
+[theta]: http://latex.codecogs.com/svg.latex?%5Ctheta
+[theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctheta
 
 [r]: http://latex.codecogs.com/svg.latex?r
-[r.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;r
+[r.inline]: http://latex.codecogs.com/svg.latex?%5inline&space;r
 
-[pi]: http://latex.codecogs.com/svg.latex?\\inline&space;\\pi
-[pi.inline]: http://latex.codecogs.com/svg.latex?\\inline&space;\\pi
+[pi]: http://latex.codecogs.com/svg.latex?%5Cpi
+[pi.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Cpi
+
+[tau]: http://latex.codecogs.com/svg.latex?%5Ctau
+[tau.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctau
 
 [pythagorean theorem]: http://latex.codecogs.com/svg.latex?c^{2}&space;=&space;a^{2}&space;&plus;&space;b^{2}
 [pythagorean theorem.Inline]: http://latex.codecogs.com/svg.latex?\\inline&space;c^{2}&space;=&space;a^{2}&space;&plus;&space;b^{2}
@@ -997,3 +1029,18 @@ This one is for finding the squares of numbers ending with 5. e.g. ( 〖25〗^2=
 
 [tan squared theta]: http://latex.codecogs.com/svg.latex?%5Ctan%5E%7B2%7D%28%5Ctheta%29
 [tan squared theta.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20%5Ctan%5E%7B2%7D%28%5Ctheta%29
+
+[linear bezier matrix]: http://latex.codecogs.com/svg.latex?c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%5C%5C%20-1%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%20%5Cend%7Bbmatrix%7D
+[linear bezier matrix.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%5C%5C%20-1%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%20%5Cend%7Bbmatrix%7D
+
+[quadratic bezier matrix]: http://latex.codecogs.com/svg.latex?c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%5C%5C%20-2%262%260%5C%5C%201%26-2%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%20%5Cend%7Bbmatrix%7D
+[quadratic bezier matrix.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%5C%5C%20-2%262%260%5C%5C%201%26-2%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%20%5Cend%7Bbmatrix%7D
+
+[cubic bezier matrix]: http://latex.codecogs.com/svg.latex?c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E3%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%260%5C%5C%20-3%263%260%260%5C%5C%203%26-6%263%260%5C%5C%20-1%263%26-3%261%5C%5C%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%5C%5C%20P_3%20%5Cend%7Bbmatrix%7D
+[cubic bezier matrix.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E3%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%260%5C%5C%20-3%263%260%260%5C%5C%203%26-6%263%260%5C%5C%20-1%263%26-3%261%5C%5C%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%5C%5C%20P_3%20%5Cend%7Bbmatrix%7D
+
+[quartic bezier matrix]: http://latex.codecogs.com/svg.latex?c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E3%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E4%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%260%260%5C%5C%20-4%264%260%260%260%5C%5C%206%26-12%266%260%260%5C%5C%20-4%2612%26-12%264%260%5C%5C%201%26-4%266%26-4%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%5C%5C%20P_3%5C%5C%20P_4%20%5Cend%7Bbmatrix%7D
+[quartic bezier matrix.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E3%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E4%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%260%260%5C%5C%20-4%264%260%260%260%5C%5C%206%26-12%266%260%260%5C%5C%20-4%2612%26-12%264%260%5C%5C%201%26-4%266%26-4%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%5C%5C%20P_3%5C%5C%20P_4%20%5Cend%7Bbmatrix%7D
+
+[quintic bezier matrix]: http://latex.codecogs.com/svg.latex?c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E3%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E4%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E5%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%260%260%260%5C%5C%20-5%265%260%260%260%260%5C%5C%2010%26-20%2610%260%260%260%5C%5C%20-10%2630%26-30%2610%260%260%5C%5C%205%26-20%2630%26-20%265%260%5C%5C%20-1%265%26-10%2610%26-5%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%5C%5C%20P_3%5C%5C%20P_4%5C%5C%20P_5%20%5Cend%7Bbmatrix%7D
+[quintic bezier matrix.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%20c%28t%29%3D%5Cbegin%7Bbmatrix%7D%201%26%28%5Cfrac%7Bt%7D%7B2%7D%29%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E2%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E3%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E4%26%28%5Cfrac%7Bt%7D%7B2%7D%29%5E5%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%201%260%260%260%260%260%5C%5C%20-5%265%260%260%260%260%5C%5C%2010%26-20%2610%260%260%260%5C%5C%20-10%2630%26-30%2610%260%260%5C%5C%205%26-20%2630%26-20%265%260%5C%5C%20-1%265%26-10%2610%26-5%261%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20P_0%5C%5C%20P_1%5C%5C%20P_2%5C%5C%20P_3%5C%5C%20P_4%5C%5C%20P_5%20%5Cend%7Bbmatrix%7D

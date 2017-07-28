@@ -35,27 +35,27 @@ namespace Engine
         /// <summary>
         /// event queue (sorted events to be processed)
         /// </summary>
-        PriorityQueue<SweepEvent> eq;
+        PriorityQueue<SweepEvent> eq = new PriorityQueue<SweepEvent>();
 
         /// <summary>
         /// segments intersecting the sweep line
         /// </summary>
-        SortedSet<SweepEvent> sl;
+        SortedSet<SweepEvent> sl = new SortedSet<SweepEvent>();
 
         /// <summary>
         /// It holds the events generated during the computation of the boolean operation
         /// </summary>
-        LinkedList<SweepEvent> eventHolder;
+        LinkedList<SweepEvent> eventHolder = new LinkedList<SweepEvent>();
 
         /// <summary>
         /// to compare events
         /// </summary>
-        SweepEventComp sec;
+        SweepEventComp sec = new SweepEventComp();
 
         /// <summary>
         /// 
         /// </summary>
-        LinkedList<SweepEvent> sortedEvents;
+        LinkedList<SweepEvent> sortedEvents = new LinkedList<SweepEvent>();
 
         /// <summary>
         /// 
@@ -350,7 +350,7 @@ namespace Engine
             SweepEvent r = StoreSweepEvent(new SweepEvent(false, p, le, le.BelongsTo /*, le.type*/));
             // "Left event" of the "right line segment" resulting from dividing le.segment ()
             SweepEvent l = StoreSweepEvent(new SweepEvent(true, p, le.OtherEvent, le.BelongsTo /*, le.other.type*/));
-            if (SweepEventComp(l, le.OtherEvent)!=0)
+            if (SweepEventComp(l, le.OtherEvent) != 0)
             {
                 // avoid a rounding error. The left event would be processed after the right event
                 //std::cout << "Oops" << std::endl;

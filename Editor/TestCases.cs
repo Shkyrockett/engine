@@ -49,7 +49,7 @@ namespace Editor
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
             //WarpGeometry(vectorMap);
-            ComplexPolygonClipping(vectorMap);
+            //ComplexPolygonClipping(vectorMap);
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);
             //SutherlandHodgman(vectorMap);
@@ -65,7 +65,8 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
-            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
@@ -464,6 +465,10 @@ namespace Editor
             {
                 Name = "Quadratic Bezier 1"
             };
+            var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 1 Bounds"
+            };
 
             top -= 5;
 
@@ -472,12 +477,102 @@ namespace Editor
             {
                 Name = "Quadratic Bezier 2"
             };
+            var quardatic2BoundsItem = new GraphicItem(quadratic2.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 2 Bounds"
+            };
 
-            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle);
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle);
 
+            top += 20;
+            left += 0;
+
+            var quadratic3 = new QuadraticBezier(left + 5, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale);
+            var quadratic3Item = new GraphicItem(quadratic3, intersectionBlue)
+            {
+                Name = "Quadratic Bezier 3"
+            };
+            var quardatic3BoundsItem = new GraphicItem(quadratic3.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 3 Bounds"
+            };
+
+            top -= 5;
+
+            var quadratic4 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10).ScaleDistort(scale);
+            var quadratic4Item = new GraphicItem(quadratic4, intersectionRed)
+            {
+                Name = "Quadratic Bezier 4"
+            };
+            var quardatic4BoundsItem = new GraphicItem(quadratic4.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 4 Bounds"
+            };
+
+            var intersectionNode2Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic3, quadratic4).Points, 5d), handleStyle);
+
+            vectorMap.Add(quardatic1BoundsItem);
+            vectorMap.Add(quardatic2BoundsItem);
+            vectorMap.Add(quardatic3BoundsItem);
+            vectorMap.Add(quardatic4BoundsItem);
             vectorMap.Add(quadratic1Item);
             vectorMap.Add(quadratic2Item);
-            vectorMap.Add(intersectionNodeItem);
+            vectorMap.Add(quadratic3Item);
+            vectorMap.Add(quadratic4Item);
+            vectorMap.Add(intersectionNode1Item);
+            vectorMap.Add(intersectionNode2Item);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void IntersectionsQuadraticBezierQuadraticBezierKLD(VectorMap vectorMap)
+        {
+            var top = 0;
+            var left = 0;
+            var scale = new Size2D(1, 1);
+
+            var quadratic1 = new QuadraticBezier(left + 83, top + 214, left + 335, top + 173, left + 91, top + 137).ScaleDistort(scale);
+            var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+            {
+                Name = "Quadratic Bezier 1"
+            };
+            var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 1 Bounds"
+            };
+            var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
+            {
+                Name = "Quadratic Bezier 1 Handles"
+            };
+
+            var quadratic2 = new QuadraticBezier(left + 92, top + 233, left + 152, top + 30, left + 198, top + 227).ScaleDistort(scale);
+            var quadratic2Item = new GraphicItem(quadratic2, intersectionRed)
+            {
+                Name = "Quadratic Bezier 2"
+            };
+            var quardatic2BoundsItem = new GraphicItem(quadratic2.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 2 Bounds"
+            };
+            var quadratic2Handles = new GraphicItem(new NodeRevealer(quadratic2.Points, 5d), handleStyle2)
+            {
+                Name = "Quadratic Bezier 2 Handles"
+            };
+
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle)
+            {
+                Name = "Quadratic Bezier Intersections"
+            };
+
+            vectorMap.Add(quardatic1BoundsItem);
+            vectorMap.Add(quardatic2BoundsItem);
+            vectorMap.Add(quadratic1Item);
+            vectorMap.Add(quadratic2Item);
+            vectorMap.Add(intersectionNode1Item);
+            vectorMap.Add(quadratic1Handles);
+            vectorMap.Add(quadratic2Handles);
         }
 
         /// <summary>
@@ -1402,6 +1497,8 @@ namespace Editor
             var left = 100;
             var top = 0;
             var scanPoint = new Point2D(-10, 175);
+            var steps = 5;
+            var padding = steps * 3;
 
             var polycurve = new PolycurveContour(new Point2D(left + 50d, top + 100d));
             polycurve.AddLineSegment(new Point2D(left + 100, top + 100))
@@ -1418,12 +1515,10 @@ namespace Editor
                 Name = "Polycurve"
             };
 
-
             var parametricPointTesterFigure = new ParametricPointTester(
                 (px, py) => Intersections.PolycurveContourContainsPoint(polycurve, new Point2D(px, py)),
-                polycurve.Bounds.X, polycurve.Bounds.Y, polycurve.Bounds.Right + 5, polycurve.Bounds.Bottom + 5, 5, 5);
+                polycurve.Bounds.X - padding, polycurve.Bounds.Y - padding, polycurve.Bounds.Right + padding, polycurve.Bounds.Bottom + padding, steps, steps);
             var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, handleStyle);
-
 
             var line = new Line(left + scanPoint.X, top + scanPoint.Y, 2, 0);
             var lineItem = new GraphicItem(line, solidGreenStyle)

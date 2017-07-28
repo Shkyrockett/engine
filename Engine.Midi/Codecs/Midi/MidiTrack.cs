@@ -80,7 +80,9 @@ namespace Engine.File
             while (reader.BaseStream.Position < reader.Length)
             {
                 var deltaTime = (uint)reader.Read7BitEncodedInt();
+#pragma warning disable CS0612 // Type or member is obsolete
                 var test = reader.PeekByte();
+#pragma warning restore CS0612 // Type or member is obsolete
                 if (test == 0)
                     break; // throw new System.Exception("Invalid file.");
                 if ((test & 0x80) != 0)

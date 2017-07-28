@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg width="193px" height="220px" viewBox="0 0 193 220" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+ <path d=" M 97.00 10.00 L 183.60 160.00 L 10.39 160.00 z M 97.00 60.00 L 140.30 135.00 L 53.69 135.00 z"
+ style="fill:#00009C; fill-opacity:0.06; fill-rule:nonzero; stroke:#D3D3DA; stroke-opacity:1.00; stroke-width:0.80;"/>
+
+ <path d=" M 97.00 210.00 L 10.39 60.00 L 183.60 59.99 z M 97.00 160.00 L 53.69 85.00 L 140.30 84.99 z"
+ style="fill:#9C0000; fill-opacity:0.06; fill-rule:nonzero; stroke:#FFA07A; stroke-opacity:1.00; stroke-width:0.80;"/>
+
+ <path d=" M 68.13 110.00 L 53.69 135.00 L 82.56 135.00 L 97.00 160.00 L 68.13 160.00 L 39.26 110.00 L 53.69 85.00 z M 154.73 110.00 L 125.86 160.00 L 97.00 160.00 L 111.43 135.00 L 140.30 135.00 L 125.86 110.00 L 140.30 85.00 z M 140.29 84.99 L 111.43 84.99 L 97.00 60.00 L 82.57 85.00 L 53.70 85.00 L 68.13 60.00 L 125.86 59.99 z"
+ style="fill:#80FF9C; fill-opacity:0.67; fill-rule:nonzero; stroke:#003300; stroke-opacity:1.00; stroke-width:0.80;"/>
+
+</svg>

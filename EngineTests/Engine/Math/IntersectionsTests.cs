@@ -25,7 +25,7 @@ namespace Engine.Tests
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
-        private const double TestEpsilon = 0.0000000000001d;
+        private const double TestEpsilon = 0.000000000001d;
 
         #endregion
 
@@ -323,7 +323,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        /// Test for correct intersections between two Quadratic Bezier curves.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -333,19 +333,39 @@ namespace Engine.Tests
         [DeploymentItem("System.ValueTuple.dll")]
         public void QuadraticBezierSegmentQuadraticBezierSegmentIntersectionTest()
         {
-            var testCases = new Dictionary<(QuadraticBezier a, QuadraticBezier b), Intersection>
+            // List of testcases for intersections between two Quadratic Bezier curves.
+            var testCases = new Dictionary<((double AX, double AY, double BX, double BY, double CX, double CY) a, (double AX, double AY, double BX, double BY, double CX, double CY) b), Intersection>
             {
-                { (new QuadraticBezier(0, 0, 10, 10, 20, 0), new QuadraticBezier(0, 10, 10, 0, 20, 10)), new Intersection() },
+                //// Paralell Mirrored Quadratic Bezier curves. ToDo: Find the expected points.
+                //{ ((0, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
+                //    new Intersection(IntersectionState.Intersection, new Point2D(0,0), new Point2D(0,0)) },
+                // Reduce Quintic to Quadratic Paralell Mirrored Quadratic Bezier curves with one leg shifted to the right.
+                { ((5, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
+                    new Intersection(IntersectionState.Intersection, new Point2D(17.1265312836548, 2.53937240684556), new Point2D(5.53889706744833, 0.995071968741055)) },
+                // KLD four point result Quadratic Bezier intersection test case.
+                { ((83, 214, 335, 173, 91, 137), (92, 233, 152, 30, 198, 227)),
+                    new Intersection(IntersectionState.Intersection,
+                    new Point2D( 188.275750370236,190.334599086058), new Point2D( 173.837703431114, 152.940611499889),
+                    new Point2D( 129.541879876986, 143.272853943596), new Point2D( 98.7272053850424, 211.36259052014)) },
             };
 
+            // Run through the test cases and compare the results to those that are expected.
             foreach (var test in testCases.Keys)
             {
                 var result = Intersections.QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
-                    test.a.A.X, test.a.A.Y, test.a.B.X, test.a.B.Y, test.a.C.X, test.a.C.Y,
-                    test.b.A.X, test.b.A.Y, test.b.B.X, test.b.B.Y, test.b.C.X, test.b.C.Y);
+                    test.a.AX, test.a.AY, test.a.BX, test.a.BY, test.a.CX, test.a.CY,
+                    test.b.AX, test.b.AY, test.b.BX, test.b.BY, test.b.CX, test.b.CY);
                 var expected = testCases[test];
 
-                Assert.AreEqual(expected, result, $"Test case: {test}, Expected: {result}, Actual {result}");
+                Assert.AreEqual(expected.State, result.State, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection state differs.");
+                Assert.AreEqual(expected.Points.Count, result.Count, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection point count differs.");
+
+                for (var i = 0; i < result.Count; i++)
+                {
+                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} y coordinate differs.");
+                }
+
             }
         }
 

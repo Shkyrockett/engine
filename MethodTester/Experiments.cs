@@ -8143,14 +8143,14 @@ namespace MethodSpeedTester
             var B = l0x - l1x;      //B=x1-x2
             var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
 
-            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+            var bx = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
             var r = CubicRoots(
-                A * bx.A + B * by.A,    // t^3
-                A * bx.B + B * by.B,    // t^2
-                A * bx.C + B * by.C,    // t^1
-                A * bx.D + B * by.D + C // 1
+                /* t^3 */ A * bx.A + B * by.A,
+                /* t^2 */ A * bx.B + B * by.B,
+                /* t^1 */ A * bx.C + B * by.C,
+                /* 1 */ A * bx.D + B * by.D + C
                 );
 
             /*verify the roots are in bounds of the linear segment*/
@@ -8291,9 +8291,361 @@ namespace MethodSpeedTester
             => new List<SpeedTester> {
                 new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
                 $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
+                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection0(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
+                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection0)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
+                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection1(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
+                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection1)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
                 new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
                 $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection2)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
+                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection3(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
+                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection3)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
             };
+
+        /// <summary>
+        /// Find the intersection between two quadratic beziers.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
+        /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        {
+            // Initialize the intersection.
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // ToDo: Break early if the AABB of the ends and handles do not intersect.
+            // Todo: Break early if the AABB of the curve does not intersect.
+
+            // Parametric matrix form of the Bezier curve
+            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
+            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
+            var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
+            var yCoeffB = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
+
+            var roots = new List<double>();
+
+            if (yCoeffA.A == 0)
+            {
+                var v0 = xCoeffA.A * (yCoeffA.C - yCoeffB.C);
+                var v1 = v0 - xCoeffA.B * yCoeffA.B;
+                var v2 = v0 + v1;
+                var v3 = yCoeffA.B * yCoeffA.B;
+
+                roots = QuarticRoots(
+                    /* t^4 */ xCoeffA.A * yCoeffB.A * yCoeffB.A,
+                    /* t^3 */ 2 * xCoeffA.A * yCoeffB.B * yCoeffB.A,
+                    /* t^2 */ xCoeffA.A * yCoeffB.B * yCoeffB.B - xCoeffB.A * v3 - yCoeffB.A * v0 - yCoeffB.A * v1,
+                    /* t^1 */ -xCoeffB.B * v3 - yCoeffB.B * v0 - yCoeffB.B * v1,
+                    /* C^0 */ (xCoeffA.C - xCoeffB.C) * v3 + (yCoeffA.C - yCoeffB.C) * v1,
+                    epsilon);
+            }
+            else
+            {
+                var v0 = xCoeffA.A * yCoeffB.A - yCoeffA.A * xCoeffB.A;
+                var v1 = xCoeffA.A * yCoeffB.B - xCoeffB.B * yCoeffA.A;
+                var v2 = xCoeffA.B * yCoeffA.A - yCoeffA.B * xCoeffA.A;
+                var v3 = yCoeffA.C - yCoeffB.C;
+                var v4 = yCoeffA.A * (xCoeffA.C - xCoeffB.C) - xCoeffA.A * v3;
+                var v5 = -yCoeffA.B * v2 + yCoeffA.A * v4;
+                var v6 = v2 * v2;
+                roots = QuarticRoots(
+                    /* t^4 */ v0 * v0,
+                    /* t^3 */ 2 * v0 * v1,
+                    /* t^2 */ (-yCoeffB.A * v6 + yCoeffA.A * v1 * v1 + yCoeffA.A * v0 * v4 + v0 * v5) / yCoeffA.A,
+                    /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.A * v1 * v4 + v1 * v5) / yCoeffA.A,
+                    /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.A,
+                    epsilon);
+            }
+
+            foreach (var s in roots)
+            {
+                var point = new Point2D(
+                    xCoeffB.A * s * s + xCoeffB.B * s + xCoeffB.C,
+                    yCoeffB.A * s * s + yCoeffB.B * s + yCoeffB.C);
+                if (s >= 0 && s <= 1)
+                {
+                    var xRoots = QuadraticRoots(
+                        /* t^2 */ -xCoeffA.A,
+                        /* t^1 */ -xCoeffA.B,
+                        /* C^0 */ -xCoeffA.C + point.X,
+                        epsilon);
+                    var yRoots = QuadraticRoots(
+                        /* t^2 */ -yCoeffA.A,
+                        /* t^1 */ -yCoeffA.B,
+                        /* C^0 */ -yCoeffA.C + point.Y,
+                        epsilon);
+
+                    if (xRoots.Count > 0 && yRoots.Count > 0)
+                    {
+                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
+                        foreach (var xRoot in xRoots)
+                        {
+                            if (xRoot >= 0 && xRoot <= 1)
+                            {
+                                foreach (var yRoot in yRoots)
+                                {
+                                    var t = xRoot - yRoot;
+                                    if ((t >= 0 ? t : -t) < epsilon)
+                                    {
+                                        result.AppendPoint(point);
+                                        goto checkRoots; // Break through two levels of foreach loops to exit early. Using goto for performance.
+                                    }
+                                }
+                            }
+                        }
+                        checkRoots:;
+                    }
+                }
+            }
+
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between two quadratic beziers.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
+        /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection0(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        {
+            // Initialize the intersection.
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            var coeffAX = QuadraticBezierCoefficients(a1X, a2X, a3X);
+            var coeffAY = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
+            var coeffBX = QuadraticBezierCoefficients(b1X, b2X, b3X);
+            var coeffBY = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
+
+            var a = coeffAX.A * coeffAY.B - coeffAX.B * coeffAY.A;
+            var b = coeffBX.A * coeffAY.B - coeffAX.B * coeffBY.A;
+
+            var c = coeffBX.B * coeffAY.B - coeffAX.B * coeffBY.B;
+            var d = coeffAX.B * (coeffAY.C - coeffBY.C) - coeffAY.B * (coeffBX.C - coeffAX.C);
+            var e = coeffBX.A * coeffAY.A - coeffAX.A * coeffBY.A;
+            var f = coeffBX.B * coeffAY.A - coeffAX.A * coeffBY.B;
+            var g = coeffAX.A * (coeffAY.C - coeffBY.C) - coeffAY.A * (coeffBY.C - coeffAX.C);
+
+            var roots = QuarticRoots(
+                    /* t^4 */ e * e,
+                    /* t^3 */ 2 * e * f,
+                    /* t^2 */ -a * b + f * f + 2 * e * g,
+                    /* t^1 */ -a * c + 2 * f * g,
+                    /* C */ -a * d + g * g,
+                    epsilon);
+
+            foreach (var s in roots)
+            {
+                var point = new Point2D(
+                    coeffBX.A * s * s + coeffBX.B * s + coeffBX.C,
+                    coeffBY.A * s * s + coeffBY.B * s + coeffBY.C);
+                if (s >= 0 && s <= 1)
+                {
+                    var xRoots = QuadraticRoots(
+                        /* t^2 */ -coeffAX.A,
+                        /* t^1 */ -coeffAX.B,
+                        /* C */ -coeffAX.C + point.X,
+                        epsilon);
+                    var yRoots = QuadraticRoots(
+                        /* t^2 */ -coeffAY.A,
+                        /* t^1 */ -coeffAY.B,
+                        /* C */ -coeffAY.C + point.Y,
+                        epsilon);
+
+                    if (xRoots.Count > 0 && yRoots.Count > 0)
+                    {
+                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
+                        foreach (var xRoot in xRoots)
+                        {
+                            if (xRoot >= 0 && xRoot <= 1)
+                            {
+                                foreach (var yRoot in yRoots)
+                                {
+                                    var t = xRoot - yRoot;
+                                    if ((t >= 0 ? t : -t) < 0.06) // ToDo: Find the error and replace 0.06 with epsilon.
+                                    {
+                                        result.AppendPoint(point);
+                                        goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
+                                    }
+                                }
+                            }
+                        }
+                        checkRoots:;
+                    }
+                }
+            }
+
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between two quadratic beziers.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection1(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        {
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // Todo: Break early if the AABB bounding box of the curve does not intersect.
+            // ToDo: Figure out if the following can be broken out of the vector structs.
+
+            var c12 = new Vector2D(a1X - (a2X * 2) + a3X, a1Y - (a2Y * 2) + a3Y);
+            var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
+            // c10 is a1X and a1Y
+
+            var c22 = new Vector2D(b1X - (b2X * 2) + b3X, b1Y - (b2Y * 2) + b3Y);
+            var c21 = new Vector2D(2 * (b2X - b1X), 2 * (b2Y - b1Y));
+            // c20 is b1X and b1Y
+
+            var a = c12.I * c11.J - c11.I * c12.J;
+
+            var b = c22.I * c11.J - c11.I * c22.J;
+            var c = c21.I * c11.J - c11.I * c21.J;
+            var d = c11.I * (a1Y - b1Y) - c11.J * (b1X - a1X);
+
+            var e = -c22.I * c12.J - c12.I * c22.J;
+            var f = c21.I * c12.J - c12.I * c21.J;
+            var g = c12.I * (a1Y - b1Y) - c12.J * (b1X - a1X);
+
+            var roots = new List<double>();
+            if (a * d - g * g == 0)
+            {
+                var v0 = a * c - 2 * f * g;
+                var v1 = a * b - f * f - 2 * e * g;
+                var v2 = -2 * e * f;
+                var v3 = -e * e;
+                roots = CubicRoots(
+                    /* t^3 */ -v3,
+                    /* t^2 */ -v2,
+                    /* t^1 */ -v1,
+                    /* C */ -v0,
+                    epsilon);
+            }
+            else
+            {
+                var v0 = a * d - g * g;
+                var v1 = a * c - 2 * f * g;
+                var v2 = a * b - f * f - 2 * e * g;
+                var v3 = -2 * e * f;
+                var v4 = -e * e;
+                roots = QuarticRoots(
+                    /* t^4 */ -v4,
+                    /* t^3 */ -v3,
+                    /* t^2 */ -v2,
+                    /* t^1 */ -v1,
+                    /* C */ -v0,
+                    epsilon);
+            }
+
+
+            //roots.Reverse();
+            foreach (var s in roots)
+            {
+                var point = new Point2D(
+                    c22.I * s * s + c21.I * s + b1X,
+                    c22.J * s * s + c21.J * s + b1Y);
+                if (s >= 0 && s <= 1)
+                {
+                    var v0 = a1X - point.X;
+                    var v1 = c11.I;
+                    var v2 = c12.I;
+                    var xRoots = QuadraticRoots(
+                        /* t^2 */ -v2,
+                        /* t^1 */ -v1,
+                        /* C */ -v0,
+                        epsilon);
+                    v0 = a1Y - point.Y;
+                    v1 = c11.J;
+                    v2 = c12.J;
+                    var yRoots = QuadraticRoots(
+                        /* t^2 */ -v2,
+                        /* t^1 */ -v1,
+                        /* C */ -v0,
+                        epsilon);
+
+                    if (xRoots.Count > 0 && yRoots.Count > 0)
+                    {
+                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
+                        foreach (var xRoot in xRoots)
+                        {
+                            if (xRoot >= 0 && xRoot <= 1)
+                            {
+                                foreach (var yRoot in yRoots)
+                                {
+                                    var t = xRoot - yRoot;
+                                    if ((t >= 0 ? t : -t) < 0.1)
+                                    {
+                                        result.AppendPoint(point);
+                                        goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
+                                    }
+                                }
+                            }
+                        }
+                        checkRoots:;
+                    }
+                }
+            }
+
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
 
         /// <summary>
         /// Find the intersection between two quadratic beziers.
@@ -8318,7 +8670,7 @@ namespace MethodSpeedTester
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
         {
             var va = new Vector2D(a2X, a2Y) * -2;
             var c12 = new Vector2D(a1X, a1Y) + va + new Vector2D(a3X, a3Y);
@@ -8413,7 +8765,7 @@ namespace MethodSpeedTester
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection3(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -13060,7 +13412,7 @@ namespace MethodSpeedTester
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> QuadraticRoots(double a, double b, double c)
+        public static List<double> QuadraticRoots(double a, double b, double c, double epsilon = Epsilon)
         {
             var d = a - 2 * b + c;
             if (d != 0)
@@ -13095,7 +13447,7 @@ namespace MethodSpeedTester
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[] CubicRoots(double a, double b, double c, double d)
+        public static double[] CubicRootsA(double a, double b, double c, double d, double epsilon = Epsilon)
         {
             // The horizontal line issue seems to be somewhere in here.
             var A = b / a;
@@ -13154,7 +13506,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
-        private List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
+        private static List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
         {
             var results = new List<double>();
             var c2 = b / a;

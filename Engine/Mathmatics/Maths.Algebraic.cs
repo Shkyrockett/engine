@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static System.Math;
@@ -30,6 +31,8 @@ namespace Engine
     /// </summary>
     public static partial class Maths
     {
+        #region Root Finding
+
         /// <summary>
         /// 
         /// </summary>
@@ -190,7 +193,12 @@ namespace Engine
             var C = d / a;
             var D = e / a;
 
-            var resolveRoots = new Polynomial(1, -B, A * C - 4d * D, -A * A * D + 4 * B * D - C * C).CubicRoots();
+            var resolveRoots = CubicRoots(
+                1,
+                -B,
+                A * C - 4d * D,
+                -A * A * D + 4 * B * D - C * C,
+                epsilon);
             var y = resolveRoots[0];
             var discriminant = A * A * OneQuarter - B + y;
 
@@ -410,6 +418,83 @@ namespace Engine
             return real;
         }
 
+        #endregion
+
+        #region Bezier Coefficients Overloads
+
+        /// <summary>
+        /// Coefficients for a Linear Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B) BezierCoefficients(double a, double b)
+            => LinearBezierCoefficients(a, b);
+
+        /// <summary>
+        /// Coefficients for a Quadratic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C) BezierCoefficients(double a, double b, double c)
+            => QuadraticBezierCoefficients(a, b, c);
+
+        /// <summary>
+        /// Coefficients for a Cubic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
+            => CubicBezierCoefficients(a, b, c, d);
+
+        /// <summary>
+        /// Coefficients for a Quartic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E) BezierCoefficients0(double a, double b, double c, double d, double e)
+            => QuarticBezierCoefficients(a, b, c, d, e);
+
+        /// <summary>
+        /// Coefficients for a Quintic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F) BezierCoefficients(double a, double b, double c, double d, double e, double f)
+            => QuinticBezierCoefficients(a, b, c, d, e, f);
+
+        #endregion
+
+        #region Bezier Coefficients
+
         /// <summary>
         /// Coefficients for a Linear Bezier curve.
         /// </summary>
@@ -420,9 +505,9 @@ namespace Engine
         /// <acknowledgment>
         /// http://fontforge.github.io/bezier.html
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) BezierCoefficients(double a, double b)
+        public static (double A, double B) LinearBezierCoefficients(double a, double b)
             => (b - a,
                 a);
 
@@ -438,9 +523,9 @@ namespace Engine
         /// <acknowledgment>
         /// http://fontforge.github.io/bezier.html
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C) BezierCoefficients(double a, double b, double c)
+        public static (double A, double B, double C) QuadraticBezierCoefficients(double a, double b, double c)
             => (c - (2d * b) + a,
                 2d * (b - a),
                 a);
@@ -457,13 +542,209 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// http://fontforge.github.io/bezier.html
+        /// http://idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Curve/Matrix-Cubic-Bezier-Curve.html
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
+        public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)
             => (d - (3d * c) + (3d * b) - a,
                 (3d * c) - (6d * b) + (3d * a),
                 3d * (b - a),
                 a);
+
+        /// <summary>
+        /// Coefficients for a Quartic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// Coefficient calculation found in the matrix reprisentation at:
+        /// http://www.dglr.de/publikationen/2016/420062.pdf
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
+            => (e - (4d * d) + (6d * c) - (4d * b) + a,
+                (4d * d) - (12d * c) + (12d * b) - (4d * a),
+                (6d * c) - (12d * b) + (6d * a),
+                4d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Quintic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// Bassed off of psudocode for the matrix found at:
+        /// https://simtk.org/api_docs/opensim/api_docs/classOpenSim_1_1SegmentedQuinticBezierToolkit.html
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F) QuinticBezierCoefficients(double a, double b, double c, double d, double e, double f)
+            => (f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a,
+                (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5 * a),
+                (10d * d) - (30d * c) + (30d * b) - (10d * a),
+                (10d * c) - (20d * b) + (10d * a),
+                5d * (b - a),
+                a);
+
+        #endregion
+
+        /// <summary>
+        /// Newton's (Newton-Raphson) method for finding Real roots on univariate function. <br/>
+        /// When using bounds, algorithm falls back to secant if newton goes out of range.
+        /// Bisection is fall-back for secant when determined secant is not efficient enough.
+        /// </summary>
+        /// <param name="x0">Initial root guess</param>
+        /// <param name="f">Function which root we are trying to find</param>
+        /// <param name="df">Derivative of function f</param>
+        /// <param name="max_iterations">Maximum number of algorithm iterations</param>
+        /// <param name="min">Left bound value</param>
+        /// <param name="max">Right bound value</param>
+        /// <returns>root</returns>
+        /// <remarks>
+        /// https://github.com/thelonious/kld-polynomial
+        /// http://en.wikipedia.org/wiki/Newton%27s_method
+        /// http://en.wikipedia.org/wiki/Secant_method
+        /// http://en.wikipedia.org/wiki/Bisection_method
+        /// </remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Newton_secant_bisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double? min = null, double? max = null)
+        {
+            var prev_dfx = 0d;
+            var dfx = 0d;
+            var prev_x_ef_correction = 0d;
+            var x_correction = 0d;
+            var y_atmin = 0d;
+            var y_atmax = 0d;
+            var x = x0;
+            var ACCURACY = 14;
+            var min_correction_factor = Pow(10, -ACCURACY);
+            var isBounded = (min != null && max != null);
+            if (isBounded)
+            {
+                if (min > max)
+                    throw new Exception("newton root finding: min must be greater than max");
+                y_atmin = f(min.Value);
+                y_atmax = f(max.Value);
+                if (Sign(y_atmin) == Sign(y_atmax))
+                    throw new Exception("newton root finding: y values of bounds must be of opposite sign");
+            }
+
+            bool isEnoughCorrection()
+            {
+                // stop if correction is too small
+                // or if correction is in simple loop
+                return (Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
+                    || (prev_x_ef_correction == (x - x_correction) - x);
+            };
+
+            var i = 0;
+            //var stepMethod;
+            //var details = [];
+            for (i = 0; i < max_iterations; i++)
+            {
+                dfx = df(x);
+                if (dfx == 0)
+                {
+                    if (prev_dfx == 0)
+                    {
+                        // error
+                        throw new Exception("newton root finding: df(x) is zero");
+                        //return null;
+                    }
+                    else
+                    {
+                        // use previous derivation value
+                        dfx = prev_dfx;
+                    }
+                    // or move x a little?
+                    //dfx = df(x != 0 ? x + x * 1e-15 : 1e-15);
+                }
+                //stepMethod = 'newton';
+                prev_dfx = dfx;
+                var y = f(x);
+                x_correction = y / dfx;
+                var x_new = x - x_correction;
+                if (isEnoughCorrection())
+                {
+                    break;
+                }
+
+                if (isBounded)
+                {
+                    if (Sign(y) == Sign(y_atmax))
+                    {
+                        max = x;
+                        y_atmax = y;
+                    }
+                    else if (Sign(y) == Sign(y_atmin))
+                    {
+                        min = x;
+                        y_atmin = y;
+                    }
+                    else
+                    {
+                        x = x_new;
+                        //console.log("newton root finding: sign(y) not matched.");
+                        break;
+                    }
+
+                    if ((x_new < min) || (x_new > max))
+                    {
+                        if (Sign(y_atmin) == Sign(y_atmax))
+                        {
+                            break;
+                        }
+
+                        var RATIO_LIMIT = 50;
+                        var AIMED_BISECT_OFFSET = 0.25; // [0, 0.5)
+                        var dy = y_atmax - y_atmin;
+                        var dx = max - min;
+
+                        if (dy == 0)
+                        {
+                            //stepMethod = 'bisect';
+                            x_correction = x - (min.Value + dx.Value * 0.5);
+                        }
+                        else if (Math.Abs(dy / Min(y_atmin, y_atmax)) > RATIO_LIMIT)
+                        {
+                            //stepMethod = 'aimed bisect';
+                            x_correction = x - (min.Value + dx.Value * (0.5 + (Math.Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET)));
+                        }
+                        else
+                        {
+                            //stepMethod = 'secant'; 
+                            x_correction = x - (min.Value - y_atmin / dy * dx.Value);
+                        }
+                        x_new = x - x_correction;
+
+                        if (isEnoughCorrection())
+                        {
+                            break;
+                        }
+                    }
+                }
+                //details.push([stepMethod, i, x, x_new, x_correction, min, max, y]);
+                prev_x_ef_correction = x - x_new;
+                x = x_new;
+            }
+            //details.push([stepMethod, i, x, x_new, x_correction, min, max, y]);
+            //console.log(details.join('\r\n'));
+            //if (i == max_iterations)
+            //    console.log('newt: steps=' + ((i==max_iterations)? i:(i + 1)));
+            return x;
+        }
     }
 }

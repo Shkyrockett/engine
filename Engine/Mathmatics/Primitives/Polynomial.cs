@@ -68,6 +68,7 @@ namespace Engine
         /// <summary>
         /// Initializes a default instance of the <see cref="Polynomial"/> class.
         /// </summary>
+        [DebuggerStepThrough]
         public Polynomial()
         {
             coefficients = new double[] { 0 };
@@ -77,11 +78,12 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Polynomial"/> class.
         /// </summary>
         /// <param name="coefficients">The coefficients of the polynomial.</param>
+        [DebuggerStepThrough]
         public Polynomial(params double[] coefficients)
         {
-            this.coefficients = coefficients;
-            if (coefficients == null || coefficients.Length == 0)
-                this.coefficients = new double[] { 0 };
+            this.coefficients = (coefficients == null || coefficients.Length == 0)
+                ? this.coefficients = new double[] { 0 }
+                : coefficients;
         }
 
         #endregion
@@ -1117,6 +1119,99 @@ namespace Engine
             // should try Newton's method and/or bisection
         }
 
+        #region Debug
+
+        internal List<double> GetQuarticRoots(double epsilon = Epsilon)
+        {
+            var results = new List<double>();
+
+            var n = Degree;
+            if (n == PolynomialDegree.Quartic)
+            {
+                var poly = new Polynomial
+                {
+                    coefficients = coefficients.Slice()
+                };
+                poly.Divide(poly.coefficients[(int)n]);
+
+                if (Abs(poly.coefficients[0]) < 10 * Epsilon * Abs(poly.coefficients[3]))
+                    poly.coefficients[0] = 0;
+                var poly_d = poly.Derivate();
+                var derrt = poly_d.Roots();
+                derrt.Sort((a, b) => (int)(a - b));
+                var dery = new List<double>();
+                var nr = derrt.Count - 1;
+                var rb = Bounds();
+                var ZEROepsilon = ZeroErrorEstimate();
+
+                for (var c = 0; c <= nr; c++)
+                {
+                    dery.Add(poly.Evaluate(derrt[c]));
+                }
+
+                for (var c = 0; c <= nr; c++)
+                {
+                    if (Abs(dery[c]) < ZEROepsilon)
+                        dery[c] = 0;
+                }
+
+                var i = 0;
+                var dx = Max(0.1 * (rb.maxX - rb.minX) / (int)n, Epsilon);
+                var guesses = new List<double>();
+                var minmax = new List<(double, double)>();
+                if (nr > -1)
+                {
+                    if (dery[0] != 0)
+                    {
+                        if (Sign(dery[0]) != Sign(poly.Evaluate(derrt[0] - dx) - dery[0]))
+                        {
+                            guesses.Add(derrt[0] - dx);
+                            minmax.Add((rb.minX, derrt[0]));
+                        }
+                    }
+                    else
+                    {
+                        results.Add(derrt[0]);
+                        results.Add(derrt[0]);
+                        i++;
+                    }
+
+                    for (; i < nr; i++)
+                    {
+                        if (dery[i + 1] == 0)
+                        {
+                            results.Add(derrt[i + 1]);
+                            results.Add(derrt[i + 1]);
+                            i++;
+                        }
+                        else if (Sign(dery[i]) != Sign(dery[i + 1]))
+                        {
+                            guesses.Add((derrt[i] + derrt[i + 1]) / 2);
+                            minmax.Add((derrt[i], derrt[i + 1]));
+                        }
+                    }
+                    if (dery[nr] != 0 && Sign(dery[nr]) != Sign(poly.Evaluate(derrt[nr] + dx) - dery[nr]))
+                    {
+                        guesses.Add(derrt[nr] + dx);
+                        minmax.Add((derrt[nr], rb.maxX));
+                    }
+                }
+
+                if (guesses.Count > 0)
+                {
+                    for (i = 0; i < guesses.Count; i++)
+                    {
+                        guesses[i] = Newton_secant_bisection(guesses[i], (x) => poly.Evaluate(x), (x) => poly_d.Evaluate(x), 32, minmax[i].Item1, minmax[i].Item2);
+                    }
+                }
+
+                results = results.Concat(guesses).ToList();
+            }
+            return results;
+        }
+
+        #endregion
+
         /// <summary>
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
@@ -1231,11 +1326,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> LinearRoots(double epsilon = Epsilon)
-        {
-            if (Degree == PolynomialDegree.Linear)
-                return Maths.LinearRoots(coefficients[1], coefficients[0], epsilon);
-            return new List<double>();
-        }
+            => Maths.LinearRoots(coefficients[1], coefficients[0], epsilon);
 
         /// <summary>
         /// 
@@ -1243,11 +1334,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuadraticRoots(double epsilon = Epsilon)
-        {
-            if (Degree == PolynomialDegree.Quadratic)
-                return Maths.QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon);
-            return new List<double>();
-        }
+            => Maths.QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon);
 
         /// <summary>
         /// 
@@ -1255,11 +1342,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> CubicRoots(double epsilon = Epsilon)
-        {
-            if (Degree == PolynomialDegree.Cubic)
-                return Maths.CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
-            return new List<double>();
-        }
+            => Maths.CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
 
         /// <summary>
         /// 
@@ -1267,11 +1350,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuarticRoots(double epsilon = Epsilon)
-        {
-            if (Degree == PolynomialDegree.Cubic)
-                return Maths.QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
-            return new List<double>();
-        }
+            => Maths.QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
 
         /// <summary>
         /// 
@@ -1280,11 +1359,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuinticRoots(double epsilon = Epsilon)
-        {
-            if (Degree == PolynomialDegree.Quintic)
-                return Maths.QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
-            return new List<double>();
-        }
+            => Maths.QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
 
         /// <summary>
         /// 
@@ -1295,12 +1370,13 @@ namespace Engine
         private List<double> SexticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == PolynomialDegree.Sextic)
-            {
-                // ToDo: Find implementation for finding Sextic Roots.
-            }
+            throw new NotImplementedException();
+            //if (Degree == PolynomialDegree.Sextic)
+            //{
+            //    // ToDo: Find implementation for finding Sextic Roots.
+            //}
 
-            return results;
+            //return results;
         }
 
         /// <summary>
@@ -1312,12 +1388,13 @@ namespace Engine
         private List<double> SepticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == PolynomialDegree.Septic)
-            {
-                // ToDo: Find implementation for finding Septic Roots.
-            }
+            throw new NotImplementedException();
+            //if (Degree == PolynomialDegree.Septic)
+            //{
+            //    // ToDo: Find implementation for finding Septic Roots.
+            //}
 
-            return results;
+            //return results;
         }
 
         /// <summary>
@@ -1329,158 +1406,13 @@ namespace Engine
         private List<double> OcticRoots(double epsilon = Epsilon)
         {
             var results = new List<double>();
-            if (Degree == PolynomialDegree.Octic)
-            {
-                // ToDo: Find implementation for finding Octic Roots.
-            }
+            throw new NotImplementedException();
+            //if (Degree == PolynomialDegree.Octic)
+            //{
+            //    // ToDo: Find implementation for finding Octic Roots.
+            //}
 
-            return results;
-        }
-
-        /// <summary>
-        /// Newton's (Newton-Raphson) method for finding Real roots on univariate function. <br/>
-        /// When using bounds, algorithm falls back to secant if newton goes out of range.
-        /// Bisection is fall-back for secant when determined secant is not efficient enough.
-        /// </summary>
-        /// <param name="x0">Initial root guess</param>
-        /// <param name="f">Function which root we are trying to find</param>
-        /// <param name="df">Derivative of function f</param>
-        /// <param name="max_iterations">Maximum number of algorithm iterations</param>
-        /// <param name="min">Left bound value</param>
-        /// <param name="max">Right bound value</param>
-        /// <returns>root</returns>
-        /// <remarks>
-        /// https://github.com/thelonious/kld-polynomial
-        /// http://en.wikipedia.org/wiki/Newton%27s_method
-        /// http://en.wikipedia.org/wiki/Secant_method
-        /// http://en.wikipedia.org/wiki/Bisection_method
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Newton_secant_bisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double? min = null, double? max = null)
-        {
-            var prev_dfx = 0d;
-            var dfx = 0d;
-            var prev_x_ef_correction = 0d;
-            var x_correction = 0d;
-            var y_atmin = 0d;
-            var y_atmax = 0d;
-            var x = x0;
-            var ACCURACY = 14;
-            var min_correction_factor = Pow(10, -ACCURACY);
-            var isBounded = (min != null && max != null);
-            if (isBounded)
-            {
-                if (min > max)
-                    throw new Exception("newton root finding: min must be greater than max");
-                y_atmin = f(min.Value);
-                y_atmax = f(max.Value);
-                if (Sign(y_atmin) == Sign(y_atmax))
-                    throw new Exception("newton root finding: y values of bounds must be of opposite sign");
-            }
-
-            bool isEnoughCorrection()
-            {
-                // stop if correction is too small
-                // or if correction is in simple loop
-                return (Abs(x_correction) <= min_correction_factor * Abs(x))
-                    || (prev_x_ef_correction == (x - x_correction) - x);
-            };
-
-            var i = 0;
-            //var stepMethod;
-            //var details = [];
-            for (i = 0; i < max_iterations; i++)
-            {
-                dfx = df(x);
-                if (dfx == 0)
-                {
-                    if (prev_dfx == 0)
-                    {
-                        // error
-                        throw new Exception("newton root finding: df(x) is zero");
-                        //return null;
-                    }
-                    else
-                    {
-                        // use previous derivation value
-                        dfx = prev_dfx;
-                    }
-                    // or move x a little?
-                    //dfx = df(x != 0 ? x + x * 1e-15 : 1e-15);
-                }
-                //stepMethod = 'newton';
-                prev_dfx = dfx;
-                var y = f(x);
-                x_correction = y / dfx;
-                var x_new = x - x_correction;
-                if (isEnoughCorrection())
-                {
-                    break;
-                }
-
-                if (isBounded)
-                {
-                    if (Sign(y) == Sign(y_atmax))
-                    {
-                        max = x;
-                        y_atmax = y;
-                    }
-                    else if (Sign(y) == Sign(y_atmin))
-                    {
-                        min = x;
-                        y_atmin = y;
-                    }
-                    else
-                    {
-                        x = x_new;
-                        //console.log("newton root finding: sign(y) not matched.");
-                        break;
-                    }
-
-                    if ((x_new < min) || (x_new > max))
-                    {
-                        if (Sign(y_atmin) == Sign(y_atmax))
-                        {
-                            break;
-                        }
-
-                        var RATIO_LIMIT = 50;
-                        var AIMED_BISECT_OFFSET = 0.25; // [0, 0.5)
-                        var dy = y_atmax - y_atmin;
-                        var dx = max - min;
-
-                        if (dy == 0)
-                        {
-                            //stepMethod = 'bisect';
-                            x_correction = x - (min.Value + dx.Value * 0.5);
-                        }
-                        else if (Abs(dy / Min(y_atmin, y_atmax)) > RATIO_LIMIT)
-                        {
-                            //stepMethod = 'aimed bisect';
-                            x_correction = x - (min.Value + dx.Value * (0.5 + (Abs(y_atmin) < Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET)));
-                        }
-                        else
-                        {
-                            //stepMethod = 'secant'; 
-                            x_correction = x - (min.Value - y_atmin / dy * dx.Value);
-                        }
-                        x_new = x - x_correction;
-
-                        if (isEnoughCorrection())
-                        {
-                            break;
-                        }
-                    }
-                }
-                //details.push([stepMethod, i, x, x_new, x_correction, min, max, y]);
-                prev_x_ef_correction = x - x_new;
-                x = x_new;
-            }
-            //details.push([stepMethod, i, x, x_new, x_correction, min, max, y]);
-            //console.log(details.join('\r\n'));
-            //if (i == max_iterations)
-            //    console.log('newt: steps=' + ((i==max_iterations)? i:(i + 1)));
-            return x;
+            //return results;
         }
 
         /// <summary>
@@ -1622,34 +1554,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Estimate what is the maximum polynomial evaluation error value under which polynomial evaluation could be in fact 0.
-        /// </summary>
-        /// <param name="maxabsX"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// https://github.com/thelonious/kld-polynomial
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double ZeroErrorEstimate(double maxabsX)
-        {
-            var poly = this;
-            var ERRF = 1e-15;
-            if (maxabsX < 0.001)
-            {
-                return 2 * Abs(poly.Evaluate(ERRF));
-            }
-            var n = poly.coefficients.Count() - 1;
-            var an = poly.coefficients[n];
-            var i = 0d;
-            return 10 * ERRF * poly.coefficients.Reduce((m, v) => (int)process(m, v, i++), 0);
-            double process(double m, double v, double itter)
-            {
-                var nm = v / an * Pow(maxabsX, itter);
-                return nm > m ? nm : m;
-            }
-        }
-
-        /// <summary>
         /// Calculates upper Real roots bounds. <br/>
         /// Real roots are in interval [negX, posX]. Determined by Fujiwara method.
         /// </summary>
@@ -1764,6 +1668,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Simplify(double epsilon = Epsilon)
         {
@@ -1779,6 +1684,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Simplify(Polynomial polynomial, double epsilon = Epsilon)
         {
@@ -1801,6 +1707,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Trim(double epsilon = Epsilon)
         {
@@ -1833,6 +1740,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Trim(Polynomial polynomial, double epsilon = Epsilon)
         {

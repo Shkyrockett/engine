@@ -44,6 +44,7 @@ using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using static System.Math;
 using static Engine.Measurements;
+using System;
 
 namespace Engine
 {
@@ -1569,8 +1570,9 @@ namespace Engine
 
                 // If Point between start and end points horizontally.
                 //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
-                if ((nextPoint.Y < pY) != (curPoint.Y < pY))
+                if ((nextPoint.Y < pY) != (curPoint.Y < pY)) // At least one point is below the Y threshold and the other is above or equal
                 {
+                    // Optimisation: at least one point must be to the right of the test point
                     // If point between start and end points vertically.
                     if (nextPoint.X >= pX)
                     {
@@ -1626,19 +1628,11 @@ namespace Engine
                     case LineCurveSegment l:
                         {
                             inside += ScanbeamPointsToRightLineSegment(point.X, point.Y, l.Start.Value.X, l.Start.Value.Y, l.End.Value.X, l.End.Value.Y);
-                            //var p1 = l.Start.Value;
-                            //var p2 = l.End.Value;
-
-                            //if ((p1.Y < point.Y != p2.Y < point.Y) && //at least one point is below the Y threshold and the other is above or equal
-                            //    (p1.X >= point.X || p2.X >= point.X)) //optimization: at least one point must be to the right of the test point
-                            //{
-                            //    if (p1.X + (point.Y - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) > point.X)
-                            //        inside += 1;
-                            //}
                         }
                         break;
                     case ArcSegment a:
                         {
+                            // ToDo: Figure out how to implement this: https://stackoverflow.com/a/34884949
                             inside += ScanbeamPointsToRightEllipticalArc(point.X, point.Y, a.Center.X, a.Center.Y, a.RX, a.RY, a.CosAngle, a.SinAngle, a.StartAngle, a.SweepAngle, epsilon);
                         }
                         break;
@@ -2760,19 +2754,19 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate the line to the origin.
-            var A = y2 - y1;
-            var B = x1 - x2;
+            var a = y2 - y1;
+            var b = x1 - x2;
 
-            var C = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x);
-            var by = BezierCoefficients(p0y, p1y, p2y);
+            var coeffX = QuadraticBezierCoefficients(p0x, p1x, p2x);
+            var coeffY = QuadraticBezierCoefficients(p0y, p1y, p2y);
 
-            List<double> roots;
-            roots = QuadraticRoots(
-                /* t^2 */ A * bx.A + B * by.A,
-                /* t^1 */ A * bx.B + B * by.B,
-                /* 1 */ A * bx.C + B * by.C + C);
+            var roots = QuadraticRoots(
+                /* t^2 */ a * coeffX.A + b * coeffY.A,
+                /* t^1 */ a * coeffX.B + b * coeffY.B,
+                /* 1 */ a * coeffX.C + b * coeffY.C + c,
+                epsilon);
 
             for (var i = 0; i < roots.Count; i++)
             {
@@ -2781,8 +2775,8 @@ namespace Engine
                 // Add intersection point.
                 if (!(t < 0 || t > 1d))
                     result.AppendPoint(new Point2D(
-                        bx.A * t * t + bx.B * t + bx.C,
-                        by.A * t * t + by.B * t + by.C));
+                        coeffX.A * t * t + coeffX.B * t + coeffX.C,
+                        coeffY.A * t * t + coeffY.B * t + coeffY.C));
             }
 
             // Return result.
@@ -2824,28 +2818,30 @@ namespace Engine
             // Translate the line to the origin.
             var A = y2 - y1;
             var B = x1 - x2;
+
             var C = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+            var coeffX = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
+            var coeffY = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
             List<double> roots;
 
             // Fix for missing intersections for curves that can be reduced to lower degrees.
+            // Figure out whether the handles and ends are paralell.
             var determinant = (x2 - x1) * (p3y - p2y + p1y - p0y) - (y2 - y1) * (p3x - p2x + p1x - p0x);
             if (Abs(determinant) < epsilon)
                 roots = QuadraticRoots(
-                    A * bx.B + B * by.B,    // t^2
-                    A * bx.C + B * by.C,    // t^1
-                    A * bx.D + B * by.D + C // 1
-                    );
+                    /* t^2 */ A * coeffX.B + B * coeffY.B,
+                    /* t^1 */ A * coeffX.C + B * coeffY.C,
+                    /* C */ A * coeffX.D + B * coeffY.D + C,
+                    epsilon);
             else
                 roots = CubicRoots(
-                    A * bx.A + B * by.A,    // t^3
-                    A * bx.B + B * by.B,    // t^2
-                    A * bx.C + B * by.C,    // t^1
-                    A * bx.D + B * by.D + C // 1
-                    );
+                    /* t^3 */ A * coeffX.A + B * coeffY.A,
+                    /* t^2 */ A * coeffX.B + B * coeffY.B,
+                    /* t^1 */ A * coeffX.C + B * coeffY.C,
+                    /* C */ A * coeffX.D + B * coeffY.D + C,
+                    epsilon);
 
             for (var i = 0; i < roots.Count; i++)
             {
@@ -2854,8 +2850,8 @@ namespace Engine
                 // Add intersection point.
                 if (!(t < 0 || t > 1d))
                     result.AppendPoint(new Point2D(
-                        bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D,
-                        by.A * t * t * t + by.B * t * t + by.C * t + by.D));
+                        coeffX.A * t * t * t + coeffX.B * t * t + coeffX.C * t + coeffX.D,
+                        coeffY.A * t * t * t + coeffY.B * t * t + coeffY.C * t + coeffY.D));
             }
 
             if (result.Count > 0)
@@ -3220,6 +3216,8 @@ namespace Engine
                 result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
             }
 
+            // ToDo: Return IntersectionState.Inside if both points are inside the Ellipse.
+
             // Return the intersections.
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
@@ -3507,14 +3505,14 @@ namespace Engine
 
             var C = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x);
-            var by = BezierCoefficients(p0y, p1y, p2y);
+            var bx = QuadraticBezierCoefficients(p0x, p1x, p2x);
+            var by = QuadraticBezierCoefficients(p0y, p1y, p2y);
 
             List<double> roots;
             roots = QuadraticRoots(
-                A * bx.A + B * by.A,    // t^2
-                A * bx.B + B * by.B,    // t^1
-                A * bx.C + B * by.C + C // 1
+                /* t^2 */ A * bx.A + B * by.A,
+                /* t^1 */ A * bx.B + B * by.B,
+                /* C */ A * bx.C + B * by.C + C
                 );
 
             for (var i = 0; i < roots.Count; i++)
@@ -3525,15 +3523,15 @@ namespace Engine
                 var x = bx.A * t * t + bx.B * t + bx.C;
                 var y = by.A * t * t + by.B * t + by.C;
 
-                double m;
+                double slope;
                 // Special handling for vertical lines.
                 if ((x2 - x1) != 0)
-                    m = (x - x1) / (x2 - x1);
+                    slope = (x - x1) / (x2 - x1);
                 else
-                    m = (y - y1) / (y2 - y1);
+                    slope = (y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
-                if (!(t < 0 || t > 1d || m < 0 || m > 1d))
+                if (!(t < 0 || t > 1d || slope < 0 || slope > 1d))
                 {
                     // Add intersection point.
                     result.AppendPoint(new Point2D(x, y));
@@ -3582,24 +3580,24 @@ namespace Engine
 
             var C = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+            var bx = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
             List<double> roots;
             // Fix for missing intersections for curves that can be reduced to lower degrees due to parallel components.
             var determinant = (x2 - x1) * (p3y - p2y + p1y - p0y) - (y2 - y1) * (p3x - p2x + p1x - p0x);
             if (Abs(determinant) < epsilon)
                 roots = QuadraticRoots(
-                    A * bx.B + B * by.B,    // t^2
-                    A * bx.C + B * by.C,    // t^1
-                    A * bx.D + B * by.D + C // 1
+                    /* t^2 */ A * bx.B + B * by.B,
+                    /* t^1 */ A * bx.C + B * by.C,
+                    /* C */   A * bx.D + B * by.D + C
                     );
             else
                 roots = CubicRoots(
-                    A * bx.A + B * by.A,    // t^3
-                    A * bx.B + B * by.B,    // t^2
-                    A * bx.C + B * by.C,    // t^1
-                    A * bx.D + B * by.D + C // 1
+                    /* t^3 */ A * bx.A + B * by.A,
+                    /* t^2 */ A * bx.B + B * by.B,
+                    /* t^1 */ A * bx.C + B * by.C,
+                    /* C */ A * bx.D + B * by.D + C
                     );
 
             for (var i = 0; i < roots.Count; i++)
@@ -3607,21 +3605,23 @@ namespace Engine
                 var t = roots[i];
 
                 // Intersection point assuming infinitely long line segment.
-                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
-                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
+                var point = new Point2D(
+                    bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D,
+                    by.A * t * t * t + by.B * t * t + by.C * t + by.D);
 
-                double m;
+                double slope;
+
                 // Special handling for vertical lines.
                 if ((x2 - x1) != 0)
-                    m = (x - x1) / (x2 - x1);
+                    slope = (point.X - x1) / (x2 - x1);
                 else
-                    m = (y - y1) / (y2 - y1);
+                    slope = (point.Y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
-                if (!(t < 0 || t > 1d || m < 0 || m > 1d))
+                if (!(t < 0 || t > 1d || slope < 0 || slope > 1d))
                 {
                     // Add intersection point.
-                    result.AppendPoint(new Point2D(x, y));
+                    result.AppendPoint(point);
                 }
             }
 
@@ -3655,6 +3655,8 @@ namespace Engine
             var bottomRight = MaxPoint(r1X, r1Y, r2X, r2Y);
             var topRight = new Point2D(bottomRight.X, topLeft.Y);
             var bottomLeft = new Point2D(topLeft.X, bottomRight.Y);
+
+            // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle.
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
@@ -3701,6 +3703,8 @@ namespace Engine
 
                 b1 = b2;
             }
+
+            // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
@@ -4004,6 +4008,8 @@ namespace Engine
                 }
             }
 
+            // ToDo: Return IntersectionState.Inside if both end points are inside the ellipse.
+
             // Return the intersections.
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
@@ -4185,52 +4191,88 @@ namespace Engine
         /// <param name="b3Y"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
-        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
+        /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
         {
+            // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // Todo: Break early if the AABB bounding box of the curve does not intersect.
+            // ToDo: Break early if the AABB of the ends and handles do not intersect.
+            // Todo: Break early if the AABB of the curve does not intersect.
 
-            // ToDo: Figure out if the following can be broken out of the vector structs.
-            var c12 = new Vector2D(a1X - (a2X * 2) + a3X, a1Y - (a2Y * 2) + a3Y);
-            var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
-            var c22 = new Vector2D(b1X - (b2X * 2) + b3X, b1Y - (b2Y * 2) + b3Y);
-            var c21 = new Vector2D(2 * (b2X - b1X), 2 * (b2Y - b1Y));
+            // Parametric matrix form of the Bezier curve
+            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
+            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
+            var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
+            var yCoeffB = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
 
-            var a = c12.I * c11.J - c11.I * c12.J;
-            var b = c22.I * c11.J - c11.I * c22.J;
-            var c = c21.I * c11.J - c11.I * c21.J;
-            var d = c11.I * (a1Y - b1Y) + c11.J * (b1X - a1X);
-            var e = c22.I * c12.J - c12.I * c22.J;
-            var f = c21.I * c12.J - c12.I * c21.J;
-            var g = c12.I * (a1Y - b1Y) + c12.J * (b1X - a1X);
+            var roots = new List<double>();
 
-            var roots = new Polynomial(
-                /* t^4 */ a * d - g * g,
-                /* t^3 */ a * c - 2 * f * g,
-                /* t^2 */ a * b - f * f - 2 * e * g,
-                /* t^1 */ -2 * e * f,
-                /* C */ -e * e).Roots();
+            // ToDo: Find the intersections of Bezier curves where all of the nodes are paralell.
+
+            if (yCoeffA.A == 0)
+            {
+                var v0 = xCoeffA.A * (yCoeffA.C - yCoeffB.C);
+                var v1 = v0 - xCoeffA.B * yCoeffA.B;
+                var v2 = v0 + v1;
+                var v3 = yCoeffA.B * yCoeffA.B;
+
+                roots = QuarticRoots(
+                    /* t^4 */ xCoeffA.A * yCoeffB.A * yCoeffB.A,
+                    /* t^3 */ 2 * xCoeffA.A * yCoeffB.B * yCoeffB.A,
+                    /* t^2 */ xCoeffA.A * yCoeffB.B * yCoeffB.B - xCoeffB.A * v3 - yCoeffB.A * v0 - yCoeffB.A * v1,
+                    /* t^1 */ -xCoeffB.B * v3 - yCoeffB.B * v0 - yCoeffB.B * v1,
+                    /* C^0 */ (xCoeffA.C - xCoeffB.C) * v3 + (yCoeffA.C - yCoeffB.C) * v1,
+                    epsilon);
+            }
+            else
+            {
+                var v0 = xCoeffA.A * yCoeffB.A - yCoeffA.A * xCoeffB.A;
+                var v1 = xCoeffA.A * yCoeffB.B - xCoeffB.B * yCoeffA.A;
+                var v2 = xCoeffA.B * yCoeffA.A - yCoeffA.B * xCoeffA.A;
+                var v3 = yCoeffA.C - yCoeffB.C;
+                var v4 = yCoeffA.A * (xCoeffA.C - xCoeffB.C) - xCoeffA.A * v3;
+                var v5 = -yCoeffA.B * v2 + yCoeffA.A * v4;
+                var v6 = v2 * v2;
+
+                if (v0 == 0)
+                    roots = QuadraticRoots(
+                        /* t^2 */ (-yCoeffB.A * v6 + yCoeffA.A * v1 * v1 + yCoeffA.A * v0 * v4 + v0 * v5) / yCoeffA.A,
+                        /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.A * v1 * v4 + v1 * v5) / yCoeffA.A,
+                        /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.A,
+                        epsilon);
+                else
+                    roots = QuarticRoots(
+                    /* t^4 */ v0 * v0,
+                    /* t^3 */ 2 * v0 * v1,
+                    /* t^2 */ (-yCoeffB.A * v6 + yCoeffA.A * v1 * v1 + yCoeffA.A * v0 * v4 + v0 * v5) / yCoeffA.A,
+                    /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.A * v1 * v4 + v1 * v5) / yCoeffA.A,
+                    /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.A,
+                    epsilon);
+            }
 
             foreach (var s in roots)
             {
-                var point = new Point2D(c22.I * s * s + c21.I * s + b1X, c22.J * s * s + c21.J * s + b1Y);
-                if (0 <= s && s <= 1)
+                var point = new Point2D(
+                    xCoeffB.A * s * s + xCoeffB.B * s + xCoeffB.C,
+                    yCoeffB.A * s * s + yCoeffB.B * s + yCoeffB.C);
+                if (s >= 0 && s <= 1)
                 {
-                    var xRoots = new Polynomial(
-                        /* t^2 */ -a1X + point.X,
-                        /* t^1 */ -c11.I,
-                        /* C */ -c12.I).Roots();
-                    var yRoots = new Polynomial(
-                        /* t^2 */ -a1Y + point.Y,
-                        /* t^1 */ -c11.J,
-                        /* C */ -c12.J).Roots();
+                    var xRoots = QuadraticRoots(
+                        /* t^2 */ -xCoeffA.A,
+                        /* t^1 */ -xCoeffA.B,
+                        /* C^0 */ -xCoeffA.C + point.X,
+                        epsilon);
+                    var yRoots = QuadraticRoots(
+                        /* t^2 */ -yCoeffA.A,
+                        /* t^1 */ -yCoeffA.B,
+                        /* C^0 */ -yCoeffA.C + point.Y,
+                        epsilon);
 
                     if (xRoots.Count > 0 && yRoots.Count > 0)
                     {
@@ -4244,8 +4286,8 @@ namespace Engine
                                     var t = xRoot - yRoot;
                                     if ((t >= 0 ? t : -t) < epsilon)
                                     {
-                                        result.Points.Add(point);
-                                        goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
+                                        result.AppendPoint(point);
+                                        goto checkRoots; // Break through two levels of foreach loops to exit early. Using goto for performance.
                                     }
                                 }
                             }
@@ -4324,14 +4366,16 @@ namespace Engine
             foreach (var s in roots)
             {
                 var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
-                var xRoots = new Polynomial(
+                var xRoots = QuadraticRoots(
                     /* t^2 */ a1X - point.X,
                     /* t^1 */ c11.I,
-                    /* c */ c12.I).Roots();
-                var yRoots = new Polynomial(
+                    /* c */ c12.I,
+                    epsilon);
+                var yRoots = QuadraticRoots(
                     /* t^2 */ a1Y - point.Y,
                     /* t^1 */ c11.J,
-                    /* c */ c12.J).Roots();
+                    /* c */ c12.J,
+                    epsilon);
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     foreach (var xRoot in xRoots)
@@ -4527,16 +4571,18 @@ namespace Engine
             foreach (var s in roots)
             {
                 var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
-                var xRoots = new Polynomial(
+                var xRoots = CubicRoots(
                     /* t^3 */ a1X - point.X,
                     /* t^2 */ c11.I,
                     /* t^1 */ c12.I,
-                    /* c */ c13.I).Roots();
-                var yRoots = new Polynomial(
+                    /* c */ c13.I,
+                    epsilon);
+                var yRoots = CubicRoots(
                     /* t^3 */ a1Y - point.Y,
                     /* t^2 */ c11.J,
                     /* t^1 */ c12.J,
-                    /* c */ c13.J).Roots();
+                    /* c */ c13.J,
+                    epsilon);
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
@@ -4601,6 +4647,8 @@ namespace Engine
                 a1 = a2;
             }
 
+            // ToDo: Return IntersectionState.Inside if both end points are inside the Polygon and there are no intersections.
+
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
@@ -4644,6 +4692,8 @@ namespace Engine
             intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
             intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
 
+            // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle and there are no intersections.
+
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
@@ -4678,6 +4728,8 @@ namespace Engine
 
                 a1 = a2;
             }
+
+            // ToDo: Return IntersectionState.Inside if all end points of a polygon are inside the other polygon and there are no intersections.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
@@ -4714,6 +4766,8 @@ namespace Engine
             intersections.UnionWith(LineSegmentPolygonContourIntersection(topRight.X, topRight.Y, max.X, max.Y, points, epsilon).Points);
             intersections.UnionWith(LineSegmentPolygonContourIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, points, epsilon).Points);
             intersections.UnionWith(LineSegmentPolygonContourIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, points, epsilon).Points);
+
+            // ToDo: Return IntersectionState.Inside if all of the end points are contained inside the rectangle, or the points of the rectangle are inside the polygon, and there are no intersections.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
@@ -4753,6 +4807,8 @@ namespace Engine
             intersections.UnionWith(LineSegmentRectangleIntersection(topRight.X, topRight.Y, max.X, max.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
             intersections.UnionWith(LineSegmentRectangleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
             intersections.UnionWith(LineSegmentRectangleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+
+            // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
@@ -4794,6 +4850,8 @@ namespace Engine
                 a1 = a2;
             }
 
+            // ToDo: Return IntersectionState.Inside if all of the points of the polygon are inside the circle.
+
             if (result.Points.Count > 0)
                 result.State |= IntersectionState.Intersection;
             else
@@ -4833,6 +4891,8 @@ namespace Engine
             intersections.UnionWith(LineSegmentCircleIntersection(topRight.X, topRight.Y, max.X, max.Y, cX, cY, r, angle, epsilon).Points);
             intersections.UnionWith(LineSegmentCircleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, cX, cY, r, angle, epsilon).Points);
             intersections.UnionWith(LineSegmentCircleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, cX, cY, r, angle, epsilon).Points);
+
+            // ToDo: Return IntersectionState.Inside if all of the points of the rectangle are containd within the circle.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
@@ -4876,16 +4936,22 @@ namespace Engine
             {
                 // No solutions, the circles are too far apart.
                 // This would be a good point to return a null Lotus.
+
+                result.State = IntersectionState.Outside;
             }
             else if (dist < Abs(radius0 - radius1))
             {
                 // No solutions, one circle contains the other.
-                // This would be a good point to return a Lotus struct of th smaller of the circles.
+                // This would be a good point to return a Lotus struct of the smaller of the circles.
+
+                result.State = IntersectionState.Inside;
             }
             else if ((Abs(dist) < epsilon) && (Abs(radius0 - radius1) < epsilon))
             {
                 // No solutions, the circles coincide.
                 // This would be a good point to return a Lotus struct of one of the circles.
+
+                result.State = IntersectionState.Outside;
             }
             else
             {
@@ -5018,6 +5084,8 @@ namespace Engine
                 b1 = b2;
             }
 
+            // ToDo: Return IntersectionState.Inside if all of the points of th polygon are contained inside the circle, or the circle and there are no intersections.
+
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
             else
@@ -5060,6 +5128,8 @@ namespace Engine
 
                 b1 = b2;
             }
+
+            // ToDo: Return IntersectionState.Inside if all of the points of the polygon are contained inside the ellipse, and there are no intersections.
 
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
@@ -5458,8 +5528,8 @@ namespace Engine
         {
             var C = x * (y - (y + 0)) + y * (x + 1 - x);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x);
-            var by = BezierCoefficients(p0y, p1y, p2y);
+            var bx = QuadraticBezierCoefficients(p0x, p1x, p2x);
+            var by = QuadraticBezierCoefficients(p0y, p1y, p2y);
 
             List<double> roots = QuadraticRoots(
                 -by.A,    // t^2
@@ -5497,8 +5567,8 @@ namespace Engine
             // Translate the line to the origin.
             var C = x * (y - (y + 0)) + y * (x + 1 - x);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+            var bx = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
             // Fix for missing intersections for curves that can be reduced to lower degrees.
             var determinant = (x + 1 - x) * (p3y - p2y + p1y - p0y) - (y + 0 - y) * (p3x - p2x + p1x - p0x);
@@ -6075,8 +6145,8 @@ namespace Engine
         {
             var C = x * (y - (y + 0)) + y * (x + 1 - x);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x);
-            var by = BezierCoefficients(p0y, p1y, p2y);
+            var bx = QuadraticBezierCoefficients(p0x, p1x, p2x);
+            var by = QuadraticBezierCoefficients(p0y, p1y, p2y);
 
             List<double> roots = QuadraticRoots(
                 -by.A,    // t^2
@@ -6117,8 +6187,8 @@ namespace Engine
             // Translate the line to the origin.
             var C = x * (y - (y + 0)) + y * (x + 1 - x);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+            var bx = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
             // Fix for missing intersections for curves that can be reduced to lower degrees.
             var determinant = (x + 1 - x) * (p3y - p2y + p1y - p0y) - (y + 0 - y) * (p3x - p2x + p1x - p0x);
@@ -6732,8 +6802,8 @@ namespace Engine
         {
             var C = x * (y - (y + 0)) + y * (x + 1 - x);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x);
-            var by = BezierCoefficients(p0y, p1y, p2y);
+            var bx = QuadraticBezierCoefficients(p0x, p1x, p2x);
+            var by = QuadraticBezierCoefficients(p0y, p1y, p2y);
 
             List<double> roots = QuadraticRoots(
                 -by.A,    // t^2
@@ -6774,8 +6844,8 @@ namespace Engine
             // Translate the line to the origin.
             var C = x * (y - (y + 0)) + y * (x + 1 - x);
 
-            var bx = BezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = BezierCoefficients(p0y, p1y, p2y, p3y);
+            var bx = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
+            var by = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
             // Fix for missing intersections for curves that can be reduced to lower degrees.
             var determinant = (x + 1 - x) * (p3y - p2y + p1y - p0y) - (y + 0 - y) * (p3x - p2x + p1x - p0x);
@@ -7256,12 +7326,15 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">First Ellipse parameters.</param>
+        /// <param name="e2">Seccond Ellipse parameters.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
+        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
+        /// His code along with many other excellent examples formerly available
+        /// at his site but the latest version now at: https://www.geometrictools.com/
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezout(double[] e1, double[] e2)

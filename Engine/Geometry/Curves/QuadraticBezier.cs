@@ -548,6 +548,7 @@ namespace Engine
             hash.Mixin(cx.GetHashCode());
             hash.Mixin(cy.GetHashCode());
             return hash.GetValue();
+            //return ax.GetHashCode() ^ ay.GetHashCode() ^ bx.GetHashCode() ^ by.GetHashCode() ^ cx.GetHashCode() ^ cy.GetHashCode();
         }
 
         /// <summary>

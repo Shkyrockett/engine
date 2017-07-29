@@ -4336,71 +4336,72 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
+        private static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // ToDo: Break early if the AABB bounding box of the curve does not intersect.
 
-            //// The tolenence is off by too much. Need to find the error.
-            //var tolerance = 4194303 * epsilon;
+            // The tolenence is off by too much. Need to find the error.
+            var tolerance = 4294967295 * epsilon;
 
-            //var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
-            //var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            //var xCoeffB = CubicBezierCoefficients(b1X, b2X, b3X, b4X);
-            //var yCoeffB = CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y);
+            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
+            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
+            var xCoeffB = CubicBezierCoefficients(b1X, b2X, b3X, b4X);
+            var yCoeffB = CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y);
 
+            var c12x2 = xCoeffA.A * xCoeffA.A;
+            var c12y2 = yCoeffA.A * yCoeffA.A;
 
-            var c12 = new Vector2D(a1X - a2X * 2 + a3X, a1Y - a2Y * 2 + a3Y);
-            var c12x2 = c12.I * c12.I;
-            var c12y2 = c12.J * c12.J;
+            var c11x2 = xCoeffA.B * xCoeffA.B;
+            var c11y2 = yCoeffA.B * yCoeffA.B;
 
-            var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
-            var c11x2 = c11.I * c11.I;
-            var c11y2 = c11.J * c11.J;
+            var c10x2 = xCoeffA.C * xCoeffA.C;
+            var c10y2 = yCoeffA.C * yCoeffA.C;
 
-            var c10x2 = a1X * a1X;
-            var c10y2 = a1Y * a1Y;
+            var c23x2 = xCoeffB.A * xCoeffB.A;
+            var c23y2 = yCoeffB.A * yCoeffB.A;
 
-            var c23 = new Vector2D(b4X - b3X * 3 + b2X * 3 - b1X * 1, b4Y - b3Y * 3 + b2Y * 3 - b1Y * 1);
-            var c23x2 = c23.I * c23.I;
-            var c23y2 = c23.J * c23.J;
+            var c22x2 = xCoeffB.B * xCoeffB.B;
+            var c22y2 = yCoeffB.B * yCoeffB.B;
 
-            var c22 = new Vector2D(3 * (b3X - b2X * 2 + b1X), 3 * (b3Y - b2Y * 2 + b1Y));
-            var c22x2 = c22.I * c22.I;
-            var c22y2 = c22.J * c22.J;
+            var c21x2 = xCoeffB.C * xCoeffB.C;
+            var c21y2 = yCoeffB.C * yCoeffB.C;
 
-            var c21 = new Vector2D(3 * (b2X - b1X), 3 * (b2Y - b1Y));
-            var c21x2 = c21.I * c21.I;
-            var c21y2 = c21.J * c21.J;
+            var c20x2 = xCoeffB.D * xCoeffB.D;
+            var c20y2 = yCoeffB.D * yCoeffB.D;
 
-            var c20x2 = b1X * b1X;
-            var c20y2 = b1Y * b1Y;
+            // ToDo: Find the error preventing finding all roots.
 
             var roots = new Polynomial(
-                /* t^6 */ -2 * a1X * a1Y * c12.I * c12.J - a1X * c11.I * c11.J * c12.J - a1Y * c11.I * c11.J * c12.I + 2 * a1X * c12.I * b1Y * c12.J + 2 * a1Y * b1X * c12.I * c12.J + c11.I * b1X * c11.J * c12.J + c11.I * c11.J * c12.I * b1Y - 2 * b1X * c12.I * b1Y * c12.J - 2 * a1X * b1X * c12y2 + a1X * c11y2 * c12.I + a1Y * c11x2 * c12.J - 2 * a1Y * c12x2 * b1Y - b1X * c11y2 * c12.I - c11x2 * b1Y * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2,
-                /* t^5 */ 2 * a1X * c12.I * c12.J * c21.J + 2 * a1Y * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * b1X * c12.I * c12.J * c21.J - 2 * c12.I * b1Y * c21.I * c12.J - 2 * a1X * c21.I * c12y2 - 2 * a1Y * c12x2 * c21.J + 2 * b1X * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * b1Y * c21.J,
-                /* t^4 */ 2 * a1X * c12.I * c12.J * c22.J + 2 * a1Y * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * b1X * c12.I * c12.J * c22.J - 2 * c12.I * b1Y * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * a1X * c12y2 * c22.I - 2 * a1Y * c12x2 * c22.J + 2 * b1X * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * b1Y * c22.J + c21y2),
-                /* t^3 */ 2 * a1X * c12.I * c12.J * c23.J + 2 * a1Y * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * b1X * c12.I * c12.J * c23.J - 2 * c12.I * b1Y * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * a1X * c12y2 * c23.I - 2 * a1Y * c12x2 * c23.J + 2 * b1X * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * b1Y * c23.J + 2 * c21.J * c22.J),
-                /* t^2 */ -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
-                /* t^1 */ -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
-                /* t^0 */ -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J).RootsInInterval(0, 1);
+                /* t^6 */ -2 * xCoeffA.C * yCoeffA.C * xCoeffA.A * yCoeffA.A - xCoeffA.C * xCoeffA.B * yCoeffA.B * yCoeffA.A - yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A + 2 * xCoeffA.C * xCoeffA.A * yCoeffB.D * yCoeffA.A + 2 * yCoeffA.C * xCoeffB.D * xCoeffA.A * yCoeffA.A + xCoeffA.B * xCoeffB.D * yCoeffA.B * yCoeffA.A + xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.D - 2 * xCoeffB.D * xCoeffA.A * yCoeffB.D * yCoeffA.A - 2 * xCoeffA.C * xCoeffB.D * c12y2 + xCoeffA.C * c11y2 * xCoeffA.A + yCoeffA.C * c11x2 * yCoeffA.A - 2 * yCoeffA.C * c12x2 * yCoeffB.D - xCoeffB.D * c11y2 * xCoeffA.A - c11x2 * yCoeffB.D * yCoeffA.A + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2,
+                /* t^5 */ 2 * xCoeffA.C * xCoeffA.A * yCoeffA.A * yCoeffB.C + 2 * yCoeffA.C * xCoeffA.A * xCoeffB.C * yCoeffA.A + xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.C + xCoeffA.B * yCoeffA.B * xCoeffB.C * yCoeffA.A - 2 * xCoeffB.D * xCoeffA.A * yCoeffA.A * yCoeffB.C - 2 * xCoeffA.A * yCoeffB.D * xCoeffB.C * yCoeffA.A - 2 * xCoeffA.C * xCoeffB.C * c12y2 - 2 * yCoeffA.C * c12x2 * yCoeffB.C + 2 * xCoeffB.D * xCoeffB.C * c12y2 - c11y2 * xCoeffA.A * xCoeffB.C - c11x2 * yCoeffA.A * yCoeffB.C + 2 * c12x2 * yCoeffB.D * yCoeffB.C,
+                /* t^4 */ 2 * xCoeffA.C * xCoeffA.A * yCoeffA.A * yCoeffB.B + 2 * yCoeffA.C * xCoeffA.A * yCoeffA.A * xCoeffB.B + xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.B + xCoeffA.B * yCoeffA.B * yCoeffA.A * xCoeffB.B - 2 * xCoeffB.D * xCoeffA.A * yCoeffA.A * yCoeffB.B - 2 * xCoeffA.A * yCoeffB.D * yCoeffA.A * xCoeffB.B - 2 * xCoeffA.A * xCoeffB.C * yCoeffA.A * yCoeffB.C - 2 * xCoeffA.C * c12y2 * xCoeffB.B - 2 * yCoeffA.C * c12x2 * yCoeffB.B + 2 * xCoeffB.D * c12y2 * xCoeffB.B - c11y2 * xCoeffA.A * xCoeffB.B - c11x2 * yCoeffA.A * yCoeffB.B + c21x2 * c12y2 + c12x2 * (2 * yCoeffB.D * yCoeffB.B + c21y2),
+                /* t^3 */ 2 * xCoeffA.C * xCoeffA.A * yCoeffA.A * yCoeffB.A + 2 * yCoeffA.C * xCoeffA.A * yCoeffA.A * xCoeffB.A + xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.A + xCoeffA.B * yCoeffA.B * yCoeffA.A * xCoeffB.A - 2 * xCoeffB.D * xCoeffA.A * yCoeffA.A * yCoeffB.A - 2 * xCoeffA.A * yCoeffB.D * yCoeffA.A * xCoeffB.A - 2 * xCoeffA.A * xCoeffB.C * yCoeffA.A * yCoeffB.B - 2 * xCoeffA.A * yCoeffA.A * yCoeffB.C * xCoeffB.B - 2 * xCoeffA.C * c12y2 * xCoeffB.A - 2 * yCoeffA.C * c12x2 * yCoeffB.A + 2 * xCoeffB.D * c12y2 * xCoeffB.A + 2 * xCoeffB.C * c12y2 * xCoeffB.B - c11y2 * xCoeffA.A * xCoeffB.A - c11x2 * yCoeffA.A * yCoeffB.A + c12x2 * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B),
+                /* t^2 */ -2 * xCoeffA.A * xCoeffB.C * yCoeffA.A * yCoeffB.A - 2 * xCoeffA.A * yCoeffA.A * yCoeffB.C * xCoeffB.A - 2 * xCoeffA.A * yCoeffA.A * xCoeffB.B * yCoeffB.B + 2 * xCoeffB.C * c12y2 * xCoeffB.A + c12y2 * c22x2 + c12x2 * (2 * yCoeffB.C * yCoeffB.A + c22y2),
+                /* t^1 */ -2 * xCoeffA.A * yCoeffA.A * xCoeffB.A * yCoeffB.A + c12x2 * c23y2 + c12y2 * c23x2,
+                /* t^0 */ -2 * xCoeffA.A * yCoeffA.A * xCoeffB.B * yCoeffB.A - 2 * xCoeffA.A * yCoeffA.A * yCoeffB.B * xCoeffB.A + 2 * c12y2 * xCoeffB.B * xCoeffB.A + 2 * c12x2 * yCoeffB.B * yCoeffB.A
+                ).RootsInInterval(0, 1);
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                    c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X,
-                    c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
+                    xCoeffB.A * s * s * s + xCoeffB.B * s * s + xCoeffB.C * s + xCoeffB.D,
+                    yCoeffB.A * s * s * s + yCoeffB.B * s * s + yCoeffB.C * s + yCoeffB.D);
                 var xRoots = QuadraticRoots(
-                    /* t^2 */ a1X - point.X,
-                    /* t^1 */ c11.I,
-                    /* t^0 */ c12.I,
+                    /* t^2 */ xCoeffA.A,
+                    /* t^1 */ xCoeffA.B,
+                    /* t^0 */ xCoeffA.C - point.X,
                     epsilon);
                 var yRoots = QuadraticRoots(
-                    /* t^2 */ a1Y - point.Y,
-                    /* t^1 */ c11.J,
-                    /* t^0 */ c12.J,
+                    /* t^2 */ yCoeffA.A,
+                    /* t^1 */ yCoeffA.B,
+                    /* t^0 */ yCoeffA.C - point.Y,
                     epsilon);
+
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     foreach (var xRoot in xRoots)
@@ -4410,7 +4411,7 @@ namespace Engine
                             foreach (var yRoot in yRoots)
                             {
                                 var t = xRoot - yRoot;
-                                if ((t >= 0 ? t : -t) < epsilon)
+                                if ((t >= 0 ? t : -t) < tolerance)
                                 {
                                     result.Points.Add(point);
                                     goto checkRoots;

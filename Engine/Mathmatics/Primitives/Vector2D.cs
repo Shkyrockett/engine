@@ -252,6 +252,16 @@ namespace Engine
         /// <summary>
         /// Scale a Vector
         /// </summary>
+        /// <param name="value">The Point</param>
+        /// <param name="factor">The Multiplier</param>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <remarks></remarks>
+        public static Vector2D operator *(Vector2D value, Size2D factor)
+            => new Vector2D(value.I * factor.Width, value.J * factor.Height);
+
+        /// <summary>
+        /// Scale a Vector
+        /// </summary>
         /// <param name="factor">The Multiplier</param>
         /// <param name="value">The Point</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>

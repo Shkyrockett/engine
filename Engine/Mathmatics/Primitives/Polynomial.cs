@@ -637,6 +637,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Derivate()
         {
@@ -656,6 +657,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Normalize(double epsilon = Epsilon)
         {
@@ -688,6 +690,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Integrate(double term0 = 0)
         {
@@ -706,6 +709,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Power(int n)
         {
@@ -742,6 +746,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/thelonious/kld-polynomial
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Evaluate(double x)
         {
@@ -762,6 +767,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Compute(double x)
         {
@@ -786,6 +792,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Complex Compute(Complex x)
         {
@@ -804,6 +811,7 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Diferentiate(double x)
             => Derivate().Evaluate(x);
@@ -818,6 +826,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/thelonious/kld-polynomial
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double? Bisection(double min, double max, double epsilon = Epsilon)
         {
@@ -870,6 +879,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 139
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double y, double dy) Interpolate(List<double> xs, List<double> ys, int n, int offset, double x)
         {
@@ -936,6 +946,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 137
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Trapezoid(double min, double max, int n, double epsilon = Epsilon)
         {
@@ -984,6 +995,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 139
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Simpson(double min, double max, double epsilon = Epsilon)
         {
@@ -1036,6 +1048,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// Based on trapzd in "Numerical Recipes in C", page 139
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Romberg(double min, double max, double epsilon = Epsilon)
         {
@@ -1069,6 +1082,7 @@ namespace Engine
         /// Will try to solve root analytically, and if it can will use numerical approach.
         /// </summary>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
         {
@@ -1084,6 +1098,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> Roots(double epsilon = Epsilon)
         {
@@ -1216,6 +1231,7 @@ namespace Engine
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
         /// </summary>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Complex[] ComplexRoots(double epsilon = Epsilon)
         {
@@ -1281,6 +1297,7 @@ namespace Engine
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> RootsInInterval(double min, double max, double epsilon = Epsilon)
         {
@@ -1299,19 +1316,19 @@ namespace Engine
                 {
                     root = Bisection(min, droots[0], epsilon);
                     if (root != null) roots.Add(root.Value);
-                    // find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
+                    // Find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
                     for (var i = 0; i <= droots.Count - 2; i++)
                     {
                         root = Bisection(droots[i], droots[i + 1], epsilon);
                         if (root != null) roots.Add(root.Value);
                     }
-                    // find root on [droots[count-1],xmax]
+                    // Find root on [droots[count-1],xmax]
                     root = Bisection(droots[droots.Count - 1], max, epsilon);
                     if (root != null) roots.Add(root.Value);
                 }
                 else
                 {
-                    // polynomial is monotone on [min,max], has at most one root
+                    // Polynomial is monotone on [min,max], has at most one root
                     root = Bisection(min, max, epsilon);
                     if (root != null) roots.Add(root.Value);
                 }
@@ -1324,6 +1341,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> LinearRoots(double epsilon = Epsilon)
             => Maths.LinearRoots(coefficients[1], coefficients[0], epsilon);
@@ -1332,6 +1350,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuadraticRoots(double epsilon = Epsilon)
             => Maths.QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon);
@@ -1340,6 +1359,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> CubicRoots(double epsilon = Epsilon)
             => Maths.CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
@@ -1348,6 +1368,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuarticRoots(double epsilon = Epsilon)
             => Maths.QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
@@ -1357,6 +1378,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> QuinticRoots(double epsilon = Epsilon)
             => Maths.QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
@@ -1366,6 +1388,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> SexticRoots(double epsilon = Epsilon)
         {
@@ -1384,6 +1407,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> SepticRoots(double epsilon = Epsilon)
         {
@@ -1402,6 +1426,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private List<double> OcticRoots(double epsilon = Epsilon)
         {
@@ -1421,6 +1446,7 @@ namespace Engine
         /// <param name="coefficients"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Trim(double[] coefficients, double epsilon = Epsilon)
         {
@@ -1449,6 +1475,7 @@ namespace Engine
         /// <param name="coefficients"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RealOrder(double[] coefficients, double epsilon = Epsilon)
         {
@@ -1472,6 +1499,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int RealOrder()
         {
@@ -1497,6 +1525,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double minY, double maxY) GetMinMax(double x0, double x1)
         {
@@ -1531,6 +1560,7 @@ namespace Engine
         /// <remarks>
         /// https://github.com/thelonious/kld-polynomial
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double ZeroErrorEstimate()
         {
@@ -1562,6 +1592,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double negX, double posX) Bounds_UpperReal_Fujiwara()
         {
@@ -1612,6 +1643,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double negX, double posX) Bounds_LowerReal_Fujiwara()
         {
@@ -1635,6 +1667,7 @@ namespace Engine
         /// https://github.com/thelonious/kld-polynomial
         /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
         /// </remarks>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double minX, double maxX) Bounds()
         {

@@ -27,15 +27,21 @@ A **Polynomial** is a general term for the sets of expressions set up with terms
 
 ![][polynomial]
 
-#### Common Sub-Sets of Polynomials
+#### Common and Uncommon Sub-Sets of Polynomials
 
 | Name | Example | Description |
 |:---:|---|---|
 | Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
 | Binomial | ![][binomial] | A Binomial is a polynomial that consists of two terms. |
 | Trinomial | ![][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
-| Quadranomial |  | A Quadranomial is a polynomial that consists of four sets of terms. |
-| Pentanomial |  | A Pentanomial is a polynomial that consists of five sets of terms. |
+| Multinomial |  | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considdered a Multinomial. |
+| Quadrinomial |  | A Quadrinomial is a polynomial that consists of four sets of terms. |
+| Quintinomial |  | A Quintinomial is a polynomial that consists of five sets of terms. |
+| Sextomial |  | A Sextomial is a polynomial that consists of six sets of terms. |
+| Septomial |  | A Septomial is a polynomial that consists of seven sets of terms. |
+| Octomial |  | A Octomial is a polynomial that consists of eight sets of terms. |
+| Nonomial |  | A Nonomial is a polynomial that consists of nine sets of terms. |
+| Decomial |  | A decomial is a polynomial that consists of ten sets of terms. |
 
 ### Term
 

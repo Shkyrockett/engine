@@ -7796,7 +7796,8 @@ namespace MethodSpeedTester
             double a2X, double a2Y,
             double p1X, double p1Y,
             double p2X, double p2Y,
-            double p3X, double p3Y)
+            double p3X, double p3Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(a1X, a1Y, a2X, a2Y);
             var max = MaxPoint(a1X, a1Y, a2X, a2Y);
@@ -7809,10 +7810,11 @@ namespace MethodSpeedTester
             var c0 = new Point2D(p1X, p1Y);
             var n = new Point2D(a1Y - a2Y, a2X - a1X);
             var cl = a1X * a2Y - a2X * a1Y;
-            var roots = new Polynomial(
-                n.DotProduct(c0) + cl,
+            var roots = QuadraticRoots(
+                n.DotProduct(c2),
                 n.DotProduct(c1),
-                n.DotProduct(c2)).Roots();
+                n.DotProduct(c0) + cl,
+                epsilon);
             for (var i = 0; i < roots.Count; i++)
             {
                 var t = roots[i];
@@ -7869,7 +7871,8 @@ namespace MethodSpeedTester
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
-            double p4X, double p4Y)
+            double p4X, double p4Y,
+            double epsilon = Epsilon)
         {
             Vector2D a, b, c, d;
             Vector2D c3, c2, c1, c0;
@@ -7895,12 +7898,12 @@ namespace MethodSpeedTester
             c0 = new Vector2D(p1X, p1Y);
             n = new Vector2D(a1Y - a2Y, a2X - a1X);
             cl = a1X * a2Y - a2X * a1Y;
-            var roots = new Polynomial(
-                n.DotProduct(c0) + cl,
-                n.DotProduct(c1),
+            var roots = CubicRoots(
+                n.DotProduct(c3),
                 n.DotProduct(c2),
-                n.DotProduct(c3)
-                ).Roots();
+                n.DotProduct(c1),
+                n.DotProduct(c0) + cl,
+                epsilon);
             for (var i = 0; i < roots.Count; i++)
             {
                 var t = roots[i];
@@ -8051,7 +8054,8 @@ namespace MethodSpeedTester
             double p2X, double p2Y,
             double p3X, double p3Y,
             double a1X, double a1Y,
-            double a2X, double a2Y)
+            double a2X, double a2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(a1X, a1Y, a2X, a2Y);
             var max = MaxPoint(a1X, a1Y, a2X, a2Y);
@@ -8064,10 +8068,11 @@ namespace MethodSpeedTester
             var c0 = new Point2D(p1X, p1Y);
             var n = new Point2D(a1Y - a2Y, a2X - a1X);
             var cl = a1X * a2Y - a2X * a1Y;
-            var roots = new Polynomial(
-                n.DotProduct(c0) + cl,
+            var roots = QuadraticRoots(
+                n.DotProduct(c2),
                 n.DotProduct(c1),
-                n.DotProduct(c2)).Roots();
+                n.DotProduct(c0) + cl,
+                epsilon);
             for (var i = 0; i < roots.Count; i++)
             {
                 var t = roots[i];
@@ -8209,7 +8214,8 @@ namespace MethodSpeedTester
             double p3X, double p3Y,
             double p4X, double p4Y,
             double a1X, double a1Y,
-            double a2X, double a2Y)
+            double a2X, double a2Y,
+            double epsilon = Epsilon)
         {
             Vector2D a, b, c, d;
             Vector2D c3, c2, c1, c0;
@@ -8235,12 +8241,12 @@ namespace MethodSpeedTester
             c0 = new Vector2D(p1X, p1Y);
             n = new Vector2D(a1Y - a2Y, a2X - a1X);
             cl = a1X * a2Y - a2X * a1Y;
-            var roots = new Polynomial(
-                n.DotProduct(c0) + cl,
-                n.DotProduct(c1),
+            var roots = CubicRoots(
+                n.DotProduct(c3),
                 n.DotProduct(c2),
-                n.DotProduct(c3)
-                ).Roots();
+                n.DotProduct(c1),
+                n.DotProduct(c0) + cl,
+                epsilon);
             for (var i = 0; i < roots.Count; i++)
             {
                 var t = roots[i];
@@ -8693,12 +8699,13 @@ namespace MethodSpeedTester
             var f = c21.I * c12.J - c12.I * c21.J;
             var g = c12.I * (c10.J - c20.J) + c12.J * (-c10.I + c20.I);
 
-            var roots = new Polynomial(
-                a * d - g * g,
-                a * c - 2 * f * g,
-                a * b - f * f - 2 * e * g,
+            var roots = QuarticRoots(
+                -e * e,
                 -2 * e * f,
-                -e * e).Roots();
+                a * b - f * f - 2 * e * g,
+                a * c - 2 * f * g,
+                a * d - g * g,
+                epsilon);
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -8707,14 +8714,16 @@ namespace MethodSpeedTester
                 var s = roots[i];
                 if (0 <= s && s <= 1)
                 {
-                    var xRoots = new Polynomial(
-                        -c10.I + c20.I + s * c21.I + s * s * c22.I,
+                    var xRoots = QuadraticRoots(
+                        -c12.I,
                         -c11.I,
-                        -c12.I).Roots();
-                    var yRoots = new Polynomial(
-                        -c10.J + c20.J + s * c21.J + s * s * c22.J,
+                        -c10.I + c20.I + s * c21.I + s * s * c22.I,
+                        epsilon);
+                    var yRoots = QuadraticRoots(
+                        -c12.J,
                         -c11.J,
-                        -c12.J).Roots();
+                        -c10.J + c20.J + s * c21.J + s * s * c22.J,
+                        epsilon);
                     if (xRoots.Count > 0 && yRoots.Count > 0)
                     {
                         for (var j = 0; j < xRoots.Count; j++)
@@ -8785,26 +8794,29 @@ namespace MethodSpeedTester
             var f = c21.I * c12.J - c12.I * c21.J;
             var g = c12.I * (a1Y - b1Y) + c12.J * (b1X - a1X);
 
-            var roots = new Polynomial(
-                /* t^4 */ a * d - g * g,
-                /* t^3 */ a * c - 2 * f * g,
-                /* t^2 */ a * b - f * f - 2 * e * g,
+            var roots = QuarticRoots(
+                /* C */ -e * e,
                 /* t^1 */ -2 * e * f,
-                /* C */ -e * e).Roots();
+                /* t^2 */ a * b - f * f - 2 * e * g,
+                /* t^3 */ a * c - 2 * f * g,
+                /* t^4 */ a * d - g * g,
+                epsilon);
 
             foreach (var s in roots)
             {
                 var point = new Point2D(c22.I * s * s + c21.I * s + b1X, c22.J * s * s + c21.J * s + b1Y);
                 if (0 <= s && s <= 1)
                 {
-                    var xRoots = new Polynomial(
-                        /* t^2 */ -a1X + point.X,
+                    var xRoots = QuadraticRoots(
+                        /* C */ -c12.I,
                         /* t^1 */ -c11.I,
-                        /* C */ -c12.I).Roots();
-                    var yRoots = new Polynomial(
-                        /* t^2 */ -a1Y + point.Y,
+                        /* t^2 */ -a1X + point.X,
+                        epsilon);
+                    var yRoots = QuadraticRoots(
+                        /* C */ -c12.J,
                         /* t^1 */ -c11.J,
-                        /* C */ -c12.J).Roots();
+                        /* t^2 */ -a1Y + point.Y,
+                        epsilon);
 
                     if (xRoots.Count > 0 && yRoots.Count > 0)
                     {
@@ -8924,21 +8936,24 @@ namespace MethodSpeedTester
                 2 * c10.I * c12.I * c12.J * c23.J + 2 * c10.J * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * c20.I * c12.I * c12.J * c23.J - 2 * c12.I * c20.J * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * c10.I * c12y2 * c23.I - 2 * c10.J * c12x2 * c23.J + 2 * c20.I * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * c20.J * c23.J + 2 * c21.J * c22.J),
                 -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
                 -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
-                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J).RootsInInterval(0, 1);
+                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J
+                ).RootsInInterval(0, 1);
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
             for (var i = 0; i < roots.Count; i++)
             {
                 var s = roots[i];
-                var xRoots = new Polynomial(
-                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
+                var xRoots =QuadraticRoots(
+                    c12.I,
                     c11.I,
-                    c12.I).Roots();
-                var yRoots = new Polynomial(
-                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
+                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
+                    epsilon);
+                var yRoots = QuadraticRoots(
+                    c12.J,
                     c11.J,
-                    c12.J).Roots();
+                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
+                    epsilon);
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     for (var j = 0; j < xRoots.Count; j++)
@@ -9032,14 +9047,16 @@ namespace MethodSpeedTester
             foreach (var s in roots)
             {
                 var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
-                var xRoots = new Polynomial(
-                    /* t^2 */ a1X - point.X,
+                var xRoots = QuadraticRoots(
+                    /* c */ c12.I,
                     /* t^1 */ c11.I,
-                    /* c */ c12.I).Roots();
-                var yRoots = new Polynomial(
-                    /* t^2 */ a1Y - point.Y,
+                    /* t^2 */ a1X - point.X,
+                    epsilon);
+                var yRoots = QuadraticRoots(
+                    /* c */ c12.J,
                     /* t^1 */ c11.J,
-                    /* c */ c12.J).Roots();
+                    /* t^2 */ a1Y - point.Y,
+                    epsilon);
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     foreach (var xRoot in xRoots)
@@ -9176,7 +9193,7 @@ namespace MethodSpeedTester
             var c23y2 = c23.J * c23.J;
             var c23y3 = c23.J * c23.J * c23.J;
 
-            var poly = new Polynomial(
+            var roots = new Polynomial(
                 c10.I * c10.J * c11.I * c12.J * c13.I * c13.J - c10.I * c10.J * c11.J * c12.I * c13.I * c13.J + c10.I * c11.I * c11.J * c12.I * c12.J * c13.J - c10.J * c11.I * c11.J * c12.I * c12.J * c13.I - c10.I * c11.I * c20.J * c12.J * c13.I * c13.J + 6 * c10.I * c20.I * c11.J * c12.J * c13.I * c13.J + c10.I * c11.J * c12.I * c20.J * c13.I * c13.J - c10.J * c11.I * c20.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c20.J * c13.I * c13.J + c10.J * c20.I * c11.J * c12.I * c13.I * c13.J - c11.I * c20.I * c11.J * c12.I * c12.J * c13.J + c11.I * c11.J * c12.I * c20.J * c12.J * c13.I + c11.I * c20.I * c20.J * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c20.J * c13.I * c13.J - 2 * c10.I * c20.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c20.J * c13.J - 3 * c10.I * c10.J * c11.I * c12.I * c13y2 - 6 * c10.I * c10.J * c20.I * c13.I * c13y2 + 3 * c10.I * c10.J * c11.J * c12.J * c13x2 - 2 * c10.I * c10.J * c12.I * c12y2 * c13.I - 2 * c10.I * c11.I * c20.I * c12.J * c13y2 - c10.I * c11.I * c11.J * c12y2 * c13.I + 3 * c10.I * c11.I * c12.I * c20.J * c13y2 - 4 * c10.I * c20.I * c11.J * c12.I * c13y2 + 3 * c10.J * c11.I * c20.I * c12.I * c13y2 + 6 * c10.I * c10.J * c20.J * c13x2 * c13.J + 2 * c10.I * c10.J * c12x2 * c12.J * c13.J + 2 * c10.I * c11.I * c11y2 * c13.I * c13.J + 2 * c10.I * c20.I * c12.I * c12y2 * c13.J + 6 * c10.I * c20.I * c20.J * c13.I * c13y2 - 3 * c10.I * c11.J * c20.J * c12.J * c13x2 + 2 * c10.I * c12.I * c20.J * c12y2 * c13.I + c10.I * c11y2 * c12.I * c12.J * c13.I + c10.J * c11.I * c11.J * c12x2 * c13.J + 4 * c10.J * c11.I * c20.J * c12.J * c13x2 - 3 * c10.J * c20.I * c11.J * c12.J * c13x2 + 2 * c10.J * c20.I * c12.I * c12y2 * c13.I + 2 * c10.J * c11.J * c12.I * c20.J * c13x2 + c11.I * c20.I * c11.J * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c20.J * c13y2 - 2 * c10.I * c12x2 * c20.J * c12.J * c13.J - 6 * c10.J * c20.I * c20.J * c13x2 * c13.J - 2 * c10.J * c20.I * c12x2 * c12.J * c13.J - 2 * c10.J * c11x2 * c11.J * c13.I * c13.J - c10.J * c11x2 * c12.I * c12.J * c13.J - 2 * c10.J * c12x2 * c20.J * c12.J * c13.I - 2 * c11.I * c20.I * c11y2 * c13.I * c13.J - c11.I * c11.J * c12x2 * c20.J * c13.J + 3 * c20.I * c11.J * c20.J * c12.J * c13x2 - 2 * c20.I * c12.I * c20.J * c12y2 * c13.I - c20.I * c11y2 * c12.I * c12.J * c13.I + 3 * c10y2 * c11.I * c12.I * c13.I * c13.J + 3 * c11.I * c12.I * c20y2 * c13.I * c13.J + 2 * c20.I * c12x2 * c20.J * c12.J * c13.J - 3 * c10x2 * c11.J * c12.J * c13.I * c13.J + 2 * c11x2 * c11.J * c20.J * c13.I * c13.J + c11x2 * c12.I * c20.J * c12.J * c13.J - 3 * c20x2 * c11.J * c12.J * c13.I * c13.J - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * c10.I * c20x2 * c13y3 - c10.I * c11y3 * c13x2 + 3 * c10x2 * c20.I * c13y3 + c10.J * c11x3 * c13y2 + 3 * c10.J * c20y2 * c13x3 + c20.I * c11y3 * c13x2 + c10x2 * c12y3 * c13.I - 3 * c10y2 * c20.J * c13x3 - c10y2 * c12x3 * c13.J + c20x2 * c12y3 * c13.I - c11x3 * c20.J * c13y2 - c12x3 * c20y2 * c13.J - c10.I * c11x2 * c11.J * c13y2 + c10.J * c11.I * c11y2 * c13x2 - 3 * c10.I * c10y2 * c13x2 * c13.J - c10.I * c11y2 * c12x2 * c13.J + c10.J * c11x2 * c12y2 * c13.I - c11.I * c11y2 * c20.J * c13x2 + 3 * c10x2 * c10.J * c13.I * c13y2 + c10x2 * c11.I * c12.J * c13y2 + 2 * c10x2 * c11.J * c12.I * c13y2 - 2 * c10y2 * c11.I * c12.J * c13x2 - c10y2 * c11.J * c12.I * c13x2 + c11x2 * c20.I * c11.J * c13y2 - 3 * c10.I * c20y2 * c13x2 * c13.J + 3 * c10.J * c20x2 * c13.I * c13y2 + c11.I * c20x2 * c12.J * c13y2 - 2 * c11.I * c20y2 * c12.J * c13x2 + c20.I * c11y2 * c12x2 * c13.J - c11.J * c12.I * c20y2 * c13x2 - c10x2 * c12.I * c12y2 * c13.J - 3 * c10x2 * c20.J * c13.I * c13y2 + 3 * c10y2 * c20.I * c13x2 * c13.J + c10y2 * c12x2 * c12.J * c13.I - c11x2 * c20.J * c12y2 * c13.I + 2 * c20x2 * c11.J * c12.I * c13y2 + 3 * c20.I * c20y2 * c13x2 * c13.J - c20x2 * c12.I * c12y2 * c13.J - 3 * c20x2 * c20.J * c13.I * c13y2 + c12x2 * c20y2 * c12.J * c13.I,
                 -c10.I * c11.I * c12.J * c13.I * c21.J * c13.J + c10.I * c11.J * c12.I * c13.I * c21.J * c13.J + 6 * c10.I * c11.J * c21.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c13.I * c21.J * c13.J - c10.J * c11.I * c21.I * c12.J * c13.I * c13.J + c10.J * c11.J * c12.I * c21.I * c13.I * c13.J - c11.I * c11.J * c12.I * c21.I * c12.J * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c21.J + c11.I * c20.I * c12.J * c13.I * c21.J * c13.J + 6 * c11.I * c12.I * c20.J * c13.I * c21.J * c13.J + c11.I * c20.J * c21.I * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c13.I * c21.J * c13.J - 6 * c20.I * c11.J * c21.I * c12.J * c13.I * c13.J - c11.J * c12.I * c20.J * c21.I * c13.I * c13.J - 6 * c10.I * c20.I * c21.I * c13y3 - 2 * c10.I * c21.I * c12y3 * c13.I + 6 * c10.J * c20.J * c13x3 * c21.J + 2 * c20.I * c21.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c21.J * c13.J - 2 * c12x3 * c20.J * c21.J * c13.J - 6 * c10.I * c10.J * c21.I * c13.I * c13y2 + 3 * c10.I * c11.I * c12.I * c21.J * c13y2 - 2 * c10.I * c11.I * c21.I * c12.J * c13y2 - 4 * c10.I * c11.J * c12.I * c21.I * c13y2 + 3 * c10.J * c11.I * c12.I * c21.I * c13y2 + 6 * c10.I * c10.J * c13x2 * c21.J * c13.J + 6 * c10.I * c20.I * c13.I * c21.J * c13y2 - 3 * c10.I * c11.J * c12.J * c13x2 * c21.J + 2 * c10.I * c12.I * c21.I * c12y2 * c13.J + 2 * c10.I * c12.I * c12y2 * c13.I * c21.J + 6 * c10.I * c20.J * c21.I * c13.I * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c21.J + 6 * c10.J * c20.I * c21.I * c13.I * c13y2 + 2 * c10.J * c11.J * c12.I * c13x2 * c21.J - 3 * c10.J * c11.J * c21.I * c12.J * c13x2 + 2 * c10.J * c12.I * c21.I * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c21.J * c13y2 + 2 * c11.I * c20.I * c21.I * c12.J * c13y2 + c11.I * c11.J * c21.I * c12y2 * c13.I - 3 * c11.I * c12.I * c20.J * c21.I * c13y2 + 4 * c20.I * c11.J * c12.I * c21.I * c13y2 - 6 * c10.I * c20.J * c13x2 * c21.J * c13.J - 2 * c10.I * c12x2 * c12.J * c21.J * c13.J - 6 * c10.J * c20.I * c13x2 * c21.J * c13.J - 6 * c10.J * c20.J * c21.I * c13x2 * c13.J - 2 * c10.J * c12x2 * c21.I * c12.J * c13.J - 2 * c10.J * c12x2 * c12.J * c13.I * c21.J - c11.I * c11.J * c12x2 * c21.J * c13.J - 4 * c11.I * c20.J * c12.J * c13x2 * c21.J - 2 * c11.I * c11y2 * c21.I * c13.I * c13.J + 3 * c20.I * c11.J * c12.J * c13x2 * c21.J - 2 * c20.I * c12.I * c21.I * c12y2 * c13.J - 2 * c20.I * c12.I * c12y2 * c13.I * c21.J - 6 * c20.I * c20.J * c21.I * c13.I * c13y2 - 2 * c11.J * c12.I * c20.J * c13x2 * c21.J + 3 * c11.J * c20.J * c21.I * c12.J * c13x2 - 2 * c12.I * c20.J * c21.I * c12y2 * c13.I - c11y2 * c12.I * c21.I * c12.J * c13.I + 6 * c20.I * c20.J * c13x2 * c21.J * c13.J + 2 * c20.I * c12x2 * c12.J * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c21.J * c13.J + c11x2 * c12.I * c12.J * c21.J * c13.J + 2 * c12x2 * c20.J * c21.I * c12.J * c13.J + 2 * c12x2 * c20.J * c12.J * c13.I * c21.J + 3 * c10x2 * c21.I * c13y3 - 3 * c10y2 * c13x3 * c21.J + 3 * c20x2 * c21.I * c13y3 + c11y3 * c21.I * c13x2 - c11x3 * c21.J * c13y2 - 3 * c20y2 * c13x3 * c21.J - c11.I * c11y2 * c13x2 * c21.J + c11x2 * c11.J * c21.I * c13y2 - 3 * c10x2 * c13.I * c21.J * c13y2 + 3 * c10y2 * c21.I * c13x2 * c13.J - c11x2 * c12y2 * c13.I * c21.J + c11y2 * c12x2 * c21.I * c13.J - 3 * c20x2 * c13.I * c21.J * c13y2 + 3 * c20y2 * c21.I * c13x2 * c13.J,
                 -c10.I * c11.I * c12.J * c13.I * c13.J * c22.J + c10.I * c11.J * c12.I * c13.I * c13.J * c22.J + 6 * c10.I * c11.J * c12.J * c13.I * c22.I * c13.J - 6 * c10.J * c11.I * c12.I * c13.I * c13.J * c22.J - c10.J * c11.I * c12.J * c13.I * c22.I * c13.J + c10.J * c11.J * c12.I * c13.I * c22.I * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c22.J - c11.I * c11.J * c12.I * c12.J * c22.I * c13.J + c11.I * c20.I * c12.J * c13.I * c13.J * c22.J + c11.I * c20.J * c12.J * c13.I * c22.I * c13.J + c11.I * c21.I * c12.J * c13.I * c21.J * c13.J - c20.I * c11.J * c12.I * c13.I * c13.J * c22.J - 6 * c20.I * c11.J * c12.J * c13.I * c22.I * c13.J - c11.J * c12.I * c20.J * c13.I * c22.I * c13.J - c11.J * c12.I * c21.I * c13.I * c21.J * c13.J - 6 * c10.I * c20.I * c22.I * c13y3 - 2 * c10.I * c12y3 * c13.I * c22.I + 2 * c20.I * c12y3 * c13.I * c22.I + 2 * c10.J * c12x3 * c13.J * c22.J - 6 * c10.I * c10.J * c13.I * c22.I * c13y2 + 3 * c10.I * c11.I * c12.I * c13y2 * c22.J - 2 * c10.I * c11.I * c12.J * c22.I * c13y2 - 4 * c10.I * c11.J * c12.I * c22.I * c13y2 + 3 * c10.J * c11.I * c12.I * c22.I * c13y2 + 6 * c10.I * c10.J * c13x2 * c13.J * c22.J + 6 * c10.I * c20.I * c13.I * c13y2 * c22.J - 3 * c10.I * c11.J * c12.J * c13x2 * c22.J + 2 * c10.I * c12.I * c12y2 * c13.I * c22.J + 2 * c10.I * c12.I * c12y2 * c22.I * c13.J + 6 * c10.I * c20.J * c13.I * c22.I * c13y2 + 6 * c10.I * c21.I * c13.I * c21.J * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c22.J + 6 * c10.J * c20.I * c13.I * c22.I * c13y2 + 2 * c10.J * c11.J * c12.I * c13x2 * c22.J - 3 * c10.J * c11.J * c12.J * c13x2 * c22.I + 2 * c10.J * c12.I * c12y2 * c13.I * c22.I - 3 * c11.I * c20.I * c12.I * c13y2 * c22.J + 2 * c11.I * c20.I * c12.J * c22.I * c13y2 + c11.I * c11.J * c12y2 * c13.I * c22.I - 3 * c11.I * c12.I * c20.J * c22.I * c13y2 - 3 * c11.I * c12.I * c21.I * c21.J * c13y2 + 4 * c20.I * c11.J * c12.I * c22.I * c13y2 - 2 * c10.I * c12x2 * c12.J * c13.J * c22.J - 6 * c10.J * c20.I * c13x2 * c13.J * c22.J - 6 * c10.J * c20.J * c13x2 * c22.I * c13.J - 6 * c10.J * c21.I * c13x2 * c21.J * c13.J - 2 * c10.J * c12x2 * c12.J * c13.I * c22.J - 2 * c10.J * c12x2 * c12.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c22.J - 2 * c11.I * c11y2 * c13.I * c22.I * c13.J + 3 * c20.I * c11.J * c12.J * c13x2 * c22.J - 2 * c20.I * c12.I * c12y2 * c13.I * c22.J - 2 * c20.I * c12.I * c12y2 * c22.I * c13.J - 6 * c20.I * c20.J * c13.I * c22.I * c13y2 - 6 * c20.I * c21.I * c13.I * c21.J * c13y2 + 3 * c11.J * c20.J * c12.J * c13x2 * c22.I + 3 * c11.J * c21.I * c12.J * c13x2 * c21.J - 2 * c12.I * c20.J * c12y2 * c13.I * c22.I - 2 * c12.I * c21.I * c12y2 * c13.I * c21.J - c11y2 * c12.I * c12.J * c13.I * c22.I + 2 * c20.I * c12x2 * c12.J * c13.J * c22.J - 3 * c11.J * c21x2 * c12.J * c13.I * c13.J + 6 * c20.J * c21.I * c13x2 * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c22.J + c11x2 * c12.I * c12.J * c13.J * c22.J + 2 * c12x2 * c20.J * c12.J * c22.I * c13.J + 2 * c12x2 * c21.I * c12.J * c21.J * c13.J - 3 * c10.I * c21x2 * c13y3 + 3 * c20.I * c21x2 * c13y3 + 3 * c10x2 * c22.I * c13y3 - 3 * c10y2 * c13x3 * c22.J + 3 * c20x2 * c22.I * c13y3 + c21x2 * c12y3 * c13.I + c11y3 * c13x2 * c22.I - c11x3 * c13y2 * c22.J + 3 * c10.J * c21x2 * c13.I * c13y2 - c11.I * c11y2 * c13x2 * c22.J + c11.I * c21x2 * c12.J * c13y2 + 2 * c11.J * c12.I * c21x2 * c13y2 + c11x2 * c11.J * c22.I * c13y2 - c12.I * c21x2 * c12y2 * c13.J - 3 * c20.J * c21x2 * c13.I * c13y2 - 3 * c10x2 * c13.I * c13y2 * c22.J + 3 * c10y2 * c13x2 * c22.I * c13.J - c11x2 * c12y2 * c13.I * c22.J + c11y2 * c12x2 * c22.I * c13.J - 3 * c20x2 * c13.I * c13y2 * c22.J + 3 * c20y2 * c13x2 * c22.I * c13.J + c12x2 * c12.J * c13.I * (2 * c20.J * c22.J + c21y2) + c11.I * c12.I * c13.I * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c12x3 * c13.J * (-2 * c20.J * c22.J - c21y2) + c10.J * c13x3 * (6 * c20.J * c22.J + 3 * c21y2) + c11.J * c12.I * c13x2 * (-2 * c20.J * c22.J - c21y2) + c11.I * c12.J * c13x2 * (-4 * c20.J * c22.J - 2 * c21y2) + c10.I * c13x2 * c13.J * (-6 * c20.J * c22.J - 3 * c21y2) + c20.I * c13x2 * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c13x3 * (-2 * c20.J * c21y2 - c20y2 * c22.J - c20.J * (2 * c20.J * c22.J + c21y2)),
@@ -9186,24 +9203,26 @@ namespace MethodSpeedTester
                 c11.I * c12.J * c13.I * c13.J * c23.I * c23.J - c11.J * c12.I * c13.I * c13.J * c23.I * c23.J + 6 * c21.I * c22.I * c13y3 * c23.I + 3 * c11.I * c12.I * c13.I * c13.J * c23y2 + 6 * c10.I * c13.I * c13y2 * c23.I * c23.J - 3 * c11.I * c12.I * c13y2 * c23.I * c23.J - 3 * c11.J * c12.J * c13.I * c13.J * c23x2 - 6 * c10.J * c13x2 * c13.J * c23.I * c23.J - 6 * c20.I * c13.I * c13y2 * c23.I * c23.J + 3 * c11.J * c12.J * c13x2 * c23.I * c23.J - 2 * c12.I * c12y2 * c13.I * c23.I * c23.J - 6 * c21.I * c13.I * c22.I * c13y2 * c23.J - 6 * c21.I * c13.I * c13y2 * c22.J * c23.I - 6 * c13.I * c21.J * c22.I * c13y2 * c23.I + 6 * c21.I * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.J * c23.I * c23.J + c22x3 * c13y3 - 3 * c10.I * c13y3 * c23x2 + 3 * c10.J * c13x3 * c23y2 + 3 * c20.I * c13y3 * c23x2 + c12y3 * c13.I * c23x2 - c12x3 * c13.J * c23y2 - 3 * c10.I * c13x2 * c13.J * c23y2 + 3 * c10.J * c13.I * c13y2 * c23x2 - 2 * c11.I * c12.J * c13x2 * c23y2 + c11.I * c12.J * c13y2 * c23x2 - c11.J * c12.I * c13x2 * c23y2 + 2 * c11.J * c12.I * c13y2 * c23x2 + 3 * c20.I * c13x2 * c13.J * c23y2 - c12.I * c12y2 * c13.J * c23x2 - 3 * c20.J * c13.I * c13y2 * c23x2 + c12x2 * c12.J * c13.I * c23y2 - 3 * c13.I * c22x2 * c13y2 * c22.J + c13x2 * c13.J * c23.I * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c13x2 * c22.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c21.J * c22.J * c23.J - c20.J * c23y2 - c22.J * (2 * c21.J * c23.J + c22y2) - c23.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
                 -6 * c21.I * c13.I * c13y2 * c23.I * c23.J - 6 * c13.I * c22.I * c13y2 * c22.J * c23.I + 6 * c13x2 * c22.I * c13.J * c22.J * c23.J + 3 * c21.I * c13y3 * c23x2 + 3 * c22x2 * c13y3 * c23.I + 3 * c21.I * c13x2 * c13.J * c23y2 - 3 * c13.I * c21.J * c13y2 * c23x2 - 3 * c13.I * c22x2 * c13y2 * c23.J + c13x2 * c13.J * c23.I * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-c21.J * c23y2 - 2 * c22y2 * c23.J - c23.J * (2 * c21.J * c23.J + c22y2)),
                 -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
-                -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2);
-            var roots = poly.RootsInInterval(0, 1);
+                -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2
+                ).RootsInInterval(0, 1);
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
             for (var i = 0; i < roots.Count; i++)
             {
                 var s = roots[i];
-                var xRoots = new Polynomial(
-                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
-                    c11.I,
+                var xRoots = CubicRoots(
+                    c13.I,
                     c12.I,
-                    c13.I).Roots();
-                var yRoots = new Polynomial(
-                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
-                    c11.J,
+                    c11.I,
+                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
+                    epsilon);
+                var yRoots = CubicRoots(
+                    c13.J,
                     c12.J,
-                    c13.J).Roots();
+                    c11.J,
+                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
+                    epsilon);
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     for (var j = 0; j < xRoots.Count; j++)
@@ -9319,16 +9338,18 @@ namespace MethodSpeedTester
             foreach (var s in roots)
             {
                 var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
-                var xRoots = new Polynomial(
-                    /* t^3 */ a1X - point.X,
-                    /* t^2 */ c11.I,
+                var xRoots = CubicRoots(
+                    /* c */ c13.I,
                     /* t^1 */ c12.I,
-                    /* c */ c13.I).Roots();
-                var yRoots = new Polynomial(
-                    /* t^3 */ a1Y - point.Y,
-                    /* t^2 */ c11.J,
+                    /* t^2 */ c11.I,
+                    /* t^3 */ a1X - point.X,
+                    epsilon);
+                var yRoots = CubicRoots(
+                    /* c */ c13.J,
                     /* t^1 */ c12.J,
-                    /* c */ c13.J).Roots();
+                    /* t^2 */ c11.J,
+                    /* t^3 */ a1Y - point.Y,
+                    epsilon);
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.

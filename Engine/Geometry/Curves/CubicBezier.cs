@@ -488,7 +488,8 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.X).ToArray()));
+                //var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.X)));
+                var curveX = (Polynomial)CachingProperty(() => Polynomial.Cubic(dx, cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -502,7 +503,8 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.Y).ToArray()));
+                //var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.Y).ToArray()));
+                var curveY = (Polynomial)CachingProperty(() => Polynomial.Cubic(dy, cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -595,12 +597,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Sample(double t)
         {
-            var ti = 1 - t;
-            var t0 = ti * ti * ti;
-            var t1 = 3 * ti * ti * t;
-            var t2 = 3 * ti * t * t;
-            var t3 = t * t * t;
-            return (Point2D)((t0 * A) + (t1 * B) + (t2 * C) + (t3 * D));
+            var ti = 1d - t;
+            return (Point2D)((ti * ti * ti * A) + (3 * ti * ti * t * B) + (3 * ti * t * t * C) + (t * t * t * D));
         }
 
         /// <summary>
@@ -616,10 +614,7 @@ namespace Engine
         public Vector2D Derivative(double t)
         {
             var ti = 1 - t;
-            var tp0 = 3 * ti * ti;
-            var tp1 = 6 * t * ti;
-            var tp2 = 3 * t * t;
-            return (tp0 * (B - A)) + (tp1 * (C - B)) + (tp2 * (D - C));
+            return (3 * ti * ti * (B - A)) + (6 * t * ti * (C - B)) + (3 * t * t * (D - C));
         }
 
         /// <summary>

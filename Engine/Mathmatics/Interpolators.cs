@@ -284,9 +284,6 @@ namespace Engine
         /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
-        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Ellipse(
@@ -337,43 +334,45 @@ namespace Engine
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
-        /// <param name="v1">The first position in the interpolation.</param>
-        /// <param name="v2">The second position in the interpolation.</param>
-        /// <param name="v3">The third position in the interpolation.</param>
-        /// <param name="v4">The fourth position in the interpolation.</param>
+        /// <param name="aV">The first position in the interpolation.</param>
+        /// <param name="bV">The second position in the interpolation.</param>
+        /// <param name="cV">The third position in the interpolation.</param>
+        /// <param name="dV">The fourth position in the interpolation.</param>
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
         /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CatmullRom(
-            double v1,
-            double v2,
-            double v3,
-            double v4,
+            double aV,
+            double bV,
+            double cV,
+            double dV,
             double t)
         {
-            var tSquared = t * t;
-            var tCubed = tSquared * t;
+            var t2 = t * t;
+            var t3 = t2 * t;
             return (
-                0.5d * (2d * v2
-                + (v3 - v1) * t
-                + (2d * v1 - 5d * v2 + 4d * v3 - v4) * tSquared
-                + (3d * v2 - v1 - 3.0d * v3 + v4) * tCubed));
+                0.5d * (2d * bV
+                + (cV - aV) * t
+                + (2d * aV - 5d * bV + 4d * cV - dV) * t2
+                + (3d * bV - aV - 3.0d * cV + dV) * t3));
         }
 
         /// <summary>
         /// Calculates interpolated point between two points using Catmull-Rom Spline
         /// </summary>
-        /// <param name="t0X">First Point</param>
-        /// <param name="t0Y">First Point</param>
-        /// <param name="p1X">Second Point</param>
-        /// <param name="p1Y">Second Point</param>
-        /// <param name="p2X">Third Point</param>
-        /// <param name="p2Y">Third Point</param>
-        /// <param name="t3X">Fourth Point</param>
-        /// <param name="t3Y">Fourth Point</param>
+        /// <param name="aX">First Point</param>
+        /// <param name="aY">First Point</param>
+        /// <param name="bX">Second Point</param>
+        /// <param name="bY">Second Point</param>
+        /// <param name="cX">Third Point</param>
+        /// <param name="cY">Third Point</param>
+        /// <param name="dX">Fourth Point</param>
+        /// <param name="dY">Fourth Point</param>
         /// <param name="t">
         /// Normalized distance between second and third point
         /// where the spline point will be calculated
@@ -387,70 +386,73 @@ namespace Engine
         /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) CatmullRom(
-            double t0X, double t0Y,
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double t3X, double t3Y,
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double dX, double dY,
             double t)
         {
-            var tSquared = t * t;
-            var tCubed = tSquared * t;
+            var t2 = t * t;
+            var t3 = t2 * t;
             return (
-                0.5d * (2d * p1X
-                + (-t0X + p2X) * t
-                + (2d * t0X - 5d * p1X + 4d * p2X - t3X) * tSquared
-                + (-t0X + 3d * p1X - 3d * p2X + t3X) * tCubed),
-                0.5d * (2d * p1Y
-                + (-t0Y + p2Y) * t
-                + (2d * t0Y - 5d * p1Y + 4d * p2Y - t3Y) * tSquared
-                + (-t0Y + 3d * p1Y - 3d * p2Y + t3Y) * tCubed));
+                0.5d * (2d * bX
+                + (-aX + cX) * t
+                + (2d * aX - 5d * bX + 4d * cX - dX) * t2
+                + (-aX + 3d * bX - 3d * cX + dX) * t3),
+                0.5d * (2d * bY
+                + (-aY + cY) * t
+                + (2d * aY - 5d * bY + 4d * cY - dY) * t2
+                + (-aY + 3d * bY - 3d * cY + dY) * t3));
         }
 
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
-        /// <param name="x1">The first position in the interpolation.</param>
-        /// <param name="y1">The first position in the interpolation.</param>
-        /// <param name="z1">The first position in the interpolation.</param>
-        /// <param name="x2">The second position in the interpolation.</param>
-        /// <param name="y2">The second position in the interpolation.</param>
-        /// <param name="z2">The second position in the interpolation.</param>
-        /// <param name="x3">The third position in the interpolation.</param>
-        /// <param name="y3">The third position in the interpolation.</param>
-        /// <param name="z3">The third position in the interpolation.</param>
-        /// <param name="x4">The fourth position in the interpolation.</param>
-        /// <param name="y4">The fourth position in the interpolation.</param>
-        /// <param name="z4">The fourth position in the interpolation.</param>
+        /// <param name="aX">The first position in the interpolation.</param>
+        /// <param name="aY">The first position in the interpolation.</param>
+        /// <param name="aZ">The first position in the interpolation.</param>
+        /// <param name="bX">The second position in the interpolation.</param>
+        /// <param name="bY">The second position in the interpolation.</param>
+        /// <param name="bZ">The second position in the interpolation.</param>
+        /// <param name="cX">The third position in the interpolation.</param>
+        /// <param name="cY">The third position in the interpolation.</param>
+        /// <param name="cZ">The third position in the interpolation.</param>
+        /// <param name="dX">The fourth position in the interpolation.</param>
+        /// <param name="dY">The fourth position in the interpolation.</param>
+        /// <param name="dZ">The fourth position in the interpolation.</param>
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
         /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) CatmullRom(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double x4, double y4, double z4,
+            double aX, double aY, double aZ,
+            double bX, double bY, double bZ,
+            double cX, double cY, double cZ,
+            double dX, double dY, double dZ,
             double t)
         {
-            var tSquared = t * t;
-            var tCubed = tSquared * t;
+            var t2 = t * t;
+            var t3 = t2 * t;
             return (
-                0.5d * (2d * x2
-                + (x3 - x1) * t
-                + (2d * x1 - 5d * x2 + 4d * x3 - x4) * tSquared
-                + (3d * x2 - x1 - 3d * x3 + x4) * tCubed),
-                0.5d * (2d * x2
-                + (y3 - y1) * t
-                + (2d * y1 - 5d * y2 + 4d * y3 - y4) * tSquared
-                + (3d * y2 - y1 - 3d * y3 + y4) * tCubed),
-                0.5d * (2d * z2
-                + (z3 - z1) * t
-                + (2d * z1 - 5d * z2 + 4d * z3 - z4) * tSquared
-                + (3d * z2 - z1 - 3d * z3 + z4) * tCubed));
+                0.5d * (2d * bX
+                + (cX - aX) * t
+                + (2d * aX - 5d * bX + 4d * cX - dX) * t2
+                + (3d * bX - aX - 3d * cX + dX) * t3),
+                0.5d * (2d * bX
+                + (cY - aY) * t
+                + (2d * aY - 5d * bY + 4d * cY - dY) * t2
+                + (3d * bY - aY - 3d * cY + dY) * t3),
+                0.5d * (2d * bZ
+                + (cZ - aZ) * t
+                + (2d * aZ - 5d * bZ + 4d * cZ - dZ) * t2
+                + (3d * bZ - aZ - 3d * cZ + dZ) * t3));
         }
 
         /// <summary>
@@ -466,6 +468,7 @@ namespace Engine
         /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CatmullRom(
             Point2D tangentA,
@@ -474,17 +477,17 @@ namespace Engine
             Point2D tangentB,
             double t)
         {
-            var tSquared = t * t;
-            var tCubed = tSquared * t;
+            var t2 = t * t;
+            var t3 = t2 * t;
             return new Point2D(
                 0.5d * (2d * positionA.X
                 + (-tangentA.X + positionB.X) * t + (2d * tangentA.X - 5d * positionA.X
-                + 4d * positionB.X - tangentB.X) * tSquared
-                + (-tangentA.X + 3d * positionA.X - 3d * positionB.X + tangentB.X) * tCubed),
+                + 4d * positionB.X - tangentB.X) * t2
+                + (-tangentA.X + 3d * positionA.X - 3d * positionB.X + tangentB.X) * t3),
                 0.5d * (2d * positionA.Y
                 + (-tangentA.Y + positionB.Y) * t + (2d * tangentA.Y - 5d * positionA.Y
-                + 4d * positionB.Y - tangentB.Y) * tSquared
-                + (-tangentA.Y + 3d * positionA.Y - 3d * positionB.Y + tangentB.Y) * tCubed)
+                + 4d * positionB.Y - tangentB.Y) * t2
+                + (-tangentA.Y + 3d * positionA.Y - 3d * positionB.Y + tangentB.Y) * t3)
             );
         }
 
@@ -495,76 +498,77 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
+        /// <param name="aV"></param>
+        /// <param name="bV"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosine(
-            double v1,
-            double v2,
+            double aV,
+            double bV,
             double t)
         {
-            var mu2 = (1 - Cos(t * PI)) / 2;
-            return v1 * (1 - mu2) + v2 * mu2;
+            var mu2 = 0.5d * (1d - Cos(t * PI));
+            return aV * (1d - mu2) + bV * mu2;
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Cosine(
-            double x1, double y1,
-            double x2, double y2,
+            double aX, double aY,
+            double bX, double bY,
             double t)
         {
-            var mu2 = (1 - Cos(t * PI)) / 2;
-            return (
-                x1 * (1 - mu2) + x2 * mu2,
-                y1 * (1 - mu2) + y2 * mu2
-                );
+            var mu2 = 0.5d * (1d - Cos(t * PI));
+            return (aX * (1d - mu2) + bX * mu2,
+                    aY * (1d - mu2) + bY * mu2);
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="aZ"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="bZ"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Cosine(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
+            double aX, double aY, double aZ,
+            double bX, double bY, double bZ,
             double t)
         {
-            var mu2 = (1 - Cos(t * PI)) / 2;
+            var mu2 = 0.5d * (1d - Cos(t * PI));
             return (
-                x1 * (1 - mu2) + x2 * mu2,
-                y1 * (1 - mu2) + y2 * mu2,
-                z1 * (1 - mu2) + z2 * mu2);
+                aX * (1d - mu2) + bX * mu2,
+                aY * (1d - mu2) + bY * mu2,
+                aZ * (1d - mu2) + bZ * mu2);
         }
 
         #endregion
@@ -574,10 +578,10 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
+        /// <param name="aV"></param>
+        /// <param name="bV"></param>
+        /// <param name="cV"></param>
+        /// <param name="dV"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -586,34 +590,28 @@ namespace Engine
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cubic(
-            double v0,
-            double v1,
-            double v2,
-            double v3,
+            double aV,
+            double bV,
+            double cV,
+            double dV,
             double t)
         {
-            double a0, a1, a2, a3, mu2;
-
-            mu2 = t * t;
-            a0 = v3 - v2 - v0 + v1;
-            a1 = v0 - v1 - a0;
-            a2 = v2 - v0;
-            a3 = v1;
-
-            return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
+            var t2 = t * t;
+            var a0 = dV - cV - aV + bV;
+            return (a0 * t * t2 + (aV - bV - a0) * t2 + (cV - aV) * t + bV);
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -622,41 +620,35 @@ namespace Engine
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Cubic(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double dX, double dY,
             double t)
         {
-            var mu2 = t * t;
-
-            var aX0 = x3 - x2 - x0 + x1;
-            var aY0 = y3 - y2 - y0 + y1;
-            var aX1 = x0 - x1 - aX0;
-            var aY1 = y0 - y1 - aY0;
-            var aX2 = x2 - x0;
-            var aY2 = y2 - y0;
-
+            var t2 = t * t;
+            var aX0 = dX - cX - aX + bX;
+            var aY0 = dY - cY - aY + bY;
             return (
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
+                aX0 * t * t2 + (aX - bX - aX0) * t2 + (cX - aX) * t + bX,
+                aY0 * t * t2 + (aY - bY - aY0) * t2 + (cY - aY) * t + bY);
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="aZ"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="bZ"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="cZ"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <param name="dZ"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -665,28 +657,20 @@ namespace Engine
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Cubic(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
+            double aX, double aY, double aZ,
+            double bX, double bY, double bZ,
+            double cX, double cY, double cZ,
+            double dX, double dY, double dZ,
             double t)
         {
-            var mu2 = t * t;
-
-            var aX0 = x3 - x2 - x0 + x1;
-            var aY0 = y3 - y2 - y0 + y1;
-            var aZ0 = z3 - z2 - z0 + z1;
-            var aX1 = x0 - x1 - aX0;
-            var aY1 = y0 - y1 - aY0;
-            var aZ1 = z0 - z1 - aZ0;
-            var aX2 = x2 - x0;
-            var aY2 = y2 - y0;
-            var aZ2 = z2 - z0;
-
+            var t2 = t * t;
+            var aX0 = dX - cX - aX + bX;
+            var aY0 = dY - cY - aY + bY;
+            var aZ0 = dZ - cZ - aZ + bZ;
             return (
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
-                aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
+                aX0 * t * t2 + (aX - bX - aX0) * t2 + (cX - aX) * t + bX,
+                aY0 * t * t2 + (aY - bY - aY0) * t2 + (cY - aY) * t + bY,
+                aZ0 * t * t2 + (aZ - bZ - aZ0) * t2 + (cZ - aZ) * t + bZ);
         }
 
         #endregion
@@ -856,11 +840,11 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
-        /// <param name="time"></param>
+        /// <param name="aV"></param>
+        /// <param name="bV"></param>
+        /// <param name="cV"></param>
+        /// <param name="dV"></param>
+        /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
@@ -871,41 +855,36 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Hermite(
-            double v0,
-            double v1,
-            double v2,
-            double v3,
-            double time, double tension = 0d, double bias = 0d)
+            double aV,
+            double bV,
+            double cV,
+            double dV,
+            double t, double tension = 0d, double bias = 0d)
         {
-            double m0, m1, mu2, mu3;
-            double a0, a1, a2, a3;
+            var t2 = t * t;
+            var t3 = t2 * t;
 
-            mu2 = time * time;
-            mu3 = mu2 * time;
-            m0 = (v1 - v0) * (1d + bias) * (1d - tension) * 0.5d;
-            m0 += (v2 - v1) * (1d - bias) * (1d - tension) * 0.5d;
-            m1 = (v2 - v1) * (1d + bias) * (1d - tension) * 0.5d;
-            m1 += (v3 - v2) * (1d - bias) * (1d - tension) * 0.5d;
-            a0 = 2d * mu3 - 3d * mu2 + 1d;
-            a1 = mu3 - 2d * mu2 + time;
-            a2 = mu3 - mu2;
-            a3 = -2d * mu3 + 3d * mu2;
+            var m0 = (bV - aV) * (1d + bias) * (1d - tension) * 0.5d;
+            m0 += (cV - bV) * (1d - bias) * (1d - tension) * 0.5d;
 
-            return (a0 * v1 + a1 * m0 + a2 * m1 + a3 * v2);
+            var m1 = (cV - bV) * (1d + bias) * (1d - tension) * 0.5d;
+            m1 += (dV - cV) * (1d - bias) * (1d - tension) * 0.5d;
+
+            return ((2d * t3 - 3d * t2 + 1d) * bV + (t3 - 2d * t2 + t) * m0 + (t3 - t2) * m1 + (-2d * t3 + 3d * t2) * cV);
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="time"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
@@ -916,55 +895,55 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Hermite(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double time, double tension = 0d, double bias = 0d)
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double dX, double dY,
+            double t, double tension = 0d, double bias = 0d)
         {
-            var mu2 = time * time;
-            var mu3 = mu2 * time;
+            var t2 = t * t;
+            var t3 = t2 * t;
 
-            var mX0 = (x1 - x0) * (1d + bias) * (1d - tension) * 0.5d;
-            mX0 += (x2 - x1) * (1d - bias) * (1d - tension) * 0.5d;
+            var mX0 = (bX - aX) * (1d + bias) * (1d - tension) * 0.5d;
+            mX0 += (cX - bX) * (1d - bias) * (1d - tension) * 0.5d;
 
-            var mY0 = (y1 - y0) * (1d + bias) * (1d - tension) * 0.5d;
-            mY0 += (y2 - y1) * (1d - bias) * (1d - tension) * 0.5d;
+            var mY0 = (bY - aY) * (1d + bias) * (1d - tension) * 0.5d;
+            mY0 += (cY - bY) * (1d - bias) * (1d - tension) * 0.5d;
 
-            var mX1 = (x2 - x1) * (1d + bias) * (1d - tension) * 0.5d;
-            mX1 += (x3 - x2) * (1d - bias) * (1d - tension) * 0.5d;
+            var mX1 = (cX - bX) * (1d + bias) * (1d - tension) * 0.5d;
+            mX1 += (dX - cX) * (1d - bias) * (1d - tension) * 0.5d;
 
-            var mY1 = (y2 - y1) * (1d + bias) * (1d - tension) * 0.5d;
-            mY1 += (y3 - y2) * (1d - bias) * (1d - tension) * 0.5d;
+            var mY1 = (cY - bY) * (1d + bias) * (1d - tension) * 0.5d;
+            mY1 += (dY - cY) * (1d - bias) * (1d - tension) * 0.5d;
 
-            var a0 = 2d * mu3 - 3d * mu2 + 1d;
-            var a1 = mu3 - 2d * mu2 + time;
-            var a2 = mu3 - mu2;
-            var a3 = -2d * mu3 + 3d * mu2;
+            var a0 = 2d * t3 - 3d * t2 + 1d;
+            var a1 = t3 - 2d * t2 + t;
+            var a2 = t3 - t2;
+            var a3 = -2d * t3 + 3d * t2;
 
             return (
-                a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
-                a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2);
+                a0 * bX + a1 * mX0 + a2 * mX1 + a3 * cX,
+                a0 * bY + a1 * mY0 + a2 * mY1 + a3 * cY);
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <param name="time"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="aZ"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="bZ"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="cZ"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <param name="dZ"></param>
+        /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
-        /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
+        /// <param name="bias">0 is even, positive is towards first segment, negative towards the other</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -973,36 +952,42 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Hermite(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double time, double tension = 0d, double bias = 0d)
+            double aX, double aY, double aZ,
+            double bX, double bY, double bZ,
+            double cX, double cY, double cZ,
+            double dX, double dY, double dZ,
+            double t, double tension = 0d, double bias = 0d)
         {
-            var mu2 = time * time;
-            var mu3 = mu2 * time;
+            var t2 = t * t;
+            var t3 = t2 * t;
 
-            var mX0 = (x1 - x0) * (1d + bias) * (1d - tension) * 0.5d;
-            mX0 += (x2 - x1) * (1d - bias) * (1d - tension) * 0.5d;
-            var mY0 = (y1 - y0) * (1d + bias) * (1d - tension) * 0.5d;
-            mY0 += (y2 - y1) * (1d - bias) * (1d - tension) * 0.5d;
-            var mZ0 = (z1 - z0) * (1d + bias) * (1d - tension) * 0.5d;
-            mZ0 += (z2 - z1) * (1d - bias) * (1d - tension) * 0.5d;
-            var mX1 = (x2 - x1) * (1d + bias) * (1 - tension) * 0.5d;
-            mX1 += (x3 - x2) * (1d - bias) * (1d - tension) * 0.5d;
-            var mY1 = (y2 - y1) * (1d + bias) * (1d - tension) * 0.5d;
-            mY1 += (y3 - y2) * (1d - bias) * (1d - tension) * 0.5d;
-            var mZ1 = (z2 - z1) * (1d + bias) * (1d - tension) * 0.5d;
-            mZ1 += (z3 - z2) * (1d - bias) * (1d - tension) * 0.5d;
-            var a0 = 2d * mu3 - 3d * mu2 + 1d;
-            var a1 = mu3 - 2d * mu2 + time;
-            var a2 = mu3 - mu2;
-            var a3 = -2d * mu3 + 3d * mu2;
+            var mX0 = (bX - aX) * (1d + bias) * (1d - tension) * 0.5d;
+            mX0 += (cX - bX) * (1d - bias) * (1d - tension) * 0.5d;
+
+            var mY0 = (bY - aY) * (1d + bias) * (1d - tension) * 0.5d;
+            mY0 += (cY - bY) * (1d - bias) * (1d - tension) * 0.5d;
+
+            var mZ0 = (bZ - aZ) * (1d + bias) * (1d - tension) * 0.5d;
+            mZ0 += (cZ - bZ) * (1d - bias) * (1d - tension) * 0.5d;
+
+            var mX1 = (cX - bX) * (1d + bias) * (1 - tension) * 0.5d;
+            mX1 += (dX - cX) * (1d - bias) * (1d - tension) * 0.5d;
+
+            var mY1 = (cY - bY) * (1d + bias) * (1d - tension) * 0.5d;
+            mY1 += (dY - cY) * (1d - bias) * (1d - tension) * 0.5d;
+
+            var mZ1 = (cZ - bZ) * (1d + bias) * (1d - tension) * 0.5d;
+            mZ1 += (dZ - cZ) * (1d - bias) * (1d - tension) * 0.5d;
+
+            var a0 = 2d * t3 - 3d * t2 + 1d;
+            var a1 = t3 - 2d * t2 + t;
+            var a2 = t3 - t2;
+            var a3 = -2d * t3 + 3d * t2;
 
             return (
-                a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
-                a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2,
-                a0 * z1 + a1 * mZ0 + a2 * mZ1 + a3 * z2);
+                a0 * bX + a1 * mX0 + a2 * mX1 + a3 * cX,
+                a0 * bY + a1 * mY0 + a2 * mY1 + a3 * cY,
+                a0 * bZ + a1 * mZ0 + a2 * mZ1 + a3 * cZ);
         }
 
         #endregion
@@ -1012,80 +997,80 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
+        /// <param name="aV"></param>
+        /// <param name="bV"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(
-                double v1, double v2,
-                double t)
-                => (1 - t) * v1 + t * v2;
+            double aV,
+            double bV,
+            double t)
+            => (1 - t) * aV + t * bV;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Linear(Point2D v1, Point2D v2, double t)
-            => new Point2D(Linear(v1.X, v1.Y, v2.X, v2.Y, t));
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Linear(Point3D v1, Point3D v2, double t)
-            => new Point3D(Linear(v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, t));
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Linear(
-            double x1, double y1,
-            double x2, double y2,
+            double aX, double aY,
+            double bX, double bY,
             double t)
-            => ((1d - t) * x1 + t * x2,
-                (1d - t) * y1 + t * y2);
+            => ((1d - t) * aX + t * bX,
+                (1d - t) * aY + t * bY);
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="aZ"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="bZ"></param>
         /// <param name="t"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Linear(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
+            double aX, double aY, double aZ,
+            double bX, double bY, double bZ,
             double t)
-            => (
-                (1d - t) * x1 + t * x2,
-                (1d - t) * y1 + t * y2,
-                (1d - t) * z1 + t * z2);
+            => ((1d - t) * aX + t * bX,
+                (1d - t) * aY + t * bY,
+                (1d - t) * aZ + t * bZ);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Linear(Point2D a, Point2D b, double t)
+            => new Point2D(Linear(a.X, a.Y, b.X, b.Y, t));
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Linear(Point3D a, Point3D b, double t)
+            => new Point3D(Linear(a.X, a.Y, a.Z, b.X, b.Y, b.Z, t));
 
         #endregion
 
@@ -1094,9 +1079,9 @@ namespace Engine
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
-        /// <param name="v0">The first parameter.</param>
-        /// <param name="v1">The second parameter.</param>
-        /// <param name="v2">The third parameter.</param>
+        /// <param name="aV">The first parameter.</param>
+        /// <param name="bV">The second parameter.</param>
+        /// <param name="cV">The third parameter.</param>
         /// <param name="t">The time parameter.</param>
         /// <returns>Returns a value interpolated from a Quadratic Bezier.</returns>
         /// <acknowledgment>
@@ -1104,27 +1089,24 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadraticBezier(
-            double v0,
-            double v1,
-            double v2,
+            double aV,
+            double bV,
+            double cV,
             double t)
         {
-            var mu1 = 1d - t;
-            var mu12 = mu1 * mu1;
-            var mu2 = t * t;
-
-            return v0 * mu12 + 2d * v1 * mu1 * t + v2 * mu2;
+            var ti = 1d - t;
+            return aV * ti * ti + 2d * bV * ti * t + cV * t * t;
         }
 
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
-        /// <param name="x0">The x-component of the first parameter.</param>
-        /// <param name="y0">The y-component of the first parameter.</param>
-        /// <param name="x1">The x-component of the second parameter.</param>
-        /// <param name="y1">The y-component of the second parameter.</param>
-        /// <param name="x2">The x-component of the third parameter.</param>
-        /// <param name="y2">The y component of the third parameter.</param>
+        /// <param name="aX">The x-component of the first parameter.</param>
+        /// <param name="aY">The y-component of the first parameter.</param>
+        /// <param name="bX">The x-component of the second parameter.</param>
+        /// <param name="bY">The y-component of the second parameter.</param>
+        /// <param name="cX">The x-component of the third parameter.</param>
+        /// <param name="cY">The y component of the third parameter.</param>
         /// <param name="t">The time parameter.</param>
         /// <returns>Returns a point at t position of a Quadratic Bezier curve.</returns>
         /// <acknowledgment>
@@ -1132,18 +1114,17 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) QuadraticBezier(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
             double t)
         {
-            var mu1 = 1d - t;
-            var mu12 = mu1 * mu1;
-            var mu2 = t * t;
-
+            var ti = 1d - t;
+            var ti2 = ti * ti;
+            var t2 = t * t;
             return (
-                (x0 * mu12 + 2d * x1 * mu1 * t + x2 * mu2),
-                (y0 * mu12 + 2d * y1 * mu1 * t + y2 * mu2)
+                (aX * ti2 + 2d * bX * ti * t + cX * t2),
+                (aY * ti2 + 2d * bY * ti * t + cY * t2)
                 );
         }
 
@@ -1171,14 +1152,13 @@ namespace Engine
             double x2, double y2, double z2,
             double t)
         {
-            var mu1 = 1d - t;
-            var mu12 = mu1 * mu1;
-            var mu2 = t * t;
-
+            var ti = 1d - t;
+            var ti2 = ti * ti;
+            var t2 = t * t;
             return (
-                (x0 * mu12 + 2d * x1 * mu1 * t + x2 * mu2),
-                (y0 * mu12 + 2d * y1 * mu1 * t + y2 * mu2),
-                (z0 * mu12 + 2d * z1 * mu1 * t + z2 * mu2));
+                (x0 * ti2 + 2d * x1 * ti * t + x2 * t2),
+                (y0 * ti2 + 2d * y1 * ti * t + y2 * t2),
+                (z0 * ti2 + 2d * z1 * ti * t + z2 * t2));
         }
 
         #endregion

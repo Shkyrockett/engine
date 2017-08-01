@@ -286,10 +286,10 @@ namespace Engine
             => matrix.Transform(value);
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Point2D"/> classes.
+        /// Divide a <see cref="Point2D"/> by a value.
         /// </summary>
-        /// <param name="divisor">The original value</param>
-        /// <param name="dividend">The amount to add.</param>
+        /// <param name="divisor">The divisor value</param>
+        /// <param name="dividend">The dividend to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]

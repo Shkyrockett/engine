@@ -1086,19 +1086,6 @@ namespace Engine
                 (w * num) - num10);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="divedend"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Divide(this Polynomial divisor, double divedend)
-        {
-            for (var i = 0; i < divisor.Coefficients.Length; i++)
-                divisor.Coefficients[i] /= divedend;
-        }
-
         #endregion
 
         #region Dot Product
@@ -2085,23 +2072,6 @@ namespace Engine
                 ((y * num) + (num3 * w)) + num11,
                 ((z * num) + (num2 * w)) + num10,
                 (w * num) - num9);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static Polynomial Multiply(this Polynomial left, Polynomial right)
-        {
-            var result = new Polynomial();
-            for (var i = 0; i <= Degree + (int)right.Degree; i++)
-                result.Coefficients.Add(0);
-            for (var i = 0; i <= Degree; i++)
-                for (var j = 0; j <= (int)right.Degree; j++)
-                    result.Coefficients[i + j] += left.Coefficients[i] * right.Coefficients[j];
-            return result;
         }
 
         #endregion

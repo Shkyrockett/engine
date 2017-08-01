@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
+using System.Diagnostics;
 
 namespace Engine.Tweening
 {
@@ -60,6 +61,7 @@ namespace Engine.Tweening
         /// <summary>
         /// Ease a value to its target and then back with another easing function. Use this to wrap two other easing functions.
         /// </summary>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Func<double, double> ToAndFro(Func<double, double> easer1, Func<double, double> easer2)
             => t => (t < 0.5) ? ToAndFro(easer1(t)) : ToAndFro(easer2(t));
@@ -67,6 +69,7 @@ namespace Engine.Tweening
         /// <summary>
         /// Ease a value to its target and then back. Use this to wrap another easing function.
         /// </summary>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Func<double, double> ToAndFro(Func<double, double> easer)
             => t => ToAndFro(easer(t));
@@ -74,6 +77,7 @@ namespace Engine.Tweening
         /// <summary>
         /// Ease a value to its target and then back.
         /// </summary>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToAndFro(double t)
             => t < 0.5d ? t * 2d : 1d + ((t - 0.5d) / 0.5d) * -1d;
@@ -83,6 +87,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Parabolic(double t)
             => -4 * t * t + 4 * t - 0;
@@ -102,6 +107,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(double t, double b, double c, double d)
             => c * t / d + b;
@@ -111,6 +117,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
         /// <returns>The correct value.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(double t)
             => t;
@@ -131,6 +138,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadIn(double t, double b, double c, double d)
             => c * (t /= d) * t + b;
@@ -140,6 +148,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadIn(double t)
             => t * t;
@@ -156,6 +165,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOut(double t, double b, double c, double d)
             => -c * (t /= d) * (t - 2) + b;
@@ -165,6 +175,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOut(double t)
             => -t * (t - 2d);
@@ -181,6 +192,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadInOut(double t, double b, double c, double d)
             => ((t /= d / 2) < 1) ? c / 2 * t * t + b : -c / 2 * ((--t) * (t - 2) - 1) + b;
@@ -190,6 +202,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadInOut(double t)
             => t <= 0.5d ? t * t * 2d : 1d - (--t) * t * 2d;
@@ -206,6 +219,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? QuadOut(t * 2, b, c / 2, d) : QuadIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -219,6 +233,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOutIn(double t)
             => (t < 0.5) ? QuadOut(t * 2) : QuadIn((t * 2) - 1);
@@ -239,6 +254,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicIn(double t, double b, double c, double d)
             => c * (t /= d) * t * t + b;
@@ -248,6 +264,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicIn(double t)
             => t * t * t;
@@ -264,6 +281,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOut(double t, double b, double c, double d)
             => c * ((t = t / d - 1) * t * t + 1) + b;
@@ -273,6 +291,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOut(double t)
             => 1d + (--t) * t * t;
@@ -289,6 +308,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicInOut(double t, double b, double c, double d)
             => ((t /= d / 2) < 1) ? c / 2 * t * t * t + b : c / 2 * ((t -= 2) * t * t + 2) + b;
@@ -298,6 +318,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicInOut(double t)
             => t <= 0.5d ? t * t * t * 4d : 1d + (--t) * t * t * 4d;
@@ -314,6 +335,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? CubicOut(t * 2, b, c / 2, d) : CubicIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -327,6 +349,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOutIn(double t)
             => (t < 0.5) ? CubicOut(t * 2) : CubicIn((t * 2) - 1);
@@ -347,6 +370,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartIn(double t, double b, double c, double d)
             => c * (t /= d) * t * t * t + b;
@@ -356,6 +380,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartIn(double t)
             => t * t * t * t;
@@ -372,6 +397,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOut(double t, double b, double c, double d)
             => -c * ((t = t / d - 1) * t * t * t - 1) + b;
@@ -381,6 +407,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOut(double t)
             => 1d - (--t) * t * t * t;
@@ -397,6 +424,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartInOut(double t, double b, double c, double d)
             => ((t /= d / 2) < 1) ? c / 2 * t * t * t * t + b : -c / 2 * ((t -= 2) * t * t * t - 2) + b;
@@ -406,6 +434,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartInOut(double t)
             => t <= 0.5d ? t * t * t * t * 8d : (1d - (t = t * 2d - 2d) * t * t * t) * 0.5d + 0.5d;
@@ -422,6 +451,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? QuartOut(t * 2, b, c / 2, d) : QuartIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -435,6 +465,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOutIn(double t)
             => (t < 0.5) ? QuartOut(t * 2) : QuartIn((t * 2) - 1);
@@ -455,6 +486,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintIn(double t, double b, double c, double d)
             => c * (t /= d) * t * t * t * t + b;
@@ -464,6 +496,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintIn(double t)
             => t * t * t * t * t;
@@ -480,6 +513,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOut(double t, double b, double c, double d)
             => c * ((t = t / d - 1) * t * t * t * t + 1) + b;
@@ -489,6 +523,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOut(double t)
             => (t -= 1d) * t * t * t * t + 1d;
@@ -505,6 +540,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintInOut(double t, double b, double c, double d)
             => ((t /= d / 2) < 1) ? c / 2 * t * t * t * t * t + b : c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
@@ -514,6 +550,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintInOut(double t)
             => ((t *= 2d) < 1d) ? (t * t * t * t * t) * 0.5d : ((t -= 2d) * t * t * t * t + 2d) * 0.5d;
@@ -530,6 +567,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? QuintOut(t * 2, b, c / 2, d) : QuintIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -543,6 +581,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOutIn(double t)
             => (t < 0.5) ? QuintOut(t * 2) : QuintIn((t * 2) - 1);
@@ -563,6 +602,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoIn(double t, double b, double c, double d)
             => (t == 0) ? b : c * Pow(2, 10 * (t / d - 1)) + b;
@@ -572,6 +612,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoIn(double t)
             => (Pow(2d, 10d * (t - 1d)));
@@ -588,6 +629,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOut(double t, double b, double c, double d)
             => (t == d) ? b + c : c * (-Pow(2, -10 * t / d) + 1) + b;
@@ -597,6 +639,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOut(double t)
             => (Abs(t - 1d) < Epsilon) ? 1d : -Pow(2d, -10d * t) + 1d;
@@ -613,6 +656,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoInOut(double t, double b, double c, double d)
         {
@@ -633,6 +677,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoInOut(double t)
             => (Abs(t - 1d) < Epsilon)
@@ -650,6 +695,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? ExpoOut(t * 2, b, c / 2, d) : ExpoIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -663,6 +709,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOutIn(double t)
             => (t < 0.5) ? ExpoOut(t * 2) : ExpoIn((t * 2) - 1);
@@ -683,18 +730,22 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineIn(double t, double b, double c, double d)
-            => -c * Cos(t / d * (PI / 2)) + c + b;
+            => -c * Cos(t / d * Right) + c + b;
 
         /// <summary>
         /// Sine in.
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineIn(double t)
-            => (Abs(t - 1d) < Epsilon) ? 1d : (-Cos(Right * t) + 1d);
+            => (Abs(t - 1d) < Epsilon)
+            ? 1d
+            : (-Cos(Right * t) + 1d);
 
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing out: 
@@ -708,15 +759,17 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOut(double t, double b, double c, double d)
-            => c * Sin(t / d * (PI / 2)) + b;
+            => c * Sin(t / d * Right) + b;
 
         /// <summary>
         /// Sine out.
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOut(double t)
             => (Sin(Right * t));
@@ -733,15 +786,19 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineInOut(double t, double b, double c, double d)
-            => ((t /= d / 2) < 1) ? c / 2 * (Sin(PI * t / 2)) + b : -c / 2 * (Cos(PI * --t / 2) - 2) + b;
+            => ((t /= d * 0.5d) < 1)
+            ? c * 0.5d * (Sin(Right * t)) + b
+            : -c * 0.5d * (Cos(Right * --t) - 2) + b;
 
         /// <summary>
         /// Sine in and out
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineInOut(double t)
             => (-Cos(PI * t) * 0.5d + 0.5d);
@@ -758,9 +815,12 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? SineOut(t * 2, b, c / 2, d) : SineIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d * 0.5d)
+            ? SineOut(t * 2, b, c * 0.5d, d)
+            : SineIn((t * 2) - d, b + c * 0.5d, c * 0.5d, d);
 
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out: 
@@ -771,9 +831,12 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOutIn(double t)
-            => (t < 0.5) ? SineOut(t * 2) : SineIn((t * 2) - 1);
+            => (t < 0.5)
+            ? SineOut(t * 2)
+            : SineIn((t * 2) - 1);
 
         #endregion
 
@@ -791,6 +854,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircIn(double t, double b, double c, double d)
             => -c * (Sqrt(1 - (t /= d) * t) - 1) + b;
@@ -800,6 +864,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircIn(double t)
             => (-(Sqrt(1d - t * t) - 1d));
@@ -816,6 +881,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOut(double t, double b, double c, double d)
             => c * Sqrt(1 - (t = t / d - 1) * t) + b;
@@ -825,6 +891,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOut(double t)
             => (Sqrt(1d - (t - 1d) * (t - 1d)));
@@ -841,6 +908,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircInOut(double t, double b, double c, double d)
             => ((t /= d / 2) < 1) ? -c / 2 * (Sqrt(1 - t * t) - 1) + b : c / 2 * (Sqrt(1 - (t -= 2) * t) + 1) + b;
@@ -850,6 +918,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircInOut(double t)
             => (t <= 0.5d ? (Sqrt(1 - t * t * 4d) - 1d) * -0.5d : (Sqrt(1d - (t * 2d - 2d) * (t * 2d - 2d)) + 1d) * 0.5d);
@@ -866,6 +935,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? CircOut(t * 2, b, c / 2, d) : CircIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -879,6 +949,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// Modified from: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOutIn(double t)
             => (t < 0.5) ? CircOut(t * 2) : CircIn((t * 2) - 1);
@@ -899,6 +970,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticIn(double t, double b, double c, double d)
         {
@@ -916,6 +988,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticIn(double t)
             => (Sin(13d * Right * t) * Pow(2d, 10d * (t - 1d)));
@@ -932,6 +1005,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOut(double t, double b, double c, double d)
         {
@@ -949,6 +1023,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOut(double t)
             => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * Right * (t + 1d)) * Pow(2d, -10d * t) + 1d);
@@ -965,6 +1040,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticInOut(double t, double b, double c, double d)
         {
@@ -984,6 +1060,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticInOut(double t)
             => (t < 0.5d) ?
@@ -1002,6 +1079,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? ElasticOut(t * 2, b, c / 2, d) : ElasticIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -1015,6 +1093,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOutIn(double t)
             => (t < 0.5) ? ElasticOut(t * 2) : ElasticIn((t * 2) - 1);
@@ -1035,6 +1114,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceIn(double t, double b, double c, double d)
             => c - BounceOut(d - t, 0, c, d) + b;
@@ -1044,6 +1124,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceIn(double t)
         {
@@ -1069,6 +1150,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOut(double t, double b, double c, double d)
         {
@@ -1087,6 +1169,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOut(double t)
         {
@@ -1111,6 +1194,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceEaseInOut(double t, double b, double c, double d)
         {
@@ -1125,6 +1209,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceInOut(double t)
         {
@@ -1162,6 +1247,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? BounceOut(t * 2, b, c / 2, d) : BounceIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -1175,6 +1261,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOutIn(double t)
             => (t < 0.5) ? BounceOut(t * 2) : BounceIn((t * 2) - 1);
@@ -1195,6 +1282,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackIn(double t, double b, double c, double d)
             => c * (t /= d) * t * ((1.70158 + 1) * t - 1.70158) + b;
@@ -1204,6 +1292,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackIn(double t)
             => (t * t * (2.70158d * t - 1.70158d));
@@ -1220,6 +1309,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOut(double t, double b, double c, double d)
             => c * ((t = t / d - 1) * t * ((1.70158 + 1) * t + 1.70158) + 1) + b;
@@ -1229,6 +1319,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOut(double t)
             => (1d - (--t) * (t) * (-2.70158d * t - 1.70158d));
@@ -1245,6 +1336,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackInOut(double t, double b, double c, double d)
         {
@@ -1257,6 +1349,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackInOut(double t)
         {
@@ -1279,6 +1372,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOutIn(double t, double b, double c, double d)
             => (t < d / 2) ? BackOut(t * 2, b, c / 2, d) : BackIn((t * 2) - d, b + c / 2, c / 2, d);
@@ -1292,6 +1386,7 @@ namespace Engine.Tweening
         /// <remarks>
         /// From: https://github.com/darrendavid/wpf-animation
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOutIn(double t)
             => (t < 0.5) ? BackOut(t * 2) : BackIn((t * 2) - 1);
@@ -1306,7 +1401,7 @@ namespace Engine.Tweening
         /// <returns></returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static new bool ReferenceEquals(object objA, object objB)
+        private static new bool ReferenceEquals(object objA, object objB)
             => object.ReferenceEquals(objA, objB);
     }
 }

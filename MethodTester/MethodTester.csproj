@@ -127,7 +127,6 @@
     <Compile Include="Experimental\Curves\Heart.cs" />
     <Compile Include="Experimental\Curves\Hermite.cs" />
     <Compile Include="Experimental\Hyperbola.cs" />
-    <Compile Include="Experimental\Intersections2.cs" />
     <Compile Include="Experimental\Intersection\IntersectionParams.cs" />
     <Compile Include="Experimental\Intersection\Intersectionx.cs" />
     <Compile Include="Experimental\LineSegment2D.cs" />

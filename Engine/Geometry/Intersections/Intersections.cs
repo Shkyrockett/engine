@@ -2565,7 +2565,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PointPointIntersection(double p0X, double p0Y, double p1X, double p1Y, double epsilon = Epsilon)
+        private static Intersection PointPointIntersection(
+            double p0X, double p0Y,
+            double p1X, double p1Y,
+            double epsilon = Epsilon)
             => PointPointIntersects(p0X, p0Y, p1X, p1Y)
             ? new Intersection(IntersectionState.Intersection, new Point2D(p0X, p0Y))
             : new Intersection(IntersectionState.NoIntersection);
@@ -2583,7 +2586,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PointLineIntersection(double pX, double pY, double lx, double ly, double i, double j, double epsilon = Epsilon)
+        private static Intersection PointLineIntersection(
+            double pX, double pY,
+            double lx, double ly, double i, double j,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             if (i == 0 && pX == lx)
@@ -2608,7 +2614,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PointLineSegmentIntersection(double pX, double pY, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)
+        private static Intersection PointLineSegmentIntersection(
+            double pX, double pY,
+            double lAX, double lAY, double lBX, double lBY,
+            double epsilon = Epsilon)
             => (PointLineSegmentIntersects(pX, pY, lAX, lAY, lBX, lBY))
             ? new Intersection(IntersectionState.Intersection, new Point2D(pX, pY))
             : new Intersection(IntersectionState.NoIntersection);
@@ -2632,7 +2641,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineLineIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double epsilon = Epsilon)
+        private static Intersection LineLineIntersection(
+            double x0, double y0, double x1, double y1,
+            double x2, double y2, double x3, double y3,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection results.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -2680,7 +2692,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineLineSegmentIntersection(double l0X, double l0Y, double l1X, double l1Y, double s0X, double s0Y, double s1X, double s1Y, double epsilon = Epsilon)
+        private static Intersection LineLineSegmentIntersection(
+            double l0X, double l0Y, double l1X, double l1Y,
+            double s0X, double s0Y, double s1X, double s1Y,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection result.
             var result = new Intersection(IntersectionState.Intersection);
@@ -2757,7 +2772,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineQuadraticBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
+        private static Intersection LineQuadraticBezierIntersection(
+            double x1, double y1, double x2, double y2,
+            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
+            double epsilon = Epsilon)
         {
             // Initialize intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -2819,7 +2837,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCubicBezierIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
+        private static Intersection LineCubicBezierIntersection(
+            double x1, double y1, double x2, double y2,
+            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -2884,7 +2905,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LinePolygonContourIntersection(double a1X, double a1Y, double a2X, double a2Y, List<Point2D> points, double epsilon = Epsilon)
+        private static Intersection LinePolygonContourIntersection(
+            double a1X, double a1Y, double a2X, double a2Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
         {
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
@@ -2926,7 +2950,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineRectangleIntersection(double a1X, double a1Y, double a2X, double a2Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection LineRectangleIntersection(
+            double a1X, double a1Y, double a2X, double a2Y,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -2964,7 +2991,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCircleIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double epsilon = Epsilon)
+        private static Intersection LineCircleIntersection(
+            double lAX, double lAY, double lBX, double lBY,
+            double cX, double cY, double r,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection result.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -3037,7 +3067,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCircularArcIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        private static Intersection LineCircularArcIntersection(
+            double lAX, double lAY, double lBX, double lBY,
+            double cX, double cY, double r, double angle, double startAngle, double sweepAngle,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -3145,7 +3178,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double angle, double epsilon = Epsilon)
+        private static Intersection LineEllipseIntersection(
+            double x0, double y0, double x1, double y1,
+            double cx, double cy, double rx, double ry, double angle,
+            double epsilon = Epsilon)
             => LineEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
@@ -3169,7 +3205,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
+        private static Intersection LineEllipseIntersection(
+            double x0, double y0, double x1, double y1,
+            double cx, double cy, double rx, double ry, double cosA, double sinA,
+            double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -3251,7 +3290,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipticalArcIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        private static Intersection LineEllipticalArcIntersection(
+            double x0, double y0, double x1, double y1,
+            double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
+            double epsilon = Epsilon)
             => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
@@ -3277,7 +3319,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipticalArcIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        private static Intersection LineEllipticalArcIntersection(
+            double x0, double y0, double x1, double y1,
+            double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
+            double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -3398,7 +3443,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection RayRayIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
+        private static Intersection RayRayIntersection(
+            double a1X, double a1Y, double a2X, double a2Y,
+            double b1X, double b1Y, double b2X, double b2Y,
+            double epsilon = Epsilon)
         {
             var ua_t = (b2X - b1X) * (a1Y - b1Y) - (b2Y - b1Y) * (a1X - b1X);
             var ub_t = (a2X - a1X) * (a1Y - b1Y) - (a2Y - a1Y) * (a1X - b1X);
@@ -3446,7 +3494,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentLineSegmentIntersection(double x1, double y1, double x2, double y2, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
+        private static Intersection LineSegmentLineSegmentIntersection(
+            double x1, double y1, double x2, double y2,
+            double b1X, double b1Y, double b2X, double b2Y,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var ua_t = (b2X - b1X) * (y1 - b1Y) - (b2Y - b1Y) * (x1 - b1X);
@@ -3503,7 +3554,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentQuadraticBezierSegmentIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
+        private static Intersection LineSegmentQuadraticBezierSegmentIntersection(
+            double x1, double y1, double x2, double y2,
+            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -3578,7 +3632,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentCubicBezierSegmentIntersection(double x1, double y1, double x2, double y2, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
+        private static Intersection LineSegmentCubicBezierSegmentIntersection(
+            double x1, double y1, double x2, double y2,
+            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -3658,7 +3715,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentRectangleIntersection(double lAX, double lAY, double lBX, double lBY, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection LineSegmentRectangleIntersection(
+            double lAX, double lAY, double lBX, double lBY,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var topLeft = MinPoint(r1X, r1Y, r2X, r2Y);
             var bottomRight = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -3696,7 +3756,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentPolygonContourIntersection(double a1X, double a1Y, double a2X, double a2Y, List<Point2D> points, double epsilon = Epsilon)
+        private static Intersection LineSegmentPolygonContourIntersection(
+            double a1X, double a1Y, double a2X, double a2Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
         {
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
@@ -3740,7 +3803,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentCircleIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double angle, double epsilon = Epsilon)
+        private static Intersection LineSegmentCircleIntersection(
+            double lAX, double lAY, double lBX, double lBY,
+            double cX, double cY, double r, double angle,
+            double epsilon = Epsilon)
         {
             Intersection result;
 
@@ -3824,7 +3890,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentCircularArcIntersection(double lAX, double lAY, double lBX, double lBY, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        private static Intersection LineSegmentCircularArcIntersection(
+            double lAX, double lAY, double lBX, double lBY,
+            double cX, double cY, double r, double angle, double startAngle, double sweepAngle,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -3926,7 +3995,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double angle, double epsilon = Epsilon)
+        private static Intersection LineSegmentEllipseIntersection(
+            double x0, double y0, double x1, double y1,
+            double cx, double cy, double rx, double ry, double angle,
+            double epsilon = Epsilon)
             => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
@@ -3950,7 +4022,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipseIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
+        private static Intersection LineSegmentEllipseIntersection(
+            double x0, double y0, double x1, double y1,
+            double cx, double cy, double rx, double ry, double cosA, double sinA,
+            double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -4043,7 +4118,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipticalArcIntersection(double x0, double y0, double x1, double y1, double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        private static Intersection LineSegmentEllipticalArcIntersection(
+            double x0, double y0, double x1, double y1,
+            double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
+            double epsilon = Epsilon)
             => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
@@ -4069,7 +4147,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipticalArcIntersection(double x0, double y0, double cx, double x1, double y1, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        private static Intersection LineSegmentEllipticalArcIntersection(
+            double x0, double y0,
+            double cx, double x1, double y1, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
+            double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -4206,7 +4287,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -4220,7 +4304,7 @@ namespace Engine
             var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
             var yCoeffB = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
 
-            List<double> roots = default;
+            List<double> roots = null;
 
             // ToDo: Find the intersections of Bezier curves where all of the nodes are paralell.
 
@@ -4272,16 +4356,26 @@ namespace Engine
                     yCoeffB.A * s * s + yCoeffB.B * s + yCoeffB.C);
                 if (s >= 0 && s <= 1)
                 {
-                    var xRoots = QuadraticRoots(
-                        /* t^2 */ -xCoeffA.A,
-                        /* t^1 */ -xCoeffA.B,
-                        /* C^0 */ -xCoeffA.C + point.X,
-                        epsilon);
-                    var yRoots = QuadraticRoots(
-                        /* t^2 */ -yCoeffA.A,
-                        /* t^1 */ -yCoeffA.B,
-                        /* C^0 */ -yCoeffA.C + point.Y,
-                        epsilon);
+                    var xRoots = (xCoeffA.A == 0)
+                        ? LinearRoots(
+                            /* t^1 */ -xCoeffA.B,
+                            /* C^0 */ -xCoeffA.C + point.X,
+                            epsilon)
+                        : QuadraticRoots(
+                            /* t^2 */ -xCoeffA.A,
+                            /* t^1 */ -xCoeffA.B,
+                            /* C^0 */ -xCoeffA.C + point.X,
+                            epsilon);
+                    var yRoots = (yCoeffA.A == 0)
+                        ? LinearRoots(
+                            /* t^1 */ -yCoeffA.B,
+                            /* C^0 */ -yCoeffA.C + point.Y,
+                            epsilon)
+                        : QuadraticRoots(
+                            /* t^2 */ -yCoeffA.A,
+                            /* t^1 */ -yCoeffA.B,
+                            /* C^0 */ -yCoeffA.C + point.Y,
+                            epsilon);
 
                     if (xRoots.Count > 0 && yRoots.Count > 0)
                     {
@@ -4439,7 +4533,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentPolygonContourIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, List<Point2D> points, double epsilon = Epsilon)
+        private static Intersection QuadraticBezierSegmentPolygonContourIntersection(
+            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
         {
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
@@ -4483,7 +4580,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentRectangleIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection QuadraticBezierSegmentRectangleIntersection(
+            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -4530,7 +4630,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
+        private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -4672,7 +4775,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentPolygonIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y, List<Point2D> points, double epsilon = Epsilon)
+        private static Intersection CubicBezierSegmentPolygonIntersection(
+            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
         {
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
@@ -4720,7 +4826,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentRectangleIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection CubicBezierSegmentRectangleIntersection(
+            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -4755,7 +4864,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PolygonContourPolygonContourIntersection(List<Point2D> points1, List<Point2D> points2, double epsilon = Epsilon)
+        private static Intersection PolygonContourPolygonContourIntersection(
+            List<Point2D> points1,
+            List<Point2D> points2,
+            double epsilon = Epsilon)
         {
             var intersections = new HashSet<Point2D>();
             var length = points1.Count;
@@ -4795,7 +4907,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PolygonContourRectangleIntersection(List<Point2D> points, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection PolygonContourRectangleIntersection(
+            List<Point2D> points,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -4836,7 +4951,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection RectangleRectangleIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
+        private static Intersection RectangleRectangleIntersection(
+            double a1X, double a1Y, double a2X, double a2Y,
+            double b1X, double b1Y, double b2X, double b2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(a1X, a1Y, a2X, a2Y);
             var max = MaxPoint(a1X, a1Y, a2X, a2Y);
@@ -4874,7 +4992,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CirclePolygonIntersection(double cX, double cY, double r, List<Point2D> points, double angle, double epsilon = Epsilon)
+        private static Intersection CirclePolygonIntersection(
+            double cX, double cY, double r,
+            List<Point2D> points, double angle,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var inter = new Intersection(IntersectionState.NoIntersection);
@@ -4920,7 +5041,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleRectangleIntersection(double cX, double cY, double r, double angle, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection CircleRectangleIntersection(
+            double cX, double cY, double r, double angle,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MinPoint(r1X, r1Y, r2X, r2Y);
@@ -4960,7 +5084,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleCircleIntersection1(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)
+        private static Intersection CircleCircleIntersection1(
+            double cx0, double cy0, double radius0,
+            double cx1, double cy1, double radius1,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -5047,7 +5174,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleCircleIntersection(double c1X, double c1Y, double r1, double c2X, double c2Y, double r2, double epsilon = Epsilon)
+        private static Intersection CircleCircleIntersection(
+            double c1X, double c1Y, double r1,
+            double c2X, double c2Y, double r2,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var r_max = r1 + r2;
@@ -5089,7 +5219,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipsePolygonContourIntersection(double cx, double cy, double rx, double ry, double angle, List<Point2D> points, double epsilon = Epsilon)
+        private static Intersection EllipsePolygonContourIntersection(
+            double cx, double cy, double rx, double ry, double angle,
+            List<Point2D> points,
+            double epsilon = Epsilon)
             => EllipsePolygonContourIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), points, epsilon);
 
         /// <summary>
@@ -5108,7 +5241,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CirclePolygonContourIntersection(double cX, double cY, double radius, double angle, List<Point2D> points, double epsilon = Epsilon)
+        private static Intersection CirclePolygonContourIntersection(
+            double cX, double cY, double radius, double angle,
+            List<Point2D> points,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var inter = new Intersection(IntersectionState.NoIntersection);
@@ -5153,7 +5289,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipsePolygonContourIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, List<Point2D> points, double epsilon = Epsilon)
+        private static Intersection EllipsePolygonContourIntersection(
+            double cX, double cY, double rx, double ry, double cosA, double sinA,
+            List<Point2D> points,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             var inter = new Intersection(IntersectionState.NoIntersection);
@@ -5196,7 +5335,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseRectangleIntersection(double cx, double cy, double rx, double ry, double angle, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection EllipseRectangleIntersection(
+            double cx, double cy, double rx, double ry, double angle,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
             => EllipseRectangleIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), r1X, r1Y, r2X, r2Y, epsilon);
 
         /// <summary>
@@ -5220,7 +5362,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseRectangleIntersection(double cX, double cY, double rx, double ry, double cosA, double sinA, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        private static Intersection EllipseRectangleIntersection(
+            double cX, double cY, double rx, double ry, double cosA, double sinA,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -5260,11 +5405,8 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double ecX, double ecY,
-            double rx, double ry,
+            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
+            double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
         {
             var a = new Vector2D(p2X, p2Y) * -2;
@@ -5323,12 +5465,8 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double p4X, double p4Y,
-            double ecX, double ecY,
-            double rx, double ry,
+            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
+            double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
         {
             var a = new Vector2D(p1X, p1Y) * -1;
@@ -5392,10 +5530,8 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(
-            double c1X, double c1Y,
-            double rx1, double ry1,
-            double c2X, double c2Y,
-            double rx2, double ry2,
+            double c1X, double c1Y, double rx1, double ry1,
+            double c2X, double c2Y, double rx2, double ry2,
             double epsilon = Epsilon)
         {
             double[] a = new double[] { ry1 * ry1, 0, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2 * rx1 * rx1 * c1Y, ry1 * ry1 * c1X * c1X + rx1 * rx1 * c1Y * c1Y - rx1 * rx1 * ry1 * ry1 };

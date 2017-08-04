@@ -336,9 +336,9 @@ namespace Engine.Tests
             // List of testcases for intersections between two Quadratic Bezier curves.
             var testCases = new Dictionary<((double AX, double AY, double BX, double BY, double CX, double CY) a, (double AX, double AY, double BX, double BY, double CX, double CY) b), Intersection>
             {
-                //// Paralell Mirrored Quadratic Bezier curves. ToDo: Find the expected points.
-                //{ ((0, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
-                //    new Intersection(IntersectionState.Intersection, new Point2D(0,0), new Point2D(0,0)) },
+                // Paralell vertically mirrored Quadratic Bezier curves.
+                { ((0, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
+                    new Intersection(IntersectionState.Intersection, new Point2D(17.0710678118655,2.5), new Point2D(2.92893218813452,2.5)) },
                 // Reduce Quintic to Quadratic Paralell Mirrored Quadratic Bezier curves with one leg shifted to the right.
                 { ((5, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
                     new Intersection(IntersectionState.Intersection, new Point2D(17.1265312836548, 2.53937240684556), new Point2D(5.53889706744833, 0.995071968741055)) },

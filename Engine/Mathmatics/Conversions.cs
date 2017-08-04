@@ -27,6 +27,7 @@ namespace Engine
         /// </summary>
         /// <param name="circle">The circle.</param>
         /// <returns>Returns an ellipse with the values derived from the circle.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse ToEllipse(this Circle circle)
             => CircleToEllipse(circle.X, circle.Y, circle.Radius);
@@ -36,6 +37,7 @@ namespace Engine
         /// </summary>
         /// <param name="circle">The circle.</param>
         /// <returns>Returns a circular arc from the parameters of a circle.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc ToCircularArc(this Circle circle)
             => CircleToCircularArc(circle.X, circle.Y, circle.Radius);
@@ -52,6 +54,7 @@ namespace Engine
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<CubicBezier> ToCubicBeziers(this EllipticalArc ellipse)
             => EllipticalArcToCubicBeziers(ellipse.X, ellipse.Y, ellipse.RX, ellipse.RY, ellipse.StartAngle, ellipse.SweepAngle);
@@ -61,6 +64,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The line segment</param>
         /// <returns>Returns a Quadratic Bezier from a line segment.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuadraticBezier ToQuadraticBezier(this LineSegment segment)
             => LineSegmentToQuadraticBezier(segment.AX, segment.AY, segment.BX, segment.BY);
@@ -70,6 +74,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The line segment.</param>
         /// <returns>Returns a Cubic Bezier from a line segment.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CubicBezier ToCubicBezier(this LineSegment segment)
             => LineSegmentToCubicBezier(segment.AX, segment.AY, segment.BX, segment.BY);
@@ -79,6 +84,7 @@ namespace Engine
         /// </summary>
         /// <param name="curve">The Quadratic Bezier curve.</param>
         /// <returns>Returns a Cubic Bezier curve from a Quadratic Bezier curve.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CubicBezier ToCubicBezier(this QuadraticBezier curve)
             => QuadraticBezierToCubicBezier(curve.A, curve.B, curve.C);
@@ -94,6 +100,7 @@ namespace Engine
         /// <param name="y">The y-component of the center point.</param>
         /// <param name="r">The radius of circle.</param>
         /// <returns>Returns a circular arc from a circle.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc CircleToCircularArc(
             double x, double y,
@@ -107,6 +114,7 @@ namespace Engine
         /// <param name="y">The y-component of the center point.</param>
         /// <param name="r">The radius of the circle.</param>
         /// <returns>Returns an ellipse from a circle.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse CircleToEllipse(
             double x, double y,
@@ -130,6 +138,7 @@ namespace Engine
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<CubicBezier> EllipticalArcToCubicBeziers(
             double cx, double cy,
@@ -180,6 +189,7 @@ namespace Engine
         /// <param name="a">The starting point.</param>
         /// <param name="b">The end point.</param>
         /// <returns>Returns a Quadratic Bezier curve with the properties of the line segment.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuadraticBezier LineSegmentToQuadraticBezier(
             Point2D a,
@@ -194,6 +204,7 @@ namespace Engine
         /// <param name="x1">The x-component of the second point of a line segment.</param>
         /// <param name="y1">The y-component of the second point of a line segment.</param>
         /// <returns>Returns a Quadratic Bezier with the properties of a line segment.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuadraticBezier LineSegmentToQuadraticBezier(
             double x0, double y0,
@@ -206,6 +217,7 @@ namespace Engine
         /// <param name="a">The starting point of the line segment.</param>
         /// <param name="b">The ending point of the line segment.</param>
         /// <returns>Returns a Cubic Bezier with the properties of a line segment.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CubicBezier LineSegmentToCubicBezier(
             Point2D a,
@@ -220,6 +232,7 @@ namespace Engine
         /// <param name="x1">The x-component of the end point.</param>
         /// <param name="y1">The y-component of the end point.</param>
         /// <returns>Returns a Cubic Bezier curve from the properties of a line segment.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CubicBezier LineSegmentToCubicBezier(
             double x0, double y0,
@@ -235,7 +248,12 @@ namespace Engine
         /// <returns>Returns a Cubic Bezier from a Quadratic Bezier.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
-        public static Point2D[] QuadraticBezierToCubicBezierList(Point2D a, Point2D b, Point2D c)
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D[] QuadraticBezierToCubicBezierList(
+            Point2D a,
+            Point2D b,
+            Point2D c)
             => new Point2D[]
             {
                 a,
@@ -251,6 +269,7 @@ namespace Engine
         /// <param name="b">The handle of the Quadratic Bezier curve.</param>
         /// <param name="c">The end point of the Quadratic Bezier curve.</param>
         /// <returns>Returns a Cubic Bezier curve from the Quadratic Bezier curve.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CubicBezier QuadraticBezierToCubicBezier(
             Point2D a,
@@ -273,6 +292,7 @@ namespace Engine
         /// <param name="cX">The x-component of the end point.</param>
         /// <param name="cY">The y-component of the end point.</param>
         /// <returns>Returns Quadratic Bezier curve from a cubic curve.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<(double X, double Y)> QuadraticBezierToCubicBezier(
             double aX, double aY,
@@ -295,6 +315,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/ariutta/catmullrom2bezier/blob/master/catmullrom2bezier.js
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<CubicBezier> CatmullRomToBezier(
             Point2D[] points)

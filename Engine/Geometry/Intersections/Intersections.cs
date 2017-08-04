@@ -4285,7 +4285,7 @@ namespace Engine
         /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
@@ -4333,20 +4333,19 @@ namespace Engine
                 var v5 = -yCoeffA.B * v2 + yCoeffA.A * v4;
                 var v6 = v2 * v2;
 
-                if (v0 == 0)
-                    roots = QuadraticRoots(
+                roots = (v0 == 0)
+                    ? QuadraticRoots(
+                        /* t^2 */ (-yCoeffB.A * v6 + yCoeffA.A * v1 * v1 + yCoeffA.A * v0 * v4 + v0 * v5) / yCoeffA.A,
+                        /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.A * v1 * v4 + v1 * v5) / yCoeffA.A,
+                        /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.A,
+                        epsilon)
+                    : QuarticRoots(
+                        /* t^4 */ v0 * v0,
+                        /* t^3 */ 2 * v0 * v1,
                         /* t^2 */ (-yCoeffB.A * v6 + yCoeffA.A * v1 * v1 + yCoeffA.A * v0 * v4 + v0 * v5) / yCoeffA.A,
                         /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.A * v1 * v4 + v1 * v5) / yCoeffA.A,
                         /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.A,
                         epsilon);
-                else
-                    roots = QuarticRoots(
-                    /* t^4 */ v0 * v0,
-                    /* t^3 */ 2 * v0 * v1,
-                    /* t^2 */ (-yCoeffB.A * v6 + yCoeffA.A * v1 * v1 + yCoeffA.A * v0 * v4 + v0 * v5) / yCoeffA.A,
-                    /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.A * v1 * v4 + v1 * v5) / yCoeffA.A,
-                    /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.A,
-                    epsilon);
             }
 
             foreach (var s in roots)
@@ -4478,17 +4477,27 @@ namespace Engine
                    xCoeffB.A * s * s * s + xCoeffB.B * s * s + xCoeffB.C * s + xCoeffB.D,
                    yCoeffB.A * s * s * s + yCoeffB.B * s * s + yCoeffB.C * s + yCoeffB.D);
 
-                var xRoots = QuadraticRoots(
-                    /* t^2 */ xCoeffA.A,
-                    /* t^1 */ xCoeffA.B,
-                    /* t^0 */ xCoeffA.C - point.X,
-                    epsilon);
+                var xRoots = (xCoeffA.A == 0)
+                    ? LinearRoots(
+                        /* t^1 */ xCoeffA.B,
+                        /* t^0 */ xCoeffA.C - point.X,
+                        epsilon)
+                    : QuadraticRoots(
+                        /* t^2 */ xCoeffA.A,
+                        /* t^1 */ xCoeffA.B,
+                        /* t^0 */ xCoeffA.C - point.X,
+                        epsilon);
 
-                var yRoots = QuadraticRoots(
-                    /* t^2 */ yCoeffA.A,
-                    /* t^1 */ yCoeffA.B,
-                    /* t^0 */ yCoeffA.C - point.Y,
-                    epsilon);
+                var yRoots = (yCoeffA.A == 0)
+                    ? LinearRoots(
+                        /* t^1 */ yCoeffA.B,
+                        /* t^0 */ yCoeffA.C - point.Y,
+                        epsilon)
+                    : QuadraticRoots(
+                        /* t^2 */ yCoeffA.A,
+                        /* t^1 */ yCoeffA.B,
+                        /* t^0 */ yCoeffA.C - point.Y,
+                        epsilon);
 
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
@@ -4715,18 +4724,42 @@ namespace Engine
                 var point = new Point2D(
                     xCoeffB.A * s * s * s + xCoeffB.B * s * s + xCoeffB.C * s + xCoeffB.D,
                     yCoeffB.A * s * s * s + yCoeffB.B * s * s + yCoeffB.C * s + yCoeffB.D);
-                var xRoots = CubicRoots(
-                    /* t^3 */ xCoeffA.A,
-                    /* t^2 */ xCoeffA.B,
-                    /* t^1 */ xCoeffA.C,
-                    /* t^0 */ xCoeffA.D - point.X,
-                    epsilon);
-                var yRoots = CubicRoots(
-                    /* t^3 */ yCoeffA.A,
-                    /* t^2 */ yCoeffA.B,
-                    /* t^1 */ yCoeffA.C,
-                    /* t^0 */ yCoeffA.D - point.Y,
-                    epsilon);
+
+                var xRoots = (xCoeffA.A == 0)
+                    ? (xCoeffA.B == 0)
+                    ? LinearRoots(
+                        /* t^1 */ xCoeffA.C,
+                        /* t^0 */ xCoeffA.D - point.X,
+                        epsilon)
+                    : QuadraticRoots(
+                        /* t^2 */ xCoeffA.B,
+                        /* t^1 */ xCoeffA.C,
+                        /* t^0 */ xCoeffA.D - point.X,
+                        epsilon)
+                    : CubicRoots(
+                        /* t^3 */ xCoeffA.A,
+                        /* t^2 */ xCoeffA.B,
+                        /* t^1 */ xCoeffA.C,
+                        /* t^0 */ xCoeffA.D - point.X,
+                        epsilon);
+
+                var yRoots = (yCoeffA.A == 0)
+                    ? (yCoeffA.B == 0)
+                    ? LinearRoots(
+                        /* t^1 */ yCoeffA.C,
+                        /* t^0 */ yCoeffA.D - point.Y,
+                        epsilon)
+                    : QuadraticRoots(
+                        /* t^2 */ yCoeffA.B,
+                        /* t^1 */ yCoeffA.C,
+                        /* t^0 */ yCoeffA.D - point.Y,
+                        epsilon)
+                    : CubicRoots(
+                        /* t^3 */ yCoeffA.A,
+                        /* t^2 */ yCoeffA.B,
+                        /* t^1 */ yCoeffA.C,
+                        /* t^0 */ yCoeffA.D - point.Y,
+                        epsilon);
 
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {

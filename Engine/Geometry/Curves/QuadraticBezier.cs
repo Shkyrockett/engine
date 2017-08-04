@@ -30,9 +30,9 @@ namespace Engine
     [DisplayName(nameof(QuadraticBezier))]
     [XmlType(TypeName = "bezier-Quadratic")]
     public class QuadraticBezier
-        : Shape
+        : Shape, IEquatable<QuadraticBezier>
     {
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// Position 1 x-coordinate.
@@ -106,10 +106,33 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="QuadraticBezier"/> to a Tuple.
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy)
+        {
+            ax = this.ax;
+            ay = this.ay;
+            bx = this.bx;
+            by = this.by;
+            cx = this.cx;
+            cy = this.cy;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets a list of points representing the handles of the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -320,14 +343,14 @@ namespace Engine
             => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy));
 
         /// <summary>
-        /// 
+        /// Gets the perimiter length of the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Perimeter
             => Length;
 
         /// <summary>
-        /// 
+        /// Gets the axial aligned bounding box of the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [ReadOnly(true)]
@@ -338,14 +361,13 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
-        /// 
+        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the x-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
             get
             {
-                //var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.X)));
                 var curveX = (Polynomial)CachingProperty(() => Polynomial.Quadratic(cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
@@ -353,14 +375,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the y-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
         {
             get
             {
-                //var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.Y)));
                 var curveY = (Polynomial)CachingProperty(() => Polynomial.Quadratic(cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
@@ -368,7 +389,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the Polynomial degree of the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
@@ -384,6 +405,8 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(QuadraticBezier left, QuadraticBezier right)
             => left.Equals(right);
 
@@ -393,6 +416,8 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(QuadraticBezier left, QuadraticBezier right)
             => !left.Equals(right);
 
@@ -451,6 +476,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Sample(double t)
         {
@@ -467,6 +493,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Derivative(double t)
         {
@@ -479,6 +506,7 @@ namespace Engine
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
             => new Point2D(Interpolators.QuadraticBezier(ax, ay, ax, by, cx, cy, t));
@@ -492,16 +520,10 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Tangent(double t)
             => Primitives.Normalize(Derivative(t));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public CubicBezier ToCubicBezier()
-            => new CubicBezier(ax, ay, bx, by, cx, cy);
 
         #region Methods
 
@@ -509,6 +531,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<Point2D> GetEnumerator()
         {
             yield return new Point2D(Interpolators.QuadraticBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, Length));
@@ -519,7 +543,9 @@ namespace Engine
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(CubicBezier other)
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(QuadraticBezier other)
             => A.Equals(other?.A) && B.Equals(other?.B) && C.Equals(other?.C);
 
         /// <summary>
@@ -527,6 +553,8 @@ namespace Engine
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is CubicBezier && Equals((CubicBezier)obj);
 
@@ -535,6 +563,8 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <remarks>https://github.com/burningmime/curves</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             var hash = new JenkinsHash();
@@ -559,6 +589,8 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(QuadraticBezier);

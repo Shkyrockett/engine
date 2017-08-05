@@ -1387,8 +1387,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -1398,31 +1399,33 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> Roots(double epsilon = Epsilon)
         {
-            Simplify(epsilon);
-            switch (Degree)
+            // This causes garbage collection polution, by creating an extra polynomial struct,
+            // but it is better than having the side-effect where using the Simplify mutator messes up 
+            // other methods, such as GetMinMax.
+            var poly = Simplify(this, epsilon);
+            switch (poly.Degree)
             {
                 case PolynomialDegree.Constant:
-                    return new List<double>();
+                    return new List<double>() { poly.coefficients[0]};
                 case PolynomialDegree.Linear:
-                    return LinearRoots(epsilon);
+                    return poly.LinearRoots(epsilon);
                 case PolynomialDegree.Quadratic:
-                    return QuadraticRoots(epsilon);
+                    return poly.QuadraticRoots(epsilon);
                 case PolynomialDegree.Cubic:
-                    return CubicRoots(epsilon);
+                    return poly.CubicRoots(epsilon);
                 case PolynomialDegree.Quartic:
-                    return QuarticRoots(epsilon);
+                    return poly.QuarticRoots(epsilon);
                 case PolynomialDegree.Quintic:
-                    // ToDo: Uncomment when Quintic roots are implemented.
-                    return QuinticRoots(epsilon);
+                    return poly.QuinticRoots(epsilon);
                 case PolynomialDegree.Sextic:
                 // ToDo: Uncomment when Sextic roots are implemented.
-                //return SexticRoots(epsilon);
+                //return poly.SexticRoots(epsilon);
                 case PolynomialDegree.Septic:
                 // ToDo: Uncomment when Septic roots are implemented.
-                //return SepticRoots(epsilon);
+                //return poly.SepticRoots(epsilon);
                 case PolynomialDegree.Octic:
                 // ToDo: Uncomment when Octic roots are implemented.
-                //return OcticRoots(epsilon);
+                //return poly.OcticRoots(epsilon);
                 default:
                     // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
                     return new List<double>();
@@ -1959,8 +1962,7 @@ namespace Engine
         {
             for (var i = (int)Degree; i >= 0; i--)
             {
-                var term = Abs(coefficients[i]);
-                if (term <= epsilon)
+                if (Abs(coefficients[i]) <= epsilon)
                     coefficients = coefficients.RemoveAt(i);
                 else break;
             }

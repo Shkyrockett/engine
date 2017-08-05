@@ -2565,7 +2565,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PointPointIntersection(
+        public static Intersection PointPointIntersection(
             double p0X, double p0Y,
             double p1X, double p1Y,
             double epsilon = Epsilon)
@@ -2586,7 +2586,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PointLineIntersection(
+        public static Intersection PointLineIntersection(
             double pX, double pY,
             double lx, double ly, double i, double j,
             double epsilon = Epsilon)
@@ -2614,7 +2614,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PointLineSegmentIntersection(
+        public static Intersection PointLineSegmentIntersection(
             double pX, double pY,
             double lAX, double lAY, double lBX, double lBY,
             double epsilon = Epsilon)
@@ -2641,7 +2641,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineLineIntersection(
+        public static Intersection LineLineIntersection(
             double x0, double y0, double x1, double y1,
             double x2, double y2, double x3, double y3,
             double epsilon = Epsilon)
@@ -2692,7 +2692,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineLineSegmentIntersection(
+        public static Intersection LineLineSegmentIntersection(
             double l0X, double l0Y, double l1X, double l1Y,
             double s0X, double s0Y, double s1X, double s1Y,
             double epsilon = Epsilon)
@@ -2772,7 +2772,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineQuadraticBezierIntersection(
+        public static Intersection LineQuadraticBezierIntersection(
             double x1, double y1, double x2, double y2,
             double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
             double epsilon = Epsilon)
@@ -2837,7 +2837,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCubicBezierIntersection(
+        public static Intersection LineCubicBezierIntersection(
             double x1, double y1, double x2, double y2,
             double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y,
             double epsilon = Epsilon)
@@ -2905,7 +2905,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LinePolygonContourIntersection(
+        public static Intersection LinePolygonContourIntersection(
             double a1X, double a1Y, double a2X, double a2Y,
             List<Point2D> points,
             double epsilon = Epsilon)
@@ -2950,7 +2950,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineRectangleIntersection(
+        public static Intersection LineRectangleIntersection(
             double a1X, double a1Y, double a2X, double a2Y,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -2991,7 +2991,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCircleIntersection(
+        public static Intersection LineCircleIntersection(
             double lAX, double lAY, double lBX, double lBY,
             double cX, double cY, double r,
             double epsilon = Epsilon)
@@ -3067,7 +3067,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCircularArcIntersection(
+        public static Intersection LineCircularArcIntersection(
             double lAX, double lAY, double lBX, double lBY,
             double cX, double cY, double r, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
@@ -3178,7 +3178,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipseIntersection(
+        public static Intersection LineEllipseIntersection(
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle,
             double epsilon = Epsilon)
@@ -3205,7 +3205,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipseIntersection(
+        public static Intersection LineEllipseIntersection(
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
@@ -3290,7 +3290,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipticalArcIntersection(
+        public static Intersection LineEllipticalArcIntersection(
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
@@ -3319,7 +3319,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineEllipticalArcIntersection(
+        public static Intersection LineEllipticalArcIntersection(
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
@@ -3443,7 +3443,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection RayRayIntersection(
+        public static Intersection RayRayIntersection(
             double a1X, double a1Y, double a2X, double a2Y,
             double b1X, double b1Y, double b2X, double b2Y,
             double epsilon = Epsilon)
@@ -3494,7 +3494,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentLineSegmentIntersection(
+        public static Intersection LineSegmentLineSegmentIntersection(
             double x1, double y1, double x2, double y2,
             double b1X, double b1Y, double b2X, double b2Y,
             double epsilon = Epsilon)
@@ -3554,7 +3554,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentQuadraticBezierSegmentIntersection(
+        public static Intersection LineSegmentQuadraticBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
             double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
             double epsilon = Epsilon)
@@ -3632,7 +3632,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentCubicBezierSegmentIntersection(
+        public static Intersection LineSegmentCubicBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
             double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y,
             double epsilon = Epsilon)
@@ -3715,7 +3715,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentRectangleIntersection(
+        public static Intersection LineSegmentRectangleIntersection(
             double lAX, double lAY, double lBX, double lBY,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -3756,7 +3756,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentPolygonContourIntersection(
+        public static Intersection LineSegmentPolygonContourIntersection(
             double a1X, double a1Y, double a2X, double a2Y,
             List<Point2D> points,
             double epsilon = Epsilon)
@@ -3803,7 +3803,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentCircleIntersection(
+        public static Intersection LineSegmentCircleIntersection(
             double lAX, double lAY, double lBX, double lBY,
             double cX, double cY, double r, double angle,
             double epsilon = Epsilon)
@@ -3890,7 +3890,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentCircularArcIntersection(
+        public static Intersection LineSegmentCircularArcIntersection(
             double lAX, double lAY, double lBX, double lBY,
             double cX, double cY, double r, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
@@ -3995,7 +3995,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipseIntersection(
+        public static Intersection LineSegmentEllipseIntersection(
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle,
             double epsilon = Epsilon)
@@ -4022,7 +4022,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipseIntersection(
+        public static Intersection LineSegmentEllipseIntersection(
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
@@ -4118,7 +4118,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipticalArcIntersection(
+        public static Intersection LineSegmentEllipticalArcIntersection(
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
@@ -4147,7 +4147,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineSegmentEllipticalArcIntersection(
+        public static Intersection LineSegmentEllipticalArcIntersection(
             double x0, double y0,
             double cx, double x1, double y1, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
@@ -4429,7 +4429,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
+        public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
@@ -4542,7 +4542,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentPolygonContourIntersection(
+        public static Intersection QuadraticBezierSegmentPolygonContourIntersection(
             double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
             List<Point2D> points,
             double epsilon = Epsilon)
@@ -4589,7 +4589,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentRectangleIntersection(
+        public static Intersection QuadraticBezierSegmentRectangleIntersection(
             double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -4639,7 +4639,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
+        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
@@ -4657,66 +4657,49 @@ namespace Engine
             var xCoeffB = CubicBezierCoefficients(b1X, b2X, b3X, b4X);
             var yCoeffB = CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y);
 
-            var xCoeffAA_2 = xCoeffA.A * xCoeffA.A;
-            var xCoeffAA_3 = xCoeffA.A * xCoeffA.A * xCoeffA.A;
-            var yCoeffAA_2 = yCoeffA.A * yCoeffA.A;
-            var yCoeffAA_3 = yCoeffA.A * yCoeffA.A * yCoeffA.A;
-
-            var xCoeffAB_2 = xCoeffA.B * xCoeffA.B;
-            var xCoeffAB_3 = xCoeffA.B * xCoeffA.B * xCoeffA.B;
-            var yCoeffAB_2 = yCoeffA.B * yCoeffA.B;
-            var yCoeffAB_3 = yCoeffA.B * yCoeffA.B * yCoeffA.B;
-
-            var xCoeffAC_2 = xCoeffA.C * xCoeffA.C;
-            var xCoeffAC_3 = xCoeffA.C * xCoeffA.C * xCoeffA.C;
-            var yCoeffAC_2 = yCoeffA.C * yCoeffA.C;
-            var yCoeffAC_3 = yCoeffA.C * yCoeffA.C * yCoeffA.C;
-
-            var xCoeffAD_2 = xCoeffA.D * xCoeffA.D;
-            var xCoeffAD_3 = xCoeffA.D * xCoeffA.D * xCoeffA.D;
-            var yCoeffAD_2 = yCoeffA.D * yCoeffA.D;
-            var yCoeffAD_3 = yCoeffA.D * yCoeffA.D * yCoeffA.D;
-
-            var xCoeffBA_2 = xCoeffB.A * xCoeffB.A;
-            var xCoeffBA_3 = xCoeffB.A * xCoeffB.A * xCoeffB.A;
-            var yCoeffBA_2 = yCoeffB.A * yCoeffB.A;
-            var yCoeffBA_3 = yCoeffB.A * yCoeffB.A * yCoeffB.A;
-
-            var xCoeffBB_2 = xCoeffB.B * xCoeffB.B;
-            var xCoeffBB_3 = xCoeffB.B * xCoeffB.B * xCoeffB.B;
-            var yCoeffBB_2 = yCoeffB.B * yCoeffB.B;
-
-            var xCoeffBC_2 = xCoeffB.C * xCoeffB.C;
-            var xCoeffBC_3 = xCoeffB.C * xCoeffB.C * xCoeffB.C;
-            var yCoeffBC_2 = yCoeffB.C * yCoeffB.C;
-
-            var xCoeffBD_2 = xCoeffB.D * xCoeffB.D;
-            var xCoeffBD_3 = xCoeffB.D * xCoeffB.D * xCoeffB.D;
-            var yCoeffBD_2 = yCoeffB.D * yCoeffB.D;
-            var yCoeffBD_3 = yCoeffB.D * yCoeffB.D * yCoeffB.D;
-
-            var v0 = xCoeffA.D * yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffA.D * yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A + xCoeffA.D * xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * yCoeffA.A - yCoeffA.D * xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A - xCoeffA.D * xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A + 6 * xCoeffA.D * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A + xCoeffA.D * yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A - yCoeffA.D * xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A + yCoeffA.D * xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffA.C * xCoeffB.D * yCoeffA.C * xCoeffA.B * yCoeffA.B * yCoeffA.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffB.D * yCoeffA.B * xCoeffA.A + xCoeffA.C * xCoeffB.D * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A - 2 * xCoeffA.D * xCoeffB.D * yCoeffAB_3 * xCoeffA.A + 2 * yCoeffA.D * xCoeffAB_3 * yCoeffB.D * yCoeffA.A - 3 * xCoeffA.D * yCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffAA_2 - 6 * xCoeffA.D * yCoeffA.D * xCoeffB.D * xCoeffA.A * yCoeffAA_2 + 3 * xCoeffA.D * yCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 - 2 * xCoeffA.D * yCoeffA.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A - 2 * xCoeffA.D * xCoeffA.C * xCoeffB.D * yCoeffA.B * yCoeffAA_2 - xCoeffA.D * xCoeffA.C * yCoeffA.C * yCoeffAB_2 * xCoeffA.A + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffB.D * yCoeffAA_2 - 4 * xCoeffA.D * xCoeffB.D * yCoeffA.C * xCoeffA.B * yCoeffAA_2 + 3 * yCoeffA.D * xCoeffA.C * xCoeffB.D * xCoeffA.B * yCoeffAA_2 + 6 * xCoeffA.D * yCoeffA.D * yCoeffB.D * xCoeffAA_2 * yCoeffA.A + 2 * xCoeffA.D * yCoeffA.D * xCoeffAB_2 * yCoeffA.B * yCoeffA.A + 2 * xCoeffA.D * xCoeffA.C * yCoeffAC_2 * xCoeffA.A * yCoeffA.A + 2 * xCoeffA.D * xCoeffB.D * xCoeffA.B * yCoeffAB_2 * yCoeffA.A + 6 * xCoeffA.D * xCoeffB.D * yCoeffB.D * xCoeffA.A * yCoeffAA_2 - 3 * xCoeffA.D * yCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffAA_2 + 2 * xCoeffA.D * xCoeffA.B * yCoeffB.D * yCoeffAB_2 * xCoeffA.A + xCoeffA.D * yCoeffAC_2 * xCoeffA.B * yCoeffA.B * xCoeffA.A + yCoeffA.D * xCoeffA.C * yCoeffA.C * xCoeffAB_2 * yCoeffA.A + 4 * yCoeffA.D * xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffAA_2 - 3 * yCoeffA.D * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 + 2 * yCoeffA.D * xCoeffB.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffAA_2 + xCoeffA.C * xCoeffB.D * yCoeffA.C * yCoeffAB_2 * xCoeffA.A - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * yCoeffB.D * yCoeffAA_2 - 2 * xCoeffA.D * xCoeffAB_2 * yCoeffB.D * yCoeffA.B * yCoeffA.A - 6 * yCoeffA.D * xCoeffB.D * yCoeffB.D * xCoeffAA_2 * yCoeffA.A - 2 * yCoeffA.D * xCoeffB.D * xCoeffAB_2 * yCoeffA.B * yCoeffA.A - 2 * yCoeffA.D * xCoeffAC_2 * yCoeffA.C * xCoeffA.A * yCoeffA.A - yCoeffA.D * xCoeffAC_2 * xCoeffA.B * yCoeffA.B * yCoeffA.A - 2 * yCoeffA.D * xCoeffAB_2 * yCoeffB.D * yCoeffA.B * xCoeffA.A - 2 * xCoeffA.C * xCoeffB.D * yCoeffAC_2 * xCoeffA.A * yCoeffA.A - xCoeffA.C * yCoeffA.C * xCoeffAB_2 * yCoeffB.D * yCoeffA.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffAA_2 - 2 * xCoeffB.D * xCoeffA.B * yCoeffB.D * yCoeffAB_2 * xCoeffA.A - xCoeffB.D * yCoeffAC_2 * xCoeffA.B * yCoeffA.B * xCoeffA.A + 3 * yCoeffAD_2 * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A + 3 * xCoeffA.C * xCoeffA.B * yCoeffBD_2 * xCoeffA.A * yCoeffA.A + 2 * xCoeffB.D * xCoeffAB_2 * yCoeffB.D * yCoeffA.B * yCoeffA.A - 3 * xCoeffAD_2 * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A + 2 * xCoeffAC_2 * yCoeffA.C * yCoeffB.D * xCoeffA.A * yCoeffA.A + xCoeffAC_2 * xCoeffA.B * yCoeffB.D * yCoeffA.B * yCoeffA.A - 3 * xCoeffBD_2 * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffAD_3 * yCoeffAA_3 + yCoeffAD_3 * xCoeffAA_3 + xCoeffBD_3 * yCoeffAA_3 - yCoeffBD_3 * xCoeffAA_3 - 3 * xCoeffA.D * xCoeffBD_2 * yCoeffAA_3 - xCoeffA.D * yCoeffAC_3 * xCoeffAA_2 + 3 * xCoeffAD_2 * xCoeffB.D * yCoeffAA_3 + yCoeffA.D * xCoeffAC_3 * yCoeffAA_2 + 3 * yCoeffA.D * yCoeffBD_2 * xCoeffAA_3 + xCoeffB.D * yCoeffAC_3 * xCoeffAA_2 + xCoeffAD_2 * yCoeffAB_3 * xCoeffA.A - 3 * yCoeffAD_2 * yCoeffB.D * xCoeffAA_3 - yCoeffAD_2 * xCoeffAB_3 * yCoeffA.A + xCoeffBD_2 * yCoeffAB_3 * xCoeffA.A - xCoeffAC_3 * yCoeffB.D * yCoeffAA_2 - xCoeffAB_3 * yCoeffBD_2 * yCoeffA.A - xCoeffA.D * xCoeffAC_2 * yCoeffA.C * yCoeffAA_2 + yCoeffA.D * xCoeffA.C * yCoeffAC_2 * xCoeffAA_2 - 3 * xCoeffA.D * yCoeffAD_2 * xCoeffAA_2 * yCoeffA.A - xCoeffA.D * yCoeffAC_2 * xCoeffAB_2 * yCoeffA.A + yCoeffA.D * xCoeffAC_2 * yCoeffAB_2 * xCoeffA.A - xCoeffA.C * yCoeffAC_2 * yCoeffB.D * xCoeffAA_2 + 3 * xCoeffAD_2 * yCoeffA.D * xCoeffA.A * yCoeffAA_2 + xCoeffAD_2 * xCoeffA.C * yCoeffA.B * yCoeffAA_2 + 2 * xCoeffAD_2 * yCoeffA.C * xCoeffA.B * yCoeffAA_2 - 2 * yCoeffAD_2 * xCoeffA.C * yCoeffA.B * xCoeffAA_2 - yCoeffAD_2 * yCoeffA.C * xCoeffA.B * xCoeffAA_2 + xCoeffAC_2 * xCoeffB.D * yCoeffA.C * yCoeffAA_2 - 3 * xCoeffA.D * yCoeffBD_2 * xCoeffAA_2 * yCoeffA.A + 3 * yCoeffA.D * xCoeffBD_2 * xCoeffA.A * yCoeffAA_2 + xCoeffA.C * xCoeffBD_2 * yCoeffA.B * yCoeffAA_2 - 2 * xCoeffA.C * yCoeffBD_2 * yCoeffA.B * xCoeffAA_2 + xCoeffB.D * yCoeffAC_2 * xCoeffAB_2 * yCoeffA.A - yCoeffA.C * xCoeffA.B * yCoeffBD_2 * xCoeffAA_2 - xCoeffAD_2 * xCoeffA.B * yCoeffAB_2 * yCoeffA.A - 3 * xCoeffAD_2 * yCoeffB.D * xCoeffA.A * yCoeffAA_2 + 3 * yCoeffAD_2 * xCoeffB.D * xCoeffAA_2 * yCoeffA.A + yCoeffAD_2 * xCoeffAB_2 * yCoeffA.B * xCoeffA.A - xCoeffAC_2 * yCoeffB.D * yCoeffAB_2 * xCoeffA.A + 2 * xCoeffBD_2 * yCoeffA.C * xCoeffA.B * yCoeffAA_2 + 3 * xCoeffB.D * yCoeffBD_2 * xCoeffAA_2 * yCoeffA.A - xCoeffBD_2 * xCoeffA.B * yCoeffAB_2 * yCoeffA.A - 3 * xCoeffBD_2 * yCoeffB.D * xCoeffA.A * yCoeffAA_2 + xCoeffAB_2 * yCoeffBD_2 * yCoeffA.B * xCoeffA.A;
-            var v1 = -xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A + xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A + 6 * xCoeffA.D * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A - yCoeffA.D * xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A + yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffA.A - xCoeffA.C * yCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffA.B * yCoeffA.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.C + xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A + 6 * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffB.C * yCoeffA.A + xCoeffA.C * yCoeffB.D * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A - 6 * xCoeffB.D * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffA.A - 6 * xCoeffA.D * xCoeffB.D * xCoeffB.C * yCoeffAA_3 - 2 * xCoeffA.D * xCoeffB.C * yCoeffAB_3 * xCoeffA.A + 6 * yCoeffA.D * yCoeffB.D * xCoeffAA_3 * yCoeffB.C + 2 * xCoeffB.D * xCoeffB.C * yCoeffAB_3 * xCoeffA.A + 2 * yCoeffA.D * xCoeffAB_3 * yCoeffB.C * yCoeffA.A - 2 * xCoeffAB_3 * yCoeffB.D * yCoeffB.C * yCoeffA.A - 6 * xCoeffA.D * yCoeffA.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffB.C * yCoeffAA_2 - 2 * xCoeffA.D * xCoeffA.C * xCoeffB.C * yCoeffA.B * yCoeffAA_2 - 4 * xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffAA_2 + 3 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffAA_2 + 6 * xCoeffA.D * yCoeffA.D * xCoeffAA_2 * yCoeffB.C * yCoeffA.A + 6 * xCoeffA.D * xCoeffB.D * xCoeffA.A * yCoeffB.C * yCoeffAA_2 - 3 * xCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.C + 2 * xCoeffA.D * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * yCoeffA.A + 2 * xCoeffA.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.C + 6 * xCoeffA.D * yCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 + 4 * yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.C + 6 * yCoeffA.D * xCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffAA_2 * yCoeffB.C - 3 * yCoeffA.D * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffAA_2 + 2 * yCoeffA.D * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * xCoeffA.A - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * yCoeffB.C * yCoeffAA_2 + 2 * xCoeffA.C * xCoeffB.D * xCoeffB.C * yCoeffA.B * yCoeffAA_2 + xCoeffA.C * yCoeffA.C * xCoeffB.C * yCoeffAB_2 * xCoeffA.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffB.C * yCoeffAA_2 + 4 * xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffAA_2 - 6 * xCoeffA.D * yCoeffB.D * xCoeffAA_2 * yCoeffB.C * yCoeffA.A - 2 * xCoeffA.D * xCoeffAB_2 * yCoeffA.B * yCoeffB.C * yCoeffA.A - 6 * yCoeffA.D * xCoeffB.D * xCoeffAA_2 * yCoeffB.C * yCoeffA.A - 6 * yCoeffA.D * yCoeffB.D * xCoeffB.C * xCoeffAA_2 * yCoeffA.A - 2 * yCoeffA.D * xCoeffAB_2 * xCoeffB.C * yCoeffA.B * yCoeffA.A - 2 * yCoeffA.D * xCoeffAB_2 * yCoeffA.B * xCoeffA.A * yCoeffB.C - xCoeffA.C * yCoeffA.C * xCoeffAB_2 * yCoeffB.C * yCoeffA.A - 4 * xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffAA_2 * yCoeffB.C - 2 * xCoeffA.C * yCoeffAC_2 * xCoeffB.C * xCoeffA.A * yCoeffA.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.C - 2 * xCoeffB.D * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * yCoeffA.A - 2 * xCoeffB.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.C - 6 * xCoeffB.D * yCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 - 2 * yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffAA_2 * yCoeffB.C + 3 * yCoeffA.C * yCoeffB.D * xCoeffB.C * yCoeffA.B * xCoeffAA_2 - 2 * xCoeffA.B * yCoeffB.D * xCoeffB.C * yCoeffAB_2 * xCoeffA.A - yCoeffAC_2 * xCoeffA.B * xCoeffB.C * yCoeffA.B * xCoeffA.A + 6 * xCoeffB.D * yCoeffB.D * xCoeffAA_2 * yCoeffB.C * yCoeffA.A + 2 * xCoeffB.D * xCoeffAB_2 * yCoeffA.B * yCoeffB.C * yCoeffA.A + 2 * xCoeffAC_2 * yCoeffA.C * xCoeffA.A * yCoeffB.C * yCoeffA.A + xCoeffAC_2 * xCoeffA.B * yCoeffA.B * yCoeffB.C * yCoeffA.A + 2 * xCoeffAB_2 * yCoeffB.D * xCoeffB.C * yCoeffA.B * yCoeffA.A + 2 * xCoeffAB_2 * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffB.C + 3 * xCoeffAD_2 * xCoeffB.C * yCoeffAA_3 - 3 * yCoeffAD_2 * xCoeffAA_3 * yCoeffB.C + 3 * xCoeffBD_2 * xCoeffB.C * yCoeffAA_3 + yCoeffAC_3 * xCoeffB.C * xCoeffAA_2 - xCoeffAC_3 * yCoeffB.C * yCoeffAA_2 - 3 * yCoeffBD_2 * xCoeffAA_3 * yCoeffB.C - xCoeffA.C * yCoeffAC_2 * xCoeffAA_2 * yCoeffB.C + xCoeffAC_2 * yCoeffA.C * xCoeffB.C * yCoeffAA_2 - 3 * xCoeffAD_2 * xCoeffA.A * yCoeffB.C * yCoeffAA_2 + 3 * yCoeffAD_2 * xCoeffB.C * xCoeffAA_2 * yCoeffA.A - xCoeffAC_2 * yCoeffAB_2 * xCoeffA.A * yCoeffB.C + yCoeffAC_2 * xCoeffAB_2 * xCoeffB.C * yCoeffA.A - 3 * xCoeffBD_2 * xCoeffA.A * yCoeffB.C * yCoeffAA_2 + 3 * yCoeffBD_2 * xCoeffB.C * xCoeffAA_2 * yCoeffA.A;
-            var v2 = -xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + 6 * xCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B - yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A + yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.B - xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffB.B * yCoeffA.A + xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A + xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B - 6 * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A - yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffA.A - yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffB.C * yCoeffA.A - 6 * xCoeffA.D * xCoeffB.D * xCoeffB.B * yCoeffAA_3 - 2 * xCoeffA.D * yCoeffAB_3 * xCoeffA.A * xCoeffB.B + 2 * xCoeffB.D * yCoeffAB_3 * xCoeffA.A * xCoeffB.B + 2 * yCoeffA.D * xCoeffAB_3 * yCoeffA.A * yCoeffB.B - 6 * xCoeffA.D * yCoeffA.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffAA_2 * yCoeffB.B - 2 * xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffB.B * yCoeffAA_2 - 4 * xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffB.B * yCoeffAA_2 + 3 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffB.B * yCoeffAA_2 + 6 * xCoeffA.D * yCoeffA.D * xCoeffAA_2 * yCoeffA.A * yCoeffB.B + 6 * xCoeffA.D * xCoeffB.D * xCoeffA.A * yCoeffAA_2 * yCoeffB.B - 3 * xCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.B + 2 * xCoeffA.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.B + 2 * xCoeffA.D * xCoeffA.B * yCoeffAB_2 * xCoeffB.B * yCoeffA.A + 6 * xCoeffA.D * yCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 + 6 * xCoeffA.D * xCoeffB.C * xCoeffA.A * yCoeffB.C * yCoeffAA_2 + 4 * yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.B + 6 * yCoeffA.D * xCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffAA_2 * yCoeffB.B - 3 * yCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * xCoeffB.B + 2 * yCoeffA.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * xCoeffB.B - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * yCoeffAA_2 * yCoeffB.B + 2 * xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffB.B * yCoeffAA_2 + xCoeffA.C * yCoeffA.C * yCoeffAB_2 * xCoeffA.A * xCoeffB.B - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffB.B * yCoeffAA_2 - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffB.C * yCoeffAA_2 + 4 * xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffB.B * yCoeffAA_2 - 2 * xCoeffA.D * xCoeffAB_2 * yCoeffA.B * yCoeffA.A * yCoeffB.B - 6 * yCoeffA.D * xCoeffB.D * xCoeffAA_2 * yCoeffA.A * yCoeffB.B - 6 * yCoeffA.D * yCoeffB.D * xCoeffAA_2 * xCoeffB.B * yCoeffA.A - 6 * yCoeffA.D * xCoeffB.C * xCoeffAA_2 * yCoeffB.C * yCoeffA.A - 2 * yCoeffA.D * xCoeffAB_2 * yCoeffA.B * xCoeffA.A * yCoeffB.B - 2 * yCoeffA.D * xCoeffAB_2 * yCoeffA.B * xCoeffB.B * yCoeffA.A - xCoeffA.C * yCoeffA.C * xCoeffAB_2 * yCoeffA.A * yCoeffB.B - 2 * xCoeffA.C * yCoeffAC_2 * xCoeffA.A * xCoeffB.B * yCoeffA.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.B - 2 * xCoeffB.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.B - 2 * xCoeffB.D * xCoeffA.B * yCoeffAB_2 * xCoeffB.B * yCoeffA.A - 6 * xCoeffB.D * yCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 - 6 * xCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffB.C * yCoeffAA_2 + 3 * yCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffAA_2 * xCoeffB.B + 3 * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.C - 2 * xCoeffA.B * yCoeffB.D * yCoeffAB_2 * xCoeffA.A * xCoeffB.B - 2 * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * xCoeffA.A * yCoeffB.C - yCoeffAC_2 * xCoeffA.B * yCoeffA.B * xCoeffA.A * xCoeffB.B + 2 * xCoeffB.D * xCoeffAB_2 * yCoeffA.B * yCoeffA.A * yCoeffB.B - 3 * yCoeffA.C * xCoeffBC_2 * yCoeffA.B * xCoeffA.A * yCoeffA.A + 6 * yCoeffB.D * xCoeffB.C * xCoeffAA_2 * yCoeffB.C * yCoeffA.A + 2 * xCoeffAC_2 * yCoeffA.C * xCoeffA.A * yCoeffA.A * yCoeffB.B + xCoeffAC_2 * xCoeffA.B * yCoeffA.B * yCoeffA.A * yCoeffB.B + 2 * xCoeffAB_2 * yCoeffB.D * yCoeffA.B * xCoeffB.B * yCoeffA.A + 2 * xCoeffAB_2 * xCoeffB.C * yCoeffA.B * yCoeffB.C * yCoeffA.A - 3 * xCoeffA.D * xCoeffBC_2 * yCoeffAA_3 + 3 * xCoeffB.D * xCoeffBC_2 * yCoeffAA_3 + 3 * xCoeffAD_2 * xCoeffB.B * yCoeffAA_3 - 3 * yCoeffAD_2 * xCoeffAA_3 * yCoeffB.B + 3 * xCoeffBD_2 * xCoeffB.B * yCoeffAA_3 + xCoeffBC_2 * yCoeffAB_3 * xCoeffA.A + yCoeffAC_3 * xCoeffAA_2 * xCoeffB.B - xCoeffAC_3 * yCoeffAA_2 * yCoeffB.B + 3 * yCoeffA.D * xCoeffBC_2 * xCoeffA.A * yCoeffAA_2 - xCoeffA.C * yCoeffAC_2 * xCoeffAA_2 * yCoeffB.B + xCoeffA.C * xCoeffBC_2 * yCoeffA.B * yCoeffAA_2 + 2 * yCoeffA.C * xCoeffA.B * xCoeffBC_2 * yCoeffAA_2 + xCoeffAC_2 * yCoeffA.C * xCoeffB.B * yCoeffAA_2 - xCoeffA.B * xCoeffBC_2 * yCoeffAB_2 * yCoeffA.A - 3 * yCoeffB.D * xCoeffBC_2 * xCoeffA.A * yCoeffAA_2 - 3 * xCoeffAD_2 * xCoeffA.A * yCoeffAA_2 * yCoeffB.B + 3 * yCoeffAD_2 * xCoeffAA_2 * xCoeffB.B * yCoeffA.A - xCoeffAC_2 * yCoeffAB_2 * xCoeffA.A * yCoeffB.B + yCoeffAC_2 * xCoeffAB_2 * xCoeffB.B * yCoeffA.A - 3 * xCoeffBD_2 * xCoeffA.A * yCoeffAA_2 * yCoeffB.B + 3 * yCoeffBD_2 * xCoeffAA_2 * xCoeffB.B * yCoeffA.A + xCoeffAB_2 * yCoeffA.B * xCoeffA.A * (2 * yCoeffB.D * yCoeffB.B + yCoeffBC_2) + xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * yCoeffBC_2) + xCoeffAB_3 * yCoeffA.A * (-2 * yCoeffB.D * yCoeffB.B - yCoeffBC_2) + yCoeffA.D * xCoeffAA_3 * (6 * yCoeffB.D * yCoeffB.B + 3 * yCoeffBC_2) + yCoeffA.C * xCoeffA.B * xCoeffAA_2 * (-2 * yCoeffB.D * yCoeffB.B - yCoeffBC_2) + xCoeffA.C * yCoeffA.B * xCoeffAA_2 * (-4 * yCoeffB.D * yCoeffB.B - 2 * yCoeffBC_2) + xCoeffA.D * xCoeffAA_2 * yCoeffA.A * (-6 * yCoeffB.D * yCoeffB.B - 3 * yCoeffBC_2) + xCoeffB.D * xCoeffAA_2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * yCoeffBC_2) + xCoeffAA_3 * (-2 * yCoeffB.D * yCoeffBC_2 - yCoeffBD_2 * yCoeffB.B - yCoeffB.D * (2 * yCoeffB.D * yCoeffB.B + yCoeffBC_2));
-            var v3 = -xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + 6 * xCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A - yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A + yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.A - xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * yCoeffA.A * xCoeffB.A + xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A + xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A - 6 * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A - yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A * xCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffA.A * yCoeffB.B - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffA.A - 6 * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A - 6 * xCoeffA.D * xCoeffB.D * yCoeffAA_3 * xCoeffB.A - 6 * xCoeffA.D * xCoeffB.C * xCoeffB.B * yCoeffAA_3 - 2 * xCoeffA.D * yCoeffAB_3 * xCoeffA.A * xCoeffB.A + 6 * xCoeffB.D * xCoeffB.C * xCoeffB.B * yCoeffAA_3 + 2 * xCoeffB.D * yCoeffAB_3 * xCoeffA.A * xCoeffB.A + 2 * xCoeffB.C * yCoeffAB_3 * xCoeffA.A * xCoeffB.B + 2 * yCoeffA.D * xCoeffAB_3 * yCoeffA.A * yCoeffB.A - 6 * xCoeffA.D * yCoeffA.D * xCoeffA.A * yCoeffAA_2 * xCoeffB.A + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffAA_2 * yCoeffB.A - 2 * xCoeffA.D * xCoeffA.C * yCoeffA.B * yCoeffAA_2 * xCoeffB.A - 4 * xCoeffA.D * yCoeffA.C * xCoeffA.B * yCoeffAA_2 * xCoeffB.A + 3 * yCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffAA_2 * xCoeffB.A + 6 * xCoeffA.D * yCoeffA.D * xCoeffAA_2 * yCoeffA.A * yCoeffB.A + 6 * xCoeffA.D * xCoeffB.D * xCoeffA.A * yCoeffAA_2 * yCoeffB.A - 3 * xCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.A + 2 * xCoeffA.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.A + 2 * xCoeffA.D * xCoeffA.B * yCoeffAB_2 * yCoeffA.A * xCoeffB.A + 6 * xCoeffA.D * yCoeffB.D * xCoeffA.A * yCoeffAA_2 * xCoeffB.A + 6 * xCoeffA.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * yCoeffB.B + 6 * xCoeffA.D * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffAA_2 + 4 * yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.A + 6 * yCoeffA.D * xCoeffB.D * xCoeffA.A * yCoeffAA_2 * xCoeffB.A + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffAA_2 * yCoeffB.A - 3 * yCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * xCoeffB.A + 2 * yCoeffA.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * xCoeffB.A + 6 * yCoeffA.D * xCoeffB.C * xCoeffA.A * xCoeffB.B * yCoeffAA_2 - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * yCoeffAA_2 * yCoeffB.A + 2 * xCoeffA.C * xCoeffB.D * yCoeffA.B * yCoeffAA_2 * xCoeffB.A + xCoeffA.C * yCoeffA.C * yCoeffAB_2 * xCoeffA.A * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.D * yCoeffAA_2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffAA_2 * yCoeffB.B - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.C * xCoeffB.B * yCoeffAA_2 + 2 * xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffB.B * yCoeffAA_2 + 4 * xCoeffB.D * yCoeffA.C * xCoeffA.B * yCoeffAA_2 * xCoeffB.A + 4 * yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffB.B * yCoeffAA_2 - 2 * xCoeffA.D * xCoeffAB_2 * yCoeffA.B * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * xCoeffB.D * xCoeffAA_2 * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * yCoeffB.D * xCoeffAA_2 * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * xCoeffB.C * xCoeffAA_2 * yCoeffA.A * yCoeffB.B - 2 * yCoeffA.D * xCoeffAB_2 * yCoeffA.B * xCoeffA.A * yCoeffB.A - 2 * yCoeffA.D * xCoeffAB_2 * yCoeffA.B * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * xCoeffAA_2 * yCoeffB.C * xCoeffB.B * yCoeffA.A - xCoeffA.C * yCoeffA.C * xCoeffAB_2 * yCoeffA.A * yCoeffB.A - 2 * xCoeffA.C * yCoeffAC_2 * xCoeffA.A * yCoeffA.A * xCoeffB.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.A - 2 * xCoeffB.D * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.A - 2 * xCoeffB.D * xCoeffA.B * yCoeffAB_2 * yCoeffA.A * xCoeffB.A - 6 * xCoeffB.D * yCoeffB.D * xCoeffA.A * yCoeffAA_2 * xCoeffB.A - 6 * xCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * yCoeffB.B - 6 * xCoeffB.D * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffAA_2 + 3 * yCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffAA_2 * xCoeffB.A + 3 * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.B + 3 * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.C * xCoeffB.B - 2 * xCoeffA.B * yCoeffB.D * yCoeffAB_2 * xCoeffA.A * xCoeffB.A - 2 * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * xCoeffA.A * yCoeffB.B - 2 * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * xCoeffB.B * yCoeffA.A - 2 * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.C * xCoeffB.B - 6 * yCoeffB.D * xCoeffB.C * xCoeffA.A * xCoeffB.B * yCoeffAA_2 - yCoeffAC_2 * xCoeffA.B * yCoeffA.B * xCoeffA.A * xCoeffB.A + 2 * xCoeffB.D * xCoeffAB_2 * yCoeffA.B * yCoeffA.A * yCoeffB.A + 6 * yCoeffB.D * xCoeffAA_2 * yCoeffB.C * xCoeffB.B * yCoeffA.A + 2 * xCoeffAC_2 * yCoeffA.C * xCoeffA.A * yCoeffA.A * yCoeffB.A + xCoeffAC_2 * xCoeffA.B * yCoeffA.B * yCoeffA.A * yCoeffB.A + 2 * xCoeffAB_2 * yCoeffB.D * yCoeffA.B * yCoeffA.A * xCoeffB.A + 2 * xCoeffAB_2 * xCoeffB.C * yCoeffA.B * yCoeffA.A * yCoeffB.B + 2 * xCoeffAB_2 * yCoeffA.B * yCoeffB.C * xCoeffB.B * yCoeffA.A + xCoeffBC_3 * yCoeffAA_3 + 3 * xCoeffAD_2 * yCoeffAA_3 * xCoeffB.A - 3 * yCoeffAD_2 * xCoeffAA_3 * yCoeffB.A + 3 * xCoeffBD_2 * yCoeffAA_3 * xCoeffB.A + yCoeffAC_3 * xCoeffAA_2 * xCoeffB.A - xCoeffAC_3 * yCoeffAA_2 * yCoeffB.A - xCoeffA.C * yCoeffAC_2 * xCoeffAA_2 * yCoeffB.A + xCoeffAC_2 * yCoeffA.C * yCoeffAA_2 * xCoeffB.A - 3 * xCoeffAD_2 * xCoeffA.A * yCoeffAA_2 * yCoeffB.A + 3 * yCoeffAD_2 * xCoeffAA_2 * yCoeffA.A * xCoeffB.A - xCoeffAC_2 * yCoeffAB_2 * xCoeffA.A * yCoeffB.A + yCoeffAC_2 * xCoeffAB_2 * yCoeffA.A * xCoeffB.A - 3 * xCoeffBC_2 * xCoeffA.A * yCoeffB.C * yCoeffAA_2 - 3 * xCoeffBD_2 * xCoeffA.A * yCoeffAA_2 * yCoeffB.A + 3 * yCoeffBD_2 * xCoeffAA_2 * yCoeffA.A * xCoeffB.A + xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + xCoeffAB_3 * yCoeffA.A * (-2 * yCoeffB.D * yCoeffB.A - 2 * yCoeffB.C * yCoeffB.B) + yCoeffA.D * xCoeffAA_3 * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + yCoeffA.C * xCoeffA.B * xCoeffAA_2 * (-2 * yCoeffB.D * yCoeffB.A - 2 * yCoeffB.C * yCoeffB.B) + xCoeffAB_2 * yCoeffA.B * xCoeffA.A * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B) + xCoeffA.C * yCoeffA.B * xCoeffAA_2 * (-4 * yCoeffB.D * yCoeffB.A - 4 * yCoeffB.C * yCoeffB.B) + xCoeffA.D * xCoeffAA_2 * yCoeffA.A * (-6 * yCoeffB.D * yCoeffB.A - 6 * yCoeffB.C * yCoeffB.B) + xCoeffB.D * xCoeffAA_2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + xCoeffB.C * xCoeffAA_2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * yCoeffBC_2) + xCoeffAA_3 * (-2 * yCoeffB.D * yCoeffB.C * yCoeffB.B - yCoeffBD_2 * yCoeffB.A - yCoeffB.C * (2 * yCoeffB.D * yCoeffB.B + yCoeffBC_2) - yCoeffB.D * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B));
-            var v4 = xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A * xCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.B - yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffA.A * yCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A * xCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.B - 6 * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A - 6 * xCoeffA.D * xCoeffB.C * yCoeffAA_3 * xCoeffB.A + 6 * xCoeffB.D * xCoeffB.C * yCoeffAA_3 * xCoeffB.A + 2 * xCoeffB.C * yCoeffAB_3 * xCoeffA.A * xCoeffB.A + 6 * xCoeffA.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * yCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * yCoeffB.C * yCoeffAA_2 * xCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * yCoeffB.B + 6 * yCoeffA.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffAA_2 * yCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.C * yCoeffAA_2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.B * yCoeffAA_2 * yCoeffB.B + 2 * xCoeffA.C * xCoeffB.C * yCoeffA.B * yCoeffAA_2 * xCoeffB.A + 4 * yCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffAA_2 * xCoeffB.A - 6 * yCoeffA.D * xCoeffB.C * xCoeffAA_2 * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * xCoeffAA_2 * yCoeffB.C * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * xCoeffAA_2 * xCoeffB.B * yCoeffA.A * yCoeffB.B - 6 * xCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * yCoeffB.C * yCoeffAA_2 * xCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * yCoeffB.B + 3 * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.A - 3 * yCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffBB_2 * yCoeffA.A + 3 * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.C * xCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * xCoeffB.B * yCoeffB.B - 2 * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * xCoeffA.A * yCoeffB.A - 2 * xCoeffA.B * xCoeffB.C * yCoeffAB_2 * yCoeffA.A * xCoeffB.A - 2 * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.C * xCoeffB.A - 2 * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * xCoeffB.B * yCoeffB.B - 6 * yCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * xCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffAA_2 + 6 * yCoeffB.D * xCoeffAA_2 * yCoeffB.C * yCoeffA.A * xCoeffB.A + 2 * xCoeffAB_2 * xCoeffB.C * yCoeffA.B * yCoeffA.A * yCoeffB.A + 2 * xCoeffAB_2 * yCoeffA.B * yCoeffB.C * yCoeffA.A * xCoeffB.A + 2 * xCoeffAB_2 * yCoeffA.B * xCoeffB.B * yCoeffA.A * yCoeffB.B - 3 * xCoeffA.D * xCoeffBB_2 * yCoeffAA_3 + 3 * xCoeffB.D * xCoeffBB_2 * yCoeffAA_3 + 3 * xCoeffBC_2 * xCoeffB.B * yCoeffAA_3 + yCoeffAB_3 * xCoeffA.A * xCoeffBB_2 + 3 * yCoeffA.D * xCoeffA.A * xCoeffBB_2 * yCoeffAA_2 + xCoeffA.C * yCoeffA.B * xCoeffBB_2 * yCoeffAA_2 + 2 * yCoeffA.C * xCoeffA.B * xCoeffBB_2 * yCoeffAA_2 - xCoeffA.B * yCoeffAB_2 * xCoeffBB_2 * yCoeffA.A - 3 * yCoeffB.D * xCoeffA.A * xCoeffBB_2 * yCoeffAA_2 - 3 * xCoeffBC_2 * xCoeffA.A * yCoeffAA_2 * yCoeffB.B + xCoeffAB_2 * yCoeffA.B * xCoeffA.A * (2 * yCoeffB.C * yCoeffB.A + yCoeffBB_2) + xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * yCoeffBB_2) + xCoeffB.C * xCoeffAA_2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + xCoeffAB_3 * yCoeffA.A * (-2 * yCoeffB.C * yCoeffB.A - yCoeffBB_2) + yCoeffA.D * xCoeffAA_3 * (6 * yCoeffB.C * yCoeffB.A + 3 * yCoeffBB_2) + yCoeffA.C * xCoeffA.B * xCoeffAA_2 * (-2 * yCoeffB.C * yCoeffB.A - yCoeffBB_2) + xCoeffA.C * yCoeffA.B * xCoeffAA_2 * (-4 * yCoeffB.C * yCoeffB.A - 2 * yCoeffBB_2) + xCoeffA.D * xCoeffAA_2 * yCoeffA.A * (-6 * yCoeffB.C * yCoeffB.A - 3 * yCoeffBB_2) + xCoeffAA_2 * xCoeffB.B * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * yCoeffBC_2) + xCoeffB.D * xCoeffAA_2 * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * yCoeffBB_2) + xCoeffAA_3 * (-2 * yCoeffB.D * yCoeffB.C * yCoeffB.A - yCoeffB.B * (2 * yCoeffB.D * yCoeffB.B + yCoeffBC_2) - yCoeffB.D * (2 * yCoeffB.C * yCoeffB.A + yCoeffBB_2) - yCoeffB.C * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B));
-            var v5 = 6 * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B * yCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B * xCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B * xCoeffB.A - 6 * yCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * xCoeffB.A - 6 * xCoeffA.D * xCoeffB.B * yCoeffAA_3 * xCoeffB.A + 6 * xCoeffB.D * xCoeffB.B * yCoeffAA_3 * xCoeffB.A + 6 * yCoeffA.D * xCoeffAA_3 * yCoeffB.B * yCoeffB.A + 2 * yCoeffAB_3 * xCoeffA.A * xCoeffB.B * xCoeffB.A - 2 * xCoeffAB_3 * yCoeffA.A * yCoeffB.B * yCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * yCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * yCoeffAA_2 * yCoeffB.B * xCoeffB.A + 6 * yCoeffA.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.B * yCoeffAA_2 * yCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffAA_2 * yCoeffB.B * xCoeffB.A + 2 * xCoeffA.C * yCoeffA.B * xCoeffB.B * yCoeffAA_2 * xCoeffB.A + 4 * yCoeffA.C * xCoeffA.B * xCoeffB.B * yCoeffAA_2 * xCoeffB.A - 6 * xCoeffA.D * xCoeffAA_2 * yCoeffA.A * yCoeffB.B * yCoeffB.A - 6 * yCoeffA.D * xCoeffAA_2 * xCoeffB.B * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * xCoeffAA_2 * yCoeffA.A * yCoeffB.B * xCoeffB.A - 4 * xCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.B * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * yCoeffAA_2 * yCoeffB.B * xCoeffB.A - 2 * yCoeffA.C * xCoeffA.B * xCoeffAA_2 * yCoeffB.B * yCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * xCoeffB.B * yCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffB.B * xCoeffB.A - 2 * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * xCoeffB.B * yCoeffB.A - 2 * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * yCoeffB.B * xCoeffB.A - 2 * xCoeffA.B * yCoeffAB_2 * xCoeffB.B * yCoeffA.A * xCoeffB.A - 6 * yCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * xCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * yCoeffB.C * yCoeffAA_2 * xCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * yCoeffB.B + 6 * xCoeffB.D * xCoeffAA_2 * yCoeffA.A * yCoeffB.B * yCoeffB.A + 2 * xCoeffAB_2 * yCoeffA.B * xCoeffA.A * yCoeffB.B * yCoeffB.A + 2 * xCoeffAB_2 * yCoeffA.B * xCoeffB.B * yCoeffA.A * yCoeffB.A + 2 * xCoeffAB_2 * yCoeffA.B * yCoeffA.A * yCoeffB.B * xCoeffB.A + 3 * xCoeffB.C * xCoeffBB_2 * yCoeffAA_3 + 3 * xCoeffBC_2 * yCoeffAA_3 * xCoeffB.A - 3 * xCoeffA.A * yCoeffB.C * xCoeffBB_2 * yCoeffAA_2 - 3 * xCoeffBC_2 * xCoeffA.A * yCoeffAA_2 * yCoeffB.A + xCoeffAA_2 * xCoeffB.B * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + xCoeffAA_2 * yCoeffA.A * xCoeffB.A * (6 * yCoeffB.D * yCoeffB.B + 3 * yCoeffBC_2) + xCoeffB.C * xCoeffAA_2 * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * yCoeffBB_2) + xCoeffAA_3 * (-2 * yCoeffB.D * yCoeffB.B * yCoeffB.A - yCoeffB.A * (2 * yCoeffB.D * yCoeffB.B + yCoeffBC_2) - yCoeffB.C * (2 * yCoeffB.C * yCoeffB.A + yCoeffBB_2) - yCoeffB.B * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B));
-            var v6 = xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A * yCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A * yCoeffB.A + 6 * xCoeffB.C * xCoeffB.B * yCoeffAA_3 * xCoeffB.A + 3 * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffBA_2 + 6 * xCoeffA.D * xCoeffA.A * yCoeffAA_2 * xCoeffB.A * yCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffAA_2 * xCoeffB.A * yCoeffB.A - 3 * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffBA_2 - 6 * yCoeffA.D * xCoeffAA_2 * yCoeffA.A * xCoeffB.A * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * yCoeffAA_2 * xCoeffB.A * yCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * xCoeffAA_2 * xCoeffB.A * yCoeffB.A - 2 * xCoeffA.B * yCoeffAB_2 * xCoeffA.A * xCoeffB.A * yCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * yCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * yCoeffB.B * xCoeffB.A - 6 * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffAA_2 * xCoeffB.A + 6 * xCoeffB.C * xCoeffAA_2 * yCoeffA.A * yCoeffB.B * yCoeffB.A + 2 * xCoeffAB_2 * yCoeffA.B * yCoeffA.A * xCoeffB.A * yCoeffB.A + xCoeffBB_3 * yCoeffAA_3 - 3 * xCoeffA.D * yCoeffAA_3 * xCoeffBA_2 + 3 * yCoeffA.D * xCoeffAA_3 * yCoeffBA_2 + 3 * xCoeffB.D * yCoeffAA_3 * xCoeffBA_2 + yCoeffAB_3 * xCoeffA.A * xCoeffBA_2 - xCoeffAB_3 * yCoeffA.A * yCoeffBA_2 - 3 * xCoeffA.D * xCoeffAA_2 * yCoeffA.A * yCoeffBA_2 + 3 * yCoeffA.D * xCoeffA.A * yCoeffAA_2 * xCoeffBA_2 - 2 * xCoeffA.C * yCoeffA.B * xCoeffAA_2 * yCoeffBA_2 + xCoeffA.C * yCoeffA.B * yCoeffAA_2 * xCoeffBA_2 - yCoeffA.C * xCoeffA.B * xCoeffAA_2 * yCoeffBA_2 + 2 * yCoeffA.C * xCoeffA.B * yCoeffAA_2 * xCoeffBA_2 + 3 * xCoeffB.D * xCoeffAA_2 * yCoeffA.A * yCoeffBA_2 - xCoeffA.B * yCoeffAB_2 * yCoeffA.A * xCoeffBA_2 - 3 * yCoeffB.D * xCoeffA.A * yCoeffAA_2 * xCoeffBA_2 + xCoeffAB_2 * yCoeffA.B * xCoeffA.A * yCoeffBA_2 - 3 * xCoeffA.A * xCoeffBB_2 * yCoeffAA_2 * yCoeffB.B + xCoeffAA_2 * yCoeffA.A * xCoeffB.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + xCoeffAA_2 * xCoeffB.B * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * yCoeffBB_2) + xCoeffAA_3 * (-2 * yCoeffB.C * yCoeffB.B * yCoeffB.A - yCoeffB.D * yCoeffBA_2 - yCoeffB.B * (2 * yCoeffB.C * yCoeffB.A + yCoeffBB_2) - yCoeffB.A * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B));
-            var v7 = -6 * xCoeffB.C * xCoeffA.A * yCoeffAA_2 * xCoeffB.A * yCoeffB.A - 6 * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * yCoeffB.B * xCoeffB.A + 6 * xCoeffAA_2 * xCoeffB.B * yCoeffA.A * yCoeffB.B * yCoeffB.A + 3 * xCoeffB.C * yCoeffAA_3 * xCoeffBA_2 + 3 * xCoeffBB_2 * yCoeffAA_3 * xCoeffB.A + 3 * xCoeffB.C * xCoeffAA_2 * yCoeffA.A * yCoeffBA_2 - 3 * xCoeffA.A * yCoeffB.C * yCoeffAA_2 * xCoeffBA_2 - 3 * xCoeffA.A * xCoeffBB_2 * yCoeffAA_2 * yCoeffB.A + xCoeffAA_2 * yCoeffA.A * xCoeffB.A * (6 * yCoeffB.C * yCoeffB.A + 3 * yCoeffBB_2) + xCoeffAA_3 * (-yCoeffB.C * yCoeffBA_2 - 2 * yCoeffBB_2 * yCoeffB.A - yCoeffB.A * (2 * yCoeffB.C * yCoeffB.A + yCoeffBB_2));
-            var v8 = -6 * xCoeffA.A * xCoeffB.B * yCoeffAA_2 * xCoeffB.A * yCoeffB.A + 6 * xCoeffAA_2 * yCoeffA.A * yCoeffB.B * xCoeffB.A * yCoeffB.A + 3 * xCoeffB.B * yCoeffAA_3 * xCoeffBA_2 - 3 * xCoeffAA_3 * yCoeffB.B * yCoeffBA_2 - 3 * xCoeffA.A * yCoeffAA_2 * yCoeffB.B * xCoeffBA_2 + 3 * xCoeffAA_2 * xCoeffB.B * yCoeffA.A * yCoeffBA_2;
-            var v9 = -xCoeffAA_3 * yCoeffBA_3 + yCoeffAA_3 * xCoeffBA_3 - 3 * xCoeffA.A * yCoeffAA_2 * xCoeffBA_2 * yCoeffB.A + 3 * xCoeffAA_2 * yCoeffA.A * xCoeffB.A * yCoeffBA_2;
+            var c10x2 = xCoeffA.D * xCoeffA.D;
+            var c10x3 = xCoeffA.D * xCoeffA.D * xCoeffA.D;
+            var c10y2 = yCoeffA.D * yCoeffA.D;
+            var c10y3 = yCoeffA.D * yCoeffA.D * yCoeffA.D;
+            var c11x2 = xCoeffA.C * xCoeffA.C;
+            var c11x3 = xCoeffA.C * xCoeffA.C * xCoeffA.C;
+            var c11y2 = yCoeffA.C * yCoeffA.C;
+            var c11y3 = yCoeffA.C * yCoeffA.C * yCoeffA.C;
+            var c12x2 = xCoeffA.B * xCoeffA.B;
+            var c12x3 = xCoeffA.B * xCoeffA.B * xCoeffA.B;
+            var c12y2 = yCoeffA.B * yCoeffA.B;
+            var c12y3 = yCoeffA.B * yCoeffA.B * yCoeffA.B;
+            var c13x2 = xCoeffA.A * xCoeffA.A;
+            var c13x3 = xCoeffA.A * xCoeffA.A * xCoeffA.A;
+            var c13y2 = yCoeffA.A * yCoeffA.A;
+            var c13y3 = yCoeffA.A * yCoeffA.A * yCoeffA.A;
+            var c20x2 = xCoeffB.D * xCoeffB.D;
+            var c20x3 = xCoeffB.D * xCoeffB.D * xCoeffB.D;
+            var c20y2 = yCoeffB.D * yCoeffB.D;
+            var c20y3 = yCoeffB.D * yCoeffB.D * yCoeffB.D;
+            var c21x2 = xCoeffB.C * xCoeffB.C;
+            var c21x3 = xCoeffB.C * xCoeffB.C * xCoeffB.C;
+            var c21y2 = yCoeffB.C * yCoeffB.C;
+            var c22x2 = xCoeffB.B * xCoeffB.B;
+            var c22x3 = xCoeffB.B * xCoeffB.B * xCoeffB.B;
+            var c22y2 = yCoeffB.B * yCoeffB.B;
+            var c23x2 = xCoeffB.A * xCoeffB.A;
+            var c23x3 = xCoeffB.A * xCoeffB.A * xCoeffB.A;
+            var c23y2 = yCoeffB.A * yCoeffB.A;
+            var c23y3 = yCoeffB.A * yCoeffB.A * yCoeffB.A;
 
             var poly = new Polynomial(
-                /* t^9 */ v0,
-                /* t^8 */ v1,
-                /* t^7 */ v2,
-                /* t^6 */ v3,
-                /* t^5 */ v4,
-                /* t^4 */ v5,
-                /* t^3 */ v6,
-                /* t^2 */ v7,
-                /* t^1 */ v8,
-                /* t^0 */ v9);
+                /* t^9 */ xCoeffA.D * yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffA.D * yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A + xCoeffA.D * xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * yCoeffA.A - yCoeffA.D * xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A - xCoeffA.D * xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A + 6 * xCoeffA.D * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A + xCoeffA.D * yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A - yCoeffA.D * xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A + yCoeffA.D * xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffA.C * xCoeffB.D * yCoeffA.C * xCoeffA.B * yCoeffA.B * yCoeffA.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffB.D * yCoeffA.B * xCoeffA.A + xCoeffA.C * xCoeffB.D * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A - 2 * xCoeffA.D * xCoeffB.D * c12y3 * xCoeffA.A + 2 * yCoeffA.D * c12x3 * yCoeffB.D * yCoeffA.A - 3 * xCoeffA.D * yCoeffA.D * xCoeffA.C * xCoeffA.B * c13y2 - 6 * xCoeffA.D * yCoeffA.D * xCoeffB.D * xCoeffA.A * c13y2 + 3 * xCoeffA.D * yCoeffA.D * yCoeffA.C * yCoeffA.B * c13x2 - 2 * xCoeffA.D * yCoeffA.D * xCoeffA.B * c12y2 * xCoeffA.A - 2 * xCoeffA.D * xCoeffA.C * xCoeffB.D * yCoeffA.B * c13y2 - xCoeffA.D * xCoeffA.C * yCoeffA.C * c12y2 * xCoeffA.A + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffB.D * c13y2 - 4 * xCoeffA.D * xCoeffB.D * yCoeffA.C * xCoeffA.B * c13y2 + 3 * yCoeffA.D * xCoeffA.C * xCoeffB.D * xCoeffA.B * c13y2 + 6 * xCoeffA.D * yCoeffA.D * yCoeffB.D * c13x2 * yCoeffA.A + 2 * xCoeffA.D * yCoeffA.D * c12x2 * yCoeffA.B * yCoeffA.A + 2 * xCoeffA.D * xCoeffA.C * c11y2 * xCoeffA.A * yCoeffA.A + 2 * xCoeffA.D * xCoeffB.D * xCoeffA.B * c12y2 * yCoeffA.A + 6 * xCoeffA.D * xCoeffB.D * yCoeffB.D * xCoeffA.A * c13y2 - 3 * xCoeffA.D * yCoeffA.C * yCoeffB.D * yCoeffA.B * c13x2 + 2 * xCoeffA.D * xCoeffA.B * yCoeffB.D * c12y2 * xCoeffA.A + xCoeffA.D * c11y2 * xCoeffA.B * yCoeffA.B * xCoeffA.A + yCoeffA.D * xCoeffA.C * yCoeffA.C * c12x2 * yCoeffA.A + 4 * yCoeffA.D * xCoeffA.C * yCoeffB.D * yCoeffA.B * c13x2 - 3 * yCoeffA.D * xCoeffB.D * yCoeffA.C * yCoeffA.B * c13x2 + 2 * yCoeffA.D * xCoeffB.D * xCoeffA.B * c12y2 * xCoeffA.A + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * yCoeffB.D * c13x2 + xCoeffA.C * xCoeffB.D * yCoeffA.C * c12y2 * xCoeffA.A - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * yCoeffB.D * c13y2 - 2 * xCoeffA.D * c12x2 * yCoeffB.D * yCoeffA.B * yCoeffA.A - 6 * yCoeffA.D * xCoeffB.D * yCoeffB.D * c13x2 * yCoeffA.A - 2 * yCoeffA.D * xCoeffB.D * c12x2 * yCoeffA.B * yCoeffA.A - 2 * yCoeffA.D * c11x2 * yCoeffA.C * xCoeffA.A * yCoeffA.A - yCoeffA.D * c11x2 * xCoeffA.B * yCoeffA.B * yCoeffA.A - 2 * yCoeffA.D * c12x2 * yCoeffB.D * yCoeffA.B * xCoeffA.A - 2 * xCoeffA.C * xCoeffB.D * c11y2 * xCoeffA.A * yCoeffA.A - xCoeffA.C * yCoeffA.C * c12x2 * yCoeffB.D * yCoeffA.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffB.D * yCoeffA.B * c13x2 - 2 * xCoeffB.D * xCoeffA.B * yCoeffB.D * c12y2 * xCoeffA.A - xCoeffB.D * c11y2 * xCoeffA.B * yCoeffA.B * xCoeffA.A + 3 * c10y2 * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A + 3 * xCoeffA.C * xCoeffA.B * c20y2 * xCoeffA.A * yCoeffA.A + 2 * xCoeffB.D * c12x2 * yCoeffB.D * yCoeffA.B * yCoeffA.A - 3 * c10x2 * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A + 2 * c11x2 * yCoeffA.C * yCoeffB.D * xCoeffA.A * yCoeffA.A + c11x2 * xCoeffA.B * yCoeffB.D * yCoeffA.B * yCoeffA.A - 3 * c20x2 * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * xCoeffA.D * c20x2 * c13y3 - xCoeffA.D * c11y3 * c13x2 + 3 * c10x2 * xCoeffB.D * c13y3 + yCoeffA.D * c11x3 * c13y2 + 3 * yCoeffA.D * c20y2 * c13x3 + xCoeffB.D * c11y3 * c13x2 + c10x2 * c12y3 * xCoeffA.A - 3 * c10y2 * yCoeffB.D * c13x3 - c10y2 * c12x3 * yCoeffA.A + c20x2 * c12y3 * xCoeffA.A - c11x3 * yCoeffB.D * c13y2 - c12x3 * c20y2 * yCoeffA.A - xCoeffA.D * c11x2 * yCoeffA.C * c13y2 + yCoeffA.D * xCoeffA.C * c11y2 * c13x2 - 3 * xCoeffA.D * c10y2 * c13x2 * yCoeffA.A - xCoeffA.D * c11y2 * c12x2 * yCoeffA.A + yCoeffA.D * c11x2 * c12y2 * xCoeffA.A - xCoeffA.C * c11y2 * yCoeffB.D * c13x2 + 3 * c10x2 * yCoeffA.D * xCoeffA.A * c13y2 + c10x2 * xCoeffA.C * yCoeffA.B * c13y2 + 2 * c10x2 * yCoeffA.C * xCoeffA.B * c13y2 - 2 * c10y2 * xCoeffA.C * yCoeffA.B * c13x2 - c10y2 * yCoeffA.C * xCoeffA.B * c13x2 + c11x2 * xCoeffB.D * yCoeffA.C * c13y2 - 3 * xCoeffA.D * c20y2 * c13x2 * yCoeffA.A + 3 * yCoeffA.D * c20x2 * xCoeffA.A * c13y2 + xCoeffA.C * c20x2 * yCoeffA.B * c13y2 - 2 * xCoeffA.C * c20y2 * yCoeffA.B * c13x2 + xCoeffB.D * c11y2 * c12x2 * yCoeffA.A - yCoeffA.C * xCoeffA.B * c20y2 * c13x2 - c10x2 * xCoeffA.B * c12y2 * yCoeffA.A - 3 * c10x2 * yCoeffB.D * xCoeffA.A * c13y2 + 3 * c10y2 * xCoeffB.D * c13x2 * yCoeffA.A + c10y2 * c12x2 * yCoeffA.B * xCoeffA.A - c11x2 * yCoeffB.D * c12y2 * xCoeffA.A + 2 * c20x2 * yCoeffA.C * xCoeffA.B * c13y2 + 3 * xCoeffB.D * c20y2 * c13x2 * yCoeffA.A - c20x2 * xCoeffA.B * c12y2 * yCoeffA.A - 3 * c20x2 * yCoeffB.D * xCoeffA.A * c13y2 + c12x2 * c20y2 * yCoeffA.B * xCoeffA.A,
+                /* t^8 */ -xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A + xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A + 6 * xCoeffA.D * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A - yCoeffA.D * xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A + yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffA.A - xCoeffA.C * yCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffA.B * yCoeffA.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.C + xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A + 6 * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffB.C * yCoeffA.A + xCoeffA.C * yCoeffB.D * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A - 6 * xCoeffB.D * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A - yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffA.A - 6 * xCoeffA.D * xCoeffB.D * xCoeffB.C * c13y3 - 2 * xCoeffA.D * xCoeffB.C * c12y3 * xCoeffA.A + 6 * yCoeffA.D * yCoeffB.D * c13x3 * yCoeffB.C + 2 * xCoeffB.D * xCoeffB.C * c12y3 * xCoeffA.A + 2 * yCoeffA.D * c12x3 * yCoeffB.C * yCoeffA.A - 2 * c12x3 * yCoeffB.D * yCoeffB.C * yCoeffA.A - 6 * xCoeffA.D * yCoeffA.D * xCoeffB.C * xCoeffA.A * c13y2 + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * yCoeffB.C * c13y2 - 2 * xCoeffA.D * xCoeffA.C * xCoeffB.C * yCoeffA.B * c13y2 - 4 * xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffB.C * c13y2 + 3 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffB.C * c13y2 + 6 * xCoeffA.D * yCoeffA.D * c13x2 * yCoeffB.C * yCoeffA.A + 6 * xCoeffA.D * xCoeffB.D * xCoeffA.A * yCoeffB.C * c13y2 - 3 * xCoeffA.D * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.C + 2 * xCoeffA.D * xCoeffA.B * xCoeffB.C * c12y2 * yCoeffA.A + 2 * xCoeffA.D * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.C + 6 * xCoeffA.D * yCoeffB.D * xCoeffB.C * xCoeffA.A * c13y2 + 4 * yCoeffA.D * xCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.C + 6 * yCoeffA.D * xCoeffB.D * xCoeffB.C * xCoeffA.A * c13y2 + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * c13x2 * yCoeffB.C - 3 * yCoeffA.D * yCoeffA.C * xCoeffB.C * yCoeffA.B * c13x2 + 2 * yCoeffA.D * xCoeffA.B * xCoeffB.C * c12y2 * xCoeffA.A - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * yCoeffB.C * c13y2 + 2 * xCoeffA.C * xCoeffB.D * xCoeffB.C * yCoeffA.B * c13y2 + xCoeffA.C * yCoeffA.C * xCoeffB.C * c12y2 * xCoeffA.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffB.C * c13y2 + 4 * xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffB.C * c13y2 - 6 * xCoeffA.D * yCoeffB.D * c13x2 * yCoeffB.C * yCoeffA.A - 2 * xCoeffA.D * c12x2 * yCoeffA.B * yCoeffB.C * yCoeffA.A - 6 * yCoeffA.D * xCoeffB.D * c13x2 * yCoeffB.C * yCoeffA.A - 6 * yCoeffA.D * yCoeffB.D * xCoeffB.C * c13x2 * yCoeffA.A - 2 * yCoeffA.D * c12x2 * xCoeffB.C * yCoeffA.B * yCoeffA.A - 2 * yCoeffA.D * c12x2 * yCoeffA.B * xCoeffA.A * yCoeffB.C - xCoeffA.C * yCoeffA.C * c12x2 * yCoeffB.C * yCoeffA.A - 4 * xCoeffA.C * yCoeffB.D * yCoeffA.B * c13x2 * yCoeffB.C - 2 * xCoeffA.C * c11y2 * xCoeffB.C * xCoeffA.A * yCoeffA.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.C - 2 * xCoeffB.D * xCoeffA.B * xCoeffB.C * c12y2 * yCoeffA.A - 2 * xCoeffB.D * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.C - 6 * xCoeffB.D * yCoeffB.D * xCoeffB.C * xCoeffA.A * c13y2 - 2 * yCoeffA.C * xCoeffA.B * yCoeffB.D * c13x2 * yCoeffB.C + 3 * yCoeffA.C * yCoeffB.D * xCoeffB.C * yCoeffA.B * c13x2 - 2 * xCoeffA.B * yCoeffB.D * xCoeffB.C * c12y2 * xCoeffA.A - c11y2 * xCoeffA.B * xCoeffB.C * yCoeffA.B * xCoeffA.A + 6 * xCoeffB.D * yCoeffB.D * c13x2 * yCoeffB.C * yCoeffA.A + 2 * xCoeffB.D * c12x2 * yCoeffA.B * yCoeffB.C * yCoeffA.A + 2 * c11x2 * yCoeffA.C * xCoeffA.A * yCoeffB.C * yCoeffA.A + c11x2 * xCoeffA.B * yCoeffA.B * yCoeffB.C * yCoeffA.A + 2 * c12x2 * yCoeffB.D * xCoeffB.C * yCoeffA.B * yCoeffA.A + 2 * c12x2 * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffB.C + 3 * c10x2 * xCoeffB.C * c13y3 - 3 * c10y2 * c13x3 * yCoeffB.C + 3 * c20x2 * xCoeffB.C * c13y3 + c11y3 * xCoeffB.C * c13x2 - c11x3 * yCoeffB.C * c13y2 - 3 * c20y2 * c13x3 * yCoeffB.C - xCoeffA.C * c11y2 * c13x2 * yCoeffB.C + c11x2 * yCoeffA.C * xCoeffB.C * c13y2 - 3 * c10x2 * xCoeffA.A * yCoeffB.C * c13y2 + 3 * c10y2 * xCoeffB.C * c13x2 * yCoeffA.A - c11x2 * c12y2 * xCoeffA.A * yCoeffB.C + c11y2 * c12x2 * xCoeffB.C * yCoeffA.A - 3 * c20x2 * xCoeffA.A * yCoeffB.C * c13y2 + 3 * c20y2 * xCoeffB.C * c13x2 * yCoeffA.A,
+                /* t^7 */ -xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + 6 * xCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B - yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A + yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.B - xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffB.B * yCoeffA.A + xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A + xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B - 6 * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A - yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * xCoeffB.B * yCoeffA.A - yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffB.C * yCoeffA.A - 6 * xCoeffA.D * xCoeffB.D * xCoeffB.B * c13y3 - 2 * xCoeffA.D * c12y3 * xCoeffA.A * xCoeffB.B + 2 * xCoeffB.D * c12y3 * xCoeffA.A * xCoeffB.B + 2 * yCoeffA.D * c12x3 * yCoeffA.A * yCoeffB.B - 6 * xCoeffA.D * yCoeffA.D * xCoeffA.A * xCoeffB.B * c13y2 + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * c13y2 * yCoeffB.B - 2 * xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffB.B * c13y2 - 4 * xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffB.B * c13y2 + 3 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffB.B * c13y2 + 6 * xCoeffA.D * yCoeffA.D * c13x2 * yCoeffA.A * yCoeffB.B + 6 * xCoeffA.D * xCoeffB.D * xCoeffA.A * c13y2 * yCoeffB.B - 3 * xCoeffA.D * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.B + 2 * xCoeffA.D * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.B + 2 * xCoeffA.D * xCoeffA.B * c12y2 * xCoeffB.B * yCoeffA.A + 6 * xCoeffA.D * yCoeffB.D * xCoeffA.A * xCoeffB.B * c13y2 + 6 * xCoeffA.D * xCoeffB.C * xCoeffA.A * yCoeffB.C * c13y2 + 4 * yCoeffA.D * xCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.B + 6 * yCoeffA.D * xCoeffB.D * xCoeffA.A * xCoeffB.B * c13y2 + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * c13x2 * yCoeffB.B - 3 * yCoeffA.D * yCoeffA.C * yCoeffA.B * c13x2 * xCoeffB.B + 2 * yCoeffA.D * xCoeffA.B * c12y2 * xCoeffA.A * xCoeffB.B - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * c13y2 * yCoeffB.B + 2 * xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffB.B * c13y2 + xCoeffA.C * yCoeffA.C * c12y2 * xCoeffA.A * xCoeffB.B - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffB.B * c13y2 - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.C * yCoeffB.C * c13y2 + 4 * xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffB.B * c13y2 - 2 * xCoeffA.D * c12x2 * yCoeffA.B * yCoeffA.A * yCoeffB.B - 6 * yCoeffA.D * xCoeffB.D * c13x2 * yCoeffA.A * yCoeffB.B - 6 * yCoeffA.D * yCoeffB.D * c13x2 * xCoeffB.B * yCoeffA.A - 6 * yCoeffA.D * xCoeffB.C * c13x2 * yCoeffB.C * yCoeffA.A - 2 * yCoeffA.D * c12x2 * yCoeffA.B * xCoeffA.A * yCoeffB.B - 2 * yCoeffA.D * c12x2 * yCoeffA.B * xCoeffB.B * yCoeffA.A - xCoeffA.C * yCoeffA.C * c12x2 * yCoeffA.A * yCoeffB.B - 2 * xCoeffA.C * c11y2 * xCoeffA.A * xCoeffB.B * yCoeffA.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.B - 2 * xCoeffB.D * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.B - 2 * xCoeffB.D * xCoeffA.B * c12y2 * xCoeffB.B * yCoeffA.A - 6 * xCoeffB.D * yCoeffB.D * xCoeffA.A * xCoeffB.B * c13y2 - 6 * xCoeffB.D * xCoeffB.C * xCoeffA.A * yCoeffB.C * c13y2 + 3 * yCoeffA.C * yCoeffB.D * yCoeffA.B * c13x2 * xCoeffB.B + 3 * yCoeffA.C * xCoeffB.C * yCoeffA.B * c13x2 * yCoeffB.C - 2 * xCoeffA.B * yCoeffB.D * c12y2 * xCoeffA.A * xCoeffB.B - 2 * xCoeffA.B * xCoeffB.C * c12y2 * xCoeffA.A * yCoeffB.C - c11y2 * xCoeffA.B * yCoeffA.B * xCoeffA.A * xCoeffB.B + 2 * xCoeffB.D * c12x2 * yCoeffA.B * yCoeffA.A * yCoeffB.B - 3 * yCoeffA.C * c21x2 * yCoeffA.B * xCoeffA.A * yCoeffA.A + 6 * yCoeffB.D * xCoeffB.C * c13x2 * yCoeffB.C * yCoeffA.A + 2 * c11x2 * yCoeffA.C * xCoeffA.A * yCoeffA.A * yCoeffB.B + c11x2 * xCoeffA.B * yCoeffA.B * yCoeffA.A * yCoeffB.B + 2 * c12x2 * yCoeffB.D * yCoeffA.B * xCoeffB.B * yCoeffA.A + 2 * c12x2 * xCoeffB.C * yCoeffA.B * yCoeffB.C * yCoeffA.A - 3 * xCoeffA.D * c21x2 * c13y3 + 3 * xCoeffB.D * c21x2 * c13y3 + 3 * c10x2 * xCoeffB.B * c13y3 - 3 * c10y2 * c13x3 * yCoeffB.B + 3 * c20x2 * xCoeffB.B * c13y3 + c21x2 * c12y3 * xCoeffA.A + c11y3 * c13x2 * xCoeffB.B - c11x3 * c13y2 * yCoeffB.B + 3 * yCoeffA.D * c21x2 * xCoeffA.A * c13y2 - xCoeffA.C * c11y2 * c13x2 * yCoeffB.B + xCoeffA.C * c21x2 * yCoeffA.B * c13y2 + 2 * yCoeffA.C * xCoeffA.B * c21x2 * c13y2 + c11x2 * yCoeffA.C * xCoeffB.B * c13y2 - xCoeffA.B * c21x2 * c12y2 * yCoeffA.A - 3 * yCoeffB.D * c21x2 * xCoeffA.A * c13y2 - 3 * c10x2 * xCoeffA.A * c13y2 * yCoeffB.B + 3 * c10y2 * c13x2 * xCoeffB.B * yCoeffA.A - c11x2 * c12y2 * xCoeffA.A * yCoeffB.B + c11y2 * c12x2 * xCoeffB.B * yCoeffA.A - 3 * c20x2 * xCoeffA.A * c13y2 * yCoeffB.B + 3 * c20y2 * c13x2 * xCoeffB.B * yCoeffA.A + c12x2 * yCoeffA.B * xCoeffA.A * (2 * yCoeffB.D * yCoeffB.B + c21y2) + xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * c21y2) + c12x3 * yCoeffA.A * (-2 * yCoeffB.D * yCoeffB.B - c21y2) + yCoeffA.D * c13x3 * (6 * yCoeffB.D * yCoeffB.B + 3 * c21y2) + yCoeffA.C * xCoeffA.B * c13x2 * (-2 * yCoeffB.D * yCoeffB.B - c21y2) + xCoeffA.C * yCoeffA.B * c13x2 * (-4 * yCoeffB.D * yCoeffB.B - 2 * c21y2) + xCoeffA.D * c13x2 * yCoeffA.A * (-6 * yCoeffB.D * yCoeffB.B - 3 * c21y2) + xCoeffB.D * c13x2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * c21y2) + c13x3 * (-2 * yCoeffB.D * c21y2 - c20y2 * yCoeffB.B - yCoeffB.D * (2 * yCoeffB.D * yCoeffB.B + c21y2)),
+                /* t^6 */ -xCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + xCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + 6 * xCoeffA.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A - yCoeffA.D * xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A + yCoeffA.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A + xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * xCoeffA.A * yCoeffB.A - xCoeffA.C * yCoeffA.C * xCoeffA.B * yCoeffA.B * yCoeffA.A * xCoeffB.A + xCoeffA.C * xCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + xCoeffA.C * yCoeffB.D * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A + xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B + xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffA.A - xCoeffB.D * yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A - 6 * xCoeffB.D * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A - yCoeffA.C * xCoeffA.B * yCoeffB.D * xCoeffA.A * yCoeffA.A * xCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffA.A * yCoeffB.B - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * xCoeffB.B * yCoeffA.A - 6 * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A - 6 * xCoeffA.D * xCoeffB.D * c13y3 * xCoeffB.A - 6 * xCoeffA.D * xCoeffB.C * xCoeffB.B * c13y3 - 2 * xCoeffA.D * c12y3 * xCoeffA.A * xCoeffB.A + 6 * xCoeffB.D * xCoeffB.C * xCoeffB.B * c13y3 + 2 * xCoeffB.D * c12y3 * xCoeffA.A * xCoeffB.A + 2 * xCoeffB.C * c12y3 * xCoeffA.A * xCoeffB.B + 2 * yCoeffA.D * c12x3 * yCoeffA.A * yCoeffB.A - 6 * xCoeffA.D * yCoeffA.D * xCoeffA.A * c13y2 * xCoeffB.A + 3 * xCoeffA.D * xCoeffA.C * xCoeffA.B * c13y2 * yCoeffB.A - 2 * xCoeffA.D * xCoeffA.C * yCoeffA.B * c13y2 * xCoeffB.A - 4 * xCoeffA.D * yCoeffA.C * xCoeffA.B * c13y2 * xCoeffB.A + 3 * yCoeffA.D * xCoeffA.C * xCoeffA.B * c13y2 * xCoeffB.A + 6 * xCoeffA.D * yCoeffA.D * c13x2 * yCoeffA.A * yCoeffB.A + 6 * xCoeffA.D * xCoeffB.D * xCoeffA.A * c13y2 * yCoeffB.A - 3 * xCoeffA.D * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.A + 2 * xCoeffA.D * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.A + 2 * xCoeffA.D * xCoeffA.B * c12y2 * yCoeffA.A * xCoeffB.A + 6 * xCoeffA.D * yCoeffB.D * xCoeffA.A * c13y2 * xCoeffB.A + 6 * xCoeffA.D * xCoeffB.C * xCoeffA.A * c13y2 * yCoeffB.B + 6 * xCoeffA.D * xCoeffA.A * yCoeffB.C * xCoeffB.B * c13y2 + 4 * yCoeffA.D * xCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.A + 6 * yCoeffA.D * xCoeffB.D * xCoeffA.A * c13y2 * xCoeffB.A + 2 * yCoeffA.D * yCoeffA.C * xCoeffA.B * c13x2 * yCoeffB.A - 3 * yCoeffA.D * yCoeffA.C * yCoeffA.B * c13x2 * xCoeffB.A + 2 * yCoeffA.D * xCoeffA.B * c12y2 * xCoeffA.A * xCoeffB.A + 6 * yCoeffA.D * xCoeffB.C * xCoeffA.A * xCoeffB.B * c13y2 - 3 * xCoeffA.C * xCoeffB.D * xCoeffA.B * c13y2 * yCoeffB.A + 2 * xCoeffA.C * xCoeffB.D * yCoeffA.B * c13y2 * xCoeffB.A + xCoeffA.C * yCoeffA.C * c12y2 * xCoeffA.A * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.D * c13y2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.C * c13y2 * yCoeffB.B - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.C * xCoeffB.B * c13y2 + 2 * xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffB.B * c13y2 + 4 * xCoeffB.D * yCoeffA.C * xCoeffA.B * c13y2 * xCoeffB.A + 4 * yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffB.B * c13y2 - 2 * xCoeffA.D * c12x2 * yCoeffA.B * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * xCoeffB.D * c13x2 * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * yCoeffB.D * c13x2 * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * xCoeffB.C * c13x2 * yCoeffA.A * yCoeffB.B - 2 * yCoeffA.D * c12x2 * yCoeffA.B * xCoeffA.A * yCoeffB.A - 2 * yCoeffA.D * c12x2 * yCoeffA.B * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * c13x2 * yCoeffB.C * xCoeffB.B * yCoeffA.A - xCoeffA.C * yCoeffA.C * c12x2 * yCoeffA.A * yCoeffB.A - 2 * xCoeffA.C * c11y2 * xCoeffA.A * yCoeffA.A * xCoeffB.A + 3 * xCoeffB.D * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.A - 2 * xCoeffB.D * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.A - 2 * xCoeffB.D * xCoeffA.B * c12y2 * yCoeffA.A * xCoeffB.A - 6 * xCoeffB.D * yCoeffB.D * xCoeffA.A * c13y2 * xCoeffB.A - 6 * xCoeffB.D * xCoeffB.C * xCoeffA.A * c13y2 * yCoeffB.B - 6 * xCoeffB.D * xCoeffA.A * yCoeffB.C * xCoeffB.B * c13y2 + 3 * yCoeffA.C * yCoeffB.D * yCoeffA.B * c13x2 * xCoeffB.A + 3 * yCoeffA.C * xCoeffB.C * yCoeffA.B * c13x2 * yCoeffB.B + 3 * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.C * xCoeffB.B - 2 * xCoeffA.B * yCoeffB.D * c12y2 * xCoeffA.A * xCoeffB.A - 2 * xCoeffA.B * xCoeffB.C * c12y2 * xCoeffA.A * yCoeffB.B - 2 * xCoeffA.B * xCoeffB.C * c12y2 * xCoeffB.B * yCoeffA.A - 2 * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.C * xCoeffB.B - 6 * yCoeffB.D * xCoeffB.C * xCoeffA.A * xCoeffB.B * c13y2 - c11y2 * xCoeffA.B * yCoeffA.B * xCoeffA.A * xCoeffB.A + 2 * xCoeffB.D * c12x2 * yCoeffA.B * yCoeffA.A * yCoeffB.A + 6 * yCoeffB.D * c13x2 * yCoeffB.C * xCoeffB.B * yCoeffA.A + 2 * c11x2 * yCoeffA.C * xCoeffA.A * yCoeffA.A * yCoeffB.A + c11x2 * xCoeffA.B * yCoeffA.B * yCoeffA.A * yCoeffB.A + 2 * c12x2 * yCoeffB.D * yCoeffA.B * yCoeffA.A * xCoeffB.A + 2 * c12x2 * xCoeffB.C * yCoeffA.B * yCoeffA.A * yCoeffB.B + 2 * c12x2 * yCoeffA.B * yCoeffB.C * xCoeffB.B * yCoeffA.A + c21x3 * c13y3 + 3 * c10x2 * c13y3 * xCoeffB.A - 3 * c10y2 * c13x3 * yCoeffB.A + 3 * c20x2 * c13y3 * xCoeffB.A + c11y3 * c13x2 * xCoeffB.A - c11x3 * c13y2 * yCoeffB.A - xCoeffA.C * c11y2 * c13x2 * yCoeffB.A + c11x2 * yCoeffA.C * c13y2 * xCoeffB.A - 3 * c10x2 * xCoeffA.A * c13y2 * yCoeffB.A + 3 * c10y2 * c13x2 * yCoeffA.A * xCoeffB.A - c11x2 * c12y2 * xCoeffA.A * yCoeffB.A + c11y2 * c12x2 * yCoeffA.A * xCoeffB.A - 3 * c21x2 * xCoeffA.A * yCoeffB.C * c13y2 - 3 * c20x2 * xCoeffA.A * c13y2 * yCoeffB.A + 3 * c20y2 * c13x2 * yCoeffA.A * xCoeffB.A + xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + c12x3 * yCoeffA.A * (-2 * yCoeffB.D * yCoeffB.A - 2 * yCoeffB.C * yCoeffB.B) + yCoeffA.D * c13x3 * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + yCoeffA.C * xCoeffA.B * c13x2 * (-2 * yCoeffB.D * yCoeffB.A - 2 * yCoeffB.C * yCoeffB.B) + c12x2 * yCoeffA.B * xCoeffA.A * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B) + xCoeffA.C * yCoeffA.B * c13x2 * (-4 * yCoeffB.D * yCoeffB.A - 4 * yCoeffB.C * yCoeffB.B) + xCoeffA.D * c13x2 * yCoeffA.A * (-6 * yCoeffB.D * yCoeffB.A - 6 * yCoeffB.C * yCoeffB.B) + xCoeffB.D * c13x2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + xCoeffB.C * c13x2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * c21y2) + c13x3 * (-2 * yCoeffB.D * yCoeffB.C * yCoeffB.B - c20y2 * yCoeffB.A - yCoeffB.C * (2 * yCoeffB.D * yCoeffB.B + c21y2) - yCoeffB.D * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B)),
+                /* t^5 */ xCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A * xCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.B - yCoeffA.C * xCoeffA.B * xCoeffB.C * xCoeffA.A * yCoeffA.A * yCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffB.C * yCoeffA.A * xCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.B - 6 * yCoeffA.C * xCoeffB.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A - 6 * xCoeffA.D * xCoeffB.C * c13y3 * xCoeffB.A + 6 * xCoeffB.D * xCoeffB.C * c13y3 * xCoeffB.A + 2 * xCoeffB.C * c12y3 * xCoeffA.A * xCoeffB.A + 6 * xCoeffA.D * xCoeffB.C * xCoeffA.A * c13y2 * yCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * yCoeffB.C * c13y2 * xCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * xCoeffB.B * c13y2 * yCoeffB.B + 6 * yCoeffA.D * xCoeffB.C * xCoeffA.A * c13y2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.C * c13y2 * yCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * yCoeffB.C * c13y2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.B * c13y2 * yCoeffB.B + 2 * xCoeffA.C * xCoeffB.C * yCoeffA.B * c13y2 * xCoeffB.A + 4 * yCoeffA.C * xCoeffA.B * xCoeffB.C * c13y2 * xCoeffB.A - 6 * yCoeffA.D * xCoeffB.C * c13x2 * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * c13x2 * yCoeffB.C * yCoeffA.A * xCoeffB.A - 6 * yCoeffA.D * c13x2 * xCoeffB.B * yCoeffA.A * yCoeffB.B - 6 * xCoeffB.D * xCoeffB.C * xCoeffA.A * c13y2 * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * yCoeffB.C * c13y2 * xCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * xCoeffB.B * c13y2 * yCoeffB.B + 3 * yCoeffA.C * xCoeffB.C * yCoeffA.B * c13x2 * yCoeffB.A - 3 * yCoeffA.C * yCoeffA.B * xCoeffA.A * c22x2 * yCoeffA.A + 3 * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.C * xCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * c13x2 * xCoeffB.B * yCoeffB.B - 2 * xCoeffA.B * xCoeffB.C * c12y2 * xCoeffA.A * yCoeffB.A - 2 * xCoeffA.B * xCoeffB.C * c12y2 * yCoeffA.A * xCoeffB.A - 2 * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.C * xCoeffB.A - 2 * xCoeffA.B * c12y2 * xCoeffA.A * xCoeffB.B * yCoeffB.B - 6 * yCoeffB.D * xCoeffB.C * xCoeffA.A * c13y2 * xCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * yCoeffB.C * xCoeffB.B * c13y2 + 6 * yCoeffB.D * c13x2 * yCoeffB.C * yCoeffA.A * xCoeffB.A + 2 * c12x2 * xCoeffB.C * yCoeffA.B * yCoeffA.A * yCoeffB.A + 2 * c12x2 * yCoeffA.B * yCoeffB.C * yCoeffA.A * xCoeffB.A + 2 * c12x2 * yCoeffA.B * xCoeffB.B * yCoeffA.A * yCoeffB.B - 3 * xCoeffA.D * c22x2 * c13y3 + 3 * xCoeffB.D * c22x2 * c13y3 + 3 * c21x2 * xCoeffB.B * c13y3 + c12y3 * xCoeffA.A * c22x2 + 3 * yCoeffA.D * xCoeffA.A * c22x2 * c13y2 + xCoeffA.C * yCoeffA.B * c22x2 * c13y2 + 2 * yCoeffA.C * xCoeffA.B * c22x2 * c13y2 - xCoeffA.B * c12y2 * c22x2 * yCoeffA.A - 3 * yCoeffB.D * xCoeffA.A * c22x2 * c13y2 - 3 * c21x2 * xCoeffA.A * c13y2 * yCoeffB.B + c12x2 * yCoeffA.B * xCoeffA.A * (2 * yCoeffB.C * yCoeffB.A + c22y2) + xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * c22y2) + xCoeffB.C * c13x2 * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + c12x3 * yCoeffA.A * (-2 * yCoeffB.C * yCoeffB.A - c22y2) + yCoeffA.D * c13x3 * (6 * yCoeffB.C * yCoeffB.A + 3 * c22y2) + yCoeffA.C * xCoeffA.B * c13x2 * (-2 * yCoeffB.C * yCoeffB.A - c22y2) + xCoeffA.C * yCoeffA.B * c13x2 * (-4 * yCoeffB.C * yCoeffB.A - 2 * c22y2) + xCoeffA.D * c13x2 * yCoeffA.A * (-6 * yCoeffB.C * yCoeffB.A - 3 * c22y2) + c13x2 * xCoeffB.B * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.B + 3 * c21y2) + xCoeffB.D * c13x2 * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * c22y2) + c13x3 * (-2 * yCoeffB.D * yCoeffB.C * yCoeffB.A - yCoeffB.B * (2 * yCoeffB.D * yCoeffB.B + c21y2) - yCoeffB.D * (2 * yCoeffB.C * yCoeffB.A + c22y2) - yCoeffB.C * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B)),
+                /* t^4 */ 6 * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B * yCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.A + xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B * xCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * yCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * yCoeffB.B * xCoeffB.A - 6 * yCoeffA.C * yCoeffA.B * xCoeffA.A * xCoeffB.B * yCoeffA.A * xCoeffB.A - 6 * xCoeffA.D * xCoeffB.B * c13y3 * xCoeffB.A + 6 * xCoeffB.D * xCoeffB.B * c13y3 * xCoeffB.A + 6 * yCoeffA.D * c13x3 * yCoeffB.B * yCoeffB.A + 2 * c12y3 * xCoeffA.A * xCoeffB.B * xCoeffB.A - 2 * c12x3 * yCoeffA.A * yCoeffB.B * yCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * xCoeffB.B * c13y2 * yCoeffB.A + 6 * xCoeffA.D * xCoeffA.A * c13y2 * yCoeffB.B * xCoeffB.A + 6 * yCoeffA.D * xCoeffA.A * xCoeffB.B * c13y2 * xCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * xCoeffB.B * c13y2 * yCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * c13y2 * yCoeffB.B * xCoeffB.A + 2 * xCoeffA.C * yCoeffA.B * xCoeffB.B * c13y2 * xCoeffB.A + 4 * yCoeffA.C * xCoeffA.B * xCoeffB.B * c13y2 * xCoeffB.A - 6 * xCoeffA.D * c13x2 * yCoeffA.A * yCoeffB.B * yCoeffB.A - 6 * yCoeffA.D * c13x2 * xCoeffB.B * yCoeffA.A * yCoeffB.A - 6 * yCoeffA.D * c13x2 * yCoeffA.A * yCoeffB.B * xCoeffB.A - 4 * xCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.B * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * xCoeffB.B * c13y2 * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * c13y2 * yCoeffB.B * xCoeffB.A - 2 * yCoeffA.C * xCoeffA.B * c13x2 * yCoeffB.B * yCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * c13x2 * xCoeffB.B * yCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * c13x2 * yCoeffB.B * xCoeffB.A - 2 * xCoeffA.B * c12y2 * xCoeffA.A * xCoeffB.B * yCoeffB.A - 2 * xCoeffA.B * c12y2 * xCoeffA.A * yCoeffB.B * xCoeffB.A - 2 * xCoeffA.B * c12y2 * xCoeffB.B * yCoeffA.A * xCoeffB.A - 6 * yCoeffB.D * xCoeffA.A * xCoeffB.B * c13y2 * xCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * yCoeffB.C * c13y2 * xCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * xCoeffB.B * c13y2 * yCoeffB.B + 6 * xCoeffB.D * c13x2 * yCoeffA.A * yCoeffB.B * yCoeffB.A + 2 * c12x2 * yCoeffA.B * xCoeffA.A * yCoeffB.B * yCoeffB.A + 2 * c12x2 * yCoeffA.B * xCoeffB.B * yCoeffA.A * yCoeffB.A + 2 * c12x2 * yCoeffA.B * yCoeffA.A * yCoeffB.B * xCoeffB.A + 3 * xCoeffB.C * c22x2 * c13y3 + 3 * c21x2 * c13y3 * xCoeffB.A - 3 * xCoeffA.A * yCoeffB.C * c22x2 * c13y2 - 3 * c21x2 * xCoeffA.A * c13y2 * yCoeffB.A + c13x2 * xCoeffB.B * yCoeffA.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + c13x2 * yCoeffA.A * xCoeffB.A * (6 * yCoeffB.D * yCoeffB.B + 3 * c21y2) + xCoeffB.C * c13x2 * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * c22y2) + c13x3 * (-2 * yCoeffB.D * yCoeffB.B * yCoeffB.A - yCoeffB.A * (2 * yCoeffB.D * yCoeffB.B + c21y2) - yCoeffB.C * (2 * yCoeffB.C * yCoeffB.A + c22y2) - yCoeffB.B * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B)),
+                /* t^3 */ xCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A * yCoeffB.A - yCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * xCoeffB.A * yCoeffB.A + 6 * xCoeffB.C * xCoeffB.B * c13y3 * xCoeffB.A + 3 * xCoeffA.C * xCoeffA.B * xCoeffA.A * yCoeffA.A * c23y2 + 6 * xCoeffA.D * xCoeffA.A * c13y2 * xCoeffB.A * yCoeffB.A - 3 * xCoeffA.C * xCoeffA.B * c13y2 * xCoeffB.A * yCoeffB.A - 3 * yCoeffA.C * yCoeffA.B * xCoeffA.A * yCoeffA.A * c23x2 - 6 * yCoeffA.D * c13x2 * yCoeffA.A * xCoeffB.A * yCoeffB.A - 6 * xCoeffB.D * xCoeffA.A * c13y2 * xCoeffB.A * yCoeffB.A + 3 * yCoeffA.C * yCoeffA.B * c13x2 * xCoeffB.A * yCoeffB.A - 2 * xCoeffA.B * c12y2 * xCoeffA.A * xCoeffB.A * yCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * xCoeffB.B * c13y2 * yCoeffB.A - 6 * xCoeffB.C * xCoeffA.A * c13y2 * yCoeffB.B * xCoeffB.A - 6 * xCoeffA.A * yCoeffB.C * xCoeffB.B * c13y2 * xCoeffB.A + 6 * xCoeffB.C * c13x2 * yCoeffA.A * yCoeffB.B * yCoeffB.A + 2 * c12x2 * yCoeffA.B * yCoeffA.A * xCoeffB.A * yCoeffB.A + c22x3 * c13y3 - 3 * xCoeffA.D * c13y3 * c23x2 + 3 * yCoeffA.D * c13x3 * c23y2 + 3 * xCoeffB.D * c13y3 * c23x2 + c12y3 * xCoeffA.A * c23x2 - c12x3 * yCoeffA.A * c23y2 - 3 * xCoeffA.D * c13x2 * yCoeffA.A * c23y2 + 3 * yCoeffA.D * xCoeffA.A * c13y2 * c23x2 - 2 * xCoeffA.C * yCoeffA.B * c13x2 * c23y2 + xCoeffA.C * yCoeffA.B * c13y2 * c23x2 - yCoeffA.C * xCoeffA.B * c13x2 * c23y2 + 2 * yCoeffA.C * xCoeffA.B * c13y2 * c23x2 + 3 * xCoeffB.D * c13x2 * yCoeffA.A * c23y2 - xCoeffA.B * c12y2 * yCoeffA.A * c23x2 - 3 * yCoeffB.D * xCoeffA.A * c13y2 * c23x2 + c12x2 * yCoeffA.B * xCoeffA.A * c23y2 - 3 * xCoeffA.A * c22x2 * c13y2 * yCoeffB.B + c13x2 * yCoeffA.A * xCoeffB.A * (6 * yCoeffB.D * yCoeffB.A + 6 * yCoeffB.C * yCoeffB.B) + c13x2 * xCoeffB.B * yCoeffA.A * (6 * yCoeffB.C * yCoeffB.A + 3 * c22y2) + c13x3 * (-2 * yCoeffB.C * yCoeffB.B * yCoeffB.A - yCoeffB.D * c23y2 - yCoeffB.B * (2 * yCoeffB.C * yCoeffB.A + c22y2) - yCoeffB.A * (2 * yCoeffB.D * yCoeffB.A + 2 * yCoeffB.C * yCoeffB.B)),
+                /* t^2 */ -6 * xCoeffB.C * xCoeffA.A * c13y2 * xCoeffB.A * yCoeffB.A - 6 * xCoeffA.A * xCoeffB.B * c13y2 * yCoeffB.B * xCoeffB.A + 6 * c13x2 * xCoeffB.B * yCoeffA.A * yCoeffB.B * yCoeffB.A + 3 * xCoeffB.C * c13y3 * c23x2 + 3 * c22x2 * c13y3 * xCoeffB.A + 3 * xCoeffB.C * c13x2 * yCoeffA.A * c23y2 - 3 * xCoeffA.A * yCoeffB.C * c13y2 * c23x2 - 3 * xCoeffA.A * c22x2 * c13y2 * yCoeffB.A + c13x2 * yCoeffA.A * xCoeffB.A * (6 * yCoeffB.C * yCoeffB.A + 3 * c22y2) + c13x3 * (-yCoeffB.C * c23y2 - 2 * c22y2 * yCoeffB.A - yCoeffB.A * (2 * yCoeffB.C * yCoeffB.A + c22y2)),
+                /* t^1 */ -6 * xCoeffA.A * xCoeffB.B * c13y2 * xCoeffB.A * yCoeffB.A + 6 * c13x2 * yCoeffA.A * yCoeffB.B * xCoeffB.A * yCoeffB.A + 3 * xCoeffB.B * c13y3 * c23x2 - 3 * c13x3 * yCoeffB.B * c23y2 - 3 * xCoeffA.A * c13y2 * yCoeffB.B * c23x2 + 3 * c13x2 * xCoeffB.B * yCoeffA.A * c23y2,
+                /* t^0 */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * xCoeffA.A * c13y2 * c23x2 * yCoeffB.A + 3 * c13x2 * yCoeffA.A * xCoeffB.A * c23y2
+            );
             var roots = poly.RootsInInterval(0, 1);
 
             foreach (var s in roots)
@@ -4755,23 +4738,24 @@ namespace Engine
                         /* t^0 */ yCoeffA.D - point.Y,
                         epsilon)
                     : CubicRoots(
-                        /* t^3 */ yCoeffA.A,
+                        yCoeffA.A,
                         /* t^2 */ yCoeffA.B,
                         /* t^1 */ yCoeffA.C,
                         /* t^0 */ yCoeffA.D - point.Y,
                         epsilon);
 
+                // ToDo: Figure out why the xRoots can be larger than 1 or smaller than 0 and still work...
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
                     // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
                     foreach (var xRoot in xRoots)
                     {
-                        if (0 <= xRoot && xRoot <= 1)
+                        //if (0 <= xRoot && xRoot <= 1)
                         {
                             foreach (var yRoot in yRoots)
                             {
-                                var t = xRoot - yRoot;
-                                if ((t >= 0 ? t : -t) < tolerance)
+                                //var t = xRoot - yRoot;
+                                //if ((t >= 0 ? t : -t) < tolerance)
                                 {
                                     result.Points.Add(point);
                                     goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
@@ -4808,7 +4792,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentPolygonIntersection(
+        public static Intersection CubicBezierSegmentPolygonIntersection(
             double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
             List<Point2D> points,
             double epsilon = Epsilon)
@@ -4859,7 +4843,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentRectangleIntersection(
+        public static Intersection CubicBezierSegmentRectangleIntersection(
             double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -4897,7 +4881,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PolygonContourPolygonContourIntersection(
+        public static Intersection PolygonContourPolygonContourIntersection(
             List<Point2D> points1,
             List<Point2D> points2,
             double epsilon = Epsilon)
@@ -4940,7 +4924,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection PolygonContourRectangleIntersection(
+        public static Intersection PolygonContourRectangleIntersection(
             List<Point2D> points,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -4984,7 +4968,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection RectangleRectangleIntersection(
+        public static Intersection RectangleRectangleIntersection(
             double a1X, double a1Y, double a2X, double a2Y,
             double b1X, double b1Y, double b2X, double b2Y,
             double epsilon = Epsilon)
@@ -5025,7 +5009,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CirclePolygonIntersection(
+        public static Intersection CirclePolygonIntersection(
             double cX, double cY, double r,
             List<Point2D> points, double angle,
             double epsilon = Epsilon)
@@ -5074,7 +5058,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleRectangleIntersection(
+        public static Intersection CircleRectangleIntersection(
             double cX, double cY, double r, double angle,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -5117,7 +5101,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleCircleIntersection1(
+        public static Intersection CircleCircleIntersection1(
             double cx0, double cy0, double radius0,
             double cx1, double cy1, double radius1,
             double epsilon = Epsilon)
@@ -5207,7 +5191,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleCircleIntersection(
+        public static Intersection CircleCircleIntersection(
             double c1X, double c1Y, double r1,
             double c2X, double c2Y, double r2,
             double epsilon = Epsilon)
@@ -5252,7 +5236,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipsePolygonContourIntersection(
+        public static Intersection EllipsePolygonContourIntersection(
             double cx, double cy, double rx, double ry, double angle,
             List<Point2D> points,
             double epsilon = Epsilon)
@@ -5274,7 +5258,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CirclePolygonContourIntersection(
+        public static Intersection CirclePolygonContourIntersection(
             double cX, double cY, double radius, double angle,
             List<Point2D> points,
             double epsilon = Epsilon)
@@ -5322,7 +5306,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipsePolygonContourIntersection(
+        public static Intersection EllipsePolygonContourIntersection(
             double cX, double cY, double rx, double ry, double cosA, double sinA,
             List<Point2D> points,
             double epsilon = Epsilon)
@@ -5368,7 +5352,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseRectangleIntersection(
+        public static Intersection EllipseRectangleIntersection(
             double cx, double cy, double rx, double ry, double angle,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -5395,7 +5379,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseRectangleIntersection(
+        public static Intersection EllipseRectangleIntersection(
             double cX, double cY, double rx, double ry, double cosA, double sinA,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
@@ -5437,7 +5421,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
+        public static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
             double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
@@ -5497,7 +5481,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
+        public static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
             double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
@@ -5562,7 +5546,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(
+        public static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(
             double c1X, double c1Y, double rx1, double ry1,
             double c2X, double c2Y, double rx2, double ry2,
             double epsilon = Epsilon)

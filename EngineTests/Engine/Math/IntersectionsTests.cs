@@ -370,6 +370,60 @@ namespace Engine.Tests
         }
 
         /// <summary>
+        /// Test for correct intersections between two Cubic Bezier curves.
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("System.ValueTuple.dll")]
+        public void CubicSegmentCubicBezierSegmentIntersectionTest()
+        {
+            // List of testcases for intersections between two Quadratic Bezier curves.
+            var testCases = new Dictionary<((double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY) a, (double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY) b), Intersection>
+            {
+                // Paralell vertically mirrored Cubic Bezier curves.
+                { ((100, 100, 166.66666666666663, 166.66666666666663, 233.33333333333337, 166.66666666666663, 300, 100), (100, 150, 166.66666666666663, 83.333333333333343, 233.33333333333337, 83.333333333333343, 300, 150)),
+                    new Intersection(IntersectionState.Intersection, new Point2D(129.289436340332, 124.99991906534), new Point2D(270.710563659668, 124.99991906534)) },
+                // Paralell Mirrored Quadratic Bezier curves with one leg shifted to the right.
+                { ((150, 100, 183.33333333333331, 166.66666666666663, 233.33333333333337, 166.66666666666663, 300, 100), (100, 150, 166.66666666666663, 83.333333333333343, 233.33333333333337, 83.333333333333343, 300, 150)),
+                    new Intersection(IntersectionState.Intersection, new Point2D(155.389060528796, 109.950679602517), new Point2D(271.265415062589, 125.393796920216)) },
+                // KLD four point result Cubic Bezier intersection test case.
+                { ((203, 140, 206, 359, 245, 6,248,212), (177, 204, 441, 204, 8, 149,265,154)),
+                    new Intersection(IntersectionState.Intersection,
+                    new Point2D(206.530449213553, 203.720589365125),
+                    new Point2D(218.265424922221, 203.397715460424),
+                    new Point2D(247.804170297071, 201.44841621768),
+                    new Point2D(247.269775330451, 184.697791042228),
+                    new Point2D(226.370396487621, 177.962130033979),
+                    new Point2D(203.804565424689, 171.00806141425),
+                    new Point2D(203.267149868024, 154.381868925147),
+                    new Point2D(234.285716881316, 153.679095558988),
+                    new Point2D(244.55676560731, 153.715137938049)) },
+            };
+
+            // Run through the test cases and compare the results to those that are expected.
+            foreach (var test in testCases.Keys)
+            {
+                var result = Intersections.CubicBezierSegmentCubicBezierSegmentIntersection(
+                    test.a.AX, test.a.AY, test.a.BX, test.a.BY, test.a.CX, test.a.CY, test.a.DX, test.a.DY,
+                    test.b.AX, test.b.AY, test.b.BX, test.b.BY, test.b.CX, test.b.CY, test.b.DX, test.b.DY);
+                var expected = testCases[test];
+
+                Assert.AreEqual(expected.State, result.State, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection state differs.");
+                Assert.AreEqual(expected.Points.Count, result.Count, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection point count differs.");
+
+                for (var i = 0; i < result.Count; i++)
+                {
+                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} y coordinate differs.");
+                }
+
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         [TestMethod()]

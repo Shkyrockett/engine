@@ -796,7 +796,7 @@ namespace Editor
             var top = 0;
             var left = 0;
             var scale = new Size2D(4, 4);
-            var shift = new Vector2D(-150, -100) * scale;
+            var shift = new Vector2D(-100, -100) * scale;
 
             var cubic1 = new CubicBezier(left + 203, top + 140, left + 206, top + 359, left + 245, top + 6, 248, 212).ScaleDistort(scale).TranslateDistort(shift);
             var cubic1Item = new GraphicItem(cubic1, intersectionBlue)

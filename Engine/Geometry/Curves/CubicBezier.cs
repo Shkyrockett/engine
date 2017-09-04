@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// CubicBezier
+    /// Cubic or 3rd degree Bezier curve.
     /// </summary>
     /// <structure>Engine.Geometry.CubicBezier2D</structure>
     /// <remarks>
@@ -198,8 +198,18 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points
-            => new List<Point2D> { A, B, C, D };
+        {
+            get { return new List<Point2D> { A, B, C, D }; }
+            set
+            {
+                A = value[0];
+                B = value[1];
+                C = value[2];
+                D = value[3];
+            }
+        }
 
         /// <summary>
         /// Gets or sets the starting node for the <see cref="CubicBezier"/> curve.

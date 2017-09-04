@@ -21,6 +21,24 @@ namespace Engine
     [DataContract, Serializable]
     public class GraphicItem
     {
+        #region Constants
+
+        /// <summary>
+        /// Unique identifier indexer.
+        /// </summary>
+        private static uint _id = 0;
+
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        /// The unique identifier for the object.
+        /// </summary>
+        protected uint id = _id++;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -37,8 +55,8 @@ namespace Engine
         /// <param name="metadata"></param>
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
-            Item = item;
-            Name = Item.ToString();
+            Shape = item;
+            Name = Shape.ToString();
             Style = style;
         }
 
@@ -47,10 +65,18 @@ namespace Engine
         #region Properties
 
         /// <summary>
+        /// Gets the unique identifier for the object.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Category("Properties")]
+        [Description("The unique identifier for the object.")]
+        public uint ID
+            => id;
+
+        /// <summary>
         ///
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        //[DisplayName(nameof(Name))]
         [Category("Properties")]
         [Description("The name of the item.")]
         public string Name { get; set; }
@@ -71,7 +97,7 @@ namespace Engine
         [XmlElement(typeof(Ray))]
         [XmlElement(typeof(LineSegment))]
         [XmlElement(typeof(Triangle))]
-        [XmlElement(typeof(Contour))]
+        [XmlElement(typeof(PolygonContour))]
         [XmlElement(typeof(Polygon))]
         [XmlElement(typeof(Polyline))]
         [XmlElement(typeof(PolylineSet))]
@@ -96,13 +122,12 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
         [NotifyParentProperty(true)]
-        public GraphicsObject Item { get; set; }
+        public GraphicsObject Shape { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Style))]
         [Category("Properties")]
         [Description("The style of the item.")]
         public IStyle Style { get; set; }
@@ -111,7 +136,6 @@ namespace Engine
         ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Metadata))]
         [Category("Properties")]
         [Description("The meta-data of the item.")]
         public Metadata Metadata { get; set; } = null;
@@ -126,7 +150,7 @@ namespace Engine
         /// <param name="point"></param>
         /// <returns></returns>
         public bool Contains(Point2D point)
-            => Item.Contains(point);
+            => Shape.Contains(point);
 
         /// <summary>
         ///
@@ -136,14 +160,14 @@ namespace Engine
         public bool VisibleTest(Rectangle2D bounds)
         {
             // Unbounded shapes have to be cropped to the visible bounds.
-            switch (Item)
+            switch (Shape)
             {
                 case Ray r:
                     return (Intersections.LineRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom));
                 case Line l:
                     return (Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom));
                 default:
-                    return (Item.Bounds.IntersectsWith(bounds) || Item.Bounds.Contains(bounds));
+                    return (Shape.Bounds.IntersectsWith(bounds) || Shape.Bounds.Contains(bounds));
             }
         }
 

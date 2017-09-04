@@ -20,7 +20,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName("NGonStar")]
     public class NGonStar
-        : Contour
+        : PolygonContour
     {
         /// <summary>
         /// 

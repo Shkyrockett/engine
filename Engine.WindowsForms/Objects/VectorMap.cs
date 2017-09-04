@@ -57,7 +57,7 @@ namespace Engine
             {
                 return new List<GraphicItem>(
                     from shape in Items
-                    where (shape?.Item?.Bounds != null) && shape.VisibleTest(area)
+                    where (shape?.Shape?.Bounds != null) && shape.VisibleTest(area)
                     select shape);
             }
         }
@@ -70,7 +70,7 @@ namespace Engine
         public List<GraphicItem> this[Point2D point]
             => new List<GraphicItem>(
             from shape in Items
-            where (shape?.Item?.Bounds != null) && shape.Item.Bounds.Contains(point) && shape.Item.Contains(point)
+            where (shape?.Shape?.Bounds != null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point)
             select shape);
 
         #endregion
@@ -205,7 +205,7 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         public GraphicItem SelectItem(Point2D point)
-            => Items?.LastOrDefault(shape => shape.Item.Bounds != null && (shape.Item.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)));
+            => Items?.LastOrDefault(shape => shape.Shape.Bounds != null && (shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)));
 
         /// <summary>
         /// 
@@ -214,7 +214,7 @@ namespace Engine
         public List<GraphicItem> SelectItems(Point2D point)
             => new List<GraphicItem>(
             from shape in Items
-            where shape.Item.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
+            where shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
             select shape);
 
         /// <summary>

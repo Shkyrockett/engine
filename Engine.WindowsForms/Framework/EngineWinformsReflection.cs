@@ -36,7 +36,7 @@ namespace Engine
         static EngineWinformsReflection()
         {
             Attribute expandableAttribute = new TypeConverterAttribute(typeof(ExpandableObjectConverter));
-            Attribute expandableListAttribute = new TypeConverterAttribute(typeof(ListConverter));
+            Attribute expandableListAttribute = new TypeConverterAttribute(typeof(ExpandableCollectionConverter));
 
             Attribute lookupExpandableAttribute = new ExpandableAttribute();
             Attribute lookupExpandableListAttribute = new ExpandableListAttribute();

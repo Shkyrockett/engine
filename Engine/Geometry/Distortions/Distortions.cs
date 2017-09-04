@@ -525,9 +525,9 @@ namespace Engine
         /// <acknowledgment>
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Contour AddPointsToSides(Contour contour)
+        public static PolygonContour AddPointsToSides(PolygonContour contour)
         {
-            var result = new Contour();
+            var result = new PolygonContour();
             for (var i = 1; i < contour.Count; i++)
             {
                 for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))

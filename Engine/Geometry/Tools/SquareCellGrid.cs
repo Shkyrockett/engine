@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using System;
-//using System.Drawing;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -85,8 +84,8 @@ namespace Engine
         {
             this.x = x;
             this.y = y;
-            this.h = width;
-            this.v = height;
+            h = width;
+            v = height;
             this.count = count;
         }
 
@@ -106,8 +105,8 @@ namespace Engine
         {
             x = this.x;
             y = this.y;
-            width = this.h;
-            height = this.v;
+            width = h;
+            height = v;
             count = this.count;
         }
 
@@ -156,25 +155,6 @@ namespace Engine
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public new Rectangle2D Bounds
-        {
-            get { return new Rectangle2D(x, y, h, v); }
-            set
-            {
-                x = (int)value.X;
-                y = (int)value.Y;
-                h = (int)value.Width;
-                v = (int)value.Height;
-                ClearCache();
-                OnPropertyChanged(nameof(Bounds));
-                update?.Invoke();
-            }
-        }
 
         /// <summary>
         /// 
@@ -290,6 +270,25 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Rows
             => (int)CachingProperty(() => Columns);
+
+        /// <summary>
+        /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public new Rectangle2D Bounds
+        {
+            get { return new Rectangle2D(x, y, h, v); }
+            set
+            {
+                x = (int)value.X;
+                y = (int)value.Y;
+                h = (int)value.Width;
+                v = (int)value.Height;
+                ClearCache();
+                OnPropertyChanged(nameof(Bounds));
+                update?.Invoke();
+            }
+        }
 
         #endregion
 

@@ -106,6 +106,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
             => new List<Point2D> { Start.Value, Handle.Value, End.Value };
 

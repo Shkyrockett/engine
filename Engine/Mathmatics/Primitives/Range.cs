@@ -10,6 +10,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using static System.Math;
 
 namespace Engine
@@ -17,6 +18,7 @@ namespace Engine
     /// <summary>
     /// Numeric range class.
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct Range
         : IEnumerable<double>
     {

@@ -29,7 +29,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [DisplayName("PolyCurve Contour")]
-    //[TypeConverter(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "path", Namespace = "http://www.w3.org/2000/svg")]
     public class PolycurveContour
         : Shape, IEnumerable<CurveSegment>
@@ -70,7 +70,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polygon"></param>
-        public PolycurveContour(Contour polygon)
+        public PolycurveContour(PolygonContour polygon)
         {
             Items = new List<CurveSegment>();
             CurveSegment cursor = new PointSegment(polygon[0]);
@@ -113,7 +113,7 @@ namespace Engine
         /// </summary>
         /// <param name="items"></param>
         public void Deconstruct(out List<CurveSegment> items)
-            => items = this.Items;
+            => items = Items;
 
         #endregion
 
@@ -137,8 +137,8 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
-        //[TypeConverter(typeof(ListConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<CurveSegment> Items
         {
             get { return items; }
@@ -175,6 +175,7 @@ namespace Engine
         /// Gets a listing of all end nodes from the Figure.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Nodes
             => Items.Select(item => item.End.Value).ToList();
 
@@ -182,6 +183,7 @@ namespace Engine
         /// Gets a listing of all end grips from the Figure.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Grips
         {
             get
@@ -226,7 +228,8 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Count => items.Count;
+        public int Count
+            => items.Count;
 
         #endregion
 

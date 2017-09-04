@@ -26,7 +26,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [DisplayName("PolyBezier")]
-    //[TypeConverter(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "polybeziercontour", Namespace = "http://www.w3.org/2000/svg")]
     public class PolyBezierContour
         : Shape
@@ -101,7 +101,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
-        [TypeConverter(typeof(ListConverter))]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public List<BezierSegmentX> Items
         {
@@ -139,6 +139,7 @@ namespace Engine
         /// Gets a listing of all end nodes from the Figure.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Nodes
             => Items.Select(item => item.End.Value).ToList();
 
@@ -176,7 +177,7 @@ namespace Engine
         ///// <summary>
         ///// 
         ///// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         //[EditorBrowsable(EditorBrowsableState.Advanced)]
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         //public override double Perimeter

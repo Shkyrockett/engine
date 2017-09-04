@@ -72,8 +72,8 @@ namespace Engine
         /// <param name="y"></param>
         public void Deconstruct(out double x, out double y)
         {
-            x = this.point.X;
-            y = this.point.Y;
+            x = point.X;
+            y = point.Y;
         }
 
         #endregion

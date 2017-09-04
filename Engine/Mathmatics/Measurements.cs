@@ -571,7 +571,7 @@ namespace Engine
         /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Bounds(this Contour contour)
+        public static Rectangle2D Bounds(this PolygonContour contour)
             => PolygonBounds(contour.Points);
 
         /// <summary>
@@ -679,7 +679,7 @@ namespace Engine
         /// <returns>Returns the area of the polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Area(this Contour contour)
+        public static double Area(this PolygonContour contour)
             => Abs(SignedPolygonArea(contour.Points));
 
         /// <summary>
@@ -1868,9 +1868,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D BezierBounds(Polynomial CurveX, Polynomial CurveY)
         {
-            (double x0, double x1) = CurveX.GetMinMax(0, 1);
-            (double y0, double y1) = CurveY.GetMinMax(0, 1);
-            return new Rectangle2D(x0, y0, x1 - x0, y1 - y0);
+            (double left, double right) = CurveX.MinMax(0, 1);
+            (double top, double bottom) = CurveY.MinMax(0, 1);
+            return new Rectangle2D(left, top, right - left, bottom - top);
         }
 
         /// <summary>

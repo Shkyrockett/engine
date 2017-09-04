@@ -90,6 +90,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<PolycurveContour> Contours
         {
             get { return contours; }
@@ -105,11 +106,11 @@ namespace Engine
         ///// <summary>
         ///// 
         ///// </summary>
-        [Browsable(false)]
-        [XmlAttribute("d"), SoapAttribute("d")]
-        [RefreshProperties(RefreshProperties.All)]
+        //[Browsable(false)]
+        //[XmlAttribute("d"), SoapAttribute("d")]
+        //[RefreshProperties(RefreshProperties.All)]
         //[EditorBrowsable(EditorBrowsableState.Advanced)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         //public string Definition
         //{
         //    get { return ToPathDefString(); }

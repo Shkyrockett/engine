@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 using static Engine.Maths;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace Engine
 {
@@ -23,6 +24,7 @@ namespace Engine
     /// 
     /// </summary>
     [DataContract, Serializable]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct Orientation
         : IVector<Vector3D>
     {

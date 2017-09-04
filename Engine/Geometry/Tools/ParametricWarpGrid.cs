@@ -74,14 +74,14 @@ namespace Engine
         /// <param name="stepY"></param>
         public void Deconstruct(out Func<Point2D, Point2D> filter, Rectangle2D path, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
-            filter = this.Filter;
-            path = this.Path;
-            minX = this.MinX;
-            minY = this.MinY;
-            maxX = this.MaxX;
-            maxY = this.MaxY;
-            stepX = this.StepX;
-            stepY = this.StepY;
+            filter = Filter;
+            path = Path;
+            minX = MinX;
+            minY = MinY;
+            maxX = MaxX;
+            maxY = MaxY;
+            stepX = StepX;
+            stepY = StepY;
         }
 
         #endregion

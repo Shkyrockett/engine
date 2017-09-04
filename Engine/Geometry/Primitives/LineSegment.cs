@@ -178,6 +178,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points
         {
             get { return new List<Point2D> { A, B }; }

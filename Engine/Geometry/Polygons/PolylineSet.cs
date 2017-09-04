@@ -87,6 +87,7 @@ namespace Engine
         /// 
         /// </summary>
         [XmlArray]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Polyline> Polylines
         {
             get { return polylines; }

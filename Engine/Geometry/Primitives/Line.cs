@@ -89,10 +89,10 @@ namespace Engine
         /// <param name="j"></param>
         public void Deconstruct(out double x, out double y, out double i, out double j)
         {
-            x = this.Location.X;
-            y = this.Location.Y;
-            i = this.Direction.I;
-            j = this.Direction.J;
+            x = Location.X;
+            y = Location.Y;
+            i = Direction.I;
+            j = Direction.J;
         }
 
         #endregion

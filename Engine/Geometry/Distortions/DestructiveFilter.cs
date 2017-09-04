@@ -63,7 +63,7 @@ namespace Engine
                     return Process(t) as T;
                 case Polygon t:
                     return Process(t) as T;
-                case Contour t:
+                case PolygonContour t:
                     return Process(t) as T;
                 case PolylineSet t:
                     return Process(t) as T;
@@ -154,7 +154,7 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
-        public PolycurveContour Process(Contour contour)
+        public PolycurveContour Process(PolygonContour contour)
         {
             var result = new PolycurveContour(Process(contour.Points[0]));
 

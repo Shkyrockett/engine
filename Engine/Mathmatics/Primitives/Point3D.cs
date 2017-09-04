@@ -91,9 +91,9 @@ namespace Engine
         /// <param name="z"></param>
         public void Deconstruct(out double x, out double y, out double z)
         {
-            x = this.X;
-            y = this.Y;
-            z = this.Z;
+            x = X;
+            y = Y;
+            z = Z;
         }
 
         #endregion

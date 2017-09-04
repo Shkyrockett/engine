@@ -415,6 +415,16 @@ namespace Engine
         public static LineSegment Add(this LineSegment augend, LineSegment addend)
             => Add4D(augend.AX, augend.AY, augend.BX, augend.BY, addend.AX, addend.AY, addend.BX, addend.BY);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Transform2D Add(this Transform2D augend, Transform2D addend)
+            => new Transform2D(augend.X + addend.X, augend.Y + addend.Y, augend.SkewX + addend.SkewX, augend.SkewY + addend.SkewY, augend.ScaleX * addend.ScaleX, augend.ScaleY * addend.ScaleY);
+
         #endregion
 
         #region Adjoint
@@ -3000,6 +3010,16 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Subtract(this LineSegment minuend, LineSegment subtrahend)
             => Subtract4D(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend.AX, subtrahend.AY, subtrahend.BX, subtrahend.BY);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="subtrahend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Transform2D Subtract(this Transform2D minuend, Transform2D subtrahend)
+            => new Transform2D(minuend.X - subtrahend.X, minuend.Y - subtrahend.Y, NormalizeRadian(minuend.SkewX - subtrahend.SkewX), NormalizeRadian(minuend.SkewY - subtrahend.SkewY), minuend.ScaleX / subtrahend.ScaleX, minuend.ScaleY / subtrahend.ScaleY);
 
         #endregion
 

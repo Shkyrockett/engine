@@ -99,7 +99,8 @@ namespace Engine
         public BezierSegmentX(BezierSegmentX previous, params Point2D[] points)
             : base()
         {
-            this.handles = points;
+            handles = points ?? throw new ArgumentNullException(nameof(points));
+            Previous = previous;
         }
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public void Deconstruct(out Point2D[] points)
-            => points = this.handles;
+            => points = handles;
 
         #endregion
 
@@ -166,6 +167,7 @@ namespace Engine
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
+        [TypeConverter(typeof(ArrayConverter))]
         public Point2D[] Handles
         {
             get { return handles.Slice(0, handles.Length - 2); }
@@ -183,6 +185,7 @@ namespace Engine
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
+        [TypeConverter(typeof(ArrayConverter))]
         public Point2D[] Points
         {
             get { return handles.Slice(0, handles.Length - 2); }
@@ -228,26 +231,14 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-        {
-            get
-            {
-                return (Rectangle2D)CachingProperty(() => bounds());
-
-                Rectangle2D bounds()
-                {
-                    (double x0, double x1) = CurveX.GetMinMax(0, 1);
-                    (double y0, double y1) = CurveY.GetMinMax(0, 1);
-                    return new Rectangle2D(x0, y0, x1 - x0, y1 - y0);
-                }
-            }
-        }
+            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
-            => 0;
+            => (double)CachingProperty(() => Measurements.Length(this));
 
         /// <summary>
         /// 
@@ -333,7 +324,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Contour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

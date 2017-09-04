@@ -95,7 +95,7 @@ namespace Engine
             : this()
         {
             this.lineCap = lineCap;
-            this.capPath = path;
+            capPath = path;
         }
 
         /// <summary>

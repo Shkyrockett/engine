@@ -218,15 +218,15 @@ namespace Editor
             foreach (GraphicItem item in vectorMap[vectorMap.VisibleBounds])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
-                    Renderer.Render(item, panel.Bounds.ToRectangle2D(), e.Graphics, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
+                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
                 else
-                    Renderer.Render(item, panel.Bounds.ToRectangle2D(), e.Graphics);
+                    Renderer.Render(item, e.Graphics);
             }
 
             if (vectorMap?.RubberbandItems != null)
             {
                 foreach (GraphicItem item in vectorMap?.RubberbandItems)
-                    Renderer.Render(item, panel.Bounds.ToRectangle2D(), e.Graphics, new ShapeStyle(Brushes.Red, Brushes.Red));
+                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Red, Brushes.Red));
             }
         }
 
@@ -250,7 +250,8 @@ namespace Editor
         private void CanvasPanel_MouseUp(object sender, MouseEventArgs e)
         {
             toolStack.MouseUp((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
-            //propertyGrid1.Refresh();
+            listBox1.SelectedItem = vectorMap?.SelectedItems[0];
+            propertyGrid1.Refresh();
             CanvasPanel.Invalidate(true);
         }
 
@@ -261,11 +262,8 @@ namespace Editor
         /// <param name="e"></param>
         private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
-#pragma warning disable IDE0021 // Use expression body for methods
-#pragma warning disable IDE0022 // Use expression body for methods
-            toolStack.MouseMove(new Point2D(e.X, e.Y));
-#pragma warning restore IDE0022 // Use expression body for methods
-#pragma warning restore IDE0021 // Use expression body for methods
+            var point = new Point2D(e.X, e.Y);
+            toolStack.MouseMove(point);
             //propertyGrid1.Refresh();
             //CanvasPanel.Invalidate(true);
         }
@@ -276,14 +274,7 @@ namespace Editor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CanvasPanel_MouseWheel(object sender, MouseEventArgs e)
-        {
-#pragma warning disable IDE0021 // Use expression body for methods
-#pragma warning disable IDE0022 // Use expression body for methods
-            toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
-#pragma warning restore IDE0022 // Use expression body for methods
-#pragma warning restore IDE0021 // Use expression body for methods
-            //propertyGrid1.Refresh();
-        }
+            => toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
 
         /// <summary>
         ///
@@ -291,14 +282,7 @@ namespace Editor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CanvasPanel_MouseWheelTilt(object sender, MouseEventArgs e)
-        {
-#pragma warning disable IDE0021 // Use expression body for methods
-#pragma warning disable IDE0022 // Use expression body for methods
-            toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
-#pragma warning restore IDE0022 // Use expression body for methods
-#pragma warning restore IDE0021 // Use expression body for methods
-            //propertyGrid1.Refresh();
-        }
+            => toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
 
         /// <summary>
         ///
@@ -353,7 +337,7 @@ namespace Editor
                     panel.ClientRectangle.Y,
                     panel.ClientRectangle.Width - 1,
                     panel.ClientRectangle.Height - 1);
-                boundaryItem.Item = vectorMap.VisibleBounds;
+                boundaryItem.Shape = vectorMap.VisibleBounds;
             }
         }
 

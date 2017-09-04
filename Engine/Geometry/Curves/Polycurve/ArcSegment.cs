@@ -244,7 +244,7 @@ namespace Engine
         /// <remarks></remarks>
         [XmlAttribute("angle")]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the elliptical arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -392,6 +392,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
             => new List<Point2D> { Start.Value, End.Value };
 

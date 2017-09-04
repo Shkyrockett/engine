@@ -225,7 +225,7 @@ namespace Engine
         /// <param name="height"></param>
         /// <returns></returns>
         /// <remarks> http://stackoverflow.com/a/9019432 </remarks>
-        internal static Contour Deform(Contour path, int width, int height)
+        internal static PolygonContour Deform(PolygonContour path, int width, int height)
         {
             var rng = new Random();
             var WarpFactor = 4;
@@ -245,7 +245,7 @@ namespace Engine
                 deformed[i++] = new Point2D(original.X + xOffset, original.Y + yOffset);
             }
 
-            return new Contour(deformed);
+            return new PolygonContour(deformed);
         }
 
     }

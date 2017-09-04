@@ -23,6 +23,7 @@ namespace Engine
     /// 
     /// </summary>
     [DataContract, Serializable]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class AccumulatorPoint2D
         : IFormattable
     {

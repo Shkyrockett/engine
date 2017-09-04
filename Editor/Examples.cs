@@ -36,7 +36,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        public static Shape InnerPolygon = new Contour( // First inner triangle
+        public static Shape InnerPolygon = new PolygonContour( // First inner triangle
                         new List<Point2D> {
                             new Point2D(20, 100),
                             new Point2D(175, 60),
@@ -53,9 +53,9 @@ namespace Editor
         /// 
         /// </summary>
         public static Polygon PolySet = new Polygon(
-            new List<Contour>(
-                new List<Contour> {
-                    new Contour( // Boundary
+            new List<PolygonContour>(
+                new List<PolygonContour> {
+                    new PolygonContour( // Boundary
                         new List<Point2D> {
                             new Point2D(10, 10),
                             new Point2D(300, 10),
@@ -67,14 +67,14 @@ namespace Editor
                             new Point2D(10, 150)
                         }
                     ),
-                    new Contour( // First inner triangle
+                    new PolygonContour( // First inner triangle
                         new List<Point2D> {
                             new Point2D(20, 100),
                             new Point2D(175, 60),
                             new Point2D(40, 30)
                         }
                     ),
-                    new Contour( // Second inner triangle
+                    new PolygonContour( // Second inner triangle
                         new List<Point2D> {
                             new Point2D(250, 150),
                             new Point2D(150, 150),

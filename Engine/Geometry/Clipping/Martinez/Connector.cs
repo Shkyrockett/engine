@@ -108,7 +108,7 @@ namespace Engine
                     throw new Error("Invalid contour");
                 }*/
 
-                var c = new Contour();
+                var c = new PolygonContour();
                 foreach (var p in pointChain.PointList)
                     c.Add(p);
                 polygon.Add(c);

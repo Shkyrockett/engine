@@ -131,7 +131,7 @@ namespace Engine
             }
             else
             {
-                this.prev = (Vector2D)p;
+                prev = (Vector2D)p;
                 base.points.Add(p);
                 arclen.Add(0);
                 return AddPointResult.NO_CHANGE; // no curves were actually added yet

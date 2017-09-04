@@ -293,7 +293,7 @@ namespace Engine
         /// Gets or sets the start angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Start")]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The start angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -337,7 +337,7 @@ namespace Engine
         /// Gets or sets the sweep angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Sweep")]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The sweep angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -382,7 +382,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -436,6 +436,7 @@ namespace Engine
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<double> ExtremeAngles
             => (List<double>)CachingProperty(() => Measurements.CirclularArcExtremeAngles(startAngle, sweepAngle));
 
@@ -448,6 +449,7 @@ namespace Engine
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> ExtremePoints
             => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, radius, radius, 0));
 

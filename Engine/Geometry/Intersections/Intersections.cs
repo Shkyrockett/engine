@@ -152,14 +152,14 @@ namespace Engine
             => RectangleContainsPoint(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Bottom, point.X, point.Y);
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Contour"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour"/>.
         /// </summary>
-        /// <param name="polygon"><see cref="Contour"/> class.</param>
+        /// <param name="polygon"><see cref="PolygonContour"/> class.</param>
         /// <param name="point">Point to test.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Contour polygon, Point2D point)
+        public static Inclusion Contains(this PolygonContour polygon, Point2D point)
             => PolygonContourContainsPoint(polygon.Points, point.X, point.Y);
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Engine
         /// <summary>
         /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="Polygon"/>.
         /// </summary>
-        /// <param name="polygons">List of <see cref="Contour"/> classes.</param>
+        /// <param name="polygons">List of <see cref="PolygonContour"/> classes.</param>
         /// <param name="point">Point to test.</param>
         /// <returns></returns>
         /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
@@ -243,6 +243,54 @@ namespace Engine
         #endregion
 
         #region Intersects Extension Method Overloads
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <param name="shape"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        public static bool Intersects(Rectangle2D rect, Shape shape, double epsilon = Epsilon)
+        {
+            // Shapes arranged by degree and complexity.
+            switch (shape)
+            {
+                case ScreenPoint p:
+                    //return RectangleContainsPoint(rect.X, rect.Y, rect.Right, rect.Bottom, p.X, p.Y, epsilon)!= Inclusion.Outside ;
+                    return PointRectangleIntersects(p.X, p.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                case BezierSegmentX b:
+                    throw new NotImplementedException();
+                case LineSegment l:
+                    return LineSegmentRectangleIntersects(l.AX, l.AY, l.BX, l.BY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                case Ray r:
+                    return RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                case Line l:
+                    return LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                case QuadraticBezier b:
+                    return QuadraticBezierSegmentRectangleIntersects(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                case CubicBezier b:
+                    return CubicBezierSegmentRectangleIntersects(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                case Rectangle2D r:
+                    return RectangleRectangleIntersects(r.X, r.Y, r.Right, r.Bottom, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                case Polyline p:
+                    throw new NotImplementedException();
+                case PolygonContour p:
+                    throw new NotImplementedException();
+                case Polygon p:
+                    throw new NotImplementedException();
+                case PolyBezierContour p:
+                    throw new NotImplementedException();
+                case PolyBezier p:
+                    throw new NotImplementedException();
+                case PolycurveContour p:
+                    throw new NotImplementedException();
+                case Polycurve p:
+                    throw new NotImplementedException();
+                default:
+                    return false;
+            }
+        }
 
         /// <summary>
         /// 
@@ -329,22 +377,22 @@ namespace Engine
         /// <summary>
         /// Find the intersection of two Points. 
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="p0">The first point.</param>
+        /// <param name="p1">The second point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Point2D p0, Point2D p1, double epsilon = Epsilon)
             => PointPointIntersection(p0.X, p0.Y, p1.X, p1.Y, epsilon);
 
         /// <summary>
-        /// 
+        /// Find the intersection of a point and a line.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="p">The point.</param>
+        /// <param name="l">The line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Point2D p, Line l, double epsilon = Epsilon)
@@ -353,22 +401,22 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Point and a Line segment.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
+        /// <param name="p">The point.</param>
+        /// <param name="s">The line segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Point2D p, LineSegment s, double epsilon = Epsilon)
             => PointLineSegmentIntersection(p.X, p.Y, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
-        /// 
+        /// Find the intersection of a line and a point.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="l"></param>
-        /// <returns></returns>
+        /// <param name="l">The Line.</param>
+        /// <param name="p">The Point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, Point2D p, double epsilon = Epsilon)
@@ -377,26 +425,27 @@ namespace Engine
         /// <summary>
         /// Find the intersection of to Lines.
         /// </summary>
-        /// <param name="l0"></param>
-        /// <param name="l1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="a">The first line.</param>
+        /// <param name="b">The second line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l0, Line l1, double epsilon = Epsilon)
+        public static Intersection Intersection(this Line a, Line b, double epsilon = Epsilon)
             => LineLineIntersection(
-                l0.Location.X, l0.Location.Y,
-                l0.Location.X + l0.Direction.I, l0.Location.Y + l0.Direction.J,
-                l1.Location.X, l1.Location.Y,
-                l1.Location.X + l1.Direction.I, l1.Location.Y + l1.Direction.J, epsilon);
+                a.Location.X, a.Location.Y,
+                a.Location.X + a.Direction.I, a.Location.Y + a.Direction.J,
+                b.Location.X, b.Location.Y,
+                b.Location.X + b.Direction.I, b.Location.Y + b.Direction.J, epsilon
+                );
 
         /// <summary>
         /// Find the intersection of a Line and a Line segment.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="l">The line.</param>
+        /// <param name="s">The line segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, LineSegment s, double epsilon = Epsilon)
@@ -405,10 +454,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Line segment and a Quadratic Bezier.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="l">The line.</param>
+        /// <param name="b">The quadratic bezier curve segmet.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, QuadraticBezier b, double epsilon = Epsilon)
@@ -417,10 +466,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bezier.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="l">The line.</param>
+        /// <param name="b">The cubic bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, CubicBezier b, double epsilon = Epsilon)
@@ -429,10 +478,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a circle and a line.
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="l"></param>
-        /// <returns></returns>
+        /// <param name="l">The line.</param>
+        /// <param name="c">The circle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, Circle c, double epsilon = Epsilon)
@@ -441,10 +490,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a circle and a line.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="l">The line.</param>
+        /// <param name="c">The circular arc.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, CircularArc c, double epsilon = Epsilon)
@@ -453,10 +502,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="e">The ellipse.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line s, Ellipse e, double epsilon = Epsilon)
@@ -465,10 +514,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="e">The elliptical arc.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line s, EllipticalArc e, double epsilon = Epsilon)
@@ -477,10 +526,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Line and a Rectangle.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="r"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="l">The line.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, Rectangle2D r, double epsilon = Epsilon)
@@ -489,22 +538,22 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Line and a Polygon contour.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="l">The line.</param>
+        /// <param name="p">The polygon contour.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Contour p, double epsilon = Epsilon)
+        public static Intersection Intersection(this Line l, PolygonContour p, double epsilon = Epsilon)
             => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of two Rays.
         /// </summary>
-        /// <param name="r0"></param>
-        /// <param name="r1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="r0">The first ray.</param>
+        /// <param name="r1">The second ray.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray r0, Ray r1, double epsilon = Epsilon)
@@ -513,10 +562,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of two Bezier segments.
         /// </summary>
-        /// <param name="b0"></param>
-        /// <param name="b1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="b0">The first Bizier segment.</param>
+        /// <param name="b1">The second Bezier segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b0, BezierSegmentX b1, double epsilon = Epsilon)
@@ -567,10 +616,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Bezier segment and a line segment.
         /// </summary>
-        /// <param name="b"></param>
-        /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="b">The bezier segment.</param>
+        /// <param name="l">The line segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, LineSegment l, double epsilon = Epsilon)
@@ -591,10 +640,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Bezier segment and a Quadratic Bezier.
         /// </summary>
-        /// <param name="b0"></param>
-        /// <param name="b1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="b0">The Bezier segment.</param>
+        /// <param name="b1">The quadratic bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b0, QuadraticBezier b1, double epsilon = Epsilon)
@@ -615,10 +664,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Bezier segment and a Cubic Bezier.
         /// </summary>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="b">The Bezier segment.</param>
+        /// <param name="c">The cubic bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, CubicBezier c, double epsilon = Epsilon)
@@ -639,10 +688,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Line segment and a Point.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="p">The point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Point2D p, double epsilon = Epsilon)
@@ -651,10 +700,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Line segment and a Line.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="l">The line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Line l, double epsilon = Epsilon)
@@ -663,22 +712,22 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a line segment and a Bezier segment.
         /// </summary>
-        /// <param name="b0"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="l"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="b">The bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment l, BezierSegmentX b0, double epsilon = Epsilon)
-            => Intersection(b0, l, epsilon);
+        public static Intersection Intersection(this LineSegment s, BezierSegmentX b, double epsilon = Epsilon)
+            => Intersection(b, s, epsilon);
 
         /// <summary>
         /// Find the intersection of two lines segments.
         /// </summary>
-        /// <param name="s1"></param>
-        /// <param name="s2"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="s1">The line segment.</param>
+        /// <param name="s2">The line segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s1, LineSegment s2, double epsilon = Epsilon)
@@ -687,58 +736,58 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Line segment and a Quadratic Bezier.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment l, QuadraticBezier b, double epsilon = Epsilon)
-            => LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, epsilon);
+        public static Intersection Intersection(this LineSegment s, QuadraticBezier b, double epsilon = Epsilon)
+            => LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bezier.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="b">The cubic bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment l, CubicBezier b, double epsilon = Epsilon)
-            => LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, epsilon);
+        public static Intersection Intersection(this LineSegment s, CubicBezier b, double epsilon = Epsilon)
+            => LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Polygon contour.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="p">The polygon contour.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment l, Contour p, double epsilon = Epsilon)
-            => LineSegmentPolygonContourIntersection(l.AX, l.AY, l.BX, l.BY, p.Points, epsilon);
+        public static Intersection Intersection(this LineSegment s, PolygonContour p, double epsilon = Epsilon)
+            => LineSegmentPolygonContourIntersection(s.AX, s.AY, s.BX, s.BY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Rectangle.
         /// </summary>
-        /// <param name="l"></param>
-        /// <param name="r"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment l, Rectangle2D r, double epsilon = Epsilon)
-            => LineSegmentRectangleIntersection(l.AX, l.AY, l.BX, l.BY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+        public static Intersection Intersection(this LineSegment s, Rectangle2D r, double epsilon = Epsilon)
+            => LineSegmentRectangleIntersection(s.AX, s.AY, s.BX, s.BY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line segment.
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="c">The circle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Circle c, double epsilon = Epsilon)
@@ -747,10 +796,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="c">The circular arc.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, CircularArc c, double epsilon = Epsilon)
@@ -759,10 +808,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="e">The ellipse.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Ellipse e, double epsilon = Epsilon)
@@ -771,10 +820,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
+        /// <param name="s">The line segment.</param>
+        /// <param name="e">The elliptical arc.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, EllipticalArc e, double epsilon = Epsilon)
@@ -783,10 +832,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Line segment.
         /// </summary>
-        /// <param name="b"></param>
-        /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="l">The line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Line l, double epsilon = Epsilon)
@@ -795,22 +844,22 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Bezier segment.
         /// </summary>
-        /// <param name="b0"></param>
-        /// <param name="b1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="q">The quadratic bezier curve segment.</param>
+        /// <param name="b">The bezier segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier b0, BezierSegmentX b1, double epsilon = Epsilon)
-            => Intersection(b1, b0, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, BezierSegmentX b, double epsilon = Epsilon)
+            => Intersection(b, q, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Line segment.
         /// </summary>
-        /// <param name="b"></param>
-        /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="l">The line segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, LineSegment l, double epsilon = Epsilon)
@@ -821,8 +870,8 @@ namespace Engine
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b0, QuadraticBezier b1, double epsilon = Epsilon)
@@ -833,8 +882,8 @@ namespace Engine
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b0, CubicBezier b1, double epsilon = Epsilon)
@@ -845,8 +894,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Circle c, double epsilon = Epsilon)
@@ -857,8 +906,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         //[DebuggerStepThrough]
         public static Intersection Intersection(this QuadraticBezier b, Ellipse e, double epsilon = Epsilon)
@@ -869,8 +918,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="r"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Rectangle2D r, double epsilon = Epsilon)
@@ -881,11 +930,11 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier b, Contour p, double epsilon = Epsilon)
+        public static Intersection Intersection(this QuadraticBezier b, PolygonContour p, double epsilon = Epsilon)
             => QuadraticBezierSegmentPolygonContourIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points, epsilon);
 
         /// <summary>
@@ -893,8 +942,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Line l, double epsilon = Epsilon)
@@ -905,8 +954,8 @@ namespace Engine
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b0, BezierSegmentX b1, double epsilon = Epsilon)
@@ -917,8 +966,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, LineSegment l, double epsilon = Epsilon)
@@ -929,8 +978,8 @@ namespace Engine
         /// </summary>
         /// <param name="b1"></param>
         /// <param name="b0"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b1, QuadraticBezier b0, double epsilon = Epsilon)
@@ -941,8 +990,8 @@ namespace Engine
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b0, CubicBezier b1, double epsilon = Epsilon)
@@ -953,8 +1002,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Circle c, double epsilon = Epsilon)
@@ -965,8 +1014,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Ellipse e, double epsilon = Epsilon)
@@ -977,8 +1026,8 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="r"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Rectangle2D r, double epsilon = Epsilon)
@@ -989,11 +1038,11 @@ namespace Engine
         /// </summary>
         /// <param name="b"></param>
         /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier b, Contour p, double epsilon = Epsilon)
+        public static Intersection Intersection(this CubicBezier b, PolygonContour p, double epsilon = Epsilon)
             => CubicBezierSegmentPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, p.Points, epsilon);
 
         /// <summary>
@@ -1001,8 +1050,8 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Line l, double epsilon = Epsilon)
@@ -1013,8 +1062,8 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, LineSegment s, double epsilon = Epsilon)
@@ -1025,8 +1074,8 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, QuadraticBezier b, double epsilon = Epsilon)
@@ -1037,8 +1086,8 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, CubicBezier b, double epsilon = Epsilon)
@@ -1049,8 +1098,8 @@ namespace Engine
         /// </summary>
         /// <param name="c0"></param>
         /// <param name="c1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c0, Circle c1, double epsilon = Epsilon)
@@ -1061,8 +1110,8 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Ellipse e, double epsilon = Epsilon)
@@ -1073,8 +1122,8 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="r"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Rectangle2D r, double epsilon = Epsilon)
@@ -1085,20 +1134,20 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="r"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, Contour r, double epsilon = Epsilon)
+        public static Intersection Intersection(this Circle c, PolygonContour r, double epsilon = Epsilon)
             => CirclePolygonContourIntersection(c.X, c.Y, c.Radius, 0, r.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
         /// </summary>
         /// <param name="c"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="s"></param>
-        /// <returns></returns>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CircularArc c, LineSegment s, double epsilon = Epsilon)
@@ -1109,8 +1158,8 @@ namespace Engine
         /// </summary>
         /// <param name="c"></param>
         /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CircularArc c, Line s, double epsilon = Epsilon)
@@ -1121,8 +1170,8 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Line s, double epsilon = Epsilon)
@@ -1133,8 +1182,8 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, LineSegment s, double epsilon = Epsilon)
@@ -1145,8 +1194,8 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, QuadraticBezier b, double epsilon = Epsilon)
@@ -1157,8 +1206,8 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, CubicBezier b, double epsilon = Epsilon)
@@ -1168,9 +1217,9 @@ namespace Engine
         /// Find the intersection of an unrotated Ellipse and a Circle.
         /// </summary>
         /// <param name="c"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="e"></param>
-        /// <returns></returns>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Circle c, double epsilon = Epsilon)
@@ -1181,8 +1230,8 @@ namespace Engine
         /// </summary>
         /// <param name="e0"></param>
         /// <param name="e1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e0, Ellipse e1, double epsilon = Epsilon)
@@ -1193,8 +1242,8 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="r"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Rectangle2D r, double epsilon = Epsilon)
@@ -1205,11 +1254,11 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Contour p, double epsilon = Epsilon)
+        public static Intersection Intersection(this Ellipse e, PolygonContour p, double epsilon = Epsilon)
             => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
@@ -1217,8 +1266,8 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, Line s, double epsilon = Epsilon)
@@ -1229,8 +1278,8 @@ namespace Engine
         /// </summary>
         /// <param name="e"></param>
         /// <param name="s"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
@@ -1240,9 +1289,9 @@ namespace Engine
         /// Find the intersection of a Rectangle and a line.
         /// </summary>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="r"></param>
-        /// <returns></returns>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Line l, double epsilon = Epsilon)
@@ -1253,8 +1302,8 @@ namespace Engine
         /// </summary>
         /// <param name="r"></param>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, LineSegment l, double epsilon = Epsilon)
@@ -1265,8 +1314,8 @@ namespace Engine
         /// </summary>
         /// <param name="r"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, QuadraticBezier b, double epsilon = Epsilon)
@@ -1277,8 +1326,8 @@ namespace Engine
         /// </summary>
         /// <param name="r"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, CubicBezier b, double epsilon = Epsilon)
@@ -1289,8 +1338,8 @@ namespace Engine
         /// </summary>
         /// <param name="r"></param>
         /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Circle c, double epsilon = Epsilon)
@@ -1301,8 +1350,8 @@ namespace Engine
         /// </summary>
         /// <param name="r"></param>
         /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Ellipse e, double epsilon = Epsilon)
@@ -1313,8 +1362,8 @@ namespace Engine
         /// </summary>
         /// <param name="r0"></param>
         /// <param name="r1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r0, Rectangle2D r1, double epsilon = Epsilon)
@@ -1325,23 +1374,23 @@ namespace Engine
         /// </summary>
         /// <param name="l"></param>
         /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D l, Contour p, double epsilon = Epsilon)
+        public static Intersection Intersection(this Rectangle2D l, PolygonContour p, double epsilon = Epsilon)
             => PolygonContourRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Line.
         /// </summary>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="p"></param>
-        /// <returns></returns>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, Line l, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p, Line l, double epsilon = Epsilon)
             => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, p.Points, epsilon);
 
         /// <summary>
@@ -1349,11 +1398,11 @@ namespace Engine
         /// </summary>
         /// <param name="p"></param>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, LineSegment l, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p, LineSegment l, double epsilon = Epsilon)
             => LineSegmentPolygonContourIntersection(l.AX, l.AY, l.BX, l.BY, p.Points, epsilon);
 
         /// <summary>
@@ -1361,11 +1410,11 @@ namespace Engine
         /// </summary>
         /// <param name="p"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, QuadraticBezier b, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p, QuadraticBezier b, double epsilon = Epsilon)
              => QuadraticBezierSegmentPolygonContourIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points, epsilon);
 
         /// <summary>
@@ -1373,11 +1422,11 @@ namespace Engine
         /// </summary>
         /// <param name="p"></param>
         /// <param name="b"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, CubicBezier b, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p, CubicBezier b, double epsilon = Epsilon)
             => CubicBezierSegmentPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, p.Points, epsilon);
 
         /// <summary>
@@ -1385,11 +1434,11 @@ namespace Engine
         /// </summary>
         /// <param name="p"></param>
         /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, Circle e, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p, Circle e, double epsilon = Epsilon)
             => CirclePolygonContourIntersection(e.X, e.Y, e.Radius, 0, p.Points, epsilon);
 
         /// <summary>
@@ -1397,11 +1446,11 @@ namespace Engine
         /// </summary>
         /// <param name="p"></param>
         /// <param name="e"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, Ellipse e, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p, Ellipse e, double epsilon = Epsilon)
             => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
@@ -1409,11 +1458,11 @@ namespace Engine
         /// </summary>
         /// <param name="p"></param>
         /// <param name="l"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p, Rectangle2D l, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p, Rectangle2D l, double epsilon = Epsilon)
             => PolygonContourRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom, epsilon);
 
         /// <summary>
@@ -1421,11 +1470,11 @@ namespace Engine
         /// </summary>
         /// <param name="p0"></param>
         /// <param name="p1"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Contour p0, Contour p1, double epsilon = Epsilon)
+        public static Intersection Intersection(this PolygonContour p0, PolygonContour p1, double epsilon = Epsilon)
              => PolygonContourPolygonContourIntersection(p0.Points, p1.Points, epsilon);
 
         #endregion
@@ -1468,7 +1517,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInTriangle(LineSegment s, Point2D o, Point2D p)
+        public static bool PointInTriangle(LineSegment s, Point2D o, Point2D p, double epsilon = Epsilon)
         {
             var x = Sign(s.A, s.B, p);
             return ((x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p)));
@@ -1488,7 +1537,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion TriangleContainsPoint(double aX, double aY, double bX, double bY, double cX, double cY, double pX, double pY)
+        public static Inclusion TriangleContainsPoint(double aX, double aY, double bX, double bY, double cX, double cY, double pX, double pY, double epsilon = Epsilon)
         {
             var a = new Point2D(aX, aY);
             var b = new Point2D(bX, bY);
@@ -1511,18 +1560,18 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion RectangleContainsPoint(double left, double top, double right, double bottom, double pX, double pY)
+        public static Inclusion RectangleContainsPoint(double left, double top, double right, double bottom, double pX, double pY, double epsilon = Epsilon)
             => (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
                 || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusion.Boundary
                 : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Contour"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour"/>.
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
         /// </returns>
@@ -1612,7 +1661,7 @@ namespace Engine
         /// </summary>
         /// <param name="path"></param>
         /// <param name="point"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         public static Inclusion PolycurveContourContainsPoint(
             PolycurveContour path,
@@ -1659,7 +1708,7 @@ namespace Engine
         /// </summary>
         /// <param name="path"></param>
         /// <param name="point"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         public static Inclusion PolycurveContourContainsPoint2(
             PolycurveContour path,
@@ -1861,11 +1910,11 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonContainsPoint(List<Contour> polygons, double pX, double pY)
+        public static Inclusion PolygonContainsPoint(List<PolygonContour> polygons, double pX, double pY)
         {
             Inclusion returnValue = Inclusion.Outside;
 
-            foreach (Contour poly in polygons)
+            foreach (PolygonContour poly in polygons)
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
@@ -2018,7 +2067,7 @@ namespace Engine
         /// <param name="sweepAngle"></param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2192,7 +2241,7 @@ namespace Engine
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
 
-            foreach (Contour poly in polygons.Contours)
+            foreach (PolygonContour poly in polygons.Contours)
             {
                 for (var i = 0; i < poly.Points.Count; i++)
                 {
@@ -2300,12 +2349,43 @@ namespace Engine
         public static bool PointLineSegmentIntersects(
             double pointX, double pointY,
             double segmentAX, double segmentAY,
-            double segmentBX, double segmentBY)
+            double segmentBX, double segmentBY,
+            double epsilon = Epsilon)
             => ((pointX == segmentAX) && (pointY == segmentAY))
-            || ((pointX == segmentBX) && (pointY == segmentBY))
-            || (((pointX > segmentAX) == (pointX < segmentBX))
-            && ((pointY > segmentAY) == (pointY < segmentBY))
-            && ((pointX - segmentAX) * (segmentBY - segmentAY) == (pointY - segmentAY) * (segmentBX - segmentAX)));
+                || ((pointX == segmentBX) && (pointY == segmentBY))
+                || (((pointX > segmentAX) == (pointX < segmentBX))
+                && ((pointY > segmentAY) == (pointY < segmentBY))
+                && ((pointX - segmentAX) * (segmentBY - segmentAY) == (pointY - segmentAY) * (segmentBX - segmentAX)));
+
+        /// <summary>
+        /// Check whether a point is within a rectangle.
+        /// </summary>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <param name="left"></param>
+        /// <param name="top"></param>
+        /// <param name="right"></param>
+        /// <param name="bottom"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointRectangleIntersects(
+            double pX, double pY,
+            double r1X, double r1Y,
+            double r2X, double r2Y,
+            double epsilon = Epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+            if (PointLineSegmentIntersects(pX, pY, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
+            if (PointLineSegmentIntersects(pX, pY, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
+            if (PointLineSegmentIntersects(pX, pY, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (PointLineSegmentIntersects(pX, pY, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            return false;
+        }
 
         /// <summary>
         /// Find out whether two line segments intersect.
@@ -2318,7 +2398,7 @@ namespace Engine
         /// <param name="y2">The y component of the first point of the second line.</param>
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2366,7 +2446,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2389,6 +2469,88 @@ namespace Engine
         }
 
         /// <summary>
+        /// Find out whether a ray and a line segment intersect.
+        /// </summary>
+        /// <param name="x0">The x component of the first point of the first line.</param>
+        /// <param name="y0">The y component of the first point of the first line.</param>
+        /// <param name="x1">The x component of the second point of the first line.</param>
+        /// <param name="y1">The y component of the second point of the first line.</param>
+        /// <param name="x2">The x component of the first point of the second line.</param>
+        /// <param name="y2">The y component of the first point of the second line.</param>
+        /// <param name="x3">The x component of the second point of the second line.</param>
+        /// <param name="y3">The y component of the second point of the second line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool RayLineSegmentIntersects(
+            double x0, double y0,
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double epsilon = Epsilon)
+        {
+            // Todo: Figure out ray intersection.
+
+            // Translate lines to origin.
+            var u1 = (x1 - x0);
+            var v1 = (y1 - y0);
+            var u2 = (x3 - x2);
+            var v2 = (y3 - y2);
+
+            // Calculate the determinant of the coefficient matrix.
+            var determinant = (v2 * u1) - (u2 * v1);
+
+            // Check if the line segments are parallel.
+            if (Abs(determinant) < epsilon)
+                // Return whether line segments are coincidental.
+                return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+
+            // Find the index where the intersection point lies on the line.
+            var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+
+            // Check whether the point is on the segment.
+            return (t >= 0d) && (t <= 1d);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool RayRectangleIntersects(
+            double a1X, double a1Y,
+            double a2X, double a2Y,
+            double r1X, double r1Y,
+            double r2X, double r2Y,
+            double epsilon = Epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            return false;
+        }
+
+        /// <summary>
         /// Find out whether a line and a line segment intersect.
         /// </summary>
         /// <param name="x0">The x component of the first point of the first line.</param>
@@ -2399,7 +2561,7 @@ namespace Engine
         /// <param name="y2">The y component of the first point of the second line.</param>
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2436,6 +2598,83 @@ namespace Engine
         }
 
         /// <summary>
+        /// Find out whether a line and a line segment intersect.
+        /// </summary>
+        /// <param name="x0">The x component of the first point of the first line.</param>
+        /// <param name="y0">The y component of the first point of the first line.</param>
+        /// <param name="x1">The x component of the second point of the first line.</param>
+        /// <param name="y1">The y component of the second point of the first line.</param>
+        /// <param name="x2">The x component of the first point of the second line.</param>
+        /// <param name="y2">The y component of the first point of the second line.</param>
+        /// <param name="x3">The x component of the second point of the second line.</param>
+        /// <param name="y3">The y component of the second point of the second line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LineRayIntersects(
+            double x0, double y0,
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double epsilon = Epsilon)
+        {
+            // ToDo: Figure out Line Ray intersection.
+
+            // Translate lines to origin.
+            var u1 = (x1 - x0);
+            var v1 = (y1 - y0);
+            var u2 = (x3 - x2);
+            var v2 = (y3 - y2);
+
+            // Calculate the determinant of the coefficient matrix.
+            var determinant = (v2 * u1) - (u2 * v1);
+
+            // Check if the line segments are parallel.
+            if (Abs(determinant) < epsilon)
+                // Return whether line segments are coincidental.
+                return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+
+            // Find the index where the intersection point lies on the line.
+            var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+
+            // Check whether the point is on the segment.
+            return (t >= 0d) && (t <= 1d);
+        }
+
+        /// <summary>
+        /// Find out whether two lines intersect.
+        /// </summary>
+        /// <param name="x0">The x component of the first point of the first line.</param>
+        /// <param name="y0">The y component of the first point of the first line.</param>
+        /// <param name="x1">The x component of the second point of the first line.</param>
+        /// <param name="y1">The y component of the second point of the first line.</param>
+        /// <param name="x2">The x component of the first point of the second line.</param>
+        /// <param name="y2">The y component of the first point of the second line.</param>
+        /// <param name="x3">The x component of the second point of the second line.</param>
+        /// <param name="y3">The y component of the second point of the second line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LineLineIntersects(
+            double x0, double y0,
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3,
+            double epsilon = Epsilon)
+                // Check if the lines are parallel. Non-parallel lines always intersect.
+                => (Abs(((y3 - y2) * (x1 - x0)) - ((x3 - x2) * (y1 - y0))) < epsilon);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="a1X"></param>
@@ -2446,7 +2685,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2469,6 +2708,138 @@ namespace Engine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="right"></param>
+        /// <param name="bottom"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool QuadraticBezierSegmentLineSegmentIntersects(
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double x, double y,
+            double right, double bottom,
+            double epsilon)
+            // ToDo: Figure out code to check whether a quadratic Bezier curve and a line segment intersect.
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="rLeft"></param>
+        /// <param name="rTop"></param>
+        /// <param name="rRight"></param>
+        /// <param name="rBottom"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool QuadraticBezierSegmentRectangleIntersects(
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double rLeft, double rTop,
+            double rRight, double rBottom,
+            double epsilon)
+        {
+            var min = MinPoint(rLeft, rTop, rRight, rBottom);
+            var max = MaxPoint(rLeft, rTop, rRight, rBottom);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="right"></param>
+        /// <param name="bottom"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool CubicBezierSegmentLineSegmentIntersects(
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double dX, double dY,
+            double a1X, double a1Y,
+            double a2X, double a2Y,
+            double epsilon)
+            // ToDo: Figure out code to check whether a cubic Bezier curve and a line segment intersect.
+            => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="right"></param>
+        /// <param name="bottom"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool CubicBezierSegmentRectangleIntersects(
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double dX, double dY,
+            double r1X, double r1Y,
+            double r2X, double r2Y,
+            double epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            return false;
+        }
+
+        /// <summary>
         /// Determines if this rectangle interests with another rectangle.
         /// </summary>
         /// <param name="x0"></param>
@@ -2486,7 +2857,8 @@ namespace Engine
             double x0, double y0,
             double width0, double height0,
             double x1, double y1,
-            double width1, double height1)
+            double width1, double height1,
+            double epsilon = Epsilon)
             => (x1 < x0 + width0)
             && (x0 < (x1 + width1))
             && (y1 < y0 + height0)
@@ -2501,7 +2873,7 @@ namespace Engine
         /// <param name="cx1"></param>
         /// <param name="cy1"></param>
         /// <param name="radius1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2561,7 +2933,7 @@ namespace Engine
         /// <param name="p0Y"></param>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2582,7 +2954,7 @@ namespace Engine
         /// <param name="ly"></param>
         /// <param name="i"></param>
         /// <param name="j"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2610,7 +2982,7 @@ namespace Engine
         /// <param name="lAY"></param>
         /// <param name="lBX"></param>
         /// <param name="lBY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2633,7 +3005,7 @@ namespace Engine
         /// <param name="y2">The y component of the first point of the second line.</param>
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2684,7 +3056,7 @@ namespace Engine
         /// <param name="s0Y"></param>
         /// <param name="s1X"></param>
         /// <param name="s1Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2762,7 +3134,7 @@ namespace Engine
         /// <param name="p1y"></param>
         /// <param name="p2x"></param>
         /// <param name="p2y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2827,7 +3199,7 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="p3x"></param>
         /// <param name="p3y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2897,7 +3269,7 @@ namespace Engine
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2942,7 +3314,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -2983,7 +3355,7 @@ namespace Engine
         /// <param name="cX"></param>
         /// <param name="cY"></param>
         /// <param name="r"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3059,7 +3431,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3174,7 +3546,7 @@ namespace Engine
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="angle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3197,7 +3569,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="cosA"></param>
         /// <param name="sinA"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3286,7 +3658,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3311,7 +3683,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3435,7 +3807,7 @@ namespace Engine
         /// <param name="b1Y"></param>
         /// <param name="b2X"></param>
         /// <param name="b2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3486,7 +3858,7 @@ namespace Engine
         /// <param name="b1Y"></param>
         /// <param name="b2X"></param>
         /// <param name="b2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3544,7 +3916,7 @@ namespace Engine
         /// <param name="p1y"></param>
         /// <param name="p2x"></param>
         /// <param name="p2y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3622,7 +3994,7 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="p3x"></param>
         /// <param name="p3y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3707,7 +4079,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3748,7 +4120,7 @@ namespace Engine
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3795,7 +4167,7 @@ namespace Engine
         /// <param name="cY"></param>
         /// <param name="r"></param>
         /// <param name="angle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3882,7 +4254,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -3991,7 +4363,7 @@ namespace Engine
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="angle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -4014,7 +4386,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="cosA"></param>
         /// <param name="sinA"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4114,7 +4486,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -4139,7 +4511,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4279,7 +4651,7 @@ namespace Engine
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -4421,7 +4793,7 @@ namespace Engine
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4534,7 +4906,7 @@ namespace Engine
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4581,7 +4953,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4631,7 +5003,7 @@ namespace Engine
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4784,7 +5156,7 @@ namespace Engine
         /// <param name="p4X"></param>
         /// <param name="p4Y"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4835,7 +5207,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4873,7 +5245,7 @@ namespace Engine
         /// </summary>
         /// <param name="points1"></param>
         /// <param name="points2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4916,7 +5288,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -4960,7 +5332,7 @@ namespace Engine
         /// <param name="b1Y"></param>
         /// <param name="b2X"></param>
         /// <param name="b2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5001,7 +5373,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="points"></param>
         /// <param name="angle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5050,7 +5422,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5093,7 +5465,7 @@ namespace Engine
         /// <param name="cx1"></param>
         /// <param name="cy1"></param>
         /// <param name="radius1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5183,7 +5555,7 @@ namespace Engine
         /// <param name="c2X"></param>
         /// <param name="c2Y"></param>
         /// <param name="r2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5232,7 +5604,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="angle"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -5250,7 +5622,7 @@ namespace Engine
         /// <param name="radius"></param>
         /// <param name="angle"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5298,7 +5670,7 @@ namespace Engine
         /// <param name="cosA"></param>
         /// <param name="sinA"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5348,7 +5720,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -5371,7 +5743,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5413,7 +5785,7 @@ namespace Engine
         /// <param name="ecY"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5473,7 +5845,7 @@ namespace Engine
         /// <param name="ecY"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5512,7 +5884,7 @@ namespace Engine
                 2 * c3.I * ryry * (c0.I - ecX) + 2 * c3.J * rxrx * (c0.J - ecY) + 2 * (c2.I * c1.I * ryry + c2.J * c1.J * rxrx),
                 2 * (c3.I * c1.I * ryry + c3.J * c1.J * rxrx) + c2.I * c2.I * ryry + c2.J * c2.J * rxrx,
                 2 * (c3.I * c2.I * ryry + c3.J * c2.J * rxrx),
-                c3.I * c3.I * ryry + c3.J * c3.J * rxrx).RootsInInterval(0, 1);
+                c3.I * c3.I * ryry + c3.J * c3.J * rxrx).Simplify().RootsInInterval(0, 1);
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -5538,7 +5910,7 @@ namespace Engine
         /// <param name="c2Y"></param>
         /// <param name="rx2"></param>
         /// <param name="ry2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -5555,7 +5927,7 @@ namespace Engine
             double[] b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
 
             var yPoly = Bezout(a, b);
-            var yRoots = yPoly.Roots();
+            var yRoots = yPoly.Simplify().Roots();
 
             var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
             var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
@@ -5599,7 +5971,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="px"></param>
         /// <param name="py"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -5619,7 +5991,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="i"></param>
         /// <param name="j"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -5665,7 +6037,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamLineSegment(ref List<double> scanlist, double x, double y, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
@@ -5716,7 +6088,7 @@ namespace Engine
         /// <param name="p1y"></param>
         /// <param name="p2x"></param>
         /// <param name="p2y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamQuadraticBezierSegment(ref List<double> scanlist, double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
@@ -5754,7 +6126,7 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="p3x"></param>
         /// <param name="p3y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamCubicBezierSegment(ref List<double> scanlist, double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
@@ -5797,7 +6169,7 @@ namespace Engine
         /// <param name="cX"></param>
         /// <param name="cY"></param>
         /// <param name="r"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamCircle(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double epsilon = Epsilon)
@@ -5851,7 +6223,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamCircularArc(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
@@ -5945,7 +6317,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="cosA"></param>
         /// <param name="sinA"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamEllipse(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
@@ -6015,7 +6387,7 @@ namespace Engine
         /// <param name="sinA"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamEllipticalArc(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
@@ -6127,7 +6499,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamRectangle(ref List<double> scanlist, double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
@@ -6145,7 +6517,7 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamPolygonContour(ref List<double> scanlist, double x, double y, List<Point2D> points, double epsilon = Epsilon)
@@ -6169,7 +6541,7 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="curve"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6211,7 +6583,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="px"></param>
         /// <param name="py"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6227,7 +6599,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="i"></param>
         /// <param name="j"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6274,7 +6646,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6332,7 +6704,7 @@ namespace Engine
         /// <param name="p1y"></param>
         /// <param name="p2x"></param>
         /// <param name="p2y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6373,7 +6745,7 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="p3x"></param>
         /// <param name="p3y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6422,7 +6794,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6484,7 +6856,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6582,7 +6954,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="cosA"></param>
         /// <param name="sinA"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6660,7 +7032,7 @@ namespace Engine
         /// <param name="sinA"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6775,7 +7147,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6795,7 +7167,7 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6823,7 +7195,7 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="curve"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6868,7 +7240,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="px"></param>
         /// <param name="py"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6884,7 +7256,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="i"></param>
         /// <param name="j"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6931,7 +7303,7 @@ namespace Engine
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -6989,7 +7361,7 @@ namespace Engine
         /// <param name="p1y"></param>
         /// <param name="p2x"></param>
         /// <param name="p2y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7030,7 +7402,7 @@ namespace Engine
         /// <param name="p2y"></param>
         /// <param name="p3x"></param>
         /// <param name="p3y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7079,7 +7451,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7141,7 +7513,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7239,7 +7611,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="cosA"></param>
         /// <param name="sinA"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7316,7 +7688,7 @@ namespace Engine
         /// <param name="sinA"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7432,7 +7804,7 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7452,7 +7824,7 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="points"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7480,7 +7852,7 @@ namespace Engine
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="curve"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

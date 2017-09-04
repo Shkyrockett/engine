@@ -8,11 +8,14 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.ComponentModel;
+
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IShape
     {
         /// <summary>

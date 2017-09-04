@@ -305,6 +305,7 @@ namespace Engine
         [Description("The angles of the extreme points of the " + nameof(Circle) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<double> ExtremeAngles
             => (List<double>)CachingProperty(() => Measurements.CircleExtremeAngles());
 
@@ -317,6 +318,7 @@ namespace Engine
         [Description("The locations of the extreme points of the " + nameof(Circle) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> ExtremePoints
             => (List<Point2D>)CachingProperty(() => Measurements.CircleExtremePoints(x, y, radius));
 

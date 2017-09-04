@@ -57,12 +57,14 @@ namespace Engine
         /// 
         /// </summary>
         [XmlArray]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> CentralPoints { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Nodes
         {
             get
@@ -89,6 +91,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
         {
             get

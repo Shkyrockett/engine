@@ -145,8 +145,8 @@ namespace Engine
         /// <remarks></remarks>
         public EllipticalArc(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle)
         {
-            this.cx = x;
-            this.cy = y;
+            cx = x;
+            cy = y;
             this.rX = rX;
             this.rY = rY;
             this.angle = angle;
@@ -214,7 +214,7 @@ namespace Engine
             double endX, double endY)
         {
             // Find the angle of the sine and cosine values.
-            this.angle = Atan2(sinAngle, CosAngle);
+            angle = Atan2(sinAngle, CosAngle);
 
             // Compute the half distance between the start and end points.
             var dx2 = (startX - endX) * OneHalf;
@@ -225,8 +225,8 @@ namespace Engine
             var y1 = (-sinAngle * dx2 + cosAngle * dy2);
 
             // Ensure radii are positive.
-            this.rX = Abs(rx);
-            this.rY = Abs(ry);
+            rX = Abs(rx);
+            rY = Abs(ry);
             var Prx = rX * rX;
             var Pry = rY * rY;
             var Px1 = x1 * x1;
@@ -253,8 +253,8 @@ namespace Engine
             // Find the center point of the Ellipse.
             var sx2 = (startX + endX) * OneHalf;
             var sy2 = (startY + endY) * OneHalf;
-            this.cx = sx2 + (cosAngle * cx1 - sinAngle * cy1);
-            this.cy = sy2 + (sinAngle * cx1 + cosAngle * cy1);
+            cx = sx2 + (cosAngle * cx1 - sinAngle * cy1);
+            cy = sy2 + (sinAngle * cx1 + cosAngle * cy1);
 
             // Compute the start angle and sweep angle vectors.
             var ux = (x1 - cx1) / rX;
@@ -266,13 +266,13 @@ namespace Engine
             var n = Sqrt((ux * ux) + (uy * uy));
             var p = ux; // (1 * ux) + (0 * uy)
             sign = (uy < 0) ? -1d : 1d;
-            this.startAngle = sign * Acos(p / n);
+            startAngle = sign * Acos(p / n);
 
             // Compute the sweep angle.
             n = Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
             p = ux * vx + uy * vy;
             sign = (ux * vy - uy * vx < 0) ? -1d : 1d;
-            this.sweepAngle = sign * Acos(p / n);
+            sweepAngle = sign * Acos(p / n);
 
             if (!sweepFlag && sweepAngle > 0)
                 sweepAngle -= Tau;
@@ -525,7 +525,7 @@ namespace Engine
         /// <remarks></remarks>
         [XmlAttribute("angle")]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the elliptical arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -585,7 +585,7 @@ namespace Engine
         /// </summary>
         [XmlAttribute("angle-Start")]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The start angle of the elliptical arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -639,7 +639,7 @@ namespace Engine
         /// </summary>
         [XmlAttribute("angle-Sweep")]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The sweep angle of the elliptical arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -685,7 +685,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The end angle of the elliptical arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

@@ -66,7 +66,7 @@ namespace Engine
         public BezierSegment(params Point2D[] points)
             : base()
         {
-            this.points = points;
+            this.points = points ?? throw new ArgumentNullException(nameof(points));
         }
 
         #endregion
@@ -104,6 +104,7 @@ namespace Engine
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
+        [TypeConverter(typeof(ArrayConverter))]
         public Point2D[] Points
         {
             get { return points; }
@@ -206,7 +207,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Contour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

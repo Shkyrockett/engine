@@ -35,7 +35,7 @@ namespace Engine
         /// <acknowledgment>
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Contour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -Right)
+        public static PolygonContour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -Right)
         {
             Point2D[] points = new Point2D[count];
             var theta = angle;
@@ -47,7 +47,7 @@ namespace Engine
                 theta += dtheta;
             }
 
-            return new Contour(points);
+            return new PolygonContour(points);
         }
 
         #endregion

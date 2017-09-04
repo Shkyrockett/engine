@@ -63,11 +63,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuadraticRoots(double a, double b, double c, double epsilon = Epsilon)
         {
-            var A = b / a;
-            var B = c / a;
+            var b_ = b / a;
+            var c_ = c / a;
 
             // Polynomial discriminant
-            var discriminant = A * A - 4d * B;
+            var discriminant = b_ * b_ - 4d * c_;
 
             // ToDo: May need to switch from a hash set to a list for scanbeams.
             var results = new HashSet<double>();
@@ -79,13 +79,13 @@ namespace Engine
             {
                 // Complex or duplicate roots
                 var e = Sqrt(discriminant);
-                results.Add(OneHalf * (-A + e));
-                results.Add(OneHalf * (-A - e));
+                results.Add(OneHalf * (-b_ + e));
+                results.Add(OneHalf * (-b_ - e));
             }
             else if (discriminant == 0)
             {
                 // really two roots with same value, but we only return one
-                results.Add(OneHalf * -A);
+                results.Add(OneHalf * -b_);
             }
 
             return results.ToList();

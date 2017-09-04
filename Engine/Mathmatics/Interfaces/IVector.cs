@@ -10,6 +10,7 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 
 namespace Engine
 {
@@ -17,6 +18,7 @@ namespace Engine
     /// 
     /// </summary>
     /// <typeparam name="V"></typeparam>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IVector<V>
         : IFormattable, //IComparable<V>, //IConvertible,
         IEquatable<V> where V : struct, IVector<V>

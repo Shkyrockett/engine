@@ -65,7 +65,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="Contour"/> of a set of <see cref="Point2D"/>s from a parameter list.
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="PolygonContour"/> of a set of <see cref="Point2D"/>s from a parameter list.
         /// </summary>
         /// <param name="points"></param>
         public PolyBezier(params Point2D[] points)
@@ -73,7 +73,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="Contour"/> from a set of <see cref="Point2D"/>s.
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="PolygonContour"/> from a set of <see cref="Point2D"/>s.
         /// </summary>
         /// <param name="points"></param>
         public PolyBezier(IEnumerable<Point2D> points)
@@ -102,6 +102,11 @@ namespace Engine
         /// <param name="contours"></param>
         public PolyBezier(IEnumerable<List<Point2D>> contours)
         {
+            if (contours == null)
+            {
+                throw new ArgumentNullException(nameof(contours));
+            }
+
             this.contours = new List<PolyBezierContour>();
 
             foreach (var list in contours)
@@ -143,6 +148,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<PolyBezierContour> Contours
         {
             get { return contours; }

@@ -51,7 +51,7 @@ namespace Engine
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
-        //[NonSerialized()]
+        [NonSerialized()]
         protected Dictionary<object, object> propertyCache;
 
         #endregion
@@ -74,7 +74,6 @@ namespace Engine
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Area))]
         [Category("Properties")]
         [Description("The area of the shape.")]
         public virtual double Area { get; set; }
@@ -83,7 +82,6 @@ namespace Engine
         /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Perimeter))]
         [Category("Properties")]
         [Description("The perimeter length of the shape.")]
         public virtual double Perimeter { get; set; }
@@ -92,7 +90,6 @@ namespace Engine
         /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        //[DisplayName(nameof(Bounds))]
         [Category("Properties")]
         [Description("The bounding box of the shape.")]
         public virtual Rectangle2D Bounds { get; set; }

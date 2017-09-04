@@ -33,7 +33,7 @@ namespace Engine
     [DisplayName(nameof(Polygon))]
     [XmlType(TypeName = "polygonSet", Namespace = "http://www.w3.org/2000/svg")]
     public class Polygon
-        : Shape, IEnumerable<Contour>
+        : Shape, IEnumerable<PolygonContour>
     {
         #region Private Fields
 
@@ -42,7 +42,7 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
-        private List<Contour> contours;
+        private List<PolygonContour> contours;
 
         #endregion
 
@@ -52,11 +52,11 @@ namespace Engine
         /// Initializes a default instance of the <see cref="Polygon"/> class.
         /// </summary>
         public Polygon()
-            : this(new List<Contour>())
+            : this(new List<PolygonContour>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="Contour"/> of a set of <see cref="Point2D"/>s from a parameter list.
+        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="PolygonContour"/> of a set of <see cref="Point2D"/>s from a parameter list.
         /// </summary>
         /// <param name="points"></param>
         public Polygon(params Point2D[] points)
@@ -64,7 +64,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="Contour"/> from a set of <see cref="Point2D"/>s.
+        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="PolygonContour"/> from a set of <see cref="Point2D"/>s.
         /// </summary>
         /// <param name="points"></param>
         public Polygon(IEnumerable<Point2D> points)
@@ -74,9 +74,9 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon"/> class.
         /// </summary>
-        public Polygon(IEnumerable<Contour> contours)
+        public Polygon(IEnumerable<PolygonContour> contours)
         {
-            this.contours = contours as List<Contour>;
+            this.contours = contours as List<PolygonContour>;
         }
 
         /// <summary>
@@ -85,11 +85,11 @@ namespace Engine
         /// <param name="contours"></param>
         public Polygon(params IEnumerable<Point2D>[] contours)
         {
-            this.contours = new List<Contour>();
+            this.contours = new List<PolygonContour>() ?? throw new ArgumentNullException(nameof(contours),"Argument must not be null.");
 
             foreach (var list in contours)
             {
-                this.contours.Add(new Contour(list));
+                this.contours.Add(new PolygonContour(list));
             }
         }
 
@@ -99,11 +99,11 @@ namespace Engine
         /// <param name="contours"></param>
         public Polygon(IEnumerable<List<Point2D>> contours)
         {
-            this.contours = new List<Contour>();
+            this.contours = new List<PolygonContour>() ?? throw new ArgumentNullException(nameof(contours), "Argument must not be null.");
 
             foreach (var list in contours)
             {
-                this.contours.Add(new Contour(list));
+                this.contours.Add(new PolygonContour(list));
             }
         }
 
@@ -116,7 +116,7 @@ namespace Engine
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Contour this[int index]
+        public PolygonContour this[int index]
         {
             get
             {
@@ -138,7 +138,8 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public List<Contour> Contours
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
+        public List<PolygonContour> Contours
         {
             get { return contours; }
             set
@@ -216,11 +217,11 @@ namespace Engine
             {
                 return (Rectangle2D)CachingProperty(() => bounds(contours));
 
-                Rectangle2D bounds(List<Contour> contours)
+                Rectangle2D bounds(List<PolygonContour> contours)
                 {
                     Rectangle2D bb = contours[0].Bounds;
 
-                    foreach (Contour c in contours)
+                    foreach (PolygonContour c in contours)
                         bb = bb.Union(c.Bounds);
 
                     return bb;
@@ -279,7 +280,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <returns></returns>
-        public static List<Contour> ParsePathDefString(string pathDefinition)
+        public static List<PolygonContour> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -288,13 +289,13 @@ namespace Engine
         /// <param name="pathDefinition"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static List<Contour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
+        public static List<PolygonContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
             var separators = @"(?=[M])";
             //string separators = @"(?=[MZ])";
 
-            var contours = new List<Contour>();
+            var contours = new List<PolygonContour>();
 
             // Split the definition string into shape tokens.
             foreach (var token in Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrWhiteSpace(t)))
@@ -306,7 +307,7 @@ namespace Engine
                 {
                     case 'M':
                         // M is Move to.
-                        contours.Add(new Contour(Contour.ParsePathDefString(token.Substring(1))));
+                        contours.Add(new PolygonContour(PolygonContour.ParsePathDefString(token.Substring(1))));
                         break;
                         //case 'Z':
                         //    // Z is End of Path.
@@ -350,7 +351,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="contour"></param>
-        public void Add(Contour contour)
+        public void Add(PolygonContour contour)
         {
             contours.Add(contour);
             update?.Invoke();
@@ -362,7 +363,7 @@ namespace Engine
         /// <param name="contour"></param>
         public void Add(List<Point2D> contour)
         {
-            contours.Add(new Contour(contour));
+            contours.Add(new PolygonContour(contour));
             update?.Invoke();
         }
 
@@ -398,13 +399,13 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polygon Clone()
-            => new Polygon(Contours.ToArray() as IEnumerable<Contour>);
+            => new Polygon(Contours.ToArray() as IEnumerable<PolygonContour>);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<Contour> GetEnumerator()
+        public IEnumerator<PolygonContour> GetEnumerator()
             => contours.GetEnumerator();
 
         /// <summary>

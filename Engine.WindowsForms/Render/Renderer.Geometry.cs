@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -20,6 +19,35 @@ namespace Engine.Imaging
     /// </summary>
     public static partial class Renderer
     {
+        //public static void Render(this GraphicItem item, Graphics g)
+        //{
+        //    if (g.VisibleClipBounds.ToRectangle2D().Contains(item.Shape.Bounds))
+        //        switch (item?.Shape)
+        //        {
+        //            case ParametricDelegateCurve s:
+        //                Render(item, g, (ParametricDelegateCurve)item.Shape);
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="g"></param>
+        /// <param name="shape"></param>
+        public static void Render<T>(this GraphicItem item, T shape, Graphics g)
+            where T : ParametricDelegateCurve
+        {
+            var itemStyle = item.Style as ShapeStyle ?? default;
+            var points = item.Shape.InterpolatePoints(100);
+            g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
+            g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
+        }
+
         /// <summary>
         ///
         /// </summary>
@@ -29,8 +57,8 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this ParametricDelegateCurve shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-            List<Point2D> points = shape.InterpolatePoints(100);
+            var itemStyle = style ?? (ShapeStyle)item.Style;
+            var points = shape.InterpolatePoints(100);
             g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
             g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
         }
@@ -109,7 +137,7 @@ namespace Engine.Imaging
         /// <param name="g"></param>
         /// <param name="item"></param>
         /// <param name="style"></param>
-        public static void Render(this Contour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this PolygonContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
@@ -159,7 +187,7 @@ namespace Engine.Imaging
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
             var path = new GraphicsPath();
-            foreach (Contour shape in set.Contours)
+            foreach (PolygonContour shape in set.Contours)
                 path.AddPolygon(shape.Points.ToPointFArray());
 
             g.FillPath((itemStyle).BackBrush, path);

@@ -25,8 +25,8 @@ namespace Engine
         /// <param name="right"></param>
         public Pair(Bezier left, Bezier right)
         {
-            this.Left = left;
-            this.Right = right;
+            Left = left;
+            Right = right;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Engine
         public Pair(Bezier left, Bezier right, List<Point3D> span)
             : this(left, right)
         {
-            this.Span = span;
+            Span = span;
         }
 
         /// <summary>

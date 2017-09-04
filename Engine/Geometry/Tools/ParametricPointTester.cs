@@ -71,13 +71,13 @@ namespace Engine
         /// <param name="stepY"></param>
         public void Deconstruct(out Func<double, double, Inclusion> intersecter, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
-            intersecter = this.Intersecter;
-            minX = this.MinX;
-            minY = this.MinY;
-            maxX = this.MaxX;
-            maxY = this.MaxY;
-            stepX = this.StepX;
-            stepY = this.StepY;
+            intersecter = Intersecter;
+            minX = MinX;
+            minY = MinY;
+            maxX = MaxX;
+            maxY = MaxY;
+            stepX = StepX;
+            stepY = StepY;
         }
 
         #endregion

@@ -28,9 +28,9 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(Contour))]
+    [DisplayName(nameof(PolygonContour))]
     [XmlType(TypeName = "polygon", Namespace = "http://www.w3.org/2000/svg")]
-    public class Contour
+    public class PolygonContour
         : Shape, IEnumerable<Point2D>
     {
         #region Fields
@@ -47,7 +47,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Contour()
+        public PolygonContour()
             : this(new List<Point2D>())
         { }
 
@@ -55,7 +55,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polygon"></param>
-        public Contour(Contour polygon)
+        public PolygonContour(PolygonContour polygon)
             : this(polygon.points)
         { }
 
@@ -63,7 +63,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polyline"></param>
-        public Contour(Polyline polyline)
+        public PolygonContour(Polyline polyline)
             : this(polyline.Points)
         { }
 
@@ -71,7 +71,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Contour(params Point2D[] points)
+        public PolygonContour(params Point2D[] points)
             : this(new List<Point2D>(points))
         { }
 
@@ -79,7 +79,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public Contour(IEnumerable<Point2D> points)
+        public PolygonContour(IEnumerable<Point2D> points)
         {
             this.points = points as List<Point2D>;
         }
@@ -88,7 +88,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polylines"></param>
-        public Contour(IEnumerable<Polyline> polylines)
+        public PolygonContour(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
@@ -125,6 +125,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points
         {
             get { return points; }
@@ -224,7 +225,7 @@ namespace Engine
         //[OnSerializing()]
         //private void OnSerializing(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(Contour)} is being serialized.");
+        //    Debug.WriteLine($"{nameof(PolygonContour)} is being serialized.");
         //}
 
         ///// <summary>
@@ -234,7 +235,7 @@ namespace Engine
         //[OnSerialized()]
         //private void OnSerialized(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(Contour)} has been serialized.");
+        //    Debug.WriteLine($"{nameof(PolygonContour)} has been serialized.");
         //}
 
         ///// <summary>
@@ -244,7 +245,7 @@ namespace Engine
         //[OnDeserializing()]
         //private void OnDeserializing(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(Contour)} is being deserialized.");
+        //    Debug.WriteLine($"{nameof(PolygonContour)} is being deserialized.");
         //}
 
         ///// <summary>
@@ -254,7 +255,7 @@ namespace Engine
         //[OnDeserialized()]
         //private void OnDeserialized(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(Contour)} has been deserialized.");
+        //    Debug.WriteLine($"{nameof(PolygonContour)} has been deserialized.");
         //}
 
         //#endregion
@@ -265,7 +266,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="point"></param>
-        public Contour Add(Point2D point)
+        public PolygonContour Add(Point2D point)
         {
             Points.Add(point);
             ClearCache();
@@ -277,7 +278,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public Contour Reverse()
+        public PolygonContour Reverse()
         {
             Points.Reverse();
             ClearCache();
@@ -291,7 +292,7 @@ namespace Engine
         /// </summary>
         /// <param name="delta"></param>
         /// <returns></returns>
-        public Contour Translate(Point2D delta)
+        public PolygonContour Translate(Point2D delta)
             => Translate(this, delta);
 
         /// <summary>
@@ -300,12 +301,12 @@ namespace Engine
         /// <param name="path"></param>
         /// <param name="delta"></param>
         /// <returns></returns>
-        public static Contour Translate(Contour path, Point2D delta)
+        public static PolygonContour Translate(PolygonContour path, Point2D delta)
         {
             var outPath = new List<Point2D>(path.points.Count);
             for (var i = 0; i < path.points.Count; i++)
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
-            return new Contour(outPath);
+            return new PolygonContour(outPath);
         }
 
         #endregion
@@ -380,8 +381,8 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Contour Clone()
-            => new Contour(points.ToArray());
+        public PolygonContour Clone()
+            => new PolygonContour(points.ToArray());
 
         /// <summary>
         /// 
@@ -390,7 +391,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual Contour Offset(double offset)
+        public virtual PolygonContour Offset(double offset)
             => Offsets.Offset(this, offset);
 
         /// <summary>
@@ -473,7 +474,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Contour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -487,9 +488,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Contour);
+            if (this == null) return nameof(PolygonContour);
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Contour)}{{{string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(PolygonContour)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }
 

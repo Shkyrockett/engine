@@ -51,8 +51,8 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="locus"></param>
-        public static implicit operator Contour(PolygonLocus locus)
-            => new Contour(locus.Points);
+        public static implicit operator PolygonContour(PolygonLocus locus)
+            => new PolygonContour(locus.Points);
 
         /// <summary>
         /// 

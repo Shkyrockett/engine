@@ -52,7 +52,7 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="polygon"></param>
-        public Polyline(Contour polygon)
+        public Polyline(PolygonContour polygon)
             : this(polygon.Points)
         { }
 
@@ -134,6 +134,7 @@ namespace Engine
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points
         {
             get { return points; }

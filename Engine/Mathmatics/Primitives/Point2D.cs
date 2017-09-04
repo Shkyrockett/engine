@@ -46,15 +46,6 @@ namespace Engine
 
         #region Constructors
 
-        ///// <summary>
-        ///// Initializes a new default instance of the <see cref="Point2D"/> class.
-        ///// </summary>
-        ///// <remarks></remarks>
-        //[DebuggerStepThrough]
-        //public Point2D()
-        //    : this(0, 0)
-        //{ }
-
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
@@ -100,8 +91,8 @@ namespace Engine
         /// <param name="y"></param>
         public void Deconstruct(out double x, out double y)
         {
-            x = this.X;
-            y = this.Y;
+            x = X;
+            y = Y;
         }
 
         #endregion

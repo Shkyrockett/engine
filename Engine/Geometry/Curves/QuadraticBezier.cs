@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// QuadraticBezier2D
+    /// Quadratic or 2nd degree Bezier curve.
     /// </summary>
     /// <remarks>
     /// http://paulbourke.net/geometry/bezier/index.html
@@ -132,35 +132,6 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets or sets a list of points representing the handles of the <see cref="QuadraticBezier"/> curve.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public List<Point2D> Points
-            => new List<Point2D> { A, B, C };
-
-        /// <summary>
-        /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
-        public Point2D A
-        {
-            get { return new Point2D(ax, ay); }
-            set
-            {
-                ax = value.X;
-                ay = value.Y;
-                ClearCache();
-                OnPropertyChanged(nameof(A));
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the X coordinate of the first Point of a Cubic Bezier.
         /// </summary>
         /// <remarks></remarks>
@@ -206,26 +177,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
-        public Point2D B
-        {
-            get { return new Point2D(bx, by); }
-            set
-            {
-                bx = value.X;
-                by = value.Y;
-                ClearCache();
-                OnPropertyChanged(nameof(B));
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the X coordinate of the second Point of a Cubic Bezier.
         /// </summary>
         /// <remarks></remarks>
@@ -244,28 +195,6 @@ namespace Engine
                 bx = value;
                 ClearCache();
                 OnPropertyChanged(nameof(BX));
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
-        /// </summary>
-        [XmlAttribute("by")]
-        [Browsable(false)]
-        [Category("Elements")]
-        [Description("The y coordinate of the second Point of a Cubic Bezier.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [RefreshProperties(RefreshProperties.All)]
-        public double BY
-        {
-            get { return by; }
-            set
-            {
-                by = value;
-                ClearCache();
-                OnPropertyChanged(nameof(BY));
                 update?.Invoke();
             }
         }
@@ -331,6 +260,78 @@ namespace Engine
                 by = value;
                 ClearCache();
                 OnPropertyChanged(nameof(CY));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a list of points representing the handles of the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
+        public List<Point2D> Points
+            => new List<Point2D> { A, B, C };
+
+        /// <summary>
+        /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        public Point2D A
+        {
+            get { return new Point2D(ax, ay); }
+            set
+            {
+                ax = value.X;
+                ay = value.Y;
+                ClearCache();
+                OnPropertyChanged(nameof(A));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        public Point2D B
+        {
+            get { return new Point2D(bx, by); }
+            set
+            {
+                bx = value.X;
+                by = value.Y;
+                ClearCache();
+                OnPropertyChanged(nameof(B));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
+        /// </summary>
+        [XmlAttribute("by")]
+        [Browsable(false)]
+        [Category("Elements")]
+        [Description("The y coordinate of the second Point of a Cubic Bezier.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double BY
+        {
+            get { return by; }
+            set
+            {
+                by = value;
+                ClearCache();
+                OnPropertyChanged(nameof(BY));
                 update?.Invoke();
             }
         }
@@ -467,6 +468,8 @@ namespace Engine
 
         //#endregion
 
+        #region Methods
+
         /// <summary>
         /// Samples the bezier curve at the given t value.
         /// </summary>
@@ -524,8 +527,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Tangent(double t)
             => Primitives.Normalize(Derivative(t));
-
-        #region Methods
 
         /// <summary>
         /// 

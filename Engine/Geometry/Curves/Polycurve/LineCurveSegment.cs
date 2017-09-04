@@ -84,6 +84,7 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
             => new List<Point2D> { Start.Value, End.Value };
 
@@ -101,7 +102,8 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override double Length => ToLineSegment().Length;
+        public override double Length
+            => ToLineSegment().Length;
 
         #endregion
 

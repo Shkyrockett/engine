@@ -4514,7 +4514,7 @@ namespace MethodSpeedTester
         /// <param name="c"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static Triangle FindEar(Contour polygon, ref int a, ref int b, ref int c)
+        public static Triangle FindEar(PolygonContour polygon, ref int a, ref int b, ref int c)
         {
             var num_points = polygon.Points.Count;
 
@@ -4543,7 +4543,7 @@ namespace MethodSpeedTester
         /// <param name="c"></param>
         /// <returns>Return true if the three points form an ear.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        private static bool FormsEar(Contour polygon, int a, int b, int c)
+        private static bool FormsEar(PolygonContour polygon, int a, int b, int c)
         {
             // See if the angle ABC is concave.
             if (AngleVector(
@@ -9393,7 +9393,7 @@ namespace MethodSpeedTester
         /// Return true if the polygon is convex.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-polygon-is-convex-in-c/</remarks>
-        public static bool IsConvex(Contour polygon)
+        public static bool IsConvex(PolygonContour polygon)
         {
             var got_negative = false;
             var got_positive = false;
@@ -9775,7 +9775,7 @@ namespace MethodSpeedTester
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </remarks>
-        public static bool LineInPolygon(Point2D start, Point2D end, Contour polygon)
+        public static bool LineInPolygon(Point2D start, Point2D end, PolygonContour polygon)
         {
             int i;
             int j;
@@ -10835,7 +10835,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="polygon"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static void OrientPolygonClockwise(Contour polygon)
+        public static void OrientPolygonClockwise(PolygonContour polygon)
         {
             if (polygon.Orientation == RotationDirections.CounterClockwise)
                 polygon.Points.Reverse();
@@ -12381,7 +12381,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Contour"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour"/>.
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="p">The coordinate of the test point.</param>
@@ -12835,7 +12835,7 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/find-the-centroid-of-a-polygon-in-c/</remarks>
-        public static Point2D Centroid(Contour polygon)
+        public static Point2D Centroid(PolygonContour polygon)
         {
             // Add the first point at the end of the array.
             var num_points = polygon.Points.Count;
@@ -12884,7 +12884,7 @@ namespace MethodSpeedTester
         /// Return true if the polygon is oriented clockwise.
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static bool PolygonIsOrientedClockwise(Contour polygon) => (SignedPolygonArea5(polygon.Points) < 0);
+        public static bool PolygonIsOrientedClockwise(PolygonContour polygon) => (SignedPolygonArea5(polygon.Points) < 0);
 
         #endregion
 
@@ -13315,7 +13315,7 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static void RemovePoint(Contour polygon, int target)
+        public static void RemovePoint(PolygonContour polygon, int target)
             => polygon.Points.RemoveAt(target);
 
         /// <summary>
@@ -13324,7 +13324,7 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <param name="target"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static void RemovePoint1(Contour polygon, int target)
+        public static void RemovePoint1(PolygonContour polygon, int target)
         {
             var points = new Point2D[polygon.Points.Count - 1];
             //List.Copy(polygon.Points, 0, points, 0, target);
@@ -13342,7 +13342,7 @@ namespace MethodSpeedTester
         /// <param name="polygon"></param>
         /// <param name="triangles"></param>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static void RemoveEar(Contour polygon, List<Triangle> triangles)
+        public static void RemoveEar(PolygonContour polygon, List<Triangle> triangles)
         {
             // Find an ear.
             var A = 0;
@@ -14451,9 +14451,9 @@ namespace MethodSpeedTester
         public static List<SpeedTester> ShortestPathTests()
         {
             var set = new Polygon(
-                new List<Contour>(
-                    new List<Contour> {
-                        new Contour( // Boundary
+                new List<PolygonContour>(
+                    new List<PolygonContour> {
+                        new PolygonContour( // Boundary
                             new List<Point2D> {
                                 new Point2D(10, 10),
                                 new Point2D(300, 10),
@@ -14465,14 +14465,14 @@ namespace MethodSpeedTester
                                 new Point2D(10, 150)
                             }
                         ),
-                        new Contour( // First inner triangle
+                        new PolygonContour( // First inner triangle
                             new List<Point2D> {
                                 new Point2D(20, 100),
                                 new Point2D(175, 60),
                                 new Point2D(40, 30)
                             }
                         ),
-                        new Contour( // Second inner triangle
+                        new PolygonContour( // Second inner triangle
                             new List<Point2D> {
                                 new Point2D(250, 150),
                                 new Point2D(150, 150),
@@ -14663,7 +14663,7 @@ namespace MethodSpeedTester
             //  polygons, as well as to the startpoint and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            foreach (Contour poly in polygons.Contours)
+            foreach (PolygonContour poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
                 {
@@ -14786,7 +14786,7 @@ namespace MethodSpeedTester
             // Build a point list that refers to the corners of the
             // polygons, as well as to the start point and endpoint.
             pointList.Add((start.X, start.Y, 0, 0));
-            foreach (Contour poly in polygons.Contours)
+            foreach (PolygonContour poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
                     pointList.Add((point.X, point.Y, 0, 0));
@@ -14901,7 +14901,7 @@ namespace MethodSpeedTester
         [System.ComponentModel.DisplayName(nameof(TriangulateTests))]
         public static List<SpeedTester> TriangulateTests()
             => new List<SpeedTester> {
-                new SpeedTester(() => Triangulate(new Contour(new Point2D[] { new Point2D(0, 0), new Point2D(0, 1), new Point2D(1, 1), new Point2D(1, 0)})),
+                new SpeedTester(() => Triangulate(new PolygonContour(new Point2D[] { new Point2D(0, 0), new Point2D(0, 1), new Point2D(1, 1), new Point2D(1, 0)})),
                 $"{nameof(Experiments.Triangulate)}(new Polygon(new Point2D[] {{ new Point2D(0, 0), new Point2D(0, 1), new Point2D(1, 1), new Point2D(1, 0)}}))"),
            };
 
@@ -14916,13 +14916,13 @@ namespace MethodSpeedTester
         /// see Ian Garton's Web page:
         /// http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
         /// </remarks>
-        public static List<Triangle> Triangulate(Contour polygon)
+        public static List<Triangle> Triangulate(PolygonContour polygon)
         {
             // Copy the points into a scratch array.
             var pts = new List<Point2D>(polygon.Points);
 
             // Make a scratch polygon.
-            var pgon = new Contour(pts);
+            var pgon = new PolygonContour(pts);
 
             // Orient the polygon clockwise.
             OrientPolygonClockwise(pgon);

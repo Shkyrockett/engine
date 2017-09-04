@@ -11,6 +11,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Engine
 {
@@ -19,6 +20,7 @@ namespace Engine
     /// </summary>
     /// <typeparam name="M"></typeparam>
     /// <typeparam name="V"></typeparam>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IMatrix<M, V>
         : IFormattable,
         IEnumerable<IEnumerable<double>>,

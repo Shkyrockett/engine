@@ -19,7 +19,7 @@ using System.Reflection;
 namespace Engine
 {
     /// <summary>
-    /// General Converter class for converting instances of other types to and from struc instances
+    /// General Converter class for converting instances of other types to and from struct instances
     /// </summary>
     public sealed class StructConverter<TType>
         : ExpandableObjectConverter

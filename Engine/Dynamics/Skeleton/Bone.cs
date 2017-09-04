@@ -16,10 +16,61 @@ namespace Engine
     /// 
     /// </summary>
     public class Bone
+        : Shape
     {
         /// <summary>
         /// 
         /// </summary>
-        public List<Bone> Bones { get; set; }
+        public Transform2D Transform { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Bone Parent { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Bone IK { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double Length { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double Weight { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public uint Chain { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int ChainIndex { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool InheritTranslation { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool InheritRotation { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool InheritScale { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool BendPositive { get; set; }
     }
 }

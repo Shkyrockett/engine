@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-//using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -1024,6 +1023,9 @@ namespace Engine
         public bool IntersectsWith(Rectangle2D rect)
             => Intersections.Intersects(this, rect);
 
+        public bool Intersects(Shape shape)
+            => Intersections.Intersects(this, shape);
+
         /// <summary>
         /// Convert a rectangle to an array of it's corner points.
         /// </summary>
@@ -1051,8 +1053,8 @@ namespace Engine
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public Contour ToPolygon()
-            => new Contour(ToPoints());
+        public PolygonContour ToPolygon()
+            => new PolygonContour(ToPoints());
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

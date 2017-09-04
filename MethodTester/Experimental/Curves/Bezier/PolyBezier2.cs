@@ -18,8 +18,8 @@ namespace Engine
             Is3d = false;
             if (curves == null)
             {
-                this.Curves = curves;
-                Is3d = this.Curves[0].Is3d;
+                Curves = curves;
+                Is3d = Curves[0].Is3d;
             }
         }
 

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Engine
 {
@@ -103,8 +104,8 @@ namespace Engine
         /// <param name="points"></param>
         public void Deconstruct(out IntersectionState state, out List<Point2D> points)
         {
-            state = this.State;
-            points = this.Points;
+            state = State;
+            points = Points;
         }
 
         #endregion
@@ -149,6 +150,34 @@ namespace Engine
         /// </summary>
         public int Count
             => (Points == null) ? 0 : Points.Count;
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Compares two <see cref="Intersection"/> objects.
+        /// The result specifies whether the values of the two <see cref="Intersection"/> objects are equal.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Intersection left, Intersection right)
+            => Equals(left, right);
+
+        /// <summary>
+        /// Compares two <see cref="Intersection"/> objects.
+        /// The result specifies whether the values the two <see cref="Intersection"/> objects are unequal.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Intersection left, Intersection right)
+            => !Equals(left, right);
 
         #endregion
 
@@ -199,15 +228,60 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
             => state.GetHashCode()
             ^ points.GetHashCode();
+
+        /// <summary>
+        /// Compares two Intersections.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Point2D a, Point2D b)
+            => Equals(a, b);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Intersection a, Intersection b)
+            => (a.state == b.state) & (a.Points == b.Points);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => obj is Intersection && Equals(this, (Intersection)obj);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Intersection value)
+            => Equals(this, value);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Intersection"/>.
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
@@ -219,6 +293,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
             => ConvertToString(null /* format string */, provider);
 
@@ -234,6 +309,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         string IFormattable.ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
@@ -249,6 +325,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
         {
             //if (this == null) return nameof(Intersection);

@@ -79,12 +79,12 @@ namespace Engine
         /// <param name="sweepAngle"></param>
         public void Deconstruct(out double x, out double y, out double radius, out List<double> testAngles, out double startAngle, out double sweepAngle)
         {
-            x = this.X;
-            y = this.Y;
-            radius = this.Radius;
-            testAngles = this.TestAngles;
-            startAngle = this.StartAngle;
-            sweepAngle = this.SweepAngle;
+            x = X;
+            y = Y;
+            radius = Radius;
+            testAngles = TestAngles;
+            startAngle = StartAngle;
+            sweepAngle = SweepAngle;
         }
 
         #endregion
@@ -130,6 +130,7 @@ namespace Engine
         [Description("The test angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<double> TestAngles { get; set; }
 
         /// <summary>
@@ -215,6 +216,7 @@ namespace Engine
         [Description("The point on the arc at the test angle.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [RefreshProperties(RefreshProperties.All)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> TestPoints
         {
             get

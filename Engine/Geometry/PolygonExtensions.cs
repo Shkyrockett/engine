@@ -63,7 +63,7 @@ namespace Engine
                 // polygons, as well as to the start point and endpoint.
                 (start.X, start.Y, 0d, 0)
             };
-            foreach (Contour poly in polygons.Contours)
+            foreach (PolygonContour poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
                     pointList.Add((point.X, point.Y, 0d, 0));
@@ -145,7 +145,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
-        public static (double X, double Y) FindCentroid(this Contour polygon)
+        public static (double X, double Y) FindCentroid(this PolygonContour polygon)
         {
             // Add the first point at the end of the array.
             var num_points = polygon.Points.Count;
@@ -190,7 +190,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
-        private static void OrientPolygonClockwise(this Contour polygon)
+        private static void OrientPolygonClockwise(this PolygonContour polygon)
         {
             if (polygon.Orientation == RotationDirections.CounterClockwise) polygon.Points.Reverse();
         }
@@ -203,7 +203,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
-        public static bool PolygonIsConvex(this Contour polygon)
+        public static bool PolygonIsConvex(this PolygonContour polygon)
         {
             // For each set of three adjacent points A, B, C,
             // find the dot product AB · BC. If the sign of
@@ -245,7 +245,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
-        private static (int A, int B, int C) FindEar(this Contour polygon)
+        private static (int A, int B, int C) FindEar(this PolygonContour polygon)
         {
             var num_points = polygon.Points.Count;
             var A = 0;
@@ -322,7 +322,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
-        private static void RemoveEar(this Contour polygon, List<Triangle> triangles)
+        private static void RemoveEar(this PolygonContour polygon, List<Triangle> triangles)
         {
             // Find an ear.
             (int A, int B, int C) ear = FindEar(polygon);
@@ -343,7 +343,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
-        private static void RemovePoint2DFromArray(this Contour polygon, int target)
+        private static void RemovePoint2DFromArray(this PolygonContour polygon, int target)
             => polygon.Points.RemoveAt(target);
 
         /// <summary>
@@ -357,14 +357,14 @@ namespace Engine
         /// see Ian Garton's Web page:
         /// http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
         /// </acknowledgment>
-        public static List<Triangle> Triangulate(this Contour polygon)
+        public static List<Triangle> Triangulate(this PolygonContour polygon)
         {
             // Copy the points into a scratch array.
             var pts = new Point2D[polygon.Points.Count];
             Array.Copy(polygon.Points.ToArray(), pts, polygon.Points.Count);
 
             // Make a scratch polygon.
-            var pgon = new Contour(new List<Point2D>(pts));
+            var pgon = new PolygonContour(new List<Point2D>(pts));
 
             // Orient the polygon clockwise.
             pgon.OrientPolygonClockwise();

@@ -30,6 +30,8 @@ namespace Engine
     public class AdvPropertyDescriptor
         : PropertyDescriptor, IEquatable<AdvPropertyDescriptor>
     {
+        #region Fields
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,6 +51,10 @@ namespace Engine
         /// 
         /// </summary>
         string description;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// 
@@ -93,31 +99,27 @@ namespace Engine
             description = base.Description;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public override Type ComponentType
-            => info.DeclaringType;
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
-        public override object GetValue(object component)
-        {
-            if (field == null)
-            {
-                return property.GetValue(component, null);
-            }
-            return field.GetValue(component);
-        }
+        public override string Description
+            => description;
 
         /// <summary>
         /// 
         /// </summary>
         public override bool IsReadOnly
             => !(property == null || !property.CanWrite);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override Type ComponentType
+            => info.DeclaringType;
 
         /// <summary>
         /// 
@@ -134,6 +136,10 @@ namespace Engine
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -148,6 +154,20 @@ namespace Engine
         /// <param name="component"></param>
         public override void ResetValue(object component)
             => throw new NotSupportedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="component"></param>
+        /// <returns></returns>
+        public override object GetValue(object component)
+        {
+            if (field == null)
+            {
+                return property.GetValue(component, null);
+            }
+            return field.GetValue(component);
+        }
 
         /// <summary>
         /// 
@@ -185,12 +205,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public override string Description
-            => description;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public void SetDescription(string value)
             => description = value;
@@ -210,5 +224,7 @@ namespace Engine
         /// <returns></returns>
         public bool Equals(AdvPropertyDescriptor other)
             => info.Equals(other.info);
+
+        #endregion
     }
 }

@@ -290,7 +290,7 @@ namespace Engine
         /// Gets or sets the start angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Start")]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The start angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -331,7 +331,7 @@ namespace Engine
         /// Gets or sets the sweep angle of the Arc in Degrees.
         /// </summary>
         [XmlAttribute("angle-Sweep")]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The sweep angle of the Arc in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -370,7 +370,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Clipping")]
         [Description("The end angle of the Arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

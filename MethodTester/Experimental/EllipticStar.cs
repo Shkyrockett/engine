@@ -20,7 +20,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName("ElipticStar")]
     public class EllipticStar
-        : Contour
+        : PolygonContour
     {
         /// <summary>
         /// 

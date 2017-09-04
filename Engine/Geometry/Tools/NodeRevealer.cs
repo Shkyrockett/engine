@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -72,8 +73,8 @@ namespace Engine
         /// <param name="radius"></param>
         public void Deconstruct(out List<Point2D> points, out double radius)
         {
-            points = this.Points;
-            radius = this.Radius;
+            points = Points;
+            radius = Radius;
         }
 
         #endregion
@@ -84,6 +85,7 @@ namespace Engine
         /// 
         /// </summary>
         [DataMember, XmlElement, SoapElement]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points { get; set; }
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace Engine
         /// <param name="matrix"></param>
         public MatrixDistort(Matrix3x2D matrix)
         {
-            this.Matrix = matrix;
+            Matrix = matrix;
         }
 
         #endregion

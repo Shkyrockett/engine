@@ -82,7 +82,7 @@ namespace Engine
                     return Process(t) as T;
                 case Polygon t:
                     return Process(t) as T;
-                case Contour t:
+                case PolygonContour t:
                     return Process(t) as T;
                 case PolylineSet t:
                     return Process(t) as T;
@@ -180,9 +180,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour"></param>
         /// <returns></returns>
-        public Contour Process(Contour contour)
+        public PolygonContour Process(PolygonContour contour)
         {
-            var results = new Contour();
+            var results = new PolygonContour();
             foreach (var point in contour)
             {
                 results.Add(Process(point));
@@ -262,7 +262,7 @@ namespace Engine
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public Contour Process(Rectangle2D rect)
-            => new Contour() { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
+        public PolygonContour Process(Rectangle2D rect)
+            => new PolygonContour() { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
     }
 }

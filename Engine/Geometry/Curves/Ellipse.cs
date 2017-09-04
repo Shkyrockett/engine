@@ -119,7 +119,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        ///
+        /// Gets or sets the <see cref="Location"/> of the <see cref="Ellipse"/>
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -324,7 +324,7 @@ namespace Engine
         /// <remarks></remarks>
         [XmlAttribute("angle")]
         [Browsable(false)]
-        [GeometryAngleDegreesAttribute]
+        [GeometryAngleDegrees]
         [Category("Elements")]
         [Description("The " + nameof(Angle) + " to rotate the " + nameof(Ellipse) + " in Degrees.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -418,6 +418,7 @@ namespace Engine
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<double> ExtremeAngles
             => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
 
@@ -435,6 +436,7 @@ namespace Engine
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> ExtremePoints
             => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, rX, rY, angle));
 

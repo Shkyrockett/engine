@@ -20,6 +20,7 @@ using static System.Math;
 using static Engine.Maths;
 using System.Numerics;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace Engine
 {
@@ -27,6 +28,7 @@ namespace Engine
     /// 
     /// </summary>
     [DataContract, Serializable]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct Polynomial
     {
         #region Constants
@@ -205,7 +207,8 @@ namespace Engine
         /// <summary>
         /// Gets or sets the coefficients of the polynomial from lowest degree to highest degree order.
         /// </summary>
-        private double[] Coefficients
+        [TypeConverter(typeof(ArrayConverter))]
+        public double[] Coefficients
         {
             get { return coefficients; }
             set { coefficients = value; }
@@ -606,6 +609,229 @@ namespace Engine
 
         #endregion
 
+        #region Operations
+
+        /// <summary>
+        /// Simplify a polynomial, removing near zero terms.
+        /// </summary>
+        /// <param name="epsilon">The minimal difference for comparison.</param>
+        /// <returns>Returns a new instance of the <see cref="Polynomial"/> struct with the near zero terms removed.</returns>
+        /// <remarks>
+        /// This is intended to be used in situations where the polynomial should be reduced. For instance in intersection calculations.
+        /// Simplifying a polynomial before GetMinMax will fail to appropriately get the min, max.
+        /// </remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial Simplify(double epsilon = Epsilon)
+        {
+            var coefficients = new double[Count];
+            var degree = (int)Degree;
+            Array.Copy(this.coefficients, coefficients, degree);
+            for (var i = degree; i >= 0; i--)
+            {
+                if (Abs(coefficients[i]) <= epsilon)
+                    coefficients = coefficients.RemoveAt(i);
+                else break;
+            }
+            return new Polynomial(coefficients);
+        }
+
+        /// <summary>
+        /// This might be the same as Simplify?
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// ToDo: Test to see if <see cref="Trim(double)"/> is the same as <see cref="Simplify(double)"/>
+        /// </remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial Trim(double epsilon = Epsilon)
+        {
+            var order = 0;
+            for (var i = 0; i < coefficients.Length; i++)
+            {
+                if (Abs(coefficients[i]) > epsilon)
+                {
+                    order = i;
+                }
+            }
+            var res = new double[order + 1];
+            for (var i = 0; i < res.Length; i++)
+            {
+                if (Abs(coefficients[i]) > epsilon)
+                {
+                    res[i] = coefficients[i];
+                }
+            }
+            return new Polynomial(res);
+        }
+
+        /// <summary>
+        /// Find the derivative polynomial of a <see cref="Polynomial"/>.
+        /// </summary>
+        /// <returns>Returns a new <see cref="Polynomial"/> struct calculated as the derivative of the source <see cref="Polynomial"/>.</returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial Derivate()
+        {
+            var res = new double[Max(1, Count - 1)];
+            for (var i = 1; i < Count; i++)
+            {
+                res[i - 1] = i * coefficients[i];
+            }
+
+            return new Polynomial() { coefficients = res };
+        }
+
+        /// <summary>
+        /// Normalizes a <see cref="Polynomial"/>.
+        /// </summary>
+        /// <returns>Returns a normalized <see cref="Polynomial"/> calculated from the source <see cref="Polynomial"/>.</returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial Normalize(double epsilon = Epsilon)
+        {
+            var order = 0;
+            double high = 1;
+            for (var i = 0; i < Count; i++)
+            {
+                if (Abs(coefficients[i]) > epsilon)
+                {
+                    order = i;
+                    high = coefficients[i];
+                }
+            }
+
+            var res = new double[order + 1];
+            for (var i = 0; i < res.Length; i++)
+            {
+                if (Abs(coefficients[i]) > epsilon)
+                {
+                    res[i] = coefficients[i] / high;
+                }
+            }
+
+            return new Polynomial() { coefficients = res };
+        }
+
+        /// <summary>
+        /// Integrates a <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="term0"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial Integrate(double term0 = 0)
+        {
+            var res = new double[Count + 1];
+            res[0] = term0;
+            for (var i = 0; i < Count; i++)
+            {
+                res[i + 1] = coefficients[i] / (i + 1);
+            }
+
+            return new Polynomial() { coefficients = res };
+        }
+
+        /// <summary>
+        /// Raises a Polynomial to a <see cref="Power"/>.
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial Power(int n)
+        {
+            if (n < 0) throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negative.");
+
+            var order = (int)Degree;
+            var res = new double[order * n + 1];
+            var tmp = new double[order * n + 1];
+            res[0] = 1;
+            for (var pow = 0; pow < n; pow++)
+            {
+                var porder = pow * order;
+                for (var i = 0; i <= order; i++)
+                    for (var j = 0; j <= porder; j++)
+                    {
+                        var mul = coefficients[i] * res[j];
+                        tmp[i + j] += mul;
+                    }
+                for (var i = 0; i <= porder + order; i++)
+                {
+                    res[i] = tmp[i];
+                    tmp[i] = 0;
+                }
+            }
+
+            return new Polynomial() { coefficients = res };
+        }
+
+        /// <summary>
+        /// Finds the Minimum and Maximum values of the <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="minX">The lower bound minimum.</param>
+        /// <param name="maxX">The upper bound maximum.</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Do not use this method on a polynomial that has been simplified or trimmed.
+        /// </remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double minY, double maxY) MinMax(double minX = 0, double maxX = 1)
+        {
+            var roots = Derivate().Roots()
+                .Where(t => t > minX && t < maxX)
+                .Concat(Identity);
+
+            var first = true;
+
+            (double minY, double maxY) = (minX, minX);
+
+            foreach (var t in roots)
+            {
+                var y = Compute(t);
+                if (first)
+                {
+                    first = false;
+                    minY = maxY = y;
+                }
+                else
+                {
+                    if (y < minY) minY = y;
+                    if (y > maxY) maxY = y;
+                }
+            }
+
+            return (minY, maxY);
+        }
+
+        #endregion
+
         #region Factories
 
         /// <summary>
@@ -933,123 +1159,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Derivate()
-        {
-            var res = new double[Max(1, Count - 1)];
-            for (var i = 1; i < Count; i++)
-            {
-                res[i - 1] = i * coefficients[i];
-            }
-
-            return new Polynomial() { coefficients = res };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Normalize(double epsilon = Epsilon)
-        {
-            var order = 0;
-            double high = 1;
-            for (var i = 0; i < Count; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    order = i;
-                    high = coefficients[i];
-                }
-            }
-
-            var res = new double[order + 1];
-            for (var i = 0; i < res.Length; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    res[i] = coefficients[i] / high;
-                }
-            }
-
-            return new Polynomial() { coefficients = res };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="term0"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Integrate(double term0 = 0)
-        {
-            var res = new double[Count + 1];
-            res[0] = term0;
-            for (var i = 0; i < Count; i++)
-            {
-                res[i + 1] = coefficients[i] / (i + 1);
-            }
-
-            return new Polynomial() { coefficients = res };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Power(int n)
-        {
-            if (n < 0) throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negative.");
-
-            var order = (int)Degree;
-            var res = new double[order * n + 1];
-            var tmp = new double[order * n + 1];
-            res[0] = 1;
-            for (var pow = 0; pow < n; pow++)
-            {
-                var porder = pow * order;
-                for (var i = 0; i <= order; i++)
-                    for (var j = 0; j <= porder; j++)
-                    {
-                        var mul = coefficients[i] * res[j];
-                        tmp[i + j] += mul;
-                    }
-                for (var i = 0; i <= porder + order; i++)
-                {
-                    res[i] = tmp[i];
-                    tmp[i] = 0;
-                }
-            }
-
-            return new Polynomial() { coefficients = res };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -1359,6 +1468,7 @@ namespace Engine
             }
             else
             {
+                // get roots of derivative
                 var deriv = Derivate();
                 var droots = deriv.RootsInInterval(min, max, epsilon);
                 if (droots.Count > 0)
@@ -1399,24 +1509,20 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> Roots(double epsilon = Epsilon)
         {
-            // This causes garbage collection polution, by creating an extra polynomial struct,
-            // but it is better than having the side-effect where using the Simplify mutator messes up 
-            // other methods, such as GetMinMax.
-            var poly = Simplify(this, epsilon);
-            switch (poly.Degree)
+            switch (Degree)
             {
                 case PolynomialDegree.Constant:
-                    return new List<double>() { poly.coefficients[0]};
+                    return new List<double>() { coefficients[0] };
                 case PolynomialDegree.Linear:
-                    return poly.LinearRoots(epsilon);
+                    return LinearRoots(epsilon);
                 case PolynomialDegree.Quadratic:
-                    return poly.QuadraticRoots(epsilon);
+                    return QuadraticRoots(epsilon);
                 case PolynomialDegree.Cubic:
-                    return poly.CubicRoots(epsilon);
+                    return CubicRoots(epsilon);
                 case PolynomialDegree.Quartic:
-                    return poly.QuarticRoots(epsilon);
+                    return QuarticRoots(epsilon);
                 case PolynomialDegree.Quintic:
-                    return poly.QuinticRoots(epsilon);
+                    return QuinticRoots(epsilon);
                 case PolynomialDegree.Sextic:
                 // ToDo: Uncomment when Sextic roots are implemented.
                 //return poly.SexticRoots(epsilon);
@@ -1547,38 +1653,6 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Trim(double[] coefficients, double epsilon = Epsilon)
-        {
-            var order = 0;
-            for (var i = 0; i < coefficients.Length; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    order = i;
-                }
-            }
-            var res = new double[order + 1];
-            for (var i = 0; i < res.Length; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    res[i] = coefficients[i];
-                }
-            }
-            return new Polynomial(res);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="coefficients"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RealOrder(double[] coefficients, double epsilon = Epsilon)
         {
             if (coefficients == null)
@@ -1618,43 +1692,6 @@ namespace Engine
             }
 
             return order;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="x1"></param>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double minY, double maxY) GetMinMax(double x0, double x1)
-        {
-            var roots = Derivate().Roots()
-                .Where(t => t > x0 && t < x1)
-                .Concat(Identity);
-            var first = true;
-            (double minY, double maxY) = (0, 0);
-            foreach (var t in roots)
-            {
-                var y = Compute(t);
-                if (first)
-                {
-                    first = false;
-                    minY = maxY = y;
-                }
-                else
-                {
-                    if (y < minY)
-                        minY = y;
-                    if (y > maxY)
-                        maxY = y;
-                }
-            }
-            return (minY, maxY);
         }
 
         /// <summary>
@@ -1947,112 +1984,6 @@ namespace Engine
             }
 
             return result.y;
-        }
-
-        #endregion
-
-        #region Mutators
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Simplify(double epsilon = Epsilon)
-        {
-            for (var i = (int)Degree; i >= 0; i--)
-            {
-                if (Abs(coefficients[i]) <= epsilon)
-                    coefficients = coefficients.RemoveAt(i);
-                else break;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Simplify(Polynomial polynomial, double epsilon = Epsilon)
-        {
-            var coefficients = new double[polynomial.Count];
-            Array.Copy(polynomial.coefficients, coefficients, (int)polynomial.Degree);
-            for (var i = polynomial.Degree; i >= 0; i--)
-            {
-                if (Abs(coefficients[(int)i]) <= epsilon)
-                    coefficients = coefficients.RemoveAt((int)i);
-                else break;
-            }
-            return new Polynomial(coefficients);
-        }
-
-        /// <summary>
-        /// This might be the same as Simplify?
-        /// </summary>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Trim(double epsilon = Epsilon)
-        {
-            var order = 0;
-            for (var i = 0; i < Count; i++)
-            {
-                if (Abs(coefficients[i]) > Epsilon)
-                {
-                    order = i;
-                }
-            }
-            var res = new double[order + 1];
-            for (var i = 0; i < res.Length; i++)
-            {
-                if (Abs(coefficients[i]) > Epsilon)
-                {
-                    res[i] = coefficients[i];
-                }
-            }
-
-            return new Polynomial(res);
-        }
-
-        /// <summary>
-        /// This might be the same as Simplify?
-        /// </summary>
-        /// <param name="polynomial"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Trim(Polynomial polynomial, double epsilon = Epsilon)
-        {
-            var coefficients = new double[polynomial.Count];
-            Array.Copy(polynomial.coefficients, coefficients, (int)polynomial.Degree);
-            var order = 0;
-            for (var i = 0; i < polynomial.Count; i++)
-            {
-                if (Abs(coefficients[i]) > Epsilon)
-                {
-                    order = i;
-                }
-            }
-            var res = new double[order + 1];
-            for (var i = 0; i < res.Length; i++)
-            {
-                if (Abs(coefficients[i]) > Epsilon)
-                {
-                    res[i] = coefficients[i];
-                }
-            }
-
-            return new Polynomial(res);
         }
 
         #endregion

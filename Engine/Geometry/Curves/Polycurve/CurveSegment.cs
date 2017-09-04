@@ -93,6 +93,7 @@ namespace Engine
         /// Gets or sets the grips used for this path segment.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public abstract List<Point2D> Grips { get; }
 
         /// <summary>

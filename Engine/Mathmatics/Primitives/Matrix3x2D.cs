@@ -115,9 +115,9 @@ namespace Engine
         /// </summary>
         public Matrix3x2D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
         {
-            this.m0x0 = m1x1;
-            this.m0x1 = m1x2;
-            this.m1x0 = m2x1;
+            m0x0 = m1x1;
+            m0x1 = m1x2;
+            m1x0 = m2x1;
             this.m1x1 = m2x2;
             this.offsetX = offsetX;
             this.offsetY = offsetY;
@@ -315,7 +315,8 @@ namespace Engine
         /// true if the matrix is identity.  If it returns false
         /// the matrix may still be identity.
         /// </summary>
-        private bool IsDistinguishedIdentity => type == MatrixTypes.Identity;
+        private bool IsDistinguishedIdentity
+            => type == MatrixTypes.Identity;
 
         /// <summary>
         /// Sets the transformation to the identity.
@@ -335,18 +336,19 @@ namespace Engine
         /// </summary>
         public bool IsIdentity
             => (type == MatrixTypes.Identity
-        || (
-            Abs(m0x0 - 1) < Epsilon
-            && Abs(m0x1) < Epsilon
-            && Abs(m1x0) < Epsilon
-            && Abs(m1x1 - 1) < Epsilon
-            && Abs(offsetX) < Epsilon
-            && Abs(offsetY) < Epsilon));
+            || (
+                Abs(m0x0 - 1) < Epsilon
+                && Abs(m0x1) < Epsilon
+                && Abs(m1x0) < Epsilon
+                && Abs(m1x1 - 1) < Epsilon
+                && Abs(offsetX) < Epsilon
+                && Abs(offsetY) < Epsilon));
 
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
         /// </summary>
-        public bool HasInverse => !Determinant.IsZero();
+        public bool HasInverse
+            => !Determinant.IsZero();
 
         #endregion
 
@@ -368,15 +370,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Multiply
-        /// </summary>
-        public static Matrix3x2D Multiply(Matrix3x2D trans1, Matrix3x2D trans2)
-        {
-            MultiplyMatrix(ref trans1, ref trans2);
-            return trans1;
-        }
-
-        /// <summary>
         /// Compares two Matrix instances for exact equality.
         /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
@@ -387,7 +380,8 @@ namespace Engine
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator ==(Matrix3x2D matrix1, Matrix3x2D matrix2) => Equals(matrix1, matrix2);
+        public static bool operator ==(Matrix3x2D matrix1, Matrix3x2D matrix2)
+            => Equals(matrix1, matrix2);
 
         /// <summary>
         /// Compares two Matrix instances for exact inequality.
@@ -400,76 +394,8 @@ namespace Engine
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator !=(Matrix3x2D matrix1, Matrix3x2D matrix2) => !Equals(matrix1, matrix2);
-
-        /// <summary>
-        /// Compares two Matrix2x3D
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Matrix3x2D a, Matrix3x2D b) => Equals(a, b);
-
-        /// <summary>
-        /// Compares two Matrix instances for object equality.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <returns>
-        /// bool - true if the two Matrix instances are exactly equal, false otherwise
-        /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='matrix2'>The second Matrix to compare</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Matrix3x2D matrix1, Matrix3x2D matrix2)
-        {
-            if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
-            {
-                return matrix1.IsIdentity == matrix2.IsIdentity;
-            }
-            else
-            {
-                return matrix1.M11.Equals(matrix2.M11)
-                       && matrix1.M12.Equals(matrix2.M12)
-                       && matrix1.M21.Equals(matrix2.M21)
-                       && matrix1.M22.Equals(matrix2.M22)
-                       && matrix1.OffsetX.Equals(matrix2.OffsetX)
-                       && matrix1.OffsetY.Equals(matrix2.OffsetY);
-            }
-        }
-
-        /// <summary>
-        /// Equals - compares this Matrix with the passed in object.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <returns>
-        /// bool - true if the object is an instance of Matrix and if it's equal to "this".
-        /// </returns>
-        /// <param name='obj'>The object to compare to "this"</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Matrix3x2D && Equals(this, (Matrix3x2D)obj);
-
-        /// <summary>
-        /// Equals - compares this Matrix with the passed in object.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <returns>
-        /// bool - true if "value" is equal to "this".
-        /// </returns>
-        /// <param name='value'>The Matrix to compare to "this"</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Matrix3x2D value) => Equals(this, value);
+        public static bool operator !=(Matrix3x2D matrix1, Matrix3x2D matrix2)
+            => !Equals(matrix1, matrix2);
 
         #endregion
 
@@ -1494,6 +1420,86 @@ namespace Engine
                        ^ OffsetX.GetHashCode()
                        ^ OffsetY.GetHashCode();
             }
+        }
+
+        /// <summary>
+        /// Compares two Matrix2x3D
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Matrix3x2D a, Matrix3x2D b)
+            => Equals(a, b);
+
+        /// <summary>
+        /// Compares two Matrix instances for object equality.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <returns>
+        /// bool - true if the two Matrix instances are exactly equal, false otherwise
+        /// </returns>
+        /// <param name='matrix1'>The first Matrix to compare</param>
+        /// <param name='matrix2'>The second Matrix to compare</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Matrix3x2D matrix1, Matrix3x2D matrix2)
+        {
+            if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
+            {
+                return matrix1.IsIdentity == matrix2.IsIdentity;
+            }
+            else
+            {
+                return matrix1.M11.Equals(matrix2.M11)
+                       && matrix1.M12.Equals(matrix2.M12)
+                       && matrix1.M21.Equals(matrix2.M21)
+                       && matrix1.M22.Equals(matrix2.M22)
+                       && matrix1.OffsetX.Equals(matrix2.OffsetX)
+                       && matrix1.OffsetY.Equals(matrix2.OffsetY);
+            }
+        }
+
+        /// <summary>
+        /// Equals - compares this Matrix with the passed in object.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <returns>
+        /// bool - true if the object is an instance of Matrix and if it's equal to "this".
+        /// </returns>
+        /// <param name='obj'>The object to compare to "this"</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => obj is Matrix3x2D && Equals(this, (Matrix3x2D)obj);
+
+        /// <summary>
+        /// Equals - compares this Matrix with the passed in object.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <returns>
+        /// bool - true if "value" is equal to "this".
+        /// </returns>
+        /// <param name='value'>The Matrix to compare to "this"</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Matrix3x2D value)
+            => Equals(this, value);
+
+        /// <summary>
+        /// Multiply
+        /// </summary>
+        public static Matrix3x2D Multiply(Matrix3x2D trans1, Matrix3x2D trans2)
+        {
+            MultiplyMatrix(ref trans1, ref trans2);
+            return trans1;
         }
 
         /// <summary>

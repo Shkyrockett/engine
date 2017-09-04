@@ -41,7 +41,7 @@ namespace Engine
             ToSource = ((c2.X - c1.X) * (s1.Y - c1.Y) - (c2.Y - c1.Y) * (s1.X - c1.X)) / d;
             ToClip = ((s2.X - s1.X) * (s1.Y - c1.Y) - (s2.Y - s1.Y) * (s1.X - c1.X)) / d;
 
-            if (this.Valid())
+            if (Valid())
             {
                 X = s1.X + ToSource * (s2.X - s1.X);
                 Y = s1.Y + ToSource * (s2.Y - s1.Y);

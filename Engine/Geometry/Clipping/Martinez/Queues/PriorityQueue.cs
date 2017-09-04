@@ -57,7 +57,7 @@ namespace Engine
         public PriorityQueue(int capacity, IComparer<T> comparer)
         {
             this.comparer = comparer ?? Comparer<T>.Default;
-            this.heap = new T[capacity];
+            heap = new T[capacity];
         }
 
         #endregion

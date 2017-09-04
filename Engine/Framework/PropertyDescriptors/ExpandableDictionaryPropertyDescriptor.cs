@@ -1,5 +1,5 @@
-﻿// <copyright file="ExpandableCollectionPropertyDescriptor.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+﻿// <copyright file="ExpandableDictionaryPropertyDescriptor.cs" company="Shkyrockett" >
+//     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,9 +20,9 @@ namespace Engine
     /// 
     /// </summary>
     /// <acknowledgment>
-    /// http://stackoverflow.com/questions/32582504/propertygrid-expandable-collection
+    /// https://stackoverflow.com/a/1928595/7004229
     /// </acknowledgment>
-    public class ExpandableCollectionPropertyDescriptor
+    public class ExpandableDictionaryPropertyDescriptor
         : PropertyDescriptor
     {
         #region Fields
@@ -30,12 +30,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        private IList collection;
+        private IDictionary dictionary;
 
         /// <summary>
         /// 
         /// </summary>
-        private readonly int index = -1;
+        private object key;
 
         #endregion
 
@@ -53,13 +53,13 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="coll"></param>
-        /// <param name="idx"></param>
-        public ExpandableCollectionPropertyDescriptor(IList coll, int idx)
-            : base(GetDisplayName(coll, idx), null)
+        /// <param name="d"></param>
+        /// <param name="key"></param>
+        public ExpandableDictionaryPropertyDescriptor(IDictionary d, object key)
+            : base(key.ToString(), null)
         {
-            collection = coll;
-            index = idx;
+            dictionary = d;
+            this.key = key;
         }
 
         #endregion
@@ -70,7 +70,7 @@ namespace Engine
         /// 
         /// </summary>
         public override string Name
-            => index.ToString(CultureInfo.InvariantCulture);
+            => key.ToString();
 
         /// <summary>
         /// 
@@ -88,19 +88,19 @@ namespace Engine
         /// 
         /// </summary>
         public override Type ComponentType
-            => collection.GetType();
+            => dictionary.GetType();
 
         /// <summary>
         /// 
         /// </summary>
         public override Type PropertyType
-            => collection[index].GetType();
+            => dictionary[key].GetType();
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public override AttributeCollection Attributes
-        //    => new AttributeCollection(null);
+        /// <summary>
+        /// 
+        /// </summary>
+        public override AttributeCollection Attributes
+            => new AttributeCollection(null);
 
         #endregion
 
@@ -112,7 +112,7 @@ namespace Engine
         /// <param name="component"></param>
         /// <returns></returns>
         public override bool CanResetValue(object component)
-            => true;
+            => false;
 
         /// <summary>
         /// 
@@ -127,10 +127,7 @@ namespace Engine
         /// <param name="component"></param>
         /// <returns></returns>
         public override object GetValue(object component)
-        {
-            OnRefreshRequired();
-            return collection[index];
-        }
+            => dictionary[key];
 
         /// <summary>
         /// 
@@ -138,7 +135,7 @@ namespace Engine
         /// <param name="component"></param>
         /// <param name="value"></param>
         public override void SetValue(object component, object value)
-            => collection[index] = value;
+            => dictionary[key] = value;
 
         /// <summary>
         /// 
@@ -146,17 +143,17 @@ namespace Engine
         /// <param name="component"></param>
         /// <returns></returns>
         public override bool ShouldSerializeValue(object component)
-            => true;
+            => false;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="index"></param>
+        /// <param name="dictionary"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        private static string GetDisplayName(IList list, int index)
-            //=> $"{CSharpName(list[index].GetType())} [{index,4}]";
-            => $"[{index}]";
+        private static string GetDisplayName(IDictionary dictionary, object key)
+            //=> $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
+            => $"[{key}]";
 
         ///// <summary>
         ///// 

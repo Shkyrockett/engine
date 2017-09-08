@@ -14,6 +14,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Engine.Imaging;
 using Engine.Tweening;
+using System.ComponentModel;
 
 namespace Engine
 {
@@ -21,6 +22,7 @@ namespace Engine
     /// 
     /// </summary>
     //[DataContract, Serializable]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class VectorMap
         : ICollection<GraphicItem>
     {
@@ -111,18 +113,21 @@ namespace Engine
         /// 
         /// </summary>
         //[XmlArray]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> Items { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> SelectedItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> RubberbandItems { get; set; }
 
         /// <summary>

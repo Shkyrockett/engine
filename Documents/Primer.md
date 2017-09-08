@@ -23,7 +23,7 @@ A **Solution** is the result of an equation.
 
 ### Polynomial
 
-A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents. 
+A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents.  
 
 ![][polynomial]
 
@@ -34,14 +34,14 @@ A **Polynomial** is a general term for the sets of expressions set up with terms
 | Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
 | Binomial | ![][binomial] | A Binomial is a polynomial that consists of two terms. |
 | Trinomial | ![][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
-| Multinomial |  | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considdered a Multinomial. |
-| Quadrinomial |  | A Quadrinomial is a polynomial that consists of four sets of terms. |
-| Quintinomial |  | A Quintinomial is a polynomial that consists of five sets of terms. |
-| Sextomial |  | A Sextomial is a polynomial that consists of six sets of terms. |
-| Septomial |  | A Septomial is a polynomial that consists of seven sets of terms. |
-| Octomial |  | A Octomial is a polynomial that consists of eight sets of terms. |
-| Nonomial |  | A Nonomial is a polynomial that consists of nine sets of terms. |
-| Decomial |  | A decomial is a polynomial that consists of ten sets of terms. |
+| Multinomial | ![][polynomial] | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considdered a Multinomial. |
+| Quadrinomial | ![][quadrinomial] | A Quadrinomial is a polynomial that consists of four sets of terms. |
+| Quintinomial | ![][quintinomial] | A Quintinomial is a polynomial that consists of five sets of terms. |
+| Sextomial | ![][sextomial] | A Sextomial is a polynomial that consists of six sets of terms. |
+| Septomial | ![][septomial] | A Septomial is a polynomial that consists of seven sets of terms. |
+| Octomial | ![][octomial] | A Octomial is a polynomial that consists of eight sets of terms. |
+| Nonomial | ![][nonomial] | A Nonomial is a polynomial that consists of nine sets of terms. |
+| Decomial | ![][decomial] | A decomial is a polynomial that consists of ten sets of terms. |
 
 ### Term
 
@@ -80,7 +80,6 @@ A **coefficient** is the number used to multiply a variable. The coefficient is 
 | ![][A] | area | The area of a shape.  |
 | ![][r] | radius |  The radius of a circle. |
 | ![][theta] | theta |  The angle between two vectors |
-|  |  |  |
 
 #### Vectors Matrices 
 
@@ -89,7 +88,6 @@ A **coefficient** is the number used to multiply a variable. The coefficient is 
 | ![][3d vector] |  | visual representation of a vector |
 | ![][common generic vectors] |  | common generic vectors. |
 | ![][common generic unit vectors.inline] |  | common generic unit  vectors (length = 1). |
-|  |  |  |
 
 #### Constant Variables
 
@@ -100,7 +98,6 @@ In some instances a numerical value is replaced with a symbolic representation t
 | ![][pi.inline] | ≈3.1415926535897932384626433832795… | Pi is the irrational constant that represents the ratio of the circumference of a circle to it's radius. |
 | ![][tau.inline] | ≈6.283185307179586476925286766559... | Tau is a proposed irrational constant intended to represent the ratio of the circumference of a circle to it's diameter. Or 2Pi. |
 | ![][i] | Imaginary  | Denotes that a number should be considered imaginary as opposed to a real number. |
-| | | |
 
 #### Table of Common Angles
 
@@ -109,7 +106,6 @@ In some instances a numerical value is replaced with a symbolic representation t
 | ![][sin squared theta] | 0/4 | 1/4 | 2/4 | 3/4 | 4/4 |
 | ![][cos squared theta] | 4/4 | 3/4 | 2/4 | 1/4 | 0/4 |
 | ![][tan squared theta] | 0/4 | 1/3 | 2/2 | 3/1 | 4/0 |
-|  |  |  |  |  |  |
 
 ### Exponent
 
@@ -148,7 +144,6 @@ Below are tables of common operators.
 | ![][operators.lessthanequal.inline] | Less Than Or Equal To | Indicates that the expression to the left should be less than or equal to the expression to the right. |
 | ![][operators.greaterthanequal.inline] | Greater Than Or Equal To | Indicates that the expression to the left should be larger or equal to the expression to the right. |
 | ![][operators.approximate.inline] | Approximately | Indicates that the expressions on either side are approximately equal. |
-|  |  |  |
 
 ##### Binary/Unary Operators
 
@@ -158,7 +153,6 @@ Below are tables of common operators.
 | ![][operators.subtract.inline] | Minus or Subtract | removes the value of the right argument from the left. |
 | ![][operators.multiply.inline] | Multiply or Times | Repeatedly adds the right value to the left. |
 | ![][operators.divide.inline] | Divide | Divides the left argument into the number of arguments on the right, or below. |
-|  |  |  |
 
 ### Functions
 
@@ -179,7 +173,6 @@ Below are tables of common operators.
 | ![][operators.csc.inline] | Cosecant |  |
 | ![][operators.sec.inline] | Secant |  |
 | ![][operators.cot.inline] | Cotangent |  |
-|  |  |  |
 
 
 ### Vector Functions
@@ -193,7 +186,6 @@ Below are tables of common operators.
 | ![][vector normal] |  | Normalize a vector |
 | ![][vector dot product cos.inline] |  | cos in terms of dot product. |
 | ![][vector cross product sin] |  | sin in terms of cross product. |
-|  |  |  |
 
 ### Order of Operations
 
@@ -203,7 +195,6 @@ Below are tables of common operators.
 | 1 | ![][operators.exponent.inline], ![][operators.root.inline] | Exponents, Powers, Roots | Exponents, Powers and Roots then follow. |
 | 2 | ![][operators.multiply.inline], ![][operators.divide.inline] | Multiply, Divide | Then Multiply and Divide. |
 | 3 | ![][operators.add.inline], ![][operators.subtract.inline] | Addition Subtraction | All Addition and Subtraction is then done from left to right.  |
-|  |  |  |  |
 
 #### Operators and Order of Precedence
 
@@ -220,16 +211,23 @@ For example: ![][x=1-(3-4).inline] becomes ![][x=1-3+4.inline]
 A negative times a negative is always a positive.
 A positive times a negative is a negative.
 
-### Other Functions
+### Other Operations
 
-| Function | Description |
+| Operation | Description |
 |:---|---|
-| Distribute |  |
-| Reorder/Sort Terms |  |
-| Factor |  |
-| Combine Like Terms |  |
-| Reciprocal |  |
-|  |  |
+| Bisection |  |
+| Derivate |  |
+| Combine Like Terms | This is a way to "clean-up" an equation and make it much easier to solve. \[[Free Math Help](https://www.freemathhelp.com/combining-like-terms.html)\] |
+| Differentiate |  |
+| Distribute | To multiply out the parts of an expression. Distributing is the opposite of factoring \[[Mathwords](http://www.mathwords.com/d/distribute.htm)\]. |
+| Compute |  |
+| Evaluate |  |
+| Factor | In Algebra, factors are what we can multiply together to get an expression. \[[MathsIsFun](http://www.mathsisfun.com/definitions/factor.html)\] |
+| Integrate |  |
+| Interpolate |  |
+| Normalize |  |
+| Reciprocal | A reciprocal is a fraction flipped upside down. \[[Mathwords](http://www.mathwords.com/m/multiplicative_inverse_of_a_number.htm)\] |
+| Reorder/Sort Terms | Rearranging terms. |
 
 ## Common Formulas
 
@@ -242,7 +240,6 @@ Linear means straight line. So a linear equation is any formula which results in
 | ![][Parameterized Line Segment x] ![][Parameterized Line Segment y] | Parameterized Line Segment Equation | The parameterized equation for a line segment through two points. |
 | ![][pythagorean theorem] | Pythagorean Theorem |  |
 | ![][distance] | Distance | The distance between two Cartesian Points. |
-|  |  |  |
 
 ### The Quadratics
 
@@ -253,7 +250,6 @@ Quadratic equation is where the equation involves an exponent of 2.
 | ![][quadratic equation] | quadratic equation |  |
 | ![][quadratic formula] | The Quadratic Formula | Quadratic formula gives the solution(s) to any Quadratic equation.  |
 | ![][discriminant] | Discriminant | The discriminant is the part of the Quadratic formula that is inside the radical. |
-|  |  |  |
 
 ### Circles
 
@@ -274,7 +270,6 @@ Quadratic equation is where the equation involves an exponent of 2.
 | ![][circle tangent 1] | tangent form | An equation for the tangent of the circle. |
 | ![][circle tangent 2] | tangent form | Another equation for the tangent of the circle. |
 | ![][circle slope tangent line] | slope | The slope of the tangent line of the circle. |
-|  |  |  |
 
 ### Ellipses
 
@@ -294,7 +289,6 @@ Quadratic equation is where the equation involves an exponent of 2.
 | ![][ellipse circumference 1] | circumference | The circumference of an ellipse. |
 | ... | ... | ... |
 | ![][ellipse curvature] | curvature | The curvature of an ellipse. |
-|  |  |  |
 
 ### Trigonometric Identities
 
@@ -318,8 +312,8 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 | Equation | Name | Description |
 |:---:|---|---|
-| ![][sin theta equals a over c] |  |  |
-| ![][cos theta equals b over c] |  |  |
+| ![][sin theta equals a over c] | Sine Identity |  |
+| ![][cos theta equals b over c] | Cosine Identity |  |
 | ![][tan theta equals sin theta over cos theta equals a over b] |  |  |
 | ![][csc theta equals one over sin theta equals c over a] |  |  |
 | ![][sec theta equals one over cos theta equals c over b] |  |  |
@@ -453,7 +447,6 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Steps |  |
 | Terameters |  |
 | Twips |  |
-|  |  |
 
 ### Angular Units
 
@@ -484,7 +477,6 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Sextants |  |
 | Signs |  |
 | Turns |  |
-|  |  |
 
 ### Mass
 
@@ -557,7 +549,6 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Yottagrams |  |
 | Zeptograms |  |
 | Zettagrams |  |
-|  |  |
 
 ### Temperature
 
@@ -572,7 +563,6 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Degrees Romer |  |
 | Gas Marks |  |
 | Kelvins |  |
-|  |  |
 
 ### Time
 
@@ -627,24 +617,26 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Years (Julian) |  |
 | Years (sidereal) |  |
 | Years (tropical) |  |
-|  |  |
 
 ## Mathematical Tricks
 
 ### Multiplication Tricks
 
 Multiplying single digit numbers by 11 can be fun, since all you have to do is put the same number next to it. But the two digit numbers look intimidating, such as ![][12x11.inline]. However, there is this little trick: 
- >Split the two digits up ![][Split 12.inline]. Add them together ![][1+2.inline] place the sum in the middle and push them together ![][Join 1 and 2.inline]. And there you have it.
+ > Split the two digits up ![][Split 12.inline]. Add them together ![][1+2.inline] place the sum in the middle and push them together ![][Join 1 and 2.inline]. And there you have it.
 
 ### Exponents Tricks
 
 This one is for finding the squares of numbers ending with 5. e.g. ( 〖25〗^2=625 ). 
- >Take your number remove the 5 ( 2⇐25:5=2). Then, multiply the first digit by its “plus one” (2×(2+1)=6). To finish off append 25 (6⟸25:625) and you are done.
+ > Take your number remove the 5 ( 2⇐25:5=2). Then, multiply the first digit by its "plus one" (2×(2+1)=6). To finish off append 25 (6⟸25:625) and you are done.
 
 ## References:
-[CodeCogs latex equation editor][codecogs latex equation editor] used to render the equations.  
 
-[Unicode Entity Codes for Math](http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html)
+- [CodeCogs latex equation editor][codecogs latex equation editor] used to render the equations.  
+
+- [Unicode Entity Codes for Math](http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html)
+
+- [Mathwords](http://www.mathwords.com/)
 
 ---
 
@@ -670,6 +662,27 @@ This one is for finding the squares of numbers ending with 5. e.g. ( 〖25〗^2=
 
 [trinomial]: http://latex.codecogs.com/svg.latex?2x%5E2&plus;x&plus;1
 [trinomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%202x%5E2&plus;x&plus;1
+
+[quadrinomial]: http://latex.codecogs.com/svg.latex?3x%5E3&plus;2x%5E2&plus;x&plus;1
+[quadrinomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%203x%5E3&plus;2x%5E2&plus;x&plus;1
+
+[quintinomial]: http://latex.codecogs.com/svg.latex?4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+[quintinomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%204x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+
+[sextomial]: http://latex.codecogs.com/svg.latex?5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+[sextomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%205x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+
+[septomial]: http://latex.codecogs.com/svg.latex?6x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+[septomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%206x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+
+[octomial]: http://latex.codecogs.com/svg.latex?7x%5E7&plus;6x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+[octomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%207x%5E7&plus;6x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+
+[nonomial]: http://latex.codecogs.com/svg.latex?8x%5E8&plus;7x%5E7&plus;6x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+[nonomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%208x%5E8&plus;7x%5E7&plus;6x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+
+[decomial]: http://latex.codecogs.com/svg.latex?9x%5E9&plus;8x%5E8&plus;7x%5E7&plus;6x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
+[decomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%209x%5E9&plus;8x%5E8&plus;7x%5E7&plus;6x%5E6&plus;5x%5E5&plus;4x%5E4&plus;3x%5E3&plus;2x%5E2&plus;x&plus;1
 
 [polynomial]: http://latex.codecogs.com/svg.latex?3x%5E3-2x%5E2&plus;x&plus;1
 [polynomial.inline]: http://latex.codecogs.com/svg.latex?%5Cinline%203x%5E3-2x%5E2&plus;x&plus;1

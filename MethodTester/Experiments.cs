@@ -8937,7 +8937,7 @@ namespace MethodSpeedTester
                 -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
                 -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
                 -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J
-                ).RootsInInterval(0, 1);
+                ).RootsInInterval();
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -9204,7 +9204,7 @@ namespace MethodSpeedTester
                 -6 * c21.I * c13.I * c13y2 * c23.I * c23.J - 6 * c13.I * c22.I * c13y2 * c22.J * c23.I + 6 * c13x2 * c22.I * c13.J * c22.J * c23.J + 3 * c21.I * c13y3 * c23x2 + 3 * c22x2 * c13y3 * c23.I + 3 * c21.I * c13x2 * c13.J * c23y2 - 3 * c13.I * c21.J * c13y2 * c23x2 - 3 * c13.I * c22x2 * c13y2 * c23.J + c13x2 * c13.J * c23.I * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-c21.J * c23y2 - 2 * c22y2 * c23.J - c23.J * (2 * c21.J * c23.J + c22y2)),
                 -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
                 -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2
-                ).RootsInInterval(0, 1);
+                ).RootsInInterval();
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -9333,7 +9333,7 @@ namespace MethodSpeedTester
                 /* t^2 */ -6 * c21.I * c13.I * c13y2 * c23.I * c23.J - 6 * c13.I * c22.I * c13y2 * c22.J * c23.I + 6 * c13x2 * c22.I * c13.J * c22.J * c23.J + 3 * c21.I * c13y3 * c23x2 + 3 * c22x2 * c13y3 * c23.I + 3 * c21.I * c13x2 * c13.J * c23y2 - 3 * c13.I * c21.J * c13y2 * c23x2 - 3 * c13.I * c22x2 * c13y2 * c23.J + c13x2 * c13.J * c23.I * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-c21.J * c23y2 - 2 * c22y2 * c23.J - c23.J * (2 * c21.J * c23.J + c22y2)),
                 /* t^1 */ -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
                 /* c */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2);
-            var roots = poly.RootsInInterval(0, 1);
+            var roots = poly.RootsInInterval();
 
             foreach (var s in roots)
             {

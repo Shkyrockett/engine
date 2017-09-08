@@ -19,6 +19,7 @@ namespace Engine
     /// Represents an object that can be displayed on screen.
     /// </summary>
     [DataContract, Serializable]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class GraphicItem
     {
         #region Constants

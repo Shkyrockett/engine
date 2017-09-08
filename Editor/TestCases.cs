@@ -65,13 +65,13 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
-            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierCubicBezier(vectorMap);
             //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
-            BezierLineIntersections(vectorMap);
+            //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
             //CubicBezierHorizontalLineIntersection(vectorMap);

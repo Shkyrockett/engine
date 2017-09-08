@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Editor
 {
@@ -66,6 +67,11 @@ namespace Editor
         /// 
         /// </summary>
         private GraphicItem boundaryItem = new GraphicItem(Rectangle2D.Empty, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool updatinglist = false;
 
         #endregion
 
@@ -163,7 +169,22 @@ namespace Editor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ListBox1_SelectedValueChanged(object sender, EventArgs e)
-            => propertyGrid1.SelectedObject = (sender as ListBox)?.SelectedItem as GraphicItem;
+        {
+            if (!updatinglist)
+            {
+                updatinglist = true;
+                var list = sender as ListBox;
+                vectorMap.SelectedItems?.Clear();
+                if (vectorMap.SelectedItems == null) vectorMap.SelectedItems = new List<GraphicItem>();
+                foreach (var item in list.SelectedItems)
+                {
+                    vectorMap.SelectedItems.Add(item as GraphicItem);
+                }
+                updatinglist = false;
+            }
+
+            propertyGrid1.SelectedObject = vectorMap.SelectedItems.ToArray();
+        }
 
         /// <summary>
         ///
@@ -249,10 +270,22 @@ namespace Editor
         /// <param name="e"></param>
         private void CanvasPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            toolStack.MouseUp((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
-            listBox1.SelectedItem = vectorMap?.SelectedItems[0];
-            propertyGrid1.Refresh();
-            CanvasPanel.Invalidate(true);
+            if (!updatinglist)
+            {
+                updatinglist = true;
+                toolStack.MouseUp((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
+                listBox1.SuspendLayout();
+                listBox1.SelectedItem = vectorMap.SelectedItems.Count > 0 ? vectorMap?.SelectedItems[0] : null;
+                listBox1.SelectedItems.Clear();
+                foreach (var item in vectorMap.SelectedItems)
+                {
+                    listBox1.SelectedItems.Add(item);
+                }
+                listBox1.ResumeLayout();
+                propertyGrid1.Refresh();
+                CanvasPanel.Invalidate(true);
+                updatinglist = false;
+            }
         }
 
         /// <summary>

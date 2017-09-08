@@ -11,21 +11,21 @@
 // <remarks></remarks>
 
 using System;
-using System.Runtime.CompilerServices;
-using System.Linq;
-using System.Globalization;
-using System.Diagnostics;
 using System.Collections.Generic;
-using static System.Math;
-using static Engine.Maths;
-using System.Numerics;
-using System.Runtime.Serialization;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using static Engine.Maths;
+using static System.Math;
 
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// A Polynomial representation of a curve.
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -81,11 +81,11 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polynomial"/> class using left to right letter order, decending in degrees.
+        /// Initializes a new instance of the <see cref="Polynomial"/> class using left to right letter order, descending in degrees.
         /// </summary>
         /// <param name="coefficients">The coefficients of the polynomial.</param>
         /// <remarks>
-        /// While the the coefficients are entered in left to right letter order, they are 
+        /// While the coefficients are entered in left to right letter order, they are 
         /// stored in degree order to simplify operations on <see cref="Polynomial"/> structs.
         /// </remarks>
         [DebuggerStepThrough]
@@ -99,7 +99,7 @@ namespace Engine
             // Reverse the coefficients so they are in order of degree.
             coefficients.Reverse();
 
-            // Not innitially read only.
+            // Not initially read only.
             isReadonly = false;
         }
 
@@ -113,7 +113,7 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks>
-        /// The indexor is in highest degree to lowest format.
+        /// The indexer is in highest degree to lowest format.
         /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -144,7 +144,7 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks>
-        /// The <see cref="PolynomialTerm"/> indexor is in highest degree to lowest format.
+        /// The <see cref="PolynomialTerm"/> indexer is in highest degree to lowest format.
         /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -175,7 +175,7 @@ namespace Engine
         /// <param name="index"></param>
         /// <returns></returns>
         /// <remarks>
-        /// The <see cref="PolynomialDegree"/> indexor is in lowest degree to highest format.
+        /// The <see cref="PolynomialDegree"/> indexer is in lowest degree to highest format.
         /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -229,7 +229,7 @@ namespace Engine
             => coefficients.Length;
 
         /// <summary>
-        /// Gets a valuse indicating whether there are real roots for the polynomial.
+        /// Gets a value indicating whether there are real roots for the polynomial.
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -636,6 +636,7 @@ namespace Engine
                     coefficients = coefficients.RemoveAt(i);
                 else break;
             }
+
             return new Polynomial(coefficients);
         }
 
@@ -663,6 +664,7 @@ namespace Engine
                     order = i;
                 }
             }
+
             var res = new double[order + 1];
             for (var i = 0; i < res.Length; i++)
             {
@@ -671,6 +673,7 @@ namespace Engine
                     res[i] = coefficients[i];
                 }
             }
+
             return new Polynomial(res);
         }
 
@@ -764,6 +767,7 @@ namespace Engine
         public Polynomial Power(int n)
         {
             if (n < 0) throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negative.");
+            if (Double.IsNaN(n)) throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(n)} must be a number");
 
             var order = (int)Degree;
             var res = new double[order * n + 1];
@@ -786,6 +790,96 @@ namespace Engine
             }
 
             return new Polynomial() { coefficients = res };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/thelonious/kld-polynomial
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double Evaluate(double x)
+        {
+            if (Double.IsNaN(x)) throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
+
+            var result = 0d;
+            for (var i = (int)Degree; i >= 0; i--)
+                result = result * x + coefficients[i];
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double Compute(double x)
+        {
+            if (Double.IsNaN(x)) throw new ArithmeticException($"{nameof(Compute)}: parameter {nameof(x)} must be a number");
+
+            var result = 0d;
+            var ncoef = 1d;
+            for (var i = 0; i < Count; i++)
+            {
+                result += coefficients[i] * ncoef;
+                ncoef *= x;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Complex Compute(Complex x)
+        {
+            Complex result = Complex.Zero;
+            Complex ncoef = Complex.One;
+            for (var i = 0; i < Count; i++)
+            {
+                result += coefficients[i] * ncoef;
+                ncoef *= x;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Computes value of the differentiated polynomial at x.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/thelonious/kld-polynomial
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double Differentiate(double x)
+        {
+            if (Double.IsNaN(x)) throw new ArithmeticException($"{nameof(Differentiate)}: parameter {nameof(x)} must be a number");
+
+            return Derivate().Evaluate(x);
         }
 
         /// <summary>
@@ -849,7 +943,9 @@ namespace Engine
             Polynomial[] buf = new Polynomial[dim];
 
             for (var i = 0; i < dim; i++)
-                buf[i] = Monomial(i);
+            {
+                buf[i] = Monomial((PolynomialDegree)i);
+            }
 
             return buf;
         }
@@ -857,7 +953,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="power"></param>
+        /// <param name="degree"></param>
         /// <param name="coefficient"></param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -866,17 +962,18 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Term(int power, double coefficient = 1)
+        public static Polynomial Term(PolynomialDegree degree, double coefficient = 1)
         {
-            if (power < 0)
-                throw new ArgumentOutOfRangeException($"{nameof(power)} cannot be negitive.");
-            var res = new double[power + 1];
-            res[power] = coefficient;
+            if (degree < 0)
+                throw new ArgumentOutOfRangeException($"{nameof(degree)} cannot be negative.");
+            var d = (int)degree;
+            var res = new double[d + 1];
+            res[d] = coefficient;
             return new Polynomial(res);
         }
 
         /// <summary>
-        /// Construct a polynomial P such as ys[i] = P.Compute(i).
+        /// Construct a polynomial P such as y[i] = P.Compute(i).
         /// </summary>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -914,13 +1011,20 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Monomial(int degree)
+        public static Polynomial Monomial(PolynomialDegree degree)
         {
-            if (degree == 0) return new Polynomial(1);
-            double[] coeffs = new double[degree + 1];
-            for (var i = 0; i < degree; i++)
+            if (degree == 0)
+                return new Polynomial(1);
+
+            var d = (int)degree;
+            double[] coeffs = new double[d + 1];
+
+            for (var i = 0; i < d; i++)
+            {
                 coeffs[i] = 0d;
-            coeffs[degree] = 1d;
+            }
+
+            coeffs[d] = 1d;
             return new Polynomial(coeffs);
         }
 
@@ -938,7 +1042,8 @@ namespace Engine
         public static Polynomial Bezier(params double[] values)
         {
             if (values == null || values.Length < 1)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("At least 2 different points must be given");
+
             return Bezier(0, values.Length - 1, values);
         }
 
@@ -1159,91 +1264,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Evaluate(double x)
-        {
-            if (Double.IsNaN(x)) throw new Exception($"{nameof(Evaluate)}: parameter must be a number");
-
-            var result = 0d;
-            for (var i = Degree; i >= 0; i--)
-                result = result * x + coefficients[(int)i];
-
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Compute(double x)
-        {
-            if (Double.IsNaN(x)) throw new Exception($"{nameof(Evaluate)}: parameter must be a number");
-
-            var z = 0d;
-            var xcoef = 1d;
-            for (var i = 0; i < Count; i++)
-            {
-                z += coefficients[i] * xcoef;
-                xcoef *= x;
-            }
-
-            return z;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Complex Compute(Complex x)
-        {
-            Complex z = Complex.Zero;
-            Complex xcoef = Complex.One;
-            for (var i = 0; i < Count; i++)
-            {
-                z += coefficients[i] * xcoef;
-                xcoef *= x;
-            }
-
-            return z;
-        }
-
-        /// <summary>
-        /// Computes value of the differentiated polynomial at x.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Diferentiate(double x)
-            => Derivate().Evaluate(x);
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="epsilon"></param>
@@ -1457,7 +1477,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<double> RootsInInterval(double min, double max, double epsilon = Epsilon)
+        public List<double> RootsInInterval(double min = 0, double max = 1, double epsilon = Epsilon)
         {
             var roots = new List<double>();
             double? root;
@@ -1640,32 +1660,6 @@ namespace Engine
             //}
 
             //return results;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="coefficients"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int RealOrder(double[] coefficients, double epsilon = Epsilon)
-        {
-            if (coefficients == null)
-                return 0;
-            var order = 0;
-            for (var i = 0; i < coefficients.Length; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    order = i;
-                }
-            }
-            return order;
         }
 
         /// <summary>
@@ -1891,7 +1885,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// simpson
+        /// Simpson
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
@@ -1945,7 +1939,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// romberg
+        /// Romberg
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>

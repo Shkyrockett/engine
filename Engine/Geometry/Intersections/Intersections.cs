@@ -4841,7 +4841,7 @@ namespace Engine
                 /* t^2 */ -2 * xCoeffA.A * xCoeffB.C * yCoeffA.A * yCoeffB.A - 2 * xCoeffA.A * yCoeffA.A * yCoeffB.C * xCoeffB.A - 2 * xCoeffA.A * yCoeffA.A * xCoeffB.B * yCoeffB.B + 2 * xCoeffB.C * cAAy2 * xCoeffB.A + cAAy2 * cBBx2 + cAAx2 * (2 * yCoeffB.C * yCoeffB.A + cBBy2),
                 /* t^1 */ -2 * xCoeffA.A * yCoeffA.A * xCoeffB.B * yCoeffB.A - 2 * xCoeffA.A * yCoeffA.A * yCoeffB.B * xCoeffB.A + 2 * cAAy2 * xCoeffB.B * xCoeffB.A + 2 * cAAx2 * yCoeffB.B * yCoeffB.A,
                 /* t^0 */ -2 * xCoeffA.A * yCoeffA.A * xCoeffB.A * yCoeffB.A + cAAx2 * cBAy2 + cAAy2 * cBAx2
-            ).RootsInInterval(0, 1);
+            ).RootsInInterval();
 
             foreach (var s in roots)
             {
@@ -5072,7 +5072,7 @@ namespace Engine
                 /* t^1 */ -6 * xCoeffA.A * xCoeffB.B * c13y2 * xCoeffB.A * yCoeffB.A + 6 * c13x2 * yCoeffA.A * yCoeffB.B * xCoeffB.A * yCoeffB.A + 3 * xCoeffB.B * c13y3 * c23x2 - 3 * c13x3 * yCoeffB.B * c23y2 - 3 * xCoeffA.A * c13y2 * yCoeffB.B * c23x2 + 3 * c13x2 * xCoeffB.B * yCoeffA.A * c23y2,
                 /* t^0 */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * xCoeffA.A * c13y2 * c23x2 * yCoeffB.A + 3 * c13x2 * yCoeffA.A * xCoeffB.A * c23y2
             );
-            var roots = poly.RootsInInterval(0, 1);
+            var roots = poly.RootsInInterval();
 
             foreach (var s in roots)
             {
@@ -5884,7 +5884,7 @@ namespace Engine
                 2 * c3.I * ryry * (c0.I - ecX) + 2 * c3.J * rxrx * (c0.J - ecY) + 2 * (c2.I * c1.I * ryry + c2.J * c1.J * rxrx),
                 2 * (c3.I * c1.I * ryry + c3.J * c1.J * rxrx) + c2.I * c2.I * ryry + c2.J * c2.J * rxrx,
                 2 * (c3.I * c2.I * ryry + c3.J * c2.J * rxrx),
-                c3.I * c3.I * ryry + c3.J * c3.J * rxrx).Simplify().RootsInInterval(0, 1);
+                c3.I * c3.I * ryry + c3.J * c3.J * rxrx).Simplify().RootsInInterval();
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
